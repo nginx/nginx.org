@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_proxy_module"
         link="/ru/docs/http/ngx_http_proxy_module.html"
         lang="ru"
-        rev="4">
+        rev="5">
 
 <section id="summary">
 
@@ -989,6 +989,58 @@ proxy_pass $request;
 </directive>
 
 
+<directive name="proxy_pass_request_body">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>on</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Если запрещено, то исходное тело запроса не будет передано
+на проксируемый сервер.
+<example>
+location /x-accel-redirect-here/ {
+    proxy_method GET;
+    proxy_pass_request_body off;
+    proxy_set_header Content-Length "";
+
+    proxy_pass ...
+}
+</example>
+См. также директивы <link id="proxy_set_header"/> и
+<link id="proxy_pass_request_headers"/>.
+</para>
+
+</directive>
+
+
+<directive name="proxy_pass_request_headers">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>on</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Если запрещено, то поля заголовка исходного запроса не будут переданы на
+проксируемый сервер.
+<example>
+location /x-accel-redirect-here/ {
+    proxy_method GET;
+    proxy_pass_request_headers off;
+    proxy_pass_request_body off;
+
+    proxy_pass ...
+}
+</example>
+См. также директивы <link id="proxy_set_header"/> и
+<link id="proxy_pass_request_body"/>.
+</para>
+
+</directive>
+
+
 <directive name="proxy_redirect">
 <syntax><literal>default</literal></syntax>
 <syntax><literal>off</literal></syntax>
@@ -1168,7 +1220,7 @@ proxy_redirect / /;
 
 <para>
 Позволяет переопределять или добавлять поля заголовка запроса,
-передаваемые проксируемому серверу.
+<link id="proxy_pass_request_headers">передаваемые</link> проксируемому серверу.
 В качестве значения можно использовать текст, переменные и их комбинации.
 Директивы наследуются с предыдущего уровня при условии, что на данном
 уровне не описаны свои директивы <literal>proxy_set_header</literal>.

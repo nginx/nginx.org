@@ -10,7 +10,7 @@
 <module name="Module ngx_http_proxy_module"
         link="/en/docs/http/ngx_http_proxy_module.html"
         lang="en"
-        rev="4">
+        rev="5">
 
 <section id="summary">
 
@@ -991,6 +991,58 @@ a connection is closed.
 </directive>
 
 
+<directive name="proxy_pass_request_body">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>on</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+If disabled, the original request body will not be passed
+to the proxied server.
+<example>
+location /x-accel-redirect-here/ {
+    proxy_method GET;
+    proxy_pass_request_body off;
+    proxy_set_header Content-Length "";
+
+    proxy_pass ...
+}
+</example>
+See also the <link id="proxy_set_header"/> and
+<link id="proxy_pass_request_headers"/> directives.
+</para>
+
+</directive>
+
+
+<directive name="proxy_pass_request_headers">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>on</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+If disabled, header fields of the original request will not be passed to the
+proxied server.
+<example>
+location /x-accel-redirect-here/ {
+    proxy_method GET;
+    proxy_pass_request_headers off;
+    proxy_pass_request_body off;
+
+    proxy_pass ...
+}
+</example>
+See also the <link id="proxy_set_header"/> and
+<link id="proxy_pass_request_body"/> directives.
+</para>
+
+</directive>
+
+
 <directive name="proxy_redirect">
 <syntax><literal>default</literal></syntax>
 <syntax><literal>off</literal></syntax>
@@ -1169,7 +1221,7 @@ A <value>value</value> can contain text, variables, and their combination.
 
 <para>
 Allows to redefine or append fields to the request header
-passed to the proxied server.
+<link id="proxy_pass_request_headers">passed</link> to the proxied server.
 A <value>value</value> can contain text, variables, and their combination.
 These directives are inherited from the previous level if and
 only if there are no
