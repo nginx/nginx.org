@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_proxy_module"
         link="/ru/docs/http/ngx_http_proxy_module.html"
         lang="ru"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -735,6 +735,22 @@ nginx не передаёт клиенту поля заголовка <header>D
 </directive>
 
 
+<directive name="proxy_method">
+<syntax><value>метод</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Задаёт HTTP-<value>метод</value>, который будет использоваться
+в передаваемых на проксируемый сервер запросах вместо метода
+из клиентского запроса.
+</para>
+
+</directive>
+
+
 <directive name="proxy_next_upstream">
 <syntax>
     <literal>error</literal> |
@@ -1122,6 +1138,21 @@ proxy_redirect / /;
 а только между двумя операциями записи.
 Если по истечении этого времени проксируемый сервер не примет новых данных,
 соединение закрывается.
+</para>
+
+</directive>
+
+
+<directive name="proxy_set_body">
+<syntax><value>значение</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Позволяет переопределить тело запроса, передаваемое на проксируемый сервер.
+В качестве значения можно использовать текст, переменные и их комбинации.
 </para>
 
 </directive>

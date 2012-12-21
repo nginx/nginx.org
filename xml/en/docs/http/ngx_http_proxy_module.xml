@@ -10,7 +10,7 @@
 <module name="Module ngx_http_proxy_module"
         link="/en/docs/http/ngx_http_proxy_module.html"
         lang="en"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -739,6 +739,21 @@ Value of zero disables buffering of responses to temporary files.
 </directive>
 
 
+<directive name="proxy_method">
+<syntax><value>method</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Specifies the HTTP <value>method</value> to use in requests forwarded
+to the proxied server instead of the method from the client request.
+</para>
+
+</directive>
+
+
 <directive name="proxy_next_upstream">
 <syntax>
     <literal>error</literal> |
@@ -1124,6 +1139,21 @@ A timeout is only set between two successive write operations,
 not for the transmission of the whole request.
 If a proxied server does not receive anything within this time,
 a connection is closed.
+</para>
+
+</directive>
+
+
+<directive name="proxy_set_body">
+<syntax><value>value</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Allows to redefine request body passed to the proxied server.
+A <value>value</value> can contain text, variables, and their combination.
 </para>
 
 </directive>
