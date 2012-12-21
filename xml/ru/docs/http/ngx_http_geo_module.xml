@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_geo_module"
         link="/ru/docs/http/ngx_http_geo_module.html"
         lang="ru"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -87,6 +87,8 @@ geo $arg_remote_addr $geo {
 ни одному заданному адресу.
 При использовании CIDR вместо <literal>default</literal> можно
 также написать “<literal>0.0.0.0/0</literal>”.
+Если параметр <literal>default</literal> не указан, значением
+по умолчанию будет пустая строка.
 </tag-desc>
 
 <tag-name><literal>include</literal></tag-name>

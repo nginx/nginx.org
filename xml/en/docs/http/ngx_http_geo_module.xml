@@ -10,7 +10,7 @@
 <module name="Module ngx_http_geo_module"
         link="/en/docs/http/ngx_http_geo_module.html"
         lang="en"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -86,6 +86,8 @@ a value of variable if the client address does not
 match any of the specified addresses.
 When CIDR is used, “<literal>0.0.0.0/0</literal>” can be written
 instead of <literal>default</literal>.
+When <literal>default</literal> is not specified, the default
+value will be an empty string.
 </tag-desc>
 
 <tag-name><literal>include</literal></tag-name>
