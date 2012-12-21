@@ -10,7 +10,7 @@
 <module name="Module ngx_http_proxy_module"
         link="/en/docs/http/ngx_http_proxy_module.html"
         lang="en"
-        rev="5">
+        rev="6">
 
 <section id="summary">
 
@@ -244,6 +244,29 @@ this element to be released, up to the time set by the
 
 <para>
 Sets a timeout for <link id="proxy_cache_lock"/>.
+</para>
+
+</directive>
+
+
+<directive name="proxy_cache_methods">
+<syntax>
+    <literal>GET</literal> |
+    <literal>HEAD</literal> |
+    <literal>POST</literal>
+    ...</syntax>
+<default>GET HEAD</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>0.7.59</appeared-in>
+
+<para>
+If the client request method is listed in this directive then
+the response will be cached.
+“<literal>GET</literal>” and “<literal>HEAD</literal>” methods are always
+added to the list, though it is recommended to specify them explicitly.
+See also the <link id="proxy_no_cache"/> directive.
 </para>
 
 </directive>

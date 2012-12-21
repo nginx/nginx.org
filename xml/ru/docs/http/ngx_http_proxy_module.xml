@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_proxy_module"
         link="/ru/docs/http/ngx_http_proxy_module.html"
         lang="ru"
-        rev="5">
+        rev="6">
 
 <section id="summary">
 
@@ -243,6 +243,29 @@ proxy_cache_key $scheme$proxy_host$uri$is_args$args;
 
 <para>
 Задаёт таймаут для <link id="proxy_cache_lock"/>.
+</para>
+
+</directive>
+
+
+<directive name="proxy_cache_methods">
+<syntax>
+    <literal>GET</literal> |
+    <literal>HEAD</literal> |
+    <literal>POST</literal>
+    ...</syntax>
+<default>GET HEAD</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>0.7.59</appeared-in>
+
+<para>
+Если метод запроса клиента указан в этой директиве,
+то ответ будет закэширован.
+Методы “<literal>GET</literal>” и “<literal>HEAD</literal>” всегда добавляются
+в список, но тем не менее рекомендуется перечислять их явно.
+См. также директиву <link id="proxy_no_cache"/>.
 </para>
 
 </directive>
