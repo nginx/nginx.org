@@ -866,7 +866,7 @@ proxy_no_cache $http_pragma    $http_authorization;
 <context>limit_except</context>
 
 <para>
-Задаёт протокол и адрес проксируемоего сервера, а также необязательный URI,
+Задаёт протокол и адрес проксируемого сервера, а также необязательный URI,
 на который должен отображаться location.
 В качестве протокола можно указать
 “<literal>http</literal>” или “<literal>https</literal>”.
