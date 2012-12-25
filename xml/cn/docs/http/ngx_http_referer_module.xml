@@ -1,0 +1,141 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Igor Sysoev
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="ngx_http_referer_module模块"
+        link="/cn/docs/http/ngx_http_referer_module.html"
+        lang="cn"
+        translator="nigelzeng"
+        rev="1">
+
+<section id="summary">
+
+<para>
+<literal>ngx_http_referer_module</literal>模块允许拦截<header>Referer</header>请求头中含有非法值的请求，阻止它们访问站点。
+需要注意的是伪造一个有效的<header>Referer</header>请求头是相当容易的，
+因此这个模块的预期目的不在于彻底地阻止这些非法请求，而是为了阻止由正常浏览器发出的大规模此类请求。
+还有一点需要注意，即使正常浏览器发送的合法请求，也可能没有<header>Referer</header>请求头。
+</para>
+
+</section>
+
+
+<section id="example" name="配置实例">
+
+<para>
+<example>
+valid_referers none blocked server_names
+               *.example.com example.* www.example.org/galleries/
+               ~\.google\.;
+
+if ($invalid_referer) {
+    return 403;
+}
+</example>
+</para>
+
+</section>
+
+
+<section id="directives" name="指令">
+
+<directive name="referer_hash_bucket_size">
+<syntax><value>size</value></syntax>
+<default>64</default>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.0.5</appeared-in>
+
+<para>
+设置用来存储有效referer的哈希表的表项长度。
+详细的情况参见<link doc="../hash.xml">哈希表设置</link>。
+</para>
+
+</directive>
+
+
+<directive name="referer_hash_max_size">
+<syntax><value>size</value></syntax>
+<default>2048</default>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.0.5</appeared-in>
+
+<para>
+设置用来存储有效referer的哈希表最大<value>桶容量</value>。
+详细的情况参见<link doc="../hash.xml">哈希表设置</link>。
+</para>
+
+</directive>
+
+
+<directive name="valid_referers">
+<syntax>
+    <literal>none</literal> |
+    <literal>blocked</literal> |
+    <literal>server_names</literal> |
+    <value>string</value>
+    ...</syntax>
+<default/>
+<context>server</context>
+<context>location</context>
+
+<para>
+<header>Referer</header>请求头为指定值时，内嵌变量<var>$invalid_referer</var>被设置为空字符串，
+否则这个变量会被置成“<literal>1</literal>”。查找匹配时不区分大小写。
+</para>
+
+<para>
+该指令的参数可以为下面的内容：
+<list type="tag">
+
+<tag-name><literal>none</literal></tag-name>
+<tag-desc>
+缺少<header>Referer</header>请求头；
+</tag-desc>
+
+<tag-name><literal>blocked</literal></tag-name>
+<tag-desc>
+<header>Referer</header> 请求头存在，但是它的值被防火墙或者代理服务器删除；
+这些值都不以“<literal>http://</literal>” 或者 “<literal>https://</literal>”字符串作为开头；
+</tag-desc>
+
+<tag-name><literal>server_names</literal></tag-name>
+<tag-desc>
+<header>Referer</header> 请求头包含某个虚拟主机名；
+</tag-desc>
+
+<tag-name>任意字符串</tag-name>
+<tag-desc>
+定义一个服务器名和可选的URI前缀。服务器名允许在开头或结尾使用“<literal>*</literal>”符号。
+当nginx检查时，<header>Referer</header>请求头里的服务器端口将被忽略。
+</tag-desc>
+
+<tag-name>正则表达式</tag-name>
+<tag-desc>
+必须以“<literal>~</literal>”符号作为开头。
+需要注意的是表达式会从“<literal>http://</literal>”或者“<literal>https://</literal>”之后的文本开始匹配。
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+实例:
+<example>
+valid_referers none blocked server_names
+               *.example.com example.* www.example.org/galleries/
+               ~\.google\.;
+</example>
+</para>
+
+</directive>
+
+</section>
+
+</module>

@@ -8,7 +8,7 @@
 <article name="Nginx文档"
          link="/cn/docs/"
          lang="cn"
-         rev="3"
+         rev="4"
          toc="no">
 
 
@@ -93,8 +93,33 @@ ngx_http_browser_module</link>
 </listitem>
 
 <listitem>
+<link doc="http/ngx_http_core_module.xml">
+ngx_http_core_module</link>
+</listitem>
+
+<listitem>
+<link doc="http/ngx_http_empty_gif_module.xml">
+ngx_http_empty_gif_module</link>
+</listitem>
+
+<listitem>
+<link doc="http/ngx_http_geo_module.xml">
+ngx_http_geo_module</link>
+</listitem>
+
+<listitem>
+<link doc="http/ngx_http_geoip_module.xml">
+ngx_http_geoip_module</link>
+</listitem>
+
+<listitem>
 <link doc="http/ngx_http_gzip_static_module.xml">
 ngx_http_gzip_static_module</link>
+</listitem>
+
+<listitem>
+<link doc="http/ngx_http_image_filter_module.xml">
+ngx_http_image_filter_module</link>
 </listitem>
 
 <listitem>
@@ -105,6 +130,41 @@ ngx_http_index_module</link>
 <listitem>
 <link doc="http/ngx_http_limit_conn_module.xml">
 ngx_http_limit_conn_module</link>
+</listitem>
+
+<listitem>
+<link doc="http/ngx_http_limit_req_module.xml">
+ngx_http_limit_req_module</link>
+</listitem>
+
+<listitem>
+<link doc="http/ngx_http_log_module.xml">
+ngx_http_log_module</link>
+</listitem>
+
+<listitem>
+<link doc="http/ngx_http_map_module.xml">
+ngx_http_map_module</link>
+</listitem>
+
+<listitem>
+<link doc="http/ngx_http_proxy_module.xml">
+ngx_http_proxy_module</link>
+</listitem>
+
+<listitem>
+<link doc="http/ngx_http_referer_module.xml">
+ngx_http_referer_module</link>
+</listitem>
+
+<listitem>
+<link doc="http/ngx_http_rewrite_module.xml">
+ngx_http_rewrite_module</link>
+</listitem>
+
+<listitem>
+<link doc="http/ngx_http_upstream_module.xml">
+ngx_http_upstream_module</link>
 </listitem>
 
 </list>

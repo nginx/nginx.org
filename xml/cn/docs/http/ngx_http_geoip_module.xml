@@ -1,0 +1,167 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Igor Sysoev
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="ngx_http_geoip_module 模块"
+        link="/cn/docs/http/ngx_http_geoip_module.html"
+        lang="cn"
+        translator="cfsego"
+        rev="1">
+
+<section id="summary">
+
+<para>
+<literal>ngx_http_geoip_module</literal> 模块（0.8.6+）创建变量，使用预编译的<link url="http://www.maxmind.com">MaxMind</link>数据库解析客户端IP地址，得到变量值。
+</para>
+
+<para>
+nginx默认不编译这个模块，需要开启<literal>--with-http_geoip_module</literal>编译选项。
+<note>
+模块依赖<link url="http://www.maxmind.com/app/c">MaxMind GeoIP</link>库。
+</note>
+</para>
+
+</section>
+
+
+<section id="example" name="配置示例">
+
+<para>
+<example>
+http {
+    geoip_country         GeoIP.dat;
+    geoip_city            GeoLiteCity.dat;
+    geoip_proxy           192.168.100.0/24;
+    geoip_proxy           2001:0db8::/32;
+    geoip_proxy_recursive on;
+    ...
+</example>
+</para>
+
+</section>
+
+
+<section id="directives" name="指令">
+
+<directive name="geoip_country">
+<syntax><value>database</value></syntax>
+<default/>
+<context>http</context>
+
+<para>
+指定数据库，用于根据客户端IP地址得到其所在国家。
+使用这个数据库时，配置中可用下列变量：
+<list type="tag">
+
+<tag-name><var>$geoip_country_code</var></tag-name>
+<tag-desc>
+双字符国家代码，比如
+“<literal>RU</literal>”，“<literal>US</literal>”。
+</tag-desc>
+
+<tag-name><var>$geoip_country_code3</var></tag-name>
+<tag-desc>
+三字符国家代码，比如
+“<literal>RUS</literal>”，“<literal>USA</literal>”。
+</tag-desc>
+
+<tag-name><var>$geoip_country_name</var></tag-name>
+<tag-desc>
+国家名称，比如
+“<literal>Russian Federation</literal>”，“<literal>United States</literal>”。
+</tag-desc>
+
+</list>
+</para>
+
+</directive>
+
+
+<directive name="geoip_city">
+<syntax><value>database</value></syntax>
+<default/>
+<context>http</context>
+
+<para>
+指定数据库，用于根据客户端IP地址得到其所在的国家、行政区和城市。
+使用这个数据库时，配置中可用下列变量：
+<list type="tag">
+
+<tag-name><var>$geoip_city_country_code</var></tag-name>
+<tag-desc>
+双字符国家代码，比如
+“<literal>RU</literal>”，“<literal>US</literal>”。
+</tag-desc>
+
+<tag-name><var>$geoip_city_country_code3</var></tag-name>
+<tag-desc>
+三字符国家代码，比如
+“<literal>RUS</literal>”，“<literal>USA</literal>”。
+</tag-desc>
+
+<tag-name><var>$geoip_city_country_name</var></tag-name>
+<tag-desc>
+国家名称，比如
+“<literal>Russian Federation</literal>”，“<literal>United States</literal>”。
+</tag-desc>
+
+<tag-name><var>$geoip_region</var></tag-name>
+<tag-desc>
+国家行政区名（行政区、直辖区、州、省、联邦管辖区，诸如此类），比如
+“<literal>Moscow City</literal>”，“<literal>DC</literal>”。
+</tag-desc>
+
+<tag-name><var>$geoip_city</var></tag-name>
+<tag-desc>
+城市名称，比如
+“<literal>Moscow</literal>”，“<literal>Washington</literal>”。
+</tag-desc>
+
+<tag-name><var>$geoip_postal_code</var></tag-name>
+<tag-desc>
+邮编。
+</tag-desc>
+
+</list>
+</para>
+
+</directive>
+
+
+<directive name="geoip_proxy">
+<syntax><value>address</value> | <value>CIDR</value></syntax>
+<default/>
+<context>http</context>
+<appeared-in>1.3.0</appeared-in>
+<appeared-in>1.2.1</appeared-in>
+
+<para>
+定义可信地址。
+如果请求来自可信地址，nginx将使用其<header>X-Forwarded-For</header>头来获得地址。
+</para>
+
+</directive>
+
+
+<directive name="geoip_proxy_recursive">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<appeared-in>1.3.0</appeared-in>
+<appeared-in>1.2.1</appeared-in>
+
+<para>
+如果关闭递归查找，在客户端地址与某个可信地址匹配时，nginx将使用<header>X-Forwarded-For</header>中的最后一个地址来代替原始客户端地址。
+如果开启递归查找，在客户端地址与某个可信地址匹配时，nginx将使用<header>X-Forwarded-For</header>中最后一个与所有可信地址都不匹配的地址来代替原始客户端地址。
+</para>
+
+</directive>
+
+</section>
+
+</module>

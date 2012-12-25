@@ -1,0 +1,153 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Igor Sysoev
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="ngx_http_limit_req_module 模块"
+        link="/cn/docs/http/ngx_http_limit_req_module.html"
+        lang="cn"
+        translator="Weibin Yao"
+        rev="1">
+
+<section id="summary">
+
+<para>
+<literal>ngx_http_limit_req_module</literal>模块(0.7.21)可以通过定义的
+键值来限制请求处理的频率。特别的，它可以限制来自单个IP地址的请求处理频率。
+限制的方法是通过一种“漏桶”的方法——固定每秒处理的请求数，推迟过多的请求处理。
+</para>
+
+
+</section>
+
+
+<section id="example" name="配置示例">
+
+<para>
+<example>
+http {
+    limit_req_zone $binary_remote_addr zone=one:10m rate=1r/s;
+
+    ...
+
+    server {
+
+        ...
+
+        location /search/ {
+            limit_req zone=one burst=5;
+        }
+</example>
+</para>
+
+</section>
+
+
+<section id="directives" name="指令">
+
+<directive name="limit_req">
+<syntax>
+    <literal>zone</literal>=<value>name</value>
+    [<literal>burst</literal>=<value>number</value>]
+    [<literal>nodelay</literal>]</syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+设置对应的共享内存限制域和允许被处理的最大请求数阈值。
+如果请求的频率超过了限制域配置的值，请求处理会被延迟，所以
+所有的请求都是以定义的频率被处理的。
+超过频率限制的请求会被延迟，直到被延迟的请求数超过了定义的阈值
+这时，这个请求会被终止，并返回<http-status code="503" text="Service Temporarily Unavailable"/>
+错误。这个阈值的默认值等于0。
+比如这些指令：
+<example>
+limit_req_zone $binary_remote_addr zone=one:10m rate=1r/s;
+
+server {
+    location /search/ {
+        limit_req zone=one burst=5;
+    }
+</example>
+限制平均每秒不超过一个请求，同时允许超过频率限制的请求数不多于5个。
+</para>
+
+<para>
+如果不希望超过的请求被延迟，可以用<literal>nodelay</literal>参数：
+<example>
+limit_req zone=one burst=5 nodelay;
+</example>
+</para>
+
+</directive>
+
+
+<directive name="limit_req_log_level">
+<syntax>
+<literal>info</literal> |
+<literal>notice</literal> |
+<literal>warn</literal> |
+<literal>error</literal></syntax>
+<default>error</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>0.8.18</appeared-in>
+
+<para>
+设置你所希望的日志级别，当服务器因为频率过高拒绝或者延迟处理请求时可以记下相应级别的日志。
+延迟记录的日志级别比拒绝的低一个级别；比如，
+如果设置“<literal>limit_req_log_level notice</literal>”，
+延迟的日志就是<literal>info</literal>级别。
+</para>
+
+</directive>
+
+
+<directive name="limit_req_zone">
+<syntax>
+    <value>$variable</value>
+    <literal>zone</literal>=<value>name</value>:<value>size</value>
+    <literal>rate</literal>=<value>rate</value></syntax>
+<default/>
+<context>http</context>
+
+<para>
+设置一块共享内存限制域的参数，它可以用来保存键值的状态。
+它特别保存了当前超出请求的数量。
+键的值就是指定的变量（空值不会被计算）。
+示例用法：
+<example>
+limit_req_zone $binary_remote_addr zone=one:10m rate=1r/s;
+</example>
+</para>
+
+<para>
+这里，状态被存在名为“one”，最大10M字节的共享内存里面。对于这个限制域来说
+平均处理的请求频率不能超过每秒一次。
+</para>
+
+<para>
+键值是客户端的IP地址。
+如果不使用<var>$remote_addr</var>变量，而用<var>$binary_remote_addr</var>变量，
+可以将每条状态记录的大小减少到64个字节，这样1M的内存可以保存大约1万6千个64字节的记录。
+如果限制域的存储空间耗尽了，对于后续所有请求，服务器都会返回
+<http-status code="503" text="Service Temporarily Unavailable"/>错误。
+</para>
+
+<para>
+请求频率可以设置为每秒几次（r/s）。如果请求的频率不到每秒一次，
+你可以设置每分钟几次(r/m)。比如每秒半次就是30r/m。
+</para>
+
+</directive>
+
+</section>
+
+</module>

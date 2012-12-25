@@ -1,0 +1,152 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Igor Sysoev
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="ngx_http_geo_module 模块"
+        link="/cn/docs/http/ngx_http_geo_module.html"
+        lang="cn"
+        translator="cfsego"
+        rev="1">
+
+<section id="summary">
+
+<para>
+<literal>ngx_http_geo_module</literal> 模块创建变量，并根据客户端IP地址对变量赋值。
+</para>
+
+</section>
+
+
+<section id="example" name="配置示例">
+
+<para>
+<example>
+geo $geo {
+    default        0;
+    127.0.0.1/32   2;
+    192.168.1.0/24 1;
+    10.1.0.0/16    1;
+}
+</example>
+</para>
+
+</section>
+
+
+<section id="directives" name="指令">
+
+<directive name="geo">
+<syntax block="yes">[<value>$address</value>] <value>$variable</value></syntax>
+<default/>
+<context>http</context>
+
+<para>
+定义从指定的变量获取客户端的IP地址。默认情况下，nginx从<var>$remote_addr</var>变量取得客户端IP地址，但也可以从其他变量获得（0.7.27版），比如：
+<example>
+geo $arg_remote_addr $geo {
+    ...;
+}
+</example>
+如果该变量的值不能代表一个合法的IP地址，那么nginx将使用地址“<literal>255.255.255.255</literal>”。
+</para>
+
+<para>
+nginx通过CIDR或者地址段（0.7.23版）来描述地址，同时支持下面的特殊参数：
+<list type="tag">
+
+<tag-name><literal>delete</literal></tag-name>
+<tag-desc>
+删除指定网络（0.7.23版）。
+</tag-desc>
+
+<tag-name><literal>default</literal></tag-name>
+<tag-desc>
+如果客户端地址不能匹配任意一个定义的地址，nginx将使用此值。
+如果使用CIDR，可以用“<literal>0.0.0.0/0</literal>”代替<literal>default</literal>。
+</tag-desc>
+
+<tag-name><literal>include</literal></tag-name>
+<tag-desc>
+包含一个定义地址和值的文件。可以多次包含。
+</tag-desc>
+
+<tag-name><literal>proxy</literal></tag-name>
+<tag-desc>
+定义可信地址（0.8.7，0.7.63版）。
+如果请求来自可信地址，nginx将使用其<header>X-Forwarded-For</header>头来获得地址。
+相对于普通地址，可信地址是顺序检测的。
+<note>
+从1.3.0和1.2.1版本起，nginx开始支持IPv6地址。
+</note>
+</tag-desc>
+
+<tag-name><literal>proxy_recursive</literal></tag-name>
+<tag-desc>
+开启递归查找地址（1.3.0，1.2.1版）。
+如果关闭递归查找，在客户端地址与某个可信地址匹配时，nginx将使用<header>X-Forwarded-For</header>中的最后一个地址来代替原始客户端地址。
+如果开启递归查找，在客户端地址与某个可信地址匹配时，nginx将使用<header>X-Forwarded-For</header>中最后一个与所有可信地址都不匹配的地址来代替原始客户端地址。
+</tag-desc>
+
+<tag-name><literal>ranges</literal></tag-name>
+<tag-desc>
+指示地址将定义为地址段的形式（0.7.23版）。这个参数应该第一个被定义。为了加速装载地址库，地址应按升序定义。
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+举例：
+<example>
+geo $country {
+    default        ZZ;
+    include        conf/geo.conf;
+    delete         127.0.0.0/16;
+    proxy          192.168.100.0/24;
+    proxy          2001:0db8::/32;
+
+    127.0.0.0/24   US;
+    127.0.0.1/32   RU;
+    10.1.0.0/16    RU;
+    192.168.1.0/24 UK;
+}
+</example>
+</para>
+
+<para>
+<path>conf/geo.conf</path>文件中可能包含下列文本行：
+<example>
+10.2.0.0/16    RU;
+192.168.2.0/24 RU;
+</example>
+</para>
+
+<para>
+nginx将使用能最精确匹配客户端地址的配置中定义的值。比如，对于地址127.0.0.1，nginx会选取“<literal>RU</literal>”而非“<literal>US</literal>”，作为变量值。
+</para>
+
+<para>
+地址段的例子：
+<example>
+geo $country {
+    ranges;
+    default                   ZZ;
+    127.0.0.0-127.0.0.0       US;
+    127.0.0.1-127.0.0.1       RU;
+    127.0.0.1-127.0.0.255     US;
+    10.1.0.0-10.1.255.255     RU;
+    192.168.1.0-192.168.1.255 UK;
+}
+</example>
+</para>
+
+</directive>
+
+</section>
+
+</module>

@@ -1,0 +1,186 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Igor Sysoev
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Module ngx_http_map_module"
+        link="/cn/docs/http/ngx_http_map_module.html"
+        lang="cn"
+        translator="yzprofile"
+        rev="1">
+
+<section id="summary">
+
+<para>
+模块 <literal>ngx_http_map_module</literal> 可以创建一些和另外变量相关联的变量。
+</para>
+
+</section>
+
+
+<section id="example" name="配置范例">
+
+<para>
+<example>
+map $http_host $name {
+    hostnames;
+
+    default       0;
+
+    example.com   1;
+    *.example.com 1;
+    example.org   2;
+    *.example.org 2;
+    .example.net  3;
+    wap.*         4;
+}
+
+map $http_user_agent $mobile {
+    default       0;
+    "~Opera Mini" 1;
+}
+</example>
+</para>
+
+</section>
+
+
+<section id="directives" name="指令">
+
+<directive name="map">
+<syntax block="yes">
+    <value>string</value>
+    <value>$variable</value></syntax>
+<default/>
+<context>http</context>
+
+<para>
+在配置的参数中，第一个是要创建新的变量，它的值取决于后面一个或多个源变量。
+<note>
+在0.9.0版本之前，这里只支持一个变量。
+</note>
+</para>
+
+<para>
+在 <literal>map</literal> 块里的参数指定了源变量值和结果值的对应关系。
+</para>
+
+<para>
+源变量值可以使用字符串或者正则表达式 (0.9.6)。
+</para>
+
+<para>
+一个正则表达式如果以 “<literal>~</literal>” 开头，这个正则表达式对大小写敏感；
+若以 “<literal>~*</literal>”开头 (1.0.4)，这个正则表达式对大小写不敏感。
+且正则表达式里可以包含命名捕获和位置捕获，这些变量可以跟结果变量一起被其它指令使用。
+</para>
+
+<para>
+如果源变量的值正好跟特殊参数同名（看下面），它要以 “<literal>\</literal>” 字符作为前缀。
+</para>
+
+<para>
+结果变量可以是一个字符串也可以是另外一个变量 (0.9.0)。
+</para>
+
+<para>
+这个指令也支持三个特殊参数。
+<list type="tag">
+<tag-name><literal>default</literal> <value>value</value></tag-name>
+<tag-desc>
+如果源变量值没有匹配到任何变量，则设置一个默认值作为结果。
+当没有设置 <literal>default</literal>，将会用一个空的字符串作为默认的结果。
+</tag-desc>
+
+<tag-name><literal>hostnames</literal></tag-name>
+<tag-desc>
+允许用前缀或者后缀掩码指定域名作为源变量值，举个例子，
+<example>
+*.example.com 1;
+example.*     1;
+</example>
+这两条记录
+<example>
+example.com   1;
+*.example.com 1;
+</example>
+可以被合并为：
+<example>
+.example.com  1;
+</example>
+这个参数必须写在值映射列表的最前面。
+</tag-desc>
+
+<tag-name><literal>include</literal> <value>file</value></tag-name>
+<tag-desc>
+包含一个或者多个存有映射值的文件。
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+如果源值匹配了多余一个的指定变量，例如掩码和正则同时匹配，那么将会按照下面的顺序进行优先选择：
+<list type="enum">
+
+<listitem>
+没有掩码的字符串
+</listitem>
+
+<listitem>
+最长的带前缀的字符串，例如: “<literal>*.example.com</literal>”
+</listitem>
+
+<listitem>
+最长的带后缀的字符串，例如：“<literal>mail.*</literal>”
+</listitem>
+
+<listitem>
+按顺序第一个先匹配的正则表达式 （在配置文件中体现的顺序）
+</listitem>
+
+<listitem>
+默认值
+</listitem>
+
+</list>
+</para>
+
+</directive>
+
+
+<directive name="map_hash_bucket_size">
+<syntax><value>size</value></syntax>
+<default>32|64|128</default>
+<context>http</context>
+
+<para>
+为 <link id="map"/> 的变量哈稀表设置桶大小。
+默认值取决于处理器cache line的大小。
+可以从这里获取到更多参考信息：
+<link doc="../hash.xml">设置哈稀表</link>.
+</para>
+
+</directive>
+
+
+<directive name="map_hash_max_size">
+<syntax><value>size</value></syntax>
+<default>2048</default>
+<context>http</context>
+
+<para>
+设置 <link id="map"/> 变量哈稀表<value>大小</value>的上限。
+可以从这里获取到更多参考信息：
+<link doc="../hash.xml">设置哈稀表</link>.
+</para>
+
+</directive>
+
+</section>
+
+</module>

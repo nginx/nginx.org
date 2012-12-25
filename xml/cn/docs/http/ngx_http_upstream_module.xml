@@ -1,0 +1,366 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Igor Sysoev
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="ngx_http_upstream_module模块"
+        link="/cn/docs/http/ngx_http_upstream_module.html"
+        lang="cn"
+        translator="Weibin Yao"        
+        rev="1">
+
+<section id="summary">
+
+<para>
+<literal>ngx_http_upstream_module</literal>模块
+允许定义一组服务器。它们可以在指令<link doc="ngx_http_proxy_module.xml" id="proxy_pass"/>、
+<link doc="ngx_http_fastcgi_module.xml" id="fastcgi_pass"/>和
+<link doc="ngx_http_memcached_module.xml" id="memcached_pass"/>中被引用到。
+</para>
+
+</section>
+
+
+<section id="example" name="配置例子">
+
+<para>
+<example>
+upstream <emphasis>backend</emphasis> {
+    server backend1.example.com       weight=5;
+    server backend2.example.com:8080;
+    server unix:/tmp/backend3;
+
+    server backup1.example.com:8080   backup;
+    server backup2.example.com:8080   backup;
+}
+
+server {
+    location / {
+        proxy_pass http://<emphasis>backend</emphasis>;
+    }
+}
+</example>
+</para>
+
+</section>
+
+
+<section id="directives" name="指令">
+
+<directive name="upstream">
+<syntax block="yes"><value>name</value></syntax>
+<default/>
+<context>http</context>
+
+<para>
+定义一组服务器。
+这些服务器可以监听不同的端口。
+而且，监听在TCP和UNIX域套接字的服务器可以混用。
+</para>
+
+<para>
+例子：
+<example>
+upstream backend {
+    server backend1.example.com weight=5;
+    server 127.0.0.1:8080       max_fails=3 fail_timeout=30s;
+    server unix:/tmp/backend3;
+}
+</example>
+</para>
+
+<para>
+默认情况下，nginx按加权轮转的方式将请求分发到各服务器。
+在上面的例子中，每7个请求会通过以下方式分发：
+5个请求分到<literal>backend1.example.com</literal>，
+一个请求分到第二个服务器，一个请求分到第三个服务器。
+与服务器通信的时候，如果出现错误，请求会被传给下一个服务器，直到所有可用的服务器都被尝试过。
+如果所有服务器都返回失败，客户端将会得到最后通信的那个服务器的（失败）响应结果。
+</para>
+
+</directive>
+
+
+<directive name="server">
+<syntax><value>address</value> [<value>parameters</value>]</syntax>
+<default/>
+<context>upstream</context>
+
+<para>
+定义服务器的地址<value>address</value>和其他参数<value>parameters</value>。
+地址可以是域名或者IP地址，端口是可选的，或者是指定“<literal>unix:</literal>”前缀的UNIX域套接字的路径。如果没有指定端口，就使用80端口。
+如果一个域名解析到多个IP，本质上是定义了多个server。
+</para>
+
+<para>
+你可以定义下面的参数：
+<list type="tag">
+
+<tag-name><literal>weight</literal>=<value>number</value></tag-name>
+<tag-desc>
+设定服务器的权重，默认是1。
+</tag-desc>
+
+<tag-name><literal>max_fails</literal>=<value>number</value></tag-name>
+<tag-desc>
+设定Nginx与服务器通信的尝试失败的次数。在<literal>fail_timeout</literal>参数定义的时间段内，如果失败的次数达到此值，Nginx就认为服务器不可用。在下一个<literal>fail_timeout</literal>时间段，服务器不会再被尝试。
+失败的尝试次数默认是1。设为0就会停止统计尝试次数，认为服务器是一直可用的。
+你可以通过指令<link doc="ngx_http_proxy_module.xml" id="proxy_next_upstream"/>、
+<link doc="ngx_http_fastcgi_module.xml" id="fastcgi_next_upstream"/>和
+<link doc="ngx_http_memcached_module.xml" id="memcached_next_upstream"/>来配置什么是失败的尝试。
+默认配置时，<literal>http_404</literal>状态不被认为是失败的尝试。
+</tag-desc>
+
+<tag-name><literal>fail_timeout</literal>=<value>time</value></tag-name>
+<tag-desc>
+设定
+<list type="bullet">
+
+<listitem>
+统计失败尝试次数的时间段。在这段时间中，服务器失败次数达到指定的尝试次数，服务器就被认为不可用。
+</listitem>
+
+<listitem>
+服务器被认为不可用的时间段。
+</listitem>
+
+</list>
+默认情况下，该超时时间是10秒。
+</tag-desc>
+
+<tag-name><literal>backup</literal></tag-name>
+<tag-desc>
+标记为备用服务器。当主服务器不可用以后，请求会被传给这些服务器。
+</tag-desc>
+
+<tag-name><literal>down</literal></tag-name>
+<tag-desc>
+标记服务器永久不可用，可以跟<link id="ip_hash"/>指令一起使用。
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+Example:
+<example>
+upstream backend {
+    server backend1.example.com     weight=5;
+    server 127.0.0.1:8080           max_fails=3 fail_timeout=30s;
+    server unix:/tmp/backend3;
+
+    server backup1.example.com:8080 backup;
+}
+</example>
+</para>
+
+</directive>
+
+
+<directive name="ip_hash">
+<syntax/>
+<default/>
+<context>upstream</context>
+
+<para>
+指定服务器组的负载均衡方法，请求基于客户端的IP地址在服务器间进行分发。
+IPv4地址的前三个字节或者IPv6的整个地址，会被用来作为一个散列key。
+这种方法可以确保从同一个客户端过来的请求，会被传给同一台服务器。除了当服务器被认为不可用的时候，这些客户端的请求会被传给其他服务器，而且很有可能也是同一台服务器。
+<note>
+从1.3.2和1.2.2版本开始支持IPv6地址。
+</note>
+</para>
+
+<para>
+如果其中一个服务器想暂时移除，应该加上<literal>down</literal>参数。这样可以保留当前客户端IP地址散列分布。
+</para>
+
+<para>
+例子：
+<example>
+upstream backend {
+    ip_hash;
+
+    server backend1.example.com;
+    server backend2.example.com;
+    server backend3.example.com <emphasis>down</emphasis>;
+    server backend4.example.com;
+}
+</example>
+</para>
+
+<para>
+<note>
+从1.3.1和1.2.2版本开始，<literal>ip_hash</literal>的负载均衡方法才支持设置服务器权重值。
+</note>
+</para>
+
+</directive>
+
+
+<directive name="keepalive">
+<syntax><value>connections</value></syntax>
+<default/>
+<context>upstream</context>
+<appeared-in>1.1.4</appeared-in>
+
+<para>
+激活对上游服务器的连接进行缓存。
+</para>
+
+<para>
+<value>connections</value>参数设置每个worker进程与后端服务器保持连接的最大数量。这些保持的连接会被放入缓存。
+如果连接数大于这个值时，最久未使用的连接会被关闭。
+<note>
+需要注意的是，<literal>keepalive</literal>指令不会限制Nginx进程与上游服务器的连接总数。
+新的连接总会按需被创建。
+<value>connections</value>参数应该稍微设低一点，以便上游服务器也能处理额外新进来的连接。
+</note>
+</para>
+
+<para>
+配置memcached上游服务器连接keepalive的例子：
+<example>
+upstream memcached_backend {
+    server 127.0.0.1:11211;
+    server 10.0.0.2:11211;
+
+    keepalive 32;
+}
+
+server {
+    ...
+
+    location /memcached/ {
+        set $memcached_key $uri;
+        memcached_pass memcached_backend;
+    }
+
+}
+</example>
+</para>
+
+<para>
+对于HTTP代理，<link doc="ngx_http_proxy_module.xml" id="proxy_http_version"/>指令应该设置为“<literal>1.1</literal>”，同时<header>Connection</header>头的值也应被清空。
+<example>
+upstream http_backend {
+    server 127.0.0.1:8080;
+
+    keepalive 16;
+}
+
+server {
+    ...
+
+    location /http/ {
+        proxy_pass http://http_backend;
+        proxy_http_version 1.1;
+        proxy_set_header Connection "";
+        ...
+    }
+}
+</example>
+</para>
+
+<para>
+<note>
+另外一种选择是，HTTP/1.0协议的持久连接也可以通过发送<header>Connection: Keep-Alive</header>头来实现。不过不建议这样用。
+</note>
+</para>
+
+<para>
+对于FastCGI的服务器，需要设置
+<link doc="ngx_http_fastcgi_module.xml" id="fastcgi_keep_conn"/>
+指令来让连接keepalive工作： 
+<example>
+upstream fastcgi_backend {
+    server 127.0.0.1:9000;
+
+    keepalive 8;
+}
+
+server {
+    ...
+
+    location /fastcgi/ {
+        fastcgi_pass fastcgi_backend;
+        fastcgi_keep_conn on;
+        ...
+    }
+}
+</example>
+</para>
+
+<para>
+<note>
+当使用的负载均衡方法不是默认的轮转法时，必须在<literal>keepalive</literal> 指令之前配置。
+</note>
+
+<note>
+针对SCGI和uwsgi协议，还没有实现其keepalive连接的打算。
+</note>
+</para>
+
+</directive>
+
+
+<directive name="least_conn">
+<syntax/>
+<default/>
+<context>upstream</context>
+<appeared-in>1.3.1</appeared-in>
+<appeared-in>1.2.2</appeared-in>
+
+<para>
+指定服务器组的负载均衡方法，根据其权重值，将请求发送到活跃连接数最少的那台服务器。
+如果这样的服务器有多台，那就采取有权重的轮转法进行尝试。
+</para>
+
+</directive>
+
+</section>
+
+
+<section id="variables" name="嵌入的变量">
+
+<para>
+<literal>ngx_http_upstream_module</literal>模块支持以下嵌入变量：
+
+<list type="tag">
+
+<tag-name><var>$upstream_addr</var></tag-name>
+<tag-desc>
+保存服务器的IP地址和端口或者是UNIX域套接字的路径。
+在请求处理过程中，如果有多台服务器被尝试了，它们的地址会被拼接起来，以逗号隔开，比如：
+“<literal>192.168.1.1:80, 192.168.1.2:80, unix:/tmp/sock</literal>”。
+如果在服务器之间通过<header>X-Accel-Redirect</header>头或者<link doc="ngx_http_core_module.xml" id="error_page"/>有内部跳转，那么这些服务器组之间会以冒号隔开，比如：“<literal>192.168.1.1:80, 192.168.1.2:80, unix:/tmp/sock : 192.168.10.1:80, 192.168.10.2:80</literal>”。
+</tag-desc>
+
+<tag-name><var>$upstream_response_time</var></tag-name>
+<tag-desc>
+以毫秒的精度保留服务器的响应时间，（输出）单位是秒。
+出现多个响应时，也是以逗号和冒号隔开。
+</tag-desc>
+
+<tag-name><var>$upstream_status</var></tag-name>
+<tag-desc>
+保存服务器的响应代码。
+出现多个响应时，也是以逗号和冒号隔开。
+</tag-desc>
+
+<tag-name><var>$upstream_http_...</var></tag-name>
+<tag-desc>
+保存服务器的响应头的值。比如<header>Server</header>响应头的值可以通过<var>$upstream_http_server</var>变量来获取。
+需要注意的是只有最后一个响应的头会被保留下来。
+</tag-desc>
+
+</list>
+</para>
+
+</section>
+
+</module>

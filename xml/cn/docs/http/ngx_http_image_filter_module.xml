@@ -1,0 +1,219 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Igor Sysoev
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="ngx_http_image_filter_module模块"
+        link="/cn/docs/http/ngx_http_image_filter_module.html"
+        lang="cn"
+        translator="Cen Zheng"
+        rev="1">
+
+<section id="summary">
+
+<para>
+<literal>ngx_http_image_filter_module</literal> 模块（0.7.54+）是一个
+过滤器，它可以对JPEG,GIF和PNG等图像进行变换。
+</para>
+
+<para>
+这个模块并不是默认编译的，需要通过
+<literal>--with-http_image_filter_module</literal>编译选项来启用。
+<note>
+这个模块使用了
+<link url="http://libgd.org">libgd</link> 库。
+推荐使用这个库可用的最新版本；在写这个文档时它的最新版本是2.0.35。
+</note>
+</para>
+
+</section>
+
+
+<section id="example" name="配置例子">
+
+<para>
+<example>
+location /img/ {
+    proxy_pass   http://backend;
+    image_filter resize 150 100;
+    image_filter rotate 90;
+    error_page   415 = /empty;
+}
+
+location = /empty {
+    empty_gif;
+}
+</example>
+</para>
+
+</section>
+
+
+<section id="directives" name="指令">
+
+<directive name="image_filter">
+<syntax><literal>off</literal></syntax>
+<syntax><literal>test</literal></syntax>
+<syntax><literal>size</literal></syntax>
+<syntax>
+    <literal>rotate</literal>
+    <literal>90</literal> | <literal>180</literal> |
+    <literal>270</literal></syntax>
+<syntax>
+    <literal>resize</literal>
+    <value>width</value>
+    <value>height</value></syntax>
+<syntax>
+    <literal>crop</literal>
+    <value>width</value>
+    <value>height</value></syntax>
+<default/>
+<context>location</context>
+
+<para>
+设置图像变换的操作：
+<list type="tag">
+
+<tag-name><literal>off</literal></tag-name>
+<tag-desc>
+在所在location关闭模块处理。
+</tag-desc>
+
+<tag-name><literal>test</literal></tag-name>
+<tag-desc>
+确保应答是JPEG，GIF或PNG格式的图像。否则错误
+<http-status code="415" text="Unsupported Media Type"/>
+将被返回。
+</tag-desc>
+
+<tag-name><literal>size</literal></tag-name>
+<tag-desc>
+以JSON格式返回图像信息。例如：
+<example>
+{ "img" : { "width": 100, "height": 100, "type": "gif" } }
+</example>
+如果有错误发生，将会返回如下：
+<example>
+{}
+</example>
+</tag-desc>
+
+<tag-name><literal>rotate</literal>
+<literal>90</literal>|<literal>180</literal>|<literal>270</literal>
+</tag-name>
+<tag-desc>
+将图像逆时针旋转指定角度。
+参数的值可以包含变量。
+可以单独使用，或与
+<literal>resize</literal> 和 <literal>crop</literal> 变换同时使用.
+</tag-desc>
+
+<tag-name><literal>resize</literal>
+<value>width</value>
+<value>height</value>
+</tag-name>
+<tag-desc>
+按比例缩小图像至指定大小。
+如果想只指定其中一维，另一维可以指定为：
+“<literal>-</literal>”。
+如果有错误发生，服务器会返回
+<http-status code="415" text="Unsupported Media Type"/>.
+参数的值可以包含变量。
+当与 <literal>rotate</literal> 参数同时使用时,
+旋转发生在缩放 <emphasis>之后</emphasis>。
+</tag-desc>
+
+<tag-name><literal>crop</literal>
+<value>width</value>
+<value>height</value>
+</tag-name>
+<tag-desc>
+按比例以图像的最短边为准对图像大小进行缩小，然后裁剪另一边多出来的部分。
+如果想只指定其中一维，另一维可以指定为：
+“<literal>-</literal>”。
+如果有错误发生，服务器会返回
+<http-status code="415" text="Unsupported Media Type"/>.
+参数的值可以包含变量。
+当与 <literal>rotate</literal> 参数同时使用时,
+旋转发生在裁剪 <emphasis>之前</emphasis>。
+</tag-desc>
+
+</list>
+</para>
+
+</directive>
+
+
+<directive name="image_filter_buffer">
+<syntax><value>size</value></syntax>
+<default>1M</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+设置用来读图像的缓冲区的最大值。
+若图像超过这个大小，服务器会返回
+<http-status code="415" text="Unsupported Media Type"/>.
+</para>
+
+</directive>
+
+
+<directive name="image_filter_jpeg_quality">
+<syntax><value>quality</value></syntax>
+<default>75</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+设置变换后的JPEG图像的 <value>质量</value> 。
+可配置值： 1 ~ 100 。
+更小的值意味着更差的图像质量以及更少需要传输的数据。
+推荐的最大值是95.
+参数的值可以包含变量。
+</para>
+
+</directive>
+
+
+<directive name="image_filter_sharpen">
+<syntax><value>percent</value></syntax>
+<default>0</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+增加最终图像的锐度。
+锐度百分比可以超过100.
+0为关闭锐化。
+参数的值可以包含变量。
+</para>
+
+</directive>
+
+
+<directive name="image_filter_transparency">
+<syntax><literal>on</literal>|<literal>off</literal></syntax>
+<default>on</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+定义当对PNG，或者GIF图像进行颜色变换时是否需要保留透明度。
+损失透明度有可能可以获得更高的图像质量。
+PNG图像中的alpha通道的透明度默认会一直被保留。
+</para>
+
+</directive>
+
+</section>
+
+</module>

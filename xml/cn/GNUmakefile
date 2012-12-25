@@ -19,6 +19,18 @@ REFS =									\
 		http/ngx_http_auth_basic_module				\
 		http/ngx_http_autoindex_module				\
 		http/ngx_http_browser_module				\
+		http/ngx_http_core_module				\
+		http/ngx_http_empty_gif_module				\
+		http/ngx_http_geo_module				\
+		http/ngx_http_geoip_module				\
 		http/ngx_http_gzip_static_module			\
+		http/ngx_http_image_filter_module			\
 		http/ngx_http_index_module				\
 		http/ngx_http_limit_conn_module				\
+		http/ngx_http_limit_req_module				\
+		http/ngx_http_log_module				\
+		http/ngx_http_map_module				\
+		http/ngx_http_proxy_module				\
+		http/ngx_http_referer_module				\
+		http/ngx_http_rewrite_module				\
+		http/ngx_http_upstream_module				\

@@ -1,0 +1,374 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Igor Sysoev
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="ngx_http_rewrite_module模块"
+        link="/cn/docs/http/ngx_http_rewrite_module.html"
+        lang="cn"
+        translator="cfsego"
+        rev="2">
+
+<section id="summary">
+
+<para>
+<literal>ngx_http_rewrite_module</literal>模块允许正则替换URI，返回页面重定向，和按条件选择配置。
+</para>
+
+<para>
+<literal>ngx_http_rewrite_module</literal>模块指令按以下顺序处理：
+<list type="bullet">
+
+<listitem>
+处理在<link doc="ngx_http_core_module.xml" id="server"/>级别中定义的模块指令；
+</listitem>
+
+<listitem>
+为请求查找location；
+</listitem>
+
+<listitem>
+处理在选中的<link doc="ngx_http_core_module.xml" id="location"/>中定义的模块指令。如果指令改变了URI，按新的URI查找location。这个循环至多重复<link doc="ngx_http_core_module.xml" id="internal">10次</link>，之后nginx返回错误<http-status code="500" text="Internal Server Error"/>。
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+
+<section id="directives" name="指令">
+
+<directive name="break">
+<syntax/>
+<default/>
+<context>server</context>
+<context>location</context>
+<context>if</context>
+
+<para>
+停止处理当前这一轮的<literal>ngx_http_rewrite_module</literal>指令集。
+</para>
+
+<para>
+举例：
+<example>
+if ($slow) {
+    limit_rate 10k;
+    break;
+}
+</example>
+</para>
+
+</directive>
+
+
+<directive name="if">
+<syntax block="yes">(<value>condition</value>)</syntax>
+<default/>
+<context>server</context>
+<context>location</context>
+
+<para>
+计算指定的<value>condition</value>的值。如果为真，执行定义在大括号中的rewrite模块指令，并将<literal>if</literal>指令中的配置指定给请求。<literal>if</literal>指令会从上一层配置中继承配置。
+</para>
+
+<para>
+条件可以是下列任意一种：
+<list type="bullet">
+
+<listitem>
+变量名；如果变量值为空或者是以“<literal>0</literal>”开始的字符串，则条件为假；
+</listitem>
+
+<listitem>
+使用“<literal>=</literal>”和“<literal>!=</literal>”运算符比较变量和字符串；
+</listitem>
+
+<listitem>
+使用“<literal>~</literal>”（大小写敏感）和“<literal>~*</literal>”（大小写不敏感）运算符匹配变量和正则表达式。正则表达式可以包含匹配组，匹配结果后续可以使用变量<var>$1</var>..<var>$9</var>引用。如果正则表达式中包含字符“<literal>}</literal>”或者“<literal>;</literal>”，整个表达式应该被包含在单引号或双引号的引用中。
+</listitem>
+
+<listitem>
+使用“<literal>-f</literal>”和“<literal>!-f</literal>”运算符检查文件是否存在；
+</listitem>
+
+<listitem>
+使用“<literal>-d</literal>”和“<literal>!-d</literal>”运算符检查目录是否存在；
+</listitem>
+
+<listitem>
+使用“<literal>-e</literal>”和“<literal>!-e</literal>”运算符检查文件、目录或符号链接是否存在；
+</listitem>
+
+<listitem>
+使用“<literal>-x</literal>”和“<literal>!-x</literal>”运算符检查可执行文件；
+</listitem>
+
+</list>
+</para>
+
+<para>
+举例：
+<example>
+if ($http_user_agent ~ MSIE) {
+    rewrite ^(.*)$ /msie/$1 break;
+}
+
+if ($http_cookie ~* "id=([^;]+)(?:;|$)") {
+    set $id $1;
+}
+
+if ($request_method = POST) {
+    return 405;
+}
+
+if ($slow) {
+    limit_rate 10k;
+}
+
+if ($invalid_referer) {
+    return 403;
+}
+</example>
+<note>
+内嵌变量<var>$invalid_referer</var>的值是通过<link doc="ngx_http_referer_module.xml" id="valid_referers"/>指令设置的。
+</note>
+</para>
+
+</directive>
+
+
+<directive name="return">
+<syntax><value>code</value> [<value>text</value>]</syntax>
+<syntax><value>code</value> <value>URL</value></syntax>
+<syntax><value>URL</value></syntax>
+<default/>
+<context>server</context>
+<context>location</context>
+<context>if</context>
+
+<para>
+停止处理并返回指定<value>code</value>给客户端。返回非标准的状态码444可以直接关闭连接而不返回响应头。
+</para>
+
+<para>
+从0.8.42版开始，可以在指令中指定重定向的URL（状态码为301、302、303和307），或者指定响应体<value>文本</value>（状态码为其它值）。响应体文本或重定向URL中可以包含变量。作为一种特殊情况，重定向URL可以简化为当前server的本地URI，那么完整的重定向URL将按照请求协议（<var>$scheme</var>）、<link doc="ngx_http_core_module.xml" id="server_name_in_redirect"/>指令和<link doc="ngx_http_core_module.xml" id="port_in_redirect"/>指令的配置进行补全。
+</para>
+
+<para>
+另外，状态码为302的临时重定向使用的<value>URL</value>可以作为指令的唯一参数。该参数应该以“<literal>http://</literal>”、“<literal>https://</literal>”或者“<literal>https://</literal>”开始。<value>URL</value>中可以包含变量。
+</para>
+
+<para>
+<note>
+0.7.51版本以前只能返回下面状态码：
+204、400、402 — 406、408、410、411、413、416 和 500 — 504。
+</note>
+
+<note>
+直到1.1.16和1.0.13版，状态码307才被认为是一种重定向。
+</note>
+</para>
+
+</directive>
+
+
+<directive name="rewrite">
+<syntax>
+    <value>regex</value>
+    <value>replacement</value>
+    [<value>flag</value>]</syntax>
+<default/>
+<context>server</context>
+<context>location</context>
+<context>if</context>
+
+<para>
+如果指定的正则表达式能匹配URI，此URI将被<value>replacement</value>参数定义的字符串改写。<literal>rewrite</literal>指令按其在配置文件中出现的顺序执行。flag可以终止后续指令的执行。如果replacement的字符串以“<literal>http://</literal>”或“<literal>https://</literal>”开头，nginx将结束执行过程，并返回给客户端一个重定向。
+</para>
+
+<para>
+可选的<value>flag</value>参数可以是其中之一：
+<list type="tag">
+
+<tag-name><literal>last</literal></tag-name>
+<tag-desc>
+停止执行当前这一轮的<literal>ngx_http_rewrite_module</literal>指令集，然后查找匹配改变后URI的新location；
+</tag-desc>
+
+<tag-name><literal>break</literal></tag-name>
+<tag-desc>
+停止执行当前这一轮的<literal>ngx_http_rewrite_module</literal>指令集；
+</tag-desc>
+
+<tag-name><literal>redirect</literal></tag-name>
+<tag-desc>
+在replacement字符串未以“<literal>http://</literal>”或“<literal>https://</literal>”开头时，使用返回状态码为302的临时重定向；
+</tag-desc>
+
+<tag-name><literal>permanent</literal></tag-name>
+<tag-desc>
+返回状态码为301的永久重定向。
+</tag-desc>
+
+</list>
+完整的重定向URL将按照请求协议（<var>$scheme</var>）、<link doc="ngx_http_core_module.xml" id="server_name_in_redirect"/>指令和<link doc="ngx_http_core_module.xml" id="port_in_redirect"/>指令的配置进行补全。
+</para>
+
+<para>
+举例：
+<example>
+server {
+    ...
+    rewrite ^(/download/.*)/media/(.*)\..*$ $1/mp3/$2.mp3 last;
+    rewrite ^(/download/.*)/audio/(.*)\..*$ $1/mp3/$2.ra  last;
+    return  403;
+    ...
+}
+</example>
+</para>
+
+<para>
+但是当上述指令写在“<literal>/download/</literal>”的location中时，应使用标志<literal>break</literal>代替<literal>last</literal>，否则nginx会重复10轮循环，然后返回错误500：
+<example>
+location /download/ {
+    rewrite ^(/download/.*)/media/(.*)\..*$ $1/mp3/$2.mp3 break;
+    rewrite ^(/download/.*)/audio/(.*)\..*$ $1/mp3/$2.ra  break;
+    return  403;
+}
+</example>
+</para>
+
+<para>
+如果<value>replacement</value>字符串包括新的请求参数，以往的请求参数会添加到新参数后面。如果不希望这样，在replacement字符串末尾加一个问号“？”，就可以避免，比如：
+<example>
+rewrite ^/users/(.*)$ /show?user=$1? last;
+</example>
+</para>
+
+<para>
+如果正则表达式中包含字符“<literal>}</literal>”或者“<literal>;</literal>”，整个表达式应该被包含在单引号或双引号的引用中。
+</para>
+
+</directive>
+
+
+<directive name="rewrite_log">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<context>if</context>
+
+<para>
+开启或者关闭将<literal>ngx_http_rewrite_module</literal>模块指令的处理日志以<literal>notice</literal>级别记录到错误日志中。
+</para>
+
+</directive>
+
+
+<directive name="set">
+<syntax><value>variable</value> <value>value</value></syntax>
+<default/>
+<context>server</context>
+<context>location</context>
+<context>if</context>
+
+<para>
+为指定变量<value>variable</value>设置变量值<value>value</value>。<value>value</value>可以包含文本、变量或者它们的组合。
+</para>
+
+</directive>
+
+
+<directive name="uninitialized_variable_warn">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>on</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<context>if</context>
+
+<para>
+控制是否记录变量未初始化的警告到日志。
+</para>
+
+</directive>
+
+</section>
+
+
+<section id="internals" name="内部实现">
+
+<para>
+<literal>ngx_http_rewrite_module</literal>模块的指令在解析配置阶段被编译成nginx内部指令。这些内部指令在处理请求时被解释执行。而解释器是一个简单的堆栈机器。
+</para>
+
+<para>
+比如，下面指令
+<example>
+location /download/ {
+    if ($forbidden) {
+        return 403;
+    }
+
+    if ($slow) {
+        limit_rate 10k;
+    }
+
+    rewrite ^/(download/.*)/media/(.*)\..*$ /$1/mp3/$2.mp3 break;
+}
+</example>
+将被翻译成下面这些指令：
+<example>
+variable $forbidden
+check against zero
+    return 403
+    end of code
+variable $slow
+check against zero
+match of regular expression
+copy "/"
+copy $1
+copy "/mp3/"
+copy $2
+copy ".mp3"
+end of regular expression
+end of code
+</example>
+</para>
+
+<para>
+请注意没有对应上面的<link doc="ngx_http_core_module.xml" id="limit_rate"/>指令的内部指令，因为这个指令与<literal>ngx_http_rewrite_module</literal>模块无关。nginx会为这个<link id="if"/>块单独创建一个配置，包含<literal>limit_rate</literal>等于10k。如果条件为真，nginx将把这个配置指派给请求。
+</para>
+
+<para>
+指令
+<example>
+rewrite ^/(download/.*)/media/(.*)\..*$ /$1/mp3/$2.mp3 break;
+</example>
+可以通过将正则表达式中的第一个斜线“/”放入圆括号，来实现节约一个内部指令：
+<example>
+rewrite ^(<emphasis>/</emphasis>download/.*)/media/(.*)\..*$ $1/mp3/$2.mp3 break;
+</example>
+对应的内部指令将会是这样：
+<example>
+match of regular expression
+copy $1
+copy "/mp3/"
+copy $2
+copy ".mp3"
+end of regular expression
+end of code
+</example>
+</para>
+
+</section>
+
+</module>
