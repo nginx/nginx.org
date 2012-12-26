@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_proxy_module"
         link="/ru/docs/http/ngx_http_proxy_module.html"
         lang="ru"
-        rev="6">
+        rev="7">
 
 <section id="summary">
 
@@ -603,6 +603,42 @@ proxy_cookie_path off;
 proxy_cookie_path /two/ /;
 proxy_cookie_path ~*^/user/([^/]+) /u/$1;
 </example>
+</para>
+
+</directive>
+
+
+<directive name="proxy_headers_hash_bucket_size">
+<syntax><value>размер</value></syntax>
+<default>64</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Задаёт <value>размер</value> корзины для хэш-таблиц,
+используемых директивами <link id="proxy_hide_header"/>
+и <link id="proxy_set_header"/>.
+Подробнее настройка хэш-таблиц обсуждается в отдельном
+<link doc="../hash.xml">документе</link>.
+</para>
+
+</directive>
+
+
+<directive name="proxy_headers_hash_max_size">
+<syntax><value>размер</value></syntax>
+<default>512</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Задаёт максимальный <value>размер</value> хэш-таблиц,
+используемых директивами <link id="proxy_hide_header"/> и
+<link id="proxy_set_header"/>.
+Подробнее настройка хэш-таблиц обсуждается в отдельном
+<link doc="../hash.xml">документе</link>.
 </para>
 
 </directive>

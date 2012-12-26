@@ -10,7 +10,7 @@
 <module name="Module ngx_http_proxy_module"
         link="/en/docs/http/ngx_http_proxy_module.html"
         lang="en"
-        rev="6">
+        rev="7">
 
 <section id="summary">
 
@@ -605,6 +605,42 @@ proxy_cookie_path off;
 proxy_cookie_path /two/ /;
 proxy_cookie_path ~*^/user/([^/]+) /u/$1;
 </example>
+</para>
+
+</directive>
+
+
+<directive name="proxy_headers_hash_bucket_size">
+<syntax><value>size</value></syntax>
+<default>64</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Sets the bucket <value>size</value> for hash tables
+used by the <link id="proxy_hide_header"/> and <link id="proxy_set_header"/>
+directives.
+Details of setting up hash tables are provided in a separate
+<link doc="../hash.xml">document</link>.
+</para>
+
+</directive>
+
+
+<directive name="proxy_headers_hash_max_size">
+<syntax><value>size</value></syntax>
+<default>512</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Sets the maximum <value>size</value> of hash tables
+used by the <link id="proxy_hide_header"/> and <link id="proxy_set_header"/>
+directives.
+Details of setting up hash tables are provided in a separate
+<link doc="../hash.xml">document</link>.
 </para>
 
 </directive>
