@@ -10,7 +10,7 @@
 <module name="Module ngx_http_memcached_module"
         link="/en/docs/http/ngx_http_memcached_module.html"
         lang="en"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -172,6 +172,10 @@ An address can be specified as a domain name or an address, and a port,
 for example,
 <example>
 memcached_pass localhost:11211;
+</example>
+or as a UNIX-domain socket path:
+<example>
+memcached_pass unix:/tmp/memcached.socket;
 </example>
 </para>
 
