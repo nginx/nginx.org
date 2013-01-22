@@ -8,7 +8,7 @@
 <article name="Configuring HTTPS servers"
          link="/en/docs/http/configuring_https_servers.html"
          lang="en"
-         rev="5"
+         rev="6"
          author="Igor Sysoev"
          editor="Brian Mercer">
 
@@ -98,11 +98,11 @@ The default cache timeout is 5 minutes.
 It can be increased by using the
 <link doc="ngx_http_ssl_module.xml" id="ssl_session_timeout"/>
 directive.
-Here is a sample configuration optimized for a quad core system
+Here is a sample configuration optimized for a multi-core system
 with 10 megabyte shared session cache:
 
 <programlisting>
-<b>worker_processes 4</b>;
+<b>worker_processes auto</b>;
 
 http {
     <b>ssl_session_cache   shared:SSL:10m</b>;

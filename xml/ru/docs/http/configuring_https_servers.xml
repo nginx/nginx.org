@@ -8,7 +8,7 @@
 <article name="Настройка HTTPS-серверов"
          link="/ru/docs/http/configuring_https_servers.html"
          lang="ru"
-         rev="5"
+         rev="6"
          author="Игорь Сысоев"
          editor="Brian Mercer">
 
@@ -98,11 +98,11 @@ SSL handshake для параллельных и последующих соед
 Таймаут кэша по умолчанию равен 5 минутам.
 Он может быть увеличен с помощью директивы
 <link doc="ngx_http_ssl_module.xml" id="ssl_session_timeout"/>.
-Вот пример конфигурации, оптимизированной под 4-ядерную систему
+Вот пример конфигурации, оптимизированной под многоядерную систему
 с 10-мегабайтным разделяемым кэшем сессий:
 
 <programlisting>
-<b>worker_processes 4</b>;
+<b>worker_processes auto</b>;
 
 http {
     <b>ssl_session_cache   shared:SSL:10m</b>;
