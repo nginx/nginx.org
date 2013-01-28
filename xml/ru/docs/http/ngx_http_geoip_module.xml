@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_geoip_module"
         link="/ru/docs/http/ngx_http_geoip_module.html"
         lang="ru"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
@@ -18,6 +18,11 @@
 Модуль <literal>ngx_http_geoip_module</literal> (0.8.6+) создаёт переменные,
 значения которых зависят от IP-адреса клиента, используя готовые базы данных
 <link url="http://www.maxmind.com">MaxMind</link>.
+</para>
+
+<para>
+При использовании баз данных с поддержкой IPv6 (1.3.12)
+IPv4-адреса ищутся отображёнными на IPv6.
 </para>
 
 <para>
