@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_gzip_module"
         link="/ru/docs/http/ngx_http_gzip_module.html"
         lang="ru"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -35,7 +35,7 @@ gzip_types      text/plain application/xml;
 </para>
 
 <para>
-Для записи в лог полученной степени сжатия можно использовать переменную
+Для записи в лог достигнутого коэффициента сжатия можно использовать переменную
 <var>$gzip_ratio</var>.
 </para>
 
@@ -267,6 +267,21 @@ gzip_types      text/plain application/xml;
 </para>
 
 </directive>
+
+</section>
+
+
+<section id="variables" name="Встроенные переменные">
+
+<para>
+<list type="tag">
+
+<tag-name id="var_gzip_ratio"><var>$gzip_ratio</var></tag-name>
+<tag-desc>достигнутый коэффициент сжатия — отношение размера исходного
+ответа к размеру сжатого.</tag-desc>
+
+</list>
+</para>
 
 </section>
 

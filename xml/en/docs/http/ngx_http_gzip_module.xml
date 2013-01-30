@@ -10,7 +10,7 @@
 <module name="Module ngx_http_gzip_module"
         link="/en/docs/http/ngx_http_gzip_module.html"
         lang="en"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -268,6 +268,21 @@ are active.
 </para>
 
 </directive>
+
+</section>
+
+
+<section id="variables" name="Embedded Variables">
+
+<para>
+<list type="tag">
+
+<tag-name id="var_gzip_ratio"><var>$gzip_ratio</var></tag-name>
+<tag-desc>achieved compression ratio, computed as the ratio between the
+original and compressed response size.</tag-desc>
+
+</list>
+</para>
 
 </section>
 
