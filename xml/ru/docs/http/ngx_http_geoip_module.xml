@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_geoip_module"
         link="/ru/docs/http/ngx_http_geoip_module.html"
         lang="ru"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -103,6 +103,19 @@ http {
 При использовании этой базы данных доступны следующие переменные:
 <list type="tag">
 
+<tag-name><var>$geoip_area_code</var></tag-name>
+<tag-desc>телефонный код области (только для США).
+<note>
+Данная переменная может содержать неактуальную информацию, т.к.
+соответствующее поле базы данных объявлено устаревшим.
+</note>
+</tag-desc>
+
+<tag-name><var>$geoip_city_continent_code</var></tag-name>
+<tag-desc>двухбуквенный код континента, например,
+“<literal>EU</literal>”, “<literal>NA</literal>”.
+</tag-desc>
+
 <tag-name><var>$geoip_city_country_code</var></tag-name>
 <tag-desc>
 двухбуквенный код страны, например,
@@ -121,11 +134,31 @@ http {
 “<literal>Russian Federation</literal>”, “<literal>United States</literal>”.
 </tag-desc>
 
+<tag-name><var>$geoip_dma_code</var></tag-name>
+<tag-desc>
+DMA-код региона в США (также известный как “код агломерации”), согласно
+<link url="https://developers.google.com/adwords/api/docs/appendix/cities-DMAregions">геотаргетингу
+Google AdWords API</link>.
+</tag-desc>
+
+<tag-name><var>$geoip_latitude</var></tag-name>
+<tag-desc>географическая широта.</tag-desc>
+
+<tag-name><var>$geoip_longitude</var></tag-name>
+<tag-desc>географическая долгота.</tag-desc>
+
 <tag-name><var>$geoip_region</var></tag-name>
+<tag-desc>
+двухсимвольный код региона страны (область, край, штат,
+провинция, федеральная земля и тому подобное), например,
+“<literal>48</literal>”, “<literal>DC</literal>”.
+</tag-desc>
+
+<tag-name><var>$geoip_region_name</var></tag-name>
 <tag-desc>
 название региона страны (область, край, штат,
 провинция, федеральная земля и тому подобное), например,
-“<literal>Moscow City</literal>”, “<literal>DC</literal>”.
+“<literal>Moscow City</literal>”, “<literal>District of Columbia</literal>”.
 </tag-desc>
 
 <tag-name><var>$geoip_city</var></tag-name>
