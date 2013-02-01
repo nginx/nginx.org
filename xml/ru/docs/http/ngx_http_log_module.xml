@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_log_module"
         link="/ru/docs/http/ngx_http_log_module.html"
         lang="ru"
-        rev="7">
+        rev="8">
 
 <section id="summary">
 
@@ -193,40 +193,21 @@ server {
 <tag-name><var>$bytes_sent</var></tag-name>
 <tag-desc>
 число байт, переданное клиенту
-<note>
-Начиная с версий 1.3.8 и 1.2.5 существует общая переменная с
-<link doc="ngx_http_core_module.xml" id="var_bytes_sent">тем же
-именем</link>.
-</note>
 </tag-desc>
 
 <tag-name><var>$connection</var></tag-name>
 <tag-desc>
 порядковый номер соединения
-<note>
-Начиная с версий 1.3.8 и 1.2.5 существует общая переменная с
-<link doc="ngx_http_core_module.xml" id="var_connection">тем же
-именем</link>.
-</note>
 </tag-desc>
 
 <tag-name><var>$connection_requests</var></tag-name>
 <tag-desc>
 текущее число запросов в соединении (1.1.18)
-<note>
-Начиная с версий 1.3.8 и 1.2.5 существует общая переменная с
-<link doc="ngx_http_core_module.xml" id="var_connection_requests">тем же
-именем</link>.
-</note>
 </tag-desc>
 
 <tag-name><var>$msec</var></tag-name>
 <tag-desc>
 время в секундах с точностью до миллисекунд на момент записи в лог
-<note>
-Начиная с версий 1.3.9 и 1.2.6 существует общая переменная с
-<link doc="ngx_http_core_module.xml" id="var_msec">тем же именем</link>.
-</note>
 </tag-desc>
 
 <tag-name><var>$pipe</var></tag-name>
@@ -244,19 +225,11 @@ server {
 время обработки запроса в секундах с точностью до миллисекунд;
 время, прошедшее с момента чтения первых байт от клиента до
 момента записи в лог после отправки последних байт клиенту
-<note>
-Начиная с версий 1.3.9 и 1.2.6 существует общая переменная с
-<link doc="ngx_http_core_module.xml" id="var_request_time">тем же именем</link>.
-</note>
 </tag-desc>
 
 <tag-name><var>$status</var></tag-name>
 <tag-desc>
 статус ответа
-<note>
-Начиная с версий 1.3.2 и 1.2.2 существует общая переменная с
-<link doc="ngx_http_core_module.xml" id="var_status">тем же именем</link>.
-</note>
 </tag-desc>
 
 <tag-name><var>$time_iso8601</var></tag-name>
@@ -270,6 +243,33 @@ server {
 </tag-desc>
 
 </list>
+
+<note>
+В современных версиях nginx переменные
+<link doc="ngx_http_core_module.xml" id="var_status">$status</link>
+(1.3.2, 1.2.2),
+<link doc="ngx_http_core_module.xml" id="var_bytes_sent">$bytes_sent</link>
+(1.3.8, 1.2.5),
+<link doc="ngx_http_core_module.xml" id="var_connection">$connection</link>
+(1.3.8, 1.2.5),
+<link doc="ngx_http_core_module.xml" id="var_connection_requests">$connection_requests</link>
+(1.3.8, 1.2.5),
+<link doc="ngx_http_core_module.xml" id="var_msec">$msec</link>
+(1.3.9, 1.2.6),
+<link doc="ngx_http_core_module.xml" id="var_request_time">$request_time</link>
+(1.3.9, 1.2.6),
+<link doc="ngx_http_core_module.xml" id="var_pipe">$pipe</link>
+(1.3.12),
+<link doc="ngx_http_core_module.xml" id="var_request_length">$request_length</link>
+(1.3.12),
+<link doc="ngx_http_core_module.xml" id="var_time_iso8601">$time_iso8601</link>
+(1.3.12)
+и
+<link doc="ngx_http_core_module.xml" id="var_time_local">$time_local</link>
+(1.3.12)
+также доступны как общие переменные.
+</note>
+
 </para>
 
 <para>
