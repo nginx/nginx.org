@@ -10,13 +10,35 @@
 <module name="Модуль ngx_http_secure_link_module"
         link="/ru/docs/http/ngx_http_secure_link_module.html"
         lang="ru"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
 <para>
-Модуль <literal>ngx_http_secure_link_module</literal> (0.7.18+) проверяет
-правильность запрашиваемой ссылки.
+Модуль <literal>ngx_http_secure_link_module</literal> (0.7.18)
+позволяет проверять аутентичность запрашиваемых ссылок,
+защищать ресурсы от несанкционированного доступа,
+а также ограничивать срок действия ссылок.
+</para>
+
+<para>
+Правильность запрашиваемой ссылки проверяется сравнением переданного
+в запросе значения контрольной суммы со значением,
+вычисляемым для запроса.
+Если ссылка имеет ограниченный срок действия и он истёк,
+ссылка считается устаревшей.
+Результат этих проверок делается доступным в переменной
+<var>$secure_link</var>.
+</para>
+
+<para>
+Модуль реализует два альтернативных режима работы.
+В первом режиме, который включается директивой
+<link id="secure_link_secret"/>, можно проверить аутентичность
+запрашиваемых ссылок и защитить их от несанкционированного доступа.
+Второй режим (0.8.50) включается директивами
+<link id="secure_link"/> и <link id="secure_link_md5"/>,
+и позволяет также ограничить срок действия ссылок.
 </para>
 
 <para>
@@ -28,24 +50,114 @@
 </section>
 
 
-<section id="example" name="Пример конфигурации">
+<section id="directives" name="Директивы">
+
+<directive name="secure_link">
+<syntax><value>выражение</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
 
 <para>
+Задаёт строку с переменными, из которой будет выделено значение
+контрольной суммы и время действия ссылки.
+</para>
+
+<para>
+Используемые в выражении переменные обычно связаны с запросом;
+см. <link id="secure_link_md5">пример</link> ниже.
+</para>
+
+<para>
+Выделенное из строки значение контрольной суммы сравнивается со
+значением MD5-хэша, вычисляемым для выражения, заданного
+директивой <link id="secure_link_md5"/>.
+Если контрольные суммы не совпадают, значением переменной
+<var>$secure_link</var> становится пустая строка.
+Если контрольные суммы совпадают, проверяется время действия ссылки.
+Если срок действия ссылки задан и истёк, переменная
+<var>$secure_link</var> получает значение “<literal>0</literal>”.
+В противном случае она получает значение “<literal>1</literal>”.
+Значение MD5-хэш передаётся в запросе закодированным в
+<link url="http://tools.ietf.org/html/rfc4648#section-5">base64url</link>.
+</para>
+
+<para>
+Если ссылка имеет ограниченный срок действия, время её действия
+задаётся в секундах с начала эпохи (1 января 1970 года 00:00:00 GMT).
+Значение указывается в выражении после MD5-хэша
+и отделяется от него запятой.
+Время действия ссылки, переданное в запросе, делается доступным
+в переменной <var>$secure_link_expires</var> для использования
+в директиве <link id="secure_link_md5"/>.
+Если время действия ссылки не задано, ссылка имеет неограниченный
+срок действия.
+</para>
+
+</directive>
+
+
+<directive name="secure_link_md5">
+<syntax><value>выражение</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Задаёт выражение, для которого считается значение MD5-хэш,
+сравниваемое с переданным в запросе.
+</para>
+
+<para>
+Выражение должно содержать защищаемую часть ссылки (ресурс)
+и секретную составляющую.
+Если ссылка имеет ограниченный срок действия,
+выражение также должно содержать <var>$secure_link_expires</var>.
+</para>
+
+<para>
+Для предотвращения несанкционированного доступа выражение
+может содержать информацию о клиенте, например, его адрес и
+версию браузера.
+</para>
+
+<para>
+Пример:
 <example>
-location /p/ {
-    secure_link_secret some_secret_word;
+location /s/ {
+    secure_link $arg_md5,$arg_expires;
+    secure_link_md5 "$secure_link_expires$uri$remote_addr secret";
 
     if ($secure_link = "") {
         return 403;
     }
+
+    if ($secure_link = "0") {
+        return 410;
+    }
+
+    ...
 }
+</example>
+Ссылка
+“<literal>/s/link?md5=_e4Nc3iduzkWRm01TBBNYw&amp;expires=2147483647</literal>”
+ограничивает доступ к “<literal>/s/link</literal>” для клиента с IP-адресом
+127.0.0.1.
+Ссылка также имеет ограниченный срок действия до 19 января 2038 года (GMT).
+</para>
+
+<para>
+Значение аргумента запроса <value>md5</value> на UNIX можно получить так:
+<example>
+echo -n '2147483647/s/link127.0.0.1 secret' | \
+    openssl md5 -binary | openssl base64 | tr +/ -_ | tr -d =
 </example>
 </para>
 
-</section>
+</directive>
 
-
-<section id="directives" name="Директивы">
 
 <directive name="secure_link_secret">
 <syntax><value>слово</value></syntax>
@@ -53,19 +165,55 @@ location /p/ {
 <context>location</context>
 
 <para>
-Задаёт секретное <value>слово</value> для проверки правильности ссылки.
-Полный URL защищённой ссылки выглядит так:
-<example>
-/prefix/<value>hash</value>/<value>ссылка</value>
-</example>
-где <value>hash</value> считается как
-<example>
-md5(ссылка, секретное_слово);
-</example>
+Задаёт секретное <value>слово</value> для проверки аутентичности
+запрашиваемых ссылок.
 </para>
 
 <para>
-Префикс — произвольная строка, не включающая слэш.
+Полный URI запрашиваемой ссылки выглядит так:
+<example>
+/<value>префикс</value>/<value>хэш</value>/<value>ссылка</value>
+</example>
+где <value>хэш</value> — MD5-хэш в шестнадцатеричном виде,
+вычисленный для конкатенации ссылки и секретного слова,
+а <value>префикс</value> — произвольная строка без слэшей.
+</para>
+
+<para>
+Если запрашиваемая ссылка проходит проверку на аутентичность,
+значением переменной <var>$secure_link</var> становится ссылка,
+выделенная из URI запроса.
+В противном случае значением переменной <var>$secure_link</var>
+становится пустая строка.
+</para>
+
+<para>
+Пример:
+<example>
+location /p/ {
+    secure_link_secret secret;
+
+    if ($secure_link = "") {
+        return 403;
+    }
+
+    rewrite ^ /secure/$secure_link;
+}
+
+location /secure/ {
+    internal;
+}
+</example>
+По запросу “<literal>/p/5e814704a28d9bc1914ff19fa0c4a00a/link</literal>”
+будет выполнено внутреннее перенаправление на
+“<literal>/secure/link</literal>”.
+</para>
+
+<para>
+Значение хэша для данного примера на UNIX можно получить так:
+<example>
+echo -n 'linksecret' | openssl md5 -hex
+</example>
 </para>
 
 </directive>
@@ -76,12 +224,19 @@ md5(ссылка, секретное_слово);
 <section id="variables" name="Встроенные переменные">
 
 <para>
-<list type="tag">
+<list type="tag" compact="no">
 
 <tag-name><var>$secure_link</var></tag-name>
 <tag-desc>
-равна ссылке, выделенной из полного URL’а.
-Если хэш неверный, то переменная равна пустой строке.
+Результат проверки ссылки.
+Конкретное значение зависит от выбранного режима работы.
+</tag-desc>
+
+<tag-name><var>$secure_link_expires</var></tag-name>
+<tag-desc>
+Время действия ссылки, переданное в запросе.
+Предназначено исключительно для использования в директиве
+<link id="secure_link_md5"/>.
 </tag-desc>
 
 </list>
