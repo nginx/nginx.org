@@ -137,15 +137,15 @@ http {
 <tag-name><var>$geoip_dma_code</var></tag-name>
 <tag-desc>
 DMA-код региона в США (также известный как “код агломерации”), согласно
-<link url="https://developers.google.com/adwords/api/docs/appendix/cities-DMAregions">геотаргетингу
-Google AdWords API</link>.
+<link url="https://developers.google.com/adwords/api/docs/appendix/cities-DMAregions">геотаргетингу</link>
+Google AdWords API.
 </tag-desc>
 
 <tag-name><var>$geoip_latitude</var></tag-name>
-<tag-desc>географическая широта.</tag-desc>
+<tag-desc>широта.</tag-desc>
 
 <tag-name><var>$geoip_longitude</var></tag-name>
-<tag-desc>географическая долгота.</tag-desc>
+<tag-desc>долгота.</tag-desc>
 
 <tag-name><var>$geoip_region</var></tag-name>
 <tag-desc>
