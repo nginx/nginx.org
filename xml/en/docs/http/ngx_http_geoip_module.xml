@@ -10,7 +10,7 @@
 <module name="Module ngx_http_geoip_module"
         link="/en/docs/http/ngx_http_geoip_module.html"
         lang="en"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -103,6 +103,19 @@ depending on the client IP address.
 The following variables are available when using this database:
 <list type="tag">
 
+<tag-name><var>$geoip_area_code</var></tag-name>
+<tag-desc>telephone area code (US only).
+<note>
+This variable may contain outdated information since
+the corresponding database field is deprecated.
+</note>
+</tag-desc>
+
+<tag-name><var>$geoip_city_continent_code</var></tag-name>
+<tag-desc>two-letter continent code, for example,
+“<literal>EU</literal>”, “<literal>NA</literal>”.
+</tag-desc>
+
 <tag-name><var>$geoip_city_country_code</var></tag-name>
 <tag-desc>
 two-letter country code, for example,
@@ -121,11 +134,31 @@ country name, for example,
 “<literal>Russian Federation</literal>”, “<literal>United States</literal>”.
 </tag-desc>
 
+<tag-name><var>$geoip_dma_code</var></tag-name>
+<tag-desc>
+DMA region code in US (also known as “metro code”), according to the
+<link url="https://developers.google.com/adwords/api/docs/appendix/cities-DMAregions">geotargeting</link>
+in Google AdWords API.
+</tag-desc>
+
+<tag-name><var>$geoip_latitude</var></tag-name>
+<tag-desc>latitude.</tag-desc>
+
+<tag-name><var>$geoip_longitude</var></tag-name>
+<tag-desc>longitude.</tag-desc>
+
 <tag-name><var>$geoip_region</var></tag-name>
+<tag-desc>
+two-symbol country region code (region, territory, state, province, federal land
+and the like), for example,
+“<literal>48</literal>”, “<literal>DC</literal>”.
+</tag-desc>
+
+<tag-name><var>$geoip_region_name</var></tag-name>
 <tag-desc>
 country region name (region, territory, state, province, federal land
 and the like), for example,
-“<literal>Moscow City</literal>”, “<literal>DC</literal>”.
+“<literal>Moscow City</literal>”, “<literal>District of Columbia</literal>”.
 </tag-desc>
 
 <tag-name><var>$geoip_city</var></tag-name>
