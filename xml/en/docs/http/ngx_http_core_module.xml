@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="15">
+        rev="16">
 
 <section id="directives" name="Directives">
 
@@ -862,6 +862,7 @@ After this many requests are made, the connection is closed.
 <para>
 The first parameter sets a timeout during which a keep-alive
 client connection will stay open on the server side.
+The value of zero disables keep-alive client connections.
 The optional second parameter sets a value in the
 <header>Keep-Alive: timeout=<value>time</value></header>
 response header field.

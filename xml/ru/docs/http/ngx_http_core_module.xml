@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="15">
+        rev="16">
 
 <section id="directives" name="Директивы">
 
@@ -849,6 +849,7 @@ location /404.html {
 <para>
 Первый параметр задаёт таймаут, в течение которого keep-alive
 соединение с клиентом не будет закрыто со стороны сервера.
+Значение 0 запрещает keep-alive соединения с клиентами.
 Второй необязательный параметр задаёт значение в поле
 <header>Keep-Alive: timeout=<value>время</value></header>
 заголовка ответа.
