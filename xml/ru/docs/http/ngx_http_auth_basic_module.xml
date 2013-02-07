@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_auth_basic_module"
         link="/ru/docs/http/ngx_http_auth_basic_module.html"
         lang="ru"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -107,9 +107,17 @@ Apache или команды “<command>openssl passwd</command>”;
 (1.0.3+) как описано в
 <link url="http://tools.ietf.org/html/rfc2307#section-5.3">RFC 2307</link>;
 в настоящий момент реализованы схемы <literal>PLAIN</literal> (в качестве
-примера, не следует применять) и <literal>SSHA</literal> (SHA1 хэширование
+примера, не следует применять), <literal>SHA</literal> (1.3.13) (простое SHA-1
+хэширование, не следует применять) и <literal>SSHA</literal> (SHA-1 хэширование
 с солью, используется в некоторых программах, в частности OpenLDAP
 и Dovecot).
+<note>
+Поддержка схемы <literal>SHA</literal> была добавлена лишь для облегчения
+процесса миграции файлов паролей с других веб-серверов.
+Её не следует применять для новых паролей, т.к. используемое при этом
+SHA-1 хэширование без соли уязвимо к взлому при помощи
+<link url="http://en.wikipedia.org/wiki/Rainbow_attack">радужных таблиц</link>.
+</note>
 </listitem>
 
 </list>

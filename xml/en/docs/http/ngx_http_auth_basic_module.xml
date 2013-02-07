@@ -10,7 +10,7 @@
 <module name="Module ngx_http_auth_basic_module"
         link="/en/docs/http/ngx_http_auth_basic_module.html"
         lang="en"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -107,8 +107,17 @@ specified by the
 syntax (1.0.3+) as described in
 <link url="http://tools.ietf.org/html/rfc2307#section-5.3">RFC 2307</link>;
 currently implemented schemes include <literal>PLAIN</literal> (an example one,
-should not be used) and <literal>SSHA</literal> (salted SHA-1 hashing, used
-by some software packages, notably OpenLDAP and Dovecot).
+should not be used), <literal>SHA</literal> (1.3.13) (plain SHA-1
+hashing, should not be used) and <literal>SSHA</literal> (salted SHA-1 hashing,
+used by some software packages, notably OpenLDAP and Dovecot).
+<note>
+Support for <literal>SHA</literal> scheme was added only to aid
+in migration from other web servers.
+It should not be used for new passwords since unsalted SHA-1 hashing
+that it employs is vulnerable to
+<link url="http://en.wikipedia.org/wiki/Rainbow_attack">rainbow table</link>
+attacks.
+</note>
 </listitem>
 
 </list>
