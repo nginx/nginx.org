@@ -8,7 +8,7 @@
 <article name="Controlling nginx"
          link="/en/docs/control.html"
          lang="en"
-         rev="2">
+         rev="3">
 
 <section>
 
@@ -81,12 +81,12 @@ After all clients are serviced, old worker processes are shut down.
 Let’s illustrate this by example.
 Imagine that nginx is run on FreeBSD 4.x and the command
 <programlisting>
-ps ax -o pid,ppid,user,%cpu,vsz,wchan,command | egrep '(nginx|PID)'
+ps axw -o pid,ppid,user,%cpu,vsz,wchan,command | egrep '(nginx|PID)'
 </programlisting>
 produces the following output:
 <programlisting>
   PID  PPID USER    %CPU   VSZ WCHAN  COMMAND
-33126     1 root     0.0  1148 pause  nginx: master process /usr/local/nginx/sb
+33126     1 root     0.0  1148 pause  nginx: master process /usr/local/nginx/sbin/nginx
 33127 33126 nobody   0.0  1380 kqread nginx: worker process (nginx)
 33128 33126 nobody   0.0  1364 kqread nginx: worker process (nginx)
 33129 33126 nobody   0.0  1364 kqread nginx: worker process (nginx)
@@ -97,8 +97,8 @@ produces the following output:
 If HUP is sent to the master process, the output becomes:
 <programlisting>
   PID  PPID USER    %CPU   VSZ WCHAN  COMMAND
-33126     1 root     0.0  1164 pause  nginx: master process /usr/local/nginx/sb
-33129 33126 nobody   0.0  1380 kqread nginx: worker process is shutting down (n
+33126     1 root     0.0  1164 pause  nginx: master process /usr/local/nginx/sbin/nginx
+33129 33126 nobody   0.0  1380 kqread nginx: worker process is shutting down (nginx)
 33134 33126 nobody   0.0  1368 kqread nginx: worker process (nginx)
 33135 33126 nobody   0.0  1368 kqread nginx: worker process (nginx)
 33136 33126 nobody   0.0  1368 kqread nginx: worker process (nginx)
@@ -110,7 +110,7 @@ One of the old worker processes with PID 33129 still continues to work.
 After some time it exits:
 <programlisting>
   PID  PPID USER    %CPU   VSZ WCHAN  COMMAND
-33126     1 root     0.0  1164 pause  nginx: master process /usr/local/nginx/sb
+33126     1 root     0.0  1164 pause  nginx: master process /usr/local/nginx/sbin/nginx
 33134 33126 nobody   0.0  1368 kqread nginx: worker process (nginx)
 33135 33126 nobody   0.0  1368 kqread nginx: worker process (nginx)
 33136 33126 nobody   0.0  1368 kqread nginx: worker process (nginx)
@@ -151,11 +151,11 @@ then starts a new executable file that in turn starts new
 worker processes:
 <programlisting>
   PID  PPID USER    %CPU   VSZ WCHAN  COMMAND
-33126     1 root     0.0  1164 pause  nginx: master process /usr/local/nginx/sb
+33126     1 root     0.0  1164 pause  nginx: master process /usr/local/nginx/sbin/nginx
 33134 33126 nobody   0.0  1368 kqread nginx: worker process (nginx)
 33135 33126 nobody   0.0  1380 kqread nginx: worker process (nginx)
 33136 33126 nobody   0.0  1368 kqread nginx: worker process (nginx)
-36264 33126 root     0.0  1148 pause  nginx: master process /usr/local/nginx/sb
+36264 33126 root     0.0  1148 pause  nginx: master process /usr/local/nginx/sbin/nginx
 36265 36264 nobody   0.0  1364 kqread nginx: worker process (nginx)
 36266 36264 nobody   0.0  1364 kqread nginx: worker process (nginx)
 36267 36264 nobody   0.0  1364 kqread nginx: worker process (nginx)
@@ -179,9 +179,9 @@ send messages to its worker processes, requesting them to shut
 down gracefully, and they will start to exit:
 <programlisting>
   PID  PPID USER    %CPU   VSZ WCHAN  COMMAND
-33126     1 root     0.0  1164 pause  nginx: master process /usr/local/nginx/sb
-33135 33126 nobody   0.0  1380 kqread nginx: worker process is shutting down (n
-36264 33126 root     0.0  1148 pause  nginx: master process /usr/local/nginx/sb
+33126     1 root     0.0  1164 pause  nginx: master process /usr/local/nginx/sbin/nginx
+33135 33126 nobody   0.0  1380 kqread nginx: worker process is shutting down (nginx)
+36264 33126 root     0.0  1148 pause  nginx: master process /usr/local/nginx/sbin/nginx
 36265 36264 nobody   0.0  1364 kqread nginx: worker process (nginx)
 36266 36264 nobody   0.0  1364 kqread nginx: worker process (nginx)
 36267 36264 nobody   0.0  1364 kqread nginx: worker process (nginx)
@@ -201,8 +201,8 @@ process continuously, until the new processes start to accept connections.
 After some time, only the new worker processes will process requests:
 <programlisting>
   PID  PPID USER    %CPU   VSZ WCHAN  COMMAND
-33126     1 root     0.0  1164 pause  nginx: master process /usr/local/nginx/sb
-36264 33126 root     0.0  1148 pause  nginx: master process /usr/local/nginx/sb
+33126     1 root     0.0  1164 pause  nginx: master process /usr/local/nginx/sbin/nginx
+36264 33126 root     0.0  1148 pause  nginx: master process /usr/local/nginx/sbin/nginx
 36265 36264 nobody   0.0  1364 kqread nginx: worker process (nginx)
 36266 36264 nobody   0.0  1364 kqread nginx: worker process (nginx)
 36267 36264 nobody   0.0  1364 kqread nginx: worker process (nginx)
@@ -252,7 +252,7 @@ If upgrade was successful, then the old master process should be sent
 the QUIT signal, and only new processes will stay:
 <programlisting>
   PID  PPID USER    %CPU   VSZ WCHAN  COMMAND
-36264     1 root     0.0  1148 pause  nginx: master process /usr/local/nginx/sb
+36264     1 root     0.0  1148 pause  nginx: master process /usr/local/nginx/sbin/nginx
 36265 36264 nobody   0.0  1364 kqread nginx: worker process (nginx)
 36266 36264 nobody   0.0  1364 kqread nginx: worker process (nginx)
 36267 36264 nobody   0.0  1364 kqread nginx: worker process (nginx)

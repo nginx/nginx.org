@@ -8,7 +8,7 @@
 <article name="Управление nginx"
          link="/ru/docs/control.html"
          lang="ru"
-         rev="2">
+         rev="3">
 
 <section>
 
@@ -74,12 +74,12 @@
 <para>
 Предположим, на FreeBSD 4.x команда
 <programlisting>
-ps ax -o pid,ppid,user,%cpu,vsz,wchan,command | egrep '(nginx|PID)'
+ps axw -o pid,ppid,user,%cpu,vsz,wchan,command | egrep '(nginx|PID)'
 </programlisting>
 показывает примерно такую картину:
 <programlisting>
   PID  PPID USER    %CPU   VSZ WCHAN  COMMAND
-33126     1 root     0.0  1148 pause  nginx: master process /usr/local/nginx/sb
+33126     1 root     0.0  1148 pause  nginx: master process /usr/local/nginx/sbin/nginx
 33127 33126 nobody   0.0  1380 kqread nginx: worker process (nginx)
 33128 33126 nobody   0.0  1364 kqread nginx: worker process (nginx)
 33129 33126 nobody   0.0  1364 kqread nginx: worker process (nginx)
@@ -90,8 +90,8 @@ ps ax -o pid,ppid,user,%cpu,vsz,wchan,command | egrep '(nginx|PID)'
 Если послать сигнал HUP главному процессу, то картина может быть такой:
 <programlisting>
   PID  PPID USER    %CPU   VSZ WCHAN  COMMAND
-33126     1 root     0.0  1164 pause  nginx: master process /usr/local/nginx/sb
-33129 33126 nobody   0.0  1380 kqread nginx: worker process is shutting down (n
+33126     1 root     0.0  1164 pause  nginx: master process /usr/local/nginx/sbin/nginx
+33129 33126 nobody   0.0  1380 kqread nginx: worker process is shutting down (nginx)
 33134 33126 nobody   0.0  1368 kqread nginx: worker process (nginx)
 33135 33126 nobody   0.0  1368 kqread nginx: worker process (nginx)
 33136 33126 nobody   0.0  1368 kqread nginx: worker process (nginx)
@@ -103,7 +103,7 @@ ps ax -o pid,ppid,user,%cpu,vsz,wchan,command | egrep '(nginx|PID)'
 некоторого времени он завершается:
 <programlisting>
   PID  PPID USER    %CPU   VSZ WCHAN  COMMAND
-33126     1 root     0.0  1164 pause  nginx: master process /usr/local/nginx/sb
+33126     1 root     0.0  1164 pause  nginx: master process /usr/local/nginx/sbin/nginx
 33134 33126 nobody   0.0  1368 kqread nginx: worker process (nginx)
 33135 33126 nobody   0.0  1368 kqread nginx: worker process (nginx)
 33136 33126 nobody   0.0  1368 kqread nginx: worker process (nginx)
@@ -143,11 +143,11 @@ ps ax -o pid,ppid,user,%cpu,vsz,wchan,command | egrep '(nginx|PID)'
 очередь&mdash;свои рабочие процессы:
 <programlisting>
   PID  PPID USER    %CPU   VSZ WCHAN  COMMAND
-33126     1 root     0.0  1164 pause  nginx: master process /usr/local/nginx/sb
+33126     1 root     0.0  1164 pause  nginx: master process /usr/local/nginx/sbin/nginx
 33134 33126 nobody   0.0  1368 kqread nginx: worker process (nginx)
 33135 33126 nobody   0.0  1380 kqread nginx: worker process (nginx)
 33136 33126 nobody   0.0  1368 kqread nginx: worker process (nginx)
-36264 33126 root     0.0  1148 pause  nginx: master process /usr/local/nginx/sb
+36264 33126 root     0.0  1148 pause  nginx: master process /usr/local/nginx/sbin/nginx
 36265 36264 nobody   0.0  1364 kqread nginx: worker process (nginx)
 36266 36264 nobody   0.0  1364 kqread nginx: worker process (nginx)
 36267 36264 nobody   0.0  1364 kqread nginx: worker process (nginx)
@@ -170,9 +170,9 @@ ps ax -o pid,ppid,user,%cpu,vsz,wchan,command | egrep '(nginx|PID)'
 рабочим процессам сообщение о плавном выходе, и они будут постепенно выходить:
 <programlisting>
   PID  PPID USER    %CPU   VSZ WCHAN  COMMAND
-33126     1 root     0.0  1164 pause  nginx: master process /usr/local/nginx/sb
-33135 33126 nobody   0.0  1380 kqread nginx: worker process is shutting down (n
-36264 33126 root     0.0  1148 pause  nginx: master process /usr/local/nginx/sb
+33126     1 root     0.0  1164 pause  nginx: master process /usr/local/nginx/sbin/nginx
+33135 33126 nobody   0.0  1380 kqread nginx: worker process is shutting down (nginx)
+36264 33126 root     0.0  1148 pause  nginx: master process /usr/local/nginx/sbin/nginx
 36265 36264 nobody   0.0  1364 kqread nginx: worker process (nginx)
 36266 36264 nobody   0.0  1364 kqread nginx: worker process (nginx)
 36267 36264 nobody   0.0  1364 kqread nginx: worker process (nginx)
@@ -192,8 +192,8 @@ ps ax -o pid,ppid,user,%cpu,vsz,wchan,command | egrep '(nginx|PID)'
 По истечении времени запросы будут обрабатывать только новые рабочие процессы:
 <programlisting>
   PID  PPID USER    %CPU   VSZ WCHAN  COMMAND
-33126     1 root     0.0  1164 pause  nginx: master process /usr/local/nginx/sb
-36264 33126 root     0.0  1148 pause  nginx: master process /usr/local/nginx/sb
+33126     1 root     0.0  1164 pause  nginx: master process /usr/local/nginx/sbin/nginx
+36264 33126 root     0.0  1148 pause  nginx: master process /usr/local/nginx/sbin/nginx
 36265 36264 nobody   0.0  1364 kqread nginx: worker process (nginx)
 36266 36264 nobody   0.0  1364 kqread nginx: worker process (nginx)
 36267 36264 nobody   0.0  1364 kqread nginx: worker process (nginx)
@@ -243,7 +243,7 @@ ps ax -o pid,ppid,user,%cpu,vsz,wchan,command | egrep '(nginx|PID)'
 QUIT, и останутся только новые процессы:
 <programlisting>
   PID  PPID USER    %CPU   VSZ WCHAN  COMMAND
-36264     1 root     0.0  1148 pause  nginx: master process /usr/local/nginx/sb
+36264     1 root     0.0  1148 pause  nginx: master process /usr/local/nginx/sbin/nginx
 36265 36264 nobody   0.0  1364 kqread nginx: worker process (nginx)
 36266 36264 nobody   0.0  1364 kqread nginx: worker process (nginx)
 36267 36264 nobody   0.0  1364 kqread nginx: worker process (nginx)
