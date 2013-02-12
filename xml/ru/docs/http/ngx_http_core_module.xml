@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="16">
+        rev="17">
 
 <section id="directives" name="Директивы">
 
@@ -2795,7 +2795,7 @@ cookie <value>имя</value>
 <tag-name id="var_pipe"><var>$pipe</var></tag-name>
 <tag-desc>
 “<literal>p</literal>” если запрос был pipelined, иначе “<literal>.</literal>”
-(1.3.12)
+(1.3.12, 1.2.7)
 </tag-desc>
 
 <tag-name id="var_query_string"><var>$query_string</var></tag-name>
@@ -2876,7 +2876,8 @@ fastcgi_pass_request_body off</link>
 
 <tag-name id="var_request_length"><var>$request_length</var></tag-name>
 <tag-desc>
-длина запроса (включая строку запроса, заголовок и тело запроса) (1.3.12)
+длина запроса (включая строку запроса, заголовок и тело запроса)
+(1.3.12, 1.2.7)
 </tag-desc>
 
 <tag-name id="var_request_method"><var>$request_method</var></tag-name>
@@ -2944,12 +2945,12 @@ fastcgi_pass_request_body off</link>
 
 <tag-name id="var_time_iso8601"><var>$time_iso8601</var></tag-name>
 <tag-desc>
-локальное время в формате по стандарту ISO 8601 (1.3.12)
+локальное время в формате по стандарту ISO 8601 (1.3.12, 1.2.7)
 </tag-desc>
 
 <tag-name id="var_time_local"><var>$time_local</var></tag-name>
 <tag-desc>
-локальное время в Common Log Format (1.3.12)
+локальное время в Common Log Format (1.3.12, 1.2.7)
 </tag-desc>
 
 <tag-name id="var_tcpinfo_">

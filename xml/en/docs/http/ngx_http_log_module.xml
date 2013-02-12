@@ -10,7 +10,7 @@
 <module name="Module ngx_http_log_module"
         link="/en/docs/http/ngx_http_log_module.html"
         lang="en"
-        rev="8">
+        rev="9">
 
 <section id="summary">
 
@@ -76,7 +76,8 @@ If format is not specified then the predefined format
 </para>
 
 <para>
-If either the <literal>buffer</literal> or <literal>gzip</literal> (1.3.10)
+If either the <literal>buffer</literal> or <literal>gzip</literal>
+(1.3.10, 1.2.7)
 parameter is used, writes to log will be buffered.
 <note>
 The buffer size must not exceed the size of the atomic write to a disk file.
@@ -94,7 +95,7 @@ if the next log line does not fit into the buffer;
 
 <listitem>
 if the buffered data is older than specified by the <literal>flush</literal>
-parameter (1.3.10);
+parameter (1.3.10, 1.2.7);
 </listitem>
 
 <listitem>
@@ -262,14 +263,14 @@ In modern versions of nginx variables
 <link doc="ngx_http_core_module.xml" id="var_request_time">$request_time</link>
 (1.3.9, 1.2.6),
 <link doc="ngx_http_core_module.xml" id="var_pipe">$pipe</link>
-(1.3.12),
+(1.3.12, 1.2.7),
 <link doc="ngx_http_core_module.xml" id="var_request_length">$request_length</link>
-(1.3.12),
+(1.3.12, 1.2.7),
 <link doc="ngx_http_core_module.xml" id="var_time_iso8601">$time_iso8601</link>
-(1.3.12),
+(1.3.12, 1.2.7),
 and
 <link doc="ngx_http_core_module.xml" id="var_time_local">$time_local</link>
-(1.3.12)
+(1.3.12, 1.2.7)
 are also available as common variables.
 </note>
 

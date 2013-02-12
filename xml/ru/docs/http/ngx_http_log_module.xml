@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_log_module"
         link="/ru/docs/http/ngx_http_log_module.html"
         lang="ru"
-        rev="8">
+        rev="9">
 
 <section id="summary">
 
@@ -78,7 +78,7 @@ access_log /spool/logs/nginx-access.log compression buffer=32k;
 
 <para>
 Если задан размер буфера с помощью параметра <literal>buffer</literal> или
-указан параметр <literal>gzip</literal> (1.3.10), то запись будет
+указан параметр <literal>gzip</literal> (1.3.10, 1.2.7), то запись будет
 буферизованной.
 <note>
 Размер буфера должен быть не больше размера атомарной записи в дисковый файл.
@@ -96,7 +96,7 @@ access_log /spool/logs/nginx-access.log compression buffer=32k;
 
 <listitem>
 если данные в буфере находятся дольше интервала времени, заданного
-параметром <literal>flush</literal> (1.3.10);
+параметром <literal>flush</literal> (1.3.10, 1.2.7);
 </listitem>
 
 <listitem>
@@ -259,14 +259,14 @@ server {
 <link doc="ngx_http_core_module.xml" id="var_request_time">$request_time</link>
 (1.3.9, 1.2.6),
 <link doc="ngx_http_core_module.xml" id="var_pipe">$pipe</link>
-(1.3.12),
+(1.3.12, 1.2.7),
 <link doc="ngx_http_core_module.xml" id="var_request_length">$request_length</link>
-(1.3.12),
+(1.3.12, 1.2.7),
 <link doc="ngx_http_core_module.xml" id="var_time_iso8601">$time_iso8601</link>
-(1.3.12)
+(1.3.12, 1.2.7)
 и
 <link doc="ngx_http_core_module.xml" id="var_time_local">$time_local</link>
-(1.3.12)
+(1.3.12, 1.2.7)
 также доступны как общие переменные.
 </note>
 

@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_geoip_module"
         link="/ru/docs/http/ngx_http_geoip_module.html"
         lang="ru"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -21,7 +21,7 @@
 </para>
 
 <para>
-При использовании баз данных с поддержкой IPv6 (1.3.12)
+При использовании баз данных с поддержкой IPv6 (1.3.12, 1.2.7)
 IPv4-адреса ищутся отображёнными на IPv6.
 </para>
 

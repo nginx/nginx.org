@@ -10,7 +10,7 @@
 <module name="Module ngx_http_geo_module"
         link="/en/docs/http/ngx_http_geo_module.html"
         lang="en"
-        rev="4">
+        rev="5">
 
 <section id="summary">
 
@@ -78,7 +78,7 @@ then the “<literal>255.255.255.255</literal>” address is used.
 Addresses are specified either as prefixes in CIDR notation
 (including individual addresses) or as ranges (0.7.23).
 <note>
-IPv6 prefixes are supported starting from version 1.3.10.
+IPv6 prefixes are supported starting from versions 1.3.10 and 1.2.7.
 </note>
 </para>
 

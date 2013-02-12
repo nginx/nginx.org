@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="16">
+        rev="17">
 
 <section id="directives" name="Directives">
 
@@ -2808,7 +2808,7 @@ PID of the worker process
 <tag-name id="var_pipe"><var>$pipe</var></tag-name>
 <tag-desc>
 “<literal>p</literal>” if request was pipelined, “<literal>.</literal>”
-otherwise (1.3.12)
+otherwise (1.3.12, 1.2.7)
 </tag-desc>
 
 <tag-name id="var_query_string"><var>$query_string</var></tag-name>
@@ -2891,7 +2891,8 @@ directives, and the request URI
 
 <tag-name id="var_request_length"><var>$request_length</var></tag-name>
 <tag-desc>
-request length (including request line, header, and request body) (1.3.12)
+request length (including request line, header, and request body)
+(1.3.12, 1.2.7)
 </tag-desc>
 
 <tag-name id="var_request_method"><var>$request_method</var></tag-name>
@@ -2970,12 +2971,12 @@ that support the <c-def>TCP_INFO</c-def> socket option
 
 <tag-name id="var_time_iso8601"><var>$time_iso8601</var></tag-name>
 <tag-desc>
-local time in the ISO 8601 standard format (1.3.12)
+local time in the ISO 8601 standard format (1.3.12, 1.2.7)
 </tag-desc>
 
 <tag-name id="var_time_local"><var>$time_local</var></tag-name>
 <tag-desc>
-local time in the Common Log Format (1.3.12)
+local time in the Common Log Format (1.3.12, 1.2.7)
 </tag-desc>
 
 <tag-name id="var_uri"><var>$uri</var></tag-name>
