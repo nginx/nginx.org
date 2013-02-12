@@ -8,7 +8,7 @@
 <article name="Controlling nginx"
          link="/en/docs/control.html"
          lang="en"
-         rev="3">
+         rev="4">
 
 <section>
 
@@ -231,8 +231,8 @@ by sending the QUIT signal to the old master process.
 Send the TERM signal to the new master process.
 It will then send a message to its worker processes requesting them
 to exit immediately, and they will all exit almost immediately.
-If the new worker processes do not exit for some reason,
-the KILL signal should be sent to them.
+(If new processes do not exit for some reason,
+the KILL signal should be sent to them to force them to exit.)
 When the new master process exits, the old master process will start new
 worker processes automatically.
 </para>
