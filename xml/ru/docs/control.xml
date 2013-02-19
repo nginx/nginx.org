@@ -8,7 +8,7 @@
 <article name="Управление nginx"
          link="/ru/docs/control.html"
          lang="ru"
-         rev="4">
+         rev="5">
 
 <section>
 
@@ -213,7 +213,7 @@ ps axw -o pid,ppid,user,%cpu,vsz,wchan,command | egrep '(nginx|PID)'
 Старый главный процесс, не перечитывая конфигурации,
 запустит новые рабочие процессы.
 После этого можно плавно завершить все новые процессы,
-послав старому главному процессу сигнал QUIT.
+послав новому главному процессу сигнал QUIT.
 </para>
 </listitem>
 

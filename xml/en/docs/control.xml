@@ -8,7 +8,7 @@
 <article name="Controlling nginx"
          link="/en/docs/control.html"
          lang="en"
-         rev="4">
+         rev="5">
 
 <section>
 
@@ -222,7 +222,7 @@ Send the HUP signal to the old master process.
 The old master process will start new worker processes
 without re-reading the configuration.
 After that, all new processes can be shut down gracefully,
-by sending the QUIT signal to the old master process.
+by sending the QUIT signal to the new master process.
 </para>
 </listitem>
 
