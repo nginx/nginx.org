@@ -14,7 +14,7 @@
                          i | b | nobr | table | literal | command |
                          path | header | value | programlisting |
                          initial | development_version | stable_version |
-                         registered | c-func)* >
+                         registered | c-func | http-status)* >
 
 <!ELEMENT  links        (link)+ >
 
@@ -39,6 +39,12 @@
 
 <!ELEMENT  registered   (#PCDATA) >
 <!ELEMENT  c-func       (#PCDATA)* >
+
+<!ELEMENT  http-status  EMPTY >
+<!ATTLIST  http-status
+           code         CDATA #REQUIRED
+           text         CDATA #IMPLIED
+>
 
 <!ELEMENT  programlisting  (#PCDATA | i | b | path |
                             development_version | stable_version)* >
