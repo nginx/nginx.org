@@ -13,6 +13,7 @@ DOCS =									\
 		http/server_names					\
 		http/configuring_https_servers				\
 		debugging_log						\
+		http/websocket						\
 
 FAQ =									\
 		sys_errlist						\

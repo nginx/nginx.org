@@ -10,7 +10,7 @@
 <module name="Module ngx_http_proxy_module"
         link="/en/docs/http/ngx_http_proxy_module.html"
         lang="en"
-        rev="8">
+        rev="9">
 
 <section id="summary">
 
@@ -1017,6 +1017,11 @@ In this case the server name is searched among the described
 <link doc="ngx_http_upstream_module.xml">server groups</link>,
 and if not found is determined using a
 <link doc="ngx_http_core_module.xml" id="resolver"/>.
+</para>
+
+<para>
+<link doc="websocket.xml">WebSocket</link> proxying requires special
+configuration and is supported since version 1.3.13.
 </para>
 
 </directive>

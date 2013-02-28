@@ -12,6 +12,7 @@ DOCS =									\
 		http/configuring_https_servers				\
 		debugging_log						\
 		http/converting_rewrite_rules				\
+		http/websocket						\
 		howto_build_on_win32					\
 		freebsd_tuning						\
 		howto_setup_development_environment_on_ec2		\

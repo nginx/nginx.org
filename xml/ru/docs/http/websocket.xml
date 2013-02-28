@@ -1,0 +1,83 @@
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE article SYSTEM "../../../../dtd/article.dtd">
+
+<article name="Проксирование WebSocket"
+         link="/ru/docs/http/websocket.html"
+         lang="ru"
+         rev="1">
+
+
+<section>
+
+<para>
+Для превращения соединения между клиентом и сервером из HTTP/1.1 в WebSocket
+используется доступный в HTTP/1.1 механизм
+<link url="http://tools.ietf.org/html/rfc2616#section-14.42">смены
+протокола</link>.
+</para>
+
+<para>
+Но есть сложность: поскольку <header>Upgrade</header> является
+<link url="http://tools.ietf.org/html/rfc2616#section-13.5.1">hop-by-hop</link>
+заголовком, то он не передаётся от клиента к проксируемому серверу.
+При прямом проксировании клиенты могут использовать метод
+<literal>CONNECT</literal>, чтобы обойти эту проблему.
+Однако при обратном проксировании такой подход не работает,
+так как клиент ничего о проксирующем сервере не знает,
+и требуется специальная обработка на проксирующем сервере.
+</para>
+
+<para>
+Начиная с версии 1.3.13,
+в nginx предусмотрен особый режим работы,
+который позволяет установить туннель между клиентом и проксируемым
+сервером, если проксируемый сервер вернул ответ с кодом
+<http-status code="101" text="Switching Protocols"/>,
+и клиент попросил сменить протокол с помощью заголовка
+<header>Upgrade</header> в запросе.
+</para>
+
+<para>
+Как уже отмечалось выше, hop-by-hop заголовки, включая <header>Upgrade</header>
+и <header>Connection</header>, не передаются от клиента к проксируемому
+серверу, поэтому, для того чтобы проксируемый сервер узнал о
+намерении клиента сменить протокол на WebSocket, эти заголовки следует
+передать явно:
+<programlisting>
+location /chat/ {
+    proxy_pass http://backend;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+}
+</programlisting>
+Более сложный пример,
+в котором значение поля <header>Connection</header>
+в заголовке запроса к проксируемому серверу зависит от наличия поля
+<header>Upgrade</header> в заголовке запроса клиента:
+<programlisting>
+http {
+    map $http_upgrade $connection_upgrade {
+        default upgrade;
+        ''      close;
+    }
+
+    server {
+        ...
+
+        location /chat/ {
+            proxy_pass http://backend;
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection $connection_upgrade;
+        }
+    }
+</programlisting>
+</para>
+
+</section>
+
+</article>
