@@ -8,7 +8,7 @@
 <article name="nginx documentation"
          link="/en/docs/"
          lang="en"
-         rev="4"
+         rev="5"
          toc="no">
 
 
@@ -22,31 +22,11 @@
 </listitem>
 
 <listitem>
-<link doc="http/request_processing.xml"/>
-</listitem>
-
-<listitem>
-<link doc="http/server_names.xml"/>
-</listitem>
-
-<listitem>
-<link doc="events.xml"/>
-</listitem>
-
-<listitem>
-<link doc="windows.xml"/>
-</listitem>
-
-<listitem>
 <link doc="control.xml"/>
 </listitem>
 
 <listitem>
-<link doc="http/configuring_https_servers.xml"/>
-</listitem>
-
-<listitem>
-<link doc="syntax.xml"/>
+<link doc="events.xml"/>
 </listitem>
 
 <listitem>
@@ -55,6 +35,30 @@
 
 <listitem>
 <link doc="debugging_log.xml"/>
+</listitem>
+
+<listitem>
+<link doc="syntax.xml"/>
+</listitem>
+
+<listitem>
+<link doc="windows.xml"/>
+</listitem>
+
+</list>
+
+<list type="bullet">
+
+<listitem>
+<link doc="http/request_processing.xml"/>
+</listitem>
+
+<listitem>
+<link doc="http/server_names.xml"/>
+</listitem>
+
+<listitem>
+<link doc="http/configuring_https_servers.xml"/>
 </listitem>
 
 </list>
@@ -69,14 +73,6 @@
 <list type="bullet">
 
 <listitem>
-<link doc="http/converting_rewrite_rules.xml"/>
-</listitem>
-
-<listitem>
-<link doc="http/websocket.xml"/>
-</listitem>
-
-<listitem>
 <link doc="howto_build_on_win32.xml"/>
 </listitem>
 
@@ -86,6 +82,18 @@
 
 <listitem>
 <link doc="nginx_dtrace_pid_provider.xml"/>
+</listitem>
+
+</list>
+
+<list type="bullet">
+
+<listitem>
+<link doc="http/converting_rewrite_rules.xml"/>
+</listitem>
+
+<listitem>
+<link doc="http/websocket.xml"/>
 </listitem>
 
 </list>
