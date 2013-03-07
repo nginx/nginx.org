@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_rewrite_module"
         link="/ru/docs/http/ngx_http_rewrite_module.html"
         lang="ru"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -98,7 +98,11 @@ if ($slow) {
 
 <listitem>
 имя переменной; ложными значениями переменной являются пустая строка
-или любая строка, начинающаяся на “<literal>0</literal>”;
+или “<literal>0</literal>”;
+<note>
+До версии 1.0.1 ложным значением также являлась любая строка,
+начинающаяся на “<literal>0</literal>”.
+<note>
 </listitem>
 
 <listitem>

@@ -10,7 +10,7 @@
 <module name="Module ngx_http_rewrite_module"
         link="/en/docs/http/ngx_http_rewrite_module.html"
         lang="en"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -98,7 +98,11 @@ A condition may be any of the following:
 
 <listitem>
 a variable name; false if the value of a variable is an empty string
-or any string starting with “<literal>0</literal>”;
+or “<literal>0</literal>”;
+<note>
+Before version 1.0.1, any string starting with “<literal>0</literal>”
+was considered a false value.
+</note>
 </listitem>
 
 <listitem>
