@@ -80,9 +80,9 @@ sources into lib directory:
 mkdir objs
 mkdir objs/lib
 cd objs/lib
-unzip ../../pcre-8.31.zip
-tar -xzf ../../zlib-1.2.5.tar.gz
-tar -xzf ../../openssl-1.0.1c.tar.gz
+unzip ../../pcre-8.32.zip
+tar -xzf ../../zlib-1.2.7.tar.gz
+tar -xzf ../../openssl-1.0.1e.tar.gz
 </programlisting>
 </listitem>
 
@@ -95,8 +95,8 @@ auto/configure --with-cc=cl --builddir=objs --prefix= \
 --sbin-path=nginx.exe --http-client-body-temp-path=temp/client_body_temp \
 --http-proxy-temp-path=temp/proxy_temp \
 --http-fastcgi-temp-path=temp/fastcgi_temp \
---with-cc-opt=-DFD_SETSIZE=1024 --with-pcre=objs/lib/pcre-8.31 \
---with-zlib=objs/lib/zlib-1.2.5 --with-openssl=objs/lib/openssl-1.0.1c \
+--with-cc-opt=-DFD_SETSIZE=1024 --with-pcre=objs/lib/pcre-8.32 \
+--with-zlib=objs/lib/zlib-1.2.7 --with-openssl=objs/lib/openssl-1.0.1e \
 --with-select_module --with-http_ssl_module --with-ipv6
 </programlisting>
 </listitem>
