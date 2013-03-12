@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_fastcgi_module"
         link="/ru/docs/http/ngx_http_fastcgi_module.html"
         lang="ru"
-        rev="5">
+        rev="6">
 
 <section id="summary">
 
@@ -413,6 +413,32 @@ fastcgi_cache_valid any      1m;
 не будет кэшироваться.
 Обработка одного или более из этих полей заголовка может быть отключена
 при помощи директивы <link id="fastcgi_ignore_headers"/>.
+</para>
+
+</directive>
+
+
+<directive name="fastcgi_catch_stderr">
+<syntax><value>строка</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Задаёт строку для поиска в потоке ошибок ответа,
+полученного от FastCGI-сервера.
+Если <value>строка</value> найдена, то считается, что FastCGI-сервер
+вернул <link id="fastcgi_next_upstream">неверный ответ</link>.
+Это позволяет обрабатывать ошибки приложений в nginx, например:
+<example>
+location /php {
+    fastcgi_pass backend:9000;
+    ...
+    fastcgi_catch_stderr "PHP Fatal error";
+    fastcgi_next_upstream error timeout invalid_header;
+}
+</example>
 </para>
 
 </directive>
