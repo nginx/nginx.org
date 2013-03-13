@@ -43,13 +43,6 @@ define 	JPEGNORM
 		> $2
 endef
 
-define 	PNGNORM
-	pngtopnm $1							\
-		| pamscale -width=150					\
-		| pnmtojpeg -quality=95 -optimize -dct=float		\
-		> $2
-endef
-
 
 COMMON_DEPS =								\
 		xml/menu.xml						\
@@ -198,7 +191,7 @@ binary/books/nginx_in_practice.jpg:	sources/20807089-1_o.jpg
 
 binary/books/mastering_nginx.jpg:	sources/7447os_mockupcover_normal.jpg
 	mkdir -p $(dir $@)
-	$(call PNGNORM, $<, $@)
+	$(call JPEGNORM, $<, $@)
 
 
 .PHONY:	gzip
