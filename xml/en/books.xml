@@ -8,10 +8,20 @@
 <article name="nginx books"
          link="/en/books.html"
          lang="en"
-         rev="1">
+         rev="2">
 
 
 <section>
+
+<book
+    title="Mastering Nginx"
+    link=
+      "http://www.packtpub.com/mastering-nginx-guide-for-novice-and-advanced-user/book"
+    author="Dimitri Aivaliotis"
+    site="http://www.packtpub.com/authors/profiles/dimitri-aivaliotis"
+    publisher="Packt Publishing"
+    lang="English"
+    cover="../books/mastering_nginx.jpg" />
 
 <book
     title="ハイパフォーマンスHTTPサーバ Nginx入門 (Nginx HTTP Server)"

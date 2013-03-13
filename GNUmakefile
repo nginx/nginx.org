@@ -43,6 +43,13 @@ define 	JPEGNORM
 		> $2
 endef
 
+define 	PNGNORM
+	pngtopnm $1							\
+		| pamscale -width=150					\
+		| pnmtojpeg -quality=95 -optimize -dct=float		\
+		> $2
+endef
+
 
 COMMON_DEPS =								\
 		xml/menu.xml						\
@@ -169,7 +176,8 @@ images:									\
 		binary/books/nginx_http_server_jp.jpg			\
 		binary/books/nginx_1_web_server.jpg			\
 		binary/books/nginx_http_server.jpg			\
-		binary/books/nginx_in_practice.jpg
+		binary/books/nginx_in_practice.jpg			\
+		binary/books/mastering_nginx.jpg
 
 binary/books/nginx_http_server_jp.jpg:	sources/1106030720.jpg
 	mkdir -p $(dir $@)
@@ -187,6 +195,10 @@ binary/books/nginx_http_server.jpg:	sources/0868OS_MockupCover.jpg
 binary/books/nginx_in_practice.jpg:	sources/20807089-1_o.jpg
 	mkdir -p $(dir $@)
 	$(call JPEGNORM, $<, $@)
+
+binary/books/mastering_nginx.jpg:	sources/7447os_mockupcover_normal.jpg
+	mkdir -p $(dir $@)
+	$(call PNGNORM, $<, $@)
 
 
 .PHONY:	gzip
