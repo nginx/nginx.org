@@ -10,7 +10,7 @@
 <module name="Module ngx_http_userid_module"
         link="/en/docs/http/ngx_http_userid_module.html"
         lang="en"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -18,7 +18,8 @@
 The <literal>ngx_http_userid_module</literal> module sets cookies
 suitable for client identification.
 Received and set cookies can be logged using the embedded variables
-<var>$uid_got</var> and <var>$uid_set</var>.
+<link id="var_uid_got">$uid_got</link> and
+<link id="var_uid_set">$uid_set</link>.
 This module is compatible with the
 <link url="http://www.lexa.ru/programs/mod-uid-eng.html">mod_uid</link>
 module for Apache.
@@ -105,35 +106,50 @@ The parameter <literal>none</literal> disables setting a domain for a cookie.
 
 
 <directive name="userid_expires">
-<syntax><value>time</value> | <literal>max</literal></syntax>
-<default/>
-<context>http</context>
-<context>server</context>
-<context>location</context>
-
-<para>
-Sets a time during which a browser should keep the cookie.
-The parameter <literal>max</literal> sets the time to
-“<literal>31 Dec 2037 23:55:55 GMT</literal>”.
-This is the maximum time understood by old browsers.
-</para>
-
-</directive>
-
-
-<directive name="userid_mark">
-<syntax><value>off | letter | digit | =</value></syntax>
+<syntax><value>time</value> | <literal>max</literal> |
+    <literal>off</literal></syntax>
 <default>off</default>
 <context>http</context>
 <context>server</context>
 <context>location</context>
 
 <para>
-Sets the first symbol of the cookie’s representation base64 tail
-(“<literal>==</literal>” by default) and resets all accepted cookies
-with another tail.
-It may be useful if it's required to add or change the P3P or the cookie expire
-time and leave the internally encoded value unchanged.
+Sets a time during which a browser should keep the cookie.
+The parameter <literal>max</literal> will cause the cookie to expire on
+“<literal>31 Dec 2037 23:55:55 GMT</literal>”.
+This is the maximum time understood by old browsers.
+The parameter <literal>off</literal> will cause the cookie to expire at
+the end of a browser session.
+</para>
+
+</directive>
+
+
+<directive name="userid_mark">
+<syntax>
+    <value>letter</value> | <value>digit</value> |
+    <literal>=</literal> |
+    <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+If parameter is not <literal>off</literal>, enables the cookie marking
+mechanism and sets a character used as a mark.
+This mechanism allows to add or change
+<link id="userid_p3p"/> and/or cookie expiration time while
+preserving the client identifier.
+The mark can be any letter of the English alphabet (case-sensitive),
+digit, or the “<literal>=</literal>” character.
+</para>
+
+<para>
+If a mark is set, it is compared with the first padding symbol
+in the base64 representation of client identifier passed in a cookie.
+If they do not match, a cookie is resent with the specified mark,
+expiration time and a <header>P3P</header> header.
 </para>
 
 </directive>
@@ -154,8 +170,8 @@ Sets a cookie name.
 
 
 <directive name="userid_p3p">
-<syntax><value>string</value></syntax>
-<default/>
+<syntax><value>string</value> | <literal>none</literal></syntax>
+<default>none</default>
 <context>http</context>
 <context>server</context>
 <context>location</context>
@@ -163,6 +179,8 @@ Sets a cookie name.
 <para>
 Sets a value for the <header>P3P</header> header field that will be
 sent along with a cookie.
+If set to the special value <literal>none</literal>,
+the <header>P3P</header> header will not be sent in a response.
 </para>
 
 </directive>
@@ -190,12 +208,47 @@ Defines a path for which the cookie is set.
 <context>location</context>
 
 <para>
-Identifies the service that set a cookie.
+If identifiers are issued by multiple servers (services),
+each service should be assigned its own <value>number</value>
+in order to ensure that client identifiers are unique.
 For version 1 cookies the default value is zero.
-For version 2 cookies the default value is an IP address of the server.
+For version 2 cookies this is the number composed from the last four
+octets of the server’s IP address.
 </para>
 
 </directive>
+
+</section>
+
+
+<section id="variables" name="Embedded variables">
+
+<para>
+The <literal>ngx_http_userid_module</literal> module
+supports the following embedded variables:
+<list type="tag">
+
+<tag-name id="var_uid_got"><var>$uid_got</var></tag-name>
+<tag-desc>
+The cookie name and received client identifier.
+</tag-desc>
+
+<tag-name id="var_uid_reset"><var>$uid_reset</var></tag-name>
+<tag-desc>
+If set to a non-empty string, and it is not “<literal>0</literal>”,
+client identifiers are reset.
+The special value “<literal>log</literal>” additionally leads to the output of
+messages about reset identifiers to the
+<link doc="../ngx_core_module.xml" id="error_log"/>.
+</tag-desc>
+
+<tag-name id="var_uid_set"><var>$uid_set</var></tag-name>
+<tag-desc>
+The cookie name and sent client identifier.
+</tag-desc>
+
+</list>
+</para>
 
 </section>
 

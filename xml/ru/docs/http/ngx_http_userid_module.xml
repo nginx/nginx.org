@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_userid_module"
         link="/ru/docs/http/ngx_http_userid_module.html"
         lang="ru"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -18,7 +18,8 @@
 Модуль <literal>ngx_http_userid_module</literal> выдаёт куки
 для идентификации клиентов.
 Для записи в лог полученных и выданных кук можно использовать встроенные
-переменные <var>$uid_got</var> и <var>$uid_set</var>.
+переменные <link id="var_uid_got">$uid_got</link> и
+<link id="var_uid_set">$uid_set</link>.
 Модуль совместим с модулем
 <link url="http://www.lexa.ru/programs/mod-uid.html">mod_uid</link>
 для Apache.
@@ -105,33 +106,50 @@ userid_p3p     'policyref="/w3c/p3p.xml", CP="CUR ADM OUR NOR STA NID"';
 
 
 <directive name="userid_expires">
-<syntax><value>время</value> | <literal>max</literal></syntax>
-<default/>
-<context>http</context>
-<context>server</context>
-<context>location</context>
-
-<para>
-Задаёт время, в течение которого браузер должен хранить куку.
-Параметр <literal>max</literal> задаёт время 31 декабря 2037 года 23:55:55 GMT.
-Это максимальное время, которое понимают старые браузеры.
-</para>
-
-</directive>
-
-
-<directive name="userid_mark">
-<syntax><value>off | буква | цифра | =</value></syntax>
+<syntax><value>время</value> | <literal>max</literal> |
+    <literal>off</literal></syntax>
 <default>off</default>
 <context>http</context>
 <context>server</context>
 <context>location</context>
 
 <para>
-Задаёт первый символ хвоста base64 (по умолчанию “<literal>==</literal>”)
-представления куки и перевыдаёт все принятые куки, у которых этот хвост другой.
-Это полезно, если необходимо добавить или поменять P3P или время
-хранения куки, но при этом оставить неизменным закодированное внутри число.
+Задаёт время, в течение которого браузер должен хранить куку.
+Параметр <literal>max</literal> устанавливает срок хранения куки до
+31 декабря 2037 года 23:55:55 GMT.
+Это максимальное время, которое понимают старые браузеры.
+Указание параметра <literal>off</literal> позволяет ограничить время
+действия куки сессией браузера.
+</para>
+
+</directive>
+
+
+<directive name="userid_mark">
+<syntax>
+    <value>буква</value> | <value>цифра</value> |
+    <literal>=</literal> |
+    <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Если параметр не <literal>off</literal>, включает механизм маркировки кук
+и задаёт символ, используемый в качестве метки.
+Этот механизм позволяет добавить или изменить
+<link id="userid_p3p"/> и/или время хранения куки, но при этом оставить
+неизменным идентификатор клиента.
+Меткой может быть любая буква английского алфавита (с учётом регистра),
+цифра или знак “<literal>=</literal>”.
+</para>
+
+<para>
+Если метка задана, то она сравнивается с первым дополняющим символом
+в base64 представлении идентификатора клиента, передаваемом в куке.
+Если они не совпадают, то кука перепосылается с заданной меткой,
+временем хранения и заголовком <header>P3P</header>.
 </para>
 
 </directive>
@@ -152,15 +170,17 @@ userid_p3p     'policyref="/w3c/p3p.xml", CP="CUR ADM OUR NOR STA NID"';
 
 
 <directive name="userid_p3p">
-<syntax><value>строка</value></syntax>
-<default/>
+<syntax><value>строка</value> | <literal>none</literal></syntax>
+<default>none</default>
 <context>http</context>
 <context>server</context>
 <context>location</context>
 
 <para>
-Задаёт значение для поля заголовка <header>P3P</header>, который будет
+Задаёт значение для поля заголовка <header>P3P</header>, которое будет
 выдаваться вместе с кукой.
+Если задано специальное значение <literal>none</literal>,
+то в ответе не будет заголовка <header>P3P</header>.
 </para>
 
 </directive>
@@ -181,19 +201,54 @@ userid_p3p     'policyref="/w3c/p3p.xml", CP="CUR ADM OUR NOR STA NID"';
 
 
 <directive name="userid_service">
-<syntax><value>число</value></syntax>
+<syntax><value>номер</value></syntax>
 <default>IP-адрес сервера</default>
 <context>http</context>
 <context>server</context>
 <context>location</context>
 
 <para>
-Задаёт номер сервиса, выдавшего куку.
-По умолчанию для куки первой версии используется ноль,
-а для второй — IP-адрес сервера.
+Если идентификаторы выдаются несколькими серверами (сервисами),
+то каждому сервису следует назначить свой собственный <value>номер</value>,
+для обеспечения уникальности выдаваемых идентификаторов клиентов.
+По умолчанию для кук первой версии используется ноль.
+Для кук второй версии это число, составленное из последних четырёх
+октетов IP-адреса сервера.
 </para>
 
 </directive>
+
+</section>
+
+
+<section id="variables" name="Встроенные переменные">
+
+<para>
+Модуль <literal>ngx_http_userid_module</literal>
+поддерживает следующие встроенные переменные:
+<list type="tag">
+
+<tag-name id="var_uid_got"><var>$uid_got</var></tag-name>
+<tag-desc>
+Имя куки и полученный идентификатор клиента.
+</tag-desc>
+
+<tag-name id="var_uid_reset"><var>$uid_reset</var></tag-name>
+<tag-desc>
+Если значением является непустая строка не равная “<literal>0</literal>”,
+то клиентские идентификаторы перевыдаются.
+Специальное значение “<literal>log</literal>” дополнительно приводит к выдаче
+сообщений о перевыданных идентификаторах в
+<link doc="../ngx_core_module.xml" id="error_log"/>.
+</tag-desc>
+
+<tag-name id="var_uid_set"><var>$uid_set</var></tag-name>
+<tag-desc>
+Имя куки и выданный идентификатор клиента.
+</tag-desc>
+
+</list>
+</para>
 
 </section>
 
