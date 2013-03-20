@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="17">
+        rev="18">
 
 <section id="directives" name="Директивы">
 
@@ -1088,6 +1088,8 @@ location /flv/ {
 <syntax>
     <value>адрес</value>[:<value>порт</value>]
     [<literal>default_server</literal>]
+    [<literal>ssl</literal>]
+    [<literal>spdy</literal>]
     [<literal>setfib</literal>=<value>число</value>]
     [<literal>backlog</literal>=<value>число</value>]
     [<literal>rcvbuf</literal>=<value>размер</value>]
@@ -1096,11 +1098,12 @@ location /flv/ {
     [<literal>deferred</literal>]
     [<literal>bind</literal>]
     [<literal>ipv6only</literal>=<literal>on</literal>|<literal>off</literal>]
-    [<literal>ssl</literal>]
     [<literal>so_keepalive</literal>=<literal>on</literal>|<literal>off</literal>|[<value>keepidle</value>]:[<value>keepintvl</value>]:[<value>keepcnt</value>]]</syntax>
 <syntax>
     <value>порт</value>
     [<literal>default_server</literal>]
+    [<literal>ssl</literal>]
+    [<literal>spdy</literal>]
     [<literal>setfib</literal>=<value>число</value>]
     [<literal>backlog</literal>=<value>число</value>]
     [<literal>rcvbuf</literal>=<value>размер</value>]
@@ -1109,18 +1112,18 @@ location /flv/ {
     [<literal>deferred</literal>]
     [<literal>bind</literal>]
     [<literal>ipv6only</literal>=<literal>on</literal>|<literal>off</literal>]
-    [<literal>ssl</literal>]
     [<literal>so_keepalive</literal>=<literal>on</literal>|<literal>off</literal>|[<value>keepidle</value>]:[<value>keepintvl</value>]:[<value>keepcnt</value>]]</syntax>
 <syntax>
     <literal>unix:</literal><value>путь</value>
     [<literal>default_server</literal>]
+    [<literal>ssl</literal>]
+    [<literal>spdy</literal>]
     [<literal>backlog</literal>=<value>число</value>]
     [<literal>rcvbuf</literal>=<value>размер</value>]
     [<literal>sndbuf</literal>=<value>размер</value>]
     [<literal>accept_filter</literal>=<value>фильтр</value>]
     [<literal>deferred</literal>]
     [<literal>bind</literal>]
-    [<literal>ssl</literal>]
     [<literal>so_keepalive</literal>=<literal>on</literal>|<literal>off</literal>|[<value>keepidle</value>]:[<value>keepintvl</value>]:[<value>keepcnt</value>]]</syntax>
 <default>*:80 | *:8000</default>
 <context>server</context>
@@ -1171,6 +1174,22 @@ listen unix:/var/run/nginx.sock;
 До версии 0.8.21 этот параметр назывался просто
 <literal>default</literal>.
 </note>
+</para>
+
+<para>
+Параметр <literal>ssl</literal>(0.7.14) позволяет указать, что все соединения,
+принимаемые на этом порту, должны работать в режиме SSL.
+Это позволяет задать компактную <link doc="configuring_https_servers.xml"
+id="single_http_https_server">конфигурацию</link> для сервера,
+работающего сразу в двух режимах — HTTP и HTTPS.
+</para>
+
+<para>
+Параметр <literal>spdy</literal> (1.3.15) позволяет принимать на этом порту
+<link doc="ngx_http_spdy_module.xml">SPDY</link>-соединения.
+Обычно, чтобы это работало, следует также указать параметр
+<literal>ssl</literal>, однако nginx можно также настроить и на приём
+SPDY-соединений без SSL.
 </para>
 
 <para>
@@ -1282,18 +1301,6 @@ FreeBSD и Mac OS X, и 511 для других платформ.
 если этот параметр не был задан явно, то для сокета действовали
 настройки операционной системы.
 </note>
-</tag-desc>
-
-<tag-name>
-<literal>ssl</literal>
-</tag-name>
-<tag-desc>
-этот параметр (0.7.14) не имеет отношения к связанным с сокетами системным
-вызовам, а позволяет указать, что все соединения, принимаемые на этом порту,
-должны работать в режиме SSL.
-Это позволяет задать компактную <link doc="configuring_https_servers.xml"
-id="single_http_https_server">конфигурацию</link> для сервера,
-работающего сразу в двух режимах — HTTP и HTTPS.
 </tag-desc>
 
 <tag-name>

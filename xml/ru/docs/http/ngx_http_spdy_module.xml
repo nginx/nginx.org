@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Модуль ngx_http_spdy_module"
+        link="/ru/docs/http/ngx_http_spdy_module.html"
+        lang="ru"
+        rev="1">
+
+<section id="summary">
+
+<para>
+Модуль <literal>ngx_http_spdy_module</literal> обеспечивает экспериментальную
+поддержку <link url="http://www.chromium.org/spdy/spdy-protocol">SPDY</link>.
+В настоящий момент реализован
+<link url="http://www.chromium.org/spdy/spdy-protocol/spdy-protocol-draft2">draft
+2</link> протокола SPDY.
+</para>
+
+<para>
+По умолчанию этот модуль не собирается, его сборку необходимо
+разрешить с помощью конфигурационного параметра
+<literal>--with-http_spdy_module</literal>.
+</para>
+
+</section>
+
+
+<section id="bugs" name="Известные проблемы">
+
+<para>
+Модуль экспериментальный, поэтому возможно всё.
+</para>
+
+<para>
+Текущая реализация протокола SPDY не поддерживает server push.
+</para>
+
+<para>
+Скорость обработки запросов в SPDY-соединении не может быть
+<link doc="ngx_http_limit_req_module.xml">ограничена</link>.
+</para>
+
+</section>
+
+
+<section id="example" name="Пример конфигурации">
+
+<para>
+<example>
+server {
+    listen 443 ssl spdy;
+
+    ssl_certificate server.crt;
+    ssl_certificate_key server.key;
+    ...
+}
+</example>
+<note>
+Для того чтобы одновременно принимать
+<link doc="ngx_http_ssl_module.xml">HTTPS</link> и
+SPDY соединения на том же порту,
+используемая библиотека <link url="http://www.openssl.org">OpenSSL</link>
+должна поддерживать расширение Next Protocol Negotiation протокола TLS,
+доступное с версии OpenSSL 1.0.1.
+</note>
+</para>
+
+</section>
+
+
+<section id="directives" name="Директивы">
+
+<directive name="spdy_headers_comp">
+<syntax><value>степень</value></syntax>
+<default>0</default>
+<context>http</context>
+<context>server</context>
+
+<para>
+Устанавливает <value>степень</value> сжатия заголовков ответа
+в диапазоне от 1 (быстрее, но хуже сжатие) до 9 (медленнее, лучшее сжатие).
+Специальное значение 0 отключает сжатие заголовков.
+</para>
+
+</directive>
+
+</section>
+
+
+<section id="variables" name="Встроенные переменные">
+
+<para>
+Модуль <literal>ngx_http_spdy_module</literal>
+поддерживает следующие встроенные переменные:
+<list type="tag" compact="no">
+
+<tag-name id="var_spdy"><var>$spdy</var></tag-name>
+<tag-desc>
+версия протокола SPDY для SPDY-соединений,
+либо пустая строка;
+</tag-desc>
+
+<tag-name id="var_spdy_request_priority"><var>$spdy_request_priority</var>
+</tag-name>
+<tag-desc>
+приоритет запроса для SPDY-соединений,
+либо пустая строка.
+</tag-desc>
+
+</list>
+</para>
+
+</section>
+
+</module>
