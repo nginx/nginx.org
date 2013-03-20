@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_limit_conn_module"
         link="/ru/docs/http/ngx_http_limit_conn_module.html"
         lang="ru"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
@@ -120,6 +120,21 @@ server {
 <para>
 Задаёт желаемый уровень записи в лог случаев ограничения
 числа соединений.
+</para>
+
+</directive>
+
+
+<directive name="limit_conn_status">
+<syntax><value>код</value></syntax>
+<default>503</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.3.15</appeared-in>
+
+<para>
+Позволяет переопределить код ответа, используемый при отклонении запросов.
 </para>
 
 </directive>
