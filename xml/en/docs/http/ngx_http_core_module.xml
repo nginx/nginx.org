@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="18">
+        rev="19">
 
 <section id="directives" name="Directives">
 
@@ -614,7 +614,7 @@ It is also possible to use redirects for error processing:
 error_page 403      http://example.com/forbidden.html;
 error_page 404 =301 http://example.com/notfound.html;
 </example>
-In this case, the response code 302 is returned to the client.
+In this case, by default, the response code 302 is returned to the client.
 It can only be changed to one of the redirect status
 codes (301, 302, 303, and 307).
 </para>
