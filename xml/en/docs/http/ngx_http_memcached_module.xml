@@ -110,7 +110,7 @@ It should be noted that this timeout cannot usually exceed 75 seconds.
 
 <para>
 Enables the test for the <value>flag</value> presence in the memcached
-server response and sets the request header field
+server response and sets the response header field
 “<literal>Content-Encoding</literal>” to “<literal>gzip</literal>”
 if the flag is set.
 </para>
