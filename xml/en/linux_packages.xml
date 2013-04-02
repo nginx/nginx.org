@@ -1,0 +1,266 @@
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE article SYSTEM "../../dtd/article.dtd">
+
+<article name="nginx: Linux packages"
+         link="/en/linux_packages.html"
+         lang="en"
+         rev="1"
+         toc="no">
+
+<section id="distributions">
+
+<para>
+Currently, nginx packages are available for the following distributions and
+versions:
+</para>
+
+<para>
+RHEL/CentOS:
+
+<table note="yes">
+
+<tr>
+<td width="20%">Version</td>
+</tr>
+
+<tr>
+<td width="20%">5.x</td>
+</tr>
+
+<tr>
+<td width="20%">6.x</td>
+</tr>
+
+</table>
+</para>
+
+<para>
+Debian:
+
+<table note="yes">
+
+<tr>
+<td width="20%">Version</td>
+<td>Codename</td>
+</tr>
+
+<tr>
+<td width="20%">6.x</td>
+<td>squeeze</td>
+</tr>
+
+</table>
+</para>
+
+<para>
+Ubuntu:
+
+<table note="yes">
+
+<tr>
+<td width="20%">Version</td>
+<td>Codename</td>
+</tr>
+
+<tr>
+<td width="20%">10.04</td>
+<td>lucid</td>
+</tr>
+
+<tr>
+<td width="20%">11.10</td>
+<td>oneiric</td>
+</tr>
+
+<tr>
+<td width="20%">12.04</td>
+<td>precise</td>
+</tr>
+
+<tr>
+<td width="20%">12.10</td>
+<td>quantal</td>
+</tr>
+
+</table>
+</para>
+
+<para>
+To enable automatic updates of Linux packages
+set up the yum repository for the RHEL/CentOS distributions,
+or the apt repository for the Debian/Ubuntu distributions.
+</para>
+
+</section>
+
+
+<section name="Pre-Built Packages for Stable version" id="stable">
+
+<para>
+To set up the yum repository for RHEL/CentOS, choose the corresponding
+<literal>nginx-release</literal> package from the list:
+
+<list type="bullet">
+
+<listitem>
+<link url="http://nginx.org/packages/rhel/5/noarch/RPMS/nginx-release-rhel-5-0.el5.ngx.noarch.rpm">RHEL 5</link>
+</listitem>
+
+<listitem>
+<link url="http://nginx.org/packages/rhel/6/noarch/RPMS/nginx-release-rhel-6-0.el6.ngx.noarch.rpm">RHEL 6</link>
+</listitem>
+
+<listitem>
+<link url="http://nginx.org/packages/centos/5/noarch/RPMS/nginx-release-centos-5-0.el5.ngx.noarch.rpm">CentOS 5</link>
+</listitem>
+
+<listitem>
+<link url="http://nginx.org/packages/centos/6/noarch/RPMS/nginx-release-centos-6-0.el6.ngx.noarch.rpm">CentOS 6</link>
+</listitem>
+
+</list>
+
+This package contains yum configuration file
+and a public PGP key necessary to authenticate signed RPMs.
+Download and install it, then run the following:
+<programlisting>
+yum install nginx
+</programlisting>
+
+Alternatively, a repository configuration can be added manually
+without installing the <literal>nginx-release</literal> package.
+Create the file named <path>/etc/yum.repos.d/nginx.repo</path>
+with the following contents:
+
+<programlisting>
+[nginx]
+name=nginx repo
+baseurl=http://nginx.org/packages/OS/OSRELEASE/$basearch/
+gpgcheck=0
+enabled=1
+</programlisting>
+
+Replace “<literal>OS</literal>” with “<literal>rhel</literal>” or
+“<literal>centos</literal>”,
+depending on the distribution used, and “<literal>OSRELEASE</literal>”
+with “<literal>5</literal>” or “<literal>6</literal>”,
+for 5.x or 6.x versions, respectively.
+</para>
+
+<para>
+For Debian/Ubuntu, in order to authenticate the nginx repository signature
+and to eliminate warnings about missing gpg key during installation of the
+nginx package, it is necessary to add the key used to sign the nginx
+packages and repository to the <command>apt</command> program keyring.
+Please download <link url="http://nginx.org/keys/nginx_signing.key">this
+key</link> from our web site, and add it to the <command>apt</command>
+program keyring with the following command:
+<programlisting>
+sudo apt-key add nginx_signing.key
+</programlisting>
+</para>
+
+<para>
+For Debian replace <i>codename</i> with Debian distribution
+<link id="distributions">codename</link>, and append the following to
+the end of the <path>/etc/apt/sources.list</path> file:
+
+<programlisting>
+deb http://nginx.org/packages/debian/ <i>codename</i> nginx
+deb-src http://nginx.org/packages/debian/ <i>codename</i> nginx
+</programlisting>
+</para>
+
+<para>
+For Ubuntu replace <i>codename</i> with Ubuntu distribution
+<link id="distributions">codename</link>, and append the following to
+the end of the <path>/etc/apt/sources.list</path> file:
+
+<programlisting>
+deb http://nginx.org/packages/ubuntu/ <i>codename</i> nginx
+deb-src http://nginx.org/packages/ubuntu/ <i>codename</i> nginx
+</programlisting>
+</para>
+
+<para>
+For Debian/Ubuntu then run the following commands:
+<programlisting>
+apt-get update
+apt-get install nginx
+</programlisting>
+</para>
+
+</section>
+
+
+<section name="Pre-Built Packages for Mainline version" id="mainline">
+
+<para>
+To set up the yum repository for RHEL/CentOS, create the file named
+<path>/etc/yum.repos.d/nginx.repo</path>
+with the following contents:
+
+<programlisting>
+[nginx]
+name=nginx repo
+baseurl=http://nginx.org/packages/mainline/OS/OSRELEASE/$basearch/
+gpgcheck=0
+enabled=1
+</programlisting>
+
+Replace “<literal>OS</literal>” with “<literal>rhel</literal>” or
+“<literal>centos</literal>”,
+depending on the distribution used, and “<literal>OSRELEASE</literal>”
+with “<literal>5</literal>” or “<literal>6</literal>”,
+for 5.x or 6.x versions, respectively.
+</para>
+
+<para>
+For Debian/Ubuntu, in order to authenticate the nginx repository signature
+and to eliminate warnings about missing gpg key during installation of the
+nginx package, it is necessary to add the key used to sign the nginx
+packages and repository to the <command>apt</command> program keyring.
+Please download <link url="http://nginx.org/keys/nginx_signing.key">this
+key</link> from our web site, and add it to the <command>apt</command>
+program keyring with the following command:
+<programlisting>
+sudo apt-key add nginx_signing.key
+</programlisting>
+</para>
+
+<para>
+For Debian replace <i>codename</i> with Debian distribution
+<link id="distributions">codename</link>, and append the following to
+the end of the <path>/etc/apt/sources.list</path> file:
+
+<programlisting>
+deb http://nginx.org/packages/mainline/debian/ <i>codename</i> nginx
+deb-src http://nginx.org/packages/mainline/debian/ <i>codename</i> nginx
+</programlisting>
+</para>
+
+<para>
+For Ubuntu replace <i>codename</i> with Ubuntu distribution
+<link id="distributions">codename</link>, and append the following to
+the end of the <path>/etc/apt/sources.list</path> file:
+
+<programlisting>
+deb http://nginx.org/packages/mainline/ubuntu/ <i>codename</i> nginx
+deb-src http://nginx.org/packages/mainline/ubuntu/ <i>codename</i> nginx
+</programlisting>
+</para>
+
+<para>
+For Debian/Ubuntu then run the following commands:
+<programlisting>
+apt-get update
+apt-get install nginx
+</programlisting>
+</para>
+
+</section>
+
+</article>

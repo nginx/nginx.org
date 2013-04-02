@@ -61,157 +61,22 @@
 </section>
 
 
-<section name="Готовые пакеты стабильной версии для Linux">
+<section name="Готовые пакеты">
 
 <para>
-Чтобы включить автоматическое обновление пакетов для Linux,
-настройте репозиторий yum для дистрибутивов RHEL/CentOS,
-или репозиторий apt для дистрибутивов Debian/Ubuntu.
-</para>
-
-<para>
-Для настройки репозитория yum для RHEL/CentOS выберите из списка
-соответствующий пакет <literal>nginx-release</literal>:
-
 <list type="bullet">
 
 <listitem>
-<link url="http://nginx.org/packages/rhel/5/noarch/RPMS/nginx-release-rhel-5-0.el5.ngx.noarch.rpm">RHEL 5</link>
+Пакеты <link doc="linux_packages.xml" id="stable">стабильной версии</link>
+для Linux
 </listitem>
 
 <listitem>
-<link url="http://nginx.org/packages/rhel/6/noarch/RPMS/nginx-release-rhel-6-0.el6.ngx.noarch.rpm">RHEL 6</link>
-</listitem>
-
-<listitem>
-<link url="http://nginx.org/packages/centos/5/noarch/RPMS/nginx-release-centos-5-0.el5.ngx.noarch.rpm">CentOS 5</link>
-</listitem>
-
-<listitem>
-<link url="http://nginx.org/packages/centos/6/noarch/RPMS/nginx-release-centos-6-0.el6.ngx.noarch.rpm">CentOS 6</link>
+Пакеты <link doc="linux_packages.xml" id="mainline">mainline-версии</link>
+для Linux
 </listitem>
 
 </list>
-
-Пакет содержит конфигурационный файл для yum и публичный PGP-ключ,
-необходимый для проверки подлинности подписи RPM-пакетов.
-Загрузите и установите его, затем выполните команду:
-<programlisting>
-yum install nginx
-</programlisting>
-
-Кроме того, конфигурацию репозитория можно добавить вручную
-без установки пакета <literal>nginx-release</literal>.
-Создайте файл с именем <path>/etc/yum.repos.d/nginx.repo</path>
-и таким содержимым:
-
-<programlisting>
-[nginx]
-name=nginx repo
-baseurl=http://nginx.org/packages/OS/OSRELEASE/$basearch/
-gpgcheck=0
-enabled=1
-</programlisting>
-
-Замените “<literal>OS</literal>” на “<literal>rhel</literal>” или
-“<literal>centos</literal>”,
-в зависимости от используемого дистрибутива, а “<literal>OSRELEASE</literal>”
-на “<literal>5</literal>” или “<literal>6</literal>”,
-для, соответственно, 5.x или 6.x версий.
-</para>
-
-<para>
-Для Debian/Ubuntu, для проверки подлинности подписи репозитория nginx,
-и чтобы избавиться от предупреждений об отсутствующем gpg-ключе во время
-установки пакета nginx, необходимо добавить ключ, которым были подписаны
-пакеты и репозиторий nginx, в связку ключей программы <command>apt</command>.
-Загрузите <link url="http://nginx.org/keys/nginx_signing.key">этот
-ключ</link> с нашего веб-сайта и добавьте его в связку ключей программы
-<command>apt</command>, выполнив команду:
-<programlisting>
-sudo apt-key add nginx_signing.key
-</programlisting>
-</para>
-
-<para>
-Для Debian замените <i>codename</i> на кодовое имя дистрибутива,
-и добавьте в конец файла <path>/etc/apt/sources.list</path>
-следующее:
-
-<programlisting>
-deb http://nginx.org/packages/debian/ <i>codename</i> nginx
-deb-src http://nginx.org/packages/debian/ <i>codename</i> nginx
-</programlisting>
-</para>
-
-<para>
-Поддерживаемые версии Debian:
-
-<table note="yes">
-
-<tr>
-<td width="20%">Версия</td>
-<td>Кодовое имя</td>
-</tr>
-
-<tr>
-<td width="20%">6.x</td>
-<td>squeeze</td>
-</tr>
-
-</table>
-</para>
-
-<para>
-Для Ubuntu замените <i>codename</i> на кодовое имя дистрибутива,
-и добавьте в конец файла <path>/etc/apt/sources.list</path>
-следующее:
-
-<programlisting>
-deb http://nginx.org/packages/ubuntu/ <i>codename</i> nginx
-deb-src http://nginx.org/packages/ubuntu/ <i>codename</i> nginx
-</programlisting>
-</para>
-
-<para>
-Поддерживаемые версии Ubuntu:
-
-<table note="yes">
-
-<tr>
-<td width="20%">Версия</td>
-<td>Кодовое имя</td>
-</tr>
-
-<tr>
-<td width="20%">10.04</td>
-<td>lucid</td>
-</tr>
-
-<tr>
-<td width="20%">11.10</td>
-<td>oneiric</td>
-</tr>
-
-<tr>
-<td width="20%">12.04</td>
-<td>precise</td>
-</tr>
-
-<tr>
-<td width="20%">12.10</td>
-<td>quantal</td>
-</tr>
-
-</table>
-</para>
-
-<para>
-Для Debian/Ubuntu затем выполните команды:
-<programlisting>
-apt-get update
-apt-get install nginx
-</programlisting>
 </para>
 
 </section>
