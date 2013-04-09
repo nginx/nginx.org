@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_spdy_module"
         link="/ru/docs/http/ngx_http_spdy_module.html"
         lang="ru"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
@@ -41,8 +41,8 @@
 </para>
 
 <para>
-Скорость обработки запросов в SPDY-соединении не может быть
-<link doc="ngx_http_limit_req_module.xml">ограничена</link>.
+Cкорость передачи ответа клиенту в SPDY-соединении не может быть
+<link doc="ngx_http_core_module.xml" id="limit_rate">ограничена</link>.
 </para>
 
 </section>
