@@ -1,8 +1,23 @@
 
+Changes with nginx 1.3.16                                        16 Apr 2013
+
+    *) Bugfix: a segmentation fault might occur in a worker process if
+       subrequests were used; the bug had appeared in 1.3.9.
+
+    *) Bugfix: the "tcp_nodelay" directive caused an error if a WebSocket
+       connection was proxied into a unix domain socket.
+
+    *) Bugfix: the $upstream_response_length variable has an incorrect value
+       "0" if buffering was not used.
+       Thanks to Piotr Sikora.
+
+    *) Bugfix: in the eventport and /dev/poll methods.
+
+
 Changes with nginx 1.3.15                                        26 Mar 2013
 
     *) Change: opening and closing a connection without sending any data in
-       it is no longer logged to access_log with 400 error code.
+       it is no longer logged to access_log with error code 400.
 
     *) Feature: the ngx_http_spdy_module.
        Thanks to Automattic for sponsoring this work.
@@ -19,7 +34,7 @@ Changes with nginx 1.3.15                                        26 Mar 2013
     *) Feature: the mail proxy module now supports IPv6 backends.
 
     *) Bugfix: request body might be transmitted incorrectly when retrying a
-       request to a next upstream server; the bug had appeared in 1.3.9.
+       request to the next upstream server; the bug had appeared in 1.3.9.
        Thanks to Piotr Sikora.
 
     *) Bugfix: in the "client_body_in_file_only" directive; the bug had
