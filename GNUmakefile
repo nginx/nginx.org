@@ -262,22 +262,6 @@ sign:
 	gpg -sab binary/download/nginx-$(NGINX).zip
 
 
-TEMP =	temp
-SITE =	nginx.org
-
-tarball:
-	rm -rf $(TEMP)
-	mkdir -p $(TEMP)/$(SITE)
-	cp -Rp BSDmakefile GNUmakefile umasked.sh			\
-		xml xsls xslt dtd binary sources text			\
-	$(TEMP)/$(SITE)
-
-	rm -f $(SITE).tar.bz2
-	tar -c -y -f $(SITE).tar.bz2					\
-		--directory $(TEMP)					\
-		--exclude .svn						\
-		$(SITE)
-
 dir.map:	xslt/dirmap.xslt xml/en/docs/dirindex.xml
 	@xsltproc -o - xslt/dirmap.xslt xml/en/docs/dirindex.xml |	\
 	sort -u -k1,1 | sed 's/^include /\\&/' > $@
