@@ -52,9 +52,9 @@
 
                               <td align="center">
 
-                                 <a href="http://nginx.com/support.html">
+                                 <a href="http://nginx.com/products.html">
 
-                                    <strong>nginx professional services</strong>
+                                    <strong>Need mission critical support for nginx?</strong>
 
                                  </a>
 
