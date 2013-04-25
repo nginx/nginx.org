@@ -6,7 +6,7 @@ NGINX_ORG =	/data/www/nginx.org
 SHELL =		./umasked.sh
 
 CP =		/data/sites/java/xsls/\*:$(HOME)/java/xsls/\*
-RSYNC =		rsync -v -rpc --exclude=.svn
+RSYNC =		rsync -v -rpc
 CHMOD =		/bin/chmod -R g=u
 
 
