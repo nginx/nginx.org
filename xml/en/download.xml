@@ -35,18 +35,12 @@
 <section name="Source Code">
 
 <para>
-Read-only Subversion repositories:
-<list type="bullet">
-
-<listitem>
-code: <literal>svn://svn.nginx.org/nginx</literal>
-</listitem>
-
-</list>
-
 Read-only Mercurial repositories:
 <list type="bullet">
 
+<listitem>
+code: <literal>http://hg.nginx.org/nginx</literal>
+</listitem>
 <listitem>
 site: <literal>http://hg.nginx.org/nginx.org</literal>
 </listitem>

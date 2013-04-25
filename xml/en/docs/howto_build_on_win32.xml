@@ -34,8 +34,7 @@ or <link url="http://strawberryperl.com">Strawberry Perl</link>.
 </listitem>
 
 <listitem>
-<registered>Subversion</registered> client. Choose any from the
-<link url="http://subversion.apache.org/packages.html#windows">list</link>
+<link url="http://mercurial.selenic.com/">Mercurial</link> client.</link>
 </listitem>
 
 <listitem>
@@ -52,7 +51,7 @@ and <link url="http://www.openssl.org">OpenSSL</link> libraries sources.
          name="Build steps">
 
 <para>
-Ensure that paths to Perl, Subversion and MSYS bin directories are added to
+Ensure that paths to Perl, Mercurial and MSYS bin directories are added to
 PATH environment variable before you start build. To set Visual C environment
 run vcvarsall.bat script from Visual C directory.
 </para>
@@ -67,9 +66,9 @@ Start MSYS bash.
 </listitem>
 
 <listitem>
-Check out nginx sources from the svn.nginx.org repository. For example:
+Check out nginx sources from the hg.nginx.org repository. For example:
 <programlisting>
-svn co svn://svn.nginx.org/nginx/tags/release-<development_version/>
+hg clone http://hg.nginx.org/nginx
 </programlisting>
 </listitem>
 
