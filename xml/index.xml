@@ -7,6 +7,21 @@
 
 <news name="nginx news" link="/" lang="en">
 
+<event date="2013-05-07">
+<para>
+<link doc="en/download.xml">nginx-1.4.1</link>
+stable and
+<link doc="en/download.xml">nginx-1.5.0</link>
+development versions have been released,
+with the fix for the
+<link doc="en/security_advisories.xml">stack-based buffer overflow</link>
+security problem in nginx 1.3.9 - 1.4.0,
+discovered by Greg MacManus, of
+<link url="http://isightpartners.com">iSIGHT Partners</link> Labs
+(CVE-2013-2028).
+</para>
+</event>
+
 <event date="2013-04-25">
 <para>
 Source code <link url="http://hg.nginx.org/nginx/">repository</link>
