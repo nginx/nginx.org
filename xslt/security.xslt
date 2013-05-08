@@ -34,6 +34,15 @@
                </xsl:otherwise>
             </xsl:choose>
 
+            <xsl:if test="@advisory">
+
+               <a href="{@advisory}">
+                  <xsl:text>Advisory</xsl:text>
+               </a>
+
+               <br/>
+            </xsl:if>
+
             <xsl:if test="@cert">
 
                <a>
@@ -95,16 +104,17 @@
 
             <xsl:text>Vulnerable: </xsl:text>
             <xsl:value-of select="@vulnerable"/>
-            <br/>
 
-            <xsl:if test="@patch">
+            <xsl:for-each select="patch">
+
+               <br/>
 
                <a>
 
                   <xsl:attribute name="href">
 
                      <xsl:text>/download/</xsl:text>
-                     <xsl:value-of select="@patch"/>
+                     <xsl:value-of select="@name"/>
                   </xsl:attribute>
 
                   <xsl:text>The patch</xsl:text>
@@ -118,14 +128,21 @@
                   <xsl:attribute name="href">
 
                      <xsl:text>/download/</xsl:text>
-                     <xsl:value-of select="@patch"/>
+                     <xsl:value-of select="@name"/>
                      <xsl:text>.asc</xsl:text>
                   </xsl:attribute>
 
                   <xsl:text>pgp</xsl:text>
 
                </a>
-            </xsl:if>
+
+               <xsl:if test="@versions">
+
+                  <xsl:text>  (for </xsl:text>
+                  <xsl:value-of select="@versions"/>
+                  <xsl:text>)</xsl:text>
+               </xsl:if>
+            </xsl:for-each>
 
          </p>
 
