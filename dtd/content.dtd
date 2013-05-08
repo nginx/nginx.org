@@ -106,7 +106,7 @@
 
 <!ELEMENT  security     (item+) >
 
-<!ELEMENT  item         EMPTY >
+<!ELEMENT  item         (patch)* >
 <!ATTLIST  item
            name         CDATA #IMPLIED
            severity     CDATA #IMPLIED
@@ -117,6 +117,13 @@
            core         CDATA #IMPLIED
            href         CDATA #IMPLIED
            cert         CDATA #IMPLIED
+           advisory     CDATA #IMPLIED
+>
+
+<!ELEMENT  patch        EMPTY >
+<!ATTLIST  patch
+           name         CDATA #REQUIRED
+           versions     CDATA #IMPLIED
 >
 
 <!ENTITY   nbsp         "&#160;">

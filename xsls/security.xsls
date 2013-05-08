@@ -21,6 +21,11 @@ X:template = "security/item" {
         X:text{Severity: } !{@severity}<br/>
     }
 
+    X:if "@advisory" {
+        <a href="{@advisory}"> X:text {Advisory} </a>
+        <br/>
+    }
+
     X:if "@cert" {
         <a>
         X:attribute "href" {
@@ -54,12 +59,14 @@ X:template = "security/item" {
     }
 
     X:text {Not vulnerable: } !{@good} <br/>
-    X:text {Vulnerable: } !{@vulnerable} <br/>
+    X:text {Vulnerable: } !{@vulnerable}
 
-    X:if "@patch" {
+    X:for-each "patch" {
+        <br/>
+
         <a>
         X:attribute "href" {
-            X:text {/download/} !{@patch}
+            X:text {/download/} !{@name}
         }
         X:text {The patch}
         </a>
@@ -68,10 +75,14 @@ X:template = "security/item" {
 
         <a>
         X:attribute "href" {
-            X:text {/download/} !{@patch} X:text {.asc}
+            X:text {/download/} !{@name} X:text {.asc}
         }
         X:text {pgp}
         </a>
+
+        X:if "@versions" {
+            X:text {&#xA0;&#xA0;(for } !{@versions} X:text {)}
+        }
     }
 
     </p>
