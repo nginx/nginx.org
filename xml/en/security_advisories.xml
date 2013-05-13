@@ -24,8 +24,9 @@ Patches are signed using one of the
 
 <security>
 
-<item name="Memory disclosure with specially crafted http backend responses"
+<item name="Memory disclosure with specially crafted HTTP backend responses"
       severity="medium"
+      advisory="http://mailman.nginx.org/pipermail/nginx-announce/2013/000114.html"
       cve="2013-2070"
       good="1.5.0+, 1.4.1+, 1.2.9+"
       vulnerable="1.1.4-1.2.8, 1.3.9-1.4.0">
