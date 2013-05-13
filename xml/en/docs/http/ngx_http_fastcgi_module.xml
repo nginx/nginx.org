@@ -10,7 +10,7 @@
 <module name="Module ngx_http_fastcgi_module"
         link="/en/docs/http/ngx_http_fastcgi_module.html"
         lang="en"
-        rev="6">
+        rev="7">
 
 <section id="summary">
 
@@ -587,7 +587,7 @@ and with the “<literal>/</literal>” request it will be equal to
 
 <para>
 Determines whether FastCGI server responses with codes greater than or equal
-to 400 should be passed to a client or be redirected to nginx for processing
+to 300 should be passed to a client or be redirected to nginx for processing
 using the <link doc="ngx_http_core_module.xml" id="error_page"/> directive.
 </para>
 
