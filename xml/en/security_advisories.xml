@@ -24,6 +24,15 @@ Patches are signed using one of the
 
 <security>
 
+<item name="Memory disclosure with specially crafted http backend responses"
+      severity="medium"
+      cve="2013-2070"
+      good="1.5.0+, 1.4.1+, 1.2.9+"
+      vulnerable="1.1.4-1.2.8, 1.3.9-1.4.0">
+<patch name="patch.2013.chunked.txt" versions="1.3.9-1.4.0" />
+<patch name="patch.2013.proxy.txt" versions="1.1.4-1.2.8" />
+</item>
+
 <item name="Stack-based buffer overflow with specially crafted request"
       severity="major"
       advisory="http://mailman.nginx.org/pipermail/nginx-announce/2013/000112.html"

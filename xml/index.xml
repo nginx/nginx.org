@@ -7,6 +7,16 @@
 
 <news name="nginx news" link="/" lang="en">
 
+<event date="2013-05-13">
+<para>
+<link doc="en/download.xml">nginx-1.2.9</link>
+legacy version has been released,
+addressing the
+<link doc="en/security_advisories.xml">information disclosure</link>
+security problem in some previous nginx versions (CVE-2013-2070).
+</para>
+</event>
+
 <event date="2013-05-07">
 <para>
 <link doc="en/download.xml">nginx-1.4.1</link>
