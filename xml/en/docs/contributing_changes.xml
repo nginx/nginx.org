@@ -1,0 +1,150 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE article SYSTEM "../../../dtd/article.dtd">
+
+<article name="Contributing Changes"
+         link="/en/docs/contributing_changes.html"
+         lang="en"
+         rev="1">
+
+<section id="getting_sources" name="Getting Sources">
+
+<para>
+nginx is using <link url="http://mercurial.selenic.com">Mercurial</link>
+to store source code.
+The <link url="http://hg.nginx.org/nginx">repository</link> can be cloned
+with the following command:
+<programlisting>
+hg clone http://hg.nginx.org/nginx
+</programlisting>
+</para>
+
+</section>
+
+
+<section id="formatting_changes" name="Formatting Changes">
+
+<para>
+Changes should be formatted according to the code style used by nginx.
+Code formatting should not rely on such editor features like syntax
+highlighting or automatic line breaking.
+Below are some basic rules:
+<list type="bullet">
+
+<listitem>
+maximum text width is 80 characters
+</listitem>
+
+<listitem>
+indentation is four spaces
+</listitem>
+
+<listitem>
+no tabs
+</listitem>
+
+<listitem>
+logical code blocks in a file are separated with two empty lines
+</listitem>
+
+</list>
+Examine how existing nginx sources are formatted and mimic this style
+in your code.
+Changes will more likely be accepted if style corresponds to the surrounding
+code.
+</para>
+
+<para>
+Commit the changes to create a Mercurial
+<link url="http://mercurial.selenic.com/wiki/ChangeSet">changeset</link>.
+Please ensure that the specified
+<link url="http://mercurial.selenic.com/wiki/QuickStart#Setting_a_username">e-mail</link>
+address and real name of the change’s author are correct.
+</para>
+
+<para>
+The commit message should have a single-line synopsis followed by verbose
+description after an empty line.
+It is desirable that the first line is no longer than 67 symbols.
+The resulting changeset as a patch can be obtained using the
+<literal>hg export</literal> command:
+<programlisting>
+# HG changeset patch
+# User Filipe Da Silva &lt;username@example.com>
+# Date 1368089668 -7200
+#      Thu May 09 10:54:28 2013 +0200
+# Node ID 2220de0521ca2c0b664a8ea1e201ce1cb90fd7a2
+# Parent  822b82191940ef309cd1e6502f94d50d811252a1
+Mail: removed surplus ngx_close_connection() call.
+
+It is already called for a peer connection a few lines above.
+
+diff -r 822b82191940 -r 2220de0521ca src/mail/ngx_mail_auth_http_module.c
+--- a/src/mail/ngx_mail_auth_http_module.c      Wed May 15 15:04:49 2013 +0400
++++ b/src/mail/ngx_mail_auth_http_module.c      Thu May 09 10:54:28 2013 +0200
+@@ -699,7 +699,6 @@ ngx_mail_auth_http_process_headers(ngx_m
+
+                     p = ngx_pnalloc(s->connection->pool, ctx->err.len);
+                     if (p == NULL) {
+-                        ngx_close_connection(ctx->peer.connection);
+                         ngx_destroy_pool(ctx->pool);
+                         ngx_mail_session_internal_server_error(s);
+                         return;
+</programlisting>
+</para>
+
+</section>
+
+
+<section id="before_submitting" name="Before Submitting">
+
+<para>
+Several points are worth to consider before submitting changes:
+<list type="bullet">
+
+<listitem>
+The proposed changes should work properly on a wide range of
+<link doc="../index.xml" id="tested_os_and_platforms">supported
+platforms</link>.
+</listitem>
+
+<listitem>
+Try to make it clear why the suggested change is needed, and provide a use
+case, if possible.
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+
+<section id="submitting_changes" name="Submitting Changes">
+
+<para>
+The proposed changes should be sent to the
+<link doc="../support.xml" id="nginx_devel">nginx development</link>
+mailing list.
+The preferred and convenient method of submitting changesets
+is with the
+<link url="http://mercurial.selenic.com/wiki/PatchbombExtension">patchbomb</link>
+extension.
+</para>
+
+</section>
+
+
+<section id="license" name="License">
+
+<para>
+Submitting changes implies granting project a permission to use it under
+an appropriate <link url="../../LICENSE">license</link>.
+</para>
+
+</section>
+
+</article>

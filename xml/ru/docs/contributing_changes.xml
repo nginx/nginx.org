@@ -1,0 +1,148 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE article SYSTEM "../../../dtd/article.dtd">
+
+<article name="Внесение изменений"
+         link="/ru/docs/contributing_changes.html"
+         lang="ru"
+         rev="1">
+
+<section id="getting_sources" name="Получение исходного кода">
+
+<para>
+nginx использует <link url="http://mercurial.selenic.com">Mercurial</link>
+для хранения исходного кода.
+<link url="http://hg.nginx.org/nginx">Репозиторий</link> можно клонировать
+следующей командой:
+<programlisting>
+hg clone http://hg.nginx.org/nginx
+</programlisting>
+</para>
+
+</section>
+
+
+<section id="formatting_changes" name="Оформление изменений">
+
+<para>
+Изменения должны быть оформлены согласно принятому в nginx стилю.
+Оформление не должно зависеть от таких возможностей редактора как подсветка
+синтаксиса или автоматический перенос строк.
+Ниже приведены несколько основных правил:
+<list type="bullet">
+
+<listitem>
+максимальная ширина текста — 80 символов
+</listitem>
+
+<listitem>
+отступ — 4 пробела
+</listitem>
+
+<listitem>
+табуляция не используется
+</listitem>
+
+<listitem>
+логические блоки кода в файле разделяются двумя пустыми строками
+</listitem>
+
+</list>
+Изучите, как оформлен исходный код nginx, и следуйте этому стилю в своём коде.
+Изменения скорее будут приняты, если их стиль соответствует окружающему коду.
+</para>
+
+<para>
+Зафиксируйте изменения, чтобы создать
+<link url="http://mercurial.selenic.com/wiki/ChangeSet">набор изменений</link>
+в Mercurial.
+Пожалуйста, убедитесь, что адрес
+<link url="http://mercurial.selenic.com/wiki/QuickStart#Setting_a_username">электронной
+почты</link> и настоящее имя автора изменения указаны правильно.
+</para>
+
+<para>
+Сообщение фиксации должно содержать однострочное резюме и подробное описание
+после пустой строки.
+Желательно, чтобы первая строка была не длиннее 67 символов.
+Итоговый набор изменений в виде патча может быть получен с помощью команды
+<literal>hg export</literal>:
+<programlisting>
+# HG changeset patch
+# User Filipe Da Silva &lt;username@example.com>
+# Date 1368089668 -7200
+#      Thu May 09 10:54:28 2013 +0200
+# Node ID 2220de0521ca2c0b664a8ea1e201ce1cb90fd7a2
+# Parent  822b82191940ef309cd1e6502f94d50d811252a1
+Mail: removed surplus ngx_close_connection() call.
+
+It is already called for a peer connection a few lines above.
+
+diff -r 822b82191940 -r 2220de0521ca src/mail/ngx_mail_auth_http_module.c
+--- a/src/mail/ngx_mail_auth_http_module.c      Wed May 15 15:04:49 2013 +0400
++++ b/src/mail/ngx_mail_auth_http_module.c      Thu May 09 10:54:28 2013 +0200
+@@ -699,7 +699,6 @@ ngx_mail_auth_http_process_headers(ngx_m
+
+                     p = ngx_pnalloc(s->connection->pool, ctx->err.len);
+                     if (p == NULL) {
+-                        ngx_close_connection(ctx->peer.connection);
+                         ngx_destroy_pool(ctx->pool);
+                         ngx_mail_session_internal_server_error(s);
+                         return;
+</programlisting>
+</para>
+
+</section>
+
+
+<section id="before_submitting" name="Перед отправкой">
+
+<para>
+Несколько моментов, на которые следует обратить внимание перед
+отправкой изменения:
+<list type="bullet">
+
+<listitem>
+Предлагаемые изменения должны корректно работать на всех
+<link doc="../index.xml" id="tested_os_and_platforms">поддерживаемых
+платформах</link>.
+</listitem>
+
+<listitem>
+Постарайтесь разъяснить, почему предлагаемое изменение нужно, и, если возможно,
+опишите вариант использования.
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+
+<section id="submitting_changes" name="Отправка изменений">
+
+<para>
+Предлагаемые изменения следует отправить в список рассылки для
+<link doc="../support.xml" id="nginx_devel">разработчиков nginx</link>.
+Предпочитаемый и удобный метод отправки наборов изменений —
+при помощи расширения
+<link url="http://mercurial.selenic.com/wiki/PatchbombExtension">patchbomb</link>.
+</para>
+
+</section>
+
+
+<section id="license" name="Лицензия">
+
+<para>
+Отправка изменений подразумевает предоставление проекту права на их
+использование под соответствующей <link url="../../LICENSE">лицензией</link>.
+</para>
+
+</section>
+
+</article>
