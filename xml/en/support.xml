@@ -8,7 +8,7 @@
 <article name="nginx: support"
          link="/en/support.html"
          lang="en"
-         rev="2">
+         rev="3">
 
 
 <section name="Commercial Support">
@@ -106,7 +106,7 @@ mailing list integration)
 <para>
 <list type="bullet">
 
-<listitem>
+<listitem id="nginx_devel">
 <link url="http://nginx.org/mailman/listinfo/nginx-devel">nginx-devel@nginx.org</link>
 mailing list for developers (English),
 <link url="http://nginx.org/pipermail/nginx-devel/">
@@ -121,6 +121,11 @@ Browse a Source Code</link>
 <listitem>
 <link url="http://trac.nginx.org/nginx/report">
 Report a Bug</link>
+</listitem>
+
+<listitem>
+<link doc="docs/contributing_changes.xml">
+Participate</link>
 </listitem>
 
 </list>

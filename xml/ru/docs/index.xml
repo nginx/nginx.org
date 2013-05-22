@@ -8,7 +8,7 @@
 <article name="nginx: документация"
          link="/ru/docs/"
          lang="ru"
-         rev="5"
+         rev="6"
          toc="no">
 
 
@@ -82,6 +82,21 @@
 
 <listitem>
 <link doc="http/websocket.xml"/>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+
+<section id="development" name="Разработка">
+
+<para>
+<list type="bullet">
+
+<listitem>
+<link doc="contributing_changes.xml"/>
 </listitem>
 
 </list>

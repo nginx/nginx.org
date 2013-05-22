@@ -14,6 +14,7 @@ DOCS =									\
 		http/configuring_https_servers				\
 		debugging_log						\
 		http/websocket						\
+		contributing_changes					\
 
 FAQ =									\
 		sys_errlist						\

@@ -8,7 +8,7 @@
 <article name="nginx: поддержка"
          link="/ru/support.html"
          lang="ru"
-         rev="2">
+         rev="3">
 
 
 <section name="Коммерческая поддержка">
@@ -111,7 +111,7 @@
 <para>
 <list type="bullet">
 
-<listitem>
+<listitem id="nginx_devel">
 Список рассылки для разработчиков
 <link url="http://nginx.org/mailman/listinfo/nginx-devel">nginx-devel@nginx.org</link>
 (английский),
@@ -129,6 +129,11 @@
 <link url="http://trac.nginx.org/nginx/report">
 Сообщить об ошибке
 </link>
+</listitem>
+
+<listitem>
+<link doc="docs/contributing_changes.xml">
+Присоединиться к разработке</link>
 </listitem>
 
 </list>
