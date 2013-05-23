@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="19">
+        rev="20">
 
 <section id="directives" name="Директивы">
 
@@ -1465,6 +1465,30 @@ location ~* \.(gif|jpg|jpeg)$ {
 предназначен только для перенаправления в него запросов.
 Такие location’ы не могут быть вложенными и не могут содержать
 вложенные location’ы.
+</para>
+
+<para>
+Если location задан префиксной строкой со слэшом в конце
+и запросы обрабатываются при помощи
+<link doc="ngx_http_proxy_module.xml" id="proxy_pass"/>,
+<link doc="ngx_http_fastcgi_module.xml" id="fastcgi_pass"/>,
+<link doc="ngx_http_scgi_module.xml" id="scgi_pass"/>,
+<link doc="ngx_http_uwsgi_module.xml" id="uwsgi_pass"/> или
+<link doc="ngx_http_memcached_module.xml" id="memcached_pass"/>,
+а в ответ на запрос с URI равным этой строке, но без завершающего слэша,
+будет возвращено постоянное перенаправление с кодом 301
+на URI с добавленным в конец слэшом.
+Если такое поведение нежелательно, можно задать точное совпадение
+URI и location, например:
+<example>
+location /user/ {
+    proxy_pass http://user.example.com;
+}
+
+location = /user {
+    proxy_pass http://login.example.com;
+}
+</example>
 </para>
 
 <!--
