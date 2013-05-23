@@ -10,7 +10,7 @@
 <module name="Core functionality"
         link="/en/docs/ngx_core_module.html"
         lang="en"
-        rev="6">
+        rev="7">
 
 <section id="example" name="Example Configuration">
 
@@ -114,7 +114,8 @@ events {
 </example>
 <note>
 For this directive to work, nginx needs to
-be built with <literal>--with-debug</literal>.
+be built with <literal>--with-debug</literal>,
+see “<link doc="debugging_log.xml"/>”.
 </note>
 </para>
 
@@ -182,7 +183,8 @@ to be logged.
 If this parameter is omitted then <literal>error</literal> is used.
 <note>
 For <literal>debug</literal> logging to work, nginx needs to
-be built with <literal>--with-debug</literal>.
+be built with <literal>--with-debug</literal>,
+see “<link doc="debugging_log.xml"/>”.
 </note>
 </para>
 

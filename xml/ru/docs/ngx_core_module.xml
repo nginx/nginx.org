@@ -10,7 +10,7 @@
 <module name="Основная функциональность"
         link="/ru/docs/ngx_core_module.html"
         lang="ru"
-        rev="6">
+        rev="7">
 
 <section id="example" name="Пример конфигурации">
 
@@ -114,7 +114,8 @@ events {
 </example>
 <note>
 Для работы директивы необходимо сконфигурировать nginx с параметром
-<literal>--with-debug</literal>.
+<literal>--with-debug</literal>,
+см. “<link doc="debugging_log.xml"/>”.
 </note>
 </para>
 
@@ -181,7 +182,8 @@ events {
 Если этот параметр не задан, используется <literal>error</literal>.
 <note>
 Для работы уровня лога <literal>debug</literal> необходимо сконфигурировать
-nginx с <literal>--with-debug</literal>.
+nginx с <literal>--with-debug</literal>,
+см. “<link doc="debugging_log.xml"/>”.
 </note>
 </para>
 
