@@ -10,13 +10,13 @@
 <module name="Module ngx_http_access_module"
         link="/en/docs/http/ngx_http_access_module.html"
         lang="en"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
 <para>
 The <literal>ngx_http_access_module</literal> module allows
-to limit access to certain client IP addresses.
+to limit access to certain client addresses.
 </para>
 
 <para>
@@ -63,6 +63,7 @@ module variables is preferable.
 <syntax>
     <value>address</value> |
     <value>CIDR</value> |
+    <literal>unix:</literal> |
     <literal>all</literal></syntax>
 <default/>
 <context>http</context>
@@ -72,6 +73,8 @@ module variables is preferable.
 
 <para>
 Allows access for the specified network or address.
+If the special value <literal>unix:</literal> is specified (1.5.1),
+allows access for all UNIX-domain sockets.
 </para>
 
 </directive>
@@ -81,6 +84,7 @@ Allows access for the specified network or address.
 <syntax>
     <value>address</value> |
     <value>CIDR</value> |
+    <literal>unix:</literal> |
     <literal>all</literal></syntax>
 <default/>
 <context>http</context>
@@ -90,6 +94,8 @@ Allows access for the specified network or address.
 
 <para>
 Denies access for the specified network or address.
+If the special value <literal>unix:</literal> is specified (1.5.1),
+denies access for all UNIX-domain sockets.
 </para>
 
 </directive>

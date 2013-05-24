@@ -10,13 +10,13 @@
 <module name="Модуль ngx_http_access_module"
         link="/ru/docs/http/ngx_http_access_module.html"
         lang="ru"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
 <para>
 Модуль <literal>ngx_http_access_module</literal> позволяет
-ограничить доступ для определённых IP-адресов клиентов.
+ограничить доступ для определённых адресов клиентов.
 </para>
 
 <para>
@@ -62,6 +62,7 @@ location / {
 <syntax>
     <value>адрес</value> |
     <value>CIDR</value> |
+    <literal>unix:</literal> |
     <literal>all</literal></syntax>
 <default/>
 <context>http</context>
@@ -71,6 +72,8 @@ location / {
 
 <para>
 Разрешает доступ для указанной сети или адреса.
+Если указано специальное значение <literal>unix:</literal> (1.5.1),
+разрешает доступ для всех UNIX-сокетов.
 </para>
 
 </directive>
@@ -80,6 +83,7 @@ location / {
 <syntax>
     <value>адрес</value> |
     <value>CIDR</value> |
+    <literal>unix:</literal> |
     <literal>all</literal></syntax>
 <default/>
 <context>http</context>
@@ -89,6 +93,8 @@ location / {
 
 <para>
 Запрещает доступ для указанной сети или адреса.
+Если указано специальное значение <literal>unix:</literal> (1.5.1),
+запрещает доступ для всех UNIX-сокетов.
 </para>
 
 </directive>
