@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_sub_module"
         link="/ru/docs/http/ngx_http_sub_module.html"
         lang="ru"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
@@ -56,6 +56,28 @@ location / {
 Задаёт строку, которую нужно заменить, и строку замены.
 Заменяемая строка проверяется без учёта регистра.
 В строке замены можно использовать переменные.
+</para>
+
+</directive>
+
+
+<directive name="sub_filter_last_modified">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.5.1</appeared-in>
+
+<para>
+Позволяет сохранить поле заголовка <header>Last-Modified</header>
+исходного ответа во время замены
+для лучшего кэширования ответов.
+</para>
+
+<para>
+По умолчанию поле заголовка удаляется, так как содержимое ответа
+изменяется во время обработки.
 </para>
 
 </directive>
