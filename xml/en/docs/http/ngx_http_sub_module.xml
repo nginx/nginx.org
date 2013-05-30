@@ -10,7 +10,7 @@
 <module name="Module ngx_http_sub_module"
         link="/en/docs/http/ngx_http_sub_module.html"
         lang="en"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
@@ -56,6 +56,28 @@ location / {
 Sets a string that needs to be changed, and a replacement string.
 The string to be replaced is matched ignoring the case.
 A replacement string can contain variables.
+</para>
+
+</directive>
+
+
+<directive name="sub_filter_last_modified">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.5.1</appeared-in>
+
+<para>
+Allows to preserve the <header>Last-Modified</header> header field
+from the original response during replacement
+to facilitate response caching.
+</para>
+
+<para>
+By default, the header field is removed as contents of the response
+are modified during processing.
 </para>
 
 </directive>
