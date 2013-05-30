@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -128,8 +128,9 @@ What is considered to be an unsuccessful attempt is configured by the
 <link doc="ngx_http_fastcgi_module.xml" id="fastcgi_next_upstream"/>, and
 <link doc="ngx_http_memcached_module.xml" id="memcached_next_upstream"/>
 directives.
-The <literal>http_404</literal> state is not considered
-an unsuccessful attempt.
+The <literal>http_403</literal>, <literal>http_404</literal>,
+and <literal>not_found</literal> states are not considered as
+unsuccessful attempts.
 </tag-desc>
 
 <tag-name><literal>fail_timeout</literal>=<value>time</value></tag-name>

@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_proxy_module"
         link="/ru/docs/http/ngx_http_proxy_module.html"
         lang="ru"
-        rev="10">
+        rev="11">
 
 <section id="summary">
 
@@ -372,6 +372,7 @@ proxy_cache_path /data/nginx/cache levels=1:2 keys_zone=one:10m;
     <literal>http_502</literal> |
     <literal>http_503</literal> |
     <literal>http_504</literal> |
+    <literal>http_403</literal> |
     <literal>http_404</literal> |
     <literal>off</literal>
     ...</syntax>
@@ -824,6 +825,7 @@ nginx не передаёт клиенту поля заголовка <header>D
     <literal>http_502</literal> |
     <literal>http_503</literal> |
     <literal>http_504</literal> |
+    <literal>http_403</literal> |
     <literal>http_404</literal> |
     <literal>off</literal>
     ...</syntax>
@@ -858,6 +860,9 @@ nginx не передаёт клиенту поля заголовка <header>D
 
 <tag-name><literal>http_504</literal></tag-name>
 <tag-desc>сервер вернул ответ с кодом 504;</tag-desc>
+
+<tag-name><literal>http_403</literal></tag-name>
+<tag-desc>сервер вернул ответ с кодом 403;</tag-desc>
 
 <tag-name><literal>http_404</literal></tag-name>
 <tag-desc>сервер вернул ответ с кодом 404;</tag-desc>

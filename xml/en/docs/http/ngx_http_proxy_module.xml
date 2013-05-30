@@ -10,7 +10,7 @@
 <module name="Module ngx_http_proxy_module"
         link="/en/docs/http/ngx_http_proxy_module.html"
         lang="en"
-        rev="10">
+        rev="11">
 
 <section id="summary">
 
@@ -374,6 +374,7 @@ A pause is made between iterations, configured by the
     <literal>http_502</literal> |
     <literal>http_503</literal> |
     <literal>http_504</literal> |
+    <literal>http_403</literal> |
     <literal>http_404</literal> |
     <literal>off</literal>
     ...</syntax>
@@ -827,6 +828,7 @@ to the proxied server instead of the method from the client request.
     <literal>http_502</literal> |
     <literal>http_503</literal> |
     <literal>http_504</literal> |
+    <literal>http_403</literal> |
     <literal>http_404</literal> |
     <literal>off</literal>
     ...</syntax>
@@ -861,6 +863,9 @@ server, passing it a request, or reading the response header;</tag-desc>
 
 <tag-name><literal>http_504</literal></tag-name>
 <tag-desc>a server returned a response with the code 504;</tag-desc>
+
+<tag-name><literal>http_403</literal></tag-name>
+<tag-desc>a server returned a response with the code 403;</tag-desc>
 
 <tag-name><literal>http_404</literal></tag-name>
 <tag-desc>a server returned a response with the code 404;</tag-desc>
