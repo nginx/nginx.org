@@ -175,7 +175,7 @@ directive:
 
 <para>
 Unnecessary protocols can be disabled using the
-<link doc="../install.xml">configuration</link>
+<link doc="../configure.xml">configuration</link>
 parameters <literal>--without-mail_imap_module</literal>,
 <literal>--without-mail_pop3_module</literal> and
 <literal>--without-mail_smtp_module</literal>.

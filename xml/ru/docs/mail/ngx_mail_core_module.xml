@@ -173,7 +173,7 @@ listen unix:/var/run/nginx.sock;
 
 <para>
 Поддержку ненужных протоколов можно отключить с помощью
-<link doc="../install.xml">конфигурационных</link>
+<link doc="../configure.xml">конфигурационных</link>
 параметров <literal>--without-mail_imap_module</literal>,
 <literal>--without-mail_pop3_module</literal> и
 <literal>--without-mail_smtp_module</literal>.
