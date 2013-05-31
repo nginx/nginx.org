@@ -14,20 +14,20 @@ Unix versiyonu ile karşılaştırıldığında, XSLT filtresi, imaj filtresi, G
 </para>
 
 <para>
-nginx/Windows versiyonunu yüklemek için <link doc="../../en/download.xml">indir</link> bağlantısından zip formatındaki <development_version /> geliştirme versiyonunu indirebilirsiniz. Geliştirme versiyonu, özellikle Windows ile ilgili en son yamaları içerir. Dosyayı indirdikten sonra açarak, nginx-<development_version /> klasörü içerisinden nginx&rsquo;i çalıştırabilirsiniz. 
+nginx/Windows versiyonunu yüklemek için <link doc="../../en/download.xml">indir</link> bağlantısından zip formatındaki <mainline_version /> geliştirme versiyonunu indirebilirsiniz. Geliştirme versiyonu, özellikle Windows ile ilgili en son yamaları içerir. Dosyayı indirdikten sonra açarak, nginx-<mainline_version /> klasörü içerisinden nginx&rsquo;i çalıştırabilirsiniz. 
 C sürücüsü için örnek. root dizini:
 
 <programlisting>
 cd c:\
-unzip nginx-<development_version />.zip
-cd nginx-<development_version />
+unzip nginx-<mainline_version />.zip
+cd nginx-<mainline_version />
 start nginx
 </programlisting>
 
 Ayrıca <path>tasklist</path> komutu ile nginx işlemlerini takip edebilirsiniz:
 
 <programlisting>
-C:\nginx-<development_version />&gt;tasklist /fi "imagename eq nginx.exe"
+C:\nginx-<mainline_version />&gt;tasklist /fi "imagename eq nginx.exe"
 
 Image Name           PID Session Name     Session#    Mem Usage
 =============== ======== ============== ========== ============
@@ -44,7 +44,7 @@ Eğer beklenen sayfa yerine hata sayfası ile karşılaşırsanız, yine <path>l
 <para>
 nginx/Windows, yapılandırmada yer alan nisbi dizin yolları için yürütüldüğü klasörü, önek klasör olarak kullanır.
 Buna örnek olarak, önek klasör şu şekildedir:
-<path>C:\nginx-<development_version />\</path>.
+<path>C:\nginx-<mainline_version />\</path>.
 Ayarlarda yer alan dizin yolları Unix-stili kesme işaretleri ile belirtilir:
 
 <programlisting>

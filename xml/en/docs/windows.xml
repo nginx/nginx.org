@@ -8,7 +8,7 @@
 <article name="nginx for Windows"
          link="/en/docs/windows.html"
          lang="en"
-         rev="1">
+         rev="2">
 
 <section>
 
@@ -26,17 +26,17 @@ XSLT filter, image filter, GeoIP module, and embedded Perl language.
 
 <para>
 To install nginx/Windows, <link doc="../download.xml">download</link>
-the latest development version distribution (<development_version/>),
-since the development branch of nginx contains all known fixes.
+the latest mainline version distribution (<mainline_version/>),
+since the mainline branch of nginx contains all known fixes.
 Then unpack the distribution, go to the
-nginx-<development_version/>
+nginx-<mainline_version/>
 directory, and run <command>nginx</command>.
 Here is an example for the drive C: root directory:
 
 <programlisting>
 cd c:\
-unzip nginx-<development_version/>.zip
-cd nginx-<development_version/>
+unzip nginx-<mainline_version/>.zip
+cd nginx-<mainline_version/>
 start nginx
 </programlisting>
 
@@ -44,7 +44,7 @@ Run the <command>tasklist</command> command-line utility
 to see nginx processes:
 
 <programlisting>
-C:\nginx-<development_version/>&gt;tasklist /fi "imagename eq nginx.exe"
+C:\nginx-<mainline_version/>&gt;tasklist /fi "imagename eq nginx.exe"
 
 Image Name           PID Session Name     Session#    Mem Usage
 =============== ======== ============== ========== ============
@@ -65,7 +65,7 @@ for the reason in the <path>logs\error.log</path> file.
 nginx/Windows uses the directory where it has been run as the prefix
 for relative paths in the configuration.
 In the example above, the prefix is
-<path>C:\nginx-<development_version/>\</path>.
+<path>C:\nginx-<mainline_version/>\</path>.
 Paths in a configuration file must be specified in UNIX-style using
 forward slashes:
 

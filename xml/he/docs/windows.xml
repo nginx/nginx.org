@@ -16,16 +16,16 @@ nginx/Windows משתמש ב API הטבעי של חלונות, Win32 API (ולא 
 
 <para>
 כדי להתקין את nginx/Windows, יש <link doc="../../en/download.xml">להוריד</link>
-את קובץ הזיפ של גירסת הפיתוח האחרונה <development_version />,
+את קובץ הזיפ של גירסת הפיתוח האחרונה <mainline_version />,
 כיוון שענף הפיתוח מכיל את כל התיקונים הידועים, בייחוד אלו הקשורים לחלונות.
 אחרי ההורדה, יש לפרוס את קובץ הזיפ,
-להיכנס לתיקיה nginx-<development_version />, ולהריץ את nginx.
+להיכנס לתיקיה nginx-<mainline_version />, ולהריץ את nginx.
 הנה דוגמא עבור תיקיית השורש של כונן C:
 
 <programlisting>
 cd c:\
-unzip nginx-<development_version />.zip
-cd nginx-<development_version />
+unzip nginx-<mainline_version />.zip
+cd nginx-<mainline_version />
 start nginx
 </programlisting>
 
@@ -33,7 +33,7 @@ start nginx
 של nginx:
 
 <programlisting>
-C:\nginx-<development_version />&gt;tasklist /fi "imagename eq nginx.exe"
+C:\nginx-<mainline_version />&gt;tasklist /fi "imagename eq nginx.exe"
 
 Image Name           PID Session Name     Session#    Mem Usage
 =============== ======== ============== ========== ============
@@ -52,7 +52,7 @@ nginx.exe           1332 Console                 0      3 112 K
 nginx/Windows משתמש בתיקייה שממנה הוא הופעל בתור תיקיית הקידומת לכל
 הנתיבים היחסיים שבקובץ התצורה.
 בדוגמה שלעיל, תיקיית הקידומת תהיה
-<path>C:\nginx-<development_version />\</path>.
+<path>C:\nginx-<mainline_version />\</path>.
 על נתיבים בקובץ התצורה להיות בסגנון Unix בלבד, באמצעות לוכסנים קדמיים:
 
 <programlisting>

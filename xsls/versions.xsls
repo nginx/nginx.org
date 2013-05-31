@@ -5,9 +5,9 @@
 
 X:stylesheet {
 
-X:template = "development_version" {
+X:template = "mainline_version" {
    !! "document(concat($XML, '/versions.xml'))
-                /versions/download[@tag='development'][1]/item[1]/@ver";
+                /versions/download[@tag='mainline'][1]/item[1]/@ver";
 }
 
 X:template = "stable_version" {

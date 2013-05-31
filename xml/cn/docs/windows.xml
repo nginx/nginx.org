@@ -18,19 +18,19 @@ nginx的Windows版本使用原生Win32 API（非Cygwin模拟层）。当前nginx
 </para>
 
 <para>
-安装nginx/Windows，需要<link doc="../download.xml">下载</link>最新的<development_version />开发版本，因为开发分支上包含了所有已知的问题修复，尤其是针对Windows版本的问题修复。解压缩下载得到的zip文件，进入nginx-<development_version />目录，运行nginx。下面给出一个在C盘根目录下安装的例子：
+安装nginx/Windows，需要<link doc="../download.xml">下载</link>最新的<mainline_version />开发版本，因为开发分支上包含了所有已知的问题修复，尤其是针对Windows版本的问题修复。解压缩下载得到的zip文件，进入nginx-<mainline_version />目录，运行nginx。下面给出一个在C盘根目录下安装的例子：
 
 <programlisting>
 cd c:\
-unzip nginx-<development_version />.zip
-cd nginx-<development_version />
+unzip nginx-<mainline_version />.zip
+cd nginx-<mainline_version />
 start nginx
 </programlisting>
 
 可以在命令行运行<command>tasklist</command>命令来查看nginx进程：
 
 <programlisting>
-C:\nginx-<development_version />&gt;tasklist /fi "imagename eq nginx.exe"
+C:\nginx-<mainline_version />&gt;tasklist /fi "imagename eq nginx.exe"
 
 Image Name           PID Session Name     Session#    Mem Usage
 =============== ======== ============== ========== ============
@@ -42,7 +42,7 @@ nginx.exe           1332 Console                 0      3 112 K
 </para>
 
 <para>
-nginx/Windows使用工作目录作为前缀将配置文件中设置的相对目录补齐。就上面安装的例子而言，工作目录应该是<path>C:\nginx-<development_version />\</path>（工作目录基本上与运行文件所在的目录相同）。配置文件中的目录请使用“/”，而不是“\”做目录分隔：
+nginx/Windows使用工作目录作为前缀将配置文件中设置的相对目录补齐。就上面安装的例子而言，工作目录应该是<path>C:\nginx-<mainline_version />\</path>（工作目录基本上与运行文件所在的目录相同）。配置文件中的目录请使用“/”，而不是“\”做目录分隔：
 
 <programlisting>
 access_log   logs/site.log;

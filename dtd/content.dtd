@@ -13,7 +13,7 @@
 <!ELEMENT  para         (#PCDATA | link | links | br | list | note |
                          i | b | nobr | table | literal | command |
                          path | header | value | programlisting |
-                         initial | development_version | stable_version |
+                         initial | mainline_version | stable_version |
                          registered | c-func | http-status)* >
 
 <!ELEMENT  links        (link)+ >
@@ -30,7 +30,7 @@
 <!ELEMENT  i            (#PCDATA) >
 <!ELEMENT  b            (#PCDATA) >
 <!ELEMENT  command      (#PCDATA | value)* >
-<!ELEMENT  path         (#PCDATA | value | development_version | stable_version)* >
+<!ELEMENT  path         (#PCDATA | value | mainline_version | stable_version)* >
 <!ELEMENT  literal      (#PCDATA | value)* >
 <!ELEMENT  header       (#PCDATA) >
 <!ELEMENT  initial      (#PCDATA) >
@@ -47,7 +47,7 @@
 >
 
 <!ELEMENT  programlisting  (#PCDATA | i | b | path |
-                            development_version | stable_version)* >
+                            mainline_version | stable_version)* >
 
 <!ELEMENT  nobr         (#PCDATA | b | command | i | literal | path)* >
 
@@ -67,7 +67,7 @@
 <!ELEMENT  note         (#PCDATA | para | br | list | i | b | link |
                          nobr | table | literal | command | path |
                          header | programlisting | initial | paypal |
-                         development_version | stable_version )* >
+                         mainline_version | stable_version )* >
 
 <!ELEMENT  table        (tr+) >
 <!ATTLIST  table
@@ -83,8 +83,8 @@
 
 <!ELEMENT  paypal       EMPTY >
 
-<!ELEMENT  development_version  EMPTY >
-<!ELEMENT  stable_version       EMPTY >
+<!ELEMENT  mainline_version  EMPTY >
+<!ELEMENT  stable_version    EMPTY >
 
 <!ELEMENT  book         EMPTY >
 <!ATTLIST  book
@@ -101,7 +101,7 @@
 <!ELEMENT  download     EMPTY >
 <!ATTLIST  download
            last         CDATA #REQUIRED
-           tag          (development | stable | legacy) #REQUIRED
+           tag          (mainline | stable | legacy) #REQUIRED
 >
 
 <!ELEMENT  security     (item+) >

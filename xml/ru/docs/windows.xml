@@ -8,7 +8,7 @@
 <article name="nginx под Windows"
          link="/ru/docs/windows.html"
          lang="ru"
-         rev="1">
+         rev="2">
 
 <section>
 
@@ -26,17 +26,17 @@ XSLT-фильтра, фильтра изображений, модуля GeoIP �
 
 <para>
 Чтобы установить nginx/Windows, <link doc="../download.xml">скачайте</link>
-дистрибутив последней разрабатываемой версии (<development_version/>),
-поскольку ветвь разработки nginx содержит все известные исправления.
+дистрибутив последней основной версии (<mainline_version/>),
+поскольку основная ветвь nginx содержит все известные исправления.
 Затем распакуйте дистрибутив, перейдите в каталог
-nginx-<development_version/>
+nginx-<mainline_version/>
 и запустите <command>nginx</command>.
 Вот пример для корневого каталога на диске C:
 
 <programlisting>
 cd c:\
-unzip nginx-<development_version/>.zip
-cd nginx-<development_version/>
+unzip nginx-<mainline_version/>.zip
+cd nginx-<mainline_version/>
 start nginx
 </programlisting>
 
@@ -44,7 +44,7 @@ start nginx
 <command>tasklist</command>:
 
 <programlisting>
-C:\nginx-<development_version/>&gt;tasklist /fi "imagename eq nginx.exe"
+C:\nginx-<mainline_version/>&gt;tasklist /fi "imagename eq nginx.exe"
 
 Image Name           PID Session Name     Session#    Mem Usage
 =============== ======== ============== ========== ============
@@ -65,7 +65,7 @@ nginx.exe           1332 Console                 0      3 112 K
 nginx/Windows использует каталог, в котором он был запущен, в качестве
 префикса для относительных путей в конфигурации.
 В вышеприведённом примере префиксом является
-<path>C:\nginx-<development_version/>\</path>.
+<path>C:\nginx-<mainline_version/>\</path>.
 Пути в конфигурационном файле должны задаваться в UNIX-стиле с использованием
 прямых слэшей:
 
