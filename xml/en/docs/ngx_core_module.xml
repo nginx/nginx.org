@@ -41,8 +41,8 @@ events {
 <context>events</context>
 
 <para>
-If enabled,
-accepts of new connections by multiple worker processes will be serialized.
+If <literal>accept_mutex</literal> is enabled,
+worker processes will accept new connections by turn.
 Otherwise, all worker processes will be notified about new connections,
 and if volume of new connections is low, some of the worker processes
 may just waste system resources.
@@ -64,8 +64,8 @@ requires <literal>accept_mutex</literal> to be enabled.
 <para>
 If <link id="accept_mutex"/> is enabled, specifies the maximum time
 during which a worker process will try to restart accepting new
-connections if another worker process is already doing this
-currently.
+connections if another worker process is currently accepting
+new connections.
 </para>
 
 </directive>
@@ -135,7 +135,7 @@ This directive is used for debugging.
 When internal error is detected, e.g. the leak of sockets on
 restart of working processes, enabling <literal>debug_points</literal>
 leads to a core file creation (<literal>abort</literal>)
-or stopping a process (<literal>stop</literal>) for further
+or to stopping of a process (<literal>stop</literal>) for further
 analysis using a system debugger.
 </para>
 
@@ -263,8 +263,8 @@ Logging to syslog is available as part of our <commercial_version/> only.
 <para>
 By default, nginx removes all environment variables inherited
 from its parent process except the TZ variable.
-This directive allows to preserve some of the inherited variables,
-change their values, or create new environment variables.
+This directive allows preserving some of the inherited variables,
+changing their values, or creating new environment variables.
 These variables are then:
 <list type="bullet">
 
@@ -274,14 +274,14 @@ of an executable file;
 </listitem>
 
 <listitem>
-used by the module
-<link doc="http/ngx_http_perl_module.xml">ngx_http_perl_module</link>;
+used by the
+<link doc="http/ngx_http_perl_module.xml">ngx_http_perl_module</link> module;
 </listitem>
 
 <listitem>
 used by worker processes.
-Please bear in mind that controlling system libraries in this way
-is not always possible as it is not uncommon for libraries to check
+One should bear in mind that controlling system libraries in this way
+is not always possible as it is common for libraries to check
 variables only during initialization, well before they can be set
 using this directive.
 An exception from this is an above mentioned
@@ -293,9 +293,9 @@ of an executable file.
 </para>
 
 <para>
-The TZ variable is always inherited and made available to the module
-<link doc="http/ngx_http_perl_module.xml">ngx_http_perl_module</link>,
-unless configured explicitly.
+The TZ variable is always inherited and available to the
+<link doc="http/ngx_http_perl_module.xml">ngx_http_perl_module</link>
+module, unless it is configured explicitly.
 </para>
 
 <para>
@@ -323,7 +323,7 @@ and should not be set directly by the user.
 <context>main</context>
 
 <para>
-Provides a configuration file context in which the directives that
+Provides the configuration file context in which the directives that
 affect connection processing are specified.
 </para>
 
@@ -360,7 +360,7 @@ include vhosts/*.conf;
 
 <para>
 nginx uses the locking mechanism to implement <link id="accept_mutex"/>
-and serialize accesses to shared memory.
+and serialize access to shared memory.
 On most systems the locks are implemented using atomic operations,
 and this directive is ignored.
 On other systems the “lock file” mechanism is used.
@@ -389,13 +389,13 @@ This directive is intended for nginx developers.
 <context>events</context>
 
 <para>
-If disabled, a worker process
+If <literal>multi_accept</literal> is disabled, a worker process
 will accept one new connection at a time.
 Otherwise, a worker process
 will accept all new connections at a time.
 <note>
 The directive is ignored if <link doc="events.xml" id="kqueue"/>
-connection processing method is used because it can report
+connection processing method is used, because it reports
 the number of new connections waiting to be accepted.
 </note>
 <note>
@@ -416,7 +416,7 @@ automatically enables <literal>multi_accept</literal>.
 
 <para>
 Enables or disables the use of “just-in-time compilation” (PCRE JIT)
-for regular expressions known at configuration parse time.
+for the regular expressions known by the time of configuration parsing.
 </para>
 
 <para>
@@ -424,8 +424,8 @@ PCRE JIT can speed up processing of regular expressions significantly.
 <note>
 The JIT is available in PCRE libraries starting from version 8.20
 built with the <literal>--enable-jit</literal> configuration parameter.
-When building the PCRE library with nginx (<literal>--with-pcre=</literal>),
-the JIT support should be enabled with the
+When the PCRE library is built with nginx (<literal>--with-pcre=</literal>),
+the JIT support is enabled via the
 <literal>--with-pcre-jit</literal> configuration parameter.
 </note>
 </para>
@@ -466,7 +466,7 @@ Defines the name of the hardware SSL accelerator.
 Reduces timer resolution in worker processes, thus reducing the
 number of <c-func>gettimeofday</c-func> system calls made.
 By default, <c-func>gettimeofday</c-func> is called each time
-on receiving a kernel event.
+a kernel event is received.
 With reduced resolution, <c-func>gettimeofday</c-func> is only
 called once per specified <value>interval</value>.
 </para>
@@ -479,11 +479,11 @@ timer_resolution 100ms;
 </para>
 
 <para>
-An internal implementation of interval depends on the method used:
+Internal implementation of the interval depends on the method used:
 <list type="bullet">
 
 <listitem>
-an <c-def>EVFILT_TIMER</c-def> filter if <literal>kqueue</literal> is used;
+the <c-def>EVFILT_TIMER</c-def> filter if <literal>kqueue</literal> is used;
 </listitem>
 
 <listitem>
@@ -508,7 +508,7 @@ an <c-def>EVFILT_TIMER</c-def> filter if <literal>kqueue</literal> is used;
 <para>
 Specifies the <link doc="events.xml">connection processing</link>
 <value>method</value> to use.
-There is normally no need to specify it explicitly because nginx will
+There is normally no need to specify it explicitly, because nginx will
 by default use the most efficient method.
 </para>
 
@@ -560,11 +560,11 @@ can be opened by a worker process.
 
 <para>
 It should be kept in mind that this number includes all connections
-(e.g. connections with proxied servers, among other things),
+(e.g. connections with proxied servers, among others),
 not only connections with clients.
 Another consideration is that the actual number of simultaneous
-connections may not exceed the current limit on
-the maximum number of open files that can be changed by
+connections can not exceed the current limit on
+the maximum number of open files, which can be changed by
 <link id="worker_rlimit_nofile"/>.
 </para>
 
@@ -578,7 +578,7 @@ the maximum number of open files that can be changed by
 
 <para>
 Binds worker processes to the sets of CPUs.
-Each CPU set is represented by a bitmask of allowed to use CPUs.
+Each CPU set is represented by a bitmask of allowed CPUs.
 There should be a separate set defined for each of the worker processes.
 By default, worker processes are not bound to any specific CPUs.
 </para>
@@ -614,7 +614,7 @@ The directive is only available on FreeBSD and Linux.
 <context>main</context>
 
 <para>
-Defines a scheduling priority for worker processes like is
+Defines the scheduling priority for worker processes like it is
 done by the <command>nice</command> command: a negative
 <value>number</value>
 means higher priority.
@@ -644,7 +644,7 @@ Defines the number of worker processes.
 The optimal value depends on many factors including (but not
 limited to) the number of CPU cores, the number of hard disk
 drives that store data, and load pattern.
-When in doubt, setting it to the number of available CPU cores
+When one is in doubt, setting it to the number of available CPU cores
 would be a good start (the value “<literal>auto</literal>”
 will try to autodetect it).
 <note>
@@ -706,7 +706,7 @@ Used to increase the limit without restarting the main process.
 <context>main</context>
 
 <para>
-Defines a current working directory for a worker process.
+Defines the current working directory for a worker process.
 It is primarily used when writing a core-file, in which case
 a worker process should have write permission for the
 specified directory.
