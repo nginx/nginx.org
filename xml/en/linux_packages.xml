@@ -7,7 +7,7 @@
 <article name="nginx: Linux packages"
          link="/en/linux_packages.html"
          lang="en"
-         rev="2"
+         rev="3"
          toc="no">
 
 <section id="distributions">
@@ -269,6 +269,60 @@ For Debian/Ubuntu then run the following commands:
 apt-get update
 apt-get install nginx
 </programlisting>
+</para>
+
+</section>
+
+
+<section name="Signatures" id="signatures">
+
+<para>
+Both RPM packages and Debian/Ubuntu repositories use digital signatures
+to verify the integrity and origin of the downloaded package.
+In order to check a signature it is necessary to download
+<link url="http://nginx.org/keys/nginx_signing.key">nginx signing key</link>
+and import it to the <command>rpm</command> or <command>apt</command>
+program’s keyring:
+
+<list type="bullet">
+
+<listitem>
+On Debian/Ubuntu:
+<programlisting>sudo apt-key add nginx_signing.key</programlisting>
+</listitem>
+
+<listitem>
+On RHEL/CentOS:
+<programlisting>sudo rpm --import nginx_signing.key</programlisting>
+</listitem>
+
+</list>
+</para>
+
+<para>
+On Debian/Ubuntu signatures are checked by default, but
+on RHEL/CentOS it is necessary to set
+<programlisting>gpgcheck=1</programlisting> in the
+<path>/etc/yum.repos.d/nginx.repo</path> file.
+</para>
+
+<para>
+Since our <link doc="../en/pgp_keys.xml">PGP keys</link>
+and packages are located on the same server,
+they are equally trusted.
+It is highly advised to additionally verify
+the authenticity of the downloaded PGP key.
+PGP has the “Web of Trust” concept,
+when a key is signed by someone else’s key,
+that in turn is signed by another key and so on.
+It often makes possible to build a chain from an arbitrary key
+to someone’s key who you know and trust personally,
+thus verify the authenticity of the first key in a chain.
+This concept is described in details in
+<link url="http://www.dewinter.com/gnupg_howto/english/GPGMiniHowto-1.html">
+GPG Mini Howto</link>.
+Our keys have enough signatures,
+and their authenticity is relatively easy to check.
 </para>
 
 </section>

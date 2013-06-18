@@ -7,7 +7,7 @@
 <article name="nginx: пакеты для Linux"
          link="/ru/linux_packages.html"
          lang="ru"
-         rev="2"
+         rev="3"
          toc="no">
 
 <section id="distributions">
@@ -273,6 +273,61 @@ deb-src http://nginx.org/packages/mainline/ubuntu/ <i>codename</i> nginx
 apt-get update
 apt-get install nginx
 </programlisting>
+</para>
+
+</section>
+
+
+<section name="Подписи" id="signatures">
+
+<para>
+Для проверки целостности и происхождения загруженного пакета
+и в случае RPM, и в случае репозиториев Debian/Ubuntu используется
+цифровая подпись.
+Для проверки подписи необходимо загрузить
+<link url="http://nginx.org/keys/nginx_signing.key">этот ключ</link>
+и импортировать его в связку ключей программы <command>rpm</command>
+или <command>apt</command>:
+
+<list type="bullet">
+
+<listitem>
+Для Debian/Ubuntu:
+<programlisting>sudo apt-key add nginx_signing.key</programlisting>
+</listitem>
+
+<listitem>
+Для RHEL/CentOS:
+<programlisting>sudo rpm --import nginx_signing.key</programlisting>
+</listitem>
+
+</list>
+</para>
+
+<para>
+В Debian/Ubuntu подпись проверяется по умолчанию, однако
+в RHEL/CentOS необходимо добавить
+<programlisting>gpgcheck=1</programlisting> в файл
+<path>/etc/yum.repos.d/nginx.repo</path>.
+</para>
+
+<para>
+Поскольку наши <link doc="../en/pgp_keys.xml">PGP-ключи</link>
+находятся на том же сервере, что и пакеты,
+им следует доверять в равной степени.
+Поэтому мы настоятельно рекомендуем дополнительно проверить
+подлинность загруженных PGP-ключей.
+В PGP есть понятие “сети доверия”,
+когда ключ подписывается чьим-либо другим ключом,
+тот в свою очередь третьим, и т.д.
+Это зачастую позволяет построить цепочку от произвольного ключа
+до ключа человека, которого вы знаете и кому доверяете лично,
+и таким образом удостовериться в подлинности первого ключа в цепочке.
+Подробно эта концепция описана в
+<link url="http://www.dewinter.com/gnupg_howto/english/GPGMiniHowto-1.html">
+GPG Mini Howto</link>.
+У наших ключей есть достаточное количество подписей,
+поэтому проверить их подлинность относительно несложно.
 </para>
 
 </section>
