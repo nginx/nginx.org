@@ -7,7 +7,7 @@
 <article name="nginx: Linux packages"
          link="/en/linux_packages.html"
          lang="en"
-         rev="3"
+         rev="4"
          toc="no">
 
 <section id="distributions">
@@ -162,7 +162,7 @@ for 5.x or 6.x versions, respectively.
 
 <para>
 For Debian/Ubuntu, in order to authenticate the nginx repository signature
-and to eliminate warnings about missing gpg key during installation of the
+and to eliminate warnings about missing PGP key during installation of the
 nginx package, it is necessary to add the key used to sign the nginx
 packages and repository to the <command>apt</command> program keyring.
 Please download <link url="http://nginx.org/keys/nginx_signing.key">this
@@ -230,7 +230,7 @@ for 5.x or 6.x versions, respectively.
 
 <para>
 For Debian/Ubuntu, in order to authenticate the nginx repository signature
-and to eliminate warnings about missing gpg key during installation of the
+and to eliminate warnings about missing PGP key during installation of the
 nginx package, it is necessary to add the key used to sign the nginx
 packages and repository to the <command>apt</command> program keyring.
 Please download <link url="http://nginx.org/keys/nginx_signing.key">this
