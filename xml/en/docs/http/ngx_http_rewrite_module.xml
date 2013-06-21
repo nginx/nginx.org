@@ -119,7 +119,7 @@ later reuse in the <var>$1</var>..<var>$9</var> variables.
 Negative operators “<literal>!~</literal>” and “<literal>!~*</literal>”
 are also available.
 If a regular expression includes the characters “<literal>}</literal>”
-or “<literal>;</literal>”, the whole expressions should be enclosed
+or “<literal>;</literal>”, the whole expression should be enclosed
 in single or double quotes.
 </listitem>
 
@@ -323,7 +323,7 @@ rewrite ^/users/(.*)$ /show?user=$1? last;
 
 <para>
 If a regular expression includes the characters “<literal>}</literal>”
-or “<literal>;</literal>”, the whole expressions should be enclosed
+or “<literal>;</literal>”, the whole expression should be enclosed
 in single or double quotes.
 </para>
 
