@@ -10,7 +10,7 @@
 <module name="Основная функциональность"
         link="/ru/docs/ngx_core_module.html"
         lang="ru"
-        rev="7">
+        rev="8">
 
 <section id="example" name="Пример конфигурации">
 
@@ -161,6 +161,7 @@ events {
 
 <para>
 Конфигурирует запись в лог.
+На одном уровне может использоваться несколько логов (1.5.2).
 </para>
 
 <para>
