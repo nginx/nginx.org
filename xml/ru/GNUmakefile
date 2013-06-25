@@ -15,6 +15,7 @@ DOCS =									\
 		debugging_log						\
 		http/websocket						\
 		contributing_changes					\
+		beginners_guide						\
 		configure						\
 
 FAQ =									\

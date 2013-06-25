@@ -18,6 +18,7 @@ DOCS =									\
 		howto_setup_development_environment_on_ec2		\
 		nginx_dtrace_pid_provider				\
 		contributing_changes					\
+		beginners_guide						\
 		configure						\
 
 FAQ =									\
