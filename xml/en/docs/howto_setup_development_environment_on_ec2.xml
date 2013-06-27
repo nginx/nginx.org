@@ -21,15 +21,27 @@ Nginx is offering the following products:
 
 <listitem>
 <link url="https://aws.amazon.com/marketplace/pp/B00A04GAG4">
-NGINX AMI based on Amazon Linux AMI</link>
+NGINX Amazon Linux AMI</link>
 </listitem>
+
+<listitem>
+<link url="https://aws.amazon.com/marketplace/pp/B00DIF4A6Y">
+NGINX Ubuntu AMI</link>
+</listitem>
+
+</list>
+
+These images contain the following components:
+
+<list type="bullet" compact="no">
 
 <listitem>
 Latest version of nginx optimized for use with AWS
 </listitem>
 
 <listitem>
-Install script for typical nginx configurations with AWS
+Helper script used to install and configure a set of typical nginx
+configurations
 </listitem>
 
 </list>
@@ -51,7 +63,9 @@ Getting Started with EC2</link> guide to sign up to AWS and
 get more information about EC2 itself.
 Then you can proceed to
 <link url="https://aws.amazon.com/marketplace/pp/B00A04GAG4">
-NGINX AMI product page on AWS Marketplace</link> and launch NGINX AMI.
+NGINX Amazon Linux AMI</link> or
+<link url="https://aws.amazon.com/marketplace/pp/B00DIF4A6Y">
+NGINX Ubuntu AMI</link> product page on AWS Marketplace and launch the AMI.
 When configuring the firewall rules, it is necessary to add a rule
 to accept web traffic on TCP ports 80 and 443 (“1-click launch”
 will do that automatically).
@@ -72,7 +86,7 @@ to check the status of your nginx server.
 <listitem>
 To configure nginx for use with different web frameworks
 quickly and efficiently, you can use a special helper script
-included in NGINX AMI.
+included in the AMI.
 Log in to your EC2 instance and start:
 
 <programlisting>
