@@ -111,7 +111,7 @@ If the <literal>gzip</literal> parameter is used, then the buffered data will
 be compressed before writing to the file.
 The compression level can be set between 1 (fastest, less compression)
 and 9 (slowest, best compression).
-By default the buffer size is equal to 64K bytes, and the compression level 
+By default the buffer size is equal to 64K bytes, and the compression level
 is set to 1.
 Since the data is compressed in atomic blocks, the log file can be decompressed
 or read by “<literal>zcat</literal>” at any time.
