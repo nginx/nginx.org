@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="21">
+        rev="22">
 
 <section id="directives" name="Directives">
 
@@ -1159,7 +1159,7 @@ listen localhost:8000;
 IPv6 addresses (0.7.36) are specified in square brackets:
 <example>
 listen [::]:8000;
-listen [fe80::1];
+listen [::1];
 </example>
 UNIX-domain sockets (0.8.21) are specified with the “<literal>unix:</literal>”
 prefix:
