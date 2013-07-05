@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="20">
+        rev="21">
 
 <section id="directives" name="Directives">
 
@@ -2787,8 +2787,10 @@ same as <var>$uri</var>
 
 <tag-name id="var_host"><var>$host</var></tag-name>
 <tag-desc>
-<header>Host</header> request header field,
-or the server name matching a request if this field is not present
+in this order of precedence:
+host name from the request line, or
+host name from the <header>Host</header> request header field, or
+the server name matching a request
 </tag-desc>
 
 <tag-name id="var_hostname"><var>$hostname</var></tag-name>

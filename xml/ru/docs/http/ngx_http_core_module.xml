@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="20">
+        rev="21">
 
 <section id="directives" name="Директивы">
 
@@ -2773,8 +2773,10 @@ cookie <value>имя</value>
 
 <tag-name id="var_host"><var>$host</var></tag-name>
 <tag-desc>
-поле <header>Host</header> заголовка запроса,
-или имя сервера, соответствующего запросу, если этого поля нет
+в порядке приоритета:
+имя хоста из строки запроса, или
+имя хоста из поля <header>Host</header> заголовка запроса, или
+имя сервера, соответствующего запросу
 </tag-desc>
 
 <tag-name id="var_hostname"><var>$hostname</var></tag-name>
