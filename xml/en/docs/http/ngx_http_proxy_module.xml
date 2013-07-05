@@ -10,7 +10,7 @@
 <module name="Module ngx_http_proxy_module"
         link="/en/docs/http/ngx_http_proxy_module.html"
         lang="en"
-        rev="11">
+        rev="12">
 
 <section id="summary">
 
@@ -881,6 +881,20 @@ It should be understood that passing a request to the next server is
 only possible if a client was not sent anything yet.
 That is, if an error or a timeout occurs in the middle of
 transferring a response, fixing this is impossible.
+</para>
+
+<para>
+The directive also defines what is considered an unsuccessful attempt
+of communication with a
+<link doc="ngx_http_upstream_module.xml" id="server"/>.
+The cases of <literal>error</literal>, <literal>timeout</literal> and
+<literal>invalid_header</literal> are always considered unsuccessful attempts,
+even if they are not specified in the directive.
+The cases of <literal>http_500</literal>, <literal>http_502</literal>,
+<literal>http_503</literal> and <literal>http_504</literal> are
+considered unsuccessful attempts only if they are specified in the directive.
+The cases of <literal>http_403</literal> and <literal>http_404</literal>
+are never considered unsuccessful attempts.
 </para>
 
 </directive>

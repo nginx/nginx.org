@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -123,14 +123,11 @@ after which it will be considered down for a period of time also set
 by the <literal>fail_timeout</literal> parameter.
 By default, the number of unsuccessful attempts is set to 1.
 A value of zero disables accounting of attempts.
-What is considered to be an unsuccessful attempt is configured by the
+What is considered an unsuccessful attempt is defined by the
 <link doc="ngx_http_proxy_module.xml" id="proxy_next_upstream"/>,
 <link doc="ngx_http_fastcgi_module.xml" id="fastcgi_next_upstream"/>, and
 <link doc="ngx_http_memcached_module.xml" id="memcached_next_upstream"/>
 directives.
-The <literal>http_403</literal>, <literal>http_404</literal>,
-and <literal>not_found</literal> states are not considered as
-unsuccessful attempts.
 </tag-desc>
 
 <tag-name><literal>fail_timeout</literal>=<value>time</value></tag-name>

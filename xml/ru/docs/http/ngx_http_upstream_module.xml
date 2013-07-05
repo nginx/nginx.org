@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_upstream_module"
         link="/ru/docs/http/ngx_http_upstream_module.html"
         lang="ru"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -125,12 +125,10 @@ upstream backend {
 заданного параметром <literal>fail_timeout</literal>.
 По умолчанию число попыток устанавливается равным 1.
 Нулевое значение запрещает учёт попыток.
-Что считается неудачной попыткой, задаётся директивами
+Что считается неудачной попыткой, определяется директивами
 <link doc="ngx_http_proxy_module.xml" id="proxy_next_upstream"/>,
 <link doc="ngx_http_fastcgi_module.xml" id="fastcgi_next_upstream"/> и
 <link doc="ngx_http_memcached_module.xml" id="memcached_next_upstream"/>.
-Состояния <literal>http_403</literal>, <literal>http_404</literal>
-и <literal>not_found</literal> не считаются неудачными попытками.
 </tag-desc>
 
 <tag-name><literal>fail_timeout</literal>=<value>время</value></tag-name>

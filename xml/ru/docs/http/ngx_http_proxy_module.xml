@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_proxy_module"
         link="/ru/docs/http/ngx_http_proxy_module.html"
         lang="ru"
-        rev="11">
+        rev="12">
 
 <section id="summary">
 
@@ -878,6 +878,19 @@ nginx не передаёт клиенту поля заголовка <header>D
 только при условии, что клиенту ещё ничего не передавалось.
 То есть, если ошибка или таймаут возникли в середине передачи ответа,
 то исправить это уже невозможно.
+</para>
+
+<para>
+Директива также определяет, что считается неудачной попыткой работы с
+<link doc="ngx_http_upstream_module.xml" id="server">сервером</link>.
+Случаи <literal>error</literal>, <literal>timeout</literal> и
+<literal>invalid_header</literal>
+всегда считаются неудачными попытками, даже если они не указаны в директиве.
+Случаи <literal>http_500</literal>, <literal>http_502</literal>,
+<literal>http_503</literal> и <literal>http_504</literal>
+считаются неудачными попытками, только если они указаны в директиве.
+Случаи <literal>http_403</literal> и <literal>http_404</literal>
+никогда не считаются неудачными попытками.
 </para>
 
 </directive>

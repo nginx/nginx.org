@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_memcached_module"
         link="/ru/docs/http/ngx_http_memcached_module.html"
         lang="ru"
-        rev="5">
+        rev="6">
 
 <section id="summary">
 
@@ -159,6 +159,16 @@ server {
 только при условии, что клиенту ещё ничего не передавалось.
 То есть, если ошибка или таймаут возникли в середине передачи ответа,
 то исправить это уже невозможно.
+</para>
+
+<para>
+Директива также определяет, что считается неудачной попыткой работы с
+<link doc="ngx_http_upstream_module.xml" id="server">сервером</link>.
+Случаи <literal>error</literal>, <literal>timeout</literal> и
+<literal>invalid_response</literal>
+всегда считаются неудачными попытками, даже если они не указаны в директиве.
+Случай <literal>not_found</literal>
+никогда не считается неудачной попыткой.
 </para>
 
 </directive>
