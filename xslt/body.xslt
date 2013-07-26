@@ -52,9 +52,9 @@
 
                               <td align="center">
 
-                                 <a href="http://nginx.com/products.html">
+                                 <a href="http://nginx.com/products/">
 
-                                    <strong>Need mission critical support for nginx?</strong>
+                                    <strong>Make your web site fast and reliable.</strong>
 
                                  </a>
 
@@ -66,7 +66,7 @@
 
                               <td align="center">
 
-                                 <i>Prioritize. Save time. Stay focused.</i>
+                                 <i>NGINX SE for mission critical environments.</i>
 
                               </td>
 
