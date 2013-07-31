@@ -10,7 +10,7 @@
 <module name="Module ngx_http_charset_module"
         link="/en/docs/http/ngx_http_charset_module.html"
         lang="en"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
@@ -163,7 +163,7 @@ are provided in the distribution files <path>conf/koi-win</path>,
 <directive name="charset_types">
 <syntax><value>mime-type</value> ...</syntax>
 <default>text/html text/xml text/plain text/vnd.wap.wml
-application/x-javascript application/rss+xml</default>
+application/javascript application/rss+xml</default>
 <context>http</context>
 <context>server</context>
 <context>location</context>
@@ -173,6 +173,13 @@ application/x-javascript application/rss+xml</default>
 Enables module processing in responses with the specified MIME types
 in addition to “<literal>text/html</literal>”.
 The special value “<literal>*</literal>” matches any MIME type (0.8.29).
+</para>
+
+<para>
+<note>
+Until version 1.5.4, “<literal>application/x-javascript</literal>” was used
+as the default MIME type instead of “<literal>application/javascript</literal>”.
+</note>
 </para>
 
 </directive>

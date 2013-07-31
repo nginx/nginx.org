@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_charset_module"
         link="/ru/docs/http/ngx_http_charset_module.html"
         lang="ru"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
@@ -162,7 +162,7 @@ charset_map koi8-r utf-8 {
 <directive name="charset_types">
 <syntax><value>mime-тип</value> ...</syntax>
 <default>text/html text/xml text/plain text/vnd.wap.wml
-application/x-javascript application/rss+xml</default>
+application/javascript application/rss+xml</default>
 <context>http</context>
 <context>server</context>
 <context>location</context>
@@ -173,6 +173,14 @@ application/x-javascript application/rss+xml</default>
 в дополнение к “<literal>text/html</literal>”.
 Специальное значение “<literal>*</literal>” соответствует любому MIME-типу
 (0.8.29).
+</para>
+
+<para>
+<note>
+До версии 1.5.4 по умолчанию вместо MIME-типа
+“<literal>application/javascript</literal>” использовался
+“<literal>application/x-javascript</literal>”.
+</note>
 </para>
 
 </directive>
