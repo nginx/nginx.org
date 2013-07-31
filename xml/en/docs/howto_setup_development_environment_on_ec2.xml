@@ -6,16 +6,16 @@
 
 <!DOCTYPE article SYSTEM "../../../dtd/article.dtd">
 
-<article name="Setting up nginx environment on Amazon EC2"
+<article name="Setting up NGINX SE environment on Amazon EC2"
          link="/en/docs/howto_setup_development_environment_on_ec2.html"
          lang="en"
          rev="2">
 
-<section name="Products available on Amazon EC2">
+<section name="NGINX AMI on EC2">
 
 <para>
 As a Standard Technology Partner participating in AWS Partner Network,
-Nginx is offering the following products:
+Nginx offers the following products:
 
 <list type="bullet" compact="no">
 
@@ -36,12 +36,21 @@ These images contain the following components:
 <list type="bullet" compact="no">
 
 <listitem>
-Latest version of nginx optimized for use with AWS
+Latest version of
+<link url="http://nginx.com/products/">NGINX SE</link>
+optimized for use with AWS.
 </listitem>
 
 <listitem>
-Helper script used to install and configure a set of typical nginx
-configurations
+A set of pre-packaged software to build highly
+available <link url="http://nginx.com/products/">NGINX SE</link>
+configurations.
+</listitem>
+
+<listitem>
+Helper script used to install and configure typical
+development environments with
+<link url="http://nginx.com/products/">NGINX SE</link>.
 </listitem>
 
 </list>
@@ -54,7 +63,7 @@ configurations
          name="Step-by-step guide to start working with NGINX AMI">
 
 <para>
-To quickly set up nginx environment on AWS:
+To quickly set up NGINX SE environment on AWS:
 <list type="bullet" compact="no">
 <listitem>
 Follow
@@ -72,7 +81,7 @@ will do that automatically).
 </listitem>
 
 <listitem>
-As soon as the new instance is launched, nginx will be automatically
+As soon as the new instance is launched, NGINX SE will be automatically
 started and configured to serve default index.html page.
 You can check it by pointing your web browser to the public DNS
 name of your newborn EC2 instance.
@@ -80,11 +89,11 @@ Also, you can log in to your instance and use
 <programlisting>
 /etc/init.d/nginx status
 </programlisting>
-to check the status of your nginx server.
+to check the status of your NGINX SE server.
 </listitem>
 
 <listitem>
-To configure nginx for use with different web frameworks
+To configure NGINX SE for use with different web frameworks
 quickly and efficiently, you can use a special helper script
 included in the AMI.
 Log in to your EC2 instance and start:
@@ -112,7 +121,7 @@ in a subdirectory inside <path>/var/www</path>,
 additional instructions will be provided on how to start/stop sample
 application.
 For example, the Rails/Unicorn application will reside in
-<path>/var/www/rails/sample-unicorn</path>, and specific part of nginx
+<path>/var/www/rails/sample-unicorn</path>, and specific part of NGINX SE
 configuration will be in <path>/etc/nginx/conf.d/rails-unicorn.conf</path>.
 Installed application and configuration files can be used as a basis
 for further development.
@@ -180,16 +189,16 @@ installation process.
          name="What if something goes wrong?">
 
 <para>
-In case you encounter any problems with nginx configuration,
+In case you encounter any problems with NGINX SE configuration,
 the documentation is available on
 <link url="http://nginx.org/en/docs/"/>.
 </para>
 
 <para>
 Customers purchased NGINX AMI at AWS Marketplace are eligible for assistance
-under AWS support provided by Nginx core engineering team.
+under AWS support provided by Nginx Inc. core engineering team.
 In order to activate support, the following form must be filled out:
-<link url="http://nginx.com/sform.html"/>.
+<link url="http://nginx.com/ami-support-activation/"/>.
 Please note that you will need your AWS Account Number.
 In some cases we may also ask you to provide EC2 instance ID(s).
 </para>
