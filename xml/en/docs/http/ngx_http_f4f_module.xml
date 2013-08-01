@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Module ngx_http_f4f_module"
+        link="/en/docs/http/ngx_http_f4f_module.html"
+        lang="en"
+        rev="1">
+
+<section id="summary">
+
+<para>
+The module <literal>ngx_http_f4f_module</literal> provides
+server-side support for Adobe HTTP Dynamic Streaming (HDS).
+</para>
+
+<para>
+This module implements handling of HTTP Dynamic Streaming requests in a
+“<literal>/videoSeg1-Frag1</literal>” form, extracting needed fragment
+from the <path>videoSeg1.f4f</path> file using the <path>videoSeg1.f4x</path>
+index file.
+This module is an alternative to the Adobe’s f4f module (HTTP Origin Module)
+for Apache.
+</para>
+
+<para>
+Usual pre-processing with Adobe’s f4fpackager is required, see relevant
+documentation for details.
+</para>
+
+<para>
+<note>
+This module is available as part of our <commercial_version/> only.
+</note>
+</para>
+
+</section>
+
+
+<section id="example" name="Example Configuration">
+
+<para>
+<example>
+location /video/ {
+    f4f;
+    ...
+}
+</example>
+</para>
+
+</section>
+
+
+<section id="directives" name="Directives">
+
+<directive name="f4f">
+<syntax/>
+<default/>
+<context>location</context>
+
+<para>
+Turns on module processing in a surrounding location.
+</para>
+
+</directive>
+
+
+<directive name="f4f_buffer_size">
+<syntax><value>size</value></syntax>
+<default>512k</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Sets the size of a memory buffer used for reading <path>.f4x</path> index file.
+</para>
+
+</directive>
+
+</section>
+
+</module>

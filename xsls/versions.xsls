@@ -15,4 +15,8 @@ X:template = "stable_version" {
                 /versions/download[@tag='stable'][1]/item[1]/@ver";
 }
 
+X:template = "commercial_version" {
+    <a href="http://nginx.com/products/">commercial subscription</a>
+}
+
 }

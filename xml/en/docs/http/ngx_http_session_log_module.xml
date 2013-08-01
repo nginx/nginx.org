@@ -1,0 +1,155 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Module ngx_http_session_log_module"
+        link="/en/docs/http/ngx_http_session_log_module.html"
+        lang="en"
+        rev="1">
+
+<section id="summary">
+
+<para>
+The module <literal>ngx_http_session_log_module</literal> allows to log
+sessions (i.e. aggregates of multiple HTTP requests) instead of
+individual HTTP requests.
+</para>
+
+<para>
+<note>
+This module is available as part of our <commercial_version/> only.
+</note>
+</para>
+
+</section>
+
+
+<section id="example" name="Example Configuration">
+
+<para>
+Log sessions based on client address and <header>User-Agent</header>
+request header field:
+<example>
+    session_log_zone /path/to/log format=combined
+                     zone=one:1m timeout=30s
+                     md5=$binary_remote_addr$http_user_agent;
+
+    location /media/ {
+        session_log one;
+    }
+</example>
+</para>
+
+</section>
+
+
+<section id="directives" name="Directives">
+
+<directive name="session_log_format">
+<syntax>
+    <value>name</value>
+    <value>string</value> ...</syntax>
+<default>combined "..."</default>
+<context>http</context>
+
+<para>
+Specifies format of a log.
+Value of the <var>$body_bytes_sent</var> variable is aggregated across
+all requests in the session.
+Everything else corresponds to the first request that started a session.
+</para>
+
+</directive>
+
+
+<directive name="session_log_zone">
+<syntax>
+    <value>path</value>
+    <literal>zone</literal>=<value>name</value>:<value>size</value>
+    [<literal>format</literal>=<value>format</value>]
+    [<literal>timeout</literal>=<value>time</value>]
+    [<literal>id</literal>=<value>id</value>]
+    [<literal>md5</literal>=<value>md5</value>]
+</syntax>
+<default/>
+<context>http</context>
+
+<para>
+Sets path to log file and shared memory zone used to store currently active
+sessions.
+</para>
+
+<para>
+Sessions are considered active for as long as the time elapsed since
+the last request in the session does not exceed a specified
+<literal>timeout</literal> (by default, 30 seconds).
+Session is logged once it is no longer active.
+</para>
+
+<para>
+Requests are mapped into sessions based on the value of the
+<literal>id</literal> parameter.
+If <literal>id</literal> is not specified or does not represent the valid
+MD5 hash, a new session is created using MD5 hash computed from the value
+of the <literal>md5</literal> parameter.
+Both <literal>id</literal> and <literal>md5</literal> parameters
+can contain variables.
+</para>
+
+<para>
+The <literal>format</literal> parameter can be used to set custom session log
+format.
+If <literal>format</literal> is not specified then the predefined format
+“<literal>combined</literal>” is used.
+</para>
+
+</directive>
+
+
+<directive name="session_log">
+<syntax><value>name</value> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Use the specified session log.
+The special value <literal>off</literal> cancels all
+<literal>session_log</literal> directives inherited from the previous
+configuration level.
+</para>
+
+</directive>
+
+</section>
+
+
+<section id="variables" name="Embedded Variables">
+
+<para>
+The <literal>ngx_http_session_log_module</literal> module supports
+two embedded variables:
+
+<list type="tag">
+
+<tag-name><var>$session_log_id</var></tag-name>
+<tag-desc>
+current session ID;
+</tag-desc>
+
+<tag-name><var>$session_log_binary_id</var></tag-name>
+<tag-desc>
+current session ID in binary form (16 bytes).
+</tag-desc>
+
+</list>
+</para>
+
+</section>
+
+</module>

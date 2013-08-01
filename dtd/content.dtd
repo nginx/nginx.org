@@ -13,7 +13,8 @@
 <!ELEMENT  para         (#PCDATA | link | links | br | list | note |
                          i | b | nobr | table | literal | command |
                          path | header | value | programlisting |
-                         initial | mainline_version | stable_version |
+                         initial |
+                         mainline_version | stable_version | commercial_version |
                          registered | c-func | http-status)* >
 
 <!ELEMENT  links        (link)+ >
@@ -30,7 +31,8 @@
 <!ELEMENT  i            (#PCDATA) >
 <!ELEMENT  b            (#PCDATA) >
 <!ELEMENT  command      (#PCDATA | value)* >
-<!ELEMENT  path         (#PCDATA | value | mainline_version | stable_version)* >
+<!ELEMENT  path         (#PCDATA | value |
+                         mainline_version | stable_version | commercial_version)* >
 <!ELEMENT  literal      (#PCDATA | value)* >
 <!ELEMENT  header       (#PCDATA) >
 <!ELEMENT  initial      (#PCDATA) >
@@ -47,7 +49,7 @@
 >
 
 <!ELEMENT  programlisting  (#PCDATA | i | b | path |
-                            mainline_version | stable_version)* >
+                            mainline_version | stable_version | commercial_version)* >
 
 <!ELEMENT  nobr         (#PCDATA | b | command | i | literal | path)* >
 
@@ -59,7 +61,8 @@
 
 <!ELEMENT  listitem     (#PCDATA | para | br | nobr | list | i | b |
                          path | literal | value | var | programlisting |
-                         link | registered)* >
+                         link | registered |
+                         mainline_version | stable_version | commercial_version)* >
 <!ATTLIST  listitem
            id           ID #IMPLIED
 >
@@ -67,7 +70,7 @@
 <!ELEMENT  note         (#PCDATA | para | br | list | i | b | link |
                          nobr | table | literal | command | path |
                          header | programlisting | initial | paypal |
-                         mainline_version | stable_version )* >
+                         mainline_version | stable_version | commercial_version)* >
 
 <!ELEMENT  table        (tr+) >
 <!ATTLIST  table
@@ -83,8 +86,9 @@
 
 <!ELEMENT  paypal       EMPTY >
 
-<!ELEMENT  mainline_version  EMPTY >
-<!ELEMENT  stable_version    EMPTY >
+<!ELEMENT  mainline_version    EMPTY >
+<!ELEMENT  stable_version      EMPTY >
+<!ELEMENT  commercial_version  EMPTY >
 
 <!ELEMENT  book         EMPTY >
 <!ATTLIST  book

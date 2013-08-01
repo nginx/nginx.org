@@ -11,4 +11,9 @@
       <xsl:apply-templates select="document(concat($XML, '/versions.xml'))                 /versions/download[@tag='stable'][1]/item[1]/@ver"/>
    </xsl:template>
 
+   <xsl:template match="commercial_version">
+
+      <a href="http://nginx.com/products/">commercial subscription</a>
+   </xsl:template>
+
 </xsl:stylesheet>

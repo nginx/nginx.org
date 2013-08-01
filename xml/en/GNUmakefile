@@ -42,6 +42,7 @@ REFS =									\
 		http/ngx_http_dav_module				\
 		http/ngx_http_empty_gif_module				\
 		http/ngx_http_fastcgi_module				\
+		http/ngx_http_f4f_module				\
 		http/ngx_http_flv_module				\
 		http/ngx_http_geo_module				\
 		http/ngx_http_geoip_module				\
@@ -49,6 +50,7 @@ REFS =									\
 		http/ngx_http_gzip_module				\
 		http/ngx_http_gzip_static_module			\
 		http/ngx_http_headers_module				\
+		http/ngx_http_hls_module				\
 		http/ngx_http_image_filter_module			\
 		http/ngx_http_index_module				\
 		http/ngx_http_limit_conn_module				\
@@ -65,9 +67,11 @@ REFS =									\
 		http/ngx_http_rewrite_module				\
 		http/ngx_http_secure_link_module			\
 		http/ngx_http_spdy_module				\
+		http/ngx_http_session_log_module			\
 		http/ngx_http_split_clients_module			\
 		http/ngx_http_ssi_module				\
 		http/ngx_http_ssl_module				\
+		http/ngx_http_status_module				\
 		http/ngx_http_sub_module				\
 		http/ngx_http_upstream_module				\
 		http/ngx_http_userid_module				\

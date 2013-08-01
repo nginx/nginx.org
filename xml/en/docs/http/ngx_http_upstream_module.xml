@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="4">
+        rev="5">
 
 <section id="summary">
 
@@ -41,6 +41,36 @@ upstream <emphasis>backend</emphasis> {
 server {
     location / {
         proxy_pass http://<emphasis>backend</emphasis>;
+    }
+}
+</example>
+</para>
+
+<para>
+Dynamically configurable group,
+available as part of our <commercial_version/> only:
+<example>
+upstream <emphasis>appservers</emphasis> {
+    zone appservers 64k;
+
+    server appserv1.example.com      weight=5;
+    server appserv2.example.com:8080 fail_timeout=5s;
+    server 192.0.2.1                 max_fails=3;
+
+    server reserve1.example.com:8080 backup;
+    server reserve2.example.com:8080 backup;
+}
+
+server {
+    location / {
+        proxy_pass http://<emphasis>appservers</emphasis>;
+        health_check;
+    }
+
+    location /upstream_conf {
+        upstream_conf;
+        allow 127.0.0.1;
+        deny all;
     }
 }
 </example>
@@ -175,6 +205,30 @@ upstream backend {
     server backup1.example.com:8080 backup;
 }
 </example>
+</para>
+
+</directive>
+
+
+<directive name="zone">
+<syntax><value>name</value> <value>size</value></syntax>
+<default/>
+<context>upstream</context>
+
+<para>
+Makes the group dynamically configurable.
+Defines the <value>name</value> and <value>size</value> of a shared
+memory zone that keeps group’s configuration and run-time state that are
+shared between worker processes.
+Such groups allow to add, remove, and modify servers at run time.
+The configuration is accessible via a special location handled by
+<link id="upstream_conf"/>.
+</para>
+
+<para>
+<note>
+This directive is available as part of our <commercial_version/> only.
+</note>
 </para>
 
 </directive>
@@ -360,6 +414,640 @@ is passed to the server with the least number of active connections,
 taking into account weights of servers.
 If there are several such servers, they are tried using a
 weighted round-robin balancing method.
+</para>
+
+</directive>
+
+
+<directive name="health_check">
+<syntax>
+    [<literal>interval=</literal><value>time</value>]
+<!--
+    [<literal>jitter=</literal><value>time</value>]
+-->
+    [<literal>fails=</literal><value>number</value>]
+    [<literal>passes=</literal><value>number</value>]
+    [<literal>uri=</literal><value>uri</value>]
+    [<literal>match=</literal><value>name</value>]</syntax>
+
+<default/>
+<context>location</context>
+
+<para>
+Enables periodic health checks of servers in a
+<link id="upstream">group</link> referenced in the surrounding location.
+</para>
+
+<para>
+The following optional parameters are supported:
+<list type="bullet">
+
+<listitem>
+<literal>interval</literal>
+sets interval between two consecutive health checks,
+defaults to five seconds;
+</listitem>
+
+<listitem>
+<literal>fails</literal>
+sets a number of consecutive failed health checks
+after which the server will be considered unhealthy,
+defaults to 1;
+</listitem>
+
+<listitem>
+<literal>passes</literal>
+sets a number of consecutive passed health checks
+after which the server will be considered healthy,
+defaults to 1;
+</listitem>
+
+<listitem>
+<literal>uri</literal>
+defines the URI used in health check requests,
+defaults to “<literal>/</literal>”;
+</listitem>
+
+<listitem>
+<literal>match</literal>
+names tests that a response should
+pass in order for a health check to pass,
+defaults to responses with status codes 2xx and 3xx.
+</listitem>
+
+</list>
+</para>
+
+<para>
+For example,
+<example>
+location / {
+    proxy_pass http://backend;
+    health_check;
+}
+</example>
+will send “<literal>/</literal>” requests to each
+server in the group <literal>backend</literal> every five seconds.
+If any communication errors or timeouts occur, or if a
+proxied server responds with the status code other than
+2xx or 3xx, health check will fail, and the server will
+become unhealthy.
+Client requests will not be passed to unhealthy servers.
+</para>
+
+<para>
+Health checks can be configured to test status code of a response,
+presence of certain header fields and their values,
+and/or the body contents.
+Tests are configured separately with the <link id="match"/> directives
+and referenced in the <literal>match</literal> parameter.
+For example,
+<example>
+http {
+    server {
+    ...
+        location / {
+            proxy_pass http://backend;
+            health_check match=welcome;
+        }
+    }
+
+    match welcome {
+        status 200;
+        header Content-Type = text/html;
+        body ~ "Welcome to nginx!";
+    }
+}
+</example>
+tells that for a health check to pass, a response should succeed,
+have status 200, content type “<literal>text/html</literal>”,
+and contain “<literal>Welcome to nginx!</literal>” in the body.
+</para>
+
+<para>
+It is required that a group be in <link id="zone">shared memory</link>.
+</para>
+
+<para>
+If several health checks are defined for the same group of servers,
+a single failure of any check will make the corresponding server
+to become unhealthy.
+</para>
+
+<para>
+<note>
+This directive is available as part of our <commercial_version/> only.
+</note>
+</para>
+
+</directive>
+
+
+<directive name="match">
+<syntax block="yes"><value>name</value></syntax>
+<default/>
+<context>http</context>
+
+<para>
+Defines the named test set used to verify responses to health check requests.
+</para>
+
+<para>
+The following can be tested in a response:
+<list type="tag">
+
+<tag-name><literal>status 200;</literal></tag-name>
+<tag-desc>status is 200</tag-desc>
+
+<tag-name><literal>status ! 500;</literal></tag-name>
+<tag-desc>status is not 500</tag-desc>
+
+<tag-name><literal>status 200 204;</literal></tag-name>
+<tag-desc>status is 200 or 204</tag-desc>
+
+<tag-name><literal>status ! 301 302;</literal></tag-name>
+<tag-desc>status is neither 301 nor 302</tag-desc>
+
+<tag-name><literal>status 200-399;</literal></tag-name>
+<tag-desc>status is in the 200..399 range</tag-desc>
+
+<tag-name><literal>status ! 400-599;</literal></tag-name>
+<tag-desc>status is not in the 400..599 range</tag-desc>
+
+<tag-name><literal>status 301-303 307;</literal></tag-name>
+<tag-desc>status is one of 301, 302, 303, or 307</tag-desc>
+
+</list>
+
+<list type="tag">
+
+<tag-name><literal>header Content-Type = text/html;</literal></tag-name>
+<tag-desc>
+header contains <header>Content-Type</header>
+with value <literal>text/html</literal>
+</tag-desc>
+
+<tag-name><literal>header Content-Type != text/html;</literal></tag-name>
+<tag-desc>
+header contains <header>Content-Type</header>
+with value other than <literal>text/html</literal>
+</tag-desc>
+
+<tag-name><literal>header Connection ~ close;</literal></tag-name>
+<tag-desc>
+header contains <header>Connection</header>
+with value matching regular expression <literal>close</literal>
+</tag-desc>
+
+<tag-name><literal>header Connection !~ close;</literal></tag-name>
+<tag-desc>
+header contains <header>Connection</header>
+with value not matching regular expression <literal>close</literal>
+</tag-desc>
+
+<tag-name><literal>header Host;</literal></tag-name>
+<tag-desc>header contains <header>Host</header></tag-desc>
+
+<tag-name><literal>header ! X-Accel-Redirect;</literal></tag-name>
+<tag-desc>header lacks <header>X-Accel-Redirect</header></tag-desc>
+
+</list>
+
+<list type="tag">
+
+<tag-name><literal>body ~ "Welcome to nginx!";</literal></tag-name>
+<tag-desc>
+body matches regular expression “<literal>Welcome to nginx!</literal>”
+</tag-desc>
+
+<tag-name><literal>body !~ "Welcome to nginx!";</literal></tag-name>
+<tag-desc>
+body does not match regular expression “<literal>Welcome to nginx!</literal>”
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+If several tests are specified,
+the response matches only if it passes all tests.
+<note>
+Only the first 256k of body are examined.
+</note>
+</para>
+
+<para>
+Examples:
+<example>
+# status is 200, content type is "text/html",
+# and body contains "Welcome to nginx!"
+match welcome {
+    status 200;
+    header Content-Type = text/html;
+    body ~ "Welcome to nginx!";
+}
+</example>
+
+<example>
+# status is not one of 301, 302, 303, or 307, and header does not have "Refresh:"
+match not_redirect {
+    status ! 301-303 307;
+    header ! Refresh;
+}
+</example>
+
+<example>
+# status ok and not in maintenance mode
+match server_ok {
+    status 200-399;
+    body !~ "maintenance mode";
+}
+</example>
+
+</para>
+
+<para>
+<note>
+This directive is available as part of our <commercial_version/> only.
+</note>
+</para>
+
+</directive>
+
+
+<directive name="sticky">
+<syntax/>
+<default/>
+<context>upstream</context>
+
+<para>
+Enables session affinity support.
+The session is an object that is used to uniquely identify and maintain the
+state of a client during a given period of time.
+If session affinity is enabled, a client’s requests are always passed to the
+same server (in a group of servers) once a session has been created.
+Method used to create and track sessions must be specified by a separate
+directive, for example, <link id="sticky_cookie_insert"/>.
+<example>
+upstream backend {
+    server backend1.example.com;
+    server backend2.example.com;
+
+    sticky;
+    sticky_cookie_insert "sticky";
+}
+
+server {
+    location / {
+        proxy_pass http://backend;
+    }
+}
+</example>
+The directive must be specified after the <link id="ip_hash"/> or the
+<link id="least_conn"/> directives.
+</para>
+
+<para>
+Requests are processed as follows with the session affinity enabled:
+<list type="enum">
+
+<listitem>
+The lookup of session corresponding to request is performed.
+If the session is found, server identification data is extracted from it.
+This data is used by the server selection algorithm.
+</listitem>
+
+<listitem>
+The server to process the request is chosen according to the configured
+balancing method, server information from session and the real state of
+servers in a group (up or down, failed, etc.).
+</listitem>
+
+<listitem>
+The request is passed to the chosen server for processing.
+If the chosen server does not match specified in the session
+(due to being down, for example), the session is cleared
+and the request is processed as it had no session.
+</listitem>
+
+<listitem>
+The server returns the response.
+</listitem>
+
+<listitem>
+If there was no session for the request, new session
+is created and server identification data is stored in it.
+</listitem>
+
+</list>
+</para>
+
+<para>
+<note>
+This directive is available as part of our <commercial_version/> only.
+</note>
+</para>
+
+</directive>
+
+
+<directive name="sticky_cookie_insert">
+<syntax><value>name</value>
+[<literal>expires=</literal><value>time</value>]
+[<literal>domain=</literal><value>host</value>]
+[<literal>path=</literal><value>path</value>]</syntax>
+<default/>
+<context>upstream</context>
+
+<para>
+Enables and configures the session tracking method, based on keeping
+session information in HTTP cookies.
+The directive must be specified after the <link id="ip_hash"/> or the
+<link id="least_conn"/> directives.
+Example:
+<example>
+sticky_cookie_insert "srv_id" "expires=1h 7m" domain=example.com path=/;
+</example>
+The first parameter sets the name of the cookie to be inserted or inspected.
+Additional parameters may be as follows:
+<list type="tag">
+
+<tag-name><literal>expires</literal></tag-name>
+<tag-desc>
+Sets a time during which a browser should keep the cookie.
+The parameter “<literal>max</literal>” sets the time to
+“<literal>31 Dec 2037 23:55:55 GMT</literal>”.
+This is the maximum time understood by old browsers.
+</tag-desc>
+
+<tag-name><literal>domain</literal></tag-name>
+<tag-desc>
+Defines a domain for which the cookie is set.
+</tag-desc>
+
+<tag-name><literal>path</literal></tag-name>
+<tag-desc>
+Defines a path for which the cookie is set.
+</tag-desc>
+
+</list>
+If some parameter is omitted, then the corresponding cookie field is not set.
+</para>
+
+<para>
+<note>
+This directive is available as part of our <commercial_version/> only.
+</note>
+</para>
+
+</directive>
+
+
+<directive name="sticky_log_requests">
+<syntax><literal>debug</literal> |
+<literal>info</literal> |
+<literal>notice</literal> |
+<literal>warn</literal> |
+<literal>error</literal></syntax>
+<default/>
+<context>upstream</context>
+
+<para>
+Enables logging of session-related operations and sets the desired
+logging level.
+</para>
+
+<para>
+<note>
+This directive is available as part of our <commercial_version/> only.
+</note>
+</para>
+
+</directive>
+
+
+<directive name="upstream_conf">
+<syntax/>
+<default/>
+<context>location</context>
+
+<para>
+Turns on upstream configuration HTTP interface in a surrounding location.
+Access to this location should be
+<link doc="ngx_http_core_module.xml" id="satisfy">limited</link>.
+</para>
+
+<para>
+Configuration commands allow to:
+<list type="bullet">
+
+<listitem>view all primary or backup servers in a group;</listitem>
+
+<listitem>view an individual server;</listitem>
+
+<listitem>modify an individual server;</listitem>
+
+<listitem>add a new server (see note below);</listitem>
+
+<listitem>remove an individual server.</listitem>
+
+</list>
+<note>
+As noted in the <link id="server"/> directive, adding a server specified
+as a domain name may result in several servers being added.
+Since addresses in a group are not required to be unique, individual
+servers in a group can be uniquely referenced to only by their ID.
+IDs are assigned automatically and shown when viewing group configuration.
+</note>
+</para>
+
+<para>
+A command consists of parameters passed as request arguments, for example:
+<example>
+http://127.0.0.1/upstream_conf?upstream=appservers
+</example>
+</para>
+
+<para>
+The following parameters are supported:
+
+<list type="tag" compact="no">
+
+<tag-name>
+<literal>upstream=</literal><value>name</value></tag-name>
+<tag-desc>
+Selects a group.
+This parameter is mandatory.
+</tag-desc>
+
+<tag-name>
+<literal>backup=</literal>
+</tag-name>
+<tag-desc>
+If unset, selects primary servers in the group.
+If set, selects backup servers in the group.
+</tag-desc>
+
+<tag-name>
+<literal>id=</literal><value>number</value></tag-name>
+<tag-desc>
+Selects an individual primary or backup server in the group.
+</tag-desc>
+
+<tag-name>
+<literal>remove=</literal></tag-name>
+<tag-desc>
+Removes an individual primary or backup server from the group.
+</tag-desc>
+
+<tag-name>
+<literal>add=</literal></tag-name>
+<tag-desc>
+Adds a new primary or backup server to the group.
+</tag-desc>
+
+<tag-name>
+<literal>server=</literal><value>address</value></tag-name>
+<tag-desc>
+Same as the “<literal>address</literal>” parameter
+of the <link id="server"/> directive.
+</tag-desc>
+
+<tag-name>
+<literal>weight=</literal><value>number</value></tag-name>
+<tag-desc>
+Same as the “<literal>weight</literal>” parameter
+of the <link id="server"/> directive.
+</tag-desc>
+
+<tag-name>
+<literal>max_fails=</literal><value>number</value></tag-name>
+<tag-desc>
+Same as the “<literal>max_fails</literal>” parameter
+of the <link id="server"/> directive.
+</tag-desc>
+
+<tag-name>
+<literal>fail_timeout=</literal><value>time</value></tag-name>
+<tag-desc>
+Same as the “<literal>fail_timeout</literal>” parameter
+of the <link id="server"/> directive.
+</tag-desc>
+
+<tag-name>
+<literal>down=</literal></tag-name>
+<tag-desc>
+Same as the “<literal>down</literal>” parameter
+of the <link id="server"/> directive.
+</tag-desc>
+
+<tag-name>
+<literal>up=</literal></tag-name>
+<tag-desc>
+The opposite of the “<literal>down</literal>” parameter
+of the <link id="server"/> directive.
+</tag-desc>
+
+</list>
+
+The first three parameters select a target the command applies to.
+Without other parameters, configuration of the selected target
+is shown.
+</para>
+
+<para>
+For example, to view the primary servers in the group:
+<example>
+http://127.0.0.1/upstream_conf?upstream=appservers
+</example>
+
+To view the backup servers in the group:
+<example>
+http://127.0.0.1/upstream_conf?upstream=appservers&amp;backup=
+</example>
+
+To view an individual primary server in the group:
+<example>
+http://127.0.0.1/upstream_conf?upstream=appservers&amp;id=42
+</example>
+
+To view an individual backup server in the group:
+<example>
+http://127.0.0.1/upstream_conf?upstream=appservers&amp;backup=&amp;id=42
+</example>
+</para>
+
+<para>
+To add a new primary or backup server to the group,
+its address should be specified in the “<literal>server=</literal>” parameter.
+Without other parameters specified, a server will be added with other
+parameters set to their default values (see the <link id="server"/> directive).
+</para>
+
+<para>
+For example, to add a new primary server to the group:
+<example>
+http://127.0.0.1/upstream_conf?add=&amp;upstream=appservers&amp;server=127.0.0.1:8080
+</example>
+
+To add a new backup server to the group:
+<example>
+http://127.0.0.1/upstream_conf?add=&amp;upstream=appservers&amp;backup=&amp;server=127.0.0.1:8080
+</example>
+
+To add a new primary server to the group,
+set its parameters to non-default values
+and mark it “<literal>down</literal>”:
+<example>
+http://127.0.0.1/upstream_conf?add=&amp;upstream=appservers&amp;server=127.0.0.1:8080&amp;weight=2&amp;max_fails=3&amp;fail_timeout=3s&amp;down=
+</example>
+</para>
+
+<para>
+To remove an individual primary or backup server from the group,
+it should be selected with the <literal>id=</literal> parameter.
+</para>
+
+<para>
+For example, to remove an individual primary server from the group:
+<example>
+http://127.0.0.1/upstream_conf?remove=&amp;upstream=appservers&amp;id=42
+</example>
+
+To remove an individual backup server from the group:
+<example>
+http://127.0.0.1/upstream_conf?remove=&amp;upstream=appservers&amp;backup=&amp;id=42
+</example>
+</para>
+
+<para>
+To modify an individual primary or backup server in the group,
+it should be selected with the <literal>id=</literal> parameter.
+</para>
+
+<para>
+For example, to modify an individual primary server in the group
+by marking it “<literal>down</literal>”:
+<example>
+http://127.0.0.1/upstream_conf?upstream=appservers&amp;id=42&amp;down=
+</example>
+
+To modify address of an individual backup server in the group:
+<example>
+http://127.0.0.1/upstream_conf?upstream=appservers&amp;backup=&amp;id=42&amp;server=192.0.2.3:8123
+</example>
+
+To modify other parameters of an individual primary server in the group:
+<example>
+http://127.0.0.1/upstream_conf?upstream=appservers&amp;id=42&amp;max_fails=3&amp;weight=4
+</example>
+
+</para>
+
+<para>
+<note>
+This directive is available as part of our <commercial_version/> only.
+</note>
 </para>
 
 </directive>

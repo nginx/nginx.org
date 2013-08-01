@@ -10,7 +10,7 @@
 <module name="Module ngx_http_log_module"
         link="/en/docs/http/ngx_http_log_module.html"
         lang="en"
-        rev="9">
+        rev="10">
 
 <section id="summary">
 
@@ -58,6 +58,9 @@ access_log /spool/logs/nginx-access.log compression buffer=32k;
     <literal>gzip[=<value>level</value>]</literal>
     [<literal>buffer</literal>=<value>size</value>]
     [<literal>flush</literal>=<value>time</value>]</syntax>
+<syntax>
+    <literal>syslog:</literal><literal>server</literal>=<value>address</value>[,<value>parameter</value>=<value>value</value>]
+    [<value>format</value>]</syntax>
 <syntax><literal>off</literal></syntax>
 <default>logs/access.log combined</default>
 <context>http</context>
@@ -69,6 +72,8 @@ access_log /spool/logs/nginx-access.log compression buffer=32k;
 <para>
 Sets the path, format, and configuration of the buffered log writes.
 Several logs can be specified on the same level.
+Logging to syslog can be configured by specifying
+the “<literal>syslog:</literal>” prefix in the first parameter.
 The special value <literal>off</literal> cancels all
 <literal>access_log</literal> directives on the current level.
 If format is not specified then the predefined format
@@ -172,6 +177,75 @@ server {
 </listitem>
 
 </list>
+</para>
+
+<para>
+The following parameters configure logging to syslog:
+<list type="tag">
+
+<tag-name><literal>server=</literal><value>address</value></tag-name>
+<tag-desc>
+Defines an address of a syslog server.
+An address can be specified as a domain name or IP address,
+and an optional port, or as a UNIX-domain socket path
+specified after the “<literal>unix:</literal>” prefix.
+If port is not specified, the port 514 is used.
+If a domain name resolves to several IP addresses, the first resolved
+address is used.
+</tag-desc>
+
+<tag-name><literal>facility=</literal><value>string</value></tag-name>
+<tag-desc>
+Sets facility of syslog messages, as defined in
+<link url="http://tools.ietf.org/html/rfc3164#section-4.1.1">RFC 3164</link>.
+Facility can be one of “<literal>kern</literal>”, “<literal>user</literal>”,
+“<literal>mail</literal>”, “<literal>daemon</literal>”,
+“<literal>auth</literal>”, “<literal>intern</literal>”,
+“<literal>lpr</literal>”, “<literal>news</literal>”, “<literal>uucp</literal>”,
+“<literal>clock</literal>”, “<literal>authpriv</literal>”,
+“<literal>ftp</literal>”, “<literal>ntp</literal>”, “<literal>audit</literal>”,
+“<literal>alert</literal>”, “<literal>cron</literal>”,
+“<literal>local0</literal>”..“<literal>local7</literal>”.
+Default is “<literal>local7</literal>”.
+</tag-desc>
+
+<tag-name><literal>severity=</literal><value>string</value></tag-name>
+<tag-desc>
+Sets severity of syslog messages, as defined in
+<link url="http://tools.ietf.org/html/rfc3164#section-4.1.1">RFC 3164</link>.
+Possible values are the same as for the second parameter (level) of the
+<link doc="../ngx_core_module.xml" id="error_log"/> directive.
+Default is “<literal>info</literal>”.
+</tag-desc>
+
+<tag-name><literal>tag=</literal><value>string</value></tag-name>
+<tag-desc>
+Sets tag of syslog messages.
+Default is “<literal>nginx</literal>”.
+</tag-desc>
+
+<!--
+<tag-name><literal>bare=</literal><literal>on</literal> |
+<literal>off</literal></tag-name>
+<tag-desc>
+If enabled, messages are sent without syslog headers.
+Default is <literal>off</literal>.
+</tag-desc>
+-->
+
+</list>
+Example syslog configuration:
+<example>
+access_log syslog:server=192.168.1.1;
+access_log syslog:server=unix:/var/log/nginx.sock;
+access_log syslog:server=[2001:db8::1]:12345,facility=local7,tag=nginx,severity=info combined;
+</example>
+</para>
+
+<para>
+<note>
+Logging to syslog is available as part of our <commercial_version/> only.
+</note>
 </para>
 
 </directive>

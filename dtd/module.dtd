@@ -38,7 +38,8 @@
 
 <!ELEMENT   para        (#PCDATA | c-def | c-func | command |
                          emphasis | example | header | http-status | link |
-                         list | literal | note | path | value | var)* >
+                         list | literal | note | path | value | var |
+                         mainline_version | stable_version | commercial_version)* >
 
 <!ELEMENT   c-def       (#PCDATA)* >
 
@@ -95,3 +96,7 @@
 
 <!ENTITY    nbsp        "&#xA0;" >
 <!ENTITY    mdash       "&nbsp;- " >
+
+<!ELEMENT   mainline_version    EMPTY >
+<!ELEMENT   stable_version      EMPTY >
+<!ELEMENT   commercial_version  EMPTY >

@@ -1,0 +1,156 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Module ngx_http_hls_module"
+        link="/en/docs/http/ngx_http_hls_module.html"
+        lang="en"
+        rev="1">
+
+<section id="summary">
+
+<para>
+The module <literal>ngx_http_hls_module</literal> provides HTTP Live Streaming
+(HLS) server-side support for H.264/AAC files typically having filename
+extensions <path>.mp4</path>, <path>.m4v</path>, and <path>.m4a</path>.
+</para>
+
+<para>
+Two URIs are supported for each MP4 file:
+<list type="bullet">
+
+<listitem>
+The playlist URI that ends with “<literal>.m3u8</literal>” and accepts
+the optional “<literal>len</literal>” argument that defines fragment length
+in seconds;
+</listitem>
+
+<listitem>
+The fragment URI that ends with “<literal>.ts</literal>” and accepts
+“<literal>start</literal>” and “<literal>end</literal>” arguments that
+define fragment boundaries in seconds.
+</listitem>
+
+</list>
+</para>
+
+<para>
+<note>
+This module is available as part of our <commercial_version/> only.
+</note>
+</para>
+
+</section>
+
+
+<section id="example" name="Example Configuration">
+
+<para>
+<example>
+location /video/ {
+    hls;
+    hls_fragment            5s;
+    hls_buffers             10 10m;
+    hls_mp4_buffer_size     1m;
+    hls_mp4_max_buffer_size 5m;
+    alias /var/video/;
+}
+</example>
+For example, the following URIs are supported for
+the “<path>/var/video/test.mp4</path>” file:
+<example>
+http://hls.example.com/video/test.mp4.m3u8?len=8.000
+http://hls.example.com/video/test.mp4.ts?start=1.000&amp;end=2.200
+</example>
+</para>
+
+</section>
+
+
+<section id="directives" name="Directives">
+
+<directive name="hls">
+<syntax/>
+<default/>
+<context>location</context>
+
+<para>
+Turns on HLS streaming in a surrounding location.
+</para>
+
+</directive>
+
+
+<directive name="hls_buffers">
+<syntax><value>number</value> <value>size</value></syntax>
+<default>8 2m</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Sets the maximum <value>number</value> and <value>size</value> of buffers
+for reading and writing data frames.
+</para>
+
+</directive>
+
+
+<directive name="hls_fragment">
+<syntax><value>time</value></syntax>
+<default>5s</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Defines fragment length for playlist URIs requested without the
+“<literal>len</literal>” argument.
+</para>
+
+</directive>
+
+
+<directive name="hls_mp4_buffer_size">
+<syntax><value>size</value></syntax>
+<default>512k</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Sets the initial <value>size</value> of a memory buffer used to
+process MP4 files.
+</para>
+
+</directive>
+
+
+<directive name="hls_mp4_max_buffer_size">
+<syntax><value>size</value></syntax>
+<default>10m</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+During metadata processing, a larger buffer may become necessary.
+Its size cannot exceed the specified <value>size</value>,
+or else nginx will return the server error
+<http-status code="500" text="Internal Server Error"/>,
+and log the following:
+<example>
+"/some/movie/file.mp4" mp4 moov atom is too large:
+12583268, you may want to increase hls_mp4_max_buffer_size
+</example>
+</para>
+
+</directive>
+
+</section>
+
+</module>

@@ -10,7 +10,7 @@
 <module name="Core functionality"
         link="/en/docs/ngx_core_module.html"
         lang="en"
-        rev="8">
+        rev="9">
 
 <section id="example" name="Example Configuration">
 
@@ -144,7 +144,8 @@ analysis using a system debugger.
 
 <directive name="error_log">
 <syntax>
-<value>file</value> | <literal>stderr</literal>
+<value>file</value> | <literal>stderr</literal> |
+<literal>syslog:</literal><literal>server</literal>=<value>address</value>[,<value>parameter</value>=<value>value</value>]
 [<literal>debug</literal> |
 <literal>info</literal> |
 <literal>notice</literal> |
@@ -170,6 +171,8 @@ The first parameter defines a file that will store the log.
 If filename is not absolute, it is prefixed with the prefix path.
 -->
 The special value <literal>stderr</literal> selects the standard error file.
+Logging to syslog can be configured by specifying
+the “<literal>syslog:</literal>” prefix.
 </para>
 
 <para>
@@ -186,6 +189,66 @@ If this parameter is omitted then <literal>error</literal> is used.
 For <literal>debug</literal> logging to work, nginx needs to
 be built with <literal>--with-debug</literal>,
 see “<link doc="debugging_log.xml"/>”.
+</note>
+</para>
+
+<para>
+The following parameters configure logging to syslog:
+<list type="tag">
+
+<tag-name><literal>server=</literal><value>address</value></tag-name>
+<tag-desc>
+Defines an address of a syslog server.
+An address can be specified as a domain name or IP address,
+and an optional port, or as a UNIX-domain socket path
+specified after the “<literal>unix:</literal>” prefix.
+If port is not specified, the port 514 is used.
+If a domain name resolves to several IP addresses, the first resolved
+address is used.
+</tag-desc>
+
+<tag-name><literal>facility=</literal><value>string</value></tag-name>
+<tag-desc>
+Sets facility of syslog messages, as defined in
+<link url="http://tools.ietf.org/html/rfc3164#section-4.1.1">RFC 3164</link>.
+Facility can be one of “<literal>kern</literal>”, “<literal>user</literal>”,
+“<literal>mail</literal>”, “<literal>daemon</literal>”,
+“<literal>auth</literal>”, “<literal>intern</literal>”,
+“<literal>lpr</literal>”, “<literal>news</literal>”, “<literal>uucp</literal>”,
+“<literal>clock</literal>”, “<literal>authpriv</literal>”,
+“<literal>ftp</literal>”, “<literal>ntp</literal>”, “<literal>audit</literal>”,
+“<literal>alert</literal>”, “<literal>cron</literal>”,
+“<literal>local0</literal>”..“<literal>local7</literal>”.
+Default is “<literal>local7</literal>”.
+</tag-desc>
+
+<tag-name><literal>tag=</literal><value>string</value></tag-name>
+<tag-desc>
+Sets tag of syslog messages.
+Default is “<literal>nginx</literal>”.
+</tag-desc>
+
+<!--
+<tag-name><literal>bare=</literal><literal>on</literal> |
+<literal>off</literal></tag-name>
+<tag-desc>
+If enabled, messages are sent without syslog headers.
+Default is <literal>off</literal>.
+</tag-desc>
+-->
+
+</list>
+Example syslog configuration:
+<example>
+error_log syslog:server=192.168.1.1 debug;
+error_log syslog:server=unix:/var/log/nginx.sock;
+error_log syslog:server=[2001:db8::1]:12345,facility=local7,tag=nginx error;
+</example>
+</para>
+
+<para>
+<note>
+Logging to syslog is available as part of our <commercial_version/> only.
 </note>
 </para>
 

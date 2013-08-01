@@ -8,7 +8,7 @@
 <article name="nginx documentation"
          link="/en/docs/"
          lang="en"
-         rev="8"
+         rev="9"
          toc="no">
 
 
@@ -196,6 +196,11 @@ ngx_http_empty_gif_module</link>
 </listitem>
 
 <listitem>
+<link doc="http/ngx_http_f4f_module.xml">
+ngx_http_f4f_module</link>
+</listitem>
+
+<listitem>
 <link doc="http/ngx_http_fastcgi_module.xml">
 ngx_http_fastcgi_module</link>
 </listitem>
@@ -233,6 +238,11 @@ ngx_http_gzip_static_module</link>
 <listitem>
 <link doc="http/ngx_http_headers_module.xml">
 ngx_http_headers_module</link>
+</listitem>
+
+<listitem>
+<link doc="http/ngx_http_hls_module.xml">
+ngx_http_hls_module</link>
 </listitem>
 
 <listitem>
@@ -311,6 +321,11 @@ ngx_http_secure_link_module</link>
 </listitem>
 
 <listitem>
+<link doc="http/ngx_http_session_log_module.xml">
+ngx_http_session_log_module</link>
+</listitem>
+
+<listitem>
 <link doc="http/ngx_http_spdy_module.xml">
 ngx_http_spdy_module</link>
 </listitem>
@@ -328,6 +343,11 @@ ngx_http_ssi_module</link>
 <listitem>
 <link doc="http/ngx_http_ssl_module.xml">
 ngx_http_ssl_module</link>
+</listitem>
+
+<listitem>
+<link doc="http/ngx_http_status_module.xml">
+ngx_http_status_module</link>
 </listitem>
 
 <listitem>

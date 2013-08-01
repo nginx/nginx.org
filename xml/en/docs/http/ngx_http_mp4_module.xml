@@ -9,7 +9,7 @@
 <module name="Module ngx_http_mp4_module"
         link="/en/docs/http/ngx_http_mp4_module.html"
         lang="en"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
@@ -100,8 +100,10 @@ A similar pseudo-streaming support for FLV files is provided by the module
 <example>
 location /video/ {
     mp4;
-    mp4_buffer_size     1m;
-    mp4_max_buffer_size 5m;
+    mp4_buffer_size       1m;
+    mp4_max_buffer_size   5m;
+    mp4_limit_rate        on;
+    mp4_limit_rate_after  30s;
 }
 </example>
 </para>
@@ -154,6 +156,53 @@ and log the following:
 "/some/movie/file.mp4" mp4 moov atom is too large:
 12583268, you may want to increase mp4_max_buffer_size
 </example>
+</para>
+
+</directive>
+
+
+<directive name="mp4_limit_rate">
+<syntax>
+    <literal>on</literal> |
+    <literal>off</literal> |
+    <value>factor</value></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Enables or disables rate limiting based on an average bitrate of the
+MP4 file served.
+To calculate the rate, bitrate is multiplied by the specified
+<value>factor</value>.
+The special value “<literal>on</literal>” corresponds to a factor of 1.1.
+</para>
+
+<para>
+<note>
+This directive is available as part of our <commercial_version/> only.
+</note>
+</para>
+
+</directive>
+
+
+<directive name="mp4_limit_rate_after">
+<syntax><value>time</value></syntax>
+<default>1m</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Limits rate after sending the specified amount of media data.
+</para>
+
+<para>
+<note>
+This directive is available as part of our <commercial_version/> only.
+</note>
 </para>
 
 </directive>
