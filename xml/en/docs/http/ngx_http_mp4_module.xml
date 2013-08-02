@@ -172,11 +172,11 @@ and log the following:
 <context>location</context>
 
 <para>
-Enables or disables rate limiting based on an average bitrate of the
+Enables or disables rate limiting based on the average bitrate of the
 MP4 file served.
-To calculate the rate, bitrate is multiplied by the specified
+To calculate the rate, the bitrate is multiplied by the specified
 <value>factor</value>.
-The special value “<literal>on</literal>” corresponds to a factor of 1.1.
+The special value “<literal>on</literal>” corresponds to the factor of 1.1.
 </para>
 
 <para>
@@ -196,7 +196,7 @@ This directive is available as part of our <commercial_version/> only.
 <context>location</context>
 
 <para>
-Limits rate after sending the specified amount of media data.
+Limits the rate after sending the specified amount of media data.
 </para>
 
 <para>

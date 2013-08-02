@@ -14,18 +14,19 @@
 <section id="summary">
 
 <para>
-The module <literal>ngx_http_hls_module</literal> provides HTTP Live Streaming
-(HLS) server-side support for H.264/AAC files typically having filename
-extensions <path>.mp4</path>, <path>.m4v</path>, and <path>.m4a</path>.
+The <literal>ngx_http_hls_module</literal> module provides HTTP Live Streaming
+(HLS) server-side support for H.264/AAC files.
+Such files typically have the <path>.mp4</path>, <path>.m4v</path>,
+or <path>.m4a</path> filename extensions.
 </para>
 
 <para>
-Two URIs are supported for each MP4 file:
+nginx supports two URIs for each MP4 file:
 <list type="bullet">
 
 <listitem>
 The playlist URI that ends with “<literal>.m3u8</literal>” and accepts
-the optional “<literal>len</literal>” argument that defines fragment length
+the optional “<literal>len</literal>” argument that defines the fragment length
 in seconds;
 </listitem>
 
@@ -60,7 +61,7 @@ location /video/ {
     alias /var/video/;
 }
 </example>
-For example, the following URIs are supported for
+With this configuration, the following URIs are supported for
 the “<path>/var/video/test.mp4</path>” file:
 <example>
 http://hls.example.com/video/test.mp4.m3u8?len=8.000
@@ -79,7 +80,7 @@ http://hls.example.com/video/test.mp4.ts?start=1.000&amp;end=2.200
 <context>location</context>
 
 <para>
-Turns on HLS streaming in a surrounding location.
+Turns on HLS streaming in the surrounding location.
 </para>
 
 </directive>
@@ -94,7 +95,7 @@ Turns on HLS streaming in a surrounding location.
 
 <para>
 Sets the maximum <value>number</value> and <value>size</value> of buffers
-for reading and writing data frames.
+that are used for reading and writing data frames.
 </para>
 
 </directive>
@@ -108,7 +109,7 @@ for reading and writing data frames.
 <context>location</context>
 
 <para>
-Defines fragment length for playlist URIs requested without the
+Defines the default fragment length for playlist URIs requested without the
 “<literal>len</literal>” argument.
 </para>
 
@@ -123,7 +124,7 @@ Defines fragment length for playlist URIs requested without the
 <context>location</context>
 
 <para>
-Sets the initial <value>size</value> of a memory buffer used to
+Sets the initial <value>size</value> of the memory buffer used to
 process MP4 files.
 </para>
 
@@ -142,7 +143,7 @@ During metadata processing, a larger buffer may become necessary.
 Its size cannot exceed the specified <value>size</value>,
 or else nginx will return the server error
 <http-status code="500" text="Internal Server Error"/>,
-and log the following:
+and log the following message:
 <example>
 "/some/movie/file.mp4" mp4 moov atom is too large:
 12583268, you may want to increase hls_mp4_max_buffer_size

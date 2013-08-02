@@ -14,13 +14,13 @@
 <section id="summary">
 
 <para>
-The module <literal>ngx_http_f4f_module</literal> provides
+The <literal>ngx_http_f4f_module</literal> module provides
 server-side support for Adobe HTTP Dynamic Streaming (HDS).
 </para>
 
 <para>
-This module implements handling of HTTP Dynamic Streaming requests in a
-“<literal>/videoSeg1-Frag1</literal>” form, extracting needed fragment
+This module implements handling of HTTP Dynamic Streaming requests in the
+“<literal>/videoSeg1-Frag1</literal>” form — extracting the needed fragment
 from the <path>videoSeg1.f4f</path> file using the <path>videoSeg1.f4x</path>
 index file.
 This module is an alternative to the Adobe’s f4f module (HTTP Origin Module)
@@ -63,7 +63,7 @@ location /video/ {
 <context>location</context>
 
 <para>
-Turns on module processing in a surrounding location.
+Turns on module processing in the surrounding location.
 </para>
 
 </directive>
@@ -77,7 +77,8 @@ Turns on module processing in a surrounding location.
 <context>location</context>
 
 <para>
-Sets the size of a memory buffer used for reading <path>.f4x</path> index file.
+Sets the size of a memory buffer used for reading the <path>.f4x</path> index
+file.
 </para>
 
 </directive>

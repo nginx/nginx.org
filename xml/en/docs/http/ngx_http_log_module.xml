@@ -185,10 +185,11 @@ The following parameters configure logging to syslog:
 
 <tag-name><literal>server=</literal><value>address</value></tag-name>
 <tag-desc>
-Defines an address of a syslog server.
-An address can be specified as a domain name or IP address,
-and an optional port, or as a UNIX-domain socket path
-specified after the “<literal>unix:</literal>” prefix.
+Defines the address of a syslog server.
+The address can be specified as a domain name, IP address, or
+a UNIX-domain socket path (specified after the “<literal>unix:</literal>”
+prefix).
+With a domain name or IP address, the port can be specified.
 If port is not specified, the port 514 is used.
 If a domain name resolves to several IP addresses, the first resolved
 address is used.
@@ -220,7 +221,7 @@ Default is “<literal>info</literal>”.
 
 <tag-name><literal>tag=</literal><value>string</value></tag-name>
 <tag-desc>
-Sets tag of syslog messages.
+Sets the tag of syslog messages.
 Default is “<literal>nginx</literal>”.
 </tag-desc>
 

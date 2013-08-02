@@ -447,7 +447,7 @@ weighted round-robin balancing method.
 <context>location</context>
 
 <para>
-Enables periodic health checks of servers in a
+Enables periodic health checks of the servers in a
 <link id="upstream">group</link> referenced in the surrounding location.
 </para>
 
@@ -457,35 +457,35 @@ The following optional parameters are supported:
 
 <listitem>
 <literal>interval</literal>
-sets interval between two consecutive health checks,
-defaults to five seconds;
+sets the interval between two consecutive health checks,
+by default, 5 seconds;
 </listitem>
 
 <listitem>
 <literal>fails</literal>
-sets a number of consecutive failed health checks
-after which the server will be considered unhealthy,
-defaults to 1;
+sets the number of consecutive failed health checks of a particular server
+after which this server will be considered unhealthy,
+by default, 1;
 </listitem>
 
 <listitem>
 <literal>passes</literal>
-sets a number of consecutive passed health checks
+sets the number of consecutive passed health checks of a particular server
 after which the server will be considered healthy,
-defaults to 1;
+by default, 1;
 </listitem>
 
 <listitem>
 <literal>uri</literal>
 defines the URI used in health check requests,
-defaults to “<literal>/</literal>”;
+by default, “<literal>/</literal>”;
 </listitem>
 
 <listitem>
 <literal>match</literal>
-names tests that a response should
-pass in order for a health check to pass,
-defaults to responses with status codes 2xx and 3xx.
+specifies the <literal>match</literal> block configuring the tests that a
+response should pass in order for a health check to pass;
+by default, the response should have status code 2xx or 3xx.
 </listitem>
 
 </list>
@@ -500,21 +500,21 @@ location / {
 }
 </example>
 will send “<literal>/</literal>” requests to each
-server in the group <literal>backend</literal> every five seconds.
-If any communication errors or timeouts occur, or if a
+server in the <literal>backend</literal> group every five seconds.
+If any communication error or timeout occurs, or a
 proxied server responds with the status code other than
-2xx or 3xx, health check will fail, and the server will
-become unhealthy.
-Client requests will not be passed to unhealthy servers.
+2xx or 3xx, the health check will fail, and the server will
+be considered unhealthy.
+Client requests are not passed to unhealthy servers.
 </para>
 
 <para>
-Health checks can be configured to test status code of a response,
+Health checks can be configured to test the status code of a response,
 presence of certain header fields and their values,
-and/or the body contents.
-Tests are configured separately with the <link id="match"/> directives
+and the body contents.
+Tests are configured separately using the <link id="match"/> directive
 and referenced in the <literal>match</literal> parameter.
-For example,
+For example:
 <example>
 http {
     server {
@@ -532,19 +532,20 @@ http {
     }
 }
 </example>
-tells that for a health check to pass, a response should succeed,
+This configuration tells that for a health check to pass, the response to a
+health check request should succeed,
 have status 200, content type “<literal>text/html</literal>”,
 and contain “<literal>Welcome to nginx!</literal>” in the body.
 </para>
 
 <para>
-It is required that a group be in <link id="zone">shared memory</link>.
+The server group must reside in the <link id="zone">shared memory</link>.
 </para>
 
 <para>
 If several health checks are defined for the same group of servers,
-a single failure of any check will make the corresponding server
-to become unhealthy.
+a single failure of any check will make the corresponding server be
+considered unhealthy.
 </para>
 
 <para>
@@ -566,7 +567,7 @@ Defines the named test set used to verify responses to health check requests.
 </para>
 
 <para>
-The following can be tested in a response:
+The following items can be tested in a response:
 <list type="tag">
 
 <tag-name><literal>status 200;</literal></tag-name>
@@ -588,7 +589,7 @@ The following can be tested in a response:
 <tag-desc>status is not in the 400..599 range</tag-desc>
 
 <tag-name><literal>status 301-303 307;</literal></tag-name>
-<tag-desc>status is one of 301, 302, 303, or 307</tag-desc>
+<tag-desc>status is either 301, 302, 303, or 307</tag-desc>
 
 </list>
 
@@ -643,9 +644,9 @@ body does not match regular expression “<literal>Welcome to nginx!</literal>�
 
 <para>
 If several tests are specified,
-the response matches only if it passes all tests.
+the response matches only if it matches all tests.
 <note>
-Only the first 256k of body are examined.
+Only the first 256k of the response body are examined.
 </note>
 </para>
 
@@ -697,10 +698,10 @@ This directive is available as part of our <commercial_version/> only.
 Enables session affinity support.
 The session is an object that is used to uniquely identify and maintain the
 state of a client during a given period of time.
-If session affinity is enabled, a client’s requests are always passed to the
-same server (in a group of servers) once a session has been created.
-Method used to create and track sessions must be specified by a separate
-directive, for example, <link id="sticky_cookie_insert"/>.
+If session affinity is enabled, requests from the same client are always passed
+to the same server (in a group of servers) once a session has been created.
+The method that is used to create and track sessions must be specified in a
+separate directive, for example, <link id="sticky_cookie_insert"/>.
 <example>
 upstream backend {
     server backend1.example.com;
@@ -721,26 +722,26 @@ The directive must be specified after the <link id="ip_hash"/> or the
 </para>
 
 <para>
-Requests are processed as follows with the session affinity enabled:
+When the session affinity is enabled, a request is processed as follows:
 <list type="enum">
 
 <listitem>
-The lookup of session corresponding to request is performed.
-If the session is found, server identification data is extracted from it.
+nginx looks up the session corresponding to the request.
+If the session is found, the server identification data is extracted from it.
 This data is used by the server selection algorithm.
 </listitem>
 
 <listitem>
 The server to process the request is chosen according to the configured
-balancing method, server information from session and the real state of
-servers in a group (up or down, failed, etc.).
+balancing method, server information from the session, and the real state of
+servers in a group (such as failed, up or down).
 </listitem>
 
 <listitem>
 The request is passed to the chosen server for processing.
-If the chosen server does not match specified in the session
-(due to being down, for example), the session is cleared
-and the request is processed as it had no session.
+If the chosen server is not the one specified in the session
+(for example, because it is down), the session is cleared
+and the request is processed as if it had no session.
 </listitem>
 
 <listitem>
@@ -748,8 +749,8 @@ The server returns the response.
 </listitem>
 
 <listitem>
-If there was no session for the request, new session
-is created and server identification data is stored in it.
+If there is no session for the request, a new session
+is created and the server identification data is stored in it.
 </listitem>
 
 </list>
@@ -773,7 +774,7 @@ This directive is available as part of our <commercial_version/> only.
 <context>upstream</context>
 
 <para>
-Enables and configures the session tracking method, based on keeping
+Enables and configures the session tracking method that is based on keeping
 session information in HTTP cookies.
 The directive must be specified after the <link id="ip_hash"/> or the
 <link id="least_conn"/> directives.
@@ -787,7 +788,7 @@ Additional parameters may be as follows:
 
 <tag-name><literal>expires</literal></tag-name>
 <tag-desc>
-Sets a time during which a browser should keep the cookie.
+Sets the time for which a browser should keep the cookie.
 The parameter “<literal>max</literal>” sets the time to
 “<literal>31 Dec 2037 23:55:55 GMT</literal>”.
 This is the maximum time understood by old browsers.
@@ -795,16 +796,16 @@ This is the maximum time understood by old browsers.
 
 <tag-name><literal>domain</literal></tag-name>
 <tag-desc>
-Defines a domain for which the cookie is set.
+Defines the domain for which the cookie is set.
 </tag-desc>
 
 <tag-name><literal>path</literal></tag-name>
 <tag-desc>
-Defines a path for which the cookie is set.
+Defines the path for which the cookie is set.
 </tag-desc>
 
 </list>
-If some parameter is omitted, then the corresponding cookie field is not set.
+If some parameter is omitted, the corresponding cookie field is not set.
 </para>
 
 <para>
@@ -845,13 +846,14 @@ This directive is available as part of our <commercial_version/> only.
 <context>location</context>
 
 <para>
-Turns on upstream configuration HTTP interface in a surrounding location.
+Turns on the HTTP interface of upstream configuration in the surrounding
+location.
 Access to this location should be
 <link doc="ngx_http_core_module.xml" id="satisfy">limited</link>.
 </para>
 
 <para>
-Configuration commands allow to:
+Configuration commands can be used to:
 <list type="bullet">
 
 <listitem>view all primary or backup servers in a group;</listitem>
@@ -860,22 +862,23 @@ Configuration commands allow to:
 
 <listitem>modify an individual server;</listitem>
 
-<listitem>add a new server (see note below);</listitem>
+<listitem>add a new server (see the note below);</listitem>
 
 <listitem>remove an individual server.</listitem>
 
 </list>
 <note>
-As noted in the <link id="server"/> directive, adding a server specified
-as a domain name may result in several servers being added.
+As noted in the <link id="server"/> directive, specifying a server
+as a domain name may result in several servers being added to the group.
 Since addresses in a group are not required to be unique, individual
 servers in a group can be uniquely referenced to only by their ID.
-IDs are assigned automatically and shown when viewing group configuration.
+IDs are assigned automatically and shown on viewing of the group configuration.
 </note>
 </para>
 
 <para>
-A command consists of parameters passed as request arguments, for example:
+A configuration command consists of parameters passed as request arguments,
+for example:
 <example>
 http://127.0.0.1/upstream_conf?upstream=appservers
 </example>
@@ -897,7 +900,7 @@ This parameter is mandatory.
 <literal>backup=</literal>
 </tag-name>
 <tag-desc>
-If unset, selects primary servers in the group.
+If not set, selects primary servers in the group.
 If set, selects backup servers in the group.
 </tag-desc>
 
@@ -971,27 +974,27 @@ of the <link id="server"/> directive.
 </list>
 
 The first three parameters select a target the command applies to.
-Without other parameters, configuration of the selected target
-is shown.
+Without other parameters, the command shows configuration of the selected
+target.
 </para>
 
 <para>
-For example, to view the primary servers in the group:
+For example, to view the primary servers in the group, send:
 <example>
 http://127.0.0.1/upstream_conf?upstream=appservers
 </example>
 
-To view the backup servers in the group:
+To view the backup servers in the group, send:
 <example>
 http://127.0.0.1/upstream_conf?upstream=appservers&amp;backup=
 </example>
 
-To view an individual primary server in the group:
+To view an individual primary server in the group, send:
 <example>
 http://127.0.0.1/upstream_conf?upstream=appservers&amp;id=42
 </example>
 
-To view an individual backup server in the group:
+To view an individual backup server in the group, send:
 <example>
 http://127.0.0.1/upstream_conf?upstream=appservers&amp;backup=&amp;id=42
 </example>
@@ -999,25 +1002,25 @@ http://127.0.0.1/upstream_conf?upstream=appservers&amp;backup=&amp;id=42
 
 <para>
 To add a new primary or backup server to the group,
-its address should be specified in the “<literal>server=</literal>” parameter.
+specify its address in the “<literal>server=</literal>” parameter.
 Without other parameters specified, a server will be added with other
 parameters set to their default values (see the <link id="server"/> directive).
 </para>
 
 <para>
-For example, to add a new primary server to the group:
+For example, to add a new primary server to the group, send:
 <example>
 http://127.0.0.1/upstream_conf?add=&amp;upstream=appservers&amp;server=127.0.0.1:8080
 </example>
 
-To add a new backup server to the group:
+To add a new backup server to the group, send:
 <example>
 http://127.0.0.1/upstream_conf?add=&amp;upstream=appservers&amp;backup=&amp;server=127.0.0.1:8080
 </example>
 
 To add a new primary server to the group,
 set its parameters to non-default values
-and mark it “<literal>down</literal>”:
+and mark it as “<literal>down</literal>” by sending:
 <example>
 http://127.0.0.1/upstream_conf?add=&amp;upstream=appservers&amp;server=127.0.0.1:8080&amp;weight=2&amp;max_fails=3&amp;fail_timeout=3s&amp;down=
 </example>
@@ -1025,16 +1028,16 @@ http://127.0.0.1/upstream_conf?add=&amp;upstream=appservers&amp;server=127.0.0.1
 
 <para>
 To remove an individual primary or backup server from the group,
-it should be selected with the <literal>id=</literal> parameter.
+select it with the <literal>id=</literal> parameter.
 </para>
 
 <para>
-For example, to remove an individual primary server from the group:
+For example, to remove an individual primary server from the group, send:
 <example>
 http://127.0.0.1/upstream_conf?remove=&amp;upstream=appservers&amp;id=42
 </example>
 
-To remove an individual backup server from the group:
+To remove an individual backup server from the group, send:
 <example>
 http://127.0.0.1/upstream_conf?remove=&amp;upstream=appservers&amp;backup=&amp;id=42
 </example>
@@ -1042,22 +1045,22 @@ http://127.0.0.1/upstream_conf?remove=&amp;upstream=appservers&amp;backup=&amp;i
 
 <para>
 To modify an individual primary or backup server in the group,
-it should be selected with the <literal>id=</literal> parameter.
+select it with the <literal>id=</literal> parameter.
 </para>
 
 <para>
 For example, to modify an individual primary server in the group
-by marking it “<literal>down</literal>”:
+by marking it as “<literal>down</literal>”, send:
 <example>
 http://127.0.0.1/upstream_conf?upstream=appservers&amp;id=42&amp;down=
 </example>
 
-To modify address of an individual backup server in the group:
+To modify the address of an individual backup server in the group, send:
 <example>
 http://127.0.0.1/upstream_conf?upstream=appservers&amp;backup=&amp;id=42&amp;server=192.0.2.3:8123
 </example>
 
-To modify other parameters of an individual primary server in the group:
+To modify other parameters of an individual primary server in the group, send:
 <example>
 http://127.0.0.1/upstream_conf?upstream=appservers&amp;id=42&amp;max_fails=3&amp;weight=4
 </example>

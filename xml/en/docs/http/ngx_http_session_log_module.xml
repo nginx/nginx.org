@@ -14,8 +14,8 @@
 <section id="summary">
 
 <para>
-The module <literal>ngx_http_session_log_module</literal> allows to log
-sessions (i.e. aggregates of multiple HTTP requests) instead of
+The <literal>ngx_http_session_log_module</literal> module enables logging
+sessions (that is, aggregates of multiple HTTP requests) instead of
 individual HTTP requests.
 </para>
 
@@ -31,7 +31,8 @@ This module is available as part of our <commercial_version/> only.
 <section id="example" name="Example Configuration">
 
 <para>
-Log sessions based on client address and <header>User-Agent</header>
+The following configuration sets up a session log and maps requests to
+sessions according to the request client address and <header>User-Agent</header>
 request header field:
 <example>
     session_log_zone /path/to/log format=combined
@@ -57,10 +58,11 @@ request header field:
 <context>http</context>
 
 <para>
-Specifies format of a log.
-Value of the <var>$body_bytes_sent</var> variable is aggregated across
-all requests in the session.
-Everything else corresponds to the first request that started a session.
+Specifies the output format of a log.
+The value of the <var>$body_bytes_sent</var> variable is aggregated across
+all requests in a session.
+The values of all other variables available for logging correspond to the
+first request in a session.
 </para>
 
 </directive>
@@ -79,32 +81,34 @@ Everything else corresponds to the first request that started a session.
 <context>http</context>
 
 <para>
-Sets path to log file and shared memory zone used to store currently active
-sessions.
+Sets the path to a log file and configures the shared memory zone that is used
+to store currently active sessions.
 </para>
 
 <para>
-Sessions are considered active for as long as the time elapsed since
-the last request in the session does not exceed a specified
+A session is considered active for as long as the time elapsed since
+the last request in the session does not exceed the specified
 <literal>timeout</literal> (by default, 30 seconds).
-Session is logged once it is no longer active.
+Once a session is no longer active, it is written to the log.
 </para>
 
 <para>
-Requests are mapped into sessions based on the value of the
-<literal>id</literal> parameter.
-If <literal>id</literal> is not specified or does not represent the valid
-MD5 hash, a new session is created using MD5 hash computed from the value
-of the <literal>md5</literal> parameter.
-Both <literal>id</literal> and <literal>md5</literal> parameters
+The <literal>id</literal> parameter identifies the
+session to which a request is mapped.
+The <literal>id</literal> parameter is set to the hexadecimal representation
+of an MD5 hash (for example, obtained from a cookie using variables).
+If this parameter is not specified or does not represent the valid
+MD5 hash, nginx computes the MD5 hash from the value of
+the <literal>md5</literal> parameter and creates a new session using this hash.
+Both the <literal>id</literal> and <literal>md5</literal> parameters
 can contain variables.
 </para>
 
 <para>
-The <literal>format</literal> parameter can be used to set custom session log
-format.
-If <literal>format</literal> is not specified then the predefined format
-“<literal>combined</literal>” is used.
+The <literal>format</literal> parameter sets the custom session log
+format configured by the <link id="session_log_format"/> directive.
+If <literal>format</literal> is not specified, the predefined
+“<literal>combined</literal>” format is used.
 </para>
 
 </directive>
@@ -118,7 +122,7 @@ If <literal>format</literal> is not specified then the predefined format
 <context>location</context>
 
 <para>
-Use the specified session log.
+Enables the use of the specified session log.
 The special value <literal>off</literal> cancels all
 <literal>session_log</literal> directives inherited from the previous
 configuration level.
