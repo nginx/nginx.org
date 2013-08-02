@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="5">
+        rev="6">
 
 <section id="summary">
 
@@ -54,7 +54,7 @@ upstream <emphasis>appservers</emphasis> {
     zone appservers 64k;
 
     server appserv1.example.com      weight=5;
-    server appserv2.example.com:8080 fail_timeout=5s;
+    server appserv2.example.com:8080 fail_timeout=5s slow_start=30s;
     server 192.0.2.1                 max_fails=3;
 
     server reserve1.example.com:8080 backup;
@@ -177,6 +177,19 @@ and a period of time the server will be considered down.
 
 </list>
 By default, timeout is set to 10 seconds.
+</tag-desc>
+
+<tag-name><literal>slow_start</literal>=<value>time</value></tag-name>
+<tag-desc>
+sets the <value>time</value> during which the server will recover its weight
+from zero to a nominal value, when unhealthy server becomes
+<link id="health_check">healthy</link>,
+or when the server becomes available after a period of time
+it was considered down.
+Default value is zero, i.e. slow start is disabled.
+<note>
+This functionality is available as part of our <commercial_version/> only.
+</note>
 </tag-desc>
 
 <tag-name><literal>backup</literal></tag-name>
@@ -931,6 +944,13 @@ of the <link id="server"/> directive.
 <literal>fail_timeout=</literal><value>time</value></tag-name>
 <tag-desc>
 Same as the “<literal>fail_timeout</literal>” parameter
+of the <link id="server"/> directive.
+</tag-desc>
+
+<tag-name>
+<literal>slow_start=</literal><value>time</value></tag-name>
+<tag-desc>
+Same as the “<literal>slow_start</literal>” parameter
 of the <link id="server"/> directive.
 </tag-desc>
 
