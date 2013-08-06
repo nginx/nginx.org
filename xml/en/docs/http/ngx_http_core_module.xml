@@ -31,7 +31,7 @@ on FreeBSD and Linux.
 </para>
 
 <para>
-On FreeBSD, AIO is usable starting from FreeBSD&nbsp;4.3.
+On FreeBSD, AIO can be used starting from FreeBSD&nbsp;4.3.
 AIO can either be linked statically into a kernel:
 <example>
 options VFS_AIO
@@ -45,7 +45,7 @@ kldload aio
 <para>
 In FreeBSD versions 5 and 6, enabling AIO statically, or dynamically
 when booting the kernel, will cause the entire networking subsystem
-to use the Giant lock that can impact overall performance negatively.
+to use the Giant lock, which can impact overall performance negatively.
 This limitation has been removed in FreeBSD&nbsp;6.4-STABLE in 2009, and in
 FreeBSD&nbsp;7.
 However, starting from FreeBSD&nbsp;5.3 it is possible to enable AIO
@@ -66,7 +66,7 @@ fact that FreeBSD supports asynchronous calls
 and
 <c-func>aio_write</c-func>
 when working with sockets.
-However, since nginx only uses AIO for disk I/O, no problems should arise.
+However, since nginx uses AIO only for disk I/O, no problems should arise.
 </note>
 </para>
 
@@ -94,23 +94,20 @@ location /video/ {
 }
 </example>
 In this configuration, <c-func>sendfile</c-func> is called with
-the <c-def>SF_NODISKIO</c-def> flag which causes it not to
-block on disk I/O and instead report back when the data are not in
-memory; nginx then initiates an asynchronous data load by reading
-one byte.
-The FreeBSD kernel then loads the first 128K bytes
-of a file into memory, however next reads will only load data
-in 16K chunks.
-This can be tuned using the
-<link id="read_ahead"/>
-directive.
+the <c-def>SF_NODISKIO</c-def> flag which causes it not to block on disk I/O,
+but, instead, report back that the data are not in memory.
+nginx then initiates an asynchronous data load by reading one byte.
+On the first read, the FreeBSD kernel loads the first 128K bytes
+of a file into memory, although next reads will only load data in 16K chunks.
+This can be changed using the
+<link id="read_ahead"/> directive.
 </para>
 
 <para>
-On Linux, AIO is usable starting from kernel version 2.6.22;
-plus, it is also necessary to enable
+On Linux, AIO can be used starting from kernel version 2.6.22.
+Also, it is necessary to enable
 <link id="directio"/>,
-otherwise reading will be blocking:
+or otherwise reading will be blocking:
 <example>
 location /video/ {
     aio            on;
@@ -125,13 +122,13 @@ On Linux,
 <link id="directio"/>
 can only be used for reading blocks that are aligned on 512-byte
 boundaries (or 4K for XFS).
-Reading of unaligned file’s end is still made in blocking mode.
-The same holds true for byte range requests, and for FLV requests
+File’s unaligned end is read in blocking mode.
+The same holds true for byte range requests and for FLV requests
 not from the beginning of a file: reading of unaligned data at the
 beginning and end of a file will be blocking.
 There is no need to turn off
 <link id="sendfile"/>
-explicitly as it is turned off automatically when
+explicitly, as it is turned off automatically when
 <link id="directio"/>
 is used.
 </para>
@@ -152,14 +149,13 @@ location /i/ {
     alias /data/w3/images/;
 }
 </example>
-the request of
-“<literal>/i/top.gif</literal>” will be responded
-with the file
-<path>/data/w3/images/top.gif</path>.
+on request of
+“<literal>/i/top.gif</literal>”, the file
+<path>/data/w3/images/top.gif</path> will be sent.
 </para>
 
 <para>
-The <value>path</value> value can contain variables
+The <value>path</value> value can contain variables,
 except <var>$document_root</var> and <var>$realpath_root</var>.
 </para>
 
@@ -205,7 +201,7 @@ location /images/ {
 <para>
 Allows disabling chunked transfer encoding in HTTP/1.1.
 It may come in handy when using a software failing to support
-chunked encoding though the standard requires it.
+chunked encoding despite the standard’s requirement.
 </para>
 
 </directive>
@@ -221,7 +217,7 @@ chunked encoding though the standard requires it.
 
 <para>
 Sets buffer size for reading client request body.
-In case request body is larger than the buffer,
+In case the request body is larger than the buffer,
 the whole body or only its part is written to a
 <link id="client_body_temp_path">temporary file</link>.
 By default, buffer size is equal to two memory pages.
@@ -297,13 +293,13 @@ variable, to save the number of copy operations involved.
 
 <para>
 Defines a directory for storing temporary files holding client request bodies.
-Up to three-level subdirectory hierarchy can be used underneath the specified
+Up to three-level subdirectory hierarchy can be used under the specified
 directory.
 For example, in the following configuration
 <example>
 client_body_temp_path /spool/nginx/client_temp 1 2;
 </example>
-a temporary file might look like this:
+a path to a temporary file might look like this:
 <example>
 /spool/nginx/client_temp/7/45/00000123457
 </example>
@@ -321,12 +317,11 @@ a temporary file might look like this:
 
 <para>
 Defines a timeout for reading client request body.
-A timeout is only set between two successive read operations,
+The timeout is only set for a period between two successive read operations,
 not for the transmission of the whole request body.
-If a client does not transmit anything within this time,
-the client error
+If a client does not transmit anything within this time, the
 <http-status code="408" text="Request Time-out"/>
-is returned.
+error is returned to the client.
 </para>
 
 </directive>
@@ -343,10 +338,10 @@ Sets buffer size for reading client request header.
 For most requests, a buffer of 1K bytes is enough.
 However, if a request includes long cookies, or comes from a WAP client,
 it may not fit into 1K.
-If a request line, or a request header field do not fit entirely into
-this buffer then larger buffers are allocated, configured by the
-<link id="large_client_header_buffers"/>
-directive.
+If a request line or a request header field does not fit into
+this buffer then larger buffers, configured by the
+<link id="large_client_header_buffers"/> directive,
+are allocated.
 </para>
 
 </directive>
@@ -360,10 +355,9 @@ directive.
 
 <para>
 Defines a timeout for reading client request header.
-If a client does not transmit the entire header within this time,
-the client error
+If a client does not transmit the entire header within this time, the
 <http-status code="408" text="Request Time-out"/>
-is returned.
+error is returned to the client.
 </para>
 
 </directive>
@@ -381,14 +375,14 @@ Sets the maximum allowed size of the client request body,
 specified in the
 <header>Content-Length</header>
 request header field.
-If it exceeds the configured value, the client error
+If the size in a request exceeds the configured value, the
 <http-status code="413" text="Request Entity Too Large"/>
-is returned.
+error is returned to the client.
 Please be aware that
 <!--link doc="/web/upload.xml"-->browsers cannot correctly display
 this error<!--/link-->.
-Setting <value>size</value> to 0 disables client
-request body size checking.
+Setting <value>size</value> to 0 disables checking of client
+request body size.
 </para>
 
 </directive>
@@ -401,8 +395,8 @@ request body size checking.
 <context>server</context>
 
 <para>
-Allows to fine tune per-connection memory allocations.
-This directive has minimal impact on performance,
+Allows accurate tuning of per-connection memory allocations.
+This directive has minimal impact on performance
 and should not generally be used.
 </para>
 
@@ -417,7 +411,7 @@ and should not generally be used.
 <context>location</context>
 
 <para>
-Defines a default MIME-type of a response.
+Defines the default MIME-type of a response.
 Mapping of file name extensions to MIME types can be set
 with the <link id="types"/> directive.
 </para>
@@ -440,10 +434,10 @@ the <c-def>F_NOCACHE</c-def> flag (Mac OS X),
 or the <c-func>directio</c-func> function (Solaris),
 when reading files that are larger than or equal to
 the specified <value>size</value>.
-It automatically disables (0.7.15) the use of
+The directive automatically disables (0.7.15) the use of
 <link id="sendfile"/>
 for a given request.
-It could be useful for serving large files:
+It can be useful for serving large files:
 <example>
 directio 4m;
 </example>
@@ -462,10 +456,10 @@ or when using <link id="aio"/> on Linux.
 <appeared-in>0.8.11</appeared-in>
 
 <para>
-Sets an alignment for
+Sets the alignment for
 <link id="directio"/>.
-In most cases, a 512-byte alignment is enough, however, when
-using XFS under Linux, it needs to be increased to 4K.
+In most cases, a 512-byte alignment is enough.
+However, when using XFS under Linux, it needs to be increased to 4K.
 </para>
 
 </directive>
@@ -512,13 +506,13 @@ When checking symbolic links
 (parameters <literal>on</literal> and <literal>if_not_owner</literal>),
 all components of the pathname are normally checked.
 Checking of symbolic links in the initial part of the pathname
-may be avoided by also specifying the
+may be avoided by specifying additionally the
 <literal>from</literal>=<value>part</value> parameter.
 In this case, symbolic links are checked only from
-the component of the pathname following the specified initial part.
-If a value is not an initial part of the checked pathname, the whole
+the pathname component that follows the specified initial part.
+If the value is not an initial part of the pathname checked, the whole
 pathname is checked as if this parameter was not specified at all.
-If a value fully matches the file name,
+If the value matches the whole file name,
 symbolic links are not checked.
 The parameter value can contain variables.
 </tag-desc>
@@ -536,16 +530,16 @@ disable_symlinks on from=$document_root;
 <para>
 This directive is only available on systems that have the
 <c-func>openat</c-func> and <c-func>fstatat</c-func> interfaces.
-This includes modern versions of FreeBSD, Linux, and Solaris.
+Such systems include modern versions of FreeBSD, Linux, and Solaris.
 </para>
 
 <para>
 Parameters <literal>on</literal> and <literal>if_not_owner</literal>
 add a processing overhead.
 <note>
-On systems that do not support opening directories for search only,
-the use of these parameters requires that worker processes
-have read permissions for all checked directories.
+On systems that do not support opening of directories only for search,
+to use these parameters it is required that worker processes
+have read permissions for all directories being checked.
 </note>
 </para>
 
@@ -575,11 +569,9 @@ modules currently ignore this directive.
 
 <para>
 Defines the URI that will be shown for the specified errors.
-These directives are inherited from the previous level if and
-only if there are no
-<literal>error_page</literal>
-directives on
-the current level.
+<literal>error_page</literal> directives are inherited from the previous
+level only if there are no <literal>error_page</literal>
+directives defined on the current level.
 A <literal>uri</literal> value can contain variables.
 </para>
 
@@ -600,9 +592,9 @@ error_page 404 =200 /empty.gif;
 </para>
 
 <para>
-If an error response is processed by a proxied server, or a FastCGI server,
+If an error response is processed by a proxied server or a FastCGI server,
 and the server may return different response codes (e.g., 200, 302, 401
-or 404), it is possible to respond with a returned code:
+or 404), it is possible to respond with the code it returns:
 <example>
 error_page 404 = /404.php;
 </example>
@@ -730,7 +722,7 @@ directive).
 
 <para>
 A directive can be specified on the <link id="server"/> level
-in a default server.
+in the default server.
 In this case, its value will cover all virtual servers
 listening on the same address and port.
 </para>
@@ -817,7 +809,7 @@ Disables keep-alive connections with misbehaving browsers.
 The <value>browser</value> parameters specify which
 browsers will be affected.
 The value <literal>msie6</literal> disables keep-alive connections
-with old versions of MSIE, after seeing a POST request.
+with old versions of MSIE, once a POST request is received.
 The value <literal>safari</literal> disables keep-alive connections
 with Safari and Safari-like browsers on Mac OS X and Mac OS X-like
 operating systems.
@@ -843,8 +835,8 @@ keep-alive connections with them were disabled by default.
 
 <para>
 Sets the maximum number of requests that can be
-made through one keep-alive connection.
-After this many requests are made, the connection is closed.
+served through one keep-alive connection.
+After the maximum number of requests are made, the connection is closed.
 </para>
 
 </directive>
@@ -862,7 +854,7 @@ After this many requests are made, the connection is closed.
 <para>
 The first parameter sets a timeout during which a keep-alive
 client connection will stay open on the server side.
-The value of zero disables keep-alive client connections.
+The zero value disables keep-alive client connections.
 The optional second parameter sets a value in the
 <header>Keep-Alive: timeout=<value>time</value></header>
 response header field.
@@ -872,8 +864,8 @@ Two parameters may differ.
 <para>
 The
 <header>Keep-Alive: timeout=<value>time</value></header>
-header field is understood by Mozilla and Konqueror.
-MSIE will close keep-alive connection in about 60 seconds.
+header field is recognized by Mozilla and Konqueror.
+MSIE closes keep-alive connections by itself in about 60 seconds.
 </para>
 
 </directive>
@@ -887,18 +879,17 @@ MSIE will close keep-alive connection in about 60 seconds.
 
 <para>
 Sets the maximum <value>number</value> and <value>size</value> of
-buffers used when reading large client request header.
-A request line cannot exceed the size of one buffer, or the client error
+buffers used for reading large client request header.
+A request line cannot exceed the size of one buffer, or the
 <http-status code="414" text="Request-URI Too Large"/>
-is returned.
+error is returned to the client.
 A request header field cannot exceed the size of one buffer as well, or the
-client error
 <http-status code="400" text="Bad Request"/>
-is returned.
+error is returned to the client.
 Buffers are allocated only on demand.
 By default, the buffer size is equal to 8K bytes.
 If after the end of request processing a connection is transitioned
-into the keep-alive state, these buffers are freed.
+into the keep-alive state, these buffers are released.
 </para>
 
 </directive>
@@ -927,8 +918,8 @@ The <value>method</value> parameter can be one of the following:
 <literal>UNLOCK</literal>,
 or
 <literal>PATCH</literal>.
-Allowing the <literal>GET</literal> method also allows the
-<literal>HEAD</literal> method.
+Allowing the <literal>GET</literal> method makes the
+<literal>HEAD</literal> method also allowed.
 Access to other methods can be limited using the
 <link doc="ngx_http_access_module.xml">ngx_http_access_module</link>
 and
@@ -956,14 +947,14 @@ Please note that this will limit access to all methods
 <context>if in location</context>
 
 <para>
-Rate limits the transmission of a response to a client.
+Limits the rate of response transmission to a client.
 The <value>rate</value> is specified in bytes per second.
 The value 0 disables rate limiting.
 <!--
 The smaller the rate, the more accurate will be the limitation.
 -->
-The limit is set per request, so if a client simultaneously opens
-two connections, an overall rate will be twice as much
+The limit is set per a request, and so if a client simultaneously opens
+two connections, the overall rate will be twice as much
 as the specified limit.
 </para>
 
@@ -984,9 +975,9 @@ server {
 </para>
 
 <para>
-In addition, rate limit can also be set in the
+Rate limit can also be set in the
 <header>X-Accel-Limit-Rate</header> header field of a proxied server response.
-This ability can be disabled using the
+This capability can be disabled using the
 <link doc="ngx_http_proxy_module.xml" id="proxy_ignore_headers"/>
 and
 <link doc="ngx_http_fastcgi_module.xml" id="fastcgi_ignore_headers"/>
@@ -1056,7 +1047,8 @@ wait for and process additional client data.
 <para>
 The value “<literal>off</literal>” tells nginx to never wait for
 more data and close the connection immediately.
-This breaks the protocol and should not be used under normal circumstances.
+This behavior breaks the protocol and should not be used under normal
+circumstances.
 </para>
 
 </directive>
@@ -1071,9 +1063,10 @@ This breaks the protocol and should not be used under normal circumstances.
 
 <para>
 When <link id="lingering_close"/> is in effect,
-this directive specifies a maximum time during which nginx
+this directive specifies the maximum time during which nginx
 will process (read and ignore) additional data coming from a client.
-After that, the connection is closed, even if there are more data.
+After that, the connection will be closed, even if there will be
+more data.
 </para>
 
 </directive>
@@ -1088,9 +1081,10 @@ After that, the connection is closed, even if there are more data.
 
 <para>
 When <link id="lingering_close"/> is in effect, this directive specifies
-a maximum waiting time for more client data to arrive.
+the maximum waiting time for more client data to arrive.
 If data are not received during this time, the connection is closed.
-Otherwise, data are read and ignored, then nginx waits again for more data.
+Otherwise, the data are read and ignored, and nginx starts waiting
+for more data again.
 The “wait-read-ignore” cycle is repeated, but no longer than specified by the
 <link id="lingering_time"/> directive.
 </para>
@@ -1144,10 +1138,10 @@ The “wait-read-ignore” cycle is repeated, but no longer than specified by th
 
 <para>
 Sets an <value>address</value> and a <value>port</value> for IP,
-or a <value>path</value> for a UNIX-domain socket, on which
+or a <value>path</value> for a UNIX-domain socket on which
 the server will accept requests.
-Only one of <value>address</value> or <value>port</value> may be
-specified.
+Both <value>address</value> and <value>port</value>,
+or only <value>address</value> or only <value>port</value> can be specified.
 An <value>address</value> may also be a hostname, for example:
 <example>
 listen 127.0.0.1:8000;
@@ -1173,8 +1167,9 @@ If only <value>address</value> is given, the port 80 is used.
 </para>
 
 <para>
-If directive is not present then either the <literal>*:80</literal> is used
-if nginx runs with superuser privileges, or <literal>*:8000</literal> otherwise.
+If the directive is not present then either <literal>*:80</literal> is used
+if nginx runs with the superuser privileges, or <literal>*:8000</literal>
+otherwise.
 </para>
 
 <para>
@@ -1192,7 +1187,7 @@ In versions prior to 0.8.21 this parameter is named simply
 </para>
 
 <para>
-The <literal>ssl</literal> parameter (0.7.14) allows to specify that all
+The <literal>ssl</literal> parameter (0.7.14) allows specifying that all
 connections accepted on this port should work in SSL mode.
 This allows for a more compact <link doc="configuring_https_servers.xml"
 id="single_http_https_server">configuration</link> for the server that
@@ -1200,7 +1195,7 @@ handles both HTTP and HTTPS requests.
 </para>
 
 <para>
-The <literal>spdy</literal> parameter (1.3.15) allows to accept
+The <literal>spdy</literal> parameter (1.3.15) allows accepting
 <link doc="ngx_http_spdy_module.xml">SPDY</link> connections on this port.
 Normally, for this to work the <literal>ssl</literal> parameter should be
 specified as well, but nginx can also be configured to accept SPDY
@@ -1210,12 +1205,12 @@ connections without SSL.
 <para>
 A <literal>listen</literal> directive
 can have several additional parameters specific to socket-related system calls.
-They can be specified in any
-<literal>listen</literal> directive, but only once for the given
+These parameters can be specified in any
+<literal>listen</literal> directive, but only once for a given
 <value>address</value>:<value>port</value> pair.
 <note>
 In versions prior to 0.8.21, they could only be
-specified in the <literal>listen</literal> directive along with the
+specified in the <literal>listen</literal> directive together with the
 <literal>default</literal> parameter.
 </note>
 <list type="tag">
@@ -1224,7 +1219,7 @@ specified in the <literal>listen</literal> directive along with the
 <literal>setfib</literal>=<value>number</value>
 </tag-name>
 <tag-desc>
-this parameter (0.8.44) sets an associated routing table, FIB
+this parameter (0.8.44) sets the associated routing table, FIB
 (the <c-def>SO_SETFIB</c-def> option) for the listening socket.
 This currently works only on FreeBSD.
 </tag-desc>
@@ -1244,7 +1239,7 @@ and to 511 on other platforms.
 <literal>rcvbuf</literal>=<value>size</value>
 </tag-name>
 <tag-desc>
-sets receive buffer size
+sets the receive buffer size
 (the <c-def>SO_RCVBUF</c-def> option) for the listening socket.
 </tag-desc>
 
@@ -1252,7 +1247,7 @@ sets receive buffer size
 <literal>sndbuf</literal>=<value>size</value>
 </tag-name>
 <tag-desc>
-sets send buffer size
+sets the send buffer size
 (the <c-def>SO_SNDBUF</c-def> option) for the listening socket.
 </tag-desc>
 
@@ -1262,10 +1257,10 @@ sets send buffer size
 <tag-desc>
 sets the name of accept filter
 (the <c-def>SO_ACCEPTFILTER</c-def> option) for the listening socket
-that filters incoming connections before presenting them to
+that filters incoming connections before passing them to
 <c-func>accept</c-func>.
 This works only on FreeBSD and NetBSD 5.0+.
-Acceptable values are
+Possible values are
 <link url="http://man.freebsd.org/accf_data">dataready</link>
 and
 <link url="http://man.freebsd.org/accf_http">httpready</link>.
@@ -1285,18 +1280,16 @@ instructs to use a deferred <c-func>accept</c-func>
 <tag-desc>
 instructs to make a separate <c-func>bind</c-func> call for a given
 <value>address</value>:<value>port</value> pair.
-This is because nginx will <c-func>bind</c-func> only to
-<literal>*:</literal><value>port</value>
-if there are several <literal>listen</literal> directives with
-the same port but different addresses, and one of the
+This is useful because if there are several <literal>listen</literal>
+directives with the same port but different addresses, and one of the
 <literal>listen</literal> directives listens on all addresses
-for the given port (<literal>*:</literal><value>port</value>).
-It should be noted that in this case a <c-func>getsockname</c-func>
-system call will be made to determine an address that accepted a
-connection.
-If parameters <literal>backlog</literal>, <literal>rcvbuf</literal>,
+for the given port (<literal>*:</literal><value>port</value>), nginx
+will <c-func>bind</c-func> only to <literal>*:</literal><value>port</value>.
+It should be noted that in this case the address that accepted the
+connection is determined by a <c-func>getsockname</c-func> system call.
+If the <literal>backlog</literal>, <literal>rcvbuf</literal>,
 <literal>sndbuf</literal>, <literal>accept_filter</literal>,
-<literal>deferred</literal>, or <literal>so_keepalive</literal>
+<literal>deferred</literal>, or <literal>so_keepalive</literal> parameters
 are used then for a given
 <value>address</value>:<value>port</value> pair
 a separate <c-func>bind</c-func> call will always be made.
@@ -1308,8 +1301,8 @@ a separate <c-func>bind</c-func> call will always be made.
 <tag-desc>
 this parameter (0.7.42) determines
 (via the <c-def>IPV6_V6ONLY</c-def> socket option)
-whether IPv6 socket listening on a wildcard address <literal>[::]</literal>
-will accept only IPv6 connections, or both IPv6 and IPv4 connections.
+whether an IPv6 socket listening on a wildcard address <literal>[::]</literal>
+will accept only IPv6 connections or both IPv6 and IPv4 connections.
 This parameter is turned on by default.
 It can only be set once on start.
 <note>
@@ -1327,24 +1320,24 @@ this parameter (1.1.11) configures the “TCP keepalive” behavior
 for the listening socket.
 If this parameter is omitted then the operating system’s settings will be
 in effect for the socket.
-If set to the value “<literal>on</literal>”, the <c-def>SO_KEEPALIVE</c-def>
-socket option is turned on for the socket.
-If set to the value “<literal>off</literal>”, the <c-def>SO_KEEPALIVE</c-def>
-socket option is turned off for the socket.
-Some operating systems support tuning TCP keepalive parameters on a per-socket
-basis using the <c-def>TCP_KEEPIDLE</c-def>, <c-def>TCP_KEEPINTVL</c-def>,
-and <c-def>TCP_KEEPCNT</c-def> socket options.
+If it is set to the value “<literal>on</literal>”, the
+<c-def>SO_KEEPALIVE</c-def> option is turned on for the socket.
+If it is set to the value “<literal>off</literal>”, the
+<c-def>SO_KEEPALIVE</c-def> option is turned off for the socket.
+Some operating systems support setting of TCP keepalive parameters on
+a per-socket basis using the <c-def>TCP_KEEPIDLE</c-def>,
+<c-def>TCP_KEEPINTVL</c-def>, and <c-def>TCP_KEEPCNT</c-def> socket options.
 On such systems (currently, Linux 2.4+, NetBSD 5+, and
-FreeBSD 9.0-STABLE) they can be configured
+FreeBSD 9.0-STABLE), they can be configured
 using the <value>keepidle</value>, <value>keepintvl</value>, and
 <value>keepcnt</value> parameters.
 One or two parameters may be omitted, in which case the system default setting
 for the corresponding socket option will be in effect.
 For example,
 <example>so_keepalive=30m::10</example>
-will set idle timeout (<c-def>TCP_KEEPIDLE</c-def>) to 30 minutes,
-leave probe interval (<c-def>TCP_KEEPINTVL</c-def>) at its system default,
-and set probes count (<c-def>TCP_KEEPCNT</c-def>) to 10 probes.
+will set the idle timeout (<c-def>TCP_KEEPIDLE</c-def>) to 30 minutes,
+leave the probe interval (<c-def>TCP_KEEPINTVL</c-def>) at its system default,
+and set the probes count (<c-def>TCP_KEEPCNT</c-def>) to 10 probes.
 </tag-desc>
 
 </list>
@@ -1373,12 +1366,12 @@ listen 127.0.0.1 default_server accept_filter=dataready backlog=1024;
 <context>location</context>
 
 <para>
-Sets a configuration based on a request URI.
+Sets configuration depending on a request URI.
 </para>
 
 <para>
 The matching is performed against a normalized URI,
-after decoding a text encoded in the “<literal>%XX</literal>” form,
+after decoding the text encoded in the “<literal>%XX</literal>” form,
 resolving references to relative path components “<literal>.</literal>”
 and “<literal>..</literal>”, and possible
 <link id="merge_slashes">compression</link> of two or more
@@ -1387,22 +1380,24 @@ adjacent slashes into a single slash.
 
 <para>
 A location can either be defined by a prefix string, or by a regular expression.
-Regular expressions are specified by prepending them with the
-“<literal>~*</literal>” modifier (for case-insensitive matching), or with the
+Regular expressions are specified with the preceding
+“<literal>~*</literal>” modifier (for case-insensitive matching), or the
 “<literal>~</literal>” modifier (for case-sensitive matching).
-To find a location matching a given request, nginx first checks
+To find location matching a given request, nginx first checks
 locations defined using the prefix strings (prefix locations).
-Among them, the most specific one is searched.
+Among them, the location with the longest matching
+prefix is selected and remembered.
 Then regular expressions are checked, in the order of their appearance
-in a configuration file.
-A search of regular expressions terminates on the first match,
+in the configuration file.
+The search of regular expressions terminates on the first match,
 and the corresponding configuration is used.
-If no match with a regular expression is found then a
-configuration of the most specific prefix location is used.
+If no match with a regular expression is found then the
+configuration of the prefix location remembered earlier is used.
 </para>
 
 <para>
-Locations can be nested, with some exceptions mentioned below.
+<literal>location</literal> blocks can be nested, with some exceptions
+mentioned below.
 </para>
 
 <para>
@@ -1417,7 +1412,7 @@ be used in other directives.
 </para>
 
 <para>
-If the most specific prefix location has the “<literal>^~</literal>” modifier
+If the longest matching prefix location has the “<literal>^~</literal>” modifier
 then regular expressions are not checked.
 </para>
 
@@ -1442,7 +1437,7 @@ not checked.
 </para>
 
 <para>
-Let’s illustrate the above by example:
+Let’s illustrate the above by an example:
 <example>
 location = / {
     [ configuration A ]
@@ -1491,7 +1486,7 @@ then in response to a request with URI equal to this string,
 but without the trailing slash,
 a permanent redirect with the code 301 will be returned to the requested URI
 with the slash appended.
-If this is undesired, an exact match of the URI and location could be
+If this is not desired, an exact match of the URI and location could be
 defined like this:
 <example>
 location /user/ {
@@ -1519,7 +1514,7 @@ location = /user {
 <context>location</context>
 
 <para>
-Enables or disables logging of errors about not found files into the
+Enables or disables logging of errors about not found files into
 <link doc="../ngx_core_module.xml" id="error_log"/>.
 </para>
 
@@ -1534,7 +1529,7 @@ Enables or disables logging of errors about not found files into the
 <context>location</context>
 
 <para>
-Enables or disables logging of subrequests into the
+Enables or disables logging of subrequests into
 <link doc="ngx_http_log_module.xml" id="access_log"/>.
 </para>
 
@@ -1553,8 +1548,8 @@ Enables or disables logging of subrequests into the
 Limits the maximum allowed number of ranges in byte-range requests.
 Requests that exceed the limit are processed as if there were no
 byte ranges specified.
-By default, there is no limit.
-The value of zero disables the byte-range support completely.
+By default, the number of ranges is not limited.
+The zero value disables the byte-range support completely.
 </para>
 
 </directive>
@@ -1572,30 +1567,30 @@ in a URI into a single slash.
 </para>
 
 <para>
-Note that compression is essential for the correct prefix string
-and regular expressions location matching.
+Note that compression is essential for the correct matching of prefix string
+and regular expression locations.
 Without it, the “<literal>//scripts/one.php</literal>” request would not match
 <example>
 location /scripts/ {
     ...
 }
 </example>
-and might be processed as a static file,
-so it gets converted to “<literal>/scripts/one.php</literal>”.
+and might be processed as a static file.
+So it gets converted to “<literal>/scripts/one.php</literal>”.
 </para>
 
 <para>
 Turning the compression <literal>off</literal> can become necessary if a URI
 contains base64-encoded names, since base64 uses the “<literal>/</literal>”
 character internally.
-However, for security considerations, it is better to avoid turning off
-the compression.
+However, for security considerations, it is better to avoid turning
+the compression off.
 </para>
 
 <para>
 A directive can be specified on the <link id="server"/> level
-in a default server.
-In this case, its value will cover all virtual servers
+in the default server.
+In this case, its value will apply to all virtual servers
 listening on the same address and port.
 </para>
 
@@ -1610,8 +1605,8 @@ listening on the same address and port.
 <context>location</context>
 
 <para>
-Enables or disables adding of comments to responses with status
-greater than 400 for MSIE clients, to pad the response size to 512 bytes.
+Enables or disables adding comments to responses for MSIE clients with status
+greater than 400 to increase the response size to 512 bytes.
 </para>
 
 </directive>
@@ -1625,7 +1620,7 @@ greater than 400 for MSIE clients, to pad the response size to 512 bytes.
 <context>location</context>
 
 <para>
-Enables or disables issuing refreshes instead of redirects, for MSIE clients.
+Enables or disables issuing refreshes instead of redirects for MSIE clients.
 </para>
 
 </directive>
@@ -1650,7 +1645,7 @@ open file descriptors, their sizes and modification times;
 </listitem>
 
 <listitem>
-directory lookups;
+information on existence of directories;
 </listitem>
 
 <listitem>
@@ -1675,15 +1670,15 @@ The directive has the following parameters:
 </tag-name>
 <tag-desc>
 sets the maximum number of elements in the cache;
-on cache overflow the least recently used (LRU) elements get removed;
+on cache overflow the least recently used (LRU) elements are removed;
 </tag-desc>
 
 <tag-name>
 <literal>inactive</literal>
 </tag-name>
 <tag-desc>
-defines a time, after which an element gets removed from the cache
-if there were no accesses to it during this time;
+defines a time after which an element is removed from the cache
+if it has not been accessed during this time;
 by default, it is 60 seconds;
 </tag-desc>
 
@@ -1764,8 +1759,8 @@ file systems such as UFS or FFS.
 <para>
 Sets the minimum <value>number</value> of file accesses during
 the period configured by the <literal>inactive</literal> parameter
-of the <link id="open_file_cache"/> directive,
-after which a file descriptor will remain open in the cache.
+of the <link id="open_file_cache"/> directive, required for a file
+descriptor to remain open in the cache.
 </para>
 
 </directive>
@@ -1800,8 +1795,8 @@ are checked only once, and then updated right after they get changed.
 <context>server</context>
 
 <para>
-This directive is made obsolete by the
-<link id="server_name_in_redirect"/> directive.
+This directive is obsolete.
+The <link id="server_name_in_redirect"/> directive should be used instead.
 </para>
 
 <!--
@@ -1833,7 +1828,7 @@ Enables or disables specifying the port in redirects issued by nginx.
 </para>
 
 <para>
-The use of a primary server name in redirects is controlled by
+The use of the primary server name in redirects is controlled by
 the <link id="server_name_in_redirect"/> directive.
 </para>
 
@@ -1848,9 +1843,9 @@ the <link id="server_name_in_redirect"/> directive.
 <context>location</context>
 
 <para>
-If possible, the output of client data will be postponed until
+If possible, the transmission of client data will be postponed until
 nginx has at least <value>size</value> bytes of data to send.
-Value of zero disables postponing.
+The zero value disables postponing data transmission.
 </para>
 
 </directive>
@@ -1864,21 +1859,21 @@ Value of zero disables postponing.
 <context>location</context>
 
 <para>
-Sets the amount of pre-reading when working with files, in the kernel.
+Sets the amount of pre-reading for the kernel when working with file.
 </para>
 
 <para>
 On Linux, the
 <literal>posix_fadvise(0, 0, 0, POSIX_FADV_SEQUENTIAL)</literal>
-system call is used, so the <value>size</value> parameter is ignored.
+system call is used, and so the <value>size</value> parameter is ignored.
 </para>
 
 <para>
 On FreeBSD, the
 <literal>fcntl(O_READAHEAD,</literal>
 <value>size</value><literal>)</literal>
-system call is used, supported in FreeBSD&nbsp;9.0-CURRENT.
-FreeBSD&nbsp;7 needs to be
+system call, supported since FreeBSD&nbsp;9.0-CURRENT, is used.
+FreeBSD&nbsp;7 has to be
 <link url="http://sysoev.ru/freebsd/patch.readahead.txt">patched</link>.
 </para>
 
@@ -1896,7 +1891,7 @@ FreeBSD&nbsp;7 needs to be
 Enables or disables doing several redirects using the
 <link id="error_page"/>
 directive.
-There is a <link id="internal">limit</link> on a number of such redirects.
+The number of such redirects is <link id="internal">limited</link>.
 </para>
 
 </directive>
@@ -1909,8 +1904,8 @@ There is a <link id="internal">limit</link> on a number of such redirects.
 <context>server</context>
 
 <para>
-Allows to fine tune per-request memory allocations.
-This directive has minimal impact on performance,
+Allows accurate tuning of per-request memory allocations.
+This directive has minimal impact on performance
 and should not generally be used.
 </para>
 
@@ -1925,18 +1920,19 @@ and should not generally be used.
 <context>location</context>
 
 <para>
-Enables or disables resetting of timed out connections.
-The reset is performed as follows: before closing a socket, the
+Enables or disables resetting timed out connections.
+The reset is performed as follows.
+Before closing a socket, the
 <c-def>SO_LINGER</c-def>
 option is set on it with a timeout value of 0.
-When the socket is closed, a client is sent TCP RST, and all memory
-occupied by this socket is freed.
-This avoids keeping of an already closed socket with filled buffers
-for a long time, in a FIN_WAIT1 state.
+When the socket is closed, TCP RST is sent to the client, and all memory
+occupied by this socket is released.
+This helps avoid keeping an already closed socket with filled buffers
+in a FIN_WAIT1 state for a long time.
 </para>
 
 <para>
-It should be noted that timed out keep-alive connections are still
+It should be noted that timed out keep-alive connections are
 closed normally.
 </para>
 
@@ -1968,7 +1964,7 @@ Specifying name servers using IPv6 addresses is supported
 starting from versions 1.3.1 and 1.2.2.
 </note>
 By default, nginx caches answers using the TTL value of a response.
-An optional <literal>valid</literal> parameter allows to override it:
+An optional <literal>valid</literal> parameter allows overriding it:
 <example>
 resolver 127.0.0.1 [::1]:5353 valid=30s;
 </example>
@@ -2014,20 +2010,19 @@ location /i/ {
     root /data/w3;
 }
 </example>
-“<literal>/i/top.gif</literal>” will be responded
-with the file
-<path>/data/w3/i/top.gif</path>.
+The <path>/data/w3/i/top.gif</path> file will be sent in response to
+the “<literal>/i/top.gif</literal>” request.
 </para>
 
 <para>
-The <value>path</value> value can contain variables
+The <value>path</value> value can contain variables,
 except <var>$document_root</var> and <var>$realpath_root</var>.
 </para>
 
 <para>
 A path to the file is constructed by merely adding a URI to the value
 of the <literal>root</literal> directive.
-If a URI need to be modified, the
+If a URI has to be modified, the
 <link id="alias"/> directive should be used.
 </para>
 
@@ -2042,10 +2037,11 @@ If a URI need to be modified, the
 <context>location</context>
 
 <para>
-Allows access if <literal>all</literal> or <literal>any</literal> of the
+Allows access if both (<literal>all</literal>) or at least one
+(<literal>any</literal>) of the
 <link doc="ngx_http_access_module.xml">ngx_http_access_module</link>
 or <link doc="ngx_http_auth_basic_module.xml">ngx_http_auth_basic_module</link>
-modules grant access.
+modules allow access.
 </para>
 
 <para>
@@ -2089,12 +2085,12 @@ parameter of the <link id="satisfy"/> directive.
 <context>location</context>
 
 <para>
-If set to a non-zero value, nginx will try to minimize the number
-of send operations on client sockets by using either
+If the directive is set to a non-zero value, nginx will try to minimize
+the number of send operations on client sockets by using either
 <c-def>NOTE_LOWAT</c-def> flag of the
-<link doc="../events.xml" id="kqueue"/> method,
-or the <c-def>SO_SNDLOWAT</c-def> socket option,
-with the specified <value>size</value>.
+<link doc="../events.xml" id="kqueue"/> method
+or the <c-def>SO_SNDLOWAT</c-def> socket option.
+In both cases the specified <value>size</value> is used.
 </para>
 
 <para>
@@ -2150,7 +2146,7 @@ Enables or disables the use of
 <para>
 When set to a non-zero value, limits the amount of data that can be
 transferred in a single <c-func>sendfile</c-func> call.
-Without the limit, one fast connection may seize the worker process.
+Without the limit, one fast connection may seize the worker process entirely.
 </para>
 
 </directive>
@@ -2162,12 +2158,12 @@ Without the limit, one fast connection may seize the worker process.
 <context>http</context>
 
 <para>
-Sets a configuration for the virtual server.
-There is no clean separation between IP-based (based on the IP address)
+Sets configuration for a virtual server.
+There is no clear separation between IP-based (based on the IP address)
 and name-based (based on the <header>Host</header> request header field)
 virtual servers.
 Instead, the <link id="listen"/> directives describe all
-addresses and ports that should accept connections for a server, and the
+addresses and ports that should accept connections for the server, and the
 <link id="server_name"/> directive lists all server names.
 Example configurations are provided in the
 “<link doc="request_processing.xml"/>” document.
@@ -2182,7 +2178,7 @@ Example configurations are provided in the
 <context>server</context>
 
 <para>
-Sets names of the virtual server, for example:
+Sets names of a virtual server, for example:
 <example>
 server {
     server_name example.com www.example.com;
@@ -2196,7 +2192,7 @@ The first name becomes the primary server name.
 
 <para>
 Server names can include an asterisk (“<literal>*</literal>”)
-to replace the first or last part of a name:
+replacing the first or last part of a name:
 <example>
 server {
     server_name example.com *.example.com www.example.*;
@@ -2206,7 +2202,7 @@ Such names are called wildcard names.
 </para>
 
 <para>
-The first two of the above mentioned names can be combined:
+The first two of the names mentioned above can be combined in one:
 <example>
 server {
     server_name .example.com;
@@ -2216,7 +2212,7 @@ server {
 
 <para>
 It is also possible to use regular expressions in server names,
-prepending the name with a tilde (“<literal>~</literal>”):
+preceeding the name with a tilde (“<literal>~</literal>”):
 <example>
 server {
     server_name www.example.com ~^www\d+\.example\.com$;
@@ -2269,8 +2265,8 @@ server {
 </para>
 
 <para>
-If the parameter equals “<var>$hostname</var>” (0.9.4), the
-machine’s hostname is substituted.
+If the directive’s parameter is set to “<var>$hostname</var>” (0.9.4), the
+machine’s hostname is inserted.
 </para>
 
 <para>
@@ -2281,7 +2277,7 @@ server {
 }
 </example>
 It allows this server to process requests without the <header>Host</header>
-header field, instead of the default server for the given address:port pair.
+header field — instead of the default server — for the given address:port pair.
 This is the default setting.
 <note>
 Before 0.8.48, the machine’s hostname was used by default.
@@ -2289,29 +2285,29 @@ Before 0.8.48, the machine’s hostname was used by default.
 </para>
 
 <para>
-When searching for a virtual server by name,
-if name matches more than one of the specified variants,
-e.g. both wildcard name and regular expression match, the first matching
-variant will be chosen, in the following order of precedence:
+During searching for a virtual server by name,
+if the name matches more than one of the specified variants,
+(e.g. both a wildcard name and regular expression match), the first matching
+variant will be chosen, in the following order of priority:
 <list type="enum">
 
 <listitem>
-exact name
+the exact name
 </listitem>
 
 <listitem>
-longest wildcard name starting with an asterisk,
+the longest wildcard name starting with an asterisk,
 e.g. “<literal>*.example.com</literal>”
 </listitem>
 
 <listitem>
-longest wildcard name ending with an asterisk,
+the longest wildcard name ending with an asterisk,
 e.g. “<literal>mail.*</literal>”
 </listitem>
 
 <listitem>
-first matching regular expression
-(in order of appearance in a configuration file)
+the first matching regular expression
+(in order of appearance in the configuration file)
 </listitem>
 
 </list>
@@ -2336,9 +2332,9 @@ Detailed description of server names is provided in a separate
 Enables or disables the use of the primary server name, specified by the
 <link id="server_name"/>
 directive, in redirects issued by nginx.
-When disabled, the name from the <header>Host</header> request header field
-is used.
-If this field is not present, an IP address of the server is used.
+When the use of the primary server name is disabled, the name from the
+<header>Host</header> request header field is used.
+If this field is not present, the IP address of the server is used.
 </para>
 
 <para>
@@ -2356,7 +2352,7 @@ the <link id="port_in_redirect"/> directive.
 
 <para>
 Sets the bucket size for the server names hash tables.
-Default value depends on the size of the processor’s cache line.
+The default value depends on the size of the processor’s cache line.
 Details of setting up hash tables are provided in a separate
 <link doc="../hash.xml">document</link>.
 </para>
@@ -2386,7 +2382,7 @@ Details of setting up hash tables are provided in a separate
 <context>location</context>
 
 <para>
-Enables or disables emitting of nginx version in error messages and in the
+Enables or disables emitting nginx version in error messages and in the
 <header>Server</header> response header field.
 </para>
 
@@ -2420,17 +2416,17 @@ keep-alive state.
 Enables or disables the use of
 the <c-def>TCP_NOPUSH</c-def> socket option on FreeBSD
 or the <c-def>TCP_CORK</c-def> socket option on Linux.
-Options are enabled only when <link id="sendfile"/> is used.
-Enabling the option allows to
+The options are enabled only when <link id="sendfile"/> is used.
+Enabling the option allows
 <list type="bullet">
 
 <listitem>
-send the response header and the beginning of a file in one packet,
+sending the response header and the beginning of a file in one packet,
 on Linux and FreeBSD&nbsp;4.*;
 </listitem>
 
 <listitem>
-send a file in full packets.
+sending a file in full packets.
 </listitem>
 
 </list>
@@ -2447,17 +2443,17 @@ send a file in full packets.
 <context>location</context>
 
 <para>
-Checks the existence of files in the specified order, and uses
+Checks the existence of files in the specified order and uses
 the first found file for request processing; the processing
 is performed in the current context.
-A path to the file is constructed from the
+The path to a file is constructed from the
 <value>file</value> parameter
 according to the
 <link id="root"/> and <link id="alias"/> directives.
-It is possible to check the directory existence by specifying
+It is possible to check directory’s existence by specifying
 a slash at the end of a name, e.g. “<literal>$uri/</literal>”.
 If none of the files were found, an internal redirect to the
-<value>uri</value> specified by the last parameter is made.
+<value>uri</value> specified in the last parameter is made.
 For example:
 <example>
 location /images/ {
@@ -2470,7 +2466,7 @@ location = /images/default.gif {
 </example>
 The last parameter can also point to a named location,
 as shown in examples below.
-As of version 0.7.51, the last parameter can also be a
+Starting from version 0.7.51, the last parameter can also be a
 <value>code</value>:
 <example>
 location / {
@@ -2480,7 +2476,7 @@ location / {
 </para>
 
 <para>
-Example when proxying Mongrel:
+Example in proxying Mongrel:
 <example>
 location / {
     try_files /system/maintenance.html
@@ -2594,7 +2590,7 @@ location @wordpress {
 <para>
 Maps file name extensions to MIME types of responses.
 Extensions are case-insensitive.
-Several extensions can map to one type, for example:
+Several extensions can be mapped to one type, for example:
 <example>
 types {
     application/octet-stream bin exe dll;
@@ -2612,7 +2608,7 @@ A sufficiently full mapping table is distributed with nginx in the
 <para>
 To make a particular location emit the
 “<literal>application/octet-stream</literal>”
-MIME type for all requests, try the following:
+MIME type for all requests, the following configuration can be used:
 <example>
 location /download/ {
     types        { }
@@ -2633,7 +2629,7 @@ location /download/ {
 
 <para>
 Sets the bucket size for the types hash tables.
-Default value depends on the size of the processor’s cache line.
+The default value depends on the size of the processor’s cache line.
 Details of setting up hash tables are provided in a separate
 <link doc="../hash.xml">document</link>.
 </para>
@@ -2665,15 +2661,16 @@ Details of setting up hash tables are provided in a separate
 
 <para>
 Enables or disables the use of underscores in client request header fields.
-When disabled, request header fields whose names contain underscores are
-marked as invalid and are subject to the <link id="ignore_invalid_headers"/>
-directive.
+When the use of underscores is disabled, request header fields whose names
+contain underscores are
+marked as invalid and become subject to the
+<link id="ignore_invalid_headers"/> directive.
 </para>
 
 <para>
 A directive can be specified on the <link id="server"/> level
 in a default server.
-In this case, its value will cover all virtual servers
+In this case, its value will apply to all virtual servers
 listening on the same address and port.
 </para>
 
@@ -2713,12 +2710,12 @@ Details of setting up hash tables are provided in a separate
 <section id="variables" name="Embedded Variables">
 
 <para>
-The module <literal>ngx_http_core_module</literal> supports embedded variables
-with names matching those of the Apache Server.
+The <literal>ngx_http_core_module</literal> module supports embedded variables
+with names matching the Apache Server variables.
 First of all, these are variables representing client request header
 fields, such as <var>$http_user_agent</var>, <var>$http_cookie</var>,
 and so on.
-It also supports other variables:
+Also there are other variables:
 <list type="tag">
 
 <tag-name id="var_arg_"><var>$arg_</var><value>name</value></tag-name>
@@ -2820,13 +2817,13 @@ or an empty string otherwise
 
 <tag-name id="var_limit_rate"><var>$limit_rate</var></tag-name>
 <tag-desc>
-setting this variable allows for response rate limiting;
+setting this variable enables response rate limiting;
 see <link id="limit_rate"/>
 </tag-desc>
 
 <tag-name id="var_msec"><var>$msec</var></tag-name>
 <tag-desc>
-current time in seconds with a milliseconds resolution (1.3.9, 1.2.6)
+current time in seconds with the milliseconds resolution (1.3.9, 1.2.6)
 </tag-desc>
 
 <tag-name id="var_nginx_version"><var>$nginx_version</var></tag-name>
@@ -2896,11 +2893,11 @@ directives.
 name of a temporary file with the request body
 <para>
 At the end of processing, the file needs to be removed.
-To always write a request body to a file,
+To always write the request body to a file,
 <link id="client_body_in_file_only"/> needs to be enabled.
-When passing the name of a temporary file in a proxied request,
+When the name of a temporary file is passed in a proxied request
 or in a request to a FastCGI server,
-passing of the request body should be disabled by the
+passing the request body should be disabled by the
 <link doc="ngx_http_proxy_module.xml" id="proxy_pass_request_body">
 proxy_pass_request_body off</link>
 and
