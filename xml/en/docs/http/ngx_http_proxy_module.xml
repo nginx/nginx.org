@@ -15,7 +15,7 @@
 <section id="summary">
 
 <para>
-The <literal>ngx_http_proxy_module</literal> module allows to pass
+The <literal>ngx_http_proxy_module</literal> module allows passing
 requests to another server.
 </para>
 
@@ -48,13 +48,13 @@ location / {
 <appeared-in>0.8.22</appeared-in>
 
 <para>
-Forces outgoing connections to a proxied server to originate
+Makes outgoing connections to a proxied server to originate
 from the specified local IP <value>address</value>.
 Value of the parameter can contain variables (1.3.12).
 The special value <literal>off</literal> (1.3.12) cancels the effect
 of the <literal>proxy_bind</literal> directive
 inherited from the previous configuration level, allowing the
-system to auto-assign local address.
+system to auto-assign the local IP address.
 </para>
 
 </directive>
@@ -68,7 +68,7 @@ system to auto-assign local address.
 <context>location</context>
 
 <para>
-Sets <value>size</value> of the buffer used for reading the first part
+Sets the <value>size</value> of the buffer used for reading the first part
 of a response received from the proxied server.
 This part usually contains a small response header.
 By default, the buffer size is equal to the size of one
@@ -92,11 +92,11 @@ Enables or disables buffering of responses from the proxied server.
 
 <para>
 When buffering is enabled, nginx receives a response from the proxied server
-as soon as possible, saving it into buffers set by the
+as soon as possible, saving it into the buffers set by the
 <link id="proxy_buffer_size"/> and <link id="proxy_buffers"/> directives.
-If the whole response does not fit into memory, part of it can be saved
-to a <link id="proxy_temp_path">temporary file</link> on disk.
-Writes to temporary files are controlled by the
+If the whole response does not fit into memory, a part of it can be saved
+to a <link id="proxy_temp_path">temporary file</link> on the disk.
+Writing to temporary files is controlled by the
 <link id="proxy_max_temp_file_size"/> and
 <link id="proxy_temp_file_write_size"/> directives.
 </para>
@@ -113,7 +113,7 @@ at a time is set by the <link id="proxy_buffer_size"/> directive.
 Buffering can also be enabled or disabled by passing
 “<literal>yes</literal>” or “<literal>no</literal>” in the
 <header>X-Accel-Buffering</header> response header field.
-This ability can be disabled using the
+This capability can be disabled using the
 <link doc="ngx_http_proxy_module.xml" id="proxy_ignore_headers"/> directive.
 </para>
 
@@ -152,7 +152,7 @@ can be busy sending a response to the client while the response is not
 yet fully read.
 In the mean time, the rest of the buffers can be used for reading a response
 and, if needed, buffering part of a response to a temporary file.
-By default, <value>size</value> is limited by two buffers set by the
+By default, <value>size</value> is limited by the size of two buffers set by the
 <link id="proxy_buffer_size"/> and <link id="proxy_buffers"/> directives.
 </para>
 
@@ -231,7 +231,7 @@ When enabled, only one request at a time will be allowed to populate
 a new cache element identified according to the <link id="proxy_cache_key"/>
 directive by passing a request to a proxied server.
 Other requests of the same cache element will either wait
-for a response to appear in the cache, or the cache lock for
+for a response to appear in the cache or the cache lock for
 this element to be released, up to the time set by the
 <link id="proxy_cache_lock_timeout"/> directive.
 </para>
@@ -306,7 +306,7 @@ will be cached.
 <context>http</context>
 
 <para>
-Sets path and other parameters of a cache.
+Sets the path and other parameters of a cache.
 Cache data are stored in files.
 Both the key and file name in a cache are a result of
 applying the MD5 function to the proxied URL.
@@ -323,12 +323,13 @@ file names in a cache will look like this:
 </para>
 
 <para>
-A cached response is first written to a temporary file, then a file is renamed.
-Starting from version 0.8.9 temporary files and the cache can be put on
-different file systems but be aware that in this case a file is copied
-across two file systems instead of the cheap rename operation.
+A cached response is first written to a temporary file,
+then the file is renamed.
+Starting from version 0.8.9, temporary files and the cache can be put on
+different file systems, but be aware that in this case a file is copied
+across two file systems instead of the cheap renaming operation.
 It is thus recommended that for any given location both cache and a directory
-holding temporary files set by the <link id="proxy_temp_path"/> directive
+holding temporary files, set by the <link id="proxy_temp_path"/> directive,
 are put on the same file system.
 </para>
 
@@ -343,22 +344,22 @@ By default, <literal>inactive</literal> is set to 10 minutes.
 </para>
 
 <para>
-The special process “cache manager” monitors the maximum cache size set
-by the <literal>max_size</literal> parameter;
-when this size is exceeded it removes the least recently used data.
+The special “cache manager” process monitors the maximum cache size set
+by the <literal>max_size</literal> parameter.
+When this size is exceeded, it removes the least recently used data.
 </para>
 
 <para>
-A minute after the start the special process “cache loader” is activated
-that loads information about previously cached data stored on file system
+A minute after the start the special “cache loader” process is activated.
+It loads information about previously cached data stored on file system
 into a cache zone.
-A load is done in iterations.
+The loading is done in iterations.
 During one iteration no more than <literal>loader_files</literal> items
 are loaded (by default, 100).
 Besides, the duration of one iteration is limited by the
 <literal>loader_threshold</literal> parameter (by default, 200 milliseconds).
-A pause is made between iterations, configured by the
-<literal>loader_sleep</literal> parameter (by default, 50 milliseconds).
+Between iterations, a pause configured by the <literal>loader_sleep</literal>
+parameter (by default, 50 milliseconds) is made.
 </para>
 
 </directive>
@@ -384,17 +385,16 @@ A pause is made between iterations, configured by the
 <context>location</context>
 
 <para>
-If an error occurs while working with the proxied server it is possible
-to use a stale cached response.
-This directives determines in which cases it is permitted.
-The directive’s parameters match those of the
+Determines in which cases a stale cached response can be used
+when an error occurs in working with the proxied server.
+The directive’s parameters match the parameters of the
 <link id="proxy_next_upstream"/> directive.
 </para>
 
 <para>
 Additionally, the <literal>updating</literal> parameter permits
-to use a stale cached response if it is currently being updated.
-This allows to minimize the number of accesses to proxied servers
+using a stale cached response if it is currently being updated.
+This allows minimizing the number of accesses to proxied servers
 when updating cached data.
 </para>
 
@@ -434,8 +434,8 @@ then only 200, 301, and 302 responses are cached.
 </para>
 
 <para>
-In addition, it can be specified to cache any responses using the
-<literal>any</literal> parameter:
+In addition, the <literal>any</literal> parameter can be specified
+to cache any responses:
 <example>
 proxy_cache_valid 200 302 10m;
 proxy_cache_valid 301      1h;
@@ -446,11 +446,11 @@ proxy_cache_valid any      1m;
 <para>
 Parameters of caching can also be set directly
 in the response header.
-This has a higher precedence than setting of caching time using the directive.
+This has higher priority than setting of caching time using the directive.
 The <header>X-Accel-Expires</header> header field sets caching time of a
 response in seconds.
-The value 0 disables to cache a response.
-If a value starts with the prefix <literal>@</literal>, it sets an absolute
+The 0 value disables caching for a response.
+If a value starts with the <literal>@</literal> prefix, it sets an absolute
 time in seconds since Epoch, up to which the response may be cached.
 If header does not include the <header>X-Accel-Expires</header> field,
 parameters of caching may be set in the header fields
@@ -472,7 +472,7 @@ using the <link id="proxy_ignore_headers"/> directive.
 <context>location</context>
 
 <para>
-Defines a timeout for establishing a connection with the proxied server.
+Defines a timeout for establishing a connection with a proxied server.
 It should be noted that this timeout cannot usually exceed 75 seconds.
 </para>
 
@@ -492,8 +492,8 @@ It should be noted that this timeout cannot usually exceed 75 seconds.
 Sets a text that should be changed in the <literal>domain</literal>
 attribute of the <header>Set-Cookie</header> header fields of a
 proxied server response.
-Suppose a proxied server returned the header field
-<header>Set-Cookie</header> with the attribute
+Suppose a proxied server returned the <header>Set-Cookie</header>
+header field with the attribute
 “<literal>domain=localhost</literal>”.
 The directive
 <example>
@@ -505,13 +505,13 @@ will rewrite this attribute to
 
 <para>
 A dot at the beginning of the <value>domain</value> and
-<value>replacement</value> strings, and the <literal>domain</literal>
+<value>replacement</value> strings and the <literal>domain</literal>
 attribute is ignored.
 Matching is case-insensitive.
 </para>
 
 <para>
-The strings <value>domain</value> and <value>replacement</value>
+The <value>domain</value> and <value>replacement</value> strings
 can contain variables:
 <example>
 proxy_cookie_domain www.$host $host;
@@ -519,7 +519,7 @@ proxy_cookie_domain www.$host $host;
 </para>
 
 <para>
-A directive can also be specified using regular expressions.
+The directive can also be specified using regular expressions.
 In this case, <value>domain</value> should start from
 the “<literal>~</literal>” symbol.
 A regular expression can contain named and positional captures,
@@ -538,7 +538,7 @@ proxy_cookie_domain ~\.([a-z]+\.[a-z]+)$ $1;
 </para>
 
 <para>
-The <literal>off</literal> parameter cancels all
+The <literal>off</literal> parameter cancels the effect of all
 <literal>proxy_cookie_domain</literal> directives on the current level:
 <example>
 proxy_cookie_domain off;
@@ -563,8 +563,8 @@ proxy_cookie_domain www.example.org example.org;
 Sets a text that should be changed in the <literal>path</literal>
 attribute of the <header>Set-Cookie</header> header fields of a
 proxied server response.
-Suppose a proxied server returned the header field
-<header>Set-Cookie</header> with the attribute
+Suppose a proxied server returned the <header>Set-Cookie</header>
+header field with the attribute
 “<literal>path=/two/some/uri/</literal>”.
 The directive
 <example>
@@ -575,7 +575,7 @@ will rewrite this attribute to
 </para>
 
 <para>
-The strings <value>path</value> and <value>replacement</value>
+The <value>path</value> and <value>replacement</value> strings
 can contain variables:
 <example>
 proxy_cookie_path $uri /some$uri;
@@ -583,7 +583,7 @@ proxy_cookie_path $uri /some$uri;
 </para>
 
 <para>
-A directive can also be specified using regular expressions.
+The directive can also be specified using regular expressions.
 In this case, <value>path</value> should either start from
 the “<literal>~</literal>” symbol for a case-sensitive matching,
 or from the “<literal>~*</literal>” symbols for case-insensitive
@@ -604,7 +604,7 @@ proxy_cookie_path / /two/;
 </para>
 
 <para>
-The <literal>off</literal> parameter cancels all
+The <literal>off</literal> parameter cancels the effect of all
 <literal>proxy_cookie_path</literal> directives on the current level:
 <example>
 proxy_cookie_path off;
@@ -627,7 +627,7 @@ proxy_cookie_path ~*^/user/([^/]+) /u/$1;
 Sets the bucket <value>size</value> for hash tables
 used by the <link id="proxy_hide_header"/> and <link id="proxy_set_header"/>
 directives.
-Details of setting up hash tables are provided in a separate
+The details of setting up hash tables are provided in a separate
 <link doc="../hash.xml">document</link>.
 </para>
 
@@ -645,7 +645,7 @@ Details of setting up hash tables are provided in a separate
 Sets the maximum <value>size</value> of hash tables
 used by the <link id="proxy_hide_header"/> and <link id="proxy_set_header"/>
 directives.
-Details of setting up hash tables are provided in a separate
+The details of setting up hash tables are provided in a separate
 <link doc="../hash.xml">document</link>.
 </para>
 
@@ -701,8 +701,8 @@ connections.
 <context>location</context>
 
 <para>
-Determines should the connection with a proxied server be
-closed if a client closes a connection without waiting
+Determines whether the connection with a proxied server should be
+closed when a client closes a connection without waiting
 for a response.
 </para>
 
@@ -726,13 +726,14 @@ The following fields can be ignored: <header>X-Accel-Redirect</header>,
 </para>
 
 <para>
-If not disabled, processing of these header fields has the following effect:
+If not disabled, processing of these header fields has the following
+effect:
 <list type="bullet" compact="no">
 
 <listitem>
 <header>X-Accel-Expires</header>, <header>Expires</header>,
 <header>Cache-Control</header>, and <header>Set-Cookie</header>
-set parameters of response <link id="proxy_cache_valid">caching</link>;
+set the parameters of response <link id="proxy_cache_valid">caching</link>;
 </listitem>
 
 <listitem>
@@ -742,7 +743,7 @@ redirect</link> to the specified URI;
 </listitem>
 
 <listitem>
-<header>X-Accel-Limit-Rate</header> sets a
+<header>X-Accel-Limit-Rate</header> sets the
 <link doc="ngx_http_core_module.xml" id="limit_rate">rate
 limit</link> for transmission of a response to a client;
 </listitem>
@@ -774,7 +775,7 @@ of a response.
 <para>
 Determines whether proxied responses with codes greater than or equal
 to 300 should be passed to a client or be redirected to nginx for processing
-using the <link doc="ngx_http_core_module.xml" id="error_page"/> directive.
+by the <link doc="ngx_http_core_module.xml" id="error_page"/> directive.
 </para>
 
 </directive>
@@ -789,16 +790,16 @@ using the <link doc="ngx_http_core_module.xml" id="error_page"/> directive.
 
 <para>
 When <link id="proxy_buffering">buffering</link> of responses from the proxied
-server is enabled, and the whole response does not fit into memory buffers
+server is enabled, and the whole response does not fit into the memory buffers
 set by the <link id="proxy_buffer_size"/> and <link id="proxy_buffers"/>
-directives, part of a response can be saved to a temporary file.
+directives, a part of a response can be saved to a temporary file.
 This directive sets the maximum <value>size</value> of a temporary file.
 The size of data written to a temporary file at a time is set
 by the <link id="proxy_temp_file_write_size"/> directive.
 </para>
 
 <para>
-Value of zero disables buffering of responses to temporary files.
+The zero value disables buffering of responses to temporary files.
 </para>
 
 </directive>
@@ -843,14 +844,14 @@ Specifies in which cases a request should be passed to the next server:
 
 <tag-name><literal>error</literal></tag-name>
 <tag-desc>an error occurred while establishing a connection with the
-server, passing it a request, or reading the response header;</tag-desc>
+server, passing a request to it, or reading the response header;</tag-desc>
 
 <tag-name><literal>timeout</literal></tag-name>
 <tag-desc>a timeout has occurred while establishing a connection with the
-server, passing it a request, or reading the response header;</tag-desc>
+server, passing a request to it, or reading the response header;</tag-desc>
 
 <tag-name><literal>invalid_header</literal></tag-name>
-<tag-desc>a server returned empty or invalid response;</tag-desc>
+<tag-desc>a server returned an empty or invalid response;</tag-desc>
 
 <tag-name><literal>http_500</literal></tag-name>
 <tag-desc>a server returned a response with the code 500;</tag-desc>
@@ -877,10 +878,10 @@ server, passing it a request, or reading the response header;</tag-desc>
 </para>
 
 <para>
-It should be understood that passing a request to the next server is
-only possible if a client was not sent anything yet.
-That is, if an error or a timeout occurs in the middle of
-transferring a response, fixing this is impossible.
+One should bear in mind that passing a request to the next server is
+only possible if nothing has been sent to a client yet.
+That is, if an error or timeout occurs in the middle of the
+transferring of a response, fixing this is impossible.
 </para>
 
 <para>
@@ -929,11 +930,11 @@ Can be used along with the <link id="proxy_cache_bypass"/> directive.
 <context>limit_except</context>
 
 <para>
-Sets the protocol and address of a proxied server, and an optional URI
+Sets the protocol and address of a proxied server and an optional URI
 to which a location should be mapped.
-A protocol can be specified as
-“<literal>http</literal>” or “<literal>https</literal>”.
-An address can be specified as a domain name or IP address,
+As a protocol, “<literal>http</literal>” or “<literal>https</literal>”
+can be specified.
+The address can be specified as a domain name or IP address,
 and an optional port:
 <example>
 proxy_pass http://localhost:8000/uri/;
@@ -957,8 +958,8 @@ A request URI is passed to the server as follows:
 <list type="bullet" compact="no">
 
 <listitem>
-If <literal>proxy_pass</literal> is specified with URI,
-when passing a request to the server, part of a
+If the <literal>proxy_pass</literal> directive is specified with a URI,
+then when a request is passed to the server, the part of a
 <link doc="ngx_http_core_module.xml" id="location">normalized</link>
 request URI matching the location is replaced by a URI
 specified in the directive:
@@ -970,9 +971,9 @@ location /name/ {
 </listitem>
 
 <listitem>
-If <literal>proxy_pass</literal> is specified without URI,
-a request URI is passed to the server in the same form
-as sent by a client when processing an original request,
+If <literal>proxy_pass</literal> is specified without a URI,
+the request URI is passed to the server in the same form
+as sent by a client when the original request is processed,
 or the full normalized request URI is passed
 when processing the changed URI:
 <example>
@@ -983,7 +984,7 @@ location /some/path/ {
 <note>
 Before version 1.1.12,
 if <literal>proxy_pass</literal> is specified without a URI,
-an original request URI might be passed
+the original request URI might be passed
 instead of the changed URI in some cases.
 </note>
 </listitem>
@@ -991,18 +992,18 @@ instead of the changed URI in some cases.
 </para>
 
 <para>
-In some cases, part of a request URI to be replaced cannot be determined:
+In some cases, the part of a request URI to be replaced cannot be determined:
 <list type="bullet" compact="no">
 
 <listitem>
 When location is specified using a regular expression.
 <para>
-In this case, the directive should be specified without URI.
+In this case, the directive should be specified without a URI.
 </para>
 </listitem>
 
 <listitem>
-When URI is changed inside a proxied location using the
+When the URI is changed inside a proxied location using the
 <link doc="ngx_http_rewrite_module.xml" id="rewrite"/> directive,
 and this same configuration will be used to process a request
 (<literal>break</literal>):
@@ -1013,7 +1014,7 @@ location /name/ {
 }
 </example>
 <para>
-In this case, a URI specified in the directive is ignored and
+In this case, the URI specified in the directive is ignored and
 the full changed request URI is passed to the server.
 </para>
 </listitem>
@@ -1021,7 +1022,8 @@ the full changed request URI is passed to the server.
 </para>
 
 <para>
-A server name, its port and passed URI can also be specified using variables:
+A server name, its port and the passed URI can also be specified using
+variables:
 <example>
 proxy_pass http://$host$uri;
 </example>
@@ -1032,9 +1034,9 @@ proxy_pass $request;
 </para>
 
 <para>
-In this case the server name is searched among the described
+In this case, the server name is searched among the described
 <link doc="ngx_http_upstream_module.xml">server groups</link>,
-and if not found is determined using a
+and, if not found, is determined using a
 <link doc="ngx_http_core_module.xml" id="resolver"/>.
 </para>
 
@@ -1054,7 +1056,7 @@ configuration and is supported since version 1.3.13.
 <context>location</context>
 
 <para>
-Permits to pass <link id="proxy_hide_header">otherwise disabled</link> header
+Permits passing <link id="proxy_hide_header">otherwise disabled</link> header
 fields from a proxied server to a client.
 </para>
 
@@ -1087,7 +1089,7 @@ a connection is closed.
 <context>location</context>
 
 <para>
-If disabled, the original request body will not be passed
+Allows disabling a passing of the original request body
 to the proxied server.
 <example>
 location /x-accel-redirect-here/ {
@@ -1113,8 +1115,8 @@ See also the <link id="proxy_set_header"/> and
 <context>location</context>
 
 <para>
-If disabled, header fields of the original request will not be passed to the
-proxied server.
+Allows disabling a passing of the header fields of the original request
+to the proxied server.
 <example>
 location /x-accel-redirect-here/ {
     proxy_method GET;
@@ -1141,9 +1143,8 @@ See also the <link id="proxy_set_header"/> and
 <context>location</context>
 
 <para>
-Sets a text that should be changed in the header fields
-<header>Location</header> and <header>Refresh</header> of a response
-from the proxied server.
+Sets the text that should be changed in the <header>Location</header>
+and <header>Refresh</header> header fields of a proxied server response.
 Suppose a proxied server returned the header field
 “<literal>Location: http://localhost:8000/two/some/uri/</literal>”.
 The directive
@@ -1155,12 +1156,12 @@ will rewrite this string to
 </para>
 
 <para>
-A server name may be omitted from the <value>replacement</value> string:
+A server name may be omitted in the <value>replacement</value> string:
 <example>
 proxy_redirect http://localhost:8000/two/ /;
 </example>
-then the primary server’s name and a port, if different from 80,
-will be substituted.
+then the primary server’s name and port, if different from 80,
+will be inserted.
 </para>
 
 <para>
@@ -1199,10 +1200,10 @@ proxy_redirect http://$proxy_host:8000/ /;
 </para>
 
 <para>
-A directive can be specified (1.1.11) using regular expressions.
-In this case, <value>redirect</value> should either start from
+The directive can be specified (1.1.11) using regular expressions.
+In this case, <value>redirect</value> should either start with
 the “<literal>~</literal>” symbol for a case-sensitive matching,
-or from the “<literal>~*</literal>” symbols for case-insensitive
+or with the “<literal>~*</literal>” symbols for case-insensitive
 matching.
 A regular expression can contain named and positional captures,
 and <value>replacement</value> can reference them:
@@ -1222,7 +1223,7 @@ proxy_redirect http://www.example.com/ /;
 </para>
 
 <para>
-The <literal>off</literal> parameter cancels all
+The <literal>off</literal> parameter cancels the effect of all
 <literal>proxy_redirect</literal> directives on the current level:
 <example>
 proxy_redirect off;
@@ -1233,7 +1234,7 @@ proxy_redirect http://www.example.com/ /;
 </para>
 
 <para>
-Using this directive it is also possible to add host names to relative
+Using this directive, it is also possible to add host names to relative
 redirects issued by a proxied server:
 <example>
 proxy_redirect / /;
@@ -1251,7 +1252,8 @@ proxy_redirect / /;
 <context>location</context>
 
 <para>
-If set to a non-zero value, nginx will try to minimize the number
+If the directive is set to a non-zero value, nginx will try to
+minimize the number
 of send operations on outgoing connections to a proxied server by using either
 <c-def>NOTE_LOWAT</c-def> flag of the
 <link doc="../events.xml" id="kqueue"/> method,
@@ -1292,7 +1294,7 @@ a connection is closed.
 <context>location</context>
 
 <para>
-Allows to redefine request body passed to the proxied server.
+Allows redefining the request body passed to the proxied server.
 A <value>value</value> can contain text, variables, and their combination.
 </para>
 
@@ -1308,9 +1310,9 @@ A <value>value</value> can contain text, variables, and their combination.
 <context>location</context>
 
 <para>
-Allows to redefine or append fields to the request header
+Allows redefining or appending fields to the request header
 <link id="proxy_pass_request_headers">passed</link> to the proxied server.
-A <value>value</value> can contain text, variables, and their combination.
+A <value>value</value> can contain text, variables, and their combinations.
 These directives are inherited from the previous level if and
 only if there are no
 <literal>proxy_set_header</literal>
@@ -1334,14 +1336,14 @@ However, if this field is not present in a client request header then
 nothing will be passed.
 In such a case it is better to use the <var>$host</var> variable&mdash;its
 value equals the server name in the <header>Host</header> request header
-field, or the primary server name if this field is not present:
+field or the primary server name if this field is not present:
 <example>
 proxy_set_header Host       $host;
 </example>
 </para>
 
 <para>
-In addition, a server name can be passed together with a port of the
+In addition, the server name can be passed together with the port of the
 proxied server:
 <example>
 proxy_set_header Host       $host:$proxy_port;
@@ -1371,7 +1373,7 @@ Determines whether SSL sessions can be reused when working with
 the proxied server.
 If the errors
 “<literal>SSL3_GET_FINISHED:digest check failed</literal>”
-appear in the logs, try to disable session reuse.
+appear in the logs, try disabling session reuse.
 </para>
 
 </directive>
@@ -1405,9 +1407,10 @@ proxy_store /data/www$original_uri;
 The modification time of files is set according to the received
 <header>Last-Modified</header> response header field.
 A response is first written to a temporary file, then a file is renamed.
-Starting from version 0.8.9 temporary files and the persistent store
-can be put on different file systems but be aware that in this case
-a file is copied across two file systems instead of the cheap rename operation.
+Starting from version 0.8.9, temporary files and the persistent store
+can be put on different file systems, but be aware that in this case
+a file is copied across two file systems instead of the cheap renaming
+operation.
 It is thus recommended that for any given location both saved files and a
 directory holding temporary files set by the <link id="proxy_temp_path"/>
 directive are put on the same file system.
