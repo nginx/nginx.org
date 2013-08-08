@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="6">
+        rev="7">
 
 <section id="summary">
 
@@ -689,82 +689,6 @@ This directive is available as part of our <commercial_version/> only.
 </directive>
 
 
-<directive name="sticky">
-<syntax/>
-<default/>
-<context>upstream</context>
-
-<para>
-Enables session affinity support.
-The session is an object that is used to uniquely identify and maintain the
-state of a client during a given period of time.
-If session affinity is enabled, requests from the same client are always passed
-to the same server (in a group of servers) once a session has been created.
-The method that is used to create and track sessions must be specified in a
-separate directive, for example, <link id="sticky_cookie_insert"/>.
-<example>
-upstream backend {
-    server backend1.example.com;
-    server backend2.example.com;
-
-    sticky;
-    sticky_cookie_insert "sticky";
-}
-
-server {
-    location / {
-        proxy_pass http://backend;
-    }
-}
-</example>
-The directive must be specified after the <link id="ip_hash"/> or the
-<link id="least_conn"/> directives.
-</para>
-
-<para>
-When the session affinity is enabled, a request is processed as follows:
-<list type="enum">
-
-<listitem>
-nginx looks up the session corresponding to the request.
-If the session is found, the server identification data is extracted from it.
-This data is used by the server selection algorithm.
-</listitem>
-
-<listitem>
-The server to process the request is chosen according to the configured
-balancing method, server information from the session, and the real state of
-servers in a group (such as failed, up or down).
-</listitem>
-
-<listitem>
-The request is passed to the chosen server for processing.
-If the chosen server is not the one specified in the session
-(for example, because it is down), the session is cleared
-and the request is processed as if it had no session.
-</listitem>
-
-<listitem>
-The server returns the response.
-</listitem>
-
-<listitem>
-If there is no session for the request, a new session
-is created and the server identification data is stored in it.
-</listitem>
-
-</list>
-</para>
-
-<para>
-<note>
-This directive is available as part of our <commercial_version/> only.
-</note>
-</para>
-
-</directive>
-
-
 <directive name="sticky_cookie_insert">
 <syntax><value>name</value>
 [<literal>expires=</literal><value>time</value>]
@@ -774,14 +698,29 @@ This directive is available as part of our <commercial_version/> only.
 <context>upstream</context>
 
 <para>
-Enables and configures the session tracking method that is based on keeping
-session information in HTTP cookies.
-The directive must be specified after the <link id="ip_hash"/> or the
-<link id="least_conn"/> directives.
+Enables session affinity that causes requests from the same client to be
+passed to the same server in a group of servers.
 Example:
 <example>
-sticky_cookie_insert "srv_id" "expires=1h 7m" domain=example.com path=/;
+upstream backend {
+    server backend1.example.com;
+    server backend2.example.com;
+
+    sticky_cookie_insert srv_id expires=1h domain=example.com path=/;
+}
 </example>
+</para>
+
+<para>
+A request that comes from a client not yet bound to a particular server
+is passed to the server selected by the configured balancing method.
+Further requests from the same client are passed to the same server.
+If a request cannot be processed by the bound server, the new server
+is selected as if the client was not yet bound.
+</para>
+
+<para>
+Information about the bound server is kept in HTTP cookie.
 The first parameter sets the name of the cookie to be inserted or inspected.
 Additional parameters may be as follows:
 <list type="tag">
@@ -789,9 +728,11 @@ Additional parameters may be as follows:
 <tag-name><literal>expires</literal></tag-name>
 <tag-desc>
 Sets the time for which a browser should keep the cookie.
-The parameter “<literal>max</literal>” sets the time to
+The parameter <literal>max</literal> will cause the cookie to expire on
 “<literal>31 Dec 2037 23:55:55 GMT</literal>”.
 This is the maximum time understood by old browsers.
+If the parameter is not specified, it will cause the cookie to expire at
+the end of a browser session.
 </tag-desc>
 
 <tag-name><literal>domain</literal></tag-name>
@@ -806,29 +747,6 @@ Defines the path for which the cookie is set.
 
 </list>
 If some parameter is omitted, the corresponding cookie field is not set.
-</para>
-
-<para>
-<note>
-This directive is available as part of our <commercial_version/> only.
-</note>
-</para>
-
-</directive>
-
-
-<directive name="sticky_log_requests">
-<syntax><literal>debug</literal> |
-<literal>info</literal> |
-<literal>notice</literal> |
-<literal>warn</literal> |
-<literal>error</literal></syntax>
-<default/>
-<context>upstream</context>
-
-<para>
-Enables logging of session-related operations and sets the desired
-logging level.
 </para>
 
 <para>
