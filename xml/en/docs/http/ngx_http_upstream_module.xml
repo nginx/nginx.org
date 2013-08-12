@@ -698,7 +698,7 @@ This directive is available as part of our <commercial_version/> only.
 <context>upstream</context>
 
 <para>
-Enables session affinity that causes requests from the same client to be
+Enables session affinity, which causes requests from the same client to be
 passed to the same server in a group of servers.
 Example:
 <example>
@@ -720,7 +720,7 @@ is selected as if the client was not yet bound.
 </para>
 
 <para>
-Information about the bound server is kept in HTTP cookie.
+Information about the bound server is kept in an HTTP cookie.
 The first parameter sets the name of the cookie to be inserted or inspected.
 Additional parameters may be as follows:
 <list type="tag">
