@@ -16,7 +16,7 @@
 
 <para>
 The <literal>ngx_http_access_module</literal> module allows
-to limit access to certain client addresses.
+limiting access to certain client addresses.
 </para>
 
 <para>
@@ -45,7 +45,7 @@ location / {
 
 <para>
 The rules are checked in sequence until the first match is found.
-In this example, an access is allowed only for IPv4 networks
+In this example, access is allowed only for IPv4 networks
 <literal>10.1.1.0/16</literal> and <literal>192.168.1.0/24</literal>
 excluding the address <literal>192.168.1.1</literal>,
 and for IPv6 network <literal>2001:0db8::/32</literal>.

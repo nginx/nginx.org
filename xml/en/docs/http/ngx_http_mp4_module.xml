@@ -14,24 +14,25 @@
 <section id="summary">
 
 <para>
-The module <literal>ngx_http_mp4_module</literal> provides pseudo-streaming
-server-side support for H.264/AAC files typically having filename extensions
-<path>.mp4</path>, <path>.m4v</path>, and <path>.m4a</path>.
+The <literal>ngx_http_mp4_module</literal> module provides pseudo-streaming
+server-side support for H.264/AAC files.
+Such files typically have the <path>.mp4</path>, <path>.m4v</path>,
+or <path>.m4a</path> filename extensions.
 </para>
 
 <para>
-Pseudo-streaming works in alliance with conforming Flash players.
+The pseudo-streaming works in alliance with a compatible Flash players.
 A player sends an HTTP request to the server with a start time
-argument in the request URI’s query string (named simply
+specified in the query string argument (named simply
 <literal>start</literal>
-and specified in seconds), and the server responds with a stream
-so that its start position corresponds to the requested time,
+and specified in seconds), and the server responds with the stream
+such that its start position corresponds to the requested time,
 for example:
 <example>
 http://example.com/elephants_dream.mp4?start=238.88
 </example>
-This allows for a random seeking at any time, or starting playback
-in the middle of a timeline.
+This allows performing a random seeking at any time, or starting playback
+in the middle of the timeline.
 </para>
 
 <para>
@@ -45,14 +46,14 @@ whole file.
 To start playback, a player first needs to read metadata.
 This is done by sending a special request with the
 <literal>start=0</literal>
-argument.  Many encoding software will insert the metadata at
+argument.  Much of encoding software will insert the metadata at
 the end of the file.  This is bad for pseudo-streaming:
-the metadata needs to be located at the beginning of the file,
-or else the entire file will have to be downloaded before it
-starts playing.  If a file is well-formed (with metadata at the
-beginning of a file), nginx just sends back the contents of a file.
+the metadata should be located at the beginning of the file,
+or else the entire file will have to be downloaded to
+start playing.  If a file is well-formed (with metadata at the
+beginning of a file), nginx just sends back the file contents.
 Otherwise, it has to read the file and prepare a new stream so that
-metadata comes before media data.
+the metadata comes before the media data.
 This involves some CPU, memory, and disk I/O overhead,
 so it is a good idea to
 <link
@@ -64,7 +65,7 @@ rather than having nginx do this on every such request.
 <para>
 For a matching request with a non-zero
 <literal>start</literal>
-argument, nginx will read metadata from the file, prepare the
+argument, nginx will read the metadata from the file, prepare the
 stream starting from the requested offset, and send it to a client.
 This has the same overhead as described above.
 </para>
@@ -82,13 +83,13 @@ This module is not built by default, it should be enabled with the
 <literal>--with-http_mp4_module</literal>
 configuration parameter.
 <note>
-If a third-party mp4 module was previously used, it needs to be disabled.
+If a third-party mp4 module was previously used, it should be disabled.
 </note>
 </para>
 
 <para>
-A similar pseudo-streaming support for FLV files is provided by the module
-<link doc="ngx_http_flv_module.xml">ngx_http_flv_module</link>.
+A similar pseudo-streaming support for FLV files is provided by the
+<link doc="ngx_http_flv_module.xml">ngx_http_flv_module</link> module.
 </para>
 
 </section>
@@ -133,7 +134,7 @@ Turns on module processing in a surrounding location.
 <context>location</context>
 
 <para>
-Sets the initial size of a memory buffer used to process MP4 files.
+Sets the initial size of a memory buffer used for processing MP4 files.
 </para>
 
 </directive>
@@ -149,9 +150,9 @@ Sets the initial size of a memory buffer used to process MP4 files.
 <para>
 During metadata processing, a larger buffer may become necessary.
 Its size cannot exceed the specified <value>size</value>,
-or else nginx will return the server error
-<http-status code="500" text="Internal Server Error"/>,
-and log the following:
+or else nginx will return the
+<http-status code="500" text="Internal Server Error"/> server error,
+and log the following message:
 <example>
 "/some/movie/file.mp4" mp4 moov atom is too large:
 12583268, you may want to increase mp4_max_buffer_size

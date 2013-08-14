@@ -26,8 +26,7 @@ configuration parameter.
 <note>
 This module utilizes the
 <link url="http://libgd.org">libgd</link> library.
-It is recommended to use the latest available version of the library;
-it is version 2.0.35 as of this writing.
+It is recommended to use the latest available version of the library.
 </note>
 </para>
 
@@ -87,9 +86,9 @@ turns off module processing in a surrounding location.
 <tag-name><literal>test</literal></tag-name>
 <tag-desc>
 ensures that responses are images in either JPEG, GIF, or PNG format.
-Otherwise, the error
+Otherwise, the
 <http-status code="415" text="Unsupported Media Type"/>
-is returned.
+error is returned.
 </tag-desc>
 
 <tag-name><literal>size</literal></tag-name>
@@ -98,7 +97,7 @@ outputs information about images in a JSON format, e.g.:
 <example>
 { "img" : { "width": 100, "height": 100, "type": "gif" } }
 </example>
-In case of an error, the following is output:
+In case of an error, the output is as follows:
 <example>
 {}
 </example>
@@ -109,8 +108,8 @@ In case of an error, the following is output:
 </tag-name>
 <tag-desc>
 rotates images counter-clockwise by the specified number of degrees.
-Value of the parameter can contain variables.
-Can be used either alone, or along with the
+Parameter value can contain variables.
+This mode can be used either alone or along with the
 <literal>resize</literal> and <literal>crop</literal> transformations.
 </tag-desc>
 
@@ -124,7 +123,7 @@ To reduce by only one dimension, another dimension can be specified as
 “<literal>-</literal>”.
 In case of an error, the server will return code
 <http-status code="415" text="Unsupported Media Type"/>.
-Values of parameters can contain variables.
+Parameter values can contain variables.
 When used along with the <literal>rotate</literal> parameter,
 the rotation happens <emphasis>after</emphasis> reduction.
 </tag-desc>
@@ -134,13 +133,13 @@ the rotation happens <emphasis>after</emphasis> reduction.
 <value>height</value>
 </tag-name>
 <tag-desc>
-proportionally reduces an image to the size of the largest side
+proportionally reduces an image to the larger side size
 and crops extraneous edges by another side.
 To reduce by only one dimension, another dimension can be specified as
 “<literal>-</literal>”.
 In case of an error, the server will return code
 <http-status code="415" text="Unsupported Media Type"/>.
-Values of parameters can contain variables.
+Parameter values can contain variables.
 When used along with the <literal>rotate</literal> parameter,
 the rotation happens <emphasis>before</emphasis> reduction.
 </tag-desc>
@@ -160,7 +159,7 @@ the rotation happens <emphasis>before</emphasis> reduction.
 
 <para>
 Sets the maximum size of the buffer used for reading images.
-When a size is exceeded the server will return error
+When the size is exceeded the server returns error
 <http-status code="415" text="Unsupported Media Type"/>.
 </para>
 
@@ -192,10 +191,10 @@ For JPEG, final images will be in “progressive JPEG” format.
 
 <para>
 Sets the desired <value>quality</value> of the transformed JPEG images.
-Acceptable values are in the 1..100 range.
+Acceptable values are in the range from 1 to 100.
 Lesser values usually imply both lower image quality and less data to transfer.
 The maximum recommended value is 95.
-Value of the parameter can contain variables.
+Parameter value can contain variables.
 </para>
 
 </directive>
@@ -211,8 +210,8 @@ Value of the parameter can contain variables.
 <para>
 Increases sharpness of the final image.
 The sharpness percentage can exceed 100.
-The value of 0 disables sharpening.
-Value of the parameter can contain variables.
+The zero value disables sharpening.
+Parameter value can contain variables.
 </para>
 
 </directive>
@@ -227,8 +226,8 @@ Value of the parameter can contain variables.
 
 <para>
 Defines whether transparency should be preserved when transforming
-PNG images with colors specified by a palette, or in GIF images.
-The loss of transparency allows to obtain images of a better quality.
+GIF images or PNG images with colors specified by a palette.
+The loss of transparency results in images of a better quality.
 The alpha channel transparency in PNG is always preserved.
 </para>
 

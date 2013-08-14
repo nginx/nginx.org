@@ -15,10 +15,10 @@
 <section id="summary">
 
 <para>
-The <literal>ngx_http_memcached_module</literal> module allows to obtain
+The <literal>ngx_http_memcached_module</literal> module is used to obtain
 responses from a memcached server.
 The key is set in the <var>$memcached_key</var> variable.
-A response should be put in memcached in advance via means that are
+A response should be put in memcached in advance by means
 external to nginx.
 </para>
 
@@ -57,13 +57,13 @@ server {
 <appeared-in>0.8.22</appeared-in>
 
 <para>
-Forces outgoing connections to a memcached server to originate
+Makes outgoing connections to a memcached server originate
 from the specified local IP <value>address</value>.
-Value of the parameter can contain variables (1.3.12).
+Parameter value can contain variables (1.3.12).
 The special value <literal>off</literal> (1.3.12) cancels the effect
 of the <literal>memcached_bind</literal> directive
-inherited from the previous configuration level, allowing the
-system to auto-assign local address.
+inherited from the previous configuration level, which allows the
+system to auto-assign the local IP address.
 </para>
 
 </directive>
@@ -77,9 +77,9 @@ system to auto-assign local address.
 <context>location</context>
 
 <para>
-Sets <value>size</value> of the buffer used for reading a response
+Sets the <value>size</value> of the buffer used for reading a response
 received from the memcached server.
-A response is passed to a client synchronously, immediately as it is received.
+A response is passed to a client synchronously, as soon as it is received.
 </para>
 
 </directive>
@@ -93,7 +93,7 @@ A response is passed to a client synchronously, immediately as it is received.
 <context>location</context>
 
 <para>
-Defines a timeout for establishing a connection with the memcached server.
+Defines a timeout for establishing a connection with a memcached server.
 It should be noted that this timeout cannot usually exceed 75 seconds.
 </para>
 
@@ -110,8 +110,8 @@ It should be noted that this timeout cannot usually exceed 75 seconds.
 
 <para>
 Enables the test for the <value>flag</value> presence in the memcached
-server response and sets the response header field
-“<literal>Content-Encoding</literal>” to “<literal>gzip</literal>”
+server response and sets the “<literal>Content-Encoding</literal>”
+response header field to “<literal>gzip</literal>”
 if the flag is set.
 </para>
 
@@ -137,14 +137,14 @@ Specifies in which cases a request should be passed to the next server:
 
 <tag-name><literal>error</literal></tag-name>
 <tag-desc>an error occurred while establishing a connection with the
-server, passing it a request, or reading the response header;</tag-desc>
+server, passing a request to it, or reading the response header;</tag-desc>
 
 <tag-name><literal>timeout</literal></tag-name>
 <tag-desc>a timeout has occurred while establishing a connection with the
-server, passing it a request, or reading the response header;</tag-desc>
+server, passing a request to it, or reading the response header;</tag-desc>
 
 <tag-name><literal>invalid_response</literal></tag-name>
-<tag-desc>a server returned empty or invalid response;</tag-desc>
+<tag-desc>a server returned an empty or invalid response;</tag-desc>
 
 <tag-name><literal>not_found</literal></tag-name>
 <tag-desc>a response was not found on the server;</tag-desc>
@@ -156,10 +156,10 @@ server, passing it a request, or reading the response header;</tag-desc>
 </para>
 
 <para>
-It should be understood that passing a request to the next server is
-only possible if a client was not sent anything yet.
-That is, if an error or a timeout occurs in the middle of
-transferring a response, fixing this is impossible.
+One should bear in mind that passing a request to the next server is
+only possible if nothing has been sent to a client yet.
+That is, if an error or timeout occurs in the middle of the
+transferring of a response, fixing this is impossible.
 </para>
 
 <para>
@@ -183,9 +183,8 @@ is never considered an unsuccessful attempt.
 <context>if in location</context>
 
 <para>
-Sets an address of the memcached server.
-An address can be specified as a domain name or an address, and a port,
-for example,
+Sets the memcached server address.
+The address can be specified as a domain name or an address, and a port:
 <example>
 memcached_pass localhost:11211;
 </example>
@@ -214,10 +213,10 @@ In addition, an address can be specified as a
 
 <para>
 Defines a timeout for reading a response from the memcached server.
-A timeout is only set between two successive read operations,
+A timeout is set only between two successive read operations,
 not for the transmission of the whole response.
 If a memcached server does not transmit anything within this time,
-a connection is closed.
+the connection is closed.
 </para>
 
 </directive>
@@ -232,7 +231,7 @@ a connection is closed.
 
 <para>
 Sets a timeout for transmitting a request to the memcached server.
-A timeout is only set between two successive write operations,
+A timeout is set only between two successive write operations,
 not for the transmission of the whole request.
 If a memcached server does not receive anything within this time,
 a connection is closed.

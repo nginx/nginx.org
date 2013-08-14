@@ -20,8 +20,8 @@ in the specified format.
 </para>
 
 <para>
-Requests are logged in a context of a location where processing ends.
-This may be different from the original location, if an
+Requests are logged in the context of a location where processing ends.
+It may be different from the original location, if an
 <link doc="ngx_http_core_module.xml" id="internal">internal
 redirect</link> happens during request processing.
 </para>
@@ -70,14 +70,14 @@ access_log /spool/logs/nginx-access.log compression buffer=32k;
 <context>limit_except</context>
 
 <para>
-Sets the path, format, and configuration of the buffered log writes.
+Sets the path, format, and configuration for a buffered log write.
 Several logs can be specified on the same level.
 Logging to syslog can be configured by specifying
 the “<literal>syslog:</literal>” prefix in the first parameter.
 The special value <literal>off</literal> cancels all
 <literal>access_log</literal> directives on the current level.
-If format is not specified then the predefined format
-“<literal>combined</literal>” is used.
+If the format is not specified then the predefined
+“<literal>combined</literal>” format is used.
 </para>
 
 <para>
@@ -85,7 +85,7 @@ If either the <literal>buffer</literal> or <literal>gzip</literal>
 (1.3.10, 1.2.7)
 parameter is used, writes to log will be buffered.
 <note>
-The buffer size must not exceed the size of the atomic write to a disk file.
+The buffer size must not exceed the size of an atomic write to a disk file.
 For FreeBSD this size is unlimited.
 </note>
 </para>
@@ -116,7 +116,7 @@ If the <literal>gzip</literal> parameter is used, then the buffered data will
 be compressed before writing to the file.
 The compression level can be set between 1 (fastest, less compression)
 and 9 (slowest, best compression).
-By default the buffer size is equal to 64K bytes, and the compression level
+By default, the buffer size is equal to 64K bytes, and the compression level
 is set to 1.
 Since the data is compressed in atomic blocks, the log file can be decompressed
 or read by “<literal>zcat</literal>” at any time.
@@ -152,12 +152,11 @@ buffered writes do not work;
 </listitem>
 
 <listitem>
-a file is opened and closed for each log write.
+the file is opened and closed for each log write.
 However, since the descriptors of frequently used files can be stored
-in a <link id="open_log_file_cache">cache</link>, writes during the
-time specified by the <literal>valid</literal> parameter of the
-<link id="open_log_file_cache"/> directive can continue to be made
-to the old file.
+in a <link id="open_log_file_cache">cache</link>, writing to the old file
+can continue during the time specified by the <link id="open_log_file_cache"/>
+directive’s <literal>valid</literal> parameter
 </listitem>
 
 <listitem>
@@ -260,7 +259,7 @@ Logging to syslog is available as part of our <commercial_version/> only.
 <context>http</context>
 
 <para>
-Specifies format of a log.
+Specifies log format.
 </para>
 
 <para>
@@ -285,7 +284,7 @@ the current number of requests made through a connection (1.1.18)
 
 <tag-name><var>$msec</var></tag-name>
 <tag-desc>
-time in seconds with a milliseconds resolution at the time of log write
+time in seconds with a milliseconds resolution at the time of the log write
 </tag-desc>
 
 <tag-name><var>$pipe</var></tag-name>
@@ -324,7 +323,7 @@ local time in the Common Log Format
 </list>
 
 <note>
-In modern versions of nginx variables
+In the modern nginx versions variables
 <link doc="ngx_http_core_module.xml" id="var_status">$status</link>
 (1.3.2, 1.2.2),
 <link doc="ngx_http_core_module.xml" id="var_bytes_sent">$bytes_sent</link>
@@ -358,8 +357,8 @@ Header lines sent to a client have the prefix
 </para>
 
 <para>
-The configuration always includes the predefined format
-“<literal>combined</literal>”:
+The configuration always includes the predefined
+“<literal>combined</literal>” format:
 <example>
 log_format combined '$remote_addr - $remote_user [$time_local] '
                     '"$request" $status $body_bytes_sent '
@@ -384,36 +383,36 @@ log_format combined '$remote_addr - $remote_user [$time_local] '
 <context>location</context>
 
 <para>
-Defines a cache that stores file descriptors of frequently used logs
+Defines a cache that stores the file descriptors of frequently used logs
 whose names contain variables.
 The directive has the following parameters:
 <list type="tag">
 
 <tag-name><literal>max</literal></tag-name>
 <tag-desc>
-sets a maximum number of descriptors in a cache;
-if cache becomes full the least recently used (LRU)
+sets the maximum number of descriptors in a cache;
+if the cache becomes full the least recently used (LRU)
 descriptors are closed
 </tag-desc>
 
 <tag-name><literal>inactive</literal></tag-name>
 <tag-desc>
-sets a time after which the cached descriptor is closed
+sets the time after which the cached descriptor is closed
 if there were no access during this time;
 by default, 10 seconds
 </tag-desc>
 
 <tag-name><literal>min_uses</literal></tag-name>
 <tag-desc>
-sets a minimum number of file uses during the time
+sets the minimum number of file uses during the time
 defined by the <literal>inactive</literal> parameter
-after which the descriptor will stay open in a cache;
+to let the descriptor stay open in a cache;
 by default, 1
 </tag-desc>
 
 <tag-name><literal>valid</literal></tag-name>
 <tag-desc>
-sets a time after which it should be checked that the file
+sets the time after which it should be checked that the file
 still exists with the same name; by default, 60 seconds
 </tag-desc>
 
@@ -426,7 +425,7 @@ disables caching
 </para>
 
 <para>
-Example usage:
+Usage example:
 <example>
 open_log_file_cache max=1000 inactive=20s valid=1m min_uses=2;
 </example>

@@ -35,9 +35,9 @@ The protocol is described below.
 <context>server</context>
 
 <para>
-Allows to append the specified header to requests to the authentication server.
-Can be used as a shared secret to verify
-that the request came in from nginx.
+Appends the specified header to requests to the authentication server.
+This header can be used as the shared secret to verify
+that the request comes from nginx.
 For example:
 <example>
 auth_http_header X-Auth-Key "secret_string";
@@ -65,11 +65,12 @@ auth_http_header X-Auth-Key "secret_string";
 
 <para>
 The HTTP is used to communicate with the authentication server.
-The data in the response body is ignored, information is passed only in headers.
+The data in the response body is ignored, and the information is passed only in
+the headers.
 </para>
 
 <para>
-Requests and responses examples:
+Examples of requests and responses:
 </para>
 
 <para>
@@ -100,18 +101,19 @@ Auth-Wait: 3 # wait for 3 seconds before returning an error to the client
 </para>
 
 <para>
-If there is no the <header>Auth-Wait</header> header,
-the connection will be closed after returning an error.
-The current implementation allocates memory per each authentication attempt,
-which is freed only at the end of a session.
-Therefore a number of invalid authentication attempts in a single session
+If there is no <header>Auth-Wait</header> header in a request,
+an error will be returned and the connection will be closed.
+The current implementation allocates memory for each authentication attempt.
+The memory is freed only at the end of a session.
+Therefore, the number of invalid authentication attempts in a single session
 must be limited — the server must response without
 the <header>Auth-Wait</header> header after 10-20 attempts
-(see the <header>Auth-Login-Attempt</header> header).
+(the attempt number is passed in the <header>Auth-Login-Attempt</header>
+header).
 </para>
 
 <para>
-When using the APOP or CRAM-MD5 request-response will look like:
+When the APOP or CRAM-MD5 are used, a request-response will look as follows.
 <example>
 GET /auth HTTP/1.0
 Host: localhost
@@ -135,10 +137,10 @@ Auth-Pass: plain-text-pass
 
 <para>
 For the SMTP, the response additionally takes into account
-the <header>Auth-Error-Code</header> header — it is used
-as a response code if exists.
-Otherwise the code 535 5.7.0 will be added to
-the <header>Auth-Status</header> by default.
+the <header>Auth-Error-Code</header> header — if exists, it is used
+as a response code.
+Otherwise, the 535 5.7.0 code will be added to
+the <header>Auth-Status</header>.
 </para>
 
 <para>
@@ -150,7 +152,7 @@ Auth-Status: Temporary server problem, try again later
 Auth-Error-Code: 451 4.3.0
 Auth-Wait: 3
 </example>
-then the SMTP client will be given an error
+then the SMTP client will receive an error
 <example>
 451 4.3.0 Temporary server problem, try again later
 </example>

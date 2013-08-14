@@ -22,13 +22,13 @@ request header field:
 
 <tag-name><var>$modern_browser</var></tag-name>
 <tag-desc>
-equals to the value set by the <link id="modern_browser_value"/> directive,
+equals the value set by the <link id="modern_browser_value"/> directive,
 if a browser was identified as modern;
 </tag-desc>
 
 <tag-name><var>$ancient_browser</var></tag-name>
 <tag-desc>
-equals to the value set by the <link id="ancient_browser_value"/> directive,
+equals the value set by the <link id="ancient_browser_value"/> directive,
 if a browser was identified as ancient;
 </tag-desc>
 
@@ -93,7 +93,7 @@ if ($ancient_browser) {
 
 <para>
 If any of the specified substrings is found in the <header>User-Agent</header>
-request header field, a browser will be considered ancient.
+request header field, the browser will be considered ancient.
 The special string “<literal>netscape4</literal>” corresponds to the
 regular expression “<literal>^Mozilla/[1-4]</literal>”.
 </para>
@@ -144,7 +144,7 @@ a browser as modern if it was not listed by the
 directives.
 Otherwise such a browser is considered ancient.
 If a request does not provide the <header>User-Agent</header> field
-in the header, a browser is treated as not being listed.
+in the header, the browser is treated as not being listed.
 </para>
 
 </directive>

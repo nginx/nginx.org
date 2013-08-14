@@ -563,7 +563,7 @@ It should be kept in mind that this number includes all connections
 (e.g. connections with proxied servers, among others),
 not only connections with clients.
 Another consideration is that the actual number of simultaneous
-connections can not exceed the current limit on
+connections cannot exceed the current limit on
 the maximum number of open files, which can be changed by
 <link id="worker_rlimit_nofile"/>.
 </para>

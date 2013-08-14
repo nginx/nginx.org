@@ -16,8 +16,8 @@
 
 <para>
 The <literal>ngx_http_upstream_module</literal> module
-allows to define groups of servers that can be referenced
-from the <link doc="ngx_http_proxy_module.xml" id="proxy_pass"/>,
+is used to define groups of servers that can be referenced
+by the <link doc="ngx_http_proxy_module.xml" id="proxy_pass"/>,
 <link doc="ngx_http_fastcgi_module.xml" id="fastcgi_pass"/>, and
 <link doc="ngx_http_memcached_module.xml" id="memcached_pass"/> directives.
 </para>
@@ -105,16 +105,16 @@ upstream backend {
 </para>
 
 <para>
-By default, requests are distributed between servers using a
+By default, requests are distributed between the servers using a
 weighted round-robin balancing method.
 In the above example, each 7 requests will be distributed as follows:
-5 requests to <literal>backend1.example.com</literal>
-and one request to each of second and third servers.
-If an error occurs when communicating with the server, a request will
+5 requests go to <literal>backend1.example.com</literal>
+and one request to each of the second and third servers.
+If an error occurs during communication with a server, the request will
 be passed to the next server, and so on until all of the functioning
 servers will be tried.
 If a successful response could not be obtained from any of the servers,
-the client will be returned the result of contacting the last server.
+the client will receive the result of the communication with the last server.
 </para>
 
 </directive>
@@ -126,14 +126,14 @@ the client will be returned the result of contacting the last server.
 <context>upstream</context>
 
 <para>
-Defines an <value>address</value> and other <value>parameters</value>
-of the server.
-An address can be specified as a domain name or IP address,
-and an optional port, or as a UNIX-domain socket path
+Defines the <value>address</value> and other <value>parameters</value>
+of a server.
+The address can be specified as a domain name or IP address,
+with an optional port, or as a UNIX-domain socket path
 specified after the “<literal>unix:</literal>” prefix.
-If port is not specified, the port 80 is used.
-A domain name that resolves to several IP addresses essentially defines
-multiple servers.
+If a port is not specified, the port 80 is used.
+A domain name that resolves to several IP addresses defines
+multiple servers at once.
 </para>
 
 <para>
@@ -142,17 +142,17 @@ The following parameters can be defined:
 
 <tag-name><literal>weight</literal>=<value>number</value></tag-name>
 <tag-desc>
-sets a weight of the server, by default 1.
+sets the weight of the server, by default, 1.
 </tag-desc>
 
 <tag-name><literal>max_fails</literal>=<value>number</value></tag-name>
 <tag-desc>
-sets a number of unsuccessful attempts to communicate with the server
-during a time set by the <literal>fail_timeout</literal> parameter
-after which it will be considered down for a period of time also set
-by the <literal>fail_timeout</literal> parameter.
+sets the number of unsuccessful attempts to communicate with the server
+that should happen in the duration set by the <literal>fail_timeout</literal>
+parameter to consider the server down for a duration also set by the
+<literal>fail_timeout</literal> parameter.
 By default, the number of unsuccessful attempts is set to 1.
-A value of zero disables accounting of attempts.
+The zero value disables the accounting of attempts.
 What is considered an unsuccessful attempt is defined by the
 <link doc="ngx_http_proxy_module.xml" id="proxy_next_upstream"/>,
 <link doc="ngx_http_fastcgi_module.xml" id="fastcgi_next_upstream"/>, and
@@ -166,17 +166,16 @@ sets
 <list type="bullet">
 
 <listitem>
-a time during which the specified number of unsuccessful attempts to
-communicate with the server should happen for the server to be
-considered down;
+the time during which the specified number of unsuccessful attempts to
+communicate with the server should happen to consider the server down;
 </listitem>
 
 <listitem>
-and a period of time the server will be considered down.
+and the period of time the server will be considered down.
 </listitem>
 
 </list>
-By default, timeout is set to 10 seconds.
+By default, the parameter is set to 10 seconds.
 </tag-desc>
 
 <tag-name><literal>slow_start</literal>=<value>time</value></tag-name>
@@ -257,10 +256,10 @@ Specifies that a group should use a load balancing method where requests
 are distributed between servers based on client IP addresses.
 The first three octets of the client IPv4 address, or the entire IPv6 address,
 are used as a hashing key.
-The method ensures that requests of the same client will always be
-passed to the same server except when this server is considered down
-in which case client requests will be passed to another server and
-most probably it will also be the same server.
+The method ensures that requests from the same client will always be
+passed to the same server except when this server is considered down.
+In the latter case client requests will be passed to another server.
+Most probably, it will always be the same server as well.
 <note>
 IPv6 addresses are supported starting from versions 1.3.2 and 1.2.2.
 </note>
@@ -288,7 +287,7 @@ upstream backend {
 
 <para>
 <note>
-Until versions 1.3.1 and 1.2.2 it was not possible to specify a weight for
+Until versions 1.3.1 and 1.2.2, it was not possible to specify a weight for
 servers using the <literal>ip_hash</literal> load balancing method.
 </note>
 </para>
@@ -303,22 +302,21 @@ servers using the <literal>ip_hash</literal> load balancing method.
 <appeared-in>1.1.4</appeared-in>
 
 <para>
-Activates cache of connections to upstream servers.
+Activates the cache for connections to upstream servers.
 </para>
 
 <para>
 The <value>connections</value> parameter sets the maximum number of
-idle keepalive connections to upstream servers that are retained in
-the cache per one worker process.
+idle keepalive connections to upstream servers that are preserved in
+the cache of each worker process.
 When this number is exceeded, the least recently used connections
 are closed.
 <note>
-It should be particularly noted that <literal>keepalive</literal> directive
-does not limit the total number of connections that nginx worker process
-can open to upstream servers.
-The <value>connections</value> parameter should be set low enough
-to allow upstream servers to process additional new incoming
-connections as well.
+It should be particularly noted that the <literal>keepalive</literal> directive
+does not limit the total number of connections to upstream servers
+that an nginx worker process can open.
+The <value>connections</value> parameter should be set to a number small enough
+to let upstream servers process new incoming connections as well.
 </note>
 </para>
 
@@ -372,7 +370,7 @@ server {
 <note>
 Alternatively, HTTP/1.0 persistent connections can be used by passing the
 <header>Connection: Keep-Alive</header> header field to an upstream server,
-though this is not recommended.
+though this method is not recommended.
 </note>
 </para>
 
@@ -402,7 +400,7 @@ server {
 <para>
 <note>
 When using load balancer methods other than the default
-round-robin, it is necessary to activate them before
+round-robin method, it is necessary to activate them before
 the <literal>keepalive</literal> directive.
 </note>
 
@@ -583,10 +581,10 @@ The following items can be tested in a response:
 <tag-desc>status is neither 301 nor 302</tag-desc>
 
 <tag-name><literal>status 200-399;</literal></tag-name>
-<tag-desc>status is in the 200..399 range</tag-desc>
+<tag-desc>status is in the range from 200 to 399</tag-desc>
 
 <tag-name><literal>status ! 400-599;</literal></tag-name>
-<tag-desc>status is not in the 400..599 range</tag-desc>
+<tag-desc>status is not in the range from 400 to 599</tag-desc>
 
 <tag-name><literal>status 301-303 307;</literal></tag-name>
 <tag-desc>status is either 301, 302, 303, or 307</tag-desc>
@@ -1005,23 +1003,23 @@ supports the following embedded variables:
 
 <tag-name><var>$upstream_addr</var></tag-name>
 <tag-desc>
-keeps an IP address and port of the server,
-or a path to the UNIX-domain socket.
+keeps the IP address and port of the server,
+or the path to the UNIX-domain socket.
 If several servers were contacted during request processing,
 their addresses are separated by commas, e.g.
 “<literal>192.168.1.1:80, 192.168.1.2:80, unix:/tmp/sock</literal>”.
-If an internal redirect from one server group to another happened
-using
+If an internal redirect from one server group to another happens,
+initiated by
 <header>X-Accel-Redirect</header> or
-<link doc="ngx_http_core_module.xml" id="error_page"/>
-then these server groups are separated by colons, e.g.
+<link doc="ngx_http_core_module.xml" id="error_page"/>,
+then the server addresses from different groups are separated by colons, e.g.
 “<literal>192.168.1.1:80, 192.168.1.2:80, unix:/tmp/sock : 192.168.10.1:80, 192.168.10.2:80</literal>”.
 </tag-desc>
 
 <tag-name><var>$upstream_cache_status</var></tag-name>
 <tag-desc>
-keeps status of accessing a response cache (0.8.3).
-The status can be one of “<literal>MISS</literal>”, 
+keeps the status of accessing a response cache (0.8.3).
+The status can be either “<literal>MISS</literal>”, 
 “<literal>BYPASS</literal>”, “<literal>EXPIRED</literal>”,
 “<literal>STALE</literal>”, “<literal>UPDATING</literal>” or
 “<literal>HIT</literal>”.
@@ -1029,34 +1027,34 @@ The status can be one of “<literal>MISS</literal>”, 
 
 <tag-name><var>$upstream_response_length</var></tag-name>
 <tag-desc>
-keeps lengths of responses obtained from upstream servers (0.7.27);
+keeps the lengths of responses obtained from the upstream servers (0.7.27);
 lengths are kept in bytes.
-Several responses are separated by commas and colons
-like in the <var>$upstream_addr</var> variable.
+Several response lengths are separated by commas and colons
+like addresses in the <var>$upstream_addr</var> variable.
 </tag-desc>
 
 <tag-name><var>$upstream_response_time</var></tag-name>
 <tag-desc>
 keeps times of responses obtained from upstream servers;
 times are kept in seconds with a milliseconds resolution.
-Several responses are separated by commas and colons
-like in the <var>$upstream_addr</var> variable.
+Several response times are separated by commas and colons
+like addresses in the <var>$upstream_addr</var> variable.
 </tag-desc>
 
 <tag-name><var>$upstream_status</var></tag-name>
 <tag-desc>
 keeps codes of responses obtained from upstream servers.
-Several responses are separated by commas and colons
-like in the <var>$upstream_addr</var> variable.
+Several response codes are separated by commas and colons
+like addresses in the <var>$upstream_addr</var> variable.
 </tag-desc>
 
 <tag-name><var>$upstream_http_...</var></tag-name>
 <tag-desc>
 keep server response header fields.
 For example, the <header>Server</header> response header field
-is made available through the <var>$upstream_http_server</var> variable.
+is available through the <var>$upstream_http_server</var> variable.
 The rules of converting header field names to variable names are the same
-as for variables starting with the
+as for the variables that start with the
 “<link doc="ngx_http_core_module.xml" id="variables">$http_</link>” prefix.
 Only the last server’s response header fields are saved.
 </tag-desc>

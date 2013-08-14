@@ -64,7 +64,7 @@ Enables or disables processing of SSI commands in responses.
 <appeared-in>1.5.1</appeared-in>
 
 <para>
-Allows to preserve the <header>Last-Modified</header> header field
+Allows preserving the <header>Last-Modified</header> header field
 from the original response during SSI processing
 to facilitate response caching.
 </para>
@@ -102,9 +102,9 @@ starting from which it makes sense to send them using
 <context>location</context>
 
 <para>
-Allows to suppress output of the string
+If enabled, suppresses the output of the
 “<literal>[an error occurred while processing the directive]</literal>”
-if an error occurred during SSI processing.
+string if an error occurred during SSI processing.
 </para>
 
 </directive>
@@ -134,7 +134,7 @@ The special value “<literal>*</literal>” matches any MIME type (0.8.29).
 <context>location</context>
 
 <para>
-Sets the maximum length for values of parameters in SSI commands.
+Sets the maximum length of parameter values in SSI commands.
 </para>
 
 </directive>
@@ -216,12 +216,12 @@ The command has the following parameters:
 <list type="tag">
 <tag-name><literal>var</literal></tag-name>
 <tag-desc>
-variable name.
+the variable name.
 </tag-desc>
 
 <tag-name><literal>encoding</literal></tag-name>
 <tag-desc>
-encoding method.
+the encoding method.
 Possible values include <literal>none</literal>, <literal>url</literal>, and
 <literal>entity</literal>.
 By default, <literal>entity</literal> is used.
@@ -229,7 +229,7 @@ By default, <literal>entity</literal> is used.
 
 <tag-name><literal>default</literal></tag-name>
 <tag-desc>
-non-standard parameter that sets a string to be output
+a non-standard parameter that sets a string to be output
 if a variable is undefined.
 By default, “<literal>none</literal>” is output.
 The command
@@ -339,9 +339,9 @@ parameter should be used.
 
 <tag-name><literal>stub</literal></tag-name>
 <tag-desc>
-non-standard parameter that names the block whose
-content will be output if an included request results in an empty
-body or if an error occurs during request processing, for example:
+a non-standard parameter that names the block whose
+content will be output if the included request results in an empty
+body or if an error occurs during the request processing, for example:
 <example>
 &lt;!--# block name="one" --&gt;&amp;nbsp;&lt;!--# endblock --&gt;
 &lt;!--# include virtual="/remote/body.php?argument=value" stub="one" --&gt;
@@ -351,7 +351,7 @@ The replacement block content is processed in the included request context.
 
 <tag-name><literal>wait</literal></tag-name>
 <tag-desc>
-non-standard parameter that instructs to wait for a request to fully
+a non-standard parameter that instructs to wait for a request to fully
 complete before continuing with SSI processing, for example:
 <example>
 &lt;!--# include virtual="/remote/body.php?argument=value" wait="yes" --&gt;
@@ -360,7 +360,7 @@ complete before continuing with SSI processing, for example:
 
 <tag-name><literal>set</literal></tag-name>
 <tag-desc>
-non-standard parameter that instructs to write a successful result
+a non-standard parameter that instructs to write a successful result
 of request processing to the specified variable,
 for example:
 <example>
@@ -385,12 +385,12 @@ The command has the following parameters:
 <list type="tag">
 <tag-name><literal>var</literal></tag-name>
 <tag-desc>
-variable name.
+the variable name.
 </tag-desc>
 
 <tag-name><literal>value</literal></tag-name>
 <tag-desc>
-variable value.
+the variable value.
 If an assigned value contains variables,
 their values are substituted.
 </tag-desc>
@@ -413,7 +413,7 @@ two embedded variables:
 
 <tag-name><var>$date_local</var></tag-name>
 <tag-desc>
-current time in local time zone.
+current time in the local time zone.
 The format is set by the <literal>config</literal> command
 with the <literal>timefmt</literal> parameter.
 </tag-desc>

@@ -85,7 +85,7 @@ in the configuration at least once in the form of the
 <link id="charset_map"/>, <link id="charset"/>, or
 <link id="source_charset"/> directives.
 For <literal>utf-8</literal>, <literal>windows-1251</literal>, and
-<literal>koi8-r</literal> charsets it is sufficient to include the files
+<literal>koi8-r</literal> charsets, it is sufficient to include the files
 <path>conf/koi-win</path>, <path>conf/koi-utf</path>, and
 <path>conf/win-utf</path> into configuration.
 For other charsets, simply making a fictitious conversion table works,
@@ -96,9 +96,9 @@ charset_map iso-8859-5 _ { }
 </para>
 
 <para>
-In addition, charset can also be set in the
+In addition, a charset can be set in the
 <header>X-Accel-Charset</header> response header field.
-This ability can be disabled using the
+This capability can be disabled using the
 <link doc="ngx_http_proxy_module.xml" id="proxy_ignore_headers"/>
 and
 <link doc="ngx_http_fastcgi_module.xml" id="fastcgi_ignore_headers"/>
@@ -194,16 +194,16 @@ as the default MIME type instead of “<literal>application/javascript</literal>
 <context>if in location</context>
 
 <para>
-Determines if a conversion should be performed for answers
-received from a proxied or FastCGI server,
-if the answers already carry a charset in the <header>Content-Type</header>
+Determines whether a conversion should be performed for answers
+received from a proxied or FastCGI server
+when the answers already carry a charset in the <header>Content-Type</header>
 response header field.
 If conversion is enabled, a charset specified in the received
 response is used as a source charset.
 <note>
-It should be noted that if a response was received in a subrequest
-then conversion from the response charset to the main request charset
-is always performed regardless of the <literal>override_charset</literal>
+It should be noted that if a response is received in a subrequest
+then the conversion from the response charset to the main request charset
+is always performed, regardless of the <literal>override_charset</literal>
 directive setting.
 </note>
 </para>

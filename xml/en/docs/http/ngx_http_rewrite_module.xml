@@ -15,7 +15,7 @@
 <section id="summary">
 
 <para>
-The <literal>ngx_http_rewrite_module</literal> module allows to
+The <literal>ngx_http_rewrite_module</literal> module is used to
 change URIs using regular expressions, return redirects, and
 conditionally select configurations.
 </para>
@@ -36,11 +36,11 @@ a location for a request is searched;
 
 <listitem>
 the directives of this module specified in the selected
-<link doc="ngx_http_core_module.xml" id="location"/> are processed,
-and if they changed a URI, a new location is searched for the new URI.
+<link doc="ngx_http_core_module.xml" id="location"/> are processed.
+If they have been changing a URI, a new location is searched for the new URI.
 This cycle may be repeated up to
 <link doc="ngx_http_core_module.xml" id="internal">10 times</link>
-after which the error <http-status code="500" text="Internal Server Error"/>
+after which the <http-status code="500" text="Internal Server Error"/> error
 is returned.
 </listitem>
 
@@ -85,8 +85,8 @@ if ($slow) {
 
 <para>
 The specified <value>condition</value> is evaluated.
-If true, the directives of this module specified inside the braces are
-executed, and a request is assigned the configuration inside the
+If true, this module directives specified inside the braces are
+executed, and the request is assigned the configuration inside the
 <literal>if</literal> directive.
 Configurations inside the <literal>if</literal> directives are
 inherited from the previous configuration level.
@@ -106,40 +106,40 @@ was considered a false value.
 </listitem>
 
 <listitem>
-comparing a variable with a string using the
+comparison of a variable with a string using the
 “<literal>=</literal>” and “<literal>!=</literal>” operators;
 </listitem>
 
 <listitem>
-matching a variable against a regular expression using the
+matching of a variable against a regular expression using the
 “<literal>~</literal>” (for case-sensitive matching) and
 “<literal>~*</literal>” (for case-insensitive matching) operators.
 Regular expressions can contain captures that are made available for
 later reuse in the <var>$1</var>..<var>$9</var> variables.
 Negative operators “<literal>!~</literal>” and “<literal>!~*</literal>”
 are also available.
-If a regular expression includes the characters “<literal>}</literal>”
-or “<literal>;</literal>”, the whole expression should be enclosed
+If a regular expression includes the “<literal>}</literal>”
+or “<literal>;</literal>” characters, the whole expressions should be enclosed
 in single or double quotes.
 </listitem>
 
 <listitem>
-checking a file existence with the “<literal>-f</literal>” and
+checking of a file existence with the “<literal>-f</literal>” and
 “<literal>!-f</literal>” operators;
 </listitem>
 
 <listitem>
-checking a directory existence with the “<literal>-d</literal>” and
+checking of a directory existence with the “<literal>-d</literal>” and
 “<literal>!-d</literal>” operators;
 </listitem>
 
 <listitem>
-checking a file, directory, or symbolic link existence with the
+checking of a file, directory, or symbolic link existence with the
 “<literal>-e</literal>” and “<literal>!-e</literal>” operators;
 </listitem>
 
 <listitem>
-checking for an executable file with operators “<literal>-x</literal>”
+checking for an executable file with the “<literal>-x</literal>”
 and “<literal>!-x</literal>” operators.
 </listitem>
 
@@ -170,7 +170,7 @@ if ($invalid_referer) {
 }
 </example>
 <note>
-A value of the embedded variable <var>$invalid_referer</var> is set by the
+A value of the <var>$invalid_referer</var> embedded variable is set by the
 <link doc="ngx_http_referer_module.xml" id="valid_referers"/> directive.
 </note>
 </para>
@@ -195,11 +195,11 @@ a response header.
 
 <para>
 Starting from version 0.8.42, it is possible to specify
-either the URL of redirect (for codes 301, 302, 303, and 307),
-or the <value>text</value> of a response body (for other codes).
-A response body text or URL of redirect can contain variables.
-As a special case, a URL of redirect can be specified as a URI
-local to this server, in which case the full URL of redirect
+either a redirect URL (for codes 301, 302, 303, and 307),
+or the response body <value>text</value> (for other codes).
+A response body text and redirect URL can contain variables.
+As a special case, a redirect URL can be specified as a URI
+local to this server, in which case the full redirect URL
 is formed according to the request scheme (<var>$scheme</var>) and the
 <link doc="ngx_http_core_module.xml" id="server_name_in_redirect"/> and
 <link doc="ngx_http_core_module.xml" id="port_in_redirect"/> directives.
@@ -208,8 +208,8 @@ is formed according to the request scheme (<var>$scheme</var>) and the
 <para>
 In addition, a <value>URL</value> for temporary redirect with the code 302
 can be specified as the sole parameter.
-Such a parameter should start with the string “<literal>http://</literal>”,
-“<literal>https://</literal>”, or “<literal>$scheme</literal>”.
+Such a parameter should start with the “<literal>http://</literal>”,
+“<literal>https://</literal>”, or “<literal>$scheme</literal>” string.
 A <value>URL</value> can contain variables.
 </para>
 
@@ -242,9 +242,9 @@ If the specified regular expression matches a URI, the URI is changed
 as specified in the <value>replacement</value> string.
 The <literal>rewrite</literal> directives are executed sequentially
 in order of their appearance in the configuration file.
-Flags make it possible to terminate further processing of directives.
+It is possible to terminate further processing of the directives using flags.
 If a replacement string starts with “<literal>http://</literal>”
-or “<literal>https://</literal>”, the processing stops and a
+or “<literal>https://</literal>”, the processing stops and the
 redirect is returned to a client.
 </para>
 
@@ -255,8 +255,8 @@ An optional <value>flag</value> parameter can be one of:
 <tag-name><literal>last</literal></tag-name>
 <tag-desc>
 stops processing the current set of
-<literal>ngx_http_rewrite_module</literal> directives
-followed by a search for a new location matching the changed URI;
+<literal>ngx_http_rewrite_module</literal> directives and starts
+a search for a new location matching the changed URI;
 </tag-desc>
 
 <tag-name><literal>break</literal></tag-name>
@@ -267,18 +267,18 @@ stops processing the current set of
 
 <tag-name><literal>redirect</literal></tag-name>
 <tag-desc>
-returns a temporary redirect with the code 302;
+returns a temporary redirect with the 302 code;
 used if a replacement string does not start with
 “<literal>http://</literal>” or “<literal>https://</literal>”;
 </tag-desc>
 
 <tag-name><literal>permanent</literal></tag-name>
 <tag-desc>
-returns a permanent redirect with the code 301.
+returns a permanent redirect with the 301 code.
 </tag-desc>
 
 </list>
-The full URL of redirects is formed according to the
+The full redirect URL is formed according to the
 request scheme (<var>$scheme</var>) and the
 <link doc="ngx_http_core_module.xml" id="server_name_in_redirect"/> and
 <link doc="ngx_http_core_module.xml" id="port_in_redirect"/> directives.
@@ -300,8 +300,8 @@ server {
 <para>
 But if these directives are put inside the “<literal>/download/</literal>”
 location, the <literal>last</literal> flag should be replaced by
-<literal>break</literal>, otherwise nginx will make 10 cycles and
-return the error 500:
+<literal>break</literal>, or otherwise nginx will make 10 cycles and
+return the 500 error:
 <example>
 location /download/ {
     rewrite ^(/download/.*)/media/(.*)\..*$ $1/mp3/$2.mp3 break;
@@ -322,8 +322,8 @@ rewrite ^/users/(.*)$ /show?user=$1? last;
 </para>
 
 <para>
-If a regular expression includes the characters “<literal>}</literal>”
-or “<literal>;</literal>”, the whole expression should be enclosed
+If a regular expression includes the “<literal>}</literal>”
+or “<literal>;</literal>” characters, the whole expressions should be enclosed
 in single or double quotes.
 </para>
 
@@ -384,7 +384,7 @@ Controls whether warnings about uninitialized variables are logged.
 
 <para>
 The <literal>ngx_http_rewrite_module</literal> module directives
-are compiled during the configuration stage into internal instructions
+are compiled at the configuration stage into internal instructions
 that are interpreted during request processing.
 An interpreter is a simple virtual stack machine.
 </para>

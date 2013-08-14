@@ -17,7 +17,7 @@
 <para>
 The <literal>ngx_http_gzip_module</literal> module is a filter
 that compresses responses using the “gzip” method.
-This often allows to reduce the size of transmitted data by half or even more.
+This often helps to reduce the size of transmitted data by half or even more.
 </para>
 
 </section>
@@ -89,7 +89,7 @@ Until version 0.7.28, four 4K or 8K buffers were used by default.
 
 <para>
 Sets a gzip compression <value>level</value> of a response.
-Acceptable values are in the 1..9 range.
+Acceptable values are in the range from 1 to 9.
 </para>
 
 </directive>
@@ -111,7 +111,7 @@ any of the specified regular expressions.
 
 <para>
 The special mask “<literal>msie6</literal>” (0.7.12) corresponds to
-the regular expression “<literal>MSIE [4-6]\.</literal>” but works faster.
+the regular expression “<literal>MSIE [4-6]\.</literal>”, but works faster.
 Starting from version 0.8.11, “<literal>MSIE 6.0; ... SV1</literal>”
 is excluded from this mask.
 </para>
@@ -169,7 +169,7 @@ Sets the minimum HTTP version of a request required to compress a response.
 <para>
 Enables or disables gzipping of responses for proxied
 requests depending on the request and response.
-The fact that the response is proxied is determined based on
+The fact that the response is proxied is determined by
 the presence of the <header>Via</header> request header field.
 A directive accepts multiple parameters:
 <list type="tag">
@@ -182,45 +182,47 @@ ignoring other parameters;
 
 <tag-name><literal>expired</literal></tag-name>
 <tag-desc>
-enables compression if a response header includes the field
-<header>Expires</header> with a value that disables caching;
+enables compression if a response header includes the
+<header>Expires</header> field with a value that disables caching;
 </tag-desc>
 
 <tag-name><literal>no-cache</literal></tag-name>
 <tag-desc>
-enables compression if a response header includes the field
-<header>Cache-Control</header> with the parameter “<literal>no-cache</literal>”;
+enables compression if a response header includes the
+<header>Cache-Control</header> field with the
+“<literal>no-cache</literal>” parameter;
 </tag-desc>
 
 <tag-name><literal>no-store</literal></tag-name>
 <tag-desc>
-enables compression if a response header includes the field
-<header>Cache-Control</header> with the parameter
-“<literal>no-store</literal>”;
+enables compression if a response header includes the
+<header>Cache-Control</header> field with the
+“<literal>no-store</literal>” parameter;
 </tag-desc>
 
 <tag-name><literal>private</literal></tag-name>
 <tag-desc>
-enables compression if a response header includes the field
-<header>Cache-Control</header> with the parameter “<literal>private</literal>”;
+enables compression if a response header includes the
+<header>Cache-Control</header> field with the
+“<literal>private</literal>” parameter;
 </tag-desc>
 
 <tag-name><literal>no_last_modified</literal></tag-name>
 <tag-desc>
-enables compression if a response header does not include the field
-<header>Last-Modified</header>;
+enables compression if a response header does not include the
+<header>Last-Modified</header> field;
 </tag-desc>
 
 <tag-name><literal>no_etag</literal></tag-name>
 <tag-desc>
-enables compression if a response header does not include the field
-<header>ETag</header>;
+enables compression if a response header does not include the
+<header>ETag</header> field;
 </tag-desc>
 
 <tag-name><literal>auth</literal></tag-name>
 <tag-desc>
-enables compression if a request header includes the field
-<header>Authorization</header>;
+enables compression if a request header includes the
+<header>Authorization</header> field;
 </tag-desc>
 
 <tag-name><literal>any</literal></tag-name>
@@ -245,7 +247,7 @@ enables compression for all proxied requests.
 Enables gzipping of responses for the specified MIME types in addition
 to “<literal>text/html</literal>”.
 The special value “<literal>*</literal>” matches any MIME type (0.8.29).
-Responses with the type “<literal>text/html</literal>” are always compressed.
+Responses with the “<literal>text/html</literal>” type are always compressed.
 </para>
 
 </directive>
@@ -259,7 +261,7 @@ Responses with the type “<literal>text/html</literal>” are always compressed
 <context>location</context>
 
 <para>
-Enables or disables emitting the <header>Vary: Accept-Encoding</header>
+Enables or disables inserting the <header>Vary: Accept-Encoding</header>
 response header field if the directives
 <link id="gzip"/>,
 <link doc="ngx_http_gzip_static_module.xml" id="gzip_static"/>, or
@@ -279,7 +281,7 @@ are active.
 
 <tag-name id="var_gzip_ratio"><var>$gzip_ratio</var></tag-name>
 <tag-desc>achieved compression ratio, computed as the ratio between the
-original and compressed response size.</tag-desc>
+original and compressed response sizes.</tag-desc>
 
 </list>
 </para>

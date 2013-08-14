@@ -16,7 +16,7 @@
 
 <para>
 The <literal>ngx_http_auth_basic_module</literal> module allows
-to limit access to resources by validating the user name and password
+limiting access to resources by validating the user name and password
 using the “HTTP Basic Authentication” protocol.
 </para>
 
@@ -58,8 +58,8 @@ location / {
 Enables validation of user name and password using the
 “HTTP Basic Authentication” protocol.
 The specified parameter is used as a <value>realm</value>.
-Value of the parameter can contain variables (1.3.10, 1.2.7).
-The special value <literal>off</literal> allows to cancel the effect
+Parameter value can contain variables (1.3.10, 1.2.7).
+The special value <literal>off</literal> allows cancelling the effect
 of the <literal>auth_basic</literal> directive
 inherited from the previous configuration level.
 </para>
@@ -113,7 +113,7 @@ used by some software packages, notably OpenLDAP and Dovecot).
 <note>
 Support for <literal>SHA</literal> scheme was added only to aid
 in migration from other web servers.
-It should not be used for new passwords since unsalted SHA-1 hashing
+It should not be used for new passwords, since unsalted SHA-1 hashing
 that it employs is vulnerable to
 <link url="http://en.wikipedia.org/wiki/Rainbow_attack">rainbow table</link>
 attacks.

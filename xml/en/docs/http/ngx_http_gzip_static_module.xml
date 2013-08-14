@@ -16,7 +16,7 @@
 
 <para>
 The <literal>ngx_http_gzip_static_module</literal> module allows
-to send precompressed files with the “<literal>.gz</literal>”
+sending precompressed files with the “<literal>.gz</literal>”
 filename extension instead of regular files.
 </para>
 
@@ -73,7 +73,7 @@ is used.
 
 <para>
 The files can be compressed using the <command>gzip</command> command,
-or any other compatible.
+or any other compatible one.
 It is recommended that the modification date and time of original and
 compressed files be the same.
 </para>

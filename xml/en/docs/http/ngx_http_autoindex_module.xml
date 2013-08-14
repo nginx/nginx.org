@@ -21,7 +21,7 @@ a directory listing.
 Usually a request is passed to the <literal>ngx_http_autoindex_module</literal>
 module when the
 <link doc="ngx_http_index_module.xml">ngx_http_index_module</link> module
-could not find an index file.
+cannot find an index file.
 </para>
 
 </section>
@@ -50,7 +50,7 @@ location / {
 <context>location</context>
 
 <para>
-Enables or disables a directory listing output.
+Enables or disables the directory listing output.
 </para>
 
 </directive>
@@ -64,8 +64,8 @@ Enables or disables a directory listing output.
 <context>location</context>
 
 <para>
-Specifies whether file sizes in the directory listing should be
-output exactly, or rounded to kilobytes, megabytes, and gigabytes.
+Specifies whether exact file sizes should be output in the directory listing,
+or rather rounded to kilobytes, megabytes, and gigabytes.
 </para>
 
 </directive>
@@ -80,7 +80,7 @@ output exactly, or rounded to kilobytes, megabytes, and gigabytes.
 
 <para>
 Specifies whether times in the directory listing should be
-output in a local time zone or UTC.
+output in the local time zone or UTC.
 </para>
 
 </directive>

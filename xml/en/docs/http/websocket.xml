@@ -32,7 +32,7 @@ and special processing on a proxy server is required.
 <para>
 Since version 1.3.13,
 nginx implements special mode of operation
-that allows to set up a tunnel between a client and proxied
+that allows setting up a tunnel between a client and proxied
 server if the proxied server returned a response with the code
 <http-status code="101" text="Switching Protocols"/>,
 and the client asked for a protocol switch via the <header>Upgrade</header>

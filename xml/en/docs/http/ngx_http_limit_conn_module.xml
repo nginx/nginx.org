@@ -15,15 +15,15 @@
 <section id="summary">
 
 <para>
-The <literal>ngx_http_limit_conn_module</literal> module allows
-to limit the number of connections per defined key, in
+The <literal>ngx_http_limit_conn_module</literal> module is used to
+limit the number of connections per the defined key, in
 particular, the number of connections from a single IP address.
 </para>
 
 <para>
-Not all connections are counted; only those that have requests
-currently being processed by the server, in which request header has
-been fully read.
+Not all connections are counted.
+A connection is counted only if it has a request processed by the server
+and the whole request header has already been read.
 </para>
 
 </section>
@@ -61,11 +61,11 @@ http {
 <context>location</context>
 
 <para>
-Sets a shared memory zone
+Sets the shared memory zone
 and the maximum allowed number of connections for a given key value.
-When this limit is exceeded, the server will return error
+When this limit is exceeded, the server will return the
 <http-status code="503" text="Service Temporarily Unavailable"/>
-in reply to a request.
+error in reply to a request.
 For example, the directives
 <example>
 limit_conn_zone $binary_remote_addr zone=addr:10m;
@@ -75,15 +75,15 @@ server {
         limit_conn addr 1;
     }
 </example>
-allow for only a single connection at a time, per unique IP address.
+allow only one connection per an IP address at a time.
 </para>
 
 <para>
 When several <literal>limit_conn</literal> directives are specified,
 any configured limit will apply.
 For example, the following configuration will limit the number
-of connections to the server per client IP and at the same time
-will limit the total number of connections to the virtual host:
+of connections to the server per a client IP and, at the same time,
+the total number of connections to the virtual host:
 <example>
 limit_conn_zone $binary_remote_addr zone=perip:10m;
 limit_conn_zone $server_name zone=perserver:10m;
@@ -136,7 +136,7 @@ limits the number of connections.
 <appeared-in>1.3.15</appeared-in>
 
 <para>
-Sets status code to be used when requests are rejected.
+Sets the status code to return in response to rejected requests.
 </para>
 
 </directive>
@@ -150,30 +150,32 @@ Sets status code to be used when requests are rejected.
 <context>http</context>
 
 <para>
-Sets parameters of a shared memory zone that keeps states
-for various keys.
-This state stores the current number of connections in particular.
+Sets parameters for a shared memory zone
+that will keep states for various keys.
+In particular, the state includes the current number of connections.
 The key is any non-empty value of the specified variable
 (empty values are not accounted).
-Example usage:
+Usage example:
 <example>
 limit_conn_zone $binary_remote_addr zone=addr:10m;
 </example>
-Here, an IP address of the client serves as a key.
+Here, a client IP address serves as a key.
 Note that instead of <var>$remote_addr</var>, the
 <var>$binary_remote_addr</var> variable is used here.
-The length of the <var>$remote_addr</var> variable’s value can
-range from 7 to 15 bytes, and the stored state occupies either
-32 or 64 bytes of memory on 32-bit platforms, and always 64
+The <var>$remote_addr</var> variable’s size can
+vary from 7 to 15 bytes.
+The stored state occupies either
+32 or 64 bytes of memory on 32-bit platforms and always 64
 bytes on 64-bit platforms.
-The length of the <var>$binary_remote_addr</var> variable’s value
-is always 4 bytes, and the stored state always occupies 32 bytes
-on 32-bit platforms, and 64 bytes on 64-bit platforms.
-One megabyte zone can keep about 32 thousand 32-byte states,
-and about 16 thousand 64-byte states.
-If the storage for a zone is exhausted, the server will return error
+The <var>$binary_remote_addr</var> variable’s size
+is always 4 bytes.
+The stored state always occupies 32 bytes
+on 32-bit platforms and 64 bytes on 64-bit platforms.
+One megabyte zone can keep about 32 thousand 32-byte states
+or about 16 thousand 64-byte states.
+If the zone storage is exhausted, the server will return the
 <http-status code="503" text="Service Temporarily Unavailable"/>
-to all further requests.
+error to all further requests.
 </para>
 
 </directive>

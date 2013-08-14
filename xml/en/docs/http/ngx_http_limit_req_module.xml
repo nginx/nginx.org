@@ -15,8 +15,8 @@
 <section id="summary">
 
 <para>
-The <literal>ngx_http_limit_req_module</literal> module (0.7.21) allows
-to limit the request processing rate per defined key,
+The <literal>ngx_http_limit_req_module</literal> module (0.7.21) is used
+to limit the request processing rate per a defined key,
 in particular, the processing rate of requests coming
 from a single IP address.
 The limitation is done using the “leaky bucket” method.
@@ -60,9 +60,9 @@ http {
 <context>location</context>
 
 <para>
-Sets a shared memory zone
+Sets the shared memory zone
 and the maximum burst size of requests.
-If the rate of requests exceeds the rate configured for a zone,
+If the requests rate exceeds the rate configured for a zone,
 their processing is delayed such that requests are processed
 at a defined rate.
 Excessive requests are delayed until their number exceeds the
@@ -109,9 +109,9 @@ limit_req zone=one burst=5 nodelay;
 <para>
 Sets the desired logging level
 for cases when the server refuses to process requests
-due to rate being exceeded,
+due to rate exceeding,
 or delays request processing.
-Delays are logged with the level one less than refusals; for example,
+Logging level for delays is one point less than for refusals; for example,
 if “<literal>limit_req_log_level notice</literal>” is specified,
 delays are logged with the <literal>info</literal> level.
 </para>
@@ -128,7 +128,7 @@ delays are logged with the <literal>info</literal> level.
 <appeared-in>1.3.15</appeared-in>
 
 <para>
-Sets status code to be used when requests are rejected.
+Sets the status code to return in response to rejected requests.
 </para>
 
 </directive>
@@ -143,12 +143,12 @@ Sets status code to be used when requests are rejected.
 <context>http</context>
 
 <para>
-Sets parameters of a shared memory zone
-that keeps states for various keys.
-The state stores the current number of excessive requests in particular.
+Sets parameters for a shared memory zone
+that will keep states for various keys.
+In particular, the state stores the current number of excessive requests.
 The key is any non-empty value of the specified variable
 (empty values are not accounted).
-Example usage:
+Usage example:
 <example>
 limit_req_zone $binary_remote_addr zone=one:10m rate=1r/s;
 </example>
@@ -161,14 +161,14 @@ average request processing rate for this zone cannot exceed
 </para>
 
 <para>
-An IP address of the client serves as a key.
+A client IP address serves as a key.
 Note that instead of <var>$remote_addr</var>, the
 <var>$binary_remote_addr</var> variable is used here,
-allowing to lower the size of a state down to 64 bytes.
+that allows to decrease the state size down to 64 bytes.
 One megabyte zone can keep about 16 thousand 64-byte states.
-If the storage for a zone is exhausted, the server will return error
+If the zone storage is exhausted, the server will return the
 <http-status code="503" text="Service Temporarily Unavailable"/>
-to all further requests.
+error to all further requests.
 </para>
 
 <para>

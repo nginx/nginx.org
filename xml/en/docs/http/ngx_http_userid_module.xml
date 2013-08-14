@@ -58,30 +58,30 @@ userid_p3p     'policyref="/w3c/p3p.xml", CP="CUR ADM OUR NOR STA NID"';
 <context>location</context>
 
 <para>
-Allows or prohibits to set cookies and log the received cookies:
+Enables or disables setting cookies and logging the received cookies:
 <list type="tag">
 
 <tag-name><literal>on</literal></tag-name>
 <tag-desc>
-allows to set version 2 cookies
-and log the received cookies;
+enables the setting of version 2 cookies
+and logging of the received cookies;
 </tag-desc>
 
 <tag-name><literal>v1</literal></tag-name>
 <tag-desc>
-allows to set version 1 cookies
-and log the received cookies;
+enables the setting of version 1 cookies
+and logging of the received cookies;
 </tag-desc>
 
 <tag-name><literal>log</literal></tag-name>
 <tag-desc>
-prohibits to set cookies
-but allows to log the received cookies;
+disables the setting of cookies,
+but enables logging of the received cookies;
 </tag-desc>
 
 <tag-name><literal>off</literal></tag-name>
 <tag-desc>
-prohibits to set cookies and log the received cookies.
+disables the setting of cookies and logging of the received cookies.
 </tag-desc>
 
 </list>
@@ -99,7 +99,8 @@ prohibits to set cookies and log the received cookies.
 
 <para>
 Defines a domain for which the cookie is set.
-The parameter <literal>none</literal> disables setting a domain for a cookie.
+The <literal>none</literal> parameter disables setting of a domain for the
+cookie.
 </para>
 
 </directive>
@@ -136,20 +137,20 @@ the end of a browser session.
 <context>location</context>
 
 <para>
-If parameter is not <literal>off</literal>, enables the cookie marking
-mechanism and sets a character used as a mark.
-This mechanism allows to add or change
-<link id="userid_p3p"/> and/or cookie expiration time while
+If the parameter is not <literal>off</literal>, enables the cookie marking
+mechanism and sets the character used as a mark.
+This mechanism is used to add or change
+<link id="userid_p3p"/> and/or a cookie expiration time while
 preserving the client identifier.
-The mark can be any letter of the English alphabet (case-sensitive),
+A mark can be any letter of the English alphabet (case-sensitive),
 digit, or the “<literal>=</literal>” character.
 </para>
 
 <para>
-If a mark is set, it is compared with the first padding symbol
-in the base64 representation of client identifier passed in a cookie.
-If they do not match, a cookie is resent with the specified mark,
-expiration time and a <header>P3P</header> header.
+If the mark is set, it is compared with the first padding symbol
+in the base64 representation of the client identifier passed in a cookie.
+If they do not match, the cookie is resent with the specified mark,
+expiration time, and <header>P3P</header> header.
 </para>
 
 </directive>
@@ -163,7 +164,7 @@ expiration time and a <header>P3P</header> header.
 <context>location</context>
 
 <para>
-Sets a cookie name.
+Sets the cookie name.
 </para>
 
 </directive>
@@ -178,8 +179,8 @@ Sets a cookie name.
 
 <para>
 Sets a value for the <header>P3P</header> header field that will be
-sent along with a cookie.
-If set to the special value <literal>none</literal>,
+sent along with the cookie.
+If the directive is set to the special value <literal>none</literal>,
 the <header>P3P</header> header will not be sent in a response.
 </para>
 
@@ -210,10 +211,10 @@ Defines a path for which the cookie is set.
 <para>
 If identifiers are issued by multiple servers (services),
 each service should be assigned its own <value>number</value>
-in order to ensure that client identifiers are unique.
-For version 1 cookies the default value is zero.
-For version 2 cookies this is the number composed from the last four
-octets of the server’s IP address.
+to ensure that client identifiers are unique.
+For version 1 cookies, the default value is zero.
+For version 2 cookies, the default value is the number composed from the last
+four octets of the server’s IP address.
 </para>
 
 </directive>
@@ -235,10 +236,10 @@ The cookie name and received client identifier.
 
 <tag-name id="var_uid_reset"><var>$uid_reset</var></tag-name>
 <tag-desc>
-If set to a non-empty string, and it is not “<literal>0</literal>”,
-client identifiers are reset.
+If the variable is set to a non-empty string that is not “<literal>0</literal>”,
+the client identifiers are reset.
 The special value “<literal>log</literal>” additionally leads to the output of
-messages about reset identifiers to the
+messages about the reset identifiers to the
 <link doc="../ngx_core_module.xml" id="error_log"/>.
 </tag-desc>
 

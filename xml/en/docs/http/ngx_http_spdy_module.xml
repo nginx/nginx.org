@@ -82,9 +82,9 @@ version 1.0.1.
 <context>server</context>
 
 <para>
-Sets a header compression <value>level</value> of a response in a range from
+Sets the header compression <value>level</value> of a response in a range from
 1 (fastest, less compression) to 9 (slowest, best compression).
-The special value 0 turns off header compression.
+The special value 0 turns off the header compression.
 </para>
 
 </directive>

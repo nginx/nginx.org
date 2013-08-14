@@ -15,7 +15,7 @@
 <section id="summary">
 
 <para>
-The <literal>ngx_http_referer_module</literal> module allows to block
+The <literal>ngx_http_referer_module</literal> module is used to block
 access to a site for requests with invalid values in the
 <header>Referer</header> header field.
 It should be kept in mind that fabricating a request with an appropriate
@@ -57,7 +57,7 @@ if ($invalid_referer) {
 
 <para>
 Sets the bucket size for the valid referers hash tables.
-Details of setting up hash tables are provided in a separate
+The details of setting up hash tables are provided in a separate
 <link doc="../hash.xml">document</link>.
 </para>
 
@@ -73,7 +73,7 @@ Details of setting up hash tables are provided in a separate
 
 <para>
 Sets the maximum <value>size</value> of the valid referers hash tables.
-Details of setting up hash tables are provided in a separate
+The details of setting up hash tables are provided in a separate
 <link doc="../hash.xml">document</link>.
 </para>
 
@@ -92,8 +92,8 @@ Details of setting up hash tables are provided in a separate
 <context>location</context>
 
 <para>
-Specifies values of the <header>Referer</header> request header field
-that will cause the embedded variable <var>$invalid_referer</var> to
+Specifies the <header>Referer</header> request header field values
+that will cause the embedded <var>$invalid_referer</var> variable to
 be set to an empty string.
 Otherwise, the variable will be set to “<literal>1</literal>”.
 Search for a match is case-insensitive.
@@ -111,8 +111,8 @@ the <header>Referer</header> field is missing in the request header;
 <tag-name><literal>blocked</literal></tag-name>
 <tag-desc>
 the <header>Referer</header> field is present in the request header,
-but its value was deleted by a firewall or proxy server;
-such values are strings that do not start from
+but its value has been deleted by a firewall or proxy server;
+such values are strings that do not start with
 “<literal>http://</literal>” or “<literal>https://</literal>”;
 </tag-desc>
 
@@ -126,7 +126,7 @@ one of the server names;
 <tag-desc>
 defines a server name and an optional URI prefix.
 A server name can have an “<literal>*</literal>” at the beginning or end.
-When checking, the server’s port in the <header>Referer</header> field
+During the checking, the server’s port in the <header>Referer</header> field
 is ignored;
 </tag-desc>
 

@@ -15,15 +15,15 @@
 <section id="summary">
 
 <para>
-The module <literal>ngx_http_flv_module</literal> provides pseudo-streaming
+The <literal>ngx_http_flv_module</literal> module provides pseudo-streaming
 server-side support for Flash Video (FLV) files.
 </para>
 
 <para>
 It handles requests with the <literal>start</literal> argument in
 the request URI’s query string specially, by sending back the contents
-of a file starting from the requested byte offset, and with the FLV
-header prepended.
+of a file starting from the requested byte offset and with the prepended FLV
+header.
 </para>
 
 <para>

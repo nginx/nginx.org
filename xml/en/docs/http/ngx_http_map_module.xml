@@ -70,9 +70,9 @@ specified in the first parameter.
 
 <para>
 <note>
-Since variables are evaluated only when used, the mere existence
-of even a large number of declared “<literal>map</literal>” variables
-does not incur any extra costs for request processing.
+Since variables are evaluated only when they are used, the mere declaration
+even of a large number of “<literal>map</literal>” variables
+does not add any extra costs to request processing.
 </note>
 </para>
 
@@ -117,8 +117,7 @@ resulting value will be an empty string.
 
 <tag-name><literal>hostnames</literal></tag-name>
 <tag-desc>
-allows to specify hostnames with a prefix or suffix mask, as source
-values, for example,
+indicates that source values can be hostnames with a prefix or suffix mask:
 <example>
 *.example.com 1;
 example.*     1;
@@ -146,8 +145,8 @@ There can be several inclusions.
 
 <para>
 If the source value matches more than one of the specified variants,
-e.g. both mask and regular expression match, the first matching
-variant will be chosen, in the following order of precedence:
+e.g. both a mask and a regular expression match, the first matching
+variant will be chosen, in the following order of priority:
 <list type="enum">
 
 <listitem>
@@ -186,8 +185,8 @@ default value
 
 <para>
 Sets the bucket size for the <link id="map"/> variables hash tables.
-Default value depends on the size of the processor’s cache line.
-Details of setting up hash tables are provided in a separate
+Default value depends on the processor’s cache line size.
+The details of setting up hash tables are provided in a separate
 <link doc="../hash.xml">document</link>.
 </para>
 
@@ -202,7 +201,7 @@ Details of setting up hash tables are provided in a separate
 <para>
 Sets the maximum <value>size</value> of the <link id="map"/> variables
 hash tables.
-Details of setting up hash tables are provided in a separate
+The details of setting up hash tables are provided in a separate
 <link doc="../hash.xml">document</link>.
 </para>
 

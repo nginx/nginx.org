@@ -30,7 +30,7 @@ Supported methods are:
 <link url="http://tools.ietf.org/html/rfc1939">USER/PASS</link>,
 <link url="http://tools.ietf.org/html/rfc4616">AUTH PLAIN</link>,
 <link url="http://tools.ietf.org/html/draft-murchison-sasl-login-00">AUTH LOGIN</link>.
-It is not possible to disable this methods.
+It is not possible to disable these methods.
 </tag-desc>
 
 <tag-name><literal>apop</literal></tag-name>
@@ -58,12 +58,12 @@ In order for this method to work, the password must be stored unencrypted.
 <context>server</context>
 
 <para>
-Allows to specify the
+Sets the
 <link url="http://tools.ietf.org/html/rfc2449">POP3 protocol</link>
-extensions list to be passed to the client upon
-issuing the <literal>CAPA</literal> command.
+extensions list that is passed to the client in response to
+the <literal>CAPA</literal> command.
 
-Authentication methods specified in the <link id="pop3_auth"/> and
+The authentication methods specified in the <link id="pop3_auth"/> and
 (<link url="http://tools.ietf.org/html/rfc2449">SASL</link> extension) and
 <link url="http://tools.ietf.org/html/rfc2595">STLS</link> directives,
 are automatically added to this list if the
@@ -71,15 +71,15 @@ are automatically added to this list if the
 </para>
 
 <para>
-It makes sense to specify extensions
-supported by POP3 backends
-to which clients are proxied (if this extensions are related to commands
+It makes sense to specify the extensions
+supported by the POP3 backends
+to which the clients are proxied (if these extensions are related to commands
 used after the authentication, when nginx transparently proxies the client
 connection to the backend).
 </para>
 
 <para>
-The current list of standardized extensions is published at the
+The current list of standardized extensions is published at
 <link url="http://www.iana.org/assignments/pop3-extension-mechanism">www.iana.org</link>.
 </para>
 

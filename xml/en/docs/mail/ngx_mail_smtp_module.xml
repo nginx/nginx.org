@@ -56,23 +56,23 @@ In order for this method to work, the password must be stored unencrypted.
 <context>server</context>
 
 <para>
-Allows to specify the SMTP protocol extensions list
-to be passed to the client in the response to the
+Sets the SMTP protocol extensions list
+that is passed to the client in response to the
 <literal>EHLO</literal> command.
 Authentication methods specified in the <link id="smtp_auth"/> directive
 are automatically added to this list.
 </para>
 
 <para>
-It makes sense to specify extensions
-supported by MTA
-to which clients are proxied (if this extensions are related to commands
+It makes sense to specify the extensions
+supported by the MTA
+to which the clients are proxied (if these extensions are related to commands
 used after the authentication, when nginx transparently proxies the client
 connection to the backend).
 </para>
 
 <para>
-The current list of standardized extensions is published at the
+The current list of standardized extensions is published at
 <link url="http://www.iana.org/assignments/mail-parameters">www.iana.org</link>.
 </para>
 

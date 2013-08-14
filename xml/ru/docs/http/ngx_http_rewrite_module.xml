@@ -199,7 +199,7 @@ if ($invalid_referer) {
 В тексте тела ответа и URL перенаправления можно использовать переменные.
 Как частный случай, URL перенаправления может быть задан как URI,
 локальный для данного сервера, при этом полный URL перенаправления
-формируется согласно схеме запроса (<var>$scheme</var>) и директив
+формируется согласно схеме запроса (<var>$scheme</var>) и директивам
 <link doc="ngx_http_core_module.xml" id="server_name_in_redirect"/> и
 <link doc="ngx_http_core_module.xml" id="port_in_redirect"/>.
 </para>

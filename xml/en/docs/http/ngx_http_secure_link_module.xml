@@ -16,29 +16,29 @@
 
 <para>
 The <literal>ngx_http_secure_link_module</literal> module (0.7.18)
-allows to check authenticity of requested links,
+is used to check authenticity of requested links,
 protect resources from unauthorized access,
-and limit lifetime of links.
+and limit link lifetime.
 </para>
 
 <para>
 The authenticity of a requested link is verified by comparing the
 checksum value passed in a request with the value computed
 for the request.
-If link has a limited lifetime and the time has expired,
+If a link has a limited lifetime and the time has expired,
 the link is considered outdated.
-Status of these checks is made available in the
+The status of these checks is made available in the
 <var>$secure_link</var> variable.
 </para>
 
 <para>
 The module provides two alternative operation modes.
 The first mode is enabled by the <link id="secure_link_secret"/>
-directive and allows to check authenticity of requested links
+directive and is used to check authenticity of requested links
 as well as protect resources from unauthorized access.
 The second mode (0.8.50) is enabled by the
 <link id="secure_link"/> and <link id="secure_link_md5"/>
-directives, and also allows to limit lifetime of links.
+directives and is also used to limit lifetime of links.
 </para>
 
 <para>
@@ -61,7 +61,7 @@ configuration parameter.
 
 <para>
 Defines a string with variables from which the
-checksum value and lifetime of a link are to be extracted.
+checksum value and lifetime of a link will be extracted.
 </para>
 
 <para>
@@ -70,28 +70,28 @@ with a request; see <link id="secure_link_md5">example</link> below.
 </para>
 
 <para>
-Checksum value extracted from the string is compared with
-MD5 hash value computed for expression defined by the
+The checksum value extracted from the string is compared with
+the MD5 hash value of the expression defined by the
 <link id="secure_link_md5"/> directive.
-If checksums are different, the <var>$secure_link</var> variable
+If the checksums are different, the <var>$secure_link</var> variable
 is set to an empty string.
-If checksums are the same, lifetime of a link is checked.
-If link has a limited lifetime and the time has expired,
+If the checksums are the same, the link lifetime is checked.
+If the link has a limited lifetime and the time has expired,
 the <var>$secure_link</var> variable is set to “<literal>0</literal>”.
 Otherwise, it is set to “<literal>1</literal>”.
-MD5 hash value passed in a request is encoded in
+The MD5 hash value passed in a request is encoded in
 <link url="http://tools.ietf.org/html/rfc4648#section-5">base64url</link>.
 </para>
 
 <para>
-If link has a limited lifetime, an expiration time
+If a link has a limited lifetime, the expiration time
 is set in seconds since Epoch (Thu, 01 Jan 1970 00:00:00 GMT).
-The value is specified in an expression after MD5 hash,
-and is separated by comma.
-An expiration time passed in a request is made available in
-the <var>$secure_link_expires</var> variable for use in
+The value is specified in the expression after the MD5 hash,
+and is separated by a comma.
+The expiration time passed in a request is available through
+the <var>$secure_link_expires</var> variable for a use in
 the <link id="secure_link_md5"/> directive.
-If expiration time is not specified, a link has unlimited
+If the expiration time is not specified, a link has the unlimited
 lifetime.
 </para>
 
@@ -106,21 +106,20 @@ lifetime.
 <context>location</context>
 
 <para>
-Defines an expression for which the MD5 hash value is to
+Defines an expression for which the MD5 hash value will
 be computed and compared with the value passed in a request.
 </para>
 
 <para>
-An expression should contain the secured part of a link (resource)
+The expression should contain the secured part of a link (resource)
 and a secret ingredient.
-If link has a limited lifetime,
-an expression should also contain <var>$secure_link_expires</var>.
+If the link has a limited lifetime,
+the expression should also contain <var>$secure_link_expires</var>.
 </para>
 
 <para>
-To prevent unauthorized access, an expression may contain some
-information about the client, such as its address and version
-of the browser.
+To prevent unauthorized access, the expression may contain some
+information about the client, such as its address and browser version.
 </para>
 
 <para>
@@ -141,11 +140,12 @@ location /s/ {
     ...
 }
 </example>
-The link
+The
 “<literal>/s/link?md5=_e4Nc3iduzkWRm01TBBNYw&amp;expires=2147483647</literal>”
-restricts access to “<literal>/s/link</literal>” for the client with IP address
-127.0.0.1.
-The link also has a limited lifetime until January 19, 2038 (GMT).
+link
+restricts access to “<literal>/s/link</literal>” for the client with the
+IP address 127.0.0.1.
+The link also has the limited lifetime until January 19, 2038 (GMT).
 </para>
 
 <para>
@@ -174,13 +174,13 @@ The full URI of a requested link looks as follows:
 <example>
 /<value>prefix</value>/<value>hash</value>/<value>link</value>
 </example>
-where <value>hash</value> is a hexadecimal representation of an
-MD5 hash computed for the concatenation of link and secret word,
+where <value>hash</value> is a hexadecimal representation of the
+MD5 hash computed for the concatenation of the link and secret word,
 and <value>prefix</value> is an arbitrary string without slashes.
 </para>
 
 <para>
-If requested link passes the authenticity check,
+If the requested link passes the authenticity check,
 the <var>$secure_link</var> variable is set to the link
 extracted from the request URI.
 Otherwise, the <var>$secure_link</var> variable
@@ -228,13 +228,13 @@ echo -n 'linksecret' | openssl md5 -hex
 
 <tag-name><var>$secure_link</var></tag-name>
 <tag-desc>
-Status of a link check.
+The status of a link check.
 The specific value depends on the selected operation mode.
 </tag-desc>
 
 <tag-name><var>$secure_link_expires</var></tag-name>
 <tag-desc>
-Lifetime of a link passed in a request;
+The lifetime of a link passed in a request;
 intended to be used only in the
 <link id="secure_link_md5"/> directive.
 </tag-desc>

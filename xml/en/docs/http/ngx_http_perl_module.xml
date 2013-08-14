@@ -15,8 +15,8 @@
 <section id="summary">
 
 <para>
-The <literal>ngx_http_perl_module</literal> module allows to implement
-location and variable handlers in Perl, and to insert Perl calls into SSI.
+The <literal>ngx_http_perl_module</literal> module is used to implement
+location and variable handlers in Perl and insert Perl calls into SSI.
 </para>
 
 <para>
@@ -25,7 +25,7 @@ This module is not built by default, it should be enabled with the
 configuration parameter.
 <note>
 This module requires Perl version 5.6.1 or higher.
-The C compiler should be compatible with that used to build Perl.
+The C compiler should be compatible with the one used to build Perl.
 </note>
 </para>
 
@@ -40,11 +40,11 @@ The module is experimental, caveat emptor applies.
 
 <para>
 In order for Perl to recompile the modified modules during
-reconfiguration, it needs to be built with the parameters
+reconfiguration, it should be built with the
 <literal>-Dusemultiplicity=yes</literal> or
-<literal>-Dusethreads=yes</literal>.
-Also, in order for Perl to leak less memory at run time,
-it needs to be built with the
+<literal>-Dusethreads=yes</literal> parameters.
+Also, to make Perl leak less memory at run time,
+it should be built with the
 <literal>-Dusemymalloc=no</literal> parameter.
 To check the values of these parameters in an already built
 Perl (preferred values are specified in the example), run:
@@ -56,40 +56,40 @@ usemymalloc='n';
 </para>
 
 <para>
-Note that after rebuilding Perl with the new parameters
+Note that after rebuilding Perl with the new
 <literal>-Dusemultiplicity=yes</literal> or
-<literal>-Dusethreads=yes</literal>,
+<literal>-Dusethreads=yes</literal> parameters,
 all binary Perl modules will have to be rebuilt as well —
 they will just stop working with the new Perl.
 </para>
 
 <para>
-It is possible for the main process and then worker processes
-to grow in size after every reconfiguration.
+There is a possibility that the main process and then worker processes will
+grow in size after every reconfiguration.
 If the main process grows to an unacceptable size, the
 <link doc="../control.xml" id="upgrade">live upgrade</link>
-procedure can be applied without changing an executable file.
+procedure can be applied without changing the executable file.
 </para>
 
 <para>
-While a Perl module performs long term operation, for example, resolves
-a domain name, connects to another server, queries a database,
-other requests assigned to this worker process will not be processed.
-It is thus recommended to limit the work done to operations
-that have predictable and short execution time, for example,
-access local file system.
+While the Perl module is performing a long-running operation, such as
+resolving a domain name, connecting to another server, or querying a database,
+other requests assigned to the current worker process will not be processed.
+It is thus recommended to perform only such operations
+that have predictable and short execution time, such as
+accessing the local file system.
 </para>
 
 <para>
-The below mentioned issues only affect versions of nginx before 0.6.22.
+The issues mentioned below affect only the nginx versions before 0.6.22.
 
 <note>
-Data returned by the <literal>$r</literal> request object methods
-only has a text value, and the value itself is stored in memory
+The <literal>$r</literal> request object methods return
+data only as a string value, and the value itself is stored in memory
 allocated by nginx from its own pools, not by Perl.
-This allows to reduce the number of copy operations involved in
-most cases, however it can lead to errors in some cases.
-For example, a worker process trying to use such a data in the
+This helps to reduce the number of copy operations involved in
+most cases; however it can lead to errors in some cases.
+For example, a worker process trying to use such data in the
 numeric context will terminate with an error (FreeBSD):
 <example>
 nginx in realloc(): warning: pointer to wrong page
@@ -102,7 +102,7 @@ or (Linux):
 Out of memory!
 Callback called exit.
 </example>
-The workaround is simple — a method’s value should be assigned
+The workaround is simple — the method’s value should be assigned
 to a variable.
 For example, the following code
 <example>
@@ -121,8 +121,8 @@ character, they are similarly returned by the <literal>$r</literal> request
 object methods (except for the <literal>$r->filename</literal> and
 <literal>$r->request_body_file</literal> methods).
 Thus, such values cannot be used as filenames and the likes.
-The workaround is similar to a previous case — the value should either be
-assigned to a variable (this results in data copying that in turn adds
+The workaround is similar to the previous case — the value should either be
+assigned to a variable (this results in data copying and adding of
 the necessary null character) or used in an expression, for example:
 <example>
 open FILE, '/path/' . $r->variable('name');
@@ -203,7 +203,7 @@ __END__
 <context>limit_except</context>
 
 <para>
-Installs a Perl handler for the given location.
+Sets a Perl handler for the given location.
 </para>
 
 </directive>
@@ -229,7 +229,7 @@ Sets an additional path for Perl modules.
 <para>
 Defines the name of a module that will be loaded during each
 reconfiguration.
-There could be several <literal>perl_require</literal> directives.
+Several <literal>perl_require</literal> directives can be present.
 </para>
 
 </directive>
@@ -284,9 +284,9 @@ returns a filename corresponding to the request URI.
 </tag-name>
 <tag-desc>
 returns 0 if there is no body in a request.
-If there is a body, the specified handler is installed
+If there is a body, the specified handler is set for the request
 and 1 is returned.
-After reading the request body, nginx will call the installed handler.
+After reading the request body, nginx will call the specified handler.
 Note that the handler function should be passed by reference.
 Example:
 <example>
@@ -332,17 +332,18 @@ enables the use of byte ranges when sending responses.
 
 <tag-name><literal>$r->discard_request_body</literal></tag-name>
 <tag-desc>
-instructs nginx to discard a request body.
+instructs nginx to discard the request body.
 </tag-desc>
 
 <tag-name><literal>$r->header_in(<value>field</value>)</literal></tag-name>
 <tag-desc>
-returns value of the specified client request header field.
+returns the value of the specified client request header field.
 </tag-desc>
 
 <tag-name><literal>$r->header_only</literal></tag-name>
 <tag-desc>
-determines should the whole response or only its header be sent to a client.
+determines whether the whole response or only its header should be sent to
+the client.
 </tag-desc>
 
 <tag-name>
@@ -358,9 +359,9 @@ sets a value for the specified response header field.
 </tag-name>
 <tag-desc>
 does an internal redirect to the specified <value>uri</value>.
-An actual redirect happens after the Perl handler has completed.
+An actual redirect happens after the Perl handler execution is completed.
 <note>
-Redirections to named locations are not currently supported.
+Redirections to named locations are currently not supported.
 </note>
 </tag-desc>
 
@@ -380,37 +381,37 @@ passes data to a client.
 
 <tag-name><literal>$r->request_body</literal></tag-name>
 <tag-desc>
-returns a client request body if it was not
+returns the client request body if it has not been
 written to a temporary file.
-To ensure that a client request body is in memory,
-its size should be limited with
+To ensure that the client request body is in memory,
+its size should be limited by
 <link doc="ngx_http_core_module.xml" id="client_max_body_size"/>,
-and a sufficient buffer size should be set with
+and a sufficient buffer size should be set using
 <link doc="ngx_http_core_module.xml" id="client_body_buffer_size"/>.
 </tag-desc>
 
 <tag-name><literal>$r->request_body_file</literal></tag-name>
 <tag-desc>
-returns the name of a file with the client request body.
-At the end of processing, the file needs to be removed.
+returns the name of the file with the client request body.
+After the processing, the file should be removed.
 To always write a request body to a file,
 <link doc="ngx_http_core_module.xml" id="client_body_in_file_only"/>
-needs to be enabled.
+should be enabled.
 </tag-desc>
 
 <tag-name><literal>$r->request_method</literal></tag-name>
 <tag-desc>
-returns client request HTTP method.
+returns the client request HTTP method.
 </tag-desc>
 
 <tag-name><literal>$r->remote_addr</literal></tag-name>
 <tag-desc>
-returns client IP address.
+returns the client IP address.
 </tag-desc>
 
 <tag-name><literal>$r->flush</literal></tag-name>
 <tag-desc>
-immediately sends data to a client.
+immediately sends data to the client.
 </tag-desc>
 
 <tag-name>
@@ -419,9 +420,9 @@ immediately sends data to a client.
     <value>length</value>]])</literal>
 </tag-name>
 <tag-desc>
-sends the specified file content to a client.
+sends the specified file content to the client.
 Optional parameters
-specify an initial offset and length of data to be transmitted.
+specify the initial offset and length of the data to be transmitted.
 The actual data transmission happens after the Perl handler
 has completed.
 </tag-desc>
@@ -430,11 +431,11 @@ has completed.
     <literal>$r->send_http_header([<value>type</value>])</literal>
 </tag-name>
 <tag-desc>
-sends the response header to a client.
-An optional <value>type</value> parameter sets the value of
+sends the response header to the client.
+The optional <value>type</value> parameter sets the value of
 the <header>Content-Type</header> response header field.
 If the value is an empty string, the <header>Content-Type</header>
-header field will not be passed.
+header field will not be sent.
 </tag-desc>
 
 <tag-name><literal>$r->status(<value>code</value>)</literal></tag-name>
@@ -500,7 +501,7 @@ returns a request URI.
     <value>value</value>])</literal>
 </tag-name>
 <tag-desc>
-returns or sets a value of the specified variable.
+returns or sets the value of the specified variable.
 Variables are local to each request.
 </tag-desc>
 

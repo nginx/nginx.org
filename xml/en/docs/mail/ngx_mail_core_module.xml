@@ -78,10 +78,10 @@ mail {
 <context>server</context>
 
 <para>
-Sets an <value>address</value> and a <value>port</value> for a socket,
+Sets the <value>address</value> and <value>port</value> for the socket
 on which the server will accept requests.
-Only port may be specified.
-An address may also be a hostname, for example:
+It is possible to specify just the port.
+The address can also be a hostname, for example:
 <example>
 listen 127.0.0.1:110;
 listen *:110;
@@ -105,14 +105,13 @@ listen unix:/var/run/nginx.sock;
 The optional <literal>bind</literal> parameter
 instructs to make a separate <c-func>bind</c-func>
 call for a given address:port pair.
-The fact is that nginx will <c-func>bind</c-func> only to
-<literal>*:</literal><value>port</value>
-if there are several <literal>listen</literal> directives with
+The fact is that if there are several <literal>listen</literal> directives with
 the same port but different addresses, and one of the
 <literal>listen</literal> directives listens on all addresses
-for the given port (<literal>*:</literal><value>port</value>).
+for the given port (<literal>*:</literal><value>port</value>), nginx will
+<c-func>bind</c-func> only to <literal>*:</literal><value>port</value>.
 It should be noted that the <c-func>getsockname</c-func> system call will be
-made in this case to determine an address that accepted a connection.
+made in this case to determine the address that accepted the connection.
 </para>
 
 <para>
@@ -129,7 +128,7 @@ Different servers must listen on different
 <context>main</context>
 
 <para>
-Provides a configuration file context in which the mail server directives
+Provides the configuration file context in which the mail server directives
 are specified.
 </para>
 
@@ -145,16 +144,16 @@ are specified.
 <context>server</context>
 
 <para>
-Sets the protocol of a proxied server.
+Sets the protocol for a proxied server.
 Supported protocols are
 <link doc="ngx_mail_imap_module.xml">IMAP</link>,
-<link doc="ngx_mail_pop3_module.xml">POP3</link> and
+<link doc="ngx_mail_pop3_module.xml">POP3</link>, and
 <link doc="ngx_mail_smtp_module.xml">SMTP</link>.
 </para>
 
 <para>
 If the directive is not set, the protocol can be detected automatically
-basing on the well-known port specified in the <link id="listen"/>
+based on the well-known port specified in the <link id="listen"/>
 directive:
 <list type="bullet">
 
@@ -190,7 +189,7 @@ parameters <literal>--without-mail_imap_module</literal>,
 <context>mail</context>
 
 <para>
-Sets a configuration for the server.
+Sets the configuration for a server.
 </para>
 
 </directive>
@@ -203,7 +202,7 @@ Sets a configuration for the server.
 <context>server</context>
 
 <para>
-Sets a name of the server, used:
+Sets the server name that is used:
 
 <list type="bullet">
 
@@ -235,9 +234,9 @@ is turned on.
 <context>server</context>
 
 <para>
-Controls if the “TCP keepalive” mode should be enabled on the client’s
-connection (<c-def>SO_KEEPALIVE</c-def> socket parameter) on the
-proxied server connection.
+Indicates if the “TCP keepalive” mode should be enabled on the client’s
+connection (<c-def>SO_KEEPALIVE</c-def> socket parameter) when connecting to
+a proxied server.
 </para>
 
 </directive>
@@ -250,7 +249,7 @@ proxied server connection.
 <context>server</context>
 
 <para>
-Sets the timeout which is used before proxying to the backend started.
+Sets the timeout that is used before proxying to the backend starts.
 </para>
 
 </directive>

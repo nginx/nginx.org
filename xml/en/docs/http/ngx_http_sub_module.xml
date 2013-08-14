@@ -53,9 +53,9 @@ location / {
 <context>location</context>
 
 <para>
-Sets a string that needs to be changed, and a replacement string.
-The string to be replaced is matched ignoring the case.
-A replacement string can contain variables.
+Sets a string to replace and a replacement string.
+The string to replace is matched ignoring the case.
+The replacement string can contain variables.
 </para>
 
 </directive>
@@ -70,7 +70,7 @@ A replacement string can contain variables.
 <appeared-in>1.5.1</appeared-in>
 
 <para>
-Allows to preserve the <header>Last-Modified</header> header field
+Allows preserving the <header>Last-Modified</header> header field
 from the original response during replacement
 to facilitate response caching.
 </para>
@@ -91,8 +91,8 @@ are modified during processing.
 <context>location</context>
 
 <para>
-Determines how many times to look for a string to be replaced,
-once or several times.
+Indicates whether to look for a string to replace once or
+several times.
 </para>
 
 </directive>

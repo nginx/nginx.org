@@ -17,8 +17,8 @@
 <para>
 The <literal>ngx_http_random_index_module</literal> module processes requests
 ending with the slash character (‘<literal>/</literal>’) and picks a random
-file in a directory as an index file.
-It works before the
+file in a directory to serve as an index file.
+The module is processed before the
 <link doc="ngx_http_index_module.xml">ngx_http_index_module</link>
 module.
 </para>

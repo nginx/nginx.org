@@ -15,7 +15,7 @@
 <section id="summary">
 
 <para>
-The <literal>ngx_http_fastcgi_module</literal> module allows to pass
+The <literal>ngx_http_fastcgi_module</literal> module allows passing
 requests to a FastCGI server.
 </para>
 
@@ -53,13 +53,13 @@ location / {
 <appeared-in>0.8.22</appeared-in>
 
 <para>
-Forces outgoing connections to a FastCGI server to originate
+Makes outgoing connections to a FastCGI server originate
 from the specified local IP <value>address</value>.
-Value of the parameter can contain variables (1.3.12).
+Parameter value can contain variables (1.3.12).
 The special value <literal>off</literal> (1.3.12) cancels the effect
 of the <literal>fastcgi_bind</literal> directive
-inherited from the previous configuration level, allowing the
-system to auto-assign local address.
+inherited from the previous configuration level, which allows the
+system to auto-assign the local IP address.
 </para>
 
 </directive>
@@ -73,7 +73,7 @@ system to auto-assign local address.
 <context>location</context>
 
 <para>
-Sets <value>size</value> of the buffer used for reading the first part
+Sets the <value>size</value> of the buffer used for reading the first part
 of a response received from the FastCGI server.
 This part usually contains a small response header.
 By default, the buffer size is equal to the size of one
@@ -115,7 +115,7 @@ can be busy sending a response to the client while the response is not
 yet fully read.
 In the mean time, the rest of the buffers can be used for reading a response
 and, if needed, buffering part of a response to a temporary file.
-By default, <value>size</value> is limited by two buffers set by the
+By default, <value>size</value> is limited by the size of two buffers set by the
 <link id="fastcgi_buffer_size"/> and <link id="fastcgi_buffers"/> directives.
 </para>
 
@@ -190,7 +190,7 @@ When enabled, only one request at a time will be allowed to populate
 a new cache element identified according to the <link id="fastcgi_cache_key"/>
 directive by passing a request to a FastCGI server.
 Other requests of the same cache element will either wait
-for a response to appear in the cache, or the cache lock for
+for a response to appear in the cache or the cache lock for
 this element to be released, up to the time set by the
 <link id="fastcgi_cache_lock_timeout"/> directive.
 </para>
@@ -265,7 +265,7 @@ will be cached.
 <context>http</context>
 
 <para>
-Sets path and other parameters of a cache.
+Sets the path and other parameters of a cache.
 Cache data are stored in files.
 Both the key and file name in a cache are a result of
 applying the MD5 function to the proxied URL.
@@ -282,12 +282,14 @@ file names in a cache will look like this:
 </para>
 
 <para>
-A cached response is first written to a temporary file, then a file is renamed.
-Starting from version 0.8.9 temporary files and the cache can be put on
-different file systems but be aware that in this case a file is copied
-across two file systems instead of the cheap rename operation.
+A cached response is first written to a temporary file,
+and then the file is renamed.
+Starting from version 0.8.9, temporary files and the cache can be put on
+different file systems.
+However, be aware that in this case a file is copied
+across two file systems instead of the cheap renaming operation.
 It is thus recommended that for any given location both cache and a directory
-holding temporary files set by the <link id="fastcgi_temp_path"/> directive
+holding temporary files, set by the <link id="fastcgi_temp_path"/> directive,
 are put on the same file system.
 </para>
 
@@ -302,22 +304,22 @@ By default, <literal>inactive</literal> is set to 10 minutes.
 </para>
 
 <para>
-The special process “cache manager” monitors the maximum cache size set
-by the <literal>max_size</literal> parameter;
-when this size is exceeded it removes the least recently used data.
+The special “cache manager” process monitors the maximum cache size set
+by the <literal>max_size</literal> parameter.
+When this size is exceeded, it removes the least recently used data.
 </para>
 
 <para>
-A minute after the start the special process “cache loader” is activated
-that loads information about previously cached data stored on file system
+A minute after the start the special “cache loader” process is activated.
+It loads information about previously cached data stored on file system
 into a cache zone.
-A load is done in iterations.
+The loading is done in iterations.
 During one iteration no more than <literal>loader_files</literal> items
 are loaded (by default, 100).
 Besides, the duration of one iteration is limited by the
 <literal>loader_threshold</literal> parameter (by default, 200 milliseconds).
-A pause is made between iterations, configured by the
-<literal>loader_sleep</literal> parameter (by default, 50 milliseconds).
+Between iterations, a pause configured by the <literal>loader_sleep</literal>
+parameter (by default, 50 milliseconds) is made.
 </para>
 
 </directive>
@@ -341,17 +343,16 @@ A pause is made between iterations, configured by the
 <context>location</context>
 
 <para>
-If an error occurs while working with the FastCGI server it is possible
-to use a stale cached response.
-This directives determines in which cases it is permitted.
-The directive’s parameters match those of the
+Determines in which cases a stale cached response can be used
+when an error occurs during communication with the FastCGI server.
+The directive’s parameters match the parameters of the
 <link id="fastcgi_next_upstream"/> directive.
 </para>
 
 <para>
 Additionally, the <literal>updating</literal> parameter permits
-to use a stale cached response if it is currently being updated.
-This allows to minimize the number of accesses to FastCGI servers
+using a stale cached response if it is currently being updated.
+This allows minimizing the number of accesses to FastCGI servers
 when updating cached data.
 </para>
 
@@ -378,7 +379,7 @@ For example, the following directives
 fastcgi_cache_valid 200 302 10m;
 fastcgi_cache_valid 404      1m;
 </example>
-set 10 minutes of caching for responses with codes 200 and 302,
+set 10 minutes of caching for responses with codes 200 and 302
 and 1 minute for responses with code 404.
 </para>
 
@@ -391,8 +392,8 @@ then only 200, 301, and 302 responses are cached.
 </para>
 
 <para>
-In addition, it can be specified to cache any responses using the
-<literal>any</literal> parameter:
+In addition, the <literal>any</literal> parameter can be specified
+to cache any responses:
 <example>
 fastcgi_cache_valid 200 302 10m;
 fastcgi_cache_valid 301      1h;
@@ -403,11 +404,11 @@ fastcgi_cache_valid any      1m;
 <para>
 Parameters of caching can also be set directly
 in the response header.
-This has a higher precedence than setting of caching time using the directive.
+This has higher priority than setting of caching time using the directive.
 The <header>X-Accel-Expires</header> header field sets caching time of a
 response in seconds.
-The value 0 disables to cache a response.
-If a value starts with the prefix <literal>@</literal>, it sets an absolute
+The zero value disables caching for a response.
+If a value starts with the <literal>@</literal> prefix, it sets an absolute
 time in seconds since Epoch, up to which the response may be cached.
 If header does not include the <header>X-Accel-Expires</header> field,
 parameters of caching may be set in the header fields
@@ -432,8 +433,8 @@ using the <link id="fastcgi_ignore_headers"/> directive.
 Sets a string to search for in the error stream of a response
 received from a FastCGI server.
 If the <value>string</value> is found then it is considered that the FastCGI
-server returned an <link id="fastcgi_next_upstream">invalid response</link>.
-This allows to handle application errors in nginx, for example:
+server has returned an <link id="fastcgi_next_upstream">invalid response</link>.
+This allows handling application errors in nginx, for example:
 <example>
 location /php {
     fastcgi_pass backend:9000;
@@ -455,7 +456,7 @@ location /php {
 <context>location</context>
 
 <para>
-Defines a timeout for establishing a connection with the FastCGI server.
+Defines a timeout for establishing a connection with a FastCGI server.
 It should be noted that this timeout cannot usually exceed 75 seconds.
 </para>
 
@@ -472,7 +473,7 @@ It should be noted that this timeout cannot usually exceed 75 seconds.
 <para>
 By default,
 nginx does not pass the header fields <header>Status</header> and
-<header>X-Accel-...</header> from the response of the FastCGI
+<header>X-Accel-...</header> from the response of a FastCGI
 server to a client.
 The <literal>fastcgi_hide_header</literal> directive sets additional fields
 that will not be passed.
@@ -491,8 +492,8 @@ the <link id="fastcgi_pass_header"/> directive can be used.
 <context>location</context>
 
 <para>
-Determines should the connection with the FastCGI server be
-closed if a client closes a connection without waiting
+Determines whether the connection with a FastCGI server should be
+closed when a client closes a connection without waiting
 for a response.
 </para>
 
@@ -516,13 +517,14 @@ The following fields can be ignored: <header>X-Accel-Redirect</header>,
 </para>
 
 <para>
-If not disabled, processing of these header fields has the following effect:
+If not disabled, processing of these header fields has the following
+effect:
 <list type="bullet" compact="no">
 
 <listitem>
 <header>X-Accel-Expires</header>, <header>Expires</header>,
 <header>Cache-Control</header>, and <header>Set-Cookie</header>
-set parameters of response <link id="fastcgi_cache_valid">caching</link>;
+set the parameters of response <link id="fastcgi_cache_valid">caching</link>;
 </listitem>
 
 <listitem>
@@ -532,7 +534,7 @@ redirect</link> to the specified URI;
 </listitem>
 
 <listitem>
-<header>X-Accel-Limit-Rate</header> sets a
+<header>X-Accel-Limit-Rate</header> sets the
 <link doc="ngx_http_core_module.xml" id="limit_rate">rate
 limit</link> for transmission of a response to a client;
 </listitem>
@@ -589,7 +591,7 @@ and with the “<literal>/</literal>” request it will be equal to
 <para>
 Determines whether FastCGI server responses with codes greater than or equal
 to 300 should be passed to a client or be redirected to nginx for processing
-using the <link doc="ngx_http_core_module.xml" id="error_page"/> directive.
+with the <link doc="ngx_http_core_module.xml" id="error_page"/> directive.
 </para>
 
 </directive>
@@ -606,9 +608,9 @@ using the <link doc="ngx_http_core_module.xml" id="error_page"/> directive.
 <para>
 By default, a FastCGI server will close a connection right after
 sending the response.
-When set to the value <literal>on</literal>, nginx will instruct
-a FastCGI server to keep connections open.
-This in particular is necessary for
+However, when this directive is set to the value <literal>on</literal>,
+nginx will instruct a FastCGI server to keep connections open.
+This is necessary, in particular, for
 <link doc="ngx_http_upstream_module.xml" id="keepalive"/>
 connections to FastCGI servers to function.
 </para>
@@ -624,16 +626,16 @@ connections to FastCGI servers to function.
 <context>location</context>
 
 <para>
-When the whole response does not fit into memory buffers
+When the whole response does not fit into the memory buffers
 set by the <link id="fastcgi_buffer_size"/> and <link id="fastcgi_buffers"/>
-directives, part of a response can be saved to a temporary file.
+directives, a part of the response can be saved to a temporary file.
 This directive sets the maximum <value>size</value> of a temporary file.
 The size of data written to a temporary file at a time is set
 by the <link id="fastcgi_temp_file_write_size"/> directive.
 </para>
 
 <para>
-Value of zero disables buffering of responses to temporary files.
+The zero value disables buffering of responses to temporary files.
 </para>
 
 </directive>
@@ -661,14 +663,14 @@ Specifies in which cases a request should be passed to the next server:
 
 <tag-name><literal>error</literal></tag-name>
 <tag-desc>an error occurred while establishing a connection with the
-server, passing it a request, or reading the response header;</tag-desc>
+server, passing a request to it, or reading the response header;</tag-desc>
 
 <tag-name><literal>timeout</literal></tag-name>
 <tag-desc>a timeout has occurred while establishing a connection with the
-server, passing it a request, or reading the response header;</tag-desc>
+server, passing a request to it, or reading the response header;</tag-desc>
 
 <tag-name><literal>invalid_header</literal></tag-name>
-<tag-desc>a server returned empty or invalid response;</tag-desc>
+<tag-desc>a server returned an empty or invalid response;</tag-desc>
 
 <tag-name><literal>http_500</literal></tag-name>
 <tag-desc>a server returned a response with the code 500;</tag-desc>
@@ -689,10 +691,10 @@ server, passing it a request, or reading the response header;</tag-desc>
 </para>
 
 <para>
-It should be understood that passing a request to the next server is
-only possible if a client was not sent anything yet.
-That is, if an error or a timeout occurs in the middle of
-transferring a response, fixing this is impossible.
+One should bear in mind that passing a request to the next server is
+only possible if nothing has been sent to a client yet.
+That is, if an error or timeout occurs in the middle of the
+transferring of a response, fixing this is impossible.
 </para>
 
 <para>
@@ -801,9 +803,9 @@ fastcgi_param HTTPS           $https if_not_empty;
 <context>if in location</context>
 
 <para>
-Sets an address of the FastCGI server.
-An address can be specified as a domain name or an address, and a port,
-for example,
+Sets the address of a FastCGI server.
+The address can be specified as a domain name or IP address,
+and an optional port:
 <example>
 fastcgi_pass localhost:9000;
 </example>
@@ -831,8 +833,8 @@ In addition, an address can be specified as a
 <context>location</context>
 
 <para>
-Permits to pass <link id="fastcgi_hide_header">otherwise disabled</link> header
-fields from the FastCGI server to a client.
+Permits passing <link id="fastcgi_hide_header">otherwise disabled</link> header
+fields from a FastCGI server to a client.
 </para>
 
 </directive>
@@ -847,7 +849,7 @@ fields from the FastCGI server to a client.
 
 <para>
 Defines a timeout for reading a response from the FastCGI server.
-A timeout is only set between two successive read operations,
+A timeout is set only between two successive read operations,
 not for the transmission of the whole response.
 If a FastCGI server does not transmit anything within this time,
 a connection is closed.
@@ -864,7 +866,7 @@ a connection is closed.
 <context>location</context>
 
 <para>
-If disabled, the original request body will not be passed
+Indicates whether the original request body is passed
 to the FastCGI server.
 See also the <link id="fastcgi_pass_request_headers"/> directive.
 </para>
@@ -880,8 +882,8 @@ See also the <link id="fastcgi_pass_request_headers"/> directive.
 <context>location</context>
 
 <para>
-If disabled, header fields of the original request will not be passed to the
-FastCGI server.
+Indicates whether the header fields of the original request are passed
+to the FastCGI server.
 See also the <link id="fastcgi_pass_request_body"/> directive.
 </para>
 
@@ -896,7 +898,8 @@ See also the <link id="fastcgi_pass_request_body"/> directive.
 <context>location</context>
 
 <para>
-If set to a non-zero value, nginx will try to minimize the number
+If the directive is set to a non-zero value, nginx will try to
+minimize the number
 of send operations on outgoing connections to a FastCGI server by using either
 <c-def>NOTE_LOWAT</c-def> flag of the
 <link doc="../events.xml" id="kqueue"/> method,
@@ -920,7 +923,7 @@ This directive is ignored on Linux, Solaris, and Windows.
 
 <para>
 Sets a timeout for transmitting a request to the FastCGI server.
-A timeout is only set between two successive write operations,
+A timeout is set only between two successive write operations,
 not for the transmission of the whole request.
 If a FastCGI server does not receive anything within this time,
 a connection is closed.
@@ -937,7 +940,7 @@ a connection is closed.
 <para>
 Defines a regular expression that captures a value for the
 <var>$fastcgi_path_info</var> variable.
-A regular expression should have two captures, the first becomes
+A regular expression should have two captures: the first becomes
 a value of the <var>$fastcgi_script_name</var> variable, the second
 becomes a value of the <var>$fastcgi_path_info</var> variable.
 For example, with these settings
@@ -984,13 +987,14 @@ fastcgi_store /data/www$original_uri;
 <para>
 The modification time of files is set according to the received
 <header>Last-Modified</header> response header field.
-A response is first written to a temporary file, then a file is renamed.
-Starting from version 0.8.9 temporary files and the persistent store
-can be put on different file systems but be aware that in this case
-a file is copied across two file systems instead of the cheap rename operation.
+A response is first written to a temporary file, and then the file is renamed.
+Starting from version 0.8.9, temporary files and the persistent store
+can be put on different file systems.
+However, be aware that in this case a file is copied
+across two file systems instead of the cheap renaming operation.
 It is thus recommended that for any given location both saved files and a
-directory holding temporary files set by the <link id="fastcgi_temp_path"/>
-directive are put on the same file system.
+directory holding temporary files, set by the <link id="fastcgi_temp_path"/>
+directive, are put on the same file system.
 </para>
 
 <para>
@@ -1105,7 +1109,7 @@ In applications and scripts running as FastCGI servers,
 these parameters are usually made available as environment variables.
 For example, the <header>User-Agent</header> header field is passed as the
 <literal>HTTP_USER_AGENT</literal> parameter.
-In addition to HTTP request header fields it is possible to pass arbitrary
+In addition to HTTP request header fields, it is possible to pass arbitrary
 parameters using the <link id="fastcgi_param"/> directive.
 </para>
 
@@ -1138,7 +1142,7 @@ the <literal>SCRIPT_FILENAME</literal> parameter will be equal to
 
 <para>
 When using the <link id="fastcgi_split_path_info"/> directive,
-the <var>$fastcgi_script_name</var> variable equals to the value of
+the <var>$fastcgi_script_name</var> variable equals the value of
 the first capture set by the directive.
 </para>
 </tag-desc>

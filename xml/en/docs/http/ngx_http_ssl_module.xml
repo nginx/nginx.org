@@ -47,11 +47,11 @@ enable keep-alive connections,
 </listitem>
 
 <listitem>
-enable shared session cache,
+enable the shared session cache,
 </listitem>
 
 <listitem>
-disable built-in session cache,
+disable the built-in session cache,
 </listitem>
 
 <listitem>
@@ -113,7 +113,7 @@ of this directive.
 <context>server</context>
 
 <para>
-Specifies a <value>file</value> with a certificate in the PEM format
+Specifies a <value>file</value> with the certificate in the PEM format
 for the given virtual server.
 If intermediate certificates should be specified in addition
 to a primary certificate, they should be specified in the same file
@@ -156,7 +156,7 @@ will be issued for the second site.
 <context>server</context>
 
 <para>
-Specifies a <value>file</value> with a secret key in the PEM format
+Specifies a <value>file</value> with the secret key in the PEM format
 for the given virtual server.
 </para>
 
@@ -271,13 +271,13 @@ ciphers when using the SSLv3 and TLS protocols.
 
 <para>
 Enables the specified protocols.
-The parameters <literal>TLSv1.1</literal> and <literal>TLSv1.2</literal> work
-only when using the OpenSSL library version 1.0.1 and higher.
+The <literal>TLSv1.1</literal> and <literal>TLSv1.2</literal> parameters work
+only when the OpenSSL library of version 1.0.1 or higher is used.
 <note>
-The parameters <literal>TLSv1.1</literal> and <literal>TLSv1.2</literal> are
-supported starting from versions 1.1.13 and 1.0.12
-so when using OpenSSL version 1.0.1
-and higher on older nginx versions these protocols will work but could not
+The <literal>TLSv1.1</literal> and <literal>TLSv1.2</literal> parameters are
+supported starting from versions 1.1.13 and 1.0.12,
+so when the OpenSSL version 1.0.1 or higher
+is used on older nginx versions, these protocols work, but cannot
 be disabled.
 </note>
 </para>
@@ -296,21 +296,21 @@ be disabled.
 <context>server</context>
 
 <para>
-Sets types and sizes of caches that store session parameters.
-A cache can be any of the following types:
+Sets the types and sizes of caches that store session parameters.
+A cache can be of any of the following types:
 <list type="tag">
 
 <tag-name><literal>off</literal></tag-name>
 <tag-desc>
-the use of session cache is strictly prohibited:
+the use of a session cache is strictly prohibited:
 nginx explicitly tells a client that sessions may not be reused.
 </tag-desc>
 
 <tag-name><literal>none</literal></tag-name>
 <tag-desc>
-the use of session cache is gently disallowed:
+the use of a session cache is gently disallowed:
 nginx tells a client that sessions may be reused, but does not
-actually do that.
+actually store session parameters in the cache.
 </tag-desc>
 
 <tag-name><literal>builtin</literal></tag-name>
@@ -323,7 +323,7 @@ Use of the built-in cache can cause memory fragmentation.
 
 <tag-name><literal>shared</literal></tag-name>
 <tag-desc>
-shared between all worker processes.
+a cache shared between all worker processes.
 The cache size is specified in bytes; one megabyte can store
 about 4000 sessions.
 Each shared cache should have an arbitrary name.
@@ -378,19 +378,19 @@ resolver 192.0.2.1;
 </para>
 
 <para>
-For the OCSP stapling to work, the certificate of the issuer of the server
-certificate should be known.
+For the OCSP stapling to work, the certificate of the server certificate
+issuer should be known.
 If the <link id="ssl_certificate"/> file does
 not contain intermediate certificates,
-the certificate of the issuer of the server certificate should be
+the certificate of the server certificate issuer should be
 present in the
 <link id="ssl_trusted_certificate"/> file.
 </para>
 
 <para>
-The <link doc="ngx_http_core_module.xml" id="resolver"/> directive
-should also be specified to allow for a resolution
-of an OCSP responder hostname.
+For a resolution of the OCSP responder hostname,
+the <link doc="ngx_http_core_module.xml" id="resolver"/> directive
+should also be specified.
 </para>
 
 </directive>
@@ -425,7 +425,7 @@ The file should be in the DER format as produced by the
 <appeared-in>1.3.7</appeared-in>
 
 <para>
-Overrides the URL of OCSP responder specified in the
+Overrides the URL of the OCSP responder specified in the
 “<link url="http://tools.ietf.org/html/rfc5280#section-4.2.2.1">Authority
 Information Access</link>” certificate extension.
 </para>
@@ -452,8 +452,8 @@ Enables or disables verification of OCSP responses by the server.
 </para>
 
 <para>
-For verification to work, the certificate of the issuer of the server
-certificate, the root certificate, and all intermediate certificates
+For verification to work, the certificate of the server certificate
+issuer, the root certificate, and all intermediate certificates
 should be configured as trusted using the
 <link id="ssl_trusted_certificate"/> directive.
 </para>
@@ -475,8 +475,8 @@ OCSP responses if <link id="ssl_stapling"/> is enabled.
 </para>
 
 <para>
-In contrast to <link id="ssl_client_certificate"/>, the list of these
-certificates will not be sent to clients.
+In contrast to the certificate set by <link id="ssl_client_certificate"/>,
+the list of these certificates will not be sent to clients.
 </para>
 
 </directive>
@@ -492,22 +492,22 @@ certificates will not be sent to clients.
 
 <para>
 Enables verification of client certificates.
-The result of verification is stored in the
+The verification result is stored in the
 <var>$ssl_client_verify</var> variable.
 </para>
 
 <para>
 The <literal>optional</literal> parameter (0.8.7+) requests the client
-certificate, and if certificate was present, verifies it.
+certificate and verifies it if the certificate is present.
 </para>
 
 <para>
 The <literal>optional_no_ca</literal> parameter (1.3.8, 1.2.5)
 requests the client
 certificate but does not require it to be signed by a trusted CA certificate.
-This is intended for the use in cases where actual certificate verification
-is performed by a service that is external to nginx.
-The contents of a certificate is made available through the
+This is intended for the use in cases when a service that is external to nginx
+performs the actual certificate verification.
+The contents of the certificate is accessible through the
 <var>$ssl_client_cert</var> variable.
 </para>
 
@@ -521,7 +521,7 @@ The contents of a certificate is made available through the
 <context>server</context>
 
 <para>
-Sets a verification depth in the client certificates chain.
+Sets the verification depth in the client certificates chain.
 </para>
 
 </directive>
@@ -544,21 +544,21 @@ an error has occurred during the client certificate verification;
 
 <tag-name>496</tag-name>
 <tag-desc>
-a client did not present the required certificate;
+a client has not presented the required certificate;
 </tag-desc>
 
 <tag-name>497</tag-name>
 <tag-desc>
-a regular request was sent to the HTTPS port.
+a regular request has been sent to the HTTPS port.
 </tag-desc>
 
 </list>
 </para>
 
 <para>
-A redirection happens after the request was fully parsed and
-variables such as <var>$request_uri</var>,
-<var>$uri</var>, <var>$args</var> and others were made available.
+The redirection happens after the request is fully parsed and
+the variables, such as <var>$request_uri</var>,
+<var>$uri</var>, <var>$args</var> and others, are available.
 </para>
 
 </section>

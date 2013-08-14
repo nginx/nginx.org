@@ -48,12 +48,12 @@ location / {
 <appeared-in>0.8.22</appeared-in>
 
 <para>
-Makes outgoing connections to a proxied server to originate
+Makes outgoing connections to a proxied server originate
 from the specified local IP <value>address</value>.
-Value of the parameter can contain variables (1.3.12).
+Parameter value can contain variables (1.3.12).
 The special value <literal>off</literal> (1.3.12) cancels the effect
 of the <literal>proxy_bind</literal> directive
-inherited from the previous configuration level, allowing the
+inherited from the previous configuration level, which allows the
 system to auto-assign the local IP address.
 </para>
 
@@ -324,9 +324,10 @@ file names in a cache will look like this:
 
 <para>
 A cached response is first written to a temporary file,
-then the file is renamed.
+and then the file is renamed.
 Starting from version 0.8.9, temporary files and the cache can be put on
-different file systems, but be aware that in this case a file is copied
+different file systems.
+However, be aware that in this case a file is copied
 across two file systems instead of the cheap renaming operation.
 It is thus recommended that for any given location both cache and a directory
 holding temporary files, set by the <link id="proxy_temp_path"/> directive,
@@ -386,7 +387,7 @@ parameter (by default, 50 milliseconds) is made.
 
 <para>
 Determines in which cases a stale cached response can be used
-when an error occurs in working with the proxied server.
+when an error occurs during communication with the proxied server.
 The directive’s parameters match the parameters of the
 <link id="proxy_next_upstream"/> directive.
 </para>
@@ -421,7 +422,7 @@ For example, the following directives
 proxy_cache_valid 200 302 10m;
 proxy_cache_valid 404      1m;
 </example>
-set 10 minutes of caching for responses with codes 200 and 302,
+set 10 minutes of caching for responses with codes 200 and 302
 and 1 minute for responses with code 404.
 </para>
 
@@ -449,7 +450,7 @@ in the response header.
 This has higher priority than setting of caching time using the directive.
 The <header>X-Accel-Expires</header> header field sets caching time of a
 response in seconds.
-The 0 value disables caching for a response.
+The zero value disables caching for a response.
 If a value starts with the <literal>@</literal> prefix, it sets an absolute
 time in seconds since Epoch, up to which the response may be cached.
 If header does not include the <header>X-Accel-Expires</header> field,
@@ -775,7 +776,7 @@ of a response.
 <para>
 Determines whether proxied responses with codes greater than or equal
 to 300 should be passed to a client or be redirected to nginx for processing
-by the <link doc="ngx_http_core_module.xml" id="error_page"/> directive.
+with the <link doc="ngx_http_core_module.xml" id="error_page"/> directive.
 </para>
 
 </directive>
@@ -792,7 +793,7 @@ by the <link doc="ngx_http_core_module.xml" id="error_page"/> directive.
 When <link id="proxy_buffering">buffering</link> of responses from the proxied
 server is enabled, and the whole response does not fit into the memory buffers
 set by the <link id="proxy_buffer_size"/> and <link id="proxy_buffers"/>
-directives, a part of a response can be saved to a temporary file.
+directives, a part of the response can be saved to a temporary file.
 This directive sets the maximum <value>size</value> of a temporary file.
 The size of data written to a temporary file at a time is set
 by the <link id="proxy_temp_file_write_size"/> directive.
@@ -1072,7 +1073,7 @@ fields from a proxied server to a client.
 
 <para>
 Defines a timeout for reading a response from the proxied server.
-A timeout is only set between two successive read operations,
+A timeout is set only between two successive read operations,
 not for the transmission of the whole response.
 If a proxied server does not transmit anything within this time,
 a connection is closed.
@@ -1089,7 +1090,7 @@ a connection is closed.
 <context>location</context>
 
 <para>
-Allows disabling a passing of the original request body
+Indicates whether the original request body is passed
 to the proxied server.
 <example>
 location /x-accel-redirect-here/ {
@@ -1115,7 +1116,7 @@ See also the <link id="proxy_set_header"/> and
 <context>location</context>
 
 <para>
-Allows disabling a passing of the header fields of the original request
+Indicates whether the header fields of the original request are passed
 to the proxied server.
 <example>
 location /x-accel-redirect-here/ {
@@ -1277,7 +1278,7 @@ This directive is ignored on Linux, Solaris, and Windows.
 
 <para>
 Sets a timeout for transmitting a request to the proxied server.
-A timeout is only set between two successive write operations,
+A timeout is set only between two successive write operations,
 not for the transmission of the whole request.
 If a proxied server does not receive anything within this time,
 a connection is closed.
@@ -1406,14 +1407,14 @@ proxy_store /data/www$original_uri;
 <para>
 The modification time of files is set according to the received
 <header>Last-Modified</header> response header field.
-A response is first written to a temporary file, then a file is renamed.
+A response is first written to a temporary file, and then the file is renamed.
 Starting from version 0.8.9, temporary files and the persistent store
-can be put on different file systems, but be aware that in this case
-a file is copied across two file systems instead of the cheap renaming
-operation.
+can be put on different file systems.
+However, be aware that in this case a file is copied
+across two file systems instead of the cheap renaming operation.
 It is thus recommended that for any given location both saved files and a
-directory holding temporary files set by the <link id="proxy_temp_path"/>
-directive are put on the same file system.
+directory holding temporary files, set by the <link id="proxy_temp_path"/>
+directive, are put on the same file system.
 </para>
 
 <para>

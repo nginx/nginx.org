@@ -15,9 +15,9 @@
 <section id="summary">
 
 <para>
-The <literal>ngx_http_headers_module</literal> module allows to emit
+The <literal>ngx_http_headers_module</literal> module allows adding
 the <header>Expires</header> and <header>Cache-Control</header> header
-fields, and to add arbitrary fields to a response header.
+fields, and arbitrary fields, to a response header.
 </para>
 
 </section>

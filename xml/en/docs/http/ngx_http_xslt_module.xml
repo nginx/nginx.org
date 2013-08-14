@@ -59,12 +59,12 @@ location / {
 
 <para>
 Specifies the DTD file that declares character entities.
-This file is compiled during the configuration stage.
-For technical reasons the module is unable to use the
+This file is compiled at the configuration stage.
+For technical reasons, the module is unable to use the
 external subset declared in the processed XML, so it is
-ignored and instead a specially defined file is used.
-This file should not describe the XML structure, it is
-enough to only declare the required character entities, for example:
+ignored and a specially defined file is used instead.
+This file should not describe the XML structure.
+It is enough to declare just the required character entities, for example:
 <example>
 &lt;!ENTITY nbsp "&amp;#xa0;"&gt;
 </example>
@@ -82,7 +82,7 @@ enough to only declare the required character entities, for example:
 <appeared-in>1.5.1</appeared-in>
 
 <para>
-Allows to preserve the <header>Last-Modified</header> header field
+Allows preserving the <header>Last-Modified</header> header field
 from the original response during XSLT transformations
 to facilitate response caching.
 </para>
@@ -105,7 +105,7 @@ elements or parts that are changed independently of the original response.
 <appeared-in>1.1.18</appeared-in>
 
 <para>
-Defines parameters for XSLT stylesheets.
+Defines the parameters for XSLT stylesheets.
 The <value>value</value> is treated as an XPath expression.
 The <value>value</value> can contain variables.
 To pass a string value to a stylesheet,
@@ -132,7 +132,7 @@ directives defined on the current level.
 <appeared-in>1.1.18</appeared-in>
 
 <para>
-Defines string parameters for XSLT stylesheets.
+Defines the string parameters for XSLT stylesheets.
 XPath expressions in the <value>value</value> are not interpreted.
 The <value>value</value> can contain variables.
 </para>
@@ -157,7 +157,7 @@ directives defined on the current level.
 
 <para>
 Defines the XSLT stylesheet and its optional parameters.
-A stylesheet is compiled during the configuration stage.
+A stylesheet is compiled at the configuration stage.
 </para>
 
 <para>
@@ -174,7 +174,7 @@ param1='http%3A//www.example.com':param2=value2
 </para>
 
 <para>
-The description of parameters can contain variables, for example,
+The parameters description can contain variables, for example,
 the whole line of parameters can be taken from a single variable:
 <example>
 location / {
@@ -187,8 +187,8 @@ location / {
 </para>
 
 <para>
-It is possible to specify several stylesheets; in this case they
-will be applied sequentially in the specified order.
+It is possible to specify several stylesheets.
+They will be applied sequentially in the specified order.
 </para>
 
 </directive>
@@ -205,8 +205,8 @@ will be applied sequentially in the specified order.
 Enables transformations in responses with the specified MIME types
 in addition to “<literal>text/xml</literal>”.
 The special value “<literal>*</literal>” matches any MIME type (0.8.29).
-If the result of transformation is an HTML response, its MIME type
-is changes to “<literal>text/html</literal>”.
+If the transformation result is an HTML response, its MIME type
+is changed to “<literal>text/html</literal>”.
 </para>
 
 </directive>

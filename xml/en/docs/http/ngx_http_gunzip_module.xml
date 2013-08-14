@@ -19,7 +19,7 @@ The <literal>ngx_http_gunzip_module</literal> module is a filter that
 decompresses responses with “<literal>Content-Encoding: gzip</literal>”
 for clients that do not support “gzip” encoding method.
 The module will be useful when it is desirable to store
-data compressed, to save space and reduce I/O costs.
+data compressed to save space and reduce I/O costs.
 </para>
 
 <para>

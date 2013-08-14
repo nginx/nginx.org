@@ -62,8 +62,8 @@ split_clients "${remote_addr}AAA" $variant {
 </example>
 The value of the original string is hashed using MurmurHash2.
 In the example given, hash values from 0 to 21474835 (0.5%)
-correspond to the <var>$variant</var> variable taking the
-value <literal>".one"</literal>,
+correspond to the
+value <literal>".one"</literal> of the <var>$variant</var> variable,
 hash values from 21474836 to 107374180 (2%) correspond to
 the value <literal>".two"</literal>,
 and hash values from 107374181 to 4294967295 correspond to
