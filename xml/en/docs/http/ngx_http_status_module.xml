@@ -288,9 +288,6 @@ if the last health check request was successful and passed
 </list>
 </tag-desc>
 
-</list>
-</tag-desc>
-
 <tag-name><literal>downtime</literal></tag-name>
 <tag-desc>
 Total time
@@ -304,6 +301,9 @@ The time (in milliseconds since Epoch)
 when the server became
 “<literal>unavail</literal>”
 or “<literal>unhealthy</literal>”.
+</tag-desc>
+
+</list>
 </tag-desc>
 
 </list>
