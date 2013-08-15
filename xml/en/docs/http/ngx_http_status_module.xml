@@ -174,6 +174,11 @@ An address of the
 <link doc="ngx_http_upstream_module.xml" id="server"/>.
 </tag-desc>
 
+<tag-name><literal>backup</literal></tag-name>
+<tag-desc>
+Boolean indicating if the server is a backup server.
+</tag-desc>
+
 <tag-name><literal>weight</literal></tag-name>
 <tag-desc>
 Weight of the
