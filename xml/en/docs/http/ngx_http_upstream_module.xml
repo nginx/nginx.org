@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="8">
+        rev="9">
 
 <section id="summary">
 
@@ -217,6 +217,12 @@ upstream backend {
     server backup1.example.com:8080 backup;
 }
 </example>
+
+<note>
+If there is only a single server in a group, <literal>max_fails</literal>,
+<literal>fail_timeout</literal> and <literal>slow_start</literal> parameters
+are ignored, and such a server will never be considered unavailable.
+</note>
 </para>
 
 </directive>
