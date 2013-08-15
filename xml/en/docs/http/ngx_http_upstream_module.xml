@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="7">
+        rev="8">
 
 <section id="summary">
 
@@ -149,7 +149,7 @@ sets the weight of the server, by default, 1.
 <tag-desc>
 sets the number of unsuccessful attempts to communicate with the server
 that should happen in the duration set by the <literal>fail_timeout</literal>
-parameter to consider the server down for a duration also set by the
+parameter to consider the server unavailable for a duration also set by the
 <literal>fail_timeout</literal> parameter.
 By default, the number of unsuccessful attempts is set to 1.
 The zero value disables the accounting of attempts.
@@ -167,11 +167,11 @@ sets
 
 <listitem>
 the time during which the specified number of unsuccessful attempts to
-communicate with the server should happen to consider the server down;
+communicate with the server should happen to consider the server unavailable;
 </listitem>
 
 <listitem>
-and the period of time the server will be considered down.
+and the period of time the server will be considered unavailable.
 </listitem>
 
 </list>
@@ -184,7 +184,7 @@ sets the <value>time</value> during which the server will recover its weight
 from zero to a nominal value, when unhealthy server becomes
 <link id="health_check">healthy</link>,
 or when the server becomes available after a period of time
-it was considered down.
+it was considered unavailable.
 Default value is zero, i.e. slow start is disabled.
 <note>
 This functionality is available as part of our <commercial_version/> only.
@@ -194,12 +194,12 @@ This functionality is available as part of our <commercial_version/> only.
 <tag-name><literal>backup</literal></tag-name>
 <tag-desc>
 marks the server as a backup server.
-It will be passed requests when the primary servers are down.
+It will be passed requests when the primary servers are unavailable.
 </tag-desc>
 
 <tag-name><literal>down</literal></tag-name>
 <tag-desc>
-marks the server as permanently down; used along with
+marks the server as permanently unavailable; used along with
 the <link id="ip_hash"/> directive.
 </tag-desc>
 
@@ -257,7 +257,7 @@ are distributed between servers based on client IP addresses.
 The first three octets of the client IPv4 address, or the entire IPv6 address,
 are used as a hashing key.
 The method ensures that requests from the same client will always be
-passed to the same server except when this server is considered down.
+passed to the same server except when this server is unavailable.
 In the latter case client requests will be passed to another server.
 Most probably, it will always be the same server as well.
 <note>
@@ -936,7 +936,7 @@ http://127.0.0.1/upstream_conf?add=&amp;upstream=appservers&amp;backup=&amp;serv
 
 To add a new primary server to the group,
 set its parameters to non-default values
-and mark it as “<literal>down</literal>” by sending:
+and mark it as “<literal>down</literal>”, send:
 <example>
 http://127.0.0.1/upstream_conf?add=&amp;upstream=appservers&amp;server=127.0.0.1:8080&amp;weight=2&amp;max_fails=3&amp;fail_timeout=3s&amp;down=
 </example>
