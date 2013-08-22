@@ -6,7 +6,7 @@
 
 <!DOCTYPE article SYSTEM "../../../dtd/article.dtd">
 
-<article name="Setting up NGINX SE environment on Amazon EC2"
+<article name="Setting up NGINX Plus environment on Amazon EC2"
          link="/en/docs/howto_setup_development_environment_on_ec2.html"
          lang="en"
          rev="2">
@@ -37,20 +37,20 @@ These images contain the following components:
 
 <listitem>
 Latest version of
-<link url="http://nginx.com/products/">NGINX SE</link>
+<link url="http://nginx.com/products/">NGINX Plus</link>
 optimized for use with AWS.
 </listitem>
 
 <listitem>
 A set of pre-packaged software to build highly
-available <link url="http://nginx.com/products/">NGINX SE</link>
+available <link url="http://nginx.com/products/">NGINX Plus</link>
 configurations.
 </listitem>
 
 <listitem>
 Helper script used to install and configure typical
 development environments with
-<link url="http://nginx.com/products/">NGINX SE</link>.
+<link url="http://nginx.com/products/">NGINX Plus</link>.
 </listitem>
 
 </list>
@@ -60,10 +60,10 @@ development environments with
 </section>
 
 <section id="setting_up_nginx_environment_on_aws"
-         name="Step-by-step guide to start working with NGINX AMI">
+         name="Step-by-step guide to start working with NGINX Plus AMI">
 
 <para>
-To quickly set up NGINX SE environment on AWS:
+To quickly set up NGINX Plus environment on AWS:
 <list type="bullet" compact="no">
 <listitem>
 Follow
@@ -72,16 +72,16 @@ Getting Started with EC2</link> guide to sign up to AWS and
 get more information about EC2 itself.
 Then you can proceed to
 <link url="https://aws.amazon.com/marketplace/pp/B00A04GAG4">
-NGINX Amazon Linux AMI</link> or
+NGINX Plus Amazon Linux AMI</link> or
 <link url="https://aws.amazon.com/marketplace/pp/B00DIF4A6Y">
-NGINX Ubuntu AMI</link> product page on AWS Marketplace and launch the AMI.
+NGINX Plus Ubuntu AMI</link> product page on AWS Marketplace and launch the AMI.
 When configuring the firewall rules, it is necessary to add a rule
 to accept web traffic on TCP ports 80 and 443 (“1-click launch”
 will do that automatically).
 </listitem>
 
 <listitem>
-As soon as the new instance is launched, NGINX SE will be automatically
+As soon as the new instance is launched, NGINX Plus will be automatically
 started and configured to serve default index.html page.
 You can check it by pointing your web browser to the public DNS
 name of your newborn EC2 instance.
@@ -89,11 +89,11 @@ Also, you can log in to your instance and use
 <programlisting>
 /etc/init.d/nginx status
 </programlisting>
-to check the status of your NGINX SE server.
+to check the status of your NGINX Plus server.
 </listitem>
 
 <listitem>
-To configure NGINX SE for use with different web frameworks
+To configure NGINX Plus for use with different web frameworks
 quickly and efficiently, you can use a special helper script
 included in the AMI.
 Log in to your EC2 instance and start:
@@ -121,7 +121,7 @@ in a subdirectory inside <path>/var/www</path>,
 additional instructions will be provided on how to start/stop sample
 application.
 For example, the Rails/Unicorn application will reside in
-<path>/var/www/rails/sample-unicorn</path>, and specific part of NGINX SE
+<path>/var/www/rails/sample-unicorn</path>, and specific part of nginx
 configuration will be in <path>/etc/nginx/conf.d/rails-unicorn.conf</path>.
 Installed application and configuration files can be used as a basis
 for further development.
@@ -132,7 +132,7 @@ for further development.
 </section>
 
 <section id="available_software"
-         name="Software available for automatic configuration with NGINX AMI">
+         name="Software available for automatic configuration with NGINX Plus AMI">
 
 <para>
 The following software is available for automatic installation
@@ -189,13 +189,13 @@ installation process.
          name="What if something goes wrong?">
 
 <para>
-In case you encounter any problems with NGINX SE configuration,
+In case you encounter any problems with nginx configuration,
 the documentation is available on
 <link url="http://nginx.org/en/docs/"/>.
 </para>
 
 <para>
-Customers who purchased NGINX AMI at AWS Marketplace are eligible for
+Customers who purchased NGINX Plus AMI at AWS Marketplace are eligible for
 assistance under AWS support provided by Nginx Inc. engineering team.
 In order to activate support, the following form must be filled out:
 <link url="http://nginx.com/ami-support-activation/"/>.
