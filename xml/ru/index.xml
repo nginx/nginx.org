@@ -8,7 +8,7 @@
 <article name="nginx"
          link="/ru/"
          lang="ru"
-         rev="11">
+         rev="12">
 
 
 <section>
@@ -152,9 +152,11 @@ rewrite-модуль:
 
 <listitem>
 Ограничение доступа в зависимости от
-<link doc="docs/http/ngx_http_access_module.xml">адреса клиента</link>
-и <link doc="docs/http/ngx_http_auth_basic_module.xml">по паролю
-(HTTP Basic аутентификация)</link>;
+<link doc="docs/http/ngx_http_access_module.xml">адреса клиента</link>,
+<link doc="docs/http/ngx_http_auth_basic_module.xml">по паролю
+(HTTP Basic аутентификация)</link> и по
+<link doc="docs/http/ngx_http_auth_request_module.xml">результату
+подзапроса</link>;
 </listitem>
 
 <listitem>

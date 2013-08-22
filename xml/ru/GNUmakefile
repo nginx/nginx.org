@@ -26,6 +26,7 @@ REFS =									\
 		http/ngx_http_access_module				\
 		http/ngx_http_addition_module				\
 		http/ngx_http_auth_basic_module				\
+		http/ngx_http_auth_request_module			\
 		http/ngx_http_autoindex_module				\
 		http/ngx_http_browser_module				\
 		http/ngx_http_charset_module				\

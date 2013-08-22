@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="22">
+        rev="23">
 
 <section id="directives" name="Directives">
 
@@ -2037,10 +2037,11 @@ If a URI has to be modified, the
 <context>location</context>
 
 <para>
-Allows access if both (<literal>all</literal>) or at least one
+Allows access if all (<literal>all</literal>) or at least one
 (<literal>any</literal>) of the
-<link doc="ngx_http_access_module.xml">ngx_http_access_module</link>
-or <link doc="ngx_http_auth_basic_module.xml">ngx_http_auth_basic_module</link>
+<link doc="ngx_http_access_module.xml">ngx_http_access_module</link>,
+<link doc="ngx_http_auth_basic_module.xml">ngx_http_auth_basic_module</link> or
+<link doc="ngx_http_auth_request_module.xml">ngx_http_auth_request_module</link>
 modules allow access.
 </para>
 

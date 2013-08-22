@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="22">
+        rev="23">
 
 <section id="directives" name="Директивы">
 
@@ -2033,10 +2033,11 @@ location /i/ {
 <context>location</context>
 
 <para>
-Разрешает доступ, если оба (<literal>all</literal>)
+Разрешает доступ, если все (<literal>all</literal>)
 или хотя бы один (<literal>any</literal>) из модулей
-<link doc="ngx_http_access_module.xml">ngx_http_access_module</link>
-и <link doc="ngx_http_auth_basic_module.xml">ngx_http_auth_basic_module</link>
+<link doc="ngx_http_access_module.xml">ngx_http_access_module</link>,
+<link doc="ngx_http_auth_basic_module.xml">ngx_http_auth_basic_module</link> или
+<link doc="ngx_http_auth_request_module.xml">ngx_http_auth_request_module</link>
 разрешают доступ.
 </para>
 

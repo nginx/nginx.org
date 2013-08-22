@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Maxim Dounin
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Модуль ngx_http_auth_request_module"
+        link="/ru/docs/http/ngx_http_auth_request_module.html"
+        lang="ru"
+        rev="1">
+
+<section id="summary">
+
+<para>
+Модуль <literal>ngx_http_auth_request_module</literal> (1.5.4+) предоставляет
+возможность авторизации клиента, основанной на результате подзапроса.
+Если подзапрос возвращает код ответа 2xx, доступ разрешается.
+Если 401 или 403 — доступ запрещается с соответствующим кодом ошибки.
+Любой другой код ответа, возвращаемый подзапросом, считается ошибкой.
+</para>
+
+<para>
+При ошибке 401 клиенту также передаётся заголовок
+<header>WWW-Authenticate</header> из ответа подзапроса.
+</para>
+
+<para>
+По умолчанию этот модуль не собирается, его сборку необходимо
+разрешить с помощью конфигурационного параметра
+<literal>--with-http_auth_request_module</literal>.
+</para>
+
+<para>
+Модуль может быть
+скомбинирован с другими модулями доступа, такими как
+<link doc="ngx_http_access_module.xml">ngx_http_access_module</link> и
+<link doc="ngx_http_auth_basic_module.xml">ngx_http_auth_basic_module</link>,
+с помощью директивы <link doc="ngx_http_core_module.xml" id="satisfy"/>.
+<note>
+В данный момент директивы
+<link doc="ngx_http_proxy_module.xml" id="proxy_cache"/> и
+<link doc="ngx_http_proxy_module.xml" id="proxy_store"/>
+(<link doc="ngx_http_fastcgi_module.xml" id="fastcgi_cache"/> и
+<link doc="ngx_http_fastcgi_module.xml" id="fastcgi_store"/>)
+невозможно использовать для обработки запросов, исходящих от модуля
+<literal>ngx_http_auth_request_module</literal>.
+</note>
+</para>
+
+</section>
+
+
+<section id="example" name="Пример конфигурации">
+
+<para>
+<example>
+location /private/ {
+    auth_request /auth;
+    ...
+}
+
+location = /auth {
+    proxy_pass ...
+    proxy_pass_request_body off;
+    proxy_set_header Content-Length "";
+    proxy_set_header X-Original-URI $request_uri;
+}
+</example>
+</para>
+
+</section>
+
+
+<section id="directives" name="Директивы">
+
+<directive name="auth_request">
+<syntax><value>uri</value> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Включает авторизацию, основанную на результате выполнения подзапроса,
+и задаёт URI, на который будет отправлен подзапрос.
+</para>
+
+</directive>
+
+
+<directive name="auth_request_set">
+<syntax><value>переменная</value> <value>значение</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Устанавливает <value>переменную</value> в запросе в заданное
+<value>значение</value> после завершения запроса авторизации.
+Значение может содержать переменные из запроса авторизации,
+например, <var>$upstream_http_*</var>.
+</para>
+
+</directive>
+
+</section>
+
+</module>

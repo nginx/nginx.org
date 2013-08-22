@@ -8,7 +8,7 @@
 <article name="nginx"
          link="/en/"
          lang="en"
-         rev="11">
+         rev="12">
 
 
 <section>
@@ -151,9 +151,11 @@ different functions</link> depending on the
 
 <listitem>
 Access control based on
-<link doc="docs/http/ngx_http_access_module.xml">client IP address</link>
-and <link doc="docs/http/ngx_http_auth_basic_module.xml">HTTP
-Basic authentication</link>;
+<link doc="docs/http/ngx_http_access_module.xml">client IP address</link>,
+<link doc="docs/http/ngx_http_auth_basic_module.xml">by password (HTTP
+Basic authentication)</link> and by the
+<link doc="docs/http/ngx_http_auth_request_module.xml">result of
+subrequest</link>;
 </listitem>
 
 <listitem>
