@@ -66,7 +66,7 @@
 
                               <td align="center">
 
-                                 <i>NGINX SE for mission critical environments.</i>
+                                 <i>NGINX Plus for mission critical environments.</i>
 
                               </td>
 
