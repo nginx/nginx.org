@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="9">
+        rev="10">
 
 <section id="summary">
 
@@ -750,7 +750,7 @@ Defines the path for which the cookie is set.
 </tag-desc>
 
 </list>
-If some parameter is omitted, the corresponding cookie field is not set.
+If any parameters are omitted, the corresponding cookie fields are not set.
 </para>
 
 <para>
