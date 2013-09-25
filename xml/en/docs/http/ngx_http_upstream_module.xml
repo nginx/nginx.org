@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="10">
+        rev="11">
 
 <section id="summary">
 
@@ -201,6 +201,14 @@ It will be passed requests when the primary servers are unavailable.
 <tag-desc>
 marks the server as permanently unavailable; used along with
 the <link id="ip_hash"/> directive.
+</tag-desc>
+
+<tag-name><literal>route</literal>=<value>string</value></tag-name>
+<tag-desc>
+sets the server route name.
+<note>
+This functionality is available as part of our <commercial_version/> only.
+</note>
 </tag-desc>
 
 </list>
@@ -693,6 +701,58 @@ This directive is available as part of our <commercial_version/> only.
 </directive>
 
 
+<directive name="sticky">
+<syntax><literal>route</literal> <value>variable</value> ...</syntax>
+<default/>
+<context>upstream</context>
+
+<para>
+Enables session affinity, which causes requests that contain route to the
+server to be passed to this server in a group of servers.
+Example:
+<example>
+map $cookie_JSESSIONID $route_cookie {
+    ~.+\.(?P&lt;route>\w+)$ $route;
+}
+
+map $request_uri $route_uri {
+    ~jsessionid=.+\.(?P&lt;route>\w+)$ $route;
+}
+
+upstream backend {
+    server backend1.example.com route=a;
+    server backend2.example.com route=b;
+
+    sticky route $route_cookie $route_uri;
+}
+</example>
+Here, the “<literal>JSESSIONID</literal>” cookie is inspected for a server
+route first, and if not found, the route from the URI is used.
+</para>
+
+<para>
+A request that does not contain a server route is passed to the server
+selected by the configured balancing method.
+If a request cannot be processed by the bound server, the new server
+is selected as if the client was not yet bound.
+</para>
+
+<para>
+The directive specifies variables that are examined for the route.
+This route is compared with routes specified in the <link id="server"/>
+directives.
+The first non-empty variable is used for server search.
+</para>
+
+<para>
+<note>
+This directive is available as part of our <commercial_version/> only.
+</note>
+</para>
+
+</directive>
+
+
 <directive name="sticky_cookie_insert">
 <syntax><value>name</value>
 [<literal>expires=</literal><value>time</value>]
@@ -890,6 +950,13 @@ of the <link id="server"/> directive.
 <literal>up=</literal></tag-name>
 <tag-desc>
 The opposite of the “<literal>down</literal>” parameter
+of the <link id="server"/> directive.
+</tag-desc>
+
+<tag-name>
+<literal>route=</literal><value>string</value></tag-name>
+<tag-desc>
+Same as the “<literal>route</literal>” parameter
 of the <link id="server"/> directive.
 </tag-desc>
 
