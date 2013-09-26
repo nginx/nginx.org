@@ -733,8 +733,8 @@ route first, and if not found, the route from the URI is used.
 <para>
 A request that does not contain a server route is passed to the server
 selected by the configured balancing method.
-If a request cannot be processed by the bound server, the new server
-is selected as if the client was not yet bound.
+If a request cannot be processed by the designated server, the new server
+is selected as if the client has not been bound yet.
 </para>
 
 <para>
@@ -779,8 +779,8 @@ upstream backend {
 A request that comes from a client not yet bound to a particular server
 is passed to the server selected by the configured balancing method.
 Further requests from the same client are passed to the same server.
-If a request cannot be processed by the bound server, the new server
-is selected as if the client was not yet bound.
+If a request cannot be processed by the designated server, the new server
+is selected as if the client has not been bound yet.
 </para>
 
 <para>
