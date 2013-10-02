@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_ssi_module"
         link="/ru/docs/http/ngx_http_ssi_module.html"
         lang="ru"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -372,8 +372,11 @@ SSI, например:
 </example>
 Необходимо учитывать, что в переменные можно записать только результаты
 ответов, полученные через модули
-<link doc="ngx_http_proxy_module.xml">ngx_http_proxy_module</link> и
-<link doc="ngx_http_memcached_module.xml">ngx_http_memcached_module</link>.
+<link doc="ngx_http_proxy_module.xml">ngx_http_proxy_module</link>,
+<link doc="ngx_http_memcached_module.xml">ngx_http_memcached_module</link>,
+<link doc="ngx_http_fastcgi_module.xml">ngx_http_fastcgi_module</link> (1.5.6),
+<link doc="ngx_http_uwsgi_module.xml">ngx_http_uwsgi_module</link> (1.5.6)
+и <link doc="ngx_http_scgi_module.xml">ngx_http_scgi_module</link> (1.5.6).
 </tag-desc>
 
 </list>

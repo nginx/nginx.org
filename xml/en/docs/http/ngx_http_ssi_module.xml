@@ -10,7 +10,7 @@
 <module name="Module ngx_http_ssi_module"
         link="/en/docs/http/ngx_http_ssi_module.html"
         lang="en"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -367,8 +367,11 @@ for example:
 &lt;!--# include virtual="/remote/body.php?argument=value" set="one" --&gt;
 </example>
 It should be noted that only the results of responses obtained using the
-<link doc="ngx_http_proxy_module.xml">ngx_http_proxy_module</link> and
-<link doc="ngx_http_memcached_module.xml">ngx_http_memcached_module</link>
+<link doc="ngx_http_proxy_module.xml">ngx_http_proxy_module</link>,
+<link doc="ngx_http_memcached_module.xml">ngx_http_memcached_module</link>,
+<link doc="ngx_http_fastcgi_module.xml">ngx_http_fastcgi_module</link> (1.5.6),
+<link doc="ngx_http_uwsgi_module.xml">ngx_http_uwsgi_module</link> (1.5.6),
+and <link doc="ngx_http_scgi_module.xml">ngx_http_scgi_module</link> (1.5.6)
 modules can be written into variables.
 </tag-desc>
 
