@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_proxy_module"
         link="/ru/docs/http/ngx_http_proxy_module.html"
         lang="ru"
-        rev="13">
+        rev="14">
 
 <section id="summary">
 
@@ -1355,6 +1355,27 @@ proxy_set_header Accept-Encoding "";
 </directive>
 
 
+<directive name="proxy_ssl_ciphers">
+<syntax><value>ciphers</value></syntax>
+<default>DEFAULT</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.5.6</appeared-in>
+
+<para>
+Описывает разрешённые шифры для запросов к проксируемому HTTPS-серверу.
+Шифры задаются в формате, поддерживаемом библиотекой OpenSSL.
+</para>
+
+<para>
+Полный список можно посмотреть с помощью команды
+“<command>openssl ciphers</command>”.
+</para>
+
+</directive>
+
+
 <directive name="proxy_ssl_session_reuse">
 <syntax><literal>on</literal> | <literal>off</literal></syntax>
 <default>on</default>
@@ -1388,7 +1409,7 @@ proxy_set_header Accept-Encoding "";
 <appeared-in>1.5.6</appeared-in>
 
 <para>
-Разрешает указанные протоколы для HTTPS-запросов к проксируемому серверу.
+Разрешает указанные протоколы для запросов к проксируемому HTTPS-серверу.
 </para>
 
 </directive>

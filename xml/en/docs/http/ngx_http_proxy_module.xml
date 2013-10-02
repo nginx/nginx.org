@@ -10,7 +10,7 @@
 <module name="Module ngx_http_proxy_module"
         link="/en/docs/http/ngx_http_proxy_module.html"
         lang="en"
-        rev="13">
+        rev="14">
 
 <section id="summary">
 
@@ -1362,6 +1362,27 @@ proxy_set_header Accept-Encoding "";
 </directive>
 
 
+<directive name="proxy_ssl_ciphers">
+<syntax><value>ciphers</value></syntax>
+<default>DEFAULT</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.5.6</appeared-in>
+
+<para>
+Specifies the enabled ciphers for requests to a proxied HTTPS server.
+The ciphers are specified in the format understood by the OpenSSL library.
+</para>
+
+<para>
+The full list can be viewed using the
+“<command>openssl ciphers</command>” command.
+</para>
+
+</directive>
+
+
 <directive name="proxy_ssl_session_reuse">
 <syntax><literal>on</literal> | <literal>off</literal></syntax>
 <default>on</default>
@@ -1394,7 +1415,7 @@ appear in the logs, try disabling session reuse.
 <appeared-in>1.5.6</appeared-in>
 
 <para>
-Enables the specified protocols for HTTPS requests to a proxied server.
+Enables the specified protocols for requests to a proxied HTTPS server.
 </para>
 
 </directive>
