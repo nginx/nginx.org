@@ -10,7 +10,7 @@
 <module name="Module ngx_http_fastcgi_module"
         link="/en/docs/http/ngx_http_fastcgi_module.html"
         lang="en"
-        rev="9">
+        rev="10">
 
 <section id="summary">
 
@@ -84,6 +84,48 @@ It can be made smaller however.
 </directive>
 
 
+<directive name="fastcgi_buffering">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>on</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.5.6</appeared-in>
+
+<para>
+Enables or disables buffering of responses from the FastCGI server.
+</para>
+
+<para>
+When buffering is enabled, nginx receives a response from the FastCGI server
+as soon as possible, saving it into the buffers set by the
+<link id="fastcgi_buffer_size"/> and <link id="fastcgi_buffers"/> directives.
+If the whole response does not fit into memory, a part of it can be saved
+to a <link id="fastcgi_temp_path">temporary file</link> on the disk.
+Writing to temporary files is controlled by the
+<link id="fastcgi_max_temp_file_size"/> and
+<link id="fastcgi_temp_file_write_size"/> directives.
+</para>
+
+<para>
+When buffering is disabled, a response is passed to a client synchronously,
+immediately as it is received.
+nginx will not try to read the whole response from the FastCGI server.
+The maximum size of the data that nginx can receive from the server
+at a time is set by the <link id="fastcgi_buffer_size"/> directive.
+</para>
+
+<para>
+Buffering can also be enabled or disabled by passing
+“<literal>yes</literal>” or “<literal>no</literal>” in the
+<header>X-Accel-Buffering</header> response header field.
+This capability can be disabled using the
+<link id="fastcgi_ignore_headers"/> directive.
+</para>
+
+</directive>
+
+
 <directive name="fastcgi_buffers">
 <syntax><value>number</value> <value>size</value></syntax>
 <default>8 4k|8k</default>
@@ -110,7 +152,8 @@ This is either 4K or 8K, depending on a platform.
 <context>location</context>
 
 <para>
-Limits the total <value>size</value> of buffers that
+When <link id="fastcgi_buffering">buffering</link> of responses from the FastCGI
+server is enabled, limits the total <value>size</value> of buffers that
 can be busy sending a response to the client while the response is not
 yet fully read.
 In the mean time, the rest of the buffers can be used for reading a response
@@ -541,7 +584,7 @@ limit</link> for transmission of a response to a client;
 
 <listitem>
 <header>X-Accel-Buffering</header> enables or disables
-buffering of a response;
+<link id="fastcgi_buffering">buffering</link> of a response;
 </listitem>
 
 <listitem>
@@ -626,7 +669,8 @@ connections to FastCGI servers to function.
 <context>location</context>
 
 <para>
-When the whole response does not fit into the memory buffers
+When <link id="fastcgi_buffering">buffering</link> of responses from the FastCGI
+server is enabled, and the whole response does not fit into the memory buffers
 set by the <link id="fastcgi_buffer_size"/> and <link id="fastcgi_buffers"/>
 directives, a part of the response can be saved to a temporary file.
 This directive sets the maximum <value>size</value> of a temporary file.
