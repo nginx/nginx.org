@@ -114,7 +114,7 @@ Buffering can also be enabled or disabled by passing
 “<literal>yes</literal>” or “<literal>no</literal>” in the
 <header>X-Accel-Buffering</header> response header field.
 This capability can be disabled using the
-<link doc="ngx_http_proxy_module.xml" id="proxy_ignore_headers"/> directive.
+<link id="proxy_ignore_headers"/> directive.
 </para>
 
 </directive>

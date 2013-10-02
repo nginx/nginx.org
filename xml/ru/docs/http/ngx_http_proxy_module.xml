@@ -113,7 +113,7 @@ nginx не пытается считать весь ответ проксиру�
 значения “<literal>yes</literal>” или “<literal>no</literal>” в поле
 <header>X-Accel-Buffering</header> заголовка ответа.
 Эту возможность можно запретить с помощью директивы
-<link doc="ngx_http_proxy_module.xml" id="proxy_ignore_headers"/>.
+<link id="proxy_ignore_headers"/>.
 </para>
 
 </directive>
