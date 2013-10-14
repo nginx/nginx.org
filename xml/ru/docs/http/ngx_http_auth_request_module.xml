@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_auth_request_module"
         link="/ru/docs/http/ngx_http_auth_request_module.html"
         lang="ru"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
@@ -40,14 +40,10 @@
 <link doc="ngx_http_auth_basic_module.xml">ngx_http_auth_basic_module</link>,
 с помощью директивы <link doc="ngx_http_core_module.xml" id="satisfy"/>.
 <note>
-В данный момент директивы
-<link doc="ngx_http_proxy_module.xml" id="proxy_cache"/> и
-<link doc="ngx_http_proxy_module.xml" id="proxy_store"/>
-(<link doc="ngx_http_fastcgi_module.xml" id="fastcgi_cache"/> и
-<link doc="ngx_http_fastcgi_module.xml" id="fastcgi_store"/>)
-невозможно использовать для обработки запросов, исходящих от модуля
-<literal>ngx_http_auth_request_module</literal>.
-</note>
+В данный момент ответы на авторизационные подзапросы не могут быть закэшированы
+(с использованием директив
+<link doc="ngx_http_proxy_module.xml" id="proxy_cache"/>,
+<link doc="ngx_http_proxy_module.xml" id="proxy_store"/> и т.п.).
 </para>
 
 </section>
