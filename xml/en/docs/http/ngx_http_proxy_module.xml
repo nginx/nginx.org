@@ -10,7 +10,7 @@
 <module name="Module ngx_http_proxy_module"
         link="/en/docs/http/ngx_http_proxy_module.html"
         lang="en"
-        rev="14">
+        rev="15">
 
 <section id="summary">
 
@@ -1463,20 +1463,19 @@ This directive can be used to create local copies of static unchangeable
 files, e.g.:
 <example>
 location /images/ {
-    root                   /data/www;
-    open_file_cache_errors off;
-    error_page             404 = /fetch$uri;
+    root               /data/www;
+    error_page         404 = /fetch$uri;
 }
 
 location /fetch/ {
     internal;
 
-    proxy_pass             http://backend/;
-    proxy_store            on;
-    proxy_store_access     user:rw group:rw all:r;
-    proxy_temp_path        /data/temp;
+    proxy_pass         http://backend/;
+    proxy_store        on;
+    proxy_store_access user:rw group:rw all:r;
+    proxy_temp_path    /data/temp;
 
-    alias                  /data/www/;
+    alias              /data/www/;
 }
 </example>
 </para>

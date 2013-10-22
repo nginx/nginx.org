@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_fastcgi_module"
         link="/ru/docs/http/ngx_http_fastcgi_module.html"
         lang="ru"
-        rev="10">
+        rev="11">
 
 <section id="summary">
 
@@ -1037,9 +1037,8 @@ fastcgi_store /data/www$original_uri;
 неизменяемых файлов, например, так:
 <example>
 location /images/ {
-    root                   /data/www;
-    open_file_cache_errors off;
-    error_page             404 = /fetch$uri;
+    root                 /data/www;
+    error_page           404 = /fetch$uri;
 }
 
 location /fetch/ {
