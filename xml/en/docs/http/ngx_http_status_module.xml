@@ -31,8 +31,12 @@ This module is available as part of our <commercial_version/> only.
 
 <para>
 <example>
-location = /status {
-    status;
+server {
+    location = /status {
+        status;
+    }
+
+    status_zone example_server;
 }
 </example>
 </para>
@@ -83,6 +87,21 @@ then “<literal>ngx_status_jsonp_callback</literal>” is used.
 
 </directive>
 
+
+<directive name="status_zone">
+<syntax><value>zone</value></syntax>
+<default/>
+<context>server</context>
+
+<para>
+Enables collection of virtual
+<link doc="ngx_http_core_module.xml" id="server"/>
+status information in the specified <value>zone</value>.
+Several virtual servers may share the same zone.
+</para>
+
+</directive>
+
 </section>
 
 
@@ -95,7 +114,7 @@ The following status information is provided:
 <tag-name><literal>version</literal></tag-name>
 <tag-desc>
 Version of the provided data set.
-The current version is 1.
+The current version is 2.
 </tag-desc>
 
 <tag-name><literal>nginx_version</literal></tag-name>
@@ -105,7 +124,12 @@ Version of nginx.
 
 <tag-name><literal>address</literal></tag-name>
 <tag-desc>
-An address of the server that accepted status request.
+The address of the server that accepted status request.
+</tag-desc>
+
+<tag-name><literal>load_timestamp</literal></tag-name>
+<tag-desc>
+Time of the last reload of configuration, in milliseconds since Epoch.
 </tag-desc>
 
 <tag-name><literal>timestamp</literal></tag-name>
@@ -157,6 +181,60 @@ The current number of client requests.
 </list>
 </tag-desc>
 
+<tag-name><literal>server_zones</literal></tag-name>
+<tag-desc>
+For each <link id="status_zone"/>:
+<list type="tag">
+
+<tag-name><literal>processing</literal></tag-name>
+<tag-desc>
+The number of
+client requests that are currently being processed.
+</tag-desc>
+
+<tag-name><literal>requests</literal></tag-name>
+<tag-desc>
+The total number of
+client requests received from clients.
+</tag-desc>
+
+<tag-name><literal>responses</literal></tag-name>
+<tag-desc>
+<list type="tag">
+
+<tag-name><literal>total</literal></tag-name>
+<tag-desc>
+The total number of
+responses sent to clients.
+</tag-desc>
+
+<tag-name>
+<literal>1xx</literal>,
+<literal>2xx</literal>,
+<literal>3xx</literal>,
+<literal>4xx</literal>,
+<literal>5xx</literal>
+</tag-name>
+<tag-desc>
+The number of responses with status codes 1xx, 2xx, 3xx, 4xx, and 5xx.
+</tag-desc>
+
+</list>
+</tag-desc>
+
+<tag-name><literal>received</literal></tag-name>
+<tag-desc>
+The total number of bytes received from clients.
+</tag-desc>
+
+<tag-name><literal>sent</literal></tag-name>
+<tag-desc>
+The total number of bytes sent to clients.
+</tag-desc>
+
+</list>
+</tag-desc>
+
 <tag-name><literal>upstreams</literal></tag-name>
 <tag-desc>
 For each
@@ -176,7 +254,8 @@ An address of the
 
 <tag-name><literal>backup</literal></tag-name>
 <tag-desc>
-Boolean indicating if the server is a backup server.
+A boolean value indicating whether the “cache loader” process is still loading
+data from disk into the cache.
 </tag-desc>
 
 <tag-name><literal>weight</literal></tag-name>
@@ -238,12 +317,12 @@ The number of responses with status codes 1xx, 2xx, 3xx, 4xx, and 5xx.
 
 <tag-name><literal>sent</literal></tag-name>
 <tag-desc>
-The total bytes sent to this server.
+The total number of bytes sent to this server.
 </tag-desc>
 
 <tag-name><literal>received</literal></tag-name>
 <tag-desc>
-The total bytes received from this server.
+The total number of bytes received from this server.
 </tag-desc>
 
 <tag-name><literal>fails</literal></tag-name>
@@ -306,6 +385,87 @@ The time (in milliseconds since Epoch)
 when the server became
 “<literal>unavail</literal>”
 or “<literal>unhealthy</literal>”.
+</tag-desc>
+
+</list>
+</tag-desc>
+
+<tag-name><literal>caches</literal></tag-name>
+<tag-desc>
+For each cache (configured by
+<link doc="ngx_http_proxy_module.xml" id="proxy_cache_path"/> and the likes):
+<list type="tag">
+
+<tag-name><literal>size</literal></tag-name>
+<tag-desc>
+The current size of the cache.
+</tag-desc>
+
+<tag-name><literal>max_size</literal></tag-name>
+<tag-desc>
+The limit on the maximum size of the cache specified in the configuration.
+</tag-desc>
+
+<tag-name><literal>cold</literal></tag-name>
+<tag-desc>
+Boolean indicating if “cache loader” is still loading data into the cache.
+</tag-desc>
+
+<tag-name>
+    <literal>hits</literal>,
+    <literal>stale</literal>,
+    <literal>updating</literal>
+</tag-name>
+<tag-desc>
+<list type="tag">
+
+<tag-name><literal>responses</literal></tag-name>
+<tag-desc>
+The total number of responses read from the cache (hits, or stale responses
+due to <link doc="ngx_http_proxy_module.xml" id="proxy_cache_use_stale"/>
+and the likes).
+</tag-desc>
+
+<tag-name><literal>bytes</literal></tag-name>
+<tag-desc>
+The total number of bytes read from the cache.
+</tag-desc>
+
+</list>
+</tag-desc>
+
+<tag-name>
+    <literal>miss</literal>,
+    <literal>expired</literal>,
+    <literal>bypass</literal>
+</tag-name>
+<tag-desc>
+<list type="tag">
+
+<tag-name><literal>responses</literal></tag-name>
+<tag-desc>
+The total number of responses not taken from the cache (misses, expires, or
+bypasses due to
+<link doc="ngx_http_proxy_module.xml" id="proxy_cache_bypass"/>
+and the likes).
+</tag-desc>
+
+<tag-name><literal>bytes</literal></tag-name>
+<tag-desc>
+The total number of bytes read from the proxied server.
+</tag-desc>
+
+<tag-name><literal>responses_written</literal></tag-name>
+<tag-desc>
+The total number of responses written to the cache.
+</tag-desc>
+
+<tag-name><literal>bytes_written</literal></tag-name>
+<tag-desc>
+The total number of bytes written to the cache.
+</tag-desc>
+
+</list>
 </tag-desc>
 
 </list>
