@@ -6,7 +6,7 @@
 
 <!ELEMENT  download     (item+) >
 <!ATTLIST  download
-           tag          (development | stable | legacy) #REQUIRED
+           tag          (mainline | stable | legacy) #REQUIRED
            changes      CDATA #REQUIRED
 >
 

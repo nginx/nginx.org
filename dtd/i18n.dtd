@@ -10,7 +10,9 @@
            lang         CDATA #REQUIRED
 >
 
-<!ELEMENT  item         (#PCDATA) >
+<!ELEMENT  item         ANY>
 <!ATTLIST  item
            id           CDATA #REQUIRED
 >
+
+<!ELEMENT  origin       (#PCDATA) >
