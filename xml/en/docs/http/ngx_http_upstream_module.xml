@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="12">
+        rev="13">
 
 <section id="summary">
 
@@ -188,6 +188,16 @@ it was considered unavailable.
 Default value is zero, i.e. slow start is disabled.
 <note>
 This functionality is available as part of our <commercial_version/>.
+</note>
+</tag-desc>
+
+<tag-name><literal>max_conns</literal>=<value>number</value></tag-name>
+<tag-desc>
+limits the maximum <value>number</value> of simultaneous connections to the
+proxied server (1.5.9).
+Default value is zero, meaning there is no limit.
+<note>
+This functionality is available as part of our <commercial_version/> only.
 </note>
 </tag-desc>
 
