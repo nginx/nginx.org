@@ -117,17 +117,17 @@ PCRE ライブラリは次の構文を使用した名前付きキャプチャを
 <table note="yes">
 
 <tr>
-<td>?&lt;<i>name</i>&gt;</td>
+<td><literal>?&lt;<value>name</value>&gt;</literal></td>
 <td>Perl 5.10 互換構文、PCRE-7.0 よりサポート</td>
 </tr>
 
 <tr>
-<td>?'<i>name</i>'</td>
+<td><literal>?'<value>name</value>'</literal></td>
 <td>Perl 5.10 互換構文、PCRE-7.0 よりサポート</td>
 </tr>
 
 <tr>
-<td>?P&lt;<i>name</i>&gt;</td>
+<td><literal>?P&lt;<value>name</value>&gt;</literal></td>
 <td>Python 互換構文、PCRE-4.0よりサポート</td>
 </tr>
 
