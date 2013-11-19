@@ -372,6 +372,7 @@ parameter (by default, 50 milliseconds) is made.
 <context>http</context>
 <context>server</context>
 <context>location</context>
+<appeared-in>1.5.7</appeared-in>
 
 <para>
 Enables revalidation of expired cache items using conditional requests with
