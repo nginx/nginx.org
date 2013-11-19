@@ -24,6 +24,14 @@ Patches are signed using one of the
 
 <security>
 
+<item name="Request line parsing vulnerability"
+      severity="medium"
+      cve="2013-4547"
+      good="1.5.7+, 1.4.4+"
+      vulnerable="0.8.41-1.5.16">
+<patch name="patch.2013.space.txt" />
+</item>
+
 <item name="Memory disclosure with specially crafted HTTP backend responses"
       severity="medium"
       advisory="http://mailman.nginx.org/pipermail/nginx-announce/2013/000114.html"

@@ -7,6 +7,20 @@
 
 <news name="nginx news" link="/" lang="en">
 
+<event date="2013-11-19">
+<para>
+<link doc="en/download.xml">nginx-1.4.4</link>
+stable and
+<link doc="en/download.xml">nginx-1.5.7</link>
+mainline versions have been released,
+with a fix for the
+<link doc="en/security_advisories.xml">request line parsing</link>
+vulnerability in nginx 0.8.41 - 1.5.6
+discovered by Ivan Fratric of the Google Security Team
+(CVE-2013-4547).
+</para>
+</event>
+
 <event date="2013-10-08">
 <para>
 <link doc="en/download.xml">nginx-1.4.3</link>
