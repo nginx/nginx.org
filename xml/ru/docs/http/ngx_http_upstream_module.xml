@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_upstream_module"
         link="/ru/docs/http/ngx_http_upstream_module.html"
         lang="ru"
-        rev="4">
+        rev="5">
 
 <section id="summary">
 
@@ -396,8 +396,8 @@ server {
 хранит статус доступа к кэшу ответов (0.8.3).
 Статус может быть одним из “<literal>MISS</literal>”, 
 “<literal>BYPASS</literal>”, “<literal>EXPIRED</literal>”,
-“<literal>STALE</literal>”, “<literal>UPDATING</literal>” или
-“<literal>HIT</literal>”.
+“<literal>STALE</literal>”, “<literal>UPDATING</literal>”,
+“<literal>REVALIDATED</literal>” или “<literal>HIT</literal>”.
 </tag-desc>
 
 <tag-name><var>$upstream_response_length</var></tag-name>
