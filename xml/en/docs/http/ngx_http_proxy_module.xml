@@ -10,7 +10,7 @@
 <module name="Module ngx_http_proxy_module"
         link="/en/docs/http/ngx_http_proxy_module.html"
         lang="en"
-        rev="15">
+        rev="16">
 
 <section id="summary">
 
@@ -361,6 +361,21 @@ Besides, the duration of one iteration is limited by the
 <literal>loader_threshold</literal> parameter (by default, 200 milliseconds).
 Between iterations, a pause configured by the <literal>loader_sleep</literal>
 parameter (by default, 50 milliseconds) is made.
+</para>
+
+</directive>
+
+
+<directive name="proxy_cache_revalidate">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Enables revalidation of expired cache items using conditional requests with
+the <header>If-Modified-Since</header> header field.
 </para>
 
 </directive>

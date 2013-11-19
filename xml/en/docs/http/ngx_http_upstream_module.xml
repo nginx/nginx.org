@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="10">
+        rev="11">
 
 <section id="summary">
 
@@ -1027,8 +1027,8 @@ then the server addresses from different groups are separated by colons, e.g.
 keeps the status of accessing a response cache (0.8.3).
 The status can be either “<literal>MISS</literal>”, 
 “<literal>BYPASS</literal>”, “<literal>EXPIRED</literal>”,
-“<literal>STALE</literal>”, “<literal>UPDATING</literal>” or
-“<literal>HIT</literal>”.
+“<literal>STALE</literal>”, “<literal>UPDATING</literal>”,
+“<literal>REVALIDATED</literal>” or “<literal>HIT</literal>”.
 </tag-desc>
 
 <tag-name><var>$upstream_response_length</var></tag-name>
