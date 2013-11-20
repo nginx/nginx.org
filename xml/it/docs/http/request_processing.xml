@@ -1,0 +1,302 @@
+<!--
+  Copyright (C) Igor Sysoev
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE article SYSTEM "../../../../dtd/article.dtd">
+
+<article name="Come nginx processa una richiesta"
+         link="/it/docs/http/request_processing.html"
+         lang="it"
+         translator="Angelo Papadia"
+         rev="1"
+         author="Igor Sysoev"
+         editor="Brian Mercer">
+
+<section name="Server virtuali name-based">
+
+<para>
+La prima cosa che nginx fa e' decidere quale <i>server</i> deve
+processare la richiesta. Si consideri una semplice configurazione
+in cui tutti i tre server virtuali sono in ascolto sulla porta *:80 :
+<programlisting>
+server {
+    listen      80;
+    server_name example.org www.example.org;
+    ...
+}
+
+server {
+    listen      80;
+    server_name example.net www.example.net;
+    ...
+}
+
+server {
+    listen      80;
+    server_name example.com www.example.com;
+    ...
+}
+</programlisting>
+
+</para>
+
+<para>
+In questa configurazione nginx verifica solo il campo <header>Host</header>
+dell'header di richiesta, per determinare a quale server la richiesta debba
+essere assegnata.
+Se il suo valore non corrisponde con quello di alcun nome di server,
+oppure se la richiesta semplicemente non contiene tale campo dell'header,
+allora nginx assegna la richiesta al server di default per la relativa porta.
+Nella configurazione precedente, il server di default e' il primo&mdash;si
+tratta del comportamento standard di nginx.
+E' anche possibile indicare esplicitamente il server di default, tramite il
+parametro <literal>default_server</literal> nella direttiva
+<link doc="ngx_http_core_module.xml" id="listen"/> :
+<programlisting>
+server {
+    listen      80 <b>default_server</b>;
+    server_name example.net www.example.net;
+    ...
+}
+</programlisting>
+
+<note>
+Il parametro <literal>default_server</literal> e' disponibile a partire dalla
+versione 0.8.21 di nginx.
+Nelle versioni precedenti bisogna usare invece il parametro
+<literal>default</literal>.
+</note>
+Si noti che il server di default e' una proprieta' della porta in ascolto,
+e non del nome del server; l'argomento sara' ripreso in seguito.
+</para>
+
+</section>
+
+
+<section id="how_to_prevent_undefined_server_names"
+         name="Come evitare di processare richieste in cui il nome del server non e' definito">
+
+<para>
+Se si desidera che le richieste prive dell'header <header>Host</header>
+non siano processate, e' possibile definire un server che si limita a scartarle:
+<programlisting>
+server {
+    listen      80;
+    server_name "";
+    return      444;
+}
+</programlisting>
+In questo caso il nome del server e' definito con una stringa vuota,
+la quale corrispondera' a tutte le richieste prive del campo
+<header>Host</header> dell'header; per chiudere la connessione nginx
+restituisce il codice 444 (non standard).
+<note>
+A partire dalla versione 0.8.48 quella descritta e' la configurazione
+default per i nomi di server, per cui e' possibile omettere
+<literal>server_name ""</literal>.
+Nelle versioni precedenti, come nome del server di default si utilizzava
+l'<i>hostname</i> della macchina.
+</note>
+</para>
+
+</section>
+
+
+<section id="mixed_name_ip_based_servers"
+         name="Configurazione mista di server virtuali name-based e IP-based">
+
+<para>
+Una configurazione piu' complessa prevede vari server virtuali
+in ascolto su indirizzi differenti:
+<programlisting>
+server {
+    listen      192.168.1.1:80;
+    server_name example.org www.example.org;
+    ...
+}
+
+server {
+    listen      192.168.1.1:80;
+    server_name example.net www.example.net;
+    ...
+}
+
+server {
+    listen      192.168.1.2:80;
+    server_name example.com www.example.com;
+    ...
+}
+</programlisting>
+In tale configurazione nginx dapprima confronta l'indirizzo IP
+e la porta della richiesta con le direttive
+<link doc="ngx_http_core_module.xml" id="listen"/> dei blocchi
+<link doc="ngx_http_core_module.xml" id="server"/>;
+quindi, per ciascun blocco per cui c'e' corrispondenza, nginx confronta
+il campo <header>Host</header> dell'header della richiesta con i
+valori <link doc="ngx_http_core_module.xml" id="server_name"/> del blocco.
+Se il nome del server non e' presente in alcun blocco, la richiesta
+viene processata dal server di default.
+Ad esempio, una richiesta per <literal>www.example.com</literal>
+ricevuta sulla porta 192.168.1.1:80, sara' processata dal server di
+default di 192.168.1.1:80, vale a dire dal primo server, in quanto non
+c'e' alcun nome <literal>www.example.com</literal> definito per tale
+combinazione di indirizzo e porta.
+</para>
+
+<para>
+Si precisa nuovamente che il server di default e' una proprieta' di
+indirizzo e porta in ascolto, e che e' possibile definire server di
+default differenti per combinazioni differenti di indirizzo e porta:
+<programlisting>
+server {
+    listen      192.168.1.1:80;
+    server_name example.org www.example.org;
+    ...
+}
+
+server {
+    listen      192.168.1.1:80 <b>default_server</b>;
+    server_name example.net www.example.net;
+    ...
+}
+
+server {
+    listen      192.168.1.2:80 <b>default_server</b>;
+    server_name example.com www.example.com;
+    ...
+}
+</programlisting>
+
+</para>
+
+</section>
+
+
+<section id="simple_php_site_configuration"
+         name="Configurazione per un semplice sito PHP">
+
+<para>
+Nel seguito si analizza come nginx scelga la <i>location</i> per
+processare una richiesta nel caso di un tipico, semplice sito PHP:
+<programlisting>
+server {
+    listen      80;
+    server_name example.org www.example.org;
+    root        /data/www;
+
+    location / {
+        index   index.html index.php;
+    }
+
+    location ~* \.(gif|jpg|png)$ {
+        expires 30d;
+    }
+
+    location ~ \.php$ {
+        fastcgi_pass  localhost:9000;
+        fastcgi_param SCRIPT_FILENAME
+                      $document_root$fastcgi_script_name;
+        include       fastcgi_params;
+    }
+}
+</programlisting>
+
+</para>
+
+<para>
+Per prima cosa nginx individua fra tutte le location definite da una
+stringa quella con il prefisso specifico piu' lungo (l'ordine con cui
+sono elencate non e' rilevante); nella configurazione precedente il
+solo prefisso definito e' “<literal>/</literal>”, che trova
+corrispondenza in qualsiasi richiesta e che quindi verra' comunque
+preso in considerazione, come ultima risorsa.
+Successivamente, nginx analizza le location definite tramite una
+espressione regolare, fermandosi appena ne individua una che
+corrisponde (in questo caso l'ordine in cui sono inserite nel file
+di configurazione e' rilevante in quanto nginx parte dalla prima e le
+analizza una dopo l'altra). La prima location individuata fra quelle
+definite come espressione regolare e' quella prescelta; se non ce n'e'
+nessuna, nginx ripiega su quella individuata al passo precedente tramite
+il prefisso.
+
+</para>
+
+<para>
+Notare che tutti i tipi di location sono confrontati con il solo URI
+della linea di richiesta, senza argomenti;
+cio' e' dovuto al fatto che gli argomenti nella stringa di richiesta
+possono essere inviati in vari modi, ad esempio:
+<programlisting>
+/index.php?user=john&amp;page=1
+/index.php?page=1&amp;user=john
+</programlisting>
+Inoltre, nella stringa di richiesta e' possibile scrivere qualsiasi cosa:
+<programlisting>
+/index.php?page=1&amp;something+else&amp;user=john
+</programlisting>
+
+</para>
+
+<para>
+Seguono alcuni esempi di processo di richieste in base alla
+configurazione precedente:
+<list type="bullet" compact="no">
+
+<listitem>
+Una richiesta “<literal>/logo.gif</literal>” corrisponde al prefisso
+di location “<literal>/</literal>”, ma anche all'espressione regolare
+“<literal>\.(gif|jpg|png)$</literal>”, per cui si utilizzera' quest'ultima
+corrispondenza in quanto, come spiegato in precedenza, le espressioni
+regolari hanno sempre priorita' sulle stringhe fisse.
+Usando la direttiva “<literal>root&nbsp;/data/www</literal>” la richiesta
+e' mappata sul file <path>/data/www/logo.gif</path> , che quindi e' inviato
+al client.
+</listitem>
+
+<listitem>
+Una richiesta “<literal>/index.php</literal>” corrisponde sia al prefisso
+“<literal>/</literal>” sia all'espressione regolare
+“<literal>\.(php)$</literal>”, per cui sara' processata da quest'ultima
+sezione della configurazione, e la richiesta sara' inoltrata al server
+FastCGI in ascolto su localhost:9000.
+La direttiva
+<link doc="ngx_http_fastcgi_module.xml" id="fastcgi_param"/>
+imposta il parametro FastCGI
+<literal>SCRIPT_FILENAME</literal> a “<literal>/data/www/index.php</literal>”,
+ed il server FastCGI esegue il file.
+La variabile <var>$document_root</var> contiene il valore della direttiva
+<link doc="ngx_http_core_module.xml" id="root"/>, e la variabile
+<var>$fastcgi_script_name</var> il valore della richiesta URI, vale a dire
+“<literal>/index.php</literal>”.
+</listitem>
+
+<listitem>
+Una richiesta “<literal>/about.html</literal>” corrisponde al solo prefisso
+“<literal>/</literal>”, per cui sara' processata da questa sezione.
+La direttiva “<literal>root /data/www</literal>” mappa la richiesta sul file
+<path>/data/www/about.html</path>, che e' inviato al client.
+</listitem>
+
+<listitem>
+Una richiesta “<literal>/</literal>” e' processata in maniera piuttosto
+complessa. Corrisponde al solo prefisso “<literal>/</literal>”, per cui e'
+processata dalla relativa sezione; la direttiva
+<link doc="ngx_http_index_module.xml" id="index"/>,
+in accordo ai propri parametri e alla direttiva
+“<literal>root /data/www</literal>”, verifica la presenza di eventuali file index.
+Se il file <path>/data/www/index.html</path> non esiste, ma esiste invece il
+file <path>/data/www/index.php</path> , allora la direttiva esegue una
+redirezione interna su “<literal>/index.php</literal>”, e nginx ricerca
+nuovamente le location, come se si trattasse di una richiesta del client.
+Come visto in precedenza, alla fine la richiesta rediretta e' processata
+dal server FastCGI.
+</listitem>
+
+</list>
+
+</para>
+
+</section>
+
+</article>

@@ -1,0 +1,54 @@
+<!--
+  Copyright (C) Igor Sysoev
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE article SYSTEM "../../../dtd/article.dtd">
+
+<article name="Unita' di misura del file di configurazione"
+         link="/it/docs/syntax.html"
+         lang="it"
+         translator="Angelo Papadia"
+         rev="3">
+
+<section>
+
+<para>
+Le dimensioni possono essere indicate in byte, kilobyte
+(suffissi <literal>k</literal> e <literal>K</literal>), e megabyte
+(suffissi <literal>m</literal> e <literal>M</literal>), ad esempio
+“<literal>1024</literal>”, “<literal>8k</literal>”, “<literal>1m</literal>”.
+</para>
+
+<para>
+Gli intervalli di tempo possono essere specificati in millisecondi,
+secondi, minuti, ore, giorni, e cosi' via, utilizzando i suffissi seguenti:
+<table width="30%">
+<tr><td width="20%">ms</td><td>millisecondi</td></tr>
+<tr><td width="20%">s</td><td>secondi</td></tr>
+<tr><td width="20%">m</td><td>minuti</td></tr>
+<tr><td width="20%">h</td><td>ore</td></tr>
+<tr><td width="20%">d</td><td>giorni</td></tr>
+<tr><td width="20%">w</td><td>settimane</td></tr>
+<tr><td width="20%">M</td><td>mesi, 30 giorni</td></tr>
+<tr><td width="20%">y</td><td>anni, 365 giorni</td></tr>
+</table>
+</para>
+
+<para>
+E' possibile combinare in un singolo valore piu' unita', specificandole
+dalla piu' significativa alla meno significativa ed eventualmente
+separandole con spazi. Ad esempio, “<literal>1h 30m</literal>” indica
+lo stesso tempo di “<literal>90m</literal>” o “<literal>5400s</literal>”.
+Un valore senza suffisso indica secondi, comunque e' sempre raccomandato
+specificare un suffisso.
+</para>
+
+<para>
+Alcuni intervalli temporali possono essere specificati solo
+con una risoluzione di secondi.
+</para>
+
+</section>
+
+</article>

@@ -1,0 +1,114 @@
+<!--
+  Copyright (C) Igor Sysoev
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE article SYSTEM "../../../dtd/article.dtd">
+
+<article name="Metodi di processo delle connessioni"
+         link="/it/docs/events.html"
+         lang="it"
+         translator="Angelo Papadia"
+         rev="2">
+
+<section>
+
+<para>
+nginx supporta diversi metodi di processo delle connessioni.
+La disponibilita' di un particolare metodo dipende dalla piattaforma usata;
+su piattaforme che supportano piu' di un metodo, nginx in genere
+e' in grado di selezionare automaticamente il metodo piu' efficiente.
+Comunque, se necessario, e' possibile scegliere esplicitamente il metodo
+di processo delle connessioni tramite la direttiva
+<link doc="ngx_core_module.xml" id="use"/>.
+</para>
+
+<para>
+I metodi di processo delle connessioni sono i seguenti:
+<list type="bullet">
+
+<listitem id="select">
+<para>
+<literal>select</literal>&mdash;metodo standard.
+Il relativo modulo e' compilato automaticamente se la piattaforma non
+rende possibile l'uso di metodi piu' efficienti.
+E' possibile usare i parametri di configurazione
+<literal>--with-select_module</literal> e
+<literal>--without-select_module</literal>
+per abilitare o disabilitare esplicitamente la compilazione di tale modulo.
+</para>
+</listitem>
+
+<listitem id="poll">
+<para>
+<literal>poll</literal>&mdash;metodo standard.
+Il relativo modulo e' compilato automaticamente se la piattaforma non
+rende possibile l'uso di metodi piu' efficienti.
+E' possibile usare i parametri di configurazione
+<literal>--with-poll_module</literal> e
+<literal>--without-poll_module</literal>
+per abilitare o disabilitare esplicitamente la compilazione di tale modulo.
+</para>
+</listitem>
+
+<listitem id="kqueue">
+<para>
+<literal>kqueue</literal>&mdash;metodo efficiente usato su
+FreeBSD 4.1+, OpenBSD 2.9+, NetBSD 2.0, e Mac OS X.
+</para>
+</listitem>
+
+<listitem id="epoll">
+<para>
+<literal>epoll</literal>&mdash;metodo efficiente usato su
+Linux 2.6+.
+<note>
+Alcune distribuzioni piu' vecchie, ad esempio SuSE 8.2, forniscono
+patch che rendono possibile l'uso di questo modulo su kernel 2.4.
+</note>
+</para>
+</listitem>
+
+<listitem id="rtsig">
+<para>
+<literal>rtsig</literal>&mdash;real time signals, metodo efficiente usato su
+Linux 2.2.19+.
+Per default, la coda di eventi del sistema e' limitata a 1024 segnali;
+su server particolarmente carichi puo' risultare necessario incrementare
+tale limite, intervenendo sul parametro del kernel
+<path>/proc/sys/kernel/rtsig-max</path> .
+Comunque, a partire da Linux 2.6.6-mm2 tale parametro non e' piu' disponibile
+e ciascun processo dispone della propria coda di eventi.
+La dimensione di ciascuna coda e' definita da <literal>RLIMIT_SIGPENDING</literal>
+e puo' essere modificata tramite il parametro
+<link doc="ngx_core_module.xml" id="worker_rlimit_sigpending"/>.
+</para>
+
+<para>
+In caso di overflow, nginx scarta del tutto la coda e passa all'uso del
+metodo di processo <literal>poll</literal> sinche' la situazione non
+torna normale.
+</para>
+</listitem>
+
+<listitem id="devpoll">
+<para>
+<literal>/dev/poll</literal>&mdash;metodo efficiente usato su
+Solaris 7 11/99+, HP/UX 11.22+ (eventport), IRIX 6.5.15+,
+e Tru64 UNIX 5.1A+.
+</para>
+</listitem>
+
+<listitem id="eventport">
+<para>
+<literal>eventport</literal>&mdash;event ports, metodo efficiente usato su
+Solaris 10.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+</article>

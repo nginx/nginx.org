@@ -17,6 +17,7 @@
 <item href="/he/" switchlang="he"> עברית </item>
 <item href="/ja/" switchlang="ja"> 日本語 </item>
 <item href="/tr/" switchlang="tr"> türkçe </item>
+<item href="/it/" switchlang="it"> italiano </item>
 <item />
 
 <item href="/" lang="en"> 新闻 </item>
@@ -49,6 +50,7 @@
 <item href="/he/" switchlang="he"> עברית </item>
 <item href="/ja/" switchlang="ja"> 日本語 </item>
 <item href="/tr/" switchlang="tr"> türkçe </item>
+<item href="/it/" switchlang="it"> italiano </item>
 <item />
 
 <item href="/"> news </item>
@@ -94,6 +96,7 @@
 <item> עברית </item>
 <item href="/ja/" switchlang="ja"> 日本語 </item>
 <item href="/tr/" switchlang="tr"> türkçe </item>
+<item href="/it/" switchlang="it"> italiano </item>
 <item />
 
 <item href="/" lang="אנגלית"> חדשות </item>
@@ -124,6 +127,7 @@
 <item href="/he/" switchlang="he"> עברית </item>
 <item> 日本語 </item>
 <item href="/tr/" switchlang="tr"> türkçe </item>
+<item href="/it/" switchlang="it"> italiano </item>
 <item />
 
 <item href="/" lang="en"> ニュース </item>
@@ -155,6 +159,7 @@
 <item href="/he/" switchlang="he"> עברית </item>
 <item href="/ja/" switchlang="ja"> 日本語 </item>
 <item href="/tr/" switchlang="tr"> türkçe </item>
+<item href="/it/" switchlang="it"> italiano </item>
 <item />
 
 <item href="/" lang="en"> новости </item>
@@ -188,6 +193,7 @@
 <item href="/he/" switchlang="he"> עברית </item>
 <item href="/ja/" switchlang="ja"> 日本語 </item>
 <item> türkçe </item>
+<item href="/it/" switchlang="it"> italiano </item>
 <item />
 
 <item href="/" lang="ing"> haberler </item>
@@ -200,6 +206,52 @@
 <item href="/en/links.html" lang="ing"> bağlantılar </item>
 <item href="/en/books.html" lang="ing"> kitaplar </item>
 <item href="/en/support.html" lang="ing"> destek </item>
+<item />
+
+<item href="http://trac.nginx.org/nginx"> trac </item>
+<item href="http://wiki.nginx.org/"> wiki </item>
+<item href="http://twitter.com/nginxorg"> twitter </item>
+<item href="http://nginx.com/"> nginx.com </item>
+
+</menu>
+
+
+<menu lang="it">
+
+<item href="/en/" switchlang="en"> english </item>
+<item href="/ru/" switchlang="ru"> русский </item>
+<item />
+
+<item href="/cn/" switchlang="cn"> 简体中文 </item>
+<item href="/he/" switchlang="he"> עברית </item>
+<item href="/ja/" switchlang="ja"> 日本語 </item>
+<item href="/tr/" switchlang="tr"> türkçe </item>
+<item> italiano </item>
+<item />
+
+<item href="/" lang="ing"> news </item>
+<item href="2012.html" year="2012" />
+<item href="2011.html" year="2011" />
+<item href="2010.html" year="2010" />
+<item href="2009.html" year="2009" />
+<item year="" />
+
+<item href="/it/"> informazioni generali </item>
+<item href="/en/download.html" lang="ing"> download </item>
+<!--
+<item href="/en/getting_started.html" lang="ing"> per iniziare </item>
+-->
+<item href="/en/security_advisories.html" lang="ing"> avvisi di sicurezza </item>
+<item href="/it/docs/"> documentazione </item>
+<item href="/en/pgp_keys.html" lang="ing"> chiavi pgp </item>
+<!--
+<item href="/en/docs/reference.html" lang="ing"> riferimenti </item>
+-->
+<item href="/en/docs/faq.html" lang="ing"> faq </item>
+<item href="/en/links.html" lang="ing"> collegamenti </item>
+<item href="/en/books.html" lang="ing"> libri </item>
+<item href="/en/support.html" lang="ing"> supporto </item>
+<item href="/en/donation.html" lang="ing"> donazioni </item>
 <item />
 
 <item href="http://trac.nginx.org/nginx"> trac </item>

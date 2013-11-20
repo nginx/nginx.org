@@ -1,0 +1,513 @@
+<!--
+  Copyright (C) Igor Sysoev
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE article SYSTEM "../../../../dtd/article.dtd">
+
+<article name="I nomi dei server"
+         link="/it/docs/http/server_names.html"
+         lang="it"
+         translator="Angelo Papadia"
+         rev="2"
+         author="Igor Sysoev"
+         editor="Brian Mercer">
+
+
+<section>
+
+<para>
+I nomi dei server, definiti usando la direttiva
+<link doc="ngx_http_core_module.xml" id="server_name"/>,
+determinano quale blocco
+<link doc="ngx_http_core_module.xml" id="server"/>
+viene usato per una data richiesta (per approfondire vedi
+"<link doc="request_processing.xml"/>”).
+
+I nomi possono essere definiti tramite una stringa determinata,
+oppure con caratteri jolly, oppure ancora tramite espressioni regolari:
+
+<programlisting>
+server {
+    listen       80;
+    server_name  example.org  www.example.org;
+    ...
+}
+
+server {
+    listen       80;
+    server_name  *.example.org;
+    ...
+}
+
+server {
+    listen       80;
+    server_name  mail.*;
+    ...
+}
+
+server {
+    listen       80;
+    server_name  ~^(?&lt;user&gt;.+)\.example\.net$;
+    ...
+}
+</programlisting>
+</para>
+
+<para>
+Nel corso della ricerca di un server virtuale name-based, se il nome corrisponde
+a piu' di una delle definizioni, ad esempio sia a nomi definiti tramite
+caratteri jolly che a nomi definiti tramite espressioni regolari, verra' scelta
+la prima variante individuata, secondo il seguente ordine di precedenza decrescente:
+<list type="enum">
+
+<listitem>
+nome esatto
+</listitem>
+
+<listitem>
+fra quelli definiti con caratteri jolly, il piu' lungo nome che comincia per
+asterisco, ad esempio “<literal>*.example.org</literal>”
+</listitem>
+
+<listitem>
+fra quelli definiti con caratteri jolly, il piu' lungo nome che termina per
+asterisco, ad esempio “<literal>mail.*</literal>”
+</listitem>
+
+<listitem>
+fra quelli definiti come espressioni regolare, il primo corrispondente
+(in base all'ordine con cui compaiono nel file di configurazione)
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+
+<section id="wildcard_names"
+        name="Nomi con caratteri jolly">
+
+<para>
+Un nome con caratteri jolly puo' contenere un asterisco solo all'inizio
+o alla fine del nome, e solo accanto ad un punto; ad esempio, i nomi
+“<literal>www.*.example.org</literal>”
+e “<literal>w*.example.org</literal>” non sono validi (pero' e'
+possibile definirli tramite espressioni regolari, per esempio in questo
+caso “<literal>~^www\..+\.example\.org$</literal>” e
+“<literal>~^w.*\.example\.org$</literal>”).
+Un asterisco puo' corrispondere a piu' parti di un nome:
+“<literal>*.example.org</literal>” corrisponde non solo a
+<literal>www.example.org</literal> ma anche a
+<literal>www.sub.example.org</literal>.
+</para>
+
+<para>
+E' possibile definire un nome speciale nella forma
+“<literal>.example.org</literal>”, che corrisponde sia al nome esatto
+“<literal>example.org</literal>” sia al nome con caratteri jolly
+“<literal>*.example.org</literal>”.
+</para>
+
+</section>
+
+
+<section id="regex_names"
+        name="Nomi con espressioni regolari">
+
+<para>
+Le espressioni regolari usate da nginx sono compatibili con quelle usate
+dal linguaggio di programmazione Perl (PCRE).
+Per usare una espressione regolare, il nome del server deve iniziare con
+il carattere tilde:
+
+<programlisting>
+server_name  ~^www\d+\.example\.net$;
+</programlisting>
+
+altrimenti viene considerato e trattato come un nome esatto, oppure,
+se l'espressione contiene un asterisco, come un nome con caratteri jolly
+(e molto probabilmente come uno non valido).
+E' importante non dimenticare i caratteri ancora “<literal>^</literal>” e
+“<literal>$</literal>”: non sono necessari dal punto di vista sintattico,
+ma lo sono da quello logico.
+Si noti inoltre che i caratteri punto nei nomi di dominio sono definiti
+facendoli precedere da “<literal>\</literal>”.
+Una espressione regolare contenente i caratteri “<literal>{</literal>” e
+“<literal>}</literal>”, deve essere racchiusa fra doppi apici:
+
+<programlisting>
+server_name  "~^(?&lt;name&gt;\w\d<b>{</b>1,3<b>}</b>+)\.example\.net$";
+</programlisting>
+
+altrimenti nginx non sara' in grado di avviarsi e mostrera' l'errore:
+
+<programlisting>
+directive "server_name" is not terminated by ";" in ...
+</programlisting>
+
+La sezione catturata di una espressione regolare che definisce un nome
+puo' essere usata in seguito come una variabile:
+
+<programlisting>
+server {
+    server_name   ~^(www\.)?(<b>?&lt;domain&gt;</b>.+)$;
+
+    location / {
+        root   /sites/<b>$domain</b>;
+    }
+}
+</programlisting>
+
+La libreria PCRE supporta sezioni catturate di nomi tramite la seguente sintassi:
+
+<table note="yes">
+
+<tr>
+<td><literal>?&lt;<value>nome</value>&gt;</literal></td>
+<td>Sintassi compatibile con Perl 5.10, supportata da PCRE-7.0 in poi</td>
+</tr>
+
+<tr>
+<td><literal>?'<value>nome</value>'</literal></td>
+<td>Sintassi compatibile con Perl 5.10, supportata da PCRE-7.0 in poi</td>
+</tr>
+
+<tr>
+<td><literal>?P&lt;<value>nome</value>&gt;</literal></td>
+<td>Sintassi compatibile con Python, supportata da PCRE-4.0 in poi</td>
+</tr>
+
+</table>
+
+Quando nginx non riesce ad avviarsi e mostra il seguente messaggio d'errore:
+
+<programlisting>
+pcre_compile() failed: unrecognized character after (?&lt; in ...
+</programlisting>
+
+significa che la libreria PCRE e' troppo vecchia, per cui e' bene provare
+ad usare invece la sintassi:
+“<literal>?P&lt;<value>name</value>&gt;</literal>”.
+E' possibile riferirsi a sezioni catturate anche usando cifre:
+
+<programlisting>
+server {
+    server_name   ~^(www\.)?(.+)$;
+
+    location / {
+        root   /sites/<b>$2</b>;
+    }
+}
+</programlisting>
+
+Comunque, tale uso dovrebbe essere limitato ai casi piu' semplici (come
+ad esempio quello appena mostrato), dato che i riferimenti con cifra
+possono essere sovrascritti facilmente.
+</para>
+
+
+</section>
+
+
+<section id="miscellaneous_names"
+        name="Nomi vari">
+
+<para>
+Alcuni nomi di server sono trattati in maniera speciale.
+</para>
+
+<para>
+Se si desidera che le richieste prive del campo <header>Host</header>
+dell'header siano processato in un blocco
+<link doc="ngx_http_core_module.xml" id="server"/>
+che non e' quello di default, e' necessario specificare un nome vuoto:
+
+<programlisting>
+server {
+    listen       80;
+    server_name  example.org  www.example.org  "";
+    ...
+}
+</programlisting>
+</para>
+
+<para>
+
+Se in un blocco <link doc="ngx_http_core_module.xml" id="server"/>
+non e' specificato alcun <link doc="ngx_http_core_module.xml" id="server_name"/>,
+allora nginx usa il nome vuoto come nome del server.
+<note>
+sino alla versione 0.8.48, in questi casi nginx usava l'hostname della
+macchina come nome del server.
+</note>
+</para>
+
+<para>
+Se il nome del server e' definito come “<literal>$hostname</literal>” (0.9.4),
+il nome del server effettivamente usato e' l'hostname della macchina.
+</para>
+
+<para>
+Se viene fatta una richiesta usando l'indirizzo IP invece di un nome di server,
+il campo <header>Host</header> dell'header di richiesta conterra' l'indirizzo IP,
+e la richiesta potra' essere processata usando l'indirizzo IP come nome del server:
+
+<programlisting>
+server {
+    listen       80;
+    server_name  example.org
+                 www.example.org
+                 ""
+                 <b>192.168.1.1</b>
+                 ;
+    ...
+}
+</programlisting>
+</para>
+
+<para>
+In molti esempi di configurazione di un server catch-all e' spesso possibile
+notare l'uso di uno strano nome
+“<literal>_</literal>”:
+
+<programlisting>
+server {
+    listen       80  default_server;
+    server_name  _;
+    return       444;
+}
+</programlisting>
+
+Tale nome non ha niente di speciale, si tratta di un nome qualsiasi,
+scelto piu' o meno a caso fra quelli non validi come nome di dominio.
+Altri esempi di nomi non validi che sono talvolta pure usati sono
+“<literal>--</literal>” e “<literal>!@#</literal>”.
+</para>
+
+<para>
+Sino alla versione 0.6.25 nginx supportava il nome speciale
+“<literal>*</literal>”, che e' stato spesso interpretato erroneamente
+come un nome, non valido, per un server catch-all.
+In effetti, non si e' mai trattato di un nome per un server catch-all o
+di un nome con caratteri jolly: piuttosto, serviva a fornire la funzionalita'
+attualmente affidata alla direttiva
+<link doc="ngx_http_core_module.xml" id="server_name_in_redirect"/>.
+Il nome speciale “<literal>*</literal>” e' attualmente sconsigliato,
+ed e' considerato preferibile l'uso della direttiva
+<link doc="ngx_http_core_module.xml" id="server_name_in_redirect"/>.
+Si noti che non c'e' alcun modo di specificare un nome catch-all o un
+server di default usando la direttiva
+<link doc="ngx_http_core_module.xml" id="server_name"/>:
+si tratta di una proprieta' della direttiva
+<link doc="ngx_http_core_module.xml" id="listen"/>
+e non della direttiva
+<link doc="ngx_http_core_module.xml" id="server_name"/>
+Si faccia riferimento anche a
+“<link doc="request_processing.xml"/>”.
+E' possibile definire server in ascolto sulle porte *:80 e *:8080,
+e specificare che uno e' quello di default per la porta *:8080,
+mentre l'altro e' quello di default per la porta *:80:
+
+<programlisting>
+server {
+    listen       80;
+    listen       8080  default_server;
+    server_name  example.net;
+    ...
+}
+
+server {
+    listen       80  default_server;
+    listen       8080;
+    server_name  example.org;
+    ...
+}
+</programlisting>
+</para>
+
+
+</section>
+
+
+<section id="optimization"
+        name="Ottimizzazione">
+
+<para>
+I nomi esatti, i nomi con caratteri jolly che iniziano per asterisco,
+ed i nomi con caratteri jolly che terminano per asterisco,
+sono registrati in tre tabelle di hash collegate alle porte in ascolto.
+Le dimensioni delle tabelle sono ottimizzate in fase di configurazione,
+in maniera tale che i nomi possano essere recuperati con il minimo numero
+di miss alla cache della CPU.
+Dettagli su come configurare le tabelle di hash sono forniti in un
+<link doc="../hash.xml">documento</link> apposito.
+</para>
+
+<para>
+La prima tabella di hash consultata e' quella dei nomi esatti;
+se non si trova il nome ricercato, si prosegue nella tabella di hash
+dei nomi con caratteri jolly che iniziano per asterisco;
+in caso di ulteriore riscontro negativo, si passa alla tabella di hash
+dei nomi con caratteri jolly che finiscono per asterisco.
+</para>
+
+<para>
+La ricerca in una tabella di hash per nomi con caratteri jolly e' piu' lenta
+della ricerca nella tabella relativa ai nomi esatti, dato che i nomi sono ricercati
+per parti del dominio.
+Si noti che il formato speciale “<literal>.example.org</literal>” e' salvato in una
+tabella di hash di nomi con caratteri jolly, e non in quella dei nomi esatti.
+</para>
+
+<para>
+Le espressioni regolari sono testate in sequenza, per cui sono il metodo piu'
+lento e sono non scalabili.
+</para>
+
+<para>
+Per queste ragioni, se possibile e' sempre meglio usare nomi esatti.
+Ad esempio, se i nomi di server richiesti piu' di frequente sono
+<literal>example.org</literal> e <literal>www.example.org</literal>,
+e' piu' efficiente definirli in maniera esplicita:
+
+<programlisting>
+server {
+    listen       80;
+    server_name  example.org  www.example.org  *.example.org;
+    ...
+}
+</programlisting>
+
+che usare il formato piu' semplice:
+
+<programlisting>
+server {
+    listen       80;
+    server_name  .example.org;
+    ...
+}
+</programlisting>
+</para>
+
+<para>
+Se il numero di nomi di server definiti e' molto grande,
+oppure se sono stati definiti nomi di server decisamente lunghi,
+per la messa a punto e' possibile che sia necessario utilizzare
+le direttive del livello <i>http</i>
+<link doc="ngx_http_core_module.xml" id="server_names_hash_max_size"/>
+e <link doc="ngx_http_core_module.xml" id="server_names_hash_bucket_size"/>.
+Il valore di default della direttiva
+<link doc="ngx_http_core_module.xml" id="server_names_hash_bucket_size"/>
+puo' essere pari a 32 o 64, oppure ad un altro valore, in base alla
+dimensione della linea di cache della CPU.
+Se il valore di default e' 32 ed il nome del server e' definito come
+“<literal>too.long.server.name.example.org</literal>”, allora nginx non potra'
+partire e sara' mostrato il seguente messaggio d'errore:
+
+<programlisting>
+could not build the server_names_hash,
+you should increase server_names_hash_bucket_size: 32
+</programlisting>
+
+In tal caso, il valore della direttiva dovrebbe essere aumentata sino alla
+successiva potenza di due:
+
+<programlisting>
+http {
+    server_names_hash_bucket_size  64;
+    ...
+</programlisting>
+
+Se sono stati definiti molti nomi di server, potrebbe comparire un altro
+messaggio di errore:
+
+<programlisting>
+could not build the server_names_hash,
+you should increase either server_names_hash_max_size: 512
+or server_names_hash_bucket_size: 32
+</programlisting>
+
+In tal caso, si provi prima a impostare
+<link doc="ngx_http_core_module.xml" id="server_names_hash_max_size"/>
+ad un numero prossimo al numero dei nomi di server.
+Solo nel caso in cui cio' non risultasse sufficiente, oppure se il tempo di avvio
+di nginx fosse inaccetabilmente alto, si provi ad incrementare
+<link doc="ngx_http_core_module.xml" id="server_names_hash_bucket_size"/>.
+</para>
+
+<para>
+Se su una data porta in ascolto c'e' un unico server, allora nginx saltera' del tutto
+la verifica dei nomi dei server (e non costituira' le tabelle di hash per la porta
+in questione).
+C'e' una eccezione: se un nome di server e' una espressione regolare con
+sezioni catturate, allora nginx dovra' svolgere l'espressione regolare per recuperare
+le sezioni catturate.
+</para>
+
+</section>
+
+
+<section id="compatibility"
+        name="Compatibilita'">
+
+<para>
+<list type="bullet">
+
+<listitem>
+Il nome di server speciale “<literal>$hostname</literal>” e' supportato
+dalla versione 0.9.4 in poi.
+</listitem>
+
+<listitem>
+Il nome vuoto “” e' il valore di default per il nome dei server
+dalla versione 0.8.48 in poi.
+</listitem>
+
+<listitem>
+Il riferimento tramite nome a sezioni catturate in un nome di server definito
+tramite espressione regolare e' supportato dalla versione 0.8.25 in poi.
+</listitem>
+
+<listitem>
+Le sezioni catturate in un nome di server definito tramite espressione regolare
+sono supportate dalla versione 0.7.40 in poi.
+</listitem>
+
+<listitem>
+Il nome di server vuoto  “” e' supportato
+dalla versione 0.7.12 in poi.
+</listitem>
+
+<listitem>
+La definizione di nomi di server e di espressioni regolari tramite caratteri jolly
+e' supportata dalla versione 0.6.25 in poi.
+</listitem>
+
+<listitem>
+La definizione di nomi di server tramite espressioni regolari e' supportata
+dalla versione 0.6.7 in poi.
+</listitem>
+
+<listitem>
+Il formato con caratteri jolly <literal>example.*</literal> e' supportato
+dalla versione 0.6.0 in poi.
+</listitem>
+
+<listitem>
+Il formato speciale <literal>.example.org</literal> e' supportato
+dalla versione 0.3.18 in poi.
+</listitem>
+
+<listitem>
+Il formato con caratteri jolly <literal>*.example.org</literal> e' supportato
+dalla versione 0.1.13 in poi.
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+</article>

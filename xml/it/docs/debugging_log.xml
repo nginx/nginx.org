@@ -1,0 +1,84 @@
+<!--
+  Copyright (C) Igor Sysoev
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE article SYSTEM "../../../dtd/article.dtd">
+
+<article name="Il log di debug"
+         link="/it/docs/debugging_log.html"
+         lang="it"
+         translator="Angelo Papadia"
+         rev="1">
+
+
+<section>
+
+<para>
+Per poter abilitare il log di <literal>debug</literal>,
+nginx deve essere stato configurato appositamente in
+fase di compilazione:
+
+<programlisting>
+./configure --with-debug ...
+</programlisting>
+
+Dopo di cio', e' possibile configurare il livello di
+<literal>debug</literal> tramite la direttiva
+<link doc="ngx_core_module.xml" id="error_log"/>:
+
+<programlisting>
+error_log /path/to/log debug;
+</programlisting>
+
+La versione binaria di nginx per Windows e' sempre compilata
+con tale supporto, per cui in questo caso e' sufficiente
+configurare il livello di <literal>debug</literal>.
+</para>
+
+<para>
+Si tenga presente che ridefinire il log senza anche
+specificare il livello di <literal>debug</literal>
+causa la disabilitazione del log.
+Nell'esempio che segue, la ridefinizione del log nel livello
+<link doc="http/ngx_http_core_module.xml" id="server"/>
+disabilita il log di <literal>debug</literal> per tale server:
+<programlisting>
+error_log /path/to/log debug;
+
+http {
+    server {
+        error_log /path/to/log;
+        ...
+</programlisting>
+Se ridefinire il log risulta necessario, per non
+incorrere in questo problema bisogna indicare
+esplicitamente il livello di <literal>debug</literal>:
+<programlisting>
+error_log /path/to/log debug;
+
+http {
+    server {
+        error_log /path/to/log debug;
+        ...
+</programlisting>
+</para>
+
+<para>
+E' pure possibile abilitare il <literal>debug</literal> solo
+per <link doc="ngx_core_module.xml" id="debug_connection">
+indirizzi client specifici</link>:
+
+<programlisting>
+error_log /path/to/log;
+
+events {
+    debug_connection 192.168.1.1;
+    debug_connection 192.168.10.0/24;
+}
+</programlisting>
+</para>
+
+</section>
+
+</article>

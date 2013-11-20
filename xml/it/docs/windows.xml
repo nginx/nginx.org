@@ -1,0 +1,158 @@
+<!--
+  Copyright (C) Igor Sysoev
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE article SYSTEM "../../../dtd/article.dtd">
+
+<article name="nginx per Windows"
+         link="/it/docs/windows.html"
+         lang="it"
+         translator="Angelo Papadia"
+         rev="2">
+
+<section>
+
+<para>
+La versione di nginx per Windows usa le API native Win32, e non il layer di
+emulazione Cygwin.
+Attualmente e' usato solo il metodo di connessione <c-func>select</c-func>,
+per cui non e' possibile attendersi prestazioni e scalabilita' eccellenti;
+per tale ragione, e anche per altre, quella per Windows e'
+considerata una versione <i>beta</i>.
+Al momento risultano implementate piu' o meno le stesse funzionalita' della
+versione di nginx per UNIX, con l'eccezione del filtro XSLT, del filtro immagini,
+del modulo GeoIP, e del linguaggio Perl embedded.
+</para>
+
+<para>
+Per installare nginx/Windows, e' bene <link doc="../download.xml">scaricare</link>
+l'ultima distribuzione disponibile della versione mainline (<mainline_version/>),
+che contiene le correzioni piu' recenti.
+Bisogna scompattare la distribuzione, spostarsi nella directory
+nginx-<mainline_version/> e lanciare <command>nginx</command>.
+Segue un esempio in cui la directory e' sul drive C: :
+
+<programlisting>
+cd c:\
+unzip nginx-<mainline_version/>.zip
+cd nginx-<mainline_version/>
+start nginx
+</programlisting>
+
+Avviare l'utility a linea di comando <command>tasklist</command>
+per vedere i processi nginx:
+
+<programlisting>
+C:\nginx-<mainline_version/>&gt;tasklist /fi "imagename eq nginx.exe"
+
+Image Name           PID Session Name     Session#    Mem Usage
+=============== ======== ============== ========== ============
+nginx.exe            652 Console                 0      2 780 K
+nginx.exe           1332 Console                 0      3 112 K
+</programlisting>
+
+Uno dei due e' il processo master, l'altro il processo worker.
+Se nginx non si avvia, verificarne la ragione nel file di log
+degli errori <path>logs\error.log</path> ;
+se tale file non e' stato creato, la ragione dovrebbe essere riportata
+nel Windows Event Log.
+Se viene mostrata una pagina di errore invece della pagina attesa,
+verificarne la ragione nel solito file <path>logs\error.log</path> .
+</para>
+
+<para>
+nginx/Windows utilizza la directory in cui e' stato avviato come prefisso
+per i path relativi della configurazione.
+Nell'esempio precedente, il prefisso e'
+<path>C:\nginx-<mainline_version/>\</path> .
+I path nei file di configurazione devono essere specificati usando gli
+slash del formato UNIX:
+
+<programlisting>
+access_log   logs/site.log;
+root         C:/web/html;
+</programlisting>
+</para>
+
+<para>
+nginx/Windows e' eseguito come una normale applicazione di console e
+non come un servizio, e puo' essere gestito con i comandi seguenti:
+
+<table note="yes">
+
+<tr>
+<td width="20%">nginx -s stop</td>
+<td>arresto rapido</td>
+</tr>
+
+<tr>
+<td>nginx -s quit</td>
+<td>arresto controllato</td>
+</tr>
+
+<tr>
+<td>nginx -s reload</td>
+<td>
+ricaricamento della configurazione,
+con avvio di un nuovo processo worker con la nuova configurazione,
+ed arresto controllato del vecchio processo worker.
+</td>
+</tr>
+
+<tr>
+<td>nginx -s reopen</td>
+<td>riapertura dei file di log</td>
+</tr>
+
+</table>
+</para>
+
+</section>
+
+<section id="known_issues"
+        name="Problemi noti">
+
+<list type="bullet">
+
+<listitem>
+Nonostante sia possibile avviare diversi worker, in effetti
+solo uno di essi esegue tutto il lavoro.
+</listitem>
+
+<listitem>
+Un worker puo' gestire non piu' di 1024 connessioni simultanee.
+</listitem>
+
+<listitem>
+La cache, ed altri moduli che richiedono il supporto alla memoria condivisa,
+non funzionano su Windows Vista e versioni successive, in quanto su tali
+versioni e' in uso la address space layout randomization.
+</listitem>
+
+</list>
+
+</section>
+
+<section id="possible_future_enhancements"
+        name="Possibili sviluppi futuri">
+
+<list type="bullet">
+
+<listitem>
+L'esecuzione come servizio.
+</listitem>
+
+<listitem>
+L'uso di I/O completion port come metodo di processo delle connessioni.
+</listitem>
+
+<listitem>
+L'uso di piu' thread worker all'interno di un singolo processo worker.
+</listitem>
+
+</list>
+
+</section>
+
+</article>

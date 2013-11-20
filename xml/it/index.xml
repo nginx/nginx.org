@@ -1,0 +1,357 @@
+<!--
+  Copyright (C) Igor Sysoev
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE article SYSTEM "../../dtd/article.dtd">
+
+<article name="nginx"
+         link="/it/"
+         lang="it"
+         translator="Angelo Papadia"
+         rev="11">
+
+
+<section>
+
+<para>
+nginx [engine x] e' un server HTTP e reverse proxy,
+nonche' un server mail proxy, scritto da
+<link url="http://sysoev.ru/en/">Igor Sysoev</link>.
+Per molto tempo e' stato usato principalmente per alcuni
+siti russi ad alto carico, ad esempio
+<link url="http://www.yandex.ru">Yandex</link>,
+<link url="http://www.mail.ru">Mail.Ru</link>,
+<link url="http://vkontakte.ru">VKontakte</link> e
+<link url="http://www.rambler.ru">Rambler</link>;
+in base ai dati di Netcraft, nell'ottobre 2013 nginx
+e' il server HTTP o reverse proxy del
+<link url="http://news.netcraft.com/archives/2013/10/02/october-2013-web-server-survey.html">15.08%
+dei siti a maggiore carico</link>.
+Alcuni casi di successo sono:
+<link url="https://signup.netflix.com/openconnect/software">Netflix</link>,
+<link url="http://nginx.com/cs/nginx-automattic.html">Wordpress.com</link>,
+<link url="http://blog.fastmail.fm/2007/01/04/webimappop-frontend-proxies-changed-to-nginx/">FastMail.FM</link>.
+</para>
+
+<para>
+La documentazione ed i sorgenti sono distribuiti in base alla
+<link url="../LICENSE">licenza BSD con 2 clausole</link>.
+</para>
+
+</section>
+
+
+<section id="basic_http_features"
+        name="Caratteristiche principali del server HTTP">
+
+<para>
+<list type="bullet">
+
+<listitem>
+Servizio di file statici e
+<link doc="docs/http/ngx_http_index_module.xml">index</link>,
+<link doc="docs/http/ngx_http_autoindex_module.xml">autoindexing</link>;
+<link doc="docs/http/ngx_http_core_module.xml"
+       id="open_file_cache">cache dei descrittori dei file aperti</link>;
+</listitem>
+
+<listitem>
+<link doc="docs/http/ngx_http_proxy_module.xml">Reverse proxy accelerato
+con cache</link>;
+<link doc="docs/http/ngx_http_upstream_module.xml">semplice bilanciamento
+di carico e load balancing</link>;
+</listitem>
+
+<listitem>
+Supporto accelerato con cache di server
+<link doc="docs/http/ngx_http_fastcgi_module.xml">FastCGI</link>,
+uwsgi, SCGI, e
+<link doc="docs/http/ngx_http_memcached_module.xml">memcached</link>;
+<link doc="docs/http/ngx_http_upstream_module.xml">semplice bilanciamento
+di carico e load balancing</link>;
+</listitem>
+
+<listitem>
+Architettura modulare.
+Filtri per
+<link doc="docs/http/ngx_http_gzip_module.xml">gzip</link>,
+intervalli di byte, risposte a blocchi,
+<link doc="docs/http/ngx_http_xslt_module.xml">XSLT</link>,
+<link doc="docs/http/ngx_http_ssi_module.xml">SSI</link>,
+e filtro per la <link doc="docs/http/ngx_http_image_filter_module.xml">
+trasformazione d'immagini</link>.
+Inclusioni multiple di SSI in una stessa pagina possono essere
+processate in parallelo se sono gestite da server proxy o FastCGI;
+</listitem>
+
+<listitem>
+<link doc="docs/http/ngx_http_ssl_module.xml">Supporto a SSL e TLS SNI
+</link>.
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+
+<section id="other_http_features"
+        name="Caratteristiche ulteriori del server HTTP">
+
+<para>
+<list type="bullet">
+
+<listitem>
+<link doc="docs/http/request_processing.xml">server virtuali</link>
+name-based e IP-based;
+</listitem>
+
+<listitem>
+Supporto a connessioni
+<link doc="docs/http/ngx_http_core_module.xml"
+       id="keepalive_timeout">keep-alive</link>
+e pipelined;
+</listitem>
+
+<listitem>
+Configurazione flessibile;
+</listitem>
+
+<listitem>
+<link doc="docs/control.xml" id="reconfiguration">Caricamento di una nuova
+configurazione </link> e <link doc="docs/control.xml" id="upgrade">
+aggiornamento dell'eseguibile</link> senza interruzione di servizio ai client;
+</listitem>
+
+<listitem>
+<link doc="docs/http/ngx_http_log_module.xml" id="log_format">Access log in vari
+formati</link>, <link doc="docs/http/ngx_http_log_module.xml" id="access_log">log con buffer
+</link>, e <link doc="docs/control.xml" id="logs">veloce rotazione dei log</link>;
+</listitem>
+
+<listitem>
+<link doc="docs/http/ngx_http_core_module.xml" id="error_page">Redirezione</link>
+dei codici d'errore 3xx-5xx;
+</listitem>
+
+<listitem>
+Modulo di rewrite:
+<link doc="docs/http/ngx_http_rewrite_module.xml">trasformazione delle URI
+con uso di espressioni regolari</link>;
+</listitem>
+
+<listitem>
+<link doc="docs/http/ngx_http_rewrite_module.xml" id="if">Esecuzione di funzioni differenti
+</link> a seconda dell'
+<link doc="docs/http/ngx_http_geo_module.xml">indirizzo del client</link>;
+</listitem>
+
+<listitem>
+Controllo d'accesso in base a
+<link doc="docs/http/ngx_http_access_module.xml">indirizzo IP del client</link>, a
+<link doc="docs/http/ngx_http_auth_basic_module.xml">
+password (HTTP Basic authentication)</link>, e al
+<link doc="docs/http/ngx_http_auth_request_module.html">risultato di una sottorichiesta</link>;
+</listitem>
+
+<listitem>
+Validazione del
+<link doc="docs/http/ngx_http_referer_module.xml">referer HTTP</link>;
+</listitem>
+
+<listitem>
+Metodi <link doc="docs/http/ngx_http_dav_module.xml">PUT, DELETE, MKCOL, COPY,
+e MOVE</link>;
+</listitem>
+
+<listitem>
+Streaming
+<link doc="docs/http/ngx_http_flv_module.xml">FLV</link> e
+<link doc="docs/http/ngx_http_mp4_module.xml">MP4</link>;
+</listitem>
+
+<listitem>
+<link doc="docs/http/ngx_http_core_module.xml" id="limit_rate">
+Limitazione della velocita' del flusso di risposta</link>;
+</listitem>
+
+<listitem>
+Limitazione del numero di
+<link doc="docs/http/ngx_http_limit_conn_module.xml">connessioni</link> o
+<link doc="docs/http/ngx_http_limit_req_module.xml">richieste</link>
+simultanee da un dato indirizzo;
+</listitem>
+
+<listitem>
+<link doc="docs/http/ngx_http_perl_module.xml">Perl embedded</link>.
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+
+<section id="mail_proxy_server_features"
+        name="Caratteristiche del server mail proxy">
+
+<para>
+<list type="bullet">
+
+<listitem>
+Redirezione dell'utente verso server
+<link doc="docs/mail/ngx_mail_imap_module.xml">IMAP</link>
+o
+<link doc="docs/mail/ngx_mail_pop3_module.xml">POP3</link>
+tramite un server esterno di
+<link doc="docs/mail/ngx_mail_auth_http_module.xml">autenticazione</link>
+HTTP;
+</listitem>
+
+<listitem>
+Autenticazione dell'utente tramite un server esterno di
+<link doc="docs/mail/ngx_mail_auth_http_module.xml">autenticazione</link>
+e redirezione della connessione verso un server
+<link doc="docs/mail/ngx_mail_smtp_module.xml">SMTP</link>;
+</listitem>
+
+<listitem>
+Metodi di autenticazione:
+
+<list type="bullet">
+
+<listitem>
+<link doc="docs/mail/ngx_mail_pop3_module.xml" id="pop3_auth">POP3</link>:
+USER/PASS, APOP, AUTH LOGIN/PLAIN/CRAM-MD5;
+</listitem>
+
+<listitem>
+<link doc="docs/mail/ngx_mail_imap_module.xml" id="imap_auth">IMAP</link>:
+LOGIN, AUTH LOGIN/PLAIN/CRAM-MD5;
+</listitem>
+
+<listitem>
+<link doc="docs/mail/ngx_mail_smtp_module.xml" id="smtp_auth">SMTP</link>:
+AUTH LOGIN/PLAIN/CRAM-MD5;
+</listitem>
+
+</list>
+</listitem>
+
+<listitem>
+supporto a
+<link doc="docs/mail/ngx_mail_ssl_module.xml">SSL</link>;
+</listitem>
+
+<listitem>
+supporto a
+<link doc="docs/mail/ngx_mail_ssl_module.xml" id="starttls">STARTTLS
+e STLS</link>.
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+
+<section id="architecture_and_scalability"
+        name="Architettura e scalabilita'">
+
+<para>
+<list type="bullet">
+
+<listitem>
+Un processo master e numerosi processi worker;
+i processi worker girano con un utente non privilegiato;
+</listitem>
+
+<listitem>
+<link doc="docs/events.xml">Supporto</link> a
+kqueue (FreeBSD 4.1+),
+epoll (Linux 2.6+), segnali rt (Linux 2.2.19+),
+/dev/poll (Solaris 7 11/99+), event ports (Solaris 10),
+select, e poll;
+</listitem>
+
+<listitem>
+Supporto alle differenti funzionalita' di kqueue, fra cui EV_CLEAR, EV_DISABLE
+(per disabilitare temporaneamente eventi), NOTE_LOWAT, EV_EOF,
+numero di dati disponibili, codici d'errore;
+</listitem>
+
+<listitem>
+supporto a sendfile (FreeBSD 3.1+, Linux 2.2+, Mac OS X 10.5+), sendfile64 (Linux 2.4.21+),
+e sendfilev (Solaris 8 7/01+);
+</listitem>
+
+<listitem>
+<link doc="docs/http/ngx_http_core_module.xml" id="aio">File AIO</link>
+(FreeBSD 4.3+, Linux 2.6.22+);
+</listitem>
+
+<listitem>
+<link doc="docs/http/ngx_http_core_module.xml" id="directio">DIRECTIO</link>
+(FreeBSD 4.4+, Linux 2.4+, Solaris 2.6+, Mac OS X);
+</listitem>
+
+<listitem>
+<link doc="docs/http/ngx_http_core_module.xml" id="listen">supporto</link> a
+Accept-filters (FreeBSD 4.1+, NetBSD 5.0+) e TCP_DEFER_ACCEPT (Linux 2.4+);
+</listitem>
+
+<listitem>
+10000 connessioni HTTP keep-alive inattive richiedono circa 2.5M di memoria;
+</listitem>
+
+<listitem>
+Le operazioni di copia di dati risultano minime.
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+
+<section id="tested_os_and_platforms"
+        name="Piattaforme e sistemi operativi testati">
+
+<para>
+<list type="bullet">
+
+<listitem>
+FreeBSD 3&mdash;10 / i386; FreeBSD 5&mdash;10 / amd64;
+</listitem>
+
+<listitem>
+Linux 2.2&mdash;3 / i386; Linux 2.6&mdash;3 / amd64;
+</listitem>
+
+<listitem>
+Solaris 9 / i386, sun4u; Solaris 10 / i386, amd64, sun4v;
+</listitem>
+
+<listitem>
+AIX 7.1 / powerpc;
+</listitem>
+
+<listitem>
+HP-UX 11.31 / ia64;
+</listitem>
+
+<listitem>
+Mac OS X / ppc, i386;
+</listitem>
+
+<listitem>
+Windows XP, Windows Server 2003.
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+</article>
