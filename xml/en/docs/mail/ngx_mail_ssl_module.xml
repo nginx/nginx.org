@@ -10,7 +10,7 @@
 <module name="Module ngx_mail_ssl_module"
         link="/en/docs/mail/ngx_mail_ssl_module.html"
         lang="en"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -176,6 +176,42 @@ ssl_session_cache builtin:1000 shared:SSL:10m;
 </example>
 but using only shared cache without the built-in cache should
 be more efficient.
+</para>
+
+</directive>
+
+
+<directive name="ssl_session_ticket_key">
+<syntax><value>file</value></syntax>
+<default/>
+<context>mail</context>
+<context>server</context>
+<appeared-in>1.5.7</appeared-in>
+
+<para>
+Sets a <value>file</value> with the secret key used to encrypt
+and decrypt TLS session tickets.
+The directive is necessary if the same key has to be shared between
+multiple servers.
+By default, a randomly generated key is used.
+</para>
+
+<para>
+If several keys are specified, only the first key is
+used to encrypt TLS session tickets.
+This allows to configure key rotation, for example:
+<example>
+ssl_session_ticket_key current.key;
+ssl_session_ticket_key previous.key;
+</example>
+</para>
+
+<para>
+The <value>file</value> must contain 48 bytes of random data and can
+be created using the following command:
+<example>
+openssl rand 48 > ticket.key
+</example>
 </para>
 
 </directive>

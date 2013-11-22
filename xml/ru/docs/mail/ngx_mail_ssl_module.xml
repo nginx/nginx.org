@@ -10,7 +10,7 @@
 <module name="Модуль ngx_mail_ssl_module"
         link="/ru/docs/mail/ngx_mail_ssl_module.html"
         lang="ru"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -176,6 +176,42 @@ ssl_session_cache builtin:1000 shared:SSL:10m;
 </example>
 однако использование только разделяемого кэша без встроенного должно
 быть более эффективным.
+</para>
+
+</directive>
+
+
+<directive name="ssl_session_ticket_key">
+<syntax><value>файл</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<appeared-in>1.5.7</appeared-in>
+
+<para>
+Задаёт <value>файл</value> с секретным ключом, применяемым при шифровании и
+расшифровании TLS session tickets.
+Директива необходима, если один и тот же ключ нужно использовать
+на нескольких серверах.
+По умолчанию используется случайно сгенерированный ключ.
+</para>
+
+<para>
+Если указано несколько ключей, то только первый ключ
+используется для шифровании TLS session tickets.
+Это позволяет настроить ротацию ключей, например:
+<example>
+ssl_session_ticket_key current.key;
+ssl_session_ticket_key previous.key;
+</example>
+</para>
+
+<para>
+<value>Файл</value> должен содержать 48 байт случайных данных и может быть
+создан следующей командой:
+<example>
+openssl rand 48 > ticket.key
+</example>
 </para>
 
 </directive>
