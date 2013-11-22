@@ -361,7 +361,7 @@ ssl_session_cache builtin:1000 shared:SSL:10m;
 
 <para>
 Если указано несколько ключей, то только первый ключ
-используется для шифровании TLS session tickets.
+используется для шифрования TLS session tickets.
 Это позволяет настроить ротацию ключей, например:
 <example>
 ssl_session_ticket_key current.key;
