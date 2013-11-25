@@ -722,8 +722,8 @@ directive).
 
 <para>
 A directive can be specified on the <link id="server"/> level
-in the default server.
-In this case, its value will cover all virtual servers
+in a default server.
+In this case, its value will apply to all virtual servers
 listening on the same address and port.
 </para>
 
@@ -1589,7 +1589,7 @@ the compression off.
 
 <para>
 A directive can be specified on the <link id="server"/> level
-in the default server.
+in a default server.
 In this case, its value will apply to all virtual servers
 listening on the same address and port.
 </para>
