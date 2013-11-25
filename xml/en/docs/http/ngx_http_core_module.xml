@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="23">
+        rev="24">
 
 <section id="directives" name="Directives">
 
@@ -721,9 +721,9 @@ directive).
 </para>
 
 <para>
-A directive can be specified on the <link id="server"/> level
-in a default server.
-In this case, its value will apply to all virtual servers
+If the directive is specified on the <link id="server"/> level,
+its value is only used if a server is a default one.
+The value specified also applies to all virtual servers
 listening on the same address and port.
 </para>
 
@@ -1588,9 +1588,9 @@ the compression off.
 </para>
 
 <para>
-A directive can be specified on the <link id="server"/> level
-in a default server.
-In this case, its value will apply to all virtual servers
+If the directive is specified on the <link id="server"/> level,
+its value is only used if a server is a default one.
+The value specified also applies to all virtual servers
 listening on the same address and port.
 </para>
 
@@ -2669,9 +2669,9 @@ marked as invalid and become subject to the
 </para>
 
 <para>
-A directive can be specified on the <link id="server"/> level
-in a default server.
-In this case, its value will apply to all virtual servers
+If the directive is specified on the <link id="server"/> level,
+its value is only used if a server is a default one.
+The value specified also applies to all virtual servers
 listening on the same address and port.
 </para>
 
