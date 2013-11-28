@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="24">
+        rev="25">
 
 <section id="directives" name="Директивы">
 
@@ -1809,6 +1809,21 @@ open_file_cache_events   on;
 то оптимизацию нужно выключить.
 </para>
 -->
+
+</directive>
+
+
+<directive name="output_buffers">
+<syntax><value>number</value> <value>size</value></syntax>
+<default>1 32k</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Задаёт <value>число</value> и <value>размер</value> буферов,
+используемых при чтении ответа с диска.
+</para>
 
 </directive>
 
