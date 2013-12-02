@@ -10,7 +10,7 @@
 <module name="Module ngx_http_fastcgi_module"
         link="/en/docs/http/ngx_http_fastcgi_module.html"
         lang="en"
-        rev="12">
+        rev="13">
 
 <section id="summary">
 
@@ -363,6 +363,58 @@ Besides, the duration of one iteration is limited by the
 <literal>loader_threshold</literal> parameter (by default, 200 milliseconds).
 Between iterations, a pause configured by the <literal>loader_sleep</literal>
 parameter (by default, 50 milliseconds) is made.
+</para>
+
+</directive>
+
+
+<directive name="fastcgi_cache_purge">
+<syntax>string ...</syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.5.7</appeared-in>
+
+<para>
+Defines conditions under which the request will be considered a cache
+purge request.
+If at least one value of the string parameters is not empty and is not equal
+to “0” then the cache entry with a corresponding
+<link id="fastcgi_cache_key">cache key</link> is removed.
+The result of successful operation is indicated by returning
+the <http-status code="204" text="No Content"/> response.
+</para>
+
+<para>
+If the <link id="fastcgi_cache_key">cache key</link> of a purge request ends
+with an asterisk (“<literal>*</literal>”), all cache entries matching the
+wildcard key will be removed from the cache.
+</para>
+
+<para>
+Example configuration:
+<example>
+fastcgi_cache_path /data/nginx/cache keys_zone=cache_zone:10m;
+
+map $request_method $purge_method {
+    PURGE   1;
+    default 0;
+}
+
+server {
+    ...
+    location / {
+        fastcgi_pass backend;
+        fastcgi_cache cache_zone;
+        fastcgi_cache_key $uri;
+        fastcgi_cache_purge $purge_method;
+    }
+}
+</example>
+<note>
+This functionality is available as part of our <commercial_version/> only.
+</note>
 </para>
 
 </directive>
