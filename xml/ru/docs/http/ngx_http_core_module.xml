@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="27">
+        rev="28">
 
 <section id="directives" name="Директивы">
 
@@ -1094,6 +1094,7 @@ location /flv/ {
     [<literal>ssl</literal>]
     [<literal>spdy</literal>]
     [<literal>setfib</literal>=<value>число</value>]
+    [<literal>fastopen</literal>=<value>число</value>]
     [<literal>backlog</literal>=<value>число</value>]
     [<literal>rcvbuf</literal>=<value>размер</value>]
     [<literal>sndbuf</literal>=<value>размер</value>]
@@ -1108,6 +1109,7 @@ location /flv/ {
     [<literal>ssl</literal>]
     [<literal>spdy</literal>]
     [<literal>setfib</literal>=<value>число</value>]
+    [<literal>fastopen</literal>=<value>число</value>]
     [<literal>backlog</literal>=<value>число</value>]
     [<literal>rcvbuf</literal>=<value>размер</value>]
     [<literal>sndbuf</literal>=<value>размер</value>]
@@ -1215,6 +1217,25 @@ SPDY-соединений без SSL.
 этот параметр (0.8.44) задаёт таблицу маршрутизации, FIB
 (параметр <c-def>SO_SETFIB</c-def>) для слушающего сокета.
 В настоящий момент это работает только на FreeBSD.
+</tag-desc>
+
+<tag-name>
+<literal>fastopen</literal>=<value>число</value>
+</tag-name>
+<tag-desc>
+включает
+“<link url="http://en.wikipedia.org/wiki/TCP_Fast_Open">TCP Fast Open</link>”
+для слушающего сокета (1.5.8).
+Параметр <literal>число</literal>
+<link url="http://tools.ietf.org/html/draft-ietf-tcpm-fastopen#section-5.1">ограничивает</link>
+максимальную длину очереди соединений, которые ещё не завершили процесс
+three-way handshake.
+<note>
+Не включайте “TCP Fast Open”, не убедившись, что сервер может адекватно
+обрабатывать многократное получение
+<link url="http://tools.ietf.org/html/draft-ietf-tcpm-fastopen#section-6.1">
+одного и того же SYN-пакета с данными</link>.
+</note>
 </tag-desc>
 
 <tag-name>

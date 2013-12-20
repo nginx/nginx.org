@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="27">
+        rev="28">
 
 <section id="directives" name="Directives">
 
@@ -1099,6 +1099,7 @@ The “wait-read-ignore” cycle is repeated, but no longer than specified by th
     [<literal>ssl</literal>]
     [<literal>spdy</literal>]
     [<literal>setfib</literal>=<value>number</value>]
+    [<literal>fastopen</literal>=<value>number</value>]
     [<literal>backlog</literal>=<value>number</value>]
     [<literal>rcvbuf</literal>=<value>size</value>]
     [<literal>sndbuf</literal>=<value>size</value>]
@@ -1113,6 +1114,7 @@ The “wait-read-ignore” cycle is repeated, but no longer than specified by th
     [<literal>ssl</literal>]
     [<literal>spdy</literal>]
     [<literal>setfib</literal>=<value>number</value>]
+    [<literal>fastopen</literal>=<value>number</value>]
     [<literal>backlog</literal>=<value>number</value>]
     [<literal>rcvbuf</literal>=<value>size</value>]
     [<literal>sndbuf</literal>=<value>size</value>]
@@ -1222,6 +1224,25 @@ specified in the <literal>listen</literal> directive together with the
 this parameter (0.8.44) sets the associated routing table, FIB
 (the <c-def>SO_SETFIB</c-def> option) for the listening socket.
 This currently works only on FreeBSD.
+</tag-desc>
+
+<tag-name>
+<literal>fastopen</literal>=<value>number</value>
+</tag-name>
+<tag-desc>
+enables
+“<link url="http://en.wikipedia.org/wiki/TCP_Fast_Open">TCP Fast Open</link>”
+for the listening socket (1.5.8).
+The <literal>number</literal> parameter
+<link url="http://tools.ietf.org/html/draft-ietf-tcpm-fastopen#section-5.1">limits</link>
+the maximum length for the queue of connections that have not yet completed
+the three-way handshake.
+<note>
+Do not enable this feature unless the server can handle
+receiving the
+<link url="http://tools.ietf.org/html/draft-ietf-tcpm-fastopen#section-6.1">
+same SYN packet with data</link> more than once.
+</note>
 </tag-desc>
 
 <tag-name>
