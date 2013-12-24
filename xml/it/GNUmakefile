@@ -1,5 +1,4 @@
 DOCS =									\
-		faq							\
 		install							\
 		windows							\
 		events							\
