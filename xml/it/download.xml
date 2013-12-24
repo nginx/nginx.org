@@ -1,0 +1,79 @@
+<!--
+  Copyright (C) Igor Sysoev
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE article SYSTEM "../../dtd/article.dtd">
+
+<article name="nginx: download"
+         link="/it/download.html"
+         lang="it"
+         translator="Angelo Papadia"
+         rev="1">
+
+
+<section name="Versione principale">
+
+<download last="1" tag="mainline" />
+
+</section>
+
+
+<section name="Versione stabile">
+
+<download last="1" tag="stable" />
+
+</section>
+
+
+<section name="Versioni precedenti">
+
+<download last="1" tag="legacy" />
+
+</section>
+
+
+<section name="Codice sorgente">
+
+<para>
+Archivio Mercurial (sola lettura):
+<list type="bullet">
+
+<listitem>
+code: <literal>http://hg.nginx.org/nginx</literal>
+</listitem>
+<listitem>
+site: <literal>http://hg.nginx.org/nginx.org</literal>
+</listitem>
+
+</list>
+</para>
+
+<para>
+<link url="http://trac.nginx.org/nginx/browser">Esplora i sorgenti con Trac</link>
+</para>
+
+</section>
+
+
+<section name="Pacchetti precompilati">
+
+<para>
+<list type="bullet">
+
+<listitem>
+Pacchetti Linux per la
+<link doc="linux_packages.xml" id="stable">versione stabile</link>
+</listitem>
+
+<listitem>
+Pacchetti Linux per la
+<link doc="linux_packages.xml" id="mainline">versione principale</link>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+</article>
