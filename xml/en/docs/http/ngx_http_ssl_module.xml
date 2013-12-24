@@ -10,7 +10,7 @@
 <module name="Module ngx_http_ssl_module"
         link="/en/docs/http/ngx_http_ssl_module.html"
         lang="en"
-        rev="8">
+        rev="9">
 
 <section id="summary">
 
@@ -101,6 +101,30 @@ It is recommended to use the <literal>ssl</literal> parameter of the
 <link doc="ngx_http_core_module.xml" id="listen"/> directive instead
 of this directive.
 </note>
+</para>
+
+</directive>
+
+
+<directive name="ssl_buffer_size">
+<syntax><value>size</value></syntax>
+<default>16k</default>
+<context>http</context>
+<context>server</context>
+<appeared-in>1.5.9</appeared-in>
+
+<para>
+Sets the size of the buffer used for sending data.
+</para>
+
+<para>
+By default, the buffer size is 16k, which corresponds to minimal
+overhead when sending big responses.
+To minimize Time To First Byte it may be beneficial to use smaller values,
+for example:
+<example>
+ssl_buffer_size 4k;
+</example>
 </para>
 
 </directive>
