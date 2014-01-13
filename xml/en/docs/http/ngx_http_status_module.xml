@@ -414,7 +414,8 @@ Boolean indicating if “cache loader” is still loading data into the cache.
 <tag-name>
     <literal>hits</literal>,
     <literal>stale</literal>,
-    <literal>updating</literal>
+    <literal>updating</literal>,
+    <literal>revalidated</literal>
 </tag-name>
 <tag-desc>
 <list type="tag">
