@@ -101,12 +101,12 @@ Auth-Wait: 3 # wait for 3 seconds before returning an error to the client
 </para>
 
 <para>
-If there is no <header>Auth-Wait</header> header in a request,
+If there is no <header>Auth-Wait</header> header,
 an error will be returned and the connection will be closed.
 The current implementation allocates memory for each authentication attempt.
 The memory is freed only at the end of a session.
 Therefore, the number of invalid authentication attempts in a single session
-must be limited — the server must response without
+must be limited — the server must respond without
 the <header>Auth-Wait</header> header after 10-20 attempts
 (the attempt number is passed in the <header>Auth-Login-Attempt</header>
 header).
