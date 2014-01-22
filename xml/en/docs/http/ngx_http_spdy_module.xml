@@ -9,7 +9,7 @@
 <module name="Module ngx_http_spdy_module"
         link="/en/docs/http/ngx_http_spdy_module.html"
         lang="en"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -41,7 +41,7 @@ Current implementation of SPDY protocol does not support “server push”.
 </para>
 
 <para>
-Responses in SPDY connections cannot be
+In versions prior to 1.5.9, responses in SPDY connections could not be
 <link doc="ngx_http_core_module.xml" id="limit_rate">rate limited</link>.
 </para>
 
