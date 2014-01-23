@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_spdy_module"
         link="/ru/docs/http/ngx_http_spdy_module.html"
         lang="ru"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -74,6 +74,30 @@ SPDY соединения на том же порту,
 
 
 <section id="directives" name="Директивы">
+
+<directive name="spdy_chunk_size">
+<syntax><value>размер</value></syntax>
+<default>8k</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.5.9</appeared-in>
+
+<para>
+Задаёт максимальный размер частей,
+на которые будет
+<link url="http://www.chromium.org/spdy/spdy-protocol/spdy-protocol-draft2#TOC-Data-frames">
+разделяться</link> тело ответа.
+Слишком маленькое значение может
+привести к росту накладных расходов.
+Слишком большое значение может
+негативно сказаться на приоритизации из-за
+<link url="http://en.wikipedia.org/wiki/Head-of-line_blocking">
+блокировки очереди</link>.
+</para>
+
+</directive>
+
 
 <directive name="spdy_headers_comp">
 <syntax><value>степень</value></syntax>

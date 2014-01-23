@@ -9,7 +9,7 @@
 <module name="Module ngx_http_spdy_module"
         link="/en/docs/http/ngx_http_spdy_module.html"
         lang="en"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -74,6 +74,28 @@ version 1.0.1.
 
 
 <section id="directives" name="Directives">
+
+<directive name="spdy_chunk_size">
+<syntax><value>size</value></syntax>
+<default>8k</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.5.9</appeared-in>
+
+<para>
+Sets the maximum size of chunks
+into which the response body is
+<link url="http://www.chromium.org/spdy/spdy-protocol/spdy-protocol-draft2#TOC-Data-frames">
+sliced</link>.
+A too low value results in higher overhead.
+A too high value impairs prioritization due to
+<link url="http://en.wikipedia.org/wiki/Head-of-line_blocking">
+HOL blocking</link>.
+</para>
+
+</directive>
+
 
 <directive name="spdy_headers_comp">
 <syntax><value>level</value></syntax>
