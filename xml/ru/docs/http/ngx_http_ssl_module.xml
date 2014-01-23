@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_ssl_module"
         link="/ru/docs/http/ngx_http_ssl_module.html"
         lang="ru"
-        rev="10">
+        rev="11">
 
 <section id="summary">
 
@@ -415,6 +415,21 @@ ssl_session_ticket_key previous.key;
 <example>
 openssl rand 48 > ticket.key
 </example>
+</para>
+
+</directive>
+
+
+<directive name="ssl_session_tickets">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>on</default>
+<context>http</context>
+<context>server</context>
+<appeared-in>1.5.9</appeared-in>
+
+<para>
+Разрешает или запрещает возобновление сессий при помощи
+<link url="http://tools.ietf.org/html/rfc5077">TLS session tickets</link>.
 </para>
 
 </directive>
