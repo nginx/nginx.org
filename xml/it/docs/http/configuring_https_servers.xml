@@ -59,7 +59,7 @@ per limitare l'uso alle sole versioni e cifrature forti di SSL/TLS nelle
 connessioni.
 nginx usa per default “<literal>ssl_protocols SSLv3 TLSv1</literal>” e
 “<literal>ssl_ciphers HIGH:!aNULL:!MD5</literal>” sin dalla versione 1.0.5,
-per cui una configurazione esplicita ha senso solo per le versioni di ngnix
+per cui una configurazione esplicita ha senso solo per le versioni di nginx
 piu' vecchie. Dalle versioni 1.1.13 e 1.0.12 nginx usa per default
 “<literal>ssl_protocols SSLv3 TLSv1 TLSv1.1 TLSv1.2</literal>”.
 </para>

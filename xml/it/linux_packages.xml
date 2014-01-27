@@ -1,0 +1,332 @@
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE article SYSTEM "../../dtd/article.dtd">
+
+<article name="nginx: pacchetti Linux"
+         link="/it/linux_packages.html"
+         lang="it"
+         translator="Angelo Papadia"
+         rev="4"
+         toc="no">
+
+<section id="distribuzioni">
+
+<para>
+Attualmente sono disponibili pacchetti nginx per le seguenti distribuzioni
+e versioni:
+</para>
+
+<para>
+RHEL/CentOS:
+
+<table note="yes">
+
+<tr>
+<td width="20%">Versione</td>
+</tr>
+
+<tr>
+<td width="20%">5.x</td>
+</tr>
+
+<tr>
+<td width="20%">6.x</td>
+</tr>
+
+</table>
+</para>
+
+<para>
+Debian:
+
+<table note="yes">
+
+<tr>
+<td width="20%">Versione</td>
+<td>Nome in codice</td>
+</tr>
+
+<tr>
+<td width="20%">6.x</td>
+<td>squeeze</td>
+</tr>
+
+<tr>
+<td width="20%">7.x</td>
+<td>wheezy</td>
+</tr>
+
+</table>
+</para>
+
+<para>
+Ubuntu:
+
+<table note="yes">
+
+<tr>
+<td width="20%">Versione</td>
+<td>Nome in codice</td>
+</tr>
+
+<tr>
+<td width="20%">10.04</td>
+<td>lucid</td>
+</tr>
+
+<tr>
+<td width="20%">11.10</td>
+<td>oneiric</td>
+</tr>
+
+<tr>
+<td width="20%">12.04</td>
+<td>precise</td>
+</tr>
+
+<tr>
+<td width="20%">12.10</td>
+<td>quantal</td>
+</tr>
+
+<tr>
+<td width="20%">13.04</td>
+<td>raring</td>
+</tr>
+
+</table>
+</para>
+
+<para>
+Per abilitare gli aggiornamenti automatici dei pacchetti Linux,
+per la distribuzione RHEL/CentOS configurare l'archivio yum,
+e per la distribuzione Debian/Ubuntu l'archivio apt.
+</para>
+
+</section>
+
+
+<section name="Pacchetti precompilati per la versione stabile" id="stable">
+
+<para>
+Nel caso di RHEL/CentOS, per configurare l'archivio yum scegliere
+l'opportuno pacchetto <literal>nginx-release</literal> dalla lista:
+
+<list type="bullet">
+
+<listitem>
+<link url="http://nginx.org/packages/rhel/5/noarch/RPMS/nginx-release-rhel-5-0.el5.ngx.noarch.rpm">RHEL 5</link>
+</listitem>
+
+<listitem>
+<link url="http://nginx.org/packages/rhel/6/noarch/RPMS/nginx-release-rhel-6-0.el6.ngx.noarch.rpm">RHEL 6</link>
+</listitem>
+
+<listitem>
+<link url="http://nginx.org/packages/centos/5/noarch/RPMS/nginx-release-centos-5-0.el5.ngx.noarch.rpm">CentOS 5</link>
+</listitem>
+
+<listitem>
+<link url="http://nginx.org/packages/centos/6/noarch/RPMS/nginx-release-centos-6-0.el6.ngx.noarch.rpm">CentOS 6</link>
+</listitem>
+
+</list>
+
+Questo pacchetto contiene il file di configurazione di yum ed una chiave
+PGP pubblica necessaria per autenticare i pacchetti RPM firmati.
+Bisogna scaricarlo e installarlo, e quindi lanciare il seguente comando:
+<programlisting>
+yum install nginx
+</programlisting>
+
+In alternativa, la configurazione di un archivio puo' essere aggiunta
+a mano, quindi senza installare il relativo pacchetto
+<literal>nginx-release</literal>. Bisogna creare il file
+<path>/etc/yum.repos.d/nginx.repo</path> con il contenuto seguente:
+
+<programlisting>
+[nginx]
+name=nginx repo
+baseurl=http://nginx.org/packages/OS/OSRELEASE/$basearch/
+gpgcheck=0
+enabled=1
+</programlisting>
+
+Sostituire “<literal>OS</literal>” con “<literal>rhel</literal>” o
+“<literal>centos</literal>”,
+a seconda della distribuzione usata, e “<literal>OSRELEASE</literal>”
+con “<literal>5</literal>” o “<literal>6</literal>”,
+per le versioni 5.x o 6.x, rispettivamente.
+</para>
+
+<para>
+Nel caso di Debian/Ubuntu, per autenticare la firma dell'archivio nginx
+e per eliminare gli avvisi riguardanti l'assenza della chiave PGP che
+vengono visualizzati durante l'installazione dei pacchetti di nginx,
+bisogna aggiungere la chiave usata per firmare i pacchetti e l'archivio
+nginx al keyring del programma <command>apt</command>; a tal proposito
+bisogna scaricare <link url="http://nginx.org/keys/nginx_signing.key">
+questa chiave</link>, ed aggiungerla al keyring di <command>apt</command>
+tramite il seguente comando:
+<programlisting>
+sudo apt-key add nginx_signing.key
+</programlisting>
+</para>
+
+<para>
+Per Debian, bisogna sostituire <i>nome_in_codice</i> con il
+<link id="distributions">nome in codice</link> della distribuzione, e
+aggiungere in coda al file <path>/etc/apt/sources.list</path> le righe seguenti:
+
+<programlisting>
+deb http://nginx.org/packages/debian/ <i>nome_in_codice</i> nginx
+deb-src http://nginx.org/packages/debian/ <i>nome_in_codice</i> nginx
+</programlisting>
+</para>
+
+<para>
+Per Ubuntu, bisogna sostituire <i>nome_in_codice</i> con il
+<link id="distributions">nome in codice</link> della distribuzione, e
+aggiungere in coda al file <path>/etc/apt/sources.list</path> le righe seguenti:
+
+<programlisting>
+deb http://nginx.org/packages/ubuntu/ <i>nome_in_codice</i> nginx
+deb-src http://nginx.org/packages/ubuntu/ <i>nome_in_codice</i> nginx
+</programlisting>
+</para>
+
+<para>
+Sia per Debian, sia per Ubuntu, lanciare infine i seguenti comandi:
+<programlisting>
+apt-get update
+apt-get install nginx
+</programlisting>
+</para>
+
+</section>
+
+
+<section name="Pacchetti precompilati per la versione principale" id="mainline">
+
+<para>
+Nel caso di RHEL/CentOS, per configurare l'archivio yum creare il file
+<path>/etc/yum.repos.d/nginx.repo</path>
+con il contenuto seguente:
+
+<programlisting>
+[nginx]
+name=nginx repo
+baseurl=http://nginx.org/packages/mainline/OS/OSRELEASE/$basearch/
+gpgcheck=0
+enabled=1
+</programlisting>
+
+Sostituire “<literal>OS</literal>” con “<literal>rhel</literal>” o
+“<literal>centos</literal>”,
+a seconda della distribuzione usata, e “<literal>OSRELEASE</literal>”
+con “<literal>5</literal>” o “<literal>6</literal>”,
+per le versioni 5.x o 6.x, rispettivamente.
+</para>
+
+<para>
+Nel caso di Debian/Ubuntu, per autenticare la firma dell'archivio nginx
+e per eliminare gli avvisi riguardanti l'assenza della chiave PGP che
+vengono visualizzati durante l'installazione dei pacchetti di nginx,
+bisogna aggiungere la chiave usata per firmare i pacchetti e l'archivio
+nginx al keyring del programma <command>apt</command>; a tal proposito
+bisogna scaricare <link url="http://nginx.org/keys/nginx_signing.key">
+questa chiave</link>, ed aggiungerla al keyring di <command>apt</command>
+tramite il seguente comando:
+<programlisting>
+sudo apt-key add nginx_signing.key
+</programlisting>
+</para>
+
+<para>
+Per Debian, bisogna sostituire <i>nome_in_codice</i> con il
+<link id="distributions">nome in codice</link> della distribuzione, e
+aggiungere in coda al file <path>/etc/apt/sources.list</path> le righe seguenti:
+
+<programlisting>
+deb http://nginx.org/packages/mainline/debian/ <i>nome_in_codice</i> nginx
+deb-src http://nginx.org/packages/mainline/debian/ <i>nome_in_codice</i> nginx
+</programlisting>
+</para>
+
+<para>
+Per Ubuntu, bisogna sostituire <i>nome_in_codice</i> con il
+<link id="distributions">nome in codice</link> della distribuzione, e
+aggiungere in coda al file <path>/etc/apt/sources.list</path> le righe seguenti:
+
+<programlisting>
+deb http://nginx.org/packages/mainline/ubuntu/ <i>nome_in_codice</i> nginx
+deb-src http://nginx.org/packages/mainline/ubuntu/ <i>nome_in_codice</i> nginx
+</programlisting>
+</para>
+
+<para>
+Sia per Debian, sia per Ubuntu, lanciare infine i seguenti comandi:
+<programlisting>
+apt-get update
+apt-get install nginx
+</programlisting>
+</para>
+
+</section>
+
+
+<section name="Firme" id="signatures">
+
+<para>
+I pacchetti RPM e gli archivi Debian/Ubuntu usano firme digitali per
+verificare l'integrita' e l'origine dei pacchetti scaricati.
+Per verificare la firma bisogna scaricare la
+<link url="http://nginx.org/keys/nginx_signing.key">chiave di firma di nginx</link>
+e importarla nel keyring del programma <command>rpm</command> o <command>apt</command>:
+
+<list type="bullet">
+
+<listitem>
+In Debian/Ubuntu:
+<programlisting>sudo apt-key add nginx_signing.key</programlisting>
+</listitem>
+
+<listitem>
+In RHEL/CentOS:
+<programlisting>sudo rpm --import nginx_signing.key</programlisting>
+</listitem>
+
+</list>
+</para>
+
+<para>
+In Debian/Ubuntu le firme sono verificate per default,
+invece in RHEL/CentOS e' necessario porre
+<programlisting>gpgcheck=1</programlisting> nel file
+<path>/etc/yum.repos.d/nginx.repo</path>.
+</para>
+
+<para>
+Essendo tutti su un medesimo server, le nostre
+<link doc="../en/pgp_keys.xml">chiavi PGP</link> e i
+pacchetti sono egualmente affidabili; e' comunque caldamente
+consigliato verificare l'autenticita' delle chiavi PGP scaricate.
+PGP ha il concetto di "rete di fiducia", con cui si intende
+che una chiave e' firmata dalla chiave di qualcun altro,
+che a sua volta e' firmata da un'altra chiave, e cosi' via;
+grazie a cio' e' spesso possibile costruire una catena ininterrotta
+da una chiave arbitraria alla chiave di qualcun altro che e'
+conosciuto ed e' considerato affidabile, riuscendo quindi a stabilire
+l'affidabilita' della prima chiave della catena.
+Tale concetto e' descritto in dettaglio nel
+<link url="http://www.dewinter.com/gnupg_howto/english/GPGMiniHowto-1.html">
+GPG Mini Howto</link>.
+Le nostre chiavi hanno firme sufficienti a rendere relativamente
+semplice la verifica dell'autenticita'.
+</para>
+
+</section>
+
+</article>

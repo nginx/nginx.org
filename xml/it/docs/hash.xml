@@ -18,7 +18,7 @@ Per processare rapidamente insiemi di dati, quali ad esempio
 nomi di server, valori relativi alla direttiva
 <link doc="http/ngx_http_map_module.xml" id="map"/>,
 MIME type, stringhe di nomi di header di richiesta,
-ngnix usa tabelle di hash.
+nginx usa tabelle di hash.
 Durante l'avvio ed in seguito ad ogni rilettura della configurazione,
 nginx seleziona la minore dimensione possibile delle tabelle
 di hash, tale che la dimensione del bucket che memorizza le chiavi

@@ -1,0 +1,148 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE article SYSTEM "../../../dtd/article.dtd">
+
+<article name="Come contribuire"
+         link="/it/docs/contributing_changes.html"
+         lang="it"
+         translator="Angelo Papadia"
+         rev="1">
+
+<section id="getting_sources" name="Ottenere i sorgenti">
+
+<para>
+Il codice sorgente e' gestito tramite
+<link url="http://mercurial.selenic.com">Mercurial</link>.
+L'<link url="http://hg.nginx.org/nginx">archivio</link> puo' essere
+clonato con il comando:
+<programlisting>
+hg clone http://hg.nginx.org/nginx
+</programlisting>
+</para>
+
+</section>
+
+
+<section id="formatting_changes" name="Formattazione delle modifiche">
+
+<para>
+Il codice delle modifiche dovrebbe essere formattato secondo lo stile di nginx.
+La formattazione non deve fare affidamento su caratteristiche proprie
+dell'editor, dovrebbe invece seguire alcune regole base:
+<list type="bullet">
+
+<listitem>
+la larghezza del testo non deve superare gli 80 caratteri
+</listitem>
+
+<listitem>
+l'indentazione va ottenuta con blocchi di quattro spazi
+</listitem>
+
+<listitem>
+non va usato il tab (tabulatore)
+</listitem>
+
+<listitem>
+in un file, i diversi blocchi logici di codice vanno separati con due linee vuote
+</listitem>
+
+</list>
+E' bene esaminare il codice di nginx esistente, e cercare di riprodurne lo stile
+di formattazione nel proprio codice: e' piu' facile che una modifica sia accettata
+se lo stile e' simile a quello del resto del codice.
+</para>
+
+<para>
+L'esecuzione di un commit sulle modifiche crea un
+<link url="http://mercurial.selenic.com/wiki/ChangeSet">changeset</link>
+Mercurial; bisogna assicurarsi che siano corretti l'indirizzo
+<link url="http://mercurial.selenic.com/wiki/QuickStart#Setting_a_username">e-mail</link>
+e il nome dell'autore delle modifiche.
+</para>
+
+<para>
+Il messaggio di commit dovrebbe avere una breve descrizione su riga singola
+(preferibilmente non piu' lunga di 67 caratteri),
+seguita da una riga vuota e da una descrizione piu' lunga.
+Il risultante changeset puo' essere ottenuto sotto forma di patch
+tramite il comando <literal>hg export</literal>:
+<programlisting>
+# HG changeset patch
+# User Filipe Da Silva &lt;username@example.com>
+# Date 1368089668 -7200
+#      Thu May 09 10:54:28 2013 +0200
+# Node ID 2220de0521ca2c0b664a8ea1e201ce1cb90fd7a2
+# Parent  822b82191940ef309cd1e6502f94d50d811252a1
+Mail: removed surplus ngx_close_connection() call.
+
+It is already called for a peer connection a few lines above.
+
+diff -r 822b82191940 -r 2220de0521ca src/mail/ngx_mail_auth_http_module.c
+--- a/src/mail/ngx_mail_auth_http_module.c      Wed May 15 15:04:49 2013 +0400
++++ b/src/mail/ngx_mail_auth_http_module.c      Thu May 09 10:54:28 2013 +0200
+@@ -699,7 +699,6 @@ ngx_mail_auth_http_process_headers(ngx_m
+
+                     p = ngx_pnalloc(s->connection->pool, ctx->err.len);
+                     if (p == NULL) {
+-                        ngx_close_connection(ctx->peer.connection);
+                         ngx_destroy_pool(ctx->pool);
+                         ngx_mail_session_internal_server_error(s);
+                         return;
+</programlisting>
+</para>
+
+</section>
+
+
+<section id="before_submitting" name="Prima di proporre modifiche">
+
+<para>
+E' bene tenere in considerazione alcuni punti:
+<list type="bullet">
+
+<listitem>
+Le modifiche proposte dovrebbero funzionare correttamente sul piu' ampio
+numero possibile di
+<link doc="../index.xml" id="tested_os_and_platforms">piattaforme supportate</link>.
+</listitem>
+
+<listitem>
+Bisogna spiegare chiaramente perche' e' necessaria la modifica proposta,
+e se possibile fornire un esempio.
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+
+<section id="submitting_changes" name="Proporre modifiche">
+
+<para>
+Le proposte di modifica vanno inviate alla mailing list degli
+<link doc="../support.xml" id="nginx_devel">sviluppatori di nginx</link>.
+L'estensione
+<link url="http://mercurial.selenic.com/wiki/PatchbombExtension">patchbomb</link>
+e' la maniera preferibile e piu' comoda di sottoporre i changeset.
+</para>
+
+</section>
+
+
+<section id="license" name="Licenza">
+
+<para>
+Se si sottopone una proposta di modifica, automaticamente al progetto
+viene concesso il permesso di utilizzarla in base ad una opportuna
+<link url="../../LICENSE">licenza</link>.
+</para>
+
+</section>
+
+</article>

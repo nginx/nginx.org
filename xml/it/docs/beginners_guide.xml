@@ -121,7 +121,7 @@ nella maniera seguente:
 <programlisting>
 ps -ax | grep nginx
 </programlisting>
-Per ulteriori informazioni su come inviare segnali a ngnix, fare riferimento a
+Per ulteriori informazioni su come inviare segnali a nginx, fare riferimento a
 <link doc="control.xml"/>.
 </para>
 
@@ -146,12 +146,12 @@ contesto (ad esempio:
 <link doc="http/ngx_http_core_module.xml" id="server"/>,
 e
 <link doc="http/ngx_http_core_module.xml" id="location"/>).
-Le direttive del file di configurazione che non sono all'interno di alcun
-contesto sono considerate facenti parte del contesto
-<link doc="ngx_core_module.xml">main</link>.
 </para>
 
 <para>
+Le direttive del file di configurazione che non sono all'interno di alcun
+contesto sono considerate facenti parte del contesto
+<link doc="ngx_core_module.xml">main</link>.
 Le direttive <literal>events</literal> e <literal>http</literal>
 appartengono al contesto <literal>main</literal>, la direttiva <literal>server</literal>
 al contesto <literal>http</literal>,
@@ -360,7 +360,7 @@ location ~ \.(gif|jpg|png)$ {
 </programlisting>
 Il parametro e' una espressione regolare che corrisponde a tutti gli URI
 che terminano con <path>.gif</path>, <path>.jpg</path>, o <path>.png</path>
-(in ngnix le espressioni regolari normalmente iniziano con <literal>~</literal> ).
+(in nginx le espressioni regolari normalmente iniziano con <literal>~</literal>).
 La richiesta corrispondente sara' mappata sulla directory <path>/data/images</path> .
 </para>
 

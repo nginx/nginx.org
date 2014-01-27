@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE article SYSTEM "../../../dtd/article.dtd">
+
+<article name="Compilare i sorgenti di nginx su piattaforma Win32 con Visual C"
+         link="/it/docs/howto_build_on_win32.html"
+         lang="it"
+         translator="Angelo Papadia"
+         rev="1">
+
+<section name="Prerequisiti">
+
+<para>
+Per compilare nginx su piattaforma <registered>Microsoft Win32</registered>, servono:
+
+<list type="bullet">
+
+<listitem>
+Il compilatore Microsoft Visual C; e' stato verificato che con
+<registered>Microsoft Visual Studio</registered> 8 e 10 è possibile portare
+a termine la compilazione.
+</listitem>
+
+<listitem>
+<link url="http://www.mingw.org/wiki/MSYS">MSYS</link>.
+</listitem>
+
+<listitem>
+Perl, se si vuole compilare <registered>OpenSSL</registered> e nginx con il support SSL;
+ad esempio <link url="http://www.activestate.com/activeperl">ActivePerl</link>
+o <link url="http://strawberryperl.com">Strawberry Perl</link>.
+</listitem>
+
+<listitem>
+Il client
+<link url="http://mercurial.selenic.com/">Mercurial</link>.
+</listitem>
+
+<listitem>
+Il codice sorgente delle librerie
+<link url="http://www.pcre.org">PCRE</link>, <link url="http://zlib.net">zlib</link>
+e <link url="http://www.openssl.org">OpenSSL</link>.
+</listitem>
+</list>
+
+</para>
+
+</section>
+
+<section id="build_steps"
+         name="Sequenza di compilazione">
+
+<para>
+Prima di iniziare a compilare, assicurarsi che i path alle directory bin di
+Perl, Mercurial e MSYS siano stati aggiunti alla variabile d'ambiente PATH.
+Per configurare l'ambiente di Visual C, avviare lo script vcvarsall.bat
+dalla directory del Visual C.
+</para>
+
+<para>
+
+Per compilare nginx:
+<list type="bullet">
+
+<listitem>
+Avviare la bash MSYS.
+</listitem>
+
+<listitem>
+Fare il check out dei sorgenti nginx dall'archivio hg.nginx.org; ad esempio con:
+<programlisting>
+hg clone http://hg.nginx.org/nginx
+</programlisting>
+</listitem>
+
+<listitem>
+Creare la directory per la compilazione e la sottodirectory lib, scompattare il
+codice sorgente delle librerie zlib, PCRE e OpenSSL in lib:
+<programlisting>
+mkdir objs
+mkdir objs/lib
+cd objs/lib
+tar -xzf ../../pcre-8.32.tar.gz
+tar -xzf ../../zlib-1.2.7.tar.gz
+tar -xzf ../../openssl-1.0.1e.tar.gz
+</programlisting>
+</listitem>
+
+<listitem>
+Lanciare lo script configure:
+<programlisting>
+auto/configure --with-cc=cl --builddir=objs --prefix= \
+--conf-path=conf/nginx.conf --pid-path=logs/nginx.pid \
+--http-log-path=logs/access.log --error-log-path=logs/error.log \
+--sbin-path=nginx.exe --http-client-body-temp-path=temp/client_body_temp \
+--http-proxy-temp-path=temp/proxy_temp \
+--http-fastcgi-temp-path=temp/fastcgi_temp \
+--with-cc-opt=-DFD_SETSIZE=1024 --with-pcre=objs/lib/pcre-8.32 \
+--with-zlib=objs/lib/zlib-1.2.7 --with-openssl=objs/lib/openssl-1.0.1e \
+--with-select_module --with-http_ssl_module --with-ipv6
+</programlisting>
+</listitem>
+
+<listitem>
+lanciare make:
+<programlisting>
+nmake -f objs/Makefile
+</programlisting>
+</listitem>
+
+
+</list>
+
+</para>
+
+</section>
+
+<section id="see_also"
+         name="Vedi anche">
+
+<para>
+<list type="bullet">
+
+<listitem>
+<link doc="windows.xml"/>
+</listitem>
+
+</list>
+</para>
+
+</section>
+</article>
