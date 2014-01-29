@@ -10,7 +10,7 @@
 <module name="Module ngx_http_ssl_module"
         link="/en/docs/http/ngx_http_ssl_module.html"
         lang="en"
-        rev="9">
+        rev="10">
 
 <section id="summary">
 
@@ -263,6 +263,21 @@ in the PEM format used to verify client certificates.
 
 <para>
 Specifies a <value>file</value> with DH parameters for EDH ciphers.
+</para>
+
+</directive>
+
+
+<directive name="ssl_ecdh_curve">
+<syntax><value>curve</value></syntax>
+<default>prime256v1</default>
+<context>http</context>
+<context>server</context>
+<appeared-in>1.1.0</appeared-in>
+<appeared-in>1.0.6</appeared-in>
+
+<para>
+Specifies a <value>curve</value> for ECDHE ciphers.
 </para>
 
 </directive>

@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_ssl_module"
         link="/ru/docs/http/ngx_http_ssl_module.html"
         lang="ru"
-        rev="9">
+        rev="10">
 
 <section id="summary">
 
@@ -262,6 +262,21 @@ PEM, которые используются для проверки клиен�
 
 <para>
 Указывает <value>файл</value> с параметрами для шифров с обменом EDH-ключами.
+</para>
+
+</directive>
+
+
+<directive name="ssl_ecdh_curve">
+<syntax><value>кривая</value></syntax>
+<default>prime256v1</default>
+<context>http</context>
+<context>server</context>
+<appeared-in>1.1.0</appeared-in>
+<appeared-in>1.0.6</appeared-in>
+
+<para>
+Задаёт кривую для ECDHE-шифров.
 </para>
 
 </directive>
