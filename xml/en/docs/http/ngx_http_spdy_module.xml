@@ -9,7 +9,7 @@
 <module name="Module ngx_http_spdy_module"
         link="/en/docs/http/ngx_http_spdy_module.html"
         lang="en"
-        rev="4">
+        rev="5">
 
 <section id="summary">
 
@@ -17,8 +17,13 @@
 The <literal>ngx_http_spdy_module</literal> module provides experimental
 support for <link url="http://www.chromium.org/spdy/spdy-protocol">SPDY</link>.
 Currently,
+<link url="http://www.chromium.org/spdy/spdy-protocol/spdy-protocol-draft3-1">draft
+3.1</link> of SPDY protocol is implemented.
+<note>
+Before version 1.5.10,
 <link url="http://www.chromium.org/spdy/spdy-protocol/spdy-protocol-draft2">draft
-2</link> of SPDY protocol is implemented.
+2</link> of SPDY protocol was implemented.
+</note>
 </para>
 
 <para>
