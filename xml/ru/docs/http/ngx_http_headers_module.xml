@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_headers_module"
         link="/ru/docs/http/ngx_http_headers_module.html"
         lang="ru"
-        rev="4">
+        rev="5">
 
 <section id="summary">
 
@@ -54,6 +54,12 @@ add_header Cache-Control private;
 Добавляет указанное поле в заголовок ответа при условии, что код ответа
 равен 200, 201, 204, 206, 301, 302, 303, 304 или 307.
 В значении можно использовать переменные.
+</para>
+
+<para>
+Директив <literal>add_header</literal> может быть несколько.
+Директивы наследуются с предыдущего уровня при условии, что на данном
+уровне не описаны свои директивы <literal>add_header</literal>.
 </para>
 
 </directive>
