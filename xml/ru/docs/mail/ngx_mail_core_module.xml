@@ -283,7 +283,10 @@ resolver_timeout 5s;
 </listitem>
 
 </list>
+</para>
 
+<para>
+Если директива не указана, используется имя хоста (hostname) машины.
 </para>
 
 </directive>
