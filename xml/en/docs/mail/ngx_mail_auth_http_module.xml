@@ -160,6 +160,25 @@ then the SMTP client will receive an error
 </example>
 </para>
 
+<para>
+If proxying SMTP does not require authentication,
+a request will look as follows.
+<example>
+GET /auth HTTP/1.0
+Host: localhost
+Auth-Method: none
+Auth-User:
+Auth-Pass:
+Auth-Protocol: smtp
+Auth-Login-Attempt: 1
+Client-IP: 192.0.2.42
+Client-Host: client.example.org
+Auth-SMTP-Helo: client.example.org
+Auth-SMTP-From: MAIL FROM: &lt;&gt;
+Auth-SMTP-To: RCPT TO: &lt;postmaster@mail.example.com&gt;
+</example>
+</para>
+
 </section>
 
 </module>

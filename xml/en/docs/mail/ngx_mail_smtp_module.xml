@@ -10,7 +10,7 @@
 <module name="Module ngx_mail_smtp_module"
         link="/en/docs/mail/ngx_mail_smtp_module.html"
         lang="en"
-        rev="1">
+        rev="2">
 
 <section id="directives" name="Directives">
 
@@ -41,6 +41,11 @@ Supported methods are:
 <tag-desc>
 <link url="http://tools.ietf.org/html/rfc2195">AUTH CRAM-MD5</link>.
 In order for this method to work, the password must be stored unencrypted.
+</tag-desc>
+
+<tag-name><literal>none</literal></tag-name>
+<tag-desc>
+Authentication is not required.
 </tag-desc>
 
 </list>
