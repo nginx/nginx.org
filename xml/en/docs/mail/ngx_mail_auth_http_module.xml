@@ -140,7 +140,7 @@ Auth-Pass: plain-text-pass
 <para>
 For the SMTP, the response additionally takes into account
 the <header>Auth-Error-Code</header> header — if exists, it is used
-as a response code.
+as a response code in case of an error.
 Otherwise, the 535 5.7.0 code will be added to
 the <header>Auth-Status</header>.
 </para>
