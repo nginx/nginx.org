@@ -183,6 +183,69 @@ parameters <literal>--without-mail_imap_module</literal>,
 </directive>
 
 
+<directive name="resolver">
+<syntax>
+<value>address</value> ...
+[<literal>valid</literal>=<value>time</value>]</syntax>
+<syntax><literal>off</literal></syntax>
+<default>off</default>
+<context>mail</context>
+<context>server</context>
+
+<para>
+Configures name servers used to find the client’s hostname
+to pass it to the
+<link doc="ngx_mail_auth_http_module.xml">authentication server</link>,
+and in the
+<link doc="ngx_mail_proxy_module.xml" id="xclient">XCLIENT</link>
+command when proxying SMTP.
+For example:
+<example>
+resolver 127.0.0.1 [::1]:5353;
+</example>
+An address can be specified as a domain name or IP address,
+and an optional port (1.3.1, 1.2.2).
+If port is not specified, the port 53 is used.
+Name servers are queried in a round-robin fashion.
+<note>
+Before version 1.1.7, only a single name server could be configured.
+Specifying name servers using IPv6 addresses is supported
+starting from versions 1.3.1 and 1.2.2.
+</note>
+By default, nginx caches answers using the TTL value of a response.
+An optional <literal>valid</literal> parameter allows overriding it:
+<example>
+resolver 127.0.0.1 [::1]:5353 valid=30s;
+</example>
+<note>
+Before version 1.1.9, tuning of caching time was not possible,
+and nginx always cached answers for the duration of 5 minutes.
+</note>
+</para>
+
+<para>
+The special value <literal>off</literal> disables resolving.
+</para>
+
+</directive>
+
+
+<directive name="resolver_timeout">
+<syntax><value>time</value></syntax>
+<default>30s</default>
+<context>mail</context>
+<context>server</context>
+
+<para>
+Sets a timeout for DNS operations, for example:
+<example>
+resolver_timeout 5s;
+</example>
+</para>
+
+</directive>
+
+
 <directive name="server">
 <syntax block="yes"/>
 <default/>
