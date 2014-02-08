@@ -10,7 +10,7 @@
 <module name="Модуль ngx_mail_proxy_module"
         link="/ru/docs/mail/ngx_mail_proxy_module.html"
         lang="ru"
-        rev="1">
+        rev="2">
 
 <section id="directives" name="Директивы">
 
@@ -95,39 +95,57 @@
 <context>server</context>
 
 <para>
-Разрешает или запрещает передачу команды <literal>XCLIENT</literal>
-при подключении к SMTP-бэкенду.
-Для работы команды <literal>XCLIENT</literal> необходим Postfix с
-<link url="http://citrin.ru/nginx:xclient-login-patch">патчем</link>,
-который добавляет параметр <literal>LOGIN</literal>.
-Если не использовать <literal>XCLIENT</literal>, то MTA не сможет писать в лог
-<literal>IP</literal>/<literal>HELO</literal>/<literal>LOGIN</literal>
-клиента и применять различные ограничения на основе этих данных.
+Разрешает или запрещает передачу команды
+<link url="http://www.postfix.org/XCLIENT_README.html">XCLIENT</link>
+с параметрами клиента при подключении к SMTP-бэкенду.
 </para>
 
 <para>
-Если <literal>xclient</literal> включено,
-то при подключении к бэкенду nginx сначала передаёт
-<example>
-EHLO server_name
-</example>
-потом
-<example>
-XCLIENT PROTO=ESMTP HELO=client_hello ADDR=192.168.1.1 LOGIN=good_user NAME=[UNAVAILABLE]
-</example>
-Если клиент при подключении к nginx передал <literal>EHLO</literal>, то в
-команде <literal>XCLIENT</literal> передаётся <literal>PROTO=ESMTP</literal>.
-В противном случае передаётся <literal>PROTO=SMTP</literal>.
-В параметре <literal>ADDR</literal> указывается IP-адрес клиента,
-а поскольку nginx не обращается к DNS для получения имени хоста,
-то указывается <literal>NAME=[UNAVAILABLE]</literal>.
+При помощи <literal>XCLIENT</literal> MTA может писать в лог
+информацию о клиенте и применять различные ограничения на основе этих данных.
 </para>
 
 <para>
-Если же <literal>xclient</literal> выключено,
-то при подключении к бэкенду nginx передаёт
-<literal>EHLO</literal>, если его передал клиент,
-и <literal>HELO</literal> в остальных случаях.
+Если команда <literal>XCLIENT</literal> разрешена,
+то при подключении к бэкенду nginx посылает ему следующие команды:
+<list type="bullet">
+<listitem>
+<literal>EHLO</literal>
+с <link doc="ngx_mail_core_module.xml" id="server_name">именем сервера</link>
+</listitem>
+
+<listitem>
+<literal>
+XCLIENT
+</literal>
+</listitem>
+
+<listitem>
+<literal>EHLO</literal> или <literal>HELO</literal>,
+как её передал клиент
+</listitem>
+</list>
+</para>
+
+<para>
+Если <link doc="ngx_mail_core_module.xml" id="resolver">найденное</link>
+по IP-адресу клиента имя указывает на тот же адрес,
+оно передаётся в параметре <literal>NAME</literal>
+команды <literal>XCLIENT</literal>.
+Если имя не может быть найдено, указывает на другой адрес,
+или не задан <link doc="ngx_mail_core_module.xml" id="resolver"/>,
+то в параметре <literal>NAME</literal> передаётся
+<literal>[UNAVAILABLE]</literal>.
+Если же в процессе поиска имени или адреса произошла ошибка,
+передаётся <literal>[TEMPUNAVAIL]</literal>.
+</para>
+
+<para>
+Если команда <literal>XCLIENT</literal> запрещена,
+то при подключении к бэкенду nginx передаёт команду <literal>EHLO</literal> с
+<link doc="ngx_mail_core_module.xml" id="server_name">именем сервера</link>,
+если клиент передал <literal>EHLO</literal>,
+иначе <literal>HELO</literal> с именем сервера.
 </para>
 
 </directive>

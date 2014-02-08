@@ -10,7 +10,7 @@
 <module name="Module ngx_mail_proxy_module"
         link="/en/docs/mail/ngx_mail_proxy_module.html"
         lang="en"
-        rev="1">
+        rev="2">
 
 <section id="directives" name="Directives">
 
@@ -95,41 +95,59 @@ Defines a timeout used after the proxying to the backend had started.
 <context>server</context>
 
 <para>
-Enables or disables issuing of the <literal>XCLIENT</literal> command
-on connection to the SMTP backend.
-The <literal>XCLIENT</literal> command requires
-Postfix with the
-<link url="http://citrin.ru/nginx:xclient-login-patch">patch</link>
-that adds the <literal>LOGIN</literal> parameter.
-If the <literal>XCLIENT</literal> command is not used, the MTA will be unable
-to write the client’s
-<literal>IP</literal>/<literal>HELO</literal>/<literal>LOGIN</literal>
+Enables or disables the passing of the
+<link url="http://www.postfix.org/XCLIENT_README.html">XCLIENT</link>
+command with client parameters when connecting to the SMTP backend.
+</para>
+
+<para>
+With <literal>XCLIENT</literal>, the MTA is able to write client information
 to the log and apply various limitations based on this data.
 </para>
 
 <para>
-If <literal>xclient</literal> is enabled,
-then on a connection to the backend nginx first issues
-<example>
-EHLO server_name
-</example>
-and then
-<example>
-XCLIENT PROTO=ESMTP HELO=client_hello ADDR=192.168.1.1 LOGIN=good_user NAME=[UNAVAILABLE]
-</example>
-If the client issues <literal>EHLO</literal> on a connection to nginx,
-the <literal>XCLIENT</literal> command will pass
-<literal>PROTO=ESMTP</literal>.
-Otherwise, it will pass <literal>PROTO=SMTP</literal>.
-The IP address of a client is specified in the <literal>ADDR</literal>
-parameter, and since nginx does not use DNS to resolve the hostname,
-the <literal>NAME=[UNAVAILABLE]</literal> is specified.
+If <literal>XCLIENT</literal> is enabled
+then nginx passes the following commands when connecting to the backend:
+<list type="bullet">
+<listitem>
+<literal>EHLO</literal> with the
+<link doc="ngx_mail_core_module.xml" id="server_name">server name</link>
+</listitem>
+
+<listitem>
+<literal>
+XCLIENT
+</literal>
+</listitem>
+
+<listitem>
+<literal>EHLO</literal> or <literal>HELO</literal>,
+as passed by the client
+</listitem>
+</list>
 </para>
 
 <para>
-If <literal>xclient</literal> is disabled,
-nginx will issue <literal>EHLO</literal> on a connection to the
-backend if the client has passed it, or <literal>HELO</literal>, otherwise.
+If the name
+<link doc="ngx_mail_core_module.xml" id="resolver">found</link>
+by the client IP address points to the same address,
+it is passed in the <literal>NAME</literal> parameter
+of the <literal>XCLIENT</literal> command.
+If the name could not be found, points to a different address,
+or <link doc="ngx_mail_core_module.xml" id="resolver"/> is not specified,
+the <literal>[UNAVAILABLE]</literal> is passed
+in the <literal>NAME</literal> parameter.
+If an error has occurred in the process of resolving,
+the <literal>[TEMPUNAVAIL]</literal> value is used.
+</para>
+
+<para>
+If <literal>XCLIENT</literal> is disabled
+then nginx passes the <literal>EHLO</literal> command with the
+<link doc="ngx_mail_core_module.xml" id="server_name">server name</link>
+when connecting to the backend if the client has passed
+<literal>EHLO</literal>,
+or <literal>HELO</literal> with the server name, otherwise.
 </para>
 
 </directive>

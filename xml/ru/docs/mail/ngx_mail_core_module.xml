@@ -10,7 +10,7 @@
 <module name="Модуль ngx_mail_core_module"
         link="/ru/docs/mail/ngx_mail_core_module.html"
         lang="ru"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -266,7 +266,6 @@ resolver_timeout 5s;
 
 <para>
 Задаёт имя сервера, используемое:
-
 <list type="bullet">
 
 <listitem>
@@ -279,7 +278,8 @@ resolver_timeout 5s;
 
 <listitem>
 в команде <literal>EHLO</literal> при подключении к SMTP-бэкенду,
-если включена команда <link doc="ngx_mail_proxy_module.xml" id="xclient"/>.
+если разрешена передача команды
+<link doc="ngx_mail_proxy_module.xml" id="xclient">XCLIENT</link>.
 </listitem>
 
 </list>

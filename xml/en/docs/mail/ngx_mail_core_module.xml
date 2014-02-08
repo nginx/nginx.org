@@ -10,7 +10,7 @@
 <module name="Module ngx_mail_core_module"
         link="/en/docs/mail/ngx_mail_core_module.html"
         lang="en"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -266,7 +266,6 @@ Sets the configuration for a server.
 
 <para>
 Sets the server name that is used:
-
 <list type="bullet">
 
 <listitem>
@@ -278,9 +277,10 @@ in the salt during the SASL CRAM-MD5 authentication;
 </listitem>
 
 <listitem>
-in the <literal>EHLO</literal> command on the SMTP backend connection,
-if the <link doc="ngx_mail_proxy_module.xml" id="xclient"/> command
-is turned on.
+in the <literal>EHLO</literal> command when connecting to the SMTP backend,
+if the passing of the
+<link doc="ngx_mail_proxy_module.xml" id="xclient">XCLIENT</link> command
+is enabled.
 </listitem>
 
 </list>
