@@ -10,7 +10,7 @@
 <module name="Module ngx_mail_auth_http_module"
         link="/en/docs/mail/ngx_mail_auth_http_module.html"
         lang="en"
-        rev="1">
+        rev="2">
 
 <section id="directives" name="Directives">
 
@@ -135,6 +135,11 @@ Auth-Server: 198.51.100.1
 Auth-Port: 143
 Auth-Pass: plain-text-pass
 </example>
+</para>
+
+<para>
+If the <header>Auth-User</header> header exists in a response,
+it overrides the username used to authenticate with the backend.
 </para>
 
 <para>
