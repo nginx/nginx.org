@@ -77,25 +77,26 @@ auth_http_header X-Auth-Key "secret_string";
 <example>
 GET /auth HTTP/1.0
 Host: localhost
-Auth-Method: plain # plain или apop или cram-md5
+Auth-Method: plain # plain/apop/cram-md5
 Auth-User: user
 Auth-Pass: password
-Auth-Protocol: imap # imap, pop3 или smtp
-Auth-Login-Attempt: 1 # какая по счёту попытка в рамках одной сессии
-Client-IP: 192.168.1.1
+Auth-Protocol: imap # imap/pop3/smtp
+Auth-Login-Attempt: 1
+Client-IP: 192.0.2.42
+Client-Host: client.example.org
 </example>
 Хороший ответ:
 <example>
-HTTP/1.0 200 OK # эта строка игнорируется
+HTTP/1.0 200 OK
 Auth-Status: OK
-Auth-Server: 10.1.1.1
+Auth-Server: 198.51.100.1
 Auth-Port: 143
 </example>
 Плохой ответ:
 <example>
-HTTP/1.0 200 OK # эта строка игнорируется
+HTTP/1.0 200 OK
 Auth-Status: Invalid login or password
-Auth-Wait: 3 # подождать три секунды перед выдачей ошибки клиенту
+Auth-Wait: 3
 </example>
 </para>
 
@@ -120,14 +121,15 @@ Auth-User: user
 Auth-Salt: &lt;238188073.1163692009@mail.example.com&gt;
 Auth-Pass: auth_response
 Auth-Protocol: imap
-Auth-Login-Attempt: 1 # какая по счёту попытка в рамках одной сессии
-Client-IP: 192.168.1.1
+Auth-Login-Attempt: 1
+Client-IP: 192.0.2.42
+Client-Host: client.example.org
 </example>
 Хороший ответ:
 <example>
-HTTP/1.0 200 OK # эта строка игнорируется
+HTTP/1.0 200 OK
 Auth-Status: OK
-Auth-Server: 10.1.1.1
+Auth-Server: 198.51.100.1
 Auth-Port: 143
 Auth-Pass: plain-text-pass
 </example>
