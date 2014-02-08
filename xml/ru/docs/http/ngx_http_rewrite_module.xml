@@ -10,13 +10,13 @@
 <module name="Модуль ngx_http_rewrite_module"
         link="/ru/docs/http/ngx_http_rewrite_module.html"
         lang="ru"
-        rev="4">
+        rev="5">
 
 <section id="summary">
 
 <para>
 Модуль <literal>ngx_http_rewrite_module</literal> позволяет
-изменять URI с помощью регулярных выражений, делать перенаправления
+изменять URI запроса с помощью регулярных выражений, делать перенаправления
 и выбирать конфигурацию по условию.
 </para>
 
@@ -26,22 +26,32 @@
 <list type="bullet">
 
 <listitem>
-выполняются директивы этого модуля, описанные на уровне
-<link doc="ngx_http_core_module.xml" id="server">сервера</link>;
+последовательно выполняются директивы этого модуля, описанные на уровне
+<link doc="ngx_http_core_module.xml" id="server"/>;
 </listitem>
 
 <listitem>
-ищется location для запроса;
+в цикле:
+<list type="bullet">
+
+<listitem>
+ищется
+<link doc="ngx_http_core_module.xml" id="location"/>
+по URI запроса;
 </listitem>
 
 <listitem>
-выполняются директивы этого модуля, описанные в выбранном
-<link doc="ngx_http_core_module.xml" id="location"/>,
-и если они изменяли URI, то ищется новый location для уже нового URI.
-Этот цикл может повторяться до
-<link doc="ngx_http_core_module.xml" id="internal">10 раз</link>,
-после чего возвращается ошибка
-<http-status code="500" text="Internal Server Error"/>.
+последовательно выполняются директивы этого модуля,
+описанные в найденном location;
+</listitem>
+
+<listitem>
+цикл повторяется, если URI запроса <link id="rewrite">изменялся</link>,
+но не более
+<link doc="ngx_http_core_module.xml" id="internal">10 раз</link>.
+</listitem>
+
+</list>
 </listitem>
 
 </list>
@@ -62,6 +72,12 @@
 <para>
 Завершает обработку текущего набора директив модуля
 <literal>ngx_http_rewrite_module</literal>.
+</para>
+
+<para>
+Если директива указана внутри
+<link doc="ngx_http_core_module.xml" id="location"/>,
+дальнейшая обработка запроса продолжается в этом location.
 </para>
 
 <para>
@@ -223,6 +239,10 @@ if ($invalid_referer) {
 </note>
 </para>
 
+<para>
+См. также директиву <link doc="ngx_http_core_module.xml" id="error_page"/>.
+</para>
+
 </directive>
 
 
@@ -237,7 +257,7 @@ if ($invalid_referer) {
 <context>if</context>
 
 <para>
-Если указанное регулярное выражение соответствует URI, URI изменяется
+Если указанное регулярное выражение соответствует URI запроса, URI изменяется
 в соответствии со строкой замены.
 Директивы <literal>rewrite</literal> выполняются последовательно,
 в порядке их следования в конфигурационном файле.
@@ -261,7 +281,8 @@ if ($invalid_referer) {
 <tag-name><literal>break</literal></tag-name>
 <tag-desc>
 завершает обработку текущего набора директив модуля
-<literal>ngx_http_rewrite_module</literal>;
+<literal>ngx_http_rewrite_module</literal>
+аналогично директиве <link id="break"/>;
 </tag-desc>
 
 <tag-name><literal>redirect</literal></tag-name>
@@ -347,7 +368,7 @@ rewrite ^/users/(.*)$ /show?user=$1? last;
 
 
 <directive name="set">
-<syntax><value>переменная</value> <value>значение</value></syntax>
+<syntax><value>$переменная</value> <value>значение</value></syntax>
 <default/>
 <context>server</context>
 <context>location</context>
@@ -427,7 +448,7 @@ location /download/ {
 <link doc="ngx_http_core_module.xml" id="limit_rate"/>
 нет, поскольку она не имеет отношения к модулю
 <literal>ngx_http_rewrite_module</literal>.
-Для блока <link id="if"/> создаётся отдельная конфигурация,
+Для блока <link id="if"/> создаётся отдельная конфигурация.
 Если условие истинно, запрос получает эту конфигурацию,
 и в ней <literal>limit_rate</literal> равен 10k.
 </para>

@@ -10,13 +10,13 @@
 <module name="Module ngx_http_rewrite_module"
         link="/en/docs/http/ngx_http_rewrite_module.html"
         lang="en"
-        rev="4">
+        rev="5">
 
 <section id="summary">
 
 <para>
 The <literal>ngx_http_rewrite_module</literal> module is used to
-change URIs using regular expressions, return redirects, and
+change request URI using regular expressions, return redirects, and
 conditionally select configurations.
 </para>
 
@@ -27,21 +27,32 @@ processed in the following order:
 
 <listitem>
 the directives of this module specified on the
-<link doc="ngx_http_core_module.xml" id="server"/> level are processed;
+<link doc="ngx_http_core_module.xml" id="server"/> level
+are executed sequentially;
 </listitem>
 
 <listitem>
-a location for a request is searched;
+repeatedly:
+<list type="bullet">
+
+<listitem>
+a
+<link doc="ngx_http_core_module.xml" id="location"/>
+is searched based on a request URI;
 </listitem>
 
 <listitem>
-the directives of this module specified in the selected
-<link doc="ngx_http_core_module.xml" id="location"/> are processed.
-If they have been changing a URI, a new location is searched for the new URI.
-This cycle may be repeated up to
-<link doc="ngx_http_core_module.xml" id="internal">10 times</link>
-after which the <http-status code="500" text="Internal Server Error"/> error
-is returned.
+the directives of this module specified inside the found location
+are executed sequentially;
+</listitem>
+
+<listitem>
+the loop is repeated if a request URI was <link id="rewrite">rewritten</link>,
+but not more than
+<link doc="ngx_http_core_module.xml" id="internal">10 times</link>.
+</listitem>
+
+</list>
 </listitem>
 
 </list>
@@ -62,6 +73,12 @@ is returned.
 <para>
 Stops processing the current set of
 <literal>ngx_http_rewrite_module</literal> directives.
+</para>
+
+<para>
+If a directive is specified inside the
+<link doc="ngx_http_core_module.xml" id="location"/>,
+further processing of the request continues in this location.
 </para>
 
 <para>
@@ -224,6 +241,10 @@ The code 307 was not treated as a redirect until versions 1.1.16 and 1.0.13.
 </note>
 </para>
 
+<para>
+See also the <link doc="ngx_http_core_module.xml" id="error_page"/> directive.
+</para>
+
 </directive>
 
 
@@ -238,7 +259,7 @@ The code 307 was not treated as a redirect until versions 1.1.16 and 1.0.13.
 <context>if</context>
 
 <para>
-If the specified regular expression matches a URI, the URI is changed
+If the specified regular expression matches a request URI, URI is changed
 as specified in the <value>replacement</value> string.
 The <literal>rewrite</literal> directives are executed sequentially
 in order of their appearance in the configuration file.
@@ -262,7 +283,8 @@ a search for a new location matching the changed URI;
 <tag-name><literal>break</literal></tag-name>
 <tag-desc>
 stops processing the current set of
-<literal>ngx_http_rewrite_module</literal> directives;
+<literal>ngx_http_rewrite_module</literal> directives
+as with the <link id="break"/> directive;
 </tag-desc>
 
 <tag-name><literal>redirect</literal></tag-name>
@@ -349,7 +371,7 @@ the <literal>notice</literal> level.
 
 
 <directive name="set">
-<syntax><value>variable</value> <value>value</value></syntax>
+<syntax><value>$variable</value> <value>value</value></syntax>
 <default/>
 <context>server</context>
 <context>location</context>
