@@ -196,7 +196,7 @@ listen unix:/var/run/nginx.sock;
 
 <directive name="server_name">
 <syntax><value>имя</value></syntax>
-<default>имя хоста</default>
+<default>hostname</default>
 <context>mail</context>
 <context>server</context>
 
