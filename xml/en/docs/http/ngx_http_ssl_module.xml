@@ -10,7 +10,7 @@
 <module name="Module ngx_http_ssl_module"
         link="/en/docs/http/ngx_http_ssl_module.html"
         lang="en"
-        rev="11">
+        rev="12">
 
 <section id="summary">
 
@@ -714,7 +714,13 @@ returns the protocol of an established SSL connection;
 
 <tag-name><var>$ssl_session_id</var></tag-name>
 <tag-desc>
-returns the session identifier of an established SSL connection.
+returns the session identifier of an established SSL connection;
+</tag-desc>
+
+<tag-name><var>$ssl_session_reused</var></tag-name>
+<tag-desc>
+returns “<literal>r</literal>” if an SSL session was reused,
+or “<literal>.</literal>” otherwise (1.5.11).
 </tag-desc>
 
 </list>

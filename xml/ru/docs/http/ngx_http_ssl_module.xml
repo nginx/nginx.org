@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_ssl_module"
         link="/ru/docs/http/ngx_http_ssl_module.html"
         lang="ru"
-        rev="11">
+        rev="12">
 
 <section id="summary">
 
@@ -713,7 +713,13 @@ ssl_stapling_responder http://ocsp.example.com/;
 
 <tag-name><var>$ssl_session_id</var></tag-name>
 <tag-desc>
-возвращает идентификатор сессии установленного SSL-соединения.
+возвращает идентификатор сессии установленного SSL-соединения;
+</tag-desc>
+
+<tag-name><var>$ssl_session_reused</var></tag-name>
+<tag-desc>
+возвращает “<literal>r</literal>”, если сессия была использована повторно,
+иначе “<literal>.</literal>” (1.5.11).
 </tag-desc>
 
 </list>
