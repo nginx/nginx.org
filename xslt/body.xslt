@@ -52,11 +52,7 @@
 
                               <td align="center">
 
-                                 <a href="http://nginx.com/products/">
-
-                                    <strong>Make your web site fast and reliable.</strong>
-
-                                 </a>
+                                 <strong>Looking to make your web app faster? Look no further!</strong>
 
                               </td>
 
@@ -66,7 +62,10 @@
 
                               <td align="center">
 
-                                 <i>NGINX Plus for mission critical environments.</i>
+                                 <i>NGINX Plus for HTTP load balancing, caching and SSL offload —
+
+                                    <a href="http://nginx.com/products/">Free 30-Day Trial</a>.
+                                 </i>
 
                               </td>
 
