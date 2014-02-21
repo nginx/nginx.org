@@ -5,19 +5,13 @@ ZIP =		gzip
 NGINX_ORG =	/data/www/nginx.org
 SHELL =		./umasked.sh
 
-CP =		/data/sites/java/xsls/\*:$(HOME)/java/xsls/\*
+XSLS ?=		xslscript.pl
 RSYNC =		rsync -v -rpc
 CHMOD =		/bin/chmod -R g=u
 
 
 define	XSLScript
-	java -cp $(CP)							\
-		com.pault.StyleSheet					\
-		-x com.pault.XX -y com.pault.XX				\
-		$(1) xsls/dump.xsls					\
-	| sed 's/ *$$//;/^ *$$/N;/\n *$$/D' > $(2)
-
-	if [ ! -s $(2) ]; then rm $(2); fi; test -s $(2)
+	$(XSLS) -o $(2) $(1)
 endef
 
 define	XSLT
@@ -160,8 +154,7 @@ $(OUT)/%.html:	xml/%.xml						\
 # Prevent intermediate .xslt files from being removed.
 $(patsubst xsls/%.xsls,xslt/%.xslt,$(wildcard xsls/*.xsls)):
 
-xslt/%.xslt:	xsls/%.xsls						\
-		xsls/dump.xsls
+xslt/%.xslt:	xsls/%.xsls
 	mkdir -p $(dir $@)
 	$(call XSLScript, $<, $@)
 
