@@ -394,7 +394,7 @@ server {
 <tag-name><var>$upstream_cache_status</var></tag-name>
 <tag-desc>
 хранит статус доступа к кэшу ответов (0.8.3).
-Статус может быть одним из “<literal>MISS</literal>”, 
+Статус может быть одним из “<literal>MISS</literal>”,
 “<literal>BYPASS</literal>”, “<literal>EXPIRED</literal>”,
 “<literal>STALE</literal>”, “<literal>UPDATING</literal>”,
 “<literal>REVALIDATED</literal>” или “<literal>HIT</literal>”.

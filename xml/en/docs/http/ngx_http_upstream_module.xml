@@ -1112,7 +1112,7 @@ then the server addresses from different groups are separated by colons, e.g.
 <tag-name><var>$upstream_cache_status</var></tag-name>
 <tag-desc>
 keeps the status of accessing a response cache (0.8.3).
-The status can be either “<literal>MISS</literal>”, 
+The status can be either “<literal>MISS</literal>”,
 “<literal>BYPASS</literal>”, “<literal>EXPIRED</literal>”,
 “<literal>STALE</literal>”, “<literal>UPDATING</literal>”,
 “<literal>REVALIDATED</literal>” or “<literal>HIT</literal>”.
