@@ -1,0 +1,305 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE article SYSTEM "../../../../dtd/article.dtd">
+
+<article name="Using nginx as HTTP load balancer"
+         link="/en/docs/http/load_balancing.html"
+         lang="en"
+         rev="1">
+
+<section name="Introduction">
+
+<para>
+Load balancing across multiple application instances is a commonly used
+technique for optimizing resource utilization, maximizing throughput,
+reducing latency, and ensuring fault-tolerant configurations.
+</para>
+
+<para>
+It is possible to use nginx as a very efficient HTTP load balancer to
+distribute traffic to several application servers and to improve
+performance, scalability and reliability of web applications with nginx.
+</para>
+
+</section>
+
+
+<section id="nginx_load_balancing_methods"
+         name="Load balancing methods">
+
+<para>
+The following load balancing mechanisms (or methods) are supported in
+nginx:
+<list type="bullet" compact="no">
+
+<listitem>
+round-robin — requests to the application servers are distributed
+in a round-robin fashion,
+</listitem>
+
+<listitem>
+least-connected — next request is assigned to the server with the
+least number of active connections,
+</listitem>
+
+<listitem>
+ip-hash — a hash-function is used to determine what server should
+be selected for the next request (based on the client’s IP address).
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+
+<section id="nginx_load_balancing_configuration"
+         name="Default load balancing configuration">
+
+<para>
+The simplest configuration for load balancing with nginx may look
+like the following:
+<programlisting>
+http {
+    upstream myapp1 {
+        server srv1.example.com;
+        server srv2.example.com;
+        server srv3.example.com;
+    }
+
+    server {
+        listen 80;
+
+        location / {
+            proxy_pass http://myapp1;
+        }
+    }
+}
+</programlisting>
+</para>
+
+<para>
+In the example above, there are 3 instances of the same application
+running on srv1-srv3.
+When the load balancing method is not specifically configured,
+it defaults to round-robin.
+All requests are
+<link doc="ngx_http_proxy_module.xml" id="proxy_pass">
+proxied</link> to the server group myapp1, and nginx applies HTTP load
+balancing to distribute the requests.
+</para>
+
+<para>
+Reverse proxy implementation in nginx includes load balancing for HTTP,
+HTTPS, FastCGI, uwsgi, SCGI, and memcached.
+</para>
+
+<para>
+To configure load balancing for HTTPS instead of HTTP, just use “https”
+as the protocol.
+</para>
+
+<para>
+When setting up load balancing for FastCGI, uwsgi or memcached, use
+<link doc="ngx_http_fastcgi_module.xml" id="fastcgi_pass"/>,
+uwsgi_pass and
+<link doc="ngx_http_memcached_module.xml" id="memcached_pass"/>
+directives respectively.
+</para>
+
+</section>
+
+
+<section id="nginx_load_balancing_with_least_connected"
+         name="Least connected load balancing">
+
+<para>
+Another load balancing discipline is least-connected.
+Least-connected allows controlling the load on application
+instances more fairly in a situation when some of the requests
+take longer to complete.
+</para>
+
+<para>
+With the least-connected load balancing, nginx will try not to overload a
+busy application server with excessive requests, distributing the new
+requests to a less busy server instead.
+</para>
+
+<para>
+Least-connected load balancing in nginx is activated when the
+<link doc="ngx_http_upstream_module.xml" id="least_conn">
+least_conn</link> directive is used as part of the server group configuration:
+<programlisting>
+    upstream myapp1 {
+        least_conn;
+        server srv1.example.com;
+        server srv2.example.com;
+        server srv3.example.com;
+    }
+</programlisting>
+</para>
+
+</section>
+
+
+<section id="nginx_load_balancing_with_ip_hash"
+         name="Session persistence">
+
+<para>
+Please note that with round-robin or least-connected load
+balancing, each subsequent client’s request can be potentially
+distributed to a different server.
+There is no guarantee that the same client will be always
+directed to the same server.
+</para>
+
+<para>
+If there is the need to tie a client to a particular application server —
+in other words, make the client’s session “sticky” or “persistent” in
+terms of always trying to select a particular server — the ip-hash load
+balancing mechanism can be used.
+</para>
+
+<para>
+With ip-hash, the client’s IP address is used as a hashing key to
+determine what server in a server group should be selected for the
+client’s requests.
+This method ensures that the requests from the same client
+will always be directed to the same server
+except when this server is unavailable.
+</para>
+
+<para>
+To configure ip-hash load balancing, just add the
+<link doc="ngx_http_upstream_module.xml" id="ip_hash"/>
+directive to the server (upstream) group configuration:
+<programlisting>
+upstream myapp1 {
+    ip_hash;
+    server srv1.example.com;
+    server srv2.example.com;
+    server srv3.example.com;
+}
+</programlisting>
+</para>
+
+</section>
+
+
+<section id="nginx_weighted_load_balancing"
+         name="Weighted load balancing">
+
+<para>
+It is also possible to influence nginx load balancing algorithms even
+further by using server weights.
+</para>
+
+<para>
+In the examples above, the server weights are not configured which means
+that all specified servers are treated as equally qualified for a
+particular load balancing method.
+</para>
+
+<para>
+With the round-robin in particular it also means a more or less equal
+distribution of requests across the servers — provided there are enough
+requests, and when the requests are processed in a uniform manner and
+completed fast enough.
+</para>
+
+<para>
+When the
+<link doc="ngx_http_upstream_module.xml" id="server">weight</link>
+parameter is specified for a server, the weight is accounted as part
+of the load balancing decision.
+<programlisting>
+    upstream myapp1 {
+        server srv1.example.com weight=3;
+        server srv2.example.com;
+        server srv3.example.com;
+    }
+</programlisting>
+</para>
+
+<para>
+With this configuration, every 5 new requests will be distributed across
+the application instances as the following: 3 requests will be directed
+to srv1, one request will go to srv2, and another one — to srv3.
+</para>
+
+<para>
+It is similarly possible to use weights with the least-connected and
+ip-hash load balancing in the recent versions of nginx.
+</para>
+
+</section>
+
+
+<section id="nginx_load_balancing_health_checks"
+         name="Health checks">
+
+<para>
+Reverse proxy implementation in nginx includes in-band (or passive)
+server health checks.
+If the response from a particular server fails with an error,
+nginx will mark this server as failed, and will try to
+avoid selecting this server for subsequent inbound requests for a while.
+</para>
+
+<para>
+The
+<link doc="ngx_http_upstream_module.xml" id="server">max_fails</link>
+directive sets the number of consecutive unsuccessful attempts to
+communicate with the server that should happen during
+<link doc="ngx_http_upstream_module.xml" id="server">fail_timeout</link>.
+By default,
+<link doc="ngx_http_upstream_module.xml" id="server">max_fails</link>
+is set to 1.
+When it is set to 0, health checks are disabled for this server.
+The
+<link doc="ngx_http_upstream_module.xml" id="server">fail_timeout</link>
+parameter also defines how long the server will be marked as failed.
+After
+<link doc="ngx_http_upstream_module.xml" id="server">fail_timeout</link>
+interval following the server failure, nginx will start to gracefully
+probe the server with the live client’s requests.
+If the probes have been successful, the server is marked as a live one.
+</para>
+
+</section>
+
+
+<section id="nginx_load_balancing_additional_information"
+         name="Further reading">
+
+<para>
+In addition, there are more directives and parameters that control server
+load balancing in nginx, e.g.
+<link doc="ngx_http_proxy_module.xml" id="proxy_next_upstream"/>,
+<link doc="ngx_http_upstream_module.xml" id="server">backup</link>,
+<link doc="ngx_http_upstream_module.xml" id="server">down</link>, and
+<link doc="ngx_http_upstream_module.xml" id="keepalive"/>.
+For more information please check our reference documentation.
+</para>
+
+<para>
+Last but not least,
+<link url="http://nginx.com/products/advanced-load-balancing/">
+advanced load balancing</link>,
+<link url="http://nginx.com/products/application-health-checks/">
+application health checks</link>,
+<link url="http://nginx.com/products/live-activity-monitoring/">
+activity monitoring</link> and
+<link url="http://nginx.com/products/on-the-fly-reconfiguration/">
+on-the-fly reconfiguration</link> of server groups are available
+as part of our paid NGINX Plus subscriptions.
+</para>
+
+</section>
+
+</article>

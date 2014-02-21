@@ -8,7 +8,7 @@
 <article name="nginx documentation"
          link="/en/docs/"
          lang="en"
-         rev="10"
+         rev="11"
          toc="no">
 
 
@@ -59,6 +59,10 @@
 
 <listitem>
 <link doc="http/server_names.xml"/>
+</listitem>
+
+<listitem>
+<link doc="http/load_balancing.xml"/>
 </listitem>
 
 <listitem>
