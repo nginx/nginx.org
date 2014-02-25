@@ -76,7 +76,7 @@ NEWS_DEPS =								\
 
 LANGS =		en ru cn he ja tr it
 
-YEARS =		2012 2011 2010 2009
+YEARS =		2013 2012 2011 2010 2009
 
 all:		news arx 404 $(LANGS)
 
