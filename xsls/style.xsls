@@ -8,7 +8,9 @@ X:stylesheet {
 X:template style (lang) {
 
     <style type="text/css">!{ normalize-space('
-        body              { font-family:    Georgia, serif; }
+        body              { background:     white;
+                            color:          black;
+                            font-family:    Georgia, serif; }
         p                 { text-align:     justify; }
         table.news p      { margin-top:     0; }
         table.news td     { vertical-align: baseline; }
