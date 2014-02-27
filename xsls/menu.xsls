@@ -52,7 +52,7 @@ X:template = "menu/item" {
 
                 X:if "starts-with(@href, $DIRNAME)" {
                     X:if "substring-after(@href, $DIRNAME) = ''" {
-                        ./
+                        X:text {./}
                     } else {
                         !{ substring-after(@href, $DIRNAME) }
                     }
