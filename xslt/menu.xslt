@@ -61,7 +61,9 @@
                               <xsl:choose>
 
                                  <xsl:when test="substring-after(@href, $DIRNAME) = ''">
-                        ./</xsl:when>
+
+                                    <xsl:text>./</xsl:text>
+                                 </xsl:when>
 
                                  <xsl:otherwise>
 
