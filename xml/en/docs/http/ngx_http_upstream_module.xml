@@ -48,7 +48,7 @@ server {
 
 <para>
 Dynamically configurable group,
-available as part of our <commercial_version/> only:
+available as part of our <commercial_version/>:
 <example>
 upstream <emphasis>appservers</emphasis> {
     zone appservers 64k;
@@ -187,7 +187,7 @@ or when the server becomes available after a period of time
 it was considered unavailable.
 Default value is zero, i.e. slow start is disabled.
 <note>
-This functionality is available as part of our <commercial_version/> only.
+This functionality is available as part of our <commercial_version/>.
 </note>
 </tag-desc>
 
@@ -207,7 +207,7 @@ the <link id="ip_hash"/> directive.
 <tag-desc>
 sets the server route name.
 <note>
-This functionality is available as part of our <commercial_version/> only.
+This functionality is available as part of our <commercial_version/>.
 </note>
 </tag-desc>
 
@@ -253,7 +253,7 @@ The configuration is accessible via a special location handled by
 
 <para>
 <note>
-This directive is available as part of our <commercial_version/> only.
+This directive is available as part of our <commercial_version/>.
 </note>
 </para>
 
@@ -562,7 +562,7 @@ considered unhealthy.
 
 <para>
 <note>
-This directive is available as part of our <commercial_version/> only.
+This directive is available as part of our <commercial_version/>.
 </note>
 </para>
 
@@ -694,7 +694,7 @@ match server_ok {
 
 <para>
 <note>
-This directive is available as part of our <commercial_version/> only.
+This directive is available as part of our <commercial_version/>.
 </note>
 </para>
 
@@ -812,7 +812,7 @@ Otherwise, the route from the URI is used.
 
 <para>
 <note>
-This directive is available as part of our <commercial_version/> only.
+This directive is available as part of our <commercial_version/>.
 </note>
 </para>
 
@@ -1078,7 +1078,7 @@ http://127.0.0.1/upstream_conf?upstream=appservers&amp;id=42&amp;max_fails=3&amp
 
 <para>
 <note>
-This directive is available as part of our <commercial_version/> only.
+This directive is available as part of our <commercial_version/>.
 </note>
 </para>
 
