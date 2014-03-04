@@ -9,7 +9,7 @@
 <module name="Module ngx_http_mp4_module"
         link="/en/docs/http/ngx_http_mp4_module.html"
         lang="en"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -21,8 +21,8 @@ or <path>.m4a</path> filename extensions.
 </para>
 
 <para>
-The pseudo-streaming works in alliance with a compatible Flash players.
-A player sends an HTTP request to the server with a start time
+Pseudo-streaming works in alliance with a compatible Flash player.
+The player sends an HTTP request to the server with the start time
 specified in the query string argument (named simply
 <literal>start</literal>
 and specified in seconds), and the server responds with the stream
@@ -36,31 +36,30 @@ in the middle of the timeline.
 </para>
 
 <para>
-To support seeking, H.264-based formats store the metadata
-in the so-called “moov atom.”
+To support seeking, H.264-based formats store metadata
+in a so-called “moov atom”.
 It is a part of the file that holds the index information for the
 whole file.
 </para>
 
 <para>
-To start playback, a player first needs to read metadata.
+To start playback, the player first needs to read metadata.
 This is done by sending a special request with the
 <literal>start=0</literal> argument.
-Much of encoding software will insert the metadata at
+A lot of encoding software insert the metadata at
 the end of the file.
-This is bad for pseudo-streaming:
-the metadata should be located at the beginning of the file,
-or else the entire file will have to be downloaded to
-start playing.
-If a file is well-formed (with metadata at the
-beginning of a file), nginx just sends back the file contents.
-Otherwise, it has to read the file and prepare a new stream so that
-the metadata comes before the media data.
+This is suboptimal for pseudo-streaming, because the player
+has to download the entire file before starting playback.
+If the metadata are located at the beginning of the file,
+it is enough for nginx to simply start sending back the file contents.
+If the metadata are located at the end of the file,
+nginx must read the entire file and prepare a new stream so that
+the metadata come before the media data.
 This involves some CPU, memory, and disk I/O overhead,
 so it is a good idea to
 <link
 url="http://flowplayer.org/plugins/streaming/pseudostreaming.html#prepare">
-prepare an original file for pseudo-streaming</link>,
+prepare an original file for pseudo-streaming</link> in advance,
 rather than having nginx do this on every such request.
 </para>
 
@@ -68,16 +67,17 @@ rather than having nginx do this on every such request.
 For a matching request with a non-zero
 <literal>start</literal>
 argument, nginx will read the metadata from the file, prepare the
-stream starting from the requested offset, and send it to a client.
+stream starting from the requested offset, and send it to the client.
 This has the same overhead as described above.
 </para>
 
 <para>
 If a matching request does not include the
 <literal>start</literal>
-argument, there is no overhead, and the file is just sent as a static resource.
+argument, there is no overhead, and the file is sent simply as a static
+resource.
 Some players also support byte-range requests, and thus do not require
-this module at all.
+this module.
 </para>
 
 <para>
