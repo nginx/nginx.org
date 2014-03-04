@@ -9,13 +9,13 @@
 <module name="Module ngx_http_mp4_module"
         link="/en/docs/http/ngx_http_mp4_module.html"
         lang="en"
-        rev="4">
+        rev="5">
 
 <section id="summary">
 
 <para>
 The <literal>ngx_http_mp4_module</literal> module provides pseudo-streaming
-server-side support for H.264/AAC files.
+server-side support for MP4 files.
 Such files typically have the <path>.mp4</path>, <path>.m4v</path>,
 or <path>.m4a</path> filename extensions.
 </para>
