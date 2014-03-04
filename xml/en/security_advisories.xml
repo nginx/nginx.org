@@ -24,6 +24,14 @@ Patches are signed using one of the
 
 <security>
 
+<item name="SPDY memory corruption"
+      severity="major"
+      cve="2014-0088"
+      good="1.5.11+"
+      vulnerable="1.5.10">
+<patch name="patch.2014.spdy.txt" />
+</item>
+
 <item name="Request line parsing vulnerability"
       severity="medium"
       advisory="http://mailman.nginx.org/pipermail/nginx-announce/2013/000125.html"

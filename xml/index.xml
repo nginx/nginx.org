@@ -7,6 +7,24 @@
 
 <news name="nginx news" link="/" lang="en">
 
+<event date="2014-03-04">
+<para>
+<link doc="en/download.xml">nginx-1.4.6</link>
+stable version has been released.
+</para>
+<para>
+<link doc="en/download.xml">nginx-1.5.11</link>
+mainline version has been released,
+with a fix for the
+<link doc="en/security_advisories.xml">SPDY memory corruption</link>
+vulnerability in nginx 1.5.10
+discovered by 
+Lucas Molas, researcher at Programa STIC, Fundación Dr. Manuel
+Sadosky, Buenos Aires, Argentina
+(CVE-2014-0088).
+</para>
+</event>
+
 <event date="2014-02-11">
 <para>
 <link doc="en/download.xml">nginx-1.4.5</link>
