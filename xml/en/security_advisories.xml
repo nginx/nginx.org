@@ -26,6 +26,7 @@ Patches are signed using one of the
 
 <item name="SPDY memory corruption"
       severity="major"
+      advisory="http://mailman.nginx.org/pipermail/nginx-announce/2014/000132.html"
       cve="2014-0088"
       good="1.5.11+"
       vulnerable="1.5.10">
