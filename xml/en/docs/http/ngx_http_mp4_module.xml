@@ -45,12 +45,14 @@ whole file.
 <para>
 To start playback, a player first needs to read metadata.
 This is done by sending a special request with the
-<literal>start=0</literal>
-argument.  Much of encoding software will insert the metadata at
-the end of the file.  This is bad for pseudo-streaming:
+<literal>start=0</literal> argument.
+Much of encoding software will insert the metadata at
+the end of the file.
+This is bad for pseudo-streaming:
 the metadata should be located at the beginning of the file,
 or else the entire file will have to be downloaded to
-start playing.  If a file is well-formed (with metadata at the
+start playing.
+If a file is well-formed (with metadata at the
 beginning of a file), nginx just sends back the file contents.
 Otherwise, it has to read the file and prepare a new stream so that
 the metadata comes before the media data.
