@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_mp4_module"
         link="/ru/docs/http/ngx_http_mp4_module.html"
         lang="ru"
-        rev="1">
+        rev="3">
 
 <section id="summary">
 
@@ -159,6 +159,60 @@ location /video/ {
 "/some/movie/file.mp4" mp4 moov atom is too large:
 12583268, you may want to increase mp4_max_buffer_size
 </example>
+</para>
+
+</directive>
+
+
+<directive name="mp4_limit_rate">
+<syntax>
+    <literal>on</literal> |
+    <literal>off</literal> |
+    <value>множитель</value></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Ограничивает скорость передачи ответа клиенту.
+Ограничение основывается на значении усреднённого битрейта запрашиваемого
+MP4-файла.
+Скорость вычисляется умножением битрейта на задаваемый
+<value>множитель</value>.
+Специальное значение “<literal>on</literal>” соответствует множителю 1.1.
+Специальное значение “<literal>off</literal>” отключает ограничение скорости.
+Ограничение устанавливается на запрос, поэтому, если клиент одновременно
+откроет два соединения, суммарная скорость будет вдвое выше
+заданного ограничения.
+</para>
+
+<para>
+<note>
+Директива доступна как часть <commercial_version/>.
+</note>
+</para>
+
+</directive>
+
+
+<directive name="mp4_limit_rate_after">
+<syntax><value>время</value></syntax>
+<default>60s</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Задаёт начальный объём медиаданных (измеряется как время воспроизведения),
+после отправки которого начинает ограничиваться
+скорость передачи ответа клиенту.
+</para>
+
+<para>
+<note>
+Директива доступна как часть <commercial_version/>.
+</note>
 </para>
 
 </directive>

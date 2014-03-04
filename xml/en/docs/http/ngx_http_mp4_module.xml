@@ -9,7 +9,7 @@
 <module name="Module ngx_http_mp4_module"
         link="/en/docs/http/ngx_http_mp4_module.html"
         lang="en"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -175,11 +175,16 @@ and log the following message:
 <context>location</context>
 
 <para>
-Enables or disables rate limiting based on the average bitrate of the
+Limits the rate of response transmission to a client.
+The rate is limited based on the average bitrate of the
 MP4 file served.
 To calculate the rate, the bitrate is multiplied by the specified
 <value>factor</value>.
 The special value “<literal>on</literal>” corresponds to the factor of 1.1.
+The special value “<literal>off</literal>” disables rate limiting.
+The limit is set per a request, and so if a client simultaneously opens
+two connections, the overall rate will be twice as much
+as the specified limit.
 </para>
 
 <para>
@@ -193,13 +198,15 @@ This directive is available as part of our <commercial_version/>.
 
 <directive name="mp4_limit_rate_after">
 <syntax><value>time</value></syntax>
-<default>1m</default>
+<default>60s</default>
 <context>http</context>
 <context>server</context>
 <context>location</context>
 
 <para>
-Limits the rate after sending the specified amount of media data.
+Sets the initial amount of media data (measured in playback time)
+after which the further transmission of the response to a client
+will be rate limited.
 </para>
 
 <para>
