@@ -31,8 +31,8 @@
                     </tr>
                     <tr>
                         <td align="center">
-                            <i>NGINX Plus for HTTP load balancing, caching and SSL offload &#8212;
-                            <a href="http://nginx.com/products/">Free 30-Day Trial</a>.</i>
+                            <i>NGINX webinars in March focus on application delivery and acceleration &#8212;
+                            <a href="http://nginx.com/webinars/">register now</a>!</i>
                         </td>
                     </tr>
                 </table>
