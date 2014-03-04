@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_mp4_module"
         link="/ru/docs/http/ngx_http_mp4_module.html"
         lang="ru"
-        rev="5">
+        rev="6">
 
 <section id="summary">
 
@@ -64,16 +64,27 @@ url="http://flowplayer.org/plugins/streaming/pseudostreaming.html#prepare">
 </para>
 
 <para>
-Для запроса с ненулевым аргументом
-<literal>start</literal>
-nginx считывает из файла метаданные, готовит поток с запрошенного
-смещения и отправляет его клиенту.
+Модуль также поддерживает аргумент <literal>end</literal> HTTP-запроса
+(1.5.13), задающий время окончания воспроизведения потока.
+Аргумент <literal>end</literal> задаётся совместно с
+аргументом <literal>start</literal>
+или самостоятельно:
+<example>
+http://example.com/elephants_dream.mp4?start=238.88&amp;end=555.55
+</example>
+</para>
+
+<para>
+Для запроса с ненулевыми аргументами
+<literal>start</literal> или <literal>end</literal>
+nginx считывает из файла метаданные, готовит поток с запрошенным
+диапазоном и отправляет его клиенту.
 Это тоже требует дополнительных ресурсов, как указано выше.
 </para>
 
 <para>
-Если запрос, обрабатываемый этим модулем, не содержит аргумента
-<literal>start</literal>,
+Если запрос, обрабатываемый этим модулем, не содержит аргументов
+<literal>start</literal> и <literal>end</literal>,
 дополнительные ресурсы не тратятся, а файл отсылается непосредственно как
 статический ресурс.
 Некоторые плееры также поддерживают запросы с указанием диапазона

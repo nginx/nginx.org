@@ -9,7 +9,7 @@
 <module name="Module ngx_http_mp4_module"
         link="/en/docs/http/ngx_http_mp4_module.html"
         lang="en"
-        rev="5">
+        rev="6">
 
 <section id="summary">
 
@@ -64,17 +64,28 @@ rather than having nginx do this on every such request.
 </para>
 
 <para>
+The module also supports the <literal>end</literal> argument of an HTTP request
+(1.5.13) which sets the end point of playback.
+The <literal>end</literal> argument can be specified with the
+<literal>start</literal> argument
+or separately:
+<example>
+http://example.com/elephants_dream.mp4?start=238.88&amp;end=555.55
+</example>
+</para>
+
+<para>
 For a matching request with a non-zero
-<literal>start</literal>
+<literal>start</literal> or <literal>end</literal>
 argument, nginx will read the metadata from the file, prepare the
-stream starting from the requested offset, and send it to the client.
+stream with the requested time range, and send it to the client.
 This has the same overhead as described above.
 </para>
 
 <para>
 If a matching request does not include the
-<literal>start</literal>
-argument, there is no overhead, and the file is sent simply as a static
+<literal>start</literal> and <literal>end</literal>
+arguments, there is no overhead, and the file is sent simply as a static
 resource.
 Some players also support byte-range requests, and thus do not require
 this module.
