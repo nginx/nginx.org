@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="13">
+        rev="14">
 
 <section id="summary">
 
@@ -191,7 +191,9 @@ This functionality is available as part of our <commercial_version/>.
 </note>
 </tag-desc>
 
-<tag-name><literal>max_conns</literal>=<value>number</value></tag-name>
+<tag-name id="max_conns">
+<literal>max_conns</literal>=<value>number</value>
+</tag-name>
 <tag-desc>
 limits the maximum <value>number</value> of simultaneous connections to the
 proxied server (1.5.9).
@@ -846,6 +848,41 @@ An equivalent
 [<literal>expires=</literal><value>time</value>]
 [<literal>domain=</literal><value>domain</value>]
 [<literal>path=</literal><value>path</value>];
+</note>
+</para>
+
+</directive>
+
+
+<directive name="queue">
+<syntax>
+<value>number</value>
+[<literal>timeout</literal>=<value>time</value>]</syntax>
+<default/>
+<context>upstream</context>
+<appeared-in>1.5.12</appeared-in>
+
+<para>
+If an upstream server cannot be selected immediately
+while processing a request,
+and there are the servers in the group that have reached the
+<link id="max_conns"/> limit,
+the request will be placed into the queue.
+The directive specifies the maximum number of requests that can be in the queue
+at the same time.
+If the queue is filled up,
+or the server to pass the request to cannot been selected within
+the time period specified in the <literal>timeout</literal> parameter,
+an error will be returned to the client.
+</para>
+
+<para>
+The default value of the <literal>timeout</literal> parameter is 60 seconds.
+</para>
+
+<para>
+<note>
+This directive is available as part of our <commercial_version/>.
 </note>
 </para>
 

@@ -361,6 +361,40 @@ server {
 </directive>
 
 
+<directive name="queue">
+<syntax>
+<value>число</value>
+[<literal>timeout</literal>=<value>время</value>]</syntax>
+<default/>
+<context>upstream</context>
+<appeared-in>1.5.12</appeared-in>
+
+<para>
+Если при обработке запроса невозможно сразу выбрать сервер группы
+и в группе есть серверы, у которых число соединений достигло
+ограничения <link id="max_conns"/>,
+запрос будет помещён в очередь.
+Директива задаёт максимальное число запросов, которые могут одновременно
+находиться в очереди.
+Если очередь переполнена
+или за время, задаваемое параметром <literal>timeout</literal>,
+так и не удастся выбрать сервер для передачи ему запроса,
+клиенту будет возвращена ошибка.
+</para>
+
+<para>
+По умолчанию параметр <literal>timeout</literal> равен 60 секундам.
+</para>
+
+<para>
+<note>
+Эта директива доступна как часть <commercial_version/>.
+</note>
+</para>
+
+</directive>
+
+
 <directive name="least_conn">
 <syntax/>
 <default/>
