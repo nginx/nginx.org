@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_realip_module"
         link="/ru/docs/http/ngx_http_realip_module.html"
         lang="ru"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
@@ -72,7 +72,8 @@ IPv6-адреса поддерживаются начиная с версий 1.
 <syntax>
     <value>поле</value> |
     <literal>X-Real-IP</literal> |
-    <literal>X-Forwarded-For</literal></syntax>
+    <literal>X-Forwarded-For</literal> |
+    <literal>proxy_protocol</literal></syntax>
 <default>X-Real-IP</default>
 <context>http</context>
 <context>server</context>
@@ -81,6 +82,14 @@ IPv6-адреса поддерживаются начиная с версий 1.
 <para>
 Задаёт поле заголовка запроса,
 в котором передаётся адрес для замены.
+</para>
+
+<para>
+Параметр <literal>proxy_protocol</literal> (1.5.12) меняет
+адрес клиента на указанный в заголовке PROXY-протокола.
+Протокол PROXY должен быть предварительно включён при помощи установки
+параметра <literal>proxy_protocol</literal> в директиве
+<link doc="ngx_http_core_module.xml" id="listen"/>.
 </para>
 
 </directive>

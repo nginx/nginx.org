@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="29">
+        rev="30">
 
 <section id="directives" name="Директивы">
 
@@ -1093,6 +1093,7 @@ location /flv/ {
     [<literal>default_server</literal>]
     [<literal>ssl</literal>]
     [<literal>spdy</literal>]
+    [<literal>proxy_protocol</literal>]
     [<literal>setfib</literal>=<value>число</value>]
     [<literal>fastopen</literal>=<value>число</value>]
     [<literal>backlog</literal>=<value>число</value>]
@@ -1108,6 +1109,7 @@ location /flv/ {
     [<literal>default_server</literal>]
     [<literal>ssl</literal>]
     [<literal>spdy</literal>]
+    [<literal>proxy_protocol</literal>]
     [<literal>setfib</literal>=<value>число</value>]
     [<literal>fastopen</literal>=<value>число</value>]
     [<literal>backlog</literal>=<value>число</value>]
@@ -1123,6 +1125,7 @@ location /flv/ {
     [<literal>default_server</literal>]
     [<literal>ssl</literal>]
     [<literal>spdy</literal>]
+    [<literal>proxy_protocol</literal>]
     [<literal>backlog</literal>=<value>число</value>]
     [<literal>rcvbuf</literal>=<value>размер</value>]
     [<literal>sndbuf</literal>=<value>размер</value>]
@@ -1195,6 +1198,14 @@ id="single_http_https_server">конфигурацию</link> для серве�
 Обычно, чтобы это работало, следует также указать параметр
 <literal>ssl</literal>, однако nginx можно также настроить и на приём
 SPDY-соединений без SSL.
+</para>
+
+<para>
+Параметр <literal>proxy_protocol</literal> (1.5.12)
+указывает на то, что все соединения, принимаемые на данном порту,
+должны использовать
+<link url="http://haproxy.1wt.eu/download/1.5/doc/proxy-protocol.txt">протокол
+PROXY</link>.
 </para>
 
 <para>
@@ -2882,6 +2893,16 @@ cookie <value>имя</value>
 <tag-desc>
 “<literal>p</literal>” если запрос был pipelined, иначе “<literal>.</literal>”
 (1.3.12, 1.2.7)
+</tag-desc>
+
+<tag-name id="var_proxy_protocol_addr"><var>$proxy_protocol_addr</var></tag-name>
+<tag-desc>
+адрес клиента, полученный из заголовка протокола PROXY, либо пустая строка
+(1.5.12)
+<para>
+Протокол PROXY должен быть предварительно включён при помощи установки
+параметра <literal>proxy_protocol</literal> в директиве <link id="listen"/>.
+</para>
 </tag-desc>
 
 <tag-name id="var_query_string"><var>$query_string</var></tag-name>

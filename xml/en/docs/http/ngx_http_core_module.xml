@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="29">
+        rev="30">
 
 <section id="directives" name="Directives">
 
@@ -1098,6 +1098,7 @@ The “wait-read-ignore” cycle is repeated, but no longer than specified by th
     [<literal>default_server</literal>]
     [<literal>ssl</literal>]
     [<literal>spdy</literal>]
+    [<literal>proxy_protocol</literal>]
     [<literal>setfib</literal>=<value>number</value>]
     [<literal>fastopen</literal>=<value>number</value>]
     [<literal>backlog</literal>=<value>number</value>]
@@ -1113,6 +1114,7 @@ The “wait-read-ignore” cycle is repeated, but no longer than specified by th
     [<literal>default_server</literal>]
     [<literal>ssl</literal>]
     [<literal>spdy</literal>]
+    [<literal>proxy_protocol</literal>]
     [<literal>setfib</literal>=<value>number</value>]
     [<literal>fastopen</literal>=<value>number</value>]
     [<literal>backlog</literal>=<value>number</value>]
@@ -1128,6 +1130,7 @@ The “wait-read-ignore” cycle is repeated, but no longer than specified by th
     [<literal>default_server</literal>]
     [<literal>ssl</literal>]
     [<literal>spdy</literal>]
+    [<literal>proxy_protocol</literal>]
     [<literal>backlog</literal>=<value>number</value>]
     [<literal>rcvbuf</literal>=<value>size</value>]
     [<literal>sndbuf</literal>=<value>size</value>]
@@ -1202,6 +1205,13 @@ The <literal>spdy</literal> parameter (1.3.15) allows accepting
 Normally, for this to work the <literal>ssl</literal> parameter should be
 specified as well, but nginx can also be configured to accept SPDY
 connections without SSL.
+</para>
+
+<para>
+The <literal>proxy_protocol</literal> parameter (1.5.12)
+allows specifying that all connections accepted on this port should use the
+<link url="http://haproxy.1wt.eu/download/1.5/doc/proxy-protocol.txt">PROXY
+protocol</link>.
 </para>
 
 <para>
@@ -2885,6 +2895,17 @@ PID of the worker process
 <tag-desc>
 “<literal>p</literal>” if request was pipelined, “<literal>.</literal>”
 otherwise (1.3.12, 1.2.7)
+</tag-desc>
+
+<tag-name id="var_proxy_protocol_addr"><var>$proxy_protocol_addr</var></tag-name>
+<tag-desc>
+client address from the PROXY protocol header, or an empty string otherwise
+(1.5.12)
+<para>
+The PROXY protocol must be previously enabled by setting the
+<literal>proxy_protocol</literal> parameter
+in the <link id="listen"/> directive.
+</para>
 </tag-desc>
 
 <tag-name id="var_query_string"><var>$query_string</var></tag-name>

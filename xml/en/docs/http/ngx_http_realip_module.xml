@@ -10,7 +10,7 @@
 <module name="Module ngx_http_realip_module"
         link="/en/docs/http/ngx_http_realip_module.html"
         lang="en"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
@@ -72,7 +72,8 @@ IPv6 addresses are supported starting from versions 1.3.0 and 1.2.1.
 <syntax>
     <value>field</value> |
     <literal>X-Real-IP</literal> |
-    <literal>X-Forwarded-For</literal></syntax>
+    <literal>X-Forwarded-For</literal> |
+    <literal>proxy_protocol</literal></syntax>
 <default>X-Real-IP</default>
 <context>http</context>
 <context>server</context>
@@ -81,6 +82,14 @@ IPv6 addresses are supported starting from versions 1.3.0 and 1.2.1.
 <para>
 Defines a request header field used to send
 the address for a replacement.
+</para>
+
+<para>
+The <literal>proxy_protocol</literal> parameter (1.5.12) changes
+the client address to the one from the PROXY protocol header.
+The PROXY protocol must be previously enabled by setting the
+<literal>proxy_protocol</literal> parameter
+in the <link doc="ngx_http_core_module.xml" id="listen"/> directive.
 </para>
 
 </directive>
