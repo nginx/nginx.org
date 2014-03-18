@@ -9,6 +9,24 @@
 
 <event date="2014-03-04">
 <para>
+<link doc="en/download.xml">nginx-1.4.7</link>
+stable and
+<link doc="en/download.xml">nginx-1.5.12</link>
+mainline versions has been released,
+with a fix for the
+<link doc="en/security_advisories.xml">SPDY heap buffer overflow</link>
+vulnerability
+discovered by
+Lucas Molas, researcher at Programa STIC,
+<link url="http://www.fundacionsadosky.org.ar/en/">Fundación Dr. Manuel
+Sadosky</link>, Buenos Aires, Argentina
+(CVE-2014-0133).
+</para>
+</event>
+
+
+<event date="2014-03-04">
+<para>
 <link doc="en/download.xml">nginx-1.4.6</link>
 stable version has been released.
 </para>

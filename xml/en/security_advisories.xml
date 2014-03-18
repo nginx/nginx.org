@@ -24,6 +24,14 @@ Patches are signed using one of the
 
 <security>
 
+<item name="SPDY heap buffer overflow"
+      severity="major"
+      cve="2014-0133"
+      good="1.5.12+, 1.4.7+"
+      vulnerable="1.3.15-1.5.11">
+<patch name="patch.2014.spdy2.txt" />
+</item>
+
 <item name="SPDY memory corruption"
       severity="major"
       advisory="http://mailman.nginx.org/pipermail/nginx-announce/2014/000132.html"
