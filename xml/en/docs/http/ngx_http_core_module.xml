@@ -2267,7 +2267,7 @@ server {
 
 <para>
 It is also possible to use regular expressions in server names,
-preceeding the name with a tilde (“<literal>~</literal>”):
+preceding the name with a tilde (“<literal>~</literal>”):
 <example>
 server {
     server_name www.example.com ~^www\d+\.example\.com$;
