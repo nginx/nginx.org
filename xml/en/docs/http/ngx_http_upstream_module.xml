@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="14">
+        rev="15">
 
 <section id="summary">
 
@@ -254,13 +254,14 @@ are ignored, and such a server will never be considered unavailable.
 <context>upstream</context>
 
 <para>
-Makes the group dynamically configurable.
-Defines the <value>name</value> and <value>size</value> of a shared
-memory zone that keeps group’s configuration and run-time state that are
+Defines the <value>name</value> and <value>size</value> of the shared
+memory zone that keeps the group’s configuration and run-time state that are
 shared between worker processes.
-Such groups allow to add, remove, and modify servers at run time.
-The configuration is accessible via a special location handled by
-<link id="upstream_conf"/>.
+Such groups allow changing the group membership
+or modifying the settings of a particular server
+without the need of restarting nginx.
+The configuration is accessible via a special location
+handled by <link id="upstream_conf"/>.
 </para>
 
 <para>

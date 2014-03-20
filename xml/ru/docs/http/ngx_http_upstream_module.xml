@@ -192,6 +192,30 @@ upstream backend {
 </directive>
 
 
+<directive name="zone">
+<syntax><value>имя</value> <value>размер</value></syntax>
+<default/>
+<context>upstream</context>
+
+<para>
+Задаёт <value>имя</value> и <value>размер</value> зоны разделяемой памяти,
+в которой хранятся конфигурация группы и рабочее состояние,
+разделяемые между рабочими процессами.
+В таких группах возможно изменение состава группы или
+настроек отдельных серверов без необходимости перезапуска nginx.
+Конфигурация доступна через специальный location,
+для которого указана директива <link id="upstream_conf"/>.
+</para>
+
+<para>
+<note>
+Эта директива доступна как часть <commercial_version/>.
+</note>
+</para>
+
+</directive>
+
+
 <directive name="ip_hash">
 <syntax/>
 <default/>
