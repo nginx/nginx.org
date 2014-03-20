@@ -173,6 +173,35 @@ upstream backend {
 совместно с директивой <link id="ip_hash"/>.
 </tag-desc>
 
+<tag-name id="resolve">
+<literal>resolve</literal>
+</tag-name>
+<tag-desc>
+отслеживает изменения IP-адресов, соответствующих доменному имени сервера,
+и автоматически изменяет конфигурацию группы
+без необходимости перезапуска nginx (1.5.12)
+<para>
+Для работы этого параметра
+директива <link doc="ngx_http_core_module.xml" id="resolver"/>
+должна быть задана в блоке
+<link doc="ngx_http_core_module.xml" id="http"/>.
+<example>
+http {
+    resolver 10.0.0.1;
+
+    upstream u {
+        zone ...;
+        ...
+        server example.com resolve;
+    }
+}
+</example>
+</para>
+<note>
+Эта функциональность доступна как часть <commercial_version/>.
+</note>
+</tag-desc>
+
 </list>
 </para>
 
