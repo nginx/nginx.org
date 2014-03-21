@@ -17,8 +17,7 @@ X:template = "stable_version" {
 
 X:template = "commercial_version" {
     <a href="http://nginx.com/products/">
-    !{document(concat($XML, '/i18n.xml'))
-               /i18n/text[@lang = $LANG]/item[@id='commercial_subscription']}
+    !!;
     </a>
 }
 

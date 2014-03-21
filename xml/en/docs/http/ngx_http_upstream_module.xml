@@ -48,7 +48,8 @@ server {
 
 <para>
 Dynamically configurable group,
-available as part of our <commercial_version/>:
+available as part of our
+<commercial_version>commercial subscription</commercial_version>:
 <example>
 upstream <emphasis>appservers</emphasis> {
     zone appservers 64k;
@@ -197,7 +198,8 @@ the <link id="ip_hash"/> directive.
 
 <para>
 Additionally,
-the following parameters are available as part of our <commercial_version/>:
+the following parameters are available as part of our
+<commercial_version>commercial subscription</commercial_version>:
 <list type="tag">
 
 <tag-name id="max_conns">
@@ -284,7 +286,8 @@ handled by <link id="upstream_conf"/>.
 
 <para>
 <note>
-This directive is available as part of our <commercial_version/>.
+This directive is available as part of our
+<commercial_version>commercial subscription</commercial_version>.
 </note>
 </para>
 
@@ -593,7 +596,8 @@ considered unhealthy.
 
 <para>
 <note>
-This directive is available as part of our <commercial_version/>.
+This directive is available as part of our
+<commercial_version>commercial subscription</commercial_version>.
 </note>
 </para>
 
@@ -725,7 +729,8 @@ match server_ok {
 
 <para>
 <note>
-This directive is available as part of our <commercial_version/>.
+This directive is available as part of our
+<commercial_version>commercial subscription</commercial_version>.
 </note>
 </para>
 
@@ -760,7 +765,8 @@ The default value of the <literal>timeout</literal> parameter is 60 seconds.
 
 <para>
 <note>
-This directive is available as part of our <commercial_version/>.
+This directive is available as part of our
+<commercial_version>commercial subscription</commercial_version>.
 </note>
 </para>
 
@@ -878,7 +884,8 @@ Otherwise, the route from the URI is used.
 
 <para>
 <note>
-This directive is available as part of our <commercial_version/>.
+This directive is available as part of our
+<commercial_version>commercial subscription</commercial_version>.
 </note>
 </para>
 
@@ -1144,7 +1151,8 @@ http://127.0.0.1/upstream_conf?upstream=appservers&amp;id=42&amp;max_fails=3&amp
 
 <para>
 <note>
-This directive is available as part of our <commercial_version/>.
+This directive is available as part of our
+<commercial_version>commercial subscription</commercial_version>.
 </note>
 </para>
 

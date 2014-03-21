@@ -99,4 +99,4 @@
 
 <!ELEMENT   mainline_version    EMPTY >
 <!ELEMENT   stable_version      EMPTY >
-<!ELEMENT   commercial_version  EMPTY >
+<!ELEMENT   commercial_version  (#PCDATA) >
