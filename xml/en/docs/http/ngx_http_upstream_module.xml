@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="17">
+        rev="18">
 
 <section id="summary">
 
@@ -100,6 +100,8 @@ upstream backend {
     server backend1.example.com weight=5;
     server 127.0.0.1:8080       max_fails=3 fail_timeout=30s;
     server unix:/tmp/backend3;
+
+    server backup1.example.com  backup;
 }
 </example>
 </para>
@@ -178,31 +180,6 @@ and the period of time the server will be considered unavailable.
 By default, the parameter is set to 10 seconds.
 </tag-desc>
 
-<tag-name><literal>slow_start</literal>=<value>time</value></tag-name>
-<tag-desc>
-sets the <value>time</value> during which the server will recover its weight
-from zero to a nominal value, when unhealthy server becomes
-<link id="health_check">healthy</link>,
-or when the server becomes available after a period of time
-it was considered unavailable.
-Default value is zero, i.e. slow start is disabled.
-<note>
-This functionality is available as part of our <commercial_version/>.
-</note>
-</tag-desc>
-
-<tag-name id="max_conns">
-<literal>max_conns</literal>=<value>number</value>
-</tag-name>
-<tag-desc>
-limits the maximum <value>number</value> of simultaneous connections to the
-proxied server (1.5.9).
-Default value is zero, meaning there is no limit.
-<note>
-This functionality is available as part of our <commercial_version/> only.
-</note>
-</tag-desc>
-
 <tag-name><literal>backup</literal></tag-name>
 <tag-desc>
 marks the server as a backup server.
@@ -213,6 +190,23 @@ It will be passed requests when the primary servers are unavailable.
 <tag-desc>
 marks the server as permanently unavailable; used along with
 the <link id="ip_hash"/> directive.
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+Additionally,
+the following parameters are available as part of our <commercial_version/>:
+<list type="tag">
+
+<tag-name id="max_conns">
+<literal>max_conns</literal>=<value>number</value>
+</tag-name>
+<tag-desc>
+limits the maximum <value>number</value> of simultaneous connections to the
+proxied server (1.5.9).
+Default value is zero, meaning there is no limit.
 </tag-desc>
 
 <tag-name id="resolve">
@@ -240,34 +234,27 @@ http {
 }
 </example>
 </para>
-<note>
-This functionality is available as part of our <commercial_version/>.
-</note>
 </tag-desc>
 
 <tag-name><literal>route</literal>=<value>string</value></tag-name>
 <tag-desc>
 sets the server route name.
-<note>
-This functionality is available as part of our <commercial_version/>.
-</note>
+</tag-desc>
+
+<tag-name><literal>slow_start</literal>=<value>time</value></tag-name>
+<tag-desc>
+sets the <value>time</value> during which the server will recover its weight
+from zero to a nominal value, when unhealthy server becomes
+<link id="health_check">healthy</link>,
+or when the server becomes available after a period of time
+it was considered unavailable.
+Default value is zero, i.e. slow start is disabled.
 </tag-desc>
 
 </list>
 </para>
 
 <para>
-Example:
-<example>
-upstream backend {
-    server backend1.example.com     weight=5;
-    server 127.0.0.1:8080           max_fails=3 fail_timeout=30s;
-    server unix:/tmp/backend3;
-
-    server backup1.example.com:8080 backup;
-}
-</example>
-
 <note>
 If there is only a single server in a group, <literal>max_fails</literal>,
 <literal>fail_timeout</literal> and <literal>slow_start</literal> parameters

@@ -71,6 +71,8 @@ upstream backend {
     server backend1.example.com weight=5;
     server 127.0.0.1:8080       max_fails=3 fail_timeout=30s;
     server unix:/tmp/backend3;
+
+    server backup1.example.com  backup;
 }
 </example>
 </para>
@@ -149,18 +151,6 @@ upstream backend {
 По умолчанию параметр равен 10 секундам.
 </tag-desc>
 
-<tag-name id="max_conns">
-<literal>max_conns</literal>=<value>число</value>
-</tag-name>
-<tag-desc>
-ограничивает максимальное <value>число</value> одновременных соединений
-к проксируемому серверу (1.5.9).
-Значение по умолчанию равно 0 и означает, что ограничения нет.
-<note>
-Эта функциональность доступна как часть <commercial_version/>.
-</note>
-</tag-desc>
-
 <tag-name><literal>backup</literal></tag-name>
 <tag-desc>
 помечает сервер как запасной сервер.
@@ -171,6 +161,23 @@ upstream backend {
 <tag-desc>
 помечает сервер как постоянно неработающий; используется
 совместно с директивой <link id="ip_hash"/>.
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+Кроме того,
+следующие параметры доступны как часть <commercial_version/>:
+<list type="tag">
+
+<tag-name id="max_conns">
+<literal>max_conns</literal>=<value>число</value>
+</tag-name>
+<tag-desc>
+ограничивает максимальное <value>число</value> одновременных соединений
+к проксируемому серверу (1.5.9).
+Значение по умолчанию равно 0 и означает, что ограничения нет.
 </tag-desc>
 
 <tag-name id="resolve">
@@ -197,25 +204,9 @@ http {
 }
 </example>
 </para>
-<note>
-Эта функциональность доступна как часть <commercial_version/>.
-</note>
 </tag-desc>
 
 </list>
-</para>
-
-<para>
-Пример:
-<example>
-upstream backend {
-    server backend1.example.com     weight=5;
-    server 127.0.0.1:8080           max_fails=3 fail_timeout=30s;
-    server unix:/tmp/backend3;
-
-    server backup1.example.com:8080 backup;
-}
-</example>
 </para>
 
 </directive>
