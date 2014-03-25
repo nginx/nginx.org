@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="30">
+        rev="31">
 
 <section id="directives" name="Директивы">
 
@@ -2747,13 +2747,16 @@ location /download/ {
 
 <directive name="variables_hash_max_size">
 <syntax><value>размер</value></syntax>
-<default>512</default>
+<default>1024</default>
 <context>http</context>
 
 <para>
 Задаёт максимальный <value>размер</value> хэш-таблицы переменных.
 Подробнее настройка хэш-таблиц обсуждается в отдельном
 <link doc="../hash.xml">документе</link>.
+<note>
+До версии 1.5.13 по умолчанию использовалось значение 512.
+</note>
 </para>
 
 </directive>
