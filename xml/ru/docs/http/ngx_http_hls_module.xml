@@ -9,7 +9,7 @@
 <module name="Module ngx_http_hls_module"
         link="/ru/docs/http/ngx_http_hls_module.html"
         lang="ru"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
@@ -124,7 +124,7 @@ http://hls.example.com/video/test.mp4.ts?start=1.000&amp;end=2.200
 <context>location</context>
 
 <para>
-Задаёт начальный <value>размер</value> буфера памяти, используемого для
+Задаёт начальный <value>размер</value> буфера, используемого для
 обработки MP4-файлов.
 </para>
 

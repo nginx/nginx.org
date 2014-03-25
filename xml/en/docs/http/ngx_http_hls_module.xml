@@ -9,7 +9,7 @@
 <module name="Module ngx_http_hls_module"
         link="/en/docs/http/ngx_http_hls_module.html"
         lang="en"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
@@ -124,7 +124,7 @@ Defines the default fragment length for playlist URIs requested without the
 <context>location</context>
 
 <para>
-Sets the initial <value>size</value> of the memory buffer used to
+Sets the initial buffer <value>size</value> used to
 process MP4 files.
 </para>
 

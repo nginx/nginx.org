@@ -9,7 +9,7 @@
 <module name="Module ngx_http_mp4_module"
         link="/en/docs/http/ngx_http_mp4_module.html"
         lang="en"
-        rev="6">
+        rev="7">
 
 <section id="summary">
 
@@ -147,7 +147,7 @@ Turns on module processing in a surrounding location.
 <context>location</context>
 
 <para>
-Sets the initial size of a memory buffer used for processing MP4 files.
+Sets the initial buffer size used for processing MP4 files.
 </para>
 
 </directive>
