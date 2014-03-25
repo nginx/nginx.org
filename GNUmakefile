@@ -165,7 +165,8 @@ images:									\
 		binary/books/nginx_in_practice.jpg			\
 		binary/books/mastering_nginx.jpg			\
 		binary/books/nginx_http_server_2nd_ed.jpg		\
-		binary/books/instant_nginx_starter.jpg
+		binary/books/instant_nginx_starter.jpg			\
+		binary/books/nginx_module_extension.jpg
 
 binary/books/nginx_http_server_jp.jpg:	sources/1106030720.jpg
 	mkdir -p $(dir $@)
@@ -193,6 +194,10 @@ binary/books/nginx_http_server_2nd_ed.jpg:	sources/2322OS_cov.jpg
 	$(call JPEGNORM, $<, $@)
 
 binary/books/instant_nginx_starter.jpg:	sources/5125OS_cov.jpg
+	mkdir -p $(dir $@)
+	$(call JPEGNORM, $<, $@)
+
+binary/books/nginx_module_extension.jpg:	sources/3046OS_cover.jpg
 	mkdir -p $(dir $@)
 	$(call JPEGNORM, $<, $@)
 
