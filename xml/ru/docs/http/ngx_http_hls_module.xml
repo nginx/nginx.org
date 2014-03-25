@@ -1,0 +1,157 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Module ngx_http_hls_module"
+        link="/ru/docs/http/ngx_http_hls_module.html"
+        lang="ru"
+        rev="1">
+
+<section id="summary">
+
+<para>
+Модуль <literal>ngx_http_hls_module</literal> обеспечивает серверную поддержку
+протокола HTTP Live Streaming (HLS) для файлов в формате H.264/AAC.
+Такие файлы обычно имеют расширения
+<path>.mp4</path>, <path>.m4v</path> и <path>.m4a</path>.
+</para>
+
+<para>
+nginx поддерживает два вида URI для каждого MP4-файла:
+<list type="bullet">
+
+<listitem>
+URI плейлиста, имеющий расширение “<literal>.m3u8</literal>” и принимающий
+необязательный параметр “<literal>len</literal>”,
+который задаёт длину фрагмента в секундах;
+</listitem>
+
+<listitem>
+URI фрагмента, имеющий расширение “<literal>.ts</literal>” и принимающий
+аргументы “<literal>start</literal>” и “<literal>end</literal>”, которые
+задают границы фрагмента в секундах.
+</listitem>
+
+</list>
+</para>
+
+<para>
+<note>
+Модуль доступен как часть <commercial_version/>.
+</note>
+</para>
+
+</section>
+
+
+<section id="example" name="Пример конфигурации">
+
+<para>
+<example>
+location /video/ {
+    hls;
+    hls_fragment            5s;
+    hls_buffers             10 10m;
+    hls_mp4_buffer_size     1m;
+    hls_mp4_max_buffer_size 5m;
+    alias /var/video/;
+}
+</example>
+В такой конфигурации для файла “<path>/var/video/test.mp4</path>”
+будут поддерживаться следующие URI:
+<example>
+http://hls.example.com/video/test.mp4.m3u8?len=8.000
+http://hls.example.com/video/test.mp4.ts?start=1.000&amp;end=2.200
+</example>
+</para>
+
+</section>
+
+
+<section id="directives" name="Директивы">
+
+<directive name="hls">
+<syntax/>
+<default/>
+<context>location</context>
+
+<para>
+Включает HLS-поток во вложенном location.
+</para>
+
+</directive>
+
+
+<directive name="hls_buffers">
+<syntax><value>число</value> <value>размер</value></syntax>
+<default>8 2m</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Задаёт максимальное <value>число</value> и <value>размер</value> буферов,
+которые используются для чтения и записи блоков данных.
+</para>
+
+</directive>
+
+
+<directive name="hls_fragment">
+<syntax><value>время</value></syntax>
+<default>5s</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Задаёт длину фрагмента по умолчанию для всех URI в плейлисте,
+запрошенных без аргумента “<literal>len</literal>”.
+</para>
+
+</directive>
+
+
+<directive name="hls_mp4_buffer_size">
+<syntax><value>размер</value></syntax>
+<default>512k</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Задаёт начальный <value>размер</value> буфера памяти, используемого для
+обработки MP4-файлов.
+</para>
+
+</directive>
+
+
+<directive name="hls_mp4_max_buffer_size">
+<syntax><value>размер</value></syntax>
+<default>10m</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+В ходе обработки метаданных может понадобиться буфер большего размера.
+Его <value>размер</value> не может превышать указанного,
+иначе nginx вернёт серверную ошибку
+<http-status code="500" text="Internal Server Error"/>
+и запишет в лог следующее сообщение:
+<example>
+"/some/movie/file.mp4" mp4 moov atom is too large:
+12583268, you may want to increase hls_mp4_max_buffer_size
+</example>
+</para>
+
+</directive>
+
+</section>
+
+</module>
