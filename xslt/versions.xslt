@@ -18,8 +18,7 @@
 
 <xsl:template match="commercial_version">
     <a href="http://nginx.com/products/">
-    <xsl:value-of select="document(concat($XML, '/i18n.xml'))
-               /i18n/text[@lang = $LANG]/item[@id='commercial_subscription']"/>
+    <xsl:apply-templates/>
     </a>
 </xsl:template>
 
