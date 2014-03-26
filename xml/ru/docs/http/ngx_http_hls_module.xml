@@ -9,7 +9,7 @@
 <module name="Module ngx_http_hls_module"
         link="/ru/docs/http/ngx_http_hls_module.html"
         lang="ru"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -97,6 +97,97 @@ http://hls.example.com/video/test.mp4.ts?start=1.000&amp;end=2.200
 <para>
 Задаёт максимальное <value>число</value> и <value>размер</value> буферов,
 которые используются для чтения и записи блоков данных.
+</para>
+
+</directive>
+
+
+<directive name="hls_forward_args">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.5.13</appeared-in>
+
+<para>
+Добавляет аргументы из запроса плейлиста в URI фрагментов.
+Это может быть необходимо для авторизации клиента
+во время запроса фрагментов, а также для защиты HLS-потока с помощью
+модуля <link doc="ngx_http_secure_link_module.xml"/>.
+</para>
+
+<para>
+Например, если клиент запрашивает плейлист
+<literal>http://example.com/hls/test.mp4.m3u8?a=1&amp;b=2</literal>,
+то аргументы <literal>a=1</literal> и <literal>b=2</literal>
+будут добавлены в URI фрагментов после аргументов
+<literal>start</literal> и <literal>end</literal>:
+<example>
+#EXTM3U
+#EXT-X-VERSION:3
+#EXT-X-TARGETDURATION:15
+#EXT-X-PLAYLIST-TYPE:VOD
+
+#EXTINF:9.333,
+test.mp4.ts?start=0.000&amp;end=9.333&amp;a=1&amp;b=2
+#EXTINF:7.167,
+test.mp4.ts?start=9.333&amp;end=16.500&amp;a=1&amp;b=2
+#EXTINF:5.416,
+test.mp4.ts?start=16.500&amp;end=21.916&amp;a=1&amp;b=2
+#EXTINF:5.500,
+test.mp4.ts?start=21.916&amp;end=27.416&amp;a=1&amp;b=2
+#EXTINF:15.167,
+test.mp4.ts?start=27.416&amp;end=42.583&amp;a=1&amp;b=2
+#EXTINF:9.626,
+test.mp4.ts?start=42.583&amp;end=52.209&amp;a=1&amp;b=2
+
+#EXT-X-ENDLIST
+</example>
+</para>
+
+<para>
+Если HLS-поток защищён с помощью модуля
+<link doc="ngx_http_secure_link_module.xml">ngx_http_secure_link_module</link>,
+переменную <literal>$uri</literal> не следует использовать в выражении
+<link doc="ngx_http_secure_link_module.xml" id="secure_link_md5"/>,
+так как это приведёт к ошибкам при запросах к фрагментам.
+Вместо <literal>$uri</literal> следует использовать
+<link doc="ngx_http_map_module.xml" id="map">базовую часть URI</link>
+(<literal>$hls_uri</literal> в примере):
+<example>
+http {
+    ...
+
+    map $uri $hls_uri {
+        ~^(?&lt;base_uri&gt;.*).m3u8$ $base_uri;
+        ~^(?&lt;base_uri&gt;.*).ts$   $base_uri;
+        default                 $uri;
+    }
+
+    server {
+        ...
+
+        location /hls {
+            hls;
+            hls_forward_args on;
+
+            alias /var/videos;
+
+            secure_link $arg_md5,$arg_expires;
+            secure_link_md5 "$secure_link_expires$hls_uri$remote_addr secret";
+
+            if ($secure_link = "") {
+                return 403;
+            }
+
+            if ($secure_link = "0") {
+                return 410;
+            }
+        }
+    }
+}
+</example>
 </para>
 
 </directive>
