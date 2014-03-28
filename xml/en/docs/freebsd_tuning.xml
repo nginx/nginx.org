@@ -236,7 +236,7 @@ There is way not to use the jumbo clusters while serving static files:
 the <i>sendfile()</i> system call.
 The sendfile allows to send a file or its part to a socket directly
 without reading the parts in an application buffer.
-It creates the mbufs chain where the mufs point to the file pages that are
+It creates the mbufs chain where the mbufs point to the file pages that are
 already present in FreeBSD cache memory, and passes the chain to
 the TCP/IP stack.
 Thus, sendfile decreases both CPU usage by omitting two memory copy operations,
