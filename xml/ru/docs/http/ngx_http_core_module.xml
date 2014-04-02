@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="31">
+        rev="32">
 
 <section id="directives" name="Директивы">
 
@@ -2674,16 +2674,19 @@ location /download/ {
 
 <directive name="types_hash_bucket_size">
 <syntax><value>размер</value></syntax>
-<default>32|64|128</default>
+<default>64</default>
 <context>http</context>
 <context>server</context>
 <context>location</context>
 
 <para>
 Задаёт размер корзины в хэш-таблицах типов.
-Значение по умолчанию зависит от размера строки кэша процессора.
 Подробнее настройка хэш-таблиц обсуждается в отдельном
 <link doc="../hash.xml">документе</link>.
+<note>
+До версии 1.5.13
+значение по умолчанию зависело от размера строки кэша процессора.
+</note>
 </para>
 
 </directive>
