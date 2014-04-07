@@ -55,7 +55,7 @@ tcp4  0/0/128        *.22
 
 Here are 192 unaccepted connections and most likely new coming connections
 are discarding. Although the limit is 128 connections, FreeBSD allows
-to receive 1.5 times connections than the limit before it starts to discard
+receiving 1.5 times connections than the limit before it starts to discard
 the new connections. You may increase the limit using
 
 <programlisting>
@@ -234,7 +234,7 @@ We will discuss the i386 specific tuning later.
 <para>
 There is way not to use the jumbo clusters while serving static files:
 the <i>sendfile()</i> system call.
-The sendfile allows to send a file or its part to a socket directly
+The sendfile allows sending a file or its part to a socket directly
 without reading the parts in an application buffer.
 It creates the mbufs chain where the mbufs point to the file pages that are
 already present in FreeBSD cache memory, and passes the chain to

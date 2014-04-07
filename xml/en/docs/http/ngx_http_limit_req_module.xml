@@ -164,7 +164,7 @@ average request processing rate for this zone cannot exceed
 A client IP address serves as a key.
 Note that instead of <var>$remote_addr</var>, the
 <var>$binary_remote_addr</var> variable is used here,
-that allows to decrease the state size down to 64 bytes.
+that allows decreasing the state size down to 64 bytes.
 One megabyte zone can keep about 16 thousand 64-byte states.
 If the zone storage is exhausted, the server will return the
 <http-status code="503" text="Service Temporarily Unavailable"/>

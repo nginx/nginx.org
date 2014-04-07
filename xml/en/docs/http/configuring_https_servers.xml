@@ -311,7 +311,7 @@ server {
          name="An SSL certificate with several names">
 
 <para>
-There are other ways that allow to share a single IP address
+There are other ways that allow sharing a single IP address
 between several HTTPS servers.
 However, all of them have their drawbacks.
 One way is to use a certificate with several names in

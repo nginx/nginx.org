@@ -24,7 +24,7 @@ configured parameter (hash bucket size).
 The size of a table is expressed in buckets.
 The adjustment is continued until the table size exceeds the
 hash max size parameter.
-Most hashes have the corresponding directives that allow to change
+Most hashes have the corresponding directives that allow changing
 these parameters, for example, for the server names hash they are
 <link doc="http/ngx_http_core_module.xml" id="server_names_hash_max_size"/>
 and <link doc="http/ngx_http_core_module.xml" id="server_names_hash_bucket_size"/>.

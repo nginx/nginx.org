@@ -199,7 +199,7 @@ By default, a randomly generated key is used.
 <para>
 If several keys are specified, only the first key is
 used to encrypt TLS session tickets.
-This allows to configure key rotation, for example:
+This allows configuring key rotation, for example:
 <example>
 ssl_session_ticket_key current.key;
 ssl_session_ticket_key previous.key;
