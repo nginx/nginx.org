@@ -156,7 +156,7 @@ When <link id="fastcgi_buffering">buffering</link> of responses from the FastCGI
 server is enabled, limits the total <value>size</value> of buffers that
 can be busy sending a response to the client while the response is not
 yet fully read.
-In the mean time, the rest of the buffers can be used for reading a response
+In the meantime, the rest of the buffers can be used for reading a response
 and, if needed, buffering part of a response to a temporary file.
 By default, <value>size</value> is limited by the size of two buffers set by the
 <link id="fastcgi_buffer_size"/> and <link id="fastcgi_buffers"/> directives.

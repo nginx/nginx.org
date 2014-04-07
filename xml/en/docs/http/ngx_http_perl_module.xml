@@ -450,7 +450,7 @@ sets a response code.
 <tag-desc>
 sets the specified handler
 and stops request processing for the specified time.
-In the mean time, nginx continues to process other requests.
+In the meantime, nginx continues to process other requests.
 After the specified time has elapsed, nginx will call the installed handler.
 Note that the handler function should be passed by reference.
 In order to pass data between handlers,
