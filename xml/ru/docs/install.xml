@@ -8,7 +8,7 @@
 <article name="Установка nginx"
          link="/ru/docs/install.html"
          lang="ru"
-         rev="1"
+         rev="2"
          toc="no">
 
 <section>
@@ -34,11 +34,9 @@ nginx устанавливается по-разному в зависимост
 
 <para>
 На FreeBSD можно установить nginx либо из
-<link
-url="http://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/packages-using.html">
-пакетов</link>, либо с помощью системы
-<link url="http://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/ports-using.html">
-портов</link>.
+<link url="http://www.freebsd.org/doc/handbook/pkgng-intro.html">пакетов</link>,
+либо с помощью системы
+<link url="http://www.freebsd.org/doc/handbook/ports-using.html">портов</link>.
 Система портов даёт большую гибкость, позволяя выбирать из широкого
 набора настроек.
 Порт скомпилирует nginx с выбранными опциями и установит.

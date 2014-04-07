@@ -8,7 +8,7 @@
 <article name="Installing nginx"
          link="/en/docs/install.html"
          lang="en"
-         rev="1"
+         rev="2"
          toc="no">
 
 <section>
@@ -34,7 +34,7 @@ from nginx.org can be used.
 
 <para>
 On FreeBSD, nginx can be installed either from the <link
-url="http://www.freebsd.org/doc/handbook/packages-using.html">packages</link>
+url="http://www.freebsd.org/doc/handbook/pkgng-intro.html">packages</link>
 or through the
 <link url="http://www.freebsd.org/doc/handbook/ports-using.html">ports</link>
 system.

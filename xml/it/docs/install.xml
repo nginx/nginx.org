@@ -9,7 +9,7 @@
          link="/it/docs/install.html"
          lang="it"
          translator="Angelo Papadia"
-         rev="1"
+         rev="2"
          toc="no">
 
 <section>
@@ -34,7 +34,7 @@ Con Linux, e' possibile usare i <link doc="../linux_packages.xml">pacchetti</lin
 
 <para>
 Con FreeBSD, e' possibile installare nginx o tramite
-<link url="http://www.freebsd.org/doc/handbook/packages-using.html">pacchetti</link>
+<link url="http://www.freebsd.org/doc/handbook/pkgng-intro.html">pacchetti</link>
 binari oppure tramite <link url="http://www.freebsd.org/doc/handbook/ports-using.html">ports</link>.
 Ports consente maggiore flessibilita', e permette di scegliere fra un gran numero di opzioni:
 ports provvedera' a compilare nginx con le opzioni specificate, e ad installarlo.
