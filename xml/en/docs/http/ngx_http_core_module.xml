@@ -2164,10 +2164,10 @@ This directive is ignored on Linux, Solaris, and Windows.
 
 <para>
 Sets a timeout for transmitting a response to the client.
-A timeout is set only between two successive write operations,
+The timeout is set only between two successive write operations,
 not for the transmission of the whole response.
-If a client does not receive anything within this time,
-a connection is closed.
+If the client does not receive anything within this time,
+the connection is closed.
 </para>
 
 </directive>

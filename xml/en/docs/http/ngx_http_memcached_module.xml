@@ -213,9 +213,9 @@ In addition, an address can be specified as a
 
 <para>
 Defines a timeout for reading a response from the memcached server.
-A timeout is set only between two successive read operations,
+The timeout is set only between two successive read operations,
 not for the transmission of the whole response.
-If a memcached server does not transmit anything within this time,
+If the memcached server does not transmit anything within this time,
 the connection is closed.
 </para>
 
@@ -231,10 +231,10 @@ the connection is closed.
 
 <para>
 Sets a timeout for transmitting a request to the memcached server.
-A timeout is set only between two successive write operations,
+The timeout is set only between two successive write operations,
 not for the transmission of the whole request.
-If a memcached server does not receive anything within this time,
-a connection is closed.
+If the memcached server does not receive anything within this time,
+the connection is closed.
 </para>
 
 </directive>

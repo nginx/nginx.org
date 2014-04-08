@@ -658,7 +658,7 @@ In this case, <value>path</value> should either start from
 the “<literal>~</literal>” symbol for a case-sensitive matching,
 or from the “<literal>~*</literal>” symbols for case-insensitive
 matching.
-A regular expression can contain named and positional captures,
+The regular expression can contain named and positional captures,
 and <value>replacement</value> can reference them:
 <example>
 proxy_cookie_path ~*^/user/([^/]+) /u/$1;
@@ -1142,10 +1142,10 @@ fields from a proxied server to a client.
 
 <para>
 Defines a timeout for reading a response from the proxied server.
-A timeout is set only between two successive read operations,
+The timeout is set only between two successive read operations,
 not for the transmission of the whole response.
-If a proxied server does not transmit anything within this time,
-a connection is closed.
+If the proxied server does not transmit anything within this time,
+the connection is closed.
 </para>
 
 </directive>
@@ -1275,7 +1275,7 @@ In this case, <value>redirect</value> should either start with
 the “<literal>~</literal>” symbol for a case-sensitive matching,
 or with the “<literal>~*</literal>” symbols for case-insensitive
 matching.
-A regular expression can contain named and positional captures,
+The regular expression can contain named and positional captures,
 and <value>replacement</value> can reference them:
 <example>
 proxy_redirect ~^(http://[^:]+):\d+(/.+)$ $1$2;
@@ -1347,10 +1347,10 @@ This directive is ignored on Linux, Solaris, and Windows.
 
 <para>
 Sets a timeout for transmitting a request to the proxied server.
-A timeout is set only between two successive write operations,
+The timeout is set only between two successive write operations,
 not for the transmission of the whole request.
-If a proxied server does not receive anything within this time,
-a connection is closed.
+If the proxied server does not receive anything within this time,
+the connection is closed.
 </para>
 
 </directive>
@@ -1517,7 +1517,8 @@ proxy_store /data/www$original_uri;
 <para>
 The modification time of files is set according to the received
 <header>Last-Modified</header> response header field.
-A response is first written to a temporary file, and then the file is renamed.
+The response is first written to a temporary file,
+and then the file is renamed.
 Starting from version 0.8.9, temporary files and the persistent store
 can be put on different file systems.
 However, be aware that in this case a file is copied

@@ -962,10 +962,10 @@ fields from a FastCGI server to a client.
 
 <para>
 Defines a timeout for reading a response from the FastCGI server.
-A timeout is set only between two successive read operations,
+The timeout is set only between two successive read operations,
 not for the transmission of the whole response.
-If a FastCGI server does not transmit anything within this time,
-a connection is closed.
+If the FastCGI server does not transmit anything within this time,
+the connection is closed.
 </para>
 
 </directive>
@@ -1036,10 +1036,10 @@ This directive is ignored on Linux, Solaris, and Windows.
 
 <para>
 Sets a timeout for transmitting a request to the FastCGI server.
-A timeout is set only between two successive write operations,
+The timeout is set only between two successive write operations,
 not for the transmission of the whole request.
-If a FastCGI server does not receive anything within this time,
-a connection is closed.
+If the FastCGI server does not receive anything within this time,
+the connection is closed.
 </para>
 
 </directive>
@@ -1053,7 +1053,7 @@ a connection is closed.
 <para>
 Defines a regular expression that captures a value for the
 <var>$fastcgi_path_info</var> variable.
-A regular expression should have two captures: the first becomes
+The regular expression should have two captures: the first becomes
 a value of the <var>$fastcgi_script_name</var> variable, the second
 becomes a value of the <var>$fastcgi_path_info</var> variable.
 For example, with these settings
@@ -1100,7 +1100,8 @@ fastcgi_store /data/www$original_uri;
 <para>
 The modification time of files is set according to the received
 <header>Last-Modified</header> response header field.
-A response is first written to a temporary file, and then the file is renamed.
+The response is first written to a temporary file,
+and then the file is renamed.
 Starting from version 0.8.9, temporary files and the persistent store
 can be put on different file systems.
 However, be aware that in this case a file is copied
