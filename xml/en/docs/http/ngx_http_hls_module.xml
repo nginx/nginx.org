@@ -114,7 +114,8 @@ that are used for reading and writing data frames.
 Adds arguments from a playlist request to URIs of fragments.
 This may be useful for performing client authorization at the moment of
 requesting a fragment, or when protecting an HLS stream with the
-<link doc="ngx_http_secure_link_module.xml"/> module.
+<link doc="ngx_http_secure_link_module.xml">ngx_http_secure_link_module</link>
+module.
 </para>
 
 <para>
@@ -149,12 +150,12 @@ test.mp4.ts?start=42.583&amp;end=52.209&amp;a=1&amp;b=2
 <para>
 If an HLS stream is protected with the
 <link doc="ngx_http_secure_link_module.xml">ngx_http_secure_link_module</link>
-module, <literal>$uri</literal> should not be used in the
+module, <var>$uri</var> should not be used in the
 <link doc="ngx_http_secure_link_module.xml" id="secure_link_md5"/>
 expression because this will cause errors when requesting the fragments.
 <link doc="ngx_http_map_module.xml" id="map">Base URI</link> should be used
-instead of <literal>$uri</literal>
-(<literal>$hls_uri</literal> in the example):
+instead of <var>$uri</var>
+(<var>$hls_uri</var> in the example):
 <example>
 http {
     ...

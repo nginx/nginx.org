@@ -114,7 +114,8 @@ http://hls.example.com/video/test.mp4.ts?start=1.000&amp;end=2.200
 Добавляет аргументы из запроса плейлиста в URI фрагментов.
 Это может быть необходимо для авторизации клиента
 во время запроса фрагментов, а также для защиты HLS-потока с помощью
-модуля <link doc="ngx_http_secure_link_module.xml"/>.
+модуля
+<link doc="ngx_http_secure_link_module.xml">ngx_http_secure_link_module</link>.
 </para>
 
 <para>
@@ -149,12 +150,12 @@ test.mp4.ts?start=42.583&amp;end=52.209&amp;a=1&amp;b=2
 <para>
 Если HLS-поток защищён с помощью модуля
 <link doc="ngx_http_secure_link_module.xml">ngx_http_secure_link_module</link>,
-переменную <literal>$uri</literal> не следует использовать в выражении
+переменную <var>$uri</var> не следует использовать в выражении
 <link doc="ngx_http_secure_link_module.xml" id="secure_link_md5"/>,
 так как это приведёт к ошибкам при запросах к фрагментам.
-Вместо <literal>$uri</literal> следует использовать
+Вместо <var>$uri</var> следует использовать
 <link doc="ngx_http_map_module.xml" id="map">базовую часть URI</link>
-(<literal>$hls_uri</literal> в примере):
+(<var>$hls_uri</var> в примере):
 <example>
 http {
     ...
