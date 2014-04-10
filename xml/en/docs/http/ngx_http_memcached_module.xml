@@ -77,9 +77,9 @@ system to auto-assign the local IP address.
 <context>location</context>
 
 <para>
-Sets the <value>size</value> of the buffer used for reading a response
+Sets the <value>size</value> of the buffer used for reading the response
 received from the memcached server.
-A response is passed to a client synchronously, as soon as it is received.
+The response is passed to the client synchronously, as soon as it is received.
 </para>
 
 </directive>

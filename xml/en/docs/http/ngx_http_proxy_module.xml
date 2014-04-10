@@ -68,12 +68,12 @@ system to auto-assign the local IP address.
 <context>location</context>
 
 <para>
-Sets the <value>size</value> of the buffer used for reading the first part
-of a response received from the proxied server.
+Sets the size of the buffer <value>size</value> used for reading the first part
+of the response received from the proxied server.
 This part usually contains a small response header.
 By default, the buffer size is equal to the size of one
 buffer set by the <link id="proxy_buffers"/> directive.
-It can be made smaller however.
+It can be made smaller, however.
 </para>
 
 </directive>
@@ -102,7 +102,7 @@ Writing to temporary files is controlled by the
 </para>
 
 <para>
-When buffering is disabled, a response is passed to a client synchronously,
+When buffering is disabled, the response is passed to a client synchronously,
 immediately as it is received.
 nginx will not try to read the whole response from the proxied server.
 The maximum size of the data that nginx can receive from the server
@@ -128,7 +128,7 @@ This capability can be disabled using the
 <context>location</context>
 
 <para>
-Sets the <value>number</value> and <value>size</value> of
+Sets the <value>number</value> and <value>size</value> of the
 buffers used for reading a response from the proxied server,
 for a single connection.
 By default, the buffer size is equal to one memory page.
@@ -150,8 +150,8 @@ When <link id="proxy_buffering">buffering</link> of responses from the proxied
 server is enabled, limits the total <value>size</value> of buffers that
 can be busy sending a response to the client while the response is not
 yet fully read.
-In the meantime, the rest of the buffers can be used for reading a response
-and, if needed, buffering part of a response to a temporary file.
+In the meantime, the rest of the buffers can be used for reading the response
+and, if needed, buffering part of the response to a temporary file.
 By default, <value>size</value> is limited by the size of two buffers set by the
 <link id="proxy_buffer_size"/> and <link id="proxy_buffers"/> directives.
 </para>
@@ -520,12 +520,12 @@ This has higher priority than setting of caching time using the directive.
 The <header>X-Accel-Expires</header> header field sets caching time of a
 response in seconds.
 The zero value disables caching for a response.
-If a value starts with the <literal>@</literal> prefix, it sets an absolute
+If the value starts with the <literal>@</literal> prefix, it sets an absolute
 time in seconds since Epoch, up to which the response may be cached.
-If header does not include the <header>X-Accel-Expires</header> field,
+If the header does not include the <header>X-Accel-Expires</header> field,
 parameters of caching may be set in the header fields
 <header>Expires</header> or <header>Cache-Control</header>.
-If a header includes the <header>Set-Cookie</header> field, such a
+If the header includes the <header>Set-Cookie</header> field, such a
 response will not be cached.
 Processing of one or more of these response header fields can be disabled
 using the <link id="proxy_ignore_headers"/> directive.
@@ -772,7 +772,7 @@ connections.
 
 <para>
 Determines whether the connection with a proxied server should be
-closed when a client closes a connection without waiting
+closed when a client closes the connection without waiting
 for a response.
 </para>
 
@@ -863,8 +863,8 @@ When <link id="proxy_buffering">buffering</link> of responses from the proxied
 server is enabled, and the whole response does not fit into the memory buffers
 set by the <link id="proxy_buffer_size"/> and <link id="proxy_buffers"/>
 directives, a part of the response can be saved to a temporary file.
-This directive sets the maximum <value>size</value> of a temporary file.
-The size of data written to a temporary file at a time is set
+This directive sets the maximum <value>size</value> of the temporary file.
+The size of data written to the temporary file at a time is set
 by the <link id="proxy_temp_file_write_size"/> directive.
 </para>
 
@@ -1365,7 +1365,7 @@ the connection is closed.
 
 <para>
 Allows redefining the request body passed to the proxied server.
-A <value>value</value> can contain text, variables, and their combination.
+The <value>value</value> can contain text, variables, and their combination.
 </para>
 
 </directive>
@@ -1382,7 +1382,7 @@ A <value>value</value> can contain text, variables, and their combination.
 <para>
 Allows redefining or appending fields to the request header
 <link id="proxy_pass_request_headers">passed</link> to the proxied server.
-A <value>value</value> can contain text, variables, and their combinations.
+The <value>value</value> can contain text, variables, and their combinations.
 These directives are inherited from the previous level if and
 only if there are no
 <literal>proxy_set_header</literal>
