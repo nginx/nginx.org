@@ -860,7 +860,7 @@ with the <link doc="ngx_http_core_module.xml" id="error_page"/> directive.
 
 <para>
 When <link id="proxy_buffering">buffering</link> of responses from the proxied
-server is enabled, and the whole response does not fit into the memory buffers
+server is enabled, and the whole response does not fit into the buffers
 set by the <link id="proxy_buffer_size"/> and <link id="proxy_buffers"/>
 directives, a part of the response can be saved to a temporary file.
 This directive sets the maximum <value>size</value> of the temporary file.

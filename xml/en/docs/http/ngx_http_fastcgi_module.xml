@@ -739,7 +739,7 @@ connections to FastCGI servers to function.
 
 <para>
 When <link id="fastcgi_buffering">buffering</link> of responses from the FastCGI
-server is enabled, and the whole response does not fit into the memory buffers
+server is enabled, and the whole response does not fit into the buffers
 set by the <link id="fastcgi_buffer_size"/> and <link id="fastcgi_buffers"/>
 directives, a part of the response can be saved to a temporary file.
 This directive sets the maximum <value>size</value> of the temporary file.
