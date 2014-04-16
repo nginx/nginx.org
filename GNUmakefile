@@ -80,6 +80,7 @@ arx:		$(foreach year,$(YEARS),$(OUT)/$(year).html)
 
 
 DIRIND_DEPS =
+VARIND_DEPS =
 
 define lang-specific
 
@@ -113,11 +114,25 @@ xml/$(lang)/docs/dirindex.xml:						\
 	sed 's;xml/[^/]*/docs/;;g' > $$@
 endif
 
+ifneq (,$$(filter varindex,$$(DOCS)))
+VARIND_DEPS +=	xml/$(lang)/docs/varindex.xml
+xml/$(lang)/docs/varindex.xml:						\
+		$$(foreach f,$$(REFS),xml/$(lang)/docs/$$(f).xml)	\
+		xslt/varindex.xslt
+	echo "<modules>$$(patsubst %,					\
+	<module name=\"%\"/>, $$(filter %.xml,$$^))</modules>" |	\
+	xsltproc -o - --stringparam LANG $(lang)			\
+	xslt/varindex.xslt - |						\
+	sed 's;xml/[^/]*/docs/;;g' > $$@
+endif
+
 endef
 
 $(foreach lang, $(LANGS), $(eval $(call lang-specific)))
 
 $(foreach lang, $(LANGS), $(OUT)/$(lang)/docs/dirindex.html): $(DIRIND_DEPS)
+
+$(foreach lang, $(LANGS), $(OUT)/$(lang)/docs/varindex.html): $(VARIND_DEPS)
 
 $(OUT)/index.html:							\
 		xml/index.xml						\
@@ -283,6 +298,7 @@ copy_dirmap:
 endif
 
 clean:
-	rm -rf $(ZIP) $(OUT) xml/*/docs/dirindex.xml dir.map
+	rm -rf $(ZIP) $(OUT) xml/*/docs/dirindex.xml dir.map 		\
+	xml/*/docs/varindex.xml
 
 .DELETE_ON_ERROR:

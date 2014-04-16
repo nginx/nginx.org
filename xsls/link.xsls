@@ -57,4 +57,16 @@ X:template = "links" {
     }
 }
 
+X:template = "varlinks" {
+    X:for-each "link", X:sort "@id" {
+        <a href="{substring-before(@doc, '.xml')}.html#{@id}">!!;</a>
+        X:if "count(../link[@id = current()/@id and @doc != current()/@doc]) > 0" {
+            X:text{ (}
+            !{substring-before(substring-after(@doc, '/'), '.xml')}
+            X:text{)}
+        }
+        <br/>
+    }
+}
+
 }

@@ -7,6 +7,7 @@ DOCS =									\
 		control							\
 		hash							\
 		dirindex						\
+		varindex						\
 		http/request_processing					\
 		http/server_names					\
 		http/load_balancing					\

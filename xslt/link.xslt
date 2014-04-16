@@ -4,7 +4,7 @@
   Copyright (C) Nginx, Inc.
   -->
 
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0" xmlns:math="http://exslt.org/math" extension-element-prefixes="math">
 
 <xsl:template match="img"> <img src="{@href}"> <xsl:apply-templates/> </img> </xsl:template>
 
@@ -49,6 +49,18 @@
     <xsl:for-each select="link"><xsl:sort select="@id"/>
         <a href="{substring-before(@doc, '.xml')}.html#{@id}"><xsl:value-of select="@id"/></a>
         <xsl:if test="count(../link[@id = current()/@id]) > 1">
+            <xsl:text> (</xsl:text>
+            <xsl:value-of select="substring-before(substring-after(@doc, '/'), '.xml')"/>
+            <xsl:text>)</xsl:text>
+        </xsl:if>
+        <br/>
+    </xsl:for-each>
+</xsl:template>
+
+<xsl:template match="varlinks">
+    <xsl:for-each select="link"><xsl:sort select="@id"/>
+        <a href="{substring-before(@doc, '.xml')}.html#{@id}"><xsl:apply-templates/></a>
+        <xsl:if test="count(../link[@id = current()/@id and @doc != current()/@doc]) > 0">
             <xsl:text> (</xsl:text>
             <xsl:value-of select="substring-before(substring-after(@doc, '/'), '.xml')"/>
             <xsl:text>)</xsl:text>

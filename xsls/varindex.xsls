@@ -1,0 +1,39 @@
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+X:stylesheet {
+
+X:output method="xml" doctype-system="../../../dtd/article.dtd" encoding="utf-8";
+
+<!--
+  -- a current directory of a XSLT script is where the script is stored,
+  -- but not where XSLT processor has been started to run the script
+  -->
+X:param XML = "'../xml'";
+
+X:param LANG;
+
+X:template = "modules" {
+    <article name="{document(concat($XML, '/i18n.xml'))
+                    /i18n/text[@lang = $LANG]/item[@id='varindex']}"
+             link="/{$LANG}/docs/varindex.html"
+             lang="{$LANG}">
+    <section>
+    <para>
+    <varlinks>
+    !! "module";
+    </varlinks>
+    </para>
+    </section>
+    </article>
+}
+
+X:template = "module" {
+    X:var module="@name"
+    X:for-each "document(@name)//tag-name/var" {
+        <link doc="{$module}" id="{../@id}">!!;</link>
+    }
+}
+
+}
