@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_referer_module"
         link="/ru/docs/http/ngx_http_referer_module.html"
         lang="ru"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
@@ -152,6 +152,24 @@ valid_referers none blocked server_names
 </para>
 
 </directive>
+
+</section>
+
+
+<section id="variables" name="Встроенные переменные">
+
+<para>
+<list type="tag">
+
+<tag-name id="var_invalid_referer"><var>$invalid_referer</var></tag-name>
+<tag-desc>
+Пустая строка, если значение поля <header>Referer</header> заголовка запроса
+считается
+<link id="valid_referers">правильным</link>, иначе “<literal>1</literal>”.
+</tag-desc>
+
+</list>
+</para>
 
 </section>
 

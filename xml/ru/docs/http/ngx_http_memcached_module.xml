@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_memcached_module"
         link="/ru/docs/http/ngx_http_memcached_module.html"
         lang="ru"
-        rev="6">
+        rev="7">
 
 <section id="summary">
 
@@ -236,6 +236,22 @@ memcached_pass unix:/tmp/memcached.socket;
 </para>
 
 </directive>
+
+</section>
+
+
+<section id="variables" name="Встроенные переменные">
+
+<para>
+<list type="tag">
+
+<tag-name id="var_memcached_key"><var>$memcached_key</var></tag-name>
+<tag-desc>
+Задаёт ключ для получения ответа из сервера memcached.
+</tag-desc>
+
+</list>
+</para>
 
 </section>
 

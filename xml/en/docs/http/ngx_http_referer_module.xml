@@ -10,7 +10,7 @@
 <module name="Module ngx_http_referer_module"
         link="/en/docs/http/ngx_http_referer_module.html"
         lang="en"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
@@ -151,6 +151,24 @@ valid_referers none blocked server_names
 </para>
 
 </directive>
+
+</section>
+
+
+<section id="variables" name="Embedded Variables">
+
+<para>
+<list type="tag">
+
+<tag-name id="var_invalid_referer"><var>$invalid_referer</var></tag-name>
+<tag-desc>
+Empty string, if the <header>Referer</header> request header field
+value is considered
+<link id="valid_referers">valid</link>, otherwise “<literal>1</literal>”.
+</tag-desc>
+
+</list>
+</para>
 
 </section>
 
