@@ -10,7 +10,7 @@
 <module name="Module ngx_http_ssi_module"
         link="/en/docs/http/ngx_http_ssi_module.html"
         lang="en"
-        rev="4">
+        rev="5">
 
 <section id="summary">
 
@@ -414,14 +414,14 @@ The <literal>ngx_http_ssi_module</literal> module supports
 two embedded variables:
 <list type="tag">
 
-<tag-name><var>$date_local</var></tag-name>
+<tag-name id="var_date_local"><var>$date_local</var></tag-name>
 <tag-desc>
 current time in the local time zone.
 The format is set by the <literal>config</literal> command
 with the <literal>timefmt</literal> parameter.
 </tag-desc>
 
-<tag-name><var>$date_gmt</var></tag-name>
+<tag-name id="var_date_gmt"><var>$date_gmt</var></tag-name>
 <tag-desc>
 current time in GMT.
 The format is set by the <literal>config</literal> command

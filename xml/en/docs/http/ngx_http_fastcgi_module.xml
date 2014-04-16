@@ -10,7 +10,7 @@
 <module name="Module ngx_http_fastcgi_module"
         link="/en/docs/http/ngx_http_fastcgi_module.html"
         lang="en"
-        rev="13">
+        rev="14">
 
 <section id="summary">
 
@@ -1237,7 +1237,8 @@ variables that can be used to set parameters using the
 <link id="fastcgi_param"/> directive:
 <list type="tag">
 
-<tag-name><var>$fastcgi_script_name</var></tag-name>
+<tag-name id="var_fastcgi_script_name"><var>$fastcgi_script_name</var>
+</tag-name>
 <tag-desc>
 request URI or, if a URI ends with a slash, request URI with an index file
 name configured by the <link id="fastcgi_index"/> directive appended to it.
@@ -1260,7 +1261,7 @@ the first capture set by the directive.
 </para>
 </tag-desc>
 
-<tag-name><var>$fastcgi_path_info</var></tag-name>
+<tag-name id="var_fastcgi_path_info"><var>$fastcgi_path_info</var></tag-name>
 <tag-desc>the value of the second capture set by the
 <link id="fastcgi_split_path_info"/> directive.
 This variable can be used to set the

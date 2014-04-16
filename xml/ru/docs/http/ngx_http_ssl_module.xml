@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_ssl_module"
         link="/ru/docs/http/ngx_http_ssl_module.html"
         lang="ru"
-        rev="12">
+        rev="13">
 
 <section id="summary">
 
@@ -661,12 +661,12 @@ ssl_stapling_responder http://ocsp.example.com/;
 несколько встроенных переменных:
 <list type="tag">
 
-<tag-name><var>$ssl_cipher</var></tag-name>
+<tag-name id="var_ssl_cipher"><var>$ssl_cipher</var></tag-name>
 <tag-desc>
 возвращает строку используемых шифров для установленного SSL-соединения;
 </tag-desc>
 
-<tag-name><var>$ssl_client_cert</var></tag-name>
+<tag-name id="var_ssl_client_cert"><var>$ssl_client_cert</var></tag-name>
 <tag-desc>
 возвращает клиентский сертификат
 для установленного SSL-соединения в формате PEM
@@ -675,48 +675,49 @@ ssl_stapling_responder http://ocsp.example.com/;
 <link doc="ngx_http_proxy_module.xml" id="proxy_set_header"/>;
 </tag-desc>
 
-<tag-name><var>$ssl_client_raw_cert</var></tag-name>
+<tag-name id="var_ssl_client_raw_cert"><var>$ssl_client_raw_cert</var>
+</tag-name>
 <tag-desc>
 возвращает клиентский сертификат
 для установленного SSL-соединения в формате PEM;
 </tag-desc>
 
-<tag-name><var>$ssl_client_serial</var></tag-name>
+<tag-name id="var_ssl_client_serial"><var>$ssl_client_serial</var></tag-name>
 <tag-desc>
 возвращает серийный номер клиентского сертификата
 для установленного SSL-соединения;
 </tag-desc>
 
-<tag-name><var>$ssl_client_s_dn</var></tag-name>
+<tag-name id="var_ssl_client_s_dn"><var>$ssl_client_s_dn</var></tag-name>
 <tag-desc>
 возвращает строку “subject DN” клиентского сертификата
 для установленного SSL-соединения;
 </tag-desc>
 
-<tag-name><var>$ssl_client_i_dn</var></tag-name>
+<tag-name id="var_ssl_client_i_dn"><var>$ssl_client_i_dn</var></tag-name>
 <tag-desc>
 возвращает строку “issuer DN” клиентского сертификата
 для установленного SSL-соединения;
 </tag-desc>
 
-<tag-name><var>$ssl_client_verify</var></tag-name>
+<tag-name id="var_ssl_client_verify"><var>$ssl_client_verify</var></tag-name>
 <tag-desc>
 возвращает результат проверки клиентского сертификата:
 “<literal>SUCCESS</literal>”, “<literal>FAILED</literal>” и,
 если сертификат не был предоставлен — “<literal>NONE</literal>”;
 </tag-desc>
 
-<tag-name><var>$ssl_protocol</var></tag-name>
+<tag-name id="var_ssl_protocol"><var>$ssl_protocol</var></tag-name>
 <tag-desc>
 возвращает протокол установленного SSL-соединения;
 </tag-desc>
 
-<tag-name><var>$ssl_session_id</var></tag-name>
+<tag-name id="var_ssl_session_id"><var>$ssl_session_id</var></tag-name>
 <tag-desc>
 возвращает идентификатор сессии установленного SSL-соединения;
 </tag-desc>
 
-<tag-name><var>$ssl_session_reused</var></tag-name>
+<tag-name id="var_ssl_session_reused"><var>$ssl_session_reused</var></tag-name>
 <tag-desc>
 возвращает “<literal>r</literal>”, если сессия была использована повторно,
 иначе “<literal>.</literal>” (1.5.11).

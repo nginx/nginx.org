@@ -10,7 +10,7 @@
 <module name="Module ngx_http_proxy_module"
         link="/en/docs/http/ngx_http_proxy_module.html"
         lang="en"
-        rev="17">
+        rev="18">
 
 <section id="summary">
 
@@ -1658,13 +1658,14 @@ that can be used to compose headers using the
 <link id="proxy_set_header"/> directive:
 <list type="tag">
 
-<tag-name><var>$proxy_host</var></tag-name>
+<tag-name id="var_proxy_host"><var>$proxy_host</var></tag-name>
 <tag-desc>name and port of a proxied server;</tag-desc>
 
-<tag-name><var>$proxy_port</var></tag-name>
+<tag-name id="var_proxy_port"><var>$proxy_port</var></tag-name>
 <tag-desc>port of a proxied server;</tag-desc>
 
-<tag-name><var>$proxy_add_x_forwarded_for</var></tag-name>
+<tag-name id="var_proxy_add_x_forwarded_for">
+<var>$proxy_add_x_forwarded_for</var></tag-name>
 <tag-desc>the <header>X-Forwarded-For</header> client request header field
 with the <var>$remote_addr</var> variable appended to it, separated by a comma.
 If the <header>X-Forwarded-For</header> field is not present in the client

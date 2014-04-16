@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_fastcgi_module"
         link="/ru/docs/http/ngx_http_fastcgi_module.html"
         lang="ru"
-        rev="13">
+        rev="14">
 
 <section id="summary">
 
@@ -1228,7 +1228,8 @@ fastcgi_temp_path /spool/nginx/fastcgi_temp 1 2;
 <link id="fastcgi_param"/>:
 <list type="tag">
 
-<tag-name><var>$fastcgi_script_name</var></tag-name>
+<tag-name id="var_fastcgi_script_name"><var>$fastcgi_script_name</var>
+</tag-name>
 <tag-desc>
 URI запроса или же, если URI заканчивается слэшом,
 то URI запроса, дополненное именем индексного файла, задаваемого директивой
@@ -1252,7 +1253,7 @@ fastcgi_param SCRIPT_FILENAME /home/www/scripts/php$fastcgi_script_name;
 </para>
 </tag-desc>
 
-<tag-name><var>$fastcgi_path_info</var></tag-name>
+<tag-name id="var_fastcgi_path_info"><var>$fastcgi_path_info</var></tag-name>
 <tag-desc>значение второго выделения, задаваемого директивой
 <link id="fastcgi_split_path_info"/>.
 Эту переменную можно использовать для задания параметра

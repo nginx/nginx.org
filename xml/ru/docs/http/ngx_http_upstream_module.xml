@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_upstream_module"
         link="/ru/docs/http/ngx_http_upstream_module.html"
         lang="ru"
-        rev="5">
+        rev="6">
 
 <section id="summary">
 
@@ -470,7 +470,7 @@ server {
 поддерживает следующие встроенные переменные:
 <list type="tag">
 
-<tag-name><var>$upstream_addr</var></tag-name>
+<tag-name id="var_upstream_addr"><var>$upstream_addr</var></tag-name>
 <tag-desc>
 хранит IP-адрес и порт сервера или путь к UNIX-сокету.
 Если при обработке запроса были сделаны обращения к нескольким серверам,
@@ -485,7 +485,8 @@ server {
 “<literal>192.168.1.1:80, 192.168.1.2:80, unix:/tmp/sock : 192.168.10.1:80, 192.168.10.2:80</literal>”.
 </tag-desc>
 
-<tag-name><var>$upstream_cache_status</var></tag-name>
+<tag-name id="var_upstream_cache_status"><var>$upstream_cache_status</var>
+</tag-name>
 <tag-desc>
 хранит статус доступа к кэшу ответов (0.8.3).
 Статус может быть одним из “<literal>MISS</literal>”,
@@ -494,7 +495,8 @@ server {
 “<literal>REVALIDATED</literal>” или “<literal>HIT</literal>”.
 </tag-desc>
 
-<tag-name><var>$upstream_response_length</var></tag-name>
+<tag-name id="var_upstream_response_length"><var>$upstream_response_length</var>
+</tag-name>
 <tag-desc>
 хранит длины ответов, полученных от серверов группы (0.7.27);
 длины хранятся в байтах.
@@ -502,7 +504,8 @@ server {
 подобно адресам в переменной <var>$upstream_addr</var>.
 </tag-desc>
 
-<tag-name><var>$upstream_response_time</var></tag-name>
+<tag-name id="var_upstream_response_time"><var>$upstream_response_time</var>
+</tag-name>
 <tag-desc>
 хранит времена ответов, полученных от серверов группы;
 времена хранятся в секундах с точностью до миллисекунд.
@@ -510,14 +513,14 @@ server {
 подобно адресам в переменной <var>$upstream_addr</var>.
 </tag-desc>
 
-<tag-name><var>$upstream_status</var></tag-name>
+<tag-name id="var_upstream_status"><var>$upstream_status</var></tag-name>
 <tag-desc>
 хранит коды ответов, полученных от серверов группы.
 Коды нескольких ответов разделяются запятыми и двоеточиями
 подобно адресам в переменной <var>$upstream_addr</var>.
 </tag-desc>
 
-<tag-name><var>$upstream_http_...</var></tag-name>
+<tag-name id="var_upstream_http_"><var>$upstream_http_...</var></tag-name>
 <tag-desc>
 хранят поля заголовка ответа сервера.
 Например, поле заголовка ответа <header>Server</header>

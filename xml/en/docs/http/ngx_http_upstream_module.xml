@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="19">
+        rev="20">
 
 <section id="summary">
 
@@ -1168,7 +1168,7 @@ The <literal>ngx_http_upstream_module</literal> module
 supports the following embedded variables:
 <list type="tag">
 
-<tag-name><var>$upstream_addr</var></tag-name>
+<tag-name id="var_upstream_addr"><var>$upstream_addr</var></tag-name>
 <tag-desc>
 keeps the IP address and port of the server,
 or the path to the UNIX-domain socket.
@@ -1183,7 +1183,8 @@ then the server addresses from different groups are separated by colons, e.g.
 “<literal>192.168.1.1:80, 192.168.1.2:80, unix:/tmp/sock : 192.168.10.1:80, 192.168.10.2:80</literal>”.
 </tag-desc>
 
-<tag-name><var>$upstream_cache_status</var></tag-name>
+<tag-name id="var_upstream_cache_status"><var>$upstream_cache_status</var>
+</tag-name>
 <tag-desc>
 keeps the status of accessing a response cache (0.8.3).
 The status can be either “<literal>MISS</literal>”,
@@ -1192,7 +1193,8 @@ The status can be either “<literal>MISS</literal>”,
 “<literal>REVALIDATED</literal>” or “<literal>HIT</literal>”.
 </tag-desc>
 
-<tag-name><var>$upstream_response_length</var></tag-name>
+<tag-name id="var_upstream_response_length"><var>$upstream_response_length</var>
+</tag-name>
 <tag-desc>
 keeps the lengths of responses obtained from the upstream servers (0.7.27);
 lengths are kept in bytes.
@@ -1200,7 +1202,8 @@ Several response lengths are separated by commas and colons
 like addresses in the <var>$upstream_addr</var> variable.
 </tag-desc>
 
-<tag-name><var>$upstream_response_time</var></tag-name>
+<tag-name id="var_upstream_response_time"><var>$upstream_response_time</var>
+</tag-name>
 <tag-desc>
 keeps times of responses obtained from upstream servers;
 times are kept in seconds with a milliseconds resolution.
@@ -1208,14 +1211,14 @@ Several response times are separated by commas and colons
 like addresses in the <var>$upstream_addr</var> variable.
 </tag-desc>
 
-<tag-name><var>$upstream_status</var></tag-name>
+<tag-name id="var_upstream_status"><var>$upstream_status</var></tag-name>
 <tag-desc>
 keeps codes of responses obtained from upstream servers.
 Several response codes are separated by commas and colons
 like addresses in the <var>$upstream_addr</var> variable.
 </tag-desc>
 
-<tag-name><var>$upstream_http_...</var></tag-name>
+<tag-name id="var_upstream_http_"><var>$upstream_http_...</var></tag-name>
 <tag-desc>
 keep server response header fields.
 For example, the <header>Server</header> response header field

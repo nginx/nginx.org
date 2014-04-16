@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_log_module"
         link="/ru/docs/http/ngx_http_log_module.html"
         lang="ru"
-        rev="9">
+        rev="10">
 
 <section id="summary">
 
@@ -190,54 +190,55 @@ server {
 существующие только на момент записи в лог:
 <list type="tag">
 
-<tag-name><var>$bytes_sent</var></tag-name>
+<tag-name id="var_bytes_sent"><var>$bytes_sent</var></tag-name>
 <tag-desc>
 число байт, переданное клиенту
 </tag-desc>
 
-<tag-name><var>$connection</var></tag-name>
+<tag-name id="var_connection"><var>$connection</var></tag-name>
 <tag-desc>
 порядковый номер соединения
 </tag-desc>
 
-<tag-name><var>$connection_requests</var></tag-name>
+<tag-name id="var_connection_requests"><var>$connection_requests</var>
+</tag-name>
 <tag-desc>
 текущее число запросов в соединении (1.1.18)
 </tag-desc>
 
-<tag-name><var>$msec</var></tag-name>
+<tag-name id="var_msec"><var>$msec</var></tag-name>
 <tag-desc>
 время в секундах с точностью до миллисекунд на момент записи в лог
 </tag-desc>
 
-<tag-name><var>$pipe</var></tag-name>
+<tag-name id="var_pipe"><var>$pipe</var></tag-name>
 <tag-desc>
 “<literal>p</literal>” если запрос был pipelined, иначе “<literal>.</literal>”
 </tag-desc>
 
-<tag-name><var>$request_length</var></tag-name>
+<tag-name id="var_request_length"><var>$request_length</var></tag-name>
 <tag-desc>
 длина запроса (включая строку запроса, заголовок и тело запроса)
 </tag-desc>
 
-<tag-name><var>$request_time</var></tag-name>
+<tag-name id="var_request_time"><var>$request_time</var></tag-name>
 <tag-desc>
 время обработки запроса в секундах с точностью до миллисекунд;
 время, прошедшее с момента чтения первых байт от клиента до
 момента записи в лог после отправки последних байт клиенту
 </tag-desc>
 
-<tag-name><var>$status</var></tag-name>
+<tag-name id="var_status"><var>$status</var></tag-name>
 <tag-desc>
 статус ответа
 </tag-desc>
 
-<tag-name><var>$time_iso8601</var></tag-name>
+<tag-name id="var_time_iso8601"><var>$time_iso8601</var></tag-name>
 <tag-desc>
 локальное время в формате по стандарту ISO 8601
 </tag-desc>
 
-<tag-name><var>$time_local</var></tag-name>
+<tag-name id="var_time_local"><var>$time_local</var></tag-name>
 <tag-desc>
 локальное время в Common Log Format
 </tag-desc>

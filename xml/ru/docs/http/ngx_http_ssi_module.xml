@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_ssi_module"
         link="/ru/docs/http/ngx_http_ssi_module.html"
         lang="ru"
-        rev="4">
+        rev="5">
 
 <section id="summary">
 
@@ -418,14 +418,14 @@ SSI, например:
 две встроенные переменные:
 <list type="tag">
 
-<tag-name><var>$date_local</var></tag-name>
+<tag-name id="var_date_local"><var>$date_local</var></tag-name>
 <tag-desc>
 текущее время в локальной временной зоне.
 Формат задаётся командой <literal>config</literal>
 с параметром <literal>timefmt</literal>.
 </tag-desc>
 
-<tag-name><var>$date_gmt</var></tag-name>
+<tag-name id="var_date_gmt"><var>$date_gmt</var></tag-name>
 <tag-desc>
 текущее время в GMT.
 Формат задаётся командой <literal>config</literal>

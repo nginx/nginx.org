@@ -10,7 +10,7 @@
 <module name="Module ngx_http_log_module"
         link="/en/docs/http/ngx_http_log_module.html"
         lang="en"
-        rev="10">
+        rev="11">
 
 <section id="summary">
 
@@ -268,55 +268,56 @@ The log format can contain common variables, and variables that
 exist only at the time of a log write:
 <list type="tag">
 
-<tag-name><var>$bytes_sent</var></tag-name>
+<tag-name id="var_bytes_sent"><var>$bytes_sent</var></tag-name>
 <tag-desc>
 the number of bytes sent to a client
 </tag-desc>
 
-<tag-name><var>$connection</var></tag-name>
+<tag-name id="var_connection"><var>$connection</var></tag-name>
 <tag-desc>
 connection serial number
 </tag-desc>
 
-<tag-name><var>$connection_requests</var></tag-name>
+<tag-name id="var_connection_requests"><var>$connection_requests</var>
+</tag-name>
 <tag-desc>
 the current number of requests made through a connection (1.1.18)
 </tag-desc>
 
-<tag-name><var>$msec</var></tag-name>
+<tag-name id="var_msec"><var>$msec</var></tag-name>
 <tag-desc>
 time in seconds with a milliseconds resolution at the time of the log write
 </tag-desc>
 
-<tag-name><var>$pipe</var></tag-name>
+<tag-name id="var_pipe"><var>$pipe</var></tag-name>
 <tag-desc>
 “<literal>p</literal>” if request was pipelined, “<literal>.</literal>”
 otherwise
 </tag-desc>
 
-<tag-name><var>$request_length</var></tag-name>
+<tag-name id="var_request_length"><var>$request_length</var></tag-name>
 <tag-desc>
 request length (including request line, header, and request body)
 </tag-desc>
 
-<tag-name><var>$request_time</var></tag-name>
+<tag-name id="var_request_time"><var>$request_time</var></tag-name>
 <tag-desc>
 request processing time in seconds with a milliseconds resolution;
 time elapsed between the first bytes were read from the client and
 the log write after the last bytes were sent to the client
 </tag-desc>
 
-<tag-name><var>$status</var></tag-name>
+<tag-name id="var_status"><var>$status</var></tag-name>
 <tag-desc>
 response status
 </tag-desc>
 
-<tag-name><var>$time_iso8601</var></tag-name>
+<tag-name id="var_time_iso8601"><var>$time_iso8601</var></tag-name>
 <tag-desc>
 local time in the ISO 8601 standard format
 </tag-desc>
 
-<tag-name><var>$time_local</var></tag-name>
+<tag-name id="var_time_local"><var>$time_local</var></tag-name>
 <tag-desc>
 local time in the Common Log Format
 </tag-desc>

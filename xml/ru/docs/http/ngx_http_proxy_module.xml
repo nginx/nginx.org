@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_proxy_module"
         link="/ru/docs/http/ngx_http_proxy_module.html"
         lang="ru"
-        rev="17">
+        rev="18">
 
 <section id="summary">
 
@@ -1653,13 +1653,14 @@ proxy_temp_path /spool/nginx/proxy_temp 1 2;
 <link id="proxy_set_header"/>:
 <list type="tag">
 
-<tag-name><var>$proxy_host</var></tag-name>
+<tag-name id="var_proxy_host"><var>$proxy_host</var></tag-name>
 <tag-desc>имя проксируемого хоста и порт;</tag-desc>
 
-<tag-name><var>$proxy_port</var></tag-name>
+<tag-name id="var_proxy_port"><var>$proxy_port</var></tag-name>
 <tag-desc>порт проксируемого хоста;</tag-desc>
 
-<tag-name><var>$proxy_add_x_forwarded_for</var></tag-name>
+<tag-name id="var_proxy_add_x_forwarded_for">
+<var>$proxy_add_x_forwarded_for</var></tag-name>
 <tag-desc>поле заголовка запроса клиента <header>X-Forwarded-For</header>
 и добавленная к нему через запятую переменная <var>$remote_addr</var>.
 Если же поля <header>X-Forwarded-For</header> в заголовке запроса клиента нет,

@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_secure_link_module"
         link="/ru/docs/http/ngx_http_secure_link_module.html"
         lang="ru"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -226,13 +226,14 @@ echo -n 'linksecret' | openssl md5 -hex
 <para>
 <list type="tag" compact="no">
 
-<tag-name><var>$secure_link</var></tag-name>
+<tag-name id="var_secure_link"><var>$secure_link</var></tag-name>
 <tag-desc>
 Результат проверки ссылки.
 Конкретное значение зависит от выбранного режима работы.
 </tag-desc>
 
-<tag-name><var>$secure_link_expires</var></tag-name>
+<tag-name id="var_secure_link_expires"><var>$secure_link_expires</var>
+</tag-name>
 <tag-desc>
 Время действия ссылки, переданное в запросе.
 Предназначено исключительно для использования в директиве

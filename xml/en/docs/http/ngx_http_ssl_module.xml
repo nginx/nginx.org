@@ -10,7 +10,7 @@
 <module name="Module ngx_http_ssl_module"
         link="/en/docs/http/ngx_http_ssl_module.html"
         lang="en"
-        rev="12">
+        rev="13">
 
 <section id="summary">
 
@@ -661,13 +661,13 @@ The <literal>ngx_http_ssl_module</literal> module supports
 several embedded variables:
 <list type="tag">
 
-<tag-name><var>$ssl_cipher</var></tag-name>
+<tag-name id="var_ssl_cipher"><var>$ssl_cipher</var></tag-name>
 <tag-desc>
 returns the string of ciphers used
 for an established SSL connection;
 </tag-desc>
 
-<tag-name><var>$ssl_client_cert</var></tag-name>
+<tag-name id="var_ssl_client_cert"><var>$ssl_client_cert</var></tag-name>
 <tag-desc>
 returns the client certificate in the PEM format
 for an established SSL connection, with each line except the first
@@ -676,48 +676,49 @@ this is intended for the use in the
 <link doc="ngx_http_proxy_module.xml" id="proxy_set_header"/> directive;
 </tag-desc>
 
-<tag-name><var>$ssl_client_raw_cert</var></tag-name>
+<tag-name id="var_ssl_client_raw_cert"><var>$ssl_client_raw_cert</var>
+</tag-name>
 <tag-desc>
 returns the client certificate in the PEM format
 for an established SSL connection;
 </tag-desc>
 
-<tag-name><var>$ssl_client_serial</var></tag-name>
+<tag-name id="var_ssl_client_serial"><var>$ssl_client_serial</var></tag-name>
 <tag-desc>
 returns the serial number of the client certificate
 for an established SSL connection;
 </tag-desc>
 
-<tag-name><var>$ssl_client_s_dn</var></tag-name>
+<tag-name id="var_ssl_client_s_dn"><var>$ssl_client_s_dn</var></tag-name>
 <tag-desc>
 returns the “subject DN” string of the client certificate
 for an established SSL connection;
 </tag-desc>
 
-<tag-name><var>$ssl_client_i_dn</var></tag-name>
+<tag-name id="var_ssl_client_i_dn"><var>$ssl_client_i_dn</var></tag-name>
 <tag-desc>
 returns the “issuer DN” string of the client certificate
 for an established SSL connection;
 </tag-desc>
 
-<tag-name><var>$ssl_client_verify</var></tag-name>
+<tag-name id="var_ssl_client_verify"><var>$ssl_client_verify</var></tag-name>
 <tag-desc>
 returns the result of client certificate verification:
 “<literal>SUCCESS</literal>”, “<literal>FAILED</literal>”, and
 “<literal>NONE</literal>” if a certificate was not present;
 </tag-desc>
 
-<tag-name><var>$ssl_protocol</var></tag-name>
+<tag-name id="var_ssl_protocol"><var>$ssl_protocol</var></tag-name>
 <tag-desc>
 returns the protocol of an established SSL connection;
 </tag-desc>
 
-<tag-name><var>$ssl_session_id</var></tag-name>
+<tag-name id="var_ssl_session_id"><var>$ssl_session_id</var></tag-name>
 <tag-desc>
 returns the session identifier of an established SSL connection;
 </tag-desc>
 
-<tag-name><var>$ssl_session_reused</var></tag-name>
+<tag-name id="var_ssl_session_reused"><var>$ssl_session_reused</var></tag-name>
 <tag-desc>
 returns “<literal>r</literal>” if an SSL session was reused,
 or “<literal>.</literal>” otherwise (1.5.11).

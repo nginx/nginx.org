@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_browser_module"
         link="/ru/docs/http/ngx_http_browser_module.html"
         lang="ru"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
@@ -20,19 +20,19 @@
 в заголовке запроса:
 <list type="tag">
 
-<tag-name><var>$modern_browser</var></tag-name>
+<tag-name id="var_modern_browser"><var>$modern_browser</var></tag-name>
 <tag-desc>
 равна значению, заданному директивой <link id="modern_browser_value"/>,
 если браузер опознан как современный;
 </tag-desc>
 
-<tag-name><var>$ancient_browser</var></tag-name>
+<tag-name id="var_ancient_browser"><var>$ancient_browser</var></tag-name>
 <tag-desc>
 равна значению, заданному директивой <link id="ancient_browser_value"/>,
 если браузер опознан как устаревший;
 </tag-desc>
 
-<tag-name><var>$msie</var></tag-name>
+<tag-name id="var_msie"><var>$msie</var></tag-name>
 <tag-desc>
 равна “1”, если браузер опознан как MSIE любой версии.
 </tag-desc>

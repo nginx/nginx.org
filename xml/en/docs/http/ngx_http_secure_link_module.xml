@@ -10,7 +10,7 @@
 <module name="Module ngx_http_secure_link_module"
         link="/en/docs/http/ngx_http_secure_link_module.html"
         lang="en"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -226,13 +226,14 @@ echo -n 'linksecret' | openssl md5 -hex
 <para>
 <list type="tag" compact="no">
 
-<tag-name><var>$secure_link</var></tag-name>
+<tag-name id="var_secure_link"><var>$secure_link</var></tag-name>
 <tag-desc>
 The status of a link check.
 The specific value depends on the selected operation mode.
 </tag-desc>
 
-<tag-name><var>$secure_link_expires</var></tag-name>
+<tag-name id="var_secure_link_expires"><var>$secure_link_expires</var>
+</tag-name>
 <tag-desc>
 The lifetime of a link passed in a request;
 intended to be used only in the

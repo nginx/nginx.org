@@ -9,7 +9,7 @@
 <module name="Module ngx_http_session_log_module"
         link="/en/docs/http/ngx_http_session_log_module.html"
         lang="en"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
@@ -142,12 +142,13 @@ two embedded variables:
 
 <list type="tag">
 
-<tag-name><var>$session_log_id</var></tag-name>
+<tag-name id="var_session_log_id"><var>$session_log_id</var></tag-name>
 <tag-desc>
 current session ID;
 </tag-desc>
 
-<tag-name><var>$session_log_binary_id</var></tag-name>
+<tag-name id="var_session_log_binary_id"><var>$session_log_binary_id</var>
+</tag-name>
 <tag-desc>
 current session ID in binary form (16 bytes).
 </tag-desc>
