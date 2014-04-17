@@ -285,8 +285,11 @@ sign:
 	gpg -sab binary/download/nginx-$(NGINX).zip
 
 
-dir.map:	xslt/dirmap.xslt xml/en/docs/dirindex.xml
-	@xsltproc -o - xslt/dirmap.xslt xml/en/docs/dirindex.xml |	\
+dir.map:	xslt/dirmap.xslt xml/en/docs/dirindex.xml		\
+		xml/en/docs/varindex.xml
+	@xsltproc -o - xslt/dirmap.xslt xml/en/docs/dirindex.xml	\
+	xml/en/docs/varindex.xml |					\
+	sed 's/^var_/$$/' |						\
 	sort -u -k1,1 | sed 's/^include /\\&/' > $@
 
 ifeq ($(patsubst %.nginx.org,YES,$(shell hostname)), YES)
