@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="25">
+        rev="26">
 
 <section id="summary">
 
@@ -858,7 +858,6 @@ Additional parameters may be as follows:
 Sets the time for which a browser should keep the cookie.
 The special value <literal>max</literal> will cause the cookie to expire on
 “<literal>31 Dec 2037 23:55:55 GMT</literal>”.
-This is the maximum time understood by old browsers.
 If the parameter is not specified, it will cause the cookie to expire at
 the end of a browser session.
 </tag-desc>

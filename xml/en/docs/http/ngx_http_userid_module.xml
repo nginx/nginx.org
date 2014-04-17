@@ -10,7 +10,7 @@
 <module name="Module ngx_http_userid_module"
         link="/en/docs/http/ngx_http_userid_module.html"
         lang="en"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -118,7 +118,6 @@ cookie.
 Sets a time during which a browser should keep the cookie.
 The parameter <literal>max</literal> will cause the cookie to expire on
 “<literal>31 Dec 2037 23:55:55 GMT</literal>”.
-This is the maximum time understood by old browsers.
 The parameter <literal>off</literal> will cause the cookie to expire at
 the end of a browser session.
 </para>
