@@ -10,7 +10,7 @@
 <module name="Module ngx_http_ssl_module"
         link="/en/docs/http/ngx_http_ssl_module.html"
         lang="en"
-        rev="13">
+        rev="14">
 
 <section id="summary">
 
@@ -711,6 +711,13 @@ returns the result of client certificate verification:
 <tag-name id="var_ssl_protocol"><var>$ssl_protocol</var></tag-name>
 <tag-desc>
 returns the protocol of an established SSL connection;
+</tag-desc>
+
+<tag-name id="var_ssl_server_name"><var>$ssl_server_name</var></tag-name>
+<tag-desc>
+returns the server name requested through
+<link url="http://en.wikipedia.org/wiki/Server_Name_Indication">SNI</link>
+(1.7.0);
 </tag-desc>
 
 <tag-name id="var_ssl_session_id"><var>$ssl_session_id</var></tag-name>
