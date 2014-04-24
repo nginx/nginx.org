@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_proxy_module"
         link="/ru/docs/http/ngx_http_proxy_module.html"
         lang="ru"
-        rev="18">
+        rev="19">
 
 <section id="summary">
 
@@ -1446,6 +1446,65 @@ proxy_set_header Accept-Encoding "";
 </directive>
 
 
+<directive name="proxy_ssl_crl">
+<syntax><value>файл</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.7.0</appeared-in>
+
+<para>
+Указывает <value>файл</value> с отозванными сертификатами (CRL)
+в формате PEM, используемыми при <link id="proxy_ssl_verify">проверке</link>
+сертификата проксируемого HTTPS-сервера.
+</para>
+
+</directive>
+
+
+<directive name="proxy_ssl_name">
+<syntax><value>имя</value></syntax>
+<default>$proxy_host</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.7.0</appeared-in>
+
+<para>
+Позволяет переопределить имя сервера, используемое при
+<link id="proxy_ssl_verify">проверке</link>
+сертификата проксируемого HTTPS-сервера, а также для
+<link id="proxy_ssl_server_name">передачи его через SNI</link>
+при установлении соединения с проксируемым HTTPS-сервером.
+</para>
+
+<para>
+По умолчанию используется имя хоста из URL’а, заданного
+директивой <link id="proxy_pass"/>.
+</para>
+
+</directive>
+
+
+<directive name="proxy_ssl_server_name">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.7.0</appeared-in>
+
+<para>
+Разрешает или запрещает передачу имени сервера через
+<link url="http://en.wikipedia.org/wiki/Server_Name_Indication">расширение
+Server Name Indication протокола TLS</link> (SNI, RFC 6066)
+при установлении соединения с проксируемым HTTPS-сервером.
+</para>
+
+</directive>
+
+
 <directive name="proxy_ssl_session_reuse">
 <syntax><literal>on</literal> | <literal>off</literal></syntax>
 <default>on</default>
@@ -1480,6 +1539,54 @@ proxy_set_header Accept-Encoding "";
 
 <para>
 Разрешает указанные протоколы для запросов к проксируемому HTTPS-серверу.
+</para>
+
+</directive>
+
+
+<directive name="proxy_ssl_trusted_certificate">
+<syntax><value>файл</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.7.0</appeared-in>
+
+<para>
+Задаёт <value>файл</value> с доверенными сертификатами CA в формате PEM,
+используемыми при <link id="proxy_ssl_verify">проверке</link>
+сертификата проксируемого HTTPS-сервера.
+</para>
+
+</directive>
+
+
+<directive name="proxy_ssl_verify">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.7.0</appeared-in>
+
+<para>
+Разрешает или запрещает проверку сертификата проксируемого HTTPS-сервера.
+</para>
+
+</directive>
+
+
+<directive name="proxy_ssl_verify_depth">
+<syntax><value>число</value></syntax>
+<default>1</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.7.0</appeared-in>
+
+<para>
+Устанавливает глубину проверки в цепочке сертификатов
+проксируемого HTTPS-сервера.
 </para>
 
 </directive>
