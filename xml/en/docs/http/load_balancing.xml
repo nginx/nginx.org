@@ -9,7 +9,7 @@
 <article name="Using nginx as HTTP load balancer"
          link="/en/docs/http/load_balancing.html"
          lang="en"
-         rev="1">
+         rev="2">
 
 <section name="Introduction">
 
@@ -104,9 +104,10 @@ as the protocol.
 </para>
 
 <para>
-When setting up load balancing for FastCGI, uwsgi or memcached, use
+When setting up load balancing for FastCGI, uwsgi, SCGI, or memcached, use
 <link doc="ngx_http_fastcgi_module.xml" id="fastcgi_pass"/>,
-uwsgi_pass and
+uwsgi_pass,
+<link doc="ngx_http_scgi_module.xml" id="scgi_pass"/>, and
 <link doc="ngx_http_memcached_module.xml" id="memcached_pass"/>
 directives respectively.
 </para>

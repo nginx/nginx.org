@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_charset_module"
         link="/ru/docs/http/ngx_http_charset_module.html"
         lang="ru"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -99,9 +99,10 @@ charset_map iso-8859-5 _ { }
 Кроме того, кодировка может быть задана в поле <header>X-Accel-Charset</header>
 заголовка ответа.
 Эту возможность можно запретить с помощью директив
-<link doc="ngx_http_proxy_module.xml" id="proxy_ignore_headers"/>
+<link doc="ngx_http_proxy_module.xml" id="proxy_ignore_headers"/>,
+<link doc="ngx_http_fastcgi_module.xml" id="fastcgi_ignore_headers"/>
 и
-<link doc="ngx_http_fastcgi_module.xml" id="fastcgi_ignore_headers"/>.
+<link doc="ngx_http_scgi_module.xml" id="scgi_ignore_headers"/>.
 </para>
 
 </directive>
@@ -196,7 +197,7 @@ application/javascript application/rss+xml</default>
 
 <para>
 Определяет, выполнять ли перекодирование для ответов,
-полученных от проксированного сервера или от FastCGI-сервера,
+полученных от проксированного сервера или от FastCGI/SCGI-сервера,
 если в ответах уже указана кодировка в поле <header>Content-Type</header>
 заголовка ответа.
 Если перекодирование разрешено, то в качестве исходной кодировки

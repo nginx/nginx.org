@@ -10,7 +10,7 @@
 <module name="Module ngx_http_charset_module"
         link="/en/docs/http/ngx_http_charset_module.html"
         lang="en"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -99,9 +99,10 @@ charset_map iso-8859-5 _ { }
 In addition, a charset can be set in the
 <header>X-Accel-Charset</header> response header field.
 This capability can be disabled using the
-<link doc="ngx_http_proxy_module.xml" id="proxy_ignore_headers"/>
+<link doc="ngx_http_proxy_module.xml" id="proxy_ignore_headers"/>,
+<link doc="ngx_http_fastcgi_module.xml" id="fastcgi_ignore_headers"/>,
 and
-<link doc="ngx_http_fastcgi_module.xml" id="fastcgi_ignore_headers"/>
+<link doc="ngx_http_scgi_module.xml" id="scgi_ignore_headers"/>
 directives.
 </para>
 
@@ -195,7 +196,7 @@ as the default MIME type instead of “<literal>application/javascript</literal>
 
 <para>
 Determines whether a conversion should be performed for answers
-received from a proxied or FastCGI server
+received from a proxied or a FastCGI/SCGI server
 when the answers already carry a charset in the <header>Content-Type</header>
 response header field.
 If conversion is enabled, a charset specified in the received

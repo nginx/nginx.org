@@ -8,7 +8,7 @@
 <article name="nginx"
          link="/ru/"
          lang="ru"
-         rev="20">
+         rev="21">
 
 
 <section>
@@ -66,7 +66,8 @@ nginx [engine x]&mdash;это HTTP-сервер и обратный прокси
 <listitem>
 Акселерированная поддержка
 <link doc="docs/http/ngx_http_fastcgi_module.xml">FastCGI</link>,
-uwsgi, SCGI и
+uwsgi,
+<link doc="docs/http/ngx_http_scgi_module.xml">SCGI</link> и
 <link doc="docs/http/ngx_http_memcached_module.xml">memcached</link>
 серверов с кэшированием,
 <link doc="docs/http/ngx_http_upstream_module.xml">простое
@@ -83,7 +84,7 @@ chunked ответы,
 <link doc="docs/http/ngx_http_image_filter_module.xml">преобразование
 изображений</link>;
 несколько подзапросов на одной странице, обрабатываемые в SSI-фильтре
-через прокси или FastCGI, выполняются параллельно;
+через прокси или FastCGI/SCGI, выполняются параллельно;
 </listitem>
 
 <listitem>

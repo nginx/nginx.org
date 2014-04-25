@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="32">
+        rev="33">
 
 <section id="directives" name="Directives">
 
@@ -592,7 +592,7 @@ error_page 404 =200 /empty.gif;
 </para>
 
 <para>
-If an error response is processed by a proxied server or a FastCGI server,
+If an error response is processed by a proxied server or a FastCGI/SCGI server,
 and the server may return different response codes (e.g., 200, 302, 401
 or 404), it is possible to respond with the code it returns:
 <example>
@@ -978,9 +978,10 @@ server {
 Rate limit can also be set in the
 <header>X-Accel-Limit-Rate</header> header field of a proxied server response.
 This capability can be disabled using the
-<link doc="ngx_http_proxy_module.xml" id="proxy_ignore_headers"/>
+<link doc="ngx_http_proxy_module.xml" id="proxy_ignore_headers"/>,
+<link doc="ngx_http_fastcgi_module.xml" id="fastcgi_ignore_headers"/>,
 and
-<link doc="ngx_http_fastcgi_module.xml" id="fastcgi_ignore_headers"/>
+<link doc="ngx_http_scgi_module.xml" id="scgi_ignore_headers"/>
 directives.
 </para>
 
@@ -2953,9 +2954,10 @@ request body
 <para>
 The variable’s value is made available in locations
 processed by the
-<link doc="ngx_http_proxy_module.xml" id="proxy_pass"/>
+<link doc="ngx_http_proxy_module.xml" id="proxy_pass"/>,
+<link doc="ngx_http_fastcgi_module.xml" id="fastcgi_pass"/>,
 and
-<link doc="ngx_http_fastcgi_module.xml" id="fastcgi_pass"/>
+<link doc="ngx_http_scgi_module.xml" id="scgi_pass"/>
 directives.
 </para>
 </tag-desc>
@@ -2968,13 +2970,14 @@ At the end of processing, the file needs to be removed.
 To always write the request body to a file,
 <link id="client_body_in_file_only"/> needs to be enabled.
 When the name of a temporary file is passed in a proxied request
-or in a request to a FastCGI server,
+or in a request to a FastCGI/SCGI server,
 passing the request body should be disabled by the
 <link doc="ngx_http_proxy_module.xml" id="proxy_pass_request_body">
-proxy_pass_request_body off</link>
-and
+proxy_pass_request_body off</link>,
 <link doc="ngx_http_fastcgi_module.xml" id="fastcgi_pass_request_body">
-fastcgi_pass_request_body off</link>
+fastcgi_pass_request_body off</link>, or
+<link doc="ngx_http_scgi_module.xml" id="scgi_pass_request_body">
+scgi_pass_request_body off</link>
 directives, respectively.
 </para>
 </tag-desc>

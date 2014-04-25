@@ -19,7 +19,8 @@
 позволяет описывать группы серверов,
 которые могут использоваться в директивах
 <link doc="ngx_http_proxy_module.xml" id="proxy_pass"/>,
-<link doc="ngx_http_fastcgi_module.xml" id="fastcgi_pass"/> и
+<link doc="ngx_http_fastcgi_module.xml" id="fastcgi_pass"/>,
+<link doc="ngx_http_scgi_module.xml" id="scgi_pass"/> и
 <link doc="ngx_http_memcached_module.xml" id="memcached_pass"/>.
 </para>
 
@@ -129,7 +130,8 @@ upstream backend {
 Нулевое значение отключает учёт попыток.
 Что считается неудачной попыткой, определяется директивами
 <link doc="ngx_http_proxy_module.xml" id="proxy_next_upstream"/>,
-<link doc="ngx_http_fastcgi_module.xml" id="fastcgi_next_upstream"/> и
+<link doc="ngx_http_fastcgi_module.xml" id="fastcgi_next_upstream"/>,
+<link doc="ngx_http_scgi_module.xml" id="scgi_next_upstream"/> и
 <link doc="ngx_http_memcached_module.xml" id="memcached_next_upstream"/>.
 </tag-desc>
 
