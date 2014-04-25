@@ -1,0 +1,1055 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Igor Sysoev
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Module ngx_http_scgi_module"
+        link="/en/docs/http/ngx_http_scgi_module.html"
+        lang="en"
+        rev="1">
+
+<section id="summary">
+
+<para>
+The <literal>ngx_http_scgi_module</literal> module allows passing
+requests to an SCGI server.
+</para>
+
+</section>
+
+
+<section id="example" name="Example Configuration">
+
+<para>
+<example>
+location / {
+    include   scgi_params;
+    scgi_pass localhost:9000;
+}
+</example>
+</para>
+
+</section>
+
+
+<section id="directives" name="Directives">
+
+<directive name="scgi_bind">
+<syntax><value>address</value> | <literal>off</literal></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Makes outgoing connections to an SCGI server originate
+from the specified local IP <value>address</value>.
+Parameter value can contain variables (1.3.12).
+The special value <literal>off</literal> (1.3.12) cancels the effect
+of the <literal>scgi_bind</literal> directive
+inherited from the previous configuration level, which allows the
+system to auto-assign the local IP address.
+</para>
+
+</directive>
+
+
+<directive name="scgi_buffer_size">
+<syntax><value>size</value></syntax>
+<default>4k|8k</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Sets the <value>size</value> of the buffer used for reading the first part
+of the response received from the SCGI server.
+This part usually contains a small response header.
+By default, the buffer size is equal to the size of one
+buffer set by the <link id="scgi_buffers"/> directive.
+It can be made smaller, however.
+</para>
+
+</directive>
+
+
+<directive name="scgi_buffering">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>on</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Enables or disables buffering of responses from the SCGI server.
+</para>
+
+<para>
+When buffering is enabled, nginx receives a response from the SCGI server
+as soon as possible, saving it into the buffers set by the
+<link id="scgi_buffer_size"/> and <link id="scgi_buffers"/> directives.
+If the whole response does not fit into memory, a part of it can be saved
+to a <link id="scgi_temp_path">temporary file</link> on the disk.
+Writing to temporary files is controlled by the
+<link id="scgi_max_temp_file_size"/> and
+<link id="scgi_temp_file_write_size"/> directives.
+</para>
+
+<para>
+When buffering is disabled, the response is passed to a client synchronously,
+immediately as it is received.
+nginx will not try to read the whole response from the SCGI server.
+The maximum size of the data that nginx can receive from the server
+at a time is set by the <link id="scgi_buffer_size"/> directive.
+</para>
+
+<para>
+Buffering can also be enabled or disabled by passing
+“<literal>yes</literal>” or “<literal>no</literal>” in the
+<header>X-Accel-Buffering</header> response header field.
+This capability can be disabled using the
+<link id="scgi_ignore_headers"/> directive.
+</para>
+
+</directive>
+
+
+<directive name="scgi_buffers">
+<syntax><value>number</value> <value>size</value></syntax>
+<default>8 4k|8k</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Sets the <value>number</value> and <value>size</value> of the
+buffers used for reading a response from the SCGI server,
+for a single connection.
+By default, the buffer size is equal to one memory page.
+This is either 4K or 8K, depending on a platform.
+</para>
+
+</directive>
+
+
+<directive name="scgi_busy_buffers_size">
+<syntax><value>size</value></syntax>
+<default>8k|16k</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+When <link id="scgi_buffering">buffering</link> of responses from the SCGI
+server is enabled, limits the total <value>size</value> of buffers that
+can be busy sending a response to the client while the response is not
+yet fully read.
+In the meantime, the rest of the buffers can be used for reading the response
+and, if needed, buffering part of the response to a temporary file.
+By default, <value>size</value> is limited by the size of two buffers set by the
+<link id="scgi_buffer_size"/> and <link id="scgi_buffers"/> directives.
+</para>
+
+</directive>
+
+
+<directive name="scgi_cache">
+<syntax><value>zone</value> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Defines a shared memory zone used for caching.
+The same zone can be used in several places.
+The <literal>off</literal> parameter disables caching inherited
+from the previous configuration level.
+</para>
+
+</directive>
+
+
+<directive name="scgi_cache_bypass">
+<syntax><value>string</value> ...</syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Defines conditions under which the response will not be taken from a cache.
+If at least one value of the string parameters is not empty and is not
+equal to “0” then the response will not be taken from the cache:
+<example>
+scgi_cache_bypass $cookie_nocache $arg_nocache$arg_comment;
+scgi_cache_bypass $http_pragma    $http_authorization;
+</example>
+Can be used along with the <link id="scgi_no_cache"/> directive.
+</para>
+
+</directive>
+
+
+<directive name="scgi_cache_key">
+<syntax><value>string</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Defines a key for caching, for example
+<example>
+scgi_cache_key localhost:9000$request_uri;
+</example>
+</para>
+
+</directive>
+
+
+<directive name="scgi_cache_lock">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.1.12</appeared-in>
+
+<para>
+When enabled, only one request at a time will be allowed to populate
+a new cache element identified according to the <link id="scgi_cache_key"/>
+directive by passing a request to an SCGI server.
+Other requests of the same cache element will either wait
+for a response to appear in the cache or the cache lock for
+this element to be released, up to the time set by the
+<link id="scgi_cache_lock_timeout"/> directive.
+</para>
+
+</directive>
+
+
+<directive name="scgi_cache_lock_timeout">
+<syntax><value>time</value></syntax>
+<default>5s</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.1.12</appeared-in>
+
+<para>
+Sets a timeout for <link id="scgi_cache_lock"/>.
+</para>
+
+</directive>
+
+
+<directive name="scgi_cache_methods">
+<syntax>
+    <literal>GET</literal> |
+    <literal>HEAD</literal> |
+    <literal>POST</literal>
+    ...</syntax>
+<default>GET HEAD</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+If the client request method is listed in this directive then
+the response will be cached.
+“<literal>GET</literal>” and “<literal>HEAD</literal>” methods are always
+added to the list, though it is recommended to specify them explicitly.
+See also the <link id="scgi_no_cache"/> directive.
+</para>
+
+</directive>
+
+
+<directive name="scgi_cache_min_uses">
+<syntax><value>number</value></syntax>
+<default>1</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Sets the <value>number</value> of requests after which the response
+will be cached.
+</para>
+
+</directive>
+
+
+<directive name="scgi_cache_path">
+<syntax>
+    <value>path</value>
+    [<literal>levels</literal>=<value>levels</value>]
+    <literal>keys_zone</literal>=<value>name</value>:<value>size</value>
+    [<literal>inactive</literal>=<value>time</value>]
+    [<literal>max_size</literal>=<value>size</value>]
+    [<literal>loader_files</literal>=<value>number</value>]
+    [<literal>loader_sleep</literal>=<value>time</value>]
+    [<literal>loader_threshold</literal>=<value>time</value>]</syntax>
+<default/>
+<context>http</context>
+
+<para>
+Sets the path and other parameters of a cache.
+Cache data are stored in files.
+Both the key and file name in a cache are a result of
+applying the MD5 function to the proxied URL.
+The <literal>levels</literal> parameter defines hierarchy levels of a cache.
+For example, in the following configuration
+<example>
+scgi_cache_path /data/nginx/cache levels=1:2 keys_zone=one:10m;
+</example>
+file names in a cache will look like this:
+<example>
+/data/nginx/cache/<emphasis>c</emphasis>/<emphasis>29</emphasis>/b7f54b2df7773722d382f4809d650<emphasis>29c</emphasis>
+</example>
+</para>
+
+<para>
+A cached response is first written to a temporary file,
+and then the file is renamed.
+Starting from version 0.8.9, temporary files and the cache can be put on
+different file systems.
+However, be aware that in this case a file is copied
+across two file systems instead of the cheap renaming operation.
+It is thus recommended that for any given location both cache and a directory
+holding temporary files, set by the <link id="scgi_temp_path"/> directive,
+are put on the same file system.
+</para>
+
+<para>
+In addition, all active keys and information about data are stored
+in a shared memory zone, whose <value>name</value> and <value>size</value>
+are configured by the <literal>keys_zone</literal> parameter.
+Cached data that are not accessed during the time specified by the
+<literal>inactive</literal> parameter get removed from the cache
+regardless of their freshness.
+By default, <literal>inactive</literal> is set to 10 minutes.
+</para>
+
+<para>
+The special “cache manager” process monitors the maximum cache size set
+by the <literal>max_size</literal> parameter.
+When this size is exceeded, it removes the least recently used data.
+</para>
+
+<para>
+A minute after the start the special “cache loader” process is activated.
+It loads information about previously cached data stored on file system
+into a cache zone.
+The loading is done in iterations.
+During one iteration no more than <literal>loader_files</literal> items
+are loaded (by default, 100).
+Besides, the duration of one iteration is limited by the
+<literal>loader_threshold</literal> parameter (by default, 200 milliseconds).
+Between iterations, a pause configured by the <literal>loader_sleep</literal>
+parameter (by default, 50 milliseconds) is made.
+</para>
+
+</directive>
+
+
+<directive name="scgi_cache_purge">
+<syntax>string ...</syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.5.7</appeared-in>
+
+<para>
+Defines conditions under which the request will be considered a cache
+purge request.
+If at least one value of the string parameters is not empty and is not equal
+to “0” then the cache entry with a corresponding
+<link id="scgi_cache_key">cache key</link> is removed.
+The result of successful operation is indicated by returning
+the <http-status code="204" text="No Content"/> response.
+</para>
+
+<para>
+If the <link id="scgi_cache_key">cache key</link> of a purge request ends
+with an asterisk (“<literal>*</literal>”), all cache entries matching the
+wildcard key will be removed from the cache.
+</para>
+
+<para>
+Example configuration:
+<example>
+scgi_cache_path /data/nginx/cache keys_zone=cache_zone:10m;
+
+map $request_method $purge_method {
+    PURGE   1;
+    default 0;
+}
+
+server {
+    ...
+    location / {
+        scgi_pass backend;
+        scgi_cache cache_zone;
+        scgi_cache_key $uri;
+        scgi_cache_purge $purge_method;
+    }
+}
+</example>
+<note>
+This functionality is available as part of our
+<commercial_version>commercial subscription</commercial_version>.
+</note>
+</para>
+
+</directive>
+
+
+<directive name="scgi_cache_revalidate">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.5.7</appeared-in>
+
+<para>
+Enables revalidation of expired cache items using conditional requests with
+the <header>If-Modified-Since</header> header field.
+</para>
+
+</directive>
+
+
+<directive name="scgi_cache_use_stale">
+<syntax>
+    <literal>error</literal> |
+    <literal>timeout</literal> |
+    <literal>invalid_header</literal> |
+    <literal>updating</literal> |
+    <literal>http_500</literal> |
+    <literal>http_503</literal> |
+    <literal>http_403</literal> |
+    <literal>http_404</literal> |
+    <literal>off</literal>
+    ...</syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Determines in which cases a stale cached response can be used
+when an error occurs during communication with the SCGI server.
+The directive’s parameters match the parameters of the
+<link id="scgi_next_upstream"/> directive.
+</para>
+
+<para>
+Additionally, the <literal>updating</literal> parameter permits
+using a stale cached response if it is currently being updated.
+This allows minimizing the number of accesses to SCGI servers
+when updating cached data.
+</para>
+
+<para>
+To minimize the number of accesses to SCGI servers when
+populating a new cache element, the <link id="scgi_cache_lock"/>
+directive can be used.
+</para>
+
+</directive>
+
+
+<directive name="scgi_cache_valid">
+<syntax>[<value>code</value> ...] <value>time</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Sets caching time for different response codes.
+For example, the following directives
+<example>
+scgi_cache_valid 200 302 10m;
+scgi_cache_valid 404      1m;
+</example>
+set 10 minutes of caching for responses with codes 200 and 302
+and 1 minute for responses with code 404.
+</para>
+
+<para>
+If only caching <value>time</value> is specified
+<example>
+scgi_cache_valid 5m;
+</example>
+then only 200, 301, and 302 responses are cached.
+</para>
+
+<para>
+In addition, the <literal>any</literal> parameter can be specified
+to cache any responses:
+<example>
+scgi_cache_valid 200 302 10m;
+scgi_cache_valid 301      1h;
+scgi_cache_valid any      1m;
+</example>
+</para>
+
+<para>
+Parameters of caching can also be set directly
+in the response header.
+This has higher priority than setting of caching time using the directive.
+The <header>X-Accel-Expires</header> header field sets caching time of a
+response in seconds.
+The zero value disables caching for a response.
+If the value starts with the <literal>@</literal> prefix, it sets an absolute
+time in seconds since Epoch, up to which the response may be cached.
+If the header does not include the <header>X-Accel-Expires</header> field,
+parameters of caching may be set in the header fields
+<header>Expires</header> or <header>Cache-Control</header>.
+If the header includes the <header>Set-Cookie</header> field, such a
+response will not be cached.
+Processing of one or more of these response header fields can be disabled
+using the <link id="scgi_ignore_headers"/> directive.
+</para>
+
+</directive>
+
+
+<directive name="scgi_connect_timeout">
+<syntax><value>time</value></syntax>
+<default>60s</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Defines a timeout for establishing a connection with an SCGI server.
+It should be noted that this timeout cannot usually exceed 75 seconds.
+</para>
+
+</directive>
+
+
+<directive name="scgi_hide_header">
+<syntax><value>field</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+By default,
+nginx does not pass the header fields <header>Status</header> and
+<header>X-Accel-...</header> from the response of an SCGI
+server to a client.
+The <literal>scgi_hide_header</literal> directive sets additional fields
+that will not be passed.
+If, on the contrary, the passing of fields needs to be permitted,
+the <link id="scgi_pass_header"/> directive can be used.
+</para>
+
+</directive>
+
+
+<directive name="scgi_ignore_client_abort">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Determines whether the connection with an SCGI server should be
+closed when a client closes the connection without waiting
+for a response.
+</para>
+
+</directive>
+
+
+<directive name="scgi_ignore_headers">
+<syntax><value>field</value> ...</syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Disables processing of certain response header fields from the SCGI server.
+The following fields can be ignored: <header>X-Accel-Redirect</header>,
+<header>X-Accel-Expires</header>, <header>X-Accel-Limit-Rate</header> (1.1.6),
+<header>X-Accel-Buffering</header> (1.1.6),
+<header>X-Accel-Charset</header> (1.1.6), <header>Expires</header>,
+<header>Cache-Control</header>, and <header>Set-Cookie</header> (0.8.44).
+</para>
+
+<para>
+If not disabled, processing of these header fields has the following
+effect:
+<list type="bullet" compact="no">
+
+<listitem>
+<header>X-Accel-Expires</header>, <header>Expires</header>,
+<header>Cache-Control</header>, and <header>Set-Cookie</header>
+set the parameters of response <link id="scgi_cache_valid">caching</link>;
+</listitem>
+
+<listitem>
+<header>X-Accel-Redirect</header> performs an
+<link doc="ngx_http_core_module.xml" id="internal">internal
+redirect</link> to the specified URI;
+</listitem>
+
+<listitem>
+<header>X-Accel-Limit-Rate</header> sets the
+<link doc="ngx_http_core_module.xml" id="limit_rate">rate
+limit</link> for transmission of a response to a client;
+</listitem>
+
+<listitem>
+<header>X-Accel-Buffering</header> enables or disables
+<link id="scgi_buffering">buffering</link> of a response;
+</listitem>
+
+<listitem>
+<header>X-Accel-Charset</header> sets the desired
+<link doc="ngx_http_charset_module.xml" id="charset"/>
+of a response.
+</listitem>
+
+</list>
+</para>
+
+</directive>
+
+
+<directive name="scgi_intercept_errors">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Determines whether an SCGI server responses with codes greater than or equal
+to 300 should be passed to a client or be redirected to nginx for processing
+with the <link doc="ngx_http_core_module.xml" id="error_page"/> directive.
+</para>
+
+</directive>
+
+
+<directive name="scgi_max_temp_file_size">
+<syntax><value>size</value></syntax>
+<default>1024m</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+When <link id="scgi_buffering">buffering</link> of responses from the SCGI
+server is enabled, and the whole response does not fit into the buffers
+set by the <link id="scgi_buffer_size"/> and <link id="scgi_buffers"/>
+directives, a part of the response can be saved to a temporary file.
+This directive sets the maximum <value>size</value> of the temporary file.
+The size of data written to the temporary file at a time is set
+by the <link id="scgi_temp_file_write_size"/> directive.
+</para>
+
+<para>
+The zero value disables buffering of responses to temporary files.
+</para>
+
+</directive>
+
+
+<directive name="scgi_next_upstream">
+<syntax>
+    <literal>error</literal> |
+    <literal>timeout</literal> |
+    <literal>invalid_header</literal> |
+    <literal>http_500</literal> |
+    <literal>http_503</literal> |
+    <literal>http_403</literal> |
+    <literal>http_404</literal> |
+    <literal>off</literal>
+    ...</syntax>
+<default>error timeout</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Specifies in which cases a request should be passed to the next server:
+<list type="tag">
+
+<tag-name><literal>error</literal></tag-name>
+<tag-desc>an error occurred while establishing a connection with the
+server, passing a request to it, or reading the response header;</tag-desc>
+
+<tag-name><literal>timeout</literal></tag-name>
+<tag-desc>a timeout has occurred while establishing a connection with the
+server, passing a request to it, or reading the response header;</tag-desc>
+
+<tag-name><literal>invalid_header</literal></tag-name>
+<tag-desc>a server returned an empty or invalid response;</tag-desc>
+
+<tag-name><literal>http_500</literal></tag-name>
+<tag-desc>a server returned a response with the code 500;</tag-desc>
+
+<tag-name><literal>http_503</literal></tag-name>
+<tag-desc>a server returned a response with the code 503;</tag-desc>
+
+<tag-name><literal>http_403</literal></tag-name>
+<tag-desc>a server returned a response with the code 403;</tag-desc>
+
+<tag-name><literal>http_404</literal></tag-name>
+<tag-desc>a server returned a response with the code 404;</tag-desc>
+
+<tag-name><literal>off</literal></tag-name>
+<tag-desc>disables passing a request to the next server.</tag-desc>
+
+</list>
+</para>
+
+<para>
+One should bear in mind that passing a request to the next server is
+only possible if nothing has been sent to a client yet.
+That is, if an error or timeout occurs in the middle of the
+transferring of a response, fixing this is impossible.
+</para>
+
+<para>
+The directive also defines what is considered an unsuccessful attempt
+of communication with a
+<link doc="ngx_http_upstream_module.xml" id="server"/>.
+The cases of <literal>error</literal>, <literal>timeout</literal> and
+<literal>invalid_header</literal> are always considered unsuccessful attempts,
+even if they are not specified in the directive.
+The cases of <literal>http_500</literal> and <literal>http_503</literal> are
+considered unsuccessful attempts only if they are specified in the directive.
+The cases of <literal>http_403</literal> and <literal>http_404</literal>
+are never considered unsuccessful attempts.
+</para>
+
+</directive>
+
+
+<directive name="scgi_no_cache">
+<syntax><value>string</value> ...</syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Defines conditions under which the response will not be saved to a cache.
+If at least one value of the string parameters is not empty and is not
+equal to “0” then the response will not be saved:
+<example>
+scgi_no_cache $cookie_nocache $arg_nocache$arg_comment;
+scgi_no_cache $http_pragma    $http_authorization;
+</example>
+Can be used along with the <link id="scgi_cache_bypass"/> directive.
+</para>
+
+</directive>
+
+
+<directive name="scgi_param">
+<syntax>
+    <value>parameter</value> <value>value</value>
+    [<literal>if_not_empty</literal>]</syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Sets a <value>parameter</value> that should be passed to the SCGI server.
+The <value>value</value> can contain text, variables, and their combination.
+These directives are inherited from the previous level if and
+only if there are no
+<literal>scgi_param</literal>
+directives defined on the current level.
+</para>
+
+<para>
+Standard
+<link url="http://tools.ietf.org/html/rfc3875#section-4.1">CGI
+environment variables</link>
+should be provided as SCGI headers, see the <path>scgi_params</path> file
+provided in the distribution:
+<example>
+location / {
+    include scgi_params;
+    ...
+}
+</example>
+</para>
+
+</directive>
+
+
+<directive name="scgi_pass">
+<syntax><value>address</value></syntax>
+<default/>
+<context>location</context>
+<context>if in location</context>
+
+<para>
+Sets the address of an SCGI server.
+The address can be specified as a domain name or IP address,
+and an optional port:
+<example>
+scgi_pass localhost:9000;
+</example>
+or as a UNIX-domain socket path:
+<example>
+scgi_pass unix:/tmp/scgi.socket;
+</example>
+</para>
+
+<para>
+If a domain name resolves to several addresses, all of them will be
+used in a round-robin fashion.
+In addition, an address can be specified as a
+<link doc="ngx_http_upstream_module.xml">server group</link>.
+</para>
+
+</directive>
+
+
+<directive name="scgi_pass_header">
+<syntax><value>field</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Permits passing <link id="scgi_hide_header">otherwise disabled</link> header
+fields from an SCGI server to a client.
+</para>
+
+</directive>
+
+
+<directive name="scgi_read_timeout">
+<syntax><value>time</value></syntax>
+<default>60s</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Defines a timeout for reading a response from the SCGI server.
+The timeout is set only between two successive read operations,
+not for the transmission of the whole response.
+If the SCGI server does not transmit anything within this time,
+the connection is closed.
+</para>
+
+</directive>
+
+
+<directive name="scgi_pass_request_body">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>on</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Indicates whether the original request body is passed
+to the SCGI server.
+See also the <link id="scgi_pass_request_headers"/> directive.
+</para>
+
+</directive>
+
+
+<directive name="scgi_pass_request_headers">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>on</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Indicates whether the header fields of the original request are passed
+to the SCGI server.
+See also the <link id="scgi_pass_request_body"/> directive.
+</para>
+
+</directive>
+
+
+<directive name="scgi_send_timeout">
+<syntax><value>time</value></syntax>
+<default>60s</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Sets a timeout for transmitting a request to the SCGI server.
+The timeout is set only between two successive write operations,
+not for the transmission of the whole request.
+If the SCGI server does not receive anything within this time,
+the connection is closed.
+</para>
+
+</directive>
+
+
+<directive name="scgi_store">
+<syntax>
+    <literal>on</literal> |
+    <literal>off</literal> |
+    <value>string</value></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Enables saving of files to a disk.
+The <literal>on</literal> parameter saves files with paths
+corresponding to the directives
+<link doc="ngx_http_core_module.xml" id="alias"/> or
+<link doc="ngx_http_core_module.xml" id="root"/>.
+The <literal>off</literal> parameter disables saving of files.
+In addition, the file name can be set explicitly using the
+<value>string</value> with variables:
+<example>
+scgi_store /data/www$original_uri;
+</example>
+</para>
+
+<para>
+The modification time of files is set according to the received
+<header>Last-Modified</header> response header field.
+The response is first written to a temporary file,
+and then the file is renamed.
+Starting from version 0.8.9, temporary files and the persistent store
+can be put on different file systems.
+However, be aware that in this case a file is copied
+across two file systems instead of the cheap renaming operation.
+It is thus recommended that for any given location both saved files and a
+directory holding temporary files, set by the <link id="scgi_temp_path"/>
+directive, are put on the same file system.
+</para>
+
+<para>
+This directive can be used to create local copies of static unchangeable
+files, e.g.:
+<example>
+location /images/ {
+    root                 /data/www;
+    error_page           404 = /fetch$uri;
+}
+
+location /fetch/ {
+    internal;
+
+    scgi_pass         backend:9000;
+    ...
+
+    scgi_store        on;
+    scgi_store_access user:rw group:rw all:r;
+    scgi_temp_path    /data/temp;
+
+    alias                /data/www/;
+}
+</example>
+</para>
+
+</directive>
+
+
+<directive name="scgi_store_access">
+<syntax><value>users</value>:<value>permissions</value> ...</syntax>
+<default>user:rw</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Sets access permissions for newly created files and directories, e.g.:
+<example>
+scgi_store_access user:rw group:rw all:r;
+</example>
+</para>
+
+<para>
+If any <literal>group</literal> or <literal>all</literal> access permissions
+are specified then <literal>user</literal> permissions may be omitted:
+<example>
+scgi_store_access group:rw all:r;
+</example>
+</para>
+
+</directive>
+
+
+<directive name="scgi_temp_file_write_size">
+<syntax><value>size</value></syntax>
+<default>8k|16k</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Limits the <value>size</value> of data written to a temporary file
+at a time, when buffering of responses from the SCGI server
+to temporary files is enabled.
+By default, <value>size</value> is limited by two buffers set by the
+<link id="scgi_buffer_size"/> and <link id="scgi_buffers"/> directives.
+The maximum size of a temporary file is set by the
+<link id="scgi_max_temp_file_size"/> directive.
+</para>
+
+</directive>
+
+
+<directive name="scgi_temp_path">
+<syntax>
+    <value>path</value>
+    [<value>level1</value>
+    [<value>level2</value>
+    [<value>level3</value>]]]</syntax>
+<default>scgi_temp</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Defines a directory for storing temporary files
+with data received from SCGI servers.
+Up to three-level subdirectory hierarchy can be used underneath the specified
+directory.
+For example, in the following configuration
+<example>
+scgi_temp_path /spool/nginx/scgi_temp 1 2;
+</example>
+a temporary file might look like this:
+<example>
+/spool/nginx/scgi_temp/<emphasis>7</emphasis>/<emphasis>45</emphasis>/00000123<emphasis>457</emphasis>
+</example>
+</para>
+
+</directive>
+
+</section>
+
+</module>

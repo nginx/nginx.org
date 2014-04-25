@@ -8,7 +8,7 @@
 <article name="nginx documentation"
          link="/en/docs/"
          lang="en"
-         rev="12"
+         rev="13"
          toc="no">
 
 
@@ -330,6 +330,11 @@ ngx_http_referer_module</link>
 <listitem>
 <link doc="http/ngx_http_rewrite_module.xml">
 ngx_http_rewrite_module</link>
+</listitem>
+
+<listitem>
+<link doc="http/ngx_http_scgi_module.xml">
+ngx_http_scgi_module</link>
 </listitem>
 
 <listitem>
