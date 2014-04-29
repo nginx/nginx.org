@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="21">
+        rev="22">
 
 <section id="summary">
 
@@ -1195,6 +1195,14 @@ The status can be either “<literal>MISS</literal>”,
 “<literal>REVALIDATED</literal>” or “<literal>HIT</literal>”.
 </tag-desc>
 
+<tag-name id="var_upstream_cookie_"><var>$upstream_cookie_</var><value>name</value>
+</tag-name>
+<tag-desc>
+cookie with the specified <value>name</value> sent by the upstream server
+in the <header>Set-Cookie</header> response header field (1.7.1).
+Only the last server’s response header fields are saved.
+</tag-desc>
+
 <tag-name id="var_upstream_response_length"><var>$upstream_response_length</var>
 </tag-name>
 <tag-desc>
@@ -1220,7 +1228,7 @@ Several response codes are separated by commas and colons
 like addresses in the <var>$upstream_addr</var> variable.
 </tag-desc>
 
-<tag-name id="var_upstream_http_"><var>$upstream_http_...</var></tag-name>
+<tag-name id="var_upstream_http_"><var>$upstream_http_</var><value>name</value></tag-name>
 <tag-desc>
 keep server response header fields.
 For example, the <header>Server</header> response header field

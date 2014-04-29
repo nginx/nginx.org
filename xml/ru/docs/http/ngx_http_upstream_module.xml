@@ -497,6 +497,14 @@ server {
 “<literal>REVALIDATED</literal>” или “<literal>HIT</literal>”.
 </tag-desc>
 
+<tag-name id="var_upstream_cookie_"><var>$upstream_cookie_</var><value>имя</value></tag-name>
+<tag-desc>
+кука с указанным <value>именем</value>, переданная сервером группы
+в поле <header>Set-Cookie</header> заголовка ответа (1.7.1).
+Необходимо иметь в виду, что запоминаются поля заголовка только из ответа
+последнего сервера.
+</tag-desc>
+
 <tag-name id="var_upstream_response_length"><var>$upstream_response_length</var>
 </tag-name>
 <tag-desc>
@@ -522,7 +530,7 @@ server {
 подобно адресам в переменной <var>$upstream_addr</var>.
 </tag-desc>
 
-<tag-name id="var_upstream_http_"><var>$upstream_http_...</var></tag-name>
+<tag-name id="var_upstream_http_"><var>$upstream_http_</var><value>имя</value></tag-name>
 <tag-desc>
 хранят поля заголовка ответа сервера.
 Например, поле заголовка ответа <header>Server</header>
