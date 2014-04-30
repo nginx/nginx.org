@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_log_module"
         link="/ru/docs/http/ngx_http_log_module.html"
         lang="ru"
-        rev="11">
+        rev="12">
 
 <section id="summary">
 
@@ -52,16 +52,19 @@ access_log /spool/logs/nginx-access.log compression buffer=32k;
     <value>путь</value>
     [<value>формат</value>
     [<literal>buffer</literal>=<value>размер</value>
-    [<literal>flush</literal>=<value>время</value>]]]</syntax>
+    [<literal>flush</literal>=<value>время</value>]]
+    [<literal>if</literal>=<value>условие</value>]]</syntax>
 <syntax>
     <value>путь</value>
     <value>формат</value>
     <literal>gzip[=<value>степень</value>]</literal>
     [<literal>buffer</literal>=<value>размер</value>]
-    [<literal>flush</literal>=<value>время</value>]</syntax>
+    [<literal>flush</literal>=<value>время</value>]
+    [<literal>if</literal>=<value>условие</value>]</syntax>
 <syntax>
     <literal>syslog:</literal><literal>server</literal>=<value>адрес</value>[,<value>параметр</value>=<value>значение</value>]
-    [<value>формат</value>]</syntax>
+    [<value>формат</value>
+    [<literal>if</literal>=<value>условие</value>]]</syntax>
 <syntax><literal>off</literal></syntax>
 <default>logs/access.log combined</default>
 <context>http</context>
@@ -174,6 +177,22 @@ server {
 </listitem>
 
 </list>
+</para>
+
+<para>
+Параметр <literal>if</literal> (1.7.0) включает условную запись в лог.
+Запрос не будет записываться в лог, если результатом вычисления
+<value>условия</value> является “0” или пустая строка.
+В следующем примере запросы с кодами ответа 2xx и 3xx
+не будут записываться в лог:
+<example>
+map $status $loggable {
+    ~^[23]  0;
+    default 1;
+}
+
+access_log /path/to/access.log combined if=$loggable;
+</example>
 </para>
 
 <para>
