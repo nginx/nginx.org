@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_log_module"
         link="/ru/docs/http/ngx_http_log_module.html"
         lang="ru"
-        rev="10">
+        rev="11">
 
 <section id="summary">
 
@@ -59,6 +59,9 @@ access_log /spool/logs/nginx-access.log compression buffer=32k;
     <literal>gzip[=<value>степень</value>]</literal>
     [<literal>buffer</literal>=<value>размер</value>]
     [<literal>flush</literal>=<value>время</value>]</syntax>
+<syntax>
+    <literal>syslog:</literal><literal>server</literal>=<value>адрес</value>[,<value>параметр</value>=<value>значение</value>]
+    [<value>формат</value>]</syntax>
 <syntax><literal>off</literal></syntax>
 <default>logs/access.log combined</default>
 <context>http</context>
@@ -70,6 +73,8 @@ access_log /spool/logs/nginx-access.log compression buffer=32k;
 <para>
 Задаёт путь, формат и настройки буферизованной записи в лог.
 На одном уровне может использоваться несколько логов.
+Запись в syslog настраивается указанием префикса
+“<literal>syslog:</literal>” в первом параметре.
 Специальное значение <literal>off</literal> отменяет все директивы
 <literal>access_log</literal> для текущего уровня.
 Если формат не указан, то используется предопределённый формат
@@ -169,6 +174,78 @@ server {
 </listitem>
 
 </list>
+</para>
+
+<para>
+Запись в syslog настраивается при помощи следующих параметров:
+<list type="tag">
+
+<tag-name><literal>server=</literal><value>адрес</value></tag-name>
+<tag-desc>
+Задаёт адрес сервера syslog.
+Адрес может быть указан в виде доменного имени, IP-адреса или
+в виде пути UNIX-сокета (указывается после префикса
+“<literal>unix:</literal>”).
+Вместе с именем или адресом может быть указан порт.
+Если порт не указан, используется порт 514.
+Если доменному имени соответствует несколько IP-адресов,
+используется только первый адрес.
+</tag-desc>
+
+<tag-name><literal>facility=</literal><value>строка</value></tag-name>
+<tag-desc>
+Задаёт категорию сообщений syslog в соответствии с
+<link url="http://tools.ietf.org/html/rfc3164#section-4.1.1">RFC 3164</link>.
+В качестве категории может быть указано одно из следующих значений:
+“<literal>kern</literal>”, “<literal>user</literal>”,
+“<literal>mail</literal>”, “<literal>daemon</literal>”,
+“<literal>auth</literal>”, “<literal>intern</literal>”,
+“<literal>lpr</literal>”, “<literal>news</literal>”, “<literal>uucp</literal>”,
+“<literal>clock</literal>”, “<literal>authpriv</literal>”,
+“<literal>ftp</literal>”, “<literal>ntp</literal>”, “<literal>audit</literal>”,
+“<literal>alert</literal>”, “<literal>cron</literal>”,
+“<literal>local0</literal>”..“<literal>local7</literal>”.
+По умолчанию используется “<literal>local7</literal>”.
+</tag-desc>
+
+<tag-name><literal>severity=</literal><value>строка</value></tag-name>
+<tag-desc>
+Задаёт важность сообщений syslog в соответствии с
+<link url="http://tools.ietf.org/html/rfc3164#section-4.1.1">RFC 3164</link>.
+Возможны те же самые значения, что и у второго параметра (уровень)
+директивы <link doc="../ngx_core_module.xml" id="error_log"/>.
+По умолчанию используется “<literal>info</literal>”.
+</tag-desc>
+
+<tag-name><literal>tag=</literal><value>строка</value></tag-name>
+<tag-desc>
+Задаёт метку сообщений syslog.
+По умолчанию используется “<literal>nginx</literal>”.
+</tag-desc>
+
+<!--
+<tag-name><literal>bare=</literal><literal>on</literal> |
+<literal>off</literal></tag-name>
+<tag-desc>
+Если включено, сообщения отправляются без заголовка syslog.
+По умолчанию выключено.
+</tag-desc>
+-->
+
+</list>
+Пример конфигурации syslog:
+<example>
+access_log syslog:server=192.168.1.1;
+access_log syslog:server=unix:/var/log/nginx.sock;
+access_log syslog:server=[2001:db8::1]:12345,facility=local7,tag=nginx,severity=info combined;
+</example>
+</para>
+
+<para>
+<note>
+Запись в syslog доступна как часть
+<commercial_version>коммерческой подписки</commercial_version>.
+</note>
 </para>
 
 </directive>
