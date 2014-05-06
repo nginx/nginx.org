@@ -284,7 +284,8 @@ load balancing in nginx, e.g.
 <link doc="ngx_http_upstream_module.xml" id="server">backup</link>,
 <link doc="ngx_http_upstream_module.xml" id="server">down</link>, and
 <link doc="ngx_http_upstream_module.xml" id="keepalive"/>.
-For more information please check our reference documentation.
+For more information please check our
+<link url="/en/docs/">reference documentation</link>.
 </para>
 
 <para>
@@ -298,6 +299,24 @@ activity monitoring</link> and
 <link url="http://nginx.com/products/on-the-fly-reconfiguration/">
 on-the-fly reconfiguration</link> of server groups are available
 as part of our paid NGINX Plus subscriptions.
+</para>
+
+<para>
+The following articles describe load balancing with NGINX Plus
+in more detail:
+<list type="bullet" compact="no">
+
+<listitem>
+<link url="http://nginx.com/blog/load-balancing-with-nginx-plus/">
+Load Balancing with NGINX and NGINX Plus</link>
+</listitem>
+
+<listitem>
+<link url="http://nginx.com/blog/load-balancing-with-nginx-plus-part2/">
+Load Balancing with NGINX and NGINX Plus part 2</link>
+</listitem>
+
+</list>
 </para>
 
 </section>
