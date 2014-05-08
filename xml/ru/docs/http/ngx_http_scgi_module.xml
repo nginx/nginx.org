@@ -956,8 +956,8 @@ scgi_store /data/www$original_uri;
 неизменяемых файлов, например, так:
 <example>
 location /images/ {
-    root                 /data/www;
-    error_page           404 = /fetch$uri;
+    root              /data/www;
+    error_page        404 = /fetch$uri;
 }
 
 location /fetch/ {
@@ -970,7 +970,7 @@ location /fetch/ {
     scgi_store_access user:rw group:rw all:r;
     scgi_temp_path    /data/temp;
 
-    alias                /data/www/;
+    alias             /data/www/;
 }
 </example>
 </para>
