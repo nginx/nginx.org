@@ -403,9 +403,9 @@ map $request_method $purge_method {
 server {
     ...
     location / {
-        fastcgi_pass http://backend;
-        fastcgi_cache cache_zone;
-        fastcgi_cache_key $uri;
+        fastcgi_pass        http://backend;
+        fastcgi_cache       cache_zone;
+        fastcgi_cache_key   $uri;
         fastcgi_cache_purge $purge_method;
     }
 }

@@ -394,9 +394,9 @@ map $request_method $purge_method {
 server {
     ...
     location / {
-        scgi_pass http://backend;
-        scgi_cache cache_zone;
-        scgi_cache_key $uri;
+        scgi_pass        http://backend;
+        scgi_cache       cache_zone;
+        scgi_cache_key   $uri;
         scgi_cache_purge $purge_method;
     }
 }
