@@ -58,6 +58,7 @@ REFS =									\
 		http/ngx_http_realip_module				\
 		http/ngx_http_referer_module				\
 		http/ngx_http_rewrite_module				\
+		http/ngx_http_scgi_module				\
 		http/ngx_http_secure_link_module			\
 		http/ngx_http_spdy_module				\
 		http/ngx_http_split_clients_module			\
