@@ -9,7 +9,7 @@
 <module name="Module ngx_http_hls_module"
         link="/ru/docs/http/ngx_http_hls_module.html"
         lang="ru"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -108,7 +108,7 @@ http://hls.example.com/video/test.mp4.ts?start=1.000&amp;end=2.200
 <context>http</context>
 <context>server</context>
 <context>location</context>
-<appeared-in>1.5.13</appeared-in>
+<appeared-in>1.5.12</appeared-in>
 
 <para>
 Добавляет аргументы из запроса плейлиста в URI фрагментов.
