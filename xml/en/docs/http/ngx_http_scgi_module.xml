@@ -10,7 +10,7 @@
 <module name="Module ngx_http_scgi_module"
         link="/en/docs/http/ngx_http_scgi_module.html"
         lang="en"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
@@ -330,6 +330,10 @@ are put on the same file system.
 In addition, all active keys and information about data are stored
 in a shared memory zone, whose <value>name</value> and <value>size</value>
 are configured by the <literal>keys_zone</literal> parameter.
+One megabyte zone can store about 8 thousand keys.
+</para>
+
+<para>
 Cached data that are not accessed during the time specified by the
 <literal>inactive</literal> parameter get removed from the cache
 regardless of their freshness.
