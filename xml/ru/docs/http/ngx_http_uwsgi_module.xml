@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_uwsgi_module"
         link="/ru/docs/http/ngx_http_uwsgi_module.html"
         lang="ru"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
@@ -807,16 +807,21 @@ uwsgi_param HTTPS $https if_not_empty;
 
 
 <directive name="uwsgi_pass">
-<syntax><value>адрес</value></syntax>
+<syntax>[<value>протокол</value>://]<value>адрес</value></syntax>
 <default/>
 <context>location</context>
 <context>if в location</context>
 
 <para>
-Задаёт адрес uwsgi-сервера.
+Задаёт протокол и адрес uwsgi-сервера.
+В качестве протокола можно указать
+“<literal>uwsgi</literal>” или “<literal>suwsgi</literal>”
+(secured uwsgi, uwsgi через SSL).
 Адрес может быть указан в виде доменного имени или адреса, и порта, например,
 <example>
 uwsgi_pass localhost:9000;
+uwsgi_pass uwsgi://localhost:9000;
+uwsgi_pass suwsgi://[2001:db8::1]:9090;
 </example>
 или в виде пути UNIX-сокета:
 <example>
@@ -829,6 +834,12 @@ uwsgi_pass unix:/tmp/uwsgi.socket;
 использоваться по очереди (round-robin).
 И, кроме того, адрес может быть
 <link doc="ngx_http_upstream_module.xml">группой серверов</link>.
+</para>
+
+<para>
+<note>
+Протокол secured uwsgi поддерживается начиная с версии 1.5.8.
+</note>
 </para>
 
 </directive>
@@ -912,6 +923,67 @@ uwsgi-сервер.
 а только между двумя операциями записи.
 Если по истечении этого времени uwsgi-сервер не примет новых данных,
 соединение закрывается.
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_ssl_ciphers">
+<syntax><value>ciphers</value></syntax>
+<default>DEFAULT</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.5.8</appeared-in>
+
+<para>
+Описывает разрешённые шифры для запросов к suwsgi-серверу.
+Шифры задаются в формате, поддерживаемом библиотекой OpenSSL.
+</para>
+
+<para>
+Полный список можно посмотреть с помощью команды
+“<command>openssl ciphers</command>”.
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_ssl_protocols">
+<syntax>
+    [<literal>SSLv2</literal>]
+    [<literal>SSLv3</literal>]
+    [<literal>TLSv1</literal>]
+    [<literal>TLSv1.1</literal>]
+    [<literal>TLSv1.2</literal>]</syntax>
+<default>SSLv3 TLSv1 TLSv1.1 TLSv1.2</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.5.8</appeared-in>
+
+<para>
+Разрешает указанные протоколы для запросов к suwsgi-серверу.
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_ssl_session_reuse">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>on</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.5.8</appeared-in>
+
+<para>
+Определяет, использовать ли повторно SSL-сессии при
+работе с suwsgi-сервером.
+Если в логах появляются ошибки
+“<literal>SSL3_GET_FINISHED:digest check failed</literal>”,
+то можно попробовать выключить
+повторное использование сессий.
 </para>
 
 </directive>
