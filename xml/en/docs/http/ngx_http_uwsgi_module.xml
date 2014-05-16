@@ -10,7 +10,7 @@
 <module name="Module ngx_http_uwsgi_module"
         link="/en/docs/http/ngx_http_uwsgi_module.html"
         lang="en"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -957,6 +957,46 @@ The full list can be viewed using the
 </directive>
 
 
+<directive name="uwsgi_ssl_crl">
+<syntax><value>file</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.7.0</appeared-in>
+
+<para>
+Specifies a <value>file</value> with revoked certificates (CRL)
+in the PEM format used to <link id="uwsgi_ssl_verify">verify</link>
+the certificate of the secured uwsgi server.
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_ssl_name">
+<syntax><value>name</value></syntax>
+<default>host from uwsgi_pass</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.7.0</appeared-in>
+
+<para>
+Allows overriding the server name used to
+<link id="uwsgi_ssl_verify">verify</link>
+the certificate of the secured uwsgi server and to be
+<link id="uwsgi_ssl_server_name">passed through SNI</link>
+when establishing a connection with the secured uwsgi server.
+</para>
+
+<para>
+By default, the host part from <link id="uwsgi_pass"/> is used.
+</para>
+
+</directive>
+
+
 <directive name="uwsgi_ssl_protocols">
 <syntax>
     [<literal>SSLv2</literal>]
@@ -977,6 +1017,24 @@ Enables the specified protocols for requests to a secured uwsgi server.
 </directive>
 
 
+<directive name="uwsgi_ssl_server_name">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.7.0</appeared-in>
+
+<para>
+Enables or disables passing of the server name through
+<link url="http://en.wikipedia.org/wiki/Server_Name_Indication">TLS
+Server Name Indication extension</link> (SNI, RFC 6066)
+when establishing a connection with the secured uwsgi server.
+</para>
+
+</directive>
+
+
 <directive name="uwsgi_ssl_session_reuse">
 <syntax><literal>on</literal> | <literal>off</literal></syntax>
 <default>on</default>
@@ -991,6 +1049,53 @@ a secured uwsgi server.
 If the errors
 “<literal>SSL3_GET_FINISHED:digest check failed</literal>”
 appear in the logs, try disabling session reuse.
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_ssl_trusted_certificate">
+<syntax><value>file</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.7.0</appeared-in>
+
+<para>
+Specifies a <value>file</value> with trusted CA certificates in the PEM format
+used to <link id="uwsgi_ssl_verify">verify</link>
+the certificate of the secured uwsgi server.
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_ssl_verify">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.7.0</appeared-in>
+
+<para>
+Enables or disables verification of the secured uwsgi server certificate.
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_ssl_verify_depth">
+<syntax><value>number</value></syntax>
+<default>1</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.7.0</appeared-in>
+
+<para>
+Sets the verification depth in the secured uwsgi server certificates chain.
 </para>
 
 </directive>
