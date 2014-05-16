@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="33">
+        rev="34">
 
 <section id="directives" name="Директивы">
 
@@ -589,7 +589,7 @@ error_page 404 =200 /empty.gif;
 
 <para>
 Если ошибочный ответ обрабатывается проксированным сервером или
-FastCGI/SCGI-сервером, и этот сервер может вернуть разные коды ответов,
+FastCGI/uwsgi/SCGI-сервером, и этот сервер может вернуть разные коды ответов,
 например, 200, 302, 401 или 404, то можно выдавать возвращаемый им код:
 <example>
 error_page 404 = /404.php;
@@ -974,7 +974,8 @@ server {
 <header>X-Accel-Limit-Rate</header> заголовка ответа проксированного сервера.
 Эту возможность можно запретить с помощью директив
 <link doc="ngx_http_proxy_module.xml" id="proxy_ignore_headers"/>,
-<link doc="ngx_http_fastcgi_module.xml" id="fastcgi_ignore_headers"/>
+<link doc="ngx_http_fastcgi_module.xml" id="fastcgi_ignore_headers"/>,
+<link doc="ngx_http_uwsgi_module.xml" id="uwsgi_ignore_headers"/>
 и
 <link doc="ngx_http_scgi_module.xml" id="scgi_ignore_headers"/>.
 </para>
@@ -1509,8 +1510,8 @@ location ~* \.(gif|jpg|jpeg)$ {
 и запросы обрабатываются при помощи
 <link doc="ngx_http_proxy_module.xml" id="proxy_pass"/>,
 <link doc="ngx_http_fastcgi_module.xml" id="fastcgi_pass"/>,
-<link doc="ngx_http_scgi_module.xml" id="scgi_pass"/>,
-<link doc="ngx_http_uwsgi_module.xml" id="uwsgi_pass"/> или
+<link doc="ngx_http_uwsgi_module.xml" id="uwsgi_pass"/>,
+<link doc="ngx_http_scgi_module.xml" id="scgi_pass"/> или
 <link doc="ngx_http_memcached_module.xml" id="memcached_pass"/>,
 а в ответ на запрос с URI равным этой строке, но без завершающего слэша,
 будет возвращено постоянное перенаправление с кодом 301
@@ -2952,7 +2953,8 @@ cookie <value>имя</value>
 Значение переменной появляется в location’ах, обрабатываемых
 директивами
 <link doc="ngx_http_proxy_module.xml" id="proxy_pass"/>,
-<link doc="ngx_http_fastcgi_module.xml" id="fastcgi_pass"/>
+<link doc="ngx_http_fastcgi_module.xml" id="fastcgi_pass"/>,
+<link doc="ngx_http_uwsgi_module.xml" id="uwsgi_pass"/>
 и
 <link doc="ngx_http_scgi_module.xml" id="scgi_pass"/>.
 </para>
@@ -2966,12 +2968,14 @@ cookie <value>имя</value>
 Для того чтобы тело запроса всегда записывалось в файл,
 следует включить <link id="client_body_in_file_only"/>.
 При передаче имени временного файла в проксированном запросе
-или в запросе к FastCGI/SCGI-серверу следует запретить передачу самого
+или в запросе к FastCGI/uwsgi/SCGI-серверу следует запретить передачу самого
 тела директивами
 <link doc="ngx_http_proxy_module.xml" id="proxy_pass_request_body">
 proxy_pass_request_body off</link>,
 <link doc="ngx_http_fastcgi_module.xml" id="fastcgi_pass_request_body">
-fastcgi_pass_request_body off</link>
+fastcgi_pass_request_body off</link>,
+<link doc="ngx_http_uwsgi_module.xml" id="uwsgi_pass_request_body">
+uwsgi_pass_request_body off</link>
 или
 <link doc="ngx_http_scgi_module.xml" id="scgi_pass_request_body">
 scgi_pass_request_body off</link>

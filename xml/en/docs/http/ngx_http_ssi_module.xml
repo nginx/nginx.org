@@ -10,7 +10,7 @@
 <module name="Module ngx_http_ssi_module"
         link="/en/docs/http/ngx_http_ssi_module.html"
         lang="en"
-        rev="6">
+        rev="7">
 
 <section id="summary">
 
@@ -332,7 +332,7 @@ specifies an included request, for example:
 &lt;!--# include virtual="/remote/body.php?argument=value" --&gt;
 </example>
 Several requests specified on one page and processed by proxied or
-FastCGI/SCGI servers run in parallel.
+FastCGI/uwsgi/SCGI servers run in parallel.
 If sequential processing is desired, the <literal>wait</literal>
 parameter should be used.
 </tag-desc>

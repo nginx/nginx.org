@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="33">
+        rev="34">
 
 <section id="directives" name="Directives">
 
@@ -592,7 +592,8 @@ error_page 404 =200 /empty.gif;
 </para>
 
 <para>
-If an error response is processed by a proxied server or a FastCGI/SCGI server,
+If an error response is processed by a proxied server
+or a FastCGI/uwsgi/SCGI server,
 and the server may return different response codes (e.g., 200, 302, 401
 or 404), it is possible to respond with the code it returns:
 <example>
@@ -980,6 +981,7 @@ Rate limit can also be set in the
 This capability can be disabled using the
 <link doc="ngx_http_proxy_module.xml" id="proxy_ignore_headers"/>,
 <link doc="ngx_http_fastcgi_module.xml" id="fastcgi_ignore_headers"/>,
+<link doc="ngx_http_uwsgi_module.xml" id="uwsgi_ignore_headers"/>,
 and
 <link doc="ngx_http_scgi_module.xml" id="scgi_ignore_headers"/>
 directives.
@@ -1511,8 +1513,8 @@ If a location is defined by a prefix string that ends with the slash character,
 and requests are processed by one of
 <link doc="ngx_http_proxy_module.xml" id="proxy_pass"/>,
 <link doc="ngx_http_fastcgi_module.xml" id="fastcgi_pass"/>,
-<link doc="ngx_http_scgi_module.xml" id="scgi_pass"/>,
-<link doc="ngx_http_uwsgi_module.xml" id="uwsgi_pass"/>, or
+<link doc="ngx_http_uwsgi_module.xml" id="uwsgi_pass"/>,
+<link doc="ngx_http_scgi_module.xml" id="scgi_pass"/>, or
 <link doc="ngx_http_memcached_module.xml" id="memcached_pass"/>,
 then in response to a request with URI equal to this string,
 but without the trailing slash,
@@ -2956,6 +2958,7 @@ The variable’s value is made available in locations
 processed by the
 <link doc="ngx_http_proxy_module.xml" id="proxy_pass"/>,
 <link doc="ngx_http_fastcgi_module.xml" id="fastcgi_pass"/>,
+<link doc="ngx_http_uwsgi_module.xml" id="uwsgi_pass"/>,
 and
 <link doc="ngx_http_scgi_module.xml" id="scgi_pass"/>
 directives.
@@ -2970,12 +2973,14 @@ At the end of processing, the file needs to be removed.
 To always write the request body to a file,
 <link id="client_body_in_file_only"/> needs to be enabled.
 When the name of a temporary file is passed in a proxied request
-or in a request to a FastCGI/SCGI server,
+or in a request to a FastCGI/uwsgi/SCGI server,
 passing the request body should be disabled by the
 <link doc="ngx_http_proxy_module.xml" id="proxy_pass_request_body">
 proxy_pass_request_body off</link>,
 <link doc="ngx_http_fastcgi_module.xml" id="fastcgi_pass_request_body">
-fastcgi_pass_request_body off</link>, or
+fastcgi_pass_request_body off</link>,
+<link doc="ngx_http_uwsgi_module.xml" id="uwsgi_pass_request_body">
+uwsgi_pass_request_body off</link>, or
 <link doc="ngx_http_scgi_module.xml" id="scgi_pass_request_body">
 scgi_pass_request_body off</link>
 directives, respectively.

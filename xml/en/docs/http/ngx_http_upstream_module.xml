@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="22">
+        rev="23">
 
 <section id="summary">
 
@@ -19,6 +19,7 @@ The <literal>ngx_http_upstream_module</literal> module
 is used to define groups of servers that can be referenced
 by the <link doc="ngx_http_proxy_module.xml" id="proxy_pass"/>,
 <link doc="ngx_http_fastcgi_module.xml" id="fastcgi_pass"/>,
+<link doc="ngx_http_uwsgi_module.xml" id="uwsgi_pass"/>,
 <link doc="ngx_http_scgi_module.xml" id="scgi_pass"/>, and
 <link doc="ngx_http_memcached_module.xml" id="memcached_pass"/> directives.
 </para>
@@ -160,6 +161,7 @@ The zero value disables the accounting of attempts.
 What is considered an unsuccessful attempt is defined by the
 <link doc="ngx_http_proxy_module.xml" id="proxy_next_upstream"/>,
 <link doc="ngx_http_fastcgi_module.xml" id="fastcgi_next_upstream"/>,
+<link doc="ngx_http_uwsgi_module.xml" id="uwsgi_next_upstream"/>,
 <link doc="ngx_http_scgi_module.xml" id="scgi_next_upstream"/>, and
 <link doc="ngx_http_memcached_module.xml" id="memcached_next_upstream"/>
 directives.
