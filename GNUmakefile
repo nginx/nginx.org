@@ -289,7 +289,7 @@ dir.map:	xslt/dirmap.xslt xml/en/docs/dirindex.xml		\
 		xml/en/docs/varindex.xml
 	@xsltproc -o - xslt/dirmap.xslt xml/en/docs/dirindex.xml	\
 	xml/en/docs/varindex.xml |					\
-	sed 's/^var_/$$/' |						\
+	sed 's/^ *//;/^$$/d;s/^var_/$$/' |				\
 	sort -u -k1,1 | sed 's/^include /\\&/' > $@
 
 ifeq ($(patsubst %.nginx.org,YES,$(shell hostname)), YES)
