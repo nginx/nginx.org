@@ -67,6 +67,7 @@ REFS =									\
 		http/ngx_http_sub_module				\
 		http/ngx_http_upstream_module				\
 		http/ngx_http_userid_module				\
+		http/ngx_http_uwsgi_module				\
 		http/ngx_http_xslt_module				\
 		mail/ngx_mail_auth_http_module				\
 		mail/ngx_mail_core_module				\

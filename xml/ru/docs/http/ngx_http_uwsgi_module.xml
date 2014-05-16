@@ -1,0 +1,1060 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Igor Sysoev
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Модуль ngx_http_uwsgi_module"
+        link="/ru/docs/http/ngx_http_uwsgi_module.html"
+        lang="ru"
+        rev="1">
+
+<section id="summary">
+
+<para>
+Модуль <literal>ngx_http_uwsgi_module</literal> позволяет передавать
+запросы uwsgi-серверу.
+</para>
+
+</section>
+
+
+<section id="example" name="Пример конфигурации">
+
+<para>
+<example>
+location / {
+    include    uwsgi_params;
+    uwsgi_pass localhost:9000;
+}
+</example>
+</para>
+
+</section>
+
+
+<section id="directives" name="Директивы">
+
+<directive name="uwsgi_bind">
+<syntax><value>адрес</value> | <literal>off</literal></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Задаёт локальный IP-<value>адрес</value>, который будет использоваться в
+исходящих соединениях с uwsgi-сервером.
+В значении параметра допустимо использование переменных (1.3.12).
+Специальное значение <literal>off</literal> (1.3.12) отменяет действие
+унаследованной с предыдущего уровня конфигурации
+директивы <literal>uwsgi_bind</literal>, позволяя системе
+самостоятельно выбирать локальный IP-адрес.
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_buffer_size">
+<syntax><value>размер</value></syntax>
+<default>4k|8k</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Задаёт <value>размер</value> буфера, в который будет читаться
+первая часть ответа, получаемого от uwsgi-сервера.
+В этой части ответа находится, как правило, небольшой заголовок ответа.
+По умолчанию размер буфера равен размеру одного буфера в директиве
+<link id="uwsgi_buffers"/>, однако его можно сделать меньше.
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_buffering">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>on</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Разрешает или запрещает использовать буферизацию ответов uwsgi-сервера.
+</para>
+
+<para>
+Если буферизация включена, то nginx принимает ответ uwsgi-сервера
+как можно быстрее, сохраняя его в буферы, заданные директивами
+<link id="uwsgi_buffer_size"/> и <link id="uwsgi_buffers"/>.
+Если ответ не вмещается целиком в память, то его часть может быть записана
+на диск во <link id="uwsgi_temp_path">временный файл</link>.
+Запись во временные файлы контролируется директивами
+<link id="uwsgi_max_temp_file_size"/> и
+<link id="uwsgi_temp_file_write_size"/>.
+</para>
+
+<para>
+Если буферизация выключена, то ответ синхронно передаётся клиенту сразу же
+по мере его поступления.
+nginx не пытается считать весь ответ uwsgi-сервера.
+Максимальный размер данных, который nginx может принять от сервера
+за один раз, задаётся директивой <link id="uwsgi_buffer_size"/>.
+</para>
+
+<para>
+Буферизация может быть также включена или выключена путём передачи
+значения “<literal>yes</literal>” или “<literal>no</literal>” в поле
+<header>X-Accel-Buffering</header> заголовка ответа.
+Эту возможность можно запретить с помощью директивы
+<link id="uwsgi_ignore_headers"/>.
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_buffers">
+<syntax><value>число</value> <value>размер</value></syntax>
+<default>8 4k|8k</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Задаёт <value>число</value> и <value>размер</value> буферов
+для одного соединения,
+в которые будет читаться ответ, получаемый от uwsgi-сервера.
+По умолчанию размер одного буфера равен размеру страницы.
+В зависимости от платформы это или 4K, или 8K.
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_busy_buffers_size">
+<syntax><value>размер</value></syntax>
+<default>8k|16k</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+При включённой <link id="uwsgi_buffering">буферизации</link> ответов
+uwsgi-сервера, ограничивает суммарный <value>размер</value>
+буферов, которые могут быть заняты для отправки ответа клиенту, пока
+ответ ещё не прочитан целиком.
+Оставшиеся буферы тем временем могут использоваться для чтения ответа
+и, при необходимости, буферизации части ответа во временный файл.
+По умолчанию <value>размер</value> ограничен двумя буферами, заданными
+директивами <link id="uwsgi_buffer_size"/> и <link id="uwsgi_buffers"/>.
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_cache">
+<syntax><value>зона</value> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Задаёт зону разделяемой памяти, используемой для кэширования.
+Одна и та же зона может использоваться в нескольких местах.
+Параметр <literal>off</literal> запрещает кэширование, унаследованное
+с предыдущего уровня конфигурации.
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_cache_bypass">
+<syntax><value>строка</value> ...</syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Задаёт условия, при которых ответ не будет браться из кэша.
+Если значение хотя бы одного из строковых параметров непустое и не равно “0”,
+то ответ не берётся из кэша:
+<example>
+uwsgi_cache_bypass $cookie_nocache $arg_nocache$arg_comment;
+uwsgi_cache_bypass $http_pragma    $http_authorization;
+</example>
+Можно использовать совместно с директивой <link id="uwsgi_no_cache"/>.
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_cache_key">
+<syntax><value>строка</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Задаёт ключ для кэширования, например,
+<example>
+uwsgi_cache_key localhost:9000$request_uri;
+</example>
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_cache_lock">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.1.12</appeared-in>
+
+<para>
+Если включено, одновременно только одному запросу будет позволено
+заполнить новый элемент кэша, идентифицируемый согласно директиве
+<link id="uwsgi_cache_key"/>, передав запрос на uwsgi-сервер.
+Остальные запросы этого же элемента будут либо ожидать
+появления ответа в кэше, либо освобождения блокировки
+этого элемента, в течение времени, заданного директивой
+<link id="uwsgi_cache_lock_timeout"/>.
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_cache_lock_timeout">
+<syntax><value>время</value></syntax>
+<default>5s</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.1.12</appeared-in>
+
+<para>
+Задаёт таймаут для <link id="uwsgi_cache_lock"/>.
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_cache_methods">
+<syntax>
+    <literal>GET</literal> |
+    <literal>HEAD</literal> |
+    <literal>POST</literal>
+    ...</syntax>
+<default>GET HEAD</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Если метод запроса клиента указан в этой директиве,
+то ответ будет закэширован.
+Методы “<literal>GET</literal>” и “<literal>HEAD</literal>” всегда добавляются
+в список, но тем не менее рекомендуется перечислять их явно.
+См. также директиву <link id="uwsgi_no_cache"/>.
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_cache_min_uses">
+<syntax><value>число</value></syntax>
+<default>1</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Задаёт <value>число</value> запросов, после которого ответ будет закэширован.
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_cache_path">
+<syntax>
+    <value>путь</value>
+    [<literal>levels</literal>=<value>уровни</value>]
+    <literal>keys_zone</literal>=<value>имя</value>:<value>размер</value>
+    [<literal>inactive</literal>=<value>время</value>]
+    [<literal>max_size</literal>=<value>размер</value>]
+    [<literal>loader_files</literal>=<value>число</value>]
+    [<literal>loader_sleep</literal>=<value>время</value>]
+    [<literal>loader_threshold</literal>=<value>время</value>]</syntax>
+<default/>
+<context>http</context>
+
+<para>
+Задаёт путь и другие параметры кэша.
+Данные кэша хранятся в файлах.
+Именем файла в кэше является результат функции MD5
+от <link id="uwsgi_cache_key">ключа кэширования</link>.
+Параметр <literal>levels</literal> задаёт уровни иерархии кэша,
+например, при использовании
+<example>
+uwsgi_cache_path /data/nginx/cache levels=1:2 keys_zone=one:10m;
+</example>
+имена файлов в кэше будут такого вида:
+<example>
+/data/nginx/cache/<emphasis>c</emphasis>/<emphasis>29</emphasis>/b7f54b2df7773722d382f4809d650<emphasis>29c</emphasis>
+</example>
+</para>
+
+<para>
+Кэшируемый ответ сначала записывается во временный файл, а потом этот файл
+переименовывается.
+Начиная с версии 0.8.9, временные файлы и кэш
+могут располагаться на разных файловых системах.
+Однако нужно учитывать,
+что в этом случае вместо дешёвой операции переименовывания в пределах
+одной файловой системы файл копируется с одной файловой системы на другую.
+Поэтому лучше, если кэш будет находиться на той же файловой
+системе, что и каталог с временными файлами, задаваемый директивой
+<link id="uwsgi_temp_path"/> для данного location.
+</para>
+
+<para>
+Кроме того, все активные ключи и информация о данных хранятся в зоне
+разделяемой памяти, <value>имя</value> и <value>размер</value> которой
+задаются параметром <literal>keys_zone</literal>.
+Зоны размером в 1 мегабайт достаточно для хранения около 8 тысяч ключей.
+</para>
+
+<para>
+Если к данным кэша не обращаются в течение времени, заданного параметром
+<literal>inactive</literal>, то данные удаляются, независимо от их свежести.
+По умолчанию <literal>inactive</literal> равен 10 минутам.
+</para>
+
+<para>
+Специальный процесс “cache manager” следит за максимальным размером кэша,
+заданным параметром <literal>max_size</literal>, и при превышении
+его размеров удаляет наименее востребованные данные.
+</para>
+
+<para>
+Через минуту после старта активируется специальный процесс “cache loader”,
+который загружает в зону кэша информацию о ранее закэшированных данных,
+хранящихся на файловой системе.
+Загрузка происходит итерациями.
+За одну итерацию загружается не более <literal>loader_files</literal>
+элементов (по умолчанию 100).
+Кроме того, время работы одной итерации ограничено параметром
+<literal>loader_threshold</literal> (по умолчанию 200 миллисекунд).
+Между итерациями делается пауза на время, заданное параметром
+<literal>loader_sleep</literal> (по умолчанию 50 миллисекунд).
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_cache_purge">
+<syntax>строка ...</syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.5.7</appeared-in>
+
+<para>
+Задаёт условия, при которых запрос будет считаться запросом
+на очистку кэша.
+Если значение хотя бы одного из строковых параметров непустое и не равно “0”,
+то запись в кэше с соответствующим
+<link id="uwsgi_cache_key">ключом кэширования</link> удаляется.
+В результате успешной операции возвращается ответ с кодом
+<http-status code="204" text="No Content"/>.
+</para>
+
+<para>
+Если <link id="uwsgi_cache_key">ключ кэширования</link>
+запроса на очистку заканчивается
+звёздочкой (“<literal>*</literal>”), то все записи в кэше, соответствующие
+этой маске, будут удалены из кэша.
+</para>
+
+<para>
+Пример конфигурации:
+<example>
+uwsgi_cache_path /data/nginx/cache keys_zone=cache_zone:10m;
+
+map $request_method $purge_method {
+    PURGE   1;
+    default 0;
+}
+
+server {
+    ...
+    location / {
+        uwsgi_pass        http://backend;
+        uwsgi_cache       cache_zone;
+        uwsgi_cache_key   $uri;
+        uwsgi_cache_purge $purge_method;
+    }
+}
+</example>
+<note>
+Функциональность доступна как часть
+<commercial_version>коммерческой подписки</commercial_version>.
+</note>
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_cache_revalidate">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.5.7</appeared-in>
+
+<para>
+Разрешает ревалидацию просроченных элементов кэша при помощи
+условных запросов с полем заголовка <header>If-Modified-Since</header>.
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_cache_use_stale">
+<syntax>
+    <literal>error</literal> |
+    <literal>timeout</literal> |
+    <literal>invalid_header</literal> |
+    <literal>updating</literal> |
+    <literal>http_500</literal> |
+    <literal>http_503</literal> |
+    <literal>http_403</literal> |
+    <literal>http_404</literal> |
+    <literal>off</literal>
+    ...</syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Определяет, в каких случаях можно использовать устаревший закэшированный ответ,
+если при работе с uwsgi-сервером возникла ошибка.
+Параметры директивы совпадают с параметрами
+директивы <link id="uwsgi_next_upstream"/>.
+</para>
+
+<para>
+Кроме того, дополнительный параметр <literal>updating</literal>
+разрешает использовать устаревший закэшированный ответ,
+если на данный момент он уже обновляется.
+Это позволяет минимизировать число обращений к uwsgi-серверам
+при обновлении закэшированных данных.
+</para>
+
+<para>
+Чтобы минимизировать число обращений к uwsgi-серверам при
+заполнении нового элемента кэша, можно воспользоваться директивой
+<link id="uwsgi_cache_lock"/>.
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_cache_valid">
+<syntax>[<value>код</value> ...] <value>время</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Задаёт время кэширования для разных кодов ответа.
+Например, директивы
+<example>
+uwsgi_cache_valid 200 302 10m;
+uwsgi_cache_valid 404      1m;
+</example>
+задают время кэширования 10 минут для ответов с кодами 200 и 302
+и 1 минуту для ответов с кодом 404.
+</para>
+
+<para>
+Если указано только <value>время</value> кэширования,
+<example>
+uwsgi_cache_valid 5m;
+</example>
+то кэшируются только ответы 200, 301 и 302.
+</para>
+
+<para>
+Кроме того, можно кэшировать любые ответы с помощью параметра
+<literal>any</literal>:
+<example>
+uwsgi_cache_valid 200 302 10m;
+uwsgi_cache_valid 301      1h;
+uwsgi_cache_valid any      1m;
+</example>
+</para>
+
+<para>
+Параметры кэширования могут также быть заданы непосредственно
+в заголовке ответа.
+Такой способ приоритетнее, чем задание времени кэширования с помощью директивы.
+Поле заголовка <header>X-Accel-Expires</header> задаёт время кэширования
+ответа в секундах.
+Значение 0 запрещает кэшировать ответ.
+Если значение начинается с префикса <literal>@</literal>, оно задаёт абсолютное
+время в секундах с начала эпохи, до которого ответ может быть закэширован.
+Если в заголовке нет поля <header>X-Accel-Expires</header>,
+параметры кэширования определяются по полям заголовка
+<header>Expires</header> или <header>Cache-Control</header>.
+Ответ, в заголовке которого есть поле <header>Set-Cookie</header>,
+не будет кэшироваться.
+Обработка одного или более из этих полей заголовка может быть отключена
+при помощи директивы <link id="uwsgi_ignore_headers"/>.
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_connect_timeout">
+<syntax><value>время</value></syntax>
+<default>60s</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Задаёт таймаут для установления соединения с uwsgi-сервером.
+Необходимо иметь в виду, что этот таймаут обычно не может превышать 75 секунд.
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_hide_header">
+<syntax><value>поле</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+По умолчанию
+nginx не передаёт клиенту поля заголовка <header>Status</header> и
+<header>X-Accel-...</header> из ответа uwsgi-сервера.
+Директива <literal>uwsgi_hide_header</literal> задаёт дополнительные поля,
+которые не будут передаваться.
+Если же передачу полей нужно разрешить, можно воспользоваться
+директивой <link id="uwsgi_pass_header"/>.
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_ignore_client_abort">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Определяет, закрывать ли соединение с uwsgi-сервером
+в случае, если клиент закрыл соединение, не дождавшись ответа.
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_ignore_headers">
+<syntax><value>поле</value> ...</syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Запрещает обработку некоторых полей заголовка из ответа uwsgi-сервера.
+В директиве можно указать поля <header>X-Accel-Redirect</header>,
+<header>X-Accel-Expires</header>, <header>X-Accel-Limit-Rate</header> (1.1.6),
+<header>X-Accel-Buffering</header> (1.1.6),
+<header>X-Accel-Charset</header> (1.1.6), <header>Expires</header>,
+<header>Cache-Control</header> и <header>Set-Cookie</header> (0.8.44).
+</para>
+
+<para>
+Если не запрещено, обработка этих полей заголовка заключается в следующем:
+<list type="bullet" compact="no">
+
+<listitem>
+<header>X-Accel-Expires</header>, <header>Expires</header>,
+<header>Cache-Control</header> и <header>Set-Cookie</header>
+задают параметры <link id="uwsgi_cache_valid">кэширования</link> ответа;
+</listitem>
+
+<listitem>
+<header>X-Accel-Redirect</header> производит
+<link doc="ngx_http_core_module.xml" id="internal">внутреннее
+перенаправление</link> на указанный URI;
+</listitem>
+
+<listitem>
+<header>X-Accel-Limit-Rate</header> задаёт
+<link doc="ngx_http_core_module.xml" id="limit_rate">ограничение
+скорости</link> передачи ответа клиенту;
+</listitem>
+
+<listitem>
+<header>X-Accel-Buffering</header> включает или выключает
+<link id="uwsgi_buffering">буферизацию</link> ответа;
+</listitem>
+
+<listitem>
+<header>X-Accel-Charset</header> задаёт желаемую
+<link doc="ngx_http_charset_module.xml" id="charset">кодировку</link>
+ответа.
+</listitem>
+
+</list>
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_intercept_errors">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Определяет, передавать ли клиенту ответы uwsgi-сервера с кодом
+больше либо равным 300, или же перенаправлять их на обработку nginx’у с помощью
+директивы <link doc="ngx_http_core_module.xml" id="error_page"/>.
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_max_temp_file_size">
+<syntax><value>размер</value></syntax>
+<default>1024m</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Если включена <link id="uwsgi_buffering">буферизация</link> ответов
+uwsgi-сервера, и ответ не вмещается целиком в буферы,
+заданные директивами <link id="uwsgi_buffer_size"/> и
+<link id="uwsgi_buffers"/>, часть ответа может быть записана во временный файл.
+Эта директива задаёт максимальный <value>размер</value> временного файла.
+Размер данных, сбрасываемых во временный файл за один раз, задаётся
+директивой <link id="uwsgi_temp_file_write_size"/>.
+</para>
+
+<para>
+Значение 0 отключает возможность буферизации ответов во временные файлы.
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_next_upstream">
+<syntax>
+    <literal>error</literal> |
+    <literal>timeout</literal> |
+    <literal>invalid_header</literal> |
+    <literal>http_500</literal> |
+    <literal>http_503</literal> |
+    <literal>http_403</literal> |
+    <literal>http_404</literal> |
+    <literal>off</literal>
+    ...</syntax>
+<default>error timeout</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Определяет, в каких случаях запрос будет передан следующему серверу:
+<list type="tag">
+
+<tag-name><literal>error</literal></tag-name>
+<tag-desc>произошла ошибка соединения с сервером, передачи ему запроса или
+чтения заголовка ответа сервера;</tag-desc>
+
+<tag-name><literal>timeout</literal></tag-name>
+<tag-desc>произошёл таймаут во время соединения с сервером,
+передачи ему запроса или чтения заголовка ответа сервера;</tag-desc>
+
+<tag-name><literal>invalid_header</literal></tag-name>
+<tag-desc>сервер вернул пустой или неверный ответ;</tag-desc>
+
+<tag-name><literal>http_500</literal></tag-name>
+<tag-desc>сервер вернул ответ с кодом 500;</tag-desc>
+
+<tag-name><literal>http_503</literal></tag-name>
+<tag-desc>сервер вернул ответ с кодом 503;</tag-desc>
+
+<tag-name><literal>http_403</literal></tag-name>
+<tag-desc>сервер вернул ответ с кодом 403;</tag-desc>
+
+<tag-name><literal>http_404</literal></tag-name>
+<tag-desc>сервер вернул ответ с кодом 404;</tag-desc>
+
+<tag-name><literal>off</literal></tag-name>
+<tag-desc>запрещает передачу запроса следующему серверу.</tag-desc>
+
+</list>
+</para>
+
+<para>
+Необходимо понимать, что передача запроса следующему серверу возможна
+только при условии, что клиенту ещё ничего не передавалось.
+То есть, если ошибка или таймаут возникли в середине передачи ответа,
+то исправить это уже невозможно.
+</para>
+
+<para>
+Директива также определяет, что считается неудачной попыткой работы с
+<link doc="ngx_http_upstream_module.xml" id="server">сервером</link>.
+Случаи <literal>error</literal>, <literal>timeout</literal> и
+<literal>invalid_header</literal>
+всегда считаются неудачными попытками, даже если они не указаны в директиве.
+Случаи <literal>http_500</literal> и <literal>http_503</literal>
+считаются неудачными попытками, только если они указаны в директиве.
+Случаи <literal>http_403</literal> и <literal>http_404</literal>
+никогда не считаются неудачными попытками.
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_no_cache">
+<syntax><value>строка</value> ...</syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Задаёт условия, при которых ответ не будет сохраняться в кэш.
+Если значение хотя бы одного из строковых параметров непустое и не равно “0”,
+то ответ не будет сохранён:
+<example>
+uwsgi_no_cache $cookie_nocache $arg_nocache$arg_comment;
+uwsgi_no_cache $http_pragma    $http_authorization;
+</example>
+Можно использовать совместно с директивой <link id="uwsgi_cache_bypass"/>.
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_param">
+<syntax>
+    <value>параметр</value> <value>значение</value>
+    [<literal>if_not_empty</literal>]</syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Задаёт <value>параметр</value>, который будет передаваться uwsgi-серверу.
+В качестве значения можно использовать текст, переменные и их комбинации.
+Директивы наследуются с предыдущего уровня при условии, что на данном
+уровне не описаны свои директивы <literal>uwsgi_param</literal>.
+</para>
+
+<para>
+Стандартные
+<link url="http://tools.ietf.org/html/rfc3875#section-4.1">переменные
+окружения CGI</link>
+должны передаваться как заголовки uwsgi, см. файл <path>uwsgi_params</path>
+из дистрибутива:
+<example>
+location / {
+    include uwsgi_params;
+    ...
+}
+</example>
+</para>
+
+<para>
+Если директива указана с <literal>if_not_empty</literal> (1.1.11),
+то такой параметр с пустым значением передаваться на сервер не будет:
+<example>
+uwsgi_param HTTPS $https if_not_empty;
+</example>
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_pass">
+<syntax><value>адрес</value></syntax>
+<default/>
+<context>location</context>
+<context>if в location</context>
+
+<para>
+Задаёт адрес uwsgi-сервера.
+Адрес может быть указан в виде доменного имени или адреса, и порта, например,
+<example>
+uwsgi_pass localhost:9000;
+</example>
+или в виде пути UNIX-сокета:
+<example>
+uwsgi_pass unix:/tmp/uwsgi.socket;
+</example>
+</para>
+
+<para>
+Если доменному имени соответствует несколько адресов, то все они будут
+использоваться по очереди (round-robin).
+И, кроме того, адрес может быть
+<link doc="ngx_http_upstream_module.xml">группой серверов</link>.
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_pass_header">
+<syntax><value>поле</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Разрешает передавать от uwsgi-сервера клиенту
+<link id="uwsgi_hide_header">запрещённые для передачи</link> поля заголовка.
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_pass_request_body">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>on</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Позволяет запретить передачу исходного тела запроса
+на uwsgi-сервер.
+См. также директиву <link id="uwsgi_pass_request_headers"/>.
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_pass_request_headers">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>on</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Позволяет запретить передачу полей заголовка исходного запроса на
+uwsgi-сервер.
+См. также директивы <link id="uwsgi_pass_request_body"/>.
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_read_timeout">
+<syntax><value>время</value></syntax>
+<default>60s</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Задаёт таймаут при чтении ответа uwsgi-сервера.
+Таймаут устанавливается не на всю передачу ответа,
+а только между двумя операциями чтения.
+Если по истечении этого времени uwsgi-сервер ничего не передаст,
+соединение закрывается.
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_send_timeout">
+<syntax><value>время</value></syntax>
+<default>60s</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Задаёт таймаут при передаче запроса uwsgi-серверу.
+Таймаут устанавливается не на всю передачу запроса,
+а только между двумя операциями записи.
+Если по истечении этого времени uwsgi-сервер не примет новых данных,
+соединение закрывается.
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_store">
+<syntax>
+    <literal>on</literal> |
+    <literal>off</literal> |
+    <value>строка</value></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Разрешает сохранение на диск файлов.
+Параметр <literal>on</literal> сохраняет файлы в соответствии с путями,
+указанными в директивах
+<link doc="ngx_http_core_module.xml" id="alias"/> или
+<link doc="ngx_http_core_module.xml" id="root"/>.
+Параметр <literal>off</literal> запрещает сохранение файлов.
+Кроме того, имя файла можно задать явно с помощью строки с переменными:
+<example>
+uwsgi_store /data/www$original_uri;
+</example>
+</para>
+
+<para>
+Время изменения файлов выставляется согласно полученному полю
+<header>Last-Modified</header> в заголовке ответа.
+Ответ сначала записывается во временный файл, а потом этот файл
+переименовывается.
+Начиная с версии 0.8.9, временный файл и постоянное место хранения ответа
+могут располагаться на разных файловых системах.
+Однако нужно учитывать,
+что в этом случае вместо дешёвой операции переименовывания в пределах
+одной файловой системы файл копируется с одной файловой системы на другую.
+Поэтому лучше, если сохраняемые файлы будут находиться на той же файловой
+системе, что и каталог с временными файлами, задаваемый директивой
+<link id="uwsgi_temp_path"/> для данного location.
+</para>
+
+<para>
+Директиву можно использовать для создания локальных копий статических
+неизменяемых файлов, например, так:
+<example>
+location /images/ {
+    root               /data/www;
+    error_page         404 = /fetch$uri;
+}
+
+location /fetch/ {
+    internal;
+
+    uwsgi_pass         backend:9000;
+    ...
+
+    uwsgi_store        on;
+    uwsgi_store_access user:rw group:rw all:r;
+    uwsgi_temp_path    /data/temp;
+
+    alias              /data/www/;
+}
+</example>
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_store_access">
+<syntax><value>пользователи</value>:<value>права</value> ...</syntax>
+<default>user:rw</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Задаёт права доступа для создаваемых файлов и каталогов, например,
+<example>
+uwsgi_store_access user:rw group:rw all:r;
+</example>
+</para>
+
+<para>
+Если заданы какие-либо права для <literal>group</literal> или
+<literal>all</literal>, то права для <literal>user</literal>
+указывать необязательно:
+<example>
+uwsgi_store_access group:rw all:r;
+</example>
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_temp_file_write_size">
+<syntax><value>размер</value></syntax>
+<default>8k|16k</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Ограничивает <value>размер</value> данных, сбрасываемых во временный файл
+за один раз, при включённой буферизации ответов uwsgi-сервера
+во временные файлы.
+По умолчанию <value>размер</value> ограничен двумя буферами, заданными
+директивами <link id="uwsgi_buffer_size"/> и <link id="uwsgi_buffers"/>.
+Максимальный размер временного файла задаётся директивой
+<link id="uwsgi_max_temp_file_size"/>.
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_temp_path">
+<syntax>
+    <value>путь</value>
+    [<value>уровень1</value>
+    [<value>уровень2</value>
+    [<value>уровень3</value>]]]</syntax>
+<default>uwsgi_temp</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Задаёт имя каталога для хранения временных файлов с данными,
+полученными от uwsgi-серверов.
+В каталоге может использоваться иерархия подкаталогов до трёх уровней.
+Например, при такой конфигурации
+<example>
+uwsgi_temp_path /spool/nginx/uwsgi_temp 1 2;
+</example>
+временный файл будет следующего вида:
+<example>
+/spool/nginx/uwsgi_temp/<emphasis>7</emphasis>/<emphasis>45</emphasis>/00000123<emphasis>457</emphasis>
+</example>
+</para>
+
+</directive>
+
+</section>
+
+</module>
