@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_proxy_module"
         link="/ru/docs/http/ngx_http_proxy_module.html"
         lang="ru"
-        rev="20">
+        rev="21">
 
 <section id="summary">
 
@@ -306,8 +306,8 @@ proxy_cache_key $scheme$proxy_host$uri$is_args$args;
 <para>
 Задаёт путь и другие параметры кэша.
 Данные кэша хранятся в файлах.
-Ключом и именем файла в кэше является результат функции MD5
-от проксированного URL.
+Именем файла в кэше является результат функции MD5
+от <link id="proxy_cache_key">ключа кэширования</link>.
 Параметр <literal>levels</literal> задаёт уровни иерархии кэша,
 например, при использовании
 <example>

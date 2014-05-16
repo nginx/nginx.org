@@ -10,7 +10,7 @@
 <module name="Module ngx_http_proxy_module"
         link="/en/docs/http/ngx_http_proxy_module.html"
         lang="en"
-        rev="20">
+        rev="21">
 
 <section id="summary">
 
@@ -308,9 +308,9 @@ will be cached.
 <para>
 Sets the path and other parameters of a cache.
 Cache data are stored in files.
-Both the key and file name in a cache are a result of
-applying the MD5 function to the proxied URL.
-
+The file name in a cache is a result of
+applying the MD5 function to the
+<link id="proxy_cache_key">cache key</link>.
 The <literal>levels</literal> parameter defines hierarchy levels of a cache.
 For example, in the following configuration
 <example>
