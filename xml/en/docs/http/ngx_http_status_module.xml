@@ -9,7 +9,7 @@
 <module name="Module ngx_http_status_module"
         link="/en/docs/http/ngx_http_status_module.html"
         lang="en"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
@@ -255,8 +255,7 @@ An address of the
 
 <tag-name><literal>backup</literal></tag-name>
 <tag-desc>
-A boolean value indicating whether the “cache loader” process is still loading
-data from disk into the cache.
+A boolean value indicating whether the server is a backup server.
 </tag-desc>
 
 <tag-name><literal>weight</literal></tag-name>
@@ -409,7 +408,8 @@ The limit on the maximum size of the cache specified in the configuration.
 
 <tag-name><literal>cold</literal></tag-name>
 <tag-desc>
-Boolean indicating if “cache loader” is still loading data into the cache.
+A boolean value indicating whether the “cache loader” process is still loading
+data from disk into the cache.
 </tag-desc>
 
 <tag-name>
