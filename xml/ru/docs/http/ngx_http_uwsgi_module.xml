@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_uwsgi_module"
         link="/ru/docs/http/ngx_http_uwsgi_module.html"
         lang="ru"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -670,6 +670,36 @@ uwsgi-сервера, и ответ не вмещается целиком в б
 Значение 0 отключает возможность буферизации ответов во временные файлы.
 </para>
 
+</directive>
+
+
+<directive name="uwsgi_modifier1">
+<syntax><value>число</value></syntax>
+<default>0</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Задаёт значение поля <literal>modifier1</literal> в
+<link url="http://uwsgi-docs.readthedocs.org/en/latest/Protocol.html#uwsgi-packet-header">заголовке
+пакета uwsgi</link>.
+</para>
+</directive>
+
+
+<directive name="uwsgi_modifier2">
+<syntax><value>число</value></syntax>
+<default>0</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Задаёт значение поля <literal>modifier2</literal> в
+<link url="http://uwsgi-docs.readthedocs.org/en/latest/Protocol.html#uwsgi-packet-header">заголовке
+пакета uwsgi</link>.
+</para>
 </directive>
 
 

@@ -10,7 +10,7 @@
 <module name="Module ngx_http_uwsgi_module"
         link="/en/docs/http/ngx_http_uwsgi_module.html"
         lang="en"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -674,6 +674,36 @@ by the <link id="uwsgi_temp_file_write_size"/> directive.
 The zero value disables buffering of responses to temporary files.
 </para>
 
+</directive>
+
+
+<directive name="uwsgi_modifier1">
+<syntax><value>number</value></syntax>
+<default>0</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Sets the value of the <literal>modifier1</literal> field in the
+<link url="http://uwsgi-docs.readthedocs.org/en/latest/Protocol.html#uwsgi-packet-header">uwsgi
+packet header</link>.
+</para>
+</directive>
+
+
+<directive name="uwsgi_modifier2">
+<syntax><value>number</value></syntax>
+<default>0</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Sets the value of the <literal>modifier2</literal> field in the
+<link url="http://uwsgi-docs.readthedocs.org/en/latest/Protocol.html#uwsgi-packet-header">uwsgi
+packet header</link>.
+</para>
 </directive>
 
 
