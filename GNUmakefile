@@ -288,9 +288,7 @@ sign:
 dir.map:	xslt/dirmap.xslt xml/en/docs/dirindex.xml		\
 		xml/en/docs/varindex.xml
 	@xsltproc -o - xslt/dirmap.xslt xml/en/docs/dirindex.xml	\
-	xml/en/docs/varindex.xml |					\
-	sed 's/^ *//;/^$$/d;s/^var_/$$/' |				\
-	sort -u -k1,1 | sed 's/^include /\\&/' > $@
+	xml/en/docs/varindex.xml > $@
 
 ifeq ($(patsubst %.nginx.org,YES,$(shell hostname)), YES)
 all:	dir.map

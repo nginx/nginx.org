@@ -6,6 +6,8 @@ X:stylesheet {
 
 X:output method="text";
 
+X:strip-space elements="*";
+
 X:template = "link" {
     !{@id}
     X:text{ }
@@ -13,6 +15,34 @@ X:template = "link" {
     X:text{.html#}
     !{@id}
     X:text{;&#10;}
+}
+
+X:template = "link[@id = 'include']" {
+    X:text{\\}
+    !{@id}
+    X:text{ }
+    !{substring-before(@doc, '.xml')}
+    X:text{.html#}
+    !{@id}
+    X:text{;&#10;}
+}
+
+X:template = "link[starts-with(@id, 'var_')]" {
+    X:text{$}
+    !{substring-after(@id, 'var_')}
+    X:text{ }
+    !{substring-before(@doc, '.xml')}
+    X:text{.html#}
+    !{@id}
+    X:text{;&#10;}
+}
+
+X:template = "links | varlinks" {
+    X:for-each "link", X:sort "@id" {
+        X:if "count(preceding-sibling::link[@id = current()/@id]) = 0" {
+            !! ".";
+        }
+    }
 }
 
 }
