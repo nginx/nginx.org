@@ -53,13 +53,13 @@
         <title> <xsl:apply-templates select="para[1]//text()"/> </title>
         <guid> <xsl:value-of select="$SITE"/> <xsl:text>/</xsl:text> <xsl:value-of select="$page"/> <xsl:text>#</xsl:text> <xsl:value-of select="@date"/> </guid>
         <link> <xsl:value-of select="$SITE"/> <xsl:text>/</xsl:text> <xsl:value-of select="$page"/> <xsl:text>#</xsl:text> <xsl:value-of select="@date"/> </link>
-        <pubdate>
+        <pubDate>
             <xsl:value-of select=" concat(date:day-abbreviation(@date), ', ',
                       format-number(date:day-in-month(@date), '00'), ' ',
                       date:month-abbreviation(@date), ' ',
                       date:year(@date),
                       ' 00:00:00 +0300') "/>
-        </pubdate>
+        </pubDate>
 
         <description>
             <xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text>
