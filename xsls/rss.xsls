@@ -54,13 +54,13 @@ X:template = "event[position() &lt;= 10]" {
         <title> !! "para[1]//text()"; </title>
         <guid> !{$SITE} X:text {/} !{$page} X:text {#} !{@date} </guid>
         <link> !{$SITE} X:text {/} !{$page} X:text {#} !{@date} </link>
-        <pubdate>
+        <pubDate>
             !{ concat(date:day-abbreviation(@date), ', ',
                       format-number(date:day-in-month(@date), '00'), ' ',
                       date:month-abbreviation(@date), ' ',
                       date:year(@date),
                       ' 00:00:00 +0300') }
-        </pubdate>
+        </pubDate>
 
         <description>
             X:text disable-output-escaping="yes" {&lt;![CDATA[}
