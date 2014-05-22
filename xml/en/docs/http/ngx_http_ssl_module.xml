@@ -10,7 +10,7 @@
 <module name="Module ngx_http_ssl_module"
         link="/en/docs/http/ngx_http_ssl_module.html"
         lang="en"
-        rev="14">
+        rev="15">
 
 <section id="summary">
 
@@ -674,6 +674,12 @@ for an established SSL connection, with each line except the first
 prepended with the tab character;
 this is intended for the use in the
 <link doc="ngx_http_proxy_module.xml" id="proxy_set_header"/> directive;
+</tag-desc>
+
+<tag-name id="var_ssl_client_fingerprint"><var>$ssl_client_fingerprint</var></tag-name>
+<tag-desc>
+returns the SHA1 fingerprint of the client certificate
+for an established SSL connection (1.7.1);
 </tag-desc>
 
 <tag-name id="var_ssl_client_raw_cert"><var>$ssl_client_raw_cert</var>

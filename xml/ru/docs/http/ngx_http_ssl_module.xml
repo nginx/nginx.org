@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_ssl_module"
         link="/ru/docs/http/ngx_http_ssl_module.html"
         lang="ru"
-        rev="14">
+        rev="15">
 
 <section id="summary">
 
@@ -673,6 +673,12 @@ ssl_stapling_responder http://ocsp.example.com/;
 перед каждой строкой которого, кроме первой, вставляется символ табуляции;
 предназначена для использования в директиве
 <link doc="ngx_http_proxy_module.xml" id="proxy_set_header"/>;
+</tag-desc>
+
+<tag-name id="var_ssl_client_fingerprint"><var>$ssl_client_fingerprint</var></tag-name>
+<tag-desc>
+возвращает SHA1-отпечаток клиентского сертификата
+для установленного SSL-соединения (1.7.1);
 </tag-desc>
 
 <tag-name id="var_ssl_client_raw_cert"><var>$ssl_client_raw_cert</var>
