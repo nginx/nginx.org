@@ -4,7 +4,7 @@
   Copyright (C) Nginx, Inc.
   -->
 
-<xsl:stylesheet xmlns:date="http://exslt.org/dates-and-times" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+<xsl:stylesheet xmlns:date="http://exslt.org/dates-and-times" exclude-result-prefixes="date" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
 
 <xsl:output indent="no" encoding="utf-8"/>
 
