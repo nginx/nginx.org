@@ -42,12 +42,10 @@ X:template style (lang) {
         td.list           { background:     #EEEEEE; }
         blockquote.note   { text-align:     justify;
                             background:     #EEEEEE;
-                            border:         none;
                             margin:         1em;
                             padding:        0.5em; }
         blockquote.example {
                             background:     transparent;
-                            border:         none;
                             margin:         1em;
                             padding:        0.5em; }
         blockquote.example pre {
