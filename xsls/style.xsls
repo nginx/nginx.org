@@ -40,14 +40,12 @@ X:template style (lang) {
         .compact dt       { padding-top:    0; }
         dd                { text-align:     justify; }
         td.list           { background:     #EEEEEE; }
+        blockquote        { margin:         1em;
+                            padding:        .5em; }
         blockquote.note   { text-align:     justify;
-                            background:     #EEEEEE;
-                            margin:         1em;
-                            padding:        0.5em; }
+                            background:     #EEEEEE; }
         blockquote.example {
-                            background:     transparent;
-                            margin:         1em;
-                            padding:        0.5em; }
+                            background:     transparent; }
         blockquote.example pre {
                             padding:        0;
                             margin:         0; }
