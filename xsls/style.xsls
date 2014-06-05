@@ -10,7 +10,9 @@ X:template style (lang) {
     <style type="text/css">!{ normalize-space('
         body              { background:     white;
                             color:          black;
-                            font-family:    Georgia, serif; }
+                            font-family:    Georgia, serif;
+                            margin:         0;
+                            padding:        .5em .5em .5em 1.5em; }
         p                 { text-align:     justify; }
         table.news p      { margin-top:     0; }
         table.news td     { vertical-align: baseline; }
@@ -19,15 +21,16 @@ X:template style (lang) {
                             white-space:    nowrap; }
         table.donors td   { vertical-align: baseline; }
         table.donors li   { text-align:     left; }
-        div.directive     { background:     #EEEEEE;
-                            padding:        10pt 10pt 10pt 0; }
+        div.directive, #banner {
+                            background:     #EEEEEE;
+                            margin:         1em 0 1em -1em;
+                            padding:        .7em .7em .7em 1em; }
         div.directive td  { vertical-align: baseline; }
         div.directive pre { padding:        0;
                             margin:         0; }
         div.directive p   { margin:         5pt 0 0 0;
                             font-size:      80%; }
-        div#banner        { background:     #EEEEEE;
-                            padding:        10pt 10pt 10pt 0; }
+        #banner           { margin:         0 0 0 -1em; }
         a.notrans         { color:          gray;
                             text-decoration:none; }
         span.initial      { font-size:      200%;
