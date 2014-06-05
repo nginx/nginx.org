@@ -45,7 +45,8 @@ X:template style (lang) {
         blockquote.note   { text-align:     justify;
                             background:     #EEEEEE; }
         blockquote.example {
-                            background:     transparent; }
+                            background:     transparent;
+                            border-left:    1px solid #BBB; }
         blockquote.example pre {
                             padding:        0;
                             margin:         0; }
