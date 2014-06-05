@@ -23,13 +23,13 @@ X:stylesheet {
         X:if "position() = 1" {
             X:text disable-output-escaping="yes" {
                 &lt;tr&gt;
-                &lt;td&gt;
+                &lt;th&gt;
             }
             !{document(concat($XML, '/i18n.xml'))
                        /i18n/text[@lang = $LANG]/item[@id='syntax']}
             X:text{:}
             X:text disable-output-escaping="yes" {
-                &lt;/td&gt;
+                &lt;/th&gt;
                 &lt;td&gt;
             }
         }
@@ -59,13 +59,13 @@ X:stylesheet {
         X:if "position() = 1" {
             X:text disable-output-escaping="yes" {
                 &lt;tr&gt;
-                &lt;td&gt;
+                &lt;th&gt;
             }
             !{document(concat($XML, '/i18n.xml'))
                        /i18n/text[@lang = $LANG]/item[@id='default']}
             X:text{:}
             X:text disable-output-escaping="yes" {
-                &lt;/td&gt;
+                &lt;/th&gt;
                 &lt;td&gt;
             }
         }
@@ -93,13 +93,13 @@ X:stylesheet {
         X:if "position() = 1" {
             X:text disable-output-escaping="yes" {
                 &lt;tr&gt;
-                &lt;td&gt;
+                &lt;th&gt;
             }
             !{document(concat($XML, '/i18n.xml'))
                        /i18n/text[@lang = $LANG]/item[@id='context']}
             X:text{:}
             X:text disable-output-escaping="yes" {
-                &lt;/td&gt;
+                &lt;/th&gt;
                 &lt;td&gt;
             }
         }
