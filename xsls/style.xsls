@@ -36,15 +36,23 @@ X:template style (lang) {
         span.initial      { font-size:      200%;
                             float:          left;
                             padding-right:  10pt;}
+        ul, ol            { margin:         .5em 0 1em 1em;
+                            padding:        0 .5em; }
+        ol                { list-style-position: inside; }
         li                { text-align:     justify;
-                            padding-top:    0.5em; }
+                            padding:        .5em 0 0 1px; }
         .compact li       { padding-top:    0; }
-        dt                { padding-top:    0.5em; }
-        .compact dt       { padding-top:    0; }
-        dd                { text-align:     justify; }
+        dl                { margin:         .5em 0 1em 0; }
+        dt                { margin:         .5em 0; }
+        .compact dt       { margin-bottom:  .2em; }
+        dd                { margin-left:    1.5em;
+                            padding-left:   1px;
+                            text-align:     justify; }
         td.list           { background:     #EEEEEE; }
-        blockquote        { margin:         1em;
+        blockquote        { margin:         1em 0 1em 1em;
                             padding:        .5em; }
+        li blockquote, dd blockquote
+                          { margin:         .7em 0; }
         blockquote.note   { border:         1px dotted #999;
                             text-align:     justify; }
         blockquote.example {
