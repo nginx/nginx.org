@@ -22,7 +22,7 @@ X:template style (lang) {
         table.donors td   { vertical-align: baseline; }
         table.donors li   { text-align:     left; }
         div.directive, #banner {
-                            background:     #EEEEEE;
+                            background:     #F2F2F2;
                             margin:         1em 0 1em -1em;
                             padding:        .7em .7em .7em 1em; }
         div.directive td  { vertical-align: baseline; }
@@ -48,7 +48,7 @@ X:template style (lang) {
         dd                { margin-left:    1.5em;
                             padding-left:   1px;
                             text-align:     justify; }
-        td.list           { background:     #EEEEEE; }
+        td.list           { background:     #F2F2F2; }
         blockquote        { margin:         1em 0 1em 1em;
                             padding:        .5em; }
         li blockquote, dd blockquote
