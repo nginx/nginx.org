@@ -24,13 +24,13 @@
         <xsl:if test="position() = 1">
             <xsl:text disable-output-escaping="yes">
                 &lt;tr&gt;
-                &lt;td&gt;
+                &lt;th&gt;
             </xsl:text>
             <xsl:value-of select="document(concat($XML, '/i18n.xml'))
                        /i18n/text[@lang = $LANG]/item[@id='syntax']"/>
             <xsl:text>:</xsl:text>
             <xsl:text disable-output-escaping="yes">
-                &lt;/td&gt;
+                &lt;/th&gt;
                 &lt;td&gt;
             </xsl:text>
         </xsl:if>
@@ -60,13 +60,13 @@
         <xsl:if test="position() = 1">
             <xsl:text disable-output-escaping="yes">
                 &lt;tr&gt;
-                &lt;td&gt;
+                &lt;th&gt;
             </xsl:text>
             <xsl:value-of select="document(concat($XML, '/i18n.xml'))
                        /i18n/text[@lang = $LANG]/item[@id='default']"/>
             <xsl:text>:</xsl:text>
             <xsl:text disable-output-escaping="yes">
-                &lt;/td&gt;
+                &lt;/th&gt;
                 &lt;td&gt;
             </xsl:text>
         </xsl:if>
@@ -94,13 +94,13 @@
         <xsl:if test="position() = 1">
             <xsl:text disable-output-escaping="yes">
                 &lt;tr&gt;
-                &lt;td&gt;
+                &lt;th&gt;
             </xsl:text>
             <xsl:value-of select="document(concat($XML, '/i18n.xml'))
                        /i18n/text[@lang = $LANG]/item[@id='context']"/>
             <xsl:text>:</xsl:text>
             <xsl:text disable-output-escaping="yes">
-                &lt;/td&gt;
+                &lt;/th&gt;
                 &lt;td&gt;
             </xsl:text>
         </xsl:if>

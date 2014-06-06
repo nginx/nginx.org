@@ -11,7 +11,9 @@
     <style type="text/css"><xsl:value-of select=" normalize-space('
         body              { background:     white;
                             color:          black;
-                            font-family:    Georgia, serif; }
+                            font-family:    Georgia, serif;
+                            margin:         0;
+                            padding:        .5em .5em .5em 1.5em; }
         p                 { text-align:     justify; }
         table.news p      { margin-top:     0; }
         table.news td     { vertical-align: baseline; }
@@ -20,37 +22,48 @@
                             white-space:    nowrap; }
         table.donors td   { vertical-align: baseline; }
         table.donors li   { text-align:     left; }
-        div.directive     { background:     #EEEEEE;
-                            padding:        10pt 10pt 10pt 0; }
+        div.directive, #banner {
+                            background:     #F2F2F2;
+                            margin:         1em 0 1em -1em;
+                            padding:        .7em .7em .7em 1em; }
+        div.directive     { border-top:     2px solid #DDD; }
+        div.directive th  { padding-left:   0;
+                            padding-right:  .5em;
+                            vertical-align: baseline;
+                            text-align:     left;
+                            font-weight:    normal; }
         div.directive td  { vertical-align: baseline; }
         div.directive pre { padding:        0;
                             margin:         0; }
-        div.directive p   { margin:         5pt 0 0 0;
-                            font-size:      80%; }
-        div#banner        { background:     #EEEEEE;
-                            padding:        10pt 10pt 10pt 0; }
+        div.directive p   { margin:         .5em 0 0 .1em;
+                            font-size:      .8em; }
+        #banner           { margin:         0 0 0 -1em; }
         a.notrans         { color:          gray;
                             text-decoration:none; }
         span.initial      { font-size:      200%;
                             float:          left;
                             padding-right:  10pt;}
+        ul, ol            { margin:         .5em 0 1em 1em;
+                            padding:        0 .5em; }
+        ol                { list-style-position: inside; }
         li                { text-align:     justify;
-                            padding-top:    0.5em; }
+                            padding:        .5em 0 0 1px; }
         .compact li       { padding-top:    0; }
-        dt                { padding-top:    0.5em; }
-        .compact dt       { padding-top:    0; }
-        dd                { text-align:     justify; }
-        td.list           { background:     #EEEEEE; }
-        blockquote.note   { text-align:     justify;
-                            background:     #EEEEEE;
-                            border:         none;
-                            margin:         1em;
-                            padding:        0.5em; }
+        dl                { margin:         .5em 0 1em 0; }
+        dt                { margin:         .5em 0; }
+        .compact dt       { margin-bottom:  .2em; }
+        dd                { margin-left:    1.5em;
+                            padding-left:   1px;
+                            text-align:     justify; }
+        td.list           { background:     #F2F2F2; }
+        blockquote        { margin:         1em 0 1em 1em;
+                            padding:        .5em; }
+        li blockquote, dd blockquote
+                          { margin:         .7em 0; }
+        blockquote.note   { border:         1px dotted #999;
+                            text-align:     justify; }
         blockquote.example {
-                            background:     transparent;
-                            border:         none;
-                            margin:         1em;
-                            padding:        0.5em; }
+                            border-left:    1px solid #BBB; }
         blockquote.example pre {
                             padding:        0;
                             margin:         0; }
