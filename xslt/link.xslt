@@ -4,7 +4,7 @@
   Copyright (C) Nginx, Inc.
   -->
 
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0" xmlns:math="http://exslt.org/math" extension-element-prefixes="math">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
 
 <xsl:template match="img"> <img src="{@href}"> <xsl:apply-templates/> </img> </xsl:template>
 
