@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="23">
+        rev="24">
 
 <section id="summary">
 
@@ -293,6 +293,39 @@ handled by <link id="upstream_conf"/>.
 This directive is available as part of our
 <commercial_version>commercial subscription</commercial_version>.
 </note>
+</para>
+
+</directive>
+
+
+<directive name="hash">
+<syntax><value>key</value> [<literal>consistent</literal>]</syntax>
+<default/>
+<context>upstream</context>
+<appeared-in>1.7.2</appeared-in>
+
+<para>
+Specifies a load balancing method for a server group
+where client-server mapping is based on the hashed <value>key</value> value.
+The <value>key</value> can contain text, variables, and their combinations.
+Note that adding or removing a server from the group
+may result in remapping most of the keys to different servers.
+The method is compatible with the
+<link url="http://search.cpan.org/perldoc?Cache%3A%3AMemcached">Cache::Memcached</link>
+Perl library.
+</para>
+
+<para>
+The <literal>consistent</literal> parameter specifies that
+the <link url="http://www.last.fm/user/RJ/journal/2007/04/10/392555/">ketama</link>
+consistent hashing method should be used instead.
+The method ensures that only a few keys
+will be remapped to different servers
+when a server is added to or removed from the group.
+This helps to achieve a higher cache hit ratio for caching servers.
+The method is compatible with the
+<link url="http://search.cpan.org/perldoc?Cache%3A%3AMemcached%3A%3AFast">Cache::Memcached::Fast</link>
+Perl library with the <value>ketama_points</value> parameter is set to 160.
 </para>
 
 </directive>
