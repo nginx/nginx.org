@@ -498,6 +498,123 @@ server {
 
 </directive>
 
+
+<directive name="sticky">
+<syntax><literal>cookie</literal> <value>имя</value>
+[<literal>expires=</literal><value>время</value>]
+[<literal>domain=</literal><value>домен</value>]
+[<literal>path=</literal><value>путь</value>]</syntax>
+<syntax><literal>route</literal> <value>переменная</value> ...</syntax>
+<default/>
+<context>upstream</context>
+<appeared-in>1.5.7</appeared-in>
+
+<para>
+Включает режим привязки сеансов, в котором запросы клиента
+будут передаваться на один и тот же сервер группы.
+Доступны два метода:
+<literal>cookie</literal> и <literal>route</literal>.
+</para>
+
+<para>
+При использовании метода <literal>cookie</literal> информация о
+назначенном сервере передаётся в HTTP-куке:
+<example>
+upstream backend {
+    server backend1.example.com;
+    server backend2.example.com;
+
+    sticky cookie srv_id expires=1h domain=.example.com path=/;
+}
+</example>
+</para>
+
+<para>
+Запрос от клиента, ещё не привязанного к определённому серверу,
+передаётся на сервер, выбранный согласно настроенному методу балансировки.
+Дальнейшие запросы от этого клиента передаются на тот же сервер.
+Если назначенный сервер не может обработать запрос, выбирается новый
+сервер как если бы клиент не имел привязки к серверу.
+</para>
+
+<para>
+Первый параметр задаёт имя куки, которую необходимо установить или проверить.
+Дополнительные параметры могут быть следующими:
+<list type="tag">
+
+<tag-name><literal>expires</literal></tag-name>
+<tag-desc>
+Задаёт время, в течение которого браузеру необходимо хранить куку.
+Специальное значение <literal>max</literal> устанавливает срок хранения куки до
+31 декабря 2037 года 23:55:55 GMT.
+Если параметр не указан, то время действия куки ограничивается сессией браузера.
+</tag-desc>
+
+<tag-name><literal>domain</literal></tag-name>
+<tag-desc>
+Задаёт домен, для которого устанавливается кука.
+</tag-desc>
+
+<tag-name><literal>path</literal></tag-name>
+<tag-desc>
+Задаёт путь, для которого устанавливается кука.
+</tag-desc>
+
+</list>
+Если пропущен тот или иной параметр, то соответствующего поля в куке не будет.
+</para>
+
+<para>
+При использовании метода <literal>route</literal> проксируемый сервер назначает
+клиенту маршрут по получении первого запроса.
+Все последующие запросы от этого клиента будут содержать информацию о
+маршруте в куке или URI.
+Эта информация сравнивается с параметром “<literal>route</literal>” директивы
+<link id="server"/> для идентификации сервера, на который
+следует проксировать запрос.
+Если назначенный сервер не может обработать запрос, выбирается новый сервер
+согласно настроенному методу балансировки как если бы в запросе не было
+информации о маршруте.
+</para>
+
+<para>
+Параметры метода <literal>route</literal> задают переменные, которые
+могут содержать информацию о маршрутизации.
+Первая непустая переменная используется для поиска соответствующего сервера.
+</para>
+
+<para>
+Пример:
+<example>
+map $cookie_jsessionid $route_cookie {
+    ~.+\.(?P&lt;route>\w+)$ $route;
+}
+
+map $request_uri $route_uri {
+    ~jsessionid=.+\.(?P&lt;route>\w+)$ $route;
+}
+
+upstream backend {
+    server backend1.example.com route=a;
+    server backend2.example.com route=b;
+
+    sticky route $route_cookie $route_uri;
+}
+</example>
+В этом примере маршрут берётся из куки “<literal>JSESSIONID</literal>”,
+если она присутствует в запросе.
+В противном случае используется маршрут из URI.
+</para>
+
+<para>
+<note>
+Эта директива доступна как часть
+<commercial_version>коммерческой подписки</commercial_version>.
+</note>
+</para>
+
+</directive>
+
 </section>
 
 
