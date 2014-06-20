@@ -325,7 +325,7 @@ when a server is added to or removed from the group.
 This helps to achieve a higher cache hit ratio for caching servers.
 The method is compatible with the
 <link url="http://search.cpan.org/perldoc?Cache%3A%3AMemcached%3A%3AFast">Cache::Memcached::Fast</link>
-Perl library with the <value>ketama_points</value> parameter is set to 160.
+Perl library with the <value>ketama_points</value> parameter set to 160.
 </para>
 
 </directive>
