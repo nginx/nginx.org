@@ -615,6 +615,29 @@ upstream backend {
 
 </directive>
 
+
+<directive name="sticky_cookie_insert">
+<syntax><value>имя</value>
+[<literal>expires=</literal><value>время</value>]
+[<literal>domain=</literal><value>домен</value>]
+[<literal>path=</literal><value>путь</value>]</syntax>
+<default/>
+<context>upstream</context>
+
+<para>
+Эта директива устарела начиная с версии 1.5.7.
+Вместо неё следует использовать аналогичную директиву
+<link id="sticky"/> с изменённым синтаксисом:
+<note>
+<literal>sticky cookie</literal> <value>имя</value>
+[<literal>expires=</literal><value>время</value>]
+[<literal>domain=</literal><value>домен</value>]
+[<literal>path=</literal><value>путь</value>];
+</note>
+</para>
+
+</directive>
+
 </section>
 
 
