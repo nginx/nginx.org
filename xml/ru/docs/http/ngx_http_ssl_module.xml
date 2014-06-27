@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_ssl_module"
         link="/ru/docs/http/ngx_http_ssl_module.html"
         lang="ru"
-        rev="15">
+        rev="16">
 
 <section id="summary">
 
@@ -277,6 +277,46 @@ PEM, которые используются для проверки клиен�
 
 <para>
 Задаёт кривую для ECDHE-шифров.
+</para>
+
+</directive>
+
+
+<directive name="ssl_password_file">
+<syntax><value>файл</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<appeared-in>1.7.3</appeared-in>
+
+<para>
+Задаёт <value>файл</value> с паролями от
+<link id="ssl_certificate_key">секретных ключей</link>,
+где каждый пароль указан на отдельной строке.
+Пароли применяются по очереди в момент загрузки ключа.
+</para>
+
+<para>
+Пример:
+<example>
+http {
+    ssl_password_file /etc/keys/global.pass;
+    ...
+
+    server {
+        server_name www1.example.com;
+        ssl_certificate_key /etc/keys/first.key;
+    }
+
+    server {
+        server_name www2.example.com;
+
+        # вместо файла можно указать именованный канал
+        ssl_password_file /etc/keys/fifo;
+        ssl_certificate_key /etc/keys/second.key;
+    }
+}
+</example>
 </para>
 
 </directive>

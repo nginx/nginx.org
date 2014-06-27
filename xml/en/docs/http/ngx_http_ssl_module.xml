@@ -10,7 +10,7 @@
 <module name="Module ngx_http_ssl_module"
         link="/en/docs/http/ngx_http_ssl_module.html"
         lang="en"
-        rev="15">
+        rev="16">
 
 <section id="summary">
 
@@ -278,6 +278,46 @@ Specifies a <value>file</value> with DH parameters for EDH ciphers.
 
 <para>
 Specifies a <value>curve</value> for ECDHE ciphers.
+</para>
+
+</directive>
+
+
+<directive name="ssl_password_file">
+<syntax><value>file</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<appeared-in>1.7.3</appeared-in>
+
+<para>
+Specifies a <value>file</value> with passphrases for
+<link id="ssl_certificate_key">secret keys</link>
+where each passphrase is specified on a separate line.
+Passphrases are tried in turn when loading the key.
+</para>
+
+<para>
+Example:
+<example>
+http {
+    ssl_password_file /etc/keys/global.pass;
+    ...
+
+    server {
+        server_name www1.example.com;
+        ssl_certificate_key /etc/keys/first.key;
+    }
+
+    server {
+        server_name www2.example.com;
+
+        # named pipe can also be used instead of a file
+        ssl_password_file /etc/keys/fifo;
+        ssl_certificate_key /etc/keys/second.key;
+    }
+}
+</example>
 </para>
 
 </directive>
