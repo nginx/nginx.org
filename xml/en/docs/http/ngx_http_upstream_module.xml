@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="26">
+        rev="27">
 
 <section id="summary">
 
@@ -145,12 +145,16 @@ multiple servers at once.
 The following parameters can be defined:
 <list type="tag">
 
-<tag-name><literal>weight</literal>=<value>number</value></tag-name>
+<tag-name id="weight">
+<literal>weight</literal>=<value>number</value>
+</tag-name>
 <tag-desc>
 sets the weight of the server, by default, 1.
 </tag-desc>
 
-<tag-name><literal>max_fails</literal>=<value>number</value></tag-name>
+<tag-name id="max_fails">
+<literal>max_fails</literal>=<value>number</value>
+</tag-name>
 <tag-desc>
 sets the number of unsuccessful attempts to communicate with the server
 that should happen in the duration set by the <literal>fail_timeout</literal>
@@ -167,7 +171,9 @@ What is considered an unsuccessful attempt is defined by the
 directives.
 </tag-desc>
 
-<tag-name><literal>fail_timeout</literal>=<value>time</value></tag-name>
+<tag-name id="fail_timeout">
+<literal>fail_timeout</literal>=<value>time</value>
+</tag-name>
 <tag-desc>
 sets
 <list type="bullet">
@@ -185,13 +191,17 @@ and the period of time the server will be considered unavailable.
 By default, the parameter is set to 10 seconds.
 </tag-desc>
 
-<tag-name><literal>backup</literal></tag-name>
+<tag-name id="backup">
+<literal>backup</literal>
+</tag-name>
 <tag-desc>
 marks the server as a backup server.
 It will be passed requests when the primary servers are unavailable.
 </tag-desc>
 
-<tag-name><literal>down</literal></tag-name>
+<tag-name id="down">
+<literal>down</literal>
+</tag-name>
 <tag-desc>
 marks the server as permanently unavailable; used along with
 the <link id="ip_hash"/> directive.
@@ -243,18 +253,22 @@ http {
 </para>
 </tag-desc>
 
-<tag-name><literal>route</literal>=<value>string</value></tag-name>
+<tag-name id="route">
+<literal>route</literal>=<value>string</value>
+</tag-name>
 <tag-desc>
 sets the server route name.
 </tag-desc>
 
-<tag-name><literal>slow_start</literal>=<value>time</value></tag-name>
+<tag-name id="slow_start">
+<literal>slow_start</literal>=<value>time</value>
+</tag-name>
 <tag-desc>
 sets the <value>time</value> during which the server will recover its weight
 from zero to a nominal value, when unhealthy server becomes
 <link id="health_check">healthy</link>,
 or when the server becomes available after a period of time
-it was considered unavailable.
+it was considered <link id="fail_timeout">unavailable</link>.
 Default value is zero, i.e. slow start is disabled.
 </tag-desc>
 
@@ -516,16 +530,7 @@ weighted round-robin balancing method.
 
 
 <directive name="health_check">
-<syntax>
-    [<literal>interval=</literal><value>time</value>]
-<!--
-    [<literal>jitter=</literal><value>time</value>]
--->
-    [<literal>fails=</literal><value>number</value>]
-    [<literal>passes=</literal><value>number</value>]
-    [<literal>uri=</literal><value>uri</value>]
-    [<literal>match=</literal><value>name</value>]</syntax>
-
+<syntax>[<value>parameters</value>]</syntax>
 <default/>
 <context>location</context>
 
@@ -536,40 +541,50 @@ Enables periodic health checks of the servers in a
 
 <para>
 The following optional parameters are supported:
-<list type="bullet">
+<list type="tag">
 
-<listitem>
-<literal>interval</literal>
+<tag-name id="interval">
+<literal>interval</literal>=<value>time</value>
+</tag-name>
+<tag-desc>
 sets the interval between two consecutive health checks,
 by default, 5 seconds;
-</listitem>
+</tag-desc>
 
-<listitem>
-<literal>fails</literal>
+<tag-name id="fails">
+<literal>fails</literal>=<value>number</value>
+</tag-name>
+<tag-desc>
 sets the number of consecutive failed health checks of a particular server
 after which this server will be considered unhealthy,
 by default, 1;
-</listitem>
+</tag-desc>
 
-<listitem>
-<literal>passes</literal>
+<tag-name id="passes">
+<literal>passes</literal>=<value>number</value>
+</tag-name>
+<tag-desc>
 sets the number of consecutive passed health checks of a particular server
 after which the server will be considered healthy,
 by default, 1;
-</listitem>
+</tag-desc>
 
-<listitem>
-<literal>uri</literal>
+<tag-name id="uri">
+<literal>uri</literal>=<value>uri</value>
+</tag-name>
+<tag-desc>
 defines the URI used in health check requests,
 by default, “<literal>/</literal>”;
-</listitem>
+</tag-desc>
 
-<listitem>
-<literal>match</literal>
+<tag-name id="hc_match">
+<literal>match</literal>=<value>name</value>
+</tag-name>
+<tag-desc>
 specifies the <literal>match</literal> block configuring the tests that a
 response should pass in order for a health check to pass;
 by default, the response should have status code 2xx or 3xx.
-</listitem>
+</tag-desc>
 
 </list>
 </para>

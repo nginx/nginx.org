@@ -116,12 +116,16 @@ upstream backend {
 Могут быть заданы следующие параметры:
 <list type="tag">
 
-<tag-name><literal>weight</literal>=<value>число</value></tag-name>
+<tag-name id="weight">
+<literal>weight</literal>=<value>число</value>
+</tag-name>
 <tag-desc>
 задаёт вес сервера, по умолчанию 1.
 </tag-desc>
 
-<tag-name><literal>max_fails</literal>=<value>число</value></tag-name>
+<tag-name id="max_fails">
+<literal>max_fails</literal>=<value>число</value>
+</tag-name>
 <tag-desc>
 задаёт число неудачных попыток работы с сервером, которые должны произойти
 в течение времени, заданного параметром <literal>fail_timeout</literal>,
@@ -137,7 +141,9 @@ upstream backend {
 <link doc="ngx_http_memcached_module.xml" id="memcached_next_upstream"/>.
 </tag-desc>
 
-<tag-name><literal>fail_timeout</literal>=<value>время</value></tag-name>
+<tag-name id="fail_timeout">
+<literal>fail_timeout</literal>=<value>время</value>
+</tag-name>
 <tag-desc>
 задаёт
 <list type="bullet">
@@ -155,13 +161,17 @@ upstream backend {
 По умолчанию параметр равен 10 секундам.
 </tag-desc>
 
-<tag-name><literal>backup</literal></tag-name>
+<tag-name id="backup">
+<literal>backup</literal>
+</tag-name>
 <tag-desc>
 помечает сервер как запасной сервер.
 На него будут передаваться запросы в случае, если не работают основные серверы.
 </tag-desc>
 
-<tag-name><literal>down</literal></tag-name>
+<tag-name id="down">
+<literal>down</literal>
+</tag-name>
 <tag-desc>
 помечает сервер как постоянно недоступный; используется
 совместно с директивой <link id="ip_hash"/>.
@@ -212,19 +222,23 @@ http {
 </para>
 </tag-desc>
 
-<tag-name><literal>route</literal>=<value>строка</value></tag-name>
+<tag-name id="route">
+<literal>route</literal>=<value>строка</value>
+</tag-name>
 <tag-desc>
 задаёт имя маршрута к серверу.
 </tag-desc>
 
-<tag-name><literal>slow_start</literal>=<value>время</value></tag-name>
+<tag-name id="slow_start">
+<literal>slow_start</literal>=<value>время</value>
+</tag-name>
 <tag-desc>
 задаёт <value>время</value>, в течение которого вес сервера
 восстановится от нуля до своего номинального значения в ситуации, когда
 неработоспособный (unhealthy) сервер вновь становится работоспособным
 (<link id="health_check">healthy</link>)
 или когда сервер становится доступным по прошествии времени,
-в течение которого он считался недоступным.
+в течение которого он считался <link id="fail_timeout">недоступным</link>.
 Значение по умолчанию равно нулю и означает, что медленный старт выключен.
 </tag-desc>
 
