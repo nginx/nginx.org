@@ -1,0 +1,485 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Модуль ngx_http_status_module"
+        link="/ru/docs/http/ngx_http_status_module.html"
+        lang="ru"
+        rev="2">
+
+<section id="summary">
+
+<para>
+Модуль <literal>ngx_http_status_module</literal> предоставляет
+доступ к информации о состоянии сервера.
+</para>
+
+<para>
+<note>
+Модуль доступен как часть
+<commercial_version>коммерческой подписки</commercial_version>.
+</note>
+</para>
+
+</section>
+
+
+<section id="example" name="Пример конфигурации">
+
+<para>
+<example>
+server {
+    location = /status {
+        status;
+    }
+
+    status_zone example_server;
+}
+</example>
+</para>
+
+<para>
+В составе дистрибутива nginx имеется простая страница мониторинга, доступная
+по запросу “<literal>/status.html</literal>” в стандартной конфигурации.
+Для работы этой страницы требуется настроить
+location “<literal>/status</literal>”, как показано выше.
+</para>
+
+</section>
+
+
+<section id="directives" name="Директивы">
+
+<directive name="status">
+<syntax/>
+<default/>
+<context>location</context>
+
+<para>
+Информация о состоянии будет доступна из содержащего location.
+</para>
+
+</directive>
+
+
+<directive name="status_format">
+<syntax><literal>json</literal></syntax>
+<syntax><literal>jsonp</literal> [<value>callback</value>]</syntax>
+<default>json</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+По умолчанию информация выводится в формате JSON.
+</para>
+
+<para>
+Также данные могут выводиться в формате JSONP.
+Параметр <value>callback</value> задаёт имя callback-функции.
+Значение может содержать переменные.
+Если параметр не задан или вычисленное значение является пустой строкой,
+используется имя “<literal>ngx_status_jsonp_callback</literal>”.
+</para>
+
+</directive>
+
+
+<directive name="status_zone">
+<syntax><value>зона</value></syntax>
+<default/>
+<context>server</context>
+
+<para>
+Включает сбор информации о состоянии виртуального
+<link doc="ngx_http_core_module.xml" id="server">сервера</link>
+в указанной <value>зоне</value>.
+В одной и той же зоне может одновременно собираться информация
+сразу по нескольким виртуальным серверам.
+</para>
+
+</directive>
+
+</section>
+
+
+<section id="data" name="Данные">
+
+<para>
+Доступна следующая информация:
+<list type="tag">
+
+<tag-name><literal>version</literal></tag-name>
+<tag-desc>
+Версия предоставляемого набора данных.
+Текущей является версия 2.
+</tag-desc>
+
+<tag-name><literal>nginx_version</literal></tag-name>
+<tag-desc>
+Версия nginx.
+</tag-desc>
+
+<tag-name><literal>address</literal></tag-name>
+<tag-desc>
+Адрес сервера, принявшего запрос получения информации о состоянии.
+</tag-desc>
+
+<tag-name><literal>load_timestamp</literal></tag-name>
+<tag-desc>
+Время последней перезагрузки конфигурации, в миллисекундах с начала эпохи.
+</tag-desc>
+
+<tag-name><literal>timestamp</literal></tag-name>
+<tag-desc>
+Текущее время в миллисекундах с начала эпохи.
+</tag-desc>
+
+<tag-name><literal>connections</literal></tag-name>
+<tag-desc>
+<list type="tag">
+
+<tag-name><literal>accepted</literal></tag-name>
+<tag-desc>
+Суммарное число принятых клиентских соединений.
+</tag-desc>
+
+<tag-name><literal>dropped</literal></tag-name>
+<tag-desc>
+Суммарное число отвергнутых клиентских соединений.
+</tag-desc>
+
+<tag-name><literal>active</literal></tag-name>
+<tag-desc>
+Текущее число активных клиентских соединений.
+</tag-desc>
+
+<tag-name><literal>idle</literal></tag-name>
+<tag-desc>
+Текущее число бездействующих клиентских соединений.
+</tag-desc>
+
+</list>
+</tag-desc>
+
+<tag-name><literal>requests</literal></tag-name>
+<tag-desc>
+<list type="tag">
+
+<tag-name><literal>total</literal></tag-name>
+<tag-desc>
+Суммарное число клиентских запросов.
+</tag-desc>
+
+<tag-name><literal>current</literal></tag-name>
+<tag-desc>
+Текущее число клиентских запросов.
+</tag-desc>
+
+</list>
+</tag-desc>
+
+<tag-name><literal>server_zones</literal></tag-name>
+<tag-desc>
+Для каждой <link id="status_zone"/>:
+<list type="tag">
+
+<tag-name><literal>processing</literal></tag-name>
+<tag-desc>
+Число обрабатываемых в настоящий момент
+клиентских запросов.
+</tag-desc>
+
+<tag-name><literal>requests</literal></tag-name>
+<tag-desc>
+Суммарное число
+запросов, полученных от клиентов.
+</tag-desc>
+
+<tag-name><literal>responses</literal></tag-name>
+<tag-desc>
+<list type="tag">
+
+<tag-name><literal>total</literal></tag-name>
+<tag-desc>
+Суммарное число
+ответов, отправленных клиентам.
+</tag-desc>
+
+<tag-name>
+<literal>1xx</literal>,
+<literal>2xx</literal>,
+<literal>3xx</literal>,
+<literal>4xx</literal>,
+<literal>5xx</literal>
+</tag-name>
+<tag-desc>
+Число ответов со статусами 1xx, 2xx, 3xx, 4xx и 5xx.
+</tag-desc>
+
+</list>
+</tag-desc>
+
+<tag-name><literal>received</literal></tag-name>
+<tag-desc>
+Суммарное число байт, полученных от клиентов.
+</tag-desc>
+
+<tag-name><literal>sent</literal></tag-name>
+<tag-desc>
+Суммарное число байт, отправленных клиентам.
+</tag-desc>
+
+</list>
+</tag-desc>
+
+<tag-name><literal>upstreams</literal></tag-name>
+<tag-desc>
+Для каждого
+<link doc="ngx_http_upstream_module.xml" id="server">сервера</link>
+в
+<link doc="ngx_http_upstream_module.xml" id="zone">динамически
+настраиваемой</link>
+<link doc="ngx_http_upstream_module.xml" id="upstream">группе</link>
+доступны следующие данные:
+<list type="tag">
+
+<tag-name><literal>server</literal></tag-name>
+<tag-desc>
+Адрес
+<link doc="ngx_http_upstream_module.xml" id="server">сервера</link>.
+</tag-desc>
+
+<tag-name><literal>backup</literal></tag-name>
+<tag-desc>
+Логическое значение, означающее, является ли сервер запасным.
+</tag-desc>
+
+<tag-name><literal>weight</literal></tag-name>
+<tag-desc>
+Вес
+<link doc="ngx_http_upstream_module.xml" id="server">сервера</link>.
+</tag-desc>
+
+<tag-name><literal>state</literal></tag-name>
+<tag-desc>
+Текущее состояние, которое может быть одним из
+“<literal>up</literal>”,
+“<literal>down</literal>”,
+“<literal>unavail</literal>”
+или
+“<literal>unhealthy</literal>”.
+</tag-desc>
+
+<tag-name><literal>active</literal></tag-name>
+<tag-desc>
+Текущее число активных соединений.
+</tag-desc>
+
+<tag-name><literal>keepalive</literal></tag-name>
+<tag-desc>
+Текущее число бездействующих
+<link doc="ngx_http_upstream_module.xml" id="keepalive"/>-соединений.
+</tag-desc>
+
+<tag-name><literal>requests</literal></tag-name>
+<tag-desc>
+Суммарное число
+клиентских запросов, перенаправленных на этот сервер.
+</tag-desc>
+
+<tag-name><literal>responses</literal></tag-name>
+<tag-desc>
+<list type="tag">
+
+<tag-name><literal>total</literal></tag-name>
+<tag-desc>
+Суммарное число
+ответов, полученных от этого сервера.
+</tag-desc>
+
+<tag-name>
+<literal>1xx</literal>,
+<literal>2xx</literal>,
+<literal>3xx</literal>,
+<literal>4xx</literal>,
+<literal>5xx</literal>
+</tag-name>
+<tag-desc>
+Число ответов со статусами 1xx, 2xx, 3xx, 4xx и 5xx.
+</tag-desc>
+
+</list>
+</tag-desc>
+
+<tag-name><literal>sent</literal></tag-name>
+<tag-desc>
+Суммарное число байт, отправленных на этот сервер.
+</tag-desc>
+
+<tag-name><literal>received</literal></tag-name>
+<tag-desc>
+Суммарное число байт, полученных с этого сервера.
+</tag-desc>
+
+<tag-name><literal>fails</literal></tag-name>
+<tag-desc>
+Суммарное число
+неудачных попыток работы с этим сервером.
+</tag-desc>
+
+<tag-name><literal>unavail</literal></tag-name>
+<tag-desc>
+Количество раз, когда
+сервер становился недоступным для клиентских запросов
+(состояние “<literal>unavail</literal>”)
+из-за достижения порогового числа неудачных
+попыток <literal>max_fails</literal>.
+</tag-desc>
+
+<tag-name><literal>health_checks</literal></tag-name>
+<tag-desc>
+<list type="tag">
+
+<tag-name><literal>checks</literal></tag-name>
+<tag-desc>
+Суммарное число запросов
+<link doc="ngx_http_upstream_module.xml" id="health_check">проверки
+работоспособности</link>.
+</tag-desc>
+
+<tag-name><literal>fails</literal></tag-name>
+<tag-desc>
+Число неудачных проверок работоспособности.
+</tag-desc>
+
+<tag-name><literal>unhealthy</literal></tag-name>
+<tag-desc>
+Количество раз, когда
+сервер становился неработоспособным (состояние “<literal>unhealthy</literal>”).
+</tag-desc>
+
+<tag-name><literal>last_passed</literal></tag-name>
+<tag-desc>
+Логическое значение, означающее, была ли последняя проверка
+работоспособности удачной и удовлетворял ли ответ заданным
+<link doc="ngx_http_upstream_module.xml" id="match">тестам</link>.
+</tag-desc>
+
+</list>
+</tag-desc>
+
+<tag-name><literal>downtime</literal></tag-name>
+<tag-desc>
+Суммарное время,
+когда сервер находился в состояниях “<literal>unavail</literal>”
+и “<literal>unhealthy</literal>”.
+</tag-desc>
+
+<tag-name><literal>downstart</literal></tag-name>
+<tag-desc>
+Время (в миллисекундах с начала эпохи),
+когда сервер стал
+“<literal>unavail</literal>”
+или “<literal>unhealthy</literal>”.
+</tag-desc>
+
+</list>
+</tag-desc>
+
+<tag-name><literal>caches</literal></tag-name>
+<tag-desc>
+Для каждого кэша, сконфигурированного при помощи
+<link doc="ngx_http_proxy_module.xml" id="proxy_cache_path"/>
+и аналогичных директив:
+<list type="tag">
+
+<tag-name><literal>size</literal></tag-name>
+<tag-desc>
+Текущий размер кэша.
+</tag-desc>
+
+<tag-name><literal>max_size</literal></tag-name>
+<tag-desc>
+Ограничение на максимальный размер кэша, заданное в конфигурации.
+</tag-desc>
+
+<tag-name><literal>cold</literal></tag-name>
+<tag-desc>
+Логическое значение, указывающее, продолжается ли загрузка
+данных процессом “cache loader” с диска в кэш.
+</tag-desc>
+
+<tag-name>
+    <literal>hits</literal>,
+    <literal>stale</literal>,
+    <literal>updating</literal>,
+    <literal>revalidated</literal>
+</tag-name>
+<tag-desc>
+<list type="tag">
+
+<tag-name><literal>responses</literal></tag-name>
+<tag-desc>
+Суммарное число ответов, прочитанных из кэша (попадания в кэш
+или просроченные ответы вследствие
+<link doc="ngx_http_proxy_module.xml" id="proxy_cache_use_stale"/>
+и аналогичных директив).
+</tag-desc>
+
+<tag-name><literal>bytes</literal></tag-name>
+<tag-desc>
+Суммарное число байт, прочитанных из кэша.
+</tag-desc>
+
+</list>
+</tag-desc>
+
+<tag-name>
+    <literal>miss</literal>,
+    <literal>expired</literal>,
+    <literal>bypass</literal>
+</tag-name>
+<tag-desc>
+<list type="tag">
+
+<tag-name><literal>responses</literal></tag-name>
+<tag-desc>
+Суммарное число ответов, взятых не из кэша (<literal>miss</literal> —
+отсутствие данных в кэше, <literal>expired</literal> — просроченные ответы,
+<literal>bypass</literal> — ответ не был взят из кэша
+вследствие <link doc="ngx_http_proxy_module.xml" id="proxy_cache_bypass"/>
+и аналогичных директив).
+</tag-desc>
+
+<tag-name><literal>bytes</literal></tag-name>
+<tag-desc>
+Суммарное число байт, прочитанных с проксируемого сервера.
+</tag-desc>
+
+<tag-name><literal>responses_written</literal></tag-name>
+<tag-desc>
+Суммарное число ответов, записанных в кэш.
+</tag-desc>
+
+<tag-name><literal>bytes_written</literal></tag-name>
+<tag-desc>
+Суммарное число байт, записанных в кэш.
+</tag-desc>
+
+</list>
+</tag-desc>
+
+</list>
+</tag-desc>
+
+</list>
+</para>
+
+</section>
+
+</module>
