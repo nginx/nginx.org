@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_scgi_module"
         link="/ru/docs/http/ngx_http_scgi_module.html"
         lang="ru"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -424,7 +424,8 @@ server {
 
 <para>
 Разрешает ревалидацию просроченных элементов кэша при помощи
-условных запросов с полем заголовка <header>If-Modified-Since</header>.
+условных запросов с полями заголовка
+<header>If-Modified-Since</header> и <header>If-None-Match</header>.
 </para>
 
 </directive>

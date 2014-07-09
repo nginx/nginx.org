@@ -10,7 +10,7 @@
 <module name="Module ngx_http_scgi_module"
         link="/en/docs/http/ngx_http_scgi_module.html"
         lang="en"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -426,7 +426,8 @@ This functionality is available as part of our
 
 <para>
 Enables revalidation of expired cache items using conditional requests with
-the <header>If-Modified-Since</header> header field.
+the <header>If-Modified-Since</header> and <header>If-None-Match</header>
+header fields.
 </para>
 
 </directive>

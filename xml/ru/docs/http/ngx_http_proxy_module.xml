@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_proxy_module"
         link="/ru/docs/http/ngx_http_proxy_module.html"
         lang="ru"
-        rev="21">
+        rev="22">
 
 <section id="summary">
 
@@ -431,7 +431,8 @@ server {
 
 <para>
 Разрешает ревалидацию просроченных элементов кэша при помощи
-условных запросов с полем заголовка <header>If-Modified-Since</header>.
+условных запросов с полями заголовка
+<header>If-Modified-Since</header> и <header>If-None-Match</header>.
 </para>
 
 </directive>
