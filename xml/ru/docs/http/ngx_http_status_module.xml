@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_status_module"
         link="/ru/docs/http/ngx_http_status_module.html"
         lang="ru"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -32,21 +32,65 @@
 
 <para>
 <example>
+upstream <emphasis>backend</emphasis> {
+    <emphasis>zone</emphasis> upstream_backend 64k;
+
+    server backend1.example.com weight=5;
+    server backend2.example.com;
+}
+
+proxy_cache_path /data/nginx/cache_backend keys_zone=<emphasis>cache_backend</emphasis>:10m;
+
 server {
-    location = /status {
+    server_name backend.example.com;
+
+    location / {
+        proxy_pass http://backend;
+        proxy_cache cache_backend;
+
+        health_check;
+    }
+
+    <emphasis>status_zone server_backend;</emphasis>
+}
+
+server {
+    listen 127.0.0.1;
+
+    location /upstream_conf {
+        upstream_conf;
+    }
+
+    location /status {
         status;
     }
 
-    status_zone example_server;
+    location = /status.html {
+    }
 }
+</example>
+</para>
+
+<para>
+Примеры запросов информации о состоянии,
+возможные с данной конфигурацией:
+<example>
+http://127.0.0.1/status
+http://127.0.0.1/status/nginx_version
+http://127.0.0.1/status/caches/cache_backend
+http://127.0.0.1/status/upstreams
+http://127.0.0.1/status/upstreams/backend
+http://127.0.0.1/status/upstreams/backend/1
+http://127.0.0.1/status/upstreams/backend/1/weight
 </example>
 </para>
 
 <para>
 В составе дистрибутива nginx имеется простая страница мониторинга, доступная
 по запросу “<literal>/status.html</literal>” в стандартной конфигурации.
-Для работы этой страницы требуется настроить
-location “<literal>/status</literal>”, как показано выше.
+Для работы этой страницы требуется настроить location
+“<literal>/status</literal>” и location “<literal>/status.html</literal>”
+как показано выше.
 </para>
 
 </section>

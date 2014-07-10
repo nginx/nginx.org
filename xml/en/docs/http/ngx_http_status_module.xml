@@ -9,7 +9,7 @@
 <module name="Module ngx_http_status_module"
         link="/en/docs/http/ngx_http_status_module.html"
         lang="en"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -32,21 +32,63 @@ This module is available as part of our
 
 <para>
 <example>
+upstream <emphasis>backend</emphasis> {
+    <emphasis>zone</emphasis> upstream_backend 64k;
+
+    server backend1.example.com weight=5;
+    server backend2.example.com;
+}
+
+proxy_cache_path /data/nginx/cache_backend keys_zone=<emphasis>cache_backend</emphasis>:10m;
+
 server {
-    location = /status {
+    server_name backend.example.com;
+
+    location / {
+        proxy_pass http://backend;
+        proxy_cache cache_backend;
+
+        health_check;
+    }
+
+    <emphasis>status_zone server_backend;</emphasis>
+}
+
+server {
+    listen 127.0.0.1;
+
+    location /upstream_conf {
+        upstream_conf;
+    }
+
+    location /status {
         status;
     }
 
-    status_zone example_server;
+    location = /status.html {
+    }
 }
+</example>
+</para>
+
+<para>
+Examples of status requests with this configuration:
+<example>
+http://127.0.0.1/status
+http://127.0.0.1/status/nginx_version
+http://127.0.0.1/status/caches/cache_backend
+http://127.0.0.1/status/upstreams
+http://127.0.0.1/status/upstreams/backend
+http://127.0.0.1/status/upstreams/backend/1
+http://127.0.0.1/status/upstreams/backend/1/weight
 </example>
 </para>
 
 <para>
 The simple monitoring page is shipped with this distribution,
 accessible as “<literal>/status.html</literal>” in the default configuration.
-It requires the location “<literal>/status</literal>” to be configured
-as shown above.
+It requires the locations “<literal>/status</literal>” and
+“<literal>/status.html</literal>” to be configured as shown above.
 </para>
 
 </section>
