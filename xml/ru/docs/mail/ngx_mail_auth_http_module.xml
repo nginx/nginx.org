@@ -10,7 +10,7 @@
 <module name="Модуль ngx_mail_auth_http_module"
         link="/ru/docs/mail/ngx_mail_auth_http_module.html"
         lang="ru"
-        rev="2">
+        rev="3">
 
 <section id="directives" name="Директивы">
 
@@ -54,6 +54,7 @@ auth_http_header X-Auth-Key "secret_string";
 <context>server</context>
 
 <para>
+Задаёт таймаут общения с сервером аутентификации.
 </para>
 
 </directive>
