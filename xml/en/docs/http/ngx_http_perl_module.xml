@@ -10,7 +10,7 @@
 <module name="Module ngx_http_perl_module"
         link="/en/docs/http/ngx_http_perl_module.html"
         lang="en"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -78,57 +78,6 @@ other requests assigned to the current worker process will not be processed.
 It is thus recommended to perform only such operations
 that have predictable and short execution time, such as
 accessing the local file system.
-</para>
-
-<para>
-The issues mentioned below affect only the nginx versions before 0.6.22.
-
-<note>
-The <literal>$r</literal> request object methods return
-data only as a string value, and the value itself is stored in memory
-allocated by nginx from its own pools, not by Perl.
-This helps to reduce the number of copy operations involved in
-most cases; however it can lead to errors in some cases.
-For example, a worker process trying to use such data in the
-numeric context will terminate with an error (FreeBSD):
-<example>
-nginx in realloc(): warning: pointer to wrong page
-Out of memory!
-Callback called exit.
-</example>
-or (Linux):
-<example>
-*** glibc detected *** realloc(): invalid pointer: ... ***
-Out of memory!
-Callback called exit.
-</example>
-The workaround is simple — the method’s value should be assigned
-to a variable.
-For example, the following code
-<example>
-my $i = $r->variable('counter') + 1;
-</example>
-should be replaced by
-<example>
-my $i = $r->variable('counter');
-$i++;
-</example>
-</note>
-
-<note>
-Since most strings inside nginx are stored without a terminating null
-character, they are similarly returned by the <literal>$r</literal> request
-object methods (except for the <literal>$r->filename</literal> and
-<literal>$r->request_body_file</literal> methods).
-Thus, such values cannot be used as filenames and the likes.
-The workaround is similar to the previous case — the value should either be
-assigned to a variable (this results in data copying and adding of
-the necessary null character) or used in an expression, for example:
-<example>
-open FILE, '/path/' . $r->variable('name');
-</example>
-</note>
-
 </para>
 
 </section>
