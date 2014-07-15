@@ -7,7 +7,7 @@
 <article name="nginx: пакеты для Linux"
          link="/ru/linux_packages.html"
          lang="ru"
-         rev="6"
+         rev="7"
          toc="no">
 
 <section id="distributions">
@@ -32,6 +32,10 @@ RHEL/CentOS:
 
 <tr>
 <td width="20%">6.x</td>
+</tr>
+
+<tr>
+<td width="20%">7.x</td>
 </tr>
 
 </table>
@@ -124,11 +128,19 @@ Ubuntu:
 </listitem>
 
 <listitem>
+<link url="http://nginx.org/packages/rhel/7/noarch/RPMS/nginx-release-rhel-7-0.el7.ngx.noarch.rpm">RHEL 7</link>
+</listitem>
+
+<listitem>
 <link url="http://nginx.org/packages/centos/5/noarch/RPMS/nginx-release-centos-5-0.el5.ngx.noarch.rpm">CentOS 5</link>
 </listitem>
 
 <listitem>
 <link url="http://nginx.org/packages/centos/6/noarch/RPMS/nginx-release-centos-6-0.el6.ngx.noarch.rpm">CentOS 6</link>
+</listitem>
+
+<listitem>
+<link url="http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm">CentOS 7</link>
 </listitem>
 
 </list>
@@ -156,8 +168,8 @@ enabled=1
 Замените “<literal>OS</literal>” на “<literal>rhel</literal>” или
 “<literal>centos</literal>”,
 в зависимости от используемого дистрибутива, а “<literal>OSRELEASE</literal>”
-на “<literal>5</literal>” или “<literal>6</literal>”,
-для, соответственно, 5.x или 6.x версий.
+на “<literal>5</literal>”, “<literal>6</literal>” или “<literal>7</literal>”,
+для, соответственно, 5.x, 6.x или 7.x версий.
 </para>
 
 <para>
@@ -226,8 +238,8 @@ enabled=1
 Замените “<literal>OS</literal>” на “<literal>rhel</literal>” или
 “<literal>centos</literal>”,
 в зависимости от используемого дистрибутива, а “<literal>OSRELEASE</literal>”
-на “<literal>5</literal>” или “<literal>6</literal>”,
-для, соответственно, 5.x или 6.x версий.
+на “<literal>5</literal>”, “<literal>6</literal>” или “<literal>7</literal>”,
+для, соответственно, 5.x, 6.x или 7.x версий.
 </para>
 
 <para>
