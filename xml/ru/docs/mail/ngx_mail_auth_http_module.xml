@@ -10,7 +10,7 @@
 <module name="Модуль ngx_mail_auth_http_module"
         link="/ru/docs/mail/ngx_mail_auth_http_module.html"
         lang="ru"
-        rev="3">
+        rev="4">
 
 <section id="directives" name="Директивы">
 
@@ -22,7 +22,7 @@
 
 <para>
 Задаёт URL HTTP-сервера аутентификации.
-Протокол описан ниже.
+Протокол описан <link id="protocol">ниже</link>.
 </para>
 
 </directive>
