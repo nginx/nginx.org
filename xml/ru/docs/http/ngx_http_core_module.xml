@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="34">
+        rev="35">
 
 <section id="directives" name="Директивы">
 
@@ -1513,7 +1513,8 @@ location ~* \.(gif|jpg|jpeg)$ {
 <link doc="ngx_http_uwsgi_module.xml" id="uwsgi_pass"/>,
 <link doc="ngx_http_scgi_module.xml" id="scgi_pass"/> или
 <link doc="ngx_http_memcached_module.xml" id="memcached_pass"/>,
-а в ответ на запрос с URI равным этой строке, но без завершающего слэша,
+происходит специальная обработка.
+В ответ на запрос с URI равным этой строке, но без завершающего слэша,
 будет возвращено постоянное перенаправление с кодом 301
 на URI с добавленным в конец слэшом.
 Если такое поведение нежелательно, можно задать точное совпадение

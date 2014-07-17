@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="34">
+        rev="35">
 
 <section id="directives" name="Directives">
 
@@ -1516,7 +1516,8 @@ and requests are processed by one of
 <link doc="ngx_http_uwsgi_module.xml" id="uwsgi_pass"/>,
 <link doc="ngx_http_scgi_module.xml" id="scgi_pass"/>, or
 <link doc="ngx_http_memcached_module.xml" id="memcached_pass"/>,
-then in response to a request with URI equal to this string,
+then the special processing is performed.
+In response to a request with URI equal to this string,
 but without the trailing slash,
 a permanent redirect with the code 301 will be returned to the requested URI
 with the slash appended.
