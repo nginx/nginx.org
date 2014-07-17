@@ -10,7 +10,7 @@
 <module name="Module ngx_mail_auth_http_module"
         link="/en/docs/mail/ngx_mail_auth_http_module.html"
         lang="en"
-        rev="4">
+        rev="5">
 
 <section id="directives" name="Directives">
 
@@ -35,7 +35,7 @@ The protocol is described <link id="protocol">below</link>.
 <context>server</context>
 
 <para>
-Appends the specified header to requests to the authentication server.
+Appends the specified header to requests sent to the authentication server.
 This header can be used as the shared secret to verify
 that the request comes from nginx.
 For example:
@@ -65,8 +65,8 @@ Sets the timeout for communication with the authentication server.
 <section id="protocol" name="Protocol">
 
 <para>
-The HTTP is used to communicate with the authentication server.
-The data in the response body is ignored, and the information is passed only in
+The HTTP protocol is used to communicate with the authentication server.
+The data in the response body is ignored, the information is passed only in
 the headers.
 </para>
 
@@ -115,7 +115,7 @@ header).
 </para>
 
 <para>
-When the APOP or CRAM-MD5 are used, a request-response will look as follows.
+When the APOP or CRAM-MD5 are used, request-response will look as follows:
 <example>
 GET /auth HTTP/1.0
 Host: localhost
@@ -139,7 +139,7 @@ Auth-Pass: plain-text-pass
 </para>
 
 <para>
-If the <header>Auth-User</header> header exists in a response,
+If the <header>Auth-User</header> header exists in the response,
 it overrides the username used to authenticate with the backend.
 </para>
 
@@ -148,7 +148,7 @@ For the SMTP, the response additionally takes into account
 the <header>Auth-Error-Code</header> header — if exists, it is used
 as a response code in case of an error.
 Otherwise, the 535 5.7.0 code will be added to
-the <header>Auth-Status</header>.
+the <header>Auth-Status</header> header.
 </para>
 
 <para>
@@ -168,7 +168,7 @@ then the SMTP client will receive an error
 
 <para>
 If proxying SMTP does not require authentication,
-a request will look as follows.
+the request will look as follows:
 <example>
 GET /auth HTTP/1.0
 Host: localhost
