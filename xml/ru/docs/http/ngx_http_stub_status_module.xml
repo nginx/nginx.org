@@ -1,0 +1,158 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Yaroslav Zhuravlev
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Модуль ngx_http_stub_status_module"
+        link="/ru/docs/http/ngx_http_stub_status_module.html"
+        lang="ru"
+        rev="1">
+
+<section id="summary">
+
+<para>
+Модуль <literal>ngx_http_stub_status_module</literal> предоставляет
+доступ к базовой информации о состоянии сервера.
+</para>
+
+<para>
+По умолчанию этот модуль не собирается, его сборку необходимо
+разрешить с помощью конфигурационного параметра
+<literal>--with-http_stub_status_module</literal>.
+</para>
+
+</section>
+
+
+<section id="example" name="Пример конфигурации">
+
+<para>
+<example>
+location /basic_status {
+    stub_status;
+}
+</example>
+В данной конфигурации создаётся простая веб-страница
+с основной информацией о состоянии, которая может выглядеть следующим образом:
+<example>
+Active connections: 291
+server accepts handled requests
+  16630948 16630948 31070465
+Reading: 6 Writing: 179 Waiting: 106
+</example>
+</para>
+
+</section>
+
+
+<section id="directives" name="Директивы">
+
+<directive name="stub_status">
+<syntax/>
+<default/>
+<context>location</context>
+
+<para>
+Информация о состоянии будет доступна из данного location.
+</para>
+
+</directive>
+
+</section>
+
+
+<section id="data" name="Данные">
+
+<para>
+Доступна следующая информация:
+<list type="tag">
+
+<tag-name id="stubstat_active"><literal>Active connections</literal></tag-name>
+<tag-desc>
+Текущее число активных клиентских соединений,
+включая <literal>Waiting</literal>-соединения.
+</tag-desc>
+
+<tag-name id="stubstat_accepts"><literal>accepts</literal></tag-name>
+<tag-desc>
+Суммарное число принятых клиентских соединений.
+</tag-desc>
+
+<tag-name id="stubstat_handled"><literal>handled</literal></tag-name>
+<tag-desc>
+Суммарное число обработанных соединений.
+Как правило, значение этого параметра такое же, как <literal>accepts</literal>,
+если не достигнуто какое-нибудь системное ограничение
+(например, лимит
+<link doc="../ngx_core_module.xml" id="worker_connections"/>).
+</tag-desc>
+
+<tag-name id="stubstat_requests"><literal>requests</literal></tag-name>
+<tag-desc>
+Суммарное число клиентских запросов.
+</tag-desc>
+
+<tag-name id="stubstat_reading"><literal>Reading</literal></tag-name>
+<tag-desc>
+Текущее число соединений,
+в которых nginx в настоящий момент читает заголовок запроса.
+</tag-desc>
+
+<tag-name id="stubstat_writing"><literal>Writing</literal></tag-name>
+<tag-desc>
+Текущее число соединений,
+в которых nginx в настоящий момент отвечает клиенту.
+</tag-desc>
+
+<tag-name id="stubstat_waiting"><literal>Waiting</literal></tag-name>
+<tag-desc>
+Текущее число бездействующих клиентских соединений в ожидании запроса.
+</tag-desc>
+
+</list>
+</para>
+
+</section>
+
+
+<section id="variables" name="Встроенные переменные">
+
+<para>
+Модуль <literal>ngx_http_stub_status_module</literal>
+поддерживает следующие встроенные переменные (1.3.14):
+<list type="tag">
+
+<tag-name
+id="var_connections_active"><var>$connections_active</var></tag-name>
+<tag-desc>
+то же, что и значение <literal>Active connections</literal>;
+</tag-desc>
+
+<tag-name
+id="var_connections_reading"><var>$connections_reading</var></tag-name>
+<tag-desc>
+то же, что и значение <literal>Reading</literal>;
+</tag-desc>
+
+<tag-name
+id="var_connections_writing"><var>$connections_writing</var></tag-name>
+<tag-desc>
+то же, что и значение <literal>Writing</literal>;
+</tag-desc>
+
+<tag-name
+id="var_connections_waiting"><var>$connections_waiting</var></tag-name>
+<tag-desc>
+то же, что и значение <literal>Waiting</literal>.
+</tag-desc>
+
+</list>
+</para>
+
+</section>
+
+</module>

@@ -76,6 +76,7 @@ REFS =									\
 		http/ngx_http_ssi_module				\
 		http/ngx_http_ssl_module				\
 		http/ngx_http_status_module				\
+		http/ngx_http_stub_status_module			\
 		http/ngx_http_sub_module				\
 		http/ngx_http_upstream_module				\
 		http/ngx_http_userid_module				\
