@@ -10,7 +10,7 @@
 <module name="Модуль ngx_mail_ssl_module"
         link="/ru/docs/mail/ngx_mail_ssl_module.html"
         lang="ru"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -74,6 +74,106 @@
 <para>
 Указывает файл с секретным ключом в формате PEM
 для данного сервера.
+</para>
+
+</directive>
+
+
+<directive name="ssl_ciphers">
+<syntax><value>шифры</value></syntax>
+<default>HIGH:!aNULL:!MD5</default>
+<context>mail</context>
+<context>server</context>
+
+<para>
+Описывает разрешённые шифры.
+Шифры задаются в формате, поддерживаемом библиотекой
+OpenSSL, например:
+<example>
+ssl_ciphers ALL:!aNULL:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP;
+</example>
+</para>
+
+<para>
+Полный список можно посмотреть с помощью команды
+“<command>openssl ciphers</command>”.
+</para>
+
+<para>
+<note>
+В предыдущих версиях nginx по умолчанию использовались
+<link doc="../http/configuring_https_servers.xml" id="compatibility">другие</link>
+шифры.
+</note>
+</para>
+
+</directive>
+
+
+<directive name="ssl_dhparam">
+<syntax><value>файл</value></syntax>
+<default/>
+<context>mail</context>
+<context>server</context>
+<appeared-in>0.7.2</appeared-in>
+
+<para>
+Указывает <value>файл</value> с параметрами для шифров с обменом EDH-ключами.
+</para>
+
+</directive>
+
+
+<directive name="ssl_ecdh_curve">
+<syntax><value>кривая</value></syntax>
+<default>prime256v1</default>
+<context>mail</context>
+<context>server</context>
+<appeared-in>1.1.0</appeared-in>
+<appeared-in>1.0.6</appeared-in>
+
+<para>
+Задаёт кривую для ECDHE-шифров.
+</para>
+
+</directive>
+
+
+<directive name="ssl_password_file">
+<syntax><value>файл</value></syntax>
+<default/>
+<context>mail</context>
+<context>server</context>
+<appeared-in>1.7.3</appeared-in>
+
+<para>
+Задаёт <value>файл</value> с паролями от
+<link id="ssl_certificate_key">секретных ключей</link>,
+где каждый пароль указан на отдельной строке.
+Пароли применяются по очереди в момент загрузки ключа.
+</para>
+
+<para>
+Пример:
+<example>
+mail {
+    ssl_password_file /etc/keys/global.pass;
+    ...
+
+    server {
+        server_name mail1.example.com;
+        ssl_certificate_key /etc/keys/first.key;
+    }
+
+    server {
+        server_name mail2.example.com;
+
+        # вместо файла можно указать именованный канал
+        ssl_password_file /etc/keys/fifo;
+        ssl_certificate_key /etc/keys/second.key;
+    }
+}
+</example>
 </para>
 
 </directive>
@@ -212,6 +312,21 @@ ssl_session_ticket_key previous.key;
 <example>
 openssl rand 48 > ticket.key
 </example>
+</para>
+
+</directive>
+
+
+<directive name="ssl_session_tickets">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>on</default>
+<context>mail</context>
+<context>server</context>
+<appeared-in>1.5.9</appeared-in>
+
+<para>
+Разрешает или запрещает возобновление сессий при помощи
+<link url="http://tools.ietf.org/html/rfc5077">TLS session tickets</link>.
 </para>
 
 </directive>

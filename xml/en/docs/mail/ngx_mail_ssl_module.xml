@@ -10,7 +10,7 @@
 <module name="Module ngx_mail_ssl_module"
         link="/en/docs/mail/ngx_mail_ssl_module.html"
         lang="en"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -74,6 +74,106 @@ A secret key in the PEM format may be placed in the same file.
 <para>
 Specifies a file with the secret key in the PEM format for the given
 server.
+</para>
+
+</directive>
+
+
+<directive name="ssl_ciphers">
+<syntax><value>ciphers</value></syntax>
+<default>HIGH:!aNULL:!MD5</default>
+<context>mail</context>
+<context>server</context>
+
+<para>
+Specifies the enabled ciphers.
+The ciphers are specified in the format understood by the
+OpenSSL library, for example:
+<example>
+ssl_ciphers ALL:!aNULL:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP;
+</example>
+</para>
+
+<para>
+The full list can be viewed using the
+“<command>openssl ciphers</command>” command.
+</para>
+
+<para>
+<note>
+The previous versions of nginx used
+<link doc="../http/configuring_https_servers.xml" id="compatibility">different</link>
+ciphers by default.
+</note>
+</para>
+
+</directive>
+
+
+<directive name="ssl_dhparam">
+<syntax><value>file</value></syntax>
+<default/>
+<context>mail</context>
+<context>server</context>
+<appeared-in>0.7.2</appeared-in>
+
+<para>
+Specifies a <value>file</value> with DH parameters for EDH ciphers.
+</para>
+
+</directive>
+
+
+<directive name="ssl_ecdh_curve">
+<syntax><value>curve</value></syntax>
+<default>prime256v1</default>
+<context>mail</context>
+<context>server</context>
+<appeared-in>1.1.0</appeared-in>
+<appeared-in>1.0.6</appeared-in>
+
+<para>
+Specifies a <value>curve</value> for ECDHE ciphers.
+</para>
+
+</directive>
+
+
+<directive name="ssl_password_file">
+<syntax><value>file</value></syntax>
+<default/>
+<context>mail</context>
+<context>server</context>
+<appeared-in>1.7.3</appeared-in>
+
+<para>
+Specifies a <value>file</value> with passphrases for
+<link id="ssl_certificate_key">secret keys</link>
+where each passphrase is specified on a separate line.
+Passphrases are tried in turn when loading the key.
+</para>
+
+<para>
+Example:
+<example>
+mail {
+    ssl_password_file /etc/keys/global.pass;
+    ...
+
+    server {
+        server_name mail1.example.com;
+        ssl_certificate_key /etc/keys/first.key;
+    }
+
+    server {
+        server_name mail2.example.com;
+
+        # named pipe can also be used instead of a file
+        ssl_password_file /etc/keys/fifo;
+        ssl_certificate_key /etc/keys/second.key;
+    }
+}
+</example>
 </para>
 
 </directive>
@@ -212,6 +312,21 @@ be created using the following command:
 <example>
 openssl rand 48 > ticket.key
 </example>
+</para>
+
+</directive>
+
+
+<directive name="ssl_session_tickets">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>on</default>
+<context>mail</context>
+<context>server</context>
+<appeared-in>1.5.9</appeared-in>
+
+<para>
+Enables or disables session resumption through
+<link url="http://tools.ietf.org/html/rfc5077">TLS session tickets</link>.
 </para>
 
 </directive>
