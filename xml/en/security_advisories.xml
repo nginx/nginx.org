@@ -26,6 +26,7 @@ Patches are signed using one of the
 
 <item name="STARTTLS command injection"
       severity="medium"
+      advisory="http://mailman.nginx.org/pipermail/nginx-announce/2014/000144.html"
       cve="2014-3556"
       good="1.7.4+, 1.6.1+"
       vulnerable="1.5.6-1.7.3">
