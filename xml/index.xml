@@ -7,6 +7,19 @@
 
 <news name="nginx news" link="/" lang="en">
 
+<event date="2014-08-05">
+<para>
+<link doc="en/download.xml">nginx-1.6.1</link>
+stable and
+<link doc="en/download.xml">nginx-1.7.4</link>
+mainline versions has been released,
+with a fix for the
+<link doc="en/security_advisories.xml">STARTTLS vulnerability</link>
+discovered by Chris Boulton
+(CVE-2014-3556).
+</para>
+</event>
+
 <event date="2014-07-08">
 <para>
 <link doc="en/download.xml">nginx-1.7.3</link>

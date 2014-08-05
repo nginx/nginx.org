@@ -1,4 +1,19 @@
 
+Changes with nginx 1.6.1                                         05 Aug 2014
+
+    *) Security: pipelined commands were not discarded after STARTTLS
+       command in SMTP proxy (CVE-2014-3556); the bug had appeared in 1.5.6.
+       Thanks to Chris Boulton.
+
+    *) Bugfix: the $uri variable might contain garbage when returning errors
+       with code 400.
+       Thanks to Sergey Bobrov.
+
+    *) Bugfix: in the "none" parameter in the "smtp_auth" directive; the bug
+       had appeared in 1.5.6.
+       Thanks to Svyatoslav Nikolsky.
+
+
 Changes with nginx 1.6.0                                         24 Apr 2014
 
     *) 1.6.x stable branch.
