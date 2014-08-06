@@ -33,7 +33,7 @@ configuration parameter.
 <para>
 <example>
 location /basic_status {
-    stub_status;
+    stub_status on;
 }
 </example>
 This configuration creates a simple web page
@@ -52,8 +52,8 @@ Reading: 6 Writing: 179 Waiting: 106
 <section id="directives" name="Directives">
 
 <directive name="stub_status">
-<syntax/>
-<default/>
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
 <context>location</context>
 
 <para>
