@@ -29,7 +29,9 @@ X:template = "/error" {
     <html><head><title> !{@name} </title>
 
     <style type="text/css">!{ normalize-space('
-        body  { font-family:  Georgia, serif; }
+        body  { background:   white;
+                color:        black;
+                font-family:  Georgia, serif; }
         ') }
     </style>
 
