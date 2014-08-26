@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_stub_status_module"
         link="/ru/docs/http/ngx_http_stub_status_module.html"
         lang="ru"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
@@ -33,7 +33,7 @@
 <para>
 <example>
 location /basic_status {
-    stub_status on;
+    stub_status;
 }
 </example>
 В данной конфигурации создаётся простая веб-страница
@@ -52,12 +52,20 @@ Reading: 6 Writing: 179 Waiting: 106
 <section id="directives" name="Директивы">
 
 <directive name="stub_status">
-<syntax><literal>on</literal> | <literal>off</literal></syntax>
-<default>off</default>
+<syntax/>
+<default/>
+<context>server</context>
 <context>location</context>
 
 <para>
 Информация о состоянии будет доступна из данного location.
+</para>
+
+<para>
+<note>
+До версии 1.7.5
+директива требовала наличия произвольного аргумента.
+</note>
 </para>
 
 </directive>

@@ -10,7 +10,7 @@
 <module name="Module ngx_http_stub_status_module"
         link="/en/docs/http/ngx_http_stub_status_module.html"
         lang="en"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
@@ -33,7 +33,7 @@ configuration parameter.
 <para>
 <example>
 location /basic_status {
-    stub_status on;
+    stub_status;
 }
 </example>
 This configuration creates a simple web page
@@ -52,12 +52,20 @@ Reading: 6 Writing: 179 Waiting: 106
 <section id="directives" name="Directives">
 
 <directive name="stub_status">
-<syntax><literal>on</literal> | <literal>off</literal></syntax>
-<default>off</default>
+<syntax/>
+<default/>
+<context>server</context>
 <context>location</context>
 
 <para>
 The basic status information will be accessible from the surrounding location.
+</para>
+
+<para>
+<note>
+In versions prior to 1.7.5,
+the directive required an arbitrary argument.
+</note>
 </para>
 
 </directive>
