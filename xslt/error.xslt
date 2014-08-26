@@ -30,7 +30,9 @@
     <html><head><title> <xsl:value-of select="@name"/> </title>
 
     <style type="text/css"><xsl:value-of select=" normalize-space('
-        body  { font-family:  Georgia, serif; }
+        body  { background:   white;
+                color:        black;
+                font-family:  Georgia, serif; }
         ') "/>
     </style>
 
