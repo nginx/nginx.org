@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="35">
+        rev="36">
 
 <section id="directives" name="Directives">
 
@@ -1323,7 +1323,8 @@ made in this case to determine the address that accepted the connection.
 If the <literal>setfib</literal>,
 <literal>backlog</literal>, <literal>rcvbuf</literal>,
 <literal>sndbuf</literal>, <literal>accept_filter</literal>,
-<literal>deferred</literal>, or <literal>so_keepalive</literal> parameters
+<literal>deferred</literal>, <literal>ipv6only</literal>,
+or <literal>so_keepalive</literal> parameters
 are used then for a given
 <value>address</value>:<value>port</value> pair
 a separate <c-func>bind</c-func> call will always be made.

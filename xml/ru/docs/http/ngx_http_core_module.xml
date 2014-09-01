@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="35">
+        rev="36">
 
 <section id="directives" name="Директивы">
 
@@ -1317,7 +1317,8 @@ FreeBSD и Mac OS X, и 511 для других платформ.
 Если же используются параметры <literal>setfib</literal>,
 <literal>backlog</literal>, <literal>rcvbuf</literal>,
 <literal>sndbuf</literal>, <literal>accept_filter</literal>,
-<literal>deferred</literal> или <literal>so_keepalive</literal>,
+<literal>deferred</literal>, <literal>ipv6only</literal>
+или <literal>so_keepalive</literal>,
 то для данной пары
 <value>адрес</value>:<value>порт</value> всегда делается
 отдельный вызов <c-func>bind</c-func>.
