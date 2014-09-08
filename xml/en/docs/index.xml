@@ -8,7 +8,7 @@
 <article name="nginx documentation"
          link="/en/docs/"
          lang="en"
-         rev="14"
+         rev="15"
          toc="no">
 
 
@@ -43,6 +43,10 @@
 
 <listitem>
 <link doc="debugging_log.xml"/>
+</listitem>
+
+<listitem>
+<link doc="syslog.xml"/>
 </listitem>
 
 <listitem>

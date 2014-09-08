@@ -6,6 +6,7 @@ DOCS =									\
 		syntax							\
 		control							\
 		hash							\
+		syslog							\
 		dirindex						\
 		varindex						\
 		http/request_processing					\

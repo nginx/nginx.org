@@ -12,7 +12,7 @@
 
 <!ELEMENT  para         (#PCDATA | link | links | varlinks | br | list | note |
                          i | b | nobr | table | literal | command |
-                         path | header | value | programlisting |
+                         path | example | header | value | programlisting |
                          initial |
                          mainline_version | stable_version | commercial_version |
                          registered | c-func | http-status)* >
@@ -35,6 +35,7 @@
 <!ELEMENT  path         (#PCDATA | value |
                          mainline_version | stable_version | commercial_version)* >
 <!ELEMENT  literal      (#PCDATA | value)* >
+<!ELEMENT  example      (#PCDATA | value)* >
 <!ELEMENT  header       (#PCDATA) >
 <!ELEMENT  initial      (#PCDATA) >
 <!ELEMENT  value        (#PCDATA) >
@@ -54,9 +55,9 @@
 
 <!ELEMENT  nobr         (#PCDATA | b | command | i | literal | path)* >
 
-<!ELEMENT  list         (listitem+) >
+<!ELEMENT  list         (listitem+ | (tag-name | tag-desc)+) >
 <!ATTLIST  list
-           type         (bullet | enum) #REQUIRED
+           type         (bullet | enum | tag) #REQUIRED
            compact      (yes | no) "yes"
 >
 
@@ -67,6 +68,13 @@
 <!ATTLIST  listitem
            id           ID #IMPLIED
 >
+
+<!ELEMENT  tag-name     ANY >
+<!ATTLIST  tag-name
+           id           ID #IMPLIED
+>
+
+<!ELEMENT  tag-desc     ANY >
 
 <!ELEMENT  note         (#PCDATA | para | br | list | i | b | link |
                          nobr | table | literal | command | path |

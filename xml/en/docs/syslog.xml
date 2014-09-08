@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE article SYSTEM "../../../dtd/article.dtd">
+
+<article name="Logging to syslog"
+         link="/en/docs/syslog.html"
+         lang="en"
+         rev="1">
+
+<section>
+
+<para>
+The
+<link doc="ngx_core_module.xml" id="error_log"/>
+and
+<link doc="http/ngx_http_log_module.xml" id="access_log"/>
+directives support logging to syslog.
+The following parameters configure logging to syslog:
+<list type="tag">
+
+<tag-name><literal>server=</literal><value>address</value></tag-name>
+<tag-desc>
+Defines the address of a syslog server.
+The address can be specified as a domain name, IP address, or
+a UNIX-domain socket path (specified after the “<literal>unix:</literal>”
+prefix).
+With a domain name or IP address, the port can be specified.
+If port is not specified, the port 514 is used.
+If a domain name resolves to several IP addresses, the first resolved
+address is used.
+</tag-desc>
+
+<tag-name><literal>facility=</literal><value>string</value></tag-name>
+<tag-desc>
+Sets facility of syslog messages, as defined in
+<link url="http://tools.ietf.org/html/rfc3164#section-4.1.1">RFC 3164</link>.
+Facility can be one of “<literal>kern</literal>”, “<literal>user</literal>”,
+“<literal>mail</literal>”, “<literal>daemon</literal>”,
+“<literal>auth</literal>”, “<literal>intern</literal>”,
+“<literal>lpr</literal>”, “<literal>news</literal>”, “<literal>uucp</literal>”,
+“<literal>clock</literal>”, “<literal>authpriv</literal>”,
+“<literal>ftp</literal>”, “<literal>ntp</literal>”, “<literal>audit</literal>”,
+“<literal>alert</literal>”, “<literal>cron</literal>”,
+“<literal>local0</literal>”..“<literal>local7</literal>”.
+Default is “<literal>local7</literal>”.
+</tag-desc>
+
+<tag-name><literal>severity=</literal><value>string</value></tag-name>
+<tag-desc>
+Sets severity of syslog messages for
+<link doc="http/ngx_http_log_module.xml" id="access_log"/>,
+as defined in
+<link url="http://tools.ietf.org/html/rfc3164#section-4.1.1">RFC 3164</link>.
+Possible values are the same as for the second parameter (level) of the
+<link doc="ngx_core_module.xml" id="error_log"/> directive.
+Default is “<literal>info</literal>”.
+</tag-desc>
+
+<tag-name><literal>tag=</literal><value>string</value></tag-name>
+<tag-desc>
+Sets the tag of syslog messages.
+Default is “<literal>nginx</literal>”.
+</tag-desc>
+
+<!--
+<tag-name><literal>bare=</literal><literal>on</literal> |
+<literal>off</literal></tag-name>
+<tag-desc>
+If enabled, messages are sent without syslog headers.
+Default is <literal>off</literal>.
+</tag-desc>
+-->
+
+</list>
+Example syslog configuration:
+<example>
+error_log syslog:server=192.168.1.1 debug;
+
+access_log syslog:server=unix:/var/log/nginx.sock;
+access_log syslog:server=[2001:db8::1]:12345,facility=local7,tag=nginx,severity=info combined;
+</example>
+</para>
+
+<para>
+<note>
+Logging to syslog is available since version 1.7.1.
+As part of our
+<commercial_version>commercial subscription</commercial_version>
+logging to syslog is available since version 1.5.3.
+</note>
+</para>
+
+</section>
+
+</article>

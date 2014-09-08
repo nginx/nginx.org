@@ -8,7 +8,7 @@
 <article name="nginx"
          link="/en/"
          lang="en"
-         rev="25">
+         rev="26">
 
 
 <section>
@@ -128,8 +128,9 @@ executable</link> without interruption of the client servicing;
 <link doc="docs/http/ngx_http_log_module.xml" id="log_format">Access
 log formats</link>,
 <link doc="docs/http/ngx_http_log_module.xml" id="access_log">buffered
-log writing</link>, and
-<link doc="docs/control.xml" id="logs">fast log rotation</link>;
+log writing</link>,
+<link doc="docs/control.xml" id="logs">fast log rotation</link>, and
+<link doc="docs/syslog.xml">syslog logging</link>;
 </listitem>
 
 <listitem>

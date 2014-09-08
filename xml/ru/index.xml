@@ -8,7 +8,7 @@
 <article name="nginx"
          link="/ru/"
          lang="ru"
-         rev="25">
+         rev="26">
 
 
 <section>
@@ -131,7 +131,8 @@ chunked ответы,
 форматов логов</link>,
 <link doc="docs/http/ngx_http_log_module.xml" id="access_log">буферизованная
 запись в лог</link>,
-<link doc="docs/control.xml" id="logs">быстрая ротация логов</link>;
+<link doc="docs/control.xml" id="logs">быстрая ротация логов</link>,
+<link doc="docs/syslog.xml">запись в syslog</link>;
 </listitem>
 
 <listitem>

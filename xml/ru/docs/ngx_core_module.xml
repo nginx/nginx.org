@@ -10,7 +10,7 @@
 <module name="Основная функциональность"
         link="/ru/docs/ngx_core_module.html"
         lang="ru"
-        rev="10">
+        rev="11">
 
 <section id="example" name="Пример конфигурации">
 
@@ -171,7 +171,7 @@ events {
 Если имя файла не абсолютное, к нему добавляется в начало путь префикса.
 -->
 Специальное значение <literal>stderr</literal> выбирает стандартный файл ошибок.
-Запись в syslog настраивается указанием префикса
+Запись в <link doc="syslog.xml">syslog</link> настраивается указанием префикса
 “<literal>syslog:</literal>”.
 </para>
 
@@ -188,70 +188,6 @@ events {
 Для работы уровня лога <literal>debug</literal> необходимо сконфигурировать
 nginx с <literal>--with-debug</literal>,
 см. “<link doc="debugging_log.xml"/>”.
-</note>
-</para>
-
-<para>
-Запись в syslog настраивается при помощи следующих параметров:
-<list type="tag">
-
-<tag-name><literal>server=</literal><value>адрес</value></tag-name>
-<tag-desc>
-Задаёт адрес сервера syslog.
-Адрес может быть указан в виде доменного имени или IP-адреса,
-и необязательного порта, или в виде пути UNIX-сокета, который
-указывается после префикса “<literal>unix:</literal>”.
-Если порт не указан, используется порт 514.
-Если доменному имени соответствует несколько IP-адресов,
-используется только первый адрес.
-</tag-desc>
-
-<tag-name><literal>facility=</literal><value>строка</value></tag-name>
-<tag-desc>
-Задаёт категорию сообщений syslog в соответствии с
-<link url="http://tools.ietf.org/html/rfc3164#section-4.1.1">RFC 3164</link>.
-В качестве категории может быть указано одно из следующих значений:
-“<literal>kern</literal>”, “<literal>user</literal>”,
-“<literal>mail</literal>”, “<literal>daemon</literal>”,
-“<literal>auth</literal>”, “<literal>intern</literal>”,
-“<literal>lpr</literal>”, “<literal>news</literal>”, “<literal>uucp</literal>”,
-“<literal>clock</literal>”, “<literal>authpriv</literal>”,
-“<literal>ftp</literal>”, “<literal>ntp</literal>”, “<literal>audit</literal>”,
-“<literal>alert</literal>”, “<literal>cron</literal>”,
-“<literal>local0</literal>”..“<literal>local7</literal>”.
-По умолчанию используется “<literal>local7</literal>”.
-</tag-desc>
-
-<tag-name><literal>tag=</literal><value>строка</value></tag-name>
-<tag-desc>
-Задаёт метку сообщений syslog.
-По умолчанию используется “<literal>nginx</literal>”.
-</tag-desc>
-
-<!--
-<tag-name><literal>bare=</literal><literal>on</literal> |
-<literal>off</literal></tag-name>
-<tag-desc>
-Если включено, сообщения отправляются без заголовка syslog.
-По умолчанию выключено.
-</tag-desc>
--->
-
-</list>
-Пример конфигурации syslog:
-<example>
-error_log syslog:server=192.168.1.1 debug;
-error_log syslog:server=unix:/var/log/nginx.sock;
-error_log syslog:server=[2001:db8::1]:12345,facility=local7,tag=nginx error;
-</example>
-</para>
-
-<para>
-<note>
-Запись в syslog доступна начиная с версии 1.7.1.
-Как часть
-<commercial_version>коммерческой подписки</commercial_version>
-запись в syslog доступна начиная с версии 1.5.3.
 </note>
 </para>
 

@@ -8,6 +8,7 @@ DOCS =									\
 		switches						\
 		control							\
 		hash							\
+		syslog							\
 		dirindex						\
 		varindex						\
 		http/request_processing					\
