@@ -9,7 +9,7 @@
 <module name="Module ngx_http_status_module"
         link="/en/docs/http/ngx_http_status_module.html"
         lang="en"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -455,7 +455,7 @@ data from disk into the cache.
 </tag-desc>
 
 <tag-name>
-    <literal>hits</literal>,
+    <literal>hit</literal>,
     <literal>stale</literal>,
     <literal>updating</literal>,
     <literal>revalidated</literal>

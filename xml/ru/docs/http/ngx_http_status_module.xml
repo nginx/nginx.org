@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_status_module"
         link="/ru/docs/http/ngx_http_status_module.html"
         lang="ru"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -459,7 +459,7 @@ http://127.0.0.1/status/upstreams/backend/1/weight
 </tag-desc>
 
 <tag-name>
-    <literal>hits</literal>,
+    <literal>hit</literal>,
     <literal>stale</literal>,
     <literal>updating</literal>,
     <literal>revalidated</literal>
