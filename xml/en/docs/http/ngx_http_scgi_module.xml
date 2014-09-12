@@ -10,7 +10,7 @@
 <module name="Module ngx_http_scgi_module"
         link="/en/docs/http/ngx_http_scgi_module.html"
         lang="en"
-        rev="4">
+        rev="5">
 
 <section id="summary">
 
@@ -735,9 +735,9 @@ transferring of a response, fixing this is impossible.
 </para>
 
 <para>
-The directive also defines what is considered an unsuccessful attempt
-of communication with a
-<link doc="ngx_http_upstream_module.xml" id="server"/>.
+The directive also defines what is considered an
+<link doc="ngx_http_upstream_module.xml" id="max_fails">unsuccessful
+attempt</link> of communication with a server.
 The cases of <literal>error</literal>, <literal>timeout</literal> and
 <literal>invalid_header</literal> are always considered unsuccessful attempts,
 even if they are not specified in the directive.

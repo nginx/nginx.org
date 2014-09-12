@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_memcached_module"
         link="/ru/docs/http/ngx_http_memcached_module.html"
         lang="ru"
-        rev="7">
+        rev="8">
 
 <section id="summary">
 
@@ -162,8 +162,9 @@ server {
 </para>
 
 <para>
-Директива также определяет, что считается неудачной попыткой работы с
-<link doc="ngx_http_upstream_module.xml" id="server">сервером</link>.
+Директива также определяет, что считается
+<link doc="ngx_http_upstream_module.xml" id="max_fails">неудачной
+попыткой</link> работы с сервером.
 Случаи <literal>error</literal>, <literal>timeout</literal> и
 <literal>invalid_response</literal>
 всегда считаются неудачными попытками, даже если они не указаны в директиве.

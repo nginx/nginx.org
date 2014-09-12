@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_fastcgi_module"
         link="/ru/docs/http/ngx_http_fastcgi_module.html"
         lang="ru"
-        rev="16">
+        rev="17">
 
 <section id="summary">
 
@@ -813,8 +813,9 @@ FastCGI-сервера, и ответ не вмещается целиком в 
 </para>
 
 <para>
-Директива также определяет, что считается неудачной попыткой работы с
-<link doc="ngx_http_upstream_module.xml" id="server">сервером</link>.
+Директива также определяет, что считается
+<link doc="ngx_http_upstream_module.xml" id="max_fails">неудачной
+попыткой</link> работы с сервером.
 Случаи <literal>error</literal>, <literal>timeout</literal> и
 <literal>invalid_header</literal>
 всегда считаются неудачными попытками, даже если они не указаны в директиве.
