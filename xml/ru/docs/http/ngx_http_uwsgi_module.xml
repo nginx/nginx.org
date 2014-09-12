@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_uwsgi_module"
         link="/ru/docs/http/ngx_http_uwsgi_module.html"
         lang="ru"
-        rev="6">
+        rev="7">
 
 <section id="summary">
 
@@ -771,6 +771,46 @@ uwsgi-сервера, и ответ не вмещается целиком в б
 считаются неудачными попытками, только если они указаны в директиве.
 Случаи <literal>http_403</literal> и <literal>http_404</literal>
 никогда не считаются неудачными попытками.
+</para>
+
+<para>
+Передача запроса следующему серверу может быть ограничена по
+<link id="uwsgi_next_upstream_tries">количеству попыток</link>
+и по <link id="uwsgi_next_upstream_timeout">времени</link>.
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_next_upstream_timeout">
+<syntax><value>время</value></syntax>
+<default>0</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.7.5</appeared-in>
+
+<para>
+Ограничивает время, в течение которого возможна передача запроса
+<link id="uwsgi_next_upstream">следующему серверу</link>.
+Значение <literal>0</literal> отключает это ограничение.
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_next_upstream_tries">
+<syntax><value>число</value></syntax>
+<default>0</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.7.5</appeared-in>
+
+<para>
+Ограничивает число допустимых попыток для передачи запроса
+<link id="uwsgi_next_upstream">следующему серверу</link>.
+Значение <literal>0</literal> отключает это ограничение.
 </para>
 
 </directive>

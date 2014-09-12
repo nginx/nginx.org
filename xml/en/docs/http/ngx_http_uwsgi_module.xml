@@ -10,7 +10,7 @@
 <module name="Module ngx_http_uwsgi_module"
         link="/en/docs/http/ngx_http_uwsgi_module.html"
         lang="en"
-        rev="6">
+        rev="7">
 
 <section id="summary">
 
@@ -775,6 +775,46 @@ The cases of <literal>http_500</literal> and <literal>http_503</literal> are
 considered unsuccessful attempts only if they are specified in the directive.
 The cases of <literal>http_403</literal> and <literal>http_404</literal>
 are never considered unsuccessful attempts.
+</para>
+
+<para>
+Passing a request to the next server can be limited by
+<link id="uwsgi_next_upstream_tries">the number of tries</link>
+and by <link id="uwsgi_next_upstream_timeout">time</link>.
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_next_upstream_timeout">
+<syntax><value>time</value></syntax>
+<default>0</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.7.5</appeared-in>
+
+<para>
+Limits the time allowed to pass a request to the
+<link id="uwsgi_next_upstream">next server</link>.
+The <literal>0</literal> value turns off this limitation.
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_next_upstream_tries">
+<syntax><value>number</value></syntax>
+<default>0</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.7.5</appeared-in>
+
+<para>
+Limits the number of possible tries for passing a request to the
+<link id="uwsgi_next_upstream">next server</link>.
+The <literal>0</literal> value turns off this limitation.
 </para>
 
 </directive>
