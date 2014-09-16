@@ -1,4 +1,46 @@
 
+Changes with nginx 1.7.5                                         16 Sep 2014
+
+    *) Security: it was possible to reuse SSL sessions in unrelated contexts
+       if a shared SSL session cache or the same TLS session ticket key was
+       used for multiple "server" blocks (CVE-2014-3616).
+       Thanks to Antoine Delignat-Lavaud.
+
+    *) Change: now the "stub_status" directive does not require a parameter.
+
+    *) Feature: the "always" parameter of the "add_header" directive.
+
+    *) Feature: the "proxy_next_upstream_tries",
+       "proxy_next_upstream_timeout", "fastcgi_next_upstream_tries",
+       "fastcgi_next_upstream_timeout", "memcached_next_upstream_tries",
+       "memcached_next_upstream_timeout", "scgi_next_upstream_tries",
+       "scgi_next_upstream_timeout", "uwsgi_next_upstream_tries", and
+       "uwsgi_next_upstream_timeout" directives.
+
+    *) Bugfix: in the "if" parameter of the "access_log" directive.
+
+    *) Bugfix: in the ngx_http_perl_module.
+       Thanks to Piotr Sikora.
+
+    *) Bugfix: the "listen" directive of the mail proxy module did not allow
+       to specify more than two parameters.
+
+    *) Bugfix: the "sub_filter" directive did not work with a string to
+       replace consisting of a single character.
+
+    *) Bugfix: requests might hang if resolver was used and a timeout
+       occurred during a DNS request.
+
+    *) Bugfix: in the ngx_http_spdy_module when using with AIO.
+
+    *) Bugfix: a segmentation fault might occur in a worker process if the
+       "set" directive was used to change the "$http_...", "$sent_http_...",
+       or "$upstream_http_..." variables.
+
+    *) Bugfix: in memory allocation error handling.
+       Thanks to Markus Linnala and Feng Gu.
+
+
 Changes with nginx 1.7.4                                         05 Aug 2014
 
     *) Security: pipelined commands were not discarded after STARTTLS

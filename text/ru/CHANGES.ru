@@ -1,4 +1,49 @@
 
+Изменения в nginx 1.7.5                                           16.09.2014
+
+    *) Безопасность: при использовании общего для нескольких блоков server
+       разделяемого кэша SSL-сессий или общего ключа для шифрования TLS
+       session tickets было возможно повторно использовать SSL-сессию в
+       контексте другого блока server (CVE-2014-3616).
+       Спасибо Antoine Delignat-Lavaud.
+
+    *) Изменение: директиву stub_status теперь можно указывать без
+       параметров.
+
+    *) Добавление: параметр always директивы add_header.
+
+    *) Добавление: директивы proxy_next_upstream_tries,
+       proxy_next_upstream_timeout, fastcgi_next_upstream_tries,
+       fastcgi_next_upstream_timeout, memcached_next_upstream_tries,
+       memcached_next_upstream_timeout, scgi_next_upstream_tries,
+       scgi_next_upstream_timeout, uwsgi_next_upstream_tries и
+       uwsgi_next_upstream_timeout.
+
+    *) Исправление: в параметре if директивы access_log.
+
+    *) Исправление: в модуле ngx_http_perl_module.
+       Спасибо Piotr Sikora.
+
+    *) Исправление: директива listen почтового прокси-сервера не позволяла
+       указать более двух параметров.
+
+    *) Исправление: директива sub_filter не работала с заменяемой строкой из
+       одного символа.
+
+    *) Исправление: запросы могли зависать, если использовался resolver и в
+       процессе обращения к DNS-серверу происходил таймаут.
+
+    *) Исправление: в модуле ngx_http_spdy_module при использовании
+       совместно с AIO.
+
+    *) Исправление: в рабочем процессе мог произойти segmentation fault,
+       если с помощью директивы set изменялись переменные "$http_...",
+       "$sent_http_..." или "$upstream_http_...".
+
+    *) Исправление: в обработке ошибок выделения памяти.
+       Спасибо Markus Linnala и Feng Gu.
+
+
 Изменения в nginx 1.7.4                                           05.08.2014
 
     *) Безопасность: pipelined-команды не отбрасывались после команды
