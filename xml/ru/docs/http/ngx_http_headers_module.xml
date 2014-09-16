@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_headers_module"
         link="/ru/docs/http/ngx_http_headers_module.html"
         lang="ru"
-        rev="5">
+        rev="6">
 
 <section id="summary">
 
@@ -43,7 +43,9 @@ add_header Cache-Control private;
 <section id="directives" name="Директивы">
 
 <directive name="add_header">
-<syntax><value>имя</value> <value>значение</value></syntax>
+<syntax>
+<value>имя</value> <value>значение</value>
+[<literal>always</literal>]</syntax>
 <default/>
 <context>http</context>
 <context>server</context>
@@ -60,6 +62,11 @@ add_header Cache-Control private;
 Директив <literal>add_header</literal> может быть несколько.
 Директивы наследуются с предыдущего уровня при условии, что на данном
 уровне не описаны свои директивы <literal>add_header</literal>.
+</para>
+
+<para>
+Если указан параметр <literal>always</literal> (1.7.5),
+то поле заголовка будет добавлено независимо от кода ответа.
 </para>
 
 </directive>
