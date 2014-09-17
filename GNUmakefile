@@ -24,8 +24,7 @@ define	XSLT
 		[ -f "xml/$$l/$$f" ] && t="$$t$$l "; done;		\
 		echo --stringparam TRANS "\"$$t\"";			\
 		fi)							\
-		$(shell p="$4"; [ -n "$$p" ] &&				\
-		echo --stringparam $${p%%=*} $${p#*=})			\
+		$(if $4,--stringparam $4 $5)				\
 		$1 $2
 endef
 
@@ -148,7 +147,7 @@ $(OUT)/index.rss:							\
 $(foreach year,$(YEARS),$(OUT)/$(year).html):				\
 		xml/index.xml						\
 		$(NEWS_DEPS)
-	$(call XSLT, xslt/news.xslt, $<, $@, YEAR=$(basename $(notdir $@)))
+	$(call XSLT, xslt/news.xslt, $<, $@, YEAR, $(basename $(notdir $@)))
 
 $(OUT)/404.html:							\
 		xml/404.xml						\
