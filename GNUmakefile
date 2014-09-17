@@ -17,8 +17,7 @@ endef
 define	XSLT
 	xmllint --noout --valid $2
 	xsltproc -o $3							\
-		$(shell ff=`echo $2`; ff=$${ff#xml/};			\
-		f=$${ff#*/};						\
+		$(shell ff="$(strip $2)"; f=$${ff#xml/*/};		\
 		if [ "$$f" != "$$ff" ]; then				\
 		[ -f xml/en/$$f ] && echo --stringparam ORIGIN "en/$$f";\
 		t=; for l in $(LANGS); do				\
