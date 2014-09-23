@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_proxy_module"
         link="/ru/docs/http/ngx_http_proxy_module.html"
         lang="ru"
-        rev="24">
+        rev="25">
 
 <section id="summary">
 
@@ -1807,10 +1807,12 @@ proxy_temp_path /spool/nginx/proxy_temp 1 2;
 <list type="tag">
 
 <tag-name id="var_proxy_host"><var>$proxy_host</var></tag-name>
-<tag-desc>имя проксируемого хоста и порт;</tag-desc>
+<tag-desc>имя и порт проксируемого сервера, как указано в
+директиве <link id="proxy_pass"/>;</tag-desc>
 
 <tag-name id="var_proxy_port"><var>$proxy_port</var></tag-name>
-<tag-desc>порт проксируемого хоста;</tag-desc>
+<tag-desc>порт проксируемого сервера, как указано в
+директиве <link id="proxy_pass"/>, или стандартный порт протокола;</tag-desc>
 
 <tag-name id="var_proxy_add_x_forwarded_for">
 <var>$proxy_add_x_forwarded_for</var></tag-name>

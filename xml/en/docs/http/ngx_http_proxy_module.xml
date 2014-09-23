@@ -10,7 +10,7 @@
 <module name="Module ngx_http_proxy_module"
         link="/en/docs/http/ngx_http_proxy_module.html"
         lang="en"
-        rev="24">
+        rev="25">
 
 <section id="summary">
 
@@ -1809,10 +1809,12 @@ that can be used to compose headers using the
 <list type="tag">
 
 <tag-name id="var_proxy_host"><var>$proxy_host</var></tag-name>
-<tag-desc>name and port of a proxied server;</tag-desc>
+<tag-desc>name and port of a proxied server as specified in the
+<link id="proxy_pass"/> directive;</tag-desc>
 
 <tag-name id="var_proxy_port"><var>$proxy_port</var></tag-name>
-<tag-desc>port of a proxied server;</tag-desc>
+<tag-desc>port of a proxied server as specified in the
+<link id="proxy_pass"/> directive, or the protocol’s default port;</tag-desc>
 
 <tag-name id="var_proxy_add_x_forwarded_for">
 <var>$proxy_add_x_forwarded_for</var></tag-name>
