@@ -11,11 +11,13 @@ X:template style (lang) {
         body              { background:     white;
                             color:          black;
                             font-family:    sans-serif;
+                            line-height:    1.4em;
                             text-align:     center;
                             margin:         0;
                             padding:        0; }
         #banner           { background:     black;
                             color:          #F2F2F2;
+                            line-height:    1.2em;
                             padding:        .3em 0;
                             box-shadow:     0 5px 10px black; }
         #banner a         { color:          #00B140; }
@@ -45,6 +47,7 @@ X:template style (lang) {
         table.donors td   { vertical-align: baseline; }
         table.donors li   { text-align:     left; }
         div.directive     { background:     #F2F2F2;
+                            line-height:    1em;
                             margin:         1em 0 1em -1em;
                             padding:        .7em .7em .7em 1em;
                             border-top:     2px solid #DDD; }
@@ -81,8 +84,10 @@ X:template style (lang) {
         li blockquote, dd blockquote
                           { margin:         .7em 0; }
         blockquote.note   { border:         1px dotted #999;
+                            line-height:    1.2em;
                             text-align:     justify; }
         blockquote.example {
+                            line-height:    1em;
                             border-left:    1px solid #BBB; }
         blockquote.example pre {
                             padding:        0;
