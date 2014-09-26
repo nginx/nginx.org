@@ -16,53 +16,33 @@ X:template body (lang) {
     }
 
     <body>
-    <table width="100%">
-    <tr>
-        <td width="70%">
-            <div id="banner">
-                X:if "@lang = 'he'" { X:attribute "class" { X:text{ltr} } }
-                <center>
-                <table>
-                    <tr>
-                        <td align="center">
-                            <strong>Join our upcoming user conference,
-                            <a href="http://nginx.com/nginxconf/?utm_source=nginxorg&amp;utm_medium=banner&amp;utm_campaign=nginxconf2014"
-                            onClick="ga('send', 'event', 'banner', 'click', 'nginxconf14');">nginx.conf 2014</a>.</strong>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="center">
-                            <i>Learn, share, and celebrate 10 years of NGINX! Oct. 20-22,
-                            Hyatt Regency San Francisco Airport.</i>
-                        </td>
-                    </tr>
-                </table>
-                </center>
-            </div>
-        </td>
-        <td align="right">
+
+    <div id="banner">
+        X:if "@lang = 'he'" { X:attribute "class" { X:text{ltr} } }
+        <strong>Join our upcoming user conference,
+        <a href="http://nginx.com/nginxconf/?utm_source=nginxorg&amp;utm_medium=banner&amp;utm_campaign=nginxconf2014" onClick="ga('send', 'event', 'banner', 'click', 'nginxconf14');">nginx.conf 2014</a></strong><br/>
+        <em>Learn, share, and celebrate 10 years of NGINX! Oct. 20-22,
+        Hyatt Regency San Francisco Airport.</em>
+    </div>
+
+    <div id="main">
+    <div id="menu">
+        <h1>
             X:if "@lang = 'he'" { X:attribute "align" { X:text{left} } }
-            <a href="http://nginx.org">
-                <img src="http://nginx.org/nginx.gif" alt="nginx" border="0"/>
+            <a href="/">
+                <img src="/nginx.png" alt="nginx" />
             </a>
-        </td>
-    </tr>
+        </h1>
+        <div>
+        !! "document(concat($XML, '/menu.xml'))
+                        /menus/menu[@lang = $lang]/item";
+        </div>
+    </div>
 
-    <tr>
-        <td width="70%"><center><h3>
-            !{@name} X:if "$YEAR" { X:text{: } !{$YEAR} }
-        </h3></center></td>
-
-        <td rowspan="2" align="{$MENU_ALIGN}" valign="top">
-            <br/>
-
-            !! "document(concat($XML, '/menu.xml'))
-                         /menus/menu[@lang = $lang]/item";
-        </td>
-
-    </tr>
-
-    <tr><td valign="top">
+    <div id="content">
+        <h2>
+        !{@name} X:if "$YEAR" { X:text{: } !{$YEAR} }
+        </h2>
 
         X:if "$ORIGIN and document(concat($XML, '/', $ORIGIN))/*/@rev and
               (not(@rev) or
@@ -130,10 +110,8 @@ X:template body (lang) {
 
             </td></tr></table>
         }
-
-    </td></tr>
-
-    </table>
+    </div>
+    </div>
     </body>
 
 }
