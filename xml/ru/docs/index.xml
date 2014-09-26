@@ -8,7 +8,7 @@
 <article name="nginx: документация"
          link="/ru/docs/"
          lang="ru"
-         rev="15"
+         rev="16"
          toc="no">
 
 
@@ -84,6 +84,15 @@
 
 <listitem>
 <link doc="http/configuring_https_servers.xml"/>
+</listitem>
+
+</list>
+
+<list type="bullet">
+
+<listitem>
+<link url="http://www.aosabook.org/en/nginx.html">Глава “nginx” из книги
+“The Architecture of Open Source Applications”</link> [en]
 </listitem>
 
 </list>

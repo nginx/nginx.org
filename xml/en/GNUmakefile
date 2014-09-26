@@ -95,7 +95,6 @@ TOP =									\
 		download						\
 		security_advisories					\
 		pgp_keys						\
-		links							\
 		books							\
 		support							\
 		donation						\
