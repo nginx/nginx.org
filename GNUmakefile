@@ -151,12 +151,9 @@ $(foreach year,$(YEARS),$(OUT)/$(year).html):				\
 
 $(OUT)/404.html:							\
 		xml/404.xml						\
-		xml/menu.xml						\
+		$(COMMON_DEPS)						\
 		dtd/error.dtd						\
-		xslt/error.xslt						\
-		xslt/dirname.xslt					\
-		xslt/menu.xslt						\
-		xslt/ga.xslt
+		xslt/error.xslt
 	$(call XSLT, xslt/error.xslt, $<, $@)
 
 $(OUT)/%.html:	xml/%.xml						\

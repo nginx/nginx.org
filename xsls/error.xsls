@@ -15,46 +15,32 @@ X:strip-space elements = "*";
   -->
 X:param XML = "'../xml'";
 X:param YEAR;
+X:param ORIGIN;
 X:param TRANS;
 
 X:var LINK = "/error/@link";
 X:var LANG = "/error/@lang";
 
 X:include href = "dirname.xslt";
+X:include href = "link.xslt";
+X:include href = "style.xslt";
+X:include href = "body.xslt";
 X:include href = "menu.xslt";
 X:include href = "ga.xslt";
+X:include href = "content.xslt";
 
 
 X:template = "/error" {
     <html><head><title> !{@name} </title>
 
-    <style type="text/css">!{ normalize-space('
-        body  { background:   white;
-                color:        black;
-                font-family:  Georgia, serif; }
-        ') }
-    </style>
+    !style (lang="@lang")
 
     !ga ()
 
     </head>
 
-    <body>
-    <table width="100%">
-    <tr>
-        <td width="70%"><center><h1> !{@name} </h1></center></td>
-        <td rowspan="2" align="right" valign="top">
-            <img src="/nginx.gif" alt="nginx"/><br/>
+    !body (lang="@lang")
 
-            <br/>
-            <br/>
-
-            !! "document(concat($XML, '/menu.xml'))
-                         /menus/menu[@lang = current()/@lang]/item";
-        </td>
-    </tr>
-    </table>
-    </body>
     </html>
 }
 
