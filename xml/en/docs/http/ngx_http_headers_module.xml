@@ -91,20 +91,20 @@ the header field will be added regardless of the response code.
 Enables or disables adding or modifying the <header>Expires</header>
 and <header>Cache-Control</header> response header fields provided that
 the response code equals 200, 201, 204, 206, 301, 302, 303, 304, or 307.
-A parameter can be a positive or negative
+The parameter can be a positive or negative
 <link doc="../syntax.xml">time</link>.
 </para>
 
 <para>
-A time in the <header>Expires</header> field is computed as a sum of the
+The time in the <header>Expires</header> field is computed as a sum of the
 current time and <value>time</value> specified in the directive.
 If the <literal>modified</literal> parameter is used (0.7.0, 0.6.32)
-then time is computed as a sum of the file’s modification time and
-<value>time</value> specified in the directive.
+then the time is computed as a sum of the file’s modification time and
+the <value>time</value> specified in the directive.
 </para>
 
 <para>
-In addition, it is possible to specify a time of the day using
+In addition, it is possible to specify a time of day using
 the “<literal>@</literal>” prefix (0.7.9, 0.6.34):
 <example>
 expires @15h30m;
