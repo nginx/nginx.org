@@ -10,7 +10,7 @@
 <module name="Module ngx_http_limit_conn_module"
         link="/en/docs/http/ngx_http_limit_conn_module.html"
         lang="en"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -190,8 +190,9 @@ error to all further requests.
 <context>http</context>
 
 <para>
-This directive is made obsolete in version 1.1.8,
-an equivalent <link id="limit_conn_zone"/> directive
+This directive was made obsolete in version 1.1.8
+and was removed in version 1.7.6.
+An equivalent <link id="limit_conn_zone"/> directive
 with a changed syntax should be used instead:
 <note>
 <literal>limit_conn_zone</literal>

@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_limit_conn_module"
         link="/ru/docs/http/ngx_http_limit_conn_module.html"
         lang="ru"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -186,7 +186,9 @@ limit_conn_zone $binary_remote_addr zone=addr:10m;
 <context>http</context>
 
 <para>
-Эта директива устарела в версии 1.1.8, вместо неё следует
+Эта директива устарела в версии 1.1.8
+и была удалена в версии 1.7.6.
+Вместо неё следует
 использовать аналогичную директиву <link id="limit_conn_zone"/>
 с изменённым синтаксисом:
 <note>
