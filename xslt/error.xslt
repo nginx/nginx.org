@@ -16,45 +16,27 @@
   -->
 <xsl:param select="'../xml'" name="XML"/>
 <xsl:param name="YEAR"/>
+<xsl:param name="ORIGIN"/>
 <xsl:param name="TRANS"/>
 
 <xsl:variable select="/error/@link" name="LINK"/>
 <xsl:variable select="/error/@lang" name="LANG"/>
 
 <xsl:include href="dirname.xslt"/>
+<xsl:include href="link.xslt"/>
+<xsl:include href="style.xslt"/>
+<xsl:include href="body.xslt"/>
 <xsl:include href="menu.xslt"/>
 <xsl:include href="ga.xslt"/>
+<xsl:include href="content.xslt"/>
 
 
 <xsl:template match="/error">
     <html><head><title> <xsl:value-of select="@name"/> </title>
 
-    <style type="text/css"><xsl:value-of select=" normalize-space('
-        body  { background:   white;
-                color:        black;
-                font-family:  Georgia, serif; }
-        ') "/>
-    </style>
+    <xsl:call-template name="style"><xsl:with-param select="@lang" name="lang"/></xsl:call-template><xsl:call-template name="ga"/></head>
 
-    <xsl:call-template name="ga"/></head>
-
-    <body>
-    <table width="100%">
-    <tr>
-        <td width="70%"><center><h1> <xsl:value-of select="@name"/> </h1></center></td>
-        <td rowspan="2" align="right" valign="top">
-            <img src="/nginx.gif" alt="nginx"/><br/>
-
-            <br/>
-            <br/>
-
-            <xsl:apply-templates select="document(concat($XML, '/menu.xml'))
-                         /menus/menu[@lang = current()/@lang]/item"/>
-        </td>
-    </tr>
-    </table>
-    </body>
-    </html>
+    <xsl:call-template name="body"><xsl:with-param select="@lang" name="lang"/></xsl:call-template></html>
 </xsl:template>
 
 </xsl:stylesheet>
