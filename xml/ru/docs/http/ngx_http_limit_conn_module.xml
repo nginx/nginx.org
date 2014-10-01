@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_limit_conn_module"
         link="/ru/docs/http/ngx_http_limit_conn_module.html"
         lang="ru"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -142,7 +142,7 @@ server {
 
 <directive name="limit_conn_zone">
 <syntax>
-    <value>$переменная</value>
+    <value>ключ</value>
     <literal>zone</literal>=<value>название</value>:<value>размер</value></syntax>
 <default/>
 <context>http</context>
@@ -151,8 +151,11 @@ server {
 Задаёт параметры зоны разделяемой памяти, которая хранит состояние
 для разных значений ключа.
 Состояние в частности содержит текущее число соединений.
-Ключом является любое непустое значение заданной переменной
-(пустые значения не учитываются).
+В качестве ключа можно использовать текст, переменные и их комбинации.
+Запросы с пустым значением ключа не учитываются.
+<note>
+До версии 1.7.6 в качестве ключа можно было задать ровно одну переменную.
+</note>
 Пример использования:
 <example>
 limit_conn_zone $binary_remote_addr zone=addr:10m;

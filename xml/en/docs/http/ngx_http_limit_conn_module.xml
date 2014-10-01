@@ -10,7 +10,7 @@
 <module name="Module ngx_http_limit_conn_module"
         link="/en/docs/http/ngx_http_limit_conn_module.html"
         lang="en"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -144,7 +144,7 @@ Sets the status code to return in response to rejected requests.
 
 <directive name="limit_conn_zone">
 <syntax>
-    <value>$variable</value>
+    <value>key</value>
     <literal>zone</literal>=<value>name</value>:<value>size</value></syntax>
 <default/>
 <context>http</context>
@@ -153,8 +153,11 @@ Sets the status code to return in response to rejected requests.
 Sets parameters for a shared memory zone
 that will keep states for various keys.
 In particular, the state includes the current number of connections.
-The key is any non-empty value of the specified variable
-(empty values are not accounted).
+The <value>key</value> can contain text, variables, and their combination.
+Requests with an empty key value are not accounted.
+<note>
+Prior to version 1.7.6, a <value>key</value> could contain exactly one variable.
+</note>
 Usage example:
 <example>
 limit_conn_zone $binary_remote_addr zone=addr:10m;
