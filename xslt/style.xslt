@@ -35,6 +35,7 @@
         h1                { display:        block;
                             font-size:      3em;
                             text-align:     left;
+                            height:         .7em;
                             margin:         0;
                             margin-bottom:  .5em; }
         h1 img            { width:          100%; }
