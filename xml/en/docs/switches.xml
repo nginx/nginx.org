@@ -1,0 +1,91 @@
+<!--
+  Copyright (C) Igor Sysoev
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE article SYSTEM "../../../dtd/article.dtd">
+
+<article name="Command-line parameters"
+         link="/en/docs/switches.html"
+         lang="en"
+         rev="2">
+
+<section>
+
+<para>
+nginx supports the following command-line parameters:
+<list type="bullet">
+
+<listitem>
+<literal>-?</literal> | <literal>-h</literal>&mdash;print help
+for command-line parameters.
+</listitem>
+
+<listitem>
+<literal>-c <value>file</value></literal>&mdash;use an alternative
+configuration <value>file</value> instead of a default file.
+</listitem>
+
+<listitem>
+<literal>-g <value>directives</value></literal>&mdash; set
+<link doc="ngx_core_module.xml">global configuration directives</link>,
+for example,
+<programlisting>
+nginx -g "pid /var/run/nginx.pid; worker_processes `sysctl -n hw.ncpu`;"
+</programlisting>
+</listitem>
+
+<listitem>
+<literal>-p <value>prefix</value></literal>&mdash;set nginx path prefix,
+i.e. a directory that will keep server files
+(default value is <value>/usr/local/nginx</value>).
+</listitem>
+
+<listitem>
+<literal>-q</literal>&mdash;suppress non-error messages
+during configuration testing.
+</listitem>
+
+<listitem>
+<literal>-s <value>signal</value></literal>&mdash;send a <i>signal</i>
+to the master process.
+The argument <i>signal</i> can be one of:
+<list type="bullet">
+<listitem>
+<literal>stop</literal>&mdash;shut down quickly
+</listitem>
+<listitem>
+<literal>quit</literal>&mdash;shut down gracefully
+</listitem>
+<listitem>
+<literal>reload</literal>&mdash;reload configuration,
+start the new worker process with a new configuration,
+gracefully shut down old worker processes.
+</listitem>
+<listitem>
+<literal>reopen</literal>&mdash;reopen log files
+</listitem>
+</list>
+</listitem>
+
+<listitem>
+<literal>-t</literal>&mdash; test the configuration file: nginx checks the
+configuration for correct syntax, and then tries to open files
+referred in the configuration.
+</listitem>
+
+<listitem>
+<literal>-v</literal>&mdash;print nginx version.
+</listitem>
+
+<listitem>
+<literal>-V</literal>&mdash;print nginx version, compiler version,
+and configurе parameters.
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+</article>

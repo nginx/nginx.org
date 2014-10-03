@@ -4,6 +4,7 @@ DOCS =									\
 		windows							\
 		events							\
 		syntax							\
+		switches						\
 		control							\
 		hash							\
 		syslog							\
