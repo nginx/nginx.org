@@ -8,41 +8,80 @@
 <article name="Параметры командной строки nginx"
          link="/ru/docs/switches.html"
          lang="ru"
-         rev="1">
+         rev="2">
 
 <section>
 
 <para>
-nginx поддерживает следующие параметры:
+nginx поддерживает следующие параметры командной строки:
 <list type="bullet">
 
 <listitem>
-<literal>-c <value>файл</value></literal>&mdash;указывает
-использовать конфигурационный файл <value>файл</value> вместо файла
-по умолчанию.
+<literal>-?</literal> | <literal>-h</literal>&mdash;вывод справки
+по параметрам командной строки.
 </listitem>
 
 <listitem>
-<literal>-g</literal>&mdash;задаёт глобальные директивы конфигурации,
-например,
+<literal>-c <value>файл</value></literal>&mdash;использование альтернативного
+конфигурационного файла <value>файл</value> вместо файла по умолчанию.
+</listitem>
+
+<listitem>
+<literal>-g <value>директивы</value></literal>&mdash;задание
+<link doc="ngx_core_module.xml">глобальных директив конфигурации</link>,
+например
 <programlisting>
 nginx -g "pid /var/run/nginx.pid; worker_processes `sysctl -n hw.ncpu`;"
 </programlisting>
 </listitem>
 
 <listitem>
-<literal>-t</literal>&mdash;тестировать конфигурацию. nginx проверяет
+<literal>-p <value>префикс</value></literal>&mdash;задание префикса пути nginx,
+т.е. каталога, в котором будут находиться файлы сервера
+(по умолчанию&mdash; каталог <value>/usr/local/nginx</value>).
+</listitem>
+
+<listitem>
+<literal>-q</literal>&mdash; вывод только сообщений об ошибках
+при тестировании конфигурации.
+</listitem>
+
+<listitem>
+<literal>-s <value>сигнал</value></literal>&mdash; отправка <i>сигнала</i>
+главному процессу.
+Аргументом <i>сигнал</i> может быть:
+<list type="bullet">
+<listitem>
+<literal>stop</literal>&mdash;быстрое завершение
+</listitem>
+<listitem>
+<literal>quit</literal>&mdash;плавное завершение
+</listitem>
+<listitem>
+<literal>reload</literal>&mdash;перезагрузка конфигурации,
+старт нового рабочего процесса с новой конфигурацией,
+плавное завершение старых рабочих процессов.
+</listitem>
+<listitem>
+<literal>reopen</literal>&mdash;переоткрытие лог-файлов
+</listitem>
+</list>
+</listitem>
+
+<listitem>
+<literal>-t</literal>&mdash;тестирование конфигурационного файла:
+nginx проверяет
 синтаксическую правильность конфигурации, а затем пытается открыть файлы,
 описанные в конфигурации.
 </listitem>
 
 <listitem>
-<literal>-v</literal>&mdash;показать версию nginx.
+<literal>-v</literal>&mdash;вывод версии nginx.
 </listitem>
 
 <listitem>
-<literal>-V</literal>&mdash;показать версию nginx, версию компилятора
-и параметры конфигурации сборки.
+<literal>-V</literal>&mdash;вывод версии nginx, версии компилятора
+и параметров конфигурации сборки.
 </listitem>
 
 </list>
