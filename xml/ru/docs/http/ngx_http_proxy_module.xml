@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_proxy_module"
         link="/ru/docs/http/ngx_http_proxy_module.html"
         lang="ru"
-        rev="25">
+        rev="26">
 
 <section id="summary">
 
@@ -685,6 +685,24 @@ proxy_cookie_path off;
 proxy_cookie_path /two/ /;
 proxy_cookie_path ~*^/user/([^/]+) /u/$1;
 </example>
+</para>
+
+</directive>
+
+
+<directive name="proxy_force_ranges">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.7.7</appeared-in>
+
+<para>
+Включает поддержку диапазонов запрашиваемых байт (byte-range)
+для кэшированных и некэшированных ответов проксируемого сервера
+вне зависимости от наличия поля <header>Accept-Ranges</header>
+в заголовках этих ответов.
 </para>
 
 </directive>

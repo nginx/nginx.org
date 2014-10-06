@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_memcached_module"
         link="/ru/docs/http/ngx_http_memcached_module.html"
         lang="ru"
-        rev="9">
+        rev="10">
 
 <section id="summary">
 
@@ -95,6 +95,24 @@ server {
 <para>
 Задаёт таймаут для установления соединения с сервером memcached.
 Необходимо иметь в виду, что этот таймаут обычно не может превышать 75 секунд.
+</para>
+
+</directive>
+
+
+<directive name="memcached_force_ranges">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.7.7</appeared-in>
+
+<para>
+Включает поддержку диапазонов запрашиваемых байт (byte-range)
+для кэшированных и некэшированных ответов сервера memcached
+вне зависимости от наличия поля <header>Accept-Ranges</header>
+в заголовках этих ответов.
 </para>
 
 </directive>

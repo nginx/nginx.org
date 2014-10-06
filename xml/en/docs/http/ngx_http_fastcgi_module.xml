@@ -10,7 +10,7 @@
 <module name="Module ngx_http_fastcgi_module"
         link="/en/docs/http/ngx_http_fastcgi_module.html"
         lang="en"
-        rev="18">
+        rev="19">
 
 <section id="summary">
 
@@ -575,6 +575,23 @@ location /php {
 <para>
 Defines a timeout for establishing a connection with a FastCGI server.
 It should be noted that this timeout cannot usually exceed 75 seconds.
+</para>
+
+</directive>
+
+
+<directive name="fascgi_force_ranges">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.7.7</appeared-in>
+
+<para>
+Enables byte-range support
+for both cached and uncached responses from the FastCGI server
+regardless of the <header>Accept-Ranges</header> field in these responses.
 </para>
 
 </directive>

@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_uwsgi_module"
         link="/ru/docs/http/ngx_http_uwsgi_module.html"
         lang="ru"
-        rev="7">
+        rev="8">
 
 <section id="summary">
 
@@ -539,6 +539,24 @@ uwsgi_cache_valid any      1m;
 <para>
 Задаёт таймаут для установления соединения с uwsgi-сервером.
 Необходимо иметь в виду, что этот таймаут обычно не может превышать 75 секунд.
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_force_ranges">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.7.7</appeared-in>
+
+<para>
+Включает поддержку диапазонов запрашиваемых байт (byte-range)
+для кэшированных и некэшированных ответов uwsgi-сервера
+вне зависимости от наличия поля <header>Accept-Ranges</header>
+в заголовках этих ответов.
 </para>
 
 </directive>

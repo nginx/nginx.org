@@ -10,7 +10,7 @@
 <module name="Module ngx_http_proxy_module"
         link="/en/docs/http/ngx_http_proxy_module.html"
         lang="en"
-        rev="25">
+        rev="26">
 
 <section id="summary">
 
@@ -686,6 +686,23 @@ proxy_cookie_path off;
 proxy_cookie_path /two/ /;
 proxy_cookie_path ~*^/user/([^/]+) /u/$1;
 </example>
+</para>
+
+</directive>
+
+
+<directive name="proxy_force_ranges">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.7.7</appeared-in>
+
+<para>
+Enables byte-range support
+for both cached and uncached responses from the proxied server
+regardless of the <header>Accept-Ranges</header> field in these responses.
 </para>
 
 </directive>
