@@ -10,7 +10,7 @@
 <module name="Module ngx_http_uwsgi_module"
         link="/en/docs/http/ngx_http_uwsgi_module.html"
         lang="en"
-        rev="8">
+        rev="9">
 
 <section id="summary">
 
@@ -669,6 +669,30 @@ with the <link doc="ngx_http_core_module.xml" id="error_page"/> directive.
 </para>
 
 </directive>
+
+
+<directive name="uwsgi_limit_rate">
+<syntax><value>rate</value></syntax>
+<default>0</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.7.7</appeared-in>
+
+<para>
+Limits the speed of reading the response from the uwsgi server.
+The <value>rate</value> is specified in bytes per second.
+The zero value disables rate limiting.
+The limit is set per a request, and so if nginx simultaneously opens
+two connections, the overall rate will be twice as much
+as the specified limit.
+The limitation works only if
+<link id="uwsgi_buffering">buffering</link> of responses from the uwsgi
+server is enabled.
+</para>
+
+</directive>
+
 
 
 <directive name="uwsgi_max_temp_file_size">

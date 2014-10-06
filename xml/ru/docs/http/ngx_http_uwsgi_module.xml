@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_uwsgi_module"
         link="/ru/docs/http/ngx_http_uwsgi_module.html"
         lang="ru"
-        rev="8">
+        rev="9">
 
 <section id="summary">
 
@@ -663,6 +663,29 @@ nginx не передаёт клиенту поля заголовка <header>S
 Определяет, передавать ли клиенту ответы uwsgi-сервера с кодом
 больше либо равным 300, или же перенаправлять их на обработку nginx’у с помощью
 директивы <link doc="ngx_http_core_module.xml" id="error_page"/>.
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_limit_rate">
+<syntax><value>скорость</value></syntax>
+<default>0</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.7.7</appeared-in>
+
+<para>
+Ограничивает скорость чтения ответа от uwsgi-сервера.
+<value>Скорость</value> задаётся в байтах в секунду.
+Значение 0 отключает ограничение скорости.
+Ограничение устанавливается на запрос,
+поэтому, если nginx одновременно
+откроет два соединения, суммарная скорость будет вдвое выше
+заданного ограничения.
+Ограничение работает только в случае, если включена
+<link id="uwsgi_buffering">буферизация</link> ответов uwsgi-сервера.
 </para>
 
 </directive>

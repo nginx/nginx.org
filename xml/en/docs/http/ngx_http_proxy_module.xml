@@ -10,7 +10,7 @@
 <module name="Module ngx_http_proxy_module"
         link="/en/docs/http/ngx_http_proxy_module.html"
         lang="en"
-        rev="26">
+        rev="27">
 
 <section id="summary">
 
@@ -868,6 +868,29 @@ of a response.
 Determines whether proxied responses with codes greater than or equal
 to 300 should be passed to a client or be redirected to nginx for processing
 with the <link doc="ngx_http_core_module.xml" id="error_page"/> directive.
+</para>
+
+</directive>
+
+
+<directive name="proxy_limit_rate">
+<syntax><value>rate</value></syntax>
+<default>0</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.7.7</appeared-in>
+
+<para>
+Limits the speed of reading the response from the proxied server.
+The <value>rate</value> is specified in bytes per second.
+The zero value disables rate limiting.
+The limit is set per a request, and so if nginx simultaneously opens
+two connections, the overall rate will be twice as much
+as the specified limit.
+The limitation works only if
+<link id="proxy_buffering">buffering</link> of responses from the proxied
+server is enabled.
 </para>
 
 </directive>
