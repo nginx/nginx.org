@@ -38,16 +38,16 @@ nginx -g "pid /var/run/nginx.pid; worker_processes `sysctl -n hw.ncpu`;"
 <listitem>
 <literal>-p <value>префикс</value></literal>&mdash;задание префикса пути nginx,
 т.е. каталога, в котором будут находиться файлы сервера
-(по умолчанию&mdash; каталог <value>/usr/local/nginx</value>).
+(по умолчанию&mdash;каталог <value>/usr/local/nginx</value>).
 </listitem>
 
 <listitem>
-<literal>-q</literal>&mdash; вывод только сообщений об ошибках
+<literal>-q</literal>&mdash;вывод только сообщений об ошибках
 при тестировании конфигурации.
 </listitem>
 
 <listitem>
-<literal>-s <value>сигнал</value></literal>&mdash; отправка <i>сигнала</i>
+<literal>-s <value>сигнал</value></literal>&mdash;отправка <i>сигнала</i>
 главному процессу.
 Аргументом <i>сигнал</i> может быть:
 <list type="bullet">

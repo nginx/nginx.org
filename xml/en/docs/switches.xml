@@ -27,7 +27,7 @@ configuration <value>file</value> instead of a default file.
 </listitem>
 
 <listitem>
-<literal>-g <value>directives</value></literal>&mdash; set
+<literal>-g <value>directives</value></literal>&mdash;set
 <link doc="ngx_core_module.xml">global configuration directives</link>,
 for example,
 <programlisting>
@@ -69,7 +69,7 @@ gracefully shut down old worker processes.
 </listitem>
 
 <listitem>
-<literal>-t</literal>&mdash; test the configuration file: nginx checks the
+<literal>-t</literal>&mdash;test the configuration file: nginx checks the
 configuration for correct syntax, and then tries to open files
 referred in the configuration.
 </listitem>
