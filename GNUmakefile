@@ -66,7 +66,7 @@ NEWS_DEPS =								\
 		dtd/news.dtd						\
 		xslt/news.xslt						\
 
-LANGS =		en ru cn he ja tr it
+LANGS =		en ru
 
 YEARS =		2013 2012 2011 2010 2009
 
