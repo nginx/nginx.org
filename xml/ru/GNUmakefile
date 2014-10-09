@@ -36,6 +36,7 @@ REFS =									\
 		http/ngx_http_dav_module				\
 		http/ngx_http_empty_gif_module				\
 		http/ngx_http_fastcgi_module				\
+		http/ngx_http_f4f_module				\
 		http/ngx_http_flv_module				\
 		http/ngx_http_geo_module				\
 		http/ngx_http_geoip_module				\

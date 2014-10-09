@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Module ngx_http_f4f_module"
+        link="/ru/docs/http/ngx_http_f4f_module.html"
+        lang="ru"
+        rev="1">
+
+<section id="summary">
+
+<para>
+Модуль <literal>ngx_http_f4f_module</literal> обеспечивает
+серверную поддержку протокола Adobe HTTP Dynamic Streaming (HDS).
+</para>
+
+<para>
+Модуль предоставляет возможность обработки запросов HTTP Dynamic Streaming в
+виде “<literal>/videoSeg1-Frag1</literal>”, т.е. извлечения необходимого фрагмента
+из <path>videoSeg1.f4f</path> при помощи
+индексного файла <path>videoSeg1.f4x</path>.
+Модуль является альтернативой модулю Adobe f4f (HTTP Origin Module)
+для Apache.
+</para>
+
+<para>
+Необходима предварительная обработка данных при помощи Adobe f4fpackager,
+дополнительную информацию см. в соответствующей документации.
+</para>
+
+<para>
+<note>
+Модуль доступен как часть
+<commercial_version>коммерческой подписки</commercial_version>.
+</note>
+</para>
+
+</section>
+
+
+<section id="example" name="Пример конфигурации">
+
+<para>
+<example>
+location /video/ {
+    f4f;
+    ...
+}
+</example>
+</para>
+
+</section>
+
+
+<section id="directives" name="Директивы">
+
+<directive name="f4f">
+<syntax/>
+<default/>
+<context>location</context>
+
+<para>
+Включает обработку данным модулем во вложенном location.
+</para>
+
+</directive>
+
+
+<directive name="f4f_buffer_size">
+<syntax><value>размер</value></syntax>
+<default>512k</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Задаёт <value>размер</value> буфера, в который будет
+читаться индексный файл <path>.f4x</path>.
+</para>
+
+</directive>
+
+</section>
+
+</module>
