@@ -580,7 +580,7 @@ It should be noted that this timeout cannot usually exceed 75 seconds.
 </directive>
 
 
-<directive name="fascgi_force_ranges">
+<directive name="fastcgi_force_ranges">
 <syntax><literal>on</literal> | <literal>off</literal></syntax>
 <default>off</default>
 <context>http</context>
