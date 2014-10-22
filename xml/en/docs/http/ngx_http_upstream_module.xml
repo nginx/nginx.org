@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="28">
+        rev="29">
 
 <section id="summary">
 
@@ -644,6 +644,13 @@ The server group must reside in the <link id="zone">shared memory</link>.
 If several health checks are defined for the same group of servers,
 a single failure of any check will make the corresponding server be
 considered unhealthy.
+</para>
+
+<para>
+<note>
+Please note that most of the variables will have empty values
+when used with health checks.
+</note>
 </para>
 
 <para>
