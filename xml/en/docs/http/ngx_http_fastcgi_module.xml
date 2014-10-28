@@ -10,7 +10,7 @@
 <module name="Module ngx_http_fastcgi_module"
         link="/en/docs/http/ngx_http_fastcgi_module.html"
         lang="en"
-        rev="20">
+        rev="21">
 
 <section id="summary">
 
@@ -731,29 +731,6 @@ with the <link doc="ngx_http_core_module.xml" id="error_page"/> directive.
 </directive>
 
 
-<directive name="fastcgi_limit_rate">
-<syntax><value>rate</value></syntax>
-<default>0</default>
-<context>http</context>
-<context>server</context>
-<context>location</context>
-<appeared-in>1.7.7</appeared-in>
-
-<para>
-Limits the speed of reading the response from the FastCGI server.
-The <value>rate</value> is specified in bytes per second.
-The zero value disables rate limiting.
-The limit is set per a request, and so if nginx simultaneously opens
-two connections, the overall rate will be twice as much
-as the specified limit.
-The limitation works only if
-<link id="fastcgi_buffering">buffering</link> of responses from the FastCGI
-server is enabled.
-</para>
-
-</directive>
-
-
 <directive name="fastcgi_keep_conn">
 <syntax><literal>on</literal> | <literal>off</literal></syntax>
 <default>off</default>
@@ -770,6 +747,29 @@ nginx will instruct a FastCGI server to keep connections open.
 This is necessary, in particular, for
 <link doc="ngx_http_upstream_module.xml" id="keepalive"/>
 connections to FastCGI servers to function.
+</para>
+
+</directive>
+
+
+<directive name="fastcgi_limit_rate">
+<syntax><value>rate</value></syntax>
+<default>0</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.7.7</appeared-in>
+
+<para>
+Limits the speed of reading the response from the FastCGI server.
+The <value>rate</value> is specified in bytes per second.
+The zero value disables rate limiting.
+The limit is set per a request, and so if nginx simultaneously opens
+two connections to the FastCFI server,
+the overall rate will be twice as much as the specified limit.
+The limitation works only if
+<link id="fastcgi_buffering">buffering</link> of responses from the FastCGI
+server is enabled.
 </para>
 
 </directive>

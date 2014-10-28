@@ -10,7 +10,7 @@
 <module name="Module ngx_http_uwsgi_module"
         link="/en/docs/http/ngx_http_uwsgi_module.html"
         lang="en"
-        rev="9">
+        rev="10">
 
 <section id="summary">
 
@@ -684,8 +684,8 @@ Limits the speed of reading the response from the uwsgi server.
 The <value>rate</value> is specified in bytes per second.
 The zero value disables rate limiting.
 The limit is set per a request, and so if nginx simultaneously opens
-two connections, the overall rate will be twice as much
-as the specified limit.
+two connections to the uwsgi server,
+the overall rate will be twice as much as the specified limit.
 The limitation works only if
 <link id="uwsgi_buffering">buffering</link> of responses from the uwsgi
 server is enabled.
