@@ -1,4 +1,36 @@
 
+Изменения в nginx 1.7.7                                           28.10.2014
+
+    *) Изменение: теперь nginx учитывает при кэшировании строку "Vary" в
+       заголовке ответа бэкенда.
+
+    *) Добавление: директивы proxy_force_ranges, fastcgi_force_ranges,
+       scgi_force_ranges и uwsgi_force_ranges.
+
+    *) Добавление: директивы proxy_limit_rate, fastcgi_limit_rate,
+       scgi_limit_rate и uwsgi_limit_rate.
+
+    *) Добавление: параметр Vary директив proxy_ignore_headers,
+       fastcgi_ignore_headers, scgi_ignore_headers и uwsgi_ignore_headers.
+
+    *) Исправление: последняя часть ответа, полученного от бэкенда при
+       небуферизированном проксировании, могла не отправляться клиенту, если
+       использовались директивы gzip или gunzip.
+
+    *) Исправление: в директиве proxy_cache_revalidate.
+       Спасибо Piotr Sikora.
+
+    *) Исправление: в обработке ошибок.
+       Спасибо Yichun Zhang и Даниилу Бондареву.
+
+    *) Исправление: в директивах proxy_next_upstream_tries и
+       proxy_next_upstream_timeout.
+       Спасибо Feng Gu.
+
+    *) Исправление: nginx/Windows не собирался с MinGW-w64 gcc.
+       Спасибо Kouhei Sutou.
+
+
 Изменения в nginx 1.7.6                                           30.09.2014
 
     *) Изменение: устаревшая директива limit_zone больше не поддерживается.

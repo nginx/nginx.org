@@ -1,4 +1,37 @@
 
+Changes with nginx 1.7.7                                         28 Oct 2014
+
+    *) Change: now nginx takes into account the "Vary" header line in a
+       backend response while caching.
+
+    *) Feature: the "proxy_force_ranges", "fastcgi_force_ranges",
+       "scgi_force_ranges", and "uwsgi_force_ranges" directives.
+
+    *) Feature: the "proxy_limit_rate", "fastcgi_limit_rate",
+       "scgi_limit_rate", and "uwsgi_limit_rate" directives.
+
+    *) Feature: the "Vary" parameter of the "proxy_ignore_headers",
+       "fastcgi_ignore_headers", "scgi_ignore_headers", and
+       "uwsgi_ignore_headers" directives.
+
+    *) Bugfix: the last part of a response received from a backend with
+       unbufferred proxy might not be sent to a client if "gzip" or "gunzip"
+       directives were used.
+
+    *) Bugfix: in the "proxy_cache_revalidate" directive.
+       Thanks to Piotr Sikora.
+
+    *) Bugfix: in error handling.
+       Thanks to Yichun Zhang and Daniil Bondarev.
+
+    *) Bugfix: in the "proxy_next_upstream_tries" and
+       "proxy_next_upstream_timeout" directives.
+       Thanks to Feng Gu.
+
+    *) Bugfix: nginx/Windows could not be built with MinGW-w64 gcc.
+       Thanks to Kouhei Sutou.
+
+
 Changes with nginx 1.7.6                                         30 Sep 2014
 
     *) Change: the deprecated "limit_zone" directive is not supported
