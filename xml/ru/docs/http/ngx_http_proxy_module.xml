@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_proxy_module"
         link="/ru/docs/http/ngx_http_proxy_module.html"
         lang="ru"
-        rev="28">
+        rev="29">
 
 <section id="summary">
 
@@ -812,7 +812,8 @@ nginx не передаёт клиенту поля заголовка <header>D
 <header>X-Accel-Expires</header>, <header>X-Accel-Limit-Rate</header> (1.1.6),
 <header>X-Accel-Buffering</header> (1.1.6),
 <header>X-Accel-Charset</header> (1.1.6), <header>Expires</header>,
-<header>Cache-Control</header> и <header>Set-Cookie</header> (0.8.44).
+<header>Cache-Control</header>, <header>Set-Cookie</header> (0.8.44)
+и <header>Vary</header> (1.7.7).
 </para>
 
 <para>
@@ -821,7 +822,8 @@ nginx не передаёт клиенту поля заголовка <header>D
 
 <listitem>
 <header>X-Accel-Expires</header>, <header>Expires</header>,
-<header>Cache-Control</header> и <header>Set-Cookie</header>
+<header>Cache-Control</header> <header>Set-Cookie</header>
+и <header>Vary</header>
 задают параметры <link id="proxy_cache_valid">кэширования</link> ответа;
 </listitem>
 

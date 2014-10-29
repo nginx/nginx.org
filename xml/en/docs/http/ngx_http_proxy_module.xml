@@ -10,7 +10,7 @@
 <module name="Module ngx_http_proxy_module"
         link="/en/docs/http/ngx_http_proxy_module.html"
         lang="en"
-        rev="28">
+        rev="29">
 
 <section id="summary">
 
@@ -814,7 +814,8 @@ The following fields can be ignored: <header>X-Accel-Redirect</header>,
 <header>X-Accel-Expires</header>, <header>X-Accel-Limit-Rate</header> (1.1.6),
 <header>X-Accel-Buffering</header> (1.1.6),
 <header>X-Accel-Charset</header> (1.1.6), <header>Expires</header>,
-<header>Cache-Control</header>, and <header>Set-Cookie</header> (0.8.44).
+<header>Cache-Control</header>, <header>Set-Cookie</header> (0.8.44),
+and <header>Vary</header> (1.7.7).
 </para>
 
 <para>
@@ -824,7 +825,8 @@ effect:
 
 <listitem>
 <header>X-Accel-Expires</header>, <header>Expires</header>,
-<header>Cache-Control</header>, and <header>Set-Cookie</header>
+<header>Cache-Control</header>, <header>Set-Cookie</header>,
+and <header>Vary</header>
 set the parameters of response <link id="proxy_cache_valid">caching</link>;
 </listitem>
 

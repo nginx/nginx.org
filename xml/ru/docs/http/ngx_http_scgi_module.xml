@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_scgi_module"
         link="/ru/docs/http/ngx_http_scgi_module.html"
         lang="ru"
-        rev="9">
+        rev="10">
 
 <section id="summary">
 
@@ -610,7 +610,8 @@ nginx не передаёт клиенту поля заголовка <header>S
 <header>X-Accel-Expires</header>, <header>X-Accel-Limit-Rate</header> (1.1.6),
 <header>X-Accel-Buffering</header> (1.1.6),
 <header>X-Accel-Charset</header> (1.1.6), <header>Expires</header>,
-<header>Cache-Control</header> и <header>Set-Cookie</header> (0.8.44).
+<header>Cache-Control</header>, <header>Set-Cookie</header> (0.8.44)
+и <header>Vary</header> (1.7.7).
 </para>
 
 <para>
@@ -619,7 +620,8 @@ nginx не передаёт клиенту поля заголовка <header>S
 
 <listitem>
 <header>X-Accel-Expires</header>, <header>Expires</header>,
-<header>Cache-Control</header> и <header>Set-Cookie</header>
+<header>Cache-Control</header>, <header>Set-Cookie</header>
+и <header>Vary</header>
 задают параметры <link id="scgi_cache_valid">кэширования</link> ответа;
 </listitem>
 
