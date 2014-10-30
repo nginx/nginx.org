@@ -522,16 +522,28 @@ fastcgi_cache_valid any      1m;
 Parameters of caching can also be set directly
 in the response header.
 This has higher priority than setting of caching time using the directive.
+<list type="bullet" compact="no">
+
+<listitem>
 The <header>X-Accel-Expires</header> header field sets caching time of a
 response in seconds.
 The zero value disables caching for a response.
 If the value starts with the <literal>@</literal> prefix, it sets an absolute
 time in seconds since Epoch, up to which the response may be cached.
+</listitem>
+
+<listitem>
 If the header does not include the <header>X-Accel-Expires</header> field,
 parameters of caching may be set in the header fields
 <header>Expires</header> or <header>Cache-Control</header>.
+</listitem>
+
+<listitem>
 If the header includes the <header>Set-Cookie</header> field, such a
 response will not be cached.
+</listitem>
+
+</list>
 Processing of one or more of these response header fields can be disabled
 using the <link id="fastcgi_ignore_headers"/> directive.
 </para>
