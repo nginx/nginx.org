@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_uwsgi_module"
         link="/ru/docs/http/ngx_http_uwsgi_module.html"
         lang="ru"
-        rev="11">
+        rev="12">
 
 <section id="summary">
 
@@ -724,6 +724,14 @@ uwsgi-сервера, и ответ не вмещается целиком в б
 
 <para>
 Значение 0 отключает возможность буферизации ответов во временные файлы.
+</para>
+
+<para>
+<note>
+Данное ограничение не распространяется на ответы,
+которые будут <link id="uwsgi_cache">закэшированы</link>
+или <link id="uwsgi_store">сохранены</link> на диске.
+</note>
 </para>
 
 </directive>

@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_proxy_module"
         link="/ru/docs/http/ngx_http_proxy_module.html"
         lang="ru"
-        rev="29">
+        rev="30">
 
 <section id="summary">
 
@@ -925,7 +925,15 @@ nginx не передаёт клиенту поля заголовка <header>D
 </para>
 
 <para>
-Значение 0 отключает буферизацию ответов во временные файлы.
+Значение 0 отключает возможность буферизации ответов во временные файлы.
+</para>
+
+<para>
+<note>
+Данное ограничение не распространяется на ответы,
+которые будут <link id="proxy_cache">закэшированы</link>
+или <link id="proxy_store">сохранены</link> на диске.
+</note>
 </para>
 
 </directive>

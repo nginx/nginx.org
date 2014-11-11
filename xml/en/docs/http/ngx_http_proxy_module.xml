@@ -10,7 +10,7 @@
 <module name="Module ngx_http_proxy_module"
         link="/en/docs/http/ngx_http_proxy_module.html"
         lang="en"
-        rev="29">
+        rev="30">
 
 <section id="summary">
 
@@ -929,6 +929,14 @@ by the <link id="proxy_temp_file_write_size"/> directive.
 
 <para>
 The zero value disables buffering of responses to temporary files.
+</para>
+
+<para>
+<note>
+This restriction does not apply to responses
+that will be <link id="proxy_cache">cached</link>
+or <link id="proxy_store">stored</link> on disk.
+</note>
 </para>
 
 </directive>

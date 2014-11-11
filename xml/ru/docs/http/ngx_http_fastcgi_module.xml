@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_fastcgi_module"
         link="/ru/docs/http/ngx_http_fastcgi_module.html"
         lang="ru"
-        rev="22">
+        rev="23">
 
 <section id="summary">
 
@@ -806,6 +806,14 @@ FastCGI-сервера, и ответ не вмещается целиком в 
 
 <para>
 Значение 0 отключает возможность буферизации ответов во временные файлы.
+</para>
+
+<para>
+<note>
+Данное ограничение не распространяется на ответы,
+которые будут <link id="fastcgi_cache">закэшированы</link>
+или <link id="fastcgi_store">сохранены</link> на диске.
+</note>
 </para>
 
 </directive>

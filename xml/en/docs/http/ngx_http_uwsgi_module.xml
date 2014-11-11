@@ -10,7 +10,7 @@
 <module name="Module ngx_http_uwsgi_module"
         link="/en/docs/http/ngx_http_uwsgi_module.html"
         lang="en"
-        rev="11">
+        rev="12">
 
 <section id="summary">
 
@@ -728,6 +728,14 @@ by the <link id="uwsgi_temp_file_write_size"/> directive.
 
 <para>
 The zero value disables buffering of responses to temporary files.
+</para>
+
+<para>
+<note>
+This restriction does not apply to responses
+that will be <link id="uwsgi_cache">cached</link>
+or <link id="uwsgi_store">stored</link> on disk.
+</note>
 </para>
 
 </directive>

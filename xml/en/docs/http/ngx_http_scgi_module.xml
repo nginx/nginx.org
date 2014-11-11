@@ -10,7 +10,7 @@
 <module name="Module ngx_http_scgi_module"
         link="/en/docs/http/ngx_http_scgi_module.html"
         lang="en"
-        rev="10">
+        rev="11">
 
 <section id="summary">
 
@@ -727,6 +727,14 @@ by the <link id="scgi_temp_file_write_size"/> directive.
 
 <para>
 The zero value disables buffering of responses to temporary files.
+</para>
+
+<para>
+<note>
+This restriction does not apply to responses
+that will be <link id="scgi_cache">cached</link>
+or <link id="scgi_store">stored</link> on disk.
+</note>
 </para>
 
 </directive>
