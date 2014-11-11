@@ -9,7 +9,7 @@
 <article name="Contributing Changes"
          link="/en/docs/contributing_changes.html"
          lang="en"
-         rev="1">
+         rev="2">
 
 <section id="getting_sources" name="Getting Sources">
 
@@ -115,6 +115,16 @@ platforms</link>.
 <listitem>
 Try to make it clear why the suggested change is needed, and provide a use
 case, if possible.
+</listitem>
+
+<listitem>
+Passing your changes through the test suite is a good way to ensure
+that they do not cause a regression.
+The <link url="http://hg.nginx.org/nginx-tests">repository</link> with
+tests can be cloned with the following command:
+<programlisting>
+hg clone http://hg.nginx.org/nginx-tests
+</programlisting>
 </listitem>
 
 </list>

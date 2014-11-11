@@ -9,7 +9,7 @@
 <article name="Внесение изменений"
          link="/ru/docs/contributing_changes.html"
          lang="ru"
-         rev="1">
+         rev="2">
 
 <section id="getting_sources" name="Получение исходного кода">
 
@@ -115,6 +115,16 @@ diff -r 822b82191940 -r 2220de0521ca src/mail/ngx_mail_auth_http_module.c
 <listitem>
 Постарайтесь разъяснить, почему предлагаемое изменение нужно, и, если возможно,
 опишите вариант использования.
+</listitem>
+
+<listitem>
+Проверка изменений при помощи специального набора тестов позволит убедиться,
+что они не вызывают регрессию.
+<link url="http://hg.nginx.org/nginx-tests">Репозиторий</link> с тестами
+можно клонировать следующей командой:
+<programlisting>
+hg clone http://hg.nginx.org/nginx-tests
+</programlisting>
 </listitem>
 
 </list>
