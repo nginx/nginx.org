@@ -10,7 +10,7 @@
 <module name="Module ngx_http_fastcgi_module"
         link="/en/docs/http/ngx_http_fastcgi_module.html"
         lang="en"
-        rev="23">
+        rev="24">
 
 <section id="summary">
 
@@ -541,6 +541,15 @@ parameters of caching may be set in the header fields
 <listitem>
 If the header includes the <header>Set-Cookie</header> field, such a
 response will not be cached.
+</listitem>
+
+<listitem>
+If the header includes the <header>Vary</header> field
+with the special value “<literal>*</literal>”, such a
+response will not be cached (1.7.7).
+If the header includes the <header>Vary</header> field
+with another value, such a response will be cached
+taking into account the corresponding request header fields (1.7.7).
 </listitem>
 
 </list>

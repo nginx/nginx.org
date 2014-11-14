@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_fastcgi_module"
         link="/ru/docs/http/ngx_http_fastcgi_module.html"
         lang="ru"
-        rev="23">
+        rev="24">
 
 <section id="summary">
 
@@ -540,6 +540,15 @@ fastcgi_cache_valid any      1m;
 <listitem>
 Ответ, в заголовке которого есть поле <header>Set-Cookie</header>,
 не будет кэшироваться.
+</listitem>
+
+<listitem>
+Ответ, в заголовке которого есть поле <header>Vary</header>
+со специальным значением “<literal>*</literal>”,
+не будет кэшироваться (1.7.7).
+Ответ, в заголовке которого есть поле <header>Vary</header>
+с другим значением, будет закэширован
+с учётом соответствующих полей заголовка запроса (1.7.7).
 </listitem>
 
 </list>
