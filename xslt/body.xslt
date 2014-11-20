@@ -20,9 +20,9 @@
 
     <div id="banner">
         <xsl:if test="@lang = 'he'"> <xsl:attribute name="class"> <xsl:text>ltr</xsl:text> </xsl:attribute> </xsl:if>
-        <strong>Live webinar November 20: NGINX Plus on AWS</strong><br/>
-        <em>Learn how to deliver highly-available web services in the cloud.
-        <a href="http://nginx.com/resources/webinars/" onClick="ga('send', 'event', 'banner', 'click', 'aws_webinar_nov14');">Register now.</a></em><br/>
+        <strong>Looking to make your web app faster? Look no further!</strong><br/>
+        <em>NGINX Plus for HTTP load balancing, caching and SSL offload &#8212;
+	<a href="http://nginx.com/free-trial-nginx-plus/" onClick="ga('send', 'event', 'banner', 'click', 'org_trial');">Free 30-Day Trial</a></em><br/>
     </div>
 
     <div id="main">
