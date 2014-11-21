@@ -7,7 +7,7 @@
 <article name="nginx: пакеты для Linux"
          link="/ru/linux_packages.html"
          lang="ru"
-         rev="8"
+         rev="9"
          toc="no">
 
 <section id="distributions">
@@ -93,9 +93,25 @@ Ubuntu:
 </para>
 
 <para>
+SLES:
+
+<table note="yes">
+<tr>
+<td width="20%">Версия</td>
+</tr>
+
+<tr>
+<td width="20%">12</td>
+</tr>
+
+</table>
+</para>
+
+<para>
 Чтобы включить автоматическое обновление пакетов для Linux,
 настройте репозиторий yum для дистрибутивов RHEL/CentOS,
-или репозиторий apt для дистрибутивов Debian/Ubuntu.
+репозиторий apt для дистрибутивов Debian/Ubuntu,
+или репозиторий zypper для SLES.
 </para>
 
 </section>
@@ -207,6 +223,13 @@ apt-get install nginx
 </programlisting>
 </para>
 
+<para>
+Для SLES выполните команду:
+<programlisting>
+zypper addrepo -G -t yum -c 'http://nginx.org/packages/sles/12' nginx
+</programlisting>
+</para>
+
 </section>
 
 
@@ -277,6 +300,13 @@ apt-get install nginx
 </programlisting>
 </para>
 
+<para>
+Для SLES выполните команду:
+<programlisting>
+zypper addrepo -G -t yum -c 'http://nginx.org/packages/mainline/sles/12' nginx
+</programlisting>
+</para>
+
 </section>
 
 
@@ -303,11 +333,16 @@ apt-get install nginx
 <programlisting>sudo rpm --import nginx_signing.key</programlisting>
 </listitem>
 
+<listitem>
+Для SLES:
+<programlisting>sudo rpm --import nginx_signing.key</programlisting>
+</listitem>
+
 </list>
 </para>
 
 <para>
-В Debian/Ubuntu подпись проверяется по умолчанию, однако
+В Debian/Ubuntu/SLES подпись проверяется по умолчанию, однако
 в RHEL/CentOS необходимо добавить
 <programlisting>gpgcheck=1</programlisting> в файл
 <path>/etc/yum.repos.d/nginx.repo</path>.

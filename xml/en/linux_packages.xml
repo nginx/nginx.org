@@ -7,7 +7,7 @@
 <article name="nginx: Linux packages"
          link="/en/linux_packages.html"
          lang="en"
-         rev="8"
+         rev="9"
          toc="no">
 
 <section id="distributions">
@@ -93,9 +93,26 @@ Ubuntu:
 </para>
 
 <para>
+SLES:
+
+<table note="yes">
+
+<tr>
+<td width="20%">Version</td>
+</tr>
+
+<tr>
+ <td width="20%">12</td>
+</tr>
+
+</table>
+</para>
+
+<para>
 To enable automatic updates of Linux packages
 set up the yum repository for the RHEL/CentOS distributions,
-or the apt repository for the Debian/Ubuntu distributions.
+the apt repository for the Debian/Ubuntu distributions,
+or the zypper repository for SLES.
 </para>
 
 </section>
@@ -205,6 +222,13 @@ apt-get install nginx
 </programlisting>
 </para>
 
+<para>
+For SLES run the following command:
+<programlisting>
+zypper addrepo -G -t yum -c 'http://nginx.org/packages/sles/12' nginx
+</programlisting>
+</para>
+
 </section>
 
 
@@ -273,6 +297,13 @@ apt-get install nginx
 </programlisting>
 </para>
 
+<para>
+For SLES run the following command:
+<programlisting>
+zypper addrepo -G -t yum -c 'http://nginx.org/packages/mainline/sles/12' nginx
+</programlisting>
+</para>
+
 </section>
 
 
@@ -298,11 +329,16 @@ On RHEL/CentOS:
 <programlisting>sudo rpm --import nginx_signing.key</programlisting>
 </listitem>
 
+<listitem>
+On SLES:
+<programlisting>sudo rpm --import nginx_signing.key</programlisting>
+</listitem>
+
 </list>
 </para>
 
 <para>
-On Debian/Ubuntu signatures are checked by default, but
+On Debian/Ubuntu/SLES signatures are checked by default, but
 on RHEL/CentOS it is necessary to set
 <programlisting>gpgcheck=1</programlisting> in the
 <path>/etc/yum.repos.d/nginx.repo</path> file.
