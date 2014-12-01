@@ -91,6 +91,8 @@ REFS =									\
 		mail/ngx_mail_proxy_module				\
 		mail/ngx_mail_smtp_module				\
 		mail/ngx_mail_ssl_module				\
+		stream/ngx_stream_module				\
+		stream/ngx_stream_upstream_module			\
 
 TOP =									\
 		download						\

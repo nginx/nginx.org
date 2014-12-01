@@ -1,0 +1,261 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) 2014 Yaroslav Zhuravlev
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Module ngx_stream_upstream_module"
+        link="/en/docs/stream/ngx_stream_upstream_module.html"
+        lang="en"
+        rev="1">
+
+<section id="summary">
+
+<para>
+The <literal>ngx_stream_upstream_module</literal> module (1.7.7)
+is used to define groups of servers that can be referenced
+by the <link doc="ngx_stream_module.xml" id="proxy_pass"/>
+directive.
+</para>
+
+<para>
+<note>
+This module is available as part of our
+<commercial_version>commercial subscription</commercial_version>.
+</note>
+</para>
+
+</section>
+
+
+<section id="example" name="Example Configuration">
+
+<para>
+<example>
+stream {
+    upstream backend {
+        hash $remote_addr consistent;
+        server backend1.example.com:8000;
+        server backend2.example.com:8000;
+        server backend3.example.com:8001;
+    }
+
+    server {
+        listen 9000;
+        proxy_pass backend;
+    }
+}
+</example>
+</para>
+
+</section>
+
+
+<section id="directives" name="Directives">
+
+<directive name="upstream">
+<syntax block="yes"><value>name</value></syntax>
+<default/>
+<context>stream</context>
+
+<para>
+Defines a group of servers.
+Servers can listen on different ports.
+In addition, servers listening on TCP and UNIX-domain sockets
+can be mixed.
+</para>
+
+<para>
+Example:
+<example>
+upstream backend {
+    server backend1.example.com:8080 weight=5;
+    server 127.0.0.1:8080            max_fails=3 fail_timeout=30s;
+    server unix:/tmp/backend3;
+
+    server backup1.example.com:8080  backup;
+}
+</example>
+</para>
+
+<para>
+By default, connections are distributed between the servers using a
+weighted round-robin balancing method.
+In the above example, each 7 connections will be distributed as follows:
+5 connections go to <literal>backend1.example.com</literal>
+and one connection to each of the second and third servers.
+If an error occurs during communication with a server, the connection will
+be passed to the next server, and so on until all of the functioning
+servers will be tried.
+If communication with all servers fails, the connection will be closed.
+</para>
+
+</directive>
+
+
+<directive name="server">
+<syntax><value>address</value> [<value>parameters</value>]</syntax>
+<default/>
+<context>upstream</context>
+
+<para>
+Defines the <value>address</value> and other <value>parameters</value>
+of a server.
+The address can be specified as a domain name or IP address
+with an obligatory port, or as a UNIX-domain socket path
+specified after the “<literal>unix:</literal>” prefix.
+A domain name that resolves to several IP addresses defines
+multiple servers at once.
+</para>
+
+<para>
+The following parameters can be defined:
+<list type="tag">
+
+<tag-name id="weight">
+<literal>weight</literal>=<value>number</value>
+</tag-name>
+<tag-desc>
+sets the weight of the server, by default, 1.
+</tag-desc>
+
+<tag-name id="max_fails">
+<literal>max_fails</literal>=<value>number</value>
+</tag-name>
+<tag-desc>
+sets the number of unsuccessful attempts to communicate with the server
+that should happen in the duration set by the <literal>fail_timeout</literal>
+parameter to consider the server unavailable for a duration also set by the
+<literal>fail_timeout</literal> parameter.
+By default, the number of unsuccessful attempts is set to 1.
+The zero value disables the accounting of attempts.
+Here, an unsuccessful attempt is an error or timeout
+while establishing a connection with the server.
+</tag-desc>
+
+<tag-name id="fail_timeout">
+<literal>fail_timeout</literal>=<value>time</value>
+</tag-name>
+<tag-desc>
+sets
+<list type="bullet">
+
+<listitem>
+the time during which the specified number of unsuccessful attempts to
+communicate with the server should happen to consider the server unavailable;
+</listitem>
+
+<listitem>
+and the period of time the server will be considered unavailable.
+</listitem>
+
+</list>
+By default, the parameter is set to 10 seconds.
+</tag-desc>
+
+<tag-name id="backup">
+<literal>backup</literal>
+</tag-name>
+<tag-desc>
+marks the server as a backup server.
+Connections to the backup server will be passed
+when the primary servers are unavailable.
+</tag-desc>
+
+<tag-name id="down">
+<literal>down</literal>
+</tag-name>
+<tag-desc>
+marks the server as permanently unavailable; used along with
+the <link id="hash"/> directive.
+</tag-desc>
+
+<tag-name id="max_conns">
+<literal>max_conns</literal>=<value>number</value>
+</tag-name>
+<tag-desc>
+limits the maximum <value>number</value> of simultaneous connections to the
+proxied server.
+Default value is zero, meaning there is no limit.
+</tag-desc>
+
+<tag-name id="slow_start">
+<literal>slow_start</literal>=<value>time</value>
+</tag-name>
+<tag-desc>
+sets the <value>time</value> during which the server will recover its weight
+from zero to a nominal value,
+or when the server becomes available after a period of time
+it was considered <link id="fail_timeout">unavailable</link>.
+Default value is zero, i.e. slow start is disabled.
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+<note>
+If there is only a single server in a group, <literal>max_fails</literal>,
+<literal>fail_timeout</literal> and <literal>slow_start</literal> parameters
+are ignored, and such a server will never be considered unavailable.
+</note>
+</para>
+
+</directive>
+
+
+<directive name="hash">
+<syntax><value>key</value> [<literal>consistent</literal>]</syntax>
+<default/>
+<context>upstream</context>
+
+<para>
+Specifies a load balancing method for a server group
+where client-server mapping is based on the hashed <value>key</value> value.
+Currently, the only supported value for the <literal>key</literal>
+is the client remote address specified as <literal>$remote_addr</literal>.
+Note that adding or removing a server from the group
+may result in remapping most of the keys to different servers.
+The method is compatible with the
+<link url="http://search.cpan.org/perldoc?Cache%3A%3AMemcached">Cache::Memcached</link>
+Perl library.
+</para>
+
+<para>
+If the <literal>consistent</literal> parameter is specified,
+the <link url="http://www.last.fm/user/RJ/journal/2007/04/10/392555/">ketama</link>
+consistent hashing method will be used instead.
+The method ensures that only a few keys
+will be remapped to different servers
+when a server is added to or removed from the group.
+This helps to achieve a higher cache hit ratio for caching servers.
+The method is compatible with the
+<link url="http://search.cpan.org/perldoc?Cache%3A%3AMemcached%3A%3AFast">Cache::Memcached::Fast</link>
+Perl library with the <value>ketama_points</value> parameter set to 160.
+</para>
+
+</directive>
+
+
+<directive name="least_conn">
+<syntax/>
+<default/>
+<context>upstream</context>
+
+<para>
+Specifies that a server group should use a load balancing method
+where a connection
+is passed to the server with the least number of active connections,
+taking into account weights of servers.
+If there are several such servers, they are tried in turn using a
+weighted round-robin balancing method.
+</para>
+
+</directive>
+
+</section>
+
+</module>

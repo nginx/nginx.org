@@ -1173,6 +1173,14 @@ http://127.0.0.1/upstream_conf?upstream=dynamic
 директивы <link id="server"/>.
 </tag-desc>
 
+<tag-name id="drain"><literal>drain=</literal></tag-name>
+
+<tag-desc>
+Переводит сервер группы в режим “draining” (1.7.5).
+В этом режиме на сервер будут проксироваться только
+<link id="sticky">привязанные</link> к нему запросы.
+</tag-desc>
+
 <tag-name>
 <literal>up=</literal></tag-name>
 <tag-desc>

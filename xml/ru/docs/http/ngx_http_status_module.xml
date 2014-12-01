@@ -157,10 +157,10 @@ http://127.0.0.1/status/upstreams/backend/1/weight
 Доступна следующая информация:
 <list type="tag">
 
-<tag-name><literal>version</literal></tag-name>
+<tag-name id="version"><literal>version</literal></tag-name>
 <tag-desc>
 Версия предоставляемого набора данных.
-Текущей является версия 2.
+Текущей является версия 4.
 </tag-desc>
 
 <tag-name><literal>nginx_version</literal></tag-name>
@@ -173,7 +173,7 @@ http://127.0.0.1/status/upstreams/backend/1/weight
 Адрес сервера, принявшего запрос получения информации о состоянии.
 </tag-desc>
 
-<tag-name><literal>load_timestamp</literal></tag-name>
+<tag-name id="load_timestamp"><literal>load_timestamp</literal></tag-name>
 <tag-desc>
 Время последней перезагрузки конфигурации, в миллисекундах с начала эпохи.
 </tag-desc>
@@ -227,7 +227,7 @@ http://127.0.0.1/status/upstreams/backend/1/weight
 </list>
 </tag-desc>
 
-<tag-name><literal>server_zones</literal></tag-name>
+<tag-name id="server_zones"><literal>server_zones</literal></tag-name>
 <tag-desc>
 Для каждой <link id="status_zone"/>:
 <list type="tag">
@@ -281,7 +281,7 @@ http://127.0.0.1/status/upstreams/backend/1/weight
 </list>
 </tag-desc>
 
-<tag-name><literal>upstreams</literal></tag-name>
+<tag-name id="upstreams"><literal>upstreams</literal></tag-name>
 <tag-desc>
 Для каждого
 <link doc="ngx_http_upstream_module.xml" id="server">сервера</link>
@@ -292,27 +292,34 @@ http://127.0.0.1/status/upstreams/backend/1/weight
 доступны следующие данные:
 <list type="tag">
 
+<tag-name id="id"><literal>id</literal></tag-name>
+<tag-desc>
+Идентификатор сервера.
+</tag-desc>
+
 <tag-name><literal>server</literal></tag-name>
 <tag-desc>
-Адрес
-<link doc="ngx_http_upstream_module.xml" id="server">сервера</link>.
+<link doc="ngx_http_upstream_module.xml" id="server">Адрес</link>
+сервера.
 </tag-desc>
 
 <tag-name><literal>backup</literal></tag-name>
 <tag-desc>
-Логическое значение, означающее, является ли сервер запасным.
+Логическое значение, означающее, является ли сервер
+<link doc="ngx_http_upstream_module.xml" id="backup">запасным</link>.
 </tag-desc>
 
 <tag-name><literal>weight</literal></tag-name>
 <tag-desc>
-Вес
-<link doc="ngx_http_upstream_module.xml" id="server">сервера</link>.
+<link doc="ngx_http_upstream_module.xml" id="weight">Вес</link>
+сервера.
 </tag-desc>
 
-<tag-name><literal>state</literal></tag-name>
+<tag-name id="state"><literal>state</literal></tag-name>
 <tag-desc>
 Текущее состояние, которое может быть одним из
 “<literal>up</literal>”,
+“<literal>draining</literal>”,
 “<literal>down</literal>”,
 “<literal>unavail</literal>”
 или
@@ -328,6 +335,12 @@ http://127.0.0.1/status/upstreams/backend/1/weight
 <tag-desc>
 Текущее число бездействующих
 <link doc="ngx_http_upstream_module.xml" id="keepalive"/>-соединений.
+</tag-desc>
+
+<tag-name id="max_conns"><literal>max_conns</literal></tag-name>
+<tag-desc>
+Ограничение <link doc="ngx_http_upstream_module.xml" id="max_conns"/>
+для сервера.
 </tag-desc>
 
 <tag-name><literal>requests</literal></tag-name>
@@ -381,8 +394,8 @@ http://127.0.0.1/status/upstreams/backend/1/weight
 Количество раз, когда
 сервер становился недоступным для клиентских запросов
 (состояние “<literal>unavail</literal>”)
-из-за достижения порогового числа неудачных
-попыток <literal>max_fails</literal>.
+из-за достижения порогового числа неудачных попыток
+<link doc="ngx_http_upstream_module.xml" id="max_fails"/>.
 </tag-desc>
 
 <tag-name><literal>health_checks</literal></tag-name>
@@ -432,10 +445,16 @@ http://127.0.0.1/status/upstreams/backend/1/weight
 или “<literal>unhealthy</literal>”.
 </tag-desc>
 
+<tag-name id="selected"><literal>selected</literal></tag-name>
+<tag-desc>
+Время (в миллисекундах с начала эпохи),
+когда сервер в последний раз был выбран для обработки запроса (1.7.5).
+</tag-desc>
+
 </list>
 </tag-desc>
 
-<tag-name><literal>caches</literal></tag-name>
+<tag-name id="caches"><literal>caches</literal></tag-name>
 <tag-desc>
 Для каждого кэша, сконфигурированного при помощи
 <link doc="ngx_http_proxy_module.xml" id="proxy_cache_path"/>
@@ -520,6 +539,45 @@ http://127.0.0.1/status/upstreams/backend/1/weight
 
 </list>
 </tag-desc>
+
+</list>
+</para>
+
+</section>
+
+<section id="compatibility" name="Совместимость">
+
+<para>
+<list type="bullet">
+
+<listitem>
+Поле <link id="selected"/> в
+<link id="upstreams"/>
+было добавлено в <link id="version">версии</link> 4.
+</listitem>
+
+<listitem>
+Состояние <link id="state">draining</link> в
+<link id="upstreams"/>
+было добавлено в <link id="version">версии</link> 4.
+</listitem>
+
+<listitem>
+Поля <link id="id"/> и <link id="max_conns"/> в
+<link id="upstreams"/>
+были добавлены в <link id="version">версии</link> 3.
+</listitem>
+
+<listitem>
+Поле <literal>revalidated</literal> в <link id="caches"/>
+было добавлено в <link id="version">версии</link> 3.
+</listitem>
+
+<listitem>
+<link id="server_zones"/>, <link id="caches"/>
+и <link id="load_timestamp"/>
+были добавлены в <link id="version">версии</link> 2.
+</listitem>
 
 </list>
 </para>

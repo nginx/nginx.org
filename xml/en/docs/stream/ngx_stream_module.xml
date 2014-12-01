@@ -1,0 +1,293 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) 2014 Yaroslav Zhuravlev
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Module ngx_stream_module"
+        link="/en/docs/stream/ngx_stream_module.html"
+        lang="en"
+        rev="1">
+
+<section id="summary">
+
+<para>
+The <literal>stream</literal> module (1.7.7) provides
+proxying TCP and UNIX-domain socket connections.
+</para>
+
+<para>
+<note>
+This module is available as part of our
+<commercial_version>commercial subscription</commercial_version>.
+</note>
+</para>
+
+</section>
+
+<section id="example" name="Example Configuration">
+
+<para>
+<example>
+stream {
+    upstream backend {
+        least_conn;
+        server srv1.example.com:8000;
+        server srv2.example.com:8000;
+        server srv3.example.com:8001;
+    }
+
+    server {
+        listen 9000;
+        proxy_connect_timeout 1s;
+        proxy_timeout 3s;
+        proxy_pass backend;
+    }
+}
+</example>
+In this example, a server that listens on port 9000
+<link doc="ngx_stream_module.xml" id="proxy_pass">proxies</link>
+TCP connections to a group of servers named <literal>backend</literal>.
+Note that the <link doc="ngx_stream_module.xml" id="proxy_pass"/>
+directive defined the context of the <literal>stream</literal> module
+must not contain a protocol.
+Two optional timeout parameters are specified:
+the <link doc="ngx_stream_module.xml" id="proxy_connect_timeout"/> sets
+a timeout required for establishing a connection with a server
+that belongs to the <literal>backend</literal> group, while the
+<link doc="ngx_stream_module.xml" id="proxy_timeout"/> sets
+a timeout used after proxying to one of the servers in the
+<literal>backend</literal> group had started.
+All TCP proxy-related functionality is configured inside the
+<link doc="ngx_stream_module.xml" id="stream"/> block
+just like the <link doc="../http/ngx_http_core_module.xml" id="http"/> block
+for HTTP requests.
+</para>
+
+<para>
+The <literal>backend</literal> group consists of three physical servers
+(<literal>srv1-srv3</literal>).
+Each server name follows the obligatory <literal>port</literal> number.
+TCP connections are distributed among the servers according to the
+<link doc="ngx_stream_upstream_module.xml" id="least_conn">least
+connected</link> load balancing method: a connection will go to the server
+that has the fewest active connections.
+Directives required to configure a group of proxied servers
+and load-balancing can be found in the
+<link doc="ngx_stream_upstream_module.xml">ngx_stream_upstream_module</link>.
+</para>
+
+</section>
+
+
+<section id="directives" name="Directives">
+
+<directive name="listen">
+<syntax>
+    <value>address</value>:<value>port</value>
+    [<literal>bind</literal>]
+    [<literal>ipv6only</literal>=<literal>on</literal>|<literal>off</literal>]
+    [<literal>so_keepalive</literal>=<literal>on</literal>|<literal>off</literal>|[<value>keepidle</value>]:[<value>keepintvl</value>]:[<value>keepcnt</value>]]</syntax>
+<default/>
+<context>server</context>
+
+<para>
+Sets the <value>address</value> and <value>port</value> for the socket
+on which the server will accept connections.
+It is possible to specify just the port.
+The address can also be a hostname, for example:
+<example>
+listen 127.0.0.1:110;
+listen *:110;
+listen 110;     # same as *:110
+listen localhost:110;
+</example>
+IPv6 addresses are specified in square brackets:
+<example>
+listen [::1]:110;
+listen [::]:110;
+</example>
+UNIX-domain sockets are specified with the “<literal>unix:</literal>”
+prefix:
+<example>
+listen unix:/var/run/nginx.sock;
+</example>
+
+</para>
+
+<para>
+The directive supports the following parameters:
+
+<list type="tag">
+
+<tag-name id="bind">
+<literal>bind</literal>
+</tag-name>
+<tag-desc>
+this parameter instructs to make a separate <c-func>bind</c-func>
+call for a given address:port pair.
+The fact is that if there are several <literal>listen</literal> directives with
+the same port but different addresses, and one of the
+<literal>listen</literal> directives listens on all addresses
+for the given port (<literal>*:</literal><value>port</value>), nginx will
+<c-func>bind</c-func> only to <literal>*:</literal><value>port</value>.
+It should be noted that the <c-func>getsockname</c-func> system call will be
+made in this case to determine the address that accepted the connection.
+If the <literal>ipv6only</literal>
+or <literal>so_keepalive</literal> parameters
+are used then for a given
+<value>address</value>:<value>port</value> pair
+a separate <c-func>bind</c-func> call will always be made.
+</tag-desc>
+
+<tag-name id="ipv6only">
+<literal>ipv6only</literal>=<literal>on</literal>|<literal>off</literal>
+</tag-name>
+<tag-desc>
+this parameter determines
+(via the <c-def>IPV6_V6ONLY</c-def> socket option)
+whether an IPv6 socket listening on a wildcard address <literal>[::]</literal>
+will accept only IPv6 connections or both IPv6 and IPv4 connections.
+This parameter is turned on by default.
+It can only be set once on start.
+</tag-desc>
+
+<tag-name id="so_keepalive">
+<literal>so_keepalive</literal>=<literal>on</literal>|<literal>off</literal>|[<value>keepidle</value>]:[<value>keepintvl</value>]:[<value>keepcnt</value>]
+</tag-name>
+<tag-desc>
+this parameter configures the “TCP keepalive” behavior
+for the listening socket.
+If this parameter is omitted then the operating system’s settings will be
+in effect for the socket.
+If it is set to the value “<literal>on</literal>”, the
+<c-def>SO_KEEPALIVE</c-def> option is turned on for the socket.
+If it is set to the value “<literal>off</literal>”, the
+<c-def>SO_KEEPALIVE</c-def> option is turned off for the socket.
+Some operating systems support setting of TCP keepalive parameters on
+a per-socket basis using the <c-def>TCP_KEEPIDLE</c-def>,
+<c-def>TCP_KEEPINTVL</c-def>, and <c-def>TCP_KEEPCNT</c-def> socket options.
+On such systems (currently, Linux 2.4+, NetBSD 5+, and
+FreeBSD 9.0-STABLE), they can be configured
+using the <value>keepidle</value>, <value>keepintvl</value>, and
+<value>keepcnt</value> parameters.
+One or two parameters may be omitted, in which case the system default setting
+for the corresponding socket option will be in effect.
+For example,
+<example>so_keepalive=30m::10</example>
+will set the idle timeout (<c-def>TCP_KEEPIDLE</c-def>) to 30 minutes,
+leave the probe interval (<c-def>TCP_KEEPINTVL</c-def>) at its system default,
+and set the probes count (<c-def>TCP_KEEPCNT</c-def>) to 10 probes.
+</tag-desc>
+</list>
+</para>
+
+<para>
+Different servers must listen on different
+<value>address</value>:<value>port</value> pairs.
+</para>
+
+</directive>
+
+
+<directive name="proxy_connect_timeout">
+<syntax><value>time</value></syntax>
+<default>60s</default>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Defines a timeout for establishing a connection with a proxied server.
+</para>
+
+</directive>
+
+
+<directive name="proxy_downstream_buffer">
+<syntax><value>size</value></syntax>
+<default>16k</default>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Sets the <value>size</value> of the
+buffers used for reading data from the client.
+</para>
+
+</directive>
+
+
+<directive name="proxy_pass">
+<syntax><value>URL</value></syntax>
+<default/>
+<context>server</context>
+
+<para>
+Sets the address of a proxied server or a
+<link doc="ngx_stream_upstream_module.xml">server group</link>.
+The address can be specified as a domain name or IP address,
+and an obligatory port.
+If a domain name resolves to several addresses, all of them will be
+used in a round-robin fashion.
+</para>
+
+</directive>
+
+
+<directive name="proxy_timeout">
+<syntax><value>timeout</value></syntax>
+<default>10m</default>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Defines a timeout used after the proxying to the backend had started.
+</para>
+
+</directive>
+
+
+<directive name="proxy_upstream_buffer">
+<syntax><value>size</value></syntax>
+<default>16k</default>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Sets the <value>size</value> of the
+buffers used for reading data from the upstream server.
+</para>
+
+</directive>
+
+
+<directive name="server">
+<syntax block="yes"/>
+<default/>
+<context>stream</context>
+
+<para>
+Sets the configuration for a server.
+</para>
+
+</directive>
+
+
+<directive name="stream">
+<syntax block="yes"/>
+<default/>
+<context>main</context>
+
+<para>
+Provides the configuration file context in which the stream server directives
+are specified.
+</para>
+
+</directive>
+
+</section>
+
+</module>
