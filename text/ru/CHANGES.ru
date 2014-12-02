@@ -1,4 +1,59 @@
 
+Изменения в nginx 1.7.8                                           02.12.2014
+
+    *) Изменение: теперь строки "If-Modified-Since", "If-Range" и им
+       подобные в заголовке запроса клиента передаются бэкенду при
+       включённом кэшировании, если nginx заранее знает, что не будет
+       кэшировать ответ (например, при использовании proxy_cache_min_uses).
+
+    *) Изменение: теперь после истечения proxy_cache_lock_timeout nginx
+       отправляет запрос на бэкенд без кэширования; новые директивы
+       proxy_cache_lock_age, fastcgi_cache_lock_age, scgi_cache_lock_age и
+       uwsgi_cache_lock_age позволяют указать, через какое время блокировка
+       будет принудительно снята и будет сделана ещё одна попытка
+       закэшировать ответ.
+
+    *) Изменение: директива log_format теперь может использоваться только на
+       уровне http.
+
+    *) Добавление: директивы proxy_ssl_certificate,
+       proxy_ssl_certificate_key, proxy_ssl_password_file,
+       uwsgi_ssl_certificate, uwsgi_ssl_certificate_key и
+       uwsgi_ssl_password_file.
+       Спасибо Piotr Sikora.
+
+    *) Добавление: теперь с помощью X-Accel-Redirect можно перейти в
+       именованный location.
+       Спасибо Toshikuni Fukaya.
+
+    *) Добавление: теперь директива tcp_nodelay работает для
+       SPDY-соединений.
+
+    *) Добавление: новые директивы в скриптах подсветки синтаксиса для vim.
+       Спасибо Peter Wu.
+
+    *) Исправление: nginx игнорировал значение "s-maxage" в строке
+       "Cache-Control" в заголовке ответа бэкенда.
+       Спасибо Piotr Sikora.
+
+    *) Исправление: в модуле ngx_http_spdy_module.
+       Спасибо Piotr Sikora.
+
+    *) Исправление: в директиве ssl_password_file при использовании OpenSSL
+       0.9.8zc, 1.0.0o, 1.0.1j.
+
+    *) Исправление: при использовании директивы post_action в лог писались
+       сообщения "header already sent"; ошибка появилась в nginx 1.5.4.
+
+    *) Исправление: при использовании директивы "postpone_output 0" с
+       SSI-подзапросами в лог могли писаться сообщения "the http output
+       chain is empty".
+
+    *) Исправление: в директиве proxy_cache_lock при использовании
+       SSI-подзапросов.
+       Спасибо Yichun Zhang.
+
+
 Изменения в nginx 1.7.7                                           28.10.2014
 
     *) Изменение: теперь nginx учитывает при кэшировании строку "Vary" в

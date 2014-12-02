@@ -1,4 +1,56 @@
 
+Changes with nginx 1.7.8                                         02 Dec 2014
+
+    *) Change: now the "If-Modified-Since", "If-Range", etc. client request
+       header lines are passed to a backend while caching if nginx knows in
+       advance that the response will not be cached (e.g., when using
+       proxy_cache_min_uses).
+
+    *) Change: now after proxy_cache_lock_timeout nginx sends a request to a
+       backend with caching disabled; the new directives
+       "proxy_cache_lock_age", "fastcgi_cache_lock_age",
+       "scgi_cache_lock_age", and "uwsgi_cache_lock_age" specify a time
+       after which the lock will be released and another attempt to cache a
+       response will be made.
+
+    *) Change: the "log_format" directive can now be used only at http
+       level.
+
+    *) Feature: the "proxy_ssl_certificate", "proxy_ssl_certificate_key",
+       "proxy_ssl_password_file", "uwsgi_ssl_certificate",
+       "uwsgi_ssl_certificate_key", and "uwsgi_ssl_password_file"
+       directives.
+       Thanks to Piotr Sikora.
+
+    *) Feature: it is now possible to switch to a named location using
+       "X-Accel-Redirect".
+       Thanks to Toshikuni Fukaya.
+
+    *) Feature: now the "tcp_nodelay" directive works with SPDY connections.
+
+    *) Feature: new directives in vim syntax highliting scripts.
+       Thanks to Peter Wu.
+
+    *) Bugfix: nginx ignored the "s-maxage" value in the "Cache-Control"
+       backend response header line.
+       Thanks to Piotr Sikora.
+
+    *) Bugfix: in the ngx_http_spdy_module.
+       Thanks to Piotr Sikora.
+
+    *) Bugfix: in the "ssl_password_file" directive when using OpenSSL
+       0.9.8zc, 1.0.0o, 1.0.1j.
+
+    *) Bugfix: alerts "header already sent" appeared in logs if the
+       "post_action" directive was used; the bug had appeared in 1.5.4.
+
+    *) Bugfix: alerts "the http output chain is empty" might appear in logs
+       if the "postpone_output 0" directive was used with SSI includes.
+
+    *) Bugfix: in the "proxy_cache_lock" directive with SSI subrequests.
+       Thanks to Yichun Zhang.
+
+
 Changes with nginx 1.7.7                                         28 Oct 2014
 
     *) Change: now nginx takes into account the "Vary" header line in a
@@ -3412,7 +3464,7 @@ Changes with nginx 0.7.11                                        18 Aug 2008
     *) Feature: the "proxy_ssl_session_reuse" directive.
 
     *) Bugfix: a "proxy_pass" directive without URI part might use original
-       request after the "X-Accel-Redirect" redirection was used;
+       request after the "X-Accel-Redirect" redirection was used.
 
     *) Bugfix: if a directory has search only rights and the first index
        file was absent, then nginx returned the 500 status code.
