@@ -10,7 +10,7 @@
 <module name="Module ngx_http_auth_request_module"
         link="/en/docs/http/ngx_http_auth_request_module.html"
         lang="en"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -41,7 +41,7 @@ other access modules, such as
 <link doc="ngx_http_auth_basic_module.xml">ngx_http_auth_basic_module</link>,
 via the <link doc="ngx_http_core_module.xml" id="satisfy"/> directive.
 <note>
-Currently, responses to authorization subrequests cannot be cached
+Before version 1.7.3, responses to authorization subrequests could not be cached
 (using <link doc="ngx_http_proxy_module.xml" id="proxy_cache"/>,
 <link doc="ngx_http_proxy_module.xml" id="proxy_store"/>, etc.).
 </note>
