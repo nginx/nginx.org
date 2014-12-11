@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_uwsgi_module"
         link="/ru/docs/http/ngx_http_uwsgi_module.html"
         lang="ru"
-        rev="13">
+        rev="14">
 
 <section id="summary">
 
@@ -1072,6 +1072,38 @@ uwsgi-сервер.
 </directive>
 
 
+<directive name="uwsgi_ssl_certificate">
+<syntax><value>файл</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.7.8</appeared-in>
+
+<para>
+Задаёт <value>файл</value> с сертификатом в формате PEM
+для аутентификации на suwsgi-сервере.
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_ssl_certificate_key">
+<syntax><value>файл</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.7.8</appeared-in>
+
+<para>
+Задаёт <value>файл</value> с секретным ключом в формате PEM
+для аутентификации на suwsgi-сервере.
+</para>
+
+</directive>
+
+
 <directive name="uwsgi_ssl_ciphers">
 <syntax><value>ciphers</value></syntax>
 <default>DEFAULT</default>
@@ -1128,6 +1160,24 @@ uwsgi-сервер.
 
 <para>
 По умолчанию используется имя хоста из <link id="uwsgi_pass"/>.
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_ssl_password_file">
+<syntax><value>файл</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.7.8</appeared-in>
+
+<para>
+Задаёт <value>файл</value> с паролями от
+<link id="uwsgi_ssl_certificate_key">секретных ключей</link>,
+где каждый пароль указан на отдельной строке.
+Пароли применяются по очереди в момент загрузки ключа.
 </para>
 
 </directive>

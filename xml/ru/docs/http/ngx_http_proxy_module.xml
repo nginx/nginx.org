@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_proxy_module"
         link="/ru/docs/http/ngx_http_proxy_module.html"
         lang="ru"
-        rev="31">
+        rev="32">
 
 <section id="summary">
 
@@ -1543,6 +1543,38 @@ proxy_set_header Accept-Encoding "";
 </directive>
 
 
+<directive name="proxy_ssl_certificate">
+<syntax><value>файл</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.7.8</appeared-in>
+
+<para>
+Задаёт <value>файл</value> с сертификатом в формате PEM
+для аутентификации на проксируемом HTTPS-сервере.
+</para>
+
+</directive>
+
+
+<directive name="proxy_ssl_certificate_key">
+<syntax><value>файл</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.7.8</appeared-in>
+
+<para>
+Задаёт <value>файл</value> с секретным ключом в формате PEM
+для аутентификации на проксируемом HTTPS-сервере.
+</para>
+
+</directive>
+
+
 <directive name="proxy_ssl_ciphers">
 <syntax><value>ciphers</value></syntax>
 <default>DEFAULT</default>
@@ -1600,6 +1632,24 @@ proxy_set_header Accept-Encoding "";
 <para>
 По умолчанию используется имя хоста из URL’а, заданного
 директивой <link id="proxy_pass"/>.
+</para>
+
+</directive>
+
+
+<directive name="proxy_ssl_password_file">
+<syntax><value>файл</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.7.8</appeared-in>
+
+<para>
+Задаёт <value>файл</value> с паролями от
+<link id="proxy_ssl_certificate_key">секретных ключей</link>,
+где каждый пароль указан на отдельной строке.
+Пароли применяются по очереди в момент загрузки ключа.
 </para>
 
 </directive>
