@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_autoindex_module"
         link="/ru/docs/http/ngx_http_autoindex_module.html"
         lang="ru"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -62,8 +62,35 @@ location / {
 <context>location</context>
 
 <para>
-Определяет, как выводить размеры файлов в листинге
+Для <link id="autoindex_format">формата</link> HTML
+определяет, как выводить размеры файлов в листинге
 каталога: точно или округляя до килобайт, мегабайт и гигабайт.
+</para>
+
+</directive>
+
+
+<directive name="autoindex_format">
+<syntax>
+    <literal>html</literal> |
+    <literal>xml</literal> |
+    <literal>json</literal> |
+    <literal>jsonp</literal></syntax>
+<default>html</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.7.9</appeared-in>
+
+<para>
+Задаёт формат вывода листинга каталога.
+</para>
+
+<para>
+При использовании формата JSONP имя callback-функции
+задаётся в аргументе запроса <literal>callback</literal>.
+Если аргумент отсутствует или имеет пустое значение,
+то используется формат JSON.
 </para>
 
 </directive>
@@ -77,7 +104,8 @@ location / {
 <context>location</context>
 
 <para>
-Определяет, в какой временной зоне выводить время в листинге
+Для <link id="autoindex_format">формата</link> HTML
+определяет, в какой временной зоне выводить время в листинге
 каталога: в локальной или в UTC.
 </para>
 
