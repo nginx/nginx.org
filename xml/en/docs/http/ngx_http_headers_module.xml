@@ -10,7 +10,7 @@
 <module name="Module ngx_http_headers_module"
         link="/en/docs/http/ngx_http_headers_module.html"
         lang="en"
-        rev="6">
+        rev="7">
 
 <section id="summary">
 
@@ -33,6 +33,7 @@ expires    @24h;
 expires    0;
 expires    -1;
 expires    epoch;
+expires    $expires;
 add_header Cache-Control private;
 </example>
 </para>
@@ -140,6 +141,19 @@ and <header>Cache-Control</header> to 10 years.
 The <literal>off</literal> parameter disables adding or modifying the
 <header>Expires</header> and <header>Cache-Control</header> response
 header fields.
+</para>
+
+<para>
+The last parameter value can contain variables (1.7.9):
+<example>
+map $sent_http_content_type $expires {
+    default         off;
+    application/pdf 42d;
+    ~image/         max;
+}
+
+expires $expires;
+</example>
 </para>
 
 </directive>

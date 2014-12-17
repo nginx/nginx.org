@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_headers_module"
         link="/ru/docs/http/ngx_http_headers_module.html"
         lang="ru"
-        rev="6">
+        rev="7">
 
 <section id="summary">
 
@@ -33,6 +33,7 @@ expires    @24h;
 expires    0;
 expires    -1;
 expires    epoch;
+expires    $expires;
 add_header Cache-Control private;
 </example>
 </para>
@@ -139,6 +140,19 @@ expires @15h30m;
 <para>
 Параметр <literal>off</literal> запрещает добавлять или менять поля
 <header>Expires</header> и <header>Cache-Control</header> в заголовке ответа.
+</para>
+
+<para>
+В значении последнего параметра можно использовать переменные (1.7.9):
+<example>
+map $sent_http_content_type $expires {
+    default         off;
+    application/pdf 42d;
+    ~image/         max;
+}
+
+expires $expires;
+</example>
 </para>
 
 </directive>
