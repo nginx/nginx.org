@@ -19,7 +19,6 @@ DOCS =									\
 		http/websocket						\
 		howto_build_on_win32					\
 		freebsd_tuning						\
-		howto_setup_development_environment_on_ec2		\
 		nginx_dtrace_pid_provider				\
 		contributing_changes					\
 		beginners_guide						\
