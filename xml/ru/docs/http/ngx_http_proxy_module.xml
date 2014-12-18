@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_proxy_module"
         link="/ru/docs/http/ngx_http_proxy_module.html"
         lang="ru"
-        rev="32">
+        rev="33">
 
 <section id="summary">
 
@@ -238,6 +238,24 @@ proxy_cache_key $scheme$proxy_host$uri$is_args$args;
 </directive>
 
 
+<directive name="proxy_cache_lock_age">
+<syntax><value>время</value></syntax>
+<default>5s</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.7.8</appeared-in>
+
+<para>
+Если последний запрос, переданный на проксируемый сервер
+для заполнения нового элемента кэша,
+не завершился за указанное <value>время</value>,
+на проксируемый сервер может быть передан ещё один запрос.
+</para>
+
+</directive>
+
+
 <directive name="proxy_cache_lock_timeout">
 <syntax><value>время</value></syntax>
 <default>5s</default>
@@ -248,6 +266,12 @@ proxy_cache_key $scheme$proxy_host$uri$is_args$args;
 
 <para>
 Задаёт таймаут для <link id="proxy_cache_lock"/>.
+По истечении указанного <value>времени</value>
+запрос будет передан на проксируемый сервер,
+однако ответ не будет закэширован.
+<note>
+До версии 1.7.8 такой ответ мог быть закэширован.
+</note>
 </para>
 
 </directive>
