@@ -10,7 +10,7 @@
 <module name="Module ngx_http_fastcgi_module"
         link="/en/docs/http/ngx_http_fastcgi_module.html"
         lang="en"
-        rev="24">
+        rev="25">
 
 <section id="summary">
 
@@ -241,6 +241,24 @@ this element to be released, up to the time set by the
 </directive>
 
 
+<directive name="fastcgi_cache_lock_age">
+<syntax><value>time</value></syntax>
+<default>5s</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.7.8</appeared-in>
+
+<para>
+If the last request passed to the FastCGI server
+for populating a new cache element
+has not completed for the specified <value>time</value>,
+one more request may be passed to the FastCGI server.
+</para>
+
+</directive>
+
+
 <directive name="fastcgi_cache_lock_timeout">
 <syntax><value>time</value></syntax>
 <default>5s</default>
@@ -251,6 +269,12 @@ this element to be released, up to the time set by the
 
 <para>
 Sets a timeout for <link id="fastcgi_cache_lock"/>.
+When the <value>time</value> expires,
+the request will be passed to the FastCGI server,
+however, the response will not be cached.
+<note>
+Before 1.7.8, the response could be cached.
+</note>
 </para>
 
 </directive>

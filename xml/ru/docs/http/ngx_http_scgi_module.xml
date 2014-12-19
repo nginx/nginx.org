@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_scgi_module"
         link="/ru/docs/http/ngx_http_scgi_module.html"
         lang="ru"
-        rev="12">
+        rev="13">
 
 <section id="summary">
 
@@ -232,6 +232,24 @@ scgi_cache_key localhost:9000$request_uri;
 </directive>
 
 
+<directive name="scgi_cache_lock_age">
+<syntax><value>время</value></syntax>
+<default>5s</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.7.8</appeared-in>
+
+<para>
+Если последний запрос, переданный на SCGI-сервер
+для заполнения нового элемента кэша,
+не завершился за указанное <value>время</value>,
+на SCGI-сервер может быть передан ещё один запрос.
+</para>
+
+</directive>
+
+
 <directive name="scgi_cache_lock_timeout">
 <syntax><value>время</value></syntax>
 <default>5s</default>
@@ -242,6 +260,12 @@ scgi_cache_key localhost:9000$request_uri;
 
 <para>
 Задаёт таймаут для <link id="scgi_cache_lock"/>.
+По истечении указанного <value>времени</value>
+запрос будет передан на SCGI-сервер,
+однако ответ не будет закэширован.
+<note>
+До версии 1.7.8 такой ответ мог быть закэширован.
+</note>
 </para>
 
 </directive>
