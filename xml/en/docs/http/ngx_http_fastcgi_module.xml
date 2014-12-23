@@ -10,7 +10,7 @@
 <module name="Module ngx_http_fastcgi_module"
         link="/en/docs/http/ngx_http_fastcgi_module.html"
         lang="en"
-        rev="25">
+        rev="26">
 
 <section id="summary">
 
@@ -175,6 +175,7 @@ By default, <value>size</value> is limited by the size of two buffers set by the
 <para>
 Defines a shared memory zone used for caching.
 The same zone can be used in several places.
+Parameter value can contain variables (1.7.9).
 The <literal>off</literal> parameter disables caching inherited
 from the previous configuration level.
 </para>
