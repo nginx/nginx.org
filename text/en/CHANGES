@@ -1,4 +1,36 @@
 
+Changes with nginx 1.7.9                                         23 Dec 2014
+
+    *) Feature: variables support in the "proxy_cache", "fastcgi_cache",
+       "scgi_cache", and "uwsgi_cache" directives.
+
+    *) Feature: variables support in the "expires" directive.
+
+    *) Feature: loading of secret keys from hardware tokens with OpenSSL
+       engines.
+       Thanks to Dmitrii Pichulin.
+
+    *) Feature: the "autoindex_format" directive.
+
+    *) Bugfix: cache revalidation is now only used for responses with 200
+       and 206 status codes.
+       Thanks to Piotr Sikora.
+
+    *) Bugfix: the "TE" client request header line was passed to backends
+       while proxying.
+
+    *) Bugfix: the "proxy_pass", "fastcgi_pass", "scgi_pass", and
+       "uwsgi_pass" directives might not work correctly inside the "if" and
+       "limit_except" blocks.
+
+    *) Bugfix: the "proxy_store" directive with the "on" parameter was
+       ignored if the "proxy_store" directive with an explicitly specified
+       file path was used on a previous level.
+
+    *) Bugfix: nginx could not be built with BoringSSL.
+       Thanks to Lukas Tribus.
+
+
 Changes with nginx 1.7.8                                         02 Dec 2014
 
     *) Change: now the "If-Modified-Since", "If-Range", etc. client request
