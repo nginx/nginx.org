@@ -10,7 +10,7 @@
 <module name="Module ngx_http_proxy_module"
         link="/en/docs/http/ngx_http_proxy_module.html"
         lang="en"
-        rev="34">
+        rev="35">
 
 <section id="summary">
 
@@ -321,6 +321,7 @@ will be cached.
 <syntax>
     <value>path</value>
     [<literal>levels</literal>=<value>levels</value>]
+    [<literal>use_temp_path</literal>=<literal>on</literal>|<literal>off</literal>]
     <literal>keys_zone</literal>=<value>name</value>:<value>size</value>
     [<literal>inactive</literal>=<value>time</value>]
     [<literal>max_size</literal>=<value>size</value>]
@@ -355,8 +356,15 @@ different file systems.
 However, be aware that in this case a file is copied
 across two file systems instead of the cheap renaming operation.
 It is thus recommended that for any given location both cache and a directory
-holding temporary files, set by the <link id="proxy_temp_path"/> directive,
+holding temporary files
 are put on the same file system.
+A directory for temporary files is set based on
+the <literal>use_temp_path</literal> parameter (1.7.10).
+If this parameter is omitted or set to the value <literal>on</literal>,
+the directory set by the <link id="proxy_temp_path"/> directive
+for the given location will be used.
+If the value is set to <literal>off</literal>,
+temporary files will be put directly in the cache directory.
 </para>
 
 <para>
@@ -1939,6 +1947,11 @@ a temporary file might look like this:
 <example>
 /spool/nginx/proxy_temp/<emphasis>7</emphasis>/<emphasis>45</emphasis>/00000123<emphasis>457</emphasis>
 </example>
+</para>
+
+<para>
+See also the <literal>use_temp_path</literal> parameter of the
+<link id="proxy_cache_path"/> directive.
 </para>
 
 </directive>

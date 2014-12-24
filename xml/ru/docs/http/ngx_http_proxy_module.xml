@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_proxy_module"
         link="/ru/docs/http/ngx_http_proxy_module.html"
         lang="ru"
-        rev="34">
+        rev="35">
 
 <section id="summary">
 
@@ -319,6 +319,7 @@ proxy_cache_key $scheme$proxy_host$uri$is_args$args;
 <syntax>
     <value>путь</value>
     [<literal>levels</literal>=<value>уровни</value>]
+    [<literal>use_temp_path</literal>=<literal>on</literal>|<literal>off</literal>]
     <literal>keys_zone</literal>=<value>имя</value>:<value>размер</value>
     [<literal>inactive</literal>=<value>время</value>]
     [<literal>max_size</literal>=<value>размер</value>]
@@ -353,8 +354,14 @@ proxy_cache_path /data/nginx/cache levels=1:2 keys_zone=one:10m;
 что в этом случае вместо дешёвой операции переименовывания в пределах
 одной файловой системы файл копируется с одной файловой системы на другую.
 Поэтому лучше, если кэш будет находиться на той же файловой
-системе, что и каталог с временными файлами, задаваемый директивой
+системе, что и каталог с временными файлами.
+Какой из каталогов будет использоваться для временных файлов
+определяется параметром <literal>use_temp_path</literal> (1.7.10).
+Если параметр не задан или установлен в значение “<literal>on</literal>”,
+то будет использоваться каталог, задаваемый директивой
 <link id="proxy_temp_path"/> для данного location.
+Если параметр установлен в значение “<literal>off</literal>”,
+то временные файлы будут располагаться непосредственно в каталоге кэша.
 </para>
 
 <para>
@@ -1938,6 +1945,11 @@ proxy_temp_path /spool/nginx/proxy_temp 1 2;
 <example>
 /spool/nginx/proxy_temp/<emphasis>7</emphasis>/<emphasis>45</emphasis>/00000123<emphasis>457</emphasis>
 </example>
+</para>
+
+<para>
+См. также параметр <literal>use_temp_path</literal> директивы
+<link id="proxy_cache_path"/>.
 </para>
 
 </directive>
