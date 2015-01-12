@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="29">
+        rev="30">
 
 <section id="summary">
 
@@ -1149,6 +1149,13 @@ of the <link id="server"/> directive.
 <literal>fail_timeout=</literal><value>time</value></tag-name>
 <tag-desc>
 Same as the “<literal>fail_timeout</literal>” parameter
+of the <link id="server"/> directive.
+</tag-desc>
+
+<tag-name>
+<literal>max_conns=</literal><value>number</value></tag-name>
+<tag-desc>
+Same as the “<literal>max_conns</literal>” parameter
 of the <link id="server"/> directive.
 </tag-desc>
 
