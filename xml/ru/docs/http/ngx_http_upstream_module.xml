@@ -1146,6 +1146,13 @@ http://127.0.0.1/upstream_conf?upstream=dynamic
 </tag-desc>
 
 <tag-name>
+<literal>max_conns=</literal><value>число</value></tag-name>
+<tag-desc>
+То же, что и параметр “<literal>max_conns</literal>”
+директивы <link id="server"/>.
+</tag-desc>
+
+<tag-name>
 <literal>max_fails=</literal><value>число</value></tag-name>
 <tag-desc>
 То же, что и параметр “<literal>max_fails</literal>”
@@ -1156,13 +1163,6 @@ http://127.0.0.1/upstream_conf?upstream=dynamic
 <literal>fail_timeout=</literal><value>время</value></tag-name>
 <tag-desc>
 То же, что и параметр “<literal>fail_timeout</literal>”
-директивы <link id="server"/>.
-</tag-desc>
-
-<tag-name>
-<literal>max_conns=</literal><value>число</value></tag-name>
-<tag-desc>
-То же, что и параметр “<literal>max_conns</literal>”
 директивы <link id="server"/>.
 </tag-desc>
 

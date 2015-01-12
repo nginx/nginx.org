@@ -1139,6 +1139,13 @@ of the <link id="server"/> directive.
 </tag-desc>
 
 <tag-name>
+<literal>max_conns=</literal><value>number</value></tag-name>
+<tag-desc>
+Same as the “<literal>max_conns</literal>” parameter
+of the <link id="server"/> directive.
+</tag-desc>
+
+<tag-name>
 <literal>max_fails=</literal><value>number</value></tag-name>
 <tag-desc>
 Same as the “<literal>max_fails</literal>” parameter
@@ -1149,13 +1156,6 @@ of the <link id="server"/> directive.
 <literal>fail_timeout=</literal><value>time</value></tag-name>
 <tag-desc>
 Same as the “<literal>fail_timeout</literal>” parameter
-of the <link id="server"/> directive.
-</tag-desc>
-
-<tag-name>
-<literal>max_conns=</literal><value>number</value></tag-name>
-<tag-desc>
-Same as the “<literal>max_conns</literal>” parameter
 of the <link id="server"/> directive.
 </tag-desc>
 
