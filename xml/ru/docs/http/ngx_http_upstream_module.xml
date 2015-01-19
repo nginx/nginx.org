@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_upstream_module"
         link="/ru/docs/http/ngx_http_upstream_module.html"
         lang="ru"
-        rev="30">
+        rev="31">
 
 <section id="summary">
 
@@ -1298,7 +1298,7 @@ http://127.0.0.1/upstream_conf?upstream=dynamic&amp;id=42&amp;max_fails=3&amp;we
 
 <tag-name id="var_upstream_addr"><var>$upstream_addr</var></tag-name>
 <tag-desc>
-хранит IP-адрес и порт сервера или путь к UNIX-сокету.
+хранит IP-адрес и порт или путь к UNIX-сокету сервера группы.
 Если при обработке запроса были сделаны обращения к нескольким серверам,
 то их адреса разделяются запятой, например,
 “<literal>192.168.1.1:80, 192.168.1.2:80, unix:/tmp/sock</literal>”.
@@ -1321,37 +1321,41 @@ http://127.0.0.1/upstream_conf?upstream=dynamic&amp;id=42&amp;max_fails=3&amp;we
 “<literal>REVALIDATED</literal>” или “<literal>HIT</literal>”.
 </tag-desc>
 
-<tag-name id="var_upstream_cookie_"><var>$upstream_cookie_</var><value>имя</value></tag-name>
+<tag-name id="var_upstream_cookie_"><var>$upstream_cookie_</var><value>имя</value>
+</tag-name>
 <tag-desc>
 кука с указанным <value>именем</value>, переданная сервером группы
 в поле <header>Set-Cookie</header> заголовка ответа (1.7.1).
-Необходимо иметь в виду, что запоминаются поля заголовка только из ответа
+Необходимо иметь в виду, что куки запоминаются только из ответа
 последнего сервера.
 </tag-desc>
 
 <tag-name id="var_upstream_response_length"><var>$upstream_response_length</var>
 </tag-name>
 <tag-desc>
-хранит длины ответов, полученных от серверов группы (0.7.27);
-длины хранятся в байтах.
-Длины нескольких ответов разделяются запятыми и двоеточиями
-подобно адресам в переменной <var>$upstream_addr</var>.
+хранит длину ответа, полученного от сервера группы (0.7.27);
+длина хранится в байтах.
+Длины нескольких ответов
+разделяются запятыми и двоеточиями подобно адресам в переменной
+<link id="var_upstream_addr">$upstream_addr</link>.
 </tag-desc>
 
 <tag-name id="var_upstream_response_time"><var>$upstream_response_time</var>
 </tag-name>
 <tag-desc>
-хранит времена ответов, полученных от серверов группы;
-времена хранятся в секундах с точностью до миллисекунд.
-Времена нескольких ответов разделяются запятыми и двоеточиями
-подобно адресам в переменной <var>$upstream_addr</var>.
+хранит время, затраченное на получение ответа от сервера группы;
+время хранится в секундах с точностью до миллисекунд.
+Времена нескольких ответов
+разделяются запятыми и двоеточиями подобно адресам в переменной
+<link id="var_upstream_addr">$upstream_addr</link>.
 </tag-desc>
 
 <tag-name id="var_upstream_status"><var>$upstream_status</var></tag-name>
 <tag-desc>
-хранит коды ответов, полученных от серверов группы.
-Коды нескольких ответов разделяются запятыми и двоеточиями
-подобно адресам в переменной <var>$upstream_addr</var>.
+хранит статус ответа, полученного от сервера группы.
+Статусы нескольких ответов
+разделяются запятыми и двоеточиями подобно адресам в переменной
+<link id="var_upstream_addr">$upstream_addr</link>.
 </tag-desc>
 
 <tag-name id="var_upstream_http_"><var>$upstream_http_</var><value>имя</value></tag-name>
@@ -1361,8 +1365,8 @@ http://127.0.0.1/upstream_conf?upstream=dynamic&amp;id=42&amp;max_fails=3&amp;we
 доступно в переменной <var>$upstream_http_server</var>.
 Правила преобразования имён полей заголовка ответа в имена переменных
 такие же, как для переменных с префиксом
-“<link doc="ngx_http_core_module.xml" id="variables">$http_</link>”.
-Необходимо иметь в виду, что запоминаются поля заголовка только из ответа
+“<link doc="ngx_http_core_module.xml" id="var_http_">$http_</link>”.
+Необходимо иметь в виду, что поля заголовка запоминаются только из ответа
 последнего сервера.
 </tag-desc>
 

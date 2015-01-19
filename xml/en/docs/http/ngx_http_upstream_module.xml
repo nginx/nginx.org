@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="30">
+        rev="31">
 
 <section id="summary">
 
@@ -1286,8 +1286,8 @@ supports the following embedded variables:
 
 <tag-name id="var_upstream_addr"><var>$upstream_addr</var></tag-name>
 <tag-desc>
-keeps the IP address and port of the server,
-or the path to the UNIX-domain socket.
+keeps the IP address and port,
+or the path to the UNIX-domain socket of the upstream server.
 If several servers were contacted during request processing,
 their addresses are separated by commas, e.g.
 “<literal>192.168.1.1:80, 192.168.1.2:80, unix:/tmp/sock</literal>”.
@@ -1306,7 +1306,7 @@ keeps the status of accessing a response cache (0.8.3).
 The status can be either “<literal>MISS</literal>”,
 “<literal>BYPASS</literal>”, “<literal>EXPIRED</literal>”,
 “<literal>STALE</literal>”, “<literal>UPDATING</literal>”,
-“<literal>REVALIDATED</literal>” or “<literal>HIT</literal>”.
+“<literal>REVALIDATED</literal>”, or “<literal>HIT</literal>”.
 </tag-desc>
 
 <tag-name id="var_upstream_cookie_"><var>$upstream_cookie_</var><value>name</value>
@@ -1314,32 +1314,35 @@ The status can be either “<literal>MISS</literal>”,
 <tag-desc>
 cookie with the specified <value>name</value> sent by the upstream server
 in the <header>Set-Cookie</header> response header field (1.7.1).
-Only the last server’s response header fields are saved.
+Only the cookies from the response of the last server are saved.
 </tag-desc>
 
 <tag-name id="var_upstream_response_length"><var>$upstream_response_length</var>
 </tag-name>
 <tag-desc>
-keeps the lengths of responses obtained from the upstream servers (0.7.27);
-lengths are kept in bytes.
-Several response lengths are separated by commas and colons
-like addresses in the <var>$upstream_addr</var> variable.
+keeps the length of the response obtained from the upstream server (0.7.27);
+the length is kept in bytes.
+Lengths of several responses
+are separated by commas and colons like addresses in the
+<link id="var_upstream_addr">$upstream_addr</link> variable.
 </tag-desc>
 
 <tag-name id="var_upstream_response_time"><var>$upstream_response_time</var>
 </tag-name>
 <tag-desc>
-keeps times of responses obtained from upstream servers;
-times are kept in seconds with a milliseconds resolution.
-Several response times are separated by commas and colons
-like addresses in the <var>$upstream_addr</var> variable.
+keeps time spent on receiving the response from the upstream server;
+the time is kept in seconds with millisecond resolution.
+Times of several responses
+are separated by commas and colons like addresses in the
+<link id="var_upstream_addr">$upstream_addr</link> variable.
 </tag-desc>
 
 <tag-name id="var_upstream_status"><var>$upstream_status</var></tag-name>
 <tag-desc>
-keeps codes of responses obtained from upstream servers.
-Several response codes are separated by commas and colons
-like addresses in the <var>$upstream_addr</var> variable.
+keeps status code of the response obtained from the upstream server.
+Status codes of several responses
+are separated by commas and colons like addresses in the
+<link id="var_upstream_addr">$upstream_addr</link> variable.
 </tag-desc>
 
 <tag-name id="var_upstream_http_"><var>$upstream_http_</var><value>name</value></tag-name>
@@ -1349,8 +1352,8 @@ For example, the <header>Server</header> response header field
 is available through the <var>$upstream_http_server</var> variable.
 The rules of converting header field names to variable names are the same
 as for the variables that start with the
-“<link doc="ngx_http_core_module.xml" id="variables">$http_</link>” prefix.
-Only the last server’s response header fields are saved.
+“<link doc="ngx_http_core_module.xml" id="var_http_">$http_</link>” prefix.
+Only the header fields from the response of the last server are saved.
 </tag-desc>
 
 </list>
