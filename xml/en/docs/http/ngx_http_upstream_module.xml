@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="32">
+        rev="33">
 
 <section id="summary">
 
@@ -1315,6 +1315,17 @@ The status can be either “<literal>MISS</literal>”,
 cookie with the specified <value>name</value> sent by the upstream server
 in the <header>Set-Cookie</header> response header field (1.7.1).
 Only the cookies from the response of the last server are saved.
+</tag-desc>
+
+<tag-name id="var_upstream_header_time"><var>$upstream_header_time</var>
+</tag-name>
+<tag-desc>
+keeps time
+spent on receiving the response header from the upstream server (1.7.10);
+the time is kept in seconds with millisecond resolution.
+Times of several responses
+are separated by commas and colons like addresses in the
+<link id="var_upstream_addr">$upstream_addr</link> variable.
 </tag-desc>
 
 <tag-name id="var_upstream_http_"><var>$upstream_http_</var><value>name</value></tag-name>

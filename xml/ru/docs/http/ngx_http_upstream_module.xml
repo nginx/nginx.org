@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_upstream_module"
         link="/ru/docs/http/ngx_http_upstream_module.html"
         lang="ru"
-        rev="32">
+        rev="33">
 
 <section id="summary">
 
@@ -1328,6 +1328,17 @@ http://127.0.0.1/upstream_conf?upstream=dynamic&amp;id=42&amp;max_fails=3&amp;we
 в поле <header>Set-Cookie</header> заголовка ответа (1.7.1).
 Необходимо иметь в виду, что куки запоминаются только из ответа
 последнего сервера.
+</tag-desc>
+
+<tag-name id="var_upstream_header_time"><var>$upstream_header_time</var>
+</tag-name>
+<tag-desc>
+хранит время,
+затраченное на получение заголовка ответа от сервера группы (1.7.10);
+время хранится в секундах с точностью до миллисекунд.
+Времена нескольких ответов
+разделяются запятыми и двоеточиями подобно адресам в переменной
+<link id="var_upstream_addr">$upstream_addr</link>.
 </tag-desc>
 
 <tag-name id="var_upstream_http_"><var>$upstream_http_</var><value>имя</value></tag-name>
