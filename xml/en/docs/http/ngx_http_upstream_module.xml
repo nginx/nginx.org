@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="31">
+        rev="32">
 
 <section id="summary">
 
@@ -1317,6 +1317,17 @@ in the <header>Set-Cookie</header> response header field (1.7.1).
 Only the cookies from the response of the last server are saved.
 </tag-desc>
 
+<tag-name id="var_upstream_http_"><var>$upstream_http_</var><value>name</value></tag-name>
+<tag-desc>
+keep server response header fields.
+For example, the <header>Server</header> response header field
+is available through the <var>$upstream_http_server</var> variable.
+The rules of converting header field names to variable names are the same
+as for the variables that start with the
+“<link doc="ngx_http_core_module.xml" id="var_http_">$http_</link>” prefix.
+Only the header fields from the response of the last server are saved.
+</tag-desc>
+
 <tag-name id="var_upstream_response_length"><var>$upstream_response_length</var>
 </tag-name>
 <tag-desc>
@@ -1343,17 +1354,6 @@ keeps status code of the response obtained from the upstream server.
 Status codes of several responses
 are separated by commas and colons like addresses in the
 <link id="var_upstream_addr">$upstream_addr</link> variable.
-</tag-desc>
-
-<tag-name id="var_upstream_http_"><var>$upstream_http_</var><value>name</value></tag-name>
-<tag-desc>
-keep server response header fields.
-For example, the <header>Server</header> response header field
-is available through the <var>$upstream_http_server</var> variable.
-The rules of converting header field names to variable names are the same
-as for the variables that start with the
-“<link doc="ngx_http_core_module.xml" id="var_http_">$http_</link>” prefix.
-Only the header fields from the response of the last server are saved.
 </tag-desc>
 
 </list>

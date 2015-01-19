@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_upstream_module"
         link="/ru/docs/http/ngx_http_upstream_module.html"
         lang="ru"
-        rev="31">
+        rev="32">
 
 <section id="summary">
 
@@ -1330,6 +1330,18 @@ http://127.0.0.1/upstream_conf?upstream=dynamic&amp;id=42&amp;max_fails=3&amp;we
 последнего сервера.
 </tag-desc>
 
+<tag-name id="var_upstream_http_"><var>$upstream_http_</var><value>имя</value></tag-name>
+<tag-desc>
+хранят поля заголовка ответа сервера.
+Например, поле заголовка ответа <header>Server</header>
+доступно в переменной <var>$upstream_http_server</var>.
+Правила преобразования имён полей заголовка ответа в имена переменных
+такие же, как для переменных с префиксом
+“<link doc="ngx_http_core_module.xml" id="var_http_">$http_</link>”.
+Необходимо иметь в виду, что поля заголовка запоминаются только из ответа
+последнего сервера.
+</tag-desc>
+
 <tag-name id="var_upstream_response_length"><var>$upstream_response_length</var>
 </tag-name>
 <tag-desc>
@@ -1356,18 +1368,6 @@ http://127.0.0.1/upstream_conf?upstream=dynamic&amp;id=42&amp;max_fails=3&amp;we
 Статусы нескольких ответов
 разделяются запятыми и двоеточиями подобно адресам в переменной
 <link id="var_upstream_addr">$upstream_addr</link>.
-</tag-desc>
-
-<tag-name id="var_upstream_http_"><var>$upstream_http_</var><value>имя</value></tag-name>
-<tag-desc>
-хранят поля заголовка ответа сервера.
-Например, поле заголовка ответа <header>Server</header>
-доступно в переменной <var>$upstream_http_server</var>.
-Правила преобразования имён полей заголовка ответа в имена переменных
-такие же, как для переменных с префиксом
-“<link doc="ngx_http_core_module.xml" id="var_http_">$http_</link>”.
-Необходимо иметь в виду, что поля заголовка запоминаются только из ответа
-последнего сервера.
 </tag-desc>
 
 </list>
