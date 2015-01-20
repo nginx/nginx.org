@@ -10,13 +10,13 @@
 <module name="Module ngx_stream_module"
         link="/en/docs/stream/ngx_stream_module.html"
         lang="en"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
 <para>
-The <literal>stream</literal> module (1.7.7) provides
-proxying TCP and UNIX-domain socket connections.
+The <literal>ngx_stream_module</literal> module (1.7.7) provides
+support for proxying TCP and UNIX-domain socket connections.
 </para>
 
 <para>
@@ -27,6 +27,7 @@ This module is available as part of our
 </para>
 
 </section>
+
 
 <section id="example" name="Example Configuration">
 
@@ -49,20 +50,20 @@ stream {
 }
 </example>
 In this example, a server that listens on port 9000
-<link doc="ngx_stream_module.xml" id="proxy_pass">proxies</link>
+<link id="proxy_pass">proxies</link>
 TCP connections to a group of servers named <literal>backend</literal>.
-Note that the <link doc="ngx_stream_module.xml" id="proxy_pass"/>
-directive defined the context of the <literal>stream</literal> module
+Note that the <link id="proxy_pass"/>
+directive defined in the <link id="stream"/> context
 must not contain a protocol.
 Two optional timeout parameters are specified:
-the <link doc="ngx_stream_module.xml" id="proxy_connect_timeout"/> sets
+the <link id="proxy_connect_timeout"/> sets
 a timeout required for establishing a connection with a server
 that belongs to the <literal>backend</literal> group, while the
-<link doc="ngx_stream_module.xml" id="proxy_timeout"/> sets
+<link id="proxy_timeout"/> sets
 a timeout used after proxying to one of the servers in the
 <literal>backend</literal> group had started.
 All TCP proxy-related functionality is configured inside the
-<link doc="ngx_stream_module.xml" id="stream"/> block
+<link id="stream"/> block
 just like the <link doc="../http/ngx_http_core_module.xml" id="http"/> block
 for HTTP requests.
 </para>
@@ -70,14 +71,15 @@ for HTTP requests.
 <para>
 The <literal>backend</literal> group consists of three physical servers
 (<literal>srv1-srv3</literal>).
-Each server name follows the obligatory <literal>port</literal> number.
+Each server name follows the obligatory port number.
 TCP connections are distributed among the servers according to the
 <link doc="ngx_stream_upstream_module.xml" id="least_conn">least
 connected</link> load balancing method: a connection will go to the server
-that has the fewest active connections.
+that has the least number of active connections.
 Directives required to configure a group of proxied servers
 and load-balancing can be found in the
-<link doc="ngx_stream_upstream_module.xml">ngx_stream_upstream_module</link>.
+<link doc="ngx_stream_upstream_module.xml">ngx_stream_upstream_module</link>
+module.
 </para>
 
 </section>
@@ -221,17 +223,28 @@ buffers used for reading data from the client.
 
 
 <directive name="proxy_pass">
-<syntax><value>URL</value></syntax>
+<syntax><value>address</value></syntax>
 <default/>
 <context>server</context>
 
 <para>
-Sets the address of a proxied server or a
-<link doc="ngx_stream_upstream_module.xml">server group</link>.
+Sets the address of a proxied server.
 The address can be specified as a domain name or IP address,
-and an obligatory port.
+and an obligatory port:
+<example>
+proxy_pass localhost:8000;
+</example>
+or as a UNIX-domain socket path:
+<example>
+proxy_pass unix:/tmp/stream.socket;
+</example>
+</para>
+
+<para>
 If a domain name resolves to several addresses, all of them will be
 used in a round-robin fashion.
+In addition, an address can be specified as a
+<link doc="ngx_stream_upstream_module.xml">server group</link>.
 </para>
 
 </directive>
