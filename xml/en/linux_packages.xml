@@ -7,7 +7,7 @@
 <article name="nginx: Linux packages"
          link="/en/linux_packages.html"
          lang="en"
-         rev="10"
+         rev="11"
          toc="no">
 
 <section id="distributions">
@@ -24,18 +24,22 @@ RHEL/CentOS:
 
 <tr>
 <td width="20%">Version</td>
+<td>Supported Platforms</td>
 </tr>
 
 <tr>
 <td width="20%">5.x</td>
+<td>x86_64, i386</td>
 </tr>
 
 <tr>
 <td width="20%">6.x</td>
+<td>x86_64, i386</td>
 </tr>
 
 <tr>
 <td width="20%">7.x</td>
+<td>x86_64</td>
 </tr>
 
 </table>
@@ -48,17 +52,20 @@ Debian:
 
 <tr>
 <td width="20%">Version</td>
-<td>Codename</td>
+<td width="20%">Codename</td>
+<td>Supported Platforms</td>
 </tr>
 
 <tr>
 <td width="20%">6.x</td>
-<td>squeeze</td>
+<td width="20%">squeeze</td>
+<td>x86_64, i386</td>
 </tr>
 
 <tr>
 <td width="20%">7.x</td>
-<td>wheezy</td>
+<td width="20%">wheezy</td>
+<td>x86_64, i386</td>
 </tr>
 
 </table>
@@ -71,27 +78,32 @@ Ubuntu:
 
 <tr>
 <td width="20%">Version</td>
-<td>Codename</td>
+<td width="20%">Codename</td>
+<td>Supported Platforms</td>
 </tr>
 
 <tr>
 <td width="20%">10.04</td>
-<td>lucid</td>
+<td width="20%">lucid</td>
+<td>x86_64, i386</td>
 </tr>
 
 <tr>
 <td width="20%">12.04</td>
-<td>precise</td>
+<td width="20%">precise</td>
+<td>x86_64, i386</td>
 </tr>
 
 <tr>
 <td width="20%">14.04</td>
-<td>trusty</td>
+<td width="20%">trusty</td>
+<td>x86_64, i386, aarch64/arm64</td>
 </tr>
 
 <tr>
 <td width="20%">14.10</td>
-<td>utopic</td>
+<td width="20%">utopic</td>
+<td>x86_64, i386</td>
 </tr>
 
 </table>
@@ -104,10 +116,12 @@ SLES:
 
 <tr>
 <td width="20%">Version</td>
+<td>Supported Platforms</td>
 </tr>
 
 <tr>
- <td width="20%">12</td>
+<td width="20%">12</td>
+<td>x86_64, i386</td>
 </tr>
 
 </table>
