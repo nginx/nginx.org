@@ -20,9 +20,9 @@
 
     <div id="banner">
         <xsl:if test="@lang = 'he'"> <xsl:attribute name="class"> <xsl:text>ltr</xsl:text> </xsl:attribute> </xsl:if>
-        <strong>Looking to make your web app faster? Look no further!</strong><br/>
-        <em>NGINX Plus for HTTP &amp; TCP load balancing, caching and SSL offload &#8212;
-        <a href="http://nginx.com/free-trial-nginx-plus/" onClick="ga('send', 'event', 'banner', 'click', 'org_trial');">Free 30-Day Trial</a></em><br/>
+        <strong>Learn how to adopt microservices, the new standard for building apps.</strong><br/>
+        <em>Get the new ebook by O'Reilly on designing fine-grained systems.
+        <a href="http://nginx.com/oreilly-building-microservices/" onClick="ga('send', 'event', 'banner', 'click', 'oreilly_microservices_ebook');">Download it now!</a></em><br/>
     </div>
 
     <div id="main">
