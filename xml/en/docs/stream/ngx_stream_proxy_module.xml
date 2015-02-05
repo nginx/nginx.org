@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_proxy_module"
         link="/en/docs/stream/ngx_stream_proxy_module.html"
         lang="en"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
@@ -77,7 +77,7 @@ Defines a timeout for establishing a connection with a proxied server.
 
 <para>
 Sets the <value>size</value> of the
-buffers used for reading data from the client.
+buffer used for reading data from the client.
 </para>
 
 </directive>
@@ -132,7 +132,7 @@ Defines a timeout used after the proxying to the backend had started.
 
 <para>
 Sets the <value>size</value> of the
-buffers used for reading data from the upstream server.
+buffer used for reading data from the upstream server.
 </para>
 
 </directive>
