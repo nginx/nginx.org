@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
 
 <!--
-  Copyright (C) 2014 Yaroslav Zhuravlev
   Copyright (C) Nginx, Inc.
   -->
 
@@ -10,7 +9,7 @@
 <module name="Module ngx_stream_upstream_module"
         link="/en/docs/stream/ngx_stream_upstream_module.html"
         lang="en"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -35,18 +34,17 @@ This module is available as part of our
 
 <para>
 <example>
-stream {
-    upstream backend {
-        hash $remote_addr consistent;
-        server backend1.example.com:8000;
-        server backend2.example.com:8000;
-        server backend3.example.com:8001;
-    }
+upstream <emphasis>backend</emphasis> {
+    hash $remote_addr consistent;
 
-    server {
-        listen 9000;
-        proxy_pass backend;
-    }
+    server backend1.example.com:12345 weight=5;
+    server 127.0.0.1:12345            max_fails=3 fail_timeout=30s;
+    server unix:/tmp/backend3;
+}
+
+server {
+    listen 12346;
+    proxy_pass <emphasis>backend</emphasis>;
 }
 </example>
 </para>
@@ -72,11 +70,11 @@ can be mixed.
 Example:
 <example>
 upstream backend {
-    server backend1.example.com:8080 weight=5;
-    server 127.0.0.1:8080            max_fails=3 fail_timeout=30s;
+    server backend1.example.com:12345 weight=5;
+    server 127.0.0.1:12345            max_fails=3 fail_timeout=30s;
     server unix:/tmp/backend3;
 
-    server backup1.example.com:8080  backup;
+    server backup1.example.com:12345  backup;
 }
 </example>
 </para>
@@ -85,7 +83,7 @@ upstream backend {
 By default, connections are distributed between the servers using a
 weighted round-robin balancing method.
 In the above example, each 7 connections will be distributed as follows:
-5 connections go to <literal>backend1.example.com</literal>
+5 connections go to <literal>backend1.example.com:12345</literal>
 and one connection to each of the second and third servers.
 If an error occurs during communication with a server, the connection will
 be passed to the next server, and so on until all of the functioning
