@@ -10,14 +10,14 @@
 <module name="Module ngx_stream_upstream_module"
         link="/en/docs/stream/ngx_stream_upstream_module.html"
         lang="en"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
 <para>
 The <literal>ngx_stream_upstream_module</literal> module (1.7.7)
 is used to define groups of servers that can be referenced
-by the <link doc="ngx_stream_module.xml" id="proxy_pass"/>
+by the <link doc="ngx_stream_proxy_module.xml" id="proxy_pass"/>
 directive.
 </para>
 

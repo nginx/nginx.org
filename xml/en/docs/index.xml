@@ -467,8 +467,13 @@ ngx_mail_smtp_module</link>
 <list type="bullet">
 
 <listitem>
-<link doc="stream/ngx_stream_module.xml">
-ngx_stream_module</link>
+<link doc="stream/ngx_stream_core_module.xml">
+ngx_stream_core_module</link>
+</listitem>
+
+<listitem>
+<link doc="stream/ngx_stream_proxy_module.xml">
+ngx_stream_proxy_module</link>
 </listitem>
 
 <listitem>

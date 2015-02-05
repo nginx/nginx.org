@@ -1,23 +1,17 @@
 <?xml version="1.0"?>
 
 <!--
-  Copyright (C) 2014 Yaroslav Zhuravlev
   Copyright (C) Nginx, Inc.
   -->
 
 <!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
 
-<module name="Module ngx_stream_module"
-        link="/en/docs/stream/ngx_stream_module.html"
+<module name="Module ngx_stream_core_module"
+        link="/en/docs/stream/ngx_stream_core_module.html"
         lang="en"
-        rev="2">
+        rev="1">
 
 <section id="summary">
-
-<para>
-The <literal>ngx_stream_module</literal> module (1.7.7) provides
-support for proxying TCP and UNIX-domain socket connections.
-</para>
 
 <para>
 <note>
@@ -33,53 +27,32 @@ This module is available as part of our
 
 <para>
 <example>
+worker_processes auto;
+
+error_log /var/log/nginx/error.log info;
+
 stream {
     upstream backend {
-        least_conn;
-        server srv1.example.com:8000;
-        server srv2.example.com:8000;
-        server srv3.example.com:8001;
+        hash $remote_addr consistent;
+
+        server backend1.example.com:12345 weight=5;
+        server 127.0.0.1:12345            max_fails=3 fail_timeout=30s;
+        server unix:/tmp/backend3;
     }
 
     server {
-        listen 9000;
+        listen 12345;
         proxy_connect_timeout 1s;
         proxy_timeout 3s;
         proxy_pass backend;
     }
+
+    server {
+        listen [::1]:12345;
+        proxy_pass unix:/tmp/stream.socket;
+    }
 }
 </example>
-In this example, a server that listens on port 9000
-<link id="proxy_pass">proxies</link>
-TCP connections to a group of servers named <literal>backend</literal>.
-Note that the <link id="proxy_pass"/>
-directive defined in the <link id="stream"/> context
-must not contain a protocol.
-Two optional timeout parameters are specified:
-the <link id="proxy_connect_timeout"/> sets
-a timeout required for establishing a connection with a server
-that belongs to the <literal>backend</literal> group, while the
-<link id="proxy_timeout"/> sets
-a timeout used after proxying to one of the servers in the
-<literal>backend</literal> group had started.
-All TCP proxy-related functionality is configured inside the
-<link id="stream"/> block
-just like the <link doc="../http/ngx_http_core_module.xml" id="http"/> block
-for HTTP requests.
-</para>
-
-<para>
-The <literal>backend</literal> group consists of three physical servers
-(<literal>srv1-srv3</literal>).
-Each server name follows the obligatory port number.
-TCP connections are distributed among the servers according to the
-<link doc="ngx_stream_upstream_module.xml" id="least_conn">least
-connected</link> load balancing method: a connection will go to the server
-that has the least number of active connections.
-Directives required to configure a group of proxied servers
-and load-balancing can be found in the
-<link doc="ngx_stream_upstream_module.xml">ngx_stream_upstream_module</link>
-module.
 </para>
 
 </section>
@@ -102,15 +75,15 @@ on which the server will accept connections.
 It is possible to specify just the port.
 The address can also be a hostname, for example:
 <example>
-listen 127.0.0.1:110;
-listen *:110;
-listen 110;     # same as *:110
-listen localhost:110;
+listen 127.0.0.1:12345;
+listen *:12345;
+listen 12345;     # same as *:12345
+listen localhost:12345;
 </example>
 IPv6 addresses are specified in square brackets:
 <example>
-listen [::1]:110;
-listen [::]:110;
+listen [::1]:12345;
+listen [::]:12345;
 </example>
 UNIX-domain sockets are specified with the “<literal>unix:</literal>”
 prefix:
@@ -190,88 +163,6 @@ and set the probes count (<c-def>TCP_KEEPCNT</c-def>) to 10 probes.
 <para>
 Different servers must listen on different
 <value>address</value>:<value>port</value> pairs.
-</para>
-
-</directive>
-
-
-<directive name="proxy_connect_timeout">
-<syntax><value>time</value></syntax>
-<default>60s</default>
-<context>stream</context>
-<context>server</context>
-
-<para>
-Defines a timeout for establishing a connection with a proxied server.
-</para>
-
-</directive>
-
-
-<directive name="proxy_downstream_buffer">
-<syntax><value>size</value></syntax>
-<default>16k</default>
-<context>stream</context>
-<context>server</context>
-
-<para>
-Sets the <value>size</value> of the
-buffers used for reading data from the client.
-</para>
-
-</directive>
-
-
-<directive name="proxy_pass">
-<syntax><value>address</value></syntax>
-<default/>
-<context>server</context>
-
-<para>
-Sets the address of a proxied server.
-The address can be specified as a domain name or IP address,
-and an obligatory port:
-<example>
-proxy_pass localhost:8000;
-</example>
-or as a UNIX-domain socket path:
-<example>
-proxy_pass unix:/tmp/stream.socket;
-</example>
-</para>
-
-<para>
-If a domain name resolves to several addresses, all of them will be
-used in a round-robin fashion.
-In addition, an address can be specified as a
-<link doc="ngx_stream_upstream_module.xml">server group</link>.
-</para>
-
-</directive>
-
-
-<directive name="proxy_timeout">
-<syntax><value>timeout</value></syntax>
-<default>10m</default>
-<context>stream</context>
-<context>server</context>
-
-<para>
-Defines a timeout used after the proxying to the backend had started.
-</para>
-
-</directive>
-
-
-<directive name="proxy_upstream_buffer">
-<syntax><value>size</value></syntax>
-<default>16k</default>
-<context>stream</context>
-<context>server</context>
-
-<para>
-Sets the <value>size</value> of the
-buffers used for reading data from the upstream server.
 </para>
 
 </directive>

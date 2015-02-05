@@ -1,0 +1,142 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Module ngx_stream_proxy_module"
+        link="/en/docs/stream/ngx_stream_proxy_module.html"
+        lang="en"
+        rev="1">
+
+<section id="summary">
+
+<para>
+The <literal>ngx_stream_proxy_module</literal> module (1.7.7) allows passing
+connections to another server over TCP and UNIX-domain sockets.
+</para>
+
+<para>
+<note>
+This module is available as part of our
+<commercial_version>commercial subscription</commercial_version>.
+</note>
+</para>
+
+</section>
+
+
+<section id="example" name="Example Configuration">
+
+<para>
+<example>
+server {
+    listen 127.0.0.1:12345;
+    proxy_pass 127.0.0.1:8080;
+}
+
+server {
+    listen 12345;
+    proxy_connect_timeout 1s;
+    proxy_timeout 3s;
+    proxy_pass example.com:12345;
+}
+
+server {
+    listen [::1]:12345;
+    proxy_pass unix:/tmp/stream.socket;
+}
+</example>
+</para>
+
+</section>
+
+
+<section id="directives" name="Directives">
+
+<directive name="proxy_connect_timeout">
+<syntax><value>time</value></syntax>
+<default>60s</default>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Defines a timeout for establishing a connection with a proxied server.
+</para>
+
+</directive>
+
+
+<directive name="proxy_downstream_buffer">
+<syntax><value>size</value></syntax>
+<default>16k</default>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Sets the <value>size</value> of the
+buffers used for reading data from the client.
+</para>
+
+</directive>
+
+
+<directive name="proxy_pass">
+<syntax><value>address</value></syntax>
+<default/>
+<context>server</context>
+
+<para>
+Sets the address of a proxied server.
+The address can be specified as a domain name or IP address,
+and an obligatory port:
+<example>
+proxy_pass localhost:12345;
+</example>
+or as a UNIX-domain socket path:
+<example>
+proxy_pass unix:/tmp/stream.socket;
+</example>
+</para>
+
+<para>
+If a domain name resolves to several addresses, all of them will be
+used in a round-robin fashion.
+In addition, an address can be specified as a
+<link doc="ngx_stream_upstream_module.xml">server group</link>.
+</para>
+
+</directive>
+
+
+<directive name="proxy_timeout">
+<syntax><value>timeout</value></syntax>
+<default>10m</default>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Defines a timeout used after the proxying to the backend had started.
+</para>
+
+</directive>
+
+
+<directive name="proxy_upstream_buffer">
+<syntax><value>size</value></syntax>
+<default>16k</default>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Sets the <value>size</value> of the
+buffers used for reading data from the upstream server.
+</para>
+
+</directive>
+
+</section>
+
+</module>
