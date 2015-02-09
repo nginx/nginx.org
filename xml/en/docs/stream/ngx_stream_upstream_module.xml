@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_upstream_module"
         link="/en/docs/stream/ngx_stream_upstream_module.html"
         lang="en"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -167,8 +167,7 @@ when the primary servers are unavailable.
 <literal>down</literal>
 </tag-name>
 <tag-desc>
-marks the server as permanently unavailable; used along with
-the <link id="hash"/> directive.
+marks the server as permanently unavailable.
 </tag-desc>
 
 <tag-name id="max_conns">

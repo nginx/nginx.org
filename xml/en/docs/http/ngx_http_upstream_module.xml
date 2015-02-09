@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="33">
+        rev="34">
 
 <section id="summary">
 
@@ -203,8 +203,7 @@ It will be passed requests when the primary servers are unavailable.
 <literal>down</literal>
 </tag-name>
 <tag-desc>
-marks the server as permanently unavailable; used along with
-the <link id="ip_hash"/> directive.
+marks the server as permanently unavailable.
 </tag-desc>
 
 </list>

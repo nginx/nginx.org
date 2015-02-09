@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_upstream_module"
         link="/ru/docs/http/ngx_http_upstream_module.html"
         lang="ru"
-        rev="33">
+        rev="34">
 
 <section id="summary">
 
@@ -204,8 +204,7 @@ upstream backend {
 <literal>down</literal>
 </tag-name>
 <tag-desc>
-помечает сервер как постоянно недоступный; используется
-совместно с директивой <link id="ip_hash"/>.
+помечает сервер как постоянно недоступный.
 </tag-desc>
 
 </list>
