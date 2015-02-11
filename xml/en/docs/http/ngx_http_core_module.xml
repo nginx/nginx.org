@@ -1218,7 +1218,7 @@ protocol</link>.
 </para>
 
 <para>
-A <literal>listen</literal> directive
+The <literal>listen</literal> directive
 can have several additional parameters specific to socket-related system calls.
 These parameters can be specified in any
 <literal>listen</literal> directive, but only once for a given

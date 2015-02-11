@@ -358,7 +358,7 @@ across two file systems instead of the cheap renaming operation.
 It is thus recommended that for any given location both cache and a directory
 holding temporary files
 are put on the same file system.
-A directory for temporary files is set based on
+The directory for temporary files is set based on
 the <literal>use_temp_path</literal> parameter (1.7.10).
 If this parameter is omitted or set to the value <literal>on</literal>,
 the directory set by the <link id="proxy_temp_path"/> directive
