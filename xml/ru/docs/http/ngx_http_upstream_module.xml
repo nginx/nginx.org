@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_upstream_module"
         link="/ru/docs/http/ngx_http_upstream_module.html"
         lang="ru"
-        rev="34">
+        rev="35">
 
 <section id="summary">
 
@@ -1058,7 +1058,7 @@ upstream backend {
 
 <listitem>
 просматривать или изменять конфигурацию, а также
-удалять отдельные серверы;
+удалять серверы;
 </listitem>
 
 <listitem>добавлять новые серверы.</listitem>
@@ -1095,13 +1095,13 @@ http://127.0.0.1/upstream_conf?upstream=dynamic
 <tag-name>
 <literal>id=</literal><value>число</value></tag-name>
 <tag-desc>
-Выбирает отдельный сервер для просмотра, изменения или удаления.
+Выбирает сервер для просмотра, изменения или удаления.
 </tag-desc>
 
 <tag-name>
 <literal>remove=</literal></tag-name>
 <tag-desc>
-Удаляет выбранный сервер из группы.
+Удаляет сервер из группы.
 </tag-desc>
 
 <tag-name>

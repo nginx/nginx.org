@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="34">
+        rev="35">
 
 <section id="summary">
 
@@ -1051,13 +1051,13 @@ Configuration commands can be used to:
 
 <listitem>view the group configuration;</listitem>
 
-<listitem>view, modify, or remove an individual server;</listitem>
+<listitem>view, modify, or remove a server;</listitem>
 
 <listitem>add a new server.</listitem>
 
 </list>
 <note>
-Since addresses in a group are not required to be unique, individual
+Since addresses in a group are not required to be unique, specific
 servers in a group are referenced by their IDs.
 IDs are assigned automatically and shown when adding a new server
 or viewing the group configuration.
@@ -1087,13 +1087,13 @@ This parameter is mandatory.
 <tag-name>
 <literal>id=</literal><value>number</value></tag-name>
 <tag-desc>
-Selects an individual server for viewing, modifying, or removing.
+Selects a server for viewing, modifying, or removing.
 </tag-desc>
 
 <tag-name>
 <literal>remove=</literal></tag-name>
 <tag-desc>
-Removes an individual server from the group.
+Removes a server from the group.
 </tag-desc>
 
 <tag-name>
@@ -1196,7 +1196,7 @@ of the <link id="server"/> directive.
 </list>
 
 The first two parameters select an object.
-This can be either the whole group or an individual server.
+This can be either the whole group or a specific server.
 Without other parameters, the configuration of the selected
 group or server is shown.
 </para>
@@ -1207,7 +1207,7 @@ For example, to view the configuration of the whole group, send:
 http://127.0.0.1/upstream_conf?upstream=dynamic
 </example>
 
-To view the configuration of an individual server, also specify its ID:
+To view the configuration of a specific server, also specify its ID:
 <example>
 http://127.0.0.1/upstream_conf?upstream=dynamic&amp;id=42
 </example>
