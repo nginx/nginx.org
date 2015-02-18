@@ -19,9 +19,9 @@ X:template body (lang) {
 
     <div id="banner">
         X:if "@lang = 'he'" { X:attribute "class" { X:text{ltr} } }
-        <strong>Learn how to adopt microservices, the new standard for building apps.</strong><br/>
-        <em>Get the new ebook by O'Reilly on designing fine-grained systems.
-        <a href="http://nginx.com/oreilly-building-microservices/" onClick="ga('send', 'event', 'banner', 'click', 'oreilly_microservices_ebook');">Download it now!</a></em><br/>
+        <strong>Learn a modern approach to building apps for the mobile, dynamic web.</strong><br/>
+        <em>Join the free webinar on February 25 to explore the 4-tier application architecture.
+        <a href="http://nginx.com/resources/webinars/forrester-building-apps-in-a-mobile-centric-world/" onClick="ga('send', 'event', 'banner', 'click', 'webinar_forrester_feb15');">Register now!</a></em><br/>
     </div>
 
     <div id="main">
