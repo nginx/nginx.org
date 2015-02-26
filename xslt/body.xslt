@@ -20,9 +20,9 @@
 
     <div id="banner">
         <xsl:if test="@lang = 'he'"> <xsl:attribute name="class"> <xsl:text>ltr</xsl:text> </xsl:attribute> </xsl:if>
-        <strong>Learn a modern approach to building apps for the mobile, dynamic web.</strong><br/>
-        <em>Join the free webinar on February 25 to explore the 4-tier application architecture.
-        <a href="http://nginx.com/resources/webinars/forrester-building-apps-in-a-mobile-centric-world/" onClick="ga('send', 'event', 'banner', 'click', 'webinar_forrester_feb15');">Register now!</a></em><br/>
+        <strong>Looking to make your web app faster? Look no further!</strong><br/>
+        <em>NGINX Plus for HTTP &amp; TCP load balancing, caching and SSL offload &#8212;
+        <a href="http://nginx.com/free-trial-nginx-plus/" onClick="ga('send', 'event', 'banner', 'click', 'org_trial');">Free 30-Day Trial</a></em><br/>
     </div>
 
     <div id="main">
