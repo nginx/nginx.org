@@ -10,7 +10,7 @@
 <module name="Module ngx_mail_ssl_module"
         link="/en/docs/mail/ngx_mail_ssl_module.html"
         lang="en"
-        rev="4">
+        rev="5">
 
 <section id="summary">
 
@@ -105,6 +105,43 @@ The previous versions of nginx used
 <link doc="../http/configuring_https_servers.xml" id="compatibility">different</link>
 ciphers by default.
 </note>
+</para>
+
+</directive>
+
+
+<directive name="ssl_client_certificate">
+<syntax><value>file</value></syntax>
+<default/>
+<context>mail</context>
+<context>server</context>
+<appeared-in>1.7.11</appeared-in>
+
+<para>
+Specifies a <value>file</value> with trusted CA certificates in the PEM format
+used to <link id="ssl_verify_client">verify</link> client certificates.
+</para>
+
+<para>
+The list of certificates will be sent to clients.
+If this is not desired, the <link id="ssl_trusted_certificate"/>
+directive can be used.
+</para>
+
+</directive>
+
+
+<directive name="ssl_crl">
+<syntax><value>file</value></syntax>
+<default/>
+<context>mail</context>
+<context>server</context>
+<appeared-in>1.7.11</appeared-in>
+
+<para>
+Specifies a <value>file</value> with revoked certificates (CRL)
+in the PEM format used to <link id="ssl_verify_client">verify</link>
+client certificates.
 </para>
 
 </directive>
@@ -341,6 +378,77 @@ Enables or disables session resumption through
 <para>
 Specifies a time during which a client may reuse the
 session parameters stored in a cache.
+</para>
+
+</directive>
+
+
+<directive name="ssl_trusted_certificate">
+<syntax><value>file</value></syntax>
+<default/>
+<context>mail</context>
+<context>server</context>
+<appeared-in>1.7.11</appeared-in>
+
+<para>
+Specifies a <value>file</value> with trusted CA certificates in the PEM format
+used to <link id="ssl_verify_client">verify</link> client certificates.
+</para>
+
+<para>
+In contrast to the certificate set by <link id="ssl_client_certificate"/>,
+the list of these certificates will not be sent to clients.
+</para>
+
+</directive>
+
+
+<directive name="ssl_verify_client">
+<syntax>
+    <literal>on</literal> | <literal>off</literal> |
+    <literal>optional</literal> | <literal>optional_no_ca</literal></syntax>
+<default>off</default>
+<context>mail</context>
+<context>server</context>
+<appeared-in>1.7.11</appeared-in>
+
+<para>
+Enables verification of client certificates.
+The verification result is passed in the
+<header>Auth-SSL-Verify</header> header of the
+<link doc="ngx_mail_auth_http_module.xml" id="auth_http">authentication</link>
+request.
+</para>
+
+<para>
+The <literal>optional</literal> parameter requests the client
+certificate and verifies it if the certificate is present.
+</para>
+
+<para>
+The <literal>optional_no_ca</literal> parameter
+requests the client
+certificate but does not require it to be signed by a trusted CA certificate.
+This is intended for the use in cases when a service that is external to nginx
+performs the actual certificate verification.
+The contents of the certificate is accessible through requests
+<link doc="ngx_mail_auth_http_module.xml"
+      id="auth_http_pass_client_cert">sent</link>
+to the authentication server.
+</para>
+
+</directive>
+
+
+<directive name="ssl_verify_depth">
+<syntax><value>number</value></syntax>
+<default>1</default>
+<context>mail</context>
+<context>server</context>
+<appeared-in>1.7.11</appeared-in>
+
+<para>
+Sets the verification depth in the client certificates chain.
 </para>
 
 </directive>

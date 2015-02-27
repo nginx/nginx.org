@@ -10,7 +10,7 @@
 <module name="Модуль ngx_mail_ssl_module"
         link="/ru/docs/mail/ngx_mail_ssl_module.html"
         lang="ru"
-        rev="4">
+        rev="5">
 
 <section id="summary">
 
@@ -105,6 +105,44 @@ ssl_ciphers ALL:!aNULL:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP;
 <link doc="../http/configuring_https_servers.xml" id="compatibility">другие</link>
 шифры.
 </note>
+</para>
+
+</directive>
+
+
+<directive name="ssl_client_certificate">
+<syntax><value>файл</value></syntax>
+<default/>
+<context>mail</context>
+<context>server</context>
+<appeared-in>1.7.11</appeared-in>
+
+<para>
+Указывает <value>файл</value> с доверенными сертификатами CA в формате
+PEM, которые используются для
+<link id="ssl_verify_client">проверки</link> клиентских сертификатов.
+</para>
+
+<para>
+Список сертификатов будет отправляться клиентам.
+Если это нежелательно, можно воспользоваться директивой
+<link id="ssl_trusted_certificate"/>.
+</para>
+
+</directive>
+
+
+<directive name="ssl_crl">
+<syntax><value>файл</value></syntax>
+<default/>
+<context>mail</context>
+<context>server</context>
+<appeared-in>1.7.11</appeared-in>
+
+<para>
+Указывает <value>файл</value> с отозванными сертификатами (CRL)
+в формате PEM, используемыми для
+<link id="ssl_verify_client">проверки</link> клиентских сертификатов.
 </para>
 
 </directive>
@@ -341,6 +379,77 @@ openssl rand 48 > ticket.key
 <para>
 Задаёт время, в течение которого клиент может повторно
 использовать параметры сессии, хранящейся в кэше.
+</para>
+
+</directive>
+
+
+<directive name="ssl_trusted_certificate">
+<syntax><value>файл</value></syntax>
+<default/>
+<context>mail</context>
+<context>server</context>
+<appeared-in>1.7.11</appeared-in>
+
+<para>
+Задаёт <value>файл</value> с доверенными сертификатами CA в формате PEM,
+которые используются для
+<link id="ssl_verify_client">проверки</link> клиентских сертификатов.
+</para>
+
+<para>
+В отличие от <link id="ssl_client_certificate"/>, список этих сертификатов
+не будет отправляться клиентам.
+</para>
+
+</directive>
+
+
+<directive name="ssl_verify_client">
+<syntax>
+    <literal>on</literal> | <literal>off</literal> |
+    <literal>optional</literal> | <literal>optional_no_ca</literal></syntax>
+<default>off</default>
+<context>mail</context>
+<context>server</context>
+<appeared-in>1.7.11</appeared-in>
+
+<para>
+Разрешает проверку клиентских сертификатов.
+Результат проверки передаётся в заголовке
+<header>Auth-SSL-Verify</header> в запросе
+<link doc="ngx_mail_auth_http_module.xml" id="auth_http">аутентификации</link>.
+</para>
+
+<para>
+Параметр <literal>optional</literal> запрашивает клиентский
+сертификат, и если сертификат был предоставлен, проверяет его.
+</para>
+
+<para>
+Параметр <literal>optional_no_ca</literal>
+запрашивает сертификат
+клиента, но не требует, чтобы он был подписан доверенным сертификатом CA.
+Это предназначено для случаев, когда фактическая проверка сертификата
+осуществляется внешним по отношению к nginx’у сервисом.
+Содержимое сертификата доступно в запросах,
+<link doc="ngx_mail_auth_http_module.xml"
+      id="auth_http_pass_client_cert">посылаемых</link>
+на сервер аутентификации.
+</para>
+
+</directive>
+
+
+<directive name="ssl_verify_depth">
+<syntax><value>число</value></syntax>
+<default>1</default>
+<context>mail</context>
+<context>server</context>
+<appeared-in>1.7.11</appeared-in>
+
+<para>
+Устанавливает глубину проверки в цепочке клиентских сертификатов.
 </para>
 
 </directive>

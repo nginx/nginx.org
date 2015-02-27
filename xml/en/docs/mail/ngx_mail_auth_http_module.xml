@@ -10,7 +10,7 @@
 <module name="Module ngx_mail_auth_http_module"
         link="/en/docs/mail/ngx_mail_auth_http_module.html"
         lang="en"
-        rev="5">
+        rev="6">
 
 <section id="directives" name="Directives">
 
@@ -42,6 +42,23 @@ For example:
 <example>
 auth_http_header X-Auth-Key "secret_string";
 </example>
+</para>
+
+</directive>
+
+
+<directive name="auth_http_pass_client_cert">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>mail</context>
+<context>server</context>
+<appeared-in>1.7.11</appeared-in>
+
+<para>
+Appends the <header>Auth-SSL-Cert</header> header with the
+<link doc="ngx_mail_ssl_module.xml" id="ssl_verify_client">client</link>
+certificate in the PEM format (urlencoded)
+to requests sent to the authentication server.
 </para>
 
 </directive>
@@ -182,6 +199,40 @@ Client-Host: client.example.org
 Auth-SMTP-Helo: client.example.org
 Auth-SMTP-From: MAIL FROM: &lt;&gt;
 Auth-SMTP-To: RCPT TO: &lt;postmaster@mail.example.com&gt;
+</example>
+</para>
+
+<para>
+For the SSL/TLS client connection (1.7.11),
+the <header>Auth-SSL</header> header is added, and
+<header>Auth-SSL-Verify</header> will contain
+the result of client certificate verification, if
+<link doc="ngx_mail_ssl_module.xml" id="ssl_verify_client">enabled</link>:
+“<literal>SUCCESS</literal>”, “<literal>FAILED</literal>”, and
+“<literal>NONE</literal>” if a certificate was not present.
+When the client certificate was present,
+its details are passed in the following request headers:
+<header>Auth-SSL-Subject</header>, <header>Auth-SSL-Issuer</header>,
+<header>Auth-SSL-Serial</header>, and <header>Auth-SSL-Fingerprint</header>.
+If <link id="auth_http_pass_client_cert"/> is enabled,
+the certificate itself is passed in the
+<header>Auth-SSL-Cert</header> header.
+The request will look as follows:
+<example>
+GET /auth HTTP/1.0
+Host: localhost
+Auth-Method: plain
+Auth-User: user
+Auth-Pass: password
+Auth-Protocol: imap
+Auth-Login-Attempt: 1
+Client-IP: 192.0.2.42
+Auth-SSL: on
+Auth-SSL-Verify: SUCCESS
+Auth-SSL-Subject: /CN=example.com
+Auth-SSL-Issuer: /CN=example.com
+Auth-SSL-Serial: C07AD56B846B5BFF
+Auth-SSL-Fingerprint: 29d6a80a123d13355ed16b4b04605e29cb55a5ad
 </example>
 </para>
 

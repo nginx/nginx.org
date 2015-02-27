@@ -10,7 +10,7 @@
 <module name="Модуль ngx_mail_auth_http_module"
         link="/ru/docs/mail/ngx_mail_auth_http_module.html"
         lang="ru"
-        rev="5">
+        rev="6">
 
 <section id="directives" name="Директивы">
 
@@ -42,6 +42,23 @@
 <example>
 auth_http_header X-Auth-Key "secret_string";
 </example>
+</para>
+
+</directive>
+
+
+<directive name="auth_http_pass_client_cert">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>mail</context>
+<context>server</context>
+<appeared-in>1.7.11</appeared-in>
+
+<para>
+Добавляет заголовок <header>Auth-SSL-Cert</header> с
+<link doc="ngx_mail_ssl_module.xml" id="ssl_verify_client">клиентским</link>
+сертификатом в формате PEM (закодирован в формате urlencode)
+к запросам, посылаемым на сервер аутентификации.
 </para>
 
 </directive>
@@ -180,6 +197,40 @@ Client-Host: client.example.org
 Auth-SMTP-Helo: client.example.org
 Auth-SMTP-From: MAIL FROM: &lt;&gt;
 Auth-SMTP-To: RCPT TO: &lt;postmaster@mail.example.com&gt;
+</example>
+</para>
+
+<para>
+Для клиентского соединения по протоколу SSL/TLS (1.7.11)
+добавляется заголовок <header>Auth-SSL</header>, и если директива
+<link doc="ngx_mail_ssl_module.xml" id="ssl_verify_client"/> включена,
+заголовок <header>Auth-SSL-Verify</header> содержит
+результат проверки клиентского сертификата:
+“<literal>SUCCESS</literal>”, “<literal>FAILED</literal>” и,
+если сертификат не был предоставлен — “<literal>NONE</literal>”.
+Если клиентский сертификат был предоставлен,
+информация о нём передаётся в следующих заголовках запроса:
+<header>Auth-SSL-Subject</header>, <header>Auth-SSL-Issuer</header>,
+<header>Auth-SSL-Serial</header> и <header>Auth-SSL-Fingerprint</header>.
+Если директива <link id="auth_http_pass_client_cert"/> включена,
+сам сертификат передаётся в заголовке
+<header>Auth-SSL-Cert</header>.
+Запрос будет выглядеть так:
+<example>
+GET /auth HTTP/1.0
+Host: localhost
+Auth-Method: plain
+Auth-User: user
+Auth-Pass: password
+Auth-Protocol: imap
+Auth-Login-Attempt: 1
+Client-IP: 192.0.2.42
+Auth-SSL: on
+Auth-SSL-Verify: SUCCESS
+Auth-SSL-Subject: /CN=example.com
+Auth-SSL-Issuer: /CN=example.com
+Auth-SSL-Serial: C07AD56B846B5BFF
+Auth-SSL-Fingerprint: 29d6a80a123d13355ed16b4b04605e29cb55a5ad
 </example>
 </para>
 
