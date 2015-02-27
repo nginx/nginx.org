@@ -226,7 +226,7 @@ ciphers by default.
 
 <para>
 Specifies a <value>file</value> with trusted CA certificates in the PEM format
-used to verify client certificates and
+used to <link id="ssl_verify_client">verify</link> client certificates and
 OCSP responses if <link id="ssl_stapling"/> is enabled.
 </para>
 
@@ -248,7 +248,8 @@ directive can be used.
 
 <para>
 Specifies a <value>file</value> with revoked certificates (CRL)
-in the PEM format used to verify client certificates.
+in the PEM format used to <link id="ssl_verify_client">verify</link>
+client certificates.
 </para>
 
 </directive>
@@ -600,7 +601,7 @@ should be configured as trusted using the
 
 <para>
 Specifies a <value>file</value> with trusted CA certificates in the PEM format
-used to verify client certificates and
+used to <link id="ssl_verify_client">verify</link> client certificates and
 OCSP responses if <link id="ssl_stapling"/> is enabled.
 </para>
 
