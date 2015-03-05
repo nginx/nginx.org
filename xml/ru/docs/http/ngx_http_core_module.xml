@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="36">
+        rev="37">
 
 <section id="directives" name="Директивы">
 
@@ -42,6 +42,7 @@ kldload aio
 </example>
 </para>
 
+<!--
 <para>
 В версиях FreeBSD 5 и 6 включение AIO статически или динамически
 на стадии загрузки ядра приводит к тому, что вся сетевая подсистема
@@ -69,14 +70,15 @@ FreeBSD поддерживает асинхронные вызовы
 то проблем не возникает.
 </note>
 </para>
+-->
 
 <para>
-Для работы AIO нужно выключить
+Для работы AIO на FreeBSD нужно выключить
 <link id="sendfile"/>:
 <example>
 location /video/ {
-    sendfile       off;
     aio            on;
+    sendfile       off;
     output_buffers 1 64k;
 }
 </example>
@@ -125,11 +127,21 @@ location /video/ {
 То же относится к запросам с указанием диапазона запрашиваемых байт
 (byte-range requests) и к запросам FLV не с начала файла: чтение
 невыравненных начала и конца ответа будет блокирующимся.
-Явно выключать
-<link id="sendfile"/>
-не нужно, так как при использовании
-<link id="directio"/>
-он выключается автоматически.
+</para>
+
+<para>
+При одновременном включении AIO и <link id="sendfile"/> в Linux
+для файлов, размер которых больше либо равен указанному
+в директиве <link id="directio"/>, будет использоваться AIO,
+а для файлов меньшего размера
+или при выключенном <link id="directio"/> — <link id="sendfile"/>:
+<example>
+location /video/ {
+    sendfile       on;
+    aio            on;
+    directio       8m;
+}
+</example>
 </para>
 
 </directive>

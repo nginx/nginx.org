@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="36">
+        rev="37">
 
 <section id="directives" name="Directives">
 
@@ -42,6 +42,7 @@ kldload aio
 </example>
 </para>
 
+<!--
 <para>
 In FreeBSD versions 5 and 6, enabling AIO statically, or dynamically
 when booting the kernel, will cause the entire networking subsystem
@@ -69,15 +70,16 @@ when working with sockets.
 However, since nginx uses AIO only for disk I/O, no problems should arise.
 </note>
 </para>
+-->
 
 <para>
-For AIO to work,
+For AIO to work on FreeBSD,
 <link id="sendfile"/>
 needs to be disabled:
 <example>
 location /video/ {
-    sendfile       off;
     aio            on;
+    sendfile       off;
     output_buffers 1 64k;
 }
 </example>
@@ -126,11 +128,21 @@ File’s unaligned end is read in blocking mode.
 The same holds true for byte range requests and for FLV requests
 not from the beginning of a file: reading of unaligned data at the
 beginning and end of a file will be blocking.
-There is no need to turn off
-<link id="sendfile"/>
-explicitly, as it is turned off automatically when
-<link id="directio"/>
-is used.
+</para>
+
+<para>
+When both AIO and <link id="sendfile"/> are enabled on Linux,
+AIO is used for files that are larger than or equal to
+the size specified in the <link id="directio"/> directive,
+while <link id="sendfile"/> is used for files of smaller sizes
+or when <link id="directio"/> is disabled.
+<example>
+location /video/ {
+    sendfile       on;
+    aio            on;
+    directio       8m;
+}
+</example>
 </para>
 
 </directive>
