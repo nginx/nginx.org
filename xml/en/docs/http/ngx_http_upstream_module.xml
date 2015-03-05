@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="40">
+        rev="41">
 
 <section id="summary">
 
@@ -1018,14 +1018,14 @@ upstream backend {
    server backend2.example.com:8081;
 
    sticky learn
-          create=$upstream_cookie_sessionid
-          lookup=$cookie_sessionid
+          create=$upstream_cookie_examplecookie
+          lookup=$cookie_examplecookie
           zone=client_sessions:1m;
 }
 </example>
 
 In the example, the upstream server creates a session by setting the
-cookie “<literal>SESSIONID</literal>” in the response.
+cookie “<literal>EXAMPLECOOKIE</literal>” in the response.
 Further requests with this cookie will be passed to the same server.
 If the server cannot process the request, the new server is
 selected as if the client has not been bound yet.

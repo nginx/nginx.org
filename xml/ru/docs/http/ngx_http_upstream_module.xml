@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_upstream_module"
         link="/ru/docs/http/ngx_http_upstream_module.html"
         lang="ru"
-        rev="40">
+        rev="41">
 
 <section id="summary">
 
@@ -1020,14 +1020,14 @@ upstream backend {
    server backend2.example.com:8081;
 
    sticky learn
-          create=$upstream_cookie_sessionid
-          lookup=$cookie_sessionid
+          create=$upstream_cookie_examplecookie
+          lookup=$cookie_examplecookie
           zone=client_sessions:1m;
 }
 </example>
 
 В примере выше сервер группы создаёт сессию путём установки
-куки “<literal>SESSIONID</literal>” в своём ответе.
+куки “<literal>EXAMPLECOOKIE</literal>” в своём ответе.
 Последующие запросы с этой кукой будут передаваться на этот же сервер.
 Если сервер не может обработать запрос, выбирается новый
 сервер как если бы клиент не имел привязки к серверу.
