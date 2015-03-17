@@ -10,15 +10,14 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="37">
+        rev="38">
 
 <section id="directives" name="Директивы">
 
 <directive name="aio">
 <syntax>
     <literal>on</literal> |
-    <literal>off</literal> |
-    <literal>sendfile</literal></syntax>
+    <literal>off</literal></syntax>
 <default>off</default>
 <context>http</context>
 <context>server</context>
@@ -27,7 +26,13 @@
 
 <para>
 Разрешает или запрещает использование файлового асинхронного ввода-вывода (AIO)
-во FreeBSD и Linux.
+во FreeBSD и Linux:
+<example>
+location /video/ {
+    aio            on;
+    output_buffers 1 64k;
+}
+</example>
 </para>
 
 <para>
@@ -73,38 +78,6 @@ FreeBSD поддерживает асинхронные вызовы
 -->
 
 <para>
-Для работы AIO на FreeBSD нужно выключить
-<link id="sendfile"/>:
-<example>
-location /video/ {
-    aio            on;
-    sendfile       off;
-    output_buffers 1 64k;
-}
-</example>
-</para>
-
-<para>
-Кроме того, начиная с FreeBSD&nbsp;5.2.1 и nginx&nbsp;0.8.12, AIO также можно
-использовать для подгрузки данных для <c-func>sendfile</c-func>:
-<example>
-location /video/ {
-    sendfile       on;
-    tcp_nopush     on;
-    aio            sendfile;
-}
-</example>
-В такой конфигурации функция <c-func>sendfile</c-func> вызывается с флагом
-<c-def>SF_NODISKIO</c-def>, в результате чего она не блокируется на диске, а
-сообщает об отсутствии данных в памяти.
-После этого nginx инициирует асинхронную подгрузку данных, читая один байт.
-При этом ядро FreeBSD подгружает в память первые 128K байт файла, однако
-при последующих чтениях файл подгружается частями только по 16K.
-Изменить это можно с помощью директивы
-<link id="read_ahead"/>.
-</para>
-
-<para>
 В Linux AIO можно использовать только начиная с версии ядра 2.6.22.
 Кроме того, необходимо также дополнительно включить
 <link id="directio"/>,
@@ -142,6 +115,10 @@ location /video/ {
     directio       8m;
 }
 </example>
+</para>
+
+<para>
+См. также директиву <link id="sendfile"/>.
 </para>
 
 </directive>
@@ -2201,6 +2178,31 @@ location / {
 <para>
 Разрешает или запрещает использовать
 <c-func>sendfile</c-func>.
+</para>
+
+<para>
+Начиная с nginx&nbsp;0.8.12 и FreeBSD&nbsp;5.2.1,
+можно использовать <link id="aio"/> для подгрузки данных
+для <c-func>sendfile</c-func>:
+<example>
+location /video/ {
+    sendfile       on;
+    tcp_nopush     on;
+    aio            on;
+}
+</example>
+В такой конфигурации функция <c-func>sendfile</c-func> вызывается с флагом
+<c-def>SF_NODISKIO</c-def>, в результате чего она не блокируется на диске, а
+сообщает об отсутствии данных в памяти.
+После этого nginx инициирует асинхронную подгрузку данных, читая один байт.
+При этом ядро FreeBSD подгружает в память первые 128K байт файла, однако
+при последующих чтениях файл подгружается частями только по 16K.
+Изменить это можно с помощью директивы
+<link id="read_ahead"/>.
+<note>
+До версии 1.7.11 подгрузка данных включалась с помощью
+<literal>aio sendfile;</literal>.
+</note>
 </para>
 
 </directive>

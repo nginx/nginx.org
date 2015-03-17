@@ -10,15 +10,14 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="37">
+        rev="38">
 
 <section id="directives" name="Directives">
 
 <directive name="aio">
 <syntax>
     <literal>on</literal> |
-    <literal>off</literal> |
-    <literal>sendfile</literal></syntax>
+    <literal>off</literal></syntax>
 <default>off</default>
 <context>http</context>
 <context>server</context>
@@ -27,7 +26,13 @@
 
 <para>
 Enables or disables the use of asynchronous file I/O (AIO)
-on FreeBSD and Linux.
+on FreeBSD and Linux:
+<example>
+location /video/ {
+    aio            on;
+    output_buffers 1 64k;
+}
+</example>
 </para>
 
 <para>
@@ -73,39 +78,6 @@ However, since nginx uses AIO only for disk I/O, no problems should arise.
 -->
 
 <para>
-For AIO to work on FreeBSD,
-<link id="sendfile"/>
-needs to be disabled:
-<example>
-location /video/ {
-    aio            on;
-    sendfile       off;
-    output_buffers 1 64k;
-}
-</example>
-</para>
-
-<para>
-In addition, starting from FreeBSD&nbsp;5.2.1 and nginx&nbsp;0.8.12, AIO can
-also be used to pre-load data for <c-func>sendfile</c-func>:
-<example>
-location /video/ {
-    sendfile       on;
-    tcp_nopush     on;
-    aio            sendfile;
-}
-</example>
-In this configuration, <c-func>sendfile</c-func> is called with
-the <c-def>SF_NODISKIO</c-def> flag which causes it not to block on disk I/O,
-but, instead, report back that the data are not in memory.
-nginx then initiates an asynchronous data load by reading one byte.
-On the first read, the FreeBSD kernel loads the first 128K bytes
-of a file into memory, although next reads will only load data in 16K chunks.
-This can be changed using the
-<link id="read_ahead"/> directive.
-</para>
-
-<para>
 On Linux, AIO can be used starting from kernel version 2.6.22.
 Also, it is necessary to enable
 <link id="directio"/>,
@@ -143,6 +115,10 @@ location /video/ {
     directio       8m;
 }
 </example>
+</para>
+
+<para>
+See also the <link id="sendfile"/> directive.
 </para>
 
 </directive>
@@ -2202,6 +2178,31 @@ the connection is closed.
 <para>
 Enables or disables the use of
 <c-func>sendfile</c-func>.
+</para>
+
+<para>
+Starting from nginx&nbsp;0.8.12 and FreeBSD&nbsp;5.2.1,
+<link id="aio"/> can be used to pre-load data
+for <c-func>sendfile</c-func>:
+<example>
+location /video/ {
+    sendfile       on;
+    tcp_nopush     on;
+    aio            on;
+}
+</example>
+In this configuration, <c-func>sendfile</c-func> is called with
+the <c-def>SF_NODISKIO</c-def> flag which causes it not to block on disk I/O,
+but, instead, report back that the data are not in memory.
+nginx then initiates an asynchronous data load by reading one byte.
+On the first read, the FreeBSD kernel loads the first 128K bytes
+of a file into memory, although next reads will only load data in 16K chunks.
+This can be changed using the
+<link id="read_ahead"/> directive.
+<note>
+Before version 1.7.11, pre-loading could be enabled with
+<literal>aio sendfile;</literal>.
+</note>
 </para>
 
 </directive>
