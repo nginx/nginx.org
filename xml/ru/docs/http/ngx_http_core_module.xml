@@ -17,7 +17,8 @@
 <directive name="aio">
 <syntax>
     <literal>on</literal> |
-    <literal>off</literal></syntax>
+    <literal>off</literal> |
+    <literal>threads</literal>[<literal>=</literal><value>pool</value>]</syntax>
 <default>off</default>
 <context>http</context>
 <context>server</context>
@@ -115,6 +116,35 @@ location /video/ {
     directio       8m;
 }
 </example>
+</para>
+
+<para>
+Кроме того, читать и <link id="sendfile">отправлять</link>
+файлы можно в многопоточном режиме (1.7.11),
+не блокируя при этом рабочий процесс:
+<example>
+location /video/ {
+    sendfile       on;
+    aio            threads;
+}
+</example>
+Операции чтения или отправки файлов будут обрабатываться потоками из указанного
+<link doc="../ngx_core_module.xml" id="thread_pool">пула</link>.
+Если пул потоков не задан явно,
+используется пул с именем “<literal>default</literal>”.
+Имя пула может быть задано при помощи переменных:
+<example>
+aio threads=pool$disk;
+</example>
+По умолчанию поддержка многопоточности выключена, её сборку следует
+разрешить с помощью конфигурационного параметра
+<literal>--with-threads</literal>.
+В настоящий момент многопоточность совместима только с методами
+<link doc="../events.xml" id="epoll"/>,
+<link doc="../events.xml" id="kqueue"/>
+и
+<link doc="../events.xml" id="eventport"/>.
+Отправка файлов в многопоточном режиме поддерживается только на Linux.
 </para>
 
 <para>

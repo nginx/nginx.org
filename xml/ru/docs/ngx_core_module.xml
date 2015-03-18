@@ -395,6 +395,39 @@ include vhosts/*.conf;
 </directive>
 
 
+<directive name="thread_pool">
+<syntax>
+    <value>имя</value>
+    <literal>threads</literal>=<value>число</value>
+    [<literal>max_queue</literal>=<value>число</value>]</syntax>
+<default>default threads=32 max_queue=65536</default>
+<context>main</context>
+<appeared-in>1.7.11</appeared-in>
+
+<para>
+Задаёт именованные пулы потоков,
+используемые для многопоточной обработки операций чтения и отправки файлов
+<link doc="http/ngx_http_core_module.xml" id="aio">без блокирования</link>
+рабочего процесса.
+</para>
+
+<para>
+Параметр <literal>threads</literal>
+задаёт число потоков в пуле.
+</para>
+
+<para>
+Если все потоки из пула заняты выполнением заданий,
+новое задание будет ожидать своего выполнения в очереди.
+Параметр <literal>max_queue</literal> ограничивает число заданий,
+ожидающих своего выполнения в очереди.
+По умолчанию в очереди может находиться до 65536 заданий.
+При переполнении очереди задание завершается с ошибкой.
+</para>
+
+</directive>
+
+
 <directive name="timer_resolution">
 <syntax><value>интервал</value></syntax>
 <default/>

@@ -17,7 +17,8 @@
 <directive name="aio">
 <syntax>
     <literal>on</literal> |
-    <literal>off</literal></syntax>
+    <literal>off</literal> |
+    <literal>threads</literal>[<literal>=</literal><value>pool</value>]</syntax>
 <default>off</default>
 <context>http</context>
 <context>server</context>
@@ -115,6 +116,35 @@ location /video/ {
     directio       8m;
 }
 </example>
+</para>
+
+<para>
+Finally, files can be read and <link id="sendfile">sent</link>
+using multi-threading (1.7.11),
+without blocking a worker process:
+<example>
+location /video/ {
+    sendfile       on;
+    aio            threads;
+}
+</example>
+Read and send file operations are offloaded to threads of the specified
+<link doc="../ngx_core_module.xml" id="thread_pool">pool</link>.
+If the pool name is omitted,
+the pool with the name “<literal>default</literal>” is used.
+The pool name can also be set with variables:
+<example>
+aio threads=pool$disk;
+</example>
+By default, multi-threading is disabled, it should be
+enabled with the
+<literal>--with-threads</literal> configuration parameter.
+Currently, multi-threading is compatible only with the
+<link doc="../events.xml" id="epoll"/>,
+<link doc="../events.xml" id="kqueue"/>,
+and
+<link doc="../events.xml" id="eventport"/> methods.
+Multi-threaded sending of files is only supported on Linux.
 </para>
 
 <para>
