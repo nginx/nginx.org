@@ -10,7 +10,7 @@
 <module name="Module ngx_http_fastcgi_module"
         link="/en/docs/http/ngx_http_fastcgi_module.html"
         lang="en"
-        rev="27">
+        rev="28">
 
 <section id="summary">
 
@@ -1147,6 +1147,35 @@ See also the <link id="fastcgi_pass_request_headers"/> directive.
 Indicates whether the header fields of the original request are passed
 to the FastCGI server.
 See also the <link id="fastcgi_pass_request_body"/> directive.
+</para>
+
+</directive>
+
+
+<directive name="fastcgi_request_buffering">
+<syntax><value>on</value> | <value>off</value></syntax>
+<default>on</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.7.11</appeared-in>
+
+<para>
+Enables or disables buffering of a client request body.
+</para>
+
+<para>
+When buffering is enabled, the entire request body is
+<link doc="ngx_http_core_module.xml" id="client_body_buffer_size">read</link>
+from the client before sending the request to a proxied server.
+</para>
+
+<para>
+When buffering is disabled, the request body is sent to the proxied server
+immediately as it is received.
+In this case, the request cannot be
+<link id="fastcgi_next_upstream">sent to the next server</link>
+if nginx already started sending the request body.
 </para>
 
 </directive>

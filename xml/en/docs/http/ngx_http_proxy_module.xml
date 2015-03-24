@@ -10,7 +10,7 @@
 <module name="Module ngx_http_proxy_module"
         link="/en/docs/http/ngx_http_proxy_module.html"
         lang="en"
-        rev="35">
+        rev="36">
 
 <section id="summary">
 
@@ -1458,6 +1458,42 @@ redirects issued by a proxied server:
 <example>
 proxy_redirect / /;
 </example>
+</para>
+
+</directive>
+
+
+<directive name="proxy_request_buffering">
+<syntax><value>on</value> | <value>off</value></syntax>
+<default>on</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.7.11</appeared-in>
+
+<para>
+Enables or disables buffering of a client request body.
+</para>
+
+<para>
+When buffering is enabled, the entire request body is
+<link doc="ngx_http_core_module.xml" id="client_body_buffer_size">read</link>
+from the client before sending the request to a proxied server.
+</para>
+
+<para>
+When buffering is disabled, the request body is sent to the proxied server
+immediately as it is received.
+In this case, the request cannot be
+<link id="proxy_next_upstream">sent to the next server</link>
+if nginx already started sending the request body.
+</para>
+
+<para>
+When HTTP/1.1 chunked transfer encoding is used
+to send the original request body,
+the request body will be buffered unless
+<link id="proxy_http_version">HTTP/1.1 is enabled</link> for proxying.
 </para>
 
 </directive>

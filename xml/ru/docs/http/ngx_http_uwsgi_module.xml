@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_uwsgi_module"
         link="/ru/docs/http/ngx_http_uwsgi_module.html"
         lang="ru"
-        rev="17">
+        rev="18">
 
 <section id="summary">
 
@@ -1081,6 +1081,41 @@ uwsgi-сервер.
 а только между двумя операциями чтения.
 Если по истечении этого времени uwsgi-сервер ничего не передаст,
 соединение закрывается.
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_request_buffering">
+<syntax><value>on</value> | <value>off</value></syntax>
+<default>on</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.7.11</appeared-in>
+
+<para>
+Разрешает или запрещает использовать буферизацию тела запроса клиента.
+</para>
+
+<para>
+Если буферизация включена, то тело запроса полностью
+<link doc="ngx_http_core_module.xml" id="client_body_buffer_size">читается</link>
+от клиента перед отправкой запроса на проксируемый сервер.
+</para>
+
+<para>
+Если буферизация выключена, то тело запроса отправляется
+на проксируемый сервер сразу же по мере его поступления.
+В этом случае запрос не может быть
+<link id="uwsgi_next_upstream">отправлен на следующий сервер</link>,
+если nginx уже начал отправку запроса.
+</para>
+
+<para>
+Если для отправки первоначального тела запроса используется HTTP/1.1
+и передача данных частями (chunked transfer encoding),
+то тело запроса буферизуется.
 </para>
 
 </directive>
