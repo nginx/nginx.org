@@ -7,6 +7,19 @@
 
 <news name="nginx news" link="/" lang="en">
 
+<event date="2015-03-24">
+<para>
+<link doc="en/download.xml">nginx-1.7.11</link>
+mainline version has been released,
+with experimental
+<link doc="en/docs/http/ngx_http_core_module.xml" id="aio">thread pools
+support</link>,
+<link doc="en/docs/http/ngx_http_proxy_module.xml"
+id="proxy_request_buffering" />
+and other features.
+</para>
+</event>
+
 <event date="2015-02-10">
 <para>
 <link doc="en/download.xml">nginx-1.7.10</link>
