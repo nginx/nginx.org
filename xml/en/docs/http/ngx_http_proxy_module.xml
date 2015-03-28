@@ -1484,16 +1484,16 @@ from the client before sending the request to a proxied server.
 <para>
 When buffering is disabled, the request body is sent to the proxied server
 immediately as it is received.
-In this case, the request cannot be
-<link id="proxy_next_upstream">sent to the next server</link>
+In this case, the request cannot be passed to the
+<link id="proxy_next_upstream">next server</link>
 if nginx already started sending the request body.
 </para>
 
 <para>
 When HTTP/1.1 chunked transfer encoding is used
 to send the original request body,
-the request body will be buffered unless
-<link id="proxy_http_version">HTTP/1.1 is enabled</link> for proxying.
+the request body will be buffered regardless of the directive value unless
+HTTP/1.1 is <link id="proxy_http_version">enabled</link> for proxying.
 </para>
 
 </directive>

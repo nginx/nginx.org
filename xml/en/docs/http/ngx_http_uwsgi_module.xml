@@ -1109,14 +1109,14 @@ Enables or disables buffering of a client request body.
 <para>
 When buffering is enabled, the entire request body is
 <link doc="ngx_http_core_module.xml" id="client_body_buffer_size">read</link>
-from the client before sending the request to a proxied server.
+from the client before sending the request to a uwsgi server.
 </para>
 
 <para>
-When buffering is disabled, the request body is sent to the proxied server
+When buffering is disabled, the request body is sent to the uwsgi server
 immediately as it is received.
-In this case, the request cannot be
-<link id="uwsgi_next_upstream">sent to the next server</link>
+In this case, the request cannot be passed to the
+<link id="uwsgi_next_upstream">next server</link>
 if nginx already started sending the request body.
 </para>
 
