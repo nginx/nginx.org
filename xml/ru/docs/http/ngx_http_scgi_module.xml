@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_scgi_module"
         link="/ru/docs/http/ngx_http_scgi_module.html"
         lang="ru"
-        rev="16">
+        rev="17">
 
 <section id="summary">
 
@@ -1074,7 +1074,7 @@ SCGI-сервер.
 <para>
 Если для отправки тела исходного запроса используется HTTP/1.1
 и передача данных частями (chunked transfer encoding),
-то тело запроса буферизуется.
+то тело запроса буферизуется независимо от значения директивы.
 </para>
 
 </directive>

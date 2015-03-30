@@ -10,7 +10,7 @@
 <module name="Module ngx_http_uwsgi_module"
         link="/en/docs/http/ngx_http_uwsgi_module.html"
         lang="en"
-        rev="18">
+        rev="19">
 
 <section id="summary">
 
@@ -1123,7 +1123,7 @@ if nginx already started sending the request body.
 <para>
 When HTTP/1.1 chunked transfer encoding is used
 to send the original request body,
-the request body will be buffered.
+the request body will be buffered regardless of the directive value.
 </para>
 
 </directive>
