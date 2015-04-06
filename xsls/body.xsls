@@ -19,9 +19,9 @@ X:template body (lang) {
 
     <div id="banner">
         X:if "@lang = 'he'" { X:attribute "class" { X:text{ltr} } }
-        <strong>Share your perspective on NGINX today and for the future.</strong><br/>
-        <em>Take the 2015 NGINX User Survey by March 30.
-        <a href="http://survey.newkind.com/r/pXmteacd" onClick="ga('send', 'event', 'banner', 'click', 'user_survey_2015');">Let your voice be heard!</a></em><br/>
+        <strong>Looking to make your web app faster? Look no further!</strong><br/>
+        <em>NGINX Plus for HTTP &amp; TCP load balancing, caching and SSL offload &#8212;
+        <a href="http://nginx.com/free-trial-nginx-plus/" onClick="ga('send', 'event', 'banner', 'click', 'org_trial');">Free 30-Day Trial</a></em><br/>
     </div>
 
     <div id="main">
