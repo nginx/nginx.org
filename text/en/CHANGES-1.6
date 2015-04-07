@@ -1,4 +1,23 @@
 
+Changes with nginx 1.6.3                                         07 Apr 2015
+
+    *) Feature: now the "tcp_nodelay" directive works with SPDY connections.
+
+    *) Bugfix: in error handling.
+       Thanks to Yichun Zhang and Daniil Bondarev.
+
+    *) Bugfix: alerts "header already sent" appeared in logs if the
+       "post_action" directive was used; the bug had appeared in 1.5.4.
+
+    *) Bugfix: alerts "sem_post() failed" might appear in logs.
+
+    *) Bugfix: in hash table handling.
+       Thanks to Chris West.
+
+    *) Bugfix: in integer overflow handling.
+       Thanks to Régis Leroy.
+
+
 Changes with nginx 1.6.2                                         16 Sep 2014
 
     *) Security: it was possible to reuse SSL sessions in unrelated contexts
