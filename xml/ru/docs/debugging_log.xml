@@ -8,7 +8,7 @@
 <article name="Отладочный лог"
          link="/ru/docs/debugging_log.html"
          lang="ru"
-         rev="1">
+         rev="2">
 
 
 <section>
@@ -57,6 +57,11 @@ http {
         ...
 </programlisting>
 </para>
+
+</section>
+
+
+<section id="clients" name="Отладочный лог для определённых клиентов">
 
 <para>
 Можно включить отладочный лог только для
