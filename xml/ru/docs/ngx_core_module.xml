@@ -10,7 +10,7 @@
 <module name="Основная функциональность"
         link="/ru/docs/ngx_core_module.html"
         lang="ru"
-        rev="11">
+        rev="12">
 
 <section id="example" name="Пример конфигурации">
 
@@ -145,7 +145,8 @@ events {
 <directive name="error_log">
 <syntax>
 <value>файл</value> | <literal>stderr</literal> |
-<literal>syslog:</literal><literal>server</literal>=<value>адрес</value>[,<value>параметр</value>=<value>значение</value>]
+<literal>syslog:</literal><literal>server</literal>=<value>адрес</value>[,<value>параметр</value>=<value>значение</value>] |
+<literal>memory:</literal><value>размер</value>
 [<literal>debug</literal> |
 <literal>info</literal> |
 <literal>notice</literal> |
@@ -173,6 +174,10 @@ events {
 Специальное значение <literal>stderr</literal> выбирает стандартный файл ошибок.
 Запись в <link doc="syslog.xml">syslog</link> настраивается указанием префикса
 “<literal>syslog:</literal>”.
+Запись в
+<link doc="debugging_log.xml" id="memory">кольцевой буфер в памяти</link>
+настраивается указанием префикса “<literal>memory:</literal>” и
+<value>размера</value> буфера и как правило используется для отладки (1.7.11).
 </para>
 
 <para>

@@ -10,7 +10,7 @@
 <module name="Core functionality"
         link="/en/docs/ngx_core_module.html"
         lang="en"
-        rev="11">
+        rev="12">
 
 <section id="example" name="Example Configuration">
 
@@ -145,7 +145,8 @@ analysis using a system debugger.
 <directive name="error_log">
 <syntax>
 <value>file</value> | <literal>stderr</literal> |
-<literal>syslog:</literal><literal>server</literal>=<value>address</value>[,<value>parameter</value>=<value>value</value>]
+<literal>syslog:</literal><literal>server</literal>=<value>address</value>[,<value>parameter</value>=<value>value</value>] |
+<literal>memory:</literal><value>size</value>
 [<literal>debug</literal> |
 <literal>info</literal> |
 <literal>notice</literal> |
@@ -173,6 +174,10 @@ If filename is not absolute, it is prefixed with the prefix path.
 The special value <literal>stderr</literal> selects the standard error file.
 Logging to <link doc="syslog.xml">syslog</link> can be configured by specifying
 the “<literal>syslog:</literal>” prefix.
+Logging to a
+<link doc="debugging_log.xml" id="memory">cyclic memory buffer</link>
+can be configured by specifying the “<literal>memory:</literal>” prefix and
+buffer <value>size</value>, and is generally used for debugging (1.7.11).
 </para>
 
 <para>

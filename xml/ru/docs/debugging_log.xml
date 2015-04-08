@@ -8,7 +8,7 @@
 <article name="Отладочный лог"
          link="/ru/docs/debugging_log.html"
          lang="ru"
-         rev="2">
+         rev="3">
 
 
 <section>
@@ -76,6 +76,33 @@ events {
     debug_connection 192.168.10.0/24;
 }
 </programlisting>
+</para>
+
+</section>
+
+
+<section id="memory" name="Запись в кольцевой буфер в памяти">
+
+<para>
+Отладочный лог можно записывать в кольцевой буфер в памяти:
+<programlisting>
+error_log memory:32m debug;
+</programlisting>
+Запись в буфер в памяти на уровне <literal>debug</literal>
+не оказывает существенного влияния на производительность
+даже при высоких нагрузках.
+В этом случае лог может быть извлечён при помощи
+<command>gdb</command>-скрипта, подобного следующему:
+<example>
+set $log = ngx_cycle->new_log
+
+while $log.writer != ngx_log_memory_writer
+    set $log = $log.next
+end
+
+set $buf = (ngx_buf_t *) $log.wdata
+dump binary memory log.txt $buf->start $buf->end
+</example>
 </para>
 
 </section>
