@@ -9,7 +9,7 @@
 <module name="Module ngx_http_spdy_module"
         link="/en/docs/http/ngx_http_spdy_module.html"
         lang="en"
-        rev="5">
+        rev="6">
 
 <section id="summary">
 
@@ -48,6 +48,16 @@ Current implementation of SPDY protocol does not support “server push”.
 <para>
 In versions prior to 1.5.9, responses in SPDY connections could not be
 <link doc="ngx_http_core_module.xml" id="limit_rate">rate limited</link>.
+</para>
+
+<para>
+Buffering of a client request body cannot be disabled
+regardless of
+<link doc="ngx_http_proxy_module.xml" id="proxy_request_buffering"/>,
+<link doc="ngx_http_fastcgi_module.xml" id="fastcgi_request_buffering"/>,
+<link doc="ngx_http_uwsgi_module.xml" id="uwsgi_request_buffering"/>, and
+<link doc="ngx_http_scgi_module.xml" id="scgi_request_buffering"/>
+directive values.
 </para>
 
 </section>

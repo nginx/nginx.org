@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_spdy_module"
         link="/ru/docs/http/ngx_http_spdy_module.html"
         lang="ru"
-        rev="5">
+        rev="6">
 
 <section id="summary">
 
@@ -48,6 +48,15 @@
 <para>
 До версии 1.5.9 скорость передачи ответа клиенту в SPDY-соединении не могла быть
 <link doc="ngx_http_core_module.xml" id="limit_rate">ограничена</link>.
+</para>
+
+<para>
+Буферизация тела запроса клиента не может быть выключена
+независимо от значения директив
+<link doc="ngx_http_proxy_module.xml" id="proxy_request_buffering"/>,
+<link doc="ngx_http_fastcgi_module.xml" id="fastcgi_request_buffering"/>,
+<link doc="ngx_http_uwsgi_module.xml" id="uwsgi_request_buffering"/> и
+<link doc="ngx_http_scgi_module.xml" id="scgi_request_buffering"/>.
 </para>
 
 </section>
