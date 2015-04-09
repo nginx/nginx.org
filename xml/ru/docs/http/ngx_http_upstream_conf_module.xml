@@ -1,0 +1,333 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Модуль ngx_http_upstream_conf_module"
+        link="/ru/docs/http/ngx_http_upstream_conf_module.html"
+        lang="ru"
+        rev="1">
+
+<section id="summary">
+
+<para>
+Модуль <literal>ngx_http_upstream_conf_module</literal>
+позволяет оперативно настраивать группы серверов
+при помощи простого HTTP-интерфейса без необходимости перезапуска nginx.
+Группа серверов
+<link doc="ngx_http_upstream_module.xml" id="zone">http</link>
+или
+<link doc="../stream/ngx_stream_upstream_module.xml" id="zone">stream</link>
+должна находиться в разделяемой памяти.
+</para>
+
+</section>
+
+
+<section id="example" name="Пример конфигурации">
+
+<para>
+<example>
+upstream backend {
+    zone upstream_backend 64k;
+
+    ...
+}
+
+server {
+    location /upstream_conf {
+        <emphasis>upstream_conf</emphasis>;
+        allow 127.0.0.1;
+        deny all;
+    }
+}
+</example>
+</para>
+
+</section>
+
+
+<section id="directives" name="Директивы">
+
+<directive name="upstream_conf">
+<syntax/>
+<default/>
+<context>location</context>
+
+<para>
+Активирует HTTP-интерфейс для настройки групп серверов в содержащем location.
+Доступ в location следует
+<link doc="ngx_http_core_module.xml" id="satisfy">ограничить</link>.
+</para>
+
+<para>
+С помощью команд настройки можно:
+<list type="bullet">
+
+<listitem>просматривать конфигурацию группы;</listitem>
+
+<listitem>
+просматривать или изменять конфигурацию, а также
+удалять серверы;
+</listitem>
+
+<listitem>добавлять новые серверы.</listitem>
+
+</list>
+<note>
+Поскольку адреса в группе не обязаны быть уникальными,
+обращение к отдельным серверам в группе осуществляется по их идентификаторам.
+Идентификаторы назначаются автоматически и показываются при добавлении сервера
+или просмотре конфигурации группы.
+</note>
+</para>
+
+<para>
+Команда настройки состоит из параметров, передаваемых в аргументах запроса,
+например:
+<example>
+http://127.0.0.1/upstream_conf?upstream=backend
+</example>
+</para>
+
+<para>
+Поддерживаются следующие параметры:
+
+<list type="tag" compact="no">
+
+<tag-name>
+<literal>stream=</literal></tag-name>
+<tag-desc>
+Выбирает группу серверов
+<link doc="../stream/ngx_stream_upstream_module.xml">stream</link>.
+Если параметр не задан, будет выбрана группа серверов
+<link doc="ngx_http_upstream_module.xml">http</link>.
+</tag-desc>
+
+<tag-name>
+<literal>upstream=</literal><value>имя</value></tag-name>
+<tag-desc>
+Выбирает группу серверов для работы.
+Параметр является обязательным.
+</tag-desc>
+
+<tag-name>
+<literal>id=</literal><value>число</value></tag-name>
+<tag-desc>
+Выбирает сервер для просмотра, изменения или удаления.
+</tag-desc>
+
+<tag-name>
+<literal>remove=</literal></tag-name>
+<tag-desc>
+Удаляет сервер из группы.
+</tag-desc>
+
+<tag-name>
+<literal>add=</literal></tag-name>
+<tag-desc>
+Добавляет новый сервер в группу.
+</tag-desc>
+
+<tag-name>
+<literal>backup=</literal></tag-name>
+<tag-desc>
+Необходим для добавления запасного сервера.
+<note>
+До версии 1.7.2 параметр <literal>backup=</literal> требовался
+также для просмотра, изменения или удаления существующих запасных серверов.
+</note>
+</tag-desc>
+
+<tag-name>
+<literal>server=</literal><value>адрес</value></tag-name>
+<tag-desc>
+То же, что и параметр “<literal>адрес</literal>” сервера группы
+<link doc="ngx_http_upstream_module.xml" id="server">http</link>
+или
+<link doc="../stream/ngx_stream_upstream_module.xml" id="server">stream</link>.
+<para>
+При добавлении сервер можно задать в виде доменного имени.
+В этом случае любые изменения IP-адресов, соответствующих доменному имени
+сервера, отслеживаются и автоматически применяются к конфигурации группы
+без необходимости перезапуска nginx (1.7.2).
+Для этого в блоке
+<link doc="ngx_http_core_module.xml" id="resolver">http</link>
+или
+<link doc="../stream/ngx_stream_core_module.xml" id="resolver">stream</link>
+должна быть задана директива “<literal>resolver</literal>”.
+См. также параметр “<literal>resolve</literal>” сервера группы
+<link doc="ngx_http_upstream_module.xml" id="resolve">http</link>
+или
+<link doc="../stream/ngx_stream_upstream_module.xml" id="resolve">stream</link>.
+</para>
+</tag-desc>
+
+<tag-name>
+<literal>weight=</literal><value>число</value></tag-name>
+<tag-desc>
+То же, что и параметр “<literal>weight</literal>” сервера группы
+<link doc="ngx_http_upstream_module.xml" id="weight">http</link>
+или
+<link doc="../stream/ngx_stream_upstream_module.xml" id="weight">stream</link>.
+</tag-desc>
+
+<tag-name>
+<literal>max_conns=</literal><value>число</value></tag-name>
+<tag-desc>
+То же, что и параметр “<literal>max_conns</literal>” сервера группы
+<link doc="ngx_http_upstream_module.xml" id="max_conns">http</link>
+или
+<link doc="../stream/ngx_stream_upstream_module.xml" id="max_conns">stream</link>.
+</tag-desc>
+
+<tag-name>
+<literal>max_fails=</literal><value>число</value></tag-name>
+<tag-desc>
+То же, что и параметр “<literal>max_fails</literal>” сервера группы
+<link doc="ngx_http_upstream_module.xml" id="max_fails">http</link>
+или
+<link doc="../stream/ngx_stream_upstream_module.xml" id="max_fails">stream</link>.
+</tag-desc>
+
+<tag-name>
+<literal>fail_timeout=</literal><value>время</value></tag-name>
+<tag-desc>
+То же, что и параметр “<literal>fail_timeout</literal>” сервера группы
+<link doc="ngx_http_upstream_module.xml" id="fail_timeout">http</link>
+или
+<link doc="../stream/ngx_stream_upstream_module.xml" id="fail_timeout">stream</link>.
+</tag-desc>
+
+<tag-name>
+<literal>slow_start=</literal><value>время</value></tag-name>
+<tag-desc>
+То же, что и параметр “<literal>slow_start</literal>” сервера группы
+<link doc="ngx_http_upstream_module.xml" id="slow_start">http</link>
+или
+<link doc="../stream/ngx_stream_upstream_module.xml" id="slow_start">stream</link>.
+</tag-desc>
+
+<tag-name>
+<literal>down=</literal></tag-name>
+<tag-desc>
+То же, что и параметр “<literal>down</literal>” сервера группы
+<link doc="ngx_http_upstream_module.xml" id="down">http</link>
+или
+<link doc="../stream/ngx_stream_upstream_module.xml" id="down">stream</link>.
+</tag-desc>
+
+<tag-name id="drain"><literal>drain=</literal></tag-name>
+<tag-desc>
+Переводит сервер группы серверов
+<link doc="ngx_http_upstream_module.xml">http</link>
+в режим “draining” (1.7.5).
+В этом режиме на сервер будут проксироваться только
+<link doc="ngx_http_upstream_module.xml" id="sticky">привязанные</link>
+к нему запросы.
+</tag-desc>
+
+<tag-name>
+<literal>up=</literal></tag-name>
+<tag-desc>
+Параметр, обратный по значению параметру “<literal>down</literal>” сервера группы
+<link doc="ngx_http_upstream_module.xml" id="down">http</link>
+или
+<link doc="../stream/ngx_stream_upstream_module.xml" id="down">stream</link>.
+</tag-desc>
+
+<tag-name>
+<literal>route=</literal><value>строка</value></tag-name>
+<tag-desc>
+То же, что и параметр “<literal>route</literal>” сервера группы
+<link doc="ngx_http_upstream_module.xml" id="route">http</link>.
+</tag-desc>
+
+</list>
+
+Первые три параметра выбирают объект.
+Объектом может быть либо группа серверов http или stream,
+либо отдельный сервер.
+Если остальные параметры не указаны, то показывается конфигурация выбранной
+группы или сервера.
+</para>
+
+<para>
+Например, команда для просмотра конфигурации всей группы
+выглядит следующим образом:
+<example>
+http://127.0.0.1/upstream_conf?upstream=backend
+</example>
+
+Для просмотра конфигурации отдельного сервера следует указать его идентификатор:
+<example>
+http://127.0.0.1/upstream_conf?upstream=backend&amp;id=42
+</example>
+</para>
+
+<para>
+Для добавления нового сервера в группу
+следует указать его адрес в параметре “<literal>server=</literal>”.
+Если остальные параметры не указаны, то при добавлении сервера
+их значения будут установлены по умолчанию (см. директиву
+“<literal>server</literal>” для
+<link doc="ngx_http_upstream_module.xml" id="server">http</link>
+или
+<link doc="../stream/ngx_stream_upstream_module.xml" id="server">stream</link>).
+</para>
+
+<para>
+Например, команда для добавления нового основного сервера в группу
+выглядит следующим образом:
+<example>
+http://127.0.0.1/upstream_conf?add=&amp;upstream=backend&amp;server=127.0.0.1:8080
+</example>
+
+Добавление нового запасного сервера происходит следующим образом:
+<example>
+http://127.0.0.1/upstream_conf?add=&amp;upstream=backend&amp;backup=&amp;server=127.0.0.1:8080
+</example>
+
+Добавление нового основного сервера с нестандартными
+значениями параметров и с пометкой его как постоянно недоступного
+(“<literal>down</literal>”) происходит следующим образом:
+<example>
+http://127.0.0.1/upstream_conf?add=&amp;upstream=backend&amp;server=127.0.0.1:8080&amp;weight=2&amp;down=
+</example>
+
+Для удаления сервера следует указать его идентификатор:
+<example>
+http://127.0.0.1/upstream_conf?remove=&amp;upstream=backend&amp;id=42
+</example>
+
+Пометка существующего сервера как постоянно недоступного
+(“<literal>down</literal>”) происходит следующим образом:
+<example>
+http://127.0.0.1/upstream_conf?upstream=backend&amp;id=42&amp;down=
+</example>
+
+Изменение адреса существующего сервера происходит следующим образом:
+<example>
+http://127.0.0.1/upstream_conf?upstream=backend&amp;id=42&amp;server=192.0.2.3:8123
+</example>
+
+Изменение других параметров существующего сервера происходит следующим образом:
+<example>
+http://127.0.0.1/upstream_conf?upstream=backend&amp;id=42&amp;max_fails=3&amp;weight=4
+</example>
+
+Вышеприведённые примеры актуальны для группы серверов
+<link doc="ngx_http_upstream_module.xml">http</link>.
+Аналогичные примеры для группы серверов
+<link doc="../stream/ngx_stream_upstream_module.xml">stream</link>
+требуют указания параметра “<literal>stream=</literal>”.
+</para>
+
+</directive>
+
+</section>
+
+</module>

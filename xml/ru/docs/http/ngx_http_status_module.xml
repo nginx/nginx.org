@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_status_module"
         link="/ru/docs/http/ngx_http_status_module.html"
         lang="ru"
-        rev="4">
+        rev="5">
 
 <section id="summary">
 
@@ -160,7 +160,7 @@ http://127.0.0.1/status/upstreams/backend/1/weight
 <tag-name id="version"><literal>version</literal></tag-name>
 <tag-desc>
 Версия предоставляемого набора данных.
-Текущей является версия 4.
+Текущей является версия 5.
 </tag-desc>
 
 <tag-name><literal>nginx_version</literal></tag-name>
@@ -173,6 +173,13 @@ http://127.0.0.1/status/upstreams/backend/1/weight
 Адрес сервера, принявшего запрос получения информации о состоянии.
 </tag-desc>
 
+<tag-name id="generation"><literal>generation</literal></tag-name>
+<tag-desc>
+Суммарное число
+<link doc="../control.xml" id="reconfiguration">перезагрузок</link>
+конфигурации.
+</tag-desc>
+
 <tag-name id="load_timestamp"><literal>load_timestamp</literal></tag-name>
 <tag-desc>
 Время последней перезагрузки конфигурации, в миллисекундах с начала эпохи.
@@ -181,6 +188,19 @@ http://127.0.0.1/status/upstreams/backend/1/weight
 <tag-name><literal>timestamp</literal></tag-name>
 <tag-desc>
 Текущее время в миллисекундах с начала эпохи.
+</tag-desc>
+
+<tag-name id="processes"><literal>processes</literal></tag-name>
+<tag-desc>
+<list type="tag">
+
+<tag-name id="respawned"><literal>respawned</literal></tag-name>
+<tag-desc>
+Суммарное число перезапусков аварийно завершённых
+дочерних процессов.
+</tag-desc>
+
+</list>
 </tag-desc>
 
 <tag-name><literal>connections</literal></tag-name>
@@ -331,11 +351,13 @@ http://127.0.0.1/status/upstreams/backend/1/weight
 Текущее число активных соединений.
 </tag-desc>
 
+<!--
 <tag-name><literal>keepalive</literal></tag-name>
 <tag-desc>
 Текущее число бездействующих
 <link doc="ngx_http_upstream_module.xml" id="keepalive"/>-соединений.
 </tag-desc>
+-->
 
 <tag-name id="max_conns"><literal>max_conns</literal></tag-name>
 <tag-desc>
@@ -451,6 +473,24 @@ http://127.0.0.1/status/upstreams/backend/1/weight
 когда сервер в последний раз был выбран для обработки запроса (1.7.5).
 </tag-desc>
 
+<tag-name id="header_time"><literal>header_time</literal></tag-name>
+<tag-desc>
+Среднее время получения
+<link doc="ngx_http_upstream_module.xml" id="var_upstream_header_time">заголовка
+ответа</link> от сервера (1.7.10).
+Поле доступно при использовании метода балансировки
+<link doc="ngx_http_upstream_module.xml" id="least_time"/>.
+</tag-desc>
+
+<tag-name id="response_time"><literal>response_time</literal></tag-name>
+<tag-desc>
+Среднее время получения
+<link doc="ngx_http_upstream_module.xml" id="var_upstream_response_time">всего
+ответа</link> от сервера (1.7.10).
+Поле доступно при использовании метода балансировки
+<link doc="ngx_http_upstream_module.xml" id="least_time"/>.
+</tag-desc>
+
 </list>
 </tag-desc>
 
@@ -549,6 +589,28 @@ http://127.0.0.1/status/upstreams/backend/1/weight
 
 <para>
 <list type="bullet">
+
+<listitem>
+Поле <literal>keepalive</literal> сервера группы
+было удалено в <link id="version">версии</link> 5.
+</listitem>
+
+<listitem>
+Поле <link id="generation"/>
+было добавлено в <link id="version">версии</link> 5.
+</listitem>
+
+<listitem>
+Поле <link id="respawned"/> в
+<link id="processes"/>
+было добавлено в <link id="version">версии</link> 5.
+</listitem>
+
+<listitem>
+Поля <link id="header_time"/> и <link id="response_time"/> в
+<link id="upstreams"/>
+были добавлены в <link id="version">версии</link> 5.
+</listitem>
 
 <listitem>
 Поле <link id="selected"/> в

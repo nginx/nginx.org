@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_upstream_module"
         link="/ru/docs/http/ngx_http_upstream_module.html"
         lang="ru"
-        rev="35">
+        rev="36">
 
 <section id="summary">
 
@@ -54,12 +54,15 @@ server {
 доступна как часть
 <commercial_version>коммерческой подписки</commercial_version>:
 <example>
+resolver 10.0.0.1;
+
 upstream <emphasis>dynamic</emphasis> {
     zone upstream_dynamic 64k;
 
     server backend1.example.com      weight=5;
     server backend2.example.com:8080 fail_timeout=5s slow_start=30s;
     server 192.0.2.1                 max_fails=3;
+    server backend3.example.com      resolve;
 
     server backup1.example.com:8080  backup;
     server backup2.example.com:8080  backup;
@@ -69,12 +72,6 @@ server {
     location / {
         proxy_pass http://<emphasis>dynamic</emphasis>;
         health_check;
-    }
-
-    location /upstream_conf {
-        upstream_conf;
-        allow 127.0.0.1;
-        deny all;
     }
 }
 </example>
@@ -299,7 +296,8 @@ http {
 или настроек отдельных серверов
 нет необходимости перезапускать nginx.
 Конфигурация доступна через специальный location,
-в котором указана директива <link id="upstream_conf"/>.
+в котором указана директива
+<link doc="ngx_http_upstream_conf_module.xml" id="upstream_conf"/>.
 </para>
 
 <para>
@@ -528,6 +526,38 @@ server {
 с учётом весов серверов.
 Если подходит сразу несколько серверов, они выбираются циклически
 (в режиме round-robin) с учётом их весов.
+</para>
+
+</directive>
+
+
+<directive name="least_time">
+<syntax><literal>header</literal> | <literal>last_byte</literal></syntax>
+<default/>
+<context>upstream</context>
+<appeared-in>1.7.10</appeared-in>
+
+<para>
+Задаёт для группы метод балансировки нагрузки, при котором запрос
+передаётся серверу с наименьшими средним временем ответа и
+числом активных соединений с учётом весов серверов.
+Если подходит сразу несколько серверов, то они выбираются циклически
+(в режиме round-robin) с учётом их весов.
+</para>
+
+<para>
+Если указан параметр <literal>header</literal>,
+то учитывается время получения
+<link id="var_upstream_header_time">заголовка ответа</link>.
+Если указан параметр <literal>last_byte</literal>, то учитывается
+время получения <link id="var_upstream_response_time">всего ответа</link>.
+</para>
+
+<para>
+<note>
+Эта директива доступна как часть
+<commercial_version>коммерческой подписки</commercial_version>.
+</note>
 </para>
 
 </directive>
@@ -842,6 +872,8 @@ match server_ok {
     <literal>cookie</literal> <value>имя</value>
     [<literal>expires=</literal><value>время</value>]
     [<literal>domain=</literal><value>домен</value>]
+    [<literal>httponly</literal>]
+    [<literal>secure</literal>]
     [<literal>path=</literal><value>путь</value>]</syntax>
 <syntax>
     <literal>route</literal> <value>переменная</value> ...</syntax>
@@ -889,22 +921,32 @@ upstream backend {
 Дополнительные параметры могут быть следующими:
 <list type="tag">
 
-<tag-name><literal>expires</literal></tag-name>
+<tag-name><literal>expires=</literal><value>время</value></tag-name>
 <tag-desc>
-Задаёт время, в течение которого браузеру необходимо хранить куку.
+Задаёт <value>время</value>, в течение которого браузеру необходимо хранить куку.
 Специальное значение <literal>max</literal> устанавливает срок хранения куки до
 31 декабря 2037 года 23:55:55 GMT.
 Если параметр не указан, то время действия куки ограничивается сессией браузера.
 </tag-desc>
 
-<tag-name><literal>domain</literal></tag-name>
+<tag-name><literal>domain=</literal><value>домен</value></tag-name>
 <tag-desc>
-Задаёт домен, для которого устанавливается кука.
+Задаёт <value>домен</value>, для которого устанавливается кука.
 </tag-desc>
 
-<tag-name><literal>path</literal></tag-name>
+<tag-name><literal>httponly</literal></tag-name>
 <tag-desc>
-Задаёт путь, для которого устанавливается кука.
+Добавляет атрибут <literal>HttpOnly</literal> к куке (1.7.11).
+</tag-desc>
+
+<tag-name><literal>secure</literal></tag-name>
+<tag-desc>
+Добавляет атрибут <literal>Secure</literal> к куке (1.7.11).
+</tag-desc>
+
+<tag-name><literal>path=</literal><value>путь</value></tag-name>
+<tag-desc>
+Задаёт <value>путь</value>, для которого устанавливается кука.
 </tag-desc>
 
 </list>
@@ -1033,253 +1075,6 @@ upstream backend {
 [<literal>expires=</literal><value>время</value>]
 [<literal>domain=</literal><value>домен</value>]
 [<literal>path=</literal><value>путь</value>];
-</note>
-</para>
-
-</directive>
-
-
-<directive name="upstream_conf">
-<syntax/>
-<default/>
-<context>location</context>
-
-<para>
-Активирует HTTP-интерфейс для настройки групп серверов в содержащем location.
-Доступ в location следует
-<link doc="ngx_http_core_module.xml" id="satisfy">ограничить</link>.
-</para>
-
-<para>
-С помощью команд настройки можно:
-<list type="bullet">
-
-<listitem>просматривать конфигурацию группы;</listitem>
-
-<listitem>
-просматривать или изменять конфигурацию, а также
-удалять серверы;
-</listitem>
-
-<listitem>добавлять новые серверы.</listitem>
-
-</list>
-<note>
-Поскольку адреса в группе не обязаны быть уникальными,
-обращение к отдельным серверам в группе осуществляется по их идентификаторам.
-Идентификаторы назначаются автоматически и показываются при добавлении сервера
-или просмотре конфигурации группы.
-</note>
-</para>
-
-<para>
-Команда настройки состоит из параметров, передаваемых в аргументах запроса,
-например:
-<example>
-http://127.0.0.1/upstream_conf?upstream=dynamic
-</example>
-</para>
-
-<para>
-Поддерживаются следующие параметры:
-
-<list type="tag" compact="no">
-
-<tag-name>
-<literal>upstream=</literal><value>имя</value></tag-name>
-<tag-desc>
-Выбирает группу серверов для работы.
-Параметр является обязательным.
-</tag-desc>
-
-<tag-name>
-<literal>id=</literal><value>число</value></tag-name>
-<tag-desc>
-Выбирает сервер для просмотра, изменения или удаления.
-</tag-desc>
-
-<tag-name>
-<literal>remove=</literal></tag-name>
-<tag-desc>
-Удаляет сервер из группы.
-</tag-desc>
-
-<tag-name>
-<literal>add=</literal></tag-name>
-<tag-desc>
-Добавляет новый сервер в группу.
-</tag-desc>
-
-<tag-name>
-<literal>backup=</literal></tag-name>
-<tag-desc>
-Необходим для добавления запасного сервера.
-<note>
-До версии 1.7.2 параметр <literal>backup=</literal> требовался
-также для просмотра, изменения или удаления существующих запасных серверов.
-</note>
-</tag-desc>
-
-<tag-name>
-<literal>server=</literal><value>адрес</value></tag-name>
-<tag-desc>
-То же, что и параметр “<literal>адрес</literal>”
-директивы <link id="server"/>.
-<para>
-При добавлении сервер можно задать в виде доменного имени.
-В этом случае любые изменения IP-адресов, соответствующих доменному имени
-сервера, отслеживаются и автоматически применяются к конфигурации группы
-без необходимости перезапуска nginx (1.7.2).
-Для этого в блоке <link doc="ngx_http_core_module.xml" id="http"/> должна
-быть задана директива <link doc="ngx_http_core_module.xml" id="resolver"/>.
-См. также параметр
-<link id="resolve"/> директивы <link id="server"/>.
-</para>
-</tag-desc>
-
-<tag-name>
-<literal>weight=</literal><value>число</value></tag-name>
-<tag-desc>
-То же, что и параметр “<literal>weight</literal>”
-директивы <link id="server"/>.
-</tag-desc>
-
-<tag-name>
-<literal>max_conns=</literal><value>число</value></tag-name>
-<tag-desc>
-То же, что и параметр “<literal>max_conns</literal>”
-директивы <link id="server"/>.
-</tag-desc>
-
-<tag-name>
-<literal>max_fails=</literal><value>число</value></tag-name>
-<tag-desc>
-То же, что и параметр “<literal>max_fails</literal>”
-директивы <link id="server"/>.
-</tag-desc>
-
-<tag-name>
-<literal>fail_timeout=</literal><value>время</value></tag-name>
-<tag-desc>
-То же, что и параметр “<literal>fail_timeout</literal>”
-директивы <link id="server"/>.
-</tag-desc>
-
-<tag-name>
-<literal>slow_start=</literal><value>время</value></tag-name>
-<tag-desc>
-То же, что и параметр “<literal>slow_start</literal>”
-директивы <link id="server"/>.
-</tag-desc>
-
-<tag-name>
-<literal>down=</literal></tag-name>
-<tag-desc>
-То же, что и параметр “<literal>down</literal>”
-директивы <link id="server"/>.
-</tag-desc>
-
-<tag-name id="drain"><literal>drain=</literal></tag-name>
-
-<tag-desc>
-Переводит сервер группы в режим “draining” (1.7.5).
-В этом режиме на сервер будут проксироваться только
-<link id="sticky">привязанные</link> к нему запросы.
-</tag-desc>
-
-<tag-name>
-<literal>up=</literal></tag-name>
-<tag-desc>
-Параметр, обратный по значению параметру “<literal>down</literal>”
-директивы <link id="server"/>.
-</tag-desc>
-
-<tag-name>
-<literal>route=</literal><value>строка</value></tag-name>
-<tag-desc>
-То же, что и параметр “<literal>route</literal>”
-директивы <link id="server"/>.
-</tag-desc>
-
-</list>
-
-Первые два параметра выбирают объект.
-Объектом может быть либо группа серверов, либо отдельный сервер.
-Если остальные параметры не указаны, то показывается конфигурация выбранной
-группы или сервера.
-</para>
-
-<para>
-Например, команда для просмотра конфигурации всей группы
-выглядит следующим образом:
-<example>
-http://127.0.0.1/upstream_conf?upstream=dynamic
-</example>
-
-Для просмотра конфигурации отдельного сервера следует указать его идентификатор:
-<example>
-http://127.0.0.1/upstream_conf?upstream=dynamic&amp;id=42
-</example>
-
-</para>
-
-<para>
-Для добавления нового сервера в группу
-следует указать его адрес в параметре “<literal>server=</literal>”.
-Если остальные параметры не указаны, то при добавлении сервера
-их значения будут установлены по умолчанию (см. директиву <link id="server"/>).
-</para>
-
-<para>
-Например, команда для добавления нового основного сервера в группу
-выглядит следующим образом:
-<example>
-http://127.0.0.1/upstream_conf?add=&amp;upstream=dynamic&amp;server=127.0.0.1:8080
-</example>
-
-Добавление нового запасного сервера происходит следующим образом:
-<example>
-http://127.0.0.1/upstream_conf?add=&amp;upstream=dynamic&amp;backup=&amp;server=127.0.0.1:8080
-</example>
-
-Добавление нового основного сервера с нестандартными
-значениями параметров и с пометкой его как постоянно недоступного
-(“<literal>down</literal>”) происходит следующим образом:
-<example>
-http://127.0.0.1/upstream_conf?add=&amp;upstream=dynamic&amp;server=127.0.0.1:8080&amp;weight=2&amp;down=
-</example>
-</para>
-
-<para>
-Для удаления сервера следует указать его идентификатор:
-<example>
-http://127.0.0.1/upstream_conf?remove=&amp;upstream=dynamic&amp;id=42
-</example>
-</para>
-
-<para>
-Пометка существующего сервера как постоянно недоступного
-(“<literal>down</literal>”) происходит следующим образом:
-<example>
-http://127.0.0.1/upstream_conf?upstream=dynamic&amp;id=42&amp;down=
-</example>
-
-Изменение адреса существующего сервера происходит следующим образом:
-<example>
-http://127.0.0.1/upstream_conf?upstream=dynamic&amp;id=42&amp;server=192.0.2.3:8123
-</example>
-
-Изменение других параметров существующего сервера происходит следующим образом:
-<example>
-http://127.0.0.1/upstream_conf?upstream=dynamic&amp;id=42&amp;max_fails=3&amp;weight=4
-</example>
-
-</para>
-
-<para>
-<note>
-Эта директива доступна как часть
-<commercial_version>коммерческой подписки</commercial_version>.
 </note>
 </para>
 

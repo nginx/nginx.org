@@ -8,7 +8,7 @@
 <article name="nginx: документация"
          link="/ru/docs/"
          lang="ru"
-         rev="17"
+         rev="18"
          toc="no">
 
 
@@ -406,6 +406,11 @@ ngx_http_sub_module</link>
 <listitem>
 <link doc="http/ngx_http_upstream_module.xml">
 ngx_http_upstream_module</link>
+</listitem>
+
+<listitem>
+<link doc="http/ngx_http_upstream_conf_module.xml">
+ngx_http_upstream_conf_module</link>
 </listitem>
 
 <listitem>

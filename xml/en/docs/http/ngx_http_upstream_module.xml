@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="35">
+        rev="36">
 
 <section id="summary">
 
@@ -53,12 +53,15 @@ Dynamically configurable group,
 available as part of our
 <commercial_version>commercial subscription</commercial_version>:
 <example>
+resolver 10.0.0.1;
+
 upstream <emphasis>dynamic</emphasis> {
     zone upstream_dynamic 64k;
 
     server backend1.example.com      weight=5;
     server backend2.example.com:8080 fail_timeout=5s slow_start=30s;
     server 192.0.2.1                 max_fails=3;
+    server backend3.example.com      resolve;
 
     server backup1.example.com:8080  backup;
     server backup2.example.com:8080  backup;
@@ -68,12 +71,6 @@ server {
     location / {
         proxy_pass http://<emphasis>dynamic</emphasis>;
         health_check;
-    }
-
-    location /upstream_conf {
-        upstream_conf;
-        allow 127.0.0.1;
-        deny all;
     }
 }
 </example>
@@ -298,7 +295,8 @@ Such groups allow changing the group membership
 or modifying the settings of a particular server
 without the need of restarting nginx.
 The configuration is accessible via a special location
-handled by <link id="upstream_conf"/>.
+handled by
+<link doc="ngx_http_upstream_conf_module.xml" id="upstream_conf"/>.
 </para>
 
 <para>
@@ -523,6 +521,39 @@ is passed to the server with the least number of active connections,
 taking into account weights of servers.
 If there are several such servers, they are tried in turn using a
 weighted round-robin balancing method.
+</para>
+
+</directive>
+
+
+<directive name="least_time">
+<syntax><literal>header</literal> | <literal>last_byte</literal></syntax>
+<default/>
+<context>upstream</context>
+<appeared-in>1.7.10</appeared-in>
+
+<para>
+Specifies that a group should use a load balancing method where a request
+is passed to the server with the least average response time and
+least number of active connections, taking into account weights of servers.
+If there are several such servers, they are tried in turn using a
+weighted round-robin balancing method.
+</para>
+
+<para>
+If the <literal>header</literal> parameter is specified,
+time to receive the
+<link id="var_upstream_header_time">response header</link> is used.
+If the <literal>last_byte</literal> parameter is specified,
+time to receive the <link id="var_upstream_response_time">full response</link>
+is used.
+</para>
+
+<para>
+<note>
+This directive is available as part of our
+<commercial_version>commercial subscription</commercial_version>.
+</note>
 </para>
 
 </directive>
@@ -836,6 +867,8 @@ This directive is available as part of our
     <literal>cookie</literal> <value>name</value>
     [<literal>expires=</literal><value>time</value>]
     [<literal>domain=</literal><value>domain</value>]
+    [<literal>httponly</literal>]
+    [<literal>secure</literal>]
     [<literal>path=</literal><value>path</value>]</syntax>
 <syntax>
     <literal>route</literal> <value>$variable</value> ...</syntax>
@@ -883,23 +916,34 @@ The first parameter sets the name of the cookie to be set or inspected.
 Additional parameters may be as follows:
 <list type="tag">
 
-<tag-name><literal>expires</literal></tag-name>
+<tag-name><literal>expires=</literal><value>time</value></tag-name>
 <tag-desc>
-Sets the time for which a browser should keep the cookie.
+Sets the <value>time</value> for which a browser should keep the cookie.
 The special value <literal>max</literal> will cause the cookie to expire on
 “<literal>31 Dec 2037 23:55:55 GMT</literal>”.
 If the parameter is not specified, it will cause the cookie to expire at
 the end of a browser session.
 </tag-desc>
 
-<tag-name><literal>domain</literal></tag-name>
+<tag-name><literal>domain=</literal><value>domain</value></tag-name>
 <tag-desc>
-Defines the domain for which the cookie is set.
+Defines the <value>domain</value> for which the cookie is set.
 </tag-desc>
 
-<tag-name><literal>path</literal></tag-name>
+<tag-name><literal>httponly</literal></tag-name>
 <tag-desc>
-Defines the path for which the cookie is set.
+Adds the <literal>HttpOnly</literal> attribute to the cookie (1.7.11).
+</tag-desc>
+
+<tag-name><literal>secure</literal></tag-name>
+<tag-desc>
+Adds the <literal>Secure</literal> attribute to the cookie (1.7.11).
+
+</tag-desc>
+
+<tag-name><literal>path=</literal><value>path</value></tag-name>
+<tag-desc>
+Defines the <value>path</value> for which the cookie is set.
 </tag-desc>
 
 </list>
@@ -1027,247 +1071,6 @@ An equivalent
 [<literal>expires=</literal><value>time</value>]
 [<literal>domain=</literal><value>domain</value>]
 [<literal>path=</literal><value>path</value>];
-</note>
-</para>
-
-</directive>
-
-
-<directive name="upstream_conf">
-<syntax/>
-<default/>
-<context>location</context>
-
-<para>
-Turns on the HTTP interface of upstream configuration in the surrounding
-location.
-Access to this location should be
-<link doc="ngx_http_core_module.xml" id="satisfy">limited</link>.
-</para>
-
-<para>
-Configuration commands can be used to:
-<list type="bullet">
-
-<listitem>view the group configuration;</listitem>
-
-<listitem>view, modify, or remove a server;</listitem>
-
-<listitem>add a new server.</listitem>
-
-</list>
-<note>
-Since addresses in a group are not required to be unique, specific
-servers in a group are referenced by their IDs.
-IDs are assigned automatically and shown when adding a new server
-or viewing the group configuration.
-</note>
-</para>
-
-<para>
-A configuration command consists of parameters passed as request arguments,
-for example:
-<example>
-http://127.0.0.1/upstream_conf?upstream=dynamic
-</example>
-</para>
-
-<para>
-The following parameters are supported:
-
-<list type="tag" compact="no">
-
-<tag-name>
-<literal>upstream=</literal><value>name</value></tag-name>
-<tag-desc>
-Selects a group to work with.
-This parameter is mandatory.
-</tag-desc>
-
-<tag-name>
-<literal>id=</literal><value>number</value></tag-name>
-<tag-desc>
-Selects a server for viewing, modifying, or removing.
-</tag-desc>
-
-<tag-name>
-<literal>remove=</literal></tag-name>
-<tag-desc>
-Removes a server from the group.
-</tag-desc>
-
-<tag-name>
-<literal>add=</literal></tag-name>
-<tag-desc>
-Adds a new server to the group.
-</tag-desc>
-
-<tag-name>
-<literal>backup=</literal></tag-name>
-<tag-desc>
-Required to add a backup server.
-<note>
-Before version 1.7.2, <literal>backup=</literal>
-was also required to view, modify, or remove existing backup servers.
-</note>
-</tag-desc>
-
-<tag-name>
-<literal>server=</literal><value>address</value></tag-name>
-<tag-desc>
-Same as the “<literal>address</literal>” parameter
-of the <link id="server"/> directive.
-<para>
-When adding a server, it is possible to specify it as a domain name.
-In this case, changes of the IP addresses that correspond to a domain name
-will be monitored and automatically applied to the upstream
-configuration without the need of restarting nginx (1.7.2).
-This requires the
-<link doc="ngx_http_core_module.xml" id="resolver"/> directive in the
-<link doc="ngx_http_core_module.xml" id="http"/> block.
-See also
-the <link id="resolve"/> parameter of the <link id="server"/> directive.
-</para>
-</tag-desc>
-
-<tag-name>
-<literal>weight=</literal><value>number</value></tag-name>
-<tag-desc>
-Same as the “<literal>weight</literal>” parameter
-of the <link id="server"/> directive.
-</tag-desc>
-
-<tag-name>
-<literal>max_conns=</literal><value>number</value></tag-name>
-<tag-desc>
-Same as the “<literal>max_conns</literal>” parameter
-of the <link id="server"/> directive.
-</tag-desc>
-
-<tag-name>
-<literal>max_fails=</literal><value>number</value></tag-name>
-<tag-desc>
-Same as the “<literal>max_fails</literal>” parameter
-of the <link id="server"/> directive.
-</tag-desc>
-
-<tag-name>
-<literal>fail_timeout=</literal><value>time</value></tag-name>
-<tag-desc>
-Same as the “<literal>fail_timeout</literal>” parameter
-of the <link id="server"/> directive.
-</tag-desc>
-
-<tag-name>
-<literal>slow_start=</literal><value>time</value></tag-name>
-<tag-desc>
-Same as the “<literal>slow_start</literal>” parameter
-of the <link id="server"/> directive.
-</tag-desc>
-
-<tag-name>
-<literal>down=</literal></tag-name>
-<tag-desc>
-Same as the “<literal>down</literal>” parameter
-of the <link id="server"/> directive.
-</tag-desc>
-
-<tag-name id="drain"><literal>drain=</literal></tag-name>
-<tag-desc>
-Puts the upstream server in the “draining” mode (1.7.5).
-In this mode, only requests <link id="sticky">bound</link> to the server
-will be proxied to it.
-</tag-desc>
-
-<tag-name>
-<literal>up=</literal></tag-name>
-<tag-desc>
-The opposite of the “<literal>down</literal>” parameter
-of the <link id="server"/> directive.
-</tag-desc>
-
-<tag-name>
-<literal>route=</literal><value>string</value></tag-name>
-<tag-desc>
-Same as the “<literal>route</literal>” parameter
-of the <link id="server"/> directive.
-</tag-desc>
-
-</list>
-
-The first two parameters select an object.
-This can be either the whole group or a specific server.
-Without other parameters, the configuration of the selected
-group or server is shown.
-</para>
-
-<para>
-For example, to view the configuration of the whole group, send:
-<example>
-http://127.0.0.1/upstream_conf?upstream=dynamic
-</example>
-
-To view the configuration of a specific server, also specify its ID:
-<example>
-http://127.0.0.1/upstream_conf?upstream=dynamic&amp;id=42
-</example>
-</para>
-
-<para>
-To add a new server,
-specify its address in the “<literal>server=</literal>” parameter.
-Without other parameters specified, a server will be added with other
-parameters set to their default values (see the <link id="server"/> directive).
-</para>
-
-<para>
-For example, to add a new primary server, send:
-<example>
-http://127.0.0.1/upstream_conf?add=&amp;upstream=dynamic&amp;server=127.0.0.1:8080
-</example>
-
-To add a new backup server, send:
-<example>
-http://127.0.0.1/upstream_conf?add=&amp;upstream=dynamic&amp;backup=&amp;server=127.0.0.1:8080
-</example>
-
-To add a new primary server,
-set its parameters to non-default values
-and mark it as “<literal>down</literal>”, send:
-<example>
-http://127.0.0.1/upstream_conf?add=&amp;upstream=dynamic&amp;server=127.0.0.1:8080&amp;weight=2&amp;down=
-</example>
-</para>
-
-<para>
-To remove a server, specify its ID:
-<example>
-http://127.0.0.1/upstream_conf?remove=&amp;upstream=dynamic&amp;id=42
-</example>
-</para>
-
-<para>
-To mark an existing server as “<literal>down</literal>”, send:
-<example>
-http://127.0.0.1/upstream_conf?upstream=dynamic&amp;id=42&amp;down=
-</example>
-
-To modify the address of an existing server, send:
-<example>
-http://127.0.0.1/upstream_conf?upstream=dynamic&amp;id=42&amp;server=192.0.2.3:8123
-</example>
-
-To modify other parameters of an existing server, send:
-<example>
-http://127.0.0.1/upstream_conf?upstream=dynamic&amp;id=42&amp;max_fails=3&amp;weight=4
-</example>
-
-</para>
-
-<para>
-<note>
-This directive is available as part of our
-<commercial_version>commercial subscription</commercial_version>.
 </note>
 </para>
 

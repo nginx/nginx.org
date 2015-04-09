@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_core_module"
         link="/en/docs/stream/ngx_stream_core_module.html"
         lang="en"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
@@ -63,6 +63,7 @@ stream {
 <directive name="listen">
 <syntax>
     <value>address</value>:<value>port</value>
+    [<literal>ssl</literal>]
     [<literal>bind</literal>]
     [<literal>ipv6only</literal>=<literal>on</literal>|<literal>off</literal>]
     [<literal>so_keepalive</literal>=<literal>on</literal>|<literal>off</literal>|[<value>keepidle</value>]:[<value>keepintvl</value>]:[<value>keepcnt</value>]]</syntax>
@@ -94,11 +95,16 @@ listen unix:/var/run/nginx.sock;
 </para>
 
 <para>
-The directive supports the following parameters:
+The <literal>ssl</literal> parameter (1.7.10) allows specifying that all
+connections accepted on this port should work in SSL mode.
+</para>
 
+<para>
+The <literal>listen</literal> directive
+can have several additional parameters specific to socket-related system calls.
 <list type="tag">
 
-<tag-name id="bind">
+<tag-name>
 <literal>bind</literal>
 </tag-name>
 <tag-desc>
@@ -118,7 +124,7 @@ are used then for a given
 a separate <c-func>bind</c-func> call will always be made.
 </tag-desc>
 
-<tag-name id="ipv6only">
+<tag-name>
 <literal>ipv6only</literal>=<literal>on</literal>|<literal>off</literal>
 </tag-name>
 <tag-desc>
@@ -130,7 +136,7 @@ This parameter is turned on by default.
 It can only be set once on start.
 </tag-desc>
 
-<tag-name id="so_keepalive">
+<tag-name>
 <literal>so_keepalive</literal>=<literal>on</literal>|<literal>off</literal>|[<value>keepidle</value>]:[<value>keepintvl</value>]:[<value>keepcnt</value>]
 </tag-name>
 <tag-desc>
@@ -157,12 +163,69 @@ will set the idle timeout (<c-def>TCP_KEEPIDLE</c-def>) to 30 minutes,
 leave the probe interval (<c-def>TCP_KEEPINTVL</c-def>) at its system default,
 and set the probes count (<c-def>TCP_KEEPCNT</c-def>) to 10 probes.
 </tag-desc>
+
 </list>
 </para>
 
 <para>
 Different servers must listen on different
 <value>address</value>:<value>port</value> pairs.
+</para>
+
+</directive>
+
+
+<directive name="resolver">
+<syntax>
+    <value>address</value> ...
+    [<literal>valid</literal>=<value>time</value>]
+    [<literal>ipv6</literal>=<literal>on</literal>|<literal>off</literal>]</syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.7.10</appeared-in>
+
+<para>
+Configures name servers used to resolve names of upstream servers
+into addresses, for example:
+<example>
+resolver 127.0.0.1 [::1]:5353;
+</example>
+An address can be specified as a domain name or IP address,
+and an optional port.
+If port is not specified, the port 53 is used.
+Name servers are queried in a round-robin fashion.
+</para>
+
+<para>
+By default, nginx will look up both IPv4 and IPv6 addresses while resolving.
+If looking up of IPv6 addresses is not desired,
+the <literal>ipv6=off</literal> parameter can be specified.
+</para>
+
+<para>
+By default, nginx caches answers using the TTL value of a response.
+The optional <literal>valid</literal> parameter allows overriding it:
+<example>
+resolver 127.0.0.1 [::1]:5353 valid=30s;
+</example>
+</para>
+
+</directive>
+
+
+<directive name="resolver_timeout">
+<syntax><value>time</value></syntax>
+<default>30s</default>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.7.10</appeared-in>
+
+<para>
+Sets a timeout for name resolution, for example:
+<example>
+resolver_timeout 5s;
+</example>
 </para>
 
 </directive>

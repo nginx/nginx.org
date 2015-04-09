@@ -1,0 +1,350 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Module ngx_http_upstream_conf_module"
+        link="/en/docs/http/ngx_http_upstream_conf_module.html"
+        lang="en"
+        rev="1">
+
+<section id="summary">
+
+<para>
+The <literal>ngx_http_upstream_conf_module</literal> module
+allows configuring upstream server groups on-the-fly
+via a simple HTTP interface without the need of restarting nginx.
+The
+<link doc="ngx_http_upstream_module.xml" id="zone">http</link>
+or
+<link doc="../stream/ngx_stream_upstream_module.xml" id="zone">stream</link>
+server group must reside in the shared memory.
+</para>
+
+</section>
+
+
+<section id="example" name="Example Configuration">
+
+<para>
+<example>
+upstream backend {
+    zone upstream_backend 64k;
+
+    ...
+}
+
+server {
+    location /upstream_conf {
+        <emphasis>upstream_conf</emphasis>;
+        allow 127.0.0.1;
+        deny all;
+    }
+}
+</example>
+</para>
+
+</section>
+
+
+<section id="directives" name="Directives">
+
+<directive name="upstream_conf">
+<syntax/>
+<default/>
+<context>location</context>
+
+<para>
+Turns on the HTTP interface of upstream configuration in the surrounding
+location.
+Access to this location should be
+<link doc="ngx_http_core_module.xml" id="satisfy">limited</link>.
+</para>
+
+<para>
+Configuration commands can be used to:
+<list type="bullet">
+
+<listitem>view the group configuration;</listitem>
+
+<listitem>view, modify, or remove a server;</listitem>
+
+<listitem>add a new server.</listitem>
+
+</list>
+<note>
+Since addresses in a group are not required to be unique, specific
+servers in a group are referenced by their IDs.
+IDs are assigned automatically and shown when adding a new server
+or viewing the group configuration.
+</note>
+</para>
+
+<para>
+A configuration command consists of parameters passed as request arguments,
+for example:
+<example>
+http://127.0.0.1/upstream_conf?upstream=backend
+</example>
+</para>
+
+<para>
+The following parameters are supported:
+
+<list type="tag" compact="no">
+
+<tag-name>
+<literal>stream=</literal></tag-name>
+<tag-desc>
+Selects a
+<link doc="../stream/ngx_stream_upstream_module.xml">stream</link>
+upstream server group.
+Without this parameter, selects an
+<link doc="ngx_http_upstream_module.xml">http</link>
+upstream server group.
+</tag-desc>
+
+<tag-name>
+<literal>upstream=</literal><value>name</value></tag-name>
+<tag-desc>
+Selects a group to work with.
+This parameter is mandatory.
+</tag-desc>
+
+<tag-name>
+<literal>id=</literal><value>number</value></tag-name>
+<tag-desc>
+Selects a server for viewing, modifying, or removing.
+</tag-desc>
+
+<tag-name>
+<literal>remove=</literal></tag-name>
+<tag-desc>
+Removes a server from the group.
+</tag-desc>
+
+<tag-name>
+<literal>add=</literal></tag-name>
+<tag-desc>
+Adds a new server to the group.
+</tag-desc>
+
+<tag-name>
+<literal>backup=</literal></tag-name>
+<tag-desc>
+Required to add a backup server.
+<note>
+Before version 1.7.2, <literal>backup=</literal>
+was also required to view, modify, or remove existing backup servers.
+</note>
+</tag-desc>
+
+<tag-name>
+<literal>server=</literal><value>address</value></tag-name>
+<tag-desc>
+Same as the “<literal>address</literal>” parameter
+of the
+<link doc="ngx_http_upstream_module.xml" id="server">http</link>
+or
+<link doc="../stream/ngx_stream_upstream_module.xml" id="server">stream</link>
+upstream server.
+<para>
+When adding a server, it is possible to specify it as a domain name.
+In this case, changes of the IP addresses that correspond to a domain name
+will be monitored and automatically applied to the upstream
+configuration without the need of restarting nginx (1.7.2).
+This requires the “<literal>resolver</literal>” directive in the
+<link doc="ngx_http_core_module.xml" id="resolver">http</link>
+or
+<link doc="../stream/ngx_stream_core_module.xml" id="resolver">stream</link>
+block.
+See also the “<literal>resolve</literal>” parameter
+of the
+<link doc="ngx_http_upstream_module.xml" id="resolve">http</link>
+or
+<link doc="../stream/ngx_stream_upstream_module.xml" id="resolve">stream</link>
+upstream server.
+</para>
+</tag-desc>
+
+<tag-name>
+<literal>weight=</literal><value>number</value></tag-name>
+<tag-desc>
+Same as the “<literal>weight</literal>” parameter
+of the
+<link doc="ngx_http_upstream_module.xml" id="weight">http</link>
+or
+<link doc="../stream/ngx_stream_upstream_module.xml" id="weight">stream</link>
+upstream server.
+</tag-desc>
+
+<tag-name>
+<literal>max_conns=</literal><value>number</value></tag-name>
+<tag-desc>
+Same as the “<literal>max_conns</literal>” parameter
+of the
+<link doc="ngx_http_upstream_module.xml" id="max_conns">http</link>
+or
+<link doc="../stream/ngx_stream_upstream_module.xml" id="max_conns">stream</link>
+upstream server.
+</tag-desc>
+
+<tag-name>
+<literal>max_fails=</literal><value>number</value></tag-name>
+<tag-desc>
+Same as the “<literal>max_fails</literal>” parameter
+of the
+<link doc="ngx_http_upstream_module.xml" id="max_fails">http</link>
+or
+<link doc="../stream/ngx_stream_upstream_module.xml" id="max_fails">stream</link>
+upstream server.
+</tag-desc>
+
+<tag-name>
+<literal>fail_timeout=</literal><value>time</value></tag-name>
+<tag-desc>
+Same as the “<literal>fail_timeout</literal>” parameter
+of the
+<link doc="ngx_http_upstream_module.xml" id="fail_timeout">http</link>
+or
+<link doc="../stream/ngx_stream_upstream_module.xml" id="fail_timeout">stream</link>
+upstream server.
+</tag-desc>
+
+<tag-name>
+<literal>slow_start=</literal><value>time</value></tag-name>
+<tag-desc>
+Same as the “<literal>slow_start</literal>” parameter
+of the
+<link doc="ngx_http_upstream_module.xml" id="slow_start">http</link>
+or
+<link doc="../stream/ngx_stream_upstream_module.xml" id="slow_start">stream</link>
+upstream server.
+</tag-desc>
+
+<tag-name>
+<literal>down=</literal></tag-name>
+<tag-desc>
+Same as the “<literal>down</literal>” parameter
+of the
+<link doc="ngx_http_upstream_module.xml" id="down">http</link>
+or
+<link doc="../stream/ngx_stream_upstream_module.xml" id="down">stream</link>
+upstream server.
+</tag-desc>
+
+<tag-name id="drain"><literal>drain=</literal></tag-name>
+<tag-desc>
+Puts the
+<link doc="ngx_http_upstream_module.xml">http</link>
+upstream server in the “draining” mode (1.7.5).
+In this mode, only requests of the
+<link doc="ngx_http_upstream_module.xml" id="sticky">bound</link> to the server
+will be proxied to it.
+</tag-desc>
+
+<tag-name>
+<literal>up=</literal></tag-name>
+<tag-desc>
+The opposite of the “<literal>down</literal>” parameter
+of the
+<link doc="ngx_http_upstream_module.xml" id="down">http</link>
+or
+<link doc="../stream/ngx_stream_upstream_module.xml" id="down">stream</link>
+upstream server.
+</tag-desc>
+
+<tag-name>
+<literal>route=</literal><value>string</value></tag-name>
+<tag-desc>
+Same as the “<literal>route</literal>” parameter of the
+<link doc="ngx_http_upstream_module.xml" id="route">http</link>
+upstream server.
+</tag-desc>
+
+</list>
+
+The first three parameters select an object.
+This can be either the whole http or stream upstream server group,
+or a specific server.
+Without other parameters, the configuration of the selected
+group or server is shown.
+</para>
+
+<para>
+For example, to view the configuration of the whole group, send:
+<example>
+http://127.0.0.1/upstream_conf?upstream=backend
+</example>
+
+To view the configuration of a specific server, also specify its ID:
+<example>
+http://127.0.0.1/upstream_conf?upstream=backend&amp;id=42
+</example>
+</para>
+
+<para>
+To add a new server,
+specify its address in the “<literal>server=</literal>” parameter.
+Without other parameters specified, a server will be added with other
+parameters set to their default values (see the
+<link doc="ngx_http_upstream_module.xml" id="server">http</link>
+or
+<link doc="../stream/ngx_stream_upstream_module.xml" id="server">stream</link>
+“<literal>server</literal>” directive).
+</para>
+
+<para>
+For example, to add a new primary server, send:
+<example>
+http://127.0.0.1/upstream_conf?add=&amp;upstream=backend&amp;server=127.0.0.1:8080
+</example>
+
+To add a new backup server, send:
+<example>
+http://127.0.0.1/upstream_conf?add=&amp;upstream=backend&amp;backup=&amp;server=127.0.0.1:8080
+</example>
+
+To add a new primary server,
+set its parameters to non-default values
+and mark it as “<literal>down</literal>”, send:
+<example>
+http://127.0.0.1/upstream_conf?add=&amp;upstream=backend&amp;server=127.0.0.1:8080&amp;weight=2&amp;down=
+</example>
+
+To remove a server, specify its ID:
+<example>
+http://127.0.0.1/upstream_conf?remove=&amp;upstream=backend&amp;id=42
+</example>
+
+To mark an existing server as “<literal>down</literal>”, send:
+<example>
+http://127.0.0.1/upstream_conf?upstream=backend&amp;id=42&amp;down=
+</example>
+
+To modify the address of an existing server, send:
+<example>
+http://127.0.0.1/upstream_conf?upstream=backend&amp;id=42&amp;server=192.0.2.3:8123
+</example>
+
+To modify other parameters of an existing server, send:
+<example>
+http://127.0.0.1/upstream_conf?upstream=backend&amp;id=42&amp;max_fails=3&amp;weight=4
+</example>
+
+The above examples are for an
+<link doc="ngx_http_upstream_module.xml">http</link>
+upstream server group.
+Similar examples for a
+<link doc="../stream/ngx_stream_upstream_module.xml">stream</link>
+upstream server group require the “<literal>stream=</literal>” parameter.
+</para>
+
+</directive>
+
+</section>
+
+</module>

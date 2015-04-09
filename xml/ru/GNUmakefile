@@ -70,6 +70,7 @@ REFS =									\
 		http/ngx_http_stub_status_module			\
 		http/ngx_http_sub_module				\
 		http/ngx_http_upstream_module				\
+		http/ngx_http_upstream_conf_module			\
 		http/ngx_http_userid_module				\
 		http/ngx_http_uwsgi_module				\
 		http/ngx_http_xslt_module				\
