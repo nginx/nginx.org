@@ -10,7 +10,7 @@
 <module name="Module ngx_mail_ssl_module"
         link="/en/docs/mail/ngx_mail_ssl_module.html"
         lang="en"
-        rev="5">
+        rev="6">
 
 <section id="summary">
 
@@ -54,8 +54,8 @@ Enables the SSL/TLS protocol for the given server.
 <context>server</context>
 
 <para>
-Specifies a file with the certificate in the PEM format for the given
-server.
+Specifies a <value>file</value> with the certificate in the PEM format
+for the given server.
 If intermediate certificates should be specified in addition to a primary
 certificate, they should be specified in the same file in the following
 order: the primary certificate comes first, then the intermediate certificates.
@@ -72,8 +72,16 @@ A secret key in the PEM format may be placed in the same file.
 <context>server</context>
 
 <para>
-Specifies a file with the secret key in the PEM format for the given
-server.
+Specifies a <value>file</value> with the secret key in the PEM format
+for the given server.
+</para>
+
+<para>
+The value
+<literal>engine</literal>:<value>name</value>:<value>id</value>
+can be specified instead of the <value>file</value> (1.7.9),
+which loads a secret key with a specified <value>id</value>
+from the OpenSSL engine <value>name</value>.
 </para>
 
 </directive>

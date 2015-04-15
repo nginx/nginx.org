@@ -10,7 +10,7 @@
 <module name="Модуль ngx_mail_ssl_module"
         link="/ru/docs/mail/ngx_mail_ssl_module.html"
         lang="ru"
-        rev="5">
+        rev="6">
 
 <section id="summary">
 
@@ -54,7 +54,7 @@
 <context>server</context>
 
 <para>
-Указывает файл с сертификатом в формате PEM
+Указывает <value>файл</value> с сертификатом в формате PEM
 для данного сервера.
 Если вместе с основным сертификатом нужно указать промежуточные,
 то они должны находиться в этом же файле в следующем порядке — сначала
@@ -72,8 +72,15 @@
 <context>server</context>
 
 <para>
-Указывает файл с секретным ключом в формате PEM
+Указывает <value>файл</value> с секретным ключом в формате PEM
 для данного сервера.
+</para>
+
+<para>
+Вместо <value>файла</value> можно указать значение
+<literal>engine</literal>:<value>имя</value>:<value>id</value> (1.7.9),
+которое загружает ключ с указанным <value>id</value>
+из OpenSSL engine с заданным <value>именем</value>.
 </para>
 
 </directive>

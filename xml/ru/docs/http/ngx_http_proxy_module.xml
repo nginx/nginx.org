@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_proxy_module"
         link="/ru/docs/http/ngx_http_proxy_module.html"
         lang="ru"
-        rev="36">
+        rev="37">
 
 <section id="summary">
 
@@ -1639,6 +1639,13 @@ proxy_set_header Accept-Encoding "";
 <para>
 Задаёт <value>файл</value> с секретным ключом в формате PEM
 для аутентификации на проксируемом HTTPS-сервере.
+</para>
+
+<para>
+Вместо <value>файла</value> можно указать значение
+<literal>engine</literal>:<value>имя</value>:<value>id</value> (1.7.9),
+которое загружает ключ с указанным <value>id</value>
+из OpenSSL engine с заданным <value>именем</value>.
 </para>
 
 </directive>

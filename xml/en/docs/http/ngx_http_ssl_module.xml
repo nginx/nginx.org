@@ -10,7 +10,7 @@
 <module name="Module ngx_http_ssl_module"
         link="/en/docs/http/ngx_http_ssl_module.html"
         lang="en"
-        rev="17">
+        rev="18">
 
 <section id="summary">
 
@@ -182,6 +182,14 @@ will be issued for the second site.
 <para>
 Specifies a <value>file</value> with the secret key in the PEM format
 for the given virtual server.
+</para>
+
+<para>
+The value
+<literal>engine</literal>:<value>name</value>:<value>id</value>
+can be specified instead of the <value>file</value> (1.7.9),
+which loads a secret key with a specified <value>id</value>
+from the OpenSSL engine <value>name</value>.
 </para>
 
 </directive>

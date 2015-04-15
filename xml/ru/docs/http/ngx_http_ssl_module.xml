@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_ssl_module"
         link="/ru/docs/http/ngx_http_ssl_module.html"
         lang="ru"
-        rev="17">
+        rev="18">
 
 <section id="summary">
 
@@ -181,6 +181,13 @@ server {
 <para>
 Указывает <value>файл</value> с секретным ключом в формате PEM
 для данного виртуального сервера.
+</para>
+
+<para>
+Вместо <value>файла</value> можно указать значение
+<literal>engine</literal>:<value>имя</value>:<value>id</value> (1.7.9),
+которое загружает ключ с указанным <value>id</value>
+из OpenSSL engine с заданным <value>именем</value>.
 </para>
 
 </directive>
