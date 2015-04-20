@@ -139,10 +139,9 @@ ssl_buffer_size 4k;
 <para>
 Specifies a <value>file</value> with the certificate in the PEM format
 for the given virtual server.
-If intermediate certificates should be specified in addition
-to a primary certificate, they should be specified in the same file
-in the following order: the primary certificate comes first, then
-the intermediate certificates.
+If intermediate certificates should be specified in addition to a primary
+certificate, they should be specified in the same file in the following
+order: the primary certificate comes first, then the intermediate certificates.
 A secret key in the PEM format may be placed in the same file.
 </para>
 
