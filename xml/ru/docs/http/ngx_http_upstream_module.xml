@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_upstream_module"
         link="/ru/docs/http/ngx_http_upstream_module.html"
         lang="ru"
-        rev="36">
+        rev="37">
 
 <section id="summary">
 
@@ -287,24 +287,23 @@ http {
 <syntax><value>имя</value> <value>размер</value></syntax>
 <default/>
 <context>upstream</context>
+<appeared-in>1.9.0</appeared-in>
 
 <para>
 Задаёт <value>имя</value> и <value>размер</value> зоны разделяемой памяти,
 в которой хранятся конфигурация группы и её рабочее состояние,
 разделяемые между рабочими процессами.
-В таких группах для изменения состава группы
+</para>
+
+<para>
+Дополнительно, как часть
+<commercial_version>коммерческой подписки</commercial_version>,
+в таких группах для изменения состава группы
 или настроек отдельных серверов
 нет необходимости перезапускать nginx.
 Конфигурация доступна через специальный location,
 в котором указана директива
 <link doc="ngx_http_upstream_conf_module.xml" id="upstream_conf"/>.
-</para>
-
-<para>
-<note>
-Эта директива доступна как часть
-<commercial_version>коммерческой подписки</commercial_version>.
-</note>
 </para>
 
 </directive>

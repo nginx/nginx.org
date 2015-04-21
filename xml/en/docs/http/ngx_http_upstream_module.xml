@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="36">
+        rev="37">
 
 <section id="summary">
 
@@ -286,24 +286,23 @@ are ignored, and such a server will never be considered unavailable.
 <syntax><value>name</value> <value>size</value></syntax>
 <default/>
 <context>upstream</context>
+<appeared-in>1.9.0</appeared-in>
 
 <para>
 Defines the <value>name</value> and <value>size</value> of the shared
 memory zone that keeps the group’s configuration and run-time state that are
 shared between worker processes.
-Such groups allow changing the group membership
+</para>
+
+<para>
+Additionally,
+as part of our <commercial_version>commercial subscription</commercial_version>,
+such groups allow changing the group membership
 or modifying the settings of a particular server
 without the need of restarting nginx.
 The configuration is accessible via a special location
 handled by
 <link doc="ngx_http_upstream_conf_module.xml" id="upstream_conf"/>.
-</para>
-
-<para>
-<note>
-This directive is available as part of our
-<commercial_version>commercial subscription</commercial_version>.
-</note>
 </para>
 
 </directive>
