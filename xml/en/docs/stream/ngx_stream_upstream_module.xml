@@ -9,22 +9,15 @@
 <module name="Module ngx_stream_upstream_module"
         link="/en/docs/stream/ngx_stream_upstream_module.html"
         lang="en"
-        rev="5">
+        rev="6">
 
 <section id="summary">
 
 <para>
-The <literal>ngx_stream_upstream_module</literal> module (1.7.7)
+The <literal>ngx_stream_upstream_module</literal> module (1.9.0)
 is used to define groups of servers that can be referenced
 by the <link doc="ngx_stream_proxy_module.xml" id="proxy_pass"/>
 directive.
-</para>
-
-<para>
-<note>
-This module is available as part of our
-<commercial_version>commercial subscription</commercial_version>.
-</note>
 </para>
 
 </section>
@@ -34,22 +27,46 @@ This module is available as part of our
 
 <para>
 <example>
-resolver 10.0.0.1;
-
 upstream <emphasis>backend</emphasis> {
-    zone upstream_backend 64k;
-
     hash $remote_addr consistent;
 
-    server backend1.example.com:12345 weight=5;
-    server 127.0.0.1:12345            max_fails=3 fail_timeout=30s;
-    server unix:/tmp/backend2;
-    server backend3.example.com:12345 resolve;
+    server backend1.example.com:12345  weight=5;
+    server backend2.example.com:12345;
+    server unix:/tmp/backend3;
+
+    server backup1.example.com:12345   backup;
+    server backup2.example.com:12345   backup;
 }
 
 server {
     listen 12346;
     proxy_pass <emphasis>backend</emphasis>;
+}
+</example>
+</para>
+
+<para>
+Dynamically configurable group,
+available as part of our
+<commercial_version>commercial subscription</commercial_version>:
+<example>
+resolver 10.0.0.1;
+
+upstream <emphasis>dynamic</emphasis> {
+    zone upstream_dynamic 64k;
+
+    server backend1.example.com:12345 weight=5;
+    server backend2.example.com:12345 fail_timeout=5s slow_start=30s;
+    server 192.0.2.1:12345            max_fails=3;
+    server backend3.example.com:12345 resolve;
+
+    server backup1.example.com:12345  backup;
+    server backup2.example.com:12345  backup;
+}
+
+server {
+    listen 12346;
+    proxy_pass <emphasis>dynamic</emphasis>;
     health_check;
 }
 </example>
@@ -177,6 +194,15 @@ when the primary servers are unavailable.
 marks the server as permanently unavailable.
 </tag-desc>
 
+</list>
+</para>
+
+<para>
+Additionally,
+the following parameters are available as part of our
+<commercial_version>commercial subscription</commercial_version>:
+<list type="tag">
+
 <tag-name id="max_conns">
 <literal>max_conns</literal>=<value>number</value>
 </tag-name>
@@ -193,7 +219,7 @@ Default value is zero, meaning there is no limit.
 monitors changes of the IP addresses
 that correspond to a domain name of the server,
 and automatically modifies the upstream configuration
-without the need of restarting nginx (1.7.10).
+without the need of restarting nginx.
 <para>
 In order for this parameter to work,
 the <link doc="ngx_stream_core_module.xml" id="resolver"/> directive
@@ -243,13 +269,17 @@ are ignored, and such a server will never be considered unavailable.
 <syntax><value>name</value> <value>size</value></syntax>
 <default/>
 <context>upstream</context>
-<appeared-in>1.7.10</appeared-in>
 
 <para>
 Defines the <value>name</value> and <value>size</value> of the shared
 memory zone that keeps the group’s configuration and run-time state that are
 shared between worker processes.
-Such groups allow changing the group membership
+</para>
+
+<para>
+Additionally,
+as part of our <commercial_version>commercial subscription</commercial_version>,
+such groups allow changing the group membership
 or modifying the settings of a particular server
 without the need of restarting nginx.
 The configuration is accessible via a special location
@@ -316,7 +346,6 @@ weighted round-robin balancing method.
      <literal>last_byte</literal></syntax>
 <default/>
 <context>upstream</context>
-<appeared-in>1.7.11</appeared-in>
 
 <para>
 Specifies that a group should use a load balancing method where a connection
@@ -335,6 +364,13 @@ If the <literal>last_byte</literal> is specified,
 time to receive the last byte of data is used.
 </para>
 
+<para>
+<note>
+This directive is available as part of our
+<commercial_version>commercial subscription</commercial_version>.
+</note>
+</para>
+
 </directive>
 
 
@@ -342,7 +378,6 @@ time to receive the last byte of data is used.
 <syntax>[<value>parameters</value>]</syntax>
 <default/>
 <context>server</context>
-<appeared-in>1.7.10</appeared-in>
 
 <para>
 Enables periodic health checks of the servers in a
@@ -423,6 +458,13 @@ a single failure of any check will make the corresponding server be
 considered unhealthy.
 </para>
 
+<para>
+<note>
+This directive is available as part of our
+<commercial_version>commercial subscription</commercial_version>.
+</note>
+</para>
+
 </directive>
 
 
@@ -431,12 +473,18 @@ considered unhealthy.
 <default>5s</default>
 <context>stream</context>
 <context>server</context>
-<appeared-in>1.7.10</appeared-in>
 
 <para>
 Overrides the
 <link doc="ngx_stream_proxy_module.xml" id="proxy_timeout"/>
 value for health checks.
+</para>
+
+<para>
+<note>
+This directive is available as part of our
+<commercial_version>commercial subscription</commercial_version>.
+</note>
 </para>
 
 </directive>
@@ -446,7 +494,6 @@ value for health checks.
 <syntax block="yes"><value>name</value> </syntax>
 <default/>
 <context>stream</context>
-<appeared-in>1.7.10</appeared-in>
 
 <para>
 Defines the named test set used to verify server responses to health checks.
@@ -527,6 +574,13 @@ server {
 Only the first
 <link doc="ngx_stream_proxy_module.xml" id="proxy_upstream_buffer"/>
 bytes of data obtained from the server are examined.
+</note>
+</para>
+
+<para>
+<note>
+This directive is available as part of our
+<commercial_version>commercial subscription</commercial_version>.
 </note>
 </para>
 

@@ -9,21 +9,17 @@
 <module name="Module ngx_stream_ssl_module"
         link="/en/docs/stream/ngx_stream_ssl_module.html"
         lang="en"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
 <para>
-The <literal>ngx_stream_ssl_module</literal> module (1.7.10)
+The <literal>ngx_stream_ssl_module</literal> module (1.9.0)
 provides the necessary support for a stream proxy server to work with
 the SSL/TLS protocol.
-</para>
-
-<para>
-<note>
-This module is available as part of our
-<commercial_version>commercial subscription</commercial_version>.
-</note>
+This module is not built by default, it should be enabled with the
+<literal>--with-stream_ssl_module</literal>
+configuration parameter.
 </para>
 
 </section>
@@ -63,7 +59,7 @@ for the given server.
 <para>
 The value
 <literal>engine</literal>:<value>name</value>:<value>id</value>
-can be specified instead of the <value>file</value> (1.7.9),
+can be specified instead of the <value>file</value>,
 which loads a secret key with a specified <value>id</value>
 from the OpenSSL engine <value>name</value>.
 </para>

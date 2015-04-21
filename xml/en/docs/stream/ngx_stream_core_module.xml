@@ -9,15 +9,16 @@
 <module name="Module ngx_stream_core_module"
         link="/en/docs/stream/ngx_stream_core_module.html"
         lang="en"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
 <para>
-<note>
-This module is available as part of our
-<commercial_version>commercial subscription</commercial_version>.
-</note>
+The <literal>ngx_stream_core_module</literal> module
+is available since version 1.9.0.
+This module is not built by default, it should be enabled with the
+<literal>--with-stream</literal>
+configuration parameter.
 </para>
 
 </section>
@@ -95,7 +96,7 @@ listen unix:/var/run/nginx.sock;
 </para>
 
 <para>
-The <literal>ssl</literal> parameter (1.7.10) allows specifying that all
+The <literal>ssl</literal> parameter allows specifying that all
 connections accepted on this port should work in SSL mode.
 </para>
 
@@ -183,7 +184,6 @@ Different servers must listen on different
 <default/>
 <context>stream</context>
 <context>server</context>
-<appeared-in>1.7.10</appeared-in>
 
 <para>
 Configures name servers used to resolve names of upstream servers
@@ -209,6 +209,10 @@ The optional <literal>valid</literal> parameter allows overriding it:
 <example>
 resolver 127.0.0.1 [::1]:5353 valid=30s;
 </example>
+<note>
+This directive is available as part of our
+<commercial_version>commercial subscription</commercial_version>.
+</note>
 </para>
 
 </directive>
@@ -219,13 +223,16 @@ resolver 127.0.0.1 [::1]:5353 valid=30s;
 <default>30s</default>
 <context>stream</context>
 <context>server</context>
-<appeared-in>1.7.10</appeared-in>
 
 <para>
 Sets a timeout for name resolution, for example:
 <example>
 resolver_timeout 5s;
 </example>
+<note>
+This directive is available as part of our
+<commercial_version>commercial subscription</commercial_version>.
+</note>
 </para>
 
 </directive>
