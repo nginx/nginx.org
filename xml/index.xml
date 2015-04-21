@@ -7,6 +7,25 @@
 
 <news name="nginx news" link="/" lang="en">
 
+<event date="2015-04-21">
+<para>
+<link doc="en/download.xml">nginx-1.8.0</link>
+stable version has been released,
+incorporating many new features from the 1.7.x mainline branch -
+including 
+<link doc="en/docs/http/ngx_http_upstream_module.xml" id="hash">hash load
+balancing method</link>,
+<link doc="en/docs/http/ngx_http_proxy_module.xml"
+id="proxy_ssl_verify">backend SSL certificate verification</link>,
+experimental
+<link doc="en/docs/http/ngx_http_core_module.xml" id="aio">thread pools
+support</link>,
+<link doc="en/docs/http/ngx_http_proxy_module.xml"
+id="proxy_request_buffering" />
+and more.
+</para>
+</event>
+
 <event date="2015-04-07">
 <para>
 <link doc="en/download.xml">nginx-1.6.3</link>
