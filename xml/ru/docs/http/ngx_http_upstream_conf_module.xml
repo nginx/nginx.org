@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_upstream_conf_module"
         link="/ru/docs/http/ngx_http_upstream_conf_module.html"
         lang="ru"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
@@ -22,6 +22,13 @@
 или
 <link doc="../stream/ngx_stream_upstream_module.xml" id="zone">stream</link>
 должна находиться в разделяемой памяти.
+</para>
+
+<para>
+<note>
+Модуль доступен как часть
+<commercial_version>коммерческой подписки</commercial_version>.
+</note>
 </para>
 
 </section>
