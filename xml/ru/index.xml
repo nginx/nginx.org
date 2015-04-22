@@ -8,15 +8,16 @@
 <article name="nginx"
          link="/ru/"
          lang="ru"
-         rev="34">
+         rev="35">
 
 
 <section>
 
 <para>
 nginx [engine x]&mdash;это HTTP-сервер и обратный прокси-сервер,
-а также почтовый прокси-сервер,
-написанный <link url="http://sysoev.ru">Игорем Сысоевым</link>.
+почтовый прокси-сервер,
+а также TCP прокси-сервер общего назначения,
+изначально написанный <link url="http://sysoev.ru">Игорем Сысоевым</link>.
 Уже длительное время он обслуживает
 серверы многих высоконагруженных российских сайтов, таких как
 <link url="http://www.yandex.ru">Яндекс</link>,
@@ -64,8 +65,8 @@ nginx [engine x]&mdash;это HTTP-сервер и обратный прокси
 <listitem>
 <link doc="docs/http/ngx_http_proxy_module.xml">Акселерированное
 обратное проксирование с кэшированием</link>,
-<link doc="docs/http/ngx_http_upstream_module.xml">простое
-распределение нагрузки и отказоустойчивость</link>;
+<link doc="docs/http/ngx_http_upstream_module.xml">распределение нагрузки
+и отказоустойчивость</link>;
 </listitem>
 
 <listitem>
@@ -75,8 +76,8 @@ nginx [engine x]&mdash;это HTTP-сервер и обратный прокси
 <link doc="docs/http/ngx_http_scgi_module.xml">SCGI</link> и
 <link doc="docs/http/ngx_http_memcached_module.xml">memcached</link>
 серверов с кэшированием,
-<link doc="docs/http/ngx_http_upstream_module.xml">простое
-распределение нагрузки и отказоустойчивость</link>;
+<link doc="docs/http/ngx_http_upstream_module.xml">распределение нагрузки
+и отказоустойчивость</link>;
 </listitem>
 
 <listitem>
@@ -257,6 +258,26 @@ AUTH LOGIN/PLAIN/CRAM-MD5;
 Поддержка
 <link doc="docs/mail/ngx_mail_ssl_module.xml" id="starttls">STARTTLS
 и STLS</link>.
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+
+<section id="tcp_proxy_server_features"
+        name="TCP proxy server features">
+
+<para>
+<list type="bullet">
+
+<listitem>
+<link doc="docs/stream/ngx_stream_proxy_module.xml">Проксирование</link>
+с
+<link doc="docs/stream/ngx_stream_ssl_module.xml">SSL termination</link>;
+<link doc="docs/stream/ngx_stream_upstream_module.xml">распределение нагрузки
+и отказоустойчивость</link>;
 </listitem>
 
 </list>

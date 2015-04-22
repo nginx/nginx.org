@@ -8,15 +8,16 @@
 <article name="nginx"
          link="/en/"
          lang="en"
-         rev="34">
+         rev="35">
 
 
 <section>
 
 <para>
 nginx [engine x] is an HTTP and reverse proxy server,
-as well as a mail proxy server,
-written by <link url="http://sysoev.ru/en/">Igor Sysoev</link>.
+a mail proxy server,
+and a generic TCP proxy server,
+originally written by <link url="http://sysoev.ru/en/">Igor Sysoev</link>.
 For a long time, it has been running
 on many heavily loaded Russian sites including
 <link url="http://www.yandex.ru">Yandex</link>,
@@ -63,8 +64,8 @@ files,
 <listitem>
 <link doc="docs/http/ngx_http_proxy_module.xml">Accelerated
 reverse proxying with caching</link>;
-<link doc="docs/http/ngx_http_upstream_module.xml">simple
-load balancing and fault tolerance</link>;
+<link doc="docs/http/ngx_http_upstream_module.xml">load balancing
+and fault tolerance</link>;
 </listitem>
 
 <listitem>
@@ -74,8 +75,8 @@ Accelerated support with caching of
 <link doc="docs/http/ngx_http_scgi_module.xml">SCGI</link>, and
 <link doc="docs/http/ngx_http_memcached_module.xml">memcached</link>
 servers;
-<link doc="docs/http/ngx_http_upstream_module.xml">simple
-load balancing and fault tolerance</link>;
+<link doc="docs/http/ngx_http_upstream_module.xml">load balancing
+and fault tolerance</link>;
 </listitem>
 
 <listitem>
@@ -258,6 +259,26 @@ AUTH LOGIN/PLAIN/CRAM-MD5;
 <listitem>
 <link doc="docs/mail/ngx_mail_ssl_module.xml" id="starttls">STARTTLS
 and STLS</link> support.
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+
+<section id="tcp_proxy_server_features"
+        name="TCP proxy server features">
+
+<para>
+<list type="bullet">
+
+<listitem>
+<link doc="docs/stream/ngx_stream_proxy_module.xml">Generic proxying</link>
+with
+<link doc="docs/stream/ngx_stream_ssl_module.xml">SSL termination</link>;
+<link doc="docs/stream/ngx_stream_upstream_module.xml">load balancing
+and fault tolerance</link>;
 </listitem>
 
 </list>
