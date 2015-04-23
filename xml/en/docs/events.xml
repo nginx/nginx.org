@@ -8,7 +8,7 @@
 <article name="Connection processing methods"
          link="/en/docs/events.html"
          lang="en"
-         rev="2">
+         rev="3">
 
 <section>
 
@@ -63,28 +63,6 @@ Linux 2.6+.
 Some older distributions like SuSE 8.2 provide patches
 that add epoll support to 2.4 kernels.
 </note>
-</para>
-</listitem>
-
-<listitem id="rtsig">
-<para>
-<literal>rtsig</literal>&mdash;real time signals, efficient method
-used on Linux 2.2.19+.
-By default,
-the system-wide event queue is limited by 1024 signals.
-On loaded servers it may become necessary to increase this limit
-by changing the <path>/proc/sys/kernel/rtsig-max</path> kernel parameter.
-However, in Linux 2.6.6-mm2 this parameter is gone, and each process
-now has its own event queue.
-The size of each queue is limited by <literal>RLIMIT_SIGPENDING</literal>
-and can be changed with
-<link doc="ngx_core_module.xml" id="worker_rlimit_sigpending"/>.
-</para>
-
-<para>
-On queue overflow, nginx discards the queue and falls back to
-<literal>poll</literal> connection processing method until
-the situation gets back to normal.
 </para>
 </listitem>
 

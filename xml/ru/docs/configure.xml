@@ -8,7 +8,7 @@
 <article name="Сборка nginx из исходных файлов"
          link="/ru/docs/configure.html"
          lang="ru"
-         rev="4">
+         rev="5">
 
 <section>
 
@@ -118,7 +118,7 @@
 <literal>--without-select_module</literal>&mdash;разрешает или запрещает
 сборку модуля для работы сервера с помощью метода <c-func>select</c-func>.
 Этот модуль собирается автоматически, если на платформе не обнаружено
-более подходящего метода&mdash;kqueue, epoll, rtsig или /dev/poll.
+более подходящего метода&mdash;kqueue, epoll или /dev/poll.
 </para>
 </listitem>
 
@@ -128,7 +128,7 @@
 <literal>--without-poll_module</literal>&mdash;разрешает или запрещает
 сборку модуля для работы сервера с помощью метода <c-func>poll</c-func>.
 Этот модуль собирается автоматически, если на платформе не обнаружено
-более подходящего метода&mdash;kqueue, epoll, rtsig или /dev/poll.
+более подходящего метода&mdash;kqueue, epoll или /dev/poll.
 </para>
 </listitem>
 

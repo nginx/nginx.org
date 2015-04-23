@@ -8,7 +8,7 @@
 <article name="Building nginx from Sources"
          link="/en/docs/configure.html"
          lang="en"
-         rev="4">
+         rev="5">
 
 <section>
 
@@ -121,7 +121,7 @@ By default, a group name is set to the name of an unprivileged user.
 building a module that allows the server to work with the
 <c-func>select</c-func> method.
 This module is built automatically if the platform does not appear
-to support more appropriate methods such as kqueue, epoll, rtsig, or /dev/poll.
+to support more appropriate methods such as kqueue, epoll, or /dev/poll.
 </para>
 </listitem>
 
@@ -132,7 +132,7 @@ to support more appropriate methods such as kqueue, epoll, rtsig, or /dev/poll.
 building a module that allows the server to work with the
 <c-func>poll</c-func> method.
 This module is built automatically if the platform does not appear
-to support more appropriate methods such as kqueue, epoll, rtsig, or /dev/poll.
+to support more appropriate methods such as kqueue, epoll, or /dev/poll.
 </para>
 </listitem>
 

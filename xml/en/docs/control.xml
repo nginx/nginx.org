@@ -8,7 +8,7 @@
 <article name="Controlling nginx"
          link="/en/docs/control.html"
          lang="en"
-         rev="5">
+         rev="6">
 
 <section>
 
@@ -186,15 +186,6 @@ down gracefully, and they will start to exit:
 36266 36264 nobody   0.0  1364 kqread nginx: worker process (nginx)
 36267 36264 nobody   0.0  1364 kqread nginx: worker process (nginx)
 </programlisting>
-</para>
-
-<para>
-<note>
-When using the “rtsig” method on Linux, the new processes may not accept
-connections even after the old master process was sent the WINCH signal.
-If that is the case, the USR1 signal should be sent to the new master
-process continuously, until the new processes start to accept connections.
-</note>
 </para>
 
 <para>

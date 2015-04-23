@@ -8,7 +8,7 @@
 <article name="Управление nginx"
          link="/ru/docs/control.html"
          lang="ru"
-         rev="5">
+         rev="6">
 
 <section>
 
@@ -177,15 +177,6 @@ ps axw -o pid,ppid,user,%cpu,vsz,wchan,command | egrep '(nginx|PID)'
 36266 36264 nobody   0.0  1364 kqread nginx: worker process (nginx)
 36267 36264 nobody   0.0  1364 kqread nginx: worker process (nginx)
 </programlisting>
-</para>
-
-<para>
-<note>
-При использовании метода rtsig новые процессы могут не принимать соединения
-даже после того, как старому главному процессу послан сигнал WINCH.
-В этом случае новому главному процессу нужно посылать сигнал USR1 до тех пор,
-пока новые процессы не начнут принимать соединения.
-</note>
 </para>
 
 <para>

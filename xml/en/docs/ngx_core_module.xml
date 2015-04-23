@@ -10,7 +10,7 @@
 <module name="Core functionality"
         link="/en/docs/ngx_core_module.html"
         lang="en"
-        rev="13">
+        rev="14">
 
 <section id="example" name="Example Configuration">
 
@@ -46,11 +46,6 @@ worker processes will accept new connections by turn.
 Otherwise, all worker processes will be notified about new connections,
 and if volume of new connections is low, some of the worker processes
 may just waste system resources.
-<note>
-The use of <link doc="events.xml" id="rtsig"/>
-connection processing method
-requires <literal>accept_mutex</literal> to be enabled.
-</note>
 </para>
 
 </directive>
@@ -349,11 +344,6 @@ will accept all new connections at a time.
 The directive is ignored if <link doc="events.xml" id="kqueue"/>
 connection processing method is used, because it reports
 the number of new connections waiting to be accepted.
-</note>
-<note>
-The use of <link doc="events.xml" id="rtsig"/>
-connection processing method
-automatically enables <literal>multi_accept</literal>.
 </note>
 </para>
 
@@ -663,22 +653,6 @@ Used to increase the limit without restarting the main process.
 <para>
 Changes the limit on the maximum number of open files
 (<c-def>RLIMIT_NOFILE</c-def>) for worker processes.
-Used to increase the limit without restarting the main process.
-</para>
-
-</directive>
-
-
-<directive name="worker_rlimit_sigpending">
-<syntax><value>number</value></syntax>
-<default/>
-<context>main</context>
-
-<para>
-On systems that support <link doc="events.xml" id="rtsig"/>
-connection processing method,
-changes the limit on the number of signals that may be queued
-(<c-def>RLIMIT_SIGPENDING</c-def>) for worker processes.
 Used to increase the limit without restarting the main process.
 </para>
 
