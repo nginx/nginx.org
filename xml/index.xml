@@ -10,7 +10,10 @@
 <event date="2015-04-28">
 <para>
 <link doc="en/download.xml">nginx-1.9.0</link>
-mainline version has been released.
+mainline version has been released,
+with
+the <link doc="en/docs/stream/ngx_stream_core_module.xml">stream module</link>
+for generic TCP proxying and load balancing.
 </para>
 </event>
 
