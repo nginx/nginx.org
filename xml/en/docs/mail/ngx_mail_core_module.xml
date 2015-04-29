@@ -10,7 +10,7 @@
 <module name="Module ngx_mail_core_module"
         link="/en/docs/mail/ngx_mail_core_module.html"
         lang="en"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -288,21 +288,6 @@ is enabled.
 
 <para>
 If the directive is not specified, the machine’s hostname is used.
-</para>
-
-</directive>
-
-
-<directive name="so_keepalive">
-<syntax><literal>on</literal> | <literal>off</literal></syntax>
-<default>off</default>
-<context>mail</context>
-<context>server</context>
-
-<para>
-Indicates if the “TCP keepalive” mode should be enabled on the client’s
-connection (<c-def>SO_KEEPALIVE</c-def> socket parameter) when connecting to
-a proxied server.
 </para>
 
 </directive>

@@ -10,7 +10,7 @@
 <module name="Модуль ngx_mail_core_module"
         link="/ru/docs/mail/ngx_mail_core_module.html"
         lang="ru"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -287,21 +287,6 @@ resolver_timeout 5s;
 
 <para>
 Если директива не указана, используется имя хоста (hostname) машины.
-</para>
-
-</directive>
-
-
-<directive name="so_keepalive">
-<syntax><literal>on</literal> | <literal>off</literal></syntax>
-<default>off</default>
-<context>mail</context>
-<context>server</context>
-
-<para>
-Определяет, включать ли на клиентском соединении режим “TCP keepalive”
-(параметр сокета <c-def>SO_KEEPALIVE</c-def>)
-при подключении к проксируемому серверу.
 </para>
 
 </directive>

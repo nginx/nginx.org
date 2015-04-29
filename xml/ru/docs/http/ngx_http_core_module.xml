@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="38">
+        rev="39">
 
 <section id="directives" name="Директивы">
 
@@ -1841,33 +1841,6 @@ open_file_cache_events   on;
 </directive>
 
 
-<directive name="optimize_server_names">
-<syntax><literal>on</literal> | <literal>off</literal></syntax>
-<default>off</default>
-<context>http</context>
-<context>server</context>
-
-<para>
-Директива устарела.
-Вместо неё следует использовать директиву <link id="server_name_in_redirect"/>.
-</para>
-
-<!--
-<para>
-Разрешает или запрещает оптимизировать проверку имени хоста в name-based
-виртуальных серверах.
-Проверка в частности влияет на имя хоста, используемого в перенаправлениях.
-Если оптимизация разрешена и все name-based серверы, слушающие на одной
-паре адрес:порт, имеют одинаковую конфигурацию, то во время исполнения запроса
-имена не проверяются и в перенаправлениях используется первое имя сервера.
-Если в перенаправлении нужно использовать имя хоста, переданное клиентом,
-то оптимизацию нужно выключить.
-</para>
--->
-
-</directive>
-
-
 <directive name="output_buffers">
 <syntax><value>number</value> <value>size</value></syntax>
 <default>1 32k</default>
@@ -2135,21 +2108,6 @@ location / {
     auth_basic_user_file conf/htpasswd;
 }
 </example>
-</para>
-
-</directive>
-
-
-<directive name="satisfy_any">
-<syntax><literal>on</literal> | <literal>off</literal></syntax>
-<default>off</default>
-<context>http</context>
-<context>server</context>
-<context>location</context>
-
-<para>
-Эта директива была заменена параметром <literal>any</literal>
-директивы <link id="satisfy"/>.
 </para>
 
 </directive>

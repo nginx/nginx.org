@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="38">
+        rev="39">
 
 <section id="directives" name="Directives">
 
@@ -1842,34 +1842,6 @@ are checked only once, and then updated right after they get changed.
 </directive>
 
 
-<directive name="optimize_server_names">
-<syntax><literal>on</literal> | <literal>off</literal></syntax>
-<default>off</default>
-<context>http</context>
-<context>server</context>
-
-<para>
-This directive is obsolete.
-The <link id="server_name_in_redirect"/> directive should be used instead.
-</para>
-
-<!--
-<para>
-Enables or disables optimization of hostname checking in name-based
-virtual servers.
-In particular, the checking affects hostnames used in redirects.
-If optimization is enabled, and all name-based servers listening on
-the same address:port pair have identical configuration, then
-names are not checked during request processing, and the first
-server name is used in redirects.
-In case redirects should use hostnames sent by clients,
-optimization needs to be disabled.
-</para>
--->
-
-</directive>
-
-
 <directive name="output_buffers">
 <syntax><value>number</value> <value>size</value></syntax>
 <default>1 32k</default>
@@ -2135,21 +2107,6 @@ location / {
     auth_basic_user_file conf/htpasswd;
 }
 </example>
-</para>
-
-</directive>
-
-
-<directive name="satisfy_any">
-<syntax><literal>on</literal> | <literal>off</literal></syntax>
-<default>off</default>
-<context>http</context>
-<context>server</context>
-<context>location</context>
-
-<para>
-This directive has been replaced by the <literal>any</literal>
-parameter of the <link id="satisfy"/> directive.
 </para>
 
 </directive>
