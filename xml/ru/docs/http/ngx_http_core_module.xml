@@ -1331,7 +1331,7 @@ FreeBSD и Mac OS X, и 511 для других платформ.
 <literal>listen</literal> слушает на всех адресах для данного порта
 (<literal>*:</literal><value>порт</value>), то nginx сделает
 <c-func>bind</c-func> только на <literal>*:</literal><value>порт</value>.
-Необходимо заметить, что в этом случае для определения адреса, на которой
+Необходимо заметить, что в этом случае для определения адреса, на который
 пришло соединение, делается системный вызов <c-func>getsockname</c-func>.
 Если же используются параметры <literal>setfib</literal>,
 <literal>backlog</literal>, <literal>rcvbuf</literal>,
