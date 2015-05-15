@@ -8,7 +8,7 @@
 <article name="A debugging log"
          link="/en/docs/debugging_log.html"
          lang="en"
-         rev="3">
+         rev="4">
 
 
 <section>
@@ -95,14 +95,14 @@ does not have significant impact on performance even under high load.
 In this case, the log can be extracted using
 a <command>gdb</command> script like the following one:
 <example>
-set $log = ngx_cycle->new_log
+set $log = ngx_cycle->log
 
-while $log.writer != ngx_log_memory_writer
-    set $log = $log.next
+while $log->writer != ngx_log_memory_writer
+    set $log = $log->next
 end
 
-set $buf = (ngx_buf_t *) $log.wdata
-dump binary memory log.txt $buf->start $buf->end
+set $buf = (ngx_log_memory_buf_t *) $log->wdata
+dump binary memory debug_log.txt $buf->start $buf->end
 </example>
 </para>
 
