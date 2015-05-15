@@ -9,7 +9,7 @@
 <module name="Module ngx_http_hls_module"
         link="/en/docs/http/ngx_http_hls_module.html"
         lang="en"
-        rev="5">
+        rev="6">
 
 <section id="summary">
 
@@ -74,21 +74,21 @@ This module is available as part of our
 
 <para>
 <example>
-location /video/ {
+location / {
     hls;
     hls_fragment            5s;
     hls_buffers             10 10m;
     hls_mp4_buffer_size     1m;
     hls_mp4_max_buffer_size 5m;
-    alias /var/video/;
+    root /var/video/;
 }
 </example>
 With this configuration, the following URIs are supported for
 the “<path>/var/video/test.mp4</path>” file:
 <example>
-http://hls.example.com/video/test.mp4.m3u8?offset=1.000&amp;start=1.000&amp;end=2.200
-http://hls.example.com/video/test.mp4.m3u8?len=8.000
-http://hls.example.com/video/test.mp4.ts?start=1.000&amp;end=2.200
+http://hls.example.com/test.mp4.m3u8?offset=1.000&amp;start=1.000&amp;end=2.200
+http://hls.example.com/test.mp4.m3u8?len=8.000
+http://hls.example.com/test.mp4.ts?start=1.000&amp;end=2.200
 </example>
 </para>
 
