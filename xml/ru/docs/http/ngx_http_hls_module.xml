@@ -9,29 +9,50 @@
 <module name="Module ngx_http_hls_module"
         link="/ru/docs/http/ngx_http_hls_module.html"
         lang="ru"
-        rev="4">
+        rev="5">
 
 <section id="summary">
 
 <para>
 Модуль <literal>ngx_http_hls_module</literal> обеспечивает серверную поддержку
-протокола HTTP Live Streaming (HLS) для файлов в формате H.264/AAC.
-Такие файлы обычно имеют расширения
-<path>.mp4</path>, <path>.m4v</path> и <path>.m4a</path>.
+протокола HTTP Live Streaming (HLS) для медиафайлов в формате MP4 и MOV.
+Такие файлы обычно имеют расширения <path>.mp4</path>, <path>.m4v</path>
+<path>.m4a</path>, <path>.mov</path> или <path>.qt</path>.
+Модуль поддерживает видеокодек H.264, аудиокодеки AAC и MP3.
 </para>
 
 <para>
-nginx поддерживает два вида URI для каждого MP4-файла:
+Для каждого медиафайла поддерживается два вида URI:
 <list type="bullet">
 
 <listitem>
-URI плейлиста, имеющий расширение “<literal>.m3u8</literal>” и принимающий
-необязательный аргумент “<literal>len</literal>”,
-который задаёт длину фрагмента в секундах;
+URI плейлиста, имеющего расширение “<literal>.m3u8</literal>”.
+URI может принимать необязательные аргументы:
+<list type="bullet">
+
+<listitem>
+“<literal>start</literal>” и “<literal>end</literal>”
+задают границы плейлиста в секундах (1.9.0);
 </listitem>
 
 <listitem>
-URI фрагмента, имеющий расширение “<literal>.ts</literal>” и принимающий
+“<literal>offset</literal>” сдвигает первоначальную позицию воспроизведения
+на указанное время в секундах (1.9.0).
+Положительное значение задаёт временной сдвиг с начала плейлиста.
+Отрицательное значение задаёт временной сдвиг с конца последнего фрагмента
+в плейлисте;
+</listitem>
+
+<listitem>
+“<literal>len</literal>” задаёт длину фрагмента в секундах,
+</listitem>
+</list>
+
+</listitem>
+
+<listitem>
+URI фрагмента, имеющего расширение “<literal>.ts</literal>”.
+URI может принимать необязательные
 аргументы “<literal>start</literal>” и “<literal>end</literal>”, которые
 задают границы фрагмента в секундах.
 </listitem>
@@ -65,6 +86,7 @@ location /video/ {
 В такой конфигурации для файла “<path>/var/video/test.mp4</path>”
 будут поддерживаться следующие URI:
 <example>
+http://hls.example.com/video/test.mp4.m3u8?offset=1.000&amp;start=1.000&amp;end=2.200
 http://hls.example.com/video/test.mp4.m3u8?len=8.000
 http://hls.example.com/video/test.mp4.ts?start=1.000&amp;end=2.200
 </example>
@@ -218,7 +240,7 @@ http {
 
 <para>
 Задаёт начальный <value>размер</value> буфера, используемого для
-обработки MP4-файлов.
+обработки MP4 и MOV-файлов.
 </para>
 
 </directive>

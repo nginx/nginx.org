@@ -9,29 +9,50 @@
 <module name="Module ngx_http_hls_module"
         link="/en/docs/http/ngx_http_hls_module.html"
         lang="en"
-        rev="4">
+        rev="5">
 
 <section id="summary">
 
 <para>
 The <literal>ngx_http_hls_module</literal> module provides HTTP Live Streaming
-(HLS) server-side support for H.264/AAC files.
+(HLS) server-side support for MP4 and MOV media files.
 Such files typically have the <path>.mp4</path>, <path>.m4v</path>,
-or <path>.m4a</path> filename extensions.
+<path>.m4a</path>, <path>.mov</path> or <path>.qt</path> file extensions.
+The module supports H.264 video codec, AAC and MP3 audio codecs.
 </para>
 
 <para>
-nginx supports two URIs for each MP4 file:
+For each media file, two types of URI are supported:
 <list type="bullet">
 
 <listitem>
-The playlist URI that ends with “<literal>.m3u8</literal>” and accepts
-the optional “<literal>len</literal>” argument that defines the fragment length
-in seconds;
+a playlist URI with the “<literal>.m3u8</literal>” file extension.
+The URI can accept optional arguments:
+<list type="bullet">
+
+<listitem>
+“<literal>start</literal>” and “<literal>end</literal>”
+define playlist boundaries in seconds (1.9.0);
 </listitem>
 
 <listitem>
-The fragment URI that ends with “<literal>.ts</literal>” and accepts
+“<literal>offset</literal>” shifts an initial playback position
+to the time offset in seconds (1.9.0).
+A positive value sets a time offset from the beginning of the playlist.
+A negative value sets a time offset
+from the end of the last fragment in the playlist;
+</listitem>
+
+<listitem>
+“<literal>len</literal>” defines the fragment length in seconds,
+</listitem>
+</list>
+
+</listitem>
+
+<listitem>
+a fragment URI with the “<literal>.ts</literal>” file extension.
+The URI can accept optional
 “<literal>start</literal>” and “<literal>end</literal>” arguments that
 define fragment boundaries in seconds.
 </listitem>
@@ -65,6 +86,7 @@ location /video/ {
 With this configuration, the following URIs are supported for
 the “<path>/var/video/test.mp4</path>” file:
 <example>
+http://hls.example.com/video/test.mp4.m3u8?offset=1.000&amp;start=1.000&amp;end=2.200
 http://hls.example.com/video/test.mp4.m3u8?len=8.000
 http://hls.example.com/video/test.mp4.ts?start=1.000&amp;end=2.200
 </example>
@@ -218,7 +240,7 @@ Defines the default fragment length for playlist URIs requested without the
 
 <para>
 Sets the initial <value>size</value> of the buffer used for
-processing MP4 files.
+processing MP4 and MOV files.
 </para>
 
 </directive>
