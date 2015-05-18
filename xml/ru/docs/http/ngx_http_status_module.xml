@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_status_module"
         link="/ru/docs/http/ngx_http_status_module.html"
         lang="ru"
-        rev="5">
+        rev="6">
 
 <section id="summary">
 
@@ -32,40 +32,58 @@
 
 <para>
 <example>
-upstream <emphasis>backend</emphasis> {
-    <emphasis>zone</emphasis> upstream_backend 64k;
+http {
+    upstream <emphasis>backend</emphasis> {
+        <emphasis>zone</emphasis> http_backend 64k;
 
-    server backend1.example.com weight=5;
-    server backend2.example.com;
+        server backend1.example.com weight=5;
+        server backend2.example.com;
+    }
+
+    proxy_cache_path /data/nginx/cache_backend keys_zone=<emphasis>cache_backend</emphasis>:10m;
+
+    server {
+        server_name backend.example.com;
+
+        location / {
+            proxy_pass  http://backend;
+            proxy_cache cache_backend;
+
+            health_check;
+        }
+
+        <emphasis>status_zone server_backend;</emphasis>
+    }
+
+    server {
+        listen 127.0.0.1;
+
+        location /upstream_conf {
+            upstream_conf;
+        }
+
+        location /status {
+            status;
+        }
+
+        location = /status.html {
+        }
+    }
 }
 
-proxy_cache_path /data/nginx/cache_backend keys_zone=<emphasis>cache_backend</emphasis>:10m;
+stream {
+    upstream <emphasis>backend</emphasis> {
+        <emphasis>zone</emphasis> stream_backend 64k;
 
-server {
-    server_name backend.example.com;
+        server backend1.example.com:12345 weight=5;
+        server backend2.example.com:12345;
+    }
 
-    location / {
-        proxy_pass http://backend;
-        proxy_cache cache_backend;
-
+    server {
+        listen      127.0.0.1:12345;
+        proxy_pass  backend;
+        <emphasis>status_zone server_backend;</emphasis>
         health_check;
-    }
-
-    <emphasis>status_zone server_backend;</emphasis>
-}
-
-server {
-    listen 127.0.0.1;
-
-    location /upstream_conf {
-        upstream_conf;
-    }
-
-    location /status {
-        status;
-    }
-
-    location = /status.html {
     }
 }
 </example>
@@ -82,6 +100,11 @@ http://127.0.0.1/status/upstreams
 http://127.0.0.1/status/upstreams/backend
 http://127.0.0.1/status/upstreams/backend/1
 http://127.0.0.1/status/upstreams/backend/1/weight
+http://127.0.0.1/status/stream
+http://127.0.0.1/status/stream/upstreams
+http://127.0.0.1/status/stream/upstreams/backend
+http://127.0.0.1/status/stream/upstreams/backend/1
+http://127.0.0.1/status/stream/upstreams/backend/1/weight
 </example>
 </para>
 
@@ -139,11 +162,13 @@ http://127.0.0.1/status/upstreams/backend/1/weight
 <context>server</context>
 
 <para>
-Включает сбор информации о состоянии виртуального
-<link doc="ngx_http_core_module.xml" id="server">сервера</link>
-в указанной <value>зоне</value>.
+Включает сбор информации о состоянии виртуального сервера группы
+<link doc="ngx_http_core_module.xml" id="server">http</link>
+или
+<link doc="../stream/ngx_stream_core_module.xml" id="server">stream</link>
+(1.7.11) в указанной <value>зоне</value>.
 В одной и той же зоне может одновременно собираться информация
-сразу по нескольким виртуальным серверам.
+сразу по нескольким серверам.
 </para>
 
 </directive>
@@ -580,6 +605,200 @@ http://127.0.0.1/status/upstreams/backend/1/weight
 </list>
 </tag-desc>
 
+<tag-name id="stream"><literal>stream</literal></tag-name>
+<tag-desc>
+
+<list type="tag">
+<tag-name><literal>server_zones</literal></tag-name>
+<tag-desc>
+Для каждой <link id="status_zone"/>:
+<list type="tag">
+
+<tag-name><literal>processing</literal></tag-name>
+<tag-desc>
+Число обрабатываемых в настоящий момент
+клиентских соединений.
+</tag-desc>
+
+<tag-name><literal>connections</literal></tag-name>
+<tag-desc>
+Суммарное число
+соединений, полученных от клиентов.
+</tag-desc>
+
+<tag-name><literal>received</literal></tag-name>
+<tag-desc>
+Суммарное число байт, полученных от клиентов.
+</tag-desc>
+
+<tag-name><literal>sent</literal></tag-name>
+<tag-desc>
+Суммарное число байт, отправленных клиентам.
+</tag-desc>
+
+</list>
+</tag-desc>
+
+<tag-name><literal>upstreams</literal></tag-name>
+<tag-desc>
+Для каждого
+<link doc="../stream/ngx_stream_upstream_module.xml" id="server">сервера</link>
+в
+<link doc="../stream/ngx_stream_upstream_module.xml" id="zone">динамически
+настраиваемой</link>
+<link doc="../stream/ngx_stream_upstream_module.xml" id="upstream">группе</link>
+доступны следующие данные:
+<list type="tag">
+
+<tag-name><literal>id</literal></tag-name>
+<tag-desc>
+Идентификатор сервера.
+</tag-desc>
+
+<tag-name><literal>server</literal></tag-name>
+<tag-desc>
+<link doc="../stream/ngx_stream_upstream_module.xml" id="server">Адрес</link>
+сервера.
+</tag-desc>
+
+<tag-name><literal>backup</literal></tag-name>
+<tag-desc>
+Логическое значение, означающее, является ли сервер
+<link doc="../stream/ngx_stream_upstream_module.xml" id="backup">запасным</link>.
+</tag-desc>
+
+<tag-name><literal>weight</literal></tag-name>
+<tag-desc>
+<link doc="../stream/ngx_stream_upstream_module.xml" id="weight">Вес</link>
+сервера.
+</tag-desc>
+
+<tag-name><literal>state</literal></tag-name>
+<tag-desc>
+Текущее состояние, которое может быть одним из
+“<literal>up</literal>”,
+“<literal>down</literal>”,
+“<literal>unavail</literal>”
+или
+“<literal>unhealthy</literal>”.
+</tag-desc>
+
+<tag-name><literal>active</literal></tag-name>
+<tag-desc>
+Текущее число соединений.
+</tag-desc>
+
+<tag-name><literal>connections</literal></tag-name>
+<tag-desc>
+Суммарное число
+клиентских соединений, перенаправленных на этот сервер.
+</tag-desc>
+
+<tag-name><literal>connect_time</literal></tag-name>
+<tag-desc>
+Среднее время установки соединения с сервером группы.
+Поле доступно при использовании метода балансировки
+<link doc="../stream/ngx_stream_upstream_module.xml" id="least_time"/>.
+</tag-desc>
+
+<tag-name><literal>first_byte_time</literal></tag-name>
+<tag-desc>
+Среднее время получения первого байта данных.
+Поле доступно при использовании метода балансировки
+<link doc="../stream/ngx_stream_upstream_module.xml" id="least_time"/>.
+</tag-desc>
+
+<tag-name><literal>response_time</literal></tag-name>
+<tag-desc>
+Среднее время получения последнего байта данных.
+Поле доступно при использовании метода балансировки
+<link doc="../stream/ngx_stream_upstream_module.xml" id="least_time"/>.
+</tag-desc>
+
+<tag-name><literal>sent</literal></tag-name>
+<tag-desc>
+Суммарное число байт, отправленных на этот сервер.
+</tag-desc>
+
+<tag-name><literal>received</literal></tag-name>
+<tag-desc>
+Суммарное число байт, полученных с этого сервера.
+</tag-desc>
+
+<tag-name><literal>fails</literal></tag-name>
+<tag-desc>
+Суммарное число
+неудачных попыток работы с этим сервером.
+</tag-desc>
+
+<tag-name><literal>unavail</literal></tag-name>
+<tag-desc>
+Количество раз, когда
+сервер становился недоступным для клиентских соединений
+(состояние “<literal>unavail</literal>”)
+из-за достижения порогового числа неудачных попыток
+<link doc="../stream/ngx_stream_upstream_module.xml" id="max_fails"/>.
+</tag-desc>
+
+<tag-name><literal>health_checks</literal></tag-name>
+<tag-desc>
+<list type="tag">
+
+<tag-name><literal>checks</literal></tag-name>
+<tag-desc>
+Суммарное число запросов
+<link doc="../stream/ngx_stream_upstream_module.xml" id="health_check">проверки
+работоспособности</link>.
+</tag-desc>
+
+<tag-name><literal>fails</literal></tag-name>
+<tag-desc>
+Число неудачных проверок работоспособности.
+</tag-desc>
+
+<tag-name><literal>unhealthy</literal></tag-name>
+<tag-desc>
+Количество раз, когда
+сервер становился неработоспособным (состояние “<literal>unhealthy</literal>”).
+</tag-desc>
+
+<tag-name><literal>last_passed</literal></tag-name>
+<tag-desc>
+Логическое значение, означающее, была ли последняя проверка
+работоспособности удачной и удовлетворял ли ответ заданным
+<link doc="../stream/ngx_stream_upstream_module.xml" id="match">тестам</link>.
+</tag-desc>
+
+</list>
+</tag-desc>
+
+<tag-name><literal>downtime</literal></tag-name>
+<tag-desc>
+Суммарное время,
+когда сервер находился в состояниях “<literal>unavail</literal>”
+и “<literal>unhealthy</literal>”.
+</tag-desc>
+
+<tag-name><literal>downstart</literal></tag-name>
+<tag-desc>
+Время (в миллисекундах с начала эпохи),
+когда сервер стал
+“<literal>unavail</literal>”
+или “<literal>unhealthy</literal>”.
+</tag-desc>
+
+<tag-name><literal>selected</literal></tag-name>
+<tag-desc>
+Время (в миллисекундах с начала эпохи),
+когда сервер в последний раз был выбран для обработки соединения.
+</tag-desc>
+
+</list>
+</tag-desc>
+
+</list>
+</tag-desc>
+
 </list>
 </para>
 
@@ -593,6 +812,11 @@ http://127.0.0.1/status/upstreams/backend/1/weight
 <listitem>
 Поле <literal>keepalive</literal> сервера группы
 было удалено в <link id="version">версии</link> 5.
+</listitem>
+
+<listitem>
+<link id="stream">stream</link>
+был добавлен в <link id="version">версии</link> 5.
 </listitem>
 
 <listitem>
