@@ -10,7 +10,7 @@
 <module name="Core functionality"
         link="/en/docs/ngx_core_module.html"
         lang="en"
-        rev="14">
+        rev="15">
 
 <section id="example" name="Example Configuration">
 
@@ -153,6 +153,7 @@ analysis using a system debugger.
 <default>logs/error.log error</default>
 <context>main</context>
 <context>http</context>
+<context>mail</context>
 <context>stream</context>
 <context>server</context>
 <context>location</context>
@@ -196,6 +197,12 @@ see “<link doc="debugging_log.xml"/>”.
 The directive can be specified on the
 <literal>stream</literal> level
 starting from version 1.7.11.
+</note>
+
+<note>
+The directive can be specified on the
+<literal>mail</literal> level
+starting from version 1.9.0.
 </note>
 </para>
 

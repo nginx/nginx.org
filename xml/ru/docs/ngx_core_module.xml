@@ -10,7 +10,7 @@
 <module name="Основная функциональность"
         link="/ru/docs/ngx_core_module.html"
         lang="ru"
-        rev="14">
+        rev="15">
 
 <section id="example" name="Пример конфигурации">
 
@@ -153,6 +153,7 @@ events {
 <default>logs/error.log error</default>
 <context>main</context>
 <context>http</context>
+<context>mail</context>
 <context>stream</context>
 <context>server</context>
 <context>location</context>
@@ -195,6 +196,12 @@ nginx с <literal>--with-debug</literal>,
 Директива может быть указана на
 уровне <literal>stream</literal>
 начиная с версии 1.7.11.
+</note>
+
+<note>
+Директива может быть указана на
+уровне <literal>mail</literal>
+начиная с версии 1.9.0.
 </note>
 </para>
 
