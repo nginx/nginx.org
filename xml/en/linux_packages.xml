@@ -7,7 +7,7 @@
 <article name="nginx: Linux packages"
          link="/en/linux_packages.html"
          lang="en"
-         rev="11"
+         rev="12"
          toc="no">
 
 <section id="distributions">
@@ -327,6 +327,62 @@ For SLES run the following command:
 <programlisting>
 zypper addrepo -G -t yum -c 'http://nginx.org/packages/mainline/sles/12' nginx
 </programlisting>
+</para>
+
+</section>
+
+
+<section name="Configure Arguments" id="arguments">
+
+<para>
+Configure arguments common for nginx binaries from pre-built packages for stable version:
+<programlisting>
+--prefix=/etc/nginx
+--sbin-path=/usr/sbin/nginx
+--conf-path=/etc/nginx/nginx.conf
+--error-log-path=/var/log/nginx/error.log
+--http-log-path=/var/log/nginx/access.log
+--pid-path=/var/run/nginx.pid
+--lock-path=/var/run/nginx.lock
+--http-client-body-temp-path=/var/cache/nginx/client_temp
+--http-proxy-temp-path=/var/cache/nginx/proxy_temp
+--http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp
+--http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp
+--http-scgi-temp-path=/var/cache/nginx/scgi_temp
+--user=nginx
+--group=nginx
+--with-http_ssl_module
+--with-http_realip_module
+--with-http_addition_module
+--with-http_sub_module
+--with-http_dav_module
+--with-http_flv_module
+--with-http_mp4_module
+--with-http_gunzip_module
+--with-http_gzip_static_module
+--with-http_random_index_module
+--with-http_secure_link_module
+--with-http_stub_status_module
+--with-http_auth_request_module
+--with-mail
+--with-mail_ssl_module
+--with-file-aio
+--with-http_spdy_module
+--with-ipv6
+</programlisting>
+</para>
+
+<para>
+Packages for mainline version also have the following arguments:
+<programlisting>
+--with-threads
+--with-stream
+--with-stream_ssl_module
+</programlisting>
+</para>
+
+<para>
+Package are built with all modules that do not require additional libraries to avoid extra dependencies.
 </para>
 
 </section>
