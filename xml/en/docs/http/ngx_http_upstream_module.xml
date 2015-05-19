@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="37">
+        rev="38">
 
 <section id="summary">
 
@@ -1108,6 +1108,17 @@ The status can be either “<literal>MISS</literal>”,
 “<literal>BYPASS</literal>”, “<literal>EXPIRED</literal>”,
 “<literal>STALE</literal>”, “<literal>UPDATING</literal>”,
 “<literal>REVALIDATED</literal>”, or “<literal>HIT</literal>”.
+</tag-desc>
+
+<tag-name id="var_upstream_connect_time"><var>$upstream_connect_time</var>
+</tag-name>
+<tag-desc>
+keeps time spent on establishing a connection with the upstream server (1.9.1);
+the time is kept in seconds with millisecond resolution.
+In case of SSL, includes time spent on handshake.
+Times of several connections
+are separated by commas and colons like addresses in the
+<link id="var_upstream_addr">$upstream_addr</link> variable.
 </tag-desc>
 
 <tag-name id="var_upstream_cookie_"><var>$upstream_cookie_</var><value>name</value>

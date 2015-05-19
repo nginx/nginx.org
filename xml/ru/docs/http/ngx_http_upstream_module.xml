@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_upstream_module"
         link="/ru/docs/http/ngx_http_upstream_module.html"
         lang="ru"
-        rev="37">
+        rev="38">
 
 <section id="summary">
 
@@ -1112,6 +1112,17 @@ upstream backend {
 “<literal>BYPASS</literal>”, “<literal>EXPIRED</literal>”,
 “<literal>STALE</literal>”, “<literal>UPDATING</literal>”,
 “<literal>REVALIDATED</literal>” или “<literal>HIT</literal>”.
+</tag-desc>
+
+<tag-name id="var_upstream_connect_time"><var>$upstream_connect_time</var>
+</tag-name>
+<tag-desc>
+хранит время, затраченное на установление соединения с сервером группы (1.9.1);
+время хранится в секундах с точностью до миллисекунд.
+В случае SSL, включает в себя время, потраченное на handshake.
+Времена нескольких соединений
+разделяются запятыми и двоеточиями подобно адресам в переменной
+<link id="var_upstream_addr">$upstream_addr</link>.
 </tag-desc>
 
 <tag-name id="var_upstream_cookie_"><var>$upstream_cookie_</var><value>имя</value>
