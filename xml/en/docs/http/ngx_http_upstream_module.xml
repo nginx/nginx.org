@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="39">
+        rev="40">
 
 <section id="summary">
 
@@ -216,9 +216,16 @@ the following parameters are available as part of our
 <literal>max_conns</literal>=<value>number</value>
 </tag-name>
 <tag-desc>
-limits the maximum <value>number</value> of simultaneous connections to the
-proxied server (1.5.9).
+limits the maximum <value>number</value> of simultaneous active
+connections to the proxied server (1.5.9).
 Default value is zero, meaning there is no limit.
+<note>
+When <link id="keepalive"/> connections and multiple
+<link doc="../ngx_core_module.xml" id="worker_processes">workers</link>
+are enabled,
+the total number of connections to the proxied server
+may exceed the <literal>max_conns</literal> value.
+</note>
 </tag-desc>
 
 <tag-name id="resolve">

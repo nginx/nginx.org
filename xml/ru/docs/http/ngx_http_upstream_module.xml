@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_upstream_module"
         link="/ru/docs/http/ngx_http_upstream_module.html"
         lang="ru"
-        rev="39">
+        rev="40">
 
 <section id="summary">
 
@@ -217,9 +217,15 @@ upstream backend {
 <literal>max_conns</literal>=<value>число</value>
 </tag-name>
 <tag-desc>
-ограничивает максимальное <value>число</value> одновременных соединений
-к проксируемому серверу (1.5.9).
+ограничивает максимальное <value>число</value> одновременных активных
+соединений к проксируемому серверу (1.5.9).
 Значение по умолчанию равно 0 и означает, что ограничения нет.
+<note>
+При включённых <link id="keepalive">постоянных</link> соединениях и нескольких
+<link doc="../ngx_core_module.xml" id="worker_processes">рабочих процессах</link>
+общее число соединений с проксируемым сервером
+может превышать значение <literal>max_conns</literal>.
+</note>
 </tag-desc>
 
 <tag-name id="resolve">
