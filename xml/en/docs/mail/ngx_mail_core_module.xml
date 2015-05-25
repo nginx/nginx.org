@@ -10,7 +10,7 @@
 <module name="Module ngx_mail_core_module"
         link="/en/docs/mail/ngx_mail_core_module.html"
         lang="en"
-        rev="4">
+        rev="5">
 
 <section id="summary">
 
@@ -73,7 +73,10 @@ mail {
 <directive name="listen">
 <syntax>
     <value>address</value>:<value>port</value>
-    [<literal>bind</literal>]</syntax>
+    [<literal>ssl</literal>]
+    [<literal>bind</literal>]
+    [<literal>ipv6only</literal>=<literal>on</literal>|<literal>off</literal>]
+    [<literal>so_keepalive</literal>=<literal>on</literal>|<literal>off</literal>|[<value>keepidle</value>]:[<value>keepintvl</value>]:[<value>keepcnt</value>]]</syntax>
 <default/>
 <context>server</context>
 
@@ -102,8 +105,20 @@ listen unix:/var/run/nginx.sock;
 </para>
 
 <para>
-The optional <literal>bind</literal> parameter
-instructs to make a separate <c-func>bind</c-func>
+The <literal>ssl</literal> parameter allows specifying that all
+connections accepted on this port should work in SSL mode.
+</para>
+
+<para>
+The <literal>listen</literal> directive
+can have several additional parameters specific to socket-related system calls.
+<list type="tag">
+
+<tag-name>
+<literal>bind</literal>
+</tag-name>
+<tag-desc>
+this parameter instructs to make a separate <c-func>bind</c-func>
 call for a given address:port pair.
 The fact is that if there are several <literal>listen</literal> directives with
 the same port but different addresses, and one of the
@@ -112,6 +127,54 @@ for the given port (<literal>*:</literal><value>port</value>), nginx will
 <c-func>bind</c-func> only to <literal>*:</literal><value>port</value>.
 It should be noted that the <c-func>getsockname</c-func> system call will be
 made in this case to determine the address that accepted the connection.
+If the <literal>ipv6only</literal>
+or <literal>so_keepalive</literal> parameters
+are used then for a given
+<value>address</value>:<value>port</value> pair
+a separate <c-func>bind</c-func> call will always be made.
+</tag-desc>
+
+<tag-name>
+<literal>ipv6only</literal>=<literal>on</literal>|<literal>off</literal>
+</tag-name>
+<tag-desc>
+this parameter determines
+(via the <c-def>IPV6_V6ONLY</c-def> socket option)
+whether an IPv6 socket listening on a wildcard address <literal>[::]</literal>
+will accept only IPv6 connections or both IPv6 and IPv4 connections.
+This parameter is turned on by default.
+It can only be set once on start.
+</tag-desc>
+
+<tag-name>
+<literal>so_keepalive</literal>=<literal>on</literal>|<literal>off</literal>|[<value>keepidle</value>]:[<value>keepintvl</value>]:[<value>keepcnt</value>]
+</tag-name>
+<tag-desc>
+this parameter configures the “TCP keepalive” behavior
+for the listening socket.
+If this parameter is omitted then the operating system’s settings will be
+in effect for the socket.
+If it is set to the value “<literal>on</literal>”, the
+<c-def>SO_KEEPALIVE</c-def> option is turned on for the socket.
+If it is set to the value “<literal>off</literal>”, the
+<c-def>SO_KEEPALIVE</c-def> option is turned off for the socket.
+Some operating systems support setting of TCP keepalive parameters on
+a per-socket basis using the <c-def>TCP_KEEPIDLE</c-def>,
+<c-def>TCP_KEEPINTVL</c-def>, and <c-def>TCP_KEEPCNT</c-def> socket options.
+On such systems (currently, Linux 2.4+, NetBSD 5+, and
+FreeBSD 9.0-STABLE), they can be configured
+using the <value>keepidle</value>, <value>keepintvl</value>, and
+<value>keepcnt</value> parameters.
+One or two parameters may be omitted, in which case the system default setting
+for the corresponding socket option will be in effect.
+For example,
+<example>so_keepalive=30m::10</example>
+will set the idle timeout (<c-def>TCP_KEEPIDLE</c-def>) to 30 minutes,
+leave the probe interval (<c-def>TCP_KEEPINTVL</c-def>) at its system default,
+and set the probes count (<c-def>TCP_KEEPCNT</c-def>) to 10 probes.
+</tag-desc>
+
+</list>
 </para>
 
 <para>

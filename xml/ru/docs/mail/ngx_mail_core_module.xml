@@ -10,7 +10,7 @@
 <module name="Модуль ngx_mail_core_module"
         link="/ru/docs/mail/ngx_mail_core_module.html"
         lang="ru"
-        rev="4">
+        rev="5">
 
 <section id="summary">
 
@@ -73,7 +73,10 @@ mail {
 <directive name="listen">
 <syntax>
     <value>адрес</value>:<value>порт</value>
-    [<literal>bind</literal>]</syntax>
+    [<literal>ssl</literal>]
+    [<literal>bind</literal>]
+    [<literal>ipv6only</literal>=<literal>on</literal>|<literal>off</literal>]
+    [<literal>so_keepalive</literal>=<literal>on</literal>|<literal>off</literal>|[<value>keepidle</value>]:[<value>keepintvl</value>]:[<value>keepcnt</value>]]</syntax>
 <default/>
 <context>server</context>
 
@@ -101,17 +104,81 @@ listen unix:/var/run/nginx.sock;
 </para>
 
 <para>
-Необязательный параметр <literal>bind</literal>
+Параметр <literal>ssl</literal> указывает на то, что все соединения,
+принимаемые на данном порту, должны работать в режиме SSL.
+</para>
+
+<para>
+В директиве <literal>listen</literal> можно также указать несколько
+дополнительных параметров, специфичных для связанных с сокетами
+системных вызовов.
+<list type="tag">
+
+<tag-name>
+<literal>bind</literal>
+</tag-name>
+<tag-desc>
 указывает, что для данной пары
 <value>адрес</value>:<value>порт</value> нужно делать
 <c-func>bind</c-func> отдельно.
-Дело в том, что если описаны несколько директив <literal>listen</literal>
+Это нужно потому, что если описаны несколько директив <literal>listen</literal>
 с одинаковым портом, но разными адресами, и одна из директив
 <literal>listen</literal> слушает на всех адресах для данного порта
 (<literal>*:</literal><value>порт</value>), то nginx сделает
 <c-func>bind</c-func> только на <literal>*:</literal><value>порт</value>.
 Необходимо заметить, что в этом случае для определения адреса, на который
 пришло соединение, делается системный вызов <c-func>getsockname</c-func>.
+Если же используются параметры <literal>ipv6only</literal>
+или <literal>so_keepalive</literal>,
+то для данной пары
+<value>адрес</value>:<value>порт</value> всегда делается
+отдельный вызов <c-func>bind</c-func>.
+</tag-desc>
+
+<tag-name>
+<literal>ipv6only</literal>=<literal>on</literal>|<literal>off</literal>
+</tag-name>
+<tag-desc>
+этот параметр определяет
+(через параметр сокета <c-def>IPV6_V6ONLY</c-def>),
+будет ли слушающий на wildcard-адресе <literal>[::]</literal> IPv6-сокет
+принимать только IPv6-соединения, или же одновременно IPv6- и IPv4-соединения.
+По умолчанию параметр включён.
+Установить его можно только один раз на старте.
+</tag-desc>
+
+<tag-name>
+<literal>so_keepalive</literal>=<literal>on</literal>|<literal>off</literal>|[<value>keepidle</value>]:[<value>keepintvl</value>]:[<value>keepcnt</value>]
+</tag-name>
+<tag-desc>
+этот параметр конфигурирует для слушающего сокета
+поведение “TCP keepalive”.
+Если этот параметр опущен, то для сокета будут действовать
+настройки операционной системы.
+Если он установлен в значение “<literal>on</literal>”, то для сокета
+включается параметр <c-def>SO_KEEPALIVE</c-def>.
+Если он установлен в значение “<literal>off</literal>”, то для сокета
+параметр <c-def>SO_KEEPALIVE</c-def> выключается.
+Некоторые операционные системы поддерживают настройку параметров
+“TCP keepalive” на уровне сокета посредством параметров
+<c-def>TCP_KEEPIDLE</c-def>, <c-def>TCP_KEEPINTVL</c-def> и
+<c-def>TCP_KEEPCNT</c-def>.
+На таких системах (в настоящий момент это Linux 2.4+, NetBSD 5+ и
+FreeBSD 9.0-STABLE)
+их можно сконфигурировать с помощью параметров <value>keepidle</value>,
+<value>keepintvl</value> и <value>keepcnt</value>.
+Один или два параметра могут быть опущены, в таком случае для
+соответствующего параметра сокета будут действовать стандартные
+системные настройки.
+Например,
+<example>so_keepalive=30m::10</example>
+установит таймаут бездействия (<c-def>TCP_KEEPIDLE</c-def>) в 30 минут,
+для интервала проб (<c-def>TCP_KEEPINTVL</c-def>) будет действовать
+стандартная системная настройка, а счётчик проб (<c-def>TCP_KEEPCNT</c-def>)
+будет равен 10.
+</tag-desc>
+
+</list>
 </para>
 
 <para>
