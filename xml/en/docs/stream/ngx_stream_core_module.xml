@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_core_module"
         link="/en/docs/stream/ngx_stream_core_module.html"
         lang="en"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -67,6 +67,7 @@ stream {
     [<literal>ssl</literal>]
     [<literal>bind</literal>]
     [<literal>ipv6only</literal>=<literal>on</literal>|<literal>off</literal>]
+    [<literal>reuseport</literal>]
     [<literal>so_keepalive</literal>=<literal>on</literal>|<literal>off</literal>|[<value>keepidle</value>]:[<value>keepintvl</value>]:[<value>keepcnt</value>]]</syntax>
 <default/>
 <context>server</context>
@@ -135,6 +136,21 @@ whether an IPv6 socket listening on a wildcard address <literal>[::]</literal>
 will accept only IPv6 connections or both IPv6 and IPv4 connections.
 This parameter is turned on by default.
 It can only be set once on start.
+</tag-desc>
+
+<tag-name>
+<literal>reuseport</literal>
+</tag-name>
+<tag-desc>
+this parameter (1.9.1) instructs to create an individual listening socket
+for each worker process
+(using the <c-def>SO_REUSEPORT</c-def> socket option), allowing a kernel
+to distribute incoming connections between worker processes more effectively.
+This currently works only on Linux and DragonFly BSD.
+<note>
+Inappropriate use of this option may have its security
+<link url="http://man7.org/linux/man-pages/man7/socket.7.html">implications</link>.
+</note>
 </tag-desc>
 
 <tag-name>

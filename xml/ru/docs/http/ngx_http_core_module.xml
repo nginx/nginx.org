@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="39">
+        rev="40">
 
 <section id="directives" name="Директивы">
 
@@ -1124,6 +1124,7 @@ location /flv/ {
     [<literal>deferred</literal>]
     [<literal>bind</literal>]
     [<literal>ipv6only</literal>=<literal>on</literal>|<literal>off</literal>]
+    [<literal>reuseport</literal>]
     [<literal>so_keepalive</literal>=<literal>on</literal>|<literal>off</literal>|[<value>keepidle</value>]:[<value>keepintvl</value>]:[<value>keepcnt</value>]]</syntax>
 <syntax>
     <value>порт</value>
@@ -1140,6 +1141,7 @@ location /flv/ {
     [<literal>deferred</literal>]
     [<literal>bind</literal>]
     [<literal>ipv6only</literal>=<literal>on</literal>|<literal>off</literal>]
+    [<literal>reuseport</literal>]
     [<literal>so_keepalive</literal>=<literal>on</literal>|<literal>off</literal>|[<value>keepidle</value>]:[<value>keepintvl</value>]:[<value>keepcnt</value>]]</syntax>
 <syntax>
     <literal>unix:</literal><value>путь</value>
@@ -1357,6 +1359,22 @@ FreeBSD и Mac OS X, и 511 для других платформ.
 До версии 1.3.4,
 если этот параметр не был задан явно, то для сокета действовали
 настройки операционной системы.
+</note>
+</tag-desc>
+
+<tag-name>
+<literal>reuseport</literal>
+</tag-name>
+<tag-desc>
+этот параметр (1.9.1) указывает, что нужно создавать отдельный слушающий сокет
+для каждого рабочего процесса
+(через параметр сокета <c-def>SO_REUSEPORT</c-def>), позволяя ядру
+эффективнее распределять входящие соединения между рабочими процессами.
+В настоящий момент это работает только на Linux и DragonFly BSD.
+<note>
+Ненадлежащее использование параметра может иметь
+<link url="http://man7.org/linux/man-pages/man7/socket.7.html">последствия</link>
+в плане безопасности.
 </note>
 </tag-desc>
 

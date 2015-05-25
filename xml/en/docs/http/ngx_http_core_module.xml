@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="39">
+        rev="40">
 
 <section id="directives" name="Directives">
 
@@ -1129,6 +1129,7 @@ The “wait-read-ignore” cycle is repeated, but no longer than specified by th
     [<literal>deferred</literal>]
     [<literal>bind</literal>]
     [<literal>ipv6only</literal>=<literal>on</literal>|<literal>off</literal>]
+    [<literal>reuseport</literal>]
     [<literal>so_keepalive</literal>=<literal>on</literal>|<literal>off</literal>|[<value>keepidle</value>]:[<value>keepintvl</value>]:[<value>keepcnt</value>]]</syntax>
 <syntax>
     <value>port</value>
@@ -1145,6 +1146,7 @@ The “wait-read-ignore” cycle is repeated, but no longer than specified by th
     [<literal>deferred</literal>]
     [<literal>bind</literal>]
     [<literal>ipv6only</literal>=<literal>on</literal>|<literal>off</literal>]
+    [<literal>reuseport</literal>]
     [<literal>so_keepalive</literal>=<literal>on</literal>|<literal>off</literal>|[<value>keepidle</value>]:[<value>keepintvl</value>]:[<value>keepcnt</value>]]</syntax>
 <syntax>
     <literal>unix:</literal><value>path</value>
@@ -1362,6 +1364,21 @@ It can only be set once on start.
 Prior to version 1.3.4,
 if this parameter was omitted then the operating system’s settings were
 in effect for the socket.
+</note>
+</tag-desc>
+
+<tag-name>
+<literal>reuseport</literal>
+</tag-name>
+<tag-desc>
+this parameter (1.9.1) instructs to create an individual listening socket
+for each worker process
+(using the <c-def>SO_REUSEPORT</c-def> socket option), allowing a kernel
+to distribute incoming connections between worker processes more effectively.
+This currently works only on Linux and DragonFly BSD.
+<note>
+Inappropriate use of this option may have its security
+<link url="http://man7.org/linux/man-pages/man7/socket.7.html">implications</link>.
 </note>
 </tag-desc>
 
