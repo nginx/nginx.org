@@ -10,7 +10,7 @@
 <module name="Module ngx_mail_core_module"
         link="/en/docs/mail/ngx_mail_core_module.html"
         lang="en"
-        rev="5">
+        rev="6">
 
 <section id="summary">
 
@@ -105,6 +105,11 @@ listen unix:/var/run/nginx.sock;
 </para>
 
 <para>
+Different servers must listen on different
+<value>address</value>:<value>port</value> pairs.
+</para>
+
+<para>
 The <literal>ssl</literal> parameter allows specifying that all
 connections accepted on this port should work in SSL mode.
 </para>
@@ -175,11 +180,6 @@ and set the probes count (<c-def>TCP_KEEPCNT</c-def>) to 10 probes.
 </tag-desc>
 
 </list>
-</para>
-
-<para>
-Different servers must listen on different
-<value>address</value>:<value>port</value> pairs.
 </para>
 
 </directive>
