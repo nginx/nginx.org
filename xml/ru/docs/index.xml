@@ -8,7 +8,7 @@
 <article name="nginx: документация"
          link="/ru/docs/"
          lang="ru"
-         rev="18"
+         rev="19"
          toc="no">
 
 
@@ -467,6 +467,32 @@ ngx_mail_pop3_module</link>
 <listitem>
 <link doc="mail/ngx_mail_smtp_module.xml">
 ngx_mail_smtp_module</link>
+</listitem>
+
+</list>
+</para>
+
+<para>
+<list type="bullet">
+
+<listitem>
+<link doc="../../en/docs/stream/ngx_stream_core_module.xml">
+ngx_stream_core_module</link> [en]
+</listitem>
+
+<listitem>
+<link doc="../../en/docs/stream/ngx_stream_proxy_module.xml">
+ngx_stream_proxy_module</link> [en]
+</listitem>
+
+<listitem>
+<link doc="../../en/docs/stream/ngx_stream_ssl_module.xml">
+ngx_stream_ssl_module</link> [en]
+</listitem>
+
+<listitem>
+<link doc="../../en/docs/stream/ngx_stream_upstream_module.xml">
+ngx_stream_upstream_module</link> [en]
 </listitem>
 
 </list>
