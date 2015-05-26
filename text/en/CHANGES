@@ -1,4 +1,24 @@
 
+Changes with nginx 1.9.1                                         26 May 2015
+
+    *) Change: now SSLv3 protocol is disabled by default.
+
+    *) Change: some long deprecated directives are not supported anymore.
+
+    *) Feature: the "reuseport" parameter of the "listen" directive.
+       Thanks to Sepherosa Ziehau and Yingqi Lu.
+
+    *) Feature: the $upstream_connect_time variable.
+
+    *) Bugfix: in the "hash" directive on big-endian platforms.
+
+    *) Bugfix: nginx might fail to start on some old Linux variants; the bug
+       had appeared in 1.7.11.
+
+    *) Bugfix: in IP address parsing.
+       Thanks to Sergey Polovko.
+
+
 Changes with nginx 1.9.0                                         28 Apr 2015
 
     *) Change: obsolete aio and rtsig event methods have been removed.
