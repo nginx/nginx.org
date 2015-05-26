@@ -8,7 +8,7 @@
 <article name="nginx"
          link="/en/"
          lang="en"
-         rev="38">
+         rev="39">
 
 
 <section>
@@ -301,7 +301,7 @@ worker processes run under an unprivileged user;
 <listitem>
 <link doc="docs/events.xml">Support</link> for
 kqueue (FreeBSD 4.1+),
-epoll (Linux 2.6+), rt signals (Linux 2.2.19+),
+epoll (Linux 2.6+),
 /dev/poll (Solaris 7 11/99+), event ports (Solaris 10),
 select, and poll;
 </listitem>

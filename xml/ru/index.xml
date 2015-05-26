@@ -8,7 +8,7 @@
 <article name="nginx"
          link="/ru/"
          lang="ru"
-         rev="38">
+         rev="39">
 
 
 <section>
@@ -300,7 +300,7 @@ AUTH LOGIN/PLAIN/CRAM-MD5;
 <listitem>
 <link doc="docs/events.xml">Поддержка</link>
 kqueue (FreeBSD 4.1+),
-epoll (Linux 2.6+), rt signals (Linux 2.2.19+),
+epoll (Linux 2.6+),
 /dev/poll <nobr>(Solaris 7 11/99+),</nobr>
 event ports <nobr>(Solaris 10),</nobr>
 select и poll;
