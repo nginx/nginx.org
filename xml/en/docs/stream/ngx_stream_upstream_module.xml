@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_upstream_module"
         link="/en/docs/stream/ngx_stream_upstream_module.html"
         lang="en"
-        rev="6">
+        rev="7">
 
 <section id="summary">
 
@@ -266,7 +266,7 @@ are ignored, and such a server will never be considered unavailable.
 
 
 <directive name="zone">
-<syntax><value>name</value> <value>size</value></syntax>
+<syntax><value>name</value> [<value>size</value>]</syntax>
 <default/>
 <context>upstream</context>
 
@@ -274,6 +274,8 @@ are ignored, and such a server will never be considered unavailable.
 Defines the <value>name</value> and <value>size</value> of the shared
 memory zone that keeps the group’s configuration and run-time state that are
 shared between worker processes.
+Several groups may share the same zone.
+In this case, it is enough to specify the zone size only once.
 </para>
 
 <para>

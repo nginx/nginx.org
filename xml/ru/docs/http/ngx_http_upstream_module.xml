@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_upstream_module"
         link="/ru/docs/http/ngx_http_upstream_module.html"
         lang="ru"
-        rev="38">
+        rev="39">
 
 <section id="summary">
 
@@ -284,7 +284,7 @@ http {
 
 
 <directive name="zone">
-<syntax><value>имя</value> <value>размер</value></syntax>
+<syntax><value>имя</value> [<value>размер</value>]</syntax>
 <default/>
 <context>upstream</context>
 <appeared-in>1.9.0</appeared-in>
@@ -293,6 +293,8 @@ http {
 Задаёт <value>имя</value> и <value>размер</value> зоны разделяемой памяти,
 в которой хранятся конфигурация группы и её рабочее состояние,
 разделяемые между рабочими процессами.
+В одной и той же зоне могут быть сразу несколько групп.
+В этом случае достаточно указать <value>размер</value> только один раз.
 </para>
 
 <para>
