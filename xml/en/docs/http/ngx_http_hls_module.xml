@@ -17,22 +17,22 @@
 The <literal>ngx_http_hls_module</literal> module provides HTTP Live Streaming
 (HLS) server-side support for MP4 and MOV media files.
 Such files typically have the <path>.mp4</path>, <path>.m4v</path>,
-<path>.m4a</path>, <path>.mov</path> or <path>.qt</path> file extensions.
+<path>.m4a</path>, <path>.mov</path>, or <path>.qt</path> filename extensions.
 The module supports H.264 video codec, AAC and MP3 audio codecs.
 </para>
 
 <para>
-For each media file, two types of URI are supported:
+For each media file, two URIs are supported:
 <list type="bullet">
 
 <listitem>
-a playlist URI with the “<literal>.m3u8</literal>” file extension.
+A playlist URI with the “<literal>.m3u8</literal>” filename extension.
 The URI can accept optional arguments:
 <list type="bullet">
 
 <listitem>
 “<literal>start</literal>” and “<literal>end</literal>”
-define playlist boundaries in seconds (1.9.0);
+define playlist boundaries in seconds (1.9.0).
 </listitem>
 
 <listitem>
@@ -40,21 +40,27 @@ define playlist boundaries in seconds (1.9.0);
 to the time offset in seconds (1.9.0).
 A positive value sets a time offset from the beginning of the playlist.
 A negative value sets a time offset
-from the end of the last fragment in the playlist;
+from the end of the last fragment in the playlist.
 </listitem>
 
 <listitem>
-“<literal>len</literal>” defines the fragment length in seconds,
+“<literal>len</literal>” defines the fragment length in seconds.
 </listitem>
 </list>
 
 </listitem>
 
 <listitem>
-a fragment URI with the “<literal>.ts</literal>” file extension.
-The URI can accept optional
-“<literal>start</literal>” and “<literal>end</literal>” arguments that
+A fragment URI with the “<literal>.ts</literal>” filename extension.
+The URI can accept optional arguments:
+<list type="bullet">
+
+<listitem>
+“<literal>start</literal>” and “<literal>end</literal>”
 define fragment boundaries in seconds.
+</listitem>
+
+</list>
 </listitem>
 
 </list>
