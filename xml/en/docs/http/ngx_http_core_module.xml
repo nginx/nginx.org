@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="40">
+        rev="41">
 
 <section id="directives" name="Directives">
 
@@ -1374,7 +1374,7 @@ in effect for the socket.
 this parameter (1.9.1) instructs to create an individual listening socket
 for each worker process
 (using the <c-def>SO_REUSEPORT</c-def> socket option), allowing a kernel
-to distribute incoming connections between worker processes more effectively.
+to distribute incoming connections between worker processes.
 This currently works only on Linux and DragonFly BSD.
 <note>
 Inappropriate use of this option may have its security

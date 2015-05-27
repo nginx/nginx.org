@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_core_module"
         link="/en/docs/stream/ngx_stream_core_module.html"
         lang="en"
-        rev="4">
+        rev="5">
 
 <section id="summary">
 
@@ -145,7 +145,7 @@ It can only be set once on start.
 this parameter (1.9.1) instructs to create an individual listening socket
 for each worker process
 (using the <c-def>SO_REUSEPORT</c-def> socket option), allowing a kernel
-to distribute incoming connections between worker processes more effectively.
+to distribute incoming connections between worker processes.
 This currently works only on Linux and DragonFly BSD.
 <note>
 Inappropriate use of this option may have its security
