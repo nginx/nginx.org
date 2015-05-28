@@ -8,7 +8,7 @@
 <article name="Configuring HTTPS servers"
          link="/en/docs/http/configuring_https_servers.html"
          lang="en"
-         rev="7"
+         rev="8"
          author="Igor Sysoev"
          editor="Brian Mercer">
 
@@ -55,12 +55,12 @@ The directives <link doc="ngx_http_ssl_module.xml" id="ssl_protocols"/> and
 <link doc="ngx_http_ssl_module.xml" id="ssl_ciphers"/>
 can be used to limit connections
 to include only the strong versions and ciphers of SSL/TLS.
-Since version 1.0.5, nginx uses
-“<literal>ssl_protocols SSLv3 TLSv1</literal>”
-and “<literal>ssl_ciphers HIGH:!aNULL:!MD5</literal>” by default,
-so configuring them explicitly only makes sense for the earlier nginx versions.
-Since versions 1.1.13 and 1.0.12, nginx uses
-“<literal>ssl_protocols SSLv3 TLSv1 TLSv1.1 TLSv1.2</literal>” by default.
+By default nginx uses
+“<literal>ssl_protocols TLSv1 TLSv1.1 TLSv1.2</literal>”
+and “<literal>ssl_ciphers HIGH:!aNULL:!MD5</literal>”,
+so configuring them explicitly is generally not needed.
+Note that default values of these directives were
+<link id="compatibility">changed</link> several times.
 </para>
 
 <para>
@@ -468,6 +468,11 @@ The shared SSL session cache has been supported since 0.5.6.
 
 <para>
 <list type="bullet">
+
+<listitem>
+Version 1.9.1 and later: the default SSL protocols are TLSv1,
+TLSv1.1, and TLSv1.2 (if supported by the OpenSSL library).
+</listitem>
 
 <listitem>
 Version 0.7.65, 0.8.19 and later: the default SSL protocols are SSLv3, TLSv1,

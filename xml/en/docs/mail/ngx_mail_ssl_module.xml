@@ -10,7 +10,7 @@
 <module name="Module ngx_mail_ssl_module"
         link="/en/docs/mail/ngx_mail_ssl_module.html"
         lang="en"
-        rev="6">
+        rev="7">
 
 <section id="summary">
 
@@ -245,7 +245,7 @@ when the SSLv3 and TLS protocols are used.
     [<literal>TLSv1</literal>]
     [<literal>TLSv1.1</literal>]
     [<literal>TLSv1.2</literal>]</syntax>
-<default>SSLv3 TLSv1 TLSv1.1 TLSv1.2</default>
+<default>TLSv1 TLSv1.1 TLSv1.2</default>
 <context>mail</context>
 <context>server</context>
 

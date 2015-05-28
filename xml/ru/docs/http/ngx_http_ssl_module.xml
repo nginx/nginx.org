@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_ssl_module"
         link="/ru/docs/http/ngx_http_ssl_module.html"
         lang="ru"
-        rev="18">
+        rev="19">
 
 <section id="summary">
 
@@ -352,7 +352,7 @@ http {
     [<literal>TLSv1</literal>]
     [<literal>TLSv1.1</literal>]
     [<literal>TLSv1.2</literal>]</syntax>
-<default>SSLv3 TLSv1 TLSv1.1 TLSv1.2</default>
+<default>TLSv1 TLSv1.1 TLSv1.2</default>
 <context>http</context>
 <context>server</context>
 

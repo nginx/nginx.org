@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_proxy_module"
         link="/en/docs/stream/ngx_stream_proxy_module.html"
         lang="en"
-        rev="4">
+        rev="5">
 
 <section id="summary">
 
@@ -306,7 +306,7 @@ appear in the logs, try disabling session reuse.
     [<literal>TLSv1</literal>]
     [<literal>TLSv1.1</literal>]
     [<literal>TLSv1.2</literal>]</syntax>
-<default>SSLv3 TLSv1 TLSv1.1 TLSv1.2</default>
+<default>TLSv1 TLSv1.1 TLSv1.2</default>
 <context>stream</context>
 <context>server</context>
 

@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_proxy_module"
         link="/ru/docs/http/ngx_http_proxy_module.html"
         lang="ru"
-        rev="37">
+        rev="38">
 
 <section id="summary">
 
@@ -1775,7 +1775,7 @@ Server Name Indication протокола TLS</link> (SNI, RFC 6066)
     [<literal>TLSv1</literal>]
     [<literal>TLSv1.1</literal>]
     [<literal>TLSv1.2</literal>]</syntax>
-<default>SSLv3 TLSv1 TLSv1.1 TLSv1.2</default>
+<default>TLSv1 TLSv1.1 TLSv1.2</default>
 <context>http</context>
 <context>server</context>
 <context>location</context>

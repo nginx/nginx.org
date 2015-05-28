@@ -8,7 +8,7 @@
 <article name="Настройка HTTPS-серверов"
          link="/ru/docs/http/configuring_https_servers.html"
          lang="ru"
-         rev="7"
+         rev="8"
          author="Игорь Сысоев"
          editor="Brian Mercer">
 
@@ -55,12 +55,12 @@ server {
 <link doc="ngx_http_ssl_module.xml" id="ssl_ciphers"/>
 можно ограничить соединения
 использованием только “сильных” версий и шифров SSL/TLS.
-Начиная с версии 1.0.5 nginx по умолчанию использует
-“<literal>ssl_protocols SSLv3 TLSv1</literal>” и
+По умолчанию nginx использует
+“<literal>ssl_protocols TLSv1 TLSv1.1 TLSv1.2</literal>” и
 “<literal>ssl_ciphers HIGH:!aNULL:!MD5</literal>”,
-поэтому явная их настройка имеет смысл только для более ранних версий nginx.
-Начиная с версий 1.1.13 и 1.0.12 nginx по умолчанию использует
-“<literal>ssl_protocols SSLv3 TLSv1 TLSv1.1 TLSv1.2</literal>”.
+поэтому их явная настройка в общем случае не требуется.
+Следует отметить, что значения по умолчанию этих директив несколько раз
+<link id="compatibility">менялись</link>.
 </para>
 
 <para>
@@ -468,6 +468,11 @@ SNI поддерживается начиная с версии 0.5.32.
 
 <para>
 <list type="bullet">
+
+<listitem>
+Версия 1.9.1 и более поздние: протоколами SSL по умолчанию являются
+TLSv1, TLSv1.1 и TLSv1.2 (если поддерживается библиотекой OpenSSL).
+</listitem>
 
 <listitem>
 Версия 0.7.65, 0.8.19 и более поздние: протоколами SSL по умолчанию являются
