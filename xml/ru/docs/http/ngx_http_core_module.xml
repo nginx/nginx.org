@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="41">
+        rev="42">
 
 <section id="directives" name="Директивы">
 
@@ -1370,7 +1370,7 @@ FreeBSD и Mac OS X, и 511 для других платформ.
 для каждого рабочего процесса
 (через параметр сокета <c-def>SO_REUSEPORT</c-def>), позволяя ядру
 распределять входящие соединения между рабочими процессами.
-В настоящий момент это работает только на Linux и DragonFly BSD.
+В настоящий момент это работает только на Linux 3.9+ и DragonFly BSD.
 <note>
 Ненадлежащее использование параметра может иметь
 <link url="http://man7.org/linux/man-pages/man7/socket.7.html">последствия</link>
