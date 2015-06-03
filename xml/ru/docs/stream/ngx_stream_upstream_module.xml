@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_upstream_module"
         link="/ru/docs/stream/ngx_stream_upstream_module.html"
         lang="ru"
-        rev="20">
+        rev="21">
 
 <section id="summary">
 
@@ -302,6 +302,10 @@ SRV-записи с наивысшим приоритетом
 или когда сервер становится доступным по прошествии времени,
 в течение которого он считался <link id="fail_timeout">недоступным</link>.
 Значение по умолчанию равно нулю и означает, что медленный старт выключен.
+<note>
+Параметр нельзя использовать совместно с
+методом балансировки нагрузки <link id="hash"/>.
+</note>
 </tag-desc>
 
 </list>

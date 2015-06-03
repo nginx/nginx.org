@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_upstream_module"
         link="/en/docs/stream/ngx_stream_upstream_module.html"
         lang="en"
-        rev="20">
+        rev="21">
 
 <section id="summary">
 
@@ -301,6 +301,10 @@ from zero to a nominal value, when unhealthy server becomes
 or when the server becomes available after a period of time
 it was considered <link id="fail_timeout">unavailable</link>.
 Default value is zero, i.e. slow start is disabled.
+<note>
+The parameter cannot be used along with the
+<link id="hash"/> load balancing method.
+</note>
 </tag-desc>
 
 </list>
