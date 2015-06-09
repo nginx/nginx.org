@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="42">
+        rev="43">
 
 <section id="directives" name="Директивы">
 
@@ -1279,7 +1279,7 @@ three-way handshake.
 <c-func>listen</c-func>, который ограничивает
 максимальный размер очереди ожидающих приёма соединений.
 По умолчанию <literal>backlog</literal> устанавливается равным -1 для
-FreeBSD и Mac OS X, и 511 для других платформ.
+FreeBSD, DragonFly BSD и Mac OS X, и 511 для других платформ.
 </tag-desc>
 
 <tag-name>

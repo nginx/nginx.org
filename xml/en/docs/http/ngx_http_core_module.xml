@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="42">
+        rev="43">
 
 <section id="directives" name="Directives">
 
@@ -1284,7 +1284,8 @@ same SYN packet with data</link> more than once.
 sets the <literal>backlog</literal> parameter in the
 <c-func>listen</c-func> call that limits
 the maximum length for the queue of pending connections.
-By default, <literal>backlog</literal> is set to -1 on FreeBSD and Mac OS X,
+By default,
+<literal>backlog</literal> is set to -1 on FreeBSD, DragonFly BSD, and Mac OS X,
 and to 511 on other platforms.
 </tag-desc>
 
