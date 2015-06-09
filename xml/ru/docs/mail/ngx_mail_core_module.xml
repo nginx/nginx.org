@@ -10,7 +10,7 @@
 <module name="Модуль ngx_mail_core_module"
         link="/ru/docs/mail/ngx_mail_core_module.html"
         lang="ru"
-        rev="6">
+        rev="7">
 
 <section id="summary">
 
@@ -74,6 +74,7 @@ mail {
 <syntax>
     <value>адрес</value>:<value>порт</value>
     [<literal>ssl</literal>]
+    [<literal>backlog</literal>=<value>число</value>]
     [<literal>bind</literal>]
     [<literal>ipv6only</literal>=<literal>on</literal>|<literal>off</literal>]
     [<literal>so_keepalive</literal>=<literal>on</literal>|<literal>off</literal>|[<value>keepidle</value>]:[<value>keepintvl</value>]:[<value>keepcnt</value>]]</syntax>
@@ -118,6 +119,17 @@ listen unix:/var/run/nginx.sock;
 дополнительных параметров, специфичных для связанных с сокетами
 системных вызовов.
 <list type="tag">
+
+<tag-name>
+<literal>backlog</literal>=<value>число</value>
+</tag-name>
+<tag-desc>
+задаёт параметр <literal>backlog</literal> в вызове
+<c-func>listen</c-func>, который ограничивает
+максимальный размер очереди ожидающих приёма соединений (1.9.2).
+По умолчанию <literal>backlog</literal> устанавливается равным -1 для
+FreeBSD, DragonFly BSD и Mac OS X, и 511 для других платформ.
+</tag-desc>
 
 <tag-name>
 <literal>bind</literal>
