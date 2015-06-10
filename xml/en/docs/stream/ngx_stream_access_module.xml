@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Igor Sysoev
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Module ngx_stream_access_module"
+        link="/en/docs/stream/ngx_stream_access_module.html"
+        lang="en"
+        rev="1">
+
+<section id="summary">
+
+<para>
+The <literal>ngx_stream_access_module</literal> module (1.9.2) allows
+limiting access to certain client addresses.
+</para>
+
+</section>
+
+
+<section id="example" name="Example Configuration">
+
+<para>
+<example>
+server {
+    ...
+    deny  192.168.1.1;
+    allow 192.168.1.0/24;
+    allow 10.1.1.0/16;
+    allow 2001:0db8::/32;
+    deny  all;
+}
+</example>
+</para>
+
+<para>
+The rules are checked in sequence until the first match is found.
+In this example, access is allowed only for IPv4 networks
+<literal>10.1.1.0/16</literal> and <literal>192.168.1.0/24</literal>
+excluding the address <literal>192.168.1.1</literal>,
+and for IPv6 network <literal>2001:0db8::/32</literal>.
+</para>
+
+</section>
+
+
+<section id="directives" name="Directives">
+
+<directive name="allow">
+<syntax>
+    <value>address</value> |
+    <value>CIDR</value> |
+    <literal>unix:</literal> |
+    <literal>all</literal></syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Allows access for the specified network or address.
+If the special value <literal>unix:</literal> is specified,
+allows access for all UNIX-domain sockets.
+</para>
+
+</directive>
+
+
+<directive name="deny">
+<syntax>
+    <value>address</value> |
+    <value>CIDR</value> |
+    <literal>unix:</literal> |
+    <literal>all</literal></syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Denies access for the specified network or address.
+If the special value <literal>unix:</literal> is specified,
+denies access for all UNIX-domain sockets.
+</para>
+
+</directive>
+
+</section>
+
+</module>

@@ -8,7 +8,7 @@
 <article name="nginx: документация"
          link="/ru/docs/"
          lang="ru"
-         rev="19"
+         rev="20"
          toc="no">
 
 
@@ -478,6 +478,11 @@ ngx_mail_smtp_module</link>
 <listitem>
 <link doc="../../en/docs/stream/ngx_stream_core_module.xml">
 ngx_stream_core_module</link> [en]
+</listitem>
+
+<listitem>
+<link doc="stream/ngx_stream_access_module.xml">
+ngx_stream_access_module</link>
 </listitem>
 
 <listitem>
