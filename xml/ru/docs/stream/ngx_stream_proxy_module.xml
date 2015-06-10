@@ -1,0 +1,391 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Модуль ngx_stream_proxy_module"
+        link="/ru/docs/stream/ngx_stream_proxy_module.html"
+        lang="ru"
+        rev="5">
+
+<section id="summary">
+
+<para>
+Модуль <literal>ngx_stream_proxy_module</literal> (1.9.0) позволяет передавать
+соединения другому серверу по TCP и UNIX-сокетам.
+</para>
+
+</section>
+
+
+<section id="example" name="Пример конфигурации">
+
+<para>
+<example>
+server {
+    listen 127.0.0.1:12345;
+    proxy_pass 127.0.0.1:8080;
+}
+
+server {
+    listen 12345;
+    proxy_connect_timeout 1s;
+    proxy_timeout 3s;
+    proxy_pass example.com:12345;
+}
+
+server {
+    listen [::1]:12345;
+    proxy_pass unix:/tmp/stream.socket;
+}
+</example>
+</para>
+
+</section>
+
+
+<section id="directives" name="Директивы">
+
+<directive name="proxy_connect_timeout">
+<syntax><value>время</value></syntax>
+<default>60s</default>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Задаёт таймаут для установления соединения с проксированным сервером.
+</para>
+
+</directive>
+
+
+<directive name="proxy_downstream_buffer">
+<syntax><value>размер</value></syntax>
+<default>16k</default>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Задаёт <value>размер</value>
+буфера, используемого для чтения данных от клиента.
+</para>
+
+</directive>
+
+
+<directive name="proxy_next_upstream">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>on</default>
+<context>stream</context>
+<context>server</context>
+
+<para>
+При невозможности установить соединение с проксируемым сервером определяет,
+будет ли клиентское соединение передано следующему серверу.
+</para>
+
+<para>
+Передача соединения следующему серверу может быть ограничена по
+<link id="proxy_next_upstream_tries">количеству попыток</link>
+и по <link id="proxy_next_upstream_timeout">времени</link>.
+</para>
+
+</directive>
+
+
+<directive name="proxy_next_upstream_timeout">
+<syntax><value>время</value></syntax>
+<default>0</default>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Ограничивает время, в течение которого возможна передача соединения
+<link id="proxy_next_upstream">следующему серверу</link>.
+Значение <literal>0</literal> отключает это ограничение.
+</para>
+
+</directive>
+
+
+<directive name="proxy_next_upstream_tries">
+<syntax><value>число</value></syntax>
+<default>0</default>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Ограничивает число допустимых попыток для передачи соединения
+<link id="proxy_next_upstream">следующему серверу</link>.
+Значение <literal>0</literal> отключает это ограничение.
+</para>
+
+</directive>
+
+
+<directive name="proxy_pass">
+<syntax><value>адрес</value></syntax>
+<default/>
+<context>server</context>
+
+<para>
+Задаёт адрес проксируемого сервера.
+Адрес может быть указан в виде доменного имени или IP-адреса
+и обязательного порта:
+<example>
+proxy_pass localhost:12345;
+</example>
+или в виде пути UNIX-сокета:
+<example>
+proxy_pass unix:/tmp/stream.socket;
+</example>
+</para>
+
+<para>
+Если доменному имени соответствует несколько адресов, то все они будут
+использоваться по очереди (round-robin).
+Кроме того, в качестве адреса можно указать
+<link doc="ngx_stream_upstream_module.xml">группу серверов</link>.
+</para>
+
+</directive>
+
+
+<directive name="proxy_ssl">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Разрешает протоколы SSL/TLS для соединений с проксируемым сервером.
+</para>
+
+</directive>
+
+
+<directive name="proxy_ssl_certificate">
+<syntax><value>файл</value></syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Задаёт <value>файл</value> с сертификатом в формате PEM
+для аутентификации на проксируемом сервере.
+</para>
+
+</directive>
+
+
+<directive name="proxy_ssl_certificate_key">
+<syntax><value>файл</value></syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Задаёт <value>файл</value> с секретным ключом в формате PEM
+для аутентификации на проксируемом сервере.
+</para>
+
+</directive>
+
+
+<directive name="proxy_ssl_ciphers">
+<syntax><value>ciphers</value></syntax>
+<default>DEFAULT</default>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Описывает разрешённые шифры для соединений с проксируемым сервером.
+Шифры задаются в формате, поддерживаемом библиотекой OpenSSL.
+</para>
+
+<para>
+Полный список можно посмотреть с помощью команды
+“<command>openssl ciphers</command>”.
+</para>
+
+</directive>
+
+
+<directive name="proxy_ssl_crl">
+<syntax><value>файл</value></syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Указывает <value>файл</value> с отозванными сертификатами (CRL)
+в формате PEM, используемыми при <link id="proxy_ssl_verify">проверке</link>
+сертификата проксируемого сервера.
+</para>
+
+</directive>
+
+
+<directive name="proxy_ssl_name">
+<syntax><value>имя</value></syntax>
+<default>хост из proxy_pass</default>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Позволяет переопределить имя сервера, используемое при
+<link id="proxy_ssl_verify">проверке</link>
+сертификата проксируемого сервера, а также для
+<link id="proxy_ssl_server_name">передачи его через SNI</link>
+при установлении соединения с проксируемым сервером.
+</para>
+
+<para>
+По умолчанию используется имя хоста из адреса, заданного
+директивой <link id="proxy_pass"/>.
+</para>
+
+</directive>
+
+
+<directive name="proxy_ssl_password_file">
+<syntax><value>файл</value></syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Задаёт <value>файл</value> с паролями от
+<link id="proxy_ssl_certificate_key">секретных ключей</link>,
+где каждый пароль указан на отдельной строке.
+Пароли применяются по очереди в момент загрузки ключа.
+</para>
+
+</directive>
+
+
+<directive name="proxy_ssl_server_name">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Разрешает или запрещает передачу имени сервера через
+<link url="http://en.wikipedia.org/wiki/Server_Name_Indication">расширение
+Server Name Indication протокола TLS</link> (SNI, RFC 6066)
+при установлении соединения с проксируемым сервером.
+</para>
+
+</directive>
+
+
+<directive name="proxy_ssl_session_reuse">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>on</default>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Определяет, использовать ли повторно SSL-сессии при
+работе с проксируемым сервером.
+Если в логах появляются ошибки
+“<literal>SSL3_GET_FINISHED:digest check failed</literal>”,
+то можно попробовать выключить
+повторное использование сессий.
+</para>
+
+</directive>
+
+
+<directive name="proxy_ssl_protocols">
+<syntax>
+    [<literal>SSLv2</literal>]
+    [<literal>SSLv3</literal>]
+    [<literal>TLSv1</literal>]
+    [<literal>TLSv1.1</literal>]
+    [<literal>TLSv1.2</literal>]</syntax>
+<default>TLSv1 TLSv1.1 TLSv1.2</default>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Разрешает указанные протоколы для соединений с проксируемым сервером.
+</para>
+
+</directive>
+
+
+<directive name="proxy_ssl_trusted_certificate">
+<syntax><value>файл</value></syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Задаёт <value>файл</value> с доверенными сертификатами CA в формате PEM,
+используемыми при <link id="proxy_ssl_verify">проверке</link>
+сертификата проксируемого сервера.
+</para>
+
+</directive>
+
+
+<directive name="proxy_ssl_verify">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Разрешает или запрещает проверку сертификата проксируемого сервера.
+</para>
+
+</directive>
+
+
+<directive name="proxy_ssl_verify_depth">
+<syntax><value>число</value></syntax>
+<default>1</default>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Устанавливает глубину проверки в цепочке сертификатов проксируемого сервера.
+</para>
+
+</directive>
+
+
+<directive name="proxy_timeout">
+<syntax><value>время</value></syntax>
+<default>10m</default>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Задаёт таймаут, который используется после начала проксирования на бэкенд.
+</para>
+
+</directive>
+
+
+<directive name="proxy_upstream_buffer">
+<syntax><value>размер</value></syntax>
+<default>16k</default>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Задаёт <value>размер</value>
+буфера, используемого для чтения данных от сервера группы.
+</para>
+
+</directive>
+
+</section>
+
+</module>
