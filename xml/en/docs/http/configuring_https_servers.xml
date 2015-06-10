@@ -8,7 +8,7 @@
 <article name="Configuring HTTPS servers"
          link="/en/docs/http/configuring_https_servers.html"
          lang="en"
-         rev="8"
+         rev="9"
          author="Igor Sysoev"
          editor="Brian Mercer">
 
@@ -61,18 +61,6 @@ and “<literal>ssl_ciphers HIGH:!aNULL:!MD5</literal>”,
 so configuring them explicitly is generally not needed.
 Note that default values of these directives were
 <link id="compatibility">changed</link> several times.
-</para>
-
-<para>
-CBC-mode ciphers might be vulnerable to a number of attacks and to
-the BEAST attack in particular (see
-<link url="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2011-3389">CVE-2011-3389</link>).
-Configuration of ciphers can be adjusted to prefer RC4-SHA as the following:
-
-<programlisting>
-    ssl_ciphers RC4:HIGH:!aNULL:!MD5;
-    ssl_prefer_server_ciphers on;
-</programlisting>
 </para>
 
 </section>

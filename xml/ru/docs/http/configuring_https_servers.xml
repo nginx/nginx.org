@@ -8,7 +8,7 @@
 <article name="Настройка HTTPS-серверов"
          link="/ru/docs/http/configuring_https_servers.html"
          lang="ru"
-         rev="8"
+         rev="9"
          author="Игорь Сысоев"
          editor="Brian Mercer">
 
@@ -61,18 +61,6 @@ server {
 поэтому их явная настройка в общем случае не требуется.
 Следует отметить, что значения по умолчанию этих директив несколько раз
 <link id="compatibility">менялись</link>.
-</para>
-
-<para>
-Известно, что шифры с CBC-режимом уязвимы к ряду атак, в частности
-к BEAST-атаке (см.
-<link url="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2011-3389">CVE-2011-3389</link>).
-Настройка шифров может быть изменена так, чтобы предпочитался RC4-SHA:
-
-<programlisting>
-    ssl_ciphers RC4:HIGH:!aNULL:!MD5;
-    ssl_prefer_server_ciphers on;
-</programlisting>
 </para>
 
 </section>
