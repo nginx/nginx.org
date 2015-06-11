@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="43">
+        rev="44">
 
 <section id="directives" name="Directives">
 
@@ -1368,7 +1368,7 @@ in effect for the socket.
 </note>
 </tag-desc>
 
-<tag-name>
+<tag-name id="reuseport">
 <literal>reuseport</literal>
 </tag-name>
 <tag-desc>

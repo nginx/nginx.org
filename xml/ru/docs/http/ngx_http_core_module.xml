@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="43">
+        rev="44">
 
 <section id="directives" name="Директивы">
 
@@ -1362,7 +1362,7 @@ FreeBSD, DragonFly BSD и Mac OS X, и 511 для других платформ.
 </note>
 </tag-desc>
 
-<tag-name>
+<tag-name id="reuseport">
 <literal>reuseport</literal>
 </tag-name>
 <tag-desc>

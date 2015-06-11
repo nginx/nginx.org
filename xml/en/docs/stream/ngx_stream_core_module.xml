@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_core_module"
         link="/en/docs/stream/ngx_stream_core_module.html"
         lang="en"
-        rev="7">
+        rev="8">
 
 <section id="summary">
 
@@ -151,7 +151,7 @@ This parameter is turned on by default.
 It can only be set once on start.
 </tag-desc>
 
-<tag-name>
+<tag-name id="reuseport">
 <literal>reuseport</literal>
 </tag-name>
 <tag-desc>

@@ -10,7 +10,10 @@
 <event date="2015-05-26">
 <para>
 <link doc="en/download.xml">nginx-1.9.1</link>
-mainline version has been released.
+mainline version has been released,
+with the
+<link doc="en/docs/http/ngx_http_core_module.xml" id="reuseport">reuseport</link>
+parameter of the “listen” directive.
 </para>
 </event>
 
