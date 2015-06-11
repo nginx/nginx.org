@@ -1,0 +1,705 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Модуль ngx_stream_upstream_module"
+        link="/ru/docs/stream/ngx_stream_upstream_module.html"
+        lang="ru"
+        rev="13">
+
+<section id="summary">
+
+<para>
+Модуль <literal>ngx_stream_upstream_module</literal> (1.9.0)
+позволяет описывать группы серверов,
+которые могут использоваться в директиве
+<link doc="ngx_stream_proxy_module.xml" id="proxy_pass"/>.
+</para>
+
+</section>
+
+
+<section id="example" name="Пример конфигурации">
+
+<para>
+<example>
+upstream <emphasis>backend</emphasis> {
+    hash $remote_addr consistent;
+
+    server backend1.example.com:12345  weight=5;
+    server backend2.example.com:12345;
+    server unix:/tmp/backend3;
+
+    server backup1.example.com:12345   backup;
+    server backup2.example.com:12345   backup;
+}
+
+server {
+    listen 12346;
+    proxy_pass <emphasis>backend</emphasis>;
+}
+</example>
+</para>
+
+<para>
+Динамически настраиваемая группа,
+доступна как часть
+<commercial_version>коммерческой подписки</commercial_version>:
+<example>
+resolver 10.0.0.1;
+
+upstream <emphasis>dynamic</emphasis> {
+    zone upstream_dynamic 64k;
+
+    server backend1.example.com:12345 weight=5;
+    server backend2.example.com:12345 fail_timeout=5s slow_start=30s;
+    server 192.0.2.1:12345            max_fails=3;
+    server backend3.example.com:12345 resolve;
+    server backend4.example.com       service=http resolve;
+
+    server backup1.example.com:12345  backup;
+    server backup2.example.com:12345  backup;
+}
+
+server {
+    listen 12346;
+    proxy_pass <emphasis>dynamic</emphasis>;
+    health_check;
+}
+</example>
+</para>
+
+</section>
+
+
+<section id="directives" name="Директивы">
+
+<directive name="upstream">
+<syntax block="yes"><value>название</value></syntax>
+<default/>
+<context>stream</context>
+
+<para>
+Описывает группу серверов.
+Серверы могут слушать на разных портах.
+Кроме того, можно одновременно использовать серверы,
+слушающие на TCP- и UNIX-сокетах.
+</para>
+
+<para>
+Пример:
+<example>
+upstream backend {
+    server backend1.example.com:12345 weight=5;
+    server 127.0.0.1:12345            max_fails=3 fail_timeout=30s;
+    server unix:/tmp/backend2;
+    server backend3.example.com:12345 resolve;
+
+    server backup1.example.com:12345  backup;
+}
+</example>
+</para>
+
+<para>
+По умолчанию соединения распределяются по серверам циклически
+(в режиме round-robin) с учётом весов серверов.
+В вышеприведённом примере каждые 7 соединений будут распределены так:
+5 соединений на <literal>backend1.example.com:12345</literal>
+и по одному соединению на второй и третий серверы.
+Если при попытке работы с сервером происходит ошибка, то соединение
+передаётся следующему серверу, и так далее до тех пор, пока не будут опробованы
+все работающие серверы.
+Если связь с серверами не удалась, соединение будет закрыто.
+</para>
+
+</directive>
+
+
+<directive name="server">
+<syntax><value>адрес</value> [<value>параметры</value>]</syntax>
+<default/>
+<context>upstream</context>
+
+<para>
+Задаёт <value>адрес</value> и другие <value>параметры</value>
+сервера.
+Адрес может быть указан в виде доменного имени или IP-адреса,
+и обязательного порта, или в виде пути UNIX-сокета, который
+указывается после префикса “<literal>unix:</literal>”.
+Доменное имя, которому соответствует несколько IP-адресов,
+задаёт сразу несколько серверов.
+</para>
+
+<para>
+Могут быть заданы следующие параметры:
+<list type="tag">
+
+<tag-name id="weight">
+<literal>weight</literal>=<value>число</value>
+</tag-name>
+<tag-desc>
+задаёт вес сервера, по умолчанию 1.
+</tag-desc>
+
+<tag-name id="max_fails">
+<literal>max_fails</literal>=<value>число</value>
+</tag-name>
+<tag-desc>
+задаёт число неудачных попыток работы с сервером, которые должны произойти
+в течение времени, заданного параметром <literal>fail_timeout</literal>,
+чтобы сервер считался недоступным на период времени, также заданный
+параметром <literal>fail_timeout</literal>.
+По умолчанию число попыток устанавливается равным 1.
+Нулевое значение отключает учёт попыток.
+В данном случае неудачной попыткой считается ошибка или таймаут
+при установке соединения с сервером.
+</tag-desc>
+
+<tag-name id="fail_timeout">
+<literal>fail_timeout</literal>=<value>время</value>
+</tag-name>
+<tag-desc>
+задаёт
+<list type="bullet">
+
+<listitem>
+время, в течение которого должно произойти заданное число неудачных
+попыток работы с сервером для того, чтобы сервер считался недоступным;
+</listitem>
+
+<listitem>
+и время, в течение которого сервер будет считаться недоступным.
+</listitem>
+
+</list>
+По умолчанию параметр равен 10 секундам.
+</tag-desc>
+
+<tag-name id="backup">
+<literal>backup</literal>
+</tag-name>
+<tag-desc>
+помечает сервер как запасной сервер.
+На него будут передаваться соединения в случае,
+если не работают основные серверы.
+</tag-desc>
+
+<tag-name id="down">
+<literal>down</literal>
+</tag-name>
+<tag-desc>
+помечает сервер как постоянно недоступный.
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+Кроме того,
+следующие параметры доступны как часть
+<commercial_version>коммерческой подписки</commercial_version>:
+<list type="tag">
+
+<tag-name id="max_conns">
+<literal>max_conns</literal>=<value>число</value>
+</tag-name>
+<tag-desc>
+ограничивает максимальное <value>число</value> одновременных
+соединений к проксируемому серверу.
+Значение по умолчанию равно 0 и означает, что ограничения нет.
+</tag-desc>
+
+<tag-name id="resolve">
+<literal>resolve</literal>
+</tag-name>
+<tag-desc>
+отслеживает изменения IP-адресов, соответствующих доменному имени сервера,
+и автоматически изменяет конфигурацию группы
+без необходимости перезапуска nginx.
+Группа должна находиться в <link id="zone">зоне разделяемой памяти</link>.
+<para>
+Для работы этого параметра
+директива <link doc="ngx_stream_core_module.xml" id="resolver"/>
+должна быть задана в блоке
+<link doc="ngx_stream_core_module.xml" id="stream"/>.
+Пример:
+<example>
+stream {
+    resolver 10.0.0.1;
+
+    upstream u {
+        zone ...;
+        ...
+        server example.com:12345 resolve;
+    }
+}
+</example>
+</para>
+</tag-desc>
+
+<tag-name id="service">
+<literal>service</literal>=<value>имя</value>
+</tag-name>
+<tag-desc>
+включает преобразование
+<link url="https://tools.ietf.org/html/rfc2782">SRV</link>-записей
+DNS и задаёт <value>имя</value> сервиса (1.9.13).
+Для работы параметра необходимо указать
+параметр <link id="resolve"/> для сервера
+и не указывать порт сервера.
+<para>
+Если имя сервиса не содержит точку (“<literal>.</literal>”), то
+имя составляется в соответствии с
+<link url="https://tools.ietf.org/html/rfc2782">RFC</link>
+и в префикс службы добавляется протокол TCP.
+Например, для получения
+SRV-записи <literal>_http._tcp.backend.example.com</literal>
+необходимо указать директиву:
+<example>
+server backend.example.com service=http resolve;
+</example>
+Если имя сервиса содержит одну и более точек, то имя составляется
+при помощи соединения префикса службы и имени сервера.
+Например, для получения SRV-записей
+<literal>_http._tcp.backend.example.com</literal>
+и <literal>server1.backend.example.com</literal>
+необходимо указать директивы:
+<example>
+server backend.example.com service=_http._tcp resolve;
+server example.com service=server1.backend resolve;
+</example>
+</para>
+
+<para>
+SRV-записи с наивысшим приоритетом
+(записи с одинаковым наименьшим значением приоритета)
+преобразуются в основные серверы,
+остальные SRV-записи преобразуются в запасные серверы.
+Если в конфигурации сервера указан параметр <link id="backup"/>,
+высокоприоритетные SRV-записи преобразуются в запасные серверы,
+остальные SRV-записи игнорируются.
+</para>
+</tag-desc>
+
+<tag-name id="slow_start">
+<literal>slow_start</literal>=<value>время</value>
+</tag-name>
+<tag-desc>
+задаёт <value>время</value>, в течение которого вес сервера
+восстановится от нуля до своего номинального значения в ситуации, когда
+неработоспособный (unhealthy) сервер вновь становится работоспособным
+(<link id="health_check">healthy</link>)
+или когда сервер становится доступным по прошествии времени,
+в течение которого он считался <link id="fail_timeout">недоступным</link>.
+Значение по умолчанию равно нулю и означает, что медленный старт выключен.
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+<note>
+Если в группе только один сервер, параметры <literal>max_fails</literal>,
+<literal>fail_timeout</literal> и <literal>slow_start</literal>
+игнорируются и такой сервер никогда не будет считаться недоступным.
+</note>
+</para>
+
+</directive>
+
+
+<directive name="zone">
+<syntax><value>имя</value> [<value>размер</value>]</syntax>
+<default/>
+<context>upstream</context>
+
+<para>
+Задаёт <value>имя</value> и <value>размер</value> зоны разделяемой памяти,
+в которой хранятся конфигурация группы и её рабочее состояние,
+разделяемые между рабочими процессами.
+В одной и той же зоне могут быть сразу несколько групп.
+В этом случае достаточно указать <value>размер</value> только один раз.
+</para>
+
+<para>
+Дополнительно, как часть
+<commercial_version>коммерческой подписки</commercial_version>,
+в таких группах для изменения состава группы
+или настроек отдельных серверов
+нет необходимости перезапускать nginx.
+Конфигурация доступна через специальный location,
+в котором указана директива
+<link doc="../http/ngx_http_upstream_conf_module.xml" id="upstream_conf"/>.
+</para>
+
+</directive>
+
+
+<directive name="state">
+<syntax><value>файл</value></syntax>
+<default/>
+<context>upstream</context>
+<appeared-in>1.9.7</appeared-in>
+
+<para>
+Задаёт <value>файл</value>, в котором хранится состояние
+динамически настраиваемой группы.
+В данный момент состояние ограничено списком серверов с их параметрами.
+Файл читается при парсинге конфигурации и обновляется каждый раз при
+<link doc="ngx_http_upstream_conf_module.xml" id="upstream_conf">изменении</link>
+конфигурации группы.
+Изменение содержимого файла напрямую не рекомендуется.
+Директиву нельзя использовать
+совместно с директивой <link id="server"/>.
+</para>
+
+<para>
+<note>
+Изменения, совершённые в момент
+<link doc="../control.xml" id="reconfiguration">перезагрузки конфигурации</link>
+или <link doc="../control.xml" id="upgrade">обновления бинарного файла</link>,
+могут быть потеряны.
+</note>
+</para>
+
+<para>
+<note>
+Эта директива доступна как часть
+<commercial_version>коммерческой подписки</commercial_version>.
+</note>
+</para>
+
+</directive>
+
+
+<directive name="hash">
+<syntax><value>ключ</value> [<literal>consistent</literal>]</syntax>
+<default/>
+<context>upstream</context>
+
+<para>
+Задаёт метод балансировки нагрузки для группы, при котором
+соответствие клиента серверу определяется при помощи
+хэшированного значения <value>ключа</value>.
+В настоящий момент единственно возможным значением для <literal>ключа</literal>
+является удалённый адрес клиента,
+указываемый как <literal>$remote_addr</literal>.
+Следует отметить, что любое добавление или удаление серверов в группе
+может привести к перераспределению большинства ключей на другие серверы.
+Метод совместим с библиотекой Perl
+<link url="http://search.cpan.org/perldoc?Cache%3A%3AMemcached">Cache::Memcached</link>.
+</para>
+
+<para>
+Если задан параметр <literal>consistent</literal>, то вместо
+вышеописанного метода будет использоваться метод консистентного хэширования
+<link url="http://www.last.fm/user/RJ/journal/2007/04/10/392555/">ketama</link>.
+Метод гарантирует, что при добавлении сервера в группу или его удалении
+на другие серверы будет перераспределено минимальное число ключей.
+Применение метода для кэширующих серверов обеспечивает
+больший процент попаданий в кэш.
+Метод совместим с библиотекой Perl
+<link url="http://search.cpan.org/perldoc?Cache%3A%3AMemcached%3A%3AFast">Cache::Memcached::Fast</link>
+при значении параметра <value>ketama_points</value> равным 160.
+</para>
+
+</directive>
+
+
+<directive name="least_conn">
+<syntax/>
+<default/>
+<context>upstream</context>
+
+<para>
+Задаёт для группы метод балансировки нагрузки, при котором соединение
+передаётся серверу с наименьшим числом активных соединений,
+с учётом весов серверов.
+Если подходит сразу несколько серверов, они выбираются циклически
+(в режиме round-robin) с учётом их весов.
+</para>
+
+</directive>
+
+
+<directive name="least_time">
+<syntax><literal>connect</literal> |
+     <literal>first_byte</literal> |
+     <literal>last_byte</literal></syntax>
+<default/>
+<context>upstream</context>
+
+<para>
+Задаёт для группы метод балансировки нагрузки, при котором соединение
+передаётся серверу с наименьшими средним временем ответа и
+числом активных соединений с учётом весов серверов.
+Если подходит сразу несколько серверов, то они выбираются циклически
+(в режиме round-robin) с учётом их весов.
+</para>
+
+<para>
+Если указан параметр <literal>connect</literal>,
+то учитывается время соединения с сервером группы.
+Если указан параметр <literal>first_byte</literal>,
+то учитывается время получения первого байта данных.
+Если указан параметр <literal>last_byte</literal>,
+то учитывается время получения ответа.
+</para>
+
+<para>
+<note>
+Эта директива доступна как часть
+<commercial_version>коммерческой подписки</commercial_version>.
+</note>
+</para>
+
+</directive>
+
+
+<directive name="health_check">
+<syntax>[<value>параметры</value>]</syntax>
+<default/>
+<context>server</context>
+
+<para>
+Активирует периодические проверки работоспособности серверов в
+<link id="upstream">группе</link>.
+</para>
+
+<para>
+Могут быть заданы следующие необязательные параметры:
+<list type="tag">
+
+<tag-name id="interval">
+<literal>interval</literal>=<value>время</value>
+</tag-name>
+<tag-desc>
+задаёт интервал между двумя последовательными проверками,
+по умолчанию 5 секунд;
+</tag-desc>
+
+<tag-name id="fails">
+<literal>fails</literal>=<value>число</value>
+</tag-name>
+<tag-desc>
+задаёт число последовательных неуспешных проверок для определённого сервера,
+после которых сервер будет считаться неработоспособным,
+по умолчанию 1;
+</tag-desc>
+
+<tag-name id="passes">
+<literal>passes</literal>=<value>число</value>
+</tag-name>
+<tag-desc>
+задаёт число последовательных успешных проверок для определённого сервера,
+после которых сервер будет считаться работоспособным,
+по умолчанию 1;
+</tag-desc>
+
+<tag-name id="hc_match">
+<literal>match</literal>=<value>имя</value>
+</tag-name>
+<tag-desc>
+указывает на блок <literal>match</literal> с условиями, которым должно
+удовлетворять соединение, чтобы результат проверки считался успешным;
+по умолчанию проверяется лишь возможность установки TCP-соединения с сервером;
+</tag-desc>
+
+<tag-name id="health_check_port">
+<literal>port</literal>=<value>число</value>
+</tag-name>
+<tag-desc>
+задаёт порт, используемый при подключении к серверу
+для проверки его работоспособности (1.9.7);
+по умолчанию совпадает с портом <link id="server">сервера</link>.
+</tag-desc>
+
+<tag-name id="health_check_udp">
+<literal>udp</literal>
+</tag-name>
+<tag-desc>
+указывает, что для проверки работоспособности будет использоваться протокол
+<literal>UDP</literal>
+вместо протокола <literal>TCP</literal>, используемого по умолчанию (1.9.13);
+тебует наличия блока <link id="hc_match">match</link> с параметрами
+<link id="match_send">send</link> и <link id="match_expect">expect</link>.
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+В примере
+<example>
+server {
+    proxy_pass backend;
+    health_check;
+}
+</example>
+для каждого сервера группы <literal>backend</literal>
+с интервалом в 5 секунд проверяется возможность установки TCP-соединения.
+Если соединение с сервером не может быть установлено,
+проверка считается неуспешной и сервер
+признаётся неработоспособным.
+На неработоспособные серверы клиентские соединения передаваться не будут.
+</para>
+
+<para>
+Проверки работоспособности могут тестировать данные, полученные от сервера.
+Тесты настраиваются отдельно при помощи директивы <link id="match"/>
+и указываются в параметре <literal>match</literal>.
+</para>
+
+<para>
+Группа должна находиться в <link id="zone">зоне разделяемой памяти</link>.
+</para>
+
+<para>
+Если для группы задано несколько проверок,
+то при любой неуспешной проверке соответствующий сервер будет
+считаться неработоспособным.
+</para>
+
+<para>
+<note>
+Эта директива доступна как часть
+<commercial_version>коммерческой подписки</commercial_version>.
+</note>
+</para>
+
+</directive>
+
+
+<directive name="health_check_timeout">
+<syntax><value>время</value></syntax>
+<default>5s</default>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Переопределяет значение
+<link doc="ngx_stream_proxy_module.xml" id="proxy_timeout"/>
+для проверок работоспособности.
+</para>
+
+<para>
+<note>
+Эта директива доступна как часть
+<commercial_version>коммерческой подписки</commercial_version>.
+</note>
+</para>
+
+</directive>
+
+
+<directive name="match">
+<syntax block="yes"><value>имя</value> </syntax>
+<default/>
+<context>stream</context>
+
+<para>
+Задаёт именованный набор тестов для для анализа ответов сервера
+на запросы проверки работоспособности.
+</para>
+
+<para>
+Могут быть заданы следующие параметры:
+<list type="tag">
+
+<tag-name id="match_send">
+<literal>send</literal> <value>строка</value>;
+</tag-name>
+<tag-desc>
+отправляет <value>строку</value> на сервер;
+</tag-desc>
+
+<tag-name id="match_expect">
+<literal>expect</literal> <value>стока</value> |
+<literal>~</literal> <value>regex</value>;
+</tag-name>
+<tag-desc>
+текстовая строка (1.9.12) или регулярное выражение,
+которым должны соответствовать данные, полученные с сервера.
+Регулярное выражение задаётся либо с модификатором
+“<literal>~*</literal>” (для поиска совпадения без учёта регистра символов),
+либо с модификатором “<literal>~</literal>” (с учётом регистра).
+</tag-desc>
+
+</list>
+Параметры <literal>send</literal> и <literal>expect</literal>
+могут содержать строки в шестнадцатеричном виде
+с префиксом “<literal>\x</literal>”
+и последующими двумя шестнадцатеричными цифрами,
+например “<literal>\x80</literal>” (1.9.12).
+</para>
+
+<para>
+Проверка работоспособности считается успешной, если
+<list type="bullet">
+<listitem>
+TCP-соединение успешно установлено;
+</listitem>
+
+<listitem>
+<value>строка</value> из параметра <literal>send</literal>
+была отправлена (если была задана);
+</listitem>
+
+<listitem>
+данные, полученные от сервера, совпали со строкой или регулярным выражением
+из параметра <literal>expect</literal> (если был задан);
+</listitem>
+
+<listitem>
+истёкшее время не превышает значение, указанное
+в директиве <link id="health_check_timeout"/>.
+</listitem>
+
+</list>
+</para>
+
+<para>
+Пример:
+<example>
+upstream backend {
+    zone     upstream_backend 10m;
+    server   127.0.0.1:12345;
+}
+
+match http {
+    send     "GET / HTTP/1.0\r\nHost: localhost\r\n\r\n";
+    expect ~ "200 OK";
+}
+
+server {
+    listen       12346;
+    proxy_pass   backend;
+    health_check match=http;
+}
+</example>
+</para>
+
+<para>
+<note>
+Проверяются лишь первые байты данных
+<link doc="ngx_stream_proxy_module.xml" id="proxy_buffer_size"/>,
+полученные от сервера.
+</note>
+</para>
+
+<para>
+<note>
+Эта директива доступна как часть
+<commercial_version>коммерческой подписки</commercial_version>.
+</note>
+</para>
+
+</directive>
+
+</section>
+
+</module>
