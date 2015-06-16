@@ -8,7 +8,7 @@
 <article name="Параметры командной строки nginx"
          link="/ru/docs/switches.html"
          lang="ru"
-         rev="2">
+         rev="3">
 
 <section>
 
@@ -73,6 +73,12 @@ nginx -g "pid /var/run/nginx.pid; worker_processes `sysctl -n hw.ncpu`;"
 nginx проверяет
 синтаксическую правильность конфигурации, а затем пытается открыть файлы,
 описанные в конфигурации.
+</listitem>
+
+<listitem>
+<literal>-T</literal>&mdash;то же, что и <literal>-t</literal>,
+а также вывод конфигурационных файлов
+в стандартный поток вывода (1.9.2).
 </listitem>
 
 <listitem>

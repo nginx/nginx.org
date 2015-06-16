@@ -8,7 +8,7 @@
 <article name="Command-line parameters"
          link="/en/docs/switches.html"
          lang="en"
-         rev="2">
+         rev="3">
 
 <section>
 
@@ -72,6 +72,11 @@ gracefully shut down old worker processes.
 <literal>-t</literal>&mdash;test the configuration file: nginx checks the
 configuration for correct syntax, and then tries to open files
 referred in the configuration.
+</listitem>
+
+<listitem>
+<literal>-T</literal>&mdash;same as <literal>-t</literal>,
+but additionally dump configuration files to standard output (1.9.2).
 </listitem>
 
 <listitem>
