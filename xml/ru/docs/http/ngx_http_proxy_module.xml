@@ -1652,7 +1652,7 @@ proxy_set_header Accept-Encoding "";
 
 
 <directive name="proxy_ssl_ciphers">
-<syntax><value>ciphers</value></syntax>
+<syntax><value>шифры</value></syntax>
 <default>DEFAULT</default>
 <context>http</context>
 <context>server</context>

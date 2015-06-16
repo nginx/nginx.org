@@ -215,7 +215,7 @@ proxy_pass unix:/tmp/stream.socket;
 
 
 <directive name="proxy_ssl_ciphers">
-<syntax><value>ciphers</value></syntax>
+<syntax><value>шифры</value></syntax>
 <default>DEFAULT</default>
 <context>stream</context>
 <context>server</context>
