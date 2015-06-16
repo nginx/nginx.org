@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_proxy_module"
         link="/en/docs/stream/ngx_stream_proxy_module.html"
         lang="en"
-        rev="6">
+        rev="7">
 
 <section id="summary">
 
@@ -168,6 +168,22 @@ If a domain name resolves to several addresses, all of them will be
 used in a round-robin fashion.
 In addition, an address can be specified as a
 <link doc="ngx_stream_upstream_module.xml">server group</link>.
+</para>
+
+</directive>
+
+
+<directive name="proxy_protocol">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.9.2</appeared-in>
+
+<para>
+Enables the
+<link url="http://www.haproxy.org/download/1.5/doc/proxy-protocol.txt">PROXY
+protocol</link> for connections to a proxied server.
 </para>
 
 </directive>

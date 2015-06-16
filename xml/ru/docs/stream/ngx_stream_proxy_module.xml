@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_proxy_module"
         link="/ru/docs/stream/ngx_stream_proxy_module.html"
         lang="ru"
-        rev="6">
+        rev="7">
 
 <section id="summary">
 
@@ -168,6 +168,22 @@ proxy_pass unix:/tmp/stream.socket;
 использоваться по очереди (round-robin).
 Кроме того, в качестве адреса можно указать
 <link doc="ngx_stream_upstream_module.xml">группу серверов</link>.
+</para>
+
+</directive>
+
+
+<directive name="proxy_protocol">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.9.2</appeared-in>
+
+<para>
+Включает
+<link url="http://www.haproxy.org/download/1.5/doc/proxy-protocol.txt">протокол
+PROXY</link> для соединений с проксируемым сервером.
 </para>
 
 </directive>
