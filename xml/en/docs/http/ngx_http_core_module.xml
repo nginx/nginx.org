@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="44">
+        rev="45">
 
 <section id="directives" name="Directives">
 
@@ -1233,7 +1233,7 @@ connections without SSL.
 <para>
 The <literal>proxy_protocol</literal> parameter (1.5.12)
 allows specifying that all connections accepted on this port should use the
-<link url="http://haproxy.1wt.eu/download/1.5/doc/proxy-protocol.txt">PROXY
+<link url="http://www.haproxy.org/download/1.5/doc/proxy-protocol.txt">PROXY
 protocol</link>.
 </para>
 

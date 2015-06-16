@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="44">
+        rev="45">
 
 <section id="directives" name="Директивы">
 
@@ -1227,7 +1227,7 @@ SPDY-соединений без SSL.
 Параметр <literal>proxy_protocol</literal> (1.5.12)
 указывает на то, что все соединения, принимаемые на данном порту,
 должны использовать
-<link url="http://haproxy.1wt.eu/download/1.5/doc/proxy-protocol.txt">протокол
+<link url="http://www.haproxy.org/download/1.5/doc/proxy-protocol.txt">протокол
 PROXY</link>.
 </para>
 
