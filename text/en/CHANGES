@@ -1,4 +1,28 @@
 
+Changes with nginx 1.9.2                                         16 Jun 2015
+
+    *) Feature: the "backlog" parameter of the "listen" directives of the
+       mail proxy and stream modules.
+
+    *) Feature: the "allow" and "deny" directives in the stream module.
+
+    *) Feature: the "proxy_bind" directive in the stream module.
+
+    *) Feature: the "proxy_protocol" directive in the stream module.
+
+    *) Feature: the -T switch.
+
+    *) Feature: the REQUEST_SCHEME parameter added to the fastcgi.conf,
+       fastcgi_params, scgi_params, and uwsgi_params standard configuration
+       files.
+
+    *) Bugfix: the "reuseport" parameter of the "listen" directive of the
+       stream module did not work.
+
+    *) Bugfix: OCSP stapling might return an expired OCSP response in some
+       cases.
+
+
 Changes with nginx 1.9.1                                         26 May 2015
 
     *) Change: now SSLv3 protocol is disabled by default.
@@ -1467,7 +1491,7 @@ Changes with nginx 1.1.11                                        12 Dec 2011
 
 Changes with nginx 1.1.10                                        30 Nov 2011
 
-    *) Bugfix: a segmentation fault occured in a worker process if AIO was
+    *) Bugfix: a segmentation fault occurred in a worker process if AIO was
        used on Linux; the bug had appeared in 1.1.9.
 
 
@@ -1744,7 +1768,7 @@ Changes with nginx 1.1.0                                         01 Aug 2011
        and proxies to an HTTPS backend.
        Thanks to Maxim Dounin.
 
-    *) Bugfix: in parameter validaiton of a "proxy_pass" directive with
+    *) Bugfix: in parameter validation of a "proxy_pass" directive with
        variables.
        Thanks to Lanshun Zhou.
 
@@ -4509,7 +4533,7 @@ Changes with nginx 0.5.22                                        29 May 2007
 Changes with nginx 0.5.21                                        28 May 2007
 
     *) Bugfix: if server has more than about ten locations, then regex
-       locations might be choosen not in that order as they were specified.
+       locations might be chosen not in that order as they were specified.
 
     *) Bugfix: a worker process may got caught in an endless loop on 64-bit
        platform, if the 33-rd or next in succession backend has failed.
@@ -4595,7 +4619,7 @@ Changes with nginx 0.5.17                                        02 Apr 2007
 
     *) Bugfix: in the HTTPS protocol in the "proxy_pass" directive.
 
-    *) Bugfix: in some cases non-cachable variables (such as $uri variable)
+    *) Bugfix: in some cases non-cacheable variables (such as $uri variable)
        returned old cached value.
 
 
@@ -4620,7 +4644,7 @@ Changes with nginx 0.5.16                                        26 Mar 2007
 Changes with nginx 0.5.15                                        19 Mar 2007
 
     *) Feature: the mail proxy supports authenticated SMTP proxying and the
-       "smtp_auth", "smtp_capablities", and "xclient" directives.
+       "smtp_auth", "smtp_capabilities", and "xclient" directives.
        Thanks to Anton Yuzhaninov and Maxim Dounin.
 
     *) Feature: now the keep-alive connections are closed just after
@@ -5721,7 +5745,7 @@ Changes with nginx 0.3.21                                        16 Jan 2006
 
     *) Feature: the ngx_http_perl_module.
 
-    *) Change: the "valid_referers" directive allows the referreres without
+    *) Change: the "valid_referers" directive allows the referrers without
        URI part.
 
 
@@ -5821,7 +5845,7 @@ Changes with nginx 0.3.15                                        07 Dec 2005
     *) Feature: the "so_keepalive" directive in IMAP/POP3 proxy.
 
     *) Bugfix: if there are unclosed connection nginx now calls abort() only
-       on gracefull quit and active "debug_points" directive.
+       on graceful quit and active "debug_points" directive.
 
 
 Changes with nginx 0.3.14                                        05 Dec 2005
@@ -6362,7 +6386,7 @@ Changes with nginx 0.1.37                                        23 Jun 2005
     *) Bugfix: the responses may be transferred not completely, if many
        parts or the big parts were included by SSI.
 
-    *) Bugfix: if all backends had returned the 404 reponse and the
+    *) Bugfix: if all backends had returned the 404 response and the
        "http_404" parameter of the "proxy_next_upstream" or
        "fastcgi_next_upstream" directives was used, then nginx started to
        request all backends again.
