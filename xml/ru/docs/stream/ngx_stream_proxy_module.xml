@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_proxy_module"
         link="/ru/docs/stream/ngx_stream_proxy_module.html"
         lang="ru"
-        rev="5">
+        rev="6">
 
 <section id="summary">
 
@@ -48,6 +48,25 @@ server {
 
 
 <section id="directives" name="Директивы">
+
+<directive name="proxy_bind">
+<syntax><value>адрес</value> | <literal>off</literal></syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.9.2</appeared-in>
+
+<para>
+Задаёт локальный IP-<value>адрес</value>, который будет использоваться в
+исходящих соединениях с проксируемым сервером.
+Специальное значение <literal>off</literal> отменяет действие
+унаследованной с предыдущего уровня конфигурации
+директивы <literal>proxy_bind</literal>, позволяя системе
+самостоятельно выбирать локальный IP-адрес.
+</para>
+
+</directive>
+
 
 <directive name="proxy_connect_timeout">
 <syntax><value>время</value></syntax>

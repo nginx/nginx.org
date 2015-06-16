@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_proxy_module"
         link="/en/docs/stream/ngx_stream_proxy_module.html"
         lang="en"
-        rev="5">
+        rev="6">
 
 <section id="summary">
 
@@ -48,6 +48,25 @@ server {
 
 
 <section id="directives" name="Directives">
+
+<directive name="proxy_bind">
+<syntax><value>address</value> | <literal>off</literal></syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.9.2</appeared-in>
+
+<para>
+Makes outgoing connections to a proxied server originate
+from the specified local IP <value>address</value>.
+The special value <literal>off</literal> cancels the effect
+of the <literal>proxy_bind</literal> directive
+inherited from the previous configuration level, which allows the
+system to auto-assign the local IP address.
+</para>
+
+</directive>
+
 
 <directive name="proxy_connect_timeout">
 <syntax><value>time</value></syntax>
