@@ -180,7 +180,7 @@ proxy_pass unix:/tmp/stream.socket;
 <context>server</context>
 
 <para>
-Разрешает протоколы SSL/TLS для соединений с проксируемым сервером.
+Включает протоколы SSL/TLS для соединений с проксируемым сервером.
 </para>
 
 </directive>
