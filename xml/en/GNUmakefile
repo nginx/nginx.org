@@ -93,6 +93,7 @@ REFS =									\
 		mail/ngx_mail_ssl_module				\
 		stream/ngx_stream_access_module				\
 		stream/ngx_stream_core_module				\
+		stream/ngx_stream_limit_conn_module				\
 		stream/ngx_stream_proxy_module				\
 		stream/ngx_stream_ssl_module				\
 		stream/ngx_stream_upstream_module			\

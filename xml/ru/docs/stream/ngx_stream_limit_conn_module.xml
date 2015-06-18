@@ -1,0 +1,141 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Igor Sysoev
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Модуль ngx_stream_limit_conn_module"
+        link="/ru/docs/stream/ngx_stream_limit_conn_module.html"
+        lang="ru"
+        rev="1">
+
+<section id="summary">
+
+<para>
+Модуль <literal>ngx_stream_limit_conn_module</literal> (1.9.3) позволяет
+ограничить
+число соединений по заданному ключу, в частности, число соединений с одного
+IP-адреса.
+</para>
+
+</section>
+
+
+<section id="example" name="Пример конфигурации">
+
+<para>
+<example>
+stream {
+    limit_conn_zone $binary_remote_addr zone=addr:10m;
+
+    ...
+
+    server {
+
+        ...
+
+        limit_conn           addr 1;
+        limit_conn_log_level error;
+    }
+}
+</example>
+</para>
+
+</section>
+
+
+<section id="directives" name="Директивы">
+
+<directive name="limit_conn">
+<syntax><value>зона</value> <value>число</value></syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Задаёт зону разделяемой памяти и максимально допустимое число соединений
+для одного значения ключа.
+При превышении этого числа сервер закроет соединение.
+Например, директивы
+<example>
+limit_conn_zone $binary_remote_addr zone=addr:10m;
+
+server {
+    ...
+    limit_conn addr 1;
+}
+</example>
+разрешают одновременно обрабатывать не более одного соединения с одного
+IP-адреса.
+</para>
+
+<para>
+Допустимо одновременное указание нескольких директив
+<literal>limit_conn</literal>,
+при этом будет срабатывать любое из ограничений.
+</para>
+
+<para>
+Директивы наследуются с предыдущего уровня при условии, что на данном уровне
+не описаны свои директивы <literal>limit_conn</literal>.
+</para>
+
+</directive>
+
+
+<directive name="limit_conn_log_level">
+<syntax>
+<literal>info</literal> |
+<literal>notice</literal> |
+<literal>warn</literal> |
+<literal>error</literal></syntax>
+<default>error</default>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Задаёт желаемый уровень записи в лог случаев ограничения
+числа соединений.
+</para>
+
+</directive>
+
+
+<directive name="limit_conn_zone">
+<syntax>
+    <value>ключ</value>
+    <literal>zone</literal>=<value>название</value>:<value>размер</value></syntax>
+<default/>
+<context>stream</context>
+
+<para>
+Задаёт параметры зоны разделяемой памяти, которая хранит состояние
+для разных значений ключа.
+Состояние в частности содержит текущее число соединений.
+На данный момент возможным значением для <value>ключа</value> является
+адрес клиента в бинарном виде, указываемый как
+<literal>$binary_remote_addr</literal>.
+Запросы с пустым значением ключа не учитываются.
+Пример использования:
+<example>
+limit_conn_zone $binary_remote_addr zone=addr:10m;
+</example>
+Здесь в качестве ключа используется IP-адрес клиента,
+задаваемый ключом <literal>$binary_remote_addr</literal>.
+Длина значения <literal>$binary_remote_addr</literal>
+равна 4 байтам, при этом размер состояния всегда равен 32 байтам
+на 32-битных платформах и 64 байтам на 64-битных.
+В зоне размером 1 мегабайт может разместиться около 32 тысяч состояний
+размером 32 байта или 16 тысяч состояний размером 64 байта.
+При переполнении зоны сервер закроет соединение.
+</para>
+
+</directive>
+
+
+</section>
+
+</module>
