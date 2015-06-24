@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_proxy_module"
         link="/en/docs/stream/ngx_stream_proxy_module.html"
         lang="en"
-        rev="7">
+        rev="8">
 
 <section id="summary">
 
@@ -90,6 +90,25 @@ Defines a timeout for establishing a connection with a proxied server.
 <para>
 Sets the <value>size</value> of the
 buffer used for reading data from the client.
+</para>
+
+</directive>
+
+
+<directive name="proxy_downstream_limit_rate">
+<syntax><value>rate</value></syntax>
+<default>0</default>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.9.3</appeared-in>
+
+<para>
+Limits the speed of reading the data from the client.
+The <value>rate</value> is specified in bytes per second.
+The zero value disables rate limiting.
+The limit is set per a connection, so if the client simultaneously opens
+two connections,
+the overall rate will be twice as much as the specified limit.
 </para>
 
 </directive>
@@ -415,6 +434,25 @@ Defines a timeout used after the proxying to the backend had started.
 <para>
 Sets the <value>size</value> of the
 buffer used for reading data from the upstream server.
+</para>
+
+</directive>
+
+
+<directive name="proxy_upstream_limit_rate">
+<syntax><value>rate</value></syntax>
+<default>0</default>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.9.3</appeared-in>
+
+<para>
+Limits the speed of reading the data from the proxied server.
+The <value>rate</value> is specified in bytes per second.
+The zero value disables rate limiting.
+The limit is set per a connection, so if nginx simultaneously opens
+two connections to the proxied server,
+the overall rate will be twice as much as the specified limit.
 </para>
 
 </directive>
