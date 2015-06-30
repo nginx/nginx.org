@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_proxy_module"
         link="/ru/docs/http/ngx_http_proxy_module.html"
         lang="ru"
-        rev="38">
+        rev="39">
 
 <section id="summary">
 
@@ -1279,24 +1279,6 @@ proxy_pass $request;
 </directive>
 
 
-<directive name="proxy_read_timeout">
-<syntax><value>время</value></syntax>
-<default>60s</default>
-<context>http</context>
-<context>server</context>
-<context>location</context>
-
-<para>
-Задаёт таймаут при чтении ответа проксированного сервера.
-Таймаут устанавливается не на всю передачу ответа,
-а только между двумя операциями чтения.
-Если по истечении этого времени проксируемый сервер ничего не передаст,
-соединение закрывается.
-</para>
-
-</directive>
-
-
 <directive name="proxy_pass_request_body">
 <syntax><literal>on</literal> | <literal>off</literal></syntax>
 <default>on</default>
@@ -1344,6 +1326,24 @@ location /x-accel-redirect-here/ {
 </example>
 См. также директивы <link id="proxy_set_header"/> и
 <link id="proxy_pass_request_body"/>.
+</para>
+
+</directive>
+
+
+<directive name="proxy_read_timeout">
+<syntax><value>время</value></syntax>
+<default>60s</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Задаёт таймаут при чтении ответа проксированного сервера.
+Таймаут устанавливается не на всю передачу ответа,
+а только между двумя операциями чтения.
+Если по истечении этого времени проксируемый сервер ничего не передаст,
+соединение закрывается.
 </para>
 
 </directive>

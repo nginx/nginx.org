@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_fastcgi_module"
         link="/ru/docs/http/ngx_http_fastcgi_module.html"
         lang="ru"
-        rev="28">
+        rev="29">
 
 <section id="summary">
 
@@ -1096,24 +1096,6 @@ fastcgi_pass unix:/tmp/fastcgi.socket;
 </directive>
 
 
-<directive name="fastcgi_read_timeout">
-<syntax><value>время</value></syntax>
-<default>60s</default>
-<context>http</context>
-<context>server</context>
-<context>location</context>
-
-<para>
-Задаёт таймаут при чтении ответа FastCGI-сервера.
-Таймаут устанавливается не на всю передачу ответа,
-а только между двумя операциями чтения.
-Если по истечении этого времени FastCGI-сервер ничего не передаст,
-соединение закрывается.
-</para>
-
-</directive>
-
-
 <directive name="fastcgi_pass_request_body">
 <syntax><literal>on</literal> | <literal>off</literal></syntax>
 <default>on</default>
@@ -1141,6 +1123,24 @@ fastcgi_pass unix:/tmp/fastcgi.socket;
 Позволяет запретить передачу полей заголовка исходного запроса на
 FastCGI-сервер.
 См. также директивы <link id="fastcgi_pass_request_body"/>.
+</para>
+
+</directive>
+
+
+<directive name="fastcgi_read_timeout">
+<syntax><value>время</value></syntax>
+<default>60s</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Задаёт таймаут при чтении ответа FastCGI-сервера.
+Таймаут устанавливается не на всю передачу ответа,
+а только между двумя операциями чтения.
+Если по истечении этого времени FastCGI-сервер ничего не передаст,
+соединение закрывается.
 </para>
 
 </directive>

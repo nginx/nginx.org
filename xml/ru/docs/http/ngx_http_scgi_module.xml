@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_scgi_module"
         link="/ru/docs/http/ngx_http_scgi_module.html"
         lang="ru"
-        rev="17">
+        rev="18">
 
 <section id="summary">
 
@@ -995,24 +995,6 @@ scgi_pass unix:/tmp/scgi.socket;
 </directive>
 
 
-<directive name="scgi_read_timeout">
-<syntax><value>время</value></syntax>
-<default>60s</default>
-<context>http</context>
-<context>server</context>
-<context>location</context>
-
-<para>
-Задаёт таймаут при чтении ответа SCGI-сервера.
-Таймаут устанавливается не на всю передачу ответа,
-а только между двумя операциями чтения.
-Если по истечении этого времени SCGI-сервер ничего не передаст,
-соединение закрывается.
-</para>
-
-</directive>
-
-
 <directive name="scgi_pass_request_body">
 <syntax><literal>on</literal> | <literal>off</literal></syntax>
 <default>on</default>
@@ -1040,6 +1022,24 @@ scgi_pass unix:/tmp/scgi.socket;
 Позволяет запретить передачу полей заголовка исходного запроса на
 SCGI-сервер.
 См. также директивы <link id="scgi_pass_request_body"/>.
+</para>
+
+</directive>
+
+
+<directive name="scgi_read_timeout">
+<syntax><value>время</value></syntax>
+<default>60s</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Задаёт таймаут при чтении ответа SCGI-сервера.
+Таймаут устанавливается не на всю передачу ответа,
+а только между двумя операциями чтения.
+Если по истечении этого времени SCGI-сервер ничего не передаст,
+соединение закрывается.
 </para>
 
 </directive>

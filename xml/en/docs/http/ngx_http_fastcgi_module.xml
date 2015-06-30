@@ -10,7 +10,7 @@
 <module name="Module ngx_http_fastcgi_module"
         link="/en/docs/http/ngx_http_fastcgi_module.html"
         lang="en"
-        rev="28">
+        rev="29">
 
 <section id="summary">
 
@@ -1102,24 +1102,6 @@ fields from a FastCGI server to a client.
 </directive>
 
 
-<directive name="fastcgi_read_timeout">
-<syntax><value>time</value></syntax>
-<default>60s</default>
-<context>http</context>
-<context>server</context>
-<context>location</context>
-
-<para>
-Defines a timeout for reading a response from the FastCGI server.
-The timeout is set only between two successive read operations,
-not for the transmission of the whole response.
-If the FastCGI server does not transmit anything within this time,
-the connection is closed.
-</para>
-
-</directive>
-
-
 <directive name="fastcgi_pass_request_body">
 <syntax><literal>on</literal> | <literal>off</literal></syntax>
 <default>on</default>
@@ -1147,6 +1129,24 @@ See also the <link id="fastcgi_pass_request_headers"/> directive.
 Indicates whether the header fields of the original request are passed
 to the FastCGI server.
 See also the <link id="fastcgi_pass_request_body"/> directive.
+</para>
+
+</directive>
+
+
+<directive name="fastcgi_read_timeout">
+<syntax><value>time</value></syntax>
+<default>60s</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Defines a timeout for reading a response from the FastCGI server.
+The timeout is set only between two successive read operations,
+not for the transmission of the whole response.
+If the FastCGI server does not transmit anything within this time,
+the connection is closed.
 </para>
 
 </directive>
