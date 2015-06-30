@@ -1,0 +1,329 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Модуль ngx_stream_ssl_module"
+        link="/ru/docs/stream/ngx_stream_ssl_module.html"
+        lang="ru"
+        rev="4">
+
+<section id="summary">
+
+<para>
+Модуль <literal>ngx_stream_ssl_module</literal> (1.9.0)
+обеспечивает необходимую поддержку для работы
+прокси-сервера по протоколу SSL/TLS.
+По умолчанию этот модуль не собирается, его сборку необходимо
+разрешить с помощью конфигурационного параметра
+<literal>--with-stream_ssl_module</literal>.
+</para>
+
+</section>
+
+
+<section id="directives" name="Директивы">
+
+<directive name="ssl_certificate">
+<syntax><value>файл</value></syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Указывает <value>файл</value> с сертификатом в формате PEM
+для данного сервера.
+Если вместе с основным сертификатом нужно указать промежуточные,
+то они должны находиться в этом же файле в следующем порядке — сначала
+основной сертификат, а затем промежуточные.
+В этом же файле может находиться секретный ключ в формате PEM.
+</para>
+
+</directive>
+
+
+<directive name="ssl_certificate_key">
+<syntax><value>файл</value></syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Указывает <value>файл</value> с секретным ключом в формате PEM
+для данного сервера.
+</para>
+
+<para>
+Вместо <value>файла</value> можно указать значение
+<literal>engine</literal>:<value>имя</value>:<value>id</value>,
+которое загружает ключ с указанным <value>id</value>
+из OpenSSL engine с заданным <value>именем</value>.
+</para>
+
+</directive>
+
+
+<directive name="ssl_ciphers">
+<syntax><value>шифры</value></syntax>
+<default>HIGH:!aNULL:!MD5</default>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Описывает разрешённые шифры.
+Шифры задаются в формате, поддерживаемом библиотекой
+OpenSSL, например:
+<example>
+ssl_ciphers ALL:!aNULL:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP;
+</example>
+</para>
+
+<para>
+Полный список можно посмотреть с помощью команды
+“<command>openssl ciphers</command>”.
+</para>
+
+</directive>
+
+
+<directive name="ssl_dhparam">
+<syntax><value>файл</value></syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Указывает <value>файл</value> с параметрами для шифров с обменом EDH-ключами.
+</para>
+
+</directive>
+
+
+<directive name="ssl_ecdh_curve">
+<syntax><value>кривая</value></syntax>
+<default>prime256v1</default>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Задаёт <value>кривую</value> для ECDHE-шифров.
+</para>
+
+</directive>
+
+
+<directive name="ssl_handshake_timeout">
+<syntax><value>время</value></syntax>
+<default>60s</default>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Задаёт таймаут для завершения операции SSL handshake.
+</para>
+
+</directive>
+
+
+<directive name="ssl_password_file">
+<syntax><value>файл</value></syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Задаёт <value>файл</value> с паролями от
+<link id="ssl_certificate_key">секретных ключей</link>,
+где каждый пароль указан на отдельной строке.
+Пароли применяются по очереди в момент загрузки ключа.
+</para>
+
+<para>
+Пример:
+<example>
+stream {
+    ssl_password_file /etc/keys/global.pass;
+    ...
+
+    server {
+        listen 127.0.0.1:12345;
+        ssl_certificate_key /etc/keys/first.key;
+    }
+
+    server {
+        listen 127.0.0.1:12346;
+
+        # вместо файла можно указать именованный канал
+        ssl_password_file /etc/keys/fifo;
+        ssl_certificate_key /etc/keys/second.key;
+    }
+}
+</example>
+</para>
+
+</directive>
+
+
+<directive name="ssl_prefer_server_ciphers">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Указывает, чтобы при использовании протоколов SSLv3 и TLS
+серверные шифры были более приоритетны, чем клиентские.
+</para>
+
+</directive>
+
+
+<directive name="ssl_protocols">
+<syntax>
+    [<literal>SSLv2</literal>]
+    [<literal>SSLv3</literal>]
+    [<literal>TLSv1</literal>]
+    [<literal>TLSv1.1</literal>]
+    [<literal>TLSv1.2</literal>]</syntax>
+<default>TLSv1 TLSv1.1 TLSv1.2</default>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Разрешает указанные протоколы.
+Параметры <literal>TLSv1.1</literal> и <literal>TLSv1.2</literal> работают
+только при использовании библиотеки OpenSSL версии 1.0.1 и выше.
+</para>
+
+</directive>
+
+
+<directive name="ssl_session_cache">
+<syntax>
+    <literal>off</literal> |
+    <literal>none</literal> |
+    [<literal>builtin</literal>[:<value>размер</value>]]
+    [<literal>shared</literal>:<value>название</value>:<value>размер</value>]</syntax>
+<default>none</default>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Задаёт тип и размеры кэшей для хранения параметров сессий.
+Тип кэша может быть следующим:
+<list type="tag">
+
+<tag-name><literal>off</literal></tag-name>
+<tag-desc>
+жёсткое запрещение использования кэша сессий:
+nginx явно сообщает клиенту, что сессии не могут использоваться повторно.
+</tag-desc>
+
+<tag-name><literal>none</literal></tag-name>
+<tag-desc>
+мягкое запрещение использования кэша сессий:
+nginx сообщает клиенту, что сессии могут использоваться повторно, но
+на самом деле не хранит параметры сессии в кэше.
+</tag-desc>
+
+<tag-name><literal>builtin</literal></tag-name>
+<tag-desc>
+встроенный в OpenSSL кэш, используется в рамках только одного рабочего процесса.
+Размер кэша задаётся в сессиях.
+Если размер не задан, то он равен 20480 сессиям.
+Использование встроенного кэша может вести к фрагментации памяти.
+</tag-desc>
+
+<tag-name><literal>shared</literal></tag-name>
+<tag-desc>
+кэш, разделяемый между всеми рабочими процессами.
+Размер кэша задаётся в байтах, в 1 мегабайт может поместиться
+около 4000 сессий.
+У каждого разделяемого кэша должно быть произвольное название.
+Кэш с одинаковым названием может использоваться в нескольких
+серверах.
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+Можно использовать одновременно оба типа кэша, например:
+<example>
+ssl_session_cache builtin:1000 shared:SSL:10m;
+</example>
+однако использование только разделяемого кэша без встроенного должно
+быть более эффективным.
+</para>
+
+</directive>
+
+
+<directive name="ssl_session_ticket_key">
+<syntax><value>файл</value></syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Задаёт <value>файл</value> с секретным ключом, применяемым при шифровании и
+расшифровании TLS session tickets.
+Директива необходима, если один и тот же ключ нужно использовать
+на нескольких серверах.
+По умолчанию используется случайно сгенерированный ключ.
+</para>
+
+<para>
+Если указано несколько ключей, то только первый ключ
+используется для шифрования TLS session tickets.
+Это позволяет настроить ротацию ключей, например:
+<example>
+ssl_session_ticket_key current.key;
+ssl_session_ticket_key previous.key;
+</example>
+</para>
+
+<para>
+<value>Файл</value> должен содержать 48 байт случайных данных и может быть
+создан следующей командой:
+<example>
+openssl rand 48 > ticket.key
+</example>
+</para>
+
+</directive>
+
+
+<directive name="ssl_session_tickets">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>on</default>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Разрешает или запрещает возобновление сессий при помощи
+<link url="http://tools.ietf.org/html/rfc5077">TLS session tickets</link>.
+</para>
+
+</directive>
+
+
+<directive name="ssl_session_timeout">
+<syntax><value>время</value></syntax>
+<default>5m</default>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Задаёт время, в течение которого клиент может повторно
+использовать параметры сессии, хранящейся в кэше.
+</para>
+
+</directive>
+
+</section>
+
+</module>
