@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_ssl_module"
         link="/en/docs/stream/ngx_stream_ssl_module.html"
         lang="en"
-        rev="4">
+        rev="5">
 
 <section id="summary">
 
@@ -20,6 +20,55 @@ the SSL/TLS protocol.
 This module is not built by default, it should be enabled with the
 <literal>--with-stream_ssl_module</literal>
 configuration parameter.
+</para>
+
+</section>
+
+
+<section id="example" name="Example Configuration">
+
+<para>
+To reduce the processor load, it is recommended to
+<list type="bullet">
+
+<listitem>
+set the number of worker processes equal to the number of processors,
+</listitem>
+
+<listitem>
+enable the shared session cache,
+</listitem>
+
+<listitem>
+disable the built-in session cache,
+</listitem>
+
+<listitem>
+and possibly increase the session lifetime (by default, 5 minutes):
+</listitem>
+
+</list>
+
+<example>
+<emphasis>worker_processes auto;</emphasis>
+
+stream {
+
+    ...
+
+    server {
+        listen              12345 ssl;
+
+        ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
+        ssl_ciphers         AES128-SHA:AES256-SHA:RC4-SHA:DES-CBC3-SHA:RC4-MD5;
+        ssl_certificate     /usr/local/nginx/conf/cert.pem;
+        ssl_certificate_key /usr/local/nginx/conf/cert.key;
+        <emphasis>ssl_session_cache   shared:SSL:10m;</emphasis>
+        <emphasis>ssl_session_timeout 10m;</emphasis>
+
+        ...
+    }
+</example>
 </para>
 
 </section>

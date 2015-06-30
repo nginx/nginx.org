@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_ssl_module"
         link="/ru/docs/stream/ngx_stream_ssl_module.html"
         lang="ru"
-        rev="4">
+        rev="5">
 
 <section id="summary">
 
@@ -20,6 +20,55 @@
 По умолчанию этот модуль не собирается, его сборку необходимо
 разрешить с помощью конфигурационного параметра
 <literal>--with-stream_ssl_module</literal>.
+</para>
+
+</section>
+
+
+<section id="example" name="Пример конфигурации">
+
+<para>
+Для уменьшения загрузки процессора рекомендуется
+<list type="bullet">
+
+<listitem>
+установить число рабочих процессов равным числу процессоров,
+</listitem>
+
+<listitem>
+включить разделяемый кэш сессий,
+</listitem>
+
+<listitem>
+выключить встроенный кэш сессий
+</listitem>
+
+<listitem>
+и, возможно, увеличить время жизни сессии (по умолчанию 5 минут):
+</listitem>
+
+</list>
+
+<example>
+<emphasis>worker_processes auto;</emphasis>
+
+stream {
+
+    ...
+
+    server {
+        listen              12345 ssl;
+
+        ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
+        ssl_ciphers         AES128-SHA:AES256-SHA:RC4-SHA:DES-CBC3-SHA:RC4-MD5;
+        ssl_certificate     /usr/local/nginx/conf/cert.pem;
+        ssl_certificate_key /usr/local/nginx/conf/cert.key;
+        <emphasis>ssl_session_cache   shared:SSL:10m;</emphasis>
+        <emphasis>ssl_session_timeout 10m;</emphasis>
+
+        ...
+    }
+</example>
 </para>
 
 </section>
