@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_realip_module"
         link="/ru/docs/http/ngx_http_realip_module.html"
         lang="ru"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -81,7 +81,7 @@ IPv6-адреса поддерживаются начиная с версий 1.
 
 <para>
 Задаёт поле заголовка запроса,
-в котором передаётся адрес для замены.
+значение которого будет использоваться для замены адреса клиента.
 </para>
 
 <para>
