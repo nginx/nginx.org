@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_proxy_module"
         link="/en/docs/stream/ngx_stream_proxy_module.html"
         lang="en"
-        rev="8">
+        rev="9">
 
 <section id="summary">
 
@@ -33,7 +33,7 @@ server {
 server {
     listen 12345;
     proxy_connect_timeout 1s;
-    proxy_timeout 3s;
+    proxy_timeout 1m;
     proxy_pass example.com:12345;
 }
 
@@ -419,7 +419,9 @@ Sets the verification depth in the proxied server certificates chain.
 <context>server</context>
 
 <para>
-Defines a timeout used after the proxying to the backend had started.
+Sets the <value>timeout</value> between two successive
+read or write operations on client or proxied server connections.
+If no data is transmitted within this time, the connection is closed.
 </para>
 
 </directive>

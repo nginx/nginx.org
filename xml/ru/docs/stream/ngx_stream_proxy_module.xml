@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_proxy_module"
         link="/ru/docs/stream/ngx_stream_proxy_module.html"
         lang="ru"
-        rev="8">
+        rev="9">
 
 <section id="summary">
 
@@ -33,7 +33,7 @@ server {
 server {
     listen 12345;
     proxy_connect_timeout 1s;
-    proxy_timeout 3s;
+    proxy_timeout 1m;
     proxy_pass example.com:12345;
 }
 
@@ -422,7 +422,11 @@ Server Name Indication протокола TLS</link> (SNI, RFC 6066)
 <context>server</context>
 
 <para>
-Задаёт таймаут, который используется после начала проксирования на бэкенд.
+Задаёт <value>таймаут</value> между двумя идущими подряд
+операциями чтения или записи
+на клиентском соединении или соединении с проксируемым сервером.
+Если по истечении этого времени данные не передавались,
+соединение закрывается.
 </para>
 
 </directive>

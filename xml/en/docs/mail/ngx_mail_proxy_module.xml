@@ -10,7 +10,7 @@
 <module name="Module ngx_mail_proxy_module"
         link="/en/docs/mail/ngx_mail_proxy_module.html"
         lang="en"
-        rev="2">
+        rev="3">
 
 <section id="directives" name="Directives">
 
@@ -82,7 +82,9 @@ The directive should be enabled in this case.
 <context>server</context>
 
 <para>
-Defines a timeout used after the proxying to the backend had started.
+Sets the <value>timeout</value> between two successive
+read or write operations on client or proxied server connections.
+If no data is transmitted within this time, the connection is closed.
 </para>
 
 </directive>
