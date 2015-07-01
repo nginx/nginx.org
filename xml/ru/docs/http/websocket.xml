@@ -7,7 +7,7 @@
 <article name="Проксирование WebSocket"
          link="/ru/docs/http/websocket.html"
          lang="ru"
-         rev="1">
+         rev="2">
 
 
 <section>
@@ -75,6 +75,22 @@ http {
             proxy_set_header Connection $connection_upgrade;
         }
     }
+</programlisting>
+</para>
+
+<para>
+По умолчанию соединение будет закрыто,
+если данные не передавались в течение 60 секунд.
+Директивы <link doc="ngx_http_proxy_module.xml" id="proxy_read_timeout"/> и
+<link doc="ngx_http_proxy_module.xml" id="proxy_send_timeout"/>
+позволяют переопределить это значение:
+<programlisting>
+location /chat/ {
+    ...
+
+    proxy_read_timeout 10m;
+    proxy_send_timeout 10m;
+}
 </programlisting>
 </para>
 
