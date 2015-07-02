@@ -10,7 +10,7 @@
 <module name="Модуль ngx_mail_core_module"
         link="/ru/docs/mail/ngx_mail_core_module.html"
         lang="ru"
-        rev="7">
+        rev="8">
 
 <section id="summary">
 
@@ -30,6 +30,10 @@
 worker_processes 1;
 
 error_log /var/log/nginx/error.log info;
+
+events {
+    worker_connections  1024;
+}
 
 mail {
     server_name       mail.example.com;
