@@ -1,0 +1,307 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Модуль ngx_stream_core_module"
+        link="/ru/docs/stream/ngx_stream_core_module.html"
+        lang="ru"
+        rev="9">
+
+<section id="summary">
+
+<para>
+Модуль <literal>ngx_stream_core_module</literal>
+доступен начиная с версии 1.9.0.
+По умолчанию этот модуль не собирается, его сборку необходимо
+разрешить с помощью конфигурационного параметра
+<literal>--with-stream</literal>.
+</para>
+
+</section>
+
+
+<section id="example" name="Пример конфигурации">
+
+<para>
+<example>
+worker_processes auto;
+
+error_log /var/log/nginx/error.log info;
+
+events {
+    worker_connections  1024;
+}
+
+stream {
+    upstream backend {
+        hash $remote_addr consistent;
+
+        server backend1.example.com:12345 weight=5;
+        server 127.0.0.1:12345            max_fails=3 fail_timeout=30s;
+        server unix:/tmp/backend3;
+    }
+
+    server {
+        listen 12345;
+        proxy_connect_timeout 1s;
+        proxy_timeout 3s;
+        proxy_pass backend;
+    }
+
+    server {
+        listen [::1]:12345;
+        proxy_pass unix:/tmp/stream.socket;
+    }
+}
+</example>
+</para>
+
+</section>
+
+
+<section id="directives" name="Директивы">
+
+<directive name="listen">
+<syntax>
+    <value>адрес</value>:<value>порт</value>
+    [<literal>ssl</literal>]
+    [<literal>backlog</literal>=<value>число</value>]
+    [<literal>bind</literal>]
+    [<literal>ipv6only</literal>=<literal>on</literal>|<literal>off</literal>]
+    [<literal>reuseport</literal>]
+    [<literal>so_keepalive</literal>=<literal>on</literal>|<literal>off</literal>|[<value>keepidle</value>]:[<value>keepintvl</value>]:[<value>keepcnt</value>]]</syntax>
+<default/>
+<context>server</context>
+
+<para>
+Задаёт <value>адрес</value> и <value>порт</value> для сокета,
+на котором сервер будет принимать соединения.
+Можно указать только порт.
+Кроме того, адрес может быть именем хоста, например:
+<example>
+listen 127.0.0.1:12345;
+listen *:12345;
+listen 12345;     # то же, что и *:12345
+listen localhost:12345;
+</example>
+IPv6-адреса задаются в квадратных скобках:
+<example>
+listen [::1]:12345;
+listen [::]:12345;
+</example>
+UNIX-сокеты задаются префиксом “<literal>unix:</literal>”
+<example>
+listen unix:/var/run/nginx.sock;
+</example>
+
+</para>
+
+<para>
+Параметр <literal>ssl</literal> указывает на то, что все соединения,
+принимаемые на данном порту, должны работать в режиме SSL.
+</para>
+
+<para>
+В директиве <literal>listen</literal> можно также указать несколько
+дополнительных параметров, специфичных для связанных с сокетами
+системных вызовов.
+<list type="tag">
+
+<tag-name>
+<literal>backlog</literal>=<value>число</value>
+</tag-name>
+<tag-desc>
+задаёт параметр <literal>backlog</literal> в вызове
+<c-func>listen</c-func>, который ограничивает
+максимальный размер очереди ожидающих приёма соединений (1.9.2).
+По умолчанию <literal>backlog</literal> устанавливается равным -1 для
+FreeBSD, DragonFly BSD и Mac OS X,
+и 511 для других платформ.
+</tag-desc>
+
+<tag-name>
+<literal>bind</literal>
+</tag-name>
+<tag-desc>
+параметр указывает, что для данной пары
+<value>адрес</value>:<value>порт</value> нужно делать
+<c-func>bind</c-func> отдельно.
+Это нужно потому, что если описаны несколько директив <literal>listen</literal>
+с одинаковым портом, но разными адресами, и одна из директив
+<literal>listen</literal> слушает на всех адресах для данного порта
+(<literal>*:</literal><value>порт</value>), то nginx сделает
+<c-func>bind</c-func> только на <literal>*:</literal><value>порт</value>.
+Необходимо заметить, что в этом случае для определения адреса, на которой
+пришло соединение, делается системный вызов <c-func>getsockname</c-func>.
+Если же используются параметры <literal>ipv6only</literal>
+или <literal>so_keepalive</literal>,
+то для данной пары
+<value>адрес</value>:<value>порт</value> всегда делается
+отдельный вызов <c-func>bind</c-func>.
+</tag-desc>
+
+<tag-name>
+<literal>ipv6only</literal>=<literal>on</literal>|<literal>off</literal>
+</tag-name>
+<tag-desc>
+этот параметр определяет
+(через параметр сокета <c-def>IPV6_V6ONLY</c-def>),
+будет ли слушающий на wildcard-адресе <literal>[::]</literal> IPv6-сокет
+принимать только IPv6-соединения, или же одновременно IPv6- и IPv4-соединения.
+По умолчанию параметр включён.
+Установить его можно только один раз на старте.
+</tag-desc>
+
+<tag-name id="reuseport">
+<literal>reuseport</literal>
+</tag-name>
+<tag-desc>
+этот параметр (1.9.1) указывает, что нужно создавать отдельный слушающий сокет
+для каждого рабочего процесса
+(через параметр сокета <c-def>SO_REUSEPORT</c-def>), позволяя ядру
+распределять входящие соединения между рабочими процессами.
+В настоящий момент это работает только на Linux 3.9+ и DragonFly BSD.
+<note>
+Ненадлежащее использование параметра может иметь
+<link url="http://man7.org/linux/man-pages/man7/socket.7.html">последствия</link>
+в плане безопасности.
+</note>
+</tag-desc>
+
+<tag-name>
+<literal>so_keepalive</literal>=<literal>on</literal>|<literal>off</literal>|[<value>keepidle</value>]:[<value>keepintvl</value>]:[<value>keepcnt</value>]
+</tag-name>
+<tag-desc>
+этот параметр конфигурирует для слушающего сокета
+поведение “TCP keepalive”.
+Если этот параметр опущен, то для сокета будут действовать
+настройки операционной системы.
+Если он установлен в значение “<literal>on</literal>”, то для сокета
+включается параметр <c-def>SO_KEEPALIVE</c-def>.
+Если он установлен в значение “<literal>off</literal>”, то для сокета
+параметр <c-def>SO_KEEPALIVE</c-def> выключается.
+Некоторые операционные системы поддерживают настройку параметров
+“TCP keepalive” на уровне сокета посредством параметров
+<c-def>TCP_KEEPIDLE</c-def>, <c-def>TCP_KEEPINTVL</c-def> и
+<c-def>TCP_KEEPCNT</c-def>.
+На таких системах (в настоящий момент это Linux 2.4+, NetBSD 5+ и
+FreeBSD 9.0-STABLE)
+их можно сконфигурировать с помощью параметров <value>keepidle</value>,
+<value>keepintvl</value> и <value>keepcnt</value>.
+Один или два параметра могут быть опущены, в таком случае для
+соответствующего параметра сокета будут действовать стандартные
+системные настройки.
+Например,
+<example>so_keepalive=30m::10</example>
+установит таймаут бездействия (<c-def>TCP_KEEPIDLE</c-def>) в 30 минут,
+для интервала проб (<c-def>TCP_KEEPINTVL</c-def>) будет действовать
+стандартная системная настройка, а счётчик проб (<c-def>TCP_KEEPCNT</c-def>)
+будет равен 10.
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+Разные серверы должны слушать на разных парах
+<value>адрес</value>:<value>порт</value>.
+</para>
+
+</directive>
+
+
+<directive name="resolver">
+<syntax>
+    <value>адрес</value> ...
+    [<literal>valid</literal>=<value>время</value>]
+    [<literal>ipv6</literal>=<literal>on</literal>|<literal>off</literal>]</syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Задаёт серверы DNS, используемые для преобразования имён вышестоящих серверов
+в адреса, например:
+<example>
+resolver 127.0.0.1 [::1]:5353;
+</example>
+Адрес может быть указан в виде доменного имени или IP-адреса,
+и необязательного порта.
+Если порт не указан, используется порт 53.
+Серверы DNS опрашиваются циклически.
+</para>
+
+<para>
+По умолчанию nginx будет искать как IPv4-, так и IPv6-адреса
+при преобразовании имён в адреса.
+Если поиск IPv6-адресов нежелателен,
+можно указать параметр <literal>ipv6=off</literal>.
+</para>
+
+<para>
+По умолчанию nginx кэширует ответы, используя значение TTL из ответа.
+Необязательный параметр <literal>valid</literal> позволяет это
+переопределить:
+<example>
+resolver 127.0.0.1 [::1]:5353 valid=30s;
+</example>
+<note>
+Эта директива доступна как часть
+<commercial_version>коммерческой подписки</commercial_version>.
+</note>
+</para>
+
+</directive>
+
+
+<directive name="resolver_timeout">
+<syntax><value>время</value></syntax>
+<default>30s</default>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Задаёт таймаут для преобразования имени в адрес, например:
+<example>
+resolver_timeout 5s;
+</example>
+<note>
+Эта директива доступна как часть
+<commercial_version>коммерческой подписки</commercial_version>.
+</note>
+</para>
+
+</directive>
+
+
+<directive name="server">
+<syntax block="yes"/>
+<default/>
+<context>stream</context>
+
+<para>
+Задаёт конфигурацию для сервера.
+</para>
+
+</directive>
+
+
+<directive name="stream">
+<syntax block="yes"/>
+<default/>
+<context>main</context>
+
+<para>
+Предоставляет контекст конфигурационного файла, в котором указываются
+директивы stream-сервера.
+</para>
+
+</directive>
+
+</section>
+
+</module>
