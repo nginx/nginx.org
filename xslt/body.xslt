@@ -20,9 +20,8 @@
 
     <div id="banner">
         <xsl:if test="@lang = 'he'"> <xsl:attribute name="class"> <xsl:text>ltr</xsl:text> </xsl:attribute> </xsl:if>
-        <strong>Introducing the release of NGINX Plus R6.</strong><br/>
-        <em>Even more to love with expanded features for load balancing, monitoring, and more.
-        <a href="http://nginx.com/blog/nginx-plus-r6-released/" onClick="ga('send', 'event', 'banner', 'click', 'R6_release');">Check it out!</a></em><br/>
+        <strong>Get exclusive pre-release access to O'Reilly's official animal book on NGINX.</strong><br/>
+        <em><a href="https://www.nginx.com/oreilly-guide/" onClick="ga('send', 'event', 'banner', 'click', 'oreilly_nginxpracticalguide_july2015');">Download now!</a></em><br/>
     </div>
 
     <div id="main">
