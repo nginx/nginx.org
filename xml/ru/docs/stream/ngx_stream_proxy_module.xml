@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_proxy_module"
         link="/ru/docs/stream/ngx_stream_proxy_module.html"
         lang="ru"
-        rev="9">
+        rev="10">
 
 <section id="summary">
 
@@ -81,6 +81,26 @@ server {
 </directive>
 
 
+<directive name="proxy_download_rate">
+<syntax><value>скорость</value></syntax>
+<default>0</default>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.9.3</appeared-in>
+
+<para>
+Ограничивает скорость чтения данных от проксируемого сервера.
+<value>Скорость</value> задаётся в байтах в секунду.
+Значение 0 отключает ограничение скорости.
+Ограничение устанавливается на соединение,
+поэтому, если nginx одновременно
+откроет два соединения к проксируемому серверу,
+суммарная скорость будет вдвое выше заданного ограничения.
+</para>
+
+</directive>
+
+
 <directive name="proxy_downstream_buffer">
 <syntax><value>размер</value></syntax>
 <default>16k</default>
@@ -90,26 +110,6 @@ server {
 <para>
 Задаёт <value>размер</value>
 буфера, используемого для чтения данных от клиента.
-</para>
-
-</directive>
-
-
-<directive name="proxy_downstream_limit_rate">
-<syntax><value>скорость</value></syntax>
-<default>0</default>
-<context>stream</context>
-<context>server</context>
-<appeared-in>1.9.3</appeared-in>
-
-<para>
-Ограничивает скорость чтения данных от клиента.
-<value>Скорость</value> задаётся в байтах в секунду.
-Значение 0 отключает ограничение скорости.
-Ограничение устанавливается на соединение,
-поэтому, если клиент одновременно
-откроет два соединения,
-суммарная скорость будет вдвое выше заданного ограничения.
 </para>
 
 </directive>
@@ -432,6 +432,26 @@ Server Name Indication протокола TLS</link> (SNI, RFC 6066)
 </directive>
 
 
+<directive name="proxy_upload_rate">
+<syntax><value>скорость</value></syntax>
+<default>0</default>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.9.3</appeared-in>
+
+<para>
+Ограничивает скорость чтения данных от клиента.
+<value>Скорость</value> задаётся в байтах в секунду.
+Значение 0 отключает ограничение скорости.
+Ограничение устанавливается на соединение,
+поэтому, если клиент одновременно
+откроет два соединения,
+суммарная скорость будет вдвое выше заданного ограничения.
+</para>
+
+</directive>
+
+
 <directive name="proxy_upstream_buffer">
 <syntax><value>размер</value></syntax>
 <default>16k</default>
@@ -441,26 +461,6 @@ Server Name Indication протокола TLS</link> (SNI, RFC 6066)
 <para>
 Задаёт <value>размер</value>
 буфера, используемого для чтения данных от сервера группы.
-</para>
-
-</directive>
-
-
-<directive name="proxy_upstream_limit_rate">
-<syntax><value>скорость</value></syntax>
-<default>0</default>
-<context>stream</context>
-<context>server</context>
-<appeared-in>1.9.3</appeared-in>
-
-<para>
-Ограничивает скорость чтения данных от проксируемого сервера.
-<value>Скорость</value> задаётся в байтах в секунду.
-Значение 0 отключает ограничение скорости.
-Ограничение устанавливается на соединение,
-поэтому, если nginx одновременно
-откроет два соединения к проксируемому серверу,
-суммарная скорость будет вдвое выше заданного ограничения.
 </para>
 
 </directive>
