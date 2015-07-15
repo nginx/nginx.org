@@ -57,7 +57,7 @@ Changes with nginx 1.9.1                                         26 May 2015
     *) Change: some long deprecated directives are not supported anymore.
 
     *) Feature: the "reuseport" parameter of the "listen" directive.
-       Thanks to Sepherosa Ziehau and Yingqi Lu.
+       Thanks to Yingqi Lu at Intel and Sepherosa Ziehau.
 
     *) Feature: the $upstream_connect_time variable.
 

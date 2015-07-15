@@ -56,7 +56,7 @@
        поддерживаются.
 
     *) Добавление: параметр reuseport директивы listen.
-       Спасибо Sepherosa Ziehau и Yingqi Lu.
+       Спасибо Yingqi Lu из Intel и Sepherosa Ziehau.
 
     *) Добавление: переменная $upstream_connect_time.
 
