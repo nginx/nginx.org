@@ -7,7 +7,7 @@
 <article name="WebSocket proxying"
          link="/en/docs/http/websocket.html"
          lang="en"
-         rev="2">
+         rev="3">
 
 
 <section>
@@ -79,18 +79,12 @@ http {
 
 <para>
 By default, the connection will be closed
-if no data is transmitted within 60 seconds.
-The <link doc="ngx_http_proxy_module.xml" id="proxy_read_timeout"/> and
-<link doc="ngx_http_proxy_module.xml" id="proxy_send_timeout"/> directives
-allow overriding this value:
-<programlisting>
-location /chat/ {
-    ...
-
-    proxy_read_timeout 10m;
-    proxy_send_timeout 10m;
-}
-</programlisting>
+if the proxied server does not transmit any data within 60 seconds.
+This timeout can be increased with the
+<link doc="ngx_http_proxy_module.xml" id="proxy_read_timeout"/> directive.
+Alternatively, the proxied server can be configured
+to periodically send WebSocket ping frames to reset the timeout
+and check if the connection is still alive.
 </para>
 
 </section>

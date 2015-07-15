@@ -7,7 +7,7 @@
 <article name="Проксирование WebSocket"
          link="/ru/docs/http/websocket.html"
          lang="ru"
-         rev="2">
+         rev="3">
 
 
 <section>
@@ -80,18 +80,12 @@ http {
 
 <para>
 По умолчанию соединение будет закрыто,
-если данные не передавались в течение 60 секунд.
-Директивы <link doc="ngx_http_proxy_module.xml" id="proxy_read_timeout"/> и
-<link doc="ngx_http_proxy_module.xml" id="proxy_send_timeout"/>
-позволяют переопределить это значение:
-<programlisting>
-location /chat/ {
-    ...
-
-    proxy_read_timeout 10m;
-    proxy_send_timeout 10m;
-}
-</programlisting>
+если с проксируемого сервера данные не передавались в течение 60 секунд.
+Этот таймаут можно увеличить при помощи директивы
+<link doc="ngx_http_proxy_module.xml" id="proxy_read_timeout"/>.
+Кроме того, на проксируемом сервере можно настроить
+периодическую отправку WebSocket ping-фреймов для сброса таймаута
+и проверки работоспособности соединения.
 </para>
 
 </section>
