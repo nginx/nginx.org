@@ -851,7 +851,7 @@ the request will be placed into the queue.
 The directive specifies the maximum number of requests that can be in the queue
 at the same time.
 If the queue is filled up,
-or the server to pass the request to cannot been selected within
+or the server to pass the request to cannot be selected within
 the time period specified in the <literal>timeout</literal> parameter,
 an error will be returned to the client.
 </para>
