@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_fastcgi_module"
         link="/ru/docs/http/ngx_http_fastcgi_module.html"
         lang="ru"
-        rev="29">
+        rev="30">
 
 <section id="summary">
 
@@ -494,6 +494,12 @@ server {
 если при работе с FastCGI-сервером возникла ошибка.
 Параметры директивы совпадают с параметрами
 директивы <link id="fastcgi_next_upstream"/>.
+</para>
+
+<para>
+Параметр <literal>error</literal> также позволяет использовать
+устаревший закэшированный ответ при невозможности выбора
+FastCGI-сервера для обработки запроса.
 </para>
 
 <para>

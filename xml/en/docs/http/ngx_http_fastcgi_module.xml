@@ -10,7 +10,7 @@
 <module name="Module ngx_http_fastcgi_module"
         link="/en/docs/http/ngx_http_fastcgi_module.html"
         lang="en"
-        rev="29">
+        rev="30">
 
 <section id="summary">
 
@@ -497,6 +497,12 @@ Determines in which cases a stale cached response can be used
 when an error occurs during communication with the FastCGI server.
 The directive’s parameters match the parameters of the
 <link id="fastcgi_next_upstream"/> directive.
+</para>
+
+<para>
+The <literal>error</literal> parameter also permits
+using a stale cached response if a FastCGI server to process a request
+cannot be selected.
 </para>
 
 <para>

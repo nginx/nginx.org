@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_proxy_module"
         link="/ru/docs/http/ngx_http_proxy_module.html"
         lang="ru"
-        rev="39">
+        rev="40">
 
 <section id="summary">
 
@@ -495,6 +495,12 @@ server {
 сервером возникла ошибка.
 Параметры директивы совпадают с параметрами
 директивы <link id="proxy_next_upstream"/>.
+</para>
+
+<para>
+Параметр <literal>error</literal> также позволяет использовать
+устаревший закэшированный ответ при невозможности выбора
+проксированного сервера для обработки запроса.
 </para>
 
 <para>
