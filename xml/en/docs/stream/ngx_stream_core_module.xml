@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_core_module"
         link="/en/docs/stream/ngx_stream_core_module.html"
         lang="en"
-        rev="9">
+        rev="10">
 
 <section id="summary">
 
@@ -291,6 +291,21 @@ Sets the configuration for a server.
 <para>
 Provides the configuration file context in which the stream server directives
 are specified.
+</para>
+
+</directive>
+
+
+<directive name="tcp_nodelay">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>on</default>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.9.4</appeared-in>
+
+<para>
+Enables or disables the use of the <c-def>TCP_NODELAY</c-def> option.
+The option is enabled for both client and proxied server connections.
 </para>
 
 </directive>
