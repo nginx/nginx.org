@@ -68,7 +68,7 @@ system to auto-assign the local IP address.
 <context>location</context>
 
 <para>
-Sets the size of the buffer <value>size</value> used for reading the first part
+Sets the <value>size</value> of the buffer used for reading the first part
 of the response received from the proxied server.
 This part usually contains a small response header.
 By default, the buffer size is equal to the size of one
