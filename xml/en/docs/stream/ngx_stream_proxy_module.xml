@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_proxy_module"
         link="/en/docs/stream/ngx_stream_proxy_module.html"
         lang="en"
-        rev="10">
+        rev="11">
 
 <section id="summary">
 
@@ -68,6 +68,23 @@ system to auto-assign the local IP address.
 </directive>
 
 
+<directive name="proxy_buffer_size">
+<syntax><value>size</value></syntax>
+<default>16k</default>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.9.4</appeared-in>
+
+<para>
+Sets the <value>size</value> of the buffer used for reading data
+from the proxied server.
+Also sets the <value>size</value> of the buffer used for reading data
+from the client.
+</para>
+
+</directive>
+
+
 <directive name="proxy_connect_timeout">
 <syntax><value>time</value></syntax>
 <default>60s</default>
@@ -95,20 +112,6 @@ The zero value disables rate limiting.
 The limit is set per a connection, so if nginx simultaneously opens
 two connections to the proxied server,
 the overall rate will be twice as much as the specified limit.
-</para>
-
-</directive>
-
-
-<directive name="proxy_downstream_buffer">
-<syntax><value>size</value></syntax>
-<default>16k</default>
-<context>stream</context>
-<context>server</context>
-
-<para>
-Sets the <value>size</value> of the
-buffer used for reading data from the client.
 </para>
 
 </directive>
@@ -441,20 +444,6 @@ The zero value disables rate limiting.
 The limit is set per a connection, so if the client simultaneously opens
 two connections,
 the overall rate will be twice as much as the specified limit.
-</para>
-
-</directive>
-
-
-<directive name="proxy_upstream_buffer">
-<syntax><value>size</value></syntax>
-<default>16k</default>
-<context>stream</context>
-<context>server</context>
-
-<para>
-Sets the <value>size</value> of the
-buffer used for reading data from the upstream server.
 </para>
 
 </directive>

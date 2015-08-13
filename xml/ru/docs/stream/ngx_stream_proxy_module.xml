@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_proxy_module"
         link="/ru/docs/stream/ngx_stream_proxy_module.html"
         lang="ru"
-        rev="10">
+        rev="11">
 
 <section id="summary">
 
@@ -68,6 +68,23 @@ server {
 </directive>
 
 
+<directive name="proxy_buffer_size">
+<syntax><value>размер</value></syntax>
+<default>16k</default>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.9.4</appeared-in>
+
+<para>
+Задаёт <value>размер</value> буфера, в который будут читаться данные,
+получаемые от проксируемого сервера.
+Также задаёт <value>размер</value> буфера, в который будут читаться данные,
+получаемые от клиента.
+</para>
+
+</directive>
+
+
 <directive name="proxy_connect_timeout">
 <syntax><value>время</value></syntax>
 <default>60s</default>
@@ -96,20 +113,6 @@ server {
 поэтому, если nginx одновременно
 откроет два соединения к проксируемому серверу,
 суммарная скорость будет вдвое выше заданного ограничения.
-</para>
-
-</directive>
-
-
-<directive name="proxy_downstream_buffer">
-<syntax><value>размер</value></syntax>
-<default>16k</default>
-<context>stream</context>
-<context>server</context>
-
-<para>
-Задаёт <value>размер</value>
-буфера, используемого для чтения данных от клиента.
 </para>
 
 </directive>
@@ -447,20 +450,6 @@ Server Name Indication протокола TLS</link> (SNI, RFC 6066)
 поэтому, если клиент одновременно
 откроет два соединения,
 суммарная скорость будет вдвое выше заданного ограничения.
-</para>
-
-</directive>
-
-
-<directive name="proxy_upstream_buffer">
-<syntax><value>размер</value></syntax>
-<default>16k</default>
-<context>stream</context>
-<context>server</context>
-
-<para>
-Задаёт <value>размер</value>
-буфера, используемого для чтения данных от сервера группы.
 </para>
 
 </directive>
