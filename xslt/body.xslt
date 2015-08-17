@@ -20,8 +20,9 @@
 
     <div id="banner">
         <xsl:if test="@lang = 'he'"> <xsl:attribute name="class"> <xsl:text>ltr</xsl:text> </xsl:attribute> </xsl:if>
-        <strong>Get exclusive pre-release access to O'Reilly's official animal book on NGINX.</strong><br/>
-        <em><a href="https://www.nginx.com/oreilly-guide/" onClick="ga('send', 'event', 'banner', 'click', 'oreilly_nginxpracticalguide_july2015');">Download now!</a></em><br/>
+        <strong>Register now for
+        <a href="https://www.nginx.com/nginxconf/?utm_source=nginxorg&amp;utm_medium=banner&amp;utm_campaign=nginxconf">nginx.conf 2015</a>! Sept 22-24 @ Fort Mason, San Francisco.</strong><br/>
+        <em>Learn best practices for building &amp; delivering apps with performance, security, and scale.</em><br/>
     </div>
 
     <div id="main">
