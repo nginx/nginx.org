@@ -10,7 +10,7 @@
 <module name="Module ngx_http_sub_module"
         link="/en/docs/http/ngx_http_sub_module.html"
         lang="en"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -55,7 +55,7 @@ location / {
 <para>
 Sets a string to replace and a replacement string.
 The string to replace is matched ignoring the case.
-The replacement string can contain variables.
+The string to replace (1.9.4) and replacement string can contain variables.
 </para>
 
 </directive>
