@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_sub_module"
         link="/ru/docs/http/ngx_http_sub_module.html"
         lang="ru"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -33,8 +33,8 @@
 <para>
 <example>
 location / {
-    sub_filter      &lt;/head&gt;
-        '&lt;/head&gt;&lt;script language="javascript" src="$script"&gt;&lt;/script&gt;';
+    sub_filter '&lt;a href="http://127.0.0.1:8080/'  '&lt;a href="https://$host/';
+    sub_filter '&lt;img src="http://127.0.0.1:8080/' '&lt;img src="https://$host/';
     sub_filter_once on;
 }
 </example>
@@ -56,6 +56,8 @@ location / {
 Задаёт строку, которую нужно заменить, и строку замены.
 Заменяемая строка проверяется без учёта регистра.
 В заменяемой строке (1.9.4) и в строке замены можно использовать переменные.
+На одном уровне может
+быть указано несколько директив <literal>sub_filter</literal> (1.9.4).
 </para>
 
 </directive>
@@ -91,8 +93,8 @@ location / {
 <context>location</context>
 
 <para>
-Определяет, сколько раз нужно искать заменяемую строку: один
-раз или несколько раз.
+Определяет, сколько раз нужно искать каждую из заменяемых строк:
+один раз или многократно.
 </para>
 
 </directive>

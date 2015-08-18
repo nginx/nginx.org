@@ -10,7 +10,7 @@
 <module name="Module ngx_http_sub_module"
         link="/en/docs/http/ngx_http_sub_module.html"
         lang="en"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -33,8 +33,8 @@ configuration parameter.
 <para>
 <example>
 location / {
-    sub_filter      &lt;/head&gt;
-        '&lt;/head&gt;&lt;script language="javascript" src="$script"&gt;&lt;/script&gt;';
+    sub_filter '&lt;a href="http://127.0.0.1:8080/'  '&lt;a href="https://$host/';
+    sub_filter '&lt;img src="http://127.0.0.1:8080/' '&lt;img src="https://$host/';
     sub_filter_once on;
 }
 </example>
@@ -56,6 +56,8 @@ location / {
 Sets a string to replace and a replacement string.
 The string to replace is matched ignoring the case.
 The string to replace (1.9.4) and replacement string can contain variables.
+Several <literal>sub_filter</literal> directives
+can be specified on one configuration level (1.9.4).
 </para>
 
 </directive>
@@ -91,8 +93,8 @@ are modified during processing.
 <context>location</context>
 
 <para>
-Indicates whether to look for a string to replace once or
-several times.
+Indicates whether to look for each string to replace
+once or repeatedly.
 </para>
 
 </directive>
