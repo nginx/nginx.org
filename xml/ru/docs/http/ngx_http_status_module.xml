@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_status_module"
         link="/ru/docs/http/ngx_http_status_module.html"
         lang="ru"
-        rev="6">
+        rev="7">
 
 <section id="summary">
 
@@ -128,6 +128,8 @@ http://127.0.0.1/status/stream/upstreams/backend/1/weight
 
 <para>
 Информация о состоянии будет доступна из содержащего location.
+Доступ в location следует
+<link doc="ngx_http_core_module.xml" id="satisfy">ограничить</link>.
 </para>
 
 </directive>
