@@ -10,7 +10,7 @@
 <module name="Module ngx_http_auth_basic_module"
         link="/en/docs/http/ngx_http_auth_basic_module.html"
         lang="en"
-        rev="6">
+        rev="7">
 
 <section id="summary">
 
@@ -85,6 +85,7 @@ name1:password1
 name2:password2:comment
 name3:password3
 </example>
+The <value>file</value> name can contain variables.
 </para>
 
 <para>
