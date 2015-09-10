@@ -9,7 +9,7 @@
 <module name="Module ngx_http_status_module"
         link="/en/docs/http/ngx_http_status_module.html"
         lang="en"
-        rev="7">
+        rev="8">
 
 <section id="summary">
 
@@ -184,7 +184,7 @@ The following status information is provided:
 <tag-name id="version"><literal>version</literal></tag-name>
 <tag-desc>
 Version of the provided data set.
-The current version is 5.
+The current version is 6.
 </tag-desc>
 
 <tag-name><literal>nginx_version</literal></tag-name>
@@ -211,6 +211,11 @@ Time of the last reload of configuration, in milliseconds since Epoch.
 <tag-name><literal>timestamp</literal></tag-name>
 <tag-desc>
 Current time in milliseconds since Epoch.
+</tag-desc>
+
+<tag-name id="pid"><literal>pid</literal></tag-name>
+<tag-desc>
+The ID of the worker process that handled status request.
 </tag-desc>
 
 <tag-name id="processes"><literal>processes</literal></tag-name>
@@ -248,6 +253,28 @@ The current number of active client connections.
 <tag-name><literal>idle</literal></tag-name>
 <tag-desc>
 The current number of idle client connections.
+</tag-desc>
+
+</list>
+</tag-desc>
+
+<tag-name id="ssl"><literal>ssl</literal></tag-name>
+<tag-desc>
+<list type="tag">
+
+<tag-name><literal>handshakes</literal></tag-name>
+<tag-desc>
+The total number of successful SSL handshakes.
+</tag-desc>
+
+<tag-name><literal>handshakes_failed</literal></tag-name>
+<tag-desc>
+The total number of failed SSL handshakes.
+</tag-desc>
+
+<tag-name><literal>session_reuses</literal></tag-name>
+<tag-desc>
+The total number of session reuses during SSL handshake.
 </tag-desc>
 
 </list>
@@ -311,6 +338,11 @@ The number of responses with status codes 1xx, 2xx, 3xx, 4xx, and 5xx.
 </list>
 </tag-desc>
 
+<tag-name id="discarded"><literal>discarded</literal></tag-name>
+<tag-desc>
+The total number of requests completed without sending a response.
+</tag-desc>
+
 <tag-name><literal>received</literal></tag-name>
 <tag-desc>
 The total number of bytes received from clients.
@@ -327,11 +359,16 @@ The total number of bytes sent to clients.
 <tag-name id="upstreams"><literal>upstreams</literal></tag-name>
 <tag-desc>
 For each
-<link doc="ngx_http_upstream_module.xml" id="server"/>
-in the
 <link doc="ngx_http_upstream_module.xml" id="zone">dynamically
 configurable</link>
 <link doc="ngx_http_upstream_module.xml" id="upstream">group</link>,
+the following data are provided:
+<list type="tag">
+
+<tag-name id="peers"><literal>peers</literal></tag-name>
+<tag-desc>
+For each
+<link doc="ngx_http_upstream_module.xml" id="server"/>,
 the following data are provided:
 <list type="tag">
 
@@ -375,14 +412,6 @@ or
 <tag-desc>
 The current number of active connections.
 </tag-desc>
-
-<!--
-<tag-name><literal>keepalive</literal></tag-name>
-<tag-desc>
-The current number of
-idle <link doc="ngx_http_upstream_module.xml" id="keepalive"/> connections.
-</tag-desc>
--->
 
 <tag-name id="max_conns"><literal>max_conns</literal></tag-name>
 <tag-desc>
@@ -522,6 +551,39 @@ load balancing method.
 </list>
 </tag-desc>
 
+<tag-name><literal>keepalive</literal></tag-name>
+<tag-desc>
+The current number of
+idle <link doc="ngx_http_upstream_module.xml" id="keepalive"/> connections.
+</tag-desc>
+
+<tag-name id="queue"><literal>queue</literal></tag-name>
+<tag-desc>
+For the requests <link doc="ngx_http_upstream_module.xml" id="queue"/>,
+the following data are provided:
+<list type="tag">
+
+<tag-name><literal>size</literal></tag-name>
+<tag-desc>
+The current number of requests in the queue.
+</tag-desc>
+
+<tag-name id="max_size"><literal>max_size</literal></tag-name>
+<tag-desc>
+The maximum number of requests that can be in the queue at the same time.
+</tag-desc>
+
+<tag-name><literal>overflows</literal></tag-name>
+<tag-desc>
+The total number of requests rejected due to the queue overflow.
+</tag-desc>
+
+</list>
+</tag-desc>
+
+</list>
+</tag-desc>
+
 <tag-name id="caches"><literal>caches</literal></tag-name>
 <tag-desc>
 For each cache (configured by
@@ -642,11 +704,16 @@ The total number of bytes sent to clients.
 <tag-name><literal>upstreams</literal></tag-name>
 <tag-desc>
 For each
-<link doc="../stream/ngx_stream_upstream_module.xml" id="server"/>
-in the
 <link doc="../stream/ngx_stream_upstream_module.xml" id="zone">dynamically
 configurable</link>
 <link doc="../stream/ngx_stream_upstream_module.xml" id="upstream">group</link>,
+the following data are provided:
+<list type="tag">
+
+<tag-name><literal>peers</literal></tag-name>
+<tag-desc>
+For each
+<link doc="../stream/ngx_stream_upstream_module.xml" id="server"/>
 the following data are provided:
 <list type="tag">
 
@@ -806,6 +873,9 @@ when the server was last selected to process a connection.
 </tag-desc>
 
 </list>
+</tag-desc>
+
+</list>
 </para>
 
 </section>
@@ -814,6 +884,35 @@ when the server was last selected to process a connection.
 
 <para>
 <list type="bullet">
+
+<listitem>
+The <link id="ssl"/> status data
+were added in <link id="version"/> 6.
+</listitem>
+
+<listitem>
+The
+<link id="discarded"/> field in
+<link id="server_zones"/>
+was added in <link id="version"/> 6.
+</listitem>
+
+<listitem>
+The <link id="queue"/> status data
+were added in <link id="version"/> 6.
+</listitem>
+
+<listitem>
+The
+<link id="pid"/> field
+was added in <link id="version"/> 6.
+</listitem>
+
+<listitem>
+The list of servers in <link id="upstreams"/>
+was moved into <link id="peers"/> in
+<link id="version"/> 6.
+</listitem>
 
 <listitem>
 The <literal>keepalive</literal> field of an upstream server

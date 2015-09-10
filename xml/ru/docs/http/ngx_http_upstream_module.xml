@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_upstream_module"
         link="/ru/docs/http/ngx_http_upstream_module.html"
         lang="ru"
-        rev="41">
+        rev="42">
 
 <section id="summary">
 
@@ -514,6 +514,35 @@ server {
 
 <note>
 Протоколы SCGI и uwsgi не определяют семантику постоянных соединений.
+</note>
+</para>
+
+</directive>
+
+
+<directive name="ntlm">
+<syntax/>
+<default/>
+<context>upstream</context>
+<appeared-in>1.9.2</appeared-in>
+
+<para>
+Позволяет проксировать запросы с
+<link url="https://en.wikipedia.org/wiki/Integrated_Windows_Authentication">проверкой
+подлинности NTLM</link>.
+Соединение с сервером группы привязывается к клиентскому соединению,
+как только клиент отправляет запрос, в заголовке которого есть поле
+<header>Authorization</header> со значением,
+начинающимся с “<literal>Negotiate</literal>” или “<literal>NTLM</literal>”.
+Последующие запросы клиента будут проксироваться через это же соединение
+с сервером группы,
+сохраняя контекст аутентификации.
+</para>
+
+<para>
+<note>
+Эта директива доступна как часть
+<commercial_version>коммерческой подписки</commercial_version>.
 </note>
 </para>
 

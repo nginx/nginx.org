@@ -9,7 +9,7 @@
 <module name="Module ngx_http_spdy_module"
         link="/en/docs/http/ngx_http_spdy_module.html"
         lang="en"
-        rev="6">
+        rev="7">
 
 <section id="summary">
 
@@ -30,6 +30,12 @@ Before version 1.5.10,
 This module is not built by default, it should be enabled with
 the <literal>--with-http_spdy_module</literal>
 configuration parameter.
+</para>
+
+<para>
+<note>
+This module is not available in the <literal>nginx-plus-http2</literal> package.
+</note>
 </para>
 
 </section>

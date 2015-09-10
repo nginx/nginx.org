@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_status_module"
         link="/ru/docs/http/ngx_http_status_module.html"
         lang="ru"
-        rev="7">
+        rev="8">
 
 <section id="summary">
 
@@ -187,7 +187,7 @@ http://127.0.0.1/status/stream/upstreams/backend/1/weight
 <tag-name id="version"><literal>version</literal></tag-name>
 <tag-desc>
 Версия предоставляемого набора данных.
-Текущей является версия 5.
+Текущей является версия 6.
 </tag-desc>
 
 <tag-name><literal>nginx_version</literal></tag-name>
@@ -197,7 +197,7 @@ http://127.0.0.1/status/stream/upstreams/backend/1/weight
 
 <tag-name><literal>address</literal></tag-name>
 <tag-desc>
-Адрес сервера, принявшего запрос получения информации о состоянии.
+Адрес сервера, принявшего запрос на получение информации о состоянии.
 </tag-desc>
 
 <tag-name id="generation"><literal>generation</literal></tag-name>
@@ -215,6 +215,12 @@ http://127.0.0.1/status/stream/upstreams/backend/1/weight
 <tag-name><literal>timestamp</literal></tag-name>
 <tag-desc>
 Текущее время в миллисекундах с начала эпохи.
+</tag-desc>
+
+<tag-name id="pid"><literal>pid</literal></tag-name>
+<tag-desc>
+Идентификатор рабочего процесса,
+обработавшего запрос на получение информации о состоянии.
 </tag-desc>
 
 <tag-name id="processes"><literal>processes</literal></tag-name>
@@ -252,6 +258,29 @@ http://127.0.0.1/status/stream/upstreams/backend/1/weight
 <tag-name><literal>idle</literal></tag-name>
 <tag-desc>
 Текущее число бездействующих клиентских соединений.
+</tag-desc>
+
+</list>
+</tag-desc>
+
+<tag-name id="ssl"><literal>ssl</literal></tag-name>
+<tag-desc>
+<list type="tag">
+
+<tag-name><literal>handshakes</literal></tag-name>
+<tag-desc>
+Суммарное число успешных операций SSL handshake.
+</tag-desc>
+
+<tag-name><literal>handshakes_failed</literal></tag-name>
+<tag-desc>
+Суммарное число неуспешных операций SSL handshake.
+</tag-desc>
+
+<tag-name><literal>session_reuses</literal></tag-name>
+<tag-desc>
+Суммарное число повторных использований SSL-сессий
+во время операций SSL handshake.
 </tag-desc>
 
 </list>
@@ -315,6 +344,11 @@ http://127.0.0.1/status/stream/upstreams/backend/1/weight
 </list>
 </tag-desc>
 
+<tag-name id="discarded"><literal>discarded</literal></tag-name>
+<tag-desc>
+Суммарное число запросов, завершившихся без отправки ответа.
+</tag-desc>
+
 <tag-name><literal>received</literal></tag-name>
 <tag-desc>
 Суммарное число байт, полученных от клиентов.
@@ -330,12 +364,17 @@ http://127.0.0.1/status/stream/upstreams/backend/1/weight
 
 <tag-name id="upstreams"><literal>upstreams</literal></tag-name>
 <tag-desc>
-Для каждого
-<link doc="ngx_http_upstream_module.xml" id="server">сервера</link>
-в
+Для каждой
 <link doc="ngx_http_upstream_module.xml" id="zone">динамически
 настраиваемой</link>
-<link doc="ngx_http_upstream_module.xml" id="upstream">группе</link>
+<link doc="ngx_http_upstream_module.xml" id="upstream">группы</link>
+доступны следующие данные:
+<list type="tag">
+
+<tag-name id="peers"><literal>peers</literal></tag-name>
+<tag-desc>
+Для каждого
+<link doc="ngx_http_upstream_module.xml" id="server">сервера</link>
 доступны следующие данные:
 <list type="tag">
 
@@ -377,14 +416,6 @@ http://127.0.0.1/status/stream/upstreams/backend/1/weight
 <tag-desc>
 Текущее число активных соединений.
 </tag-desc>
-
-<!--
-<tag-name><literal>keepalive</literal></tag-name>
-<tag-desc>
-Текущее число бездействующих
-<link doc="ngx_http_upstream_module.xml" id="keepalive"/>-соединений.
-</tag-desc>
--->
 
 <tag-name id="max_conns"><literal>max_conns</literal></tag-name>
 <tag-desc>
@@ -516,6 +547,39 @@ http://127.0.0.1/status/stream/upstreams/backend/1/weight
 ответа</link> от сервера (1.7.10).
 Поле доступно при использовании метода балансировки
 <link doc="ngx_http_upstream_module.xml" id="least_time"/>.
+</tag-desc>
+
+</list>
+</tag-desc>
+
+<tag-name><literal>keepalive</literal></tag-name>
+<tag-desc>
+Текущее число бездействующих
+<link doc="ngx_http_upstream_module.xml" id="keepalive"/>-соединений.
+</tag-desc>
+
+<tag-name id="queue"><literal>queue</literal></tag-name>
+<tag-desc>
+Для <link doc="ngx_http_upstream_module.xml" id="queue">очереди</link> запросов
+доступны следующие данные:
+<list type="tag">
+
+<tag-name><literal>size</literal></tag-name>
+<tag-desc>
+Текущее число запросов в очереди.
+</tag-desc>
+
+<tag-name><literal>max_size</literal></tag-name>
+<tag-desc>
+Максимальное число запросов, которые могут одновременно находиться в очереди.
+</tag-desc>
+
+<tag-name><literal>overflows</literal></tag-name>
+<tag-desc>
+Суммарное число запросов, отклонённых из-за переполнения очереди.
+</tag-desc>
+
+</list>
 </tag-desc>
 
 </list>
@@ -810,6 +874,33 @@ http://127.0.0.1/status/stream/upstreams/backend/1/weight
 
 <para>
 <list type="bullet">
+
+<listitem>
+Поля <link id="ssl"/>
+были добавлены в <link id="version">версии</link> 6.
+</listitem>
+
+<listitem>
+Поле <link id="discarded"/> в
+<link id="server_zones"/>
+было добавлено в <link id="version">версии</link> 6.
+</listitem>
+
+<listitem>
+Поля <link id="queue"/>
+были добавлены в <link id="version">версии</link> 6.
+</listitem>
+
+<listitem>
+Поле <link id="pid"/>
+было добавлено в <link id="version">версии</link> 6.
+</listitem>
+
+<listitem>
+Список серверов в <link id="upstreams"/> был
+перемещён в <link id="peers"/> в
+<link id="version">версии</link> 6.
+</listitem>
 
 <listitem>
 Поле <literal>keepalive</literal> сервера группы
