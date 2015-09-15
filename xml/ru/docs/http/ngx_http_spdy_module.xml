@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_spdy_module"
         link="/ru/docs/http/ngx_http_spdy_module.html"
         lang="ru"
-        rev="6">
+        rev="8">
 
 <section id="summary">
 
@@ -30,6 +30,14 @@
 По умолчанию этот модуль не собирается, его сборку необходимо
 разрешить с помощью конфигурационного параметра
 <literal>--with-http_spdy_module</literal>.
+</para>
+
+<para>
+<note>
+Этот модуль был заменён модулем
+<link doc="http/ngx_http_v2_module.xml">ngx_http_v2_module</link>
+в версии 1.9.5.
+</note>
 </para>
 
 </section>

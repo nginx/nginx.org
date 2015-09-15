@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_limit_conn_module"
         link="/ru/docs/http/ngx_http_limit_conn_module.html"
         lang="ru"
-        rev="5">
+        rev="6">
 
 <section id="summary">
 
@@ -76,7 +76,7 @@ server {
 разрешают одновременно обрабатывать не более одного соединения с одного
 IP-адреса.
 <note>
-В SPDY каждый параллельный запрос считается отдельным соединением.
+В HTTP/2 и SPDY каждый параллельный запрос считается отдельным соединением.
 </note>
 </para>
 

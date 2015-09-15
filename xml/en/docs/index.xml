@@ -8,7 +8,7 @@
 <article name="nginx documentation"
          link="/en/docs/"
          lang="en"
-         rev="22"
+         rev="23"
          toc="no">
 
 
@@ -417,6 +417,11 @@ ngx_http_userid_module</link>
 <listitem>
 <link doc="http/ngx_http_uwsgi_module.xml">
 ngx_http_uwsgi_module</link>
+</listitem>
+
+<listitem>
+<link doc="http/ngx_http_v2_module.xml">
+ngx_http_v2_module</link>
 </listitem>
 
 <listitem>

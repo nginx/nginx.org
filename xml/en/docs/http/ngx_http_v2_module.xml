@@ -1,0 +1,164 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Module ngx_http_v2_module"
+        link="/en/docs/http/ngx_http_v2_module.html"
+        lang="en"
+        rev="1">
+
+<section id="summary">
+
+<para>
+The <literal>ngx_http_v2_module</literal> module (1.9.5) provides
+support for <link url="https://tools.ietf.org/html/rfc7540">HTTP/2</link>
+and supersedes the
+<link doc="ngx_http_spdy_module.xml">ngx_http_spdy_module</link> module.
+</para>
+
+<para>
+This module is not built by default, it should be enabled with
+the <literal>--with-http_v2_module</literal>
+configuration parameter.
+</para>
+
+<para>
+<note>
+This module is also available as part of our
+<commercial_version>commercial subscription</commercial_version>
+in the <literal>nginx-plus-http2</literal> package of NGINX Plus
+<link url="https://www.nginx.com/blog/nginx-plus-r7-released/">release 7</link>.
+</note>
+</para>
+
+</section>
+
+
+<section id="example" name="Example Configuration">
+
+<para>
+<example>
+server {
+    listen 443 ssl http2;
+
+    ssl_certificate server.crt;
+    ssl_certificate_key server.key;
+}
+</example>
+<note>
+Note that in order to accept both
+<link doc="ngx_http_ssl_module.xml">HTTPS</link> and HTTP/2 connections
+simultaneously on the same port, the
+<link url="http://www.openssl.org">OpenSSL</link> library used should support
+the “Application-Layer Protocol Negotiation” (ALPN) TLS extension
+available only since OpenSSL version 1.0.2.
+Accepting both types of connections with the
+“Next Protocol Negotiation” (NPN) TLS extension available since OpenSSL
+version 1.0.1 is possible but not guaranteed.
+</note>
+</para>
+
+</section>
+
+
+<section id="directives" name="Directives">
+
+<directive name="http2_chunk_size">
+<syntax><value>size</value></syntax>
+<default>8k</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Sets the maximum size of chunks
+into which the response body is sliced.
+A too low value results in higher overhead.
+A too high value impairs prioritization due to
+<link url="http://en.wikipedia.org/wiki/Head-of-line_blocking">
+HOL blocking</link>.
+</para>
+
+</directive>
+
+
+<directive name="http2_idle_timeout">
+<syntax><value>time</value></syntax>
+<default>3m</default>
+<context>http</context>
+<context>server</context>
+
+<para>
+Sets the timeout of inactivity after which the connection is closed.
+</para>
+
+</directive>
+
+
+<directive name="http2_max_concurrent_streams">
+<syntax><value>number</value></syntax>
+<default>128</default>
+<context>http</context>
+<context>server</context>
+
+<para>
+Sets the maximum number of concurrent HTTP/2 streams
+in a connection.
+</para>
+
+</directive>
+
+
+<directive name="http2_recv_buffer_size">
+<syntax><value>size</value></syntax>
+<default>256k</default>
+<context>http</context>
+
+<para>
+Sets the size of the per worker input buffer.
+</para>
+
+</directive>
+
+
+<directive name="http2_recv_timeout">
+<syntax><value>time</value></syntax>
+<default>30s</default>
+<context>http</context>
+<context>server</context>
+
+<para>
+Sets the timeout for expecting more data from the client,
+after which the connection is closed.
+</para>
+
+</directive>
+
+</section>
+
+
+<section id="variables" name="Embedded Variables">
+
+<para>
+The <literal>ngx_http_v2_module</literal> module
+supports the following embedded variables:
+<list type="tag" compact="no">
+
+<tag-name id="var_http2"><var>$http2</var></tag-name>
+<tag-desc>
+negotiated protocol identifier:
+“<literal>h2</literal>” for HTTP/2 over TLS,
+“<literal>h2c</literal>” for HTTP/2 over cleartext TCP,
+or an empty string otherwise.
+</tag-desc>
+
+</list>
+</para>
+
+</section>
+
+</module>

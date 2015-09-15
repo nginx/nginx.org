@@ -10,7 +10,7 @@
 <module name="Module ngx_http_limit_conn_module"
         link="/en/docs/http/ngx_http_limit_conn_module.html"
         lang="en"
-        rev="5">
+        rev="6">
 
 <section id="summary">
 
@@ -77,7 +77,7 @@ server {
 </example>
 allow only one connection per an IP address at a time.
 <note>
-In SPDY, each concurrent request is considered a separate connection.
+In HTTP/2 and SPDY, each concurrent request is considered a separate connection.
 </note>
 </para>
 

@@ -8,7 +8,7 @@
 <article name="nginx"
          link="/ru/"
          lang="ru"
-         rev="43">
+         rev="44">
 
 
 <section>
@@ -95,7 +95,12 @@ chunked ответы,
 
 <listitem>
 <link doc="docs/http/ngx_http_ssl_module.xml">Поддержка SSL и
-расширения TLS SNI</link>.
+расширения TLS SNI</link>;
+</listitem>
+
+<listitem>
+Поддержка <link doc="docs/http/ngx_http_v2_module.xml">HTTP/2</link>
+с приоритизацией на основе весов и зависимостей.
 </listitem>
 
 </list>

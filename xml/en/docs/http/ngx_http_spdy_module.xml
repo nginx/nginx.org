@@ -9,7 +9,7 @@
 <module name="Module ngx_http_spdy_module"
         link="/en/docs/http/ngx_http_spdy_module.html"
         lang="en"
-        rev="7">
+        rev="8">
 
 <section id="summary">
 
@@ -34,7 +34,9 @@ configuration parameter.
 
 <para>
 <note>
-This module is not available in the <literal>nginx-plus-http2</literal> package.
+This module was superseded by the
+<link doc="ngx_http_v2_module.xml">ngx_http_v2_module</link> module
+in 1.9.5.
 </note>
 </para>
 
