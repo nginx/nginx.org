@@ -49,17 +49,12 @@ server {
     ssl_certificate_key server.key;
 }
 </example>
-<note>
-Note that in order to accept both
-<link doc="ngx_http_ssl_module.xml">HTTPS</link> and HTTP/2 connections
-simultaneously on the same port, the
-<link url="http://www.openssl.org">OpenSSL</link> library used should support
+Note that accepting HTTP/2 connections over TLS requires
 the “Application-Layer Protocol Negotiation” (ALPN) TLS extension
-available only since OpenSSL version 1.0.2.
-Accepting both types of connections with the
-“Next Protocol Negotiation” (NPN) TLS extension available since OpenSSL
-version 1.0.1 is possible but not guaranteed.
-</note>
+support, which is available only since
+<link url="http://www.openssl.org">OpenSSL</link> version 1.0.2.
+Using the “Next Protocol Negotiation” (NPN) TLS extension for this purpose
+(available since OpenSSL version 1.0.1) is not guaranteed.
 </para>
 
 </section>
