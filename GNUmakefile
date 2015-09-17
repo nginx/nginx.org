@@ -176,7 +176,9 @@ images:									\
 		binary/books/mastering_nginx.jpg			\
 		binary/books/nginx_http_server_2nd_ed.jpg		\
 		binary/books/instant_nginx_starter.jpg			\
-		binary/books/nginx_module_extension.jpg
+		binary/books/nginx_module_extension.jpg			\
+		binary/books/nginx_high_performance.jpg			\
+		binary/books/nginx_essentials.jpg
 
 binary/books/nginx_http_server_jp.jpg:	sources/1106030720.jpg
 	mkdir -p $(dir $@)
@@ -208,6 +210,14 @@ binary/books/instant_nginx_starter.jpg:	sources/5125OS_cov.jpg
 	$(call JPEGNORM, $<, $@)
 
 binary/books/nginx_module_extension.jpg:	sources/3046OS_cover.jpg
+	mkdir -p $(dir $@)
+	$(call JPEGNORM, $<, $@)
+
+binary/books/nginx_high_performance.jpg:	sources/1839OS.jpg
+	mkdir -p $(dir $@)
+	$(call JPEGNORM, $<, $@)
+
+binary/books/nginx_essentials.jpg:	sources/B04282_MockupCover_Normal.jpg
 	mkdir -p $(dir $@)
 	$(call JPEGNORM, $<, $@)
 
