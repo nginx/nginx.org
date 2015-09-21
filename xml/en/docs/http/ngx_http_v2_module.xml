@@ -9,7 +9,7 @@
 <module name="Module ngx_http_v2_module"
         link="/en/docs/http/ngx_http_v2_module.html"
         lang="en"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
@@ -122,6 +122,40 @@ Sets the timeout of inactivity after which the connection is closed.
 <para>
 Sets the maximum number of concurrent HTTP/2 streams
 in a connection.
+</para>
+
+</directive>
+
+
+<directive name="http2_max_field_size">
+<syntax><value>size</value></syntax>
+<default>4k</default>
+<context>http</context>
+<context>server</context>
+
+<para>
+Limits the maximum size of
+an <link url="http://tools.ietf.org/html/rfc7541">HPACK</link>-compressed
+request header field.
+The limit applies equally to both name and value.
+Note that if Huffman encoding is applied,
+the actual size of decompressed name and value strings may be larger.
+For most requests, the default limit should be enough.
+</para>
+
+</directive>
+
+
+<directive name="http2_max_header_size">
+<syntax><value>size</value></syntax>
+<default>16k</default>
+<context>http</context>
+<context>server</context>
+
+<para>
+Limits the maximum size of the entire request header list after
+<link url="http://tools.ietf.org/html/rfc7541">HPACK</link> decompression.
+For most requests, the default limit should be enough.
 </para>
 
 </directive>
