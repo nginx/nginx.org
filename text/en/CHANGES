@@ -1,4 +1,34 @@
 
+Changes with nginx 1.9.5                                         22 Sep 2015
+
+    *) Feature: the ngx_http_v2_module (replaces ngx_http_spdy_module).
+       Thanks to Dropbox and Automattic for sponsoring this work.
+
+    *) Change: now the "output_buffers" directive uses two buffers by
+       default.
+
+    *) Change: now nginx limits subrequests recursion, not simultaneous
+       subrequests.
+
+    *) Change: now nginx checks the whole cache key when returning a
+       response from cache.
+       Thanks to Gena Makhomed and Sergey Brester.
+
+    *) Bugfix: "header already sent" alerts might appear in logs when using
+       cache; the bug had appeared in 1.7.5.
+
+    *) Bugfix: "writev() failed (4: Interrupted system call)" errors might
+       appear in logs when using CephFS and the "timer_resolution" directive
+       on Linux.
+
+    *) Bugfix: in invalid configurations handling.
+       Thanks to Markus Linnala.
+
+    *) Bugfix: a segmentation fault occurred in a worker process if the
+       "sub_filter" directive was used at http level; the bug had appeared
+       in 1.9.4.
+
+
 Changes with nginx 1.9.4                                         18 Aug 2015
 
     *) Change: the "proxy_downstream_buffer" and "proxy_upstream_buffer"
