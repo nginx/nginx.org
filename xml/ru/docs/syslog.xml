@@ -9,7 +9,7 @@
 <article name="Запись в syslog"
          link="/ru/docs/syslog.html"
          lang="ru"
-         rev="2">
+         rev="3">
 
 <section>
 
@@ -59,6 +59,9 @@
 Возможны те же самые значения, что и у второго параметра (уровень)
 директивы <link doc="ngx_core_module.xml" id="error_log"/>.
 По умолчанию используется “<literal>info</literal>”.
+<note>Важность сообщений об ошибках определяется самим nginx, поэтому
+в директиве <literal>error_log</literal> параметр игнорируется.
+</note>
 </tag-desc>
 
 <tag-name><literal>tag=</literal><value>строка</value></tag-name>

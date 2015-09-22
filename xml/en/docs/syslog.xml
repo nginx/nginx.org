@@ -9,7 +9,7 @@
 <article name="Logging to syslog"
          link="/en/docs/syslog.html"
          lang="en"
-         rev="2">
+         rev="3">
 
 <section>
 
@@ -58,6 +58,9 @@ as defined in
 Possible values are the same as for the second parameter (level) of the
 <link doc="ngx_core_module.xml" id="error_log"/> directive.
 Default is “<literal>info</literal>”.
+<note>Severity of error messages is determined by nginx, thus the parameter
+is ignored in the <literal>error_log</literal> directive.
+</note>
 </tag-desc>
 
 <tag-name><literal>tag=</literal><value>string</value></tag-name>
