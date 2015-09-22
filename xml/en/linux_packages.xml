@@ -379,6 +379,14 @@ Packages for mainline version also have the following arguments:
 --with-stream
 --with-stream_ssl_module
 </programlisting>
+and
+<programlisting>
+--with-http_spdy_module
+</programlisting>
+replaced with
+<programlisting>
+--with-http_v2_module
+</programlisting>
 </para>
 
 <para>

@@ -382,6 +382,14 @@ zypper addrepo -G -t yum -c 'http://nginx.org/packages/mainline/sles/12' nginx
 --with-stream
 --with-stream_ssl_module
 </programlisting>
+кроме того
+<programlisting>
+--with-http_spdy_module
+</programlisting>
+заменен на
+<programlisting>
+--with-http_v2_module
+</programlisting>
 </para>
 
 <para>
