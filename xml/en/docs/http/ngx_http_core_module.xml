@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="47">
+        rev="48">
 
 <section id="directives" name="Directives">
 
@@ -1876,7 +1876,7 @@ are checked only once, and then updated right after they get changed.
 
 <directive name="output_buffers">
 <syntax><value>number</value> <value>size</value></syntax>
-<default>1 32k</default>
+<default>2 32k</default>
 <context>http</context>
 <context>server</context>
 <context>location</context>
@@ -1884,6 +1884,9 @@ are checked only once, and then updated right after they get changed.
 <para>
 Sets the <value>number</value> and <value>size</value> of the
 buffers used for reading a response from a disk.
+<note>
+Prior to version 1.9.5, the default value was 1 32k.
+</note>
 </para>
 
 </directive>

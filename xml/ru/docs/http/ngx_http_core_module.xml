@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="47">
+        rev="48">
 
 <section id="directives" name="Директивы">
 
@@ -1875,7 +1875,7 @@ open_file_cache_events   on;
 
 <directive name="output_buffers">
 <syntax><value>number</value> <value>size</value></syntax>
-<default>1 32k</default>
+<default>2 32k</default>
 <context>http</context>
 <context>server</context>
 <context>location</context>
@@ -1883,6 +1883,9 @@ open_file_cache_events   on;
 <para>
 Задаёт <value>число</value> и <value>размер</value> буферов,
 используемых при чтении ответа с диска.
+<note>
+До версии 1.9.5 по умолчанию использовалось значение 1 32k.
+</note>
 </para>
 
 </directive>
