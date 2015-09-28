@@ -38,6 +38,25 @@ in the <literal>nginx-plus-http2</literal> package of NGINX Plus
 </section>
 
 
+<section id="bugs" name="Known Issues">
+
+<para>
+The module is experimental, caveat emptor applies.
+</para>
+
+<para>
+Buffering of a client request body cannot be disabled
+regardless of
+<link doc="ngx_http_proxy_module.xml" id="proxy_request_buffering"/>,
+<link doc="ngx_http_fastcgi_module.xml" id="fastcgi_request_buffering"/>,
+<link doc="ngx_http_uwsgi_module.xml" id="uwsgi_request_buffering"/>, and
+<link doc="ngx_http_scgi_module.xml" id="scgi_request_buffering"/>
+directive values.
+</para>
+
+</section>
+
+
 <section id="example" name="Example Configuration">
 
 <para>
