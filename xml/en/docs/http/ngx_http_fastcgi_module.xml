@@ -329,7 +329,11 @@ will be cached.
     [<literal>max_size</literal>=<value>size</value>]
     [<literal>loader_files</literal>=<value>number</value>]
     [<literal>loader_sleep</literal>=<value>time</value>]
-    [<literal>loader_threshold</literal>=<value>time</value>]</syntax>
+    [<literal>loader_threshold</literal>=<value>time</value>]
+    [<literal>purger</literal>=<literal>on</literal>|<literal>off</literal>]
+    [<literal>purger_files</literal>=<value>number</value>]
+    [<literal>purger_sleep</literal>=<value>time</value>]
+    [<literal>purger_threshold</literal>=<value>time</value>]</syntax>
 <default/>
 <context>http</context>
 
@@ -402,6 +406,56 @@ Between iterations, a pause configured by the <literal>loader_sleep</literal>
 parameter (by default, 50 milliseconds) is made.
 </para>
 
+<para>
+Additionally,
+the following parameters are available as part of our
+<commercial_version>commercial subscription</commercial_version>:
+</para>
+
+<para>
+<list type="tag">
+
+<tag-name id="purger">
+<literal>purger</literal>=<literal>on</literal>|<literal>off</literal>
+</tag-name>
+<tag-desc>
+Instructs whether cache entries that match a
+<link id="fastcgi_cache_purge">wildcard key</link>
+will be removed from the disk by the cache purger (1.7.12).
+Setting the parameter to <literal>on</literal>
+(default is <literal>off</literal>)
+will activate the “cache purger” process that
+permanently iterates through all cache entries
+and deletes the entries that match the wildcard key.
+</tag-desc>
+
+<tag-name id="purger_files">
+<literal>purger_files</literal>=<value>number</value>
+</tag-name>
+<tag-desc>
+Sets the number of items that will be scanned during one iteration (1.7.12).
+By default, <literal>purger_files</literal> is set to 10.
+</tag-desc>
+
+<tag-name id="purger_threshold">
+<literal>purger_threshold</literal>=<value>number</value>
+</tag-name>
+<tag-desc>
+Sets the duration of one iteration (1.7.12).
+By default, <literal>purger_threshold</literal> is set to 50 milliseconds.
+</tag-desc>
+
+<tag-name id="purger_sleep">
+<literal>purger_sleep</literal>=<value>number</value>
+</tag-name>
+<tag-desc>
+Sets a pause between iterations (1.7.12).
+By default, <literal>purger_sleep</literal> is set to 50 milliseconds.
+</tag-desc>
+
+</list>
+</para>
+
 </directive>
 
 
@@ -427,6 +481,10 @@ the <http-status code="204" text="No Content"/> response.
 If the <link id="fastcgi_cache_key">cache key</link> of a purge request ends
 with an asterisk (“<literal>*</literal>”), all cache entries matching the
 wildcard key will be removed from the cache.
+However, these entries will remain on the disk until they are deleted
+for either <link id="fastcgi_cache_path">inactivity</link>,
+or processed by the <link id="purger">cache purger</link> (1.7.12),
+or a client attempts to access them.
 </para>
 
 <para>
