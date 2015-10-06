@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_upstream_module"
         link="/ru/docs/http/ngx_http_upstream_module.html"
         lang="ru"
-        rev="42">
+        rev="43">
 
 <section id="summary">
 
@@ -235,6 +235,7 @@ upstream backend {
 отслеживает изменения IP-адресов, соответствующих доменному имени сервера,
 и автоматически изменяет конфигурацию группы
 без необходимости перезапуска nginx (1.5.12).
+Группа должна находиться в <link id="zone">зоне разделяемой памяти</link>.
 <para>
 Для работы этого параметра
 директива <link doc="ngx_http_core_module.xml" id="resolver"/>
