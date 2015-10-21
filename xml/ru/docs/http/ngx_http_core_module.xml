@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="48">
+        rev="49">
 
 <section id="directives" name="Директивы">
 
@@ -3092,10 +3092,11 @@ scgi_pass_request_body off</link>
 
 <tag-name id="var_server_protocol"><var>$server_protocol</var></tag-name>
 <tag-desc>
-протокол сервера, обычно
-“<literal>HTTP/1.0</literal>”
-или
+протокол запроса, обычно
+“<literal>HTTP/1.0</literal>”,
 “<literal>HTTP/1.1</literal>”
+или
+“<link doc="ngx_http_v2_module.xml">HTTP/2.0</link>”
 </tag-desc>
 
 <tag-name id="var_status"><var>$status</var></tag-name>

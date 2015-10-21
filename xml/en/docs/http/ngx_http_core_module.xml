@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="48">
+        rev="49">
 
 <section id="directives" name="Directives">
 
@@ -3096,9 +3096,10 @@ port of the server which accepted a request
 <tag-name id="var_server_protocol"><var>$server_protocol</var></tag-name>
 <tag-desc>
 request protocol, usually
-“<literal>HTTP/1.0</literal>”
-or
+“<literal>HTTP/1.0</literal>”,
 “<literal>HTTP/1.1</literal>”
+or
+“<link doc="ngx_http_v2_module.xml">HTTP/2.0</link>”
 </tag-desc>
 
 <tag-name id="var_status"><var>$status</var></tag-name>
