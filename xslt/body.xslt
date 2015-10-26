@@ -20,10 +20,10 @@
 
     <div id="banner">
         <xsl:if test="@lang = 'he'"> <xsl:attribute name="class"> <xsl:text>ltr</xsl:text> </xsl:attribute> </xsl:if>
-        <strong>Introducing NGINX Plus Release 7.</strong><br/>
-        Now with support for HTTP/2, massive performance and security enhancements,<br/>
-        greater visibility into application health, and more.
-        <a href="https://www.nginx.com/blog/nginx-plus-r7-released/" onClick="ga('send', 'event', 'banner', 'click', 'R7_release');"><em>Check it out!</em></a><br/>
+        <strong>Webinar: What's new in HTTP/2?</strong><br/>
+	Join us on Oct. 28 and learn what's changed in HTTP/2, how to start testing<br/>
+	and using HTTP/2, and how HTTP/2 improves performance.
+        <a href="https://www.nginx.com/resources/webinars/whats-new-in-http2/"><em>Register now!</em></a><br/>
     </div>
 
     <div id="main">
