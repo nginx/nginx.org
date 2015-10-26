@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_proxy_module"
         link="/ru/docs/http/ngx_http_proxy_module.html"
         lang="ru"
-        rev="41">
+        rev="42">
 
 <section id="summary">
 
@@ -896,7 +896,9 @@ nginx не передаёт клиенту поля заголовка <header>D
 По умолчанию используется версия 1.0.
 Для работы
 <link doc="ngx_http_upstream_module.xml" id="keepalive">постоянных
-соединений</link> рекомендуется версия 1.1.
+соединений</link> и
+<link doc="ngx_http_upstream_module.xml" id="ntlm">проверки подлинности
+NTLM</link> рекомендуется версия 1.1.
 </para>
 
 </directive>

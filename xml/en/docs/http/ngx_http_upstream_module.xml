@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="43">
+        rev="44">
 
 <section id="summary">
 
@@ -533,6 +533,40 @@ header field value
 starting with “<literal>Negotiate</literal>” or “<literal>NTLM</literal>”.
 Further client requests will be proxied through the same upstream connection,
 keeping the authentication context.
+</para>
+
+<para>
+In order for NTLM authentication to work,
+it is necessary to enable keepalive connections to upstream servers.
+The <link doc="ngx_http_proxy_module.xml" id="proxy_http_version"/>
+directive should be set to “<literal>1.1</literal>”
+and the <header>Connection</header> header field should be cleared:
+<example>
+upstream http_backend {
+    server 127.0.0.1:8080;
+
+    ntlm;
+}
+
+server {
+    ...
+
+    location /http/ {
+        proxy_pass http://http_backend;
+        proxy_http_version 1.1;
+        proxy_set_header Connection "";
+        ...
+    }
+}
+</example>
+</para>
+
+<para>
+<note>
+When using load balancer methods other than the default
+round-robin method, it is necessary to activate them before
+the <literal>ntlm</literal> directive.
+</note>
 </para>
 
 <para>

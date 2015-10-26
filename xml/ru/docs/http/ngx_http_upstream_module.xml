@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_upstream_module"
         link="/ru/docs/http/ngx_http_upstream_module.html"
         lang="ru"
-        rev="43">
+        rev="44">
 
 <section id="summary">
 
@@ -531,13 +531,47 @@ server {
 Позволяет проксировать запросы с
 <link url="https://en.wikipedia.org/wiki/Integrated_Windows_Authentication">проверкой
 подлинности NTLM</link>.
-Соединение с сервером группы привязывается к клиентскому соединению,
+Соединение с сервером группы привязывается к клиентскому соединению
 как только клиент отправляет запрос, в заголовке которого есть поле
 <header>Authorization</header> со значением,
 начинающимся с “<literal>Negotiate</literal>” или “<literal>NTLM</literal>”.
 Последующие запросы клиента будут проксироваться через это же соединение
 с сервером группы,
 сохраняя контекст аутентификации.
+</para>
+
+<para>
+Для работы проверки подлинности NTLM
+необходимо разрешить постоянные соединения с серверами группы.
+Директиву <link doc="ngx_http_proxy_module.xml" id="proxy_http_version"/>
+следует установить в “<literal>1.1</literal>”,
+а поле заголовка <header>Connection</header> — очистить:
+<example>
+upstream http_backend {
+    server 127.0.0.1:8080;
+
+    ntlm;
+}
+
+server {
+    ...
+
+    location /http/ {
+        proxy_pass http://http_backend;
+        proxy_http_version 1.1;
+        proxy_set_header Connection "";
+        ...
+    }
+}
+</example>
+</para>
+
+<para>
+<note>
+При использовании методов балансировки нагрузки, отличных
+от стандартного round-robin, следует активировать их до
+директивы <literal>ntlm</literal>.
+</note>
 </para>
 
 <para>

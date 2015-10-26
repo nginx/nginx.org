@@ -10,7 +10,7 @@
 <module name="Module ngx_http_proxy_module"
         link="/en/docs/http/ngx_http_proxy_module.html"
         lang="en"
-        rev="41">
+        rev="42">
 
 <section id="summary">
 
@@ -897,7 +897,8 @@ Sets the HTTP protocol version for proxying.
 By default, version 1.0 is used.
 Version 1.1 is recommended for use with
 <link doc="ngx_http_upstream_module.xml" id="keepalive"/>
-connections.
+connections and
+<link doc="ngx_http_upstream_module.xml" id="ntlm">NTLM authentication</link>.
 </para>
 
 </directive>
