@@ -1,4 +1,30 @@
 
+Changes with nginx 1.9.6                                         27 Oct 2015
+
+    *) Bugfix: a segmentation fault might occur in a worker process when
+       using HTTP/2.
+       Thanks to Piotr Sikora and Denis Andzakovic.
+
+    *) Bugfix: the $server_protocol variable was empty when using HTTP/2.
+
+    *) Bugfix: backend SSL connections in the stream module might be timed
+       out unexpectedly.
+
+    *) Bugfix: a segmentation fault might occur in a worker process if
+       different ssl_session_cache settings were used in different virtual
+       servers.
+
+    *) Bugfix: nginx/Windows could not be built with MinGW gcc; the bug had
+       appeared in 1.9.4.
+       Thanks to Kouhei Sutou.
+
+    *) Bugfix: time was not updated when the timer_resolution directive was
+       used on Windows.
+
+    *) Miscellaneous minor fixes and improvements.
+       Thanks to Markus Linnala, Kurtis Nusbaum and Piotr Sikora.
+
+
 Changes with nginx 1.9.5                                         22 Sep 2015
 
     *) Feature: the ngx_http_v2_module (replaces ngx_http_spdy_module).
