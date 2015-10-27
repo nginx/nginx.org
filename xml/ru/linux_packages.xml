@@ -7,7 +7,7 @@
 <article name="nginx: пакеты для Linux"
          link="/ru/linux_packages.html"
          lang="ru"
-         rev="12"
+         rev="13"
          toc="no">
 
 <section id="distributions">
@@ -57,12 +57,6 @@ Debian:
 </tr>
 
 <tr>
-<td width="20%">6.x</td>
-<td width="20%">squeeze</td>
-<td>x86_64, i386</td>
-</tr>
-
-<tr>
 <td width="20%">7.x</td>
 <td width="20%">wheezy</td>
 <td>x86_64, i386</td>
@@ -89,12 +83,6 @@ Ubuntu:
 </tr>
 
 <tr>
-<td width="20%">10.04</td>
-<td width="20%">lucid</td>
-<td>x86_64, i386</td>
-</tr>
-
-<tr>
 <td width="20%">12.04</td>
 <td width="20%">precise</td>
 <td>x86_64, i386</td>
@@ -107,8 +95,14 @@ Ubuntu:
 </tr>
 
 <tr>
-<td width="20%">14.10</td>
-<td width="20%">utopic</td>
+<td width="20%">15.04</td>
+<td width="20%">vivid</td>
+<td>x86_64, i386</td>
+</tr>
+
+<tr>
+<td width="20%">15.10</td>
+<td width="20%">wily</td>
 <td>x86_64, i386</td>
 </tr>
 
