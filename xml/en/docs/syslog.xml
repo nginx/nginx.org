@@ -9,7 +9,7 @@
 <article name="Logging to syslog"
          link="/en/docs/syslog.html"
          lang="en"
-         rev="3">
+         rev="4">
 
 <section>
 
@@ -70,6 +70,11 @@ Sets the tag of syslog messages.
 Default is “<literal>nginx</literal>”.
 </tag-desc>
 
+<tag-name><literal>nohostname</literal></tag-name>
+<tag-desc>
+Disables adding the “hostname” field into the syslog message header (1.9.7).
+</tag-desc>
+
 <!--
 <tag-name><literal>bare=</literal><literal>on</literal> |
 <literal>off</literal></tag-name>
@@ -84,7 +89,7 @@ Example syslog configuration:
 <example>
 error_log syslog:server=192.168.1.1 debug;
 
-access_log syslog:server=unix:/var/log/nginx.sock;
+access_log syslog:server=unix:/var/log/nginx.sock,nohostname;
 access_log syslog:server=[2001:db8::1]:12345,facility=local7,tag=nginx,severity=info combined;
 </example>
 </para>

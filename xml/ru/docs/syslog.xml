@@ -9,7 +9,7 @@
 <article name="Запись в syslog"
          link="/ru/docs/syslog.html"
          lang="ru"
-         rev="3">
+         rev="4">
 
 <section>
 
@@ -71,6 +71,11 @@
 По умолчанию используется “<literal>nginx</literal>”.
 </tag-desc>
 
+<tag-name><literal>nohostname</literal></tag-name>
+<tag-desc>
+Запрещает добавление поля “hostname” в заголовок сообщения syslog (1.9.7).
+</tag-desc>
+
 <!--
 <tag-name><literal>bare=</literal><literal>on</literal> |
 <literal>off</literal></tag-name>
@@ -85,7 +90,7 @@
 <example>
 error_log syslog:server=192.168.1.1 debug;
 
-access_log syslog:server=unix:/var/log/nginx.sock;
+access_log syslog:server=unix:/var/log/nginx.sock,nohostname;
 access_log syslog:server=[2001:db8::1]:12345,facility=local7,tag=nginx,severity=info combined;
 </example>
 </para>
