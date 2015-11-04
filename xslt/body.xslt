@@ -20,10 +20,10 @@
 
     <div id="banner">
         <xsl:if test="@lang = 'he'"> <xsl:attribute name="class"> <xsl:text>ltr</xsl:text> </xsl:attribute> </xsl:if>
-        <strong>Introducing NGINX Plus Release 7.</strong><br/>
-        Now with support for HTTP/2, massive performance and security enhancements,<br/>
-        greater visibility into application health, and more.
-        <a href="https://www.nginx.com/blog/nginx-plus-r7-released/" onClick="ga('send', 'event', 'banner', 'click', 'R7_release');"><em>Check it out!</em></a><br/>
+        <strong>Survey: The Future of Application Development &amp; Deployment</strong><br/>
+        We are interested in your ideas about the future of app development and delivery.<br/>
+        Help shape the future and be the first to see the results.
+        <a href="https://newkind.getfeedback.com/r/g5NkIQ0C"><em>Get started</em></a><br/>
     </div>
 
     <div id="main">
