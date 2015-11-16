@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_stub_status_module"
         link="/ru/docs/http/ngx_http_stub_status_module.html"
         lang="ru"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -64,7 +64,8 @@ Reading: 6 Writing: 179 Waiting: 106
 <para>
 <note>
 До версии 1.7.5
-директива требовала наличия произвольного аргумента.
+синтаксис директивы требовал наличия произвольного аргумента, например
+“<literal>stub_status on</literal>”.
 </note>
 </para>
 

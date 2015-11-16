@@ -10,7 +10,7 @@
 <module name="Module ngx_http_stub_status_module"
         link="/en/docs/http/ngx_http_stub_status_module.html"
         lang="en"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -64,7 +64,8 @@ The basic status information will be accessible from the surrounding location.
 <para>
 <note>
 In versions prior to 1.7.5,
-the directive required an arbitrary argument.
+the directive syntax required an arbitrary argument, for example,
+“<literal>stub_status on</literal>”.
 </note>
 </para>
 
