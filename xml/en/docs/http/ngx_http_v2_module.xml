@@ -9,7 +9,7 @@
 <module name="Module ngx_http_v2_module"
         link="/en/docs/http/ngx_http_v2_module.html"
         lang="en"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -74,6 +74,16 @@ support, which is available only since
 <link url="http://www.openssl.org">OpenSSL</link> version 1.0.2.
 Using the “Next Protocol Negotiation” (NPN) TLS extension for this purpose
 (available since OpenSSL version 1.0.1) is not guaranteed.
+</para>
+
+<para>
+Also note that if the
+<link doc="ngx_http_ssl_module.xml" id="ssl_prefer_server_ciphers"/> directive
+is set to the value <value>on</value>,
+the <link doc="ngx_http_ssl_module.xml" id="ssl_ciphers">ciphers</link>
+should be configured to comply with
+<link url="https://tools.ietf.org/html/rfc7540#appendix-A">RFC 7540, Appendix A</link>
+black list and supported by clients.
 </para>
 
 </section>
