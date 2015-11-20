@@ -300,7 +300,7 @@ all:	dir.map
 copy:	copy_dirmap
 .PHONY:	copy_dirmap
 copy_dirmap:
-	/usr/local/bin/copy_dirmap.sh dir.map
+	/usr/local/bin/copy_dirmap.sh dir.map $(NGINX_ORG)
 endif
 
 clean:
