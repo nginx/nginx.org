@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_proxy_module"
         link="/ru/docs/http/ngx_http_proxy_module.html"
         lang="ru"
-        rev="43">
+        rev="44">
 
 <section id="summary">
 
@@ -1660,6 +1660,15 @@ proxy_redirect / /;
 proxy_set_header Host       $proxy_host;
 proxy_set_header Connection close;
 </example>
+Если включено кэширование, поля заголовка
+<header>If-Modified-Since</header>,
+<header>If-Unmodified-Since</header>,
+<header>If-None-Match</header>,
+<header>If-Match</header>,
+<header>Range</header>
+и
+<header>If-Range</header>
+исходного запроса не передаются на проксируемый сервер.
 </para>
 
 <para>
