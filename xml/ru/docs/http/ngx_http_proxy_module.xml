@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_proxy_module"
         link="/ru/docs/http/ngx_http_proxy_module.html"
         lang="ru"
-        rev="42">
+        rev="43">
 
 <section id="summary">
 
@@ -193,6 +193,25 @@ proxy_cache_bypass $cookie_nocache $arg_nocache$arg_comment;
 proxy_cache_bypass $http_pragma    $http_authorization;
 </example>
 Можно использовать совместно с директивой <link id="proxy_no_cache"/>.
+</para>
+
+</directive>
+
+
+<directive name="proxy_cache_convert_head">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>on</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.9.7</appeared-in>
+
+<para>
+Разрешает или запрещает преобразование метода “<literal>HEAD</literal>”
+в “<literal>GET</literal>” для кэширования.
+Если преобразование выключено, то
+необходимо, чтобы <link id="proxy_cache_key">ключ кэширования</link>
+включал в себя <var>$request_method</var>.
 </para>
 
 </directive>
