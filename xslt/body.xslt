@@ -20,10 +20,10 @@
 
     <div id="banner">
         <xsl:if test="@lang = 'he'"> <xsl:attribute name="class"> <xsl:text>ltr</xsl:text> </xsl:attribute> </xsl:if>
-        <strong>Survey: The Future of Application Development &amp; Deployment</strong><br/>
-        We are interested in your ideas about the future of app development and delivery.<br/>
-        Help shape the future and be the first to see the results.
-        <a href="https://newkind.getfeedback.com/r/g5NkIQ0C"><em>Get started</em></a><br/>
+        <strong>New Report: Microservices vs. SOA by O'Reilly Media</strong><br/>
+        Want to know the difference between microservices and service-oriented architectures?<br/>
+        Learn how the app architectures differ and which is best for you.
+        <a href="https://www.nginx.com/microservices-soa/?utm_source=nginx-org&amp;utm_medium=digital&amp;utm_campaign=microservices_soa"><em>Download now.</em></a><br/>
     </div>
 
     <div id="main">
