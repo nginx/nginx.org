@@ -1,4 +1,18 @@
 
+Changes with nginx 1.9.8                                         08 Dec 2015
+
+    *) Feature: pwritev() support.
+
+    *) Feature: the "include" directive inside the "upstream" block.
+
+    *) Feature: the ngx_http_slice_module.
+
+    *) Bugfix: a segmentation fault might occur in a worker process when
+       using LibreSSL; the bug had appeared in 1.9.6.
+
+    *) Bugfix: nginx could not be built on OS X in some cases.
+
+
 Changes with nginx 1.9.7                                         17 Nov 2015
 
     *) Feature: the "nohostname" parameter of logging to syslog.
