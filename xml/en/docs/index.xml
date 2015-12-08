@@ -8,7 +8,7 @@
 <article name="nginx documentation"
          link="/en/docs/"
          lang="en"
-         rev="23"
+         rev="24"
          toc="no">
 
 
@@ -362,6 +362,11 @@ ngx_http_secure_link_module</link>
 <listitem>
 <link doc="http/ngx_http_session_log_module.xml">
 ngx_http_session_log_module</link>
+</listitem>
+
+<listitem>
+<link doc="http/ngx_http_slice_module.xml">
+ngx_http_slice_module</link>
 </listitem>
 
 <listitem>

@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Модуль ngx_http_slice_module"
+        link="/ru/docs/http/ngx_http_slice_module.html"
+        lang="ru"
+        rev="1">
+
+<section id="summary">
+
+<para>
+Модуль <literal>ngx_http_slice_module</literal> (1.9.8) — это фильтр,
+который разбивает запрос на подзапросы,
+каждый из которых возвращает определённый диапазон ответа.
+Фильтр обеспечивает более эффективное кэширование больших ответов.
+</para>
+
+<para>
+По умолчанию этот модуль не собирается, его сборку необходимо
+разрешить с помощью конфигурационного параметра
+<literal>--with-http_slice_module</literal>.
+</para>
+
+</section>
+
+
+<section id="example" name="Пример конфигурации">
+
+<para>
+<example>
+location / {
+    <emphasis>slice</emphasis>             1m;
+    proxy_cache       cache;
+    proxy_cache_key   $uri$is_args$args<emphasis>$slice_range</emphasis>;
+    proxy_set_header  Range <emphasis>$slice_range</emphasis>;
+    proxy_cache_valid 200 206 1h;
+    proxy_pass        http://localhost:8000;
+}
+</example>
+В данном примере
+ответ разбивается на кэшируемые фрагменты размером в 1 мегабайт.
+</para>
+</section>
+
+
+<section id="directives" name="Директивы">
+
+<directive name="slice">
+<syntax><literal>размер</literal></syntax>
+<default>0</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Задаёт <value>размер</value> фрагмента.
+Нулевое значение запрещает разбиение ответов на фрагменты.
+Обратите внимание, что слишком низкое значение может привести
+к излишнему потреблению памяти
+и открытию большого количества открытых файловых дескрипторов.
+</para>
+
+<para>
+Для того, чтобы подзапрос вернул необходимый диапазон,
+переменная <var>$slice_range</var> должна быть
+<link doc="ngx_http_proxy_module.xml" id="proxy_set_header">передана</link> на
+проксируемый сервер в качестве поля <literal>Range</literal> заголовка запроса.
+Если включено
+<link doc="ngx_http_proxy_module.xml" id="proxy_cache">кэширование</link>,
+то необходимо добавить <var>$slice_range</var> в
+<link doc="ngx_http_proxy_module.xml" id="proxy_cache_key">ключ
+кэширования</link>
+и <link doc="ngx_http_proxy_module.xml" id="proxy_cache_valid">включить</link>
+кэширование ответов с кодом 206.
+</para>
+
+</directive>
+
+</section>
+
+
+<section id="variables" name="Встроенные переменные">
+
+<para>
+Модуль <literal>ngx_http_slice_module</literal>
+поддерживает следующие встроенные переменные:
+<list type="tag">
+
+<tag-name id="var_slice_range"><var>$slice_range</var></tag-name>
+<tag-desc>
+текущий диапазон фрагмента в формате
+<link url="https://tools.ietf.org/html/rfc7233#section-2.1">HTTP
+byte range</link>,
+например <literal>bytes=0-1048575</literal>.
+</tag-desc>
+
+</list>
+</para>
+
+</section>
+
+</module>

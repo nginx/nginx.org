@@ -71,6 +71,7 @@ REFS =									\
 		http/ngx_http_rewrite_module				\
 		http/ngx_http_scgi_module				\
 		http/ngx_http_secure_link_module			\
+		http/ngx_http_slice_module				\
 		http/ngx_http_spdy_module				\
 		http/ngx_http_session_log_module			\
 		http/ngx_http_split_clients_module			\
