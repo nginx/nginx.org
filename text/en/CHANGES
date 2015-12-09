@@ -1,4 +1,10 @@
 
+Changes with nginx 1.9.9                                         09 Dec 2015
+
+    *) Bugfix: proxying to unix domain sockets did not work when using
+       variables; the bug had appeared in 1.9.8.
+
+
 Changes with nginx 1.9.8                                         08 Dec 2015
 
     *) Feature: pwritev() support.
