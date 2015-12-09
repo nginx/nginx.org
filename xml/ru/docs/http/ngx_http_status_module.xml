@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_status_module"
         link="/ru/docs/http/ngx_http_status_module.html"
         lang="ru"
-        rev="8">
+        rev="9">
 
 <section id="summary">
 
@@ -98,13 +98,13 @@ http://127.0.0.1/status/nginx_version
 http://127.0.0.1/status/caches/cache_backend
 http://127.0.0.1/status/upstreams
 http://127.0.0.1/status/upstreams/backend
-http://127.0.0.1/status/upstreams/backend/1
-http://127.0.0.1/status/upstreams/backend/1/weight
+http://127.0.0.1/status/upstreams/backend/peers/1
+http://127.0.0.1/status/upstreams/backend/peers/1/weight
 http://127.0.0.1/status/stream
 http://127.0.0.1/status/stream/upstreams
 http://127.0.0.1/status/stream/upstreams/backend
-http://127.0.0.1/status/stream/upstreams/backend/1
-http://127.0.0.1/status/stream/upstreams/backend/1/weight
+http://127.0.0.1/status/stream/upstreams/backend/peers/1
+http://127.0.0.1/status/stream/upstreams/backend/peers/1/weight
 </example>
 </para>
 
