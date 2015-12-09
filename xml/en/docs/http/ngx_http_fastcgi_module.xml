@@ -1131,7 +1131,7 @@ fastcgi_param HTTPS           $https if_not_empty;
 <para>
 Sets the address of a FastCGI server.
 The address can be specified as a domain name or IP address,
-and an optional port:
+and a port:
 <example>
 fastcgi_pass localhost:9000;
 </example>

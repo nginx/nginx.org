@@ -1065,7 +1065,7 @@ As a <value>protocol</value>,
 “<literal>uwsgi</literal>” or “<literal>suwsgi</literal>”
 (secured uwsgi, uwsgi over SSL) can be specified.
 The address can be specified as a domain name or IP address,
-and an optional port:
+and a port:
 <example>
 uwsgi_pass localhost:9000;
 uwsgi_pass uwsgi://localhost:9000;

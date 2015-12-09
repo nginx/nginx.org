@@ -1031,7 +1031,7 @@ scgi_param HTTPS $https if_not_empty;
 <para>
 Sets the address of an SCGI server.
 The address can be specified as a domain name or IP address,
-and an optional port:
+and a port:
 <example>
 scgi_pass localhost:9000;
 </example>
