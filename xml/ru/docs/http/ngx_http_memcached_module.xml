@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_memcached_module"
         link="/ru/docs/http/ngx_http_memcached_module.html"
         lang="ru"
-        rev="10">
+        rev="11">
 
 <section id="summary">
 
@@ -241,7 +241,8 @@ server {
 
 <para>
 Задаёт адрес сервера memcached.
-Адрес может быть указан в виде доменного имени или адреса, и порта, например,
+Адрес может быть указан в виде доменного имени или IP-адреса,
+и порта:
 <example>
 memcached_pass localhost:11211;
 </example>

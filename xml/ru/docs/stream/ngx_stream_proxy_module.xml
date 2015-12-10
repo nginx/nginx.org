@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_proxy_module"
         link="/ru/docs/stream/ngx_stream_proxy_module.html"
         lang="ru"
-        rev="11">
+        rev="12">
 
 <section id="summary">
 
@@ -175,8 +175,8 @@ server {
 
 <para>
 Задаёт адрес проксируемого сервера.
-Адрес может быть указан в виде доменного имени или IP-адреса
-и обязательного порта:
+Адрес может быть указан в виде доменного имени или IP-адреса,
+и порта:
 <example>
 proxy_pass localhost:12345;
 </example>

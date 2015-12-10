@@ -1057,7 +1057,8 @@ uwsgi_param HTTPS $https if_not_empty;
 В качестве протокола можно указать
 “<literal>uwsgi</literal>” или “<literal>suwsgi</literal>”
 (secured uwsgi, uwsgi через SSL).
-Адрес может быть указан в виде доменного имени или адреса, и порта, например,
+Адрес может быть указан в виде доменного имени или IP-адреса,
+и порта:
 <example>
 uwsgi_pass localhost:9000;
 uwsgi_pass uwsgi://localhost:9000;

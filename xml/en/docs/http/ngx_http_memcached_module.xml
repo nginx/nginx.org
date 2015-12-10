@@ -10,7 +10,7 @@
 <module name="Module ngx_http_memcached_module"
         link="/en/docs/http/ngx_http_memcached_module.html"
         lang="en"
-        rev="10">
+        rev="11">
 
 <section id="summary">
 
@@ -241,7 +241,8 @@ The <literal>0</literal> value turns off this limitation.
 
 <para>
 Sets the memcached server address.
-The address can be specified as a domain name or an address, and a port:
+The address can be specified as a domain name or IP address,
+and a port:
 <example>
 memcached_pass localhost:11211;
 </example>
