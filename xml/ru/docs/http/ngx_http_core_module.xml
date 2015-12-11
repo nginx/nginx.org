@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="49">
+        rev="50">
 
 <section id="directives" name="Директивы">
 
@@ -404,7 +404,7 @@ client_body_temp_path /spool/nginx/client_temp 1 2;
 
 <directive name="connection_pool_size">
 <syntax><value>размер</value></syntax>
-<default>256</default>
+<default>256|512</default>
 <context>http</context>
 <context>server</context>
 
@@ -413,6 +413,11 @@ client_body_temp_path /spool/nginx/client_temp 1 2;
 под конкретные соединения.
 Эта директива не оказывает существенного влияния на
 производительность, и её не следует использовать.
+По умолчанию размер равен
+256 байт на 32-битных платформах и 512 байт на 64-битных платформах.
+<note>
+До версии 1.9.8 по умолчанию использовалось значение 256 на всех платформах.
+</note>
 </para>
 
 </directive>
