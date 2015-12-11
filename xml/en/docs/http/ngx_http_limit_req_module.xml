@@ -10,7 +10,7 @@
 <module name="Module ngx_http_limit_req_module"
         link="/en/docs/http/ngx_http_limit_req_module.html"
         lang="en"
-        rev="4">
+        rev="5">
 
 <section id="summary">
 
@@ -89,6 +89,31 @@ desired, the parameter <literal>nodelay</literal> should be used:
 <example>
 limit_req zone=one burst=5 nodelay;
 </example>
+</para>
+
+<para>
+There could be several <literal>limit_req</literal> directives.
+For example, the following configuration will limit the processing rate
+of requests coming from a single IP address and, at the same time,
+the request processing rate by the virtual server:
+<example>
+limit_req_zone $binary_remote_addr zone=perip:10m rate=1r/s;
+limit_req_zone $server_name zone=perserver:10m rate=10r/s;
+
+server {
+    ...
+    limit_req zone=perip burst=5 nodelay;
+    limit_req zone=perserver burst=10;
+}
+</example>
+
+</para>
+
+<para>
+These directives are inherited from the previous level if and
+only if there are no
+<literal>limit_req</literal>
+directives on the current level.
 </para>
 
 </directive>

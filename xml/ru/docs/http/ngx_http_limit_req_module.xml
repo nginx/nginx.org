@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_limit_req_module"
         link="/ru/docs/http/ngx_http_limit_req_module.html"
         lang="ru"
-        rev="4">
+        rev="5">
 
 <section id="summary">
 
@@ -89,6 +89,29 @@ server {
 <example>
 limit_req zone=one burst=5 nodelay;
 </example>
+</para>
+
+<para>
+Директив <literal>limit_req</literal> может быть несколько.
+Например, следующая конфигурация ограничивает скорость обработки запросов,
+поступающих с одного IP-адреса, и в то же время ограничивает
+скорость обработки запросов одним виртуальным сервером:
+<example>
+limit_req_zone $binary_remote_addr zone=perip:10m rate=1r/s;
+limit_req_zone $server_name zone=perserver:10m rate=10r/s;
+
+server {
+    ...
+    limit_req zone=perip burst=5 nodelay;
+    limit_req zone=perserver burst=10;
+}
+</example>
+
+</para>
+
+<para>
+Директивы наследуются с предыдущего уровня при условии, что на данном уровне
+не описаны свои директивы <literal>limit_req</literal>.
 </para>
 
 </directive>
