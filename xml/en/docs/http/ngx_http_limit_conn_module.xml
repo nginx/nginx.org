@@ -10,7 +10,7 @@
 <module name="Module ngx_http_limit_conn_module"
         link="/en/docs/http/ngx_http_limit_conn_module.html"
         lang="en"
-        rev="6">
+        rev="7">
 
 <section id="summary">
 
@@ -86,7 +86,7 @@ When several <literal>limit_conn</literal> directives are specified,
 any configured limit will apply.
 For example, the following configuration will limit the number
 of connections to the server per a client IP and, at the same time,
-the total number of connections to the virtual host:
+the total number of connections to the virtual server:
 <example>
 limit_conn_zone $binary_remote_addr zone=perip:10m;
 limit_conn_zone $server_name zone=perserver:10m;

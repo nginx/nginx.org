@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_limit_conn_module"
         link="/ru/docs/http/ngx_http_limit_conn_module.html"
         lang="ru"
-        rev="6">
+        rev="7">
 
 <section id="summary">
 
@@ -86,7 +86,7 @@ IP-адреса.
 при этом будет срабатывать любое из ограничений.
 Например, следующая конфигурация ограничивает число соединений с сервером
 с одного клиентского IP-адреса и в то же время ограничивает общее число
-соединений с виртуальным хостом:
+соединений с виртуальным сервером:
 <example>
 limit_conn_zone $binary_remote_addr zone=perip:10m;
 limit_conn_zone $server_name zone=perserver:10m;
