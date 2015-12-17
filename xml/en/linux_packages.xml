@@ -7,7 +7,7 @@
 <article name="nginx: Linux packages"
          link="/en/linux_packages.html"
          lang="en"
-         rev="14"
+         rev="15"
          toc="no">
 
 <section id="distributions">
@@ -333,6 +333,7 @@ Packages for mainline version also have the following arguments:
 --with-threads
 --with-stream
 --with-stream_ssl_module
+--with-http_slice_module
 </programlisting>
 and
 <programlisting>

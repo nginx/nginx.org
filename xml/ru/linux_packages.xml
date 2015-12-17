@@ -7,7 +7,7 @@
 <article name="nginx: пакеты для Linux"
          link="/ru/linux_packages.html"
          lang="ru"
-         rev="14"
+         rev="15"
          toc="no">
 
 <section id="distributions">
@@ -336,6 +336,7 @@ zypper addrepo -G -t yum -c 'http://nginx.org/packages/mainline/sles/12' nginx
 --with-threads
 --with-stream
 --with-stream_ssl_module
+--with-http_slice_module
 </programlisting>
 кроме того
 <programlisting>
