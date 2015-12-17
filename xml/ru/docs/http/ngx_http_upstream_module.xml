@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_upstream_module"
         link="/ru/docs/http/ngx_http_upstream_module.html"
         lang="ru"
-        rev="44">
+        rev="45">
 
 <section id="summary">
 
@@ -921,7 +921,8 @@ match server_ok {
 Если очередь переполнена
 или за время, задаваемое параметром <literal>timeout</literal>,
 так и не удастся выбрать сервер для передачи ему запроса,
-клиенту будет возвращена ошибка.
+клиенту будет возвращена ошибка
+<http-status code="502" text="Bad Gateway"/>.
 </para>
 
 <para>

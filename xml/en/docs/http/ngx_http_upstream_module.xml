@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="44">
+        rev="45">
 
 <section id="summary">
 
@@ -916,7 +916,8 @@ at the same time.
 If the queue is filled up,
 or the server to pass the request to cannot be selected within
 the time period specified in the <literal>timeout</literal> parameter,
-an error will be returned to the client.
+the <http-status code="502" text="Bad Gateway"/>
+error will be returned to the client.
 </para>
 
 <para>
