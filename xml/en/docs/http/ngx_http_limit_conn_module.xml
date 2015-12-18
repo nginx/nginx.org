@@ -10,7 +10,7 @@
 <module name="Module ngx_http_limit_conn_module"
         link="/en/docs/http/ngx_http_limit_conn_module.html"
         lang="en"
-        rev="7">
+        rev="8">
 
 <section id="summary">
 
@@ -82,8 +82,7 @@ In HTTP/2 and SPDY, each concurrent request is considered a separate connection.
 </para>
 
 <para>
-When several <literal>limit_conn</literal> directives are specified,
-any configured limit will apply.
+There could be several <literal>limit_conn</literal> directives.
 For example, the following configuration will limit the number
 of connections to the server per a client IP and, at the same time,
 the total number of connections to the virtual server:
