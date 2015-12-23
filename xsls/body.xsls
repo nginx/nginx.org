@@ -19,10 +19,9 @@ X:template body (lang) {
 
     <div id="banner">
         X:if "@lang = 'he'" { X:attribute "class" { X:text{ltr} } }
-        <strong>New Report: Microservices vs. SOA by O'Reilly Media</strong><br/>
-        Want to know the difference between microservices and service-oriented architectures?<br/>
-        Learn how the app architectures differ and which is best for you.
-        <a href="https://www.nginx.com/microservices-soa/?utm_source=nginx-org&amp;utm_medium=digital&amp;utm_campaign=microservices_soa"><em>Download now.</em></a><br/>
+        <strong>NGINX Amplify is in private beta now!</strong><br/>
+        Looking for a simple yet efficient monitoring tool for NGINX?<br/>
+        <a href="https://www.nginx.com/amplify/?utm_source=nginxorg&amp;utm_medium=banner&amp;utm_campaign=amplify">Join our early adopters program today and try it out!</a><br/>
     </div>
 
     <div id="main">
