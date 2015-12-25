@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="50">
+        rev="51">
 
 <section id="directives" name="Directives">
 
@@ -1285,13 +1285,13 @@ This currently works only on FreeBSD.
 enables
 “<link url="http://en.wikipedia.org/wiki/TCP_Fast_Open">TCP Fast Open</link>”
 for the listening socket (1.5.8) and
-<link url="http://tools.ietf.org/html/draft-ietf-tcpm-fastopen#section-5.1">limits</link>
+<link url="http://tools.ietf.org/html/rfc7413#section-5.1">limits</link>
 the maximum length for the queue of connections that have not yet completed
 the three-way handshake.
 <note>
 Do not enable this feature unless the server can handle
 receiving the
-<link url="http://tools.ietf.org/html/draft-ietf-tcpm-fastopen#section-6.1">
+<link url="http://tools.ietf.org/html/rfc7413#section-6.1">
 same SYN packet with data</link> more than once.
 </note>
 </tag-desc>

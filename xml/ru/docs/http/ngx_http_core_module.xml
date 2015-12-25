@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="50">
+        rev="51">
 
 <section id="directives" name="Директивы">
 
@@ -1279,13 +1279,13 @@ PROXY</link>.
 включает
 “<link url="http://en.wikipedia.org/wiki/TCP_Fast_Open">TCP Fast Open</link>”
 для слушающего сокета (1.5.8) и
-<link url="http://tools.ietf.org/html/draft-ietf-tcpm-fastopen#section-5.1">ограничивает</link>
+<link url="http://tools.ietf.org/html/rfc7413#section-5.1">ограничивает</link>
 максимальную длину очереди соединений, которые ещё не завершили процесс
 three-way handshake.
 <note>
 Не включайте “TCP Fast Open”, не убедившись, что сервер может адекватно
 обрабатывать многократное получение
-<link url="http://tools.ietf.org/html/draft-ietf-tcpm-fastopen#section-6.1">
+<link url="http://tools.ietf.org/html/rfc7413#section-6.1">
 одного и того же SYN-пакета с данными</link>.
 </note>
 </tag-desc>
