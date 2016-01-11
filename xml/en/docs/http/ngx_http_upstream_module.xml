@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="45">
+        rev="46">
 
 <section id="summary">
 
@@ -313,6 +313,43 @@ without the need of restarting nginx.
 The configuration is accessible via a special location
 handled by
 <link doc="ngx_http_upstream_conf_module.xml" id="upstream_conf"/>.
+</para>
+
+</directive>
+
+
+<directive name="state">
+<syntax><value>file</value></syntax>
+<default/>
+<context>upstream</context>
+<appeared-in>1.9.7</appeared-in>
+
+<para>
+Specifies a <value>file</value> that keeps the state
+of the dynamically configurable group.
+The state is currently limited to the list of servers with their parameters.
+The file is read when parsing the configuration and is updated each time
+the upstream configuration is
+<link doc="ngx_http_upstream_conf_module.xml" id="upstream_conf">changed</link>.
+Changing the file content directly should be avoided.
+The directive cannot be used
+along with the <link id="server"/> directive.
+</para>
+
+<para>
+<note>
+Changes made during
+<link doc="../control.xml" id="reconfiguration">configuration reload</link>
+or <link doc="../control.xml" id="upgrade">binary upgrade</link>
+can be lost.
+</note>
+</para>
+
+<para>
+<note>
+This directive is available as part of our
+<commercial_version>commercial subscription</commercial_version>.
+</note>
 </para>
 
 </directive>
@@ -684,7 +721,16 @@ by default, “<literal>/</literal>”;
 <tag-desc>
 specifies the <literal>match</literal> block configuring the tests that a
 response should pass in order for a health check to pass;
-by default, the response should have status code 2xx or 3xx.
+by default, the response should have status code 2xx or 3xx;
+</tag-desc>
+
+<tag-name id="health_check_port">
+<literal>port</literal>=<value>number</value>
+</tag-name>
+<tag-desc>
+defines the port used when connecting to a server
+to perform a health check (1.9.7);
+by default, equals the <link id="server"/> port.
 </tag-desc>
 
 </list>

@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_upstream_module"
         link="/ru/docs/http/ngx_http_upstream_module.html"
         lang="ru"
-        rev="45">
+        rev="46">
 
 <section id="summary">
 
@@ -313,6 +313,43 @@ http {
 Конфигурация доступна через специальный location,
 в котором указана директива
 <link doc="ngx_http_upstream_conf_module.xml" id="upstream_conf"/>.
+</para>
+
+</directive>
+
+
+<directive name="state">
+<syntax><value>file</value></syntax>
+<default/>
+<context>upstream</context>
+<appeared-in>1.9.7</appeared-in>
+
+<para>
+Задаёт <value>файл</value>, в котором хранится состояние
+динамически настраиваемой группы.
+В данный момент состояние ограничено списком серверов с их параметрами.
+Файл читается при парсинге конфигурации и обновляется каждый раз при
+<link doc="ngx_http_upstream_conf_module.xml" id="upstream_conf">изменении</link>
+конфигурации группы.
+Изменение содержимого файла напрямую не рекомендуется.
+Директиву нельзя использовать
+совместно с директивой <link id="server"/>.
+</para>
+
+<para>
+<note>
+Изменения, совершённые в момент
+<link doc="../control.xml" id="reconfiguration">перезагрузки конфигурации</link>
+или <link doc="../control.xml" id="upgrade">обновления бинарного файла</link>,
+могут быть потеряны.
+</note>
+</para>
+
+<para>
+<note>
+Эта директива доступна как часть
+<commercial_version>коммерческой подписки</commercial_version>.
+</note>
 </para>
 
 </directive>
@@ -688,7 +725,16 @@ server {
 <tag-desc>
 указывает на блок <literal>match</literal> с условиями, которым должен
 удовлетворять ответ, чтобы результат проверки считался успешным;
-по умолчанию код ответа должен быть 2xx или 3xx.
+по умолчанию код ответа должен быть 2xx или 3xx;
+</tag-desc>
+
+<tag-name id="health_check_port">
+<literal>port</literal>=<value>число</value>
+</tag-name>
+<tag-desc>
+задаёт порт, используемый при подключении к серверу
+для проверки его работоспособности (1.9.7);
+по умолчанию совпадает с портом <link id="server">сервера</link>.
 </tag-desc>
 
 </list>

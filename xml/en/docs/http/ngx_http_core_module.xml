@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="51">
+        rev="52">
 
 <section id="directives" name="Directives">
 
@@ -1233,12 +1233,6 @@ The <literal>http2</literal> parameter (1.9.5) configures the port to accept
 Normally, for this to work the <literal>ssl</literal> parameter should be
 specified as well, but nginx can also be configured to accept HTTP/2
 connections without SSL.
-<note>
-The <literal>http2</literal> parameter is also available in the
-<literal>nginx-plus-http2</literal> package (NGINX Plus release 7).
-Since HTTP/2 supersedes SPDY, the <literal>nginx-plus-http2</literal>
-package does not support the <literal>spdy</literal> parameter.
-</note>
 </para>
 
 <para>

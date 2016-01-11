@@ -9,7 +9,7 @@
 <module name="Module ngx_http_v2_module"
         link="/en/docs/http/ngx_http_v2_module.html"
         lang="en"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -24,15 +24,6 @@ and supersedes the
 This module is not built by default, it should be enabled with
 the <literal>--with-http_v2_module</literal>
 configuration parameter.
-</para>
-
-<para>
-<note>
-This module is also available as part of our
-<commercial_version>commercial subscription</commercial_version>
-in the <literal>nginx-plus-http2</literal> package of NGINX Plus
-<link url="https://www.nginx.com/blog/nginx-plus-r7-released/">release 7</link>.
-</note>
 </para>
 
 </section>

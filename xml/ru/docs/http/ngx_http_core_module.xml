@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="51">
+        rev="52">
 
 <section id="directives" name="Директивы">
 
@@ -1226,12 +1226,6 @@ id="single_http_https_server">конфигурацию</link> для серве�
 Обычно, чтобы это работало, следует также указать параметр
 <literal>ssl</literal>, однако nginx можно также настроить и на приём
 HTTP/2-соединений без SSL.
-<note>
-Параметр <literal>http2</literal> также доступен в пакете
-<literal>nginx-plus-http2</literal> (NGINX Plus release 7).
-Так как HTTP/2 заменяет SPDY, пакет <literal>nginx-plus-http2</literal>
-не поддерживает параметр <literal>spdy</literal>.
-</note>
 </para>
 
 <para>
