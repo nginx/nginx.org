@@ -4,6 +4,7 @@ DOCS =									\
 		windows							\
 		events							\
 		syntax							\
+		example							\
 		switches						\
 		control							\
 		hash							\
