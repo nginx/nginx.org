@@ -8,7 +8,7 @@
 <article name="nginx"
          link="/ru/"
          lang="ru"
-         rev="48">
+         rev="49">
 
 
 <section>
@@ -283,6 +283,17 @@ AUTH LOGIN/PLAIN/CRAM-MD5;
 <link doc="docs/stream/ngx_stream_ssl_module.xml">SSL termination</link>;
 <link doc="docs/stream/ngx_stream_upstream_module.xml">распределение нагрузки
 и отказоустойчивость</link>;
+</listitem>
+
+<listitem>
+Ограничение доступа в зависимости от
+<link doc="docs/stream/ngx_stream_access_module.xml">адреса клиента</link>;
+</listitem>
+
+<listitem>
+Ограничение числа одновременных
+<link doc="docs/stream/ngx_stream_limit_conn_module.xml">соединений</link>
+с одного адреса.
 </listitem>
 
 </list>

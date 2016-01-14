@@ -8,7 +8,7 @@
 <article name="nginx"
          link="/en/"
          lang="en"
-         rev="48">
+         rev="49">
 
 
 <section>
@@ -284,6 +284,17 @@ with
 <link doc="docs/stream/ngx_stream_ssl_module.xml">SSL termination</link>;
 <link doc="docs/stream/ngx_stream_upstream_module.xml">load balancing
 and fault tolerance</link>;
+</listitem>
+
+<listitem>
+Access control based on
+<link doc="docs/stream/ngx_stream_access_module.xml">client address</link>;
+</listitem>
+
+<listitem>
+Limiting the number of simultaneous
+<link doc="docs/stream/ngx_stream_limit_conn_module.xml">connections</link>
+coming from one address.
 </listitem>
 
 </list>
