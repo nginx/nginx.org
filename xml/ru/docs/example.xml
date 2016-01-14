@@ -15,9 +15,6 @@
 <para>
 Пример конфигурации сайта, который передаёт все запросы бэкенду, кроме
 картинок и запросов, начинающихся с "/download/".
-<!--
-Директивы, выделенные цветом, скорее всего, будут меняться в будущих версиях.
--->
 <programlisting>
 user  www www;
 
@@ -30,7 +27,7 @@ pid /var/run/nginx.pid;
 error_log  /var/log/nginx.error_log  info;
 
 events {
-    connections   2000;
+    worker_connections   2000;
 
     # use [ kqueue | epoll | /dev/poll | select | poll ];
     use kqueue;
@@ -121,9 +118,6 @@ http {
 
         location /404.html {
             root  /spool/www;
-
-            charset         on;
-            source_charset  koi8-r;
         }
 
         location /old_stuff/ {
