@@ -19,9 +19,10 @@ X:template body (lang) {
 
     <div id="banner">
         X:if "@lang = 'he'" { X:attribute "class" { X:text{ltr} } }
-        <strong>NGINX Amplify is in private beta now!</strong><br/>
-        Looking for a simple yet efficient monitoring tool for NGINX?<br/>
-        <a href="https://www.nginx.com/amplify/?utm_source=nginxorg&amp;utm_medium=banner&amp;utm_campaign=amplify">Join our early adopters program today and try it out!</a><br/>
+        <strong>Announcing NGINX Plus Release 8</strong><br/>
+        Deploy now with persistent upstream configuration API, OAuth2,<br/>
+        production-ready HTTP/2, scalable video caching, and more.<br/>
+        <a href="https://www.nginx.com/blog/nginx-plus-r8-released/?utm_source=nginxorg&amp;utm_medium=banner&amp;utm_campaign=r8"><em>Explore R8!</em></a><br/>
     </div>
 
     <div id="main">
