@@ -24,6 +24,24 @@ Patches are signed using one of the
 
 <security>
 
+<item name="Invalid pointer dereference in resolver"
+      severity="medium"
+      cve="2016-0742"
+      good="1.9.10+, 1.8.1+"
+      vulnerable="0.6.18-1.9.9" />
+
+<item name="Use-after-free during CNAME response processing in resolver"
+      severity="medium"
+      cve="2016-0746"
+      good="1.9.10+, 1.8.1+"
+      vulnerable="0.6.18-1.9.9" />
+
+<item name="Insufficient limits of CNAME resolution in resolver"
+      severity="medium"
+      cve="2016-0747"
+      good="1.9.10+, 1.8.1+"
+      vulnerable="0.6.18-1.9.9" />
+
 <item name="SSL session reuse vulnerability"
       severity="medium"
       cve="2014-3616"

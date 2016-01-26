@@ -7,6 +7,18 @@
 
 <news name="nginx news" link="/" lang="en">
 
+<event date="2016-01-26">
+<para>
+<link doc="en/download.xml">nginx-1.8.1</link>
+stable and
+<link doc="en/download.xml">nginx-1.9.10</link>
+mainline versions have been released,
+with fixes for
+<link doc="en/security_advisories.xml">vulnerabilities in resolver</link>
+(CVE-2016-0742, CVE-2016-0746, CVE-2016-0747).
+</para>
+</event>
+
 <event date="2015-12-09">
 <para>
 <link doc="en/download.xml">nginx-1.9.9</link>

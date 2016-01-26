@@ -1,4 +1,34 @@
 
+Changes with nginx 1.9.10                                        26 Jan 2016
+
+    *) Security: invalid pointer dereference might occur during DNS server
+       response processing if the "resolver" directive was used, allowing an
+       attacker who is able to forge UDP packets from the DNS server to
+       cause segmentation fault in a worker process (CVE-2016-0742).
+
+    *) Security: use-after-free condition might occur during CNAME response
+       processing if the "resolver" directive was used, allowing an attacker
+       who is able to trigger name resolution to cause segmentation fault in
+       a worker process, or might have potential other impact
+       (CVE-2016-0746).
+
+    *) Security: CNAME resolution was insufficiently limited if the
+       "resolver" directive was used, allowing an attacker who is able to
+       trigger arbitrary name resolution to cause excessive resource
+       consumption in worker processes (CVE-2016-0747).
+
+    *) Feature: the "auto" parameter of the "worker_cpu_affinity" directive.
+
+    *) Bugfix: the "proxy_protocol" parameter of the "listen" directive did
+       not work with IPv6 listen sockets.
+
+    *) Bugfix: connections to upstream servers might be cached incorrectly
+       when using the "keepalive" directive.
+
+    *) Bugfix: proxying used the HTTP method of the original request after
+       an "X-Accel-Redirect" redirection.
+
+
 Changes with nginx 1.9.9                                         09 Dec 2015
 
     *) Bugfix: proxying to unix domain sockets did not work when using
