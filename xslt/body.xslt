@@ -20,10 +20,10 @@
 
     <div id="banner">
         <xsl:if test="@lang = 'he'"> <xsl:attribute name="class"> <xsl:text>ltr</xsl:text> </xsl:attribute> </xsl:if>
-        <strong>Announcing NGINX Plus Release 8</strong><br/>
-        Deploy now with persistent upstream configuration API, OAuth2,<br/>
-        production-ready HTTP/2, scalable video caching, and more.<br/>
-        <a href="https://www.nginx.com/blog/nginx-plus-r8-released/?utm_source=nginxorg&amp;utm_medium=banner&amp;utm_campaign=r8"><em>Explore R8!</em></a><br/>
+        <strong>Deploying apps with Docker?</strong><br/>
+        Download O'Reilly's new report to learn about docker networking,<br/>
+        and service discovery.
+        <a href="https://www.nginx.com/resources/library/docker-networking/?utm_source=nginxorg&amp;utm_medium=banner&amp;utm_campaign=docker_networking"><em>Download now.</em></a><br/>
     </div>
 
     <div id="main">
