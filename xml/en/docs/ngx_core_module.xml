@@ -10,7 +10,7 @@
 <module name="Core functionality"
         link="/en/docs/ngx_core_module.html"
         lang="en"
-        rev="16">
+        rev="17">
 
 <section id="example" name="Example Configuration">
 
@@ -301,6 +301,26 @@ Usage example:
 <example>
 include mime.types;
 include vhosts/*.conf;
+</example>
+</para>
+
+</directive>
+
+
+<directive name="load_module">
+<syntax><value>file</value></syntax>
+<default/>
+<context>main</context>
+<appeared-in>1.9.11</appeared-in>
+
+<para>
+Loads a dynamic module.
+</para>
+
+<para>
+Example:
+<example>
+load_module modules/ngx_mail_module.so;
 </example>
 </para>
 

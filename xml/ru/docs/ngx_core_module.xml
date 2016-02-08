@@ -10,7 +10,7 @@
 <module name="Основная функциональность"
         link="/ru/docs/ngx_core_module.html"
         lang="ru"
-        rev="16">
+        rev="17">
 
 <section id="example" name="Пример конфигурации">
 
@@ -298,6 +298,26 @@ env OPENSSL_ALLOW_PROXY_CERTS=1;
 <example>
 include mime.types;
 include vhosts/*.conf;
+</example>
+</para>
+
+</directive>
+
+
+<directive name="load_module">
+<syntax><value>файл</value></syntax>
+<default/>
+<context>main</context>
+<appeared-in>1.9.11</appeared-in>
+
+<para>
+Загружает динамический модуль.
+</para>
+
+<para>
+Пример:
+<example>
+load_module modules/ngx_mail_module.so;
 </example>
 </para>
 
