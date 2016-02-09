@@ -1,4 +1,16 @@
 
+Changes with nginx 1.9.11                                        09 Feb 2016
+
+    *) Feature: TCP support in resolver.
+
+    *) Feature: dynamic modules.
+
+    *) Bugfix: the $request_length variable did not include size of request
+       headers when using HTTP/2.
+
+    *) Bugfix: in the ngx_http_v2_module.
+
+
 Changes with nginx 1.9.10                                        26 Jan 2016
 
     *) Security: invalid pointer dereference might occur during DNS server
