@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_map_module"
         link="/ru/docs/http/ngx_http_map_module.html"
         lang="ru"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -84,6 +84,10 @@ map $http_user_agent $mobile {
 
 <para>
 Исходные значения задаются строками или регулярными выражениями (0.9.6).
+</para>
+
+<para>
+Строки проверяются без учёта регистра.
 </para>
 
 <para>
