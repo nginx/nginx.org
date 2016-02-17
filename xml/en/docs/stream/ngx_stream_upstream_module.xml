@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_upstream_module"
         link="/en/docs/stream/ngx_stream_upstream_module.html"
         lang="en"
-        rev="9">
+        rev="10">
 
 <section id="summary">
 
@@ -621,7 +621,7 @@ server {
 <para>
 <note>
 Only the first
-<link doc="ngx_stream_proxy_module.xml" id="proxy_upstream_buffer"/>
+<link doc="ngx_stream_proxy_module.xml" id="proxy_buffer_size"/>
 bytes of data obtained from the server are examined.
 </note>
 </para>
