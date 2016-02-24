@@ -13,7 +13,28 @@
 
 <section>
 
-    <book
+<book
+    title="nginx実践入門 (Practical nginx guide)"
+    link="http://gihyo.jp/magazine/wdpress/plus/978-4-7741-7866-0"
+    author="久保達彦（くぼたつひこ） (Tatsuhiko Kubo)"
+    site="http://cccis.jp"
+    author2="道井俊介（みちいしゅんすけ） (MICHII Shunsuke)"
+    site2="http://harukasan.jp"
+    publisher="技術評論社 (Gijutsuhyoronsha)"
+    lang="日本語 (Japanese)"
+    cover="../books/practical_nginx_guide_jp.jpg" />
+
+<book
+    title="Nginx ポケットリファレンス (Nginx pocket reference)"
+    link="http://www.amazon.co.jp/dp/4774176338"
+    author="鶴長 鎮一 (Shinichi Tsurunaga)"
+    author2="馬場 俊彰 (Baba Toshiaki)"
+    site2="http://netmark.jp"
+    publisher="技術評論社 (Gijutsuhyoronsha)"
+    lang="日本語 (Japanese)"
+    cover="../books/nginx_pocket_reference_jp.jpg" />
+
+<book
     title="Nginx Essentials"
     link="https://www.packtpub.com/networking-and-servers/nginx-essentials/book"
     author="Valery Kholodkov"
@@ -22,7 +43,7 @@
     lang="English"
     cover="../books/nginx_essentials.jpg" />
 
-    <book
+<book
     title="Nginx High Performance"
     link="https://www.packtpub.com/networking-and-servers/nginx-high-performance/book"
     author="Rahul Sharma"

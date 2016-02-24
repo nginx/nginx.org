@@ -17,8 +17,14 @@ X:template = "book" {
 
     <td>
     X:text {title: } <a href="{@link}">!{@title}</a> <br/>
-    X:text {author: }
-    X:if "@site" { <a href="{@site}">!{@author}</a> } else { !{@author} } <br/>
+    X:if "@author2" { X:text {authors: } } else { X:text {author: } }
+    X:if "@site" { <a href="{@site}">!{@author}</a> } else { !{@author} }
+    X:if "@author2" {
+        X:text {,} <br/> X:text {&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;}
+        X:if "@site2" { <a href="{@site2}">!{@author2}</a> }
+                 else { !{@author2} }
+    }
+    <br/>
     X:if "@translator" { X:text {translator: } !{@translator} <br/> }
     X:if "@publisher" { X:text {publisher: } !{@publisher} <br/> }
     X:text {language: } !{@lang}

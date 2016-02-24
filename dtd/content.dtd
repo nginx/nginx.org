@@ -104,7 +104,9 @@
            title        CDATA #REQUIRED
            link         CDATA #REQUIRED
            author       CDATA #REQUIRED
-           site         CDATA #REQUIRED
+           author2      CDATA #IMPLIED
+           site         CDATA #IMPLIED
+           site2        CDATA #IMPLIED
            publisher    CDATA #REQUIRED
            lang         CDATA #REQUIRED
            cover        CDATA #REQUIRED
