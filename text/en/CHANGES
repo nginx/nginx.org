@@ -1,4 +1,34 @@
 
+Changes with nginx 1.9.12                                        24 Feb 2016
+
+    *) Feature: Huffman encoding of response headers in HTTP/2.
+       Thanks to Vlad Krasnov.
+
+    *) Feature: the "worker_cpu_affinity" directive now supports more than
+       64 CPUs.
+
+    *) Bugfix: compatibility with 3rd party C++ modules; the bug had
+       appeared in 1.9.11.
+       Thanks to Piotr Sikora.
+
+    *) Bugfix: nginx could not be built statically with OpenSSL on Linux;
+       the bug had appeared in 1.9.11.
+
+    *) Bugfix: the "add_header ... always" directive with an empty value did
+       not delete "Last-Modified" and "ETag" header lines from error
+       responses.
+
+    *) Workaround: "called a function you should not call" and "shutdown
+       while in init" messages might appear in logs when using OpenSSL
+       1.0.2f.
+
+    *) Bugfix: invalid headers might be logged incorrectly.
+
+    *) Bugfix: socket leak when using HTTP/2.
+
+    *) Bugfix: in the ngx_http_v2_module.
+
+
 Changes with nginx 1.9.11                                        09 Feb 2016
 
     *) Feature: TCP support in resolver.
