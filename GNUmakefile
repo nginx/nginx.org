@@ -312,6 +312,11 @@ copy:	copy_dirmap
 .PHONY:	copy_dirmap
 copy_dirmap:
 	/usr/local/bin/copy_dirmap.sh dir.map $(NGINX_ORG)
+
+draft:	copy_draft
+.PHONY:	copy_draft
+copy_draft:
+	/usr/local/bin/copy_draft.sh $(NGINX_ORG)
 endif
 
 clean:
