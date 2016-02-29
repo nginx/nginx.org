@@ -1117,7 +1117,7 @@ the connection is closed.
 
 
 <directive name="scgi_request_buffering">
-<syntax><value>on</value> | <value>off</value></syntax>
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
 <default>on</default>
 <context>http</context>
 <context>server</context>

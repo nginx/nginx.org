@@ -70,7 +70,7 @@ Using the “Next Protocol Negotiation” (NPN) TLS extension for this purpose
 <para>
 Also note that if the
 <link doc="ngx_http_ssl_module.xml" id="ssl_prefer_server_ciphers"/> directive
-is set to the value <value>on</value>,
+is set to the value “<literal>on</literal>”,
 the <link doc="ngx_http_ssl_module.xml" id="ssl_ciphers">ciphers</link>
 should be configured to comply with
 <link url="https://tools.ietf.org/html/rfc7540#appendix-A">RFC 7540, Appendix A</link>

@@ -410,8 +410,8 @@ scgi_cache_path /data/nginx/cache levels=1:2 keys_zone=one:10m;
 Указывает, будут ли записи в кэше, соответствующие
 <link id="scgi_cache_purge">маске</link>,
 удалены с диска при помощи процесса “cache purger” (1.7.12).
-Установка параметра в значение <value>on</value>
-(по умолчанию <value>off</value>)
+Установка параметра в значение <literal>on</literal>
+(по умолчанию <literal>off</literal>)
 активирует процесс “cache purger”, который
 проходит по всем записям в кэше
 и удаляет записи, соответствующие этой маске.
@@ -1112,7 +1112,7 @@ SCGI-сервер.
 
 
 <directive name="scgi_request_buffering">
-<syntax><value>on</value> | <value>off</value></syntax>
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
 <default>on</default>
 <context>http</context>
 <context>server</context>
