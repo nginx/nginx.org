@@ -9,13 +9,13 @@
 <module name="Модуль ngx_stream_proxy_module"
         link="/ru/docs/stream/ngx_stream_proxy_module.html"
         lang="ru"
-        rev="12">
+        rev="13">
 
 <section id="summary">
 
 <para>
-Модуль <literal>ngx_stream_proxy_module</literal> (1.9.0) позволяет передавать
-соединения другому серверу по TCP и UNIX-сокетам.
+Модуль <literal>ngx_stream_proxy_module</literal> (1.9.0) позволяет проксировать
+потоки данных по TCP, UDP (1.9.13) и UNIX-сокетам.
 </para>
 
 </section>
@@ -35,6 +35,13 @@ server {
     proxy_connect_timeout 1s;
     proxy_timeout 1m;
     proxy_pass example.com:12345;
+}
+
+server {
+    listen 53 udp;
+    proxy_responses 1;
+    proxy_timeout 20s;
+    proxy_pass dns.example.com:53;
 }
 
 server {
@@ -207,6 +214,26 @@ proxy_pass unix:/tmp/stream.socket;
 Включает
 <link url="http://www.haproxy.org/download/1.5/doc/proxy-protocol.txt">протокол
 PROXY</link> для соединений с проксируемым сервером.
+</para>
+
+</directive>
+
+
+<directive name="proxy_responses">
+<syntax><value>число</value></syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.9.13</appeared-in>
+
+<para>
+Задаёт количество датаграмм, ожидаемых от проксируемого сервера
+в ответ на запрос клиента
+в случае, если используется протокол
+<link doc="ngx_stream_core_module.xml" id="udp">UDP</link>.
+По умолчанию количество датаграмм не ограничено:
+ответные датаграммы будут отправляться
+до истечения значения <link id="proxy_timeout"/>.
 </para>
 
 </directive>

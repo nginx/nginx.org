@@ -9,13 +9,13 @@
 <module name="Module ngx_stream_proxy_module"
         link="/en/docs/stream/ngx_stream_proxy_module.html"
         lang="en"
-        rev="12">
+        rev="13">
 
 <section id="summary">
 
 <para>
-The <literal>ngx_stream_proxy_module</literal> module (1.9.0) allows passing
-connections to another server over TCP and UNIX-domain sockets.
+The <literal>ngx_stream_proxy_module</literal> module (1.9.0) allows proxying
+data streams over TCP, UDP (1.9.13), and UNIX-domain sockets.
 </para>
 
 </section>
@@ -35,6 +35,13 @@ server {
     proxy_connect_timeout 1s;
     proxy_timeout 1m;
     proxy_pass example.com:12345;
+}
+
+server {
+    listen 53 udp;
+    proxy_responses 1;
+    proxy_timeout 20s;
+    proxy_pass dns.example.com:53;
 }
 
 server {
@@ -206,6 +213,26 @@ In addition, an address can be specified as a
 Enables the
 <link url="http://www.haproxy.org/download/1.5/doc/proxy-protocol.txt">PROXY
 protocol</link> for connections to a proxied server.
+</para>
+
+</directive>
+
+
+<directive name="proxy_responses">
+<syntax><value>number</value></syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.9.13</appeared-in>
+
+<para>
+Sets the number of datagrams expected from the proxied server
+in response to the client request
+if the <link doc="ngx_stream_core_module.xml" id="udp">UDP</link>
+protocol is used.
+By default, the number of datagrams is not limited:
+the response datagrams will be sent
+until the <link id="proxy_timeout"/> value expires.
 </para>
 
 </directive>

@@ -8,7 +8,7 @@
 <article name="nginx for Windows"
          link="/en/docs/windows.html"
          lang="en"
-         rev="2">
+         rev="3">
 
 <section>
 
@@ -128,6 +128,10 @@ A worker can handle no more than 1024 simultaneous connections.
 The cache and other modules which require shared memory support do not work
 on Windows Vista and later versions due to
 address space layout randomization being enabled in these Windows versions.
+</listitem>
+
+<listitem>
+The UDP proxy functionality is not supported.
 </listitem>
 
 </list>

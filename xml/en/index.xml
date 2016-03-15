@@ -8,7 +8,7 @@
 <article name="nginx"
          link="/en/"
          lang="en"
-         rev="53">
+         rev="54">
 
 
 <section>
@@ -16,7 +16,7 @@
 <para>
 nginx [engine x] is an HTTP and reverse proxy server,
 a mail proxy server,
-and a generic TCP proxy server,
+and a generic TCP/UDP proxy server,
 originally written by <link url="http://sysoev.ru/en/">Igor Sysoev</link>.
 For a long time, it has been running
 on many heavily loaded Russian sites including
@@ -272,17 +272,24 @@ and STLS</link> support.
 </section>
 
 
-<section id="tcp_proxy_server_features"
-        name="TCP proxy server features">
+<section id="generic_proxy_server_features"
+        name="TCP/UDP proxy server features">
 
 <para>
 <list type="bullet">
 
 <listitem>
 <link doc="docs/stream/ngx_stream_proxy_module.xml">Generic proxying</link>
-with
-<link doc="docs/stream/ngx_stream_ssl_module.xml">SSL termination</link>;
-<link doc="docs/stream/ngx_stream_upstream_module.xml">load balancing
+of TCP and UDP;
+</listitem>
+
+<listitem>
+<link doc="docs/stream/ngx_stream_ssl_module.xml">SSL termination</link>
+for TCP;
+</listitem>
+
+<listitem>
+<link doc="docs/stream/ngx_stream_upstream_module.xml">Load balancing
 and fault tolerance</link>;
 </listitem>
 

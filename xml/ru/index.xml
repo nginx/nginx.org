@@ -8,7 +8,7 @@
 <article name="nginx"
          link="/ru/"
          lang="ru"
-         rev="53">
+         rev="54">
 
 
 <section>
@@ -16,7 +16,7 @@
 <para>
 nginx [engine x]&mdash;это HTTP-сервер и обратный прокси-сервер,
 почтовый прокси-сервер,
-а также TCP прокси-сервер общего назначения,
+а также TCP/UDP прокси-сервер общего назначения,
 изначально написанный <link url="http://sysoev.ru">Игорем Сысоевым</link>.
 Уже длительное время он обслуживает
 серверы многих высоконагруженных российских сайтов, таких как
@@ -271,17 +271,24 @@ AUTH LOGIN/PLAIN/CRAM-MD5;
 </section>
 
 
-<section id="tcp_proxy_server_features"
-        name="Функциональность TCP прокси-сервера">
+<section id="generic_proxy_server_features"
+        name="Функциональность TCP/UDP прокси-сервера">
 
 <para>
 <list type="bullet">
 
 <listitem>
-<link doc="docs/stream/ngx_stream_proxy_module.xml">Проксирование</link>
-с
-<link doc="docs/stream/ngx_stream_ssl_module.xml">SSL termination</link>;
-<link doc="docs/stream/ngx_stream_upstream_module.xml">распределение нагрузки
+<link doc="docs/stream/ngx_stream_proxy_module.xml">Проксирование
+TCP и UDP;</link>
+</listitem>
+
+<listitem>
+<link doc="docs/stream/ngx_stream_ssl_module.xml">SSL termination</link>
+для TCP;
+</listitem>
+
+<listitem>
+<link doc="docs/stream/ngx_stream_upstream_module.xml">Распределение нагрузки
 и отказоустойчивость</link>;
 </listitem>
 

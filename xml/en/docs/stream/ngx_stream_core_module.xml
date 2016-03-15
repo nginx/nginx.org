@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_core_module"
         link="/en/docs/stream/ngx_stream_core_module.html"
         lang="en"
-        rev="10">
+        rev="11">
 
 <section id="summary">
 
@@ -45,11 +45,23 @@ stream {
         server unix:/tmp/backend3;
     }
 
+    upstream dns {
+       server 192.168.0.1:53535;
+       server dns.example.com:53;
+    }
+
     server {
         listen 12345;
         proxy_connect_timeout 1s;
         proxy_timeout 3s;
         proxy_pass backend;
+    }
+
+    server {
+        listen 127.0.0.1:53 udp;
+        proxy_responses 1;
+        proxy_timeout 20s;
+        proxy_pass dns;
     }
 
     server {
@@ -69,6 +81,7 @@ stream {
 <syntax>
     <value>address</value>:<value>port</value>
     [<literal>ssl</literal>]
+    [<literal>udp</literal>]
     [<literal>backlog</literal>=<value>number</value>]
     [<literal>bind</literal>]
     [<literal>ipv6only</literal>=<literal>on</literal>|<literal>off</literal>]
@@ -104,6 +117,11 @@ listen unix:/var/run/nginx.sock;
 <para>
 The <literal>ssl</literal> parameter allows specifying that all
 connections accepted on this port should work in SSL mode.
+</para>
+
+<para>
+The <literal>udp</literal> parameter configures a listening socket
+for working with datagrams (1.9.13).
 </para>
 
 <para>

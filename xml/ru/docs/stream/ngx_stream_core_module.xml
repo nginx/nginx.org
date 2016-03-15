@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_core_module"
         link="/ru/docs/stream/ngx_stream_core_module.html"
         lang="ru"
-        rev="10">
+        rev="11">
 
 <section id="summary">
 
@@ -45,11 +45,23 @@ stream {
         server unix:/tmp/backend3;
     }
 
+    upstream dns {
+       server 192.168.0.1:53535;
+       server dns.example.com:53;
+    }
+
     server {
         listen 12345;
         proxy_connect_timeout 1s;
         proxy_timeout 3s;
         proxy_pass backend;
+    }
+
+    server {
+        listen 127.0.0.1:53 udp;
+        proxy_responses 1;
+        proxy_timeout 20s;
+        proxy_pass dns;
     }
 
     server {
@@ -69,6 +81,7 @@ stream {
 <syntax>
     <value>адрес</value>:<value>порт</value>
     [<literal>ssl</literal>]
+    [<literal>udp</literal>]
     [<literal>backlog</literal>=<value>число</value>]
     [<literal>bind</literal>]
     [<literal>ipv6only</literal>=<literal>on</literal>|<literal>off</literal>]
@@ -103,6 +116,11 @@ listen unix:/var/run/nginx.sock;
 <para>
 Параметр <literal>ssl</literal> указывает на то, что все соединения,
 принимаемые на данном порту, должны работать в режиме SSL.
+</para>
+
+<para>
+Параметр <literal>udp</literal> конфигурирует слушающий сокет
+для работы с датаграммами (1.9.13).
 </para>
 
 <para>
