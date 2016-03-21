@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="52">
+        rev="53">
 
 <section id="directives" name="Directives">
 
@@ -149,6 +149,24 @@ Multi-threaded sending of files is only supported on Linux.
 
 <para>
 See also the <link id="sendfile"/> directive.
+</para>
+
+</directive>
+
+
+<directive name="aio_write">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.9.13</appeared-in>
+
+<para>
+If <link id="aio"/> is enabled, specifies whether it is used for writing files.
+Currently, works only when using
+<literal>aio threads</literal>
+and is used for writing temporary files with data received from proxied servers.
 </para>
 
 </directive>

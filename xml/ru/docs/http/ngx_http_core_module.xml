@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="52">
+        rev="53">
 
 <section id="directives" name="Директивы">
 
@@ -149,6 +149,25 @@ aio threads=pool$disk;
 
 <para>
 См. также директиву <link id="sendfile"/>.
+</para>
+
+</directive>
+
+
+<directive name="aio_write">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.9.13</appeared-in>
+
+<para>
+При включённом <link id="aio"/> разрешает его использование для записи файлов.
+В настоящий момент работает только при использовании
+<literal>aio threads</literal>
+и используется при записи временных файлов с данными,
+полученными от проксируемых серверов.
 </para>
 
 </directive>
