@@ -164,9 +164,10 @@ See also the <link id="sendfile"/> directive.
 
 <para>
 If <link id="aio"/> is enabled, specifies whether it is used for writing files.
-Currently, works only when using
+Currently, this only works when using
 <literal>aio threads</literal>
-and is used for writing temporary files with data received from proxied servers.
+and is limited to writing temporary files
+with data received from proxied servers.
 </para>
 
 </directive>
