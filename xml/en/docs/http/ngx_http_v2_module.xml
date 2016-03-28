@@ -9,7 +9,7 @@
 <module name="Module ngx_http_v2_module"
         link="/en/docs/http/ngx_http_v2_module.html"
         lang="en"
-        rev="4">
+        rev="5">
 
 <section id="summary">
 
@@ -168,7 +168,9 @@ For most requests, the default limit should be enough.
 <context>http</context>
 
 <para>
-Sets the size of the per worker input buffer.
+Sets the size of the per
+<link doc="../ngx_core_module.xml" id="worker_processes">worker</link>
+input buffer.
 </para>
 
 </directive>
