@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_proxy_module"
         link="/ru/docs/http/ngx_http_proxy_module.html"
         lang="ru"
-        rev="44">
+        rev="45">
 
 <section id="summary">
 
@@ -1093,6 +1093,7 @@ NTLM</link> рекомендуется версия 1.1.
     <literal>http_504</literal> |
     <literal>http_403</literal> |
     <literal>http_404</literal> |
+    <literal>non_idempotent</literal> |
     <literal>off</literal>
     ...</syntax>
 <default>error timeout</default>
@@ -1132,6 +1133,17 @@ NTLM</link> рекомендуется версия 1.1.
 
 <tag-name><literal>http_404</literal></tag-name>
 <tag-desc>сервер вернул ответ с кодом 404;</tag-desc>
+
+<tag-name id="non_idempotent"><literal>non_idempotent</literal></tag-name>
+<tag-desc>обычно запросы с
+<link url="http://tools.ietf.org/html/rfc7231#section-4.2.2">неидемпотентным</link>
+методом
+(<literal>POST</literal>, <literal>LOCK</literal>, <literal>PATCH</literal>)
+не передаются на другой сервер,
+если запрос серверу группы уже был отправлен (1.9.13);
+включение параметра явно разрешает повторять подобные запросы;
+</tag-desc>
+
 
 <tag-name><literal>off</literal></tag-name>
 <tag-desc>запрещает передачу запроса следующему серверу.</tag-desc>

@@ -10,7 +10,7 @@
 <module name="Module ngx_http_fastcgi_module"
         link="/en/docs/http/ngx_http_fastcgi_module.html"
         lang="en"
-        rev="31">
+        rev="32">
 
 <section id="summary">
 
@@ -936,6 +936,7 @@ or <link id="fastcgi_store">stored</link> on disk.
     <literal>http_503</literal> |
     <literal>http_403</literal> |
     <literal>http_404</literal> |
+    <literal>non_idempotent</literal> |
     <literal>off</literal>
     ...</syntax>
 <default>error timeout</default>
@@ -969,6 +970,16 @@ server, passing a request to it, or reading the response header;</tag-desc>
 
 <tag-name><literal>http_404</literal></tag-name>
 <tag-desc>a server returned a response with the code 404;</tag-desc>
+
+<tag-name id="non_idempotent"><literal>non_idempotent</literal></tag-name>
+<tag-desc>normally, requests with a
+<link url="http://tools.ietf.org/html/rfc7231#section-4.2.2">non-idempotent</link>
+method
+(<literal>POST</literal>, <literal>LOCK</literal>, <literal>PATCH</literal>)
+are not passed to the next server
+if a request has been sent to an upstream server (1.9.13);
+enabling this option explicitly allows retrying such requests;
+</tag-desc>
 
 <tag-name><literal>off</literal></tag-name>
 <tag-desc>disables passing a request to the next server.</tag-desc>
