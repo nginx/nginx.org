@@ -10,7 +10,7 @@
 <module name="Module ngx_http_scgi_module"
         link="/en/docs/http/ngx_http_scgi_module.html"
         lang="en"
-        rev="21">
+        rev="22">
 
 <section id="summary">
 
@@ -944,7 +944,7 @@ and by <link id="scgi_next_upstream_timeout">time</link>.
 <appeared-in>1.7.5</appeared-in>
 
 <para>
-Limits the time allowed to pass a request to the
+Limits the time during which a request can be passed to the
 <link id="scgi_next_upstream">next server</link>.
 The <literal>0</literal> value turns off this limitation.
 </para>
