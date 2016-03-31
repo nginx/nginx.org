@@ -59,13 +59,12 @@ server {
     ssl_certificate_key server.key;
 }
 </example>
-
 Чтобы принимать HTTP/2-соединения по TLS необходимо
 наличие поддержки расширения “Application-Layer Protocol Negotiation” (ALPN)
-протокола TLS, появившейся в
-<link url="http://www.openssl.org">OpenSSL</link> начиная с версии 1.0.2.
+протокола TLS, появившейся лишь в
+<link url="http://www.openssl.org">OpenSSL</link> версии 1.0.2.
 Работа расширения “Next Protocol Negotiation” (NPN) протокола TLS
-(доступного начиная с версии OpenSSL 1.0.1) в данном случае не гарантируется.
+(поддерживаемого начиная с OpenSSL версии 1.0.1) в данном случае не гарантируется.
 </para>
 
 <para>
@@ -202,7 +201,7 @@ server {
 
 <tag-name id="var_http2"><var>$http2</var></tag-name>
 <tag-desc>
-идентификатор протокола:
+согласованный идентификатор протокола:
 “<literal>h2</literal>” для HTTP/2 через TLS,
 “<literal>h2c</literal>” для HTTP/2 через незашифрованный TCP,
 либо пустая строка.
