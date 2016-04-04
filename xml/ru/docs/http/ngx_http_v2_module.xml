@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_v2_module"
         link="/ru/docs/http/ngx_http_v2_module.html"
         lang="ru"
-        rev="5">
+        rev="6">
 
 <section id="summary">
 
@@ -36,7 +36,8 @@
 </para>
 
 <para>
-Буферизация тела запроса клиента не может быть запрещена
+До версии 1.9.14
+буферизация тела запроса клиента не могла быть запрещена
 независимо от
 значения директив
 <link doc="ngx_http_proxy_module.xml" id="proxy_request_buffering"/>,

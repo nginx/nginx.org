@@ -9,7 +9,7 @@
 <module name="Module ngx_http_v2_module"
         link="/en/docs/http/ngx_http_v2_module.html"
         lang="en"
-        rev="5">
+        rev="6">
 
 <section id="summary">
 
@@ -36,7 +36,8 @@ The module is experimental, caveat emptor applies.
 </para>
 
 <para>
-Buffering of a client request body cannot be disabled
+Before version 1.9.14,
+buffering of a client request body could not be disabled
 regardless of
 <link doc="ngx_http_proxy_module.xml" id="proxy_request_buffering"/>,
 <link doc="ngx_http_fastcgi_module.xml" id="fastcgi_request_buffering"/>,
