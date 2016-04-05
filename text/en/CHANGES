@@ -1,4 +1,21 @@
 
+Changes with nginx 1.9.14                                        05 Apr 2016
+
+    *) Feature: OpenSSL 1.1.0 compatibility.
+
+    *) Feature: the "proxy_request_buffering", "fastcgi_request_buffering",
+       "scgi_request_buffering", and "uwsgi_request_buffering" directives
+       now work with HTTP/2.
+
+    *) Bugfix: "zero size buf in output" alerts might appear in logs when
+       using HTTP/2.
+
+    *) Bugfix: the "client_max_body_size" directive might work incorrectly
+       when using HTTP/2.
+
+    *) Bugfix: of minor bugs in logging.
+
+
 Changes with nginx 1.9.13                                        29 Mar 2016
 
     *) Change: non-idempotent requests (POST, LOCK, PATCH) are no longer
@@ -1875,7 +1892,7 @@ Changes with nginx 1.1.6                                         17 Oct 2011
        sent to it after fail_timeout; the server will be considered alive if
        it will successfully respond to the request.
 
-    *) Change: now the 0x7F-0x1F characters are escaped as \xXX in an
+    *) Change: now the 0x7F-0xFF characters are escaped as \xXX in an
        access_log.
 
     *) Feature: "proxy/fastcgi/scgi/uwsgi_ignore_headers" directives support
