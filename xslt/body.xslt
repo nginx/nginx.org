@@ -21,7 +21,7 @@
     <div id="banner">
         <xsl:if test="@lang = 'he'"> <xsl:attribute name="class"> <xsl:text>ltr</xsl:text> </xsl:attribute> </xsl:if>
         <strong>Submit a talk for nginx.conf 2016, Sept. 7-9 in Austin, TX.</strong><br/>
-        Share your story about how you&#8217;re using NGINX to help you archive<br/>
+        Share your story about how you&#8217;re using NGINX to help you achive<br/>
         application performance, security, and scale.
         <a href="https://nginxconf16.busyconf.com/proposals/new/"><em>Submit today!</em></a><br/>
     </div>
