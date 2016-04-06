@@ -19,10 +19,10 @@ X:template body (lang) {
 
     <div id="banner">
         X:if "@lang = 'he'" { X:attribute "class" { X:text{ltr} } }
-        <strong>Deploying apps with Docker?</strong><br/>
-        Download O'Reilly's new report to learn about docker networking,<br/>
-        and service discovery.
-        <a href="https://www.nginx.com/resources/library/docker-networking/?utm_source=nginxorg&amp;utm_medium=banner&amp;utm_campaign=docker_networking"><em>Download now.</em></a><br/>
+        <strong>Submit a talk for nginx.conf 2016, Sept. 7-9 in Austin, TX.</strong><br/>
+        Share your story about how you&#8217;re using NGINX to help you archive<br/>
+        application performance, security, and scale.
+        <a href="https://nginxconf16.busyconf.com/proposals/new/"><em>Submit today!</em></a><br/>
     </div>
 
     <div id="main">
