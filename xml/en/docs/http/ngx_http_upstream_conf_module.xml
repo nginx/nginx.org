@@ -9,7 +9,7 @@
 <module name="Module ngx_http_upstream_conf_module"
         link="/en/docs/http/ngx_http_upstream_conf_module.html"
         lang="en"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -172,6 +172,17 @@ or
 <link doc="../stream/ngx_stream_upstream_module.xml" id="resolve">stream</link>
 upstream server.
 </para>
+</tag-desc>
+
+<tag-name>
+<literal>service=</literal><value>name</value></tag-name>
+<tag-desc>
+Same as the “<literal>service</literal>” parameter
+of the
+<link doc="ngx_http_upstream_module.xml" id="service">http</link>
+or
+<link doc="../stream/ngx_stream_upstream_module.xml" id="service">stream</link>
+upstream server (1.9.13).
 </tag-desc>
 
 <tag-name>

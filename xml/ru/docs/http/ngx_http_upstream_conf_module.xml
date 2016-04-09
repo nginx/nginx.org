@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_upstream_conf_module"
         link="/ru/docs/http/ngx_http_upstream_conf_module.html"
         lang="ru"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -171,6 +171,16 @@ http://127.0.0.1/upstream_conf?upstream=backend
 или
 <link doc="../stream/ngx_stream_upstream_module.xml" id="resolve">stream</link>.
 </para>
+</tag-desc>
+
+<tag-name>
+<literal>service=</literal><value>имя</value></tag-name>
+<tag-desc>
+То же, что и параметр “<literal>service</literal>” сервера группы
+<link doc="ngx_http_upstream_module.xml" id="service">http</link>
+или
+<link doc="../stream/ngx_stream_upstream_module.xml" id="service">stream</link>
+(1.9.13).
 </tag-desc>
 
 <tag-name>

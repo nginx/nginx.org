@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_upstream_module"
         link="/ru/docs/http/ngx_http_upstream_module.html"
         lang="ru"
-        rev="46">
+        rev="47">
 
 <section id="summary">
 
@@ -63,6 +63,7 @@ upstream <emphasis>dynamic</emphasis> {
     server backend2.example.com:8080 fail_timeout=5s slow_start=30s;
     server 192.0.2.1                 max_fails=3;
     server backend3.example.com      resolve;
+    server backend4.example.com      service=http resolve;
 
     server backup1.example.com:8080  backup;
     server backup2.example.com:8080  backup;
@@ -261,6 +262,40 @@ http {
 </tag-name>
 <tag-desc>
 задаёт имя маршрута к серверу.
+</tag-desc>
+
+<tag-name id="service">
+<literal>service</literal>=<value>имя</value> | <value>_имя._протокол</value>
+</tag-name>
+<tag-desc>
+включает преобразование
+<link url="https://tools.ietf.org/html/rfc2782">SRV</link>-записей
+DNS и задаёт <value>имя</value> сервиса
+или <value>имя</value> и <value>протокол</value> в следующем формате:
+<value>_имя._протокол</value> (1.9.13).
+Если задано только <value>имя</value>, то
+используется протокол <literal>TCP</literal>.
+<para>
+Для работы параметра необходимо указать
+параметр <link id="resolve"/> для сервера
+и не указывать порт сервера:
+<example>
+server backend.example.com service=http resolve;
+server backend.example.com service=_http._tcp resolve;
+</example>
+Обе директивы задают одну и ту же SRV-запись:
+<literal>_http._tcp.backend.example.com</literal>.
+</para>
+
+<para>
+SRV-записи с наивысшим приоритетом
+(записи с одинаковым наименьшим значением приоритета)
+преобразуются в основные серверы,
+остальные SRV-записи преобразуются в запасные серверы.
+Если в конфигурации сервера указан параметр <link id="backup"/>,
+высокоприоритетные SRV-записи преобразуются в запасные серверы,
+остальные SRV-записи игнорируются.
+</para>
 </tag-desc>
 
 <tag-name id="slow_start">

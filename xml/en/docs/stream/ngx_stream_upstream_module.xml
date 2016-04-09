@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_upstream_module"
         link="/en/docs/stream/ngx_stream_upstream_module.html"
         lang="en"
-        rev="10">
+        rev="11">
 
 <section id="summary">
 
@@ -59,6 +59,7 @@ upstream <emphasis>dynamic</emphasis> {
     server backend2.example.com:12345 fail_timeout=5s slow_start=30s;
     server 192.0.2.1:12345            max_fails=3;
     server backend3.example.com:12345 resolve;
+    server backend4.example.com       service=http resolve;
 
     server backup1.example.com:12345  backup;
     server backup2.example.com:12345  backup;
@@ -238,6 +239,40 @@ stream {
     }
 }
 </example>
+</para>
+</tag-desc>
+
+<tag-name id="service">
+<literal>service</literal>=<value>name</value> | <value>_name._protocol</value>
+</tag-name>
+<tag-desc>
+enables resolving of DNS
+<link url="https://tools.ietf.org/html/rfc2782">SRV</link>
+records and sets the service <value>name</value>,
+or <value>name</value> and <value>protocol</value> in the following format:
+<value>_name._protocol</value> (1.9.13).
+If only the <value>name</value> is specified,
+the <literal>TCP</literal> protocol is used.
+<para>
+In order for this parameter to work, it is necessary to specify
+the <link id="resolve"/> parameter for the server
+and specify a hostname without a port number:
+<example>
+server backend.example.com service=http resolve;
+server backend.example.com service=_http._tcp resolve;
+</example>
+Both directives specify the same SRV record:
+<literal>_http._tcp.backend.example.com</literal>.
+</para>
+
+<para>
+Highest-priority SRV records
+(records with the same lowest-number priority value)
+are resolved as primary servers,
+the rest of SRV records are resolved as backup servers.
+If the <link id="backup"/> parameter is specified for the server,
+high-priority SRV records are resolved as backup servers,
+the rest of SRV records are ignored.
 </para>
 </tag-desc>
 
@@ -459,8 +494,9 @@ by default, 1;
 </tag-name>
 <tag-desc>
 specifies the <literal>match</literal> block configuring the tests that a
-successful connection should pass in order for a health check to pass;
-by default, only the ability to connect to the server is checked;
+successful connection should pass in order for a health check to pass.
+By default,
+only the ability to establish a TCP connection with the server is checked;
 </tag-desc>
 
 <tag-name id="health_check_port">
@@ -469,7 +505,18 @@ by default, only the ability to connect to the server is checked;
 <tag-desc>
 defines the port used when connecting to a server
 to perform a health check (1.9.7);
-by default, equals the <link id="server"/> port.
+by default, equals the <link id="server"/> port;
+</tag-desc>
+
+<tag-name id="health_check_udp">
+<literal>udp</literal>
+</tag-name>
+<tag-desc>
+specifies that the <literal>UDP</literal> protocol should be used for
+health checks instead of the default <literal>TCP</literal> protocol (1.9.13);
+requires a <link id="hc_match">match</link> block with the
+<link id="match_send">send</link> and <link id="match_expect">expect</link>
+parameters.
 </tag-desc>
 
 </list>
@@ -483,8 +530,8 @@ server {
     health_check;
 }
 </example>
-will check the ability to connect to each
-server in the <literal>backend</literal> group every five seconds.
+will check the ability to establish a TCP connection to each server
+in the <literal>backend</literal> group every five seconds.
 When a connection to the server cannot be established,
 the health check will fail, and the server will
 be considered unhealthy.
@@ -552,31 +599,36 @@ Defines the named test set used to verify server responses to health checks.
 The following parameters can be configured:
 <list type="tag">
 
-<tag-name>
+<tag-name id="match_send">
 <literal>send</literal> <value>string</value>;
 </tag-name>
 <tag-desc>
 sends a <value>string</value> to the server;
 </tag-desc>
 
-<tag-name>
-<literal>expect</literal> <literal>~</literal> <value>regexp</value>;
+<tag-name id="match_expect">
+<literal>expect</literal> <value>string</value> |
+<literal>~</literal> <value>regex</value>;
 </tag-name>
 <tag-desc>
-a regular expression that the data obtained from the server should match.
+a literal string (1.9.12) or a regular expression
+that the data obtained from the server should match.
 The regular expression is specified with the preceding
 “<literal>~*</literal>” modifier (for case-insensitive matching), or the
 “<literal>~</literal>” modifier (for case-sensitive matching).
 </tag-desc>
 
 </list>
+Both <literal>send</literal> and <literal>expect</literal> parameters
+can contain hexadecimal literals with the prefix “<literal>\x</literal>”
+followed by two hex digits, for example, “<literal>\x80</literal>” (1.9.12).
 </para>
 
 <para>
 Health check is passed if:
 <list type="bullet">
 <listitem>
-the connection was successfully established;
+the TCP connection was successfully established;
 </listitem>
 
 <listitem>
@@ -585,7 +637,7 @@ if specified, was sent;
 </listitem>
 
 <listitem>
-the data obtained from the server matched the regular expression
+the data obtained from the server matched the string or regular expression
 from the <literal>expect</literal> parameter, if specified;
 </listitem>
 

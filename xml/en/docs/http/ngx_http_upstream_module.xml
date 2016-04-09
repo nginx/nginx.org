@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="46">
+        rev="47">
 
 <section id="summary">
 
@@ -62,6 +62,7 @@ upstream <emphasis>dynamic</emphasis> {
     server backend2.example.com:8080 fail_timeout=5s slow_start=30s;
     server 192.0.2.1                 max_fails=3;
     server backend3.example.com      resolve;
+    server backend4.example.com      service=http resolve;
 
     server backup1.example.com:8080  backup;
     server backup2.example.com:8080  backup;
@@ -262,6 +263,40 @@ http {
 </tag-name>
 <tag-desc>
 sets the server route name.
+</tag-desc>
+
+<tag-name id="service">
+<literal>service</literal>=<value>name</value> | <value>_name._protocol</value>
+</tag-name>
+<tag-desc>
+enables resolving of DNS
+<link url="https://tools.ietf.org/html/rfc2782">SRV</link>
+records and sets the service <value>name</value>,
+or <value>name</value> and <value>protocol</value> in the following format:
+<value>_name._protocol</value> (1.9.13).
+If only the <value>name</value> is specified,
+the <literal>TCP</literal> protocol is used.
+<para>
+In order for this parameter to work, it is necessary to specify
+the <link id="resolve"/> parameter for the server
+and specify a hostname without a port number:
+<example>
+server backend.example.com service=http resolve;
+server backend.example.com service=_http._tcp resolve;
+</example>
+Both directives specify the same SRV record:
+<literal>_http._tcp.backend.example.com</literal>.
+</para>
+
+<para>
+Highest-priority SRV records
+(records with the same lowest-number priority value)
+are resolved as primary servers,
+the rest of SRV records are resolved as backup servers.
+If the <link id="backup"/> parameter is specified for the server,
+high-priority SRV records are resolved as backup servers,
+the rest of SRV records are ignored.
+</para>
 </tag-desc>
 
 <tag-name id="slow_start">

@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="53">
+        rev="54">
 
 <section id="directives" name="Директивы">
 
@@ -2489,7 +2489,10 @@ server {
 
 
 <directive name="server_tokens">
-<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<syntax>
+    <literal>on</literal> |
+    <literal>off</literal> |
+    <value>строка</value></syntax>
 <default>on</default>
 <context>http</context>
 <context>server</context>
@@ -2498,6 +2501,16 @@ server {
 <para>
 Разрешает или запрещает выдавать версию nginx’а в сообщениях об ошибках и
 в поле <header>Server</header> заголовка ответа.
+</para>
+
+<para>
+Дополнительно, как часть
+<commercial_version>коммерческой подписки</commercial_version>,
+начиная с версии 1.9.13
+подписи в сообщениях об ошибках и
+значение поля <header>Server</header> заголовка ответа
+можно задать явно с помощью строки с переменными.
+Пустая строка запрещает выдачу поля <header>Server</header>.
 </para>
 
 </directive>
