@@ -19,10 +19,10 @@ X:template body (lang) {
 
     <div id="banner">
         X:if "@lang = 'he'" { X:attribute "class" { X:text{ltr} } }
-        <strong>Submit a talk for nginx.conf 2016, Sept. 7-9 in Austin, TX.</strong><br/>
-        Share your story about how you&#8217;re using NGINX to help you achieve<br/>
-        application performance, security, and scale.
-        <a href="https://nginxconf16.busyconf.com/proposals/new/"><em>Submit today!</em></a><br/>
+        <strong>Announcing NGINX Plus Release 9</strong><br/>
+        Now with UDP load balancing, dynamic modules,<br/>
+        new service discovery features, and more!
+        <a href="https://www.nginx.com/blog/nginx-plus-r9-released/?utm_source=nginxorg&amp;utm_medium=banner&amp;utm_campaign=r9"><em>Explore R9!</em></a><br/>
     </div>
 
     <div id="main">
