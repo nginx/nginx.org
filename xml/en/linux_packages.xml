@@ -7,7 +7,7 @@
 <article name="nginx: Linux packages"
          link="/en/linux_packages.html"
          lang="en"
-         rev="16"
+         rev="17"
          toc="no">
 
 <section id="distributions">
@@ -341,6 +341,25 @@ replaced with
 
 <para>
 Package are built with all modules that do not require additional libraries to avoid extra dependencies.
+</para>
+
+</section>
+
+
+<section name="Dynamic Modules" id="dynmodules">
+
+<para>
+Since version 1.9.11, nginx supports
+<link doc="docs/ngx_core_module.xml" id="load_module">dynamic modules</link>.
+Currently, the following modules are built as dynamic
+and shipped as separate packages:
+<programlisting>
+nginx-module-geoip
+nginx-module-image-filter
+nginx-module-njs
+nginx-module-perl
+nginx-module-xslt
+</programlisting>
 </para>
 
 </section>

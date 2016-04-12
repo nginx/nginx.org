@@ -7,7 +7,7 @@
 <article name="nginx: пакеты для Linux"
          link="/ru/linux_packages.html"
          lang="ru"
-         rev="16"
+         rev="17"
          toc="no">
 
 <section id="distributions">
@@ -345,6 +345,25 @@ zypper addrepo -G -t yum -c 'http://nginx.org/packages/mainline/sles/12' nginx
 <para>
 Для того чтобы избежать увеличения числа зависимостей, пакеты не включают 
 модули, которым требуются дополнительные библиотеки.
+</para>
+
+</section>
+
+
+<section name="Динамические модули" id="dynmodules">
+
+<para>
+Начиная с версии 1.9.11, nginx поддерживает
+<link doc="docs/ngx_core_module.xml" id="load_module">динамические модули</link>.
+В настоящее время следующие модули собираются как динамические
+и поставляются в виде отдельных пакетов:
+<programlisting>
+nginx-module-geoip
+nginx-module-image-filter
+nginx-module-njs
+nginx-module-perl
+nginx-module-xslt
+</programlisting>
 </para>
 
 </section>
