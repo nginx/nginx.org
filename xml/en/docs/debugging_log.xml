@@ -8,7 +8,7 @@
 <article name="A debugging log"
          link="/en/docs/debugging_log.html"
          lang="en"
-         rev="4">
+         rev="5">
 
 
 <section>
@@ -28,6 +28,24 @@ Then the <literal>debug</literal> level should be set with the
 error_log /path/to/log debug;
 </programlisting>
 
+To verify that nginx is configured to support debugging,
+run the <command>nginx -V</command> command:
+
+<programlisting>
+configure arguments: --with-debug ...
+</programlisting>
+
+Pre-built <link doc="../linux_packages.xml">Linux</link> packages
+provide out-of-the-box support for debugging log with
+the <literal>nginx-debug</literal> binary (1.9.8)
+which can be run using commands
+
+<programlisting>
+service nginx stop
+service nginx-debug start
+</programlisting>
+
+and then set the <literal>debug</literal> level.
 The nginx binary version for Windows is always built with the debugging log
 support, so only setting the <literal>debug</literal> level will suffice.
 </para>
