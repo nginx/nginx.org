@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_core_module"
         link="/ru/docs/stream/ngx_stream_core_module.html"
         lang="ru"
-        rev="11">
+        rev="12">
 
 <section id="summary">
 
@@ -118,7 +118,7 @@ listen unix:/var/run/nginx.sock;
 принимаемые на данном порту, должны работать в режиме SSL.
 </para>
 
-<para>
+<para id="udp">
 Параметр <literal>udp</literal> конфигурирует слушающий сокет
 для работы с датаграммами (1.9.13).
 </para>

@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_core_module"
         link="/en/docs/stream/ngx_stream_core_module.html"
         lang="en"
-        rev="11">
+        rev="12">
 
 <section id="summary">
 
@@ -119,7 +119,7 @@ The <literal>ssl</literal> parameter allows specifying that all
 connections accepted on this port should work in SSL mode.
 </para>
 
-<para>
+<para id="udp">
 The <literal>udp</literal> parameter configures a listening socket
 for working with datagrams (1.9.13).
 </para>
