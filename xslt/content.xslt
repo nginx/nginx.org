@@ -31,6 +31,11 @@
         <xsl:apply-templates/>
     </xsl:template>
 
+    <xsl:template match="para[@id]">
+        <a name="{@id}"/>
+        <p> <xsl:apply-templates/> </p>
+    </xsl:template>
+
     <xsl:template match="para"> <p> <xsl:apply-templates/> </p> </xsl:template>
 
     <xsl:template match="para[@align]"> <p align="{@align}"> <xsl:apply-templates/> </p> </xsl:template>
