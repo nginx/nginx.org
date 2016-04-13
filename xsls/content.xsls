@@ -30,6 +30,11 @@ X:stylesheet {
         !!;
     }
 
+    X:template = "para[@id]" {
+        <a name="{@id}" />
+        <p> !!; </p>
+    }
+
     X:template = "para" { <p> !!; </p> }
 
     X:template = "para[@align]" { <p align="{@align}"> !!; </p> }

@@ -40,6 +40,9 @@
                          emphasis | example | header | http-status | link |
                          list | literal | note | path | value | var |
                          mainline_version | stable_version | commercial_version)* >
+<!ATTLIST   para
+            id          ID #IMPLIED
+>
 
 <!ELEMENT   c-def       (#PCDATA)* >
 
