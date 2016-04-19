@@ -1,4 +1,23 @@
 
+Changes with nginx 1.9.15                                        19 Apr 2016
+
+    *) Bugfix: "recv() failed" errors might occur when using HHVM as a
+       FastCGI server.
+
+    *) Bugfix: when using HTTP/2 and the "limit_req" or "auth_request"
+       directives a timeout or a "client violated flow control" error might
+       occur while reading client request body; the bug had appeared in
+       1.9.14.
+
+    *) Workaround: a response might not be shown by some browsers if HTTP/2
+       was used and client request body was not fully read; the bug had
+       appeared in 1.9.14.
+
+    *) Bugfix: connections might hang when using the "aio threads"
+       directive.
+       Thanks to Mindaugas Rasiukevicius.
+
+
 Changes with nginx 1.9.14                                        05 Apr 2016
 
     *) Feature: OpenSSL 1.1.0 compatibility.
