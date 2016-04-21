@@ -307,6 +307,7 @@ dir.map:	xslt/dirmap.xslt xml/en/docs/dirindex.xml		\
 	xml/en/docs/varindex.xml > $@
 
 ifeq ($(patsubst %.nginx.com,YES,$(shell hostname)), YES)
+all:	images
 all:	dir.map
 copy:	copy_dirmap
 .PHONY:	copy_dirmap
