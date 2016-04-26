@@ -7,7 +7,7 @@
 <article name="nginx: пакеты для Linux"
          link="/ru/linux_packages.html"
          lang="ru"
-         rev="17"
+         rev="18"
          toc="no">
 
 <section id="distributions">
@@ -97,6 +97,12 @@ Ubuntu:
 <tr>
 <td width="20%">15.10</td>
 <td width="20%">wily</td>
+<td>x86_64, i386</td>
+</tr>
+
+<tr>
+<td width="20%">16.04</td>
+<td width="20%">xenial</td>
 <td>x86_64, i386</td>
 </tr>
 
@@ -287,7 +293,7 @@ zypper addrepo -G -t yum -c 'http://nginx.org/packages/mainline/sles/12' nginx
 <section name="Аргументы configure" id="arguments">
 
 <para>
-Общие аргументы configure для nginx из пакетов стабильной версии:
+Общие аргументы configure для nginx из пакетов:
 <programlisting>
 --prefix=/etc/nginx
 --sbin-path=/usr/sbin/nginx
@@ -316,35 +322,21 @@ zypper addrepo -G -t yum -c 'http://nginx.org/packages/mainline/sles/12' nginx
 --with-http_secure_link_module
 --with-http_stub_status_module
 --with-http_auth_request_module
+--with-threads
+--with-stream
+--with-stream_ssl_module
+--with-http_slice_module
 --with-mail
 --with-mail_ssl_module
 --with-file-aio
---with-http_spdy_module
+--with-http_v2_module
 --with-ipv6
 </programlisting>
 </para>
 
 <para>
-Пакеты для mainline-версии добавляют к списку:
-<programlisting>
---with-threads
---with-stream
---with-stream_ssl_module
---with-http_slice_module
-</programlisting>
-кроме того
-<programlisting>
---with-http_spdy_module
-</programlisting>
-заменен на
-<programlisting>
---with-http_v2_module
-</programlisting>
-</para>
-
-<para>
-Для того чтобы избежать увеличения числа зависимостей, пакеты не включают 
-модули, которым требуются дополнительные библиотеки.
+Для того чтобы избежать увеличения числа зависимостей, основной пакет nginx не
+включает модули, которым требуются дополнительные библиотеки.
 </para>
 
 </section>

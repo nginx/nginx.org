@@ -7,7 +7,7 @@
 <article name="nginx: Linux packages"
          link="/en/linux_packages.html"
          lang="en"
-         rev="17"
+         rev="18"
          toc="no">
 
 <section id="distributions">
@@ -97,6 +97,12 @@ Ubuntu:
 <tr>
 <td width="20%">15.10</td>
 <td width="20%">wily</td>
+<td>x86_64, i386</td>
+</tr>
+
+<tr>
+<td width="20%">16.04</td>
+<td width="20%">xenial</td>
 <td>x86_64, i386</td>
 </tr>
 
@@ -284,7 +290,7 @@ zypper addrepo -G -t yum -c 'http://nginx.org/packages/mainline/sles/12' nginx
 <section name="Configure Arguments" id="arguments">
 
 <para>
-Configure arguments common for nginx binaries from pre-built packages for stable version:
+Configure arguments common for nginx binaries from pre-built packages:
 <programlisting>
 --prefix=/etc/nginx
 --sbin-path=/usr/sbin/nginx
@@ -313,34 +319,21 @@ Configure arguments common for nginx binaries from pre-built packages for stable
 --with-http_secure_link_module
 --with-http_stub_status_module
 --with-http_auth_request_module
+--with-threads
+--with-stream
+--with-stream_ssl_module
+--with-http_slice_module
 --with-mail
 --with-mail_ssl_module
 --with-file-aio
---with-http_spdy_module
+--with-http_v2_module
 --with-ipv6
 </programlisting>
 </para>
 
 <para>
-Packages for mainline version also have the following arguments:
-<programlisting>
---with-threads
---with-stream
---with-stream_ssl_module
---with-http_slice_module
-</programlisting>
-and
-<programlisting>
---with-http_spdy_module
-</programlisting>
-replaced with
-<programlisting>
---with-http_v2_module
-</programlisting>
-</para>
-
-<para>
-Package are built with all modules that do not require additional libraries to avoid extra dependencies.
+Main nginx package is built with all modules that do not require additional
+libraries to avoid extra dependencies.
 </para>
 
 </section>
