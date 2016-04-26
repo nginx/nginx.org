@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_upstream_module"
         link="/en/docs/stream/ngx_stream_upstream_module.html"
         lang="en"
-        rev="11">
+        rev="12">
 
 <section id="summary">
 
@@ -243,26 +243,35 @@ stream {
 </tag-desc>
 
 <tag-name id="service">
-<literal>service</literal>=<value>name</value> | <value>_name._protocol</value>
+<literal>service</literal>=<value>name</value>
 </tag-name>
 <tag-desc>
 enables resolving of DNS
 <link url="https://tools.ietf.org/html/rfc2782">SRV</link>
-records and sets the service <value>name</value>,
-or <value>name</value> and <value>protocol</value> in the following format:
-<value>_name._protocol</value> (1.9.13).
-If only the <value>name</value> is specified,
-the <literal>TCP</literal> protocol is used.
-<para>
+records and sets the service <value>name</value> (1.9.13).
 In order for this parameter to work, it is necessary to specify
 the <link id="resolve"/> parameter for the server
-and specify a hostname without a port number:
+and specify a hostname without a port number.
+<para>
+If the service name does not contain a dot (“<literal>.</literal>”), then
+the <link url="https://tools.ietf.org/html/rfc2782">RFC</link>-compliant name
+is constructed
+and the TCP protocol is added to the service prefix.
+For example, to look up the
+<literal>_http._tcp.backend.example.com</literal> SRV record,
+it is necessary to specify the directive:
 <example>
 server backend.example.com service=http resolve;
-server backend.example.com service=_http._tcp resolve;
 </example>
-Both directives specify the same SRV record:
-<literal>_http._tcp.backend.example.com</literal>.
+If the service name contains one or more dots, then the name is constructed
+by joining the service prefix and the server name.
+For example, to look up the <literal>_http._tcp.backend.example.com</literal>
+and <literal>server1.backend.example.com</literal> SRV records,
+it is necessary to specify the directives:
+<example>
+server backend.example.com service=_http._tcp resolve;
+server example.com service=server1.backend resolve;
+</example>
 </para>
 
 <para>

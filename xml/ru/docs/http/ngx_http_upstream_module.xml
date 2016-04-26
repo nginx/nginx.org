@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_upstream_module"
         link="/ru/docs/http/ngx_http_upstream_module.html"
         lang="ru"
-        rev="47">
+        rev="48">
 
 <section id="summary">
 
@@ -265,26 +265,36 @@ http {
 </tag-desc>
 
 <tag-name id="service">
-<literal>service</literal>=<value>имя</value> | <value>_имя._протокол</value>
+<literal>service</literal>=<value>имя</value>
 </tag-name>
 <tag-desc>
 включает преобразование
 <link url="https://tools.ietf.org/html/rfc2782">SRV</link>-записей
-DNS и задаёт <value>имя</value> сервиса
-или <value>имя</value> и <value>протокол</value> в следующем формате:
-<value>_имя._протокол</value> (1.9.13).
-Если задано только <value>имя</value>, то
-используется протокол <literal>TCP</literal>.
-<para>
+DNS и задаёт <value>имя</value> сервиса (1.9.13).
 Для работы параметра необходимо указать
 параметр <link id="resolve"/> для сервера
-и не указывать порт сервера:
+и не указывать порт сервера.
+<para>
+Если имя сервиса не содержит точку (“<literal>.</literal>”), то
+имя составляется в соответствии с
+<link url="https://tools.ietf.org/html/rfc2782">RFC</link>
+и в префикс службы добавляется протокол TCP.
+Например, для получения
+SRV-записи <literal>_http._tcp.backend.example.com</literal>
+необходимо указать директиву:
 <example>
 server backend.example.com service=http resolve;
-server backend.example.com service=_http._tcp resolve;
 </example>
-Обе директивы задают одну и ту же SRV-запись:
-<literal>_http._tcp.backend.example.com</literal>.
+Если имя сервиса содержит одну и более точек, то имя составляется
+при помощи соединения префикса службы и имени сервера.
+Например, для получения SRV-записей
+<literal>_http._tcp.backend.example.com</literal>
+и <literal>server1.backend.example.com</literal>
+необходимо указать директивы:
+<example>
+server backend.example.com service=_http._tcp resolve;
+server example.com service=server1.backend resolve;
+</example>
 </para>
 
 <para>
