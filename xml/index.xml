@@ -7,6 +7,19 @@
 
 <news name="nginx news" link="/" lang="en">
 
+<event date="2016-04-26">
+<para>
+<link doc="en/download.xml">nginx-1.10.0</link>
+stable version has been released,
+incorporating new features from the 1.9.x mainline branch -
+including
+the <link doc="en/docs/stream/ngx_stream_core_module.xml">stream module</link>,
+<link doc="en/docs/http/ngx_http_v2_module.xml">HTTP/2</link>,
+dynamic modules support
+and more.
+</para>
+</event>
+
 <event date="2016-04-19">
 <para>
 <link doc="en/download.xml">nginx-1.9.15</link>
