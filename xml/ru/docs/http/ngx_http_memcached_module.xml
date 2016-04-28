@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_memcached_module"
         link="/ru/docs/http/ngx_http_memcached_module.html"
         lang="ru"
-        rev="12">
+        rev="13">
 
 <section id="summary">
 
@@ -49,7 +49,7 @@ server {
 <section id="directives" name="Директивы">
 
 <directive name="memcached_bind">
-<syntax><value>адрес</value> | <literal>off</literal></syntax>
+<syntax><value>адрес</value> [transparent] | <literal>off</literal></syntax>
 <default/>
 <context>http</context>
 <context>server</context>
@@ -64,6 +64,21 @@ server {
 унаследованной с предыдущего уровня конфигурации
 директивы <literal>memcached_bind</literal>, позволяя системе
 самостоятельно выбирать локальный IP-адрес.
+</para>
+
+<para id="memcached_bind_transparent">
+Параметр <literal>transparent</literal> (1.11.0) позволяет
+задать нелокальный IP-aдрес, который будет использоваться в
+исходящих соединениях с сервером memcached,
+например, реальный IP-адрес клиента:
+<example>
+memcached_bind $remote_addr transparent;
+</example>
+Для работы параметра
+необходимо запустить рабочие процессы nginx с привилегиями
+<link doc="../ngx_core_module.xml" id="user">суперпользователя</link>,
+а также настроить таблицу маршрутизации ядра
+для перехвата сетевого трафика с сервера memcached.
 </para>
 
 </directive>

@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_fastcgi_module"
         link="/ru/docs/http/ngx_http_fastcgi_module.html"
         lang="ru"
-        rev="33">
+        rev="34">
 
 <section id="summary">
 
@@ -45,7 +45,7 @@ location / {
 <section id="directives" name="Директивы">
 
 <directive name="fastcgi_bind">
-<syntax><value>адрес</value> | <literal>off</literal></syntax>
+<syntax><value>адрес</value> [transparent] | <literal>off</literal></syntax>
 <default/>
 <context>http</context>
 <context>server</context>
@@ -60,6 +60,21 @@ location / {
 унаследованной с предыдущего уровня конфигурации
 директивы <literal>fastcgi_bind</literal>, позволяя системе
 самостоятельно выбирать локальный IP-адрес.
+</para>
+
+<para id="fastcgi_bind_transparent">
+Параметр <literal>transparent</literal> (1.11.0) позволяет
+задать нелокальный IP-aдрес, который будет использоваться в
+исходящих соединениях с FastCGI-сервером,
+например, реальный IP-адрес клиента:
+<example>
+fastcgi_bind $remote_addr transparent;
+</example>
+Для работы параметра
+необходимо запустить рабочие процессы nginx с привилегиями
+<link doc="../ngx_core_module.xml" id="user">суперпользователя</link>,
+а также настроить таблицу маршрутизации ядра
+для перехвата сетевого трафика с FastCGI-сервера.
 </para>
 
 </directive>

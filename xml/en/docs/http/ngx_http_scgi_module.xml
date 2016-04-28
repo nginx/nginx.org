@@ -10,7 +10,7 @@
 <module name="Module ngx_http_scgi_module"
         link="/en/docs/http/ngx_http_scgi_module.html"
         lang="en"
-        rev="22">
+        rev="23">
 
 <section id="summary">
 
@@ -39,7 +39,7 @@ location / {
 <section id="directives" name="Directives">
 
 <directive name="scgi_bind">
-<syntax><value>address</value> | <literal>off</literal></syntax>
+<syntax><value>address</value> [transparent] | <literal>off</literal></syntax>
 <default/>
 <context>http</context>
 <context>server</context>
@@ -53,6 +53,21 @@ The special value <literal>off</literal> (1.3.12) cancels the effect
 of the <literal>scgi_bind</literal> directive
 inherited from the previous configuration level, which allows the
 system to auto-assign the local IP address.
+</para>
+
+<para id="scgi_bind_transparent">
+The <literal>transparent</literal> parameter (1.11.0) allows
+outgoing connections to an SCGI server originate
+from a non-local IP address,
+for example, from a real IP address of a client:
+<example>
+scgi_bind $remote_addr transparent;
+</example>
+In order for this parameter to work,
+it is necessary to run nginx worker processes with the
+<link doc="../ngx_core_module.xml" id="user">superuser</link> privileges
+and configure kernel routing table
+to intercept network traffic from the SCGI server.
 </para>
 
 </directive>

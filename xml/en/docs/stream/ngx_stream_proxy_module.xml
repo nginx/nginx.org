@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_proxy_module"
         link="/en/docs/stream/ngx_stream_proxy_module.html"
         lang="en"
-        rev="13">
+        rev="14">
 
 <section id="summary">
 
@@ -57,7 +57,7 @@ server {
 <section id="directives" name="Directives">
 
 <directive name="proxy_bind">
-<syntax><value>address</value> | <literal>off</literal></syntax>
+<syntax><value>address</value> [transparent] | <literal>off</literal></syntax>
 <default/>
 <context>stream</context>
 <context>server</context>
@@ -70,6 +70,21 @@ The special value <literal>off</literal> cancels the effect
 of the <literal>proxy_bind</literal> directive
 inherited from the previous configuration level, which allows the
 system to auto-assign the local IP address.
+</para>
+
+<para id="proxy_bind_transparent">
+The <literal>transparent</literal> parameter (1.11.0) allows
+outgoing connections to a proxied server originate
+from a non-local IP address,
+for example, from a real IP address of a client:
+<example>
+proxy_bind $remote_addr transparent;
+</example>
+In order for this parameter to work,
+it is necessary to run nginx worker processes with the
+<link doc="../ngx_core_module.xml" id="user">superuser</link> privileges
+and configure kernel routing table
+to intercept network traffic from the proxied server.
 </para>
 
 </directive>

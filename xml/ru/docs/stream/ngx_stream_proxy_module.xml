@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_proxy_module"
         link="/ru/docs/stream/ngx_stream_proxy_module.html"
         lang="ru"
-        rev="13">
+        rev="14">
 
 <section id="summary">
 
@@ -57,7 +57,7 @@ server {
 <section id="directives" name="Директивы">
 
 <directive name="proxy_bind">
-<syntax><value>адрес</value> | <literal>off</literal></syntax>
+<syntax><value>адрес</value> [transparent] | <literal>off</literal></syntax>
 <default/>
 <context>stream</context>
 <context>server</context>
@@ -70,6 +70,21 @@ server {
 унаследованной с предыдущего уровня конфигурации
 директивы <literal>proxy_bind</literal>, позволяя системе
 самостоятельно выбирать локальный IP-адрес.
+</para>
+
+<para id="proxy_bind_transparent">
+Параметр <literal>transparent</literal> (1.11.0) позволяет
+задать нелокальный IP-aдрес, который будет использоваться в
+исходящих соединениях с проксируемым сервером,
+например, реальный IP-адрес клиента:
+<example>
+proxy_bind $remote_addr transparent;
+</example>
+Для работы параметра
+необходимо запустить рабочие процессы nginx с привилегиями
+<link doc="../ngx_core_module.xml" id="user">суперпользователя</link>,
+а также настроить таблицу маршрутизации ядра
+для перехвата сетевого трафика с проксируемого сервера.
 </para>
 
 </directive>
