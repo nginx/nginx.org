@@ -60,7 +60,7 @@ server {
     ssl_certificate_key server.key;
 }
 </example>
-Чтобы принимать HTTP/2-соединения по TLS необходимо
+Чтобы принимать HTTP/2-соединения по TLS, необходимо
 наличие поддержки расширения “Application-Layer Protocol Negotiation” (ALPN)
 протокола TLS, появившейся лишь в
 <link url="http://www.openssl.org">OpenSSL</link> версии 1.0.2.
