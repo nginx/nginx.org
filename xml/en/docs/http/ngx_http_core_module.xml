@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="54">
+        rev="55">
 
 <section id="directives" name="Directives">
 
@@ -3066,6 +3066,11 @@ or an empty string otherwise
 file path for the current request, based on the
 <link id="root"/> or <link id="alias"/>
 directives, and the request URI
+</tag-desc>
+
+<tag-name id="var_request_id"><var>$request_id</var></tag-name>
+<tag-desc>
+unique request identifier (1.11.0)
 </tag-desc>
 
 <tag-name id="var_request_length"><var>$request_length</var></tag-name>

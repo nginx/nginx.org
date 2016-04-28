@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="54">
+        rev="55">
 
 <section id="directives" name="Директивы">
 
@@ -3063,6 +3063,11 @@ scgi_pass_request_body off</link>
 <tag-desc>
 путь к файлу для текущего запроса, формируемый из директив
 <link id="root"/> или <link id="alias"/> и URI запроса
+</tag-desc>
+
+<tag-name id="var_request_id"><var>$request_id</var></tag-name>
+<tag-desc>
+уникальный идентификатор запроса (1.11.0)
 </tag-desc>
 
 <tag-name id="var_request_length"><var>$request_length</var></tag-name>
