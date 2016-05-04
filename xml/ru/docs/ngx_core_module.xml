@@ -10,7 +10,7 @@
 <module name="Основная функциональность"
         link="/ru/docs/ngx_core_module.html"
         lang="ru"
-        rev="17">
+        rev="18">
 
 <section id="example" name="Пример конфигурации">
 
@@ -142,14 +142,7 @@ events {
 <value>файл</value> | <literal>stderr</literal> |
 <literal>syslog:</literal><literal>server</literal>=<value>адрес</value>[,<value>параметр</value>=<value>значение</value>] |
 <literal>memory:</literal><value>размер</value>
-[<literal>debug</literal> |
-<literal>info</literal> |
-<literal>notice</literal> |
-<literal>warn</literal> |
-<literal>error</literal> |
-<literal>crit</literal> |
-<literal>alert</literal> |
-<literal>emerg</literal>]</syntax>
+[<value>уровень</value>]</syntax>
 <default>logs/error.log error</default>
 <context>main</context>
 <context>http</context>
@@ -178,7 +171,11 @@ events {
 </para>
 
 <para>
-Второй параметр определяет уровень лога.
+Второй параметр определяет <value>уровень</value> лога
+и может принимать одно из следующих значений:
+<literal>debug</literal>, <literal>info</literal>, <literal>notice</literal>,
+<literal>warn</literal>, <literal>error</literal>, <literal>crit</literal>,
+<literal>alert</literal> или <literal>emerg</literal>.
 Уровни лога, указанные выше, перечислены в порядке возрастания важности.
 При установке определённого уровня в лог попадают все сообщения
 указанного уровня и уровней большей важности.

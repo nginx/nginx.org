@@ -10,7 +10,7 @@
 <module name="Core functionality"
         link="/en/docs/ngx_core_module.html"
         lang="en"
-        rev="17">
+        rev="18">
 
 <section id="example" name="Example Configuration">
 
@@ -142,14 +142,7 @@ analysis using a system debugger.
 <value>file</value> | <literal>stderr</literal> |
 <literal>syslog:</literal><literal>server</literal>=<value>address</value>[,<value>parameter</value>=<value>value</value>] |
 <literal>memory:</literal><value>size</value>
-[<literal>debug</literal> |
-<literal>info</literal> |
-<literal>notice</literal> |
-<literal>warn</literal> |
-<literal>error</literal> |
-<literal>crit</literal> |
-<literal>alert</literal> |
-<literal>emerg</literal>]</syntax>
+[<value>level</value>]</syntax>
 <default>logs/error.log error</default>
 <context>main</context>
 <context>http</context>
@@ -178,7 +171,11 @@ buffer <value>size</value>, and is generally used for debugging (1.7.11).
 </para>
 
 <para>
-The second parameter determines the level of logging.
+The second parameter determines the <value>level</value> of logging,
+and can be one of the following:
+<literal>debug</literal>, <literal>info</literal>, <literal>notice</literal>,
+<literal>warn</literal>, <literal>error</literal>, <literal>crit</literal>,
+<literal>alert</literal>, or <literal>emerg</literal>.
 Log levels above are listed in the order of increasing severity.
 Setting a certain log level will cause all messages of
 the specified and more severe log levels to be logged.
