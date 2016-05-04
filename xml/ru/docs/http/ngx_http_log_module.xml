@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_log_module"
         link="/ru/docs/http/ngx_http_log_module.html"
         lang="ru"
-        rev="14">
+        rev="15">
 
 <section id="summary">
 
@@ -51,19 +51,9 @@ access_log /spool/logs/nginx-access.log compression buffer=32k;
 <syntax>
     <value>путь</value>
     [<value>формат</value>
-    [<literal>buffer</literal>=<value>размер</value>
-    [<literal>flush</literal>=<value>время</value>]]
-    [<literal>if</literal>=<value>условие</value>]]</syntax>
-<syntax>
-    <value>путь</value>
-    <value>формат</value>
-    <literal>gzip[=<value>степень</value>]</literal>
     [<literal>buffer</literal>=<value>размер</value>]
+    [<literal>gzip[=<value>степень</value>]</literal>]
     [<literal>flush</literal>=<value>время</value>]
-    [<literal>if</literal>=<value>условие</value>]</syntax>
-<syntax>
-    <literal>syslog:</literal><literal>server</literal>=<value>адрес</value>[,<value>параметр</value>=<value>значение</value>]
-    [<value>формат</value>
     [<literal>if</literal>=<value>условие</value>]]</syntax>
 <syntax><literal>off</literal></syntax>
 <default>logs/access.log combined</default>

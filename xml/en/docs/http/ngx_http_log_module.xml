@@ -10,7 +10,7 @@
 <module name="Module ngx_http_log_module"
         link="/en/docs/http/ngx_http_log_module.html"
         lang="en"
-        rev="14">
+        rev="15">
 
 <section id="summary">
 
@@ -50,19 +50,9 @@ access_log /spool/logs/nginx-access.log compression buffer=32k;
 <syntax>
     <value>path</value>
     [<value>format</value>
-    [<literal>buffer</literal>=<value>size</value>
-    [<literal>flush</literal>=<value>time</value>]]
-    [<literal>if</literal>=<value>condition</value>]]</syntax>
-<syntax>
-    <value>path</value>
-    <value>format</value>
-    <literal>gzip[=<value>level</value>]</literal>
     [<literal>buffer</literal>=<value>size</value>]
+    [<literal>gzip[=<value>level</value>]</literal>]
     [<literal>flush</literal>=<value>time</value>]
-    [<literal>if</literal>=<value>condition</value>]</syntax>
-<syntax>
-    <literal>syslog:</literal><literal>server</literal>=<value>address</value>[,<value>parameter</value>=<value>value</value>]
-    [<value>format</value>
     [<literal>if</literal>=<value>condition</value>]]</syntax>
 <syntax><literal>off</literal></syntax>
 <default>logs/access.log combined</default>
