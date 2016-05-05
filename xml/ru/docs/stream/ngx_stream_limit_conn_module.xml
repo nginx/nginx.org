@@ -10,7 +10,7 @@
 <module name="Модуль ngx_stream_limit_conn_module"
         link="/ru/docs/stream/ngx_stream_limit_conn_module.html"
         lang="ru"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
@@ -126,7 +126,8 @@ limit_conn_zone $binary_remote_addr zone=addr:10m;
 Здесь в качестве ключа используется IP-адрес клиента,
 задаваемый ключом <literal>$binary_remote_addr</literal>.
 Длина значения <literal>$binary_remote_addr</literal>
-равна 4 байтам, при этом размер состояния всегда равен 32 байтам
+равна 4 байтам для IPv4-адресов или 16 байтам для IPv6-адресов.
+При этом размер состояния всегда равен 32 или 64 байтам
 на 32-битных платформах и 64 байтам на 64-битных.
 В зоне размером 1 мегабайт может разместиться около 32 тысяч состояний
 размером 32 байта или 16 тысяч состояний размером 64 байта.

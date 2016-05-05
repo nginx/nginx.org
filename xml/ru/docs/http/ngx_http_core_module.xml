@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="55">
+        rev="56">
 
 <section id="directives" name="Директивы">
 
@@ -2863,6 +2863,7 @@ location /download/ {
 <tag-name id="var_binary_remote_addr"><var>$binary_remote_addr</var></tag-name>
 <tag-desc>
 адрес клиента в бинарном виде, длина значения всегда 4 байта
+для IPv4-адресов или 16 байт для IPv6-адресов
 </tag-desc>
 
 <tag-name id="var_body_bytes_sent"><var>$body_bytes_sent</var></tag-name>

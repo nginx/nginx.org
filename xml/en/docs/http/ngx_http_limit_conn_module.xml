@@ -10,7 +10,7 @@
 <module name="Module ngx_http_limit_conn_module"
         link="/en/docs/http/ngx_http_limit_conn_module.html"
         lang="en"
-        rev="8">
+        rev="9">
 
 <section id="summary">
 
@@ -173,8 +173,8 @@ The stored state occupies either
 32 or 64 bytes of memory on 32-bit platforms and always 64
 bytes on 64-bit platforms.
 The <var>$binary_remote_addr</var> variable’s size
-is always 4 bytes.
-The stored state always occupies 32 bytes
+is always 4 bytes for IPv4 addresses or 16 bytes for IPv6 addresses.
+The stored state always occupies 32 or 64 bytes
 on 32-bit platforms and 64 bytes on 64-bit platforms.
 One megabyte zone can keep about 32 thousand 32-byte states
 or about 16 thousand 64-byte states.
