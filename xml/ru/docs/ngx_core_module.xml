@@ -10,7 +10,7 @@
 <module name="Основная функциональность"
         link="/ru/docs/ngx_core_module.html"
         lang="ru"
-        rev="18">
+        rev="19">
 
 <section id="example" name="Пример конфигурации">
 
@@ -138,11 +138,7 @@ events {
 
 
 <directive name="error_log">
-<syntax>
-<value>файл</value> | <literal>stderr</literal> |
-<literal>syslog:</literal><literal>server</literal>=<value>адрес</value>[,<value>параметр</value>=<value>значение</value>] |
-<literal>memory:</literal><value>размер</value>
-[<value>уровень</value>]</syntax>
+<syntax><value>файл</value> [<value>уровень</value>]</syntax>
 <default>logs/error.log error</default>
 <context>main</context>
 <context>http</context>
@@ -157,7 +153,7 @@ events {
 </para>
 
 <para>
-Первый параметр задаёт файл, который будет хранить лог.
+Первый параметр задаёт <value>файл</value>, который будет хранить лог.
 <!--
 Если имя файла не абсолютное, к нему добавляется в начало путь префикса.
 -->

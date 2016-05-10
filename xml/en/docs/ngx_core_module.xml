@@ -10,7 +10,7 @@
 <module name="Core functionality"
         link="/en/docs/ngx_core_module.html"
         lang="en"
-        rev="18">
+        rev="19">
 
 <section id="example" name="Example Configuration">
 
@@ -138,11 +138,7 @@ analysis using a system debugger.
 
 
 <directive name="error_log">
-<syntax>
-<value>file</value> | <literal>stderr</literal> |
-<literal>syslog:</literal><literal>server</literal>=<value>address</value>[,<value>parameter</value>=<value>value</value>] |
-<literal>memory:</literal><value>size</value>
-[<value>level</value>]</syntax>
+<syntax><value>file</value> [<value>level</value>]</syntax>
 <default>logs/error.log error</default>
 <context>main</context>
 <context>http</context>
@@ -157,7 +153,7 @@ Several logs can be specified on the same level (1.5.2).
 </para>
 
 <para>
-The first parameter defines a file that will store the log.
+The first parameter defines a <value>file</value> that will store the log.
 <!--
 If filename is not absolute, it is prefixed with the prefix path.
 -->
