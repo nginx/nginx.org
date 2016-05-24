@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_ssl_module"
         link="/ru/docs/http/ngx_http_ssl_module.html"
         lang="ru"
-        rev="19">
+        rev="20">
 
 <section id="summary">
 
@@ -270,7 +270,7 @@ PEM, которые используются для
 <appeared-in>0.7.2</appeared-in>
 
 <para>
-Указывает <value>файл</value> с параметрами для шифров с обменом EDH-ключами.
+Указывает <value>файл</value> с параметрами для DHE-шифров.
 </para>
 
 </directive>

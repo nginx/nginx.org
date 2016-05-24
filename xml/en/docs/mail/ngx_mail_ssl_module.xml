@@ -10,7 +10,7 @@
 <module name="Module ngx_mail_ssl_module"
         link="/en/docs/mail/ngx_mail_ssl_module.html"
         lang="en"
-        rev="8">
+        rev="9">
 
 <section id="summary">
 
@@ -212,7 +212,7 @@ client certificates.
 <appeared-in>0.7.2</appeared-in>
 
 <para>
-Specifies a <value>file</value> with DH parameters for EDH ciphers.
+Specifies a <value>file</value> with DH parameters for DHE ciphers.
 </para>
 
 </directive>

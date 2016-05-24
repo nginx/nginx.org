@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_ssl_module"
         link="/ru/docs/stream/ngx_stream_ssl_module.html"
         lang="ru"
-        rev="5">
+        rev="6">
 
 <section id="summary">
 
@@ -145,7 +145,7 @@ ssl_ciphers ALL:!aNULL:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP;
 <context>server</context>
 
 <para>
-Указывает <value>файл</value> с параметрами для шифров с обменом EDH-ключами.
+Указывает <value>файл</value> с параметрами для DHE-шифров.
 </para>
 
 </directive>
