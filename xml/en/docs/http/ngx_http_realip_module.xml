@@ -10,13 +10,14 @@
 <module name="Module ngx_http_realip_module"
         link="/en/docs/http/ngx_http_realip_module.html"
         lang="en"
-        rev="4">
+        rev="5">
 
 <section id="summary">
 
 <para>
 The <literal>ngx_http_realip_module</literal> module is used
-to change the client address to the one sent in the specified header field.
+to change the client address and optional port
+to the one sent in the specified header fields.
 </para>
 
 <para>
@@ -85,6 +86,13 @@ whose value will be used to replace the client address.
 </para>
 
 <para>
+The <literal>X-Real-IP</literal> and <literal>X-Forwarded-For</literal>
+parameters may contain an optional port (1.11.0).
+The address and port should be specified according to
+<link url="http://tools.ietf.org/html/3986">RFC 3986</link>.
+</para>
+
+<para>
 The <literal>proxy_protocol</literal> parameter (1.5.12) changes
 the client address to the one from the PROXY protocol header.
 The PROXY protocol must be previously enabled by setting the
@@ -127,6 +135,11 @@ non-trusted address sent in the request header field.
 <tag-name id="var_realip_remote_addr"><var>$realip_remote_addr</var></tag-name>
 <tag-desc>
 keeps the original client address (1.9.7)
+</tag-desc>
+
+<tag-name id="var_realip_remote_port"><var>$realip_remote_port</var></tag-name>
+<tag-desc>
+keeps the original client port (1.11.0)
 </tag-desc>
 
 </list>

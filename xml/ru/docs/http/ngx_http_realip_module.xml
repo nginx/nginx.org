@@ -10,13 +10,14 @@
 <module name="Модуль ngx_http_realip_module"
         link="/ru/docs/http/ngx_http_realip_module.html"
         lang="ru"
-        rev="4">
+        rev="5">
 
 <section id="summary">
 
 <para>
-Модуль <literal>ngx_http_realip_module</literal> позволяет менять адрес клиента
-на переданный в указанном поле заголовка.
+Модуль <literal>ngx_http_realip_module</literal> позволяет
+менять адрес и необязательный порт клиента
+на переданный в указанных полях заголовка.
 </para>
 
 <para>
@@ -85,6 +86,13 @@ IPv6-адреса поддерживаются начиная с версий 1.
 </para>
 
 <para>
+Параметры <literal>X-Real-IP</literal> и <literal>X-Forwarded-For</literal>
+могут содержать необязательный порт (1.11.0).
+Адрес и порт должны быть указаны согласно
+<link url="http://tools.ietf.org/html/3986">RFC 3986</link>.
+</para>
+
+<para>
 Параметр <literal>proxy_protocol</literal> (1.5.12) меняет
 адрес клиента на указанный в заголовке PROXY-протокола.
 Протокол PROXY должен быть предварительно включён при помощи установки
@@ -127,6 +135,11 @@ IPv6-адреса поддерживаются начиная с версий 1.
 <tag-name id="var_realip_remote_addr"><var>$realip_remote_addr</var></tag-name>
 <tag-desc>
 хранит исходный адрес клиента (1.9.7)
+</tag-desc>
+
+<tag-name id="var_realip_remote_port"><var>$realip_remote_port</var></tag-name>
+<tag-desc>
+хранит исходный порт клиента (1.11.0)
 </tag-desc>
 
 </list>
