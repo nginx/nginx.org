@@ -10,7 +10,7 @@
 <module name="Module ngx_http_map_module"
         link="/en/docs/http/ngx_http_map_module.html"
         lang="en"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -104,8 +104,8 @@ described below, it should be prefixed with the “<literal>\</literal>” symbo
 </para>
 
 <para>
-The resulting value can be a string
-or another variable (0.9.0).
+The resulting value can contain text,
+variable (0.9.0), and their combination. (1.11.0).
 </para>
 
 <para>

@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_map_module"
         link="/ru/docs/http/ngx_http_map_module.html"
         lang="ru"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -105,8 +105,8 @@ map $http_user_agent $mobile {
 </para>
 
 <para>
-В качестве результирующего значения можно указать строку
-или другую переменную (0.9.0).
+В качестве результирующего значения можно указать текст,
+переменную (0.9.0) и их комбинации (1.11.0).
 </para>
 
 <para>
