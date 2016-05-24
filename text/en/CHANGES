@@ -1,4 +1,51 @@
 
+Changes with nginx 1.11.0                                        24 May 2016
+
+    *) Feature: the "transparent" parameter of the "proxy_bind",
+       "fastcgi_bind", "memcached_bind", "scgi_bind", and "uwsgi_bind"
+       directives.
+
+    *) Feature: the $request_id variable.
+
+    *) Feature: the "map" directive supports combinations of multiple
+       variables as resulting values.
+
+    *) Feature: now nginx checks if EPOLLRDHUP events are supported by
+       kernel, and optimizes connection handling accordingly if the "epoll"
+       method is used.
+
+    *) Feature: the "ssl_certificate" and "ssl_certificate_key" directives
+       can be specified multiple times to load certificates of different
+       types (for example, RSA and ECDSA).
+
+    *) Feature: the "ssl_ecdh_curve" directive now allows specifying a list
+       of curves when using OpenSSL 1.0.2 or newer; by default a list built
+       into OpenSSL is used.
+
+    *) Change: to use DHE ciphers it is now required to specify parameters
+       using the "ssl_dhparam" directive.
+
+    *) Feature: the $proxy_protocol_port variable.
+
+    *) Feature: the $realip_remote_port variable in the
+       ngx_http_realip_module.
+
+    *) Feature: the ngx_http_realip_module is now able to set the client
+       port in addition to the address.
+
+    *) Change: the "421 Misdirected Request" response now used when
+       rejecting requests to a virtual server different from one negotiated
+       during an SSL handshake; this improves interoperability with some
+       HTTP/2 clients when using client certificates.
+
+    *) Change: HTTP/2 clients can now start sending request body
+       immediately; the "http2_body_preread_size" directive controls size of
+       the buffer used before nginx will start reading client request body.
+
+    *) Bugfix: cached error responses were not updated when using the
+       "proxy_cache_bypass" directive.
+
+
 Changes with nginx 1.9.15                                        19 Apr 2016
 
     *) Bugfix: "recv() failed" errors might occur when using HHVM as a
