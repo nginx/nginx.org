@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_v2_module"
         link="/ru/docs/http/ngx_http_v2_module.html"
         lang="ru"
-        rev="6">
+        rev="7">
 
 <section id="summary">
 
@@ -97,6 +97,22 @@ server {
 Слишком большое значение может негативно сказаться на приоритизации из-за
 <link url="http://en.wikipedia.org/wiki/Head-of-line_blocking">
 блокировки очереди</link>.
+</para>
+
+</directive>
+
+
+<directive name="http2_body_preread_size">
+<syntax><value>размер</value></syntax>
+<default>64k</default>
+<context>http</context>
+<context>server</context>
+<appeared-in>1.11.0</appeared-in>
+
+<para>
+Задаёт <value>размер</value> буфера для каждого запроса,
+в который может сохраняться тело запроса
+до того, как оно начнёт обрабатываться.
 </para>
 
 </directive>
