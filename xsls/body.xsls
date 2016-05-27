@@ -19,10 +19,9 @@ X:template body (lang) {
 
     <div id="banner">
         X:if "@lang = 'he'" { X:attribute "class" { X:text{ltr} } }
-        <strong>Announcing NGINX Plus Release 9</strong><br/>
-        Now with UDP load balancing, dynamic modules,<br/>
-        new service discovery features, and more!
-        <a href="https://www.nginx.com/blog/nginx-plus-r9-released/?utm_source=nginxorg&amp;utm_medium=banner&amp;utm_campaign=r9"><em>Explore R9!</em></a><br/>
+        <strong>Got ideas for the future of NGINX?</strong><br/>
+        Share your perspective on NGINX today and help us shape our product roadmap.<br/>
+        <a href="http://survey.newkind.com/r/AShdWE9g"><em>Take the 2016 NGINX User Survey by June 8!</em></a><br/>
     </div>
 
     <div id="main">
