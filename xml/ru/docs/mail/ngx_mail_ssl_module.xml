@@ -10,7 +10,7 @@
 <module name="Модуль ngx_mail_ssl_module"
         link="/ru/docs/mail/ngx_mail_ssl_module.html"
         lang="ru"
-        rev="9">
+        rev="10">
 
 <section id="summary">
 
@@ -220,7 +220,7 @@ PEM, которые используются для
 
 <directive name="ssl_ecdh_curve">
 <syntax><value>кривая</value></syntax>
-<default>prime256v1</default>
+<default>auto</default>
 <context>mail</context>
 <context>server</context>
 <appeared-in>1.1.0</appeared-in>
@@ -228,6 +228,27 @@ PEM, которые используются для
 
 <para>
 Задаёт кривую для ECDHE-шифров.
+</para>
+
+<para>
+При использовании OpenSSL 1.0.2 и выше
+можно указывать несколько кривых (1.11.0), например:
+<example>
+ssl_ecdh_curve prime256v1:secp384r1;
+</example>
+</para>
+
+<para>
+Специальное значение <literal>auto</literal> (1.11.0) соответствует
+встроенному в библиотеку OpenSSL списку кривых для OpenSSL 1.0.2 и выше,
+или <literal>prime256v1</literal> для более старых версий.
+</para>
+
+<para>
+<note>
+До версии 1.11.0
+по умолчанию использовалась кривая <literal>prime256v1</literal>.
+</note>
 </para>
 
 </directive>

@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_ssl_module"
         link="/en/docs/stream/ngx_stream_ssl_module.html"
         lang="en"
-        rev="6">
+        rev="7">
 
 <section id="summary">
 
@@ -154,12 +154,33 @@ Specifies a <value>file</value> with DH parameters for DHE ciphers.
 
 <directive name="ssl_ecdh_curve">
 <syntax><value>curve</value></syntax>
-<default>prime256v1</default>
+<default>auto</default>
 <context>stream</context>
 <context>server</context>
 
 <para>
 Specifies a <value>curve</value> for ECDHE ciphers.
+</para>
+
+<para>
+When using OpenSSL 1.0.2 or higher,
+it is possible to specify multiple curves (1.11.0), for example:
+<example>
+ssl_ecdh_curve prime256v1:secp384r1;
+</example>
+</para>
+
+<para>
+The special value <literal>auto</literal> (1.11.0) instructs nginx to use
+a list built into the OpenSSL library when using OpenSSL 1.0.2 or higher,
+or <literal>prime256v1</literal> with older versions.
+</para>
+
+<para>
+<note>
+Prior to version 1.11.0,
+the <literal>prime256v1</literal> curve was used by default.
+</note>
 </para>
 
 </directive>
