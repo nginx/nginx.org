@@ -335,7 +335,7 @@ the certificate of the proxied server.
 <context>server</context>
 
 <para>
-Allows to override the server name used to
+Allows overriding the server name used to
 <link id="proxy_ssl_verify">verify</link>
 the certificate of the proxied server and to be
 <link id="proxy_ssl_server_name">passed through SNI</link>

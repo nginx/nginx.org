@@ -1821,7 +1821,7 @@ the certificate of the proxied HTTPS server.
 <appeared-in>1.7.0</appeared-in>
 
 <para>
-Allows to override the server name used to
+Allows overriding the server name used to
 <link id="proxy_ssl_verify">verify</link>
 the certificate of the proxied HTTPS server and to be
 <link id="proxy_ssl_server_name">passed through SNI</link>
