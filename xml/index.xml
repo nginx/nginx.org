@@ -7,6 +7,18 @@
 
 <news name="nginx news" link="/" lang="en">
 
+<event date="2016-05-31">
+<para>
+<link doc="en/download.xml">nginx-1.10.1</link>
+stable and
+<link doc="en/download.xml">nginx-1.11.1</link>
+mainline versions have been released
+with a fix for the
+<link doc="en/security_advisories.xml">NULL pointer dereference while
+writing client request body</link> vulnerability (CVE-2016-4450).
+</para>
+</event>
+
 <event date="2016-05-24">
 <para>
 <link doc="en/download.xml">nginx-1.11.0</link>
