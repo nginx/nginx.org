@@ -10,13 +10,13 @@
 <module name="Модуль ngx_http_rewrite_module"
         link="/ru/docs/http/ngx_http_rewrite_module.html"
         lang="ru"
-        rev="5">
+        rev="6">
 
 <section id="summary">
 
 <para>
 Модуль <literal>ngx_http_rewrite_module</literal> позволяет
-изменять URI запроса с помощью регулярных выражений, делать перенаправления
+изменять URI запроса с помощью регулярных выражений PCRE, делать перенаправления
 и выбирать конфигурацию по условию.
 </para>
 
