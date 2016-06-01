@@ -10,7 +10,7 @@
 <module name="Module ngx_http_perl_module"
         link="/en/docs/http/ngx_http_perl_module.html"
         lang="en"
-        rev="5">
+        rev="6">
 
 <section id="summary">
 
@@ -24,7 +24,8 @@ This module is not built by default, it should be enabled with the
 <literal>--with-http_perl_module</literal>
 configuration parameter.
 <note>
-This module requires Perl version 5.6.1 or higher.
+This module requires
+<link url="https://www.perl.org/get.html">Perl</link> version 5.6.1 or higher.
 The C compiler should be compatible with the one used to build Perl.
 </note>
 </para>
