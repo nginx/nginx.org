@@ -821,8 +821,8 @@ http {
     }
 }
 </example>
-This configuration tells that for a health check to pass, the response to a
-health check request should succeed,
+This configuration shows that in order for a health check to pass, the response
+to a health check request should succeed,
 have status 200, content type “<literal>text/html</literal>”,
 and contain “<literal>Welcome to nginx!</literal>” in the body.
 </para>
