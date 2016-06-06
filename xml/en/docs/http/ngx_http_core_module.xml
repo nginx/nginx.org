@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="57">
+        rev="58">
 
 <section id="directives" name="Directives">
 
@@ -3082,7 +3082,8 @@ directives, and the request URI
 
 <tag-name id="var_request_id"><var>$request_id</var></tag-name>
 <tag-desc>
-unique request identifier (1.11.0)
+unique request identifier
+generated from 16 random bytes, in hexadecimal (1.11.0)
 </tag-desc>
 
 <tag-name id="var_request_length"><var>$request_length</var></tag-name>
