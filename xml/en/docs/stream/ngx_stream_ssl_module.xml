@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_ssl_module"
         link="/en/docs/stream/ngx_stream_ssl_module.html"
         lang="en"
-        rev="7">
+        rev="8">
 
 <section id="summary">
 
@@ -89,6 +89,30 @@ If intermediate certificates should be specified in addition to a primary
 certificate, they should be specified in the same file in the following
 order: the primary certificate comes first, then the intermediate certificates.
 A secret key in the PEM format may be placed in the same file.
+</para>
+
+<para>
+Since version 1.11.0,
+this directive can be specified multiple times
+to load certificates of different types, for example, RSA and ECDSA:
+<example>
+server {
+    listen              12345 ssl;
+
+    ssl_certificate     example.com.rsa.crt;
+    ssl_certificate_key example.com.rsa.key;
+
+    ssl_certificate     example.com.ecdsa.crt;
+    ssl_certificate_key example.com.ecdsa.key;
+
+    ...
+}
+</example>
+<note>
+Only OpenSSL 1.0.2 or higher supports separate certificate chains
+for different certificates.
+With older versions, only one certificate chain can be used.
+</note>
 </para>
 
 </directive>

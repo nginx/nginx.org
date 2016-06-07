@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_ssl_module"
         link="/ru/docs/http/ngx_http_ssl_module.html"
         lang="ru"
-        rev="22">
+        rev="23">
 
 <section id="summary">
 
@@ -144,6 +144,33 @@ ssl_buffer_size 4k;
 то они должны находиться в этом же файле в следующем порядке: сначала
 основной сертификат, а затем промежуточные.
 В этом же файле может находиться секретный ключ в формате PEM.
+</para>
+
+<para>
+Начиная с версии 1.11.0
+эта директива может быть указана несколько раз
+для загрузки сертификатов разных типов, например RSA и ECDSA:
+<example>
+server {
+    listen              443 ssl;
+    server_name         example.com;
+
+    ssl_certificate     example.com.rsa.crt;
+    ssl_certificate_key example.com.rsa.key;
+
+    ssl_certificate     example.com.ecdsa.crt;
+    ssl_certificate_key example.com.ecdsa.key;
+
+    ...
+}
+</example>
+<note>
+Возможность задавать отдельные
+<link doc="configuring_https_servers.xml" id="chains">цепочки
+сертификатов</link>
+для разных сертификатов есть только в OpenSSL 1.0.2 и выше.
+Для более старых версий следует указывать только одну цепочку сертификатов.
+</note>
 </para>
 
 <para>
