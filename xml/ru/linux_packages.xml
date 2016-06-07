@@ -345,7 +345,7 @@ zypper addrepo -G -t yum -c 'http://nginx.org/packages/mainline/sles/12' nginx
 <section name="Динамические модули" id="dynmodules">
 
 <para>
-Начиная с версии 1.9.11, nginx поддерживает
+Начиная с версии 1.9.11 nginx поддерживает
 <link doc="docs/ngx_core_module.xml" id="load_module">динамические модули</link>.
 В настоящее время следующие модули собираются как динамические
 и поставляются в виде отдельных пакетов:
