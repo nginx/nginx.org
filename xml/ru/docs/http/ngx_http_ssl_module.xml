@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_ssl_module"
         link="/ru/docs/http/ngx_http_ssl_module.html"
         lang="ru"
-        rev="21">
+        rev="22">
 
 <section id="summary">
 
@@ -153,14 +153,14 @@ ssl_buffer_size 4k;
 server {
     listen          192.168.1.1:443;
     server_name     one.example.com;
-    ssl_certificate /usr/local/nginx/conf/one.example.com.cert;
+    ssl_certificate one.example.com.crt;
     ...
 }
 
 server {
     listen          192.168.1.2:443;
     server_name     two.example.com;
-    ssl_certificate /usr/local/nginx/conf/two.example.com.cert;
+    ssl_certificate two.example.com.crt;
     ...
 }
 </example>
