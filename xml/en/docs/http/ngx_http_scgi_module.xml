@@ -1038,7 +1038,7 @@ location / {
 </para>
 
 <para>
-If a directive is specified with <literal>if_not_empty</literal> (1.1.11) then
+If the directive is specified with <literal>if_not_empty</literal> (1.1.11) then
 such a parameter will not be passed to the server until its value is not empty:
 <example>
 scgi_param HTTPS $https if_not_empty;
