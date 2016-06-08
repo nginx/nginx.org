@@ -20,9 +20,9 @@
 
     <div id="banner">
         <xsl:if test="@lang = 'he'"> <xsl:attribute name="class"> <xsl:text>ltr</xsl:text> </xsl:attribute> </xsl:if>
-        <strong>Got ideas for the future of NGINX?</strong><br/>
-        Share your perspective on NGINX today and help us shape our product roadmap.<br/>
-        <a href="http://survey.newkind.com/r/AShdWE9g"><em>Take the 2016 NGINX User Survey by June 8!</em></a><br/>
+        <strong>Online NGINX Training</strong><br/>
+	Enroll in online NGINX training and learn how to best deploy your apps.<br/>
+        <a href="http://university.nginx.com/"><em>university.nginx.com</em></a><br/>
     </div>
 
     <div id="main">
