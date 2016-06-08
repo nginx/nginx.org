@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_upstream_module"
         link="/en/docs/stream/ngx_stream_upstream_module.html"
         lang="en"
-        rev="12">
+        rev="13">
 
 <section id="summary">
 
@@ -290,7 +290,8 @@ the rest of SRV records are ignored.
 </tag-name>
 <tag-desc>
 sets the <value>time</value> during which the server will recover its weight
-from zero to a nominal value,
+from zero to a nominal value, when unhealthy server becomes
+<link id="health_check">healthy</link>,
 or when the server becomes available after a period of time
 it was considered <link id="fail_timeout">unavailable</link>.
 Default value is zero, i.e. slow start is disabled.
