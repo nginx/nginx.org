@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="58">
+        rev="59">
 
 <section id="directives" name="Директивы">
 
@@ -3037,7 +3037,9 @@ cookie <value>имя</value>
 <link doc="ngx_http_fastcgi_module.xml" id="fastcgi_pass"/>,
 <link doc="ngx_http_uwsgi_module.xml" id="uwsgi_pass"/>
 и
-<link doc="ngx_http_scgi_module.xml" id="scgi_pass"/>.
+<link doc="ngx_http_scgi_module.xml" id="scgi_pass"/>,
+когда тело было прочитано в
+<link id="client_body_buffer_size">буфер в памяти</link>.
 </para>
 </tag-desc>
 

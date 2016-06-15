@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="58">
+        rev="59">
 
 <section id="directives" name="Directives">
 
@@ -3041,7 +3041,8 @@ processed by the
 <link doc="ngx_http_uwsgi_module.xml" id="uwsgi_pass"/>,
 and
 <link doc="ngx_http_scgi_module.xml" id="scgi_pass"/>
-directives.
+directives when the request body was read to
+a <link id="client_body_buffer_size">memory buffer</link>.
 </para>
 </tag-desc>
 
