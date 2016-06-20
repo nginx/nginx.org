@@ -10,7 +10,7 @@
 <module name="Module ngx_http_fastcgi_module"
         link="/en/docs/http/ngx_http_fastcgi_module.html"
         lang="en"
-        rev="34">
+        rev="35">
 
 <section id="summary">
 
@@ -54,12 +54,12 @@ location / {
 
 <para>
 Makes outgoing connections to a FastCGI server originate
-from the specified local IP <value>address</value>.
+from the specified local IP address with an optional port (1.11.2).
 Parameter value can contain variables (1.3.12).
 The special value <literal>off</literal> (1.3.12) cancels the effect
 of the <literal>fastcgi_bind</literal> directive
 inherited from the previous configuration level, which allows the
-system to auto-assign the local IP address.
+system to auto-assign the local IP address and port.
 </para>
 
 <para id="fastcgi_bind_transparent">
