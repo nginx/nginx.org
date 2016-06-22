@@ -19,9 +19,9 @@ X:template body (lang) {
 
     <div id="banner">
         X:if "@lang = 'he'" { X:attribute "class" { X:text{ltr} } }
-        <strong>Online NGINX Training</strong><br/>
-	Enroll in online NGINX training and learn how to best deploy your apps.<br/>
-        <a href="http://university.nginx.com/"><em>university.nginx.com</em></a><br/>
+        <strong>Get real-time diagnostics of your applications with NGINX Amplify</strong><br/>
+        Receive actionable insights and deep diagnostics to improve the performance and security of your applications.<br/>
+        <a href="https://www.nginx.com/amplify"><em>Sign up for free!</em></a><br/>
     </div>
 
     <div id="main">
