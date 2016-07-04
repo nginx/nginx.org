@@ -10,7 +10,7 @@
 <module name="Module ngx_http_fastcgi_module"
         link="/en/docs/http/ngx_http_fastcgi_module.html"
         lang="en"
-        rev="35">
+        rev="36">
 
 <section id="summary">
 
@@ -358,7 +358,8 @@ Cache data are stored in files.
 Both the key and file name in a cache are a result of
 applying the MD5 function to the proxied URL.
 
-The <literal>levels</literal> parameter defines hierarchy levels of a cache.
+The <literal>levels</literal> parameter defines hierarchy levels of a cache:
+from 1 to 3, each level accepts values 1 or 2.
 For example, in the following configuration
 <example>
 fastcgi_cache_path /data/nginx/cache levels=1:2 keys_zone=one:10m;

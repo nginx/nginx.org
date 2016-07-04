@@ -10,7 +10,7 @@
 <module name="Module ngx_http_uwsgi_module"
         link="/en/docs/http/ngx_http_uwsgi_module.html"
         lang="en"
-        rev="27">
+        rev="28">
 
 <section id="summary">
 
@@ -349,7 +349,8 @@ Cache data are stored in files.
 The file name in a cache is a result of
 applying the MD5 function to the
 <link id="uwsgi_cache_key">cache key</link>.
-The <literal>levels</literal> parameter defines hierarchy levels of a cache.
+The <literal>levels</literal> parameter defines hierarchy levels of a cache:
+from 1 to 3, each level accepts values 1 or 2.
 For example, in the following configuration
 <example>
 uwsgi_cache_path /data/nginx/cache levels=1:2 keys_zone=one:10m;

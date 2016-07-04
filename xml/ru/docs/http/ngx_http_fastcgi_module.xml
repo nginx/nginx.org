@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_fastcgi_module"
         link="/ru/docs/http/ngx_http_fastcgi_module.html"
         lang="ru"
-        rev="35">
+        rev="36">
 
 <section id="summary">
 
@@ -356,8 +356,9 @@ fastcgi_cache_key localhost:9000$request_uri;
 Данные кэша хранятся в файлах.
 Ключом и именем файла в кэше является результат функции MD5
 от проксированного URL.
-Параметр <literal>levels</literal> задаёт уровни иерархии кэша,
-например, при использовании
+Параметр <literal>levels</literal> задаёт уровни иерархии кэша:
+можно задать от 1 до 3 уровней, на каждом уровне допускаются значения 1 или 2.
+Например, при использовании
 <example>
 fastcgi_cache_path /data/nginx/cache levels=1:2 keys_zone=one:10m;
 </example>
