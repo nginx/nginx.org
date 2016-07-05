@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_ssl_module"
         link="/en/docs/stream/ngx_stream_ssl_module.html"
         lang="en"
-        rev="8">
+        rev="9">
 
 <section id="summary">
 
@@ -418,6 +418,47 @@ session parameters stored in a cache.
 </para>
 
 </directive>
+
+</section>
+
+
+<section id="variables" name="Embedded Variables">
+
+<para>
+The <literal>ngx_http_ssl_module</literal> module supports variables
+since 1.11.2.
+<list type="tag">
+
+<tag-name id="var_ssl_cipher"><var>$ssl_cipher</var></tag-name>
+<tag-desc>
+returns the string of ciphers used
+for an established SSL connection;
+</tag-desc>
+
+<tag-name id="var_ssl_protocol"><var>$ssl_protocol</var></tag-name>
+<tag-desc>
+returns the protocol of an established SSL connection;
+</tag-desc>
+
+<tag-name id="var_ssl_server_name"><var>$ssl_server_name</var></tag-name>
+<tag-desc>
+returns the server name requested through
+<link url="http://en.wikipedia.org/wiki/Server_Name_Indication">SNI</link>;
+</tag-desc>
+
+<tag-name id="var_ssl_session_id"><var>$ssl_session_id</var></tag-name>
+<tag-desc>
+returns the session identifier of an established SSL connection;
+</tag-desc>
+
+<tag-name id="var_ssl_session_reused"><var>$ssl_session_reused</var></tag-name>
+<tag-desc>
+returns “<literal>r</literal>” if an SSL session was reused,
+or “<literal>.</literal>” otherwise.
+</tag-desc>
+
+</list>
+</para>
 
 </section>
 

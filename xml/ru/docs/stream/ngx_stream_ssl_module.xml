@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_ssl_module"
         link="/ru/docs/stream/ngx_stream_ssl_module.html"
         lang="ru"
-        rev="8">
+        rev="9">
 
 <section id="summary">
 
@@ -417,6 +417,46 @@ openssl rand 48 > ticket.key
 </para>
 
 </directive>
+
+</section>
+
+
+<section id="variables" name="Встроенные переменные">
+
+<para>
+Модуль <literal>ngx_http_ssl_module</literal> поддерживает переменные
+начиная с версии 1.11.2.
+<list type="tag">
+
+<tag-name id="var_ssl_cipher"><var>$ssl_cipher</var></tag-name>
+<tag-desc>
+возвращает строку используемых шифров для установленного SSL-соединения;
+</tag-desc>
+
+<tag-name id="var_ssl_protocol"><var>$ssl_protocol</var></tag-name>
+<tag-desc>
+возвращает протокол установленного SSL-соединения;
+</tag-desc>
+
+<tag-name id="var_ssl_server_name"><var>$ssl_server_name</var></tag-name>
+<tag-desc>
+возвращает имя сервера, запрошенное через
+<link url="http://en.wikipedia.org/wiki/Server_Name_Indication">SNI</link>;
+</tag-desc>
+
+<tag-name id="var_ssl_session_id"><var>$ssl_session_id</var></tag-name>
+<tag-desc>
+возвращает идентификатор сессии установленного SSL-соединения;
+</tag-desc>
+
+<tag-name id="var_ssl_session_reused"><var>$ssl_session_reused</var></tag-name>
+<tag-desc>
+возвращает “<literal>r</literal>”, если сессия была использована повторно,
+иначе “<literal>.</literal>”.
+</tag-desc>
+
+</list>
+</para>
 
 </section>
 
