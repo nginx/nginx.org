@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_core_module"
         link="/en/docs/stream/ngx_stream_core_module.html"
         lang="en"
-        rev="12">
+        rev="13">
 
 <section id="summary">
 
@@ -324,6 +324,36 @@ are specified.
 <para>
 Enables or disables the use of the <c-def>TCP_NODELAY</c-def> option.
 The option is enabled for both client and proxied server connections.
+</para>
+
+</directive>
+
+
+<directive name="variables_hash_bucket_size">
+<syntax><value>size</value></syntax>
+<default>64</default>
+<context>stream</context>
+<appeared-in>1.11.2</appeared-in>
+
+<para>
+Sets the bucket size for the variables hash table.
+The details of setting up hash tables are provided in a separate
+<link doc="../hash.xml">document</link>.
+</para>
+
+</directive>
+
+
+<directive name="variables_hash_max_size">
+<syntax><value>size</value></syntax>
+<default>1024</default>
+<context>stream</context>
+<appeared-in>1.11.2</appeared-in>
+
+<para>
+Sets the maximum <value>size</value> of the variables hash table.
+The details of setting up hash tables are provided in a separate
+<link doc="../hash.xml">document</link>.
 </para>
 
 </directive>

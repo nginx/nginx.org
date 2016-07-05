@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_core_module"
         link="/ru/docs/stream/ngx_stream_core_module.html"
         lang="ru"
-        rev="12">
+        rev="13">
 
 <section id="summary">
 
@@ -332,6 +332,36 @@ resolver_timeout 5s;
 Разрешает или запрещает использование параметра <c-def>TCP_NODELAY</c-def>.
 Параметр включается как для клиентского соединения,
 так и для соединения с проксируемым сервером.
+</para>
+
+</directive>
+
+
+<directive name="variables_hash_bucket_size">
+<syntax><value>размер</value></syntax>
+<default>64</default>
+<context>stream</context>
+<appeared-in>1.11.2</appeared-in>
+
+<para>
+Задаёт размер корзины в хэш-таблице переменных.
+Подробнее настройка хэш-таблиц обсуждается в отдельном
+<link doc="../hash.xml">документе</link>.
+</para>
+
+</directive>
+
+
+<directive name="variables_hash_max_size">
+<syntax><value>размер</value></syntax>
+<default>1024</default>
+<context>stream</context>
+<appeared-in>1.11.2</appeared-in>
+
+<para>
+Задаёт максимальный <value>размер</value> хэш-таблицы переменных.
+Подробнее настройка хэш-таблиц обсуждается в отдельном
+<link doc="../hash.xml">документе</link>.
 </para>
 
 </directive>
