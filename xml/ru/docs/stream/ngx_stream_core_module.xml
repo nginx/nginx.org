@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_core_module"
         link="/ru/docs/stream/ngx_stream_core_module.html"
         lang="ru"
-        rev="13">
+        rev="14">
 
 <section id="summary">
 
@@ -365,6 +365,90 @@ resolver_timeout 5s;
 </para>
 
 </directive>
+
+</section>
+
+
+<section id="variables" name="Встроенные переменные">
+
+<para>
+Модуль <literal>ngx_http_core_module</literal> поддерживает переменные
+начиная с версии 1.11.2.
+<list type="tag">
+
+<tag-name id="var_binary_remote_addr"><var>$binary_remote_addr</var></tag-name>
+<tag-desc>
+адрес клиента в бинарном виде, длина значения всегда 4 байта
+для IPv4-адресов или 16 байт для IPv6-адресов
+</tag-desc>
+
+<tag-name id="var_bytes_sent"><var>$bytes_sent</var></tag-name>
+<tag-desc>
+число байт, переданное клиенту
+</tag-desc>
+
+<tag-name id="var_connection"><var>$connection</var></tag-name>
+<tag-desc>
+порядковый номер соединения
+</tag-desc>
+
+<tag-name id="var_hostname"><var>$hostname</var></tag-name>
+<tag-desc>
+имя хоста
+</tag-desc>
+
+<tag-name id="var_msec"><var>$msec</var></tag-name>
+<tag-desc>
+текущее время в секундах с точностью до миллисекунд
+</tag-desc>
+
+<tag-name id="var_nginx_version"><var>$nginx_version</var></tag-name>
+<tag-desc>
+версия nginx
+</tag-desc>
+
+<tag-name id="var_pid"><var>$pid</var></tag-name>
+<tag-desc>
+номер (PID) рабочего процесса
+</tag-desc>
+
+<tag-name id="var_remote_addr"><var>$remote_addr</var></tag-name>
+<tag-desc>
+адрес клиента
+</tag-desc>
+
+<tag-name id="var_remote_port"><var>$remote_port</var></tag-name>
+<tag-desc>
+порт клиента
+</tag-desc>
+
+<tag-name id="var_server_addr"><var>$server_addr</var></tag-name>
+<tag-desc>
+адрес сервера, принявшего соединение
+<para>
+Получение значения этой переменной обычно требует одного системного вызова.
+Чтобы избежать системного вызова, в директивах <link id="listen"/>
+следует указывать адреса и использовать параметр <literal>bind</literal>.
+</para>
+</tag-desc>
+
+<tag-name id="var_server_port"><var>$server_port</var></tag-name>
+<tag-desc>
+порт сервера, принявшего соединение
+</tag-desc>
+
+<tag-name id="var_time_iso8601"><var>$time_iso8601</var></tag-name>
+<tag-desc>
+локальное время в формате по стандарту ISO 8601
+</tag-desc>
+
+<tag-name id="var_time_local"><var>$time_local</var></tag-name>
+<tag-desc>
+локальное время в Common Log Format
+</tag-desc>
+
+</list>
+</para>
 
 </section>
 
