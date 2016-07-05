@@ -255,8 +255,8 @@ upstream server.
 <tag-desc>
 Puts the
 <link doc="ngx_http_upstream_module.xml">http</link>
-upstream server in the “draining” mode (1.7.5).
-In this mode, only requests of the
+upstream server into the “draining” mode (1.7.5).
+In this mode, only requests
 <link doc="ngx_http_upstream_module.xml" id="sticky">bound</link> to the server
 will be proxied to it.
 </tag-desc>
