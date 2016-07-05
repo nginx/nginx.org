@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_proxy_module"
         link="/ru/docs/stream/ngx_stream_proxy_module.html"
         lang="ru"
-        rev="14">
+        rev="15">
 
 <section id="summary">
 
@@ -66,6 +66,7 @@ server {
 <para>
 Задаёт локальный IP-<value>адрес</value>, который будет использоваться в
 исходящих соединениях с проксируемым сервером.
+В значении параметра допустимо использование переменных (1.11.2).
 Специальное значение <literal>off</literal> отменяет действие
 унаследованной с предыдущего уровня конфигурации
 директивы <literal>proxy_bind</literal>, позволяя системе

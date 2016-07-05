@@ -10,7 +10,7 @@
 <module name="Модуль ngx_stream_limit_conn_module"
         link="/ru/docs/stream/ngx_stream_limit_conn_module.html"
         lang="ru"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -115,16 +115,15 @@ IP-адреса.
 Задаёт параметры зоны разделяемой памяти, которая хранит состояние
 для разных значений ключа.
 Состояние в частности содержит текущее число соединений.
-На данный момент возможным значением для <value>ключа</value> является
-адрес клиента в бинарном виде, указываемый как
-<literal>$binary_remote_addr</literal>.
+В качестве <value>ключа</value> может использоваться текст, переменные
+и их комбинации (1.11.2).
 Запросы с пустым значением ключа не учитываются.
 Пример использования:
 <example>
 limit_conn_zone $binary_remote_addr zone=addr:10m;
 </example>
 Здесь в качестве ключа используется IP-адрес клиента,
-задаваемый ключом <literal>$binary_remote_addr</literal>.
+задаваемый переменной <literal>$binary_remote_addr</literal>.
 Длина значения <literal>$binary_remote_addr</literal>
 равна 4 байтам для IPv4-адресов или 16 байтам для IPv6-адресов.
 При этом размер состояния всегда равен 32 или 64 байтам

@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_proxy_module"
         link="/en/docs/stream/ngx_stream_proxy_module.html"
         lang="en"
-        rev="14">
+        rev="15">
 
 <section id="summary">
 
@@ -66,6 +66,7 @@ server {
 <para>
 Makes outgoing connections to a proxied server originate
 from the specified local IP <value>address</value>.
+Parameter value can contain variables (1.11.2).
 The special value <literal>off</literal> cancels the effect
 of the <literal>proxy_bind</literal> directive
 inherited from the previous configuration level, which allows the
