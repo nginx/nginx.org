@@ -8,7 +8,7 @@
 <article name="nginx: документация"
          link="/ru/docs/"
          lang="ru"
-         rev="24"
+         rev="25"
          toc="no">
 
 
@@ -498,6 +498,11 @@ ngx_stream_access_module</link>
 <listitem>
 <link doc="stream/ngx_stream_limit_conn_module.xml">
 ngx_stream_limit_conn_module</link>
+</listitem>
+
+<listitem>
+<link doc="stream/ngx_stream_map_module.xml">
+ngx_stream_map_module</link>
 </listitem>
 
 <listitem>
