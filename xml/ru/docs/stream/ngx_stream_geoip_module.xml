@@ -1,0 +1,214 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Модуль ngx_stream_geoip_module"
+        link="/ru/docs/http/ngx_stream_geoip_module.html"
+        lang="ru"
+        rev="1">
+
+<section id="summary">
+
+<para>
+Модуль <literal>ngx_stream_geoip_module</literal> (1.11.3) создаёт переменные,
+значения которых зависят от IP-адреса клиента, используя готовые базы данных
+<link url="http://www.maxmind.com">MaxMind</link>.
+</para>
+
+<para>
+При использовании баз данных с поддержкой IPv6
+IPv4-адреса ищутся отображёнными на IPv6.
+</para>
+
+<para>
+По умолчанию этот модуль не собирается, его сборку необходимо
+разрешить с помощью конфигурационного параметра
+<literal>--with-stream_geoip_module</literal>.
+<note>
+Для сборки и работы этого модуля нужна библиотека
+<link url="http://www.maxmind.com/app/c">MaxMind GeoIP</link>.
+</note>
+</para>
+
+</section>
+
+
+<section id="example" name="Пример конфигурации">
+
+<para>
+<example>
+stream {
+    geoip_country         GeoIP.dat;
+    geoip_city            GeoLiteCity.dat;
+
+    map $geoip_city_continent_code $nearest_server {
+        default        example.com;
+        EU          eu.example.com;
+        NA          na.example.com;
+        AS          as.example.com;
+    }
+   ...
+}
+</example>
+</para>
+
+</section>
+
+
+<section id="directives" name="Директивы">
+
+<directive name="geoip_country">
+<syntax><value>файл</value></syntax>
+<default/>
+<context>stream</context>
+
+<para>
+Задаёт базу данных для определения страны в зависимости
+от значения IP-адреса клиента.
+При использовании этой базы данных доступны следующие переменные:
+<list type="tag">
+
+<tag-name id="var_geoip_country_code"><var>$geoip_country_code</var></tag-name>
+<tag-desc>
+двухбуквенный код страны, например,
+“<literal>RU</literal>”, “<literal>US</literal>”.
+</tag-desc>
+
+<tag-name id="var_geoip_country_code3"><var>$geoip_country_code3</var>
+</tag-name>
+<tag-desc>
+трёхбуквенный код страны, например,
+“<literal>RUS</literal>”, “<literal>USA</literal>”.
+</tag-desc>
+
+<tag-name id="var_geoip_country_name"><var>$geoip_country_name</var></tag-name>
+<tag-desc>
+название страны, например,
+“<literal>Russian Federation</literal>”, “<literal>United States</literal>”.
+</tag-desc>
+
+</list>
+</para>
+
+</directive>
+
+
+<directive name="geoip_city">
+<syntax><value>файл</value></syntax>
+<default/>
+<context>stream</context>
+
+<para>
+Задаёт базу данных для определения страны, региона и города
+в зависимости от значения IP-адреса клиента.
+При использовании этой базы данных доступны следующие переменные:
+<list type="tag">
+
+<tag-name id="var_geoip_area_code"><var>$geoip_area_code</var></tag-name>
+<tag-desc>телефонный код области (только для США).
+<note>
+Данная переменная может содержать неактуальную информацию, т.к.
+соответствующее поле базы данных объявлено устаревшим.
+</note>
+</tag-desc>
+
+<tag-name id="var_geoip_city_continent_code">
+<var>$geoip_city_continent_code</var>
+</tag-name>
+<tag-desc>двухбуквенный код континента, например,
+“<literal>EU</literal>”, “<literal>NA</literal>”.
+</tag-desc>
+
+<tag-name id="var_geoip_city_country_code"><var>$geoip_city_country_code</var>
+</tag-name>
+<tag-desc>
+двухбуквенный код страны, например,
+“<literal>RU</literal>”, “<literal>US</literal>”.
+</tag-desc>
+
+<tag-name id="var_geoip_city_country_code3"><var>$geoip_city_country_code3</var>
+</tag-name>
+<tag-desc>
+трёхбуквенный код страны, например,
+“<literal>RUS</literal>”, “<literal>USA</literal>”.
+</tag-desc>
+
+<tag-name id="var_geoip_city_country_name"><var>$geoip_city_country_name</var>
+</tag-name>
+<tag-desc>
+название страны, например,
+“<literal>Russian Federation</literal>”, “<literal>United States</literal>”.
+</tag-desc>
+
+<tag-name id="var_geoip_dma_code"><var>$geoip_dma_code</var></tag-name>
+<tag-desc>
+DMA-код региона в США (также известный как “код агломерации”), согласно
+<link url="https://developers.google.com/adwords/api/docs/appendix/cities-DMAregions">геотаргетингу</link>
+Google AdWords API.
+</tag-desc>
+
+<tag-name id="var_geoip_latitude"><var>$geoip_latitude</var></tag-name>
+<tag-desc>широта.</tag-desc>
+
+<tag-name id="var_geoip_longitude"><var>$geoip_longitude</var></tag-name>
+<tag-desc>долгота.</tag-desc>
+
+<tag-name id="var_geoip_region"><var>$geoip_region</var></tag-name>
+<tag-desc>
+двухсимвольный код региона страны (область, край, штат,
+провинция, федеральная земля и тому подобное), например,
+“<literal>48</literal>”, “<literal>DC</literal>”.
+</tag-desc>
+
+<tag-name id="var_geoip_region_name"><var>$geoip_region_name</var></tag-name>
+<tag-desc>
+название региона страны (область, край, штат,
+провинция, федеральная земля и тому подобное), например,
+“<literal>Moscow City</literal>”, “<literal>District of Columbia</literal>”.
+</tag-desc>
+
+<tag-name id="var_geoip_city"><var>$geoip_city</var></tag-name>
+<tag-desc>
+название города, например,
+“<literal>Moscow</literal>”, “<literal>Washington</literal>”.
+</tag-desc>
+
+<tag-name id="var_geoip_postal_code"><var>$geoip_postal_code</var></tag-name>
+<tag-desc>
+почтовый индекс.
+</tag-desc>
+
+</list>
+</para>
+
+</directive>
+
+
+<directive name="geoip_org">
+<syntax><value>файл</value></syntax>
+<default/>
+<context>stream</context>
+
+<para>
+Задаёт базу данных для определения названия организации
+в зависимости от значения IP-адреса клиента.
+При использовании этой базы данных доступна следующая переменная:
+<list type="tag">
+
+<tag-name id="var_geoip_org"><var>$geoip_org</var></tag-name>
+<tag-desc>
+название организации, например, “The University of Melbourne”.
+</tag-desc>
+
+</list>
+</para>
+
+</directive>
+
+</section>
+
+</module>

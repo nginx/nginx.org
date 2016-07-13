@@ -8,7 +8,7 @@
 <article name="nginx documentation"
          link="/en/docs/"
          lang="en"
-         rev="26"
+         rev="27"
          toc="no">
 
 
@@ -489,6 +489,11 @@ ngx_stream_core_module</link>
 <listitem>
 <link doc="stream/ngx_stream_access_module.xml">
 ngx_stream_access_module</link>
+</listitem>
+
+<listitem>
+<link doc="stream/ngx_stream_geoip_module.xml">
+ngx_stream_geoip_module</link>
 </listitem>
 
 <listitem>
