@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Модуль ngx_stream_split_clients_module"
+        link="/ru/docs/stream/ngx_stream_split_clients_module.html"
+        lang="ru"
+        rev="1">
+
+<section id="summary">
+
+<para>
+Модуль <literal>ngx_stream_split_clients_module</literal> (1.11.3) создаёт
+переменные для A/B тестирования (также известного как “split-тестирование”).
+</para>
+
+</section>
+
+
+<section id="example" name="Пример конфигурации">
+
+<para>
+<example>
+stream {
+    split_clients "${remote_addr}AAA" $variant {
+                   0.5%               .one;
+                   2.0%               .two;
+                   *                  "";
+    }
+</example>
+</para>
+
+</section>
+
+
+<section id="directives" name="Директивы">
+
+<directive name="split_clients">
+<syntax block="yes">
+    <value>строка</value>
+    <value>$переменная</value></syntax>
+<default/>
+<context>stream</context>
+
+<para>
+Создаёт переменную для A/B тестирования, например:
+<example>
+split_clients "${remote_addr}AAA" $variant {
+               0.5%               .one;
+               2.0%               .two;
+               *                  "";
+}
+</example>
+Значение исходной строки хэшируется с помощью MurmurHash2.
+В приведённом примере при значениях хэша от 0 до 21474835 (0.5%)
+переменная <var>$variant</var> получит значение <literal>".one"</literal>.
+При значениях хэша от 21474836 до 107374180 (2%) — <literal>".two"</literal>.
+И при значениях хэша от 107374181 до 4294967295 — <literal>""</literal>
+(пустая строка).
+</para>
+
+</directive>
+
+</section>
+
+</module>

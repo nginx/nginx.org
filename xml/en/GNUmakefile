@@ -102,6 +102,7 @@ REFS =									\
 		stream/ngx_stream_map_module				\
 		stream/ngx_stream_proxy_module				\
 		stream/ngx_stream_return_module				\
+		stream/ngx_stream_split_clients_module			\
 		stream/ngx_stream_ssl_module				\
 		stream/ngx_stream_upstream_module			\
 

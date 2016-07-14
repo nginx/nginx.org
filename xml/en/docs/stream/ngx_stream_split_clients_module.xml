@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Module ngx_stream_split_clients_module"
+        link="/en/docs/stream/ngx_stream_split_clients_module.html"
+        lang="en"
+        rev="1">
+
+<section id="summary">
+
+<para>
+The <literal>ngx_stream_split_clients_module</literal> module (1.11.3) creates
+variables suitable for A/B testing, also known as split testing.
+</para>
+
+</section>
+
+
+<section id="example" name="Example Configuration">
+
+<para>
+<example>
+stream {
+    split_clients "${remote_addr}AAA" $variant {
+                   0.5%               .one;
+                   2.0%               .two;
+                   *                  "";
+    }
+</example>
+</para>
+
+</section>
+
+
+<section id="directives" name="Directives">
+
+<directive name="split_clients">
+<syntax block="yes">
+    <value>string</value>
+    <value>$variable</value></syntax>
+<default/>
+<context>stream</context>
+
+<para>
+Creates a variable for A/B testing, for example:
+<example>
+split_clients "${remote_addr}AAA" $variant {
+               0.5%               .one;
+               2.0%               .two;
+               *                  "";
+}
+</example>
+The value of the original string is hashed using MurmurHash2.
+In the example given, hash values from 0 to 21474835 (0.5%)
+correspond to the
+value <literal>".one"</literal> of the <var>$variant</var> variable,
+hash values from 21474836 to 107374180 (2%) correspond to
+the value <literal>".two"</literal>,
+and hash values from 107374181 to 4294967295 correspond to
+the value <literal>""</literal> (an empty string).
+</para>
+
+</directive>
+
+</section>
+
+</module>

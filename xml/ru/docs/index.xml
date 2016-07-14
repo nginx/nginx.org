@@ -8,7 +8,7 @@
 <article name="nginx: документация"
          link="/ru/docs/"
          lang="ru"
-         rev="28"
+         rev="29"
          toc="no">
 
 
@@ -523,6 +523,11 @@ ngx_stream_proxy_module</link>
 <listitem>
 <link doc="stream/ngx_stream_return_module.xml">
 ngx_stream_return_module</link>
+</listitem>
+
+<listitem>
+<link doc="stream/ngx_stream_split_clients_module.xml">
+ngx_stream_split_clients_module</link>
 </listitem>
 
 <listitem>
