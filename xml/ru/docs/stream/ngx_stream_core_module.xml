@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_core_module"
         link="/ru/docs/stream/ngx_stream_core_module.html"
         lang="ru"
-        rev="14">
+        rev="15">
 
 <section id="summary">
 
@@ -240,6 +240,7 @@ FreeBSD 9.0-STABLE)
 <default/>
 <context>stream</context>
 <context>server</context>
+<appeared-in>1.11.3</appeared-in>
 
 <para>
 Задаёт серверы DNS, используемые для преобразования имён вышестоящих серверов
@@ -268,7 +269,7 @@ resolver 127.0.0.1 [::1]:5353;
 resolver 127.0.0.1 [::1]:5353 valid=30s;
 </example>
 <note>
-Эта директива доступна как часть
+До версии 1.11.3 эта директива была доступна как часть
 <commercial_version>коммерческой подписки</commercial_version>.
 </note>
 </para>
@@ -281,6 +282,7 @@ resolver 127.0.0.1 [::1]:5353 valid=30s;
 <default>30s</default>
 <context>stream</context>
 <context>server</context>
+<appeared-in>1.11.3</appeared-in>
 
 <para>
 Задаёт таймаут для преобразования имени в адрес, например:
@@ -288,7 +290,7 @@ resolver 127.0.0.1 [::1]:5353 valid=30s;
 resolver_timeout 5s;
 </example>
 <note>
-Эта директива доступна как часть
+До версии 1.11.3 эта директива была доступна как часть
 <commercial_version>коммерческой подписки</commercial_version>.
 </note>
 </para>

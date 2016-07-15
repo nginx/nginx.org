@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_core_module"
         link="/en/docs/stream/ngx_stream_core_module.html"
         lang="en"
-        rev="14">
+        rev="15">
 
 <section id="summary">
 
@@ -235,6 +235,7 @@ Different servers must listen on different
 <default/>
 <context>stream</context>
 <context>server</context>
+<appeared-in>1.11.3</appeared-in>
 
 <para>
 Configures name servers used to resolve names of upstream servers
@@ -261,7 +262,7 @@ The optional <literal>valid</literal> parameter allows overriding it:
 resolver 127.0.0.1 [::1]:5353 valid=30s;
 </example>
 <note>
-This directive is available as part of our
+Before version 1.11.3, this directive was available as part of our
 <commercial_version>commercial subscription</commercial_version>.
 </note>
 </para>
@@ -274,6 +275,7 @@ This directive is available as part of our
 <default>30s</default>
 <context>stream</context>
 <context>server</context>
+<appeared-in>1.11.3</appeared-in>
 
 <para>
 Sets a timeout for name resolution, for example:
@@ -281,7 +283,7 @@ Sets a timeout for name resolution, for example:
 resolver_timeout 5s;
 </example>
 <note>
-This directive is available as part of our
+Before version 1.11.3, this directive was available as part of our
 <commercial_version>commercial subscription</commercial_version>.
 </note>
 </para>
