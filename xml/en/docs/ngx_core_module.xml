@@ -10,7 +10,7 @@
 <module name="Core functionality"
         link="/en/docs/ngx_core_module.html"
         lang="en"
-        rev="19">
+        rev="20">
 
 <section id="example" name="Example Configuration">
 
@@ -37,7 +37,7 @@ events {
 
 <directive name="accept_mutex">
 <syntax><literal>on</literal> | <literal>off</literal></syntax>
-<default>on</default>
+<default>off</default>
 <context>events</context>
 
 <para>
@@ -46,6 +46,9 @@ worker processes will accept new connections by turn.
 Otherwise, all worker processes will be notified about new connections,
 and if volume of new connections is low, some of the worker processes
 may just waste system resources.
+<note>
+Prior to version 1.11.3, the default value was <literal>on</literal>.
+</note>
 </para>
 
 </directive>
