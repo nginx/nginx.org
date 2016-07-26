@@ -1,4 +1,25 @@
 
+Changes with nginx 1.11.3                                        26 Jul 2016
+
+    *) Change: now the "accept_mutex" directive is turned off by default.
+
+    *) Feature: now nginx uses EPOLLEXCLUSIVE on Linux.
+
+    *) Feature: the ngx_stream_geo_module.
+
+    *) Feature: the ngx_stream_geoip_module.
+
+    *) Feature: the ngx_stream_split_clients_module.
+
+    *) Feature: variables support in the "proxy_pass" and "proxy_ssl_name"
+       directives in the stream module.
+
+    *) Bugfix: socket leak when using HTTP/2.
+
+    *) Bugfix: in configure tests.
+       Thanks to Piotr Sikora.
+
+
 Changes with nginx 1.11.2                                        05 Jul 2016
 
     *) Change: now nginx always uses internal MD5 and SHA1 implementations;
