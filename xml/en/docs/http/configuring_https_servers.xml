@@ -8,7 +8,7 @@
 <article name="Configuring HTTPS servers"
          link="/en/docs/http/configuring_https_servers.html"
          lang="en"
-         rev="10"
+         rev="11"
          author="Igor Sysoev"
          editor="Brian Mercer">
 
@@ -451,7 +451,7 @@ Prior to 0.8.21 it could only be specified along with the
 </listitem>
 
 <listitem>
-SNI has been supported since 0.5.32.
+SNI has been supported since 0.5.23.
 </listitem>
 
 <listitem>
