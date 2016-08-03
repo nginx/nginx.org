@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_split_clients_module"
         link="/ru/docs/stream/ngx_stream_split_clients_module.html"
         lang="ru"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
@@ -26,11 +26,18 @@
 <para>
 <example>
 stream {
-    split_clients "${remote_addr}AAA" $variant {
-                   0.5%               .one;
-                   2.0%               .two;
-                   *                  "";
+    ...
+    split_clients "${remote_addr}AAA" $upstream {
+                  0.5%                feature_test1;
+                  2.0%                feature_test2;
+                  *                   production;
     }
+
+    server {
+        ...
+        proxy_pass $upstream;
+    }
+}
 </example>
 </para>
 
