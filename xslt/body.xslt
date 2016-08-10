@@ -20,9 +20,9 @@
 
     <div id="banner">
         <xsl:if test="@lang = 'he'"> <xsl:attribute name="class"> <xsl:text>ltr</xsl:text> </xsl:attribute> </xsl:if>
-        <strong>Analyze and take control of your apps with NGINX Amplify.</strong><br/>
-        Quickly troubleshoot and improve performance with deep diagnostics.<br/>
-        <a href="https://www.nginx.com/amplify"><em>Get Early Access</em></a><br/>
+        <strong>Register for nginx.conf 2016, Sept. 7-9 in Austin, TX and Save Over $400!</strong><br/>
+        Join us and industry leaders to learn how to build &amp; deliver applications, flawlessly.<br/>
+        <a href="https://www.nginx.com/nginxconf/?utm_source=nginxorg&amp;utm_medium=banner"><em>Register Now! Code: NG16EBB</em></a><br/>
     </div>
 
     <div id="main">
