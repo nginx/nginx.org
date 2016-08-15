@@ -8,7 +8,7 @@
 <article name="Connection processing methods"
          link="/en/docs/events.html"
          lang="en"
-         rev="3">
+         rev="4">
 
 <section>
 
@@ -59,6 +59,11 @@ FreeBSD 4.1+, OpenBSD 2.9+, NetBSD 2.0, and Mac OS X.
 <para>
 <literal>epoll</literal>&mdash;efficient method used on
 Linux 2.6+.
+<note>
+The <literal>EPOLLRDHUP</literal> (Linux 2.6.17, glibc 2.8)
+and <literal>EPOLLEXCLUSIVE</literal> (Linux 4.5, glibc 2.24)
+flags are supported since 1.11.3.
+</note>
 <note>
 Some older distributions like SuSE 8.2 provide patches
 that add epoll support to 2.4 kernels.

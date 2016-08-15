@@ -8,7 +8,7 @@
 <article name="nginx"
          link="/ru/"
          lang="ru"
-         rev="60">
+         rev="61">
 
 
 <section>
@@ -333,6 +333,12 @@ select и poll;
 Использование возможностей, предоставляемых kqueue, таких как
 <!-- EVFILT_VNODE, --> EV_CLEAR, EV_DISABLE (для временного выключения события),
 NOTE_LOWAT, EV_EOF, число доступных данных, коды ошибок;
+</listitem>
+
+<listitem>
+Использование возможностей, предоставляемых epoll, таких как
+EPOLLRDHUP (Linux 2.6.17+, glibc 2.8+) и
+EPOLLEXCLUSIVE (Linux 4.5+, glibc 2.24+);
 </listitem>
 
 <listitem>

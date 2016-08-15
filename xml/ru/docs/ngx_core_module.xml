@@ -10,7 +10,7 @@
 <module name="Основная функциональность"
         link="/ru/docs/ngx_core_module.html"
         lang="ru"
-        rev="20">
+        rev="21">
 
 <section id="example" name="Пример конфигурации">
 
@@ -46,6 +46,12 @@ events {
 В противном случае о новых соединениях будет сообщаться сразу всем рабочим
 процессам, и при низкой интенсивности поступления новых соединений
 часть рабочих процессов может работать вхолостую.
+<note>
+Нет необходимости включать <literal>accept_mutex</literal>
+на системах, поддерживающих
+флаг <link doc="events.xml" id="epoll">EPOLLEXCLUSIVE</link> (1.11.3), или
+при использовании <link doc="http/ngx_http_core_module.xml" id="reuseport"/>.
+</note>
 <note>
 До версии 1.11.3 по умолчанию использовалось значение <literal>on</literal>.
 </note>

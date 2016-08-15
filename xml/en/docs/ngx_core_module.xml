@@ -10,7 +10,7 @@
 <module name="Core functionality"
         link="/en/docs/ngx_core_module.html"
         lang="en"
-        rev="20">
+        rev="21">
 
 <section id="example" name="Example Configuration">
 
@@ -46,6 +46,12 @@ worker processes will accept new connections by turn.
 Otherwise, all worker processes will be notified about new connections,
 and if volume of new connections is low, some of the worker processes
 may just waste system resources.
+<note>
+There is no need to enable <literal>accept_mutex</literal>
+on systems that support the
+<link doc="events.xml" id="epoll">EPOLLEXCLUSIVE</link> flag (1.11.3) or
+when using <link doc="http/ngx_http_core_module.xml" id="reuseport"/>.
+</note>
 <note>
 Prior to version 1.11.3, the default value was <literal>on</literal>.
 </note>

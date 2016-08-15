@@ -8,7 +8,7 @@
 <article name="nginx"
          link="/en/"
          lang="en"
-         rev="60">
+         rev="61">
 
 
 <section>
@@ -333,6 +333,12 @@ select, and poll;
 The support of the various kqueue features including EV_CLEAR, EV_DISABLE
 (to temporarily disable events), NOTE_LOWAT, EV_EOF, number of available data,
 error codes;
+</listitem>
+
+<listitem>
+The support of various epoll features including
+EPOLLRDHUP (Linux 2.6.17+, glibc 2.8+) and
+EPOLLEXCLUSIVE (Linux 4.5+, glibc 2.24+);
 </listitem>
 
 <listitem>
