@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_auth_request_module"
         link="/ru/docs/http/ngx_http_auth_request_module.html"
         lang="ru"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -36,8 +36,10 @@
 <para>
 Модуль может быть
 скомбинирован с другими модулями доступа, такими как
-<link doc="ngx_http_access_module.xml">ngx_http_access_module</link> и
-<link doc="ngx_http_auth_basic_module.xml">ngx_http_auth_basic_module</link>,
+<link doc="ngx_http_access_module.xml">ngx_http_access_module</link>,
+<link doc="ngx_http_auth_basic_module.xml">ngx_http_auth_basic_module</link>
+и
+<link doc="ngx_http_auth_jwt_module.xml">ngx_http_auth_jwt_module</link>,
 с помощью директивы <link doc="ngx_http_core_module.xml" id="satisfy"/>.
 <note>
 До версии 1.7.3 ответы на авторизационные подзапросы не могли быть закэшированы

@@ -10,7 +10,7 @@
 <module name="Module ngx_http_access_module"
         link="/en/docs/http/ngx_http_access_module.html"
         lang="en"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -21,8 +21,9 @@ limiting access to certain client addresses.
 
 <para>
 Access can also be limited by
-<link doc="ngx_http_auth_basic_module.xml">password</link> or by the
-<link doc="ngx_http_auth_request_module.xml">result of subrequest</link>.
+<link doc="ngx_http_auth_basic_module.xml">password</link>, by the
+<link doc="ngx_http_auth_request_module.xml">result of subrequest</link>,
+or by <link doc="ngx_http_auth_jwt_module.xml">JWT</link>.
 Simultaneous limitation of access by address and by password is controlled
 by the <link doc="ngx_http_core_module.xml" id="satisfy"/> directive.
 </para>
