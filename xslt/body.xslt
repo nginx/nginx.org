@@ -20,9 +20,9 @@
 
     <div id="banner">
         <xsl:if test="@lang = 'he'"> <xsl:attribute name="class"> <xsl:text>ltr</xsl:text> </xsl:attribute> </xsl:if>
-        <strong>Register for nginx.conf 2016, Sept. 7-9 in Austin, TX and Save Over $400!</strong><br/>
-        Join us and industry leaders to learn how to build &amp; deliver applications, flawlessly.<br/>
-        <a href="https://www.nginx.com/nginxconf/?utm_source=nginxorg&amp;utm_medium=banner"><em>Register Now! Code: NG16EBB</em></a><br/>
+        <strong>We are proud to announce NGINX Plus R10!</strong><br/>
+        Our latest release features a fully supported web application firewall,<br/> dual-stack ECC-RSA certificate support, and more.
+        <a href="https://www.nginx.com/blog/nginx-plus-r10-released/?utm_source=nginxorg&amp;utm_medium=banner"><em>Explore R10</em></a><br/>
     </div>
 
     <div id="main">
