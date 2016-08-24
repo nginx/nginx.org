@@ -7,7 +7,7 @@
 <article name="nginx: Linux packages"
          link="/en/linux_packages.html"
          lang="en"
-         rev="18"
+         rev="19"
          toc="no">
 
 <section id="distributions">
@@ -164,7 +164,7 @@ For Debian/Ubuntu, in order to authenticate the nginx repository signature
 and to eliminate warnings about missing PGP key during installation of the
 nginx package, it is necessary to add the key used to sign the nginx
 packages and repository to the <command>apt</command> program keyring.
-Please download <link url="http://nginx.org/keys/nginx_signing.key">this
+Please download <link url="/keys/nginx_signing.key">this
 key</link> from our web site, and add it to the <command>apt</command>
 program keyring with the following command:
 <programlisting>
@@ -239,7 +239,7 @@ For Debian/Ubuntu, in order to authenticate the nginx repository signature
 and to eliminate warnings about missing PGP key during installation of the
 nginx package, it is necessary to add the key used to sign the nginx
 packages and repository to the <command>apt</command> program keyring.
-Please download <link url="http://nginx.org/keys/nginx_signing.key">this
+Please download <link url="/keys/nginx_signing.key">this
 key</link> from our web site, and add it to the <command>apt</command>
 program keyring with the following command:
 <programlisting>
@@ -364,7 +364,7 @@ nginx-module-xslt
 Both RPM packages and Debian/Ubuntu repositories use digital signatures
 to verify the integrity and origin of the downloaded package.
 In order to check a signature it is necessary to download
-<link url="http://nginx.org/keys/nginx_signing.key">nginx signing key</link>
+<link url="/keys/nginx_signing.key">nginx signing key</link>
 and import it to the <command>rpm</command> or <command>apt</command>
 program’s keyring:
 

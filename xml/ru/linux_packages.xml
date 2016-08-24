@@ -7,7 +7,7 @@
 <article name="nginx: пакеты для Linux"
          link="/ru/linux_packages.html"
          lang="ru"
-         rev="18"
+         rev="19"
          toc="no">
 
 <section id="distributions">
@@ -163,7 +163,7 @@ enabled=1
 и чтобы избавиться от предупреждений об отсутствующем PGP-ключе во время
 установки пакета nginx, необходимо добавить ключ, которым были подписаны
 пакеты и репозиторий nginx, в связку ключей программы <command>apt</command>.
-Загрузите <link url="http://nginx.org/keys/nginx_signing.key">этот
+Загрузите <link url="/keys/nginx_signing.key">этот
 ключ</link> с нашего веб-сайта и добавьте его в связку ключей программы
 <command>apt</command>, выполнив команду:
 <programlisting>
@@ -240,7 +240,7 @@ enabled=1
 и чтобы избавиться от предупреждений об отсутствующем PGP-ключе во время
 установки пакета nginx, необходимо добавить ключ, которым были подписаны
 пакеты и репозиторий nginx, в связку ключей программы <command>apt</command>.
-Загрузите <link url="http://nginx.org/keys/nginx_signing.key">этот
+Загрузите <link url="/keys/nginx_signing.key">этот
 ключ</link> с нашего веб-сайта и добавьте его в связку ключей программы
 <command>apt</command>, выполнив команду:
 <programlisting>
@@ -368,7 +368,7 @@ nginx-module-xslt
 и в случае RPM, и в случае репозиториев Debian/Ubuntu используется
 цифровая подпись.
 Для проверки подписи необходимо загрузить
-<link url="http://nginx.org/keys/nginx_signing.key">этот ключ</link>
+<link url="/keys/nginx_signing.key">этот ключ</link>
 и импортировать его в связку ключей программы <command>rpm</command>
 или <command>apt</command>:
 
