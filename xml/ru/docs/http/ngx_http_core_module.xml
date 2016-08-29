@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="60">
+        rev="61">
 
 <section id="directives" name="Директивы">
 
@@ -2074,6 +2074,10 @@ resolver 127.0.0.1 [::1]:5353 valid=30s;
 <note>
 До версии 1.1.9 настройка времени кэширования была невозможна
 и nginx всегда кэшировал ответы на срок в 5 минут.
+</note>
+<note>
+Для предотвращения DNS-спуфинга рекомендуется
+использовать DNS-серверы в защищённой доверенной локальной сети.
 </note>
 </para>
 

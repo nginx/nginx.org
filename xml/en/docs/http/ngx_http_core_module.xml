@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="60">
+        rev="61">
 
 <section id="directives" name="Directives">
 
@@ -2073,6 +2073,10 @@ resolver 127.0.0.1 [::1]:5353 valid=30s;
 <note>
 Before version 1.1.9, tuning of caching time was not possible,
 and nginx always cached answers for the duration of 5 minutes.
+</note>
+<note>
+To prevent DNS spoofing, it is recommended
+configuring DNS servers in a properly secured trusted local network.
 </note>
 </para>
 
