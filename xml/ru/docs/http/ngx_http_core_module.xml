@@ -2877,7 +2877,7 @@ location /download/ {
 
 <tag-name id="var_bytes_sent"><var>$bytes_sent</var></tag-name>
 <tag-desc>
-число байт, переданное клиенту (1.3.8, 1.2.5)
+число байт, переданных клиенту (1.3.8, 1.2.5)
 </tag-desc>
 
 <tag-name id="var_connection"><var>$connection</var></tag-name>

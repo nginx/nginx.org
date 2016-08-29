@@ -391,7 +391,7 @@ resolver_timeout 5s;
 
 <tag-name id="var_bytes_sent"><var>$bytes_sent</var></tag-name>
 <tag-desc>
-число байт, переданное клиенту
+число байт, переданных клиенту
 </tag-desc>
 
 <tag-name id="var_connection"><var>$connection</var></tag-name>
