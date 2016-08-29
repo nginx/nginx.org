@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_core_module"
         link="/ru/docs/stream/ngx_stream_core_module.html"
         lang="ru"
-        rev="15">
+        rev="16">
 
 <section id="summary">
 
@@ -384,6 +384,11 @@ resolver_timeout 5s;
 для IPv4-адресов или 16 байт для IPv6-адресов
 </tag-desc>
 
+<tag-name id="var_bytes_received"><var>$bytes_received</var></tag-name>
+<tag-desc>
+число байт, полученных от клиента (1.11.4)
+</tag-desc>
+
 <tag-name id="var_bytes_sent"><var>$bytes_sent</var></tag-name>
 <tag-desc>
 число байт, переданное клиенту
@@ -414,6 +419,12 @@ resolver_timeout 5s;
 номер (PID) рабочего процесса
 </tag-desc>
 
+<tag-name id="var_protocol"><var>$protocol</var></tag-name>
+<tag-desc>
+протокол, используемый для работы с клиентом:
+<literal>TCP</literal> или <literal>UDP</literal> (1.11.4)
+</tag-desc>
+
 <tag-name id="var_remote_addr"><var>$remote_addr</var></tag-name>
 <tag-desc>
 адрес клиента
@@ -437,6 +448,12 @@ resolver_timeout 5s;
 <tag-name id="var_server_port"><var>$server_port</var></tag-name>
 <tag-desc>
 порт сервера, принявшего соединение
+</tag-desc>
+
+<tag-name id="var_session_time"><var>$session_time</var></tag-name>
+<tag-desc>
+длительность сессии в секундах с точностью до миллисекунд
+(1.11.4);
 </tag-desc>
 
 <tag-name id="var_time_iso8601"><var>$time_iso8601</var></tag-name>
