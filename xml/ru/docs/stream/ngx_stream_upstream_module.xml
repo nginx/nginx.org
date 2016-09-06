@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_upstream_module"
         link="/ru/docs/stream/ngx_stream_upstream_module.html"
         lang="ru"
-        rev="15">
+        rev="16">
 
 <section id="summary">
 
@@ -719,6 +719,22 @@ server {
 Если при проксировании были сделаны обращения к нескольким серверам,
 то их адреса разделяются запятой, например
 “<literal>192.168.1.1:12345, 192.168.1.2:12345, unix:/tmp/sock</literal>”.
+</tag-desc>
+
+<tag-name id="var_upstream_bytes_sent"><var>$upstream_bytes_sent</var></tag-name>
+<tag-desc>
+число байт, переданных на сервер группы (1.11.4).
+Значения нескольких соединений
+разделяются запятыми подобно адресам в переменной
+<link id="var_upstream_addr">$upstream_addr</link>.
+</tag-desc>
+
+<tag-name id="var_upstream_bytes_received"><var>$upstream_bytes_received</var></tag-name>
+<tag-desc>
+число байт, полученных от сервера группы (1.11.4).
+Значения нескольких соединений
+разделяются запятыми подобно адресам в переменной
+<link id="var_upstream_addr">$upstream_addr</link>.
 </tag-desc>
 
 </list>

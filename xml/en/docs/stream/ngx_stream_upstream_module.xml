@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_upstream_module"
         link="/en/docs/stream/ngx_stream_upstream_module.html"
         lang="en"
-        rev="15">
+        rev="16">
 
 <section id="summary">
 
@@ -718,6 +718,22 @@ or the path to the UNIX-domain socket of the upstream server (1.11.4).
 If several servers were contacted during proxying,
 their addresses are separated by commas, e.g.
 “<literal>192.168.1.1:12345, 192.168.1.2:12345, unix:/tmp/sock</literal>”.
+</tag-desc>
+
+<tag-name id="var_upstream_bytes_sent"><var>$upstream_bytes_sent</var></tag-name>
+<tag-desc>
+number of bytes sent to an upstream server (1.11.4).
+Values from several connections
+are separated by commas like addresses in the
+<link id="var_upstream_addr">$upstream_addr</link> variable.
+</tag-desc>
+
+<tag-name id="var_upstream_bytes_received"><var>$upstream_bytes_received</var></tag-name>
+<tag-desc>
+number of bytes received from an upstream server (1.11.4).
+Values from several connections
+are separated by commas like addresses in the
+<link id="var_upstream_addr">$upstream_addr</link> variable.
 </tag-desc>
 
 </list>
