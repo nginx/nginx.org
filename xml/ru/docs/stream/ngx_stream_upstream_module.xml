@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_upstream_module"
         link="/ru/docs/stream/ngx_stream_upstream_module.html"
         lang="ru"
-        rev="14">
+        rev="15">
 
 <section id="summary">
 
@@ -702,6 +702,27 @@ server {
 </para>
 
 </directive>
+
+</section>
+
+
+<section id="variables" name="Встроенные переменные">
+
+<para>
+Модуль <literal>ngx_stream_upstream_module</literal>
+поддерживает следующие встроенные переменные:
+<list type="tag">
+
+<tag-name id="var_upstream_addr"><var>$upstream_addr</var></tag-name>
+<tag-desc>
+хранит IP-адрес и порт или путь к UNIX-сокету сервера группы (1.11.4).
+Если при проксировании были сделаны обращения к нескольким серверам,
+то их адреса разделяются запятой, например
+“<literal>192.168.1.1:12345, 192.168.1.2:12345, unix:/tmp/sock</literal>”.
+</tag-desc>
+
+</list>
+</para>
 
 </section>
 

@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_upstream_module"
         link="/en/docs/stream/ngx_stream_upstream_module.html"
         lang="en"
-        rev="14">
+        rev="15">
 
 <section id="summary">
 
@@ -700,6 +700,28 @@ This directive is available as part of our
 </para>
 
 </directive>
+
+</section>
+
+
+<section id="variables" name="Embedded Variables">
+
+<para>
+The <literal>ngx_stream_upstream_module</literal> module
+supports the following embedded variables:
+<list type="tag">
+
+<tag-name id="var_upstream_addr"><var>$upstream_addr</var></tag-name>
+<tag-desc>
+keeps the IP address and port,
+or the path to the UNIX-domain socket of the upstream server (1.11.4).
+If several servers were contacted during proxying,
+their addresses are separated by commas, e.g.
+“<literal>192.168.1.1:12345, 192.168.1.2:12345, unix:/tmp/sock</literal>”.
+</tag-desc>
+
+</list>
+</para>
 
 </section>
 
