@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_core_module"
         link="/en/docs/stream/ngx_stream_core_module.html"
         lang="en"
-        rev="16">
+        rev="17">
 
 <section id="summary">
 
@@ -446,6 +446,42 @@ port of the server which accepted a connection
 <tag-desc>
 session duration in seconds with a milliseconds resolution
 (1.11.4);
+</tag-desc>
+
+<tag-name id="var_status"><var>$status</var></tag-name>
+<tag-desc>
+session status (1.11.4), can be one of the following:
+<list type="tag">
+
+<tag-name><literal>200</literal></tag-name>
+<tag-desc>
+session completed successfully
+</tag-desc>
+
+<tag-name><literal>403</literal></tag-name>
+<tag-desc>
+access forbidden, for example, when access is limited for
+<link doc="ngx_stream_access_module.xml">certain client addresses</link>
+</tag-desc>
+
+<tag-name><literal>500</literal></tag-name>
+<tag-desc>
+internal server error
+</tag-desc>
+
+<tag-name><literal>502</literal></tag-name>
+<tag-desc>
+bad gateway, for example,
+if an upstream server could not be selected or reached.
+</tag-desc>
+
+<tag-name><literal>503</literal></tag-name>
+<tag-desc>
+service unavailable, for example, when access is limited by the
+<link doc="ngx_stream_limit_conn_module.xml">number of connections</link>
+</tag-desc>
+
+</list>
 </tag-desc>
 
 <tag-name id="var_time_iso8601"><var>$time_iso8601</var></tag-name>

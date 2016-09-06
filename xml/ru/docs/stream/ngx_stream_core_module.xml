@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_core_module"
         link="/ru/docs/stream/ngx_stream_core_module.html"
         lang="ru"
-        rev="16">
+        rev="17">
 
 <section id="summary">
 
@@ -454,6 +454,42 @@ resolver_timeout 5s;
 <tag-desc>
 длительность сессии в секундах с точностью до миллисекунд
 (1.11.4);
+</tag-desc>
+
+<tag-name id="var_status"><var>$status</var></tag-name>
+<tag-desc>
+статус сессии (1.11.4), может принимать одно из следующих значений:
+<list type="tag">
+
+<tag-name><literal>200</literal></tag-name>
+<tag-desc>
+сессия завершена успешно
+</tag-desc>
+
+<tag-name><literal>403</literal></tag-name>
+<tag-desc>
+доступ запрещён, например при ограничении доступа для
+<link doc="ngx_stream_access_module.xml">определённых адресов клиентов</link>
+</tag-desc>
+
+<tag-name><literal>500</literal></tag-name>
+<tag-desc>
+внутренняя ошибка сервера
+</tag-desc>
+
+<tag-name><literal>502</literal></tag-name>
+<tag-desc>
+плохой шлюз, например
+если невозможно выбрать сервер группы или сервер недоступен
+</tag-desc>
+
+<tag-name><literal>503</literal></tag-name>
+<tag-desc>
+сервис недоступен, например при ограничении по
+<link doc="ngx_stream_limit_conn_module.xml">числу соединений</link>
+</tag-desc>
+
+</list>
 </tag-desc>
 
 <tag-name id="var_time_iso8601"><var>$time_iso8601</var></tag-name>
