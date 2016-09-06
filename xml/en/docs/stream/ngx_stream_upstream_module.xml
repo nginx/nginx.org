@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_upstream_module"
         link="/en/docs/stream/ngx_stream_upstream_module.html"
         lang="en"
-        rev="16">
+        rev="17">
 
 <section id="summary">
 
@@ -732,6 +732,32 @@ are separated by commas like addresses in the
 <tag-desc>
 number of bytes received from an upstream server (1.11.4).
 Values from several connections
+are separated by commas like addresses in the
+<link id="var_upstream_addr">$upstream_addr</link> variable.
+</tag-desc>
+
+<tag-name id="var_upstream_connect_time"><var>$upstream_connect_time</var></tag-name>
+<tag-desc>
+time to connect to the upstream server (1.11.4);
+the time is kept in seconds with millisecond resolution.
+Times of several connections
+are separated by commas like addresses in the
+<link id="var_upstream_addr">$upstream_addr</link> variable.
+</tag-desc>
+
+<tag-name id="var_upstream_first_byte_time"><var>$upstream_first_byte_time</var></tag-name>
+<tag-desc>
+time to receive the first byte of data (1.11.4);
+the time is kept in seconds with millisecond resolution.
+Times of several connections
+are separated by commas like addresses in the
+<link id="var_upstream_addr">$upstream_addr</link> variable.
+</tag-desc>
+
+<tag-name id="var_upstream_session_time"><var>$upstream_session_time</var></tag-name>
+<tag-desc>
+session duration in seconds with millisecond resolution (1.11.4).
+Times of several connections
 are separated by commas like addresses in the
 <link id="var_upstream_addr">$upstream_addr</link> variable.
 </tag-desc>

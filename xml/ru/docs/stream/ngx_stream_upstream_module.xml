@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_upstream_module"
         link="/ru/docs/stream/ngx_stream_upstream_module.html"
         lang="ru"
-        rev="16">
+        rev="17">
 
 <section id="summary">
 
@@ -733,6 +733,32 @@ server {
 <tag-desc>
 число байт, полученных от сервера группы (1.11.4).
 Значения нескольких соединений
+разделяются запятыми подобно адресам в переменной
+<link id="var_upstream_addr">$upstream_addr</link>.
+</tag-desc>
+
+<tag-name id="var_upstream_connect_time"><var>$upstream_connect_time</var></tag-name>
+<tag-desc>
+время установки соединения с сервером группы (1.11.4);
+время хранится в секундах с точностью до миллисекунд.
+Времена нескольких соединений
+разделяются запятыми подобно адресам в переменной
+<link id="var_upstream_addr">$upstream_addr</link>.
+</tag-desc>
+
+<tag-name id="var_upstream_first_byte_time"><var>$upstream_first_byte_time</var></tag-name>
+<tag-desc>
+время получения первого байта данных (1.11.4);
+время хранится в секундах с точностью до миллисекунд.
+Времена нескольких соединений
+разделяются запятыми подобно адресам в переменной
+<link id="var_upstream_addr">$upstream_addr</link>.
+</tag-desc>
+
+<tag-name id="var_upstream_session_time"><var>$upstream_session_time</var></tag-name>
+<tag-desc>
+длительность сессии в секундах с точностью до миллисекунд (1.11.4).
+Времена нескольких соединений
 разделяются запятыми подобно адресам в переменной
 <link id="var_upstream_addr">$upstream_addr</link>.
 </tag-desc>
