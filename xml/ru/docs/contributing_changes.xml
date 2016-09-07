@@ -9,13 +9,13 @@
 <article name="Внесение изменений"
          link="/ru/docs/contributing_changes.html"
          lang="ru"
-         rev="2">
+         rev="3">
 
 <section id="getting_sources" name="Получение исходного кода">
 
 <para>
 Для хранения исходного кода используется
-<link url="http://mercurial.selenic.com">Mercurial</link>.
+<link url="https://www.mercurial-scm.org">Mercurial</link>.
 <link url="http://hg.nginx.org/nginx">Репозиторий</link> можно клонировать
 следующей командой:
 <programlisting>
@@ -58,10 +58,10 @@ hg clone http://hg.nginx.org/nginx
 
 <para>
 Зафиксируйте изменения, чтобы создать
-<link url="http://mercurial.selenic.com/wiki/ChangeSet">набор изменений</link>
+<link url="https://www.mercurial-scm.org/wiki/ChangeSet">набор изменений</link>
 в Mercurial.
 Пожалуйста, убедитесь, что адрес
-<link url="http://mercurial.selenic.com/wiki/QuickStart#Setting_a_username">электронной
+<link url="https://www.mercurial-scm.org/wiki/QuickStart#Setting_a_username">электронной
 почты</link> и настоящее имя автора изменения указаны правильно.
 </para>
 
@@ -140,7 +140,7 @@ hg clone http://hg.nginx.org/nginx-tests
 <link doc="../support.xml" id="nginx_devel">разработчиков nginx</link>.
 Предпочитаемый и удобный метод отправки наборов изменений —
 при помощи расширения
-<link url="http://mercurial.selenic.com/wiki/PatchbombExtension">patchbomb</link>.
+<link url="https://www.mercurial-scm.org/wiki/PatchbombExtension">patchbomb</link>.
 </para>
 
 </section>

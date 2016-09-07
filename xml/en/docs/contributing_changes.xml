@@ -9,12 +9,12 @@
 <article name="Contributing Changes"
          link="/en/docs/contributing_changes.html"
          lang="en"
-         rev="2">
+         rev="3">
 
 <section id="getting_sources" name="Getting Sources">
 
 <para>
-<link url="http://mercurial.selenic.com">Mercurial</link> is used
+<link url="https://www.mercurial-scm.org">Mercurial</link> is used
 to store source code.
 The <link url="http://hg.nginx.org/nginx">repository</link> can be cloned
 with the following command:
@@ -60,9 +60,9 @@ code.
 
 <para>
 Commit the changes to create a Mercurial
-<link url="http://mercurial.selenic.com/wiki/ChangeSet">changeset</link>.
+<link url="https://www.mercurial-scm.org/wiki/ChangeSet">changeset</link>.
 Please ensure that the specified
-<link url="http://mercurial.selenic.com/wiki/QuickStart#Setting_a_username">e-mail</link>
+<link url="https://www.mercurial-scm.org/wiki/QuickStart#Setting_a_username">e-mail</link>
 address and real name of the change’s author are correct.
 </para>
 
@@ -141,7 +141,7 @@ The proposed changes should be sent to the
 mailing list.
 The preferred and convenient method of submitting changesets
 is with the
-<link url="http://mercurial.selenic.com/wiki/PatchbombExtension">patchbomb</link>
+<link url="https://www.mercurial-scm.org/wiki/PatchbombExtension">patchbomb</link>
 extension.
 </para>
 
