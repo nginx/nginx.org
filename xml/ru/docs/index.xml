@@ -8,7 +8,7 @@
 <article name="nginx: документация"
          link="/ru/docs/"
          lang="ru"
-         rev="30"
+         rev="31"
          toc="no">
 
 
@@ -513,6 +513,11 @@ ngx_stream_geoip_module</link>
 <listitem>
 <link doc="stream/ngx_stream_limit_conn_module.xml">
 ngx_stream_limit_conn_module</link>
+</listitem>
+
+<listitem>
+<link doc="stream/ngx_stream_log_module.xml">
+ngx_stream_log_module</link>
 </listitem>
 
 <listitem>

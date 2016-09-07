@@ -1,0 +1,241 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Модуль ngx_stream_log_module"
+        link="/ru/docs/stream/ngx_stream_log_module.html"
+        lang="ru"
+        rev="1">
+
+<section id="summary">
+
+<para>
+Модуль <literal>ngx_stream_log_module</literal> записывает логи сессий
+в указанном формате.
+</para>
+
+</section>
+
+
+<section id="example" name="Пример конфигурации">
+
+<para>
+<example>
+log_format basic '$remote_addr [$time_local] '
+                 '$protocol $status $bytes_sent $bytes_received '
+                 ' $session_time';
+
+access_log /spool/logs/nginx-access.log basic buffer=32k;
+</example>
+</para>
+
+</section>
+
+
+<section id="directives" name="Директивы">
+
+<directive name="access_log">
+<syntax>
+    <value>путь</value>
+    <value>формат</value>
+    [<literal>buffer</literal>=<value>размер</value>]
+    [<literal>gzip[=<value>степень</value>]</literal>]
+    [<literal>flush</literal>=<value>время</value>]
+    [<literal>if</literal>=<value>условие</value>]</syntax>
+<syntax><literal>off</literal></syntax>
+<default>off</default>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Задаёт путь, <link id="log_format">формат</link>
+и настройки буферизованной записи в лог.
+На одном уровне может использоваться несколько логов.
+Запись в <link doc="../syslog.xml">syslog</link>
+настраивается указанием префикса
+“<literal>syslog:</literal>” в первом параметре.
+Специальное значение <literal>off</literal> отменяет все директивы
+<literal>access_log</literal> для текущего уровня.
+</para>
+
+<para>
+Если задан размер буфера с помощью параметра <literal>buffer</literal> или
+указан параметр <literal>gzip</literal>, то запись будет
+буферизованной.
+<note>
+Размер буфера должен быть не больше размера атомарной записи в дисковый файл.
+Для FreeBSD этот размер неограничен.
+</note>
+</para>
+
+<para>
+При включённой буферизации данные записываются в файл:
+<list type="bullet">
+
+<listitem>
+если очередная строка лога не помещается в буфер;
+</listitem>
+
+<listitem>
+если данные в буфере находятся дольше интервала времени, заданного
+параметром <literal>flush</literal>;
+</listitem>
+
+<listitem>
+при <link doc="../control.xml">переоткрытии</link> лог-файла или
+завершении рабочего процесса.
+</listitem>
+
+</list>
+</para>
+
+<para>
+Если задан параметр <literal>gzip</literal>, то буфер будет сжиматься перед
+записью в файл.
+Степень сжатия может быть задана в диапазоне от 1 (быстрее, но хуже сжатие)
+до 9 (медленнее, но лучше сжатие).
+По умолчанию используются буфер размером 64К байт и степень сжатия 1.
+Данные сжимаются атомарными блоками, и в любой момент времени лог-файл может
+быть распакован или прочитан с помощью утилиты “<literal>zcat</literal>”.
+</para>
+
+<para>
+Пример:
+<example>
+access_log /path/to/log.gz basic gzip flush=5m;
+</example>
+</para>
+
+<para>
+<note>
+Для поддержки gzip-сжатия логов nginx должен быть собран с библиотекой zlib.
+</note>
+</para>
+
+<para>
+В пути файла можно использовать переменные,
+но такие логи имеют некоторые ограничения:
+<list type="bullet">
+
+<listitem>
+<link doc="../ngx_core_module.xml" id="user">пользователь</link>,
+с правами которого работают рабочие процессы, должен
+иметь права на создание файлов в каталоге с такими логами;
+</listitem>
+
+<listitem>
+не работает буферизация;
+</listitem>
+
+<listitem>
+файл открывается для каждой записи в лог и сразу же после записи закрывается.
+Следует однако иметь в виду, что поскольку дескрипторы часто используемых файлов
+могут храниться в <link id="open_log_file_cache">кэше</link>,
+то при вращении логов в течение времени, заданного параметром
+<literal>valid</literal> директивы <link id="open_log_file_cache"/>,
+запись может продолжаться в старый файл.
+</listitem>
+
+</list>
+</para>
+
+<para>
+Параметр <literal>if</literal> включает условную запись в лог.
+Сессия не будет записываться в лог, если результатом вычисления
+<value>условия</value> является “0” или пустая строка.
+</para>
+
+</directive>
+
+
+<directive name="log_format">
+<syntax>
+    <value>название</value>
+    <value>строка</value> ...</syntax>
+<default></default>
+<context>stream</context>
+
+<para>
+Задаёт формат лога, например:
+<example>
+log_format proxy '$remote_addr [$time_local] '
+                 '$protocol $status $bytes_sent $bytes_received'
+                 '$session_time "$upstream_addr"'
+                 '"$upstream_bytes_sent" "$upstream_bytes_received" "$upstream_connection_time" ';
+</example>
+</para>
+
+</directive>
+
+
+<directive name="open_log_file_cache">
+
+<syntax>
+<literal>max</literal>=<value>N</value>
+[<literal>inactive</literal>=<value>время</value>]
+[<literal>min_uses</literal>=<value>N</value>]
+[<literal>valid</literal>=<value>время</value>]</syntax>
+<syntax><literal>off</literal></syntax>
+<default>off</default>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Задаёт кэш, в котором хранятся дескрипторы файлов часто используемых
+логов, имена которых заданы с использованием переменных.
+Параметры директивы:
+<list type="tag">
+
+<tag-name><literal>max</literal></tag-name>
+<tag-desc>
+задаёт максимальное число дескрипторов в кэше;
+при переполнении кэша наименее востребованные (LRU)
+дескрипторы закрываются
+</tag-desc>
+
+<tag-name><literal>inactive</literal></tag-name>
+<tag-desc>
+задаёт время, после которого закэшированный дескриптор закрывается,
+если к нему не было обращений в течение этого времени;
+по умолчанию 10 секунд
+</tag-desc>
+
+<tag-name><literal>min_uses</literal></tag-name>
+<tag-desc>
+задаёт минимальное число использований файла в течение
+времени, заданного параметром <literal>inactive</literal>,
+после которого дескриптор файла будет оставаться открытым в кэше;
+по умолчанию 1
+</tag-desc>
+
+<tag-name><literal>valid</literal></tag-name>
+<tag-desc>
+задаёт, через какое время нужно проверять, что файл ещё
+существует под тем же именем;
+по умолчанию 60 секунд
+</tag-desc>
+
+<tag-name><literal>off</literal></tag-name>
+<tag-desc>
+запрещает кэш
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+Пример использования:
+<example>
+open_log_file_cache max=1000 inactive=20s valid=1m min_uses=2;
+</example>
+</para>
+
+</directive>
+
+</section>
+
+</module>
