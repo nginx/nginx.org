@@ -27,7 +27,7 @@
 <example>
 log_format basic '$remote_addr [$time_local] '
                  '$protocol $status $bytes_sent $bytes_received '
-                 ' $session_time';
+                 '$session_time';
 
 access_log /spool/logs/nginx-access.log basic buffer=32k;
 </example>
@@ -163,9 +163,9 @@ access_log /path/to/log.gz basic gzip flush=5m;
 Задаёт формат лога, например:
 <example>
 log_format proxy '$remote_addr [$time_local] '
-                 '$protocol $status $bytes_sent $bytes_received'
-                 '$session_time "$upstream_addr"'
-                 '"$upstream_bytes_sent" "$upstream_bytes_received" "$upstream_connection_time" ';
+                 '$protocol $status $bytes_sent $bytes_received '
+                 '$session_time "$upstream_addr" '
+                 '"$upstream_bytes_sent" "$upstream_bytes_received" "$upstream_connection_time"';
 </example>
 </para>
 
