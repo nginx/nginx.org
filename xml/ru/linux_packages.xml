@@ -7,7 +7,7 @@
 <article name="nginx: пакеты для Linux"
          link="/ru/linux_packages.html"
          lang="ru"
-         rev="21"
+         rev="22"
          toc="no">
 
 <section id="distributions">
@@ -287,7 +287,7 @@ zypper addrepo -G -t yum -c 'http://nginx.org/packages/mainline/sles/12' nginx
 <section name="Аргументы configure" id="arguments">
 
 <para>
-Общие аргументы configure для nginx из пакетов:
+Общие аргументы configure для nginx из пакетов стабильной версии:
 <programlisting>
 --prefix=/etc/nginx
 --sbin-path=/usr/sbin/nginx
@@ -325,6 +325,13 @@ zypper addrepo -G -t yum -c 'http://nginx.org/packages/mainline/sles/12' nginx
 --with-file-aio
 --with-http_v2_module
 --with-ipv6
+</programlisting>
+</para>
+
+<para>
+Пакеты для mainline-версии добавляют к списку:
+<programlisting>
+--with-stream_realip_module
 </programlisting>
 </para>
 

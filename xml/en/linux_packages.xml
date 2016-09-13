@@ -7,7 +7,7 @@
 <article name="nginx: Linux packages"
          link="/en/linux_packages.html"
          lang="en"
-         rev="21"
+         rev="22"
          toc="no">
 
 <section id="distributions">
@@ -284,7 +284,7 @@ zypper addrepo -G -t yum -c 'http://nginx.org/packages/mainline/sles/12' nginx
 <section name="Configure Arguments" id="arguments">
 
 <para>
-Configure arguments common for nginx binaries from pre-built packages:
+Configure arguments common for nginx binaries from pre-built packages for stable version:
 <programlisting>
 --prefix=/etc/nginx
 --sbin-path=/usr/sbin/nginx
@@ -322,6 +322,13 @@ Configure arguments common for nginx binaries from pre-built packages:
 --with-file-aio
 --with-http_v2_module
 --with-ipv6
+</programlisting>
+</para>
+
+<para>
+Packages for mainline version also have the following arguments:
+<programlisting>
+--with-stream_realip_module
 </programlisting>
 </para>
 
