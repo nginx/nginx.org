@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Module ngx_stream_realip_module"
+        link="/en/docs/stream/ngx_stream_realip_module.html"
+        lang="en"
+        rev="1">
+
+<section id="summary">
+
+<para>
+The <literal>ngx_stream_realip_module</literal> module is used
+to change the client address and port
+to the ones sent in the PROXY protocol header (1.11.4).
+The PROXY protocol must be previously enabled by setting the
+<link doc="ngx_stream_core_module.xml" id="proxy_protocol"/> parameter
+in the <literal>listen</literal> directive.
+</para>
+
+<para>
+This module is not built by default, it should be enabled with the
+<literal>--with-stream_realip_module</literal>
+configuration parameter.
+</para>
+
+</section>
+
+
+<section id="example" name="Example Configuration">
+
+<para>
+<example>
+listen 12345 proxy_protocol;
+
+set_real_ip_from  192.168.1.0/24;
+set_real_ip_from  192.168.2.1;
+set_real_ip_from  2001:0db8::/32;
+</example>
+</para>
+
+</section>
+
+
+<section id="directives" name="Directives">
+
+<directive name="set_real_ip_from">
+<syntax>
+    <value>address</value> |
+    <value>CIDR</value> |
+    <literal>unix:</literal></syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Defines trusted addresses that are known to send correct
+replacement addresses.
+If the special value <literal>unix:</literal> is specified,
+all UNIX-domain sockets will be trusted.
+</para>
+
+</directive>
+
+</section>
+
+
+<section id="variables" name="Embedded Variables">
+
+<para>
+<list type="tag">
+
+<tag-name id="var_realip_remote_addr"><var>$realip_remote_addr</var></tag-name>
+<tag-desc>
+keeps the original client address
+</tag-desc>
+
+<tag-name id="var_realip_remote_port"><var>$realip_remote_port</var></tag-name>
+<tag-desc>
+keeps the original client port
+</tag-desc>
+
+</list>
+</para>
+
+</section>
+
+</module>

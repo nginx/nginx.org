@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Модуль ngx_stream_realip_module"
+        link="/ru/docs/stream/ngx_stream_realip_module.html"
+        lang="ru"
+        rev="1">
+
+<section id="summary">
+
+<para>
+Модуль <literal>ngx_stream_realip_module</literal> позволяет
+менять адрес и порт клиента
+на переданные в заголовке протокола PROXY (1.11.4).
+Протокол PROXY должен быть предварительно включён при помощи установки
+параметра <link doc="ngx_stream_core_module.xml" id="proxy_protocol"/>
+в директиве <literal>listen</literal>.
+</para>
+
+<para>
+По умолчанию этот модуль не собирается, его сборку необходимо
+разрешить с помощью конфигурационного параметра
+<literal>--with-stream_realip_module</literal>.
+</para>
+
+</section>
+
+
+<section id="example" name="Пример конфигурации">
+
+<para>
+<example>
+listen 12345 proxy_protocol;
+
+set_real_ip_from  192.168.1.0/24;
+set_real_ip_from  192.168.2.1;
+set_real_ip_from  2001:0db8::/32;
+</example>
+</para>
+
+</section>
+
+
+<section id="directives" name="Директивы">
+
+<directive name="set_real_ip_from">
+<syntax>
+    <value>адрес</value> |
+    <value>CIDR</value> |
+    <literal>unix:</literal></syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Задаёт доверенные адреса, которые передают верный адрес
+для замены.
+Если указано специальное значение <literal>unix:</literal>,
+доверенными будут считаться все UNIX-сокеты.
+</para>
+
+</directive>
+
+</section>
+
+
+<section id="variables" name="Встроенные переменные">
+
+<para>
+<list type="tag">
+
+<tag-name id="var_realip_remote_addr"><var>$realip_remote_addr</var></tag-name>
+<tag-desc>
+хранит исходный адрес клиента
+</tag-desc>
+
+<tag-name id="var_realip_remote_port"><var>$realip_remote_port</var></tag-name>
+<tag-desc>
+хранит исходный порт клиента
+</tag-desc>
+
+</list>
+</para>
+
+</section>
+
+</module>
