@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_core_module"
         link="/en/docs/stream/ngx_stream_core_module.html"
         lang="en"
-        rev="18">
+        rev="19">
 
 <section id="summary">
 
@@ -486,6 +486,12 @@ session status (1.11.4), can be one of the following:
 <tag-name><literal>200</literal></tag-name>
 <tag-desc>
 session completed successfully
+</tag-desc>
+
+<tag-name><literal>400</literal></tag-name>
+<tag-desc>
+client data could not be parsed, for example,
+the <link id="proxy_protocol">PROXY protocol</link> header
 </tag-desc>
 
 <tag-name><literal>403</literal></tag-name>

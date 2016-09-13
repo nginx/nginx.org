@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_core_module"
         link="/ru/docs/stream/ngx_stream_core_module.html"
         lang="ru"
-        rev="18">
+        rev="19">
 
 <section id="summary">
 
@@ -493,6 +493,12 @@ resolver_timeout 5s;
 <tag-name><literal>200</literal></tag-name>
 <tag-desc>
 сессия завершена успешно
+</tag-desc>
+
+<tag-name><literal>400</literal></tag-name>
+<tag-desc>
+невозможно разобрать данные, полученные от клиента, например
+заголовок <link id="proxy_protocol">протокола PROXY</link>
 </tag-desc>
 
 <tag-name><literal>403</literal></tag-name>
