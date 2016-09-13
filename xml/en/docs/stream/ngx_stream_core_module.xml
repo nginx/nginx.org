@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_core_module"
         link="/en/docs/stream/ngx_stream_core_module.html"
         lang="en"
-        rev="19">
+        rev="20">
 
 <section id="summary">
 
@@ -230,6 +230,23 @@ and set the probes count (<c-def>TCP_KEEPCNT</c-def>) to 10 probes.
 <para>
 Different servers must listen on different
 <value>address</value>:<value>port</value> pairs.
+</para>
+
+</directive>
+
+
+<directive name="proxy_protocol_timeout">
+<syntax><value>timeout</value></syntax>
+<default>30s</default>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.11.4</appeared-in>
+
+<para>
+Specifies a <value>timeout</value> for
+reading the PROXY protocol header to complete.
+If no entire header is transmitted within this time,
+the connection is closed.
 </para>
 
 </directive>

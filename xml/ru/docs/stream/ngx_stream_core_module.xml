@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_core_module"
         link="/ru/docs/stream/ngx_stream_core_module.html"
         lang="ru"
-        rev="19">
+        rev="20">
 
 <section id="summary">
 
@@ -236,6 +236,23 @@ FreeBSD 9.0-STABLE)
 <para>
 Разные серверы должны слушать на разных парах
 <value>адрес</value>:<value>порт</value>.
+</para>
+
+</directive>
+
+
+<directive name="proxy_protocol_timeout">
+<syntax><value>время</value></syntax>
+<default>30s</default>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.11.4</appeared-in>
+
+<para>
+Задаёт <value>время</value> для
+завершения операции чтения заголовка протокола PROXY.
+Если по истечении этого времени заголовок полностью не получен,
+соединение закрывается.
 </para>
 
 </directive>
