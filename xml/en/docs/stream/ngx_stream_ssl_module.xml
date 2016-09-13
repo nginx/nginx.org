@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_ssl_module"
         link="/en/docs/stream/ngx_stream_ssl_module.html"
         lang="en"
-        rev="9">
+        rev="10">
 
 <section id="summary">
 
@@ -414,7 +414,7 @@ Enables or disables session resumption through
 
 <para>
 Specifies a time during which a client may reuse the
-session parameters stored in a cache.
+session parameters.
 </para>
 
 </directive>

@@ -10,7 +10,7 @@
 <module name="Модуль ngx_mail_ssl_module"
         link="/ru/docs/mail/ngx_mail_ssl_module.html"
         lang="ru"
-        rev="11">
+        rev="12">
 
 <section id="summary">
 
@@ -479,7 +479,7 @@ openssl rand 48 > ticket.key
 
 <para>
 Задаёт время, в течение которого клиент может повторно
-использовать параметры сессии, хранящейся в кэше.
+использовать параметры сессии.
 </para>
 
 </directive>

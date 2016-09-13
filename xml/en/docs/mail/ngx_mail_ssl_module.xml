@@ -10,7 +10,7 @@
 <module name="Module ngx_mail_ssl_module"
         link="/en/docs/mail/ngx_mail_ssl_module.html"
         lang="en"
-        rev="11">
+        rev="12">
 
 <section id="summary">
 
@@ -479,7 +479,7 @@ Enables or disables session resumption through
 
 <para>
 Specifies a time during which a client may reuse the
-session parameters stored in a cache.
+session parameters.
 </para>
 
 </directive>
