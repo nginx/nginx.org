@@ -7,7 +7,7 @@
 <article name="nginx: Linux packages"
          link="/en/linux_packages.html"
          lang="en"
-         rev="20"
+         rev="21"
          toc="no">
 
 <section id="distributions">
@@ -39,7 +39,7 @@ RHEL/CentOS:
 
 <tr>
 <td width="20%">7.x</td>
-<td>x86_64</td>
+<td>x86_64, ppc64le</td>
 </tr>
 
 </table>
@@ -97,7 +97,7 @@ Ubuntu:
 <tr>
 <td width="20%">16.04</td>
 <td width="20%">xenial</td>
-<td>x86_64, i386</td>
+<td>x86_64, i386, ppc64el</td>
 </tr>
 
 </table>
