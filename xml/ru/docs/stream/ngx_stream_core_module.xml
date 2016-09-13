@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_core_module"
         link="/ru/docs/stream/ngx_stream_core_module.html"
         lang="ru"
-        rev="17">
+        rev="18">
 
 <section id="summary">
 
@@ -82,6 +82,7 @@ stream {
     <value>адрес</value>:<value>порт</value>
     [<literal>ssl</literal>]
     [<literal>udp</literal>]
+    [<literal>proxy_protocol</literal>]
     [<literal>backlog</literal>=<value>число</value>]
     [<literal>bind</literal>]
     [<literal>ipv6only</literal>=<literal>on</literal>|<literal>off</literal>]
@@ -121,6 +122,14 @@ listen unix:/var/run/nginx.sock;
 <para id="udp">
 Параметр <literal>udp</literal> конфигурирует слушающий сокет
 для работы с датаграммами (1.9.13).
+</para>
+
+<para id="proxy_protocol">
+Параметр <literal>proxy_protocol</literal> (1.11.4)
+указывает на то, что все соединения, принимаемые на данном порту,
+должны использовать
+<link url="http://www.haproxy.org/download/1.5/doc/proxy-protocol.txt">протокол
+PROXY</link>.
 </para>
 
 <para>
@@ -423,6 +432,26 @@ resolver_timeout 5s;
 <tag-desc>
 протокол, используемый для работы с клиентом:
 <literal>TCP</literal> или <literal>UDP</literal> (1.11.4)
+</tag-desc>
+
+<tag-name id="var_proxy_protocol_addr"><var>$proxy_protocol_addr</var></tag-name>
+<tag-desc>
+адрес клиента, полученный из заголовка протокола PROXY, либо пустая строка
+(1.11.4)
+<para>
+Протокол PROXY должен быть предварительно включён при помощи установки
+параметра <literal>proxy_protocol</literal> в директиве <link id="listen"/>.
+</para>
+</tag-desc>
+
+<tag-name id="var_proxy_protocol_port"><var>$proxy_protocol_port</var></tag-name>
+<tag-desc>
+порт клиента, полученный из заголовка протокола PROXY, либо пустая строка
+(1.11.4)
+<para>
+Протокол PROXY должен быть предварительно включён при помощи установки
+параметра <literal>proxy_protocol</literal> в директиве <link id="listen"/>.
+</para>
 </tag-desc>
 
 <tag-name id="var_remote_addr"><var>$remote_addr</var></tag-name>

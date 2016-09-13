@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_core_module"
         link="/en/docs/stream/ngx_stream_core_module.html"
         lang="en"
-        rev="17">
+        rev="18">
 
 <section id="summary">
 
@@ -82,6 +82,7 @@ stream {
     <value>address</value>:<value>port</value>
     [<literal>ssl</literal>]
     [<literal>udp</literal>]
+    [<literal>proxy_protocol</literal>]
     [<literal>backlog</literal>=<value>number</value>]
     [<literal>bind</literal>]
     [<literal>ipv6only</literal>=<literal>on</literal>|<literal>off</literal>]
@@ -122,6 +123,13 @@ connections accepted on this port should work in SSL mode.
 <para id="udp">
 The <literal>udp</literal> parameter configures a listening socket
 for working with datagrams (1.9.13).
+</para>
+
+<para id="proxy_protocol">
+The <literal>proxy_protocol</literal> parameter (1.11.4)
+allows specifying that all connections accepted on this port should use the
+<link url="http://www.haproxy.org/download/1.5/doc/proxy-protocol.txt">PROXY
+protocol</link>.
 </para>
 
 <para>
@@ -415,6 +423,28 @@ PID of the worker process
 <tag-desc>
 protocol used to communicate with the client:
 <literal>TCP</literal> or <literal>UDP</literal> (1.11.4)
+</tag-desc>
+
+<tag-name id="var_proxy_protocol_addr"><var>$proxy_protocol_addr</var></tag-name>
+<tag-desc>
+client address from the PROXY protocol header, or an empty string otherwise
+(1.11.4)
+<para>
+The PROXY protocol must be previously enabled by setting the
+<literal>proxy_protocol</literal> parameter
+in the <link id="listen"/> directive.
+</para>
+</tag-desc>
+
+<tag-name id="var_proxy_protocol_port"><var>$proxy_protocol_port</var></tag-name>
+<tag-desc>
+client port from the PROXY protocol header, or an empty string otherwise
+(1.11.4)
+<para>
+The PROXY protocol must be previously enabled by setting the
+<literal>proxy_protocol</literal> parameter
+in the <link id="listen"/> directive.
+</para>
 </tag-desc>
 
 <tag-name id="var_remote_addr"><var>$remote_addr</var></tag-name>
