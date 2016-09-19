@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_ssl_module"
         link="/ru/docs/stream/ngx_stream_ssl_module.html"
         lang="ru"
-        rev="10">
+        rev="11">
 
 <section id="summary">
 
@@ -424,7 +424,7 @@ openssl rand 48 > ticket.key
 <section id="variables" name="Встроенные переменные">
 
 <para>
-Модуль <literal>ngx_http_ssl_module</literal> поддерживает переменные
+Модуль <literal>ngx_stream_ssl_module</literal> поддерживает переменные
 начиная с версии 1.11.2.
 <list type="tag">
 

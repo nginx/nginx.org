@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_ssl_module"
         link="/en/docs/stream/ngx_stream_ssl_module.html"
         lang="en"
-        rev="10">
+        rev="11">
 
 <section id="summary">
 
@@ -425,7 +425,7 @@ session parameters.
 <section id="variables" name="Embedded Variables">
 
 <para>
-The <literal>ngx_http_ssl_module</literal> module supports variables
+The <literal>ngx_stream_ssl_module</literal> module supports variables
 since 1.11.2.
 <list type="tag">
 
