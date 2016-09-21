@@ -8,7 +8,7 @@
 <article name="nginx: документация"
          link="/ru/docs/"
          lang="ru"
-         rev="33"
+         rev="34"
          toc="no">
 
 
@@ -556,6 +556,11 @@ ngx_stream_split_clients_module</link>
 <listitem>
 <link doc="stream/ngx_stream_ssl_module.xml">
 ngx_stream_ssl_module</link>
+</listitem>
+
+<listitem>
+<link doc="stream/ngx_stream_ssl_preread_module.xml">
+ngx_stream_ssl_preread_module</link>
 </listitem>
 
 <listitem>

@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Module ngx_stream_ssl_preread_module"
+        link="/en/docs/stream/ngx_stream_ssl_preread_module.html"
+        lang="en"
+        rev="1">
+
+<section id="summary">
+
+<para>
+The <literal>ngx_stream_ssl_preread_module</literal> module (1.11.5) allows
+extracting information from the
+<link url="https://tools.ietf.org/html/rfc5246#section-7.4.1.2">ClientHello</link>
+message without terminating SSL/TLS,
+for example, the sever name requested through
+<link url="https://tools.ietf.org/html/rfc6066#section-3">SNI</link>.
+This module is not built by default, it should be enabled with the
+<literal>--with-stream_ssl_preread_module</literal>
+configuration parameter.
+</para>
+
+</section>
+
+
+<section id="example" name="Example Configuration">
+
+<para>
+<example>
+map $ssl_preread_server_name $name {
+    backend.example.com      backend;
+    default                  backend2;
+}
+
+upstream backend {
+    server 192.168.0.1:12345;
+    server 192.168.0.2:12345;
+}
+
+upstream backend2 {
+    server 192.168.0.3:12345;
+    server 192.168.0.4:12345;
+}
+
+server {
+    listen      12346;
+    proxy_pass  $name;
+    ssl_preread on;
+}
+</example>
+
+</para>
+
+</section>
+
+
+<section id="directives" name="Directives">
+
+<directive name="ssl_preread">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Enables extracting information from the ClientHello message at
+the <link doc="stream_processing.xml" id="preread_phase">preread</link> phase.
+</para>
+
+</directive>
+
+</section>
+
+
+<section id="variables" name="Embedded Variables">
+
+<para>
+<list type="tag">
+
+<tag-name id="var_ssl_preread_server_name"><var>$ssl_preread_server_name</var></tag-name>
+<tag-desc>
+returns the server name requested through SNI
+</tag-desc>
+
+</list>
+</para>
+
+</section>
+
+</module>

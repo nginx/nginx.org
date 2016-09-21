@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Модуль ngx_stream_ssl_preread_module"
+        link="/ru/docs/stream/ngx_stream_ssl_preread_module.html"
+        lang="ru"
+        rev="1">
+
+<section id="summary">
+
+<para>
+Модуль <literal>ngx_stream_ssl_preread_module</literal> (1.11.5) позволяет
+извлекать информацию из сообщения
+<link url="https://tools.ietf.org/html/rfc5246#section-7.4.1.2">ClientHello</link>
+без терминирования SSL/TLS,
+например имя сервера, запрошенное через
+<link url="https://tools.ietf.org/html/rfc6066#section-3">SNI</link>.
+По умолчанию этот модуль не собирается, его сборку необходимо
+разрешить с помощью конфигурационного параметра
+<literal>--with-stream_ssl_preread_module</literal>.
+</para>
+
+</section>
+
+
+<section id="example" name="Пример конфигурации">
+
+<para>
+<example>
+map $ssl_preread_server_name $name {
+    backend.example.com      backend;
+    default                  backend2;
+}
+
+upstream backend {
+    server 192.168.0.1:12345;
+    server 192.168.0.2:12345;
+}
+
+upstream backend2 {
+    server 192.168.0.3:12345;
+    server 192.168.0.4:12345;
+}
+
+server {
+    listen      12346;
+    proxy_pass  $name;
+    ssl_preread on;
+}
+</example>
+</para>
+
+</section>
+
+
+<section id="directives" name="Директивы">
+
+<directive name="ssl_preread">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Разрешает извлечение информации из сообщения ClientHello во время фазы
+<link doc="stream_processing.xml" id="preread_phase">предварительного чтения</link>.
+</para>
+
+</directive>
+
+</section>
+
+
+<section id="variables" name="Встроенные переменные">
+
+<para>
+<list type="tag">
+
+<tag-name id="var_ssl_preread_server_name"><var>$ssl_preread_server_name</var></tag-name>
+<tag-desc>
+возвращает имя сервера, запрошенное через SNI
+</tag-desc>
+
+</list>
+</para>
+
+</section>
+
+</module>

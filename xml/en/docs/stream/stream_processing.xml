@@ -7,7 +7,7 @@
 <article name="How nginx processes a TCP/UDP session"
          link="/en/docs/stream/stream_processing.html"
          lang="en"
-         rev="1">
+         rev="2">
 
 <section>
 
@@ -57,8 +57,11 @@ module is invoked at this phase.
 <literal>Preread</literal>
 </tag-name>
 <tag-desc>
-Reading initial bytes of data into the preread buffer
-to allow analyzing the data before its processing.
+Reading initial bytes of data into the
+<link doc="ngx_stream_core_module.xml" id="preread_buffer_size">preread buffer</link>
+to allow modules such as
+<link doc="ngx_stream_ssl_preread_module.xml">ngx_stream_ssl_preread_module</link>
+analyze the data before its processing.
 </tag-desc>
 
 <tag-name id="content_phase">

@@ -7,7 +7,7 @@
 <article name="Как nginx обрабатывает TCP/UDP-сессии"
          link="/ru/docs/stream/stream_processing.html"
          lang="ru"
-         rev="1">
+         rev="2">
 
 <section>
 
@@ -58,8 +58,12 @@
 <literal>Preread</literal>
 </tag-name>
 <tag-desc>
-Чтение первых байт данных в буфер предварительного чтения
-для анализа перед их обработкой
+Чтение первых байт данных в
+<link doc="ngx_stream_core_module.xml" id="preread_buffer_size">буфер
+предварительного чтения</link> для анализа,
+например модулем
+<link doc="ngx_stream_ssl_preread_module.xml">ngx_stream_ssl_preread_module</link>,
+перед их обработкой
 </tag-desc>
 
 <tag-name id="content_phase">
