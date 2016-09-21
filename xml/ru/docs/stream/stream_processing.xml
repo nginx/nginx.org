@@ -1,0 +1,91 @@
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE article SYSTEM "../../../../dtd/article.dtd">
+
+<article name="Как nginx обрабатывает TCP/UDP-сессии"
+         link="/ru/docs/stream/stream_processing.html"
+         lang="ru"
+         rev="1">
+
+<section>
+
+<para>
+Обработка клиентской TCP/UDP-сессии происходит
+последовательными <b>фазами</b>:
+
+<list type="tag">
+
+<tag-name id="postaccept_phase">
+<literal>Post-accept</literal>
+</tag-name>
+<tag-desc>
+Первая фаза после принятия клиентского соединения.
+В этой фазе выполняется модуль
+<link doc="ngx_stream_realip_module.xml">ngx_stream_realip_module</link>.
+</tag-desc>
+
+<tag-name id="preaccess_phase">
+<literal>Pre-access</literal>
+</tag-name>
+<tag-desc>
+Предварительная проверка доступа.
+В этой фазе выполняется модуль
+<link doc="ngx_stream_limit_conn_module.xml">ngx_stream_limit_conn_module</link>.
+</tag-desc>
+
+<tag-name id="access_phase">
+<literal>Access</literal>
+</tag-name>
+<tag-desc>
+Ограничение доступа для клиента перед обработкой данных.
+В этой фазе выполняется модуль
+<link doc="ngx_stream_access_module.xml">ngx_stream_access_module</link>.
+</tag-desc>
+
+<tag-name id="ssl_phase">
+<literal>SSL</literal>
+</tag-name>
+<tag-desc>
+
+Терминирование TLS/SSL.
+В этой фазе выполняется модуль
+<link doc="ngx_stream_ssl_module.xml">ngx_stream_ssl_module</link>.
+</tag-desc>
+
+<tag-name id="preread_phase">
+<literal>Preread</literal>
+</tag-name>
+<tag-desc>
+Чтение первых байт данных в буфер предварительного чтения
+для анализа перед их обработкой
+</tag-desc>
+
+<tag-name id="content_phase">
+<literal>Content</literal>
+</tag-name>
+<tag-desc>
+Обязательная фаза, в которой происходит обработка данных, как правило
+<link doc="ngx_stream_proxy_module.xml">проксирование</link> на
+<link doc="ngx_stream_upstream_module.xml">группу серверов</link>
+или <link doc="ngx_stream_return_module.xml">отправка</link> клиенту
+заданного значения.
+</tag-desc>
+
+<tag-name id="log_phase">
+<literal>Log</literal>
+</tag-name>
+<tag-desc>
+Заключительная фаза,
+в которой записывается результат обработки клиентской сессии.
+В этой фазе выполняется модуль
+<link doc="ngx_stream_log_module.xml">ngx_stream_log_module</link>.
+</tag-desc>
+</list>
+
+</para>
+
+</section>
+
+</article>

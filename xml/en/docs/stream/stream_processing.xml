@@ -1,0 +1,90 @@
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE article SYSTEM "../../../../dtd/article.dtd">
+
+<article name="How nginx processes a TCP/UDP session"
+         link="/en/docs/stream/stream_processing.html"
+         lang="en"
+         rev="1">
+
+<section>
+
+<para>
+A TCP/UDP session from a client is processed
+in successive steps called <b>phases</b>:
+
+<list type="tag">
+
+<tag-name id="postaccept_phase">
+<literal>Post-accept</literal>
+</tag-name>
+<tag-desc>
+The first phase after accepting a client connection.
+The <link doc="ngx_stream_realip_module.xml">ngx_stream_realip_module</link>
+module is invoked at this phase.
+</tag-desc>
+
+<tag-name id="preaccess_phase">
+<literal>Pre-access</literal>
+</tag-name>
+<tag-desc>
+Preliminary check for access.
+The <link doc="ngx_stream_limit_conn_module.xml">ngx_stream_limit_conn_module</link>
+module is invoked at this phase.
+</tag-desc>
+
+<tag-name id="access_phase">
+<literal>Access</literal>
+</tag-name>
+<tag-desc>
+Client access limitation before actual data processing.
+The <link doc="ngx_stream_access_module.xml">ngx_stream_access_module</link>
+module is invoked at this phase.
+</tag-desc>
+
+<tag-name id="ssl_phase">
+<literal>SSL</literal>
+</tag-name>
+<tag-desc>
+TLS/SSL termination.
+The <link doc="ngx_stream_ssl_module.xml">ngx_stream_ssl_module</link>
+module is invoked at this phase.
+</tag-desc>
+
+<tag-name id="preread_phase">
+<literal>Preread</literal>
+</tag-name>
+<tag-desc>
+Reading initial bytes of data into the preread buffer
+to allow analyzing the data before its processing.
+</tag-desc>
+
+<tag-name id="content_phase">
+<literal>Content</literal>
+</tag-name>
+<tag-desc>
+Mandatory phase where data is actually processed, usually
+<link doc="ngx_stream_proxy_module.xml">proxied</link> to
+<link doc="ngx_stream_upstream_module.xml">upstream</link> servers,
+or a specified value
+is <link doc="ngx_stream_return_module.xml">returned</link> to a client.
+</tag-desc>
+
+<tag-name id="log_phase">
+<literal>Log</literal>
+</tag-name>
+<tag-desc>
+The final phase
+where the result of a client session processing is recorded.
+The <link doc="ngx_stream_log_module.xml">ngx_stream_log_module</link>
+module is invoked at this phase.
+</tag-desc>
+</list>
+
+</para>
+
+</section>
+
+</article>

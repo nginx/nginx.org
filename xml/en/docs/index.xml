@@ -8,7 +8,7 @@
 <article name="nginx documentation"
          link="/en/docs/"
          lang="en"
-         rev="32"
+         rev="33"
          toc="no">
 
 
@@ -79,6 +79,14 @@
 
 <listitem>
 <link doc="http/configuring_https_servers.xml"/>
+</listitem>
+
+</list>
+
+<list type="bullet">
+
+<listitem>
+<link doc="stream/stream_processing.xml"/>
 </listitem>
 
 </list>

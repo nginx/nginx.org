@@ -96,6 +96,7 @@ REFS =									\
 		stream/ngx_stream_split_clients_module			\
 		stream/ngx_stream_ssl_module				\
 		stream/ngx_stream_upstream_module			\
+		stream/stream_processing				\
 
 TOP =									\
 		download						\
