@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_log_module"
         link="/en/docs/stream/ngx_stream_log_module.html"
         lang="en"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -165,7 +165,7 @@ Specifies the log format, for example:
 log_format proxy '$remote_addr [$time_local] '
                  '$protocol $status $bytes_sent $bytes_received '
                  '$session_time "$upstream_addr" '
-                 '"$upstream_bytes_sent" "$upstream_bytes_received" "$upstream_connection_time"';
+                 '"$upstream_bytes_sent" "$upstream_bytes_received" "$upstream_connect_time"';
 </example>
 </para>
 

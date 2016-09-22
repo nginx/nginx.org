@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_log_module"
         link="/ru/docs/stream/ngx_stream_log_module.html"
         lang="ru"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -165,7 +165,7 @@ access_log /path/to/log.gz basic gzip flush=5m;
 log_format proxy '$remote_addr [$time_local] '
                  '$protocol $status $bytes_sent $bytes_received '
                  '$session_time "$upstream_addr" '
-                 '"$upstream_bytes_sent" "$upstream_bytes_received" "$upstream_connection_time"';
+                 '"$upstream_bytes_sent" "$upstream_bytes_received" "$upstream_connect_time"';
 </example>
 </para>
 
