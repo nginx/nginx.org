@@ -8,7 +8,7 @@
 <article name="nginx"
          link="/en/"
          lang="en"
-         rev="62">
+         rev="63">
 
 
 <section>
@@ -126,16 +126,6 @@ and pipelined connections support;
 </listitem>
 
 <listitem>
-<link doc="docs/example.xml">Flexible configuration</link>;
-</listitem>
-
-<listitem>
-<link doc="docs/control.xml" id="reconfiguration">Reconfiguration</link>
-and <link doc="docs/control.xml" id="upgrade">upgrade of an
-executable</link> without interruption of the client servicing;
-</listitem>
-
-<listitem>
 <link doc="docs/http/ngx_http_log_module.xml" id="log_format">Access
 log formats</link>,
 <link doc="docs/http/ngx_http_log_module.xml" id="access_log">buffered
@@ -199,6 +189,14 @@ Limiting the number of simultaneous
 or
 <link doc="docs/http/ngx_http_limit_req_module.xml">requests</link>
 coming from one address;
+</listitem>
+
+<listitem>
+<link doc="docs/http/ngx_http_geoip_module.xml">IP-based geolocation</link>;
+</listitem>
+
+<listitem>
+<link doc="docs/http/ngx_http_split_clients_module.xml">A/B testing</link>;
 </listitem>
 
 <listitem>
@@ -284,8 +282,8 @@ of TCP and UDP;
 </listitem>
 
 <listitem>
-<link doc="docs/stream/ngx_stream_ssl_module.xml">SSL termination</link>
-for TCP;
+<link doc="docs/stream/ngx_stream_ssl_module.xml">SSL termination and
+SNI support</link> for TCP;
 </listitem>
 
 <listitem>
@@ -299,9 +297,31 @@ Access control based on
 </listitem>
 
 <listitem>
+Executing different functions depending on the
+<link doc="docs/stream/ngx_stream_geo_module.xml">client address</link>;
+</listitem>
+
+<listitem>
 Limiting the number of simultaneous
 <link doc="docs/stream/ngx_stream_limit_conn_module.xml">connections</link>
-coming from one address.
+coming from one address;
+</listitem>
+
+<listitem>
+<link doc="docs/stream/ngx_stream_log_module.xml" id="log_format">Access
+log formats</link>,
+<link doc="docs/stream/ngx_stream_log_module.xml" id="access_log">buffered
+log writing</link>,
+<link doc="docs/control.xml" id="logs">fast log rotation</link>, and
+<link doc="docs/syslog.xml">syslog logging</link>;
+</listitem>
+
+<listitem>
+<link doc="docs/stream/ngx_stream_geoip_module.xml">IP-based geolocation</link>;
+</listitem>
+
+<listitem>
+<link doc="docs/stream/ngx_stream_split_clients_module.xml">A/B testing</link>.
 </listitem>
 
 </list>
@@ -319,6 +339,16 @@ coming from one address.
 <listitem>
 One master and several worker processes;
 worker processes run under an unprivileged user;
+</listitem>
+
+<listitem>
+<link doc="docs/example.xml">Flexible configuration</link>;
+</listitem>
+
+<listitem>
+<link doc="docs/control.xml" id="reconfiguration">Reconfiguration</link>
+and <link doc="docs/control.xml" id="upgrade">upgrade of an
+executable</link> without interruption of the client servicing;
 </listitem>
 
 <listitem>
