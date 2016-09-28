@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_upstream_module"
         link="/ru/docs/stream/ngx_stream_upstream_module.html"
         lang="ru"
-        rev="18">
+        rev="19">
 
 <section id="summary">
 
@@ -152,6 +152,8 @@ upstream backend {
 ограничивает максимальное <value>число</value> одновременных
 соединений к проксируемому серверу (1.11.5).
 Значение по умолчанию равно 0 и означает, что ограничения нет.
+Если группа не находится в <link id="zone">зоне разделяемой памяти</link>,
+то ограничение работает отдельно для каждого рабочего процесса.
 <note>
 До версии 1.11.5 этот параметр был доступен как часть
 <commercial_version>коммерческой подписки</commercial_version>.

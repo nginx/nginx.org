@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_upstream_module"
         link="/en/docs/stream/ngx_stream_upstream_module.html"
         lang="en"
-        rev="18">
+        rev="19">
 
 <section id="summary">
 
@@ -149,9 +149,11 @@ sets the weight of the server, by default, 1.
 <literal>max_conns</literal>=<value>number</value>
 </tag-name>
 <tag-desc>
-limits the maximum <value>number</value> of simultaneous connections to the
-proxied server (1.11.5).
+limits the maximum <value>number</value> of simultaneous
+connections to the proxied server (1.11.5).
 Default value is zero, meaning there is no limit.
+If the server group does not reside in the <link id="zone">shared memory</link>,
+the limitation works per each worker process.
 <note>
 Prior to version 1.11.5, this parameter was available as part of our
 <commercial_version>commercial subscription</commercial_version>.

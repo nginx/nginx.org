@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="50">
+        rev="51">
 
 <section id="summary">
 
@@ -157,11 +157,13 @@ sets the weight of the server, by default, 1.
 limits the maximum <value>number</value> of simultaneous active
 connections to the proxied server (1.11.5).
 Default value is zero, meaning there is no limit.
+If the server group does not reside in the <link id="zone">shared memory</link>,
+the limitation works per each worker process.
 <note>
-When <link id="keepalive"/> connections and multiple
-<link doc="../ngx_core_module.xml" id="worker_processes">workers</link>
-are enabled,
-the total number of connections to the proxied server
+If <link id="keepalive">idle keepalive</link> connections,
+multiple <link doc="../ngx_core_module.xml" id="worker_processes">workers</link>,
+and the <link id="zone">shared memory</link> are enabled,
+the total number of active and idle connections to the proxied server
 may exceed the <literal>max_conns</literal> value.
 </note>
 <note>
