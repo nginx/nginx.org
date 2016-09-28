@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_upstream_module"
         link="/en/docs/stream/ngx_stream_upstream_module.html"
         lang="en"
-        rev="17">
+        rev="18">
 
 <section id="summary">
 
@@ -145,6 +145,19 @@ The following parameters can be defined:
 sets the weight of the server, by default, 1.
 </tag-desc>
 
+<tag-name id="max_conns">
+<literal>max_conns</literal>=<value>number</value>
+</tag-name>
+<tag-desc>
+limits the maximum <value>number</value> of simultaneous connections to the
+proxied server (1.11.5).
+Default value is zero, meaning there is no limit.
+<note>
+Prior to version 1.11.5, this parameter was available as part of our
+<commercial_version>commercial subscription</commercial_version>.
+</note>
+</tag-desc>
+
 <tag-name id="max_fails">
 <literal>max_fails</literal>=<value>number</value>
 </tag-name>
@@ -203,15 +216,6 @@ Additionally,
 the following parameters are available as part of our
 <commercial_version>commercial subscription</commercial_version>:
 <list type="tag">
-
-<tag-name id="max_conns">
-<literal>max_conns</literal>=<value>number</value>
-</tag-name>
-<tag-desc>
-limits the maximum <value>number</value> of simultaneous connections to the
-proxied server.
-Default value is zero, meaning there is no limit.
-</tag-desc>
 
 <tag-name id="resolve">
 <literal>resolve</literal>

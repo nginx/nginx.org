@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_upstream_module"
         link="/ru/docs/stream/ngx_stream_upstream_module.html"
         lang="ru"
-        rev="17">
+        rev="18">
 
 <section id="summary">
 
@@ -145,6 +145,19 @@ upstream backend {
 задаёт вес сервера, по умолчанию 1.
 </tag-desc>
 
+<tag-name id="max_conns">
+<literal>max_conns</literal>=<value>число</value>
+</tag-name>
+<tag-desc>
+ограничивает максимальное <value>число</value> одновременных
+соединений к проксируемому серверу (1.11.5).
+Значение по умолчанию равно 0 и означает, что ограничения нет.
+<note>
+До версии 1.11.5 этот параметр был доступен как часть
+<commercial_version>коммерческой подписки</commercial_version>.
+</note>
+</tag-desc>
+
 <tag-name id="max_fails">
 <literal>max_fails</literal>=<value>число</value>
 </tag-name>
@@ -203,15 +216,6 @@ upstream backend {
 следующие параметры доступны как часть
 <commercial_version>коммерческой подписки</commercial_version>:
 <list type="tag">
-
-<tag-name id="max_conns">
-<literal>max_conns</literal>=<value>число</value>
-</tag-name>
-<tag-desc>
-ограничивает максимальное <value>число</value> одновременных
-соединений к проксируемому серверу.
-Значение по умолчанию равно 0 и означает, что ограничения нет.
-</tag-desc>
 
 <tag-name id="resolve">
 <literal>resolve</literal>
