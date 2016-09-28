@@ -528,7 +528,7 @@ hash $remote_addr;
 указывает, что для проверки работоспособности будет использоваться протокол
 <literal>UDP</literal>
 вместо протокола <literal>TCP</literal>, используемого по умолчанию (1.9.13);
-тебует наличия блока <link id="hc_match">match</link> с параметрами
+требует наличия блока <link id="hc_match">match</link> с параметрами
 <link id="match_send">send</link> и <link id="match_expect">expect</link>.
 </tag-desc>
 
