@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_scgi_module"
         link="/ru/docs/http/ngx_http_scgi_module.html"
         lang="ru"
-        rev="25">
+        rev="26">
 
 <section id="summary">
 
@@ -797,7 +797,8 @@ nginx не передаёт клиенту поля заголовка <header>S
 
 <para>
 Определяет, передавать ли клиенту ответы SCGI-сервера с кодом
-больше либо равным 300, или же перенаправлять их на обработку nginx’у с помощью
+больше либо равным 300,
+или же перенаправлять их на обработку nginx’у с помощью
 директивы <link doc="ngx_http_core_module.xml" id="error_page"/>.
 </para>
 

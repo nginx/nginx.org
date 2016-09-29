@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_fastcgi_module"
         link="/ru/docs/http/ngx_http_fastcgi_module.html"
         lang="ru"
-        rev="36">
+        rev="37">
 
 <section id="summary">
 
@@ -858,7 +858,8 @@ fastcgi_param SCRIPT_FILENAME /home/www/scripts/php$fastcgi_script_name;
 
 <para>
 Определяет, передавать ли клиенту ответы FastCGI-сервера с кодом
-больше либо равным 300, или же перенаправлять их на обработку nginx’у с помощью
+больше либо равным 300,
+или же перенаправлять их на обработку nginx’у с помощью
 директивы <link doc="ngx_http_core_module.xml" id="error_page"/>.
 </para>
 

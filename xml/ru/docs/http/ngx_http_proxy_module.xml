@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_proxy_module"
         link="/ru/docs/http/ngx_http_proxy_module.html"
         lang="ru"
-        rev="49">
+        rev="50">
 
 <section id="summary">
 
@@ -1020,7 +1020,8 @@ NTLM</link> рекомендуется версия 1.1.
 
 <para>
 Определяет, передавать ли клиенту проксированные ответы с кодом
-больше либо равным 300, или же перенаправлять их на обработку nginx’у с помощью
+больше либо равным 300,
+или же перенаправлять их на обработку nginx’у с помощью
 директивы <link doc="ngx_http_core_module.xml" id="error_page"/>.
 </para>
 
