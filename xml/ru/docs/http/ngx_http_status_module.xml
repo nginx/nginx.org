@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_status_module"
         link="/ru/docs/http/ngx_http_status_module.html"
         lang="ru"
-        rev="9">
+        rev="10">
 
 <section id="summary">
 
@@ -558,6 +558,13 @@ http://127.0.0.1/status/stream/upstreams/backend/peers/1/weight
 <link doc="ngx_http_upstream_module.xml" id="keepalive"/>-соединений.
 </tag-desc>
 
+<tag-name id="zombies"><literal>zombies</literal></tag-name>
+<tag-desc>
+Текущее число серверов,
+<link doc="ngx_http_upstream_conf_module.xml" id="upstream_conf">удалённых</link>
+из группы, но в то же время всё ещё обрабатывающих активные клиентские запросы.
+</tag-desc>
+
 <tag-name id="queue"><literal>queue</literal></tag-name>
 <tag-desc>
 Для <link doc="ngx_http_upstream_module.xml" id="queue">очереди</link> запросов
@@ -874,6 +881,12 @@ http://127.0.0.1/status/stream/upstreams/backend/peers/1/weight
 
 <para>
 <list type="bullet">
+
+<listitem>
+Поле <link id="zombies"/>
+было перемещено из <link doc="../debugging_log.xml">debug</link>-версии nginx
+в <link id="version">версии</link> 6.
+</listitem>
 
 <listitem>
 Поля <link id="ssl"/>

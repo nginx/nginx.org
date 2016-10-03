@@ -9,7 +9,7 @@
 <module name="Module ngx_http_status_module"
         link="/en/docs/http/ngx_http_status_module.html"
         lang="en"
-        rev="9">
+        rev="10">
 
 <section id="summary">
 
@@ -557,6 +557,13 @@ The current number of
 idle <link doc="ngx_http_upstream_module.xml" id="keepalive"/> connections.
 </tag-desc>
 
+<tag-name id="zombies"><literal>zombies</literal></tag-name>
+<tag-desc>
+The current number of servers
+<link doc="ngx_http_upstream_conf_module.xml" id="upstream_conf">removed</link>
+from the group but still processing active client requests.
+</tag-desc>
+
 <tag-name id="queue"><literal>queue</literal></tag-name>
 <tag-desc>
 For the requests <link doc="ngx_http_upstream_module.xml" id="queue"/>,
@@ -884,6 +891,12 @@ when the server was last selected to process a connection.
 
 <para>
 <list type="bullet">
+
+<listitem>
+The <link id="zombies"/> field
+was moved from nginx <link doc="../debugging_log.xml">debug</link> version
+in <link id="version"/> 6.
+</listitem>
 
 <listitem>
 The <link id="ssl"/> status data
