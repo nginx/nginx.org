@@ -859,7 +859,7 @@ fastcgi_param SCRIPT_FILENAME /home/www/scripts/php$fastcgi_script_name;
 <para>
 Определяет, передавать ли клиенту ответы FastCGI-сервера с кодом
 больше либо равным 300,
-или же перенаправлять их на обработку nginx’у с помощью
+или же перехватывать их и перенаправлять на обработку nginx’у с помощью
 директивы <link doc="ngx_http_core_module.xml" id="error_page"/>.
 </para>
 
