@@ -9,7 +9,7 @@
 <article name="Building nginx on the Win32 platform with Visual C"
          link="/en/docs/howto_build_on_win32.html"
          lang="en"
-         rev="3">
+         rev="4">
 
 <section name="Prerequisites">
 
@@ -96,7 +96,7 @@ auto/configure --with-cc=cl --builddir=objs --prefix= \
 --http-fastcgi-temp-path=temp/fastcgi_temp \
 --with-cc-opt=-DFD_SETSIZE=1024 --with-pcre=objs/lib/pcre-8.39 \
 --with-zlib=objs/lib/zlib-1.2.8 --with-openssl=objs/lib/openssl-1.0.2h \
---with-select_module --with-http_ssl_module --with-ipv6
+--with-select_module --with-http_ssl_module
 </programlisting>
 </listitem>
 
