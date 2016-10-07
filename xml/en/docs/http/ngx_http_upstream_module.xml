@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="51">
+        rev="52">
 
 <section id="summary">
 
@@ -378,6 +378,17 @@ handled by
 <para>
 Specifies a <value>file</value> that keeps the state
 of the dynamically configurable group.
+</para>
+
+<para>
+Examples:
+<example>
+state /var/lib/nginx/state/servers.conf; # path for Linux
+state /var/db/nginx/state/servers.conf;  # path for FreeBSD
+</example>
+</para>
+
+<para>
 The state is currently limited to the list of servers with their parameters.
 The file is read when parsing the configuration and is updated each time
 the upstream configuration is

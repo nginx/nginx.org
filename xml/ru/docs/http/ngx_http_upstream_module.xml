@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_upstream_module"
         link="/ru/docs/http/ngx_http_upstream_module.html"
         lang="ru"
-        rev="51">
+        rev="52">
 
 <section id="summary">
 
@@ -381,6 +381,17 @@ SRV-записи с наивысшим приоритетом
 <para>
 Задаёт <value>файл</value>, в котором хранится состояние
 динамически настраиваемой группы.
+</para>
+
+<para>
+Примеры:
+<example>
+state /var/lib/nginx/state/servers.conf; # путь для Linux
+state /var/db/nginx/state/servers.conf;  # путь для FreeBSD
+</example>
+</para>
+
+<para>
 В данный момент состояние ограничено списком серверов с их параметрами.
 Файл читается при парсинге конфигурации и обновляется каждый раз при
 <link doc="ngx_http_upstream_conf_module.xml" id="upstream_conf">изменении</link>
