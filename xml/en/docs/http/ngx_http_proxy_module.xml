@@ -10,7 +10,7 @@
 <module name="Module ngx_http_proxy_module"
         link="/en/docs/http/ngx_http_proxy_module.html"
         lang="en"
-        rev="50">
+        rev="51">
 
 <section id="summary">
 
@@ -358,6 +358,9 @@ will be cached.
     <literal>keys_zone</literal>=<value>name</value>:<value>size</value>
     [<literal>inactive</literal>=<value>time</value>]
     [<literal>max_size</literal>=<value>size</value>]
+    [<literal>manager_files</literal>=<value>number</value>]
+    [<literal>manager_sleep</literal>=<value>time</value>]
+    [<literal>manager_threshold</literal>=<value>time</value>]
     [<literal>loader_files</literal>=<value>number</value>]
     [<literal>loader_sleep</literal>=<value>time</value>]
     [<literal>loader_threshold</literal>=<value>time</value>]
@@ -423,13 +426,23 @@ By default, <literal>inactive</literal> is set to 10 minutes.
 The special “cache manager” process monitors the maximum cache size set
 by the <literal>max_size</literal> parameter.
 When this size is exceeded, it removes the least recently used data.
+The data is removed in iterations configured by
+<literal>manager_files</literal>,
+<literal>manager_threshold</literal>, and
+<literal>manager_sleep</literal> parameters (1.11.5).
+During one iteration no more than <literal>manager_files</literal> items
+are deleted ( by default, 100).
+The duration of one iteration is limited by the
+<literal>manager_threshold</literal> parameter (by default, 200 milliseconds).
+Between iterations, a pause configured by the <literal>manager_sleep</literal>
+parameter (by default, 50 milliseconds) is made.
 </para>
 
 <para>
 A minute after the start the special “cache loader” process is activated.
 It loads information about previously cached data stored on file system
 into a cache zone.
-The loading is done in iterations.
+The loading is also done in iterations.
 During one iteration no more than <literal>loader_files</literal> items
 are loaded (by default, 100).
 Besides, the duration of one iteration is limited by the

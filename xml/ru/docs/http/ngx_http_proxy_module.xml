@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_proxy_module"
         link="/ru/docs/http/ngx_http_proxy_module.html"
         lang="ru"
-        rev="50">
+        rev="51">
 
 <section id="summary">
 
@@ -358,6 +358,9 @@ proxy_cache_key $scheme$proxy_host$uri$is_args$args;
     <literal>keys_zone</literal>=<value>имя</value>:<value>размер</value>
     [<literal>inactive</literal>=<value>время</value>]
     [<literal>max_size</literal>=<value>размер</value>]
+    [<literal>manager_files</literal>=<value>число</value>]
+    [<literal>manager_sleep</literal>=<value>время</value>]
+    [<literal>manager_threshold</literal>=<value>время</value>]
     [<literal>loader_files</literal>=<value>число</value>]
     [<literal>loader_sleep</literal>=<value>время</value>]
     [<literal>loader_threshold</literal>=<value>время</value>]
@@ -421,13 +424,23 @@ proxy_cache_path /data/nginx/cache levels=1:2 keys_zone=one:10m;
 Специальный процесс “cache manager” следит за максимальным размером кэша,
 заданным параметром <literal>max_size</literal>, и при превышении
 его размеров удаляет наименее востребованные данные.
+Удаление данных происходит итерациями, настраиваемыми параметрами (1.11.5)
+<literal>manager_files</literal>,
+<literal>manager_threshold</literal> и
+<literal>manager_sleep</literal>.
+За одну итерацию загружается не более <literal>manager_files</literal>
+элементов (по умолчанию 100).
+Время работы одной итерации ограничено параметром
+<literal>manager_threshold</literal> (по умолчанию 200 миллисекунд).
+Между итерациями делается пауза на время, заданное параметром
+<literal>manager_sleep</literal> (по умолчанию 50 миллисекунд).
 </para>
 
 <para>
 Через минуту после старта активируется специальный процесс “cache loader”,
 который загружает в зону кэша информацию о ранее закэшированных данных,
 хранящихся на файловой системе.
-Загрузка происходит итерациями.
+Загрузка также происходит итерациями.
 За одну итерацию загружается не более <literal>loader_files</literal>
 элементов (по умолчанию 100).
 Кроме того, время работы одной итерации ограничено параметром
