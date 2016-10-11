@@ -406,7 +406,7 @@ The data is removed in iterations configured by
 <literal>manager_threshold</literal>, and
 <literal>manager_sleep</literal> parameters (1.11.5).
 During one iteration no more than <literal>manager_files</literal> items
-are deleted ( by default, 100).
+are deleted (by default, 100).
 The duration of one iteration is limited by the
 <literal>manager_threshold</literal> parameter (by default, 200 milliseconds).
 Between iterations, a pause configured by the <literal>manager_sleep</literal>
