@@ -9,7 +9,7 @@
 <module name="Module ngx_http_status_module"
         link="/en/docs/http/ngx_http_status_module.html"
         lang="en"
-        rev="10">
+        rev="11">
 
 <section id="summary">
 
@@ -559,8 +559,7 @@ idle <link doc="ngx_http_upstream_module.xml" id="keepalive"/> connections.
 
 <tag-name id="zombies"><literal>zombies</literal></tag-name>
 <tag-desc>
-The current number of servers
-<link doc="ngx_http_upstream_conf_module.xml" id="upstream_conf">removed</link>
+The current number of servers removed
 from the group but still processing active client requests.
 </tag-desc>
 

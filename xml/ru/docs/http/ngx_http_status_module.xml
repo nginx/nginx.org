@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_status_module"
         link="/ru/docs/http/ngx_http_status_module.html"
         lang="ru"
-        rev="10">
+        rev="11">
 
 <section id="summary">
 
@@ -560,9 +560,8 @@ http://127.0.0.1/status/stream/upstreams/backend/peers/1/weight
 
 <tag-name id="zombies"><literal>zombies</literal></tag-name>
 <tag-desc>
-Текущее число серверов,
-<link doc="ngx_http_upstream_conf_module.xml" id="upstream_conf">удалённых</link>
-из группы, но в то же время всё ещё обрабатывающих активные клиентские запросы.
+Текущее число серверов, удалённых
+из группы, но всё ещё обрабатывающих активные клиентские запросы.
 </tag-desc>
 
 <tag-name id="queue"><literal>queue</literal></tag-name>
