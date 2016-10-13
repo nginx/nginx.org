@@ -8,7 +8,7 @@
 <article name="nginx"
          link="/en/"
          lang="en"
-         rev="63">
+         rev="64">
 
 
 <section>
@@ -282,8 +282,9 @@ of TCP and UDP;
 </listitem>
 
 <listitem>
-<link doc="docs/stream/ngx_stream_ssl_module.xml">SSL termination and
-SNI support</link> for TCP;
+<link doc="docs/stream/ngx_stream_ssl_module.xml">SSL</link> and
+TLS <link doc="docs/stream/ngx_stream_ssl_preread_module.xml">SNI</link> support
+for TCP;
 </listitem>
 
 <listitem>
