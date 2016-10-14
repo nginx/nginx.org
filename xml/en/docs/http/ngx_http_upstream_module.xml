@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="53">
+        rev="54">
 
 <section id="summary">
 
@@ -1020,8 +1020,6 @@ This directive is available as part of our
 <para>
 If an upstream server cannot be selected immediately
 while processing a request,
-and there are the servers in the group that have reached the
-<link id="max_conns"/> limit,
 the request will be placed into the queue.
 The directive specifies the maximum number of requests that can be in the queue
 at the same time.
