@@ -255,8 +255,10 @@ do_gzip:	$(addsuffix .gz, $(wildcard $(ZIP)/*.html))		\
 		$(ZIP)/LICENSE.gz					\
 		$(ZIP)/en/CHANGES.gz					\
 		$(addsuffix .gz, $(wildcard $(ZIP)/en/CHANGES-?.?))	\
+		$(addsuffix .gz, $(wildcard $(ZIP)/en/CHANGES-?.??))	\
 		$(ZIP)/ru/CHANGES.ru.gz					\
 		$(addsuffix .gz, $(wildcard $(ZIP)/ru/CHANGES.ru-?.?))	\
+		$(addsuffix .gz, $(wildcard $(ZIP)/ru/CHANGES.ru-?.??))	\
 		$(addsuffix .gz, $(wildcard $(ZIP)/keys/*.key))		\
 
 	find $(ZIP) -type f ! -name '*.gz' -exec test \! -e {}.gz \; -print
