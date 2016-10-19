@@ -169,6 +169,7 @@ xslt/%.xslt:	xsls/%.xsls
 	$(call XSLScript, $<, $@)
 
 images:									\
+		binary/books/nginx_troubleshooting.jpg			\
 		binary/books/nginx_richtig_konfigurieren.jpg		\
 		binary/books/practical_nginx_guide_jp.jpg		\
 		binary/books/nginx_pocket_reference_jp.jpg		\
@@ -182,6 +183,11 @@ images:									\
 		binary/books/nginx_module_extension.jpg			\
 		binary/books/nginx_high_performance.jpg			\
 		binary/books/nginx_essentials.jpg
+
+binary/books/nginx_troubleshooting.jpg:					\
+		sources/51T7ds6JdBL._SX404_BO1,204,203,200_.jpg
+	mkdir -p $(dir $@)
+	$(call JPEGNORM, $<, $@)
 
 binary/books/nginx_richtig_konfigurieren.jpg:	sources/5106%2B0b2pbL.jpg
 	mkdir -p $(dir $@)
