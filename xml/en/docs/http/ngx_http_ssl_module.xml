@@ -10,7 +10,7 @@
 <module name="Module ngx_http_ssl_module"
         link="/en/docs/http/ngx_http_ssl_module.html"
         lang="en"
-        rev="24">
+        rev="25">
 
 <section id="summary">
 
@@ -793,13 +793,33 @@ for an established SSL connection;
 <tag-name id="var_ssl_client_s_dn"><var>$ssl_client_s_dn</var></tag-name>
 <tag-desc>
 returns the “subject DN” string of the client certificate
+for an established SSL connection according to
+<link url="https://tools.ietf.org/html/rfc2253">RFC 2253</link> (1.11.6);
+</tag-desc>
+
+<tag-name id="var_ssl_client_s_dn_legacy"><var>$ssl_client_s_dn_legacy</var></tag-name>
+<tag-desc>
+returns the “subject DN” string of the client certificate
 for an established SSL connection;
+<note>
+Prior to version 1.11.6, the variable name was <var>$ssl_client_s_dn</var>.
+</note>
 </tag-desc>
 
 <tag-name id="var_ssl_client_i_dn"><var>$ssl_client_i_dn</var></tag-name>
 <tag-desc>
 returns the “issuer DN” string of the client certificate
+for an established SSL connection according to
+<link url="https://tools.ietf.org/html/rfc2253">RFC 2253</link> (1.11.6);
+</tag-desc>
+
+<tag-name id="var_ssl_client_i_dn_legacy"><var>$ssl_client_i_dn_legacy</var></tag-name>
+<tag-desc>
+returns the “issuer DN” string of the client certificate
 for an established SSL connection;
+<note>
+Prior to version 1.11.6, the variable name was <var>$ssl_client_i_dn</var>.
+</note>
 </tag-desc>
 
 <tag-name id="var_ssl_client_verify"><var>$ssl_client_verify</var></tag-name>
