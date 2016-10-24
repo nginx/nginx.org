@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_upstream_module"
         link="/ru/docs/http/ngx_http_upstream_module.html"
         lang="ru"
-        rev="54">
+        rev="55">
 
 <section id="summary">
 
@@ -1117,6 +1117,7 @@ upstream backend {
 <tag-name><literal>domain=</literal><value>домен</value></tag-name>
 <tag-desc>
 Задаёт <value>домен</value>, для которого устанавливается кука.
+В значении параметра можно использовать переменные (1.11.5).
 </tag-desc>
 
 <tag-name><literal>httponly</literal></tag-name>

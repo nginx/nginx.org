@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_status_module"
         link="/ru/docs/http/ngx_http_status_module.html"
         lang="ru"
-        rev="11">
+        rev="12">
 
 <section id="summary">
 
@@ -187,7 +187,7 @@ http://127.0.0.1/status/stream/upstreams/backend/peers/1/weight
 <tag-name id="version"><literal>version</literal></tag-name>
 <tag-desc>
 Версия предоставляемого набора данных.
-Текущей является версия 6.
+Текущей является версия 7.
 </tag-desc>
 
 <tag-name><literal>nginx_version</literal></tag-name>
@@ -681,7 +681,7 @@ http://127.0.0.1/status/stream/upstreams/backend/peers/1/weight
 <tag-desc>
 
 <list type="tag">
-<tag-name><literal>server_zones</literal></tag-name>
+<tag-name id="stream_server_zones"><literal>server_zones</literal></tag-name>
 <tag-desc>
 Для каждой <link id="status_zone"/>:
 <list type="tag">
@@ -696,6 +696,34 @@ http://127.0.0.1/status/stream/upstreams/backend/peers/1/weight
 <tag-desc>
 Суммарное число
 соединений, полученных от клиентов.
+</tag-desc>
+
+<tag-name id="sessions"><literal>sessions</literal></tag-name>
+<tag-desc>
+<list type="tag">
+
+<tag-name><literal>total</literal></tag-name>
+<tag-desc>
+Суммарное число завершённых клиентских сессий.
+</tag-desc>
+
+<tag-name>
+<literal>2xx</literal>,
+<literal>4xx</literal>,
+<literal>5xx</literal>
+</tag-name>
+<tag-desc>
+Число завершённых сессий со
+<link doc="../stream/ngx_stream_core_module.xml" id="var_status">статусами</link>
+2xx, 4xx или 5xx.
+</tag-desc>
+
+</list>
+</tag-desc>
+
+<tag-name id="stream_discarded"><literal>discarded</literal></tag-name>
+<tag-desc>
+Суммарное число соединений, завершённых без создания сессии.
 </tag-desc>
 
 <tag-name><literal>received</literal></tag-name>
@@ -880,6 +908,13 @@ http://127.0.0.1/status/stream/upstreams/backend/peers/1/weight
 
 <para>
 <list type="bullet">
+
+<listitem>
+Поля <link id="sessions"/>
+и поле <link id="stream_discarded">discarded</link> в
+stream <link id="stream_server_zones">server_zones</link>
+были добавлены в <link id="version">версии</link> 7.
+</listitem>
 
 <listitem>
 Поле <link id="zombies"/>

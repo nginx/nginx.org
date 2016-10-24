@@ -9,7 +9,7 @@
 <module name="Module ngx_http_status_module"
         link="/en/docs/http/ngx_http_status_module.html"
         lang="en"
-        rev="11">
+        rev="12">
 
 <section id="summary">
 
@@ -184,7 +184,7 @@ The following status information is provided:
 <tag-name id="version"><literal>version</literal></tag-name>
 <tag-desc>
 Version of the provided data set.
-The current version is 6.
+The current version is 7.
 </tag-desc>
 
 <tag-name><literal>nginx_version</literal></tag-name>
@@ -677,7 +677,7 @@ The total number of bytes written to the cache.
 <tag-desc>
 
 <list type="tag">
-<tag-name><literal>server_zones</literal></tag-name>
+<tag-name id="stream_server_zones"><literal>server_zones</literal></tag-name>
 <tag-desc>
 For each <link id="status_zone"/>:
 <list type="tag">
@@ -692,6 +692,34 @@ client connections that are currently being processed.
 <tag-desc>
 The total number of
 connections accepted from clients.
+</tag-desc>
+
+<tag-name id="sessions"><literal>sessions</literal></tag-name>
+<tag-desc>
+<list type="tag">
+
+<tag-name><literal>total</literal></tag-name>
+<tag-desc>
+The total number of completed client sessions.
+</tag-desc>
+
+<tag-name>
+<literal>2xx</literal>,
+<literal>4xx</literal>,
+<literal>5xx</literal>
+</tag-name>
+<tag-desc>
+The number of sessions completed with
+<link doc="../stream/ngx_stream_core_module.xml" id="var_status">status codes</link>
+2xx, 4xx, or 5xx.
+</tag-desc>
+
+</list>
+</tag-desc>
+
+<tag-name id="stream_discarded"><literal>discarded</literal></tag-name>
+<tag-desc>
+The total number of connections completed without creating a session.
 </tag-desc>
 
 <tag-name><literal>received</literal></tag-name>
@@ -890,6 +918,14 @@ when the server was last selected to process a connection.
 
 <para>
 <list type="bullet">
+
+<listitem>
+The
+<link id="sessions"/> status data
+and the <link id="stream_discarded">discarded</link> field in
+stream <link id="stream_server_zones">server_zones</link>
+were added in <link id="version"/> 7.
+</listitem>
 
 <listitem>
 The <link id="zombies"/> field
