@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="62">
+        rev="63">
 
 <section id="directives" name="Directives">
 
@@ -623,6 +623,13 @@ error_page 500 502 503 504 /50x.html;
 </para>
 
 <para>
+This causes an internal redirect to the specified <value>uri</value>
+with the client request method changed to “<literal>GET</literal>”
+(for all methods other than
+“<literal>GET</literal>” and “<literal>HEAD</literal>”).
+</para>
+
+<para>
 Furthermore, it is possible to change the response code to another
 using the “<literal>=</literal><value>response</value>” syntax, for example:
 <example>
@@ -641,8 +648,8 @@ error_page 404 = /404.php;
 </para>
 
 <para>
-If there is no need to change URI during internal redirection it is
-possible to pass error processing into a named location:
+If there is no need to change URI and method during internal redirection
+it is possible to pass error processing into a named location:
 <example>
 location / {
     error_page 404 = @fallback;

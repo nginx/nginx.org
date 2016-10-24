@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="62">
+        rev="63">
 
 <section id="directives" name="Директивы">
 
@@ -620,6 +620,13 @@ error_page 500 502 503 504 /50x.html;
 </para>
 
 <para>
+При этом делается внутреннее перенаправление на указанный <value>uri</value>,
+а метод запроса клиента меняется на “<literal>GET</literal>”
+(для всех методов, отличных от
+“<literal>GET</literal>” и “<literal>HEAD</literal>”).
+</para>
+
+<para>
 Кроме того, можно поменять код ответа на другой,
 используя синтаксис вида “<literal>=</literal><value>ответ</value>”, например:
 <example>
@@ -637,8 +644,8 @@ error_page 404 = /404.php;
 </para>
 
 <para>
-Если при внутреннем перенаправлении не нужно менять URI, то можно передать
-обработку ошибки в именованный location:
+Если при внутреннем перенаправлении не нужно менять URI и метод,
+то можно передать обработку ошибки в именованный location:
 <example>
 location / {
     error_page 404 = @fallback;
