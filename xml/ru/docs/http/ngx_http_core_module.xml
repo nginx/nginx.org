@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="61">
+        rev="62">
 
 <section id="directives" name="Директивы">
 
@@ -608,10 +608,7 @@ disable_symlinks on from=$document_root;
 
 <para>
 Задаёт URI, который будет показываться для указанных ошибок.
-Директивы <literal>error_page</literal> наследуются с предыдущего уровня
-при условии, что на данном уровне не заданы свои директивы
-<literal>error_page</literal>.
-В значении <literal>uri</literal> можно использовать переменные.
+В значении <value>uri</value> можно использовать переменные.
 </para>
 
 <para>
@@ -640,18 +637,6 @@ error_page 404 = /404.php;
 </para>
 
 <para>
-Также существует возможность использовать перенаправления для обработки
-ошибок:
-<example>
-error_page 403      http://example.com/forbidden.html;
-error_page 404 =301 http://example.com/notfound.html;
-</example>
-В этом случае по умолчанию клиенту возвращается код ответа 302.
-Его можно изменить только на один из кодов ответа, относящихся к
-перенаправлениям (301, 302, 303 и 307).
-</para>
-
-<para>
 Если при внутреннем перенаправлении не нужно менять URI, то можно передать
 обработку ошибки в именованный location:
 <example>
@@ -667,9 +652,26 @@ location @fallback {
 
 <para>
 <note>
-Если при обработке <literal>uri</literal> происходит ошибка,
+Если при обработке <value>uri</value> происходит ошибка,
 клиенту возвращается ответ с кодом последней случившейся ошибки.
 </note>
+</para>
+
+<para>
+Также существует возможность использовать перенаправления URL для обработки
+ошибок:
+<example>
+error_page 403      http://example.com/forbidden.html;
+error_page 404 =301 http://example.com/notfound.html;
+</example>
+В этом случае по умолчанию клиенту возвращается код ответа 302.
+Его можно изменить только на один из кодов ответа, относящихся к
+перенаправлениям (301, 302, 303 и 307).
+</para>
+
+<para>
+Директивы наследуются с предыдущего уровня при условии, что на данном уровне
+не описаны свои директивы <literal>error_page</literal>.
 </para>
 
 </directive>
