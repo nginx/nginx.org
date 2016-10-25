@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_memcached_module"
         link="/ru/docs/http/ngx_http_memcached_module.html"
         lang="ru"
-        rev="14">
+        rev="15">
 
 <section id="summary">
 
@@ -49,7 +49,10 @@ server {
 <section id="directives" name="Директивы">
 
 <directive name="memcached_bind">
-<syntax><value>адрес</value> [transparent] | <literal>off</literal></syntax>
+<syntax>
+    <value>адрес</value>
+    [ <literal>transparent </literal>] |
+    <literal>off</literal></syntax>
 <default/>
 <context>http</context>
 <context>server</context>

@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_proxy_module"
         link="/ru/docs/stream/ngx_stream_proxy_module.html"
         lang="ru"
-        rev="16">
+        rev="17">
 
 <section id="summary">
 
@@ -57,7 +57,10 @@ server {
 <section id="directives" name="Директивы">
 
 <directive name="proxy_bind">
-<syntax><value>адрес</value> [transparent] | <literal>off</literal></syntax>
+<syntax>
+    <value>address</value>
+    [<literal>transparent</literal>] |
+    <literal>off</literal></syntax>
 <default/>
 <context>stream</context>
 <context>server</context>
