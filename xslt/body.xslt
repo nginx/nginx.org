@@ -20,9 +20,9 @@
 
     <div id="banner">
         <xsl:if test="@lang = 'he'"> <xsl:attribute name="class"> <xsl:text>ltr</xsl:text> </xsl:attribute> </xsl:if>
-        <strong>We are proud to announce NGINX Plus R10!</strong><br/>
-        Our latest release features a fully supported web application firewall,<br/> dual-stack ECC-RSA certificate support, and more.
-        <a href="https://www.nginx.com/blog/nginx-plus-r10-released/?utm_source=nginxorg&amp;utm_medium=banner"><em>Explore R10</em></a><br/>
+        <strong>Announcing NGINX Plus R11</strong><br/>
+        Check out our latest release with easier dynamic module integration, additional TCP/UDP<br/> load-balancing features, enhancements to nginScript, support for GeoIP2, and more.
+        <a href="https://www.nginx.com/blog/nginx-plus-r11-released/?utm_source=nginxorg&amp;utm_medium=banner"><em>Explore R11</em></a><br/>
     </div>
 
     <div id="main">
