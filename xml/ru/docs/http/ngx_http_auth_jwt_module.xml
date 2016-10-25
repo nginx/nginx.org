@@ -1,0 +1,208 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Модуль ngx_http_auth_jwt_module"
+        link="/ru/docs/http/ngx_http_auth_jwt_module.html"
+        lang="ru"
+        rev="2">
+
+<section id="summary">
+
+<para>
+Модуль <literal>ngx_http_auth_jwt_module</literal> (1.11.3)
+предоставляет возможность авторизации клиента с проверкой предоставляемого
+<link url="https://tools.ietf.org/html/rfc7519">JSON Web Token</link> (JWT)
+при помощи указанных ключей.
+JWT claims должны быть зашифрованы в структуре
+<link url="https://tools.ietf.org/html/rfc7515">JSON Web Signature</link> (JWS).
+Модуль может использоваться для настройки аутентификации
+<link url="http://openid.net/specs/openid-connect-core-1_0.html">OpenID Connect</link>.
+</para>
+
+<para>
+Модуль может быть скомбинирован с
+другими модулями доступа, такими как
+<link doc="ngx_http_access_module.xml">ngx_http_access_module</link>,
+<link doc="ngx_http_auth_basic_module.xml">ngx_http_auth_basic_module</link>
+и
+<link doc="ngx_http_auth_request_module.xml">ngx_http_auth_request_module</link>
+с помощью директивы <link doc="ngx_http_core_module.xml" id="satisfy"/>.
+</para>
+
+<para>
+<note>
+Модуль доступен как часть
+<commercial_version>коммерческой подписки</commercial_version>.
+</note>
+</para>
+
+</section>
+
+
+<section id="example" name="Пример конфигурации">
+
+<para>
+<example>
+location / {
+    auth_jwt          "closed site";
+    auth_jwt_key_file conf/keys.json;
+}
+</example>
+</para>
+
+</section>
+
+
+<section id="directives" name="Директивы">
+
+<directive name="auth_jwt">
+<syntax>
+    <value>строка</value>
+    [<literal>token=</literal><value>$переменная</value>] |
+    <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Включает проверку JSON Web Token.
+Заданная <value>строка</value> используется в качестве <literal>realm</literal>.
+В значении параметра допустимо использование переменных.
+</para>
+
+<para>
+Необязательный параметр <literal>token</literal> задаёт переменную,
+содержащую JSON Web Token.
+По умолчанию JWT передаётся в заголовке <header>Authorization</header>
+в качестве
+<link url="https://tools.ietf.org/html/rfc6750">Bearer Token</link>.
+JWT может также передаваться как кука или часть строки запроса:
+<example>
+auth_jwt "closed site" token=$cookie_auth_token;
+</example>
+</para>
+
+<para>
+Специальное значение <literal>off</literal> отменяет действие
+унаследованной с предыдущего уровня конфигурации
+директивы <literal>auth_jwt</literal>.
+</para>
+
+</directive>
+
+
+<directive name="auth_jwt_key_file">
+<syntax><value>файл</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Задаёт <value>файл</value> в формате
+<link url="https://tools.ietf.org/html/rfc7517#section-5">JSON Web Key Set</link>
+для проверки подписи JWT.
+В значении параметра допустимо использование переменных.
+</para>
+
+</directive>
+
+</section>
+
+
+<section id="variables" name="Встроенные переменные">
+
+<para>
+Модуль <literal>ngx_http_auth_jwt_module</literal>
+поддерживает встроенные переменные.
+</para>
+
+<para>
+Переменные, возвращающие
+<link url="https://tools.ietf.org/html/rfc7519#section-4">JWT claims</link>:
+
+<list type="tag" compact="yes">
+<tag-name id="var_jwt_claim_aud"><var>$jwt_claim_aud</var></tag-name>
+<tag-desc>
+audience (аудитория)
+</tag-desc>
+
+<tag-name id="var_jwt_claim_email"><var>$jwt_claim_email</var></tag-name>
+<tag-desc>
+email
+</tag-desc>
+
+<tag-name id="var_jwt_claim_exp"><var>$jwt_claim_exp</var></tag-name>
+<tag-desc>
+expiration time (время окончания действия)
+</tag-desc>
+
+<tag-name id="var_jwt_claim_iat"><var>$jwt_claim_iat</var></tag-name>
+<tag-desc>
+issued at (когда выдан)
+</tag-desc>
+
+<tag-name id="var_jwt_claim_iss"><var>$jwt_claim_iss</var></tag-name>
+<tag-desc>
+issuer (издатель)
+</tag-desc>
+
+<tag-name id="var_jwt_claim_jti"><var>$jwt_claim_jti</var></tag-name>
+<tag-desc>
+JWT ID (идентификатор JWT)
+</tag-desc>
+
+<tag-name id="var_jwt_claim_nbf"><var>$jwt_claim_nbf</var></tag-name>
+<tag-desc>
+not-before (не ранее, чем)
+</tag-desc>
+
+<tag-name id="var_jwt_claim_sub"><var>$jwt_claim_sub</var></tag-name>
+<tag-desc>
+subject (субъект)
+</tag-desc>
+</list>
+</para>
+
+<para>
+Переменные, возвращающие параметры
+<link url="https://tools.ietf.org/html/rfc7515#section-4">заголовка JOSE</link>:
+
+<list type="tag" compact="yes">
+<tag-name id="var_jwt_header_alg"><var>$jwt_header_alg</var></tag-name>
+<tag-desc>
+algorithm (алгоритм)
+</tag-desc>
+
+<tag-name id="var_jwt_header_cty"><var>$jwt_header_cty</var></tag-name>
+<tag-desc>
+content type (тип содержимого)
+</tag-desc>
+
+<tag-name id="var_jwt_header_enc"><var>$jwt_header_enc</var></tag-name>
+<tag-desc>
+encryption algorithm (алгоритм шифрования)
+</tag-desc>
+
+<tag-name id="var_jwt_header_kid"><var>$jwt_header_kid</var></tag-name>
+<tag-desc>
+key ID (идентификатор ключа)
+</tag-desc>
+
+<tag-name id="var_jwt_header_typ"><var>$jwt_header_typ</var></tag-name>
+<tag-desc>
+type (тип)
+</tag-desc>
+
+</list>
+</para>
+
+</section>
+
+</module>
