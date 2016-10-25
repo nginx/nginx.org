@@ -10,13 +10,13 @@
 <module name="Module ngx_http_image_filter_module"
         link="/en/docs/http/ngx_http_image_filter_module.html"
         lang="en"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
 <para>
 The <literal>ngx_http_image_filter_module</literal> module (0.7.54+) is a filter
-that transforms images in JPEG, GIF, and PNG formats.
+that transforms images in JPEG, GIF, PNG, and WebP formats.
 </para>
 
 <para>
@@ -27,6 +27,11 @@ configuration parameter.
 This module utilizes the
 <link url="http://libgd.org">libgd</link> library.
 It is recommended to use the latest available version of the library.
+</note>
+<note>
+The WebP format support appeared in version 1.11.6.
+To transform images in this format,
+the <literal>libgd</literal> library must be compiled with the WebP support.
 </note>
 </para>
 
@@ -85,7 +90,7 @@ turns off module processing in a surrounding location.
 
 <tag-name><literal>test</literal></tag-name>
 <tag-desc>
-ensures that responses are images in either JPEG, GIF, or PNG format.
+ensures that responses are images in either JPEG, GIF, PNG, or WebP format.
 Otherwise, the
 <http-status code="415" text="Unsupported Media Type"/>
 error is returned.
@@ -229,6 +234,24 @@ Defines whether transparency should be preserved when transforming
 GIF images or PNG images with colors specified by a palette.
 The loss of transparency results in images of a better quality.
 The alpha channel transparency in PNG is always preserved.
+</para>
+
+</directive>
+
+
+<directive name="image_filter_webp_quality">
+<syntax><value>quality</value></syntax>
+<default>80</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.11.6</appeared-in>
+
+<para>
+Sets the desired <value>quality</value> of the transformed WebP images.
+Acceptable values are in the range from 1 to 100.
+Lesser values usually imply both lower image quality and less data to transfer.
+Parameter value can contain variables.
 </para>
 
 </directive>

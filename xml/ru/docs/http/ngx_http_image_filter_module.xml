@@ -10,13 +10,13 @@
 <module name="Модуль ngx_http_image_filter_module"
         link="/ru/docs/http/ngx_http_image_filter_module.html"
         lang="ru"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
 <para>
 Модуль <literal>ngx_http_image_filter_module</literal> (0.7.54+) — это фильтр
-для преобразования изображений в форматах JPEG, GIF и PNG.
+для преобразования изображений в форматах JPEG, GIF, PNG и WebP.
 </para>
 
 <para>
@@ -27,6 +27,11 @@
 Для сборки и работы этого модуля необходима библиотека
 <link url="http://libgd.org">libgd</link>.
 Рекомендуется использовать самую последнюю версию библиотеки.
+</note>
+<note>
+Поддержка формата WebP появилась в версии 1.11.6.
+Для преобразования изображений в данном формате
+библиотека <literal>libgd</literal> должна быть собрана с поддержкой WebP.
 </note>
 </para>
 
@@ -86,7 +91,7 @@ location = /empty {
 <tag-name><literal>test</literal></tag-name>
 <tag-desc>
 проверяет, что ответ действительно является изображением
-в формате JPEG, GIF или PNG.
+в формате JPEG, GIF, PNG или WebP.
 В противном случае возвращается ошибка
 <http-status code="415" text="Unsupported Media Type"/>.
 </tag-desc>
@@ -233,6 +238,26 @@ location = /empty {
 в формате GIF и в формате PNG с цветами, заданными палитрой.
 Потеря прозрачности позволяет получить более качественное изображение.
 Прозрачность альфа-канала в формате PNG сохраняется всегда.
+</para>
+
+</directive>
+
+
+<directive name="image_filter_webp_quality">
+<syntax><value>качество</value></syntax>
+<default>80</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.11.6</appeared-in>
+
+<para>
+Задаёт желаемое <value>качество</value> преобразованного изображения
+в формате WebP.
+Допустимые значения находятся в диапазоне от 1 до 100.
+Меньшим значениям обычно соответствует худшее качество изображения
+и меньший объём передаваемых данных.
+В значении параметра допустимо использование переменных.
 </para>
 
 </directive>
