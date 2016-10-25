@@ -9,7 +9,7 @@
 <module name="Module ngx_http_auth_jwt_module"
         link="/en/docs/http/ngx_http_auth_jwt_module.html"
         lang="en"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
@@ -63,8 +63,10 @@ location / {
 <section id="directives" name="Directives">
 
 <directive name="auth_jwt">
-<syntax><value>string</value> [<value>token=$variable</value>] |
-<literal>off</literal></syntax>
+<syntax>
+    <value>string</value>
+    [<literal>token=</literal><value>$variable</value>] |
+    <literal>off</literal></syntax>
 <default>off</default>
 <context>http</context>
 <context>server</context>
@@ -77,7 +79,7 @@ Parameter value can contain variables.
 </para>
 
 <para>
-The optional <literal>token</literal> argument specifies a variable
+The optional <literal>token</literal> parameter specifies a variable
 that contains JSON Web Token.
 By default, JWT is passed in the <header>Authorization</header> header
 as a
@@ -115,6 +117,7 @@ Parameter value can contain variables.
 
 </section>
 
+
 <section id="variables" name="Embedded Variables">
 
 <para>
@@ -126,45 +129,45 @@ supports embedded variables.
 Variables that return
 <link url="https://tools.ietf.org/html/rfc7519#section-4">JWT claims</link>:
 
-<list type="tag" compact="no">
+<list type="tag" compact="yes">
 <tag-name id="var_jwt_claim_aud"><var>$jwt_claim_aud</var></tag-name>
 <tag-desc>
-the <literal>aud</literal> (audience) claim
+audience
 </tag-desc>
 
 <tag-name id="var_jwt_claim_email"><var>$jwt_claim_email</var></tag-name>
 <tag-desc>
-the <literal>email</literal> claim
+email
 </tag-desc>
 
 <tag-name id="var_jwt_claim_exp"><var>$jwt_claim_exp</var></tag-name>
 <tag-desc>
-the <literal>exp</literal> (expiration time) claim
+expiration time
 </tag-desc>
 
 <tag-name id="var_jwt_claim_iat"><var>$jwt_claim_iat</var></tag-name>
 <tag-desc>
-the <literal>iat</literal> (issued at) claim
+issued at
 </tag-desc>
 
 <tag-name id="var_jwt_claim_iss"><var>$jwt_claim_iss</var></tag-name>
 <tag-desc>
-the issuer of the claim
+issuer
 </tag-desc>
 
 <tag-name id="var_jwt_claim_jti"><var>$jwt_claim_jti</var></tag-name>
 <tag-desc>
-the JWT ID
+JWT ID
 </tag-desc>
 
 <tag-name id="var_jwt_claim_nbf"><var>$jwt_claim_nbf</var></tag-name>
 <tag-desc>
-the <literal>nbf</literal> (not-before time) claim
+not-before
 </tag-desc>
 
 <tag-name id="var_jwt_claim_sub"><var>$jwt_claim_sub</var></tag-name>
 <tag-desc>
-the subject of the JWT
+subject
 </tag-desc>
 </list>
 </para>
@@ -173,30 +176,30 @@ the subject of the JWT
 Variables that return parameters of
 <link url="https://tools.ietf.org/html/rfc7515#section-4">JOSE header</link>:
 
-<list type="tag" compact="no">
+<list type="tag" compact="yes">
 <tag-name id="var_jwt_header_alg"><var>$jwt_header_alg</var></tag-name>
 <tag-desc>
-the <literal>alg</literal> (algorithm) header parameter
+algorithm
 </tag-desc>
 
 <tag-name id="var_jwt_header_cty"><var>$jwt_header_cty</var></tag-name>
 <tag-desc>
-the <literal>cty</literal> (content type) header parameter
+content type
 </tag-desc>
 
 <tag-name id="var_jwt_header_enc"><var>$jwt_header_enc</var></tag-name>
 <tag-desc>
-the <literal>enc</literal> (encryption algorithm) header parameter
+encryption algorithm
 </tag-desc>
 
 <tag-name id="var_jwt_header_kid"><var>$jwt_header_kid</var></tag-name>
 <tag-desc>
-the <literal>kid</literal> (key ID) header parameter
+key ID
 </tag-desc>
 
 <tag-name id="var_jwt_header_typ"><var>$jwt_header_typ</var></tag-name>
 <tag-desc>
-the <literal>typ</literal> (type) header parameter
+type
 </tag-desc>
 
 </list>
