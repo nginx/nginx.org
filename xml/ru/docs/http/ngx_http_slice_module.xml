@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_slice_module"
         link="/ru/docs/http/ngx_http_slice_module.html"
         lang="ru"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -51,7 +51,7 @@ location / {
 <section id="directives" name="Директивы">
 
 <directive name="slice">
-<syntax><literal>размер</literal></syntax>
+<syntax><value>размер</value></syntax>
 <default>0</default>
 <context>http</context>
 <context>server</context>
