@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_proxy_module"
         link="/ru/docs/http/ngx_http_proxy_module.html"
         lang="ru"
-        rev="51">
+        rev="52">
 
 <section id="summary">
 
@@ -1107,6 +1107,7 @@ NTLM</link> рекомендуется версия 1.1.
 Задаёт HTTP-<value>метод</value>, который будет использоваться
 в передаваемых на проксируемый сервер запросах вместо метода
 из клиентского запроса.
+В значении параметра допустимо использование переменных (1.11.6).
 </para>
 
 </directive>
