@@ -9,7 +9,7 @@
 <module name="Module ngx_http_v2_module"
         link="/en/docs/http/ngx_http_v2_module.html"
         lang="en"
-        rev="7">
+        rev="8">
 
 <section id="summary">
 
@@ -174,6 +174,24 @@ For most requests, the default limit should be enough.
 Limits the maximum size of the entire request header list after
 <link url="http://tools.ietf.org/html/rfc7541">HPACK</link> decompression.
 For most requests, the default limit should be enough.
+</para>
+
+</directive>
+
+
+<directive name="http2_max_requests">
+<syntax><value>number</value></syntax>
+<default>1000</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.11.6</appeared-in>
+
+<para>
+Sets the maximum number of requests that can be
+served through one HTTP/2 connection,
+after which the connection is closed
+and the client should use a new connection.
 </para>
 
 </directive>

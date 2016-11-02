@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_v2_module"
         link="/ru/docs/http/ngx_http_v2_module.html"
         lang="ru"
-        rev="7">
+        rev="8">
 
 <section id="summary">
 
@@ -174,6 +174,24 @@ server {
 Ограничивает максимальный размер всего списка заголовков запроса после
 распаковки <link url="http://tools.ietf.org/html/rfc7541">HPACK</link>.
 Ограничение по умолчанию подходит для большинства запросов.
+</para>
+
+</directive>
+
+
+<directive name="http2_max_requests">
+<syntax><value>число</value></syntax>
+<default>1000</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.11.6</appeared-in>
+
+<para>
+Задаёт максимальное число запросов, которые можно
+сделать по одному соединению HTTP/2,
+после чего соединение закрывается
+и клиенту необходимо использовать новое соединение.
 </para>
 
 </directive>
