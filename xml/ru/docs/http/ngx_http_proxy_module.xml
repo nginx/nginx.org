@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_proxy_module"
         link="/ru/docs/http/ngx_http_proxy_module.html"
         lang="ru"
-        rev="52">
+        rev="53">
 
 <section id="summary">
 
@@ -308,6 +308,25 @@ proxy_cache_key $scheme$proxy_host$uri$is_args$args;
 <note>
 До версии 1.7.8 такой ответ мог быть закэширован.
 </note>
+</para>
+
+</directive>
+
+
+<directive name="proxy_cache_max_range_offset">
+<syntax><value>число</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.11.6</appeared-in>
+
+<para>
+Задаёт смещение в байтах для запросов с указанием диапазона запрашиваемых байт
+(byte-range requests).
+Если диапазон находится за указанным смещением,
+range-запрос будет передан на проксируемый сервер
+и ответ не будет закэширован.
 </para>
 
 </directive>

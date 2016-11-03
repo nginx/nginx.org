@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_scgi_module"
         link="/ru/docs/http/ngx_http_scgi_module.html"
         lang="ru"
-        rev="27">
+        rev="28">
 
 <section id="summary">
 
@@ -283,6 +283,25 @@ scgi_cache_key localhost:9000$request_uri;
 <note>
 До версии 1.7.8 такой ответ мог быть закэширован.
 </note>
+</para>
+
+</directive>
+
+
+<directive name="scgi_cache_max_range_offset">
+<syntax><value>число</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.11.6</appeared-in>
+
+<para>
+Задаёт смещение в байтах для запросов с указанием диапазона запрашиваемых байт
+(byte-range requests).
+Если диапазон находится за указанным смещением,
+range-запрос будет передан на SCGI-сервер
+и ответ не будет закэширован.
 </para>
 
 </directive>

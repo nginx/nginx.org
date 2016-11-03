@@ -10,7 +10,7 @@
 <module name="Module ngx_http_proxy_module"
         link="/en/docs/http/ngx_http_proxy_module.html"
         lang="en"
-        rev="52">
+        rev="53">
 
 <section id="summary">
 
@@ -307,6 +307,24 @@ however, the response will not be cached.
 <note>
 Before 1.7.8, the response could be cached.
 </note>
+</para>
+
+</directive>
+
+
+<directive name="proxy_cache_max_range_offset">
+<syntax><value>number</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.11.6</appeared-in>
+
+<para>
+Sets an offset in bytes for byte-range requests.
+If the range is beyond the offset,
+the range request will be passed to the proxied server
+and the response will not be cached.
 </para>
 
 </directive>
