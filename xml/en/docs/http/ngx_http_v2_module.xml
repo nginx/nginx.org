@@ -65,7 +65,7 @@ the “Application-Layer Protocol Negotiation” (ALPN) TLS extension
 support, which is available only since
 <link url="http://www.openssl.org">OpenSSL</link> version 1.0.2.
 Using the “Next Protocol Negotiation” (NPN) TLS extension for this purpose
-(available since OpenSSL version 1.0.1) is not guaranteed.
+(available since OpenSSL version 1.0.1) is not guaranteed to work.
 </para>
 
 <para>
