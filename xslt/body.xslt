@@ -22,7 +22,7 @@
         <xsl:if test="@lang = 'he'"> <xsl:attribute name="class"> <xsl:text>ltr</xsl:text> </xsl:attribute> </xsl:if>
         <strong>Announcing NGINX Plus R11</strong><br/>
         Check out our latest release with easier dynamic module integration, additional TCP/UDP<br/> load-balancing features, enhancements to nginScript, support for GeoIP2, and more.
-        <a href="https://www.nginx.com/blog/nginx-plus-r11-released/?utm_source=nginxorg&amp;utm_medium=banner"><em>Explore R11</em></a><br/>
+        <a href="https://www.nginx.com/blog/nginx-plus-r11-released/?utm_source=nginxorg&amp;utm_medium=header&amp;utm_campaign=product&amp;utm_content=r11"><em>Explore R11</em></a><br/>
     </div>
 
     <div id="main">
