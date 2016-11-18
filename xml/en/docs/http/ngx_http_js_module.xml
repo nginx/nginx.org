@@ -1,0 +1,277 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Module ngx_http_js_module"
+        link="/en/docs/http/ngx_http_js_module.html"
+        lang="en"
+        rev="1">
+
+<section id="summary">
+
+<para>
+The <literal>ngx_http_js_module</literal> module is used to implement
+location and variable handlers in JavaScript.
+</para>
+
+<para>
+This module is not built by default, it should be compiled with
+nginx JavaScript module using the
+<literal>--add_module</literal> configuration parameter:
+<example>
+./configure --add-module=<value>path-to-njs</value>/nginx
+</example>
+The <link url="http://hg.nginx.org/njs">repository</link>
+with nginx JavaScript module can be cloned with the following command
+(requires <link url="https://www.mercurial-scm.org">Mercurial</link> client):
+<example>
+hg clone http://hg.nginx.org/njs
+</example>
+This module can also be built as
+<link doc="../ngx_core_module.xml" id="load_module">dynamic</link>:
+<example>
+./configure --add-dynamic_module=<value>path-to-njs</value>/nginx
+</example>
+</para>
+
+</section>
+
+
+<section id="issues" name="Known Issues">
+
+<para>
+The module is experimental, caveat emptor applies.
+</para>
+
+</section>
+
+
+<section id="example" name="Example Configuration">
+
+<para>
+<example>
+js_include http.js;
+
+server {
+    listen 8000;
+
+    location / {
+        js_set     $foo  foo;
+        add_header X-Foo $foo;
+        js_content baz;
+    }
+
+    location /summary {
+        js_set $summary summary;
+        return 200      $summary;
+    }
+}
+</example>
+</para>
+
+<para>
+The <path>http.js</path> file:
+<example>
+function foo(req, res) {
+    req.log("hello from foo() handler");
+    return "foo";
+}
+
+function summary(req, res) {
+    var a, s, h;
+
+    s = "JS summary\n\n";
+
+    s += "Method: " + req.method + "\n";
+    s += "HTTP version: " + req.httpVersion + "\n";
+    s += "Host: " + req.headers.host + "\n";
+    s += "Remote Address: " + req.remoteAddress + "\n";
+    s += "URI: " + req.uri + "\n";
+
+    s += "Headers:\n";
+    for (h in req.headers) {
+        s += "  header '" + h + "' is '" + req.headers[h] + "'\n";
+    }
+
+    s += "Args:\n";
+    for (a in req.args) {
+        s += "  arg '" + a + "' is '" + req.args[a] + "'\n";
+    }
+
+    return s;
+}
+
+function baz(req, res) {
+    res.headers.foo = 1234;
+    res.status = 200;
+    res.contentType = "text/plain; charset=utf-8";
+    res.contentLength = 15;
+    res.sendHeader();
+    res.send("nginx");
+    res.send("java");
+    res.send("script");
+
+    res.finish();
+}
+</example>
+</para>
+
+</section>
+
+
+<section id="directives" name="Directives">
+
+<directive name="js_include">
+<syntax><value>file</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Specifies a file that implements location and variable handlers in JavaScript.
+</para>
+
+</directive>
+
+
+<directive name="js_content">
+<syntax><value>function</value></syntax>
+<default/>
+<context>location</context>
+<context>limit_except</context>
+
+<para>
+Sets a JavaScript function as a location content handler.
+</para>
+
+</directive>
+
+
+<directive name="js_set">
+<syntax>
+<value>$variable</value> <value>function</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Sets a JavaScript function for the specified variable.
+</para>
+
+</directive>
+
+</section>
+
+
+<section id="arguments" name="Request and Response Arguments">
+<para>
+Each HTTP JavaScript handler receives two arguments, request and response.
+</para>
+
+<para>
+The request object has the following properties:
+<list type="tag">
+
+<tag-name><literal>uri</literal></tag-name>
+<tag-desc>
+current URI in a request, read-only
+</tag-desc>
+
+<tag-name><literal>method</literal></tag-name>
+<tag-desc>
+request method, read-only
+</tag-desc>
+
+<tag-name><literal>httpVersion</literal></tag-name>
+<tag-desc>
+HTTP version, read-only
+</tag-desc>
+
+<tag-name><literal>remoteAddress</literal></tag-name>
+<tag-desc>
+client address, read-only
+</tag-desc>
+
+<tag-name><literal>headers{}</literal></tag-name>
+<tag-desc>
+request headers object, read-only.
+<para>
+For example, the <literal>Header-Name</literal> header
+can be accessed with the syntax <literal>headers['Header-Name']</literal>
+or <literal>headers.Header_name</literal>
+</para>
+</tag-desc>
+
+<tag-name><literal>args{}</literal></tag-name>
+<tag-desc>
+request arguments object, read-only
+</tag-desc>
+
+<tag-name><literal>variables{}</literal></tag-name>
+<tag-desc>
+nginx variables object, read-only
+</tag-desc>
+
+<tag-name><literal>log(<value>string</value>)</literal></tag-name>
+<tag-desc>
+writes a <literal>string</literal> to the error log
+</tag-desc>
+</list>
+</para>
+
+<para>
+The response object has the following properties:
+<list type="tag">
+
+<tag-name><literal>status</literal></tag-name>
+<tag-desc>
+response status, writable
+</tag-desc>
+
+<tag-name><literal>headers{}</literal></tag-name>
+<tag-desc>
+response headers object
+</tag-desc>
+
+<tag-name><literal>contentType</literal></tag-name>
+<tag-desc>
+the response <header>Content-Type</header> header field value, writable
+</tag-desc>
+
+<tag-name><literal>contentLength</literal></tag-name>
+<tag-desc>
+the response <header>Content-Length</header> header field value, writable
+</tag-desc>
+</list>
+</para>
+
+<para>
+The response object has the following methods:
+<list type="tag">
+
+<tag-name><literal>sendHeader()</literal></tag-name>
+<tag-desc>
+sends the HTTP header to the client
+</tag-desc>
+
+<tag-name><literal>send(<value>string</value>)</literal></tag-name>
+<tag-desc>
+sends a part of the response body to the client
+</tag-desc>
+
+<tag-name><literal>finish()</literal></tag-name>
+<tag-desc>
+finishes sending a response to the client
+</tag-desc>
+</list>
+</para>
+
+</section>
+
+</module>

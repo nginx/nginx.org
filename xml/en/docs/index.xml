@@ -8,7 +8,7 @@
 <article name="nginx documentation"
          link="/en/docs/"
          lang="en"
-         rev="34"
+         rev="35"
          toc="no">
 
 
@@ -303,6 +303,11 @@ ngx_http_index_module</link>
 </listitem>
 
 <listitem>
+<link doc="http/ngx_http_js_module.xml">
+ngx_http_js_module</link>
+</listitem>
+
+<listitem>
 <link doc="http/ngx_http_limit_conn_module.xml">
 ngx_http_limit_conn_module</link>
 </listitem>
@@ -512,6 +517,11 @@ ngx_stream_geo_module</link>
 <listitem>
 <link doc="stream/ngx_stream_geoip_module.xml">
 ngx_stream_geoip_module</link>
+</listitem>
+
+<listitem>
+<link doc="stream/ngx_stream_js_module.xml">
+ngx_stream_js_module</link>
 </listitem>
 
 <listitem>

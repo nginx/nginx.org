@@ -1,0 +1,320 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Module ngx_stream_js_module"
+        link="/en/docs/stream/ngx_stream_js_module.html"
+        lang="en"
+        rev="1">
+
+<section id="summary">
+
+<para>
+The <literal>ngx_stream_js_module</literal> module is used to
+implement handlers in JavaScript.
+</para>
+
+<para>
+This module is not built by default, it should be compiled with
+nginx JavaScript module using the
+<literal>--add_module</literal> configuration parameter:
+<example>
+./configure --add-module=<value>path-to-njs</value>/nginx
+</example>
+The <link url="http://hg.nginx.org/njs">repository</link>
+with nginx JavaScript module can be cloned with the following command
+(requires <link url="https://www.mercurial-scm.org">Mercurial</link> client):
+<example>
+hg clone http://hg.nginx.org/njs
+</example>
+This module can also be built as
+<link doc="../ngx_core_module.xml" id="load_module">dynamic</link>:
+<example>
+./configure --add-dynamic_module=<value>path-to-njs</value>/nginx
+</example>
+</para>
+
+</section>
+
+
+<section id="issues" name="Known Issues">
+
+<para>
+The module is experimental, caveat emptor applies.
+</para>
+
+</section>
+
+
+<section id="example" name="Example Configuration">
+
+<para>
+<example>
+stream {
+    js_include stream.js;
+
+    server {
+        listen 12345;
+
+        js_preread qux;
+
+        js_set $foo foo;
+        js_set $bar bar;
+
+        return foo;
+    }
+
+    server {
+        listen 12346;
+
+        js_access  xyz;
+        proxy_pass 127.0.0.1:8000;
+        js_filter  baz;
+    }
+}
+
+http {
+    server {
+        listen 8000;
+        location / {
+            return 200 $http_foo\n;
+        }
+    }
+}
+</example>
+</para>
+
+<para>
+The <path>stream.js</path> file:
+<example>
+var req = '';
+var matched = 0;
+var line = '';
+
+function qux(s) {
+    n = s.buffer.indexOf('\n');
+    if (n == -1) {
+        return s.AGAIN;
+    }
+
+    line = s.buffer.substr(0, n);
+}
+
+function foo(s) {
+    return line;
+}
+
+function bar(s) {
+    var v = s.variables;
+    s.log("hello from bar() handler!");
+    return "foo-var" + v.remote_port + "; pid=" + v.pid;
+}
+
+// The filter processes one buffer per call.
+// The buffer is available in s.buffer both for
+// reading and writing.  Called for both directions.
+
+function baz(s) {
+    if (s.fromUpstream || matched) {
+        return;
+    }
+
+    // Disable certain addresses.
+
+    if (s.remoteAddress.match('^192.*')) {
+        return s.ERROR;
+    }
+
+    // Read HTTP request line.
+    // Collect bytes in 'req' until request
+    // line is read.  Clear current buffer to
+    // disable output.
+
+    req = req + s.buffer;
+    s.buffer = '';
+
+    n = req.search('\n');
+
+    if (n != -1) {
+        // Inject a new HTTP header.
+        var rest = req.substr(n + 1);
+        req = req.substr(0, n + 1);
+
+        addr = s.remoteAddress;
+
+        s.log('req:' + req);
+        s.log('rest:' + rest);
+
+        // Output the result and skip further
+        // processing.
+
+        s.buffer = req + 'Foo: addr_' + addr + '\r\n' + rest;
+        matched = 1;
+    }
+}
+
+function xyz(s) {
+    if (s.remoteAddress.match('^192.*')) {
+        return s.ABORT;
+    }
+}
+</example>
+</para>
+
+</section>
+
+
+<section id="directives" name="Directives">
+
+<directive name="js_access">
+<syntax><value>function</value></syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Sets a JavaScript function which will be called at the
+<link doc="stream_processing.xml" id="access_phase">access</link> phase.
+</para>
+
+</directive>
+
+
+<directive name="js_filter">
+<syntax><value>function</value></syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Sets a data filter.
+</para>
+
+</directive>
+
+
+<directive name="js_include">
+<syntax><value>file</value></syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Specifies a file that implements server and variable handlers in JavaScript.
+</para>
+
+</directive>
+
+
+<directive name="js_preread">
+<syntax><value>function</value></syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Sets a JavaScript function which will be called at the
+<link doc="stream_processing.xml" id="preread_phase">preread</link> phase.
+</para>
+
+</directive>
+
+
+<directive name="js_set">
+<syntax>
+<value>$variable</value> <value>function</value></syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Sets a JavaScript function for the specified variable.
+</para>
+
+</directive>
+
+</section>
+
+
+<section id="properties" name="Session Object Properties">
+<para>
+Each stream JavaScript handler receives one argument, a stream session object.
+</para>
+
+<para>
+The session object has the following properties:
+
+<list type="tag">
+
+<tag-name><literal>remoteAddress</literal></tag-name>
+<tag-desc>
+client address, read-only
+</tag-desc>
+
+<tag-name><literal>eof</literal></tag-name>
+<tag-desc>
+a boolean read-only property, true if the current buffer is the last buffer
+</tag-desc>
+
+<tag-name><literal>fromUpstream</literal></tag-name>
+<tag-desc>
+a boolean read-only property,
+true if the current buffer is from the upstream server to the client
+</tag-desc>
+
+<tag-name><literal>buffer</literal></tag-name>
+<tag-desc>
+the current buffer, writable
+</tag-desc>
+
+<tag-name><literal>variables{}</literal></tag-name>
+<tag-desc>
+nginx variables object, read-only
+</tag-desc>
+
+<tag-name><literal>OK</literal></tag-name>
+<tag-desc>
+the <literal>OK</literal> return code
+</tag-desc>
+
+<tag-name><literal>DECLINED</literal></tag-name>
+<tag-desc>
+the <literal>DECLINED</literal> return code
+</tag-desc>
+
+<tag-name><literal>AGAIN</literal></tag-name>
+<tag-desc>
+the <literal>AGAIN</literal> return code
+</tag-desc>
+
+<tag-name><literal>ERROR</literal></tag-name>
+<tag-desc>
+the <literal>ERROR</literal> return code
+</tag-desc>
+
+<tag-name><literal>ABORT</literal></tag-name>
+<tag-desc>
+the <literal>ABORT</literal> return code
+</tag-desc>
+</list>
+</para>
+
+<para>
+The session object has the following methods:
+
+<list type="tag">
+
+<tag-name><literal>log(<value>string</value>)</literal></tag-name>
+<tag-desc>
+writes a sent <value>string</value> to the error log
+</tag-desc>
+</list>
+</para>
+
+</section>
+
+</module>
