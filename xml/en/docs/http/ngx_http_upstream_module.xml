@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="55">
+        rev="56">
 
 <section id="summary">
 
@@ -1145,6 +1145,9 @@ in a cookie or URI.
 This information is compared with the “<literal>route</literal>” parameter
 of the <link id="server"/> directive to identify the server to which the
 request should be proxied.
+If the “<literal>route</literal>” parameter is not specified, the route name
+will be a hexadecimal representation of the MD5 hash of the IP address and port,
+or of the UNIX-domain socket path.
 If the designated server cannot process a request, the new server is
 selected by the configured balancing method as if there is no routing
 information in the request.
