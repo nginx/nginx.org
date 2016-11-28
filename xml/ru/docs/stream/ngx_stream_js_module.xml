@@ -1,0 +1,325 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Модуль ngx_stream_js_module"
+        link="/ru/docs/stream/ngx_stream_js_module.html"
+        lang="ru"
+        rev="1">
+
+<section id="summary">
+
+<para>
+Модуль <literal>ngx_stream_js_module</literal> позволяет задавать
+обработчики на JavaScript.
+</para>
+
+<para>
+По умолчанию этот модуль не собирается, его необходимо собрать с
+модулем nginx JavaScript с помощью конфигурационного параметра
+<literal>--add_module</literal>:
+<example>
+./configure --add-module=<value>path-to-njs</value>/nginx
+</example>
+<link url="http://hg.nginx.org/njs">Репозиторий</link>
+модуля nginx JavaScript можно клонировать следующей командой
+(необходим клиент <link url="https://www.mercurial-scm.org">Mercurial</link>):
+<example>
+hg clone http://hg.nginx.org/njs
+</example>
+Модуль также можно собрать как
+<link doc="../ngx_core_module.xml" id="load_module">динамический</link>:
+<example>
+./configure --add-dynamic_module=<value>path-to-njs</value>/nginx
+</example>
+</para>
+
+</section>
+
+
+<section id="issues" name="Известные проблемы">
+
+<para>
+Модуль экспериментальный, поэтому возможно всё.
+</para>
+
+</section>
+
+
+<section id="example" name="Пример конфигурации">
+
+<para>
+<example>
+stream {
+    js_include stream.js;
+
+    server {
+        listen 12345;
+
+        js_preread qux;
+
+        js_set $foo foo;
+        js_set $bar bar;
+
+        return foo;
+    }
+
+    server {
+        listen 12346;
+
+        js_access  xyz;
+        proxy_pass 127.0.0.1:8000;
+        js_filter  baz;
+    }
+}
+
+http {
+    server {
+        listen 8000;
+        location / {
+            return 200 $http_foo\n;
+        }
+    }
+}
+</example>
+</para>
+
+<para>
+Файл <path>stream.js</path>:
+<example>
+var req = '';
+var matched = 0;
+var line = '';
+
+function qux(s) {
+    n = s.buffer.indexOf('\n');
+    if (n == -1) {
+        return s.AGAIN;
+    }
+
+    line = s.buffer.substr(0, n);
+}
+
+function foo(s) {
+    return line;
+}
+
+function bar(s) {
+    var v = s.variables;
+    s.log("hello from bar() handler!");
+    return "foo-var" + v.remote_port + "; pid=" + v.pid;
+}
+
+// Фильтр обрабатывает один буфер за вызов.
+// Буфер недоступен в s.buffer для
+// чтения и записи.  Вызывается в обоих направлениях.
+
+function baz(s) {
+    if (s.fromUpstream || matched) {
+        return;
+    }
+
+    // Отключение определённых адресов.
+
+    if (s.remoteAddress.match('^192.*')) {
+        return s.ERROR;
+    }
+
+    // Чтение строки HTTP-запроса.
+    // Получение байт в 'req' до того как
+    // будет прочитана строка запроса.  Очистка текущего буфера
+    // для отключения вывода.
+
+    req = req + s.buffer;
+    s.buffer = '';
+
+    n = req.search('\n');
+
+    if (n != -1) {
+        // Вставка нового HTTP-заголовка.
+        var rest = req.substr(n + 1);
+        req = req.substr(0, n + 1);
+
+        addr = s.remoteAddress;
+
+        s.log('req:' + req);
+        s.log('rest:' + rest);
+
+        // Вывод результата и пропуск дальнейшей
+        // обработки.
+
+        s.buffer = req + 'Foo: addr_' + addr + '\r\n' + rest;
+        matched = 1;
+    }
+}
+
+function xyz(s) {
+    if (s.remoteAddress.match('^192.*')) {
+        return s.ABORT;
+    }
+}
+</example>
+</para>
+
+</section>
+
+
+<section id="directives" name="Директивы">
+
+<directive name="js_access">
+<syntax><value>функция</value></syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Задаёт функцию JavaScript, которая будет вызываться в
+<link doc="stream_processing.xml" id="access_phase">access</link>-фазе.
+</para>
+
+</directive>
+
+
+<directive name="js_filter">
+<syntax><value>функция</value></syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Задаёт фильтр данных.
+</para>
+
+</directive>
+
+
+<directive name="js_include">
+<syntax><value>файл</value></syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Задаёт файл, который позволяет
+задавать обработчики server и переменных на JavaScript.
+</para>
+
+</directive>
+
+
+<directive name="js_preread">
+<syntax><value>функция</value></syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Задаёт функцию JavaScript, которая будет вызываться в
+<link doc="stream_processing.xml" id="preread_phase">preread</link>-фазе.
+</para>
+
+</directive>
+
+
+<directive name="js_set">
+<syntax>
+<value>$переменная</value> <value>функция</value></syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Задаёт функцию JavaScript для указанной переменной.
+</para>
+
+</directive>
+
+</section>
+
+
+<section id="properties" name="Свойства объекта сессии">
+<para>
+Каждый stream-обработчик JavaScript получает один аргумент:
+объект stream-сессии.
+</para>
+
+<para>
+Объект сессии имеет следующие свойства:
+
+<list type="tag">
+
+<tag-name><literal>remoteAddress</literal></tag-name>
+<tag-desc>
+адрес клиента, только чтение
+</tag-desc>
+
+<tag-name><literal>eof</literal></tag-name>
+<tag-desc>
+логическое свойство,
+true, если текущий буфер является последним буфером,
+только чтение
+</tag-desc>
+
+<tag-name><literal>fromUpstream</literal></tag-name>
+<tag-desc>
+логическое свойство,
+true, если текущий буфер является буфером от проксируемого сервера к клиенту,
+только чтение
+</tag-desc>
+
+<tag-name><literal>buffer</literal></tag-name>
+<tag-desc>
+текущий буфер, доступен для записи
+</tag-desc>
+
+<tag-name><literal>variables{}</literal></tag-name>
+<tag-desc>
+объект переменных nginx, только чтение
+</tag-desc>
+
+<tag-name><literal>OK</literal></tag-name>
+<tag-desc>
+код <literal>OK</literal>
+</tag-desc>
+
+<tag-name><literal>DECLINED</literal></tag-name>
+<tag-desc>
+код <literal>DECLINED</literal>
+</tag-desc>
+
+<tag-name><literal>AGAIN</literal></tag-name>
+<tag-desc>
+код <literal>AGAIN</literal>
+</tag-desc>
+
+<tag-name><literal>ERROR</literal></tag-name>
+<tag-desc>
+код <literal>ERROR</literal>
+</tag-desc>
+
+<tag-name><literal>ABORT</literal></tag-name>
+<tag-desc>
+код <literal>ABORT</literal>
+</tag-desc>
+</list>
+</para>
+
+<para>
+Объект сессии имеет следующие методы:
+
+<list type="tag">
+
+<tag-name><literal>log(<value>строка</value>)</literal></tag-name>
+<tag-desc>
+записывает отправленную <value>строку</value> в лог-файл ошибок
+</tag-desc>
+</list>
+</para>
+
+</section>
+
+</module>

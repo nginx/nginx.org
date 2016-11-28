@@ -1,0 +1,280 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Модуль ngx_http_js_module"
+        link="/ru/docs/http/ngx_http_js_module.html"
+        lang="ru"
+        rev="1">
+
+<section id="summary">
+
+<para>
+Модуль <literal>ngx_http_js_module</literal> позволяет задавать обработчики
+location и переменных на JavaScript.
+</para>
+
+<para>
+По умолчанию этот модуль не собирается, его необходимо собрать с
+модулем nginx JavaScript с помощью конфигурационного параметра
+<literal>--add_module</literal>:
+<example>
+./configure --add-module=<value>path-to-njs</value>/nginx
+</example>
+<link url="http://hg.nginx.org/njs">Репозиторий</link>
+модуля nginx JavaScript можно клонировать следующей командой
+(необходим клиент <link url="https://www.mercurial-scm.org">Mercurial</link>):
+<example>
+hg clone http://hg.nginx.org/njs
+</example>
+Модуль также можно собрать как
+<link doc="../ngx_core_module.xml" id="load_module">динамический</link>:
+<example>
+./configure --add-dynamic_module=<value>path-to-njs</value>/nginx
+</example>
+</para>
+
+</section>
+
+
+<section id="issues" name="Известные проблемы">
+
+<para>
+Модуль экспериментальный, поэтому возможно всё.
+</para>
+
+</section>
+
+
+<section id="example" name="Пример конфигурации">
+
+<para>
+<example>
+js_include http.js;
+
+server {
+    listen 8000;
+
+    location / {
+        js_set     $foo  foo;
+        add_header X-Foo $foo;
+        js_content baz;
+    }
+
+    location /summary {
+        js_set $summary summary;
+        return 200      $summary;
+    }
+}
+</example>
+</para>
+
+<para>
+Файл <path>http.js</path>:
+<example>
+function foo(req, res) {
+    req.log("hello from foo() handler");
+    return "foo";
+}
+
+function summary(req, res) {
+    var a, s, h;
+
+    s = "JS summary\n\n";
+
+    s += "Method: " + req.method + "\n";
+    s += "HTTP version: " + req.httpVersion + "\n";
+    s += "Host: " + req.headers.host + "\n";
+    s += "Remote Address: " + req.remoteAddress + "\n";
+    s += "URI: " + req.uri + "\n";
+
+    s += "Headers:\n";
+    for (h in req.headers) {
+        s += "  header '" + h + "' is '" + req.headers[h] + "'\n";
+    }
+
+    s += "Args:\n";
+    for (a in req.args) {
+        s += "  arg '" + a + "' is '" + req.args[a] + "'\n";
+    }
+
+    return s;
+}
+
+function baz(req, res) {
+    res.headers.foo = 1234;
+    res.status = 200;
+    res.contentType = "text/plain; charset=utf-8";
+    res.contentLength = 15;
+    res.sendHeader();
+    res.send("nginx");
+    res.send("java");
+    res.send("script");
+
+    res.finish();
+}
+</example>
+</para>
+
+</section>
+
+
+<section id="directives" name="Директивы">
+
+<directive name="js_include">
+<syntax><value>файл</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Задаёт файл, позволяющий задавать обработчики location и переменных
+на JavaScript.
+</para>
+
+</directive>
+
+
+<directive name="js_content">
+<syntax><value>функция</value></syntax>
+<default/>
+<context>location</context>
+<context>limit_except</context>
+
+<para>
+Задаёт функцию JavaScript в качестве обработчика содержимого location.
+</para>
+
+</directive>
+
+
+<directive name="js_set">
+<syntax>
+<value>$переменная</value> <value>функция</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Задаёт функцию JavaScript для указанной переменной.
+</para>
+
+</directive>
+
+</section>
+
+
+<section id="arguments" name="Аргументы запроса и ответа">
+<para>
+Каждый HTTP-обработчик JavaScript получает два аргумента: запрос и ответ.
+</para>
+
+<para>
+Объект запроса имеет следующие свойства:
+<list type="tag">
+
+<tag-name><literal>uri</literal></tag-name>
+<tag-desc>
+текущий URI запроса, только чтение
+</tag-desc>
+
+<tag-name><literal>method</literal></tag-name>
+<tag-desc>
+метод запроса, только чтение
+</tag-desc>
+
+<tag-name><literal>httpVersion</literal></tag-name>
+<tag-desc>
+версия HTTP, только чтение
+</tag-desc>
+
+<tag-name><literal>remoteAddress</literal></tag-name>
+<tag-desc>
+адрес клиента, только чтение
+</tag-desc>
+
+<tag-name><literal>headers{}</literal></tag-name>
+<tag-desc>
+объект заголовков запроса, только чтение.
+<para>
+Например, доступ к заголовку <literal>Header-Name</literal>
+можно получить при помощи синтаксиса <literal>headers['Header-Name']</literal>
+или <literal>headers.Header_name</literal>
+</para>
+</tag-desc>
+
+<tag-name><literal>args{}</literal></tag-name>
+<tag-desc>
+объект аргументов запроса, только чтение
+</tag-desc>
+
+<tag-name><literal>variables{}</literal></tag-name>
+<tag-desc>
+объект переменных nginx, только чтение
+</tag-desc>
+
+<tag-name><literal>log(<value>строка</value>)</literal></tag-name>
+<tag-desc>
+записывает <literal>строку</literal> в лог-файл ошибок
+</tag-desc>
+</list>
+</para>
+
+<para>
+Объект ответа имеет следующие свойства:
+<list type="tag">
+
+<tag-name><literal>status</literal></tag-name>
+<tag-desc>
+статус ответа, доступно для записи
+</tag-desc>
+
+<tag-name><literal>headers{}</literal></tag-name>
+<tag-desc>
+объект заголовков ответа
+</tag-desc>
+
+<tag-name><literal>contentType</literal></tag-name>
+<tag-desc>
+значение поля <header>Content-Type</header> заголовка ответа,
+доступно для записи
+</tag-desc>
+
+<tag-name><literal>contentLength</literal></tag-name>
+<tag-desc>
+значение поля <header>Content-Length</header> заголовка ответа,
+доступно для записи
+</tag-desc>
+</list>
+</para>
+
+<para>
+Объект ответа имеет следующие методы:
+<list type="tag">
+
+<tag-name><literal>sendHeader()</literal></tag-name>
+<tag-desc>
+отправляет заголовок HTTP клиенту
+</tag-desc>
+
+<tag-name><literal>send(<value>строка</value>)</literal></tag-name>
+<tag-desc>
+отправляет часть тела ответа клиенту
+</tag-desc>
+
+<tag-name><literal>finish()</literal></tag-name>
+<tag-desc>
+завершает отправку ответа клиенту
+</tag-desc>
+</list>
+</para>
+
+</section>
+
+</module>
