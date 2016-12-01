@@ -8,7 +8,7 @@
 <article name="nginx"
          link="/en/"
          lang="en"
-         rev="66">
+         rev="67">
 
 
 <section>
@@ -200,7 +200,11 @@ coming from one address;
 </listitem>
 
 <listitem>
-<link doc="docs/http/ngx_http_perl_module.xml">Embedded Perl</link>.
+Embedded <link doc="docs/http/ngx_http_perl_module.xml">Perl</link>;
+</listitem>
+
+<listitem>
+<link doc="docs/http/ngx_http_js_module.xml">nginScript</link>.
 </listitem>
 
 </list>
@@ -322,7 +326,11 @@ log writing</link>,
 </listitem>
 
 <listitem>
-<link doc="docs/stream/ngx_stream_split_clients_module.xml">A/B testing</link>.
+<link doc="docs/stream/ngx_stream_split_clients_module.xml">A/B testing</link>;
+</listitem>
+
+<listitem>
+<link doc="docs/stream/ngx_stream_js_module.xml">nginScript</link>.
 </listitem>
 
 </list>
