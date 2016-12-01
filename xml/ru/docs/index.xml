@@ -8,7 +8,7 @@
 <article name="nginx: документация"
          link="/ru/docs/"
          lang="ru"
-         rev="35"
+         rev="36"
          toc="no">
 
 
@@ -88,6 +88,14 @@
 
 <listitem>
 <link doc="stream/stream_processing.xml"/>
+</listitem>
+
+</list>
+
+<list type="bullet">
+
+<listitem>
+<link doc="njs_about.xml"/>
 </listitem>
 
 </list>

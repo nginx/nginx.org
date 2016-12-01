@@ -9,14 +9,14 @@
 <module name="Module ngx_http_js_module"
         link="/en/docs/http/ngx_http_js_module.html"
         lang="en"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
 <para>
 The <literal>ngx_http_js_module</literal> module is used to implement
 location and variable handlers
-in nginScript —
+in <link doc="../njs_about.xml">nginScript</link> —
 a subset of the JavaScript language.
 </para>
 

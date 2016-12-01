@@ -9,14 +9,14 @@
 <module name="Модуль ngx_http_js_module"
         link="/ru/docs/http/ngx_http_js_module.html"
         lang="ru"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
 <para>
 Модуль <literal>ngx_http_js_module</literal> позволяет задавать
 обработчики location и переменных
-на nginScript —
+на <link doc="../njs_about.xml">nginScript</link> —
 подмножестве языка JavaScript.
 </para>
 

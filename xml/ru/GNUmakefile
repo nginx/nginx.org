@@ -19,6 +19,7 @@ DOCS =									\
 		contributing_changes					\
 		beginners_guide						\
 		configure						\
+		njs_about						\
 
 FAQ =									\
 		sys_errlist						\

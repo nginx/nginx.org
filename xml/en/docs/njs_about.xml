@@ -1,0 +1,293 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE article SYSTEM "../../../dtd/article.dtd">
+
+<article name="About nginScript"
+        link="/en/docs/njs_about.html"
+        lang="en"
+        rev="1">
+
+<section id="summary">
+
+<para>
+nginScript is a subset of the JavaScript language that allows
+implementing location and variable handlers in
+<link doc="http/ngx_http_js_module.xml">http</link> and
+<link doc="stream/ngx_stream_js_module.xml">stream</link>.
+nignScript is created in compliance with
+<link url="http://www.ecma-international.org/ecma-262/5.1/">ECMAScript 5.1</link>
+with some
+<link url="http://www.ecma-international.org/ecma-262/6.0/">ECMAScript 6</link>
+extensions.
+The compliance is still evolving.
+</para>
+
+</section>
+
+
+<section id="supported" name="What is currently supported">
+
+<para>
+<list type="bullet">
+
+<listitem>
+boolean values, numbers, strings, objects, arrays,
+functions, and regular expressions
+</listitem>
+
+<listitem>
+ES5.1 operators
+</listitem>
+
+<listitem>
+ES5.1 statements: <literal>var</literal>, <literal>if</literal>,
+<literal>else</literal>, <literal>switch</literal>, <literal>for</literal>,
+<literal>for in</literal>, <literal>while</literal>,
+<literal>do while</literal>, <literal>break</literal>,
+<literal>continue</literal>, <literal>return</literal>, <literal>try</literal>,
+<literal>catch</literal>, <literal>throw</literal>, <literal>finally</literal>
+</listitem>
+
+<listitem>
+ES6 <literal>Number</literal> and
+<literal>Math</literal> properties and methods
+</listitem>
+
+<listitem>
+<literal>String</literal> methods:
+<list type="bullet">
+
+<listitem>
+ES5.1:
+<literal>fromCharCode</literal>, <literal>concat</literal>,
+<literal>slice</literal>, <literal>substring</literal>,
+<literal>substr</literal>, <literal>charAt</literal>,
+<literal>charCodeAt</literal>, <literal>indexOf</literal>,
+<literal>lastIndexOf</literal>, <literal>toLowerCase</literal>,
+<literal>toUpperCase</literal>, <literal>trim</literal>,
+<literal>search</literal>, <literal>match</literal>, <literal>split</literal>,
+<literal>replace</literal>
+</listitem>
+
+<listitem>
+ES6:
+<literal>fromCodePoint</literal>, <literal>codePointAt</literal>,
+<literal>includes</literal>, <literal>startsWith</literal>,
+<literal>endsWith</literal>, <literal>repeat</literal>
+</listitem>
+
+<listitem>
+non-standard:
+<literal>fromUTF8</literal>, <literal>toUTF8</literal>,
+<literal>fromBytes</literal>, <literal>toBytes</literal>
+</listitem>
+</list>
+
+</listitem>
+
+<listitem>
+<literal>Object</literal>:
+rudimentary <literal>Object.create()</literal> support without properties list
+</listitem>
+
+<listitem>
+<literal>Array</literal> methods:
+<list type="bullet">
+<listitem>
+ES5.1:
+<literal>isArray</literal>, <literal>slice</literal>, <literal>splice</literal>,
+<literal>push</literal>, <literal>pop</literal>,<literal>unshift,</literal>
+<literal>shift</literal>, <literal>reverse</literal>, <literal>sort</literal>,
+<literal>join</literal>, <literal>concat</literal>, <literal>indexOf</literal>,
+<literal>lastIndexOf</literal>, <literal>forEach</literal>,
+<literal>some</literal>, <literal>every</literal>, <literal>filter</literal>,
+<literal>map</literal>, <literal>reducde</literal>,
+<literal>reduceRight</literal>
+</listitem>
+
+<listitem>
+ES6: <literal>includes</literal>
+</listitem>
+</list>
+
+</listitem>
+
+<listitem>
+ES5.1 <literal>Function</literal> methods:
+<literal>call</literal>, <literal>apply</literal>, <literal>bind</literal>
+</listitem>
+
+<listitem>
+ES5.1 <literal>RegExp</literal> methods:
+<literal>test</literal>, <literal>exec</literal>
+</listitem>
+
+<listitem>
+ES5.1 <literal>Date</literal> methods
+</listitem>
+
+<listitem>
+ES5.1 global functions:
+<literal>isFinite</literal>, <literal>isNaN</literal>,
+<literal>parseFloat</literal>, <literal>parseInt</literal>,
+<literal>decodeURI</literal>, <literal>decodeURIComponent</literal>,
+<literal>encodeURI</literal>, <literal>encodeURIComponent</literal>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+
+<section id="not_supported" name="What still is not supported">
+
+<para>
+<list type="bullet">
+
+<listitem>
+broken scopes support
+</listitem>
+
+<listitem>
+ES6 <literal>let</literal> and <literal>const</literal> declarations
+</listitem>
+
+<listitem>
+cycle <literal>for</literal> with <literal>var</literal> in declaration
+(<literal>for (var...</literal>)
+</listitem>
+
+<listitem>
+nested functions
+</listitem>
+
+<listitem>
+closures
+</listitem>
+
+<listitem>
+labels
+</listitem>
+
+<listitem>
+<literal>arguments</literal> array
+</listitem>
+
+<listitem>
+<literal>eval</literal> function
+</listitem>
+
+<listitem>
+<literal>JSON</literal> object
+</listitem>
+
+<listitem>
+<literal>Error</literal> object
+</listitem>
+
+<listitem>
+<literal>setTimeout</literal>, <literal>setInterval</literal>,
+<literal>setImmediate</literal> functions
+</listitem>
+
+<listitem>
+functions hoisting
+</listitem>
+
+<listitem>
+non-integer fractions (<literal>.235</literal>),
+exponential (<literal>3.35e10</literal>),
+binary (<literal>0b0101</literal>),
+octal (<literal>0o77</literal>),
+hexadecimal (<literal>0x1123</literal>) literals
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+
+<section id="install" name="Download and install">
+
+<para>
+nginScript is available in two modules:
+<list type="bullet">
+
+<listitem>
+<link doc="http/ngx_http_js_module.xml">ngx_http_js_module</link>
+</listitem>
+
+<listitem>
+<link doc="stream/ngx_stream_js_module.xml">ngx_stream_js_module</link>
+</listitem>
+
+</list>
+Both modules are not built by default,
+they should be either compiled from the sources
+or installed as a Linux package.
+</para>
+
+
+<section id="install_package" name="Installing as a Linux package">
+<para>
+For Linux, nginScript modules
+<link doc="../linux_packages.xml" id="dynmodules">packages</link> can be used:
+<list type="bullet">
+
+<listitem>
+<literal>nginx-module-njs</literal> — nginScript
+<link doc="ngx_core_module.xml" id="load_module">dynamic</link> modules
+</listitem>
+
+<listitem>
+<literal>nginx-module-njs-dbg</literal> — debug symbols for the
+<literal>nginx-module-njs</literal> package
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+
+<section id="install_sources" name="Building from the sources">
+
+<para>
+The <link url="http://hg.nginx.org/njs">repository</link>
+with nginScript sources can be cloned with the following command:
+(requires <link url="https://www.mercurial-scm.org">Mercurial</link> client):
+<example>
+hg clone http://hg.nginx.org/njs
+</example>
+Then the modules should be compiled using the
+<literal>--add_module</literal> configuration parameter:
+<example>
+./configure --add-module=<value>path-to-njs</value>/nginx
+</example>
+The modules can also be built as
+<link doc="ngx_core_module.xml" id="load_module">dynamic</link>:
+<example>
+./configure --add-dynamic_module=<value>path-to-njs</value>/nginx
+</example>
+</para>
+
+</section>
+
+</section>
+
+
+<section id="issues" name="Known Issues">
+
+<para>
+Both modules are experimental, caveat emptor applies.
+</para>
+
+</section>
+
+</article>
