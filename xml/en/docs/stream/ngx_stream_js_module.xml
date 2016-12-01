@@ -9,24 +9,25 @@
 <module name="Module ngx_stream_js_module"
         link="/en/docs/stream/ngx_stream_js_module.html"
         lang="en"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
 <para>
-The <literal>ngx_stream_js_module</literal> module is used to
-implement handlers in JavaScript.
+The <literal>ngx_stream_js_module</literal> module is used to implement
+handlers in nginScript —
+a subset of the JavaScript language.
 </para>
 
 <para>
 This module is not built by default, it should be compiled with
-nginx JavaScript module using the
+the nginScript module using the
 <literal>--add_module</literal> configuration parameter:
 <example>
 ./configure --add-module=<value>path-to-njs</value>/nginx
 </example>
 The <link url="http://hg.nginx.org/njs">repository</link>
-with nginx JavaScript module can be cloned with the following command
+with the nginScript module can be cloned with the following command
 (requires <link url="https://www.mercurial-scm.org">Mercurial</link> client):
 <example>
 hg clone http://hg.nginx.org/njs
@@ -177,7 +178,7 @@ function xyz(s) {
 <context>server</context>
 
 <para>
-Sets a JavaScript function which will be called at the
+Sets an nginScript function which will be called at the
 <link doc="stream_processing.xml" id="access_phase">access</link> phase.
 </para>
 
@@ -204,7 +205,7 @@ Sets a data filter.
 <context>server</context>
 
 <para>
-Specifies a file that implements server and variable handlers in JavaScript.
+Specifies a file that implements server and variable handlers in nginScript.
 </para>
 
 </directive>
@@ -217,7 +218,7 @@ Specifies a file that implements server and variable handlers in JavaScript.
 <context>server</context>
 
 <para>
-Sets a JavaScript function which will be called at the
+Sets an nginScript function which will be called at the
 <link doc="stream_processing.xml" id="preread_phase">preread</link> phase.
 </para>
 
@@ -232,7 +233,7 @@ Sets a JavaScript function which will be called at the
 <context>server</context>
 
 <para>
-Sets a JavaScript function for the specified variable.
+Sets an nginScript function for the specified variable.
 </para>
 
 </directive>
@@ -242,7 +243,7 @@ Sets a JavaScript function for the specified variable.
 
 <section id="properties" name="Session Object Properties">
 <para>
-Each stream JavaScript handler receives one argument, a stream session object.
+Each stream nginScript handler receives one argument, a stream session object.
 </para>
 
 <para>

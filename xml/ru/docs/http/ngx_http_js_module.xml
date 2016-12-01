@@ -9,24 +9,26 @@
 <module name="Модуль ngx_http_js_module"
         link="/ru/docs/http/ngx_http_js_module.html"
         lang="ru"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
 <para>
-Модуль <literal>ngx_http_js_module</literal> позволяет задавать обработчики
-location и переменных на JavaScript.
+Модуль <literal>ngx_http_js_module</literal> позволяет задавать
+обработчики location и переменных
+на nginScript —
+подмножестве языка JavaScript.
 </para>
 
 <para>
 По умолчанию этот модуль не собирается, его необходимо собрать с
-модулем nginx JavaScript с помощью конфигурационного параметра
+модулем nginScript с помощью конфигурационного параметра
 <literal>--add_module</literal>:
 <example>
 ./configure --add-module=<value>path-to-njs</value>/nginx
 </example>
 <link url="http://hg.nginx.org/njs">Репозиторий</link>
-модуля nginx JavaScript можно клонировать следующей командой
+модуля nginScript можно клонировать следующей командой
 (необходим клиент <link url="https://www.mercurial-scm.org">Mercurial</link>):
 <example>
 hg clone http://hg.nginx.org/njs
@@ -134,7 +136,7 @@ function baz(req, res) {
 
 <para>
 Задаёт файл, позволяющий задавать обработчики location и переменных
-на JavaScript.
+на nginScript.
 </para>
 
 </directive>
@@ -147,7 +149,7 @@ function baz(req, res) {
 <context>limit_except</context>
 
 <para>
-Задаёт функцию JavaScript в качестве обработчика содержимого location.
+Задаёт функцию nginScript в качестве обработчика содержимого location.
 </para>
 
 </directive>
@@ -162,7 +164,7 @@ function baz(req, res) {
 <context>location</context>
 
 <para>
-Задаёт функцию JavaScript для указанной переменной.
+Задаёт функцию nginScript для указанной переменной.
 </para>
 
 </directive>
@@ -172,7 +174,7 @@ function baz(req, res) {
 
 <section id="arguments" name="Аргументы запроса и ответа">
 <para>
-Каждый HTTP-обработчик JavaScript получает два аргумента: запрос и ответ.
+Каждый HTTP-обработчик nginScript получает два аргумента: запрос и ответ.
 </para>
 
 <para>

@@ -9,24 +9,25 @@
 <module name="Модуль ngx_stream_js_module"
         link="/ru/docs/stream/ngx_stream_js_module.html"
         lang="ru"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
 <para>
 Модуль <literal>ngx_stream_js_module</literal> позволяет задавать
-обработчики на JavaScript.
+обработчики на nginScript —
+подмножестве языка JavaScript.
 </para>
 
 <para>
 По умолчанию этот модуль не собирается, его необходимо собрать с
-модулем nginx JavaScript с помощью конфигурационного параметра
+модулем nginScript с помощью конфигурационного параметра
 <literal>--add_module</literal>:
 <example>
 ./configure --add-module=<value>path-to-njs</value>/nginx
 </example>
 <link url="http://hg.nginx.org/njs">Репозиторий</link>
-модуля nginx JavaScript можно клонировать следующей командой
+модуля nginScript можно клонировать следующей командой
 (необходим клиент <link url="https://www.mercurial-scm.org">Mercurial</link>):
 <example>
 hg clone http://hg.nginx.org/njs
@@ -177,7 +178,7 @@ function xyz(s) {
 <context>server</context>
 
 <para>
-Задаёт функцию JavaScript, которая будет вызываться в
+Задаёт функцию nginScript, которая будет вызываться в
 <link doc="stream_processing.xml" id="access_phase">access</link>-фазе.
 </para>
 
@@ -205,7 +206,7 @@ function xyz(s) {
 
 <para>
 Задаёт файл, который позволяет
-задавать обработчики server и переменных на JavaScript.
+задавать обработчики server и переменных на nginScript.
 </para>
 
 </directive>
@@ -218,7 +219,7 @@ function xyz(s) {
 <context>server</context>
 
 <para>
-Задаёт функцию JavaScript, которая будет вызываться в
+Задаёт функцию nginScript, которая будет вызываться в
 <link doc="stream_processing.xml" id="preread_phase">preread</link>-фазе.
 </para>
 
@@ -233,7 +234,7 @@ function xyz(s) {
 <context>server</context>
 
 <para>
-Задаёт функцию JavaScript для указанной переменной.
+Задаёт функцию nginScript для указанной переменной.
 </para>
 
 </directive>
@@ -243,7 +244,7 @@ function xyz(s) {
 
 <section id="properties" name="Свойства объекта сессии">
 <para>
-Каждый stream-обработчик JavaScript получает один аргумент:
+Каждый stream-обработчик nginScript получает один аргумент:
 объект stream-сессии.
 </para>
 

@@ -9,24 +9,26 @@
 <module name="Module ngx_http_js_module"
         link="/en/docs/http/ngx_http_js_module.html"
         lang="en"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
 <para>
 The <literal>ngx_http_js_module</literal> module is used to implement
-location and variable handlers in JavaScript.
+location and variable handlers
+in nginScript —
+a subset of the JavaScript language.
 </para>
 
 <para>
 This module is not built by default, it should be compiled with
-nginx JavaScript module using the
+the nginScript module using the
 <literal>--add_module</literal> configuration parameter:
 <example>
 ./configure --add-module=<value>path-to-njs</value>/nginx
 </example>
 The <link url="http://hg.nginx.org/njs">repository</link>
-with nginx JavaScript module can be cloned with the following command
+with the nginScript module can be cloned with the following command
 (requires <link url="https://www.mercurial-scm.org">Mercurial</link> client):
 <example>
 hg clone http://hg.nginx.org/njs
@@ -133,7 +135,7 @@ function baz(req, res) {
 <context>location</context>
 
 <para>
-Specifies a file that implements location and variable handlers in JavaScript.
+Specifies a file that implements location and variable handlers in nginScript.
 </para>
 
 </directive>
@@ -146,7 +148,7 @@ Specifies a file that implements location and variable handlers in JavaScript.
 <context>limit_except</context>
 
 <para>
-Sets a JavaScript function as a location content handler.
+Sets an nginScript function as a location content handler.
 </para>
 
 </directive>
@@ -161,7 +163,7 @@ Sets a JavaScript function as a location content handler.
 <context>location</context>
 
 <para>
-Sets a JavaScript function for the specified variable.
+Sets an nginScript function for the specified variable.
 </para>
 
 </directive>
@@ -171,7 +173,7 @@ Sets a JavaScript function for the specified variable.
 
 <section id="arguments" name="Request and Response Arguments">
 <para>
-Each HTTP JavaScript handler receives two arguments, request and response.
+Each HTTP nginScript handler receives two arguments, request and response.
 </para>
 
 <para>
