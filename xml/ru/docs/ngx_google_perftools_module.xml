@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../dtd/module.dtd">
+
+<module name="Модуль ngx_google_perftools_module"
+        link="/ru/docs/ngx_google_perftools_module.html"
+        lang="ru"
+        rev="1">
+
+<section id="summary">
+
+<para>
+Модуль <literal>ngx_google_perftoos_module</literal> (0.6.29) включает
+поддержку профилирования рабочих процессов nginx при помощи
+<link url="https://github.com/gperftools/gperftools">Google Performance Tools</link>.
+Модуль предназначен для разработчиков nginx.
+</para>
+
+<para>
+По умолчанию этот модуль не собирается, его сборку необходимо
+разрешить с помощью конфигурационного параметра
+<literal>--with-google_perftools_module</literal>.
+<note>
+Для сборки и работы этого модуля нужна библиотека
+<link url="https://github.com/gperftools/gperftools">gperftools</link>.
+</note>
+</para>
+
+</section>
+
+
+<section id="example" name="Пример конфигурации">
+
+<para>
+<example>
+google_perftools_profiles /path/to/profile;
+</example>
+Профили будут сохраняться как
+<literal>/path/to/profile.&lt;worker_pid&gt;</literal>.
+</para>
+
+</section>
+
+
+<section id="directives" name="Директивы">
+
+<directive name="google_perftools_profiles">
+<syntax><value>файл</value></syntax>
+<default/>
+<context>main</context>
+
+<para>
+Задаёт имя файла, который хранит информацию о профилировании
+рабочего процесса nginx.
+Идентификатор рабочего процесса всегда является частью имени файла
+и прибавляется в конце имени после точки.
+</para>
+
+</directive>
+
+</section>
+
+</module>

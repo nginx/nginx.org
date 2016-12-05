@@ -8,7 +8,7 @@
 <article name="nginx documentation"
          link="/en/docs/"
          lang="en"
-         rev="36"
+         rev="37"
          toc="no">
 
 
@@ -580,6 +580,17 @@ ngx_stream_ssl_preread_module</link>
 <listitem>
 <link doc="stream/ngx_stream_upstream_module.xml">
 ngx_stream_upstream_module</link>
+</listitem>
+
+</list>
+</para>
+
+<para>
+<list type="bullet">
+
+<listitem>
+<link doc="ngx_google_perftools_module.xml">
+ngx_google_perftools_module</link>
 </listitem>
 
 </list>
