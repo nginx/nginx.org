@@ -9,7 +9,7 @@
 <article name="About nginScript"
         link="/en/docs/njs_about.html"
         lang="en"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
@@ -110,7 +110,7 @@ ES5.1:
 </listitem>
 
 <listitem>
-ES6: <literal>includes</literal>
+ES7: <literal>includes</literal>
 </listitem>
 </list>
 
@@ -144,7 +144,7 @@ ES5.1 global functions:
 </section>
 
 
-<section id="not_supported" name="What still is not supported">
+<section id="not_supported" name="What is not supported yet">
 
 <para>
 <list type="bullet">

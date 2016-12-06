@@ -9,7 +9,7 @@
 <article name="Информация о nginScript"
         link="/ru/docs/njs_about.html"
         lang="ru"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
@@ -109,7 +109,7 @@ ES5.1:
 </listitem>
 
 <listitem>
-ES6: <literal>includes</literal>
+ES7: <literal>includes</literal>
 </listitem>
 </list>
 
@@ -200,7 +200,7 @@ labels
 
 <listitem>
 дроби без целой части (<literal>.235</literal>),
-экспоненциальные записи (<literal>3.35e10</literal>),
+экспоненциальные (<literal>3.35e10</literal>),
 двоичные (<literal>0b0101</literal>),
 восьмеричные (<literal>0o77</literal>),
 шестнадцатеричные (<literal>0x1123</literal>) литералы
