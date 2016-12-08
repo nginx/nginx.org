@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_ssl_module"
         link="/ru/docs/http/ngx_http_ssl_module.html"
         lang="ru"
-        rev="25">
+        rev="26">
 
 <section id="summary">
 
@@ -822,6 +822,22 @@ ssl_stapling_responder http://ocsp.example.com/;
 <note>
 До версии 1.11.6 переменная называлась <var>$ssl_client_s_dn</var>.
 </note>
+</tag-desc>
+
+<tag-name id="var_ssl_client_v_end"><var>$ssl_client_v_end</var></tag-name>
+<tag-desc>
+возвращает дату окончания срока действия клиентского сертификата (1.11.7);
+</tag-desc>
+
+<tag-name id="var_ssl_client_v_remain"><var>$ssl_client_v_remain</var></tag-name>
+<tag-desc>
+возвращает число дней,
+оставшихся до истечения срока действия клиентского сертификата (1.11.7);
+</tag-desc>
+
+<tag-name id="var_ssl_client_v_start"><var>$ssl_client_v_start</var></tag-name>
+<tag-desc>
+возвращает дату начала срока действия клиентского сертификата (1.11.7);
 </tag-desc>
 
 <tag-name id="var_ssl_client_verify"><var>$ssl_client_verify</var></tag-name>

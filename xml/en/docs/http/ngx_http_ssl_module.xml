@@ -10,7 +10,7 @@
 <module name="Module ngx_http_ssl_module"
         link="/en/docs/http/ngx_http_ssl_module.html"
         lang="en"
-        rev="25">
+        rev="26">
 
 <section id="summary">
 
@@ -820,6 +820,22 @@ for an established SSL connection;
 <note>
 Prior to version 1.11.6, the variable name was <var>$ssl_client_i_dn</var>.
 </note>
+</tag-desc>
+
+<tag-name id="var_ssl_client_v_end"><var>$ssl_client_v_end</var></tag-name>
+<tag-desc>
+returns the end date of the client certificate (1.11.7);
+</tag-desc>
+
+<tag-name id="var_ssl_client_v_remain"><var>$ssl_client_v_remain</var></tag-name>
+<tag-desc>
+returns the number of days
+until the client certificate expires (1.11.7);
+</tag-desc>
+
+<tag-name id="var_ssl_client_v_start"><var>$ssl_client_v_start</var></tag-name>
+<tag-desc>
+returns the start date of the client certificate (1.11.7);
 </tag-desc>
 
 <tag-name id="var_ssl_client_verify"><var>$ssl_client_verify</var></tag-name>
