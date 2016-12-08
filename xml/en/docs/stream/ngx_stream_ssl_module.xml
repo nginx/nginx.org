@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_ssl_module"
         link="/en/docs/stream/ngx_stream_ssl_module.html"
         lang="en"
-        rev="11">
+        rev="12">
 
 <section id="summary">
 
@@ -433,6 +433,38 @@ since 1.11.2.
 <tag-desc>
 returns the string of ciphers used
 for an established SSL connection;
+</tag-desc>
+
+<tag-name id="var_ssl_ciphers"><var>$ssl_ciphers</var></tag-name>
+<tag-desc>
+returns the list of ciphers supported by the client (1.11.7).
+Known ciphers are listed by names, unknown are shown in hexadecimal,
+for example:
+<example>
+AES128-SHA:AES256-SHA:0x00ff
+</example>
+<note>
+The variable is fully supported only when using OpenSSL version 1.0.2 or higher.
+With older versions, the variable is available
+only for new sessions and lists only known ciphers.
+</note>
+</tag-desc>
+
+<tag-name id="var_ssl_curves"><var>$ssl_curves</var></tag-name>
+<tag-desc>
+returns the list of curves supported by the client (1.11.7).
+Known curves are listed by names, unknown are shown in hexadecimal,
+for example:
+<example>
+0x001d:prime256v1:secp521r1:secp384r1
+</example>
+<note>
+The variable is supported only when using OpenSSL version 1.0.2 or higher.
+With older versions, the variable value will be an empty string.
+</note>
+<note>
+The variable is available only for new sessions.
+</note>
 </tag-desc>
 
 <tag-name id="var_ssl_protocol"><var>$ssl_protocol</var></tag-name>

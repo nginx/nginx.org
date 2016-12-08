@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_ssl_module"
         link="/ru/docs/stream/ngx_stream_ssl_module.html"
         lang="ru"
-        rev="11">
+        rev="12">
 
 <section id="summary">
 
@@ -431,6 +431,39 @@ openssl rand 48 > ticket.key
 <tag-name id="var_ssl_cipher"><var>$ssl_cipher</var></tag-name>
 <tag-desc>
 возвращает строку используемых шифров для установленного SSL-соединения;
+</tag-desc>
+
+<tag-name id="var_ssl_ciphers"><var>$ssl_ciphers</var></tag-name>
+<tag-desc>
+возвращает список шифров, поддерживаемых клиентом (1.11.7).
+Известные шифры указаны по имени, неизвестные указаны в шестнадцатеричном виде,
+например:
+<example>
+AES128-SHA:AES256-SHA:0x00ff
+</example>
+<note>
+Переменная полностью поддерживается при использовании OpenSSL версии 1.0.2
+и выше.
+При использовании более старых версий переменная доступна
+только для новых сессий и может содержать только известные шифры.
+</note>
+</tag-desc>
+
+<tag-name id="var_ssl_curves"><var>$ssl_curves</var></tag-name>
+<tag-desc>
+возвращает список кривых, поддерживаемых клиентом (1.11.7).
+Известные кривые указаны по имени, неизвестные указаны в шестнадцатеричном виде,
+например:
+<example>
+0x001d:prime256v1:secp521r1:secp384r1
+</example>
+<note>
+Переменная поддерживается при использовании OpenSSL версии 1.0.2 и выше.
+При использовании более старых версий значением переменной будет пустая строка.
+</note>
+<note>
+Переменная доступна только для новых сессий.
+</note>
 </tag-desc>
 
 <tag-name id="var_ssl_protocol"><var>$ssl_protocol</var></tag-name>
