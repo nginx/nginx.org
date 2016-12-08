@@ -10,7 +10,7 @@
 <module name="Модуль ngx_mail_auth_http_module"
         link="/ru/docs/mail/ngx_mail_auth_http_module.html"
         lang="ru"
-        rev="6">
+        rev="7">
 
 <section id="directives" name="Директивы">
 
@@ -206,8 +206,12 @@ Auth-SMTP-To: RCPT TO: &lt;postmaster@mail.example.com&gt;
 <link doc="ngx_mail_ssl_module.xml" id="ssl_verify_client"/> включена,
 заголовок <header>Auth-SSL-Verify</header> содержит
 результат проверки клиентского сертификата:
-“<literal>SUCCESS</literal>”, “<literal>FAILED</literal>” и,
-если сертификат не был предоставлен — “<literal>NONE</literal>”.
+“<literal>SUCCESS</literal>”, “<literal>FAILED:</literal><value>reason</value>”
+(1.11.7) и, если сертификат не был предоставлен — “<literal>NONE</literal>”.
+<note>
+До версии 1.11.7 результат “<literal>FAILED</literal>”
+не содержал строку <value>reason</value>.
+</note>
 Если клиентский сертификат был предоставлен,
 информация о нём передаётся в следующих заголовках запроса:
 <header>Auth-SSL-Subject</header>, <header>Auth-SSL-Issuer</header>,
