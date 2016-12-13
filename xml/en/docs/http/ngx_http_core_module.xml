@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="63">
+        rev="64">
 
 <section id="directives" name="Directives">
 
@@ -38,6 +38,7 @@ location /video/ {
 
 <para>
 On FreeBSD, AIO can be used starting from FreeBSD&nbsp;4.3.
+Prior to FreeBSD&nbsp;11.0,
 AIO can either be linked statically into a kernel:
 <example>
 options VFS_AIO
