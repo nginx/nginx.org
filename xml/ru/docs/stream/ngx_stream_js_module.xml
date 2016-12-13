@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_js_module"
         link="/ru/docs/stream/ngx_stream_js_module.html"
         lang="ru"
-        rev="4">
+        rev="5">
 
 <section id="summary">
 
@@ -201,7 +201,6 @@ function xyz(s) {
 <syntax><value>файл</value></syntax>
 <default/>
 <context>stream</context>
-<context>server</context>
 
 <para>
 Задаёт файл, который позволяет

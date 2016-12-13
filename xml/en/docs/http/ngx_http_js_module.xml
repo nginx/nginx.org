@@ -9,7 +9,7 @@
 <module name="Module ngx_http_js_module"
         link="/en/docs/http/ngx_http_js_module.html"
         lang="en"
-        rev="4">
+        rev="5">
 
 <section id="summary">
 
@@ -132,8 +132,6 @@ function baz(req, res) {
 <syntax><value>file</value></syntax>
 <default/>
 <context>http</context>
-<context>server</context>
-<context>location</context>
 
 <para>
 Specifies a file that implements location and variable handlers in nginScript.

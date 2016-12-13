@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_js_module"
         link="/en/docs/stream/ngx_stream_js_module.html"
         lang="en"
-        rev="4">
+        rev="5">
 
 <section id="summary">
 
@@ -201,7 +201,6 @@ Sets a data filter.
 <syntax><value>file</value></syntax>
 <default/>
 <context>stream</context>
-<context>server</context>
 
 <para>
 Specifies a file that implements server and variable handlers in nginScript.
