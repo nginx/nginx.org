@@ -9,7 +9,7 @@
 <module name="Module ngx_http_js_module"
         link="/en/docs/http/ngx_http_js_module.html"
         lang="en"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -58,18 +58,19 @@ The module is experimental, caveat emptor applies.
 <example>
 js_include http.js;
 
+js_set $foo     foo;
+js_set $summary summary;
+
 server {
     listen 8000;
 
     location / {
-        js_set     $foo  foo;
         add_header X-Foo $foo;
         js_content baz;
     }
 
     location /summary {
-        js_set $summary summary;
-        return 200      $summary;
+        return 200 $summary;
     }
 }
 </example>
@@ -159,8 +160,6 @@ Sets an nginScript function as a location content handler.
 <value>$variable</value> <value>function</value></syntax>
 <default/>
 <context>http</context>
-<context>server</context>
-<context>location</context>
 
 <para>
 Sets an nginScript function for the specified variable.

@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_js_module"
         link="/ru/docs/http/ngx_http_js_module.html"
         lang="ru"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -58,18 +58,19 @@ hg clone http://hg.nginx.org/njs
 <example>
 js_include http.js;
 
+js_set $foo     foo;
+js_set $summary summary;
+
 server {
     listen 8000;
 
     location / {
-        js_set     $foo  foo;
         add_header X-Foo $foo;
         js_content baz;
     }
 
     location /summary {
-        js_set $summary summary;
-        return 200      $summary;
+        return 200 $summary;
     }
 }
 </example>
@@ -160,8 +161,6 @@ function baz(req, res) {
 <value>$переменная</value> <value>функция</value></syntax>
 <default/>
 <context>http</context>
-<context>server</context>
-<context>location</context>
 
 <para>
 Задаёт функцию nginScript для указанной переменной.

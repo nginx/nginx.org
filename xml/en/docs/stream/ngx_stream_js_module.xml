@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_js_module"
         link="/en/docs/stream/ngx_stream_js_module.html"
         lang="en"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -58,15 +58,14 @@ The module is experimental, caveat emptor applies.
 stream {
     js_include stream.js;
 
+    js_set $foo foo;
+    js_set $bar bar;
+
     server {
         listen 12345;
 
         js_preread qux;
-
-        js_set $foo foo;
-        js_set $bar bar;
-
-        return foo;
+        return     foo;
     }
 
     server {
@@ -230,7 +229,6 @@ Sets an nginScript function which will be called at the
 <value>$variable</value> <value>function</value></syntax>
 <default/>
 <context>stream</context>
-<context>server</context>
 
 <para>
 Sets an nginScript function for the specified variable.
