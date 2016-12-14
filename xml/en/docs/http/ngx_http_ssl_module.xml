@@ -10,7 +10,7 @@
 <module name="Module ngx_http_ssl_module"
         link="/en/docs/http/ngx_http_ssl_module.html"
         lang="en"
-        rev="28">
+        rev="29">
 
 <section id="summary">
 
@@ -857,7 +857,7 @@ returns the start date of the client certificate (1.11.7);
 <tag-desc>
 returns the result of client certificate verification:
 “<literal>SUCCESS</literal>”, “<literal>FAILED:</literal><value>reason</value>”,
-(1.11.7) and “<literal>NONE</literal>” if a certificate was not present;
+and “<literal>NONE</literal>” if a certificate was not present;
 <note>
 Prior to version 1.11.7, the “<literal>FAILED</literal>” result
 did not contain the <value>reason</value> string.
