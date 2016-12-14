@@ -9,7 +9,7 @@
 <article name="Информация о nginScript"
         link="/ru/docs/njs_about.html"
         lang="ru"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -34,7 +34,7 @@ c некоторыми расширениями
 <list type="bullet">
 
 <listitem>
-логические значения, числа, строки, объекты, массивы,
+Логические значения, числа, строки, объекты, массивы,
 функции и регулярные выражения
 </listitem>
 
@@ -149,7 +149,7 @@ ES5.1 глобальные функции:
 <list type="bullet">
 
 <listitem>
-поддержка broken scopes
+Scopes
 </listitem>
 
 <listitem>

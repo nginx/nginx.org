@@ -9,7 +9,7 @@
 <article name="About nginScript"
         link="/en/docs/njs_about.html"
         lang="en"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -35,7 +35,7 @@ The compliance is still evolving.
 <list type="bullet">
 
 <listitem>
-boolean values, numbers, strings, objects, arrays,
+Boolean values, numbers, strings, objects, arrays,
 functions, and regular expressions
 </listitem>
 
@@ -150,7 +150,7 @@ ES5.1 global functions:
 <list type="bullet">
 
 <listitem>
-broken scopes support
+Scopes
 </listitem>
 
 <listitem>
