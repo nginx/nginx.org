@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_upstream_module"
         link="/ru/docs/http/ngx_http_upstream_module.html"
         lang="ru"
-        rev="56">
+        rev="57">
 
 <section id="summary">
 
@@ -760,6 +760,15 @@ server {
 <tag-desc>
 задаёт интервал между двумя последовательными проверками,
 по умолчанию 5 секунд;
+</tag-desc>
+
+<tag-name id="health_check_jitter">
+<literal>jitter</literal>=<value>время</value>
+</tag-name>
+<tag-desc>
+задаёт время, в пределах которого
+случайным образом задерживается каждая проверка,
+по умолчанию задержки нет;
 </tag-desc>
 
 <tag-name id="fails">

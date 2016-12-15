@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_upstream_module"
         link="/en/docs/stream/ngx_stream_upstream_module.html"
         lang="en"
-        rev="21">
+        rev="22">
 
 <section id="summary">
 
@@ -504,6 +504,15 @@ The following optional parameters are supported:
 <tag-desc>
 sets the interval between two consecutive health checks,
 by default, 5 seconds;
+</tag-desc>
+
+<tag-name id="health_check_jitter">
+<literal>jitter</literal>=<value>time</value>
+</tag-name>
+<tag-desc>
+sets the time within which
+each health check will be randomly delayed,
+by default, there is no delay;
 </tag-desc>
 
 <tag-name id="fails">

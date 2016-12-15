@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_upstream_module"
         link="/ru/docs/stream/ngx_stream_upstream_module.html"
         lang="ru"
-        rev="21">
+        rev="22">
 
 <section id="summary">
 
@@ -504,6 +504,15 @@ hash $remote_addr;
 <tag-desc>
 задаёт интервал между двумя последовательными проверками,
 по умолчанию 5 секунд;
+</tag-desc>
+
+<tag-name id="health_check_jitter">
+<literal>jitter</literal>=<value>время</value>
+</tag-name>
+<tag-desc>
+задаёт время, в пределах которого
+случайным образом задерживается каждая проверка,
+по умолчанию задержки нет;
 </tag-desc>
 
 <tag-name id="fails">
