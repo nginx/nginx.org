@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_ssl_module"
         link="/ru/docs/stream/ngx_stream_ssl_module.html"
         lang="ru"
-        rev="12">
+        rev="13">
 
 <section id="summary">
 
@@ -157,6 +157,44 @@ ssl_ciphers ALL:!aNULL:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP;
 <para>
 Полный список можно посмотреть с помощью команды
 “<command>openssl ciphers</command>”.
+</para>
+
+</directive>
+
+
+<directive name="ssl_client_certificate">
+<syntax><value>файл</value></syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.11.8</appeared-in>
+
+<para>
+Указывает <value>файл</value> с доверенными сертификатами CA в формате
+PEM, которые используются для
+<link id="ssl_verify_client">проверки</link> клиентских сертификатов.
+</para>
+
+<para>
+Список сертификатов будет отправляться клиентам.
+Если это нежелательно, можно воспользоваться директивой
+<link id="ssl_trusted_certificate"/>.
+</para>
+
+</directive>
+
+
+<directive name="ssl_crl">
+<syntax><value>файл</value></syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.11.8</appeared-in>
+
+<para>
+Указывает <value>файл</value> с отозванными сертификатами (CRL)
+в формате PEM, используемыми для
+<link id="ssl_verify_client">проверки</link> клиентских сертификатов.
 </para>
 
 </directive>
@@ -418,6 +456,75 @@ openssl rand 48 > ticket.key
 
 </directive>
 
+
+<directive name="ssl_trusted_certificate">
+<syntax><value>файл</value></syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.11.8</appeared-in>
+
+<para>
+Задаёт <value>файл</value> с доверенными сертификатами CA в формате PEM,
+которые используются для <link id="ssl_verify_client">проверки</link>
+клиентских сертификатов.
+</para>
+
+<para>
+В отличие от <link id="ssl_client_certificate"/>, список этих сертификатов
+не будет отправляться клиентам.
+</para>
+
+</directive>
+
+
+<directive name="ssl_verify_client">
+<syntax>
+    <literal>on</literal> | <literal>off</literal> |
+    <literal>optional</literal> | <literal>optional_no_ca</literal></syntax>
+<default>off</default>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.11.8</appeared-in>
+
+
+<para>
+Разрешает проверку клиентских сертификатов.
+Результат проверки доступен через переменную
+<link id="var_ssl_client_verify">$ssl_client_verify</link>.
+</para>
+
+<para>
+Параметр <literal>optional</literal> запрашивает клиентский
+сертификат, и если сертификат был предоставлен, проверяет его.
+</para>
+
+<para>
+Параметр <literal>optional_no_ca</literal>
+запрашивает сертификат
+клиента, но не требует, чтобы он был подписан доверенным сертификатом CA.
+Это предназначено для случаев, когда фактическая проверка сертификата
+осуществляется внешним по отношению к nginx’у сервисом.
+Содержимое сертификата доступно через переменную
+<link id="var_ssl_client_cert">$ssl_client_cert</link>.
+</para>
+
+</directive>
+
+
+<directive name="ssl_verify_depth">
+<syntax><value>число</value></syntax>
+<default>1</default>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.11.8</appeared-in>
+
+<para>
+Устанавливает глубину проверки в цепочке клиентских сертификатов.
+</para>
+
+</directive>
+
 </section>
 
 
@@ -447,6 +554,69 @@ AES128-SHA:AES256-SHA:0x00ff
 При использовании более старых версий переменная доступна
 только для новых сессий и может содержать только известные шифры.
 </note>
+</tag-desc>
+
+<tag-name id="var_ssl_client_cert"><var>$ssl_client_cert</var></tag-name>
+<tag-desc>
+возвращает клиентский сертификат
+для установленного SSL-соединения в формате PEM
+перед каждой строкой которого, кроме первой, вставляется символ табуляции(1.11.8);
+</tag-desc>
+
+<tag-name id="var_ssl_client_fingerprint"><var>$ssl_client_fingerprint</var></tag-name>
+<tag-desc>
+возвращает SHA1-отпечаток клиентского сертификата
+для установленного SSL-соединения (1.11.8);
+</tag-desc>
+
+<tag-name id="var_ssl_client_i_dn"><var>$ssl_client_i_dn</var></tag-name>
+<tag-desc>
+возвращает строку “issuer DN” клиентского сертификата
+для установленного SSL-соединения согласно
+<link url="https://tools.ietf.org/html/rfc2253">RFC 2253</link> (1.11.8);
+</tag-desc>
+
+<tag-name id="var_ssl_client_raw_cert"><var>$ssl_client_raw_cert</var>
+</tag-name>
+<tag-desc>
+возвращает клиентский сертификат
+для установленного SSL-соединения в формате PEM (1.11.8);
+</tag-desc>
+
+<tag-name id="var_ssl_client_s_dn"><var>$ssl_client_s_dn</var></tag-name>
+<tag-desc>
+возвращает строку “subject DN” клиентского сертификата
+для установленного SSL-соединения согласно
+<link url="https://tools.ietf.org/html/rfc2253">RFC 2253</link> (1.11.8);
+</tag-desc>
+
+<tag-name id="var_ssl_client_serial"><var>$ssl_client_serial</var></tag-name>
+<tag-desc>
+возвращает серийный номер клиентского сертификата
+для установленного SSL-соединения (1.11.8);
+</tag-desc>
+
+<tag-name id="var_ssl_client_v_end"><var>$ssl_client_v_end</var></tag-name>
+<tag-desc>
+возвращает дату окончания срока действия клиентского сертификата (1.11.8);
+</tag-desc>
+
+<tag-name id="var_ssl_client_v_remain"><var>$ssl_client_v_remain</var></tag-name>
+<tag-desc>
+возвращает число дней,
+оставшихся до истечения срока действия клиентского сертификата (1.11.8);
+</tag-desc>
+
+<tag-name id="var_ssl_client_v_start"><var>$ssl_client_v_start</var></tag-name>
+<tag-desc>
+возвращает дату начала срока действия клиентского сертификата (1.11.8);
+</tag-desc>
+
+<tag-name id="var_ssl_client_verify"><var>$ssl_client_verify</var></tag-name>
+<tag-desc>
+возвращает результат проверки клиентского сертификата (1.11.8):
+“<literal>SUCCESS</literal>”, “<literal>FAILED:</literal><value>reason</value>”
+и, если сертификат не был предоставлен, “<literal>NONE</literal>”;
 </tag-desc>
 
 <tag-name id="var_ssl_curves"><var>$ssl_curves</var></tag-name>

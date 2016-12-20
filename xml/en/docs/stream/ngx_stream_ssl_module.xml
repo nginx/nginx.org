@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_ssl_module"
         link="/en/docs/stream/ngx_stream_ssl_module.html"
         lang="en"
-        rev="12">
+        rev="13">
 
 <section id="summary">
 
@@ -158,6 +158,43 @@ ssl_ciphers ALL:!aNULL:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP;
 <para>
 The full list can be viewed using the
 “<command>openssl ciphers</command>” command.
+</para>
+
+</directive>
+
+
+<directive name="ssl_client_certificate">
+<syntax><value>file</value></syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.11.8</appeared-in>
+
+<para>
+Specifies a <value>file</value> with trusted CA certificates in the PEM format
+used to <link id="ssl_verify_client">verify</link> client certificates.
+</para>
+
+<para>
+The list of certificates will be sent to clients.
+If this is not desired, the <link id="ssl_trusted_certificate"/>
+directive can be used.
+</para>
+
+</directive>
+
+
+<directive name="ssl_crl">
+<syntax><value>file</value></syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.11.8</appeared-in>
+
+<para>
+Specifies a <value>file</value> with revoked certificates (CRL)
+in the PEM format used to <link id="ssl_verify_client">verify</link>
+client certificates.
 </para>
 
 </directive>
@@ -419,6 +456,73 @@ session parameters.
 
 </directive>
 
+
+<directive name="ssl_trusted_certificate">
+<syntax><value>file</value></syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.11.8</appeared-in>
+
+<para>
+Specifies a <value>file</value> with trusted CA certificates in the PEM format
+used to <link id="ssl_verify_client">verify</link> client certificates.
+</para>
+
+<para>
+In contrast to the certificate set by <link id="ssl_client_certificate"/>,
+the list of these certificates will not be sent to clients.
+</para>
+
+</directive>
+
+
+<directive name="ssl_verify_client">
+<syntax>
+    <literal>on</literal> | <literal>off</literal> |
+    <literal>optional</literal> | <literal>optional_no_ca</literal></syntax>
+<default>off</default>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.11.8</appeared-in>
+
+<para>
+Enables verification of client certificates.
+The verification result is stored in the
+<link id="var_ssl_client_verify">$ssl_client_verify</link> variable.
+</para>
+
+<para>
+The <literal>optional</literal> parameter requests the client
+certificate and verifies it if the certificate is present.
+</para>
+
+<para>
+The <literal>optional_no_ca</literal> parameter
+requests the client
+certificate but does not require it to be signed by a trusted CA certificate.
+This is intended for the use in cases when a service that is external to nginx
+performs the actual certificate verification.
+The contents of the certificate is accessible through the
+<link id="var_ssl_client_cert">$ssl_client_cert</link> variable.
+</para>
+
+</directive>
+
+
+<directive name="ssl_verify_depth">
+<syntax><value>number</value></syntax>
+<default>1</default>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.11.8</appeared-in>
+
+<para>
+Sets the verification depth in the client certificates chain.
+</para>
+
+</directive>
+
 </section>
 
 
@@ -448,6 +552,69 @@ The variable is fully supported only when using OpenSSL version 1.0.2 or higher.
 With older versions, the variable is available
 only for new sessions and lists only known ciphers.
 </note>
+</tag-desc>
+
+<tag-name id="var_ssl_client_cert"><var>$ssl_client_cert</var></tag-name>
+<tag-desc>
+returns the client certificate in the PEM format
+for an established SSL connection, with each line except the first
+prepended with the tab character (1.11.8);
+</tag-desc>
+
+<tag-name id="var_ssl_client_fingerprint"><var>$ssl_client_fingerprint</var></tag-name>
+<tag-desc>
+returns the SHA1 fingerprint of the client certificate
+for an established SSL connection (1.11.8);
+</tag-desc>
+
+<tag-name id="var_ssl_client_i_dn"><var>$ssl_client_i_dn</var></tag-name>
+<tag-desc>
+returns the “issuer DN” string of the client certificate
+for an established SSL connection according to
+<link url="https://tools.ietf.org/html/rfc2253">RFC 2253</link> (1.11.8);
+</tag-desc>
+
+<tag-name id="var_ssl_client_raw_cert"><var>$ssl_client_raw_cert</var>
+</tag-name>
+<tag-desc>
+returns the client certificate in the PEM format
+for an established SSL connection (1.11.8);
+</tag-desc>
+
+<tag-name id="var_ssl_client_s_dn"><var>$ssl_client_s_dn</var></tag-name>
+<tag-desc>
+returns the “subject DN” string of the client certificate
+for an established SSL connection according to
+<link url="https://tools.ietf.org/html/rfc2253">RFC 2253</link> (1.11.8);
+</tag-desc>
+
+<tag-name id="var_ssl_client_serial"><var>$ssl_client_serial</var></tag-name>
+<tag-desc>
+returns the serial number of the client certificate
+for an established SSL connection (1.11.8);
+</tag-desc>
+
+<tag-name id="var_ssl_client_v_end"><var>$ssl_client_v_end</var></tag-name>
+<tag-desc>
+returns the end date of the client certificate (1.11.8);
+</tag-desc>
+
+<tag-name id="var_ssl_client_v_remain"><var>$ssl_client_v_remain</var></tag-name>
+<tag-desc>
+returns the number of days
+until the client certificate expires (1.11.8);
+</tag-desc>
+
+<tag-name id="var_ssl_client_v_start"><var>$ssl_client_v_start</var></tag-name>
+<tag-desc>
+returns the start date of the client certificate (1.11.8);
+</tag-desc>
+
+<tag-name id="var_ssl_client_verify"><var>$ssl_client_verify</var></tag-name>
+<tag-desc>
+returns the result of client certificate verification (1.11.8):
+“<literal>SUCCESS</literal>”, “<literal>FAILED:</literal><value>reason</value>”,
+and “<literal>NONE</literal>” if a certificate was not present;
 </tag-desc>
 
 <tag-name id="var_ssl_curves"><var>$ssl_curves</var></tag-name>
