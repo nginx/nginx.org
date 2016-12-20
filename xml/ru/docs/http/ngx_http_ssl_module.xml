@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_ssl_module"
         link="/ru/docs/http/ngx_http_ssl_module.html"
         lang="ru"
-        rev="29">
+        rev="30">
 
 <section id="summary">
 
@@ -795,17 +795,27 @@ AES128-SHA:AES256-SHA:0x00ff
 для установленного SSL-соединения (1.7.1);
 </tag-desc>
 
+<tag-name id="var_ssl_client_i_dn"><var>$ssl_client_i_dn</var></tag-name>
+<tag-desc>
+возвращает строку “issuer DN” клиентского сертификата
+для установленного SSL-соединения согласно
+<link url="https://tools.ietf.org/html/rfc2253">RFC 2253</link> (1.11.6);
+</tag-desc>
+
+<tag-name id="var_ssl_client_i_dn_legacy"><var>$ssl_client_i_dn_legacy</var></tag-name>
+<tag-desc>
+возвращает строку “issuer DN” клиентского сертификата
+для установленного SSL-соединения;
+<note>
+До версии 1.11.6 переменная называлась <var>$ssl_client_s_dn</var>.
+</note>
+</tag-desc>
+
 <tag-name id="var_ssl_client_raw_cert"><var>$ssl_client_raw_cert</var>
 </tag-name>
 <tag-desc>
 возвращает клиентский сертификат
 для установленного SSL-соединения в формате PEM;
-</tag-desc>
-
-<tag-name id="var_ssl_client_serial"><var>$ssl_client_serial</var></tag-name>
-<tag-desc>
-возвращает серийный номер клиентского сертификата
-для установленного SSL-соединения;
 </tag-desc>
 
 <tag-name id="var_ssl_client_s_dn"><var>$ssl_client_s_dn</var></tag-name>
@@ -824,20 +834,10 @@ AES128-SHA:AES256-SHA:0x00ff
 </note>
 </tag-desc>
 
-<tag-name id="var_ssl_client_i_dn"><var>$ssl_client_i_dn</var></tag-name>
+<tag-name id="var_ssl_client_serial"><var>$ssl_client_serial</var></tag-name>
 <tag-desc>
-возвращает строку “issuer DN” клиентского сертификата
-для установленного SSL-соединения согласно
-<link url="https://tools.ietf.org/html/rfc2253">RFC 2253</link> (1.11.6);
-</tag-desc>
-
-<tag-name id="var_ssl_client_i_dn_legacy"><var>$ssl_client_i_dn_legacy</var></tag-name>
-<tag-desc>
-возвращает строку “issuer DN” клиентского сертификата
+возвращает серийный номер клиентского сертификата
 для установленного SSL-соединения;
-<note>
-До версии 1.11.6 переменная называлась <var>$ssl_client_s_dn</var>.
-</note>
 </tag-desc>
 
 <tag-name id="var_ssl_client_v_end"><var>$ssl_client_v_end</var></tag-name>
