@@ -10,7 +10,7 @@
 <module name="Module ngx_http_ssl_module"
         link="/en/docs/http/ngx_http_ssl_module.html"
         lang="en"
-        rev="30">
+        rev="31">
 
 <section id="summary">
 
@@ -678,7 +678,7 @@ the list of these certificates will not be sent to clients.
 <para>
 Enables verification of client certificates.
 The verification result is stored in the
-<var>$ssl_client_verify</var> variable.
+<link id="var_ssl_client_verify">$ssl_client_verify</link> variable.
 </para>
 
 <para>
@@ -693,7 +693,7 @@ certificate but does not require it to be signed by a trusted CA certificate.
 This is intended for the use in cases when a service that is external to nginx
 performs the actual certificate verification.
 The contents of the certificate is accessible through the
-<var>$ssl_client_cert</var> variable.
+<link id="var_ssl_client_cert">$ssl_client_cert</link> variable.
 </para>
 
 </directive>

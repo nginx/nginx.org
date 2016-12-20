@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_ssl_module"
         link="/ru/docs/http/ngx_http_ssl_module.html"
         lang="ru"
-        rev="30">
+        rev="31">
 
 <section id="summary">
 
@@ -680,7 +680,7 @@ ssl_stapling_responder http://ocsp.example.com/;
 <para>
 Разрешает проверку клиентских сертификатов.
 Результат проверки доступен через переменную
-<var>$ssl_client_verify</var>.
+<link id="var_ssl_client_verify">$ssl_client_verify</link>.
 </para>
 
 <para>
@@ -695,7 +695,7 @@ ssl_stapling_responder http://ocsp.example.com/;
 Это предназначено для случаев, когда фактическая проверка сертификата
 осуществляется внешним по отношению к nginx’у сервисом.
 Содержимое сертификата доступно через переменную
-<var>$ssl_client_cert</var>.
+<link id="var_ssl_client_cert">$ssl_client_cert</link>.
 </para>
 
 </directive>
