@@ -10,7 +10,7 @@
 <module name="Модуль ngx_stream_map_module"
         link="/ru/docs/stream/ngx_stream_map_module.html"
         lang="ru"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
@@ -96,7 +96,7 @@ limit_conn addr 1;
 </para>
 
 <para>
-Директива также поддерживает три специальных параметра:
+Также поддерживаются следующие специальные параметры:
 <list type="tag">
 <tag-name><literal>default</literal> <value>значение</value></tag-name>
 <tag-desc>
@@ -130,6 +130,11 @@ example.com   1;
 <tag-desc>
 включает файл со значениями.
 Включений может быть несколько.
+</tag-desc>
+
+<tag-name id="volatile"><literal>volatile</literal></tag-name>
+<tag-desc>
+указывает, что переменная не кэшируется (1.11.7).
 </tag-desc>
 
 </list>

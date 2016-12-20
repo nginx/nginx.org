@@ -10,7 +10,7 @@
 <module name="Module ngx_stream_map_module"
         link="/en/docs/stream/ngx_stream_map_module.html"
         lang="en"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
@@ -95,7 +95,7 @@ variable, and their combination.
 </para>
 
 <para>
-The directive also supports three special parameters:
+The following special parameters are also supported:
 <list type="tag">
 <tag-name><literal>default</literal> <value>value</value></tag-name>
 <tag-desc>
@@ -128,6 +128,11 @@ This parameter should be specified before the list of values.
 <tag-desc>
 includes a file with values.
 There can be several inclusions.
+</tag-desc>
+
+<tag-name id="volatile"><literal>volatile</literal></tag-name>
+<tag-desc>
+indicates that the variable is not cacheable (1.11.7).
 </tag-desc>
 
 </list>
