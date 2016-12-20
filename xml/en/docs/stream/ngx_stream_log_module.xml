@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_log_module"
         link="/en/docs/stream/ngx_stream_log_module.html"
         lang="en"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -155,6 +155,7 @@ or an empty string.
 <directive name="log_format">
 <syntax>
     <value>name</value>
+    [<literal>escape</literal>=<value>default</value>|<value>json</value>]
     <value>string</value> ...</syntax>
 <default></default>
 <context>stream</context>
@@ -167,6 +168,12 @@ log_format proxy '$remote_addr [$time_local] '
                  '$session_time "$upstream_addr" '
                  '"$upstream_bytes_sent" "$upstream_bytes_received" "$upstream_connect_time"';
 </example>
+</para>
+
+<para id="log_format_escape">
+The <literal>escape</literal> parameter (1.11.8) allows setting
+<value>json</value> or <value>default</value> characters escaping in variables,
+by default, <value>default</value> escaping is used.
 </para>
 
 </directive>

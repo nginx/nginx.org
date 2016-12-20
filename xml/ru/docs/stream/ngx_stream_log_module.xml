@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_log_module"
         link="/ru/docs/stream/ngx_stream_log_module.html"
         lang="ru"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -155,6 +155,7 @@ access_log /path/to/log.gz basic gzip flush=5m;
 <directive name="log_format">
 <syntax>
     <value>название</value>
+    [<literal>escape</literal>=<value>default</value>|<value>json</value>]
     <value>строка</value> ...</syntax>
 <default></default>
 <context>stream</context>
@@ -167,6 +168,13 @@ log_format proxy '$remote_addr [$time_local] '
                  '$session_time "$upstream_addr" '
                  '"$upstream_bytes_sent" "$upstream_bytes_received" "$upstream_connect_time"';
 </example>
+</para>
+
+<para id="log_format_escape">
+Параметр <literal>escape</literal> (1.11.8) позволяет задать
+экранирование символов <value>json</value> или <value>default</value>
+в переменных,
+по умолчанию используется <value>default</value>.
 </para>
 
 </directive>
