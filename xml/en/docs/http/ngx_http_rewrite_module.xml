@@ -10,7 +10,7 @@
 <module name="Module ngx_http_rewrite_module"
         link="/en/docs/http/ngx_http_rewrite_module.html"
         lang="en"
-        rev="6">
+        rev="7">
 
 <section id="summary">
 
@@ -264,9 +264,9 @@ as specified in the <value>replacement</value> string.
 The <literal>rewrite</literal> directives are executed sequentially
 in order of their appearance in the configuration file.
 It is possible to terminate further processing of the directives using flags.
-If a replacement string starts with “<literal>http://</literal>”
-or “<literal>https://</literal>”, the processing stops and the
-redirect is returned to a client.
+If a replacement string starts with “<literal>http://</literal>”,
+“<literal>https://</literal>”, or “<literal>$scheme</literal>”,
+the processing stops and the redirect is returned to a client.
 </para>
 
 <para>
@@ -291,7 +291,8 @@ as with the <link id="break"/> directive;
 <tag-desc>
 returns a temporary redirect with the 302 code;
 used if a replacement string does not start with
-“<literal>http://</literal>” or “<literal>https://</literal>”;
+“<literal>http://</literal>”, “<literal>https://</literal>”,
+or “<literal>$scheme</literal>”;
 </tag-desc>
 
 <tag-name><literal>permanent</literal></tag-name>

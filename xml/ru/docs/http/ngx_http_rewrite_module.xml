@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_rewrite_module"
         link="/ru/docs/http/ngx_http_rewrite_module.html"
         lang="ru"
-        rev="6">
+        rev="7">
 
 <section id="summary">
 
@@ -262,9 +262,9 @@ if ($invalid_referer) {
 Директивы <literal>rewrite</literal> выполняются последовательно,
 в порядке их следования в конфигурационном файле.
 С помощью флагов можно прекратить дальнейшую обработку директив.
-Если строка замены начинается с “<literal>http://</literal>” или
-“<literal>https://</literal>”, то обработка завершается и клиенту
-возвращается перенаправление.
+Если строка замены начинается с “<literal>http://</literal>”,
+“<literal>https://</literal>” или “<literal>$scheme</literal>”,
+то обработка завершается и клиенту возвращается перенаправление.
 </para>
 
 <para>
@@ -289,7 +289,8 @@ if ($invalid_referer) {
 <tag-desc>
 возвращает временное перенаправление с кодом 302;
 используется, если заменяющая строка не начинается с
-“<literal>http://</literal>” или “<literal>https://</literal>”;
+“<literal>http://</literal>”, “<literal>https://</literal>”
+или “<literal>$scheme</literal>”;
 </tag-desc>
 
 <tag-name><literal>permanent</literal></tag-name>
