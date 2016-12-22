@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_ssi_module"
         link="/ru/docs/http/ngx_http_ssi_module.html"
         lang="ru"
-        rev="7">
+        rev="8">
 
 <section id="summary">
 
@@ -234,7 +234,7 @@ location / {
 нестандартный параметр, задающий строку, которая выводится,
 если переменная не определена.
 По умолчанию выводится строка
-“<literal>none</literal>”.
+“<literal>(none)</literal>”.
 Команда
 <example>
 &lt;!--# echo var="name" default="<emphasis>нет</emphasis>" --&gt;

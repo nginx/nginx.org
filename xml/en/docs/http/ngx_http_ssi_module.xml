@@ -10,7 +10,7 @@
 <module name="Module ngx_http_ssi_module"
         link="/en/docs/http/ngx_http_ssi_module.html"
         lang="en"
-        rev="7">
+        rev="8">
 
 <section id="summary">
 
@@ -231,7 +231,7 @@ By default, <literal>entity</literal> is used.
 <tag-desc>
 a non-standard parameter that sets a string to be output
 if a variable is undefined.
-By default, “<literal>none</literal>” is output.
+By default, “<literal>(none)</literal>” is output.
 The command
 <example>
 &lt;!--# echo var="name" default="<emphasis>no</emphasis>" --&gt;
