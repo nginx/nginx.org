@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_ssl_module"
         link="/ru/docs/stream/ngx_stream_ssl_module.html"
         lang="ru"
-        rev="13">
+        rev="14">
 
 <section id="summary">
 
@@ -492,6 +492,9 @@ openssl rand 48 > ticket.key
 Разрешает проверку клиентских сертификатов.
 Результат проверки доступен через переменную
 <link id="var_ssl_client_verify">$ssl_client_verify</link>.
+Если при проверке клиентского сертификата произошла ошибка
+или клиент не предоставил требуемый сертификат,
+соединение закрывается.
 </para>
 
 <para>

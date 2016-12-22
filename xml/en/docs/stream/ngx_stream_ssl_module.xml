@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_ssl_module"
         link="/en/docs/stream/ngx_stream_ssl_module.html"
         lang="en"
-        rev="13">
+        rev="14">
 
 <section id="summary">
 
@@ -490,6 +490,9 @@ the list of these certificates will not be sent to clients.
 Enables verification of client certificates.
 The verification result is stored in the
 <link id="var_ssl_client_verify">$ssl_client_verify</link> variable.
+If an error has occurred during the client certificate verification
+or a client has not presented the required certificate,
+the connection is closed.
 </para>
 
 <para>
