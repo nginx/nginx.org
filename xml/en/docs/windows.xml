@@ -8,7 +8,7 @@
 <article name="nginx for Windows"
          link="/en/docs/windows.html"
          lang="en"
-         rev="3">
+         rev="4">
 
 <section>
 
@@ -122,12 +122,6 @@ actually does any work.
 
 <listitem>
 A worker can handle no more than 1024 simultaneous connections.
-</listitem>
-
-<listitem>
-The cache and other modules which require shared memory support do not work
-on Windows Vista and later versions due to
-address space layout randomization being enabled in these Windows versions.
 </listitem>
 
 <listitem>
