@@ -10,9 +10,29 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="64">
+        rev="65">
 
 <section id="directives" name="Директивы">
+
+<directive name="absolute_redirect">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>on</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.11.8</appeared-in>
+
+<para>
+Если запрещено, то перенаправления выдаваемые nginx'ом, будут относительные.
+</para>
+
+<para>
+См. также директивы <link id="server_name_in_redirect"/>
+и <link id="port_in_redirect"/>.
+</para>
+
+</directive>
+
 
 <directive name="aio">
 <syntax>
@@ -1927,7 +1947,9 @@ open_file_cache_events   on;
 <context>location</context>
 
 <para>
-Разрешает или запрещает указывать порт в перенаправлениях, выдаваемых nginx’ом.
+Разрешает или запрещает указывать порт в
+<link id="absolute_redirect">абсолютных</link>
+перенаправлениях, выдаваемых nginx’ом.
 </para>
 
 <para>
@@ -2459,8 +2481,9 @@ server {
 <context>location</context>
 
 <para>
-Разрешает или запрещает использовать в перенаправлениях, выдаваемых nginx’ом,
-основное имя сервера, задаваемое директивой
+Разрешает или запрещает использовать в
+<link id="absolute_redirect">абсолютных</link> перенаправлениях,
+выдаваемых nginx’ом, основное имя сервера, задаваемое директивой
 <link id="server_name"/>.
 Если использование основного имени сервера запрещено, то используется имя,
 указанное в поле <header>Host</header> заголовка запроса.

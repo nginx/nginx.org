@@ -10,9 +10,29 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="64">
+        rev="65">
 
 <section id="directives" name="Directives">
+
+<directive name="absolute_redirect">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>on</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.11.8</appeared-in>
+
+<para>
+If disabled, redirects issued by nginx will be relative.
+</para>
+
+<para>
+See also <link id="server_name_in_redirect"/>
+and <link id="port_in_redirect"/> directives.
+</para>
+
+</directive>
+
 
 <directive name="aio">
 <syntax>
@@ -1930,7 +1950,8 @@ Prior to version 1.9.5, the default value was 1 32k.
 <context>location</context>
 
 <para>
-Enables or disables specifying the port in redirects issued by nginx.
+Enables or disables specifying the port in
+<link id="absolute_redirect">absolute</link> redirects issued by nginx.
 </para>
 
 <para>
@@ -2461,8 +2482,8 @@ Detailed description of server names is provided in a separate
 
 <para>
 Enables or disables the use of the primary server name, specified by the
-<link id="server_name"/>
-directive, in redirects issued by nginx.
+<link id="server_name"/> directive,
+in <link id="absolute_redirect">absolute</link> redirects issued by nginx.
 When the use of the primary server name is disabled, the name from the
 <header>Host</header> request header field is used.
 If this field is not present, the IP address of the server is used.
