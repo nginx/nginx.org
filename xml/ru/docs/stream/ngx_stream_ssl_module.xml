@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_ssl_module"
         link="/ru/docs/stream/ngx_stream_ssl_module.html"
         lang="ru"
-        rev="14">
+        rev="15">
 
 <section id="summary">
 
@@ -419,11 +419,13 @@ ssl_session_ticket_key previous.key;
 </para>
 
 <para>
-<value>Файл</value> должен содержать 48 байт случайных данных и может быть
-создан следующей командой:
+<value>Файл</value> должен содержать 80 или 48 байт случайных данных
+и может быть создан следующей командой:
 <example>
-openssl rand 48 > ticket.key
+openssl rand 80 > ticket.key
 </example>
+В зависимости от размера файла для шифрования будет использоваться либо 
+AES256 (для 80-байтных ключей, 1.11.8), либо AES128 (для 48-байтных ключей).
 </para>
 
 </directive>
