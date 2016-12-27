@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_log_module"
         link="/ru/docs/http/ngx_http_log_module.html"
         lang="ru"
-        rev="16">
+        rev="17">
 
 <section id="summary">
 
@@ -192,7 +192,7 @@ access_log /path/to/access.log combined if=$loggable;
 <directive name="log_format">
 <syntax>
     <value>название</value>
-    [<literal>escape</literal>=<value>default</value>|<value>json</value>]
+    [<literal>escape</literal>=<literal>default</literal>|<literal>json</literal>]
     <value>строка</value> ...</syntax>
 <default>combined "..."</default>
 <context>http</context>
@@ -203,9 +203,8 @@ access_log /path/to/access.log combined if=$loggable;
 
 <para id="log_format_escape">
 Параметр <literal>escape</literal> (1.11.8) позволяет задать
-экранирование символов <value>json</value> или <value>default</value>
-в переменных,
-по умолчанию используется <value>default</value>.
+экранирование символов <literal>json</literal> или <literal>default</literal>
+в переменных, по умолчанию используется <literal>default</literal>.
 </para>
 
 <para>
