@@ -10,7 +10,7 @@
 <module name="Модуль ngx_mail_smtp_module"
         link="/ru/docs/mail/ngx_mail_smtp_module.html"
         lang="ru"
-        rev="2">
+        rev="3">
 
 <section id="directives" name="Директивы">
 
@@ -41,6 +41,11 @@ SMTP-клиентов.
 <tag-desc>
 <link url="http://tools.ietf.org/html/rfc2195">AUTH CRAM-MD5</link>.
 Для работы этого метода пароль должен храниться в незашифрованном виде.
+</tag-desc>
+
+<tag-name><literal>external</literal></tag-name>
+<tag-desc>
+<link url="http://tools.ietf.org/html/rfc4422">AUTH EXTERNAL</link> (1.11.6).
 </tag-desc>
 
 <tag-name><literal>none</literal></tag-name>

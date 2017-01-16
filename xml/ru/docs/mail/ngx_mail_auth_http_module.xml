@@ -10,7 +10,7 @@
 <module name="Модуль ngx_mail_auth_http_module"
         link="/ru/docs/mail/ngx_mail_auth_http_module.html"
         lang="ru"
-        rev="8">
+        rev="9">
 
 <section id="directives" name="Директивы">
 
@@ -95,7 +95,7 @@ auth_http_header X-Auth-Key "secret_string";
 <example>
 GET /auth HTTP/1.0
 Host: localhost
-Auth-Method: plain # plain/apop/cram-md5
+Auth-Method: plain # plain/apop/cram-md5/external
 Auth-User: user
 Auth-Pass: password
 Auth-Protocol: imap # imap/pop3/smtp

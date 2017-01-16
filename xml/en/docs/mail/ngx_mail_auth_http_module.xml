@@ -10,7 +10,7 @@
 <module name="Module ngx_mail_auth_http_module"
         link="/en/docs/mail/ngx_mail_auth_http_module.html"
         lang="en"
-        rev="8">
+        rev="9">
 
 <section id="directives" name="Directives">
 
@@ -96,7 +96,7 @@ Request:
 <example>
 GET /auth HTTP/1.0
 Host: localhost
-Auth-Method: plain # plain/apop/cram-md5
+Auth-Method: plain # plain/apop/cram-md5/external
 Auth-User: user
 Auth-Pass: password
 Auth-Protocol: imap # imap/pop3/smtp

@@ -10,7 +10,7 @@
 <module name="Module ngx_mail_pop3_module"
         link="/en/docs/mail/ngx_mail_pop3_module.html"
         lang="en"
-        rev="1">
+        rev="2">
 
 <section id="directives" name="Directives">
 
@@ -43,6 +43,11 @@ In order for this method to work, the password must be stored unencrypted.
 <tag-desc>
 <link url="http://tools.ietf.org/html/rfc2195">AUTH CRAM-MD5</link>.
 In order for this method to work, the password must be stored unencrypted.
+</tag-desc>
+
+<tag-name><literal>external</literal></tag-name>
+<tag-desc>
+<link url="http://tools.ietf.org/html/rfc4422">AUTH EXTERNAL</link> (1.11.6).
 </tag-desc>
 
 </list>
