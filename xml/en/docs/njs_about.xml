@@ -9,7 +9,7 @@
 <article name="About nginScript"
         link="/en/docs/njs_about.html"
         lang="en"
-        rev="4">
+        rev="5">
 
 <section id="summary">
 
@@ -150,16 +150,7 @@ ES5.1 global functions:
 <list type="bullet">
 
 <listitem>
-Scopes
-</listitem>
-
-<listitem>
 ES6 <literal>let</literal> and <literal>const</literal> declarations
-</listitem>
-
-<listitem>
-cycle <literal>for</literal> with <literal>var</literal> in declaration
-(<literal>for (var...</literal>)
 </listitem>
 
 <listitem>
@@ -193,10 +184,6 @@ labels
 <listitem>
 <literal>setTimeout</literal>, <literal>setInterval</literal>,
 <literal>setImmediate</literal> functions
-</listitem>
-
-<listitem>
-functions hoisting
 </listitem>
 
 <listitem>
