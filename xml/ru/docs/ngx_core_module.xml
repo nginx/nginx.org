@@ -10,7 +10,7 @@
 <module name="Основная функциональность"
         link="/ru/docs/ngx_core_module.html"
         lang="ru"
-        rev="21">
+        rev="22">
 
 <section id="example" name="Пример конфигурации">
 
@@ -197,12 +197,8 @@ nginx с <literal>--with-debug</literal>,
 <note>
 Директива может быть указана на
 уровне <literal>stream</literal>
-начиная с версии 1.7.11.
-</note>
-
-<note>
-Директива может быть указана на
-уровне <literal>mail</literal>
+начиная с версии 1.7.11
+и на уровне <literal>mail</literal>
 начиная с версии 1.9.0.
 </note>
 </para>

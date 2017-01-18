@@ -10,7 +10,7 @@
 <module name="Core functionality"
         link="/en/docs/ngx_core_module.html"
         lang="en"
-        rev="21">
+        rev="22">
 
 <section id="example" name="Example Configuration">
 
@@ -198,12 +198,8 @@ see “<link doc="debugging_log.xml"/>”.
 <note>
 The directive can be specified on the
 <literal>stream</literal> level
-starting from version 1.7.11.
-</note>
-
-<note>
-The directive can be specified on the
-<literal>mail</literal> level
+starting from version 1.7.11,
+and on the <literal>mail</literal> level
 starting from version 1.9.0.
 </note>
 </para>
