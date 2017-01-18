@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="57">
+        rev="58">
 
 <section id="summary">
 
@@ -752,7 +752,7 @@ The following optional parameters are supported:
 </tag-name>
 <tag-desc>
 sets the interval between two consecutive health checks,
-by default, 5 seconds;
+by default, 5 seconds.
 </tag-desc>
 
 <tag-name id="health_check_jitter">
@@ -761,7 +761,7 @@ by default, 5 seconds;
 <tag-desc>
 sets the time within which
 each health check will be randomly delayed,
-by default, there is no delay;
+by default, there is no delay.
 </tag-desc>
 
 <tag-name id="fails">
@@ -770,7 +770,7 @@ by default, there is no delay;
 <tag-desc>
 sets the number of consecutive failed health checks of a particular server
 after which this server will be considered unhealthy,
-by default, 1;
+by default, 1.
 </tag-desc>
 
 <tag-name id="passes">
@@ -779,7 +779,7 @@ by default, 1;
 <tag-desc>
 sets the number of consecutive passed health checks of a particular server
 after which the server will be considered healthy,
-by default, 1;
+by default, 1.
 </tag-desc>
 
 <tag-name id="uri">
@@ -787,7 +787,7 @@ by default, 1;
 </tag-name>
 <tag-desc>
 defines the URI used in health check requests,
-by default, “<literal>/</literal>”;
+by default, “<literal>/</literal>”.
 </tag-desc>
 
 <tag-name id="hc_match">
@@ -795,8 +795,8 @@ by default, “<literal>/</literal>”;
 </tag-name>
 <tag-desc>
 specifies the <literal>match</literal> block configuring the tests that a
-response should pass in order for a health check to pass;
-by default, the response should have status code 2xx or 3xx;
+response should pass in order for a health check to pass.
+By default, the response should have status code 2xx or 3xx.
 </tag-desc>
 
 <tag-name id="health_check_port">
@@ -804,8 +804,8 @@ by default, the response should have status code 2xx or 3xx;
 </tag-name>
 <tag-desc>
 defines the port used when connecting to a server
-to perform a health check (1.9.7);
-by default, equals the <link id="server"/> port.
+to perform a health check (1.9.7).
+By default, equals the <link id="server"/> port.
 </tag-desc>
 
 </list>

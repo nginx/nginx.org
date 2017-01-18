@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_upstream_module"
         link="/en/docs/stream/ngx_stream_upstream_module.html"
         lang="en"
-        rev="22">
+        rev="23">
 
 <section id="summary">
 
@@ -503,7 +503,7 @@ The following optional parameters are supported:
 </tag-name>
 <tag-desc>
 sets the interval between two consecutive health checks,
-by default, 5 seconds;
+by default, 5 seconds.
 </tag-desc>
 
 <tag-name id="health_check_jitter">
@@ -512,7 +512,7 @@ by default, 5 seconds;
 <tag-desc>
 sets the time within which
 each health check will be randomly delayed,
-by default, there is no delay;
+by default, there is no delay.
 </tag-desc>
 
 <tag-name id="fails">
@@ -521,7 +521,7 @@ by default, there is no delay;
 <tag-desc>
 sets the number of consecutive failed health checks of a particular server
 after which this server will be considered unhealthy,
-by default, 1;
+by default, 1.
 </tag-desc>
 
 <tag-name id="passes">
@@ -530,7 +530,7 @@ by default, 1;
 <tag-desc>
 sets the number of consecutive passed health checks of a particular server
 after which the server will be considered healthy,
-by default, 1;
+by default, 1.
 </tag-desc>
 
 <tag-name id="hc_match">
@@ -540,7 +540,7 @@ by default, 1;
 specifies the <literal>match</literal> block configuring the tests that a
 successful connection should pass in order for a health check to pass.
 By default,
-only the ability to establish a TCP connection with the server is checked;
+only the ability to establish a TCP connection with the server is checked.
 </tag-desc>
 
 <tag-name id="health_check_port">
@@ -548,8 +548,8 @@ only the ability to establish a TCP connection with the server is checked;
 </tag-name>
 <tag-desc>
 defines the port used when connecting to a server
-to perform a health check (1.9.7);
-by default, equals the <link id="server"/> port;
+to perform a health check (1.9.7).
+By default, equals the <link id="server"/> port.
 </tag-desc>
 
 <tag-name id="health_check_udp">
