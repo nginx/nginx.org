@@ -10,7 +10,7 @@
 <module name="Core functionality"
         link="/en/docs/ngx_core_module.html"
         lang="en"
-        rev="22">
+        rev="23">
 
 <section id="example" name="Example Configuration">
 
@@ -159,6 +159,8 @@ analysis using a system debugger.
 <para>
 Configures logging.
 Several logs can be specified on the same level (1.5.2).
+If on the <literal>main</literal> configuration level writing a log to a file
+is not explicitly defined, the default file will be used.
 </para>
 
 <para>
