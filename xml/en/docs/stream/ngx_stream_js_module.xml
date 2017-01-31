@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_js_module"
         link="/en/docs/stream/ngx_stream_js_module.html"
         lang="en"
-        rev="5">
+        rev="6">
 
 <section id="summary">
 
@@ -65,7 +65,7 @@ stream {
         listen 12345;
 
         js_preread qux;
-        return     foo;
+        return     $foo;
     }
 
     server {
@@ -96,7 +96,7 @@ var matched = 0;
 var line = '';
 
 function qux(s) {
-    n = s.buffer.indexOf('\n');
+    var n = s.buffer.indexOf('\n');
     if (n == -1) {
         return s.AGAIN;
     }
@@ -137,14 +137,14 @@ function baz(s) {
     req = req + s.buffer;
     s.buffer = '';
 
-    n = req.search('\n');
+    var n = req.search('\n');
 
     if (n != -1) {
         // Inject a new HTTP header.
         var rest = req.substr(n + 1);
         req = req.substr(0, n + 1);
 
-        addr = s.remoteAddress;
+        var addr = s.remoteAddress;
 
         s.log('req:' + req);
         s.log('rest:' + rest);
