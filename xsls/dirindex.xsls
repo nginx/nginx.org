@@ -11,7 +11,7 @@ X:output method="xml" doctype-system="../../../dtd/article.dtd" encoding="utf-8"
   -- a current directory of a XSLT script is where the script is stored,
   -- but not where XSLT processor has been started to run the script
   -->
-X:param XML = "'../xml'"; 
+X:param XML = "'../xml'";
 
 X:param LANG;
 

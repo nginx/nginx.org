@@ -95,7 +95,7 @@ X:stylesheet {
 
     X:template = "listitem" { <li> !!; </li> }
     X:template = "listitem[@id]" { <li id="{@id}"> !!; </li> }
-    
+
     X:template = "list[@type='tag']" {
         X:if "@compact = 'yes'" {
             <dl class="compact"> !!; </dl>
