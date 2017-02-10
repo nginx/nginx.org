@@ -1,0 +1,2434 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE article SYSTEM "../../../../dtd/article.dtd">
+
+<article name="Development guide"
+         link="/en/docs/dev/development_guide.html"
+         lang="en"
+         rev="1">
+
+<section name="Introduction" id="introduction">
+
+
+<section name="Code layout" id="code_layout">
+
+<para>
+<list type="bullet">
+<listitem>
+<literal>auto</literal> - build scripts
+</listitem>
+
+<listitem>
+ <literal>src</literal>
+
+<list type="bullet">
+
+<listitem>
+<literal>core</literal> - basic types and functions - string, array, log,
+pool etc
+</listitem>
+
+<listitem>
+<literal>event</literal> - event core
+
+<list type="bullet">
+
+<listitem>
+<literal>modules</literal> - event notification modules: epoll, kqueue,
+select etc
+</listitem>
+
+</list>
+
+</listitem>
+
+<listitem>
+<literal>http</literal> - core HTTP module and common code
+
+<list type="bullet">
+
+<listitem>
+<literal>modules</literal> - other HTTP modules
+</listitem>
+
+<listitem>
+<literal>v2</literal> - HTTPv2
+</listitem>
+
+</list>
+
+</listitem>
+
+<listitem>
+<literal>mail</literal> - mail modules
+</listitem>
+
+<listitem>
+<literal>os</literal> - platform-specific code
+
+<list type="bullet">
+
+<listitem>
+ <literal>unix</literal>
+</listitem>
+
+<listitem>
+ <literal>win32</literal>
+</listitem>
+
+</list>
+
+</listitem>
+
+<listitem>
+<literal>stream</literal> - stream modules
+</listitem>
+
+</list>
+
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+
+<section name="Include files" id="include_files">
+
+<para>
+Each nginx file should start with including the following two files:
+</para>
+
+
+<programlisting>
+#include &lt;ngx_config.h>
+#include &lt;ngx_core.h>
+</programlisting>
+
+<para>
+In addition to that, HTTP code should include
+</para>
+
+
+<programlisting>
+#include &lt;ngx_http.h>
+</programlisting>
+
+<para>
+Mail code should include
+</para>
+
+
+<programlisting>
+#include &lt;ngx_mail.h>
+</programlisting>
+
+<para>
+Stream code should include
+</para>
+
+
+<programlisting>
+#include &lt;ngx_stream.h>
+</programlisting>
+
+</section>
+
+
+<section name="Integers" id="integers">
+
+<para>
+For general purpose, nginx code uses the following two integer types
+<literal>ngx_int_t</literal> and <literal>ngx_uint_t</literal> which are
+typedefs for <literal>intptr_t</literal> and <literal>uintptr_t</literal>.
+</para>
+
+</section>
+
+
+<section name="Common return codes" id="common_return_codes">
+
+<para>
+Most functions in nginx return the following codes:
+</para>
+
+<para>
+<list type="bullet">
+
+<listitem>
+<literal>NGX_OK</literal> - operation succeeded
+</listitem>
+
+<listitem>
+<literal>NGX_ERROR</literal> - operation failed
+</listitem>
+
+<listitem>
+<literal>NGX_AGAIN</literal> - operation incomplete, function should be called
+again
+</listitem>
+
+<listitem>
+<literal>NGX_DECLINED</literal> - operation rejected, for example, if disabled
+in configuration. This is never an error
+</listitem>
+
+<listitem>
+<literal>NGX_BUSY</literal> - resource is not available
+</listitem>
+
+<listitem>
+<literal>NGX_DONE</literal> - operation done or continued elsewhere.
+Also used as an alternative success code
+</listitem>
+
+<listitem>
+<literal>NGX_ABORT</literal> - function was aborted.
+Also used as an alternative error code
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+
+<section name="Error handling" id="error_handling">
+
+<para>
+For getting the last system error code, the <literal>ngx_errno</literal> macro
+is available.
+It's mapped to <literal>errno</literal> on POSIX platforms and to
+<literal>GetLastError()</literal> call in Windows.
+For getting the last socket error number, the
+<literal>ngx_socket_errno</literal> macro is available.
+It's mapped to <literal>errno</literal> on POSIX systems as well,
+and to <literal>WSAGetLastError()</literal> call on Windows.
+For performance reasons the values of <literal>ngx_errno</literal> or
+<literal>ngx_socket_errno</literal> should not be accessed more than
+once in a row.
+The error value should be stored in a local variable of type
+<literal>ngx_err_t</literal> for using multiple times, if required.
+For setting errors, <literal>ngx_set_errno(errno)</literal> and
+<literal>ngx_set_socket_errno(errno)</literal> macros are available.
+</para>
+
+<para>
+The values of <literal>ngx_errno</literal> or
+<literal>ngx_socket_errno</literal> can be passed to logging functions
+<literal>ngx_log_error()</literal> and <literal>ngx_log_debugX()</literal>, in
+which case system error text is added to the log message.
+</para>
+
+<para>
+Example using <literal>ngx_errno</literal>:
+</para>
+
+
+<programlisting>
+void
+ngx_my_kill(ngx_pid_t pid, ngx_log_t *log, int signo)
+{
+    ngx_err_t  err;
+
+    if (kill(pid, signo) == -1) {
+        err = ngx_errno;
+
+        ngx_log_error(NGX_LOG_ALERT, log, err, "kill(%P, %d) failed", pid, signo);
+
+        if (err == NGX_ESRCH) {
+            return 2;
+        }
+
+        return 1;
+    }
+
+    return 0;
+}
+</programlisting>
+
+</section>
+
+
+</section>
+
+
+<section name="Strings" id="strings">
+
+
+<section name="Overview" id="overview">
+
+<para>
+For C strings, nginx code uses unsigned character type pointer
+<literal>u_char *</literal>.
+</para>
+
+<para>
+The nginx string type <literal>ngx_str_t</literal> is defined as follows:
+</para>
+
+
+<programlisting>
+typedef struct {
+    size_t      len;
+    u_char     *data;
+} ngx_str_t;
+</programlisting>
+
+<para>
+The <literal>len</literal> field holds the string length,
+<literal>data</literal> holds the string data.
+The string, held in <literal>ngx_str_t</literal>, may or may not be
+null-terminated after the <literal>len</literal> bytes.
+In most cases it’s not.
+However, in certain parts of code (for example, when parsing configuration),
+<literal>ngx_str_t</literal> objects are known to be null-terminated, and that
+knowledge is used to simplify string comparison and makes it easier to pass
+those strings to syscalls.
+</para>
+
+<para>
+A number of string operations are provided in nginx.
+They are declared in <literal>src/core/ngx_string.h</literal>.
+Some of them are wrappers around standard C functions:
+</para>
+
+<para>
+<list type="bullet">
+
+<listitem>
+<literal>ngx_strcmp()</literal>
+</listitem>
+
+<listitem>
+<literal>ngx_strncmp()</literal>
+</listitem>
+
+<listitem>
+<literal>ngx_strstr()</literal>
+</listitem>
+
+<listitem>
+<literal>ngx_strlen()</literal>
+</listitem>
+
+<listitem>
+<literal>ngx_strchr()</literal>
+</listitem>
+
+<listitem>
+<literal>ngx_memcmp()</literal>
+</listitem>
+
+<listitem>
+<literal>ngx_memset()</literal>
+</listitem>
+
+<listitem>
+<literal>ngx_memcpy()</literal>
+</listitem>
+
+<listitem>
+<literal>ngx_memmove()</literal>
+</listitem>
+
+</list>
+
+</para>
+
+<para>
+Some nginx-specific string functions:
+</para>
+
+<para>
+<list type="bullet">
+
+<listitem>
+<literal>ngx_memzero()</literal> fills memory with zeroes
+</listitem>
+
+<listitem>
+<literal>ngx_cpymem()</literal> does the same as
+<literal>ngx_memcpy()</literal>, but returns the final destination address
+This one is handy for appending multiple strings in a row
+</listitem>
+
+<listitem>
+<literal>ngx_movemem()</literal> does the same as
+<literal>ngx_memmove()</literal>, but returns the final destination address.
+</listitem>
+
+<listitem>
+<literal>ngx_strlchr()</literal> searches for a character in a string,
+delimited by two pointers
+</listitem>
+</list>
+</para>
+
+<para>
+Some case conversion and comparison functions:
+</para>
+
+<para>
+<list type="bullet">
+
+<listitem>
+ <literal>ngx_tolower()</literal>
+</listitem>
+
+<listitem>
+ <literal>ngx_toupper()</literal>
+</listitem>
+
+<listitem>
+ <literal>ngx_strlow()</literal>
+</listitem>
+
+<listitem>
+ <literal>ngx_strcasecmp()</literal>
+</listitem>
+
+<listitem>
+ <literal>ngx_strncasecmp()</literal>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+
+<section name="Formatting" id="formatting">
+
+<para>
+A number of formatting functions are provided by nginx.  These functions support nginx-specific types:
+</para>
+
+
+<para>
+<list type="bullet">
+
+<listitem>
+<literal>ngx_sprintf(buf, fmt, ...)</literal>
+</listitem>
+
+<listitem>
+<literal>ngx_snprintf(buf, max, fmt, ...)</literal>
+</listitem>
+
+<listitem>
+<literal>ngx_slrintf(buf, last, fmt, ...)</literal>
+</listitem>
+
+<listitem>
+<literal>ngx_vslprint(buf, last, fmt, args)</literal>
+</listitem>
+
+<listitem>
+<literal>ngx_vsnprint(buf, max, fmt, args)</literal>
+</listitem>
+
+</list>
+</para>
+
+<para>
+The full list of formatting options, supported by these functions, can be found
+in <literal>src/core/ngx_string.c</literal>. Some of them are:
+</para>
+
+
+<programlisting>
+%O - off_t
+%T - time_t
+%z - size_t
+%i - ngx_int_t
+%p - void *
+%V - ngx_str_t *
+%s - u_char * (null-terminated)
+%*s - size_t + u_char *
+</programlisting>
+
+<para>
+The ‘u’ modifier makes most types unsigned, ‘X’/‘x’ convert output to hex.
+</para>
+
+<para>
+Example:
+
+<programlisting>
+u_char     buf[NGX_INT_T_LEN];
+size_t     len;
+ngx_int_t  n;
+
+/* set n here */
+
+len = ngx_sprintf(buf, "%ui", n) - buf;
+</programlisting>
+
+</para>
+
+</section>
+
+
+<section name="Numeric conversion" id="numeric_conversion">
+
+<para>
+Several functions for numeric conversion are implemented in nginx:
+</para>
+
+<para>
+<list type="bullet">
+
+<listitem>
+<literal>ngx_atoi(line, n)</literal> - converts a string of given length to a
+positive integer of type <literal>ngx_int_t</literal>.
+Returns <literal>NGX_ERROR</literal> on error
+</listitem>
+
+<listitem>
+<literal>ngx_atosz(line, n)</literal> - same for <literal>ssize_t</literal>
+type
+</listitem>
+
+<listitem>
+<literal>ngx_atoof(line, n)</literal> - same for <literal>off_t</literal>
+type
+</listitem>
+
+<listitem>
+<literal>ngx_atotm(line, n)</literal> - same for <literal>time_t</literal>
+type
+</listitem>
+
+<listitem>
+<literal>ngx_atofp(line, n, point)</literal> - converts a fixed point floating
+number of given length to a positive integer of type
+<literal>ngx_int_t</literal>.
+The result is shifted left by <literal>points</literal> decimal
+positions. The string representation of the number is expected to have no more
+than <literal>points</literal> fractional digits.
+Returns <literal>NGX_ERROR</literal> on error. For example,
+<literal>ngx_atofp("10.5", 4, 2)</literal> returns <literal>1050</literal>
+</listitem>
+
+<listitem>
+<literal>ngx_hextoi(line, n)</literal> - converts hexadecimal representation of
+a positive integer to <literal>ngx_int_t</literal>. Returns
+<literal>NGX_ERROR</literal> on error
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+
+</section>
+
+
+<section name="Containers" id="containers">
+
+
+<section name="Array" id="array">
+
+<para>
+The nginx array type <literal>ngx_array_t</literal> is defined as follows
+</para>
+
+
+<programlisting>
+typedef struct {
+    void        *elts;
+    ngx_uint_t   nelts;
+    size_t       size;
+    ngx_uint_t   nalloc;
+    ngx_pool_t  *pool;
+} ngx_array_t;
+</programlisting>
+
+<para>
+The elements of array are available through the <literal>elts</literal> field.
+The number of elements is held in the <literal>nelts</literal> field.
+The <literal>size</literal> field holds the size of a single element and is set
+when initializing the array.
+</para>
+
+<para>
+An array can be created in a pool with the
+<literal>ngx_array_create(pool, n, size)</literal> call.
+An already allocated array object can be initialized with the
+<literal>ngx_array_init(array, pool, n, size)</literal> call.
+</para>
+
+
+<programlisting>
+ngx_array_t  *a, b;
+
+/* create an array of strings with preallocated memory for 10 elements */
+a = ngx_array_create(pool, 10, sizeof(ngx_str_t));
+
+/* initialize string array for 10 elements */
+ngx_array_init(&amp;b, pool, 10, sizeof(ngx_str_t));
+</programlisting>
+
+<para>
+Adding elements to array are done with the following functions:
+</para>
+
+<para>
+<list type="bullet">
+
+<listitem>
+<literal>ngx_array_push(a)</literal> adds one tail element and returns pointer
+to it
+</listitem>
+
+<listitem>
+<literal>ngx_array_push_n(a, n)</literal> adds <literal>n</literal> tail elements
+and returns pointer to the first one
+</listitem>
+
+</list>
+</para>
+
+<para>
+If currently allocated memory is not enough for new elements, a new memory for
+elements is allocated and existing elements are copied to that memory.
+The new memory block is normally twice as large, as the existing one.
+</para>
+
+
+<programlisting>
+s = ngx_array_push(a);
+ss = ngx_array_push_n(&amp;b, 3);
+</programlisting>
+
+</section>
+
+
+<section name="List" id="list">
+
+<para>
+List in nginx is a sequence of arrays, optimized for inserting a potentially
+large number of items. The list type is defined as follows:
+</para>
+
+
+<programlisting>
+typedef struct {
+    ngx_list_part_t  *last;
+    ngx_list_part_t   part;
+    size_t            size;
+    ngx_uint_t        nalloc;
+    ngx_pool_t       *pool;
+} ngx_list_t;
+</programlisting>
+
+<para>
+The actual items are store in list parts, defined as follows:
+</para>
+
+
+<programlisting>
+typedef struct ngx_list_part_s  ngx_list_part_t;
+
+struct ngx_list_part_s {
+    void             *elts;
+    ngx_uint_t        nelts;
+    ngx_list_part_t  *next;
+};
+</programlisting>
+
+<para>
+Initially, a list must be initialized by calling
+<literal>ngx_list_init(list, pool, n, size)</literal> or created by calling
+<literal>ngx_list_create(pool, n, size)</literal>.
+Both functions receive the size of a single item and a number of items per list
+part.
+The <literal>ngx_list_push(list)</literal> function is used to add an item to the
+list.  Iterating over the items is done by direct accessing the list fields, as
+seen in the example:
+</para>
+
+
+<programlisting>
+ngx_str_t        *v;
+ngx_uint_t        i;
+ngx_list_t       *list;
+ngx_list_part_t  *part;
+
+list = ngx_list_create(pool, 100, sizeof(ngx_str_t));
+if (list == NULL) { /* error */ }
+
+/* add items to the list */
+
+v = ngx_list_push(list);
+if (v == NULL) { /* error */ }
+ngx_str_set(v, “foo”);
+
+v = ngx_list_push(list);
+if (v == NULL) { /* error */ }
+ngx_str_set(v, “bar”);
+
+/* iterate over the list */
+
+part = &amp;list->part;
+v = part->elts;
+
+for (i = 0; /* void */; i++) {
+
+    if (i >= part->nelts) {
+        if (part->next == NULL) {
+            break;
+        }
+
+        part = part->next;
+        v = part->elts;
+        i = 0;
+    }
+
+    ngx_do_smth(&amp;v[i]);
+}
+</programlisting>
+
+<para>
+The primary use for the list in nginx is HTTP input and output headers.
+</para>
+
+<para>
+The list does not support item removal.
+However, when needed, items can internally be marked as missing without actual
+removing from the list.
+For example, HTTP output headers which are stored as
+<literal>ngx_table_elt_t</literal> objects, are marked as missing by setting
+the <literal>hash</literal> field of <literal>ngx_table_elt_t</literal> to
+zero. Such items are explicitly skipped, when iterating over the headers.
+</para>
+
+</section>
+
+
+<section name="Queue" id="queue">
+
+<para>
+Queue in nginx is an intrusive doubly linked list, with each node defined as
+follows:
+</para>
+
+
+<programlisting>
+typedef struct ngx_queue_s  ngx_queue_t;
+
+struct ngx_queue_s {
+    ngx_queue_t  *prev;
+    ngx_queue_t  *next;
+};
+</programlisting>
+
+<para>
+The head queue node is not linked with any data. Before using, the list head
+should be initialized with <literal>ngx_queue_init(q)</literal> call.
+Queues support the following operations:
+</para>
+
+<para>
+<list type="bullet">
+
+<listitem>
+<literal>ngx_queue_insert_head(h, x)</literal>,
+<literal>ngx_queue_insert_tail(h, x)</literal> - insert a new node
+</listitem>
+
+<listitem>
+<literal>ngx_queue_remove(x)</literal> - remove a queue node
+</listitem>
+
+<listitem>
+<literal>ngx_queue_split(h, q, n)</literal> - split a queue at a node,
+queue tail is returned in a separate queue
+</listitem>
+
+<listitem>
+<literal>ngx_queue_add(h, n)</literal> - add second queue to the first queue
+</listitem>
+
+<listitem>
+<literal>ngx_queue_head(h)</literal>,
+<literal>ngx_queue_last(h)</literal> - get first or last queue node
+</listitem>
+
+<listitem>
+<literal>ngx_queue_sentinel(h)</literal>
+- get a queue sentinel object to end iteration at
+</listitem>
+
+<listitem>
+<literal>ngx_queue_data(q, type, link)</literal> - get reference to the beginning of a
+queue node data structure, considering the queue field offset in it
+</listitem>
+
+</list>
+</para>
+
+<para>
+Example:
+</para>
+
+
+<programlisting>
+typedef struct {
+    ngx_str_t    value;
+    ngx_queue_t  queue;
+} ngx_foo_t;
+
+ngx_foo_t    *f;
+ngx_queue_t   values;
+
+ngx_queue_init(&amp;values);
+
+f = ngx_palloc(pool, sizeof(ngx_foo_t));
+if (f == NULL) { /* error */ }
+ngx_str_set(&amp;f->value, “foo”);
+
+ngx_queue_insert_tail(&amp;values, f);
+
+/* insert more nodes here */
+
+for (q = ngx_queue_head(&amp;values);
+     q != ngx_queue_sentinel(&amp;values);
+     q = ngx_queue_next(q))
+{
+    f = ngx_queue_data(q, ngx_foo_t, queue);
+
+    ngx_do_smth(&amp;f->value);
+}
+</programlisting>
+
+</section>
+
+
+<section name="Red-Black tree" id="red_black_tree">
+
+<para>
+The <literal>src/core/ngx_rbtree.h</literal> header file provides access to the
+effective implementation of red-black trees.
+</para>
+
+
+<programlisting>
+typedef struct {
+    ngx_rbtree_t       rbtree;
+    ngx_rbtree_node_t  sentinel;
+
+    /* custom per-tree data here */
+} my_tree_t;
+
+typedef struct {
+    ngx_rbtree_node_t  rbnode;
+
+    /* custom per-node data */
+    foo_t              val;
+} my_node_t;
+</programlisting>
+
+<para>
+To deal with a tree as a whole, you need two nodes: root and sentinel.
+Typically, they are added to some custom structure, thus allowing to
+organize your data into a tree which leaves contain a link to or embed
+your data.
+</para>
+
+<para>
+To initialize a tree:
+</para>
+
+
+<programlisting>
+my_tree_t  root;
+
+ngx_rbtree_init(&amp;root.rbtree, &amp;root.sentinel, insert_value_function);
+</programlisting>
+
+<para>
+The <literal>insert_value_function</literal> is a function that is
+responsible for traversing the tree and inserting new values into correct
+place.
+For example, the <literal>ngx_str_rbtree_insert_value</literal> functions is
+designed to deal with <literal>ngx_str_t</literal> type.
+</para>
+
+
+<programlisting>
+void ngx_str_rbtree_insert_value(ngx_rbtree_node_t *temp,
+                                 ngx_rbtree_node_t *node,
+                                 ngx_rbtree_node_t *sentinel)
+</programlisting>
+
+<para>
+Its arguments are pointers to a root node of an insertion, newly created node
+to be added, and a tree sentinel.
+</para>
+
+<para>
+The traversal is pretty straightforward and can be demonstrated with the
+following lookup function pattern:
+</para>
+
+
+<programlisting>
+my_node_t *
+my_rbtree_lookup(ngx_rbtree_t *rbtree, foo_t *val, uint32_t hash)
+{
+    ngx_int_t           rc;
+    my_node_t          *n;
+    ngx_rbtree_node_t  *node, *sentinel;
+
+    node = rbtree->root;
+    sentinel = rbtree->sentinel;
+
+    while (node != sentinel) {
+
+        n = (my_node_t *) node;
+
+        if (hash != node->key) {
+            node = (hash &lt; node->key) ? node->left : node->right;
+            continue;
+        }
+
+        rc = compare(val, node->val);
+
+        if (rc &lt; 0) {
+            node = node->left;
+            continue;
+        }
+
+        if (rc > 0) {
+            node = node->right;
+            continue;
+        }
+
+        return n;
+    }
+
+    return NULL;
+}
+</programlisting>
+
+<para>
+The <literal>compare()</literal> is a classic comparator function returning
+value less, equal or greater than zero. To speed up lookups and avoid comparing
+user objects that can be big, integer hash field is used.
+</para>
+
+<para>
+To add a node to a tree, allocate a new node, initialize it and call
+<literal>ngx_rbtree_insert()</literal>:
+</para>
+
+
+<programlisting>
+    my_node_t          *my_node;
+    ngx_rbtree_node_t  *node;
+
+    my_node = ngx_palloc(...);
+    init_custom_data(&amp;my_node->val);
+
+    node = &amp;my_node->rbnode;
+    node->key = create_key(my_node->val);
+
+    ngx_rbtree_insert(&amp;root->rbtree, node);
+</programlisting>
+
+<para>
+to remove a node:
+</para>
+
+
+<programlisting>
+ngx_rbtree_delete(&amp;root->rbtree, node);
+</programlisting>
+
+</section>
+
+
+</section>
+
+
+<section name="Memory management" id="memory_management">
+
+
+<section name="Heap" id="heap">
+
+<para>
+To allocate memory from system heap, the following functions are provided by
+nginx:
+</para>
+
+<para>
+<list type="bullet">
+
+<listitem>
+<literal>ngx_alloc(size, log)</literal> - allocate memory from system heap.
+This is a wrapper around <literal>malloc()</literal> with logging support.
+Allocation error and debugging information is logged to <literal>log</literal>
+</listitem>
+
+<listitem>
+<literal>ngx_calloc(size, log)</literal> - same as
+<literal>ngx_alloc()</literal>, but memory is filled with zeroes after
+allocation
+</listitem>
+
+<listitem>
+<literal>ngx_memalign(alignment, size, log)</literal> - allocate aligned memory
+from system heap. This is a wrapper around <literal>posix_memalign()</literal>
+on those platforms which provide it.
+Otherwise implementation falls back to <literal>ngx_alloc()</literal> which
+provides maximum alignment
+</listitem>
+
+<listitem>
+<literal>ngx_free(p)</literal> - free allocated memory.
+This is a wrapper around <literal>free()</literal>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+
+<section name="Pool" id="pool">
+
+<para>
+Most nginx allocations are done in pools. Memory allocated in an nginx pool is
+freed automatically when the pool in destroyed. This provides good
+allocation performance and makes memory control easy.
+</para>
+
+<para>
+A pool internally allocates objects in continuous blocks of memory. Once a
+block is full, a new one is allocated and added to the pool memory
+block list. When a large allocation is requested which does not fit into
+a block, such allocation is forwarded to the system allocator and the
+returned pointer is stored in the pool for further deallocation.
+</para>
+
+<para>
+Nginx pool has the type <literal>ngx_pool_t</literal>.
+The following operations are supported:
+</para>
+
+<para>
+<list type="bullet">
+
+<listitem>
+<literal>ngx_create_pool(size, log)</literal> - create a pool with given
+block size. The pool object returned is allocated in the pool as well.
+</listitem>
+
+<listitem>
+<literal>ngx_destroy_pool(pool)</literal> - free all pool memory, including
+the pool object itself.
+</listitem>
+
+<listitem>
+<literal>ngx_palloc(pool, size)</literal> - allocate aligned memory from pool
+</listitem>
+
+<listitem>
+<literal>ngx_pcalloc(pool, size)</literal> - allocated aligned memory
+from pool and fill it with zeroes
+</listitem>
+
+<listitem>
+<literal>ngx_pnalloc(pool, size)</literal> - allocate unaligned memory from pool.
+Mostly used for allocating strings
+</listitem>
+
+<listitem>
+<literal>ngx_pfree(pool, p)</literal> - free memory, previously allocated
+in the pool.
+Only allocations, forwarded to the system allocator, can be freed.
+</listitem>
+
+</list>
+</para>
+
+<programlisting>
+u_char      *p;
+ngx_str_t   *s;
+ngx_pool_t  *pool;
+
+pool = ngx_create_pool(1024, log);
+if (pool == NULL) { /* error */ }
+
+s = ngx_palloc(pool, sizeof(ngx_str_t));
+if (s == NULL) { /* error */ }
+ngx_str_set(s, “foo”);
+
+p = ngx_pnalloc(pool, 3);
+if (p == NULL) { /* error */ }
+ngx_memcpy(p, “foo”, 3);
+</programlisting>
+
+<para>
+Since chain links <literal>ngx_chain_t</literal> are actively used in nginx,
+nginx pool provides a way to reuse them.
+The <literal>chain</literal> field of <literal>ngx_pool_t</literal> keeps a
+list of previously allocated links ready for reuse. For efficient allocation of
+a chain link in a pool, the function
+<literal>ngx_alloc_chain_link(pool)</literal> should be used.
+This function looks up a free chain link in the pool list and only if it's
+empty allocates a new one.  To free a link <literal>ngx_free_chain(pool, cl)</literal>
+should be called.
+</para>
+
+<para>
+Cleanup handlers can be registered in a pool.
+Cleanup handler is a callback with an argument which is called when pool is
+destroyed.
+Pool is usually tied with a specific nginx object (like HTTP request) and
+destroyed in the end of that object’s lifetime, releasing the object itself.
+Registering a pool cleanup is a convinient way to release resources, close file
+descriptors or make final adjustments to shared data, associated with the main
+object.
+</para>
+
+<para>
+A pool cleanup is registered by calling <literal>ngx_pool_cleanup_add(pool,
+size)</literal> which returns <literal>ngx_pool_cleanup_t</literal> pointer to
+be filled by the caller. The <literal>size</literal> argument allows allocating
+context for the cleanup handler.
+</para>
+
+
+<programlisting>
+ngx_pool_cleanup_t  *cln;
+
+cln = ngx_pool_cleanup_add(pool, 0);
+if (cln == NULL) { /* error */ }
+
+cln->handler = ngx_my_cleanup;
+cln->data = “foo”;
+
+...
+
+static void
+ngx_my_cleanup(void *data)
+{
+    u_char  *msg = data;
+
+    ngx_do_smth(msg);
+}
+</programlisting>
+
+</section>
+
+
+<section name="Shared memory" id="shared_memory">
+
+<para>
+Shared memory is used by nginx to share common data between processes.
+Function <literal>ngx_shared_memory_add(cf, name, size, tag)</literal> adds a
+new shared memory entry <literal>ngx_shm_zone_t</literal> to the cycle.  The
+function receives <literal>name</literal> and <literal>size</literal> of the
+zone.
+Each shared zone must have a unique name.
+If a shared zone entry with the provided name exists, the old zone entry is
+reused, if its tag value matches too.
+Mismatched tag is considered an error.
+Usually, the address of the module structure is passed as tag, making it
+possible to reuse shared zones by name within one nginx module.
+</para>
+
+<para>
+The shared memory entry structure <literal>ngx_shm_zone_t</literal> has the
+following fields:
+</para>
+
+<para>
+<list type="bullet">
+
+<listitem>
+<literal>init</literal> - initialization callback, called after shared zone is
+mapped to actual memory
+</listitem>
+
+<listitem>
+<literal>data</literal> - data context, used to pass arbitrary data to the
+<literal>init</literal> callback
+</listitem>
+
+<listitem>
+<literal>noreuse</literal> - flag, disabling shared zone reuse from the
+old cycle
+</listitem>
+
+<listitem>
+<literal>tag</literal> - shared zone tag
+</listitem>
+
+<listitem>
+<literal>shm</literal> - platform-specific object of type
+<literal>ngx_shm_t</literal>, having at least the following fields:
+<list type="bullet">
+
+<listitem>
+<literal>addr</literal> - mapped shared memory address, initially NULL
+</listitem>
+
+<listitem>
+<literal>size</literal> - shared memory size
+</listitem>
+
+<listitem>
+<literal>name</literal> - shared memory name
+</listitem>
+
+<listitem>
+<literal>log</literal> - shared memory log
+</listitem>
+
+<listitem>
+<literal>exists</literal> - flag, showing that shared memory was inherited
+from the master process (Windows-specific)
+</listitem>
+
+</list>
+</listitem>
+
+</list>
+</para>
+
+<para>
+Shared zone entries are mapped to actual memory in
+<literal>ngx_init_cycle()</literal> after configuration is parsed.
+On POSIX systems, <literal>mmap()</literal> syscall is used to create shared
+anonymous mapping.
+On Windows, <literal>CreateFileMapping()/MapViewOfFileEx()</literal> pair is
+used.
+</para>
+
+<para>
+For allocating in shared memory, nginx provides slab pool
+<literal>ngx_slab_pool_t</literal>.
+In each nginx shared zone, a slab pool is automatically created for allocating
+memory in that zone.
+The pool is located in the beginning of the shared zone and can be accessed by
+the expression <literal>(ngx_slab_pool_t *) shm_zone->shm.addr</literal>.
+Allocation in shared zone is done by calling one of the functions
+<literal>ngx_slab_alloc(pool, size)/ngx_slab_calloc(pool, size)</literal>.
+Memory is freed by calling <literal>ngx_slab_free(pool, p)</literal>.
+</para>
+
+<para>
+Slab pool divides all shared zone into pages.
+Each page is used for allocating objects of the same size.
+Only the sizes which are powers of 2, and not less than 8, are considered.
+Other sizes are rounded up to one of these values.
+For each page, a bitmask is kept, showing which blocks within that page are in
+use and which are free for allocation.
+For sizes greater than half-page (usually, 2048 bytes), allocation is done by
+entire pages.
+</para>
+
+<para>
+To protect data in shared memory from concurrent access, mutex is available in
+the <literal>mutex</literal> field of <literal>ngx_slab_pool_t</literal>.
+The mutex is used by the slab pool while allocating and freeing memory.
+However, it can be used to protect any other user data structures,
+allocated in the shared zone.
+Locking is done by calling
+<literal>ngx_shmtx_lock(&amp;shpool->mutex)</literal>, unlocking is done by
+calling <literal>ngx_shmtx_unlock(&amp;shpool->mutex)</literal>.
+</para>
+
+
+<programlisting>
+ngx_str_t        name;
+ngx_foo_ctx_t   *ctx;
+ngx_shm_zone_t  *shm_zone;
+
+ngx_str_set(&amp;name, "foo");
+
+/* allocate shared zone context */
+ctx = ngx_pcalloc(cf->pool, sizeof(ngx_foo_ctx_t));
+if (ctx == NULL) {
+    /* error */
+}
+
+/* add an entry for 65k shared zone */
+shm_zone = ngx_shared_memory_add(cf, &amp;name, 65536, &amp;ngx_foo_module);
+if (shm_zone == NULL) {
+    /* error */
+}
+
+/* register init callback and context */
+shm_zone->init = ngx_foo_init_zone;
+shm_zone->data = ctx;
+
+
+...
+
+
+static ngx_int_t
+ngx_foo_init_zone(ngx_shm_zone_t *shm_zone, void *data)
+{
+    ngx_foo_ctx_t  *octx = data;
+
+    size_t            len;
+    ngx_foo_ctx_t    *ctx;
+    ngx_slab_pool_t  *shpool;
+
+    value = shm_zone->data;
+
+    if (octx) {
+        /* reusing a shared zone from old cycle */
+        ctx->value = octx->value;
+        return NGX_OK;
+    }
+
+    shpool = (ngx_slab_pool_t *) shm_zone->shm.addr;
+
+    if (shm_zone->shm.exists) {
+        /* initialize shared zone context in Windows nginx worker */
+        ctx->value = shpool->data;
+        return NGX_OK;
+    }
+
+    /* initialize shared zone */
+
+    ctx->value = ngx_slab_alloc(shpool, sizeof(ngx_uint_t));
+    if (ctx->value == NULL) {
+        return NGX_ERROR;
+    }
+
+    shpool->data = ctx->value;
+
+    return NGX_OK;
+}
+</programlisting>
+
+</section>
+
+
+</section>
+
+
+<section name="Logging" id="logging">
+
+<para>
+For logging nginx code uses <literal>ngx_log_t</literal> objects.
+Nginx logger provides support for several types of output:
+
+<list type="bullet">
+
+<listitem>
+stderr - logging to standard error output
+</listitem>
+
+<listitem>
+file - logging to file
+</listitem>
+
+<listitem>
+syslog - logging to syslog
+</listitem>
+
+<listitem>
+memory - logging to internal memory storage for development purposes.
+The memory could be accessed later with debugger
+</listitem>
+
+</list>
+</para>
+
+<para>
+A logger instance may actually be a chain of loggers, linked to each other with
+the <literal>next</literal> field.
+Each message is written to all loggers in chain.
+</para>
+
+<para>
+Each logger has an error level which limits the messages written to that log.
+The following error levels are supported by nginx:
+</para>
+
+<para>
+<list type="bullet">
+
+<listitem>
+ <literal>NGX_LOG_EMERG</literal>
+</listitem>
+
+<listitem>
+ <literal>NGX_LOG_ALERT</literal>
+</listitem>
+
+<listitem>
+ <literal>NGX_LOG_CRIT</literal>
+</listitem>
+
+<listitem>
+ <literal>NGX_LOG_ERR</literal>
+</listitem>
+
+<listitem>
+ <literal>NGX_LOG_WARN</literal>
+</listitem>
+
+<listitem>
+ <literal>NGX_LOG_NOTICE</literal>
+</listitem>
+
+<listitem>
+ <literal>NGX_LOG_INFO</literal>
+</listitem>
+
+<listitem>
+ <literal>NGX_LOG_DEBUG</literal>
+</listitem>
+
+</list>
+</para>
+
+<para>
+For debug logging, debug mask is checked as well. The following debug masks
+exist:
+</para>
+
+<para>
+<list type="bullet">
+
+<listitem>
+ <literal>NGX_LOG_DEBUG_CORE</literal>
+</listitem>
+
+<listitem>
+ <literal>NGX_LOG_DEBUG_ALLOC</literal>
+</listitem>
+
+<listitem>
+ <literal>NGX_LOG_DEBUG_MUTEX</literal>
+</listitem>
+
+<listitem>
+ <literal>NGX_LOG_DEBUG_EVENT</literal>
+</listitem>
+
+<listitem>
+ <literal>NGX_LOG_DEBUG_HTTP</literal>
+</listitem>
+
+<listitem>
+ <literal>NGX_LOG_DEBUG_MAIL</literal>
+</listitem>
+
+<listitem>
+ <literal>NGX_LOG_DEBUG_STREAM</literal>
+</listitem>
+
+</list>
+</para>
+
+<para>
+Normally, loggers are created by existing nginx code from
+<literal>error_log</literal> directives and are available at nearly every stage
+of processing in cycle, configuration, client connection and other objects.
+</para>
+
+<para>
+Nginx provides the following logging macros:
+</para>
+
+<para>
+<list type="bullet">
+
+<listitem>
+<literal>ngx_log_error(level, log, err, fmt, ...)</literal> - error logging
+</listitem>
+
+<listitem>
+<literal>ngx_log_debug0(level, log, err, fmt)</literal>,
+<literal>ngx_log_debug1(level, log, err, fmt, arg1)</literal> etc - debug
+logging, up to 8 formatting arguments are supported
+</listitem>
+
+</list>
+</para>
+
+<para>
+A log message is formatted in a buffer of size
+<literal>NGX_MAX_ERROR_STR</literal> (currently, 2048 bytes) on stack.
+The message is prepended with error level, process PID, connection id (stored
+in <literal>log->connection</literal>) and system error text.
+For non-debug messages <literal>log->handler</literal> is called as well to
+prepend more specific information to the log message.
+HTTP module sets <literal>ngx_http_log_error()</literal> function as log
+handler to log client and server addresses, current action (stored in
+<literal>log->action</literal>), client request line, server name etc.
+</para>
+
+<para>
+Example:
+</para>
+
+
+<programlisting>
+/* specify what is currently done */
+log->action = "sending mp4 to client”;
+
+/* error and debug log */
+ngx_log_error(NGX_LOG_INFO, c->log, 0, "client prematurely
+              closed connection”);
+
+ngx_log_debug2(NGX_LOG_DEBUG_HTTP, mp4->file.log, 0,
+               "mp4 start:%ui, length:%ui”, mp4->start, mp4->length);
+</programlisting>
+
+<para>
+Logging result:
+</para>
+
+
+<programlisting>
+2016/09/16 22:08:52 [info] 17445#0: *1 client prematurely closed connection while
+sending mp4 to client, client: 127.0.0.1, server: , request: "GET /file.mp4 HTTP/1.1”
+2016/09/16 23:28:33 [debug] 22140#0: *1 mp4 start:0, length:10000
+</programlisting>
+
+</section>
+
+
+<section name="Cycle" id="cycle">
+
+<para>
+Cycle object keeps nginx runtime context, created from a specific
+configuration.
+The type of the cycle is <literal>ngx_cycle_t</literal>.
+Upon configuration reload a new cycle is created from the new version of nginx
+configuration.
+The old cycle is usually deleted after a new one is successfully created.
+Currently active cycle is held in the <literal>ngx_cycle</literal> global
+variable and is inherited by newly started nginx workers.
+</para>
+
+<para>
+A cycle is created by the function <literal>ngx_init_cycle()</literal>.
+The function receives the old cycle as the argument.
+It's used to locate the configuration file and inherit as much resources as
+possible from the old cycle to keep nginx running smoothly.
+When nginx starts, a fake cycle called "init cycle" is created and is then
+replaced by a normal cycle, built from configuration.
+</para>
+
+<para>
+Some members of the cycle:
+</para>
+
+<para>
+<list type="bullet">
+
+<listitem>
+<literal>pool</literal> - cycle pool. Created for each new cycle
+</listitem>
+
+<listitem>
+<literal>log</literal> - cycle log. Initially, this log is inherited from the
+old cycle.
+After reading configuration, this member is set to point to
+<literal>new_log</literal>
+</listitem>
+
+<listitem>
+<literal>new_log</literal> - cycle log, created by the configuration.
+It's affected by the root scope <literal>error_log</literal> directive
+</listitem>
+
+<listitem>
+<literal>connections</literal>, <literal>connections_n</literal> - per-worker
+array of connections of type <literal>ngx_connection_t</literal>, created by
+the event module while initializing each nginx worker.
+The number of connections is set by the <literal>worker_connections</literal>
+directive
+</listitem>
+
+<listitem>
+<literal>free_connections</literal>,
+<literal>free_connections_n</literal> - the and number of currently available
+connections.
+If no connections are available, nginx worker refuses to accept new clients
+</listitem>
+
+<listitem>
+<literal>files</literal>, <literal>files_n</literal> - array for mapping file
+descriptors to nginx connections.
+This mapping is used by the event modules, having the
+<literal>NGX_USE_FD_EVENT</literal> flag (currently, it's poll and devpoll)
+</listitem>
+
+<listitem>
+<literal>conf_ctx</literal> - array of core module configurations.
+The configurations are created and filled while reading nginx configuration
+files
+</listitem>
+
+<listitem>
+<literal>modules</literal>, <literal>modules_n</literal> - array of modules
+<literal>ngx_module_t</literal>, both static and dynamic, loaded by current
+configuration
+</listitem>
+
+<listitem>
+<literal>listening</literal> - array of listening objects
+<literal>ngx_listening_t</literal>.
+Listening objects are normally added by the the <literal>listen</literal>
+directive of different modules which call the
+<literal>ngx_create_listening()</literal> function.
+Based on listening objects, listen sockets are created by nginx
+</listitem>
+
+<listitem>
+<literal>paths</literal> - array of paths <literal>ngx_path_t</literal>.
+Paths are added by calling the function <literal>ngx_add_path()</literal> from
+modules which are going to operate on certain directories.
+These directories are created by nginx after reading configuration, if missing.
+Moreover, two handlers can be added for each path:
+
+<list type="bullet">
+
+<listitem>
+path loader - executed only once in 60 seconds after starting or reloading
+nginx. Normally, reads the directory and stores data in nginx shared
+memory. The handler is called from a dedicated nginx process "nginx
+cache loader"
+</listitem>
+
+<listitem>
+path manager - executed periodically. Normally, removes old files from the
+directory and reflects these changes in nginx memory. The handler is
+called from a dedicated nginx process "nginx cache manager"
+</listitem>
+
+</list>
+</listitem>
+
+<listitem>
+<literal>open_files</literal> - list of <literal>ngx_open_file_t</literal>
+objects.
+An open file object is created by calling the function
+<literal>ngx_conf_open_file()</literal>.
+After reading configuration nginx opens all files from the
+<literal>open_files</literal> list and stores file descriptors in the
+<literal>fd</literal> field of each open file object.
+The files are opened in append mode and created if missing.
+The files from this list are reopened by nginx workers upon receiving the
+reopen signal (usually it's <literal>USR1</literal>).
+In this case the <literal>fd</literal> fields are changed to new descriptors.
+The open files are currently used for logging
+</listitem>
+
+<listitem>
+<literal>shared_memory</literal> - list of shared memory zones, each added by
+calling the <literal>ngx_shared_memory_add()</literal> function.
+Shared zones are mapped to the same address range in all nginx processes and
+are used to share common data, for example HTTP cache in-memory tree
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+<section name="Buffer" id="buffer">
+
+<para>
+For input/output operations, nginx provides the buffer type
+<literal>ngx_buf_t</literal>.
+Normally, it's used to hold data to be written to a destination or read from a
+source.
+Buffer can reference data in memory and in file.
+Technically it's possible that a buffer references both at the same time.
+Memory for the buffer is allocated separately and is not related to the buffer
+structure <literal>ngx_buf_t</literal>.
+</para>
+
+<para>
+The structure <literal>ngx_buf_t</literal> has the following fields:
+</para>
+
+<para>
+<list type="bullet">
+
+<listitem>
+<literal>start</literal>, <literal>end</literal> - the boundaries of memory
+block, allocated for the buffer
+</listitem>
+
+<listitem>
+<literal>pos</literal>, <literal>last</literal> - memory buffer boundaries,
+normally a subrange of <literal>start</literal> .. <literal>end</literal>
+</listitem>
+
+<listitem>
+<literal>file_pos</literal>, <literal>file_last</literal> - file buffer
+boundaries, these are offsets from the beginning of the file
+</listitem>
+
+<listitem>
+<literal>tag</literal> - unique value, used to distinguish buffers, created by
+different nginx module, usually, for the purpose of buffer reuse
+</listitem>
+
+<listitem>
+<literal>file</literal> - file object
+</listitem>
+
+<listitem>
+<literal>temporary</literal> - flag, meaning that the buffer references
+writable memory
+</listitem>
+
+<listitem>
+<literal>memory</literal> - flag, meaning that the buffer references read-only
+memory
+</listitem>
+
+<listitem>
+<literal>in_file</literal> - flag, meaning that current buffer references data
+in a file
+</listitem>
+
+<listitem>
+<literal>flush</literal> - flag, meaning that all data prior to this buffer
+should be flushed
+</listitem>
+
+<listitem>
+<literal>recycled</literal> - flag, meaning that the buffer can be reused and
+should be consumed as soon as possible
+</listitem>
+
+<listitem>
+<literal>sync</literal> - flag, meaning that the buffer carries no data or
+special signal like <literal>flush</literal> or <literal>last_buf</literal>.
+Normally, such buffers are considered an error by nginx. This flags allows
+skipping the error checks
+</listitem>
+
+<listitem>
+<literal>last_buf</literal> - flag, meaning that current buffer is the last in
+output
+</listitem>
+
+<listitem>
+<literal>last_in_chain</literal> - flag, meaning that there's no more data
+buffers in a (sub)request
+</listitem>
+
+<listitem>
+<literal>shadow</literal> - reference to another buffer, related to the current
+buffer. Usually current buffer uses data from the shadow buffer. Once current
+buffer is consumed, the shadow buffer should normally also be marked as
+consumed
+</listitem>
+
+<listitem>
+<literal>last_shadow</literal> - flag, meaning that current buffer is the last
+buffer, referencing a particular shadow buffer
+</listitem>
+
+<listitem>
+<literal>temp_file</literal> - flag, meaning that the buffer is in a temporary
+file
+</listitem>
+
+</list>
+</para>
+
+<para>
+For input and output buffers are linked in chains.
+Chain is a sequence of chain links <literal>ngx_chain_t</literal>, defined as
+follows:
+</para>
+
+
+<programlisting>
+typedef struct ngx_chain_s  ngx_chain_t;
+
+struct ngx_chain_s {
+    ngx_buf_t    *buf;
+    ngx_chain_t  *next;
+};
+</programlisting>
+
+<para>
+Each chain link keeps a reference to its buffer and a reference to the next
+chain link.
+</para>
+
+<para>
+Example of using buffers and chains:
+</para>
+
+
+<programlisting>
+ngx_chain_t *
+ngx_get_my_chain(ngx_pool_t *pool)
+{
+    ngx_buf_t    *b;
+    ngx_chain_t  *out, *cl, **ll;
+
+    /* first buf */
+    cl = ngx_alloc_chain_link(pool);
+    if (cl == NULL) { /* error */ }
+
+    b = ngx_calloc_buf(pool);
+    if (b == NULL) { /* error */ }
+
+    b->start = (u_char *) "foo";
+    b->pos = b->start;
+    b->end = b->start + 3;
+    b->last = b->end;
+    b->memory = 1; /* read-only memory */
+
+    cl->buf = b;
+    out = cl;
+    ll = &amp;cl->next;
+
+    /* second buf */
+    cl = ngx_alloc_chain_link(pool);
+    if (cl == NULL) { /* error */ }
+
+    b = ngx_create_temp_buf(pool, 3);
+    if (b == NULL) { /* error */ }
+
+    b->last = ngx_cpymem(b->last, "foo", 3);
+
+    cl->buf = b;
+    cl->next = NULL;
+    *ll = cl;
+
+    return out;
+}
+</programlisting>
+
+</section>
+
+
+<section name="Networking" id="networking">
+
+
+<!--
+<section name="Network data types" id="network_data_types">
+
+<para>
+TBD: ngx_addr_t, ngx_url_t, ngx_socket_t, ngx_sockaddr_t, parse url, parse
+address...
+</para>
+
+</section>
+-->
+
+<section name="Connection" id="connection">
+
+<para>
+Connection type <literal>ngx_connection_t</literal> is a wrapper around a
+socket descriptor. Some of the structure fields are:
+</para>
+
+<para>
+<list type="bullet">
+
+<listitem>
+<literal>fd</literal> - socket descriptor
+</listitem>
+
+<listitem>
+<literal>data</literal> - arbitrary connection context.
+Normally, a pointer to a higher level object, built on top of the connection,
+like HTTP request or Stream session
+</listitem>
+
+<listitem>
+<literal>read</literal>, <literal>write</literal> - read and write events for
+the connection
+</listitem>
+
+<listitem>
+<literal>recv</literal>, <literal>send</literal>,
+<literal>recv_chain</literal>, <literal>send_chain</literal> - I/O operations
+for the connection
+</listitem>
+
+<listitem>
+<literal>pool</literal> - connection pool
+</listitem>
+
+<listitem>
+<literal>log</literal> - connection log
+</listitem>
+
+<listitem>
+<literal>sockaddr</literal>, <literal>socklen</literal>,
+<literal>addr_text</literal> - remote socket address in binary and text forms
+</listitem>
+
+<listitem>
+<literal>local_sockaddr</literal>, <literal>local_socklen</literal> - local
+socket address in binary form.
+Initially, these fields are empty.
+Function <literal>ngx_connection_local_sockaddr()</literal> should be used to
+get socket local address
+</listitem>
+
+<listitem>
+<literal>proxy_protocol_addr</literal>, <literal>proxy_protocol_port</literal>
+- PROXY protocol client address and port, if PROXY protocol is enabled for the
+connection
+</listitem>
+
+<listitem>
+<literal>ssl</literal> - nginx connection SSL context
+</listitem>
+
+<listitem>
+<literal>reusable</literal> - flag, meaning, that the connection is at the
+state, when it can be reused
+</listitem>
+
+<listitem>
+<literal>close</literal> - flag, meaning, that the connection is being reused
+and should be closed
+</listitem>
+
+</list>
+</para>
+
+<para>
+An nginx connection can transparently encapsulate SSL layer.
+In this case the connection <literal>ssl</literal> field holds a pointer to an
+<literal>ngx_ssl_connection_t</literal> structure, keeping all SSL-related data
+for the connection, including <literal>SSL_CTX</literal> and
+<literal>SSL</literal>.
+The handlers <literal>recv</literal>, <literal>send</literal>,
+<literal>recv_chain</literal>, <literal>send_chain</literal> are set as well to
+SSL functions.
+</para>
+
+<para>
+The number of connections per nginx worker is limited by the
+<literal>worker_connections</literal> value.
+All connection structures are pre-created when a worker starts and stored in
+the <literal>connections</literal> field of the cycle object.
+To reach out for a connection structure, <literal>ngx_get_connection(s,
+log)</literal> function is used.
+The function receives a socket descriptor <literal>s</literal> which needs to
+be wrapped in a connection structure.
+</para>
+
+<para>
+Since the number of connections per worker is limited, nginx provides a
+way to grab connections which are currently in use.
+To enable or disable reuse of a connection, function
+<literal>ngx_reusable_connection(c, reusable)</literal> is called.
+Calling <literal>ngx_reusable_connection(c, 1)</literal> sets the
+<literal>reuse</literal> flag of the connection structure and inserts the
+connection in the <literal>reusable_connections_queue</literal> of the cycle.
+Whenever <literal>ngx_get_connection()</literal> finds out there are no
+available connections in the <literal>free_connections</literal> list of the
+cycle, it calls <literal>ngx_drain_connections()</literal> to release a
+specific number of reusable connections.
+For each such connection, the <literal>close</literal> flag is set and its read
+handler is called which is supposed to free the connection by calling
+<literal>ngx_close_connection(c)</literal> and make it available for reuse.
+To exit the state when a connection can be reused
+<literal>ngx_reusable_connection(c, 0)</literal> is called.
+An example of reusable connections in nginx is HTTP client connections which
+are marked as reusable until some data is received from the client.
+</para>
+
+</section>
+
+
+</section>
+
+
+<section name="Events" id="events">
+
+
+<section name="Event" id="event">
+
+<para>
+Event object <literal>ngx_event_t</literal> in nginx provides a way to be
+notified of a specific event happening.
+</para>
+
+<para>
+Some of the fields of the <literal>ngx_event_t</literal> are:
+</para>
+
+<para>
+<list type="bullet">
+
+<listitem>
+<literal>data</literal> - arbitrary event context, used in event handler,
+usually, a pointer to a connection, tied with the event
+</listitem>
+
+<listitem>
+<literal>handler</literal> - callback function to be invoked when the event
+happens
+</listitem>
+
+<listitem>
+<literal>write</literal> - flag, meaning that this is the write event.
+Used to distinguish between read and write events
+</listitem>
+
+<listitem>
+<literal>active</literal> - flag, meaning that the event is registered for
+receiving I/O notifications, normally from notification mechanisms like epoll,
+kqueue, poll
+</listitem>
+
+<listitem>
+<literal>ready</literal> - flag, meaning that the event has received an
+I/O notification
+</listitem>
+
+<listitem>
+<literal>delayed</literal> - flag, meaning that I/O is delayed due to rate
+limiting
+</listitem>
+
+<listitem>
+<literal>timer</literal> - Red-Black tree node for inserting the event into
+the timer tree
+</listitem>
+
+<listitem>
+<literal>timer_set</literal> - flag, meaning that the event timer is set,
+but not yet expired
+</listitem>
+
+<listitem>
+<literal>timedout</literal> - flag, meaning that the event timer has expired
+</listitem>
+
+<listitem>
+<literal>eof</literal> - read event flag, meaning that the eof has happened
+while reading data
+</listitem>
+
+<listitem>
+<literal>pending_eof</literal> - flag, meaning that the eof is pending on the
+socket, even though there may be some data available before it.
+The flag is delivered via <literal>EPOLLRDHUP</literal> epoll event or
+<literal>EV_EOF</literal> kqueue flag
+</listitem>
+
+<listitem>
+<literal>error</literal> - flag, meaning that an error has happened while
+reading (for read event) or writing (for write event)
+</listitem>
+
+<listitem>
+<literal>cancelable</literal> - timer event flag, meaning that the event
+handler should be called while performing nginx worker graceful shutdown, event
+though event timeout has not yet expired.  The flag provides a way to finalize
+certain activities, for example, flush log files
+</listitem>
+
+<listitem>
+<literal>posted</literal> - flag, meaning that the event is posted to queue
+</listitem>
+
+<listitem>
+<literal>queue</literal> - queue node for posting the event to a queue
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+
+<section name="I/O events" id="i_o_events">
+
+<para>
+Each connection, received with the
+<literal>ngx_get_connection()</literal> call, has two events attached to it:
+<literal>c->read</literal> and <literal>c->write</literal>.
+These events are used to receive notifications about the socket being ready for
+reading or writing.
+All such events operate in Edge-Triggered mode, meaning that they only trigger
+notifications when the state of the socket changes.
+For example, doing a partial read on a socket will not make nginx deliver a
+repeated read notification until more data arrive in the socket.
+Even when the underlying I/O notification mechanism is essentially
+Level-Triggered (poll, select etc), nginx will turn the notifications into
+Edge-Triggered.
+To make nginx event notifications consistent across all notifications systems
+on different platforms, it's required, that the functions
+<literal>ngx_handle_read_event(rev, flags)</literal> and
+<literal>ngx_handle_read_event(wev,flags)</literal> are called after handling
+an I/O socket notification or calling any I/O functions on that socket.
+Normally, these functions are called once in the end of each read or write
+event handler.
+</para>
+
+</section>
+
+
+<section name="Timer events" id="timer_events">
+
+<para>
+An event can be set to notify a timeout expiration.
+The function <literal>ngx_add_timer(ev, timer)</literal> sets a timeout for an
+event, <literal>ngx_del_timer(ev)</literal> deletes a previously set timeout.
+Timeouts currently set for all existing events, are kept in a global timeout
+Red-Black tree <literal>ngx_event_timer_rbtree</literal>.
+The key in that tree has the type <literal>ngx_msec_t</literal> and is the time
+in milliseconds since the beginning of January 1, 1970 (modulus
+<literal>ngx_msec_t</literal> max value) at which the event should expire.
+The tree structure provides fast inserting and deleting operations, as well as
+accessing the nearest timeouts.
+The latter is used by nginx to find out for how long to wait for I/O events
+and for expiring timeout events afterwards.
+</para>
+
+</section>
+
+
+<section name="Posted events" id="posted_events">
+
+<para>
+An event can be posted which means that its handler will be called at some
+point later within the current event loop iteration.
+Posting events is a good practice for simplifying code and escaping stack
+overflows.
+Posted events are held in a post queue.
+The macro <literal>ngx_post_event(ev, q)</literal> posts the event
+<literal>ev</literal> to the post queue <literal>q</literal>.
+Macro <literal>ngx_delete_posted_event(ev)</literal> deletes the event
+<literal>ev</literal> from whatever queue it's currently posted.
+Normally, events are posted to the <literal>ngx_posted_events</literal> queue.
+This queue is processed late in the event loop - after all I/O and timer
+events are already handled.
+The function <literal>ngx_event_process_posted()</literal> is called to process
+an event queue.
+This function calls event handlers until the queue is not empty.  This means
+that a posted event handler can post more events to be processed within the
+current event loop iteration.
+</para>
+
+<para>
+Example:
+</para>
+
+
+<programlisting>
+void
+ngx_my_connection_read(ngx_connection_t *c)
+{
+    ngx_event_t  *rev;
+
+    rev = c->read;
+
+    ngx_add_timer(rev, 1000);
+
+    rev->handler = ngx_my_read_handler;
+
+    ngx_my_read(rev);
+}
+
+
+void
+ngx_my_read_handler(ngx_event_t *rev)
+{
+    ssize_t            n;
+    ngx_connection_t  *c;
+    u_char             buf[256];
+
+    if (rev->timedout) { /* timeout expired */ }
+
+    c = rev->data;
+
+    while (rev->ready) {
+        n = c->recv(c, buf, sizeof(buf));
+
+        if (n == NGX_AGAIN) {
+            break;
+        }
+
+        if (n == NGX_ERROR) { /* error */ }
+
+        /* process buf */
+    }
+
+    if (ngx_handle_read_event(rev, 0) != NGX_OK) { /* error */ }
+}
+</programlisting>
+
+</section>
+
+
+<section name="Event loop" id="event_loop">
+
+<para>
+All nginx processes which do I/O, have an event loop.
+The only type of process which does not have I/O, is nginx master process which
+spends most of its time in <literal>sigsuspend()</literal> call waiting for
+signals to arrive.
+Event loop is implemented in <literal>ngx_process_events_and_timers()</literal>
+function.
+This function is called repeatedly until the process exits.
+It has the following stages:
+</para>
+
+<para>
+<list type="bullet">
+
+<listitem>
+find nearest timeout by calling <literal>ngx_event_find_timer()</literal>.
+This function finds the leftmost timer tree node and returns the number of
+milliseconds until that node expires
+</listitem>
+
+<listitem>
+process I/O events by calling a handler, specific to event notification
+mechanism, chosen by nginx configuration.
+This handler waits for at least one I/O event to happen, but no longer, than
+the nearest timeout.
+For each read or write event which has happened, the <literal>ready</literal>
+flag is set and its handler is called.
+For Linux, normally, the <literal>ngx_epoll_process_events()</literal> handler
+is used which calls <literal>epoll_wait()</literal> to wait for I/O events
+</listitem>
+
+<listitem>
+expire timers by calling <literal>ngx_event_expire_timers()</literal>.
+The timer tree is iterated from the leftmost element to the right until a not
+yet expired timeout is found.
+For each expired node the <literal>timedout</literal> event flag is set,
+<literal>timer_set</literal> flag is reset, and the event handler is called
+</listitem>
+
+<listitem>
+process posted events by calling <literal>ngx_event_process_posted()</literal>.
+The function repeatedly removes the first element from the posted events
+queue and calls its handler until the queue gets empty
+</listitem>
+
+</list>
+</para>
+
+<para>
+All nginx processes handle signals as well.
+Signal handlers only set global variables which are checked after the
+<literal>ngx_process_events_and_timers()</literal> call.
+</para>
+
+</section>
+
+
+</section>
+
+
+<section name="Processes" id="processes">
+
+<para>
+There are several types of processes in nginx.
+The type of current process is kept in the <literal>ngx_process</literal>
+global variable:
+</para>
+
+<list type="bullet">
+
+<listitem>
+
+<para>
+<literal>NGX_PROCESS_MASTER</literal> - the master process runs the
+<literal>ngx_master_process_cycle()</literal> function.
+Master process does not have any I/O and responds only to signals.
+It reads configuration, creates cycles, starts and controls child processes
+</para>
+
+
+</listitem>
+
+<listitem>
+
+<para>
+<literal>NGX_PROCESS_WORKER</literal> - the worker process runs the
+<literal>ngx_worker_process_cycle()</literal> function.
+Worker processes are started by master and handle client connections.
+They also respond to signals and channel commands, sent from master
+</para>
+
+
+</listitem>
+
+<listitem>
+
+<para>
+<literal>NGX_PROCESS_SINGLE</literal> - single process is the only type
+of processes which exist in the <literal>master_process off</literal> mode.
+The cycle function for this process is
+<literal>ngx_single_process_cycle()</literal>.
+This process creates cycles and handles client connections
+</para>
+
+
+</listitem>
+
+<listitem>
+
+<para>
+<literal>NGX_PROCESS_HELPER</literal> - currently, there are two types of
+helper processes: cache manager and cache loader.
+Both of them share the same cycle function
+<literal>ngx_cache_manager_process_cycle()</literal>.
+</para>
+
+
+</listitem>
+
+</list>
+
+<para>
+All nginx processes handle the following signals:
+</para>
+
+<list type="bullet">
+
+<listitem>
+
+<para>
+<literal>NGX_SHUTDOWN_SIGNAL</literal> (<literal>SIGQUIT</literal>) - graceful
+shutdown.
+Upon receiving this signal master process sends shutdown signal to all child
+processes.
+When no child processes are left, master destroys cycle pool and exits.
+A worker process which received this signal, closes all listening sockets and
+waits until timeout tree becomes empty, then destroys cycle pool and exits.
+A cache manager process exits right after receiving this signal.
+The variable <literal>ngx_quit</literal> is set to one after receiving this
+signal and immediately reset after being processed.
+The variable <literal>ngx_exiting</literal> is set to one when worker process
+is in shutdown state
+</para>
+
+
+</listitem>
+
+<listitem>
+
+<para>
+<literal>NGX_TERMINATE_SIGNAL</literal> (<literal>SIGTERM</literal>) -
+terminate.
+Upon receiving this signal master process sends terminate signal to all child
+processes.
+If child processes do not exit in 1 second, they are killed with the
+<literal>SIGKILL</literal> signal.
+When no child processes are left, master process destroys cycle pool and exits.
+A worker or cache manager process which received this signal destroys cycle
+pool and exits.
+The variable <literal>ngx_terminate</literal> is set to one after receiving
+this signal
+</para>
+
+
+</listitem>
+
+<listitem>
+
+<para>
+<literal>NGX_NOACCEPT_SIGNAL</literal> (<literal>SIGWINCH</literal>)
+- gracefully shut down worker processes
+</para>
+
+
+</listitem>
+
+<listitem>
+
+<para>
+<literal>NGX_RECONFIGURE_SIGNAL</literal> (<literal>SIGHUP</literal>) -
+reconfigure.
+Upon receiving this signal master process creates a new cycle from
+configuration file.
+If the new cycle was created successfully, the old cycle is deleted and new
+child processes are started.
+Meanwhile, the old processes receive the shutdown signal.
+In single-process mode, nginx creates a new cycle as well, but keeps the old
+one until all clients, tied to the old cycle, are gone.
+Worker and helper processes ignore this signal
+</para>
+
+
+</listitem>
+
+<listitem>
+
+<para>
+<literal>NGX_REOPEN_SIGNAL</literal> (<literal>SIGUSR1</literal>) - reopen
+files.
+Master process passes this signal to workers.
+Worker processes reopen all <literal>open_files</literal> from the cycle
+</para>
+
+
+</listitem>
+
+<listitem>
+
+<para>
+<literal>NGX_CHANGEBIN_SIGNAL</literal> (<literal>SIGUSR2</literal>) - change
+nginx binary.
+Master process starts a new nginx binary and passes there a list of all listen
+sockets.
+The list is passed in the environment variable <literal>"NGINX"</literal> in
+text format, where descriptor numbers separated with semicolons.
+A new nginx instance reads that variable and adds the sockets to its init
+cycle.
+Other processes ignore this signal
+</para>
+
+
+</listitem>
+
+</list>
+
+<para>
+While all nginx worker processes are able to receive and properly handle POSIX
+signals, master process normally does not pass any signals to workers and
+helpers with the standard <literal>kill()</literal> syscall.
+Instead, nginx uses inter-process channels which allow sending messages between
+all nginx processes.
+Currently, however, messages are only sent from master to its children.
+Those messages carry the same signals.
+The channels are socketpairs with their ends in different processes.
+</para>
+
+<para>
+When running nginx binary, several values can be specified next to
+<literal>-s</literal> parameter.
+Those values are <literal>stop</literal>, <literal>quit</literal>,
+<literal>reopen</literal>, <literal>reload</literal>.
+They are converted to signals <literal>NGX_TERMINATE_SIGNAL</literal>,
+<literal>NGX_SHUTDOWN_SIGNAL</literal>, <literal>NGX_REOPEN_SIGNAL</literal>
+and <literal>NGX_RECONFIGURE_SIGNAL</literal> and sent to the nginx master
+process, whose pid is read from nginx pid file.
+</para>
+
+</section>
+
+</article>
