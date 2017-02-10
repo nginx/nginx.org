@@ -96,7 +96,7 @@
 
     <xsl:template match="listitem"> <li> <xsl:apply-templates/> </li> </xsl:template>
     <xsl:template match="listitem[@id]"> <li id="{@id}"> <xsl:apply-templates/> </li> </xsl:template>
-    
+
     <xsl:template match="list[@type='tag']">
         <xsl:choose><xsl:when test="@compact = 'yes'">
             <dl class="compact"> <xsl:apply-templates/> </dl>

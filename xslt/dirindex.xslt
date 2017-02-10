@@ -11,7 +11,7 @@
   .. a current directory of a XSLT script is where the script is stored,
   .. but not where XSLT processor has been started to run the script
   -->
-<xsl:param select="'../xml'" name="XML"/> 
+<xsl:param select="'../xml'" name="XML"/>
 
 <xsl:param name="LANG"/>
 
