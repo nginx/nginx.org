@@ -11,7 +11,7 @@ X:stylesheet {
     }
 
     X:template = "section/section[@id and @name]" {
-        <a name="{@id}" /> <center><h5> !{@name} </h5></center>
+        <a name="{@id}" /> <center><h4> !{@name} </h4></center>
         !!;
     }
 
@@ -26,7 +26,7 @@ X:stylesheet {
     }
 
     X:template = "section/section[not(@id) and @name]" {
-        <center><h5> !{@name} </h5></center>
+        <center><h4> !{@name} </h4></center>
         !!;
     }
 
