@@ -12,7 +12,7 @@
     </xsl:template>
 
     <xsl:template match="section/section[@id and @name]">
-        <a name="{@id}"/> <center><h5> <xsl:value-of select="@name"/> </h5></center>
+        <a name="{@id}"/> <center><h4> <xsl:value-of select="@name"/> </h4></center>
         <xsl:apply-templates/>
     </xsl:template>
 
@@ -27,7 +27,7 @@
     </xsl:template>
 
     <xsl:template match="section/section[not(@id) and @name]">
-        <center><h5> <xsl:value-of select="@name"/> </h5></center>
+        <center><h4> <xsl:value-of select="@name"/> </h4></center>
         <xsl:apply-templates/>
     </xsl:template>
 
