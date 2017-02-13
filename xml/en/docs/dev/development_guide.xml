@@ -2078,7 +2078,7 @@ Edge-Triggered.
 To make nginx event notifications consistent across all notifications systems
 on different platforms, it's required, that the functions
 <literal>ngx_handle_read_event(rev, flags)</literal> and
-<literal>ngx_handle_read_event(wev,flags)</literal> are called after handling
+<literal>ngx_handle_write_event(wev, lowat)</literal> are called after handling
 an I/O socket notification or calling any I/O functions on that socket.
 Normally, these functions are called once in the end of each read or write
 event handler.
