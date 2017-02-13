@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="65">
+        rev="66">
 
 <section id="directives" name="Directives">
 
@@ -2537,7 +2537,7 @@ The details of setting up hash tables are provided in a separate
 <context>location</context>
 
 <para>
-Enables or disables emitting nginx version in error messages and in the
+Enables or disables emitting nginx version on error pages and in the
 <header>Server</header> response header field.
 </para>
 
@@ -2545,7 +2545,7 @@ Enables or disables emitting nginx version in error messages and in the
 Additionally, as part of our
 <commercial_version>commercial subscription</commercial_version>,
 starting from version 1.9.13
-the signature in error messages and
+the signature on error pages and
 the <header>Server</header> response header field value
 can be set explicitly using the <value>string</value> with variables.
 An empty string disables the emission of the <header>Server</header> field.

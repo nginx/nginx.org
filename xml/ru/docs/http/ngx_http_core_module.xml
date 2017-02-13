@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="65">
+        rev="66">
 
 <section id="directives" name="Директивы">
 
@@ -2538,7 +2538,7 @@ server {
 <context>location</context>
 
 <para>
-Разрешает или запрещает выдавать версию nginx’а в сообщениях об ошибках и
+Разрешает или запрещает выдавать версию nginx’а на страницах ошибок и
 в поле <header>Server</header> заголовка ответа.
 </para>
 
@@ -2546,7 +2546,7 @@ server {
 Дополнительно, как часть
 <commercial_version>коммерческой подписки</commercial_version>,
 начиная с версии 1.9.13
-подписи в сообщениях об ошибках и
+подписи на страницах ошибок и
 значение поля <header>Server</header> заголовка ответа
 можно задать явно с помощью строки с переменными.
 Пустая строка запрещает выдачу поля <header>Server</header>.
