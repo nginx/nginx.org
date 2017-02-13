@@ -1095,7 +1095,7 @@ Cleanup handler is a callback with an argument which is called when pool is
 destroyed.
 Pool is usually tied with a specific nginx object (like HTTP request) and
 destroyed in the end of that object’s lifetime, releasing the object itself.
-Registering a pool cleanup is a convinient way to release resources, close file
+Registering a pool cleanup is a convenient way to release resources, close file
 descriptors or make final adjustments to shared data, associated with the main
 object.
 </para>
