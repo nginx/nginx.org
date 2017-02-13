@@ -10,7 +10,7 @@
 <module name="Module ngx_http_auth_request_module"
         link="/en/docs/http/ngx_http_auth_request_module.html"
         lang="en"
-        rev="4">
+        rev="5">
 
 <section id="summary">
 
@@ -91,7 +91,7 @@ the URI to which the subrequest will be sent.
 
 
 <directive name="auth_request_set">
-<syntax><value>variable</value> <value>value</value></syntax>
+<syntax><value>$variable</value> <value>value</value></syntax>
 <default/>
 <context>http</context>
 <context>server</context>

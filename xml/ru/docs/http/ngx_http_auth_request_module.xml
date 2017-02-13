@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_auth_request_module"
         link="/ru/docs/http/ngx_http_auth_request_module.html"
         lang="ru"
-        rev="4">
+        rev="5">
 
 <section id="summary">
 
@@ -91,7 +91,7 @@ location = /auth {
 
 
 <directive name="auth_request_set">
-<syntax><value>переменная</value> <value>значение</value></syntax>
+<syntax><value>$переменная</value> <value>значение</value></syntax>
 <default/>
 <context>http</context>
 <context>server</context>
