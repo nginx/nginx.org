@@ -10,7 +10,7 @@
 <module name="Module ngx_http_proxy_module"
         link="/en/docs/http/ngx_http_proxy_module.html"
         lang="en"
-        rev="55">
+        rev="56">
 
 <section id="summary">
 
@@ -640,7 +640,7 @@ header fields.
 
 <para>
 Determines in which cases a stale cached response can be used
-when an error occurs during communication with the proxied server.
+during communication with the proxied server.
 The directive’s parameters match the parameters of the
 <link id="proxy_next_upstream"/> directive.
 </para>
@@ -649,6 +649,11 @@ The directive’s parameters match the parameters of the
 The <literal>error</literal> parameter also permits
 using a stale cached response if a proxied server to process a request
 cannot be selected.
+The same behavior can be enabled with the
+“<link url="https://tools.ietf.org/html/rfc5861#section-4">stale-if-error</link>”
+extension of the <header>Cache-Control</header> response header field (1.11.10)
+for a specified number of seconds after the response became stale,
+however, this has lower priority than using the directive parameter.
 </para>
 
 <para id="proxy_cache_use_stale_updating">
@@ -656,6 +661,11 @@ Additionally, the <literal>updating</literal> parameter permits
 using a stale cached response if it is currently being updated.
 This allows minimizing the number of accesses to proxied servers
 when updating cached data.
+The same behavior can be enabled with the
+“<link url="https://tools.ietf.org/html/rfc5861#section-3">stale-while-revalidate</link>”
+extension of the <header>Cache-Control</header> response header field (1.11.10)
+for a specified number of seconds after the response became stale,
+however, this has lower priority than using the directive parameter.
 </para>
 
 <para>
