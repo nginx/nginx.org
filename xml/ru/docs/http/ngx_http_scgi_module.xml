@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_scgi_module"
         link="/ru/docs/http/ngx_http_scgi_module.html"
         lang="ru"
-        rev="29">
+        rev="30">
 
 <section id="summary">
 
@@ -188,6 +188,26 @@ SCGI-сервера, ограничивает суммарный <value>разм
 В значении параметра можно использовать переменные (1.7.9).
 Параметр <literal>off</literal> запрещает кэширование, унаследованное
 с предыдущего уровня конфигурации.
+</para>
+
+</directive>
+
+
+<directive name="scgi_cache_background_update">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.11.10</appeared-in>
+
+<para>
+Позволяет запустить фоновый подзапрос
+для обновления просроченного элемента кэша,
+в то время как клиенту возвращается устаревший закэшированный ответ.
+Использование устаревшего закэшированного ответа в момент его обновления
+должно быть
+<link id="scgi_cache_use_stale_updating">разрешено</link>.
 </para>
 
 </directive>
@@ -603,7 +623,7 @@ server {
 SCGI-сервера для обработки запроса.
 </para>
 
-<para>
+<para id="scgi_cache_use_stale_updating">
 Кроме того, дополнительный параметр <literal>updating</literal>
 разрешает использовать устаревший закэшированный ответ,
 если на данный момент он уже обновляется.

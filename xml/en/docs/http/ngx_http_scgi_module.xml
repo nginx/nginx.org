@@ -10,7 +10,7 @@
 <module name="Module ngx_http_scgi_module"
         link="/en/docs/http/ngx_http_scgi_module.html"
         lang="en"
-        rev="29">
+        rev="30">
 
 <section id="summary">
 
@@ -188,6 +188,26 @@ The same zone can be used in several places.
 Parameter value can contain variables (1.7.9).
 The <literal>off</literal> parameter disables caching inherited
 from the previous configuration level.
+</para>
+
+</directive>
+
+
+<directive name="scgi_cache_background_update">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.11.10</appeared-in>
+
+<para>
+Allows starting a background subrequest
+to update an expired cache item,
+while a stale cached response is returned to the client.
+Note that it is necessary to
+<link id="scgi_cache_use_stale_updating">allow</link>
+the usage of a stale cached response when it is being updated.
 </para>
 
 </directive>
@@ -604,7 +624,7 @@ using a stale cached response if an SCGI server to process a request
 cannot be selected.
 </para>
 
-<para>
+<para id="scgi_cache_use_stale_updating">
 Additionally, the <literal>updating</literal> parameter permits
 using a stale cached response if it is currently being updated.
 This allows minimizing the number of accesses to SCGI servers
