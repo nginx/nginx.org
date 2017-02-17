@@ -8,7 +8,7 @@
 <article name="nginx"
          link="/en/"
          lang="en"
-         rev="71">
+         rev="72">
 
 
 <section>
@@ -381,7 +381,7 @@ EPOLLEXCLUSIVE (Linux 4.5+, glibc 2.24+);
 </listitem>
 
 <listitem>
-sendfile (FreeBSD 3.1+, Linux 2.2+, Mac OS X 10.5+), sendfile64 (Linux 2.4.21+),
+sendfile (FreeBSD 3.1+, Linux 2.2+, macOS 10.5+), sendfile64 (Linux 2.4.21+),
 and sendfilev (Solaris 8 7/01+) support;
 </listitem>
 
@@ -392,7 +392,7 @@ and sendfilev (Solaris 8 7/01+) support;
 
 <listitem>
 <link doc="docs/http/ngx_http_core_module.xml" id="directio">DIRECTIO</link>
-(FreeBSD 4.4+, Linux 2.4+, Solaris 2.6+, Mac OS X);
+(FreeBSD 4.4+, Linux 2.4+, Solaris 2.6+, macOS);
 </listitem>
 
 <listitem>
@@ -441,7 +441,7 @@ HP-UX 11.31 / ia64;
 </listitem>
 
 <listitem>
-Mac OS X / ppc, i386;
+macOS / ppc, i386;
 </listitem>
 
 <listitem>

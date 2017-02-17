@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_core_module"
         link="/ru/docs/stream/ngx_stream_core_module.html"
         lang="ru"
-        rev="21">
+        rev="22">
 
 <section id="summary">
 
@@ -146,7 +146,7 @@ PROXY</link>.
 <c-func>listen</c-func>, который ограничивает
 максимальный размер очереди ожидающих приёма соединений (1.9.2).
 По умолчанию <literal>backlog</literal> устанавливается равным -1 для
-FreeBSD, DragonFly BSD и Mac OS X,
+FreeBSD, DragonFly BSD и macOS,
 и 511 для других платформ.
 </tag-desc>
 

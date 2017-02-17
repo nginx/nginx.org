@@ -10,7 +10,7 @@
 <module name="Модуль ngx_mail_core_module"
         link="/ru/docs/mail/ngx_mail_core_module.html"
         lang="ru"
-        rev="8">
+        rev="9">
 
 <section id="summary">
 
@@ -132,7 +132,7 @@ listen unix:/var/run/nginx.sock;
 <c-func>listen</c-func>, который ограничивает
 максимальный размер очереди ожидающих приёма соединений (1.9.2).
 По умолчанию <literal>backlog</literal> устанавливается равным -1 для
-FreeBSD, DragonFly BSD и Mac OS X, и 511 для других платформ.
+FreeBSD, DragonFly BSD и macOS, и 511 для других платформ.
 </tag-desc>
 
 <tag-name>

@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_core_module"
         link="/en/docs/stream/ngx_stream_core_module.html"
         lang="en"
-        rev="21">
+        rev="22">
 
 <section id="summary">
 
@@ -145,7 +145,7 @@ sets the <literal>backlog</literal> parameter in the
 <c-func>listen</c-func> call that limits
 the maximum length for the queue of pending connections (1.9.2).
 By default,
-<literal>backlog</literal> is set to -1 on FreeBSD, DragonFly BSD, and Mac OS X,
+<literal>backlog</literal> is set to -1 on FreeBSD, DragonFly BSD, and macOS,
 and to 511 on other platforms.
 </tag-desc>
 

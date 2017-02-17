@@ -8,7 +8,7 @@
 <article name="Connection processing methods"
          link="/en/docs/events.html"
          lang="en"
-         rev="4">
+         rev="5">
 
 <section>
 
@@ -51,7 +51,7 @@ can be used to forcibly enable or disable the build of this module.
 <listitem id="kqueue">
 <para>
 <literal>kqueue</literal>&mdash;efficient method used on
-FreeBSD 4.1+, OpenBSD 2.9+, NetBSD 2.0, and Mac OS X.
+FreeBSD 4.1+, OpenBSD 2.9+, NetBSD 2.0, and macOS.
 </para>
 </listitem>
 

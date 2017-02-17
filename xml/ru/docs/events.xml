@@ -8,7 +8,7 @@
 <article name="Методы обработки соединений"
          link="/ru/docs/events.html"
          lang="ru"
-         rev="4">
+         rev="5">
 
 <section>
 
@@ -51,7 +51,7 @@ nginx поддерживает различные методы обработк�
 <listitem id="kqueue">
 <para>
 <literal>kqueue</literal>&mdash;эффективный метод, используемый
-во FreeBSD 4.1+, OpenBSD 2.9+, NetBSD 2.0 и Mac OS X.
+во FreeBSD 4.1+, OpenBSD 2.9+, NetBSD 2.0 и macOS.
 </para>
 </listitem>
 

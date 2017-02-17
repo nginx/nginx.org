@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="67">
+        rev="68">
 
 <section id="directives" name="Directives">
 
@@ -493,7 +493,7 @@ with the <link id="types"/> directive.
 <para>
 Enables the use of
 the <c-def>O_DIRECT</c-def> flag (FreeBSD, Linux),
-the <c-def>F_NOCACHE</c-def> flag (Mac OS X),
+the <c-def>F_NOCACHE</c-def> flag (macOS),
 or the <c-func>directio</c-func> function (Solaris),
 when reading files that are larger than or equal to
 the specified <value>size</value>.
@@ -886,7 +886,7 @@ browsers will be affected.
 The value <literal>msie6</literal> disables keep-alive connections
 with old versions of MSIE, once a POST request is received.
 The value <literal>safari</literal> disables keep-alive connections
-with Safari and Safari-like browsers on Mac OS X and Mac OS X-like
+with Safari and Safari-like browsers on macOS and macOS-like
 operating systems.
 The value <literal>none</literal> enables keep-alive connections
 with all browsers.
@@ -1349,7 +1349,7 @@ sets the <literal>backlog</literal> parameter in the
 <c-func>listen</c-func> call that limits
 the maximum length for the queue of pending connections.
 By default,
-<literal>backlog</literal> is set to -1 on FreeBSD, DragonFly BSD, and Mac OS X,
+<literal>backlog</literal> is set to -1 on FreeBSD, DragonFly BSD, and macOS,
 and to 511 on other platforms.
 </tag-desc>
 
@@ -1536,7 +1536,7 @@ mentioned below.
 </para>
 
 <para>
-For case-insensitive operating systems such as Mac OS X and Cygwin,
+For case-insensitive operating systems such as macOS and Cygwin,
 matching with prefix strings ignores a case (0.7.7).
 However, comparison is limited to one-byte locales.
 </para>
