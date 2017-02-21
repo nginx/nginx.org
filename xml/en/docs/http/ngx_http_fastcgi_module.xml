@@ -10,7 +10,7 @@
 <module name="Module ngx_http_fastcgi_module"
         link="/en/docs/http/ngx_http_fastcgi_module.html"
         lang="en"
-        rev="42">
+        rev="43">
 
 <section id="summary">
 
@@ -631,11 +631,6 @@ The directive’s parameters match the parameters of the
 The <literal>error</literal> parameter also permits
 using a stale cached response if a FastCGI server to process a request
 cannot be selected.
-The same behavior can be enabled with the
-“<link url="https://tools.ietf.org/html/rfc5861#section-4">stale-if-error</link>”
-extension of the <header>Cache-Control</header> response header field (1.11.10)
-for a specified number of seconds after the response became stale,
-however, this has lower priority than using the directive parameter.
 </para>
 
 <para id="fastcgi_cache_use_stale_updating">
@@ -643,11 +638,30 @@ Additionally, the <literal>updating</literal> parameter permits
 using a stale cached response if it is currently being updated.
 This allows minimizing the number of accesses to FastCGI servers
 when updating cached data.
-The same behavior can be enabled with the
+</para>
+
+<para>
+Using a stale cached response
+can also be enabled directly in the response header
+for a specified number of seconds after the response became stale (1.11.10).
+This has lower priority than using the directive parameters.
+<list type="bullet" compact="no">
+
+<listitem>
+The
 “<link url="https://tools.ietf.org/html/rfc5861#section-3">stale-while-revalidate</link>”
-extension of the <header>Cache-Control</header> response header field (1.11.10)
-for a specified number of seconds after the response became stale,
-however, this has lower priority than using the directive parameter.
+extension of the <header>Cache-Control</header> header field permits
+using a stale cached response if it is currently being updated.
+</listitem>
+
+<listitem>
+The
+“<link url="https://tools.ietf.org/html/rfc5861#section-4">stale-if-error</link>”
+extension of the <header>Cache-Control</header> header field permits
+using a stale cached response in case of an error.
+</listitem>
+
+</list>
 </para>
 
 <para>
