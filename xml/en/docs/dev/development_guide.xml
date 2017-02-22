@@ -294,7 +294,7 @@ those strings to syscalls.
 
 <para>
 A number of string operations are provided in nginx.
-They are declared in <literal>src/core/ngx_string.h</literal>.
+They are declared in <path>src/core/ngx_string.h</path>.
 Some of them are wrappers around standard C functions:
 </para>
 
@@ -438,7 +438,7 @@ A number of formatting functions are provided by nginx.  These functions support
 
 <para>
 The full list of formatting options, supported by these functions, can be found
-in <literal>src/core/ngx_string.c</literal>. Some of them are:
+in <path>src/core/ngx_string.c</path>. Some of them are:
 </para>
 
 
@@ -815,7 +815,7 @@ for (q = ngx_queue_head(&amp;values);
 <section name="Red-Black tree" id="red_black_tree">
 
 <para>
-The <literal>src/core/ngx_rbtree.h</literal> header file provides access to the
+The <path>src/core/ngx_rbtree.h</path> header file provides access to the
 effective implementation of red-black trees.
 </para>
 
