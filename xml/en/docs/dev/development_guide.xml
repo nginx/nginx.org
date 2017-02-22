@@ -9,7 +9,7 @@
 <article name="Development guide"
          link="/en/docs/dev/development_guide.html"
          lang="en"
-         rev="1">
+         rev="2">
 
 <section name="Introduction" id="introduction">
 
@@ -955,6 +955,182 @@ ngx_rbtree_delete(&amp;root->rbtree, node);
 
 </section>
 
+<section name="Hash" id="hash">
+
+<para>
+Hash table functions are are declared in <path>src/core/ngx_string.h</path>.
+Exact and wildcard matching is supported.
+The latter requires extra setup and is described in a separate section below.
+</para>
+
+<para>
+To initialize a hash, one needs to know the number of elements in advance,
+so that nginx can build the hash optimally.
+Two parameters that need to be configured are <literal>max_size</literal>
+and <literal>bucket_size</literal>.
+The details of setting up these are provided in a separate
+<link doc="../hash.xml">document</link>.
+Usually, these two parameters are configurable by user.
+Hash initialization settings are stored as the
+<literal>ngx_hash_init_t</literal> type,
+and the hash itself is <literal>ngx_hash_t</literal>:
+<programlisting>
+ngx_hash_t       foo_hash;
+ngx_hash_init_t  hash;
+
+hash.hash = &amp;foo_hash;
+hash.key = ngx_hash_key;
+hash.max_size = 512;
+hash.bucket_size = ngx_align(64, ngx_cacheline_size);
+hash.name = "foo_hash";
+hash.pool = cf-&gt;pool;
+hash.temp_pool = cf-&gt;temp_pool;
+</programlisting>
+The <literal>key</literal> is a pointer to a function that creates hash integer
+key from a string.
+Two generic functions are provided:
+<literal>ngx_hash_key(data, len)</literal> and
+<literal>ngx_hash_key_lc(data, len)</literal>.
+The latter converts a string to lowercase and thus requires the passed string to
+be writable.
+If this is not true, <literal>NGX_HASH_READONLY_KEY</literal> flag
+may be passed to the function, initializing array keys (see below).
+</para>
+
+<para>
+The hash keys are stored in <literal>ngx_hash_keys_arrays_t</literal> and
+are initialized with <literal>ngx_hash_keys_array_init(arr, type)</literal>:
+<programlisting>
+ngx_hash_keys_arrays_t  foo_keys;
+
+foo_keys.pool = cf-&gt;pool;
+foo_keys.temp_pool = cf-&gt;temp_pool;
+
+ngx_hash_keys_array_init(&amp;foo_keys, NGX_HASH_SMALL);
+</programlisting>
+The second parameter can be either <literal>NGX_HASH_SMALL</literal> or
+<literal>NGX_HASH_LARGE</literal> and controls the amount of preallocated
+resources for the hash.
+If you expect the hash to contain thousands elements,
+use <literal>NGX_HASH_LARGE</literal>.
+</para>
+
+<para>
+The <literal>ngx_hash_add_key(keys_array, key, value, flags)</literal>
+function is used to insert keys into hash keys array;
+<programlisting>
+ngx_str_t k1 = ngx_string("key1");
+ngx_str_t k2 = ngx_string("key2");
+
+ngx_hash_add_key(&amp;foo_keys, &amp;k1, &amp;my_data_ptr_1, NGX_HASH_READONLY_KEY);
+ngx_hash_add_key(&amp;foo_keys, &amp;k2, &amp;my_data_ptr_2, NGX_HASH_READONLY_KEY);
+</programlisting>
+</para>
+
+<para>
+Now, the hash table may be built using the call to
+<literal>ngx_hash_init(hinit, key_names, nelts)</literal>:
+
+<programlisting>
+ngx_hash_init(&amp;hash, foo_keys.keys.elts, foo_keys.keys.nelts);
+</programlisting>
+
+This may fail, if <literal>max_size</literal> or <literal>bucket_size</literal>
+parameters are not big enough.
+When the hash is built, <literal>ngx_hash_find(hash, key, name, len)</literal>
+function may be used to look up elements:
+<programlisting>
+my_data_t   *data;
+ngx_uint_t   key;
+
+key = ngx_hash_key(k1.data, k1.len);
+
+data = ngx_hash_find(&amp;foo_hash, key, k1.data, k1.len);
+if (data == NULL) {
+    /* key not found */
+}
+</programlisting>
+
+</para>
+
+<section name="Wildcard matching" id="wildcard_matching">
+
+<para>
+To create a hash that works with wildcards,
+<literal>ngx_hash_combined_t</literal> type is used.
+It includes the hash type described above and has two additional keys arrays:
+<literal>dns_wc_head</literal> and <literal>dns_wc_tail</literal>.
+The initialization of basic properties is done similarly to a usual hash:
+<programlisting>
+ngx_hash_init_t      hash
+ngx_hash_combined_t  foo_hash;
+
+hash.hash = &amp;foo_hash.hash;
+hash.key = ...;
+</programlisting>
+</para>
+
+<para>
+It is possible to add wildcard keys using the
+<literal>NGX_HASH_WILDCARD_KEY</literal> flag:
+<programlisting>
+/* k1 = ".example.org"; */
+/* k2 = "foo.*";        */
+ngx_hash_add_key(&amp;foo_keys, &amp;k1, &amp;data1, NGX_HASH_WILDCARD_KEY);
+ngx_hash_add_key(&amp;foo_keys, &amp;k2, &amp;data2, NGX_HASH_WILDCARD_KEY);
+</programlisting>
+The function recognizes wildcards and adds keys into corresponding arrays.
+Please refer to the
+<link doc="../http/ngx_http_map_module.xml" id="map"/> module
+documentation for the description of the wildcard syntax and
+matching algorithm.
+</para>
+
+<para>
+Depending on the contents of added keys, you may need to initialize up to three
+keys arrays: one for exact matching (described above), and two for matching
+starting from head or tail of a string:
+<programlisting>
+if (foo_keys.dns_wc_head.nelts) {
+
+    ngx_qsort(foo_keys.dns_wc_head.elts,
+              (size_t) foo_keys.dns_wc_head.nelts,
+              sizeof(ngx_hash_key_t),
+              cmp_dns_wildcards);
+
+    hash.hash = NULL;
+    hash.temp_pool = pool;
+
+    if (ngx_hash_wildcard_init(&amp;hash, foo_keys.dns_wc_head.elts,
+                               foo_keys.dns_wc_head.nelts)
+        != NGX_OK)
+    {
+        return NGX_ERROR;
+    }
+
+    foo_hash.wc_head = (ngx_hash_wildcard_t *) hash.hash;
+}
+</programlisting>
+The keys array needs to be sorted, and initialization results must be added
+to the combined hash.
+The initialization of <literal>dns_wc_tail</literal> array is done similarly.
+</para>
+
+<para>
+The lookup in a combined hash is handled by the
+<literal>ngx_hash_find_combined(chash, key, name, len)</literal>:
+<programlisting>
+/* key = "bar.example.org"; - will match ".example.org" */
+/* key = "foo.example.com"; - will match "foo.*"        */
+
+hkey = ngx_hash_key(key.data, key.len);
+res = ngx_hash_find_combined(&amp;foo_hash, hkey, key.data, key.len);
+</programlisting>
+</para>
+
+</section>
+
+</section>
 
 </section>
 
