@@ -219,9 +219,9 @@ binary/books/nginx_in_practice.jpg:	sources/20807089-1_o.jpg
 	mkdir -p $(dir $@)
 	$(call JPEGNORM, $<, $@)
 
-binary/books/mastering_nginx.jpg:	sources/7447os_mockupcover_normal.jpg
+binary/books/mastering_nginx.jpg:	sources/3311OS_4851_Mastering\ NGINX_0.jpg
 	mkdir -p $(dir $@)
-	$(call JPEGNORM, $<, $@)
+	$(call JPEGNORM, "$<", $@)
 
 binary/books/nginx_http_server_2nd_ed.jpg:	sources/2322OS_cov.jpg
 	mkdir -p $(dir $@)
