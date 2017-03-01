@@ -527,6 +527,127 @@ a positive integer to <literal>ngx_int_t</literal>. Returns
 
 </section>
 
+<section name="Regular expressions" id="regex">
+
+<para>
+The regular expressions interface in nginx is a wrapper around
+the <link url="http://www.pcre.org">PCRE</link>
+library.
+The corresponding header file is <path>src/core/ngx_regex.h</path>.
+</para>
+
+<para>
+To use a regular expression for string matching, first, it needs to be
+compiled, this is usually done at configuration phase.
+Note that since PCRE support is optional, all code using the interface must
+be protected by the surrounding <literal>NGX_PCRE</literal> macro:
+<programlisting>
+#if (NGX_PCRE)
+ngx_regex_t          *re;
+ngx_regex_compile_t   rc;
+
+u_char                errstr[NGX_MAX_CONF_ERRSTR];
+
+ngx_str_t  value = ngx_string("message (\\d\\d\\d).*Codeword is '(?&lt;cw&gt;\\w+)'");
+
+ngx_memzero(&amp;rc, sizeof(ngx_regex_compile_t));
+
+rc.pattern = value;
+rc.pool = cf->pool;
+rc.err.len = NGX_MAX_CONF_ERRSTR;
+rc.err.data = errstr;
+/* rc.options are passed as is to pcre_compile() */
+
+if (ngx_regex_compile(&amp;rc) != NGX_OK) {
+    ngx_conf_log_error(NGX_LOG_EMERG, cf, 0, "%V", &amp;rc.err);
+    return NGX_CONF_ERROR;
+}
+
+re = rc.regex;
+#endif
+</programlisting>
+After successful compilation, <literal>ngx_regex_compile_t</literal> structure
+fields <literal>captures</literal> and <literal>named_captures</literal>
+are filled with count of all and named captures respectively found in the
+regular expression.
+</para>
+
+<para>
+Later, the compiled regular expression may be used to match strings against it:
+<programlisting>
+ngx_int_t  n;
+int        captures[(1 + rc.captures) * 3];
+
+ngx_str_t input = ngx_string("This is message 123. Codeword is 'foobar'.");
+
+n = ngx_regex_exec(re, &amp;input, captures, (1 + rc.captures) * 3);
+if (n >= 0) {
+    /* string matches expression */
+
+} else if (n == NGX_REGEX_NO_MATCHED) {
+    /* no match was found */
+
+} else {
+    /* some error */
+    ngx_log_error(NGX_LOG_ALERT, log, 0, ngx_regex_exec_n " failed: %i", n);
+}
+</programlisting>
+The arguments of <literal>ngx_regex_exec()</literal> are: the compiled regular
+expression <literal>re</literal>, string to match <literal>s</literal>,
+optional array of integers to hold found <literal>captures</literal>
+and its <literal>size</literal>.
+The <literal>captures</literal> array size  must be a multiple of three,
+per requirements of the
+<link url="http://www.pcre.org/original/doc/html/pcreapi.html">PCRE API</link>.
+In the example, its size is calculated from a total number of captures plus
+one for the matched string itself.
+</para>
+
+<para>
+Now, if there are matches, captures may be accessed:
+<programlisting>
+u_char     *p;
+size_t      size;
+ngx_str_t   name, value;
+
+/* all captures */
+for (i = 0; i &lt; n * 2; i += 2) {
+    value.data = input.data + captures[i];
+    value.len = captures[i + 1] - captures[i];
+}
+
+/* accessing named captures */
+
+size = rc.name_size;
+p = rc.names;
+
+for (i = 0; i &lt; rc.named_captures; i++, p += size) {
+
+    /* capture name */
+    name.data = &amp;p[2];
+    name.len = ngx_strlen(name.data);
+
+    n = 2 * ((p[0] &lt;&lt; 8) + p[1]);
+
+    /* captured value */
+    value.data = &amp;input.data[captures[n]];
+    value.len = captures[n + 1] - captures[n];
+}
+</programlisting>
+</para>
+
+<para>
+The <literal>ngx_regex_exec_array()</literal> function accepts the array of
+<literal>ngx_regex_elt_t</literal> elements (which are just compiled regular
+expressions with associated names), a string to match and a log.
+The function will apply expressions from the array to the string until
+the match is found or no more expressions are left.
+The return value is <literal>NGX_OK</literal> in case of match and
+<literal>NGX_DECLINED</literal> otherwise, or <literal>NGX_ERROR</literal>
+in case of error.
+</para>
+
+</section>
 
 </section>
 
