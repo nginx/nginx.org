@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="69">
+        rev="70">
 
 <section id="directives" name="Directives">
 
@@ -2543,9 +2543,9 @@ Enables or disables emitting nginx version on error pages and in the
 </para>
 
 <para id="server_tokens_build">
-The <literal>build</literal> parameter (1.11.10)
-enables emitting nginx build name on error pages and in the
-<header>Server</header> response header field.
+The <literal>build</literal> parameter (1.11.10) enables emitting
+a <link doc="../configure.xml" id="build">build name</link>
+along with nginx version.
 </para>
 
 <para>

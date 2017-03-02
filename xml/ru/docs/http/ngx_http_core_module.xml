@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="69">
+        rev="70">
 
 <section id="directives" name="Директивы">
 
@@ -2544,9 +2544,9 @@ server {
 </para>
 
 <para id="server_tokens_build">
-Параметр <literal>build</literal> (1.11.10)
-разрешает выдавать имя сборки nginx на страницах ошибок и
-в поле <header>Server</header> заголовка ответа.
+Если указан параметр <literal>build</literal> (1.11.10),
+то наряду с версией nginx’а будет также выдаваться
+<link doc="../configure.xml" id="build">имя сборки</link>.
 </para>
 
 <para>
