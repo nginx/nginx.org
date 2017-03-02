@@ -1079,7 +1079,7 @@ ngx_rbtree_delete(&amp;root->rbtree, node);
 <section name="Hash" id="hash">
 
 <para>
-Hash table functions are are declared in <path>src/core/ngx_string.h</path>.
+Hash table functions are declared in <path>src/core/ngx_hash.h</path>.
 Exact and wildcard matching is supported.
 The latter requires extra setup and is described in a separate section below.
 </para>
