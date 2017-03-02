@@ -7,7 +7,7 @@
 <article name="nginx: Linux packages"
          link="/en/linux_packages.html"
          lang="en"
-         rev="23"
+         rev="24"
          toc="no">
 
 <section id="distributions">
@@ -287,60 +287,25 @@ zypper addrepo -G -t yum -c 'http://nginx.org/packages/mainline/sles/12' nginx
 </section>
 
 
-<section name="Configure Arguments" id="arguments">
+<section name="Source Packages" id="sourcepackages">
 
 <para>
-Configure arguments common for nginx binaries from pre-built packages for stable version:
-<programlisting>
---prefix=/etc/nginx
---sbin-path=/usr/sbin/nginx
---conf-path=/etc/nginx/nginx.conf
---error-log-path=/var/log/nginx/error.log
---http-log-path=/var/log/nginx/access.log
---pid-path=/var/run/nginx.pid
---lock-path=/var/run/nginx.lock
---http-client-body-temp-path=/var/cache/nginx/client_temp
---http-proxy-temp-path=/var/cache/nginx/proxy_temp
---http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp
---http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp
---http-scgi-temp-path=/var/cache/nginx/scgi_temp
---user=nginx
---group=nginx
---with-http_ssl_module
---with-http_realip_module
---with-http_addition_module
---with-http_sub_module
---with-http_dav_module
---with-http_flv_module
---with-http_mp4_module
---with-http_gunzip_module
---with-http_gzip_static_module
---with-http_random_index_module
---with-http_secure_link_module
---with-http_stub_status_module
---with-http_auth_request_module
---with-threads
---with-stream
---with-stream_ssl_module
---with-http_slice_module
---with-mail
---with-mail_ssl_module
---with-file-aio
---with-http_v2_module
---with-ipv6
-</programlisting>
+Packaging sources can be found in the
+<link url="http://hg.nginx.org/pkg-oss">packaging sources repository</link>.
 </para>
 
 <para>
-Packages for mainline version also have the following arguments:
-<programlisting>
---with-stream_realip_module
-</programlisting>
+The <literal>default</literal> branch holds packaging sources for the current
+mainline version, while <literal>stable-*</literal> branches contain latest
+sources for stable releases.
+To build binary packages, run <command>make</command> in
+<path>debian/</path> directory on Debian/Ubuntu, or in
+<path>rpm/SPECS/</path> on RHEL/CentOS/SLES.
 </para>
 
 <para>
-Main nginx package is built with all modules that do not require additional
-libraries to avoid extra dependencies.
+Packaging sources are distributed under the same
+<link url="../LICENSE">2-clause BSD-like license</link> used by nginx.
 </para>
 
 </section>
@@ -349,10 +314,12 @@ libraries to avoid extra dependencies.
 <section name="Dynamic Modules" id="dynmodules">
 
 <para>
+Main nginx package is built with all modules that do not require additional
+libraries to avoid extra dependencies.
 Since version 1.9.11, nginx supports
-<link doc="docs/ngx_core_module.xml" id="load_module">dynamic modules</link>.
-Currently, the following modules are built as dynamic
-and shipped as separate packages:
+<link doc="docs/ngx_core_module.xml" id="load_module">dynamic modules</link>
+and the following modules are built as dynamic and shipped as separate
+packages:
 <programlisting>
 nginx-module-geoip
 nginx-module-image-filter

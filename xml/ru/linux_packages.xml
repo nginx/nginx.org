@@ -7,7 +7,7 @@
 <article name="nginx: пакеты для Linux"
          link="/ru/linux_packages.html"
          lang="ru"
-         rev="23"
+         rev="24"
          toc="no">
 
 <section id="distributions">
@@ -290,60 +290,26 @@ zypper addrepo -G -t yum -c 'http://nginx.org/packages/mainline/sles/12' nginx
 </section>
 
 
-<section name="Аргументы configure" id="arguments">
+<section name="Пакеты с исходным кодом" id="sourcepackages">
 
 <para>
-Общие аргументы configure для nginx из пакетов стабильной версии:
-<programlisting>
---prefix=/etc/nginx
---sbin-path=/usr/sbin/nginx
---conf-path=/etc/nginx/nginx.conf
---error-log-path=/var/log/nginx/error.log
---http-log-path=/var/log/nginx/access.log
---pid-path=/var/run/nginx.pid
---lock-path=/var/run/nginx.lock
---http-client-body-temp-path=/var/cache/nginx/client_temp
---http-proxy-temp-path=/var/cache/nginx/proxy_temp
---http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp
---http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp
---http-scgi-temp-path=/var/cache/nginx/scgi_temp
---user=nginx
---group=nginx
---with-http_ssl_module
---with-http_realip_module
---with-http_addition_module
---with-http_sub_module
---with-http_dav_module
---with-http_flv_module
---with-http_mp4_module
---with-http_gunzip_module
---with-http_gzip_static_module
---with-http_random_index_module
---with-http_secure_link_module
---with-http_stub_status_module
---with-http_auth_request_module
---with-threads
---with-stream
---with-stream_ssl_module
---with-http_slice_module
---with-mail
---with-mail_ssl_module
---with-file-aio
---with-http_v2_module
---with-ipv6
-</programlisting>
+Исходные коды пакетов находятся в соответствующем
+<link url="http://hg.nginx.org/pkg-oss">репозитории</link>.
 </para>
 
 <para>
-Пакеты для mainline-версии добавляют к списку:
-<programlisting>
---with-stream_realip_module
-</programlisting>
+Ветка репозитория <literal>default</literal> содержит исходные коды пакетов для
+mainline-версии, в то время как ветки <literal>stable-*</literal> содержат
+исходные коды пакетов для стабильных релизов.
+Для сборки бинарных пакетов запустите <command>make</command> в каталоге
+<path>debian/</path> для Debian/Ubuntu или в каталоге
+<path>rpm/SPECS/</path> для RHEL/CentOS/SLES.
 </para>
 
 <para>
-Для того чтобы избежать увеличения числа зависимостей, основной пакет nginx не
-включает модули, которым требуются дополнительные библиотеки.
+Исходные коды пакетов распространяются под той же
+<link url="../LICENSE">BSD-подобной лицензией из 2 пунктов</link>,
+что и сам nginx.
 </para>
 
 </section>
@@ -352,10 +318,12 @@ zypper addrepo -G -t yum -c 'http://nginx.org/packages/mainline/sles/12' nginx
 <section name="Динамические модули" id="dynmodules">
 
 <para>
+Для того чтобы избежать увеличения числа зависимостей, основной пакет nginx не
+включает модули, которым требуются дополнительные библиотеки.
 Начиная с версии 1.9.11 nginx поддерживает
-<link doc="docs/ngx_core_module.xml" id="load_module">динамические модули</link>.
-В настоящее время следующие модули собираются как динамические
-и поставляются в виде отдельных пакетов:
+<link doc="docs/ngx_core_module.xml" id="load_module">динамические
+модули</link>, и следующие модули собираются как динамические и поставляются в
+виде отдельных пакетов:
 <programlisting>
 nginx-module-geoip
 nginx-module-image-filter
