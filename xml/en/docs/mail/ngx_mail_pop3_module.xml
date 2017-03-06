@@ -10,7 +10,7 @@
 <module name="Module ngx_mail_pop3_module"
         link="/en/docs/mail/ngx_mail_pop3_module.html"
         lang="en"
-        rev="2">
+        rev="3">
 
 <section id="directives" name="Directives">
 
@@ -27,27 +27,27 @@ Supported methods are:
 
 <tag-name><literal>plain</literal></tag-name>
 <tag-desc>
-<link url="http://tools.ietf.org/html/rfc1939">USER/PASS</link>,
-<link url="http://tools.ietf.org/html/rfc4616">AUTH PLAIN</link>,
-<link url="http://tools.ietf.org/html/draft-murchison-sasl-login-00">AUTH LOGIN</link>.
+<link url="https://tools.ietf.org/html/rfc1939">USER/PASS</link>,
+<link url="https://tools.ietf.org/html/rfc4616">AUTH PLAIN</link>,
+<link url="https://tools.ietf.org/html/draft-murchison-sasl-login-00">AUTH LOGIN</link>.
 It is not possible to disable these methods.
 </tag-desc>
 
 <tag-name><literal>apop</literal></tag-name>
 <tag-desc>
-<link url="http://tools.ietf.org/html/rfc1939">APOP</link>.
+<link url="https://tools.ietf.org/html/rfc1939">APOP</link>.
 In order for this method to work, the password must be stored unencrypted.
 </tag-desc>
 
 <tag-name><literal>cram-md5</literal></tag-name>
 <tag-desc>
-<link url="http://tools.ietf.org/html/rfc2195">AUTH CRAM-MD5</link>.
+<link url="https://tools.ietf.org/html/rfc2195">AUTH CRAM-MD5</link>.
 In order for this method to work, the password must be stored unencrypted.
 </tag-desc>
 
 <tag-name><literal>external</literal></tag-name>
 <tag-desc>
-<link url="http://tools.ietf.org/html/rfc4422">AUTH EXTERNAL</link> (1.11.6).
+<link url="https://tools.ietf.org/html/rfc4422">AUTH EXTERNAL</link> (1.11.6).
 </tag-desc>
 
 </list>
@@ -64,13 +64,13 @@ In order for this method to work, the password must be stored unencrypted.
 
 <para>
 Sets the
-<link url="http://tools.ietf.org/html/rfc2449">POP3 protocol</link>
+<link url="https://tools.ietf.org/html/rfc2449">POP3 protocol</link>
 extensions list that is passed to the client in response to
 the <literal>CAPA</literal> command.
 
 The authentication methods specified in the <link id="pop3_auth"/> and
-(<link url="http://tools.ietf.org/html/rfc2449">SASL</link> extension) and
-<link url="http://tools.ietf.org/html/rfc2595">STLS</link> directives,
+(<link url="https://tools.ietf.org/html/rfc2449">SASL</link> extension) and
+<link url="https://tools.ietf.org/html/rfc2595">STLS</link> directives,
 are automatically added to this list if the
 <link doc="ngx_mail_ssl_module.xml" id="starttls"/> directive is enabled.
 </para>

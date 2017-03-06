@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_secure_link_module"
         link="/ru/docs/http/ngx_http_secure_link_module.html"
         lang="ru"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -80,7 +80,7 @@
 <var>$secure_link</var> получает значение “<literal>0</literal>”.
 В противном случае она получает значение “<literal>1</literal>”.
 Значение MD5-хэш передаётся в запросе закодированным в
-<link url="http://tools.ietf.org/html/rfc4648#section-5">base64url</link>.
+<link url="https://tools.ietf.org/html/rfc4648#section-5">base64url</link>.
 </para>
 
 <para>

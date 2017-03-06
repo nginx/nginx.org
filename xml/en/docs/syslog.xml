@@ -9,7 +9,7 @@
 <article name="Logging to syslog"
          link="/en/docs/syslog.html"
          lang="en"
-         rev="5">
+         rev="6">
 
 <section>
 
@@ -36,7 +36,7 @@ address is used.
 <tag-name><literal>facility=</literal><value>string</value></tag-name>
 <tag-desc>
 Sets facility of syslog messages, as defined in
-<link url="http://tools.ietf.org/html/rfc3164#section-4.1.1">RFC 3164</link>.
+<link url="https://tools.ietf.org/html/rfc3164#section-4.1.1">RFC 3164</link>.
 Facility can be one of “<literal>kern</literal>”, “<literal>user</literal>”,
 “<literal>mail</literal>”, “<literal>daemon</literal>”,
 “<literal>auth</literal>”, “<literal>intern</literal>”,
@@ -53,7 +53,7 @@ Default is “<literal>local7</literal>”.
 Sets severity of syslog messages for
 <link doc="http/ngx_http_log_module.xml" id="access_log"/>,
 as defined in
-<link url="http://tools.ietf.org/html/rfc3164#section-4.1.1">RFC 3164</link>.
+<link url="https://tools.ietf.org/html/rfc3164#section-4.1.1">RFC 3164</link>.
 Possible values are the same as for the second parameter (level) of the
 <link doc="ngx_core_module.xml" id="error_log"/> directive.
 Default is “<literal>info</literal>”.

@@ -10,7 +10,7 @@
 <module name="Module ngx_http_realip_module"
         link="/en/docs/http/ngx_http_realip_module.html"
         lang="en"
-        rev="5">
+        rev="6">
 
 <section id="summary">
 
@@ -89,7 +89,7 @@ whose value will be used to replace the client address.
 The <literal>X-Real-IP</literal> and <literal>X-Forwarded-For</literal>
 parameters may contain an optional port (1.11.0).
 The address and port should be specified according to
-<link url="http://tools.ietf.org/html/3986">RFC 3986</link>.
+<link url="https://tools.ietf.org/html/rfc3986">RFC 3986</link>.
 </para>
 
 <para>

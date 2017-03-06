@@ -9,7 +9,7 @@
 <module name="Module ngx_http_v2_module"
         link="/en/docs/http/ngx_http_v2_module.html"
         lang="en"
-        rev="8">
+        rev="9">
 
 <section id="summary">
 
@@ -153,7 +153,7 @@ in a connection.
 
 <para>
 Limits the maximum size of
-an <link url="http://tools.ietf.org/html/rfc7541">HPACK</link>-compressed
+an <link url="https://tools.ietf.org/html/rfc7541">HPACK</link>-compressed
 request header field.
 The limit applies equally to both name and value.
 Note that if Huffman encoding is applied,
@@ -172,7 +172,7 @@ For most requests, the default limit should be enough.
 
 <para>
 Limits the maximum size of the entire request header list after
-<link url="http://tools.ietf.org/html/rfc7541">HPACK</link> decompression.
+<link url="https://tools.ietf.org/html/rfc7541">HPACK</link> decompression.
 For most requests, the default limit should be enough.
 </para>
 

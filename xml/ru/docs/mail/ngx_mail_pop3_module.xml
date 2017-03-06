@@ -10,7 +10,7 @@
 <module name="Модуль ngx_mail_pop3_module"
         link="/ru/docs/mail/ngx_mail_pop3_module.html"
         lang="ru"
-        rev="2">
+        rev="3">
 
 <section id="directives" name="Директивы">
 
@@ -27,27 +27,27 @@
 
 <tag-name><literal>plain</literal></tag-name>
 <tag-desc>
-<link url="http://tools.ietf.org/html/rfc1939">USER/PASS</link>,
-<link url="http://tools.ietf.org/html/rfc4616">AUTH PLAIN</link>,
-<link url="http://tools.ietf.org/html/draft-murchison-sasl-login-00">AUTH LOGIN</link>.
+<link url="https://tools.ietf.org/html/rfc1939">USER/PASS</link>,
+<link url="https://tools.ietf.org/html/rfc4616">AUTH PLAIN</link>,
+<link url="https://tools.ietf.org/html/draft-murchison-sasl-login-00">AUTH LOGIN</link>.
 Данные методы отключить нельзя.
 </tag-desc>
 
 <tag-name><literal>apop</literal></tag-name>
 <tag-desc>
-<link url="http://tools.ietf.org/html/rfc1939">APOP</link>.
+<link url="https://tools.ietf.org/html/rfc1939">APOP</link>.
 Для работы этого метода пароль должен храниться в незашифрованном виде.
 </tag-desc>
 
 <tag-name><literal>cram-md5</literal></tag-name>
 <tag-desc>
-<link url="http://tools.ietf.org/html/rfc2195">AUTH CRAM-MD5</link>.
+<link url="https://tools.ietf.org/html/rfc2195">AUTH CRAM-MD5</link>.
 Для работы этого метода пароль должен храниться в незашифрованном виде.
 </tag-desc>
 
 <tag-name><literal>external</literal></tag-name>
 <tag-desc>
-<link url="http://tools.ietf.org/html/rfc4422">AUTH EXTERNAL</link> (1.11.6).
+<link url="https://tools.ietf.org/html/rfc4422">AUTH EXTERNAL</link> (1.11.6).
 </tag-desc>
 
 </list>
@@ -64,13 +64,13 @@
 
 <para>
 Позволяет указать список расширений
-<link url="http://tools.ietf.org/html/rfc2449">протокола POP3</link>,
+<link url="https://tools.ietf.org/html/rfc2449">протокола POP3</link>,
 выдаваемый клиенту по команде
 <literal>CAPA</literal>.
 К этому списку автоматически добавляются
 методы аутентификации, указанные в директиве <link id="pop3_auth"/>
-(расширение <link url="http://tools.ietf.org/html/rfc2449">SASL</link>) и
-<link url="http://tools.ietf.org/html/rfc2595">STLS</link>,
+(расширение <link url="https://tools.ietf.org/html/rfc2449">SASL</link>) и
+<link url="https://tools.ietf.org/html/rfc2595">STLS</link>,
 если включена директива <link doc="ngx_mail_ssl_module.xml" id="starttls"/>.
 </para>
 

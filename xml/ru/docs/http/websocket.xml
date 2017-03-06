@@ -7,7 +7,7 @@
 <article name="Проксирование WebSocket"
          link="/ru/docs/http/websocket.html"
          lang="ru"
-         rev="3">
+         rev="4">
 
 
 <section>
@@ -15,13 +15,13 @@
 <para>
 Для превращения соединения между клиентом и сервером из HTTP/1.1 в WebSocket
 используется доступный в HTTP/1.1 механизм
-<link url="http://tools.ietf.org/html/rfc2616#section-14.42">смены
+<link url="https://tools.ietf.org/html/rfc2616#section-14.42">смены
 протокола</link>.
 </para>
 
 <para>
 Но есть сложность: поскольку <header>Upgrade</header> является
-<link url="http://tools.ietf.org/html/rfc2616#section-13.5.1">hop-by-hop</link>
+<link url="https://tools.ietf.org/html/rfc2616#section-13.5.1">hop-by-hop</link>
 заголовком, то он не передаётся от клиента к проксируемому серверу.
 При прямом проксировании клиенты могут использовать метод
 <literal>CONNECT</literal>, чтобы обойти эту проблему.

@@ -10,7 +10,7 @@
 <module name="Module ngx_http_secure_link_module"
         link="/en/docs/http/ngx_http_secure_link_module.html"
         lang="en"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -80,7 +80,7 @@ If the link has a limited lifetime and the time has expired,
 the <var>$secure_link</var> variable is set to “<literal>0</literal>”.
 Otherwise, it is set to “<literal>1</literal>”.
 The MD5 hash value passed in a request is encoded in
-<link url="http://tools.ietf.org/html/rfc4648#section-5">base64url</link>.
+<link url="https://tools.ietf.org/html/rfc4648#section-5">base64url</link>.
 </para>
 
 <para>

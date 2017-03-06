@@ -10,7 +10,7 @@
 <module name="Модуль ngx_mail_smtp_module"
         link="/ru/docs/mail/ngx_mail_smtp_module.html"
         lang="ru"
-        rev="3">
+        rev="4">
 
 <section id="directives" name="Директивы">
 
@@ -22,30 +22,30 @@
 
 <para>
 Задаёт разрешённые методы
-<link url="http://tools.ietf.org/html/rfc2554">SASL-аутентификации</link>
+<link url="https://tools.ietf.org/html/rfc2554">SASL-аутентификации</link>
 SMTP-клиентов.
 Поддерживаемые методы:
 <list type="tag">
 
 <tag-name><literal>login</literal></tag-name>
 <tag-desc>
-<link url="http://tools.ietf.org/html/draft-murchison-sasl-login-00">AUTH LOGIN</link>
+<link url="https://tools.ietf.org/html/draft-murchison-sasl-login-00">AUTH LOGIN</link>
 </tag-desc>
 
 <tag-name><literal>plain</literal></tag-name>
 <tag-desc>
-<link url="http://tools.ietf.org/html/rfc4616">AUTH PLAIN</link>
+<link url="https://tools.ietf.org/html/rfc4616">AUTH PLAIN</link>
 </tag-desc>
 
 <tag-name><literal>cram-md5</literal></tag-name>
 <tag-desc>
-<link url="http://tools.ietf.org/html/rfc2195">AUTH CRAM-MD5</link>.
+<link url="https://tools.ietf.org/html/rfc2195">AUTH CRAM-MD5</link>.
 Для работы этого метода пароль должен храниться в незашифрованном виде.
 </tag-desc>
 
 <tag-name><literal>external</literal></tag-name>
 <tag-desc>
-<link url="http://tools.ietf.org/html/rfc4422">AUTH EXTERNAL</link> (1.11.6).
+<link url="https://tools.ietf.org/html/rfc4422">AUTH EXTERNAL</link> (1.11.6).
 </tag-desc>
 
 <tag-name><literal>none</literal></tag-name>

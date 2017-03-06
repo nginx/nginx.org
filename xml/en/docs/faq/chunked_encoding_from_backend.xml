@@ -8,7 +8,7 @@
                responses from my backend properly?"
          link="/en/docs/faq/chunked_encoding_from_backend.html"
          lang="en"
-         rev="1">
+         rev="2">
 
 <section>
 
@@ -35,7 +35,7 @@ returns something framed in decimal numbers like
 <para>
 <initial>A:</initial>
 Your backend violates HTTP specification (see
-<link url="http://tools.ietf.org/html/rfc2616#section-3.6">RFC 2616,
+<link url="https://tools.ietf.org/html/rfc2616#section-3.6">RFC 2616,
 "3.6 Transfer Codings"</link>).
 The "chunked" transfer-codings must not be used with HTTP/1.0.
 You’d need to either fix your backend application or upgrade

@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_ssl_module"
         link="/en/docs/stream/ngx_stream_ssl_module.html"
         lang="en"
-        rev="15">
+        rev="16">
 
 <section id="summary">
 
@@ -439,7 +439,7 @@ or AES128 (for 48-byte keys) is used for encryption.
 
 <para>
 Enables or disables session resumption through
-<link url="http://tools.ietf.org/html/rfc5077">TLS session tickets</link>.
+<link url="https://tools.ietf.org/html/rfc5077">TLS session tickets</link>.
 </para>
 
 </directive>

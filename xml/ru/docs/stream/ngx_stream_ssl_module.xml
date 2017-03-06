@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_ssl_module"
         link="/ru/docs/stream/ngx_stream_ssl_module.html"
         lang="ru"
-        rev="15">
+        rev="16">
 
 <section id="summary">
 
@@ -439,7 +439,7 @@ AES256 (для 80-байтных ключей, 1.11.8), либо AES128 (для 
 
 <para>
 Разрешает или запрещает возобновление сессий при помощи
-<link url="http://tools.ietf.org/html/rfc5077">TLS session tickets</link>.
+<link url="https://tools.ietf.org/html/rfc5077">TLS session tickets</link>.
 </para>
 
 </directive>

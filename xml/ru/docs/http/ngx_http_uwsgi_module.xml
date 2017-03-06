@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_uwsgi_module"
         link="/ru/docs/http/ngx_http_uwsgi_module.html"
         lang="ru"
-        rev="35">
+        rev="36">
 
 <section id="summary">
 
@@ -1014,7 +1014,7 @@ uwsgi-сервера, и ответ не вмещается целиком в б
 
 <tag-name id="non_idempotent"><literal>non_idempotent</literal></tag-name>
 <tag-desc>обычно запросы с
-<link url="http://tools.ietf.org/html/rfc7231#section-4.2.2">неидемпотентным</link>
+<link url="https://tools.ietf.org/html/rfc7231#section-4.2.2">неидемпотентным</link>
 методом
 (<literal>POST</literal>, <literal>LOCK</literal>, <literal>PATCH</literal>)
 не передаются на другой сервер,
@@ -1130,7 +1130,7 @@ uwsgi_no_cache $http_pragma    $http_authorization;
 
 <para>
 Стандартные
-<link url="http://tools.ietf.org/html/rfc3875#section-4.1">переменные
+<link url="https://tools.ietf.org/html/rfc3875#section-4.1">переменные
 окружения CGI</link>
 должны передаваться как заголовки uwsgi, см. файл <path>uwsgi_params</path>
 из дистрибутива:

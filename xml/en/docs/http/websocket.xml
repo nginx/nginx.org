@@ -7,20 +7,20 @@
 <article name="WebSocket proxying"
          link="/en/docs/http/websocket.html"
          lang="en"
-         rev="3">
+         rev="4">
 
 
 <section>
 
 <para>
 To turn a connection between a client and server from HTTP/1.1 into WebSocket,
-the <link url="http://tools.ietf.org/html/rfc2616#section-14.42">protocol
+the <link url="https://tools.ietf.org/html/rfc2616#section-14.42">protocol
 switch</link> mechanism available in HTTP/1.1 is used.
 </para>
 
 <para>
 There is one subtlety however: since the <header>Upgrade</header> is a
-<link url="http://tools.ietf.org/html/rfc2616#section-13.5.1">hop-by-hop</link>
+<link url="https://tools.ietf.org/html/rfc2616#section-13.5.1">hop-by-hop</link>
 header, it is not passed from a client to proxied server.
 With forward proxying, clients may use the <literal>CONNECT</literal>
 method to circumvent this issue.

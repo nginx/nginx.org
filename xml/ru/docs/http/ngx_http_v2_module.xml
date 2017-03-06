@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_v2_module"
         link="/ru/docs/http/ngx_http_v2_module.html"
         lang="ru"
-        rev="8">
+        rev="9">
 
 <section id="summary">
 
@@ -154,7 +154,7 @@ server {
 <para>
 Ограничивает максимальный размер
 заголовка запроса, сжатого при помощи
-<link url="http://tools.ietf.org/html/rfc7541">HPACK</link>.
+<link url="https://tools.ietf.org/html/rfc7541">HPACK</link>.
 Ограничение применяется в равной степени как к имени, так и к значению.
 Если применяется кодирование Хаффмана,
 то фактический размер распакованных строк имени и значения может быть больше.
@@ -172,7 +172,7 @@ server {
 
 <para>
 Ограничивает максимальный размер всего списка заголовков запроса после
-распаковки <link url="http://tools.ietf.org/html/rfc7541">HPACK</link>.
+распаковки <link url="https://tools.ietf.org/html/rfc7541">HPACK</link>.
 Ограничение по умолчанию подходит для большинства запросов.
 </para>
 

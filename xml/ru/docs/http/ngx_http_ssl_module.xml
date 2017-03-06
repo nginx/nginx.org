@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_ssl_module"
         link="/ru/docs/http/ngx_http_ssl_module.html"
         lang="ru"
-        rev="32">
+        rev="33">
 
 <section id="summary">
 
@@ -528,7 +528,7 @@ AES256 (для 80-байтных ключей, 1.11.8), либо AES128 (для 
 
 <para>
 Разрешает или запрещает возобновление сессий при помощи
-<link url="http://tools.ietf.org/html/rfc5077">TLS session tickets</link>.
+<link url="https://tools.ietf.org/html/rfc5077">TLS session tickets</link>.
 </para>
 
 </directive>
@@ -557,7 +557,7 @@ AES256 (для 80-байтных ключей, 1.11.8), либо AES128 (для 
 
 <para>
 Разрешает или запрещает
-<link url="http://tools.ietf.org/html/rfc4366#section-3.6">прикрепление
+<link url="https://tools.ietf.org/html/rfc4366#section-3.6">прикрепление
 OCSP-ответов</link> сервером.
 Пример:
 <example>
@@ -614,7 +614,7 @@ resolver 192.0.2.1;
 
 <para>
 Переопределяет URL OCSP responder’а, указанный в расширении сертификата
-“<link url="http://tools.ietf.org/html/rfc5280#section-4.2.2.1">Authority
+“<link url="https://tools.ietf.org/html/rfc5280#section-4.2.2.1">Authority
 Information Access</link>”.
 </para>
 
