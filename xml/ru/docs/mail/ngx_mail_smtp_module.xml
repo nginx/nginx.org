@@ -10,7 +10,7 @@
 <module name="Модуль ngx_mail_smtp_module"
         link="/ru/docs/mail/ngx_mail_smtp_module.html"
         lang="ru"
-        rev="4">
+        rev="5">
 
 <section id="directives" name="Директивы">
 
@@ -69,8 +69,11 @@ SMTP-клиентов.
 Позволяет указать список расширений протокола SMTP,
 выдаваемый клиенту в ответе на команду
 <literal>EHLO</literal>.
-К этому списку автоматически добавляются
-методы аутентификации, указанные в директиве <link id="smtp_auth"/>.
+В зависимости от значения директивы
+<link doc="ngx_mail_ssl_module.xml" id="starttls"/>
+к этому списку автоматически добавляются
+методы аутентификации, указанные в директиве <link id="smtp_auth"/>, и
+<link url="https://tools.ietf.org/html/rfc3207">STARTTLS</link>.
 </para>
 
 <para>

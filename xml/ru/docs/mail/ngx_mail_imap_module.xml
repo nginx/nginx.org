@@ -10,7 +10,7 @@
 <module name="Модуль ngx_mail_imap_module"
         link="/ru/docs/mail/ngx_mail_imap_module.html"
         lang="ru"
-        rev="3">
+        rev="4">
 
 <section id="directives" name="Директивы">
 
@@ -63,10 +63,11 @@
 <link url="https://tools.ietf.org/html/rfc3501">протокола IMAP</link>,
 выдаваемый клиенту по команде
 <literal>CAPABILITY</literal>.
-К этому списку автоматически добавляются
-методы аутентификации, указанные в директиве <link id="imap_auth"/> и
-<link url="https://tools.ietf.org/html/rfc2595">STARTTLS</link>,
-если включена директива <link doc="ngx_mail_ssl_module.xml" id="starttls"/>.
+В зависимости от значения директивы
+<link doc="ngx_mail_ssl_module.xml" id="starttls"/>
+к этому списку автоматически добавляются
+методы аутентификации, указанные в директиве <link id="imap_auth"/>, и
+<link url="https://tools.ietf.org/html/rfc2595">STARTTLS</link>.
 </para>
 
 <para>

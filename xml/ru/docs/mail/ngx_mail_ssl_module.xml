@@ -10,7 +10,7 @@
 <module name="Модуль ngx_mail_ssl_module"
         link="/ru/docs/mail/ngx_mail_ssl_module.html"
         lang="ru"
-        rev="14">
+        rev="15">
 
 <section id="summary">
 
@@ -573,7 +573,7 @@ AES256 (для 80-байтных ключей, 1.11.8), либо AES128 (для 
 <tag-name><literal>on</literal></tag-name>
 <tag-desc>
 разрешить использование команд <literal>STLS</literal> для POP3
-и <literal>STARTTLS</literal> для IMAP;
+и <literal>STARTTLS</literal> для IMAP и SMTP;
 </tag-desc>
 
 <tag-name><literal>off</literal></tag-name>

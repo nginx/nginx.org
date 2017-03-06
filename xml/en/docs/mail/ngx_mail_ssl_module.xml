@@ -10,7 +10,7 @@
 <module name="Module ngx_mail_ssl_module"
         link="/en/docs/mail/ngx_mail_ssl_module.html"
         lang="en"
-        rev="14">
+        rev="15">
 
 <section id="summary">
 
@@ -573,7 +573,7 @@ Sets the verification depth in the client certificates chain.
 <tag-name><literal>on</literal></tag-name>
 <tag-desc>
 allow usage of the <literal>STLS</literal> command for the POP3
-and the <literal>STARTTLS</literal> command for the IMAP;
+and the <literal>STARTTLS</literal> command for the IMAP and SMTP;
 </tag-desc>
 
 <tag-name><literal>off</literal></tag-name>

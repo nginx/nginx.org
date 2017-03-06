@@ -10,7 +10,7 @@
 <module name="Module ngx_mail_smtp_module"
         link="/en/docs/mail/ngx_mail_smtp_module.html"
         lang="en"
-        rev="4">
+        rev="5">
 
 <section id="directives" name="Directives">
 
@@ -69,8 +69,10 @@ Authentication is not required.
 Sets the SMTP protocol extensions list
 that is passed to the client in response to the
 <literal>EHLO</literal> command.
-Authentication methods specified in the <link id="smtp_auth"/> directive
-are automatically added to this list.
+The authentication methods specified in the <link id="smtp_auth"/> directive and
+<link url="https://tools.ietf.org/html/rfc3207">STARTTLS</link>
+are automatically added to this list depending on the
+<link doc="ngx_mail_ssl_module.xml" id="starttls"/> directive value.
 </para>
 
 <para>

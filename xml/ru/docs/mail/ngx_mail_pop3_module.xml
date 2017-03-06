@@ -10,7 +10,7 @@
 <module name="Модуль ngx_mail_pop3_module"
         link="/ru/docs/mail/ngx_mail_pop3_module.html"
         lang="ru"
-        rev="3">
+        rev="4">
 
 <section id="directives" name="Директивы">
 
@@ -67,11 +67,12 @@
 <link url="https://tools.ietf.org/html/rfc2449">протокола POP3</link>,
 выдаваемый клиенту по команде
 <literal>CAPA</literal>.
-К этому списку автоматически добавляются
+В зависимости от значения директивы
+<link doc="ngx_mail_ssl_module.xml" id="starttls"/>
+к этому списку автоматически добавляются
 методы аутентификации, указанные в директиве <link id="pop3_auth"/>
-(расширение <link url="https://tools.ietf.org/html/rfc2449">SASL</link>) и
-<link url="https://tools.ietf.org/html/rfc2595">STLS</link>,
-если включена директива <link doc="ngx_mail_ssl_module.xml" id="starttls"/>.
+(расширение <link url="https://tools.ietf.org/html/rfc2449">SASL</link>), и
+<link url="https://tools.ietf.org/html/rfc2595">STLS</link>.
 </para>
 
 <para>

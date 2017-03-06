@@ -10,7 +10,7 @@
 <module name="Module ngx_mail_pop3_module"
         link="/en/docs/mail/ngx_mail_pop3_module.html"
         lang="en"
-        rev="3">
+        rev="4">
 
 <section id="directives" name="Directives">
 
@@ -67,12 +67,11 @@ Sets the
 <link url="https://tools.ietf.org/html/rfc2449">POP3 protocol</link>
 extensions list that is passed to the client in response to
 the <literal>CAPA</literal> command.
-
-The authentication methods specified in the <link id="pop3_auth"/> and
+The authentication methods specified in the <link id="pop3_auth"/> directive
 (<link url="https://tools.ietf.org/html/rfc2449">SASL</link> extension) and
-<link url="https://tools.ietf.org/html/rfc2595">STLS</link> directives,
-are automatically added to this list if the
-<link doc="ngx_mail_ssl_module.xml" id="starttls"/> directive is enabled.
+<link url="https://tools.ietf.org/html/rfc2595">STLS</link>
+are automatically added to this list depending on the
+<link doc="ngx_mail_ssl_module.xml" id="starttls"/> directive value.
 </para>
 
 <para>
