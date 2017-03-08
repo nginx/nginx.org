@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_upstream_module"
         link="/ru/docs/http/ngx_http_upstream_module.html"
         lang="ru"
-        rev="58">
+        rev="59">
 
 <section id="summary">
 
@@ -709,7 +709,10 @@ server {
 
 
 <directive name="least_time">
-<syntax><literal>header</literal> | <literal>last_byte</literal></syntax>
+<syntax>
+    <literal>header</literal> |
+    <literal>last_byte</literal>
+    [<literal>inflight</literal>]</syntax>
 <default/>
 <context>upstream</context>
 <appeared-in>1.7.10</appeared-in>
@@ -728,6 +731,11 @@ server {
 <link id="var_upstream_header_time">заголовка ответа</link>.
 Если указан параметр <literal>last_byte</literal>, то учитывается
 время получения <link id="var_upstream_response_time">всего ответа</link>.
+Если указан параметр <literal>inflight</literal> (1.11.6),
+то также учитываются незавершённые запросы.
+<note>
+До версии 1.11.6 незавершённые запросы учитывались по умолчанию.
+</note>
 </para>
 
 <para>
@@ -797,6 +805,16 @@ server {
 по умолчанию “<literal>/</literal>”.
 </tag-desc>
 
+<tag-name id="health_check_mandatory">
+<literal>mandatory</literal>
+</tag-name>
+<tag-desc>
+устанавливает исходное состояние “checking” для сервера
+до завершения первой проверки работоспособности (1.11.7).
+Если параметр не указан,
+то исходно сервер будет считаться работоспособным.
+</tag-desc>
+
 <tag-name id="hc_match">
 <literal>match</literal>=<value>имя</value>
 </tag-name>
@@ -832,7 +850,8 @@ location / {
 код ответа проксируемого сервера не равен
 2xx или 3xx, проверка считается неуспешной и сервер
 признаётся неработоспособным.
-На неработоспособные серверы клиентские запросы передаваться не будут.
+На неработоспособные серверы и серверы в состоянии “checking”
+клиентские запросы передаваться не будут.
 </para>
 
 <para>
@@ -1052,6 +1071,12 @@ match server_ok {
 </para>
 
 <para>
+<note>
+При использовании методов балансировки нагрузки, отличных
+от стандартного round-robin, следует активировать их до
+директивы <literal>queue</literal>.
+</note>
+
 <note>
 Эта директива доступна как часть
 <commercial_version>коммерческой подписки</commercial_version>.

@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="58">
+        rev="59">
 
 <section id="summary">
 
@@ -701,7 +701,10 @@ weighted round-robin balancing method.
 
 
 <directive name="least_time">
-<syntax><literal>header</literal> | <literal>last_byte</literal></syntax>
+<syntax>
+    <literal>header</literal> |
+    <literal>last_byte</literal>
+    [<literal>inflight</literal>]</syntax>
 <default/>
 <context>upstream</context>
 <appeared-in>1.7.10</appeared-in>
@@ -721,6 +724,11 @@ time to receive the
 If the <literal>last_byte</literal> parameter is specified,
 time to receive the <link id="var_upstream_response_time">full response</link>
 is used.
+If the <literal>inflight</literal> parameter is specified (1.11.6),
+incomplete requests are also taken into account.
+<note>
+Prior to version 1.11.6, incomplete requests were taken into account by default.
+</note>
 </para>
 
 <para>
@@ -790,6 +798,16 @@ defines the URI used in health check requests,
 by default, “<literal>/</literal>”.
 </tag-desc>
 
+<tag-name id="health_check_mandatory">
+<literal>mandatory</literal>
+</tag-name>
+<tag-desc>
+sets the initial “checking” state for a server
+until the first health check is completed (1.11.7).
+If the parameter is not specified,
+the server will be initially considered healthy.
+</tag-desc>
+
 <tag-name id="hc_match">
 <literal>match</literal>=<value>name</value>
 </tag-name>
@@ -825,7 +843,8 @@ If any communication error or timeout occurs, or a
 proxied server responds with the status code other than
 2xx or 3xx, the health check will fail, and the server will
 be considered unhealthy.
-Client requests are not passed to unhealthy servers.
+Client requests are not passed to unhealthy servers
+and servers in the “checking” state.
 </para>
 
 <para>
@@ -1044,6 +1063,12 @@ The default value of the <literal>timeout</literal> parameter is 60 seconds.
 </para>
 
 <para>
+<note>
+When using load balancer methods other than the default
+round-robin method, it is necessary to activate them before
+the <literal>queue</literal> directive.
+</note>
+
 <note>
 This directive is available as part of our
 <commercial_version>commercial subscription</commercial_version>.

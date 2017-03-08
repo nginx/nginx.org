@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_upstream_module"
         link="/en/docs/stream/ngx_stream_upstream_module.html"
         lang="en"
-        rev="23">
+        rev="24">
 
 <section id="summary">
 
@@ -451,9 +451,11 @@ weighted round-robin balancing method.
 
 
 <directive name="least_time">
-<syntax><literal>connect</literal> |
-     <literal>first_byte</literal> |
-     <literal>last_byte</literal></syntax>
+<syntax>
+    <literal>connect</literal> |
+    <literal>first_byte</literal> |
+    <literal>last_byte</literal>
+    [<literal>inflight</literal>]</syntax>
 <default/>
 <context>upstream</context>
 
@@ -472,6 +474,12 @@ If the <literal>first_byte</literal> parameter is specified,
 time to receive the first byte of data is used.
 If the <literal>last_byte</literal> is specified,
 time to receive the last byte of data is used.
+If the <literal>inflight</literal> parameter is specified (1.11.6),
+incomplete connections are also taken into account.
+<note>
+Prior to version 1.11.6,
+incomplete connections were taken into account by default.
+</note>
 </para>
 
 <para>
@@ -533,14 +541,33 @@ after which the server will be considered healthy,
 by default, 1.
 </tag-desc>
 
+<tag-name id="health_check_mandatory">
+<literal>mandatory</literal>
+</tag-name>
+<tag-desc>
+sets the initial “checking” state for a server
+until the first health check is completed (1.11.7).
+If the parameter is not specified,
+the server will be initially considered healthy.
+</tag-desc>
+
 <tag-name id="hc_match">
 <literal>match</literal>=<value>name</value>
 </tag-name>
 <tag-desc>
 specifies the <literal>match</literal> block configuring the tests that a
 successful connection should pass in order for a health check to pass.
-By default,
-only the ability to establish a TCP connection with the server is checked.
+By default, for TCP, only the ability
+to establish a TCP connection with the server is checked.
+For <link id="health_check_udp">UDP</link>, the absence of
+ICMP “<literal>Destination Unreachable</literal>” message is expected
+in reply to the sent string “<literal>nginx health check</literal>”.
+<note>
+Prior to version 1.11.7, by default, UDP health check
+required a <link id="hc_match">match</link> block with the
+<link id="match_send">send</link> and <link id="match_expect">expect</link>
+parameters.
+</note>
 </tag-desc>
 
 <tag-name id="health_check_port">
@@ -557,10 +584,7 @@ By default, equals the <link id="server"/> port.
 </tag-name>
 <tag-desc>
 specifies that the <literal>UDP</literal> protocol should be used for
-health checks instead of the default <literal>TCP</literal> protocol (1.9.13);
-requires a <link id="hc_match">match</link> block with the
-<link id="match_send">send</link> and <link id="match_expect">expect</link>
-parameters.
+health checks instead of the default <literal>TCP</literal> protocol (1.9.13).
 </tag-desc>
 
 </list>
@@ -579,7 +603,8 @@ in the <literal>backend</literal> group every five seconds.
 When a connection to the server cannot be established,
 the health check will fail, and the server will
 be considered unhealthy.
-Client connections are not passed to unhealthy servers.
+Client connections are not passed to unhealthy servers
+and servers in the “checking” state.
 </para>
 
 <para>

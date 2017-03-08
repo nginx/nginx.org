@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_auth_jwt_module"
         link="/ru/docs/http/ngx_http_auth_jwt_module.html"
         lang="ru"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -97,6 +97,34 @@ auth_jwt "closed site" token=$cookie_auth_token;
 </directive>
 
 
+<directive name="auth_jwt_header_set">
+<syntax><value>$переменная</value> <value>имя</value></syntax>
+<default/>
+<context>http</context>
+<appeared-in>1.11.10</appeared-in>
+
+<para>
+Устанавливает <value>переменную</value> в заданное
+<value>имя</value> параметра заголовка JOSE.
+</para>
+
+</directive>
+
+
+<directive name="auth_jwt_claim_set">
+<syntax><value>$переменная</value> <value>имя</value></syntax>
+<default/>
+<context>http</context>
+<appeared-in>1.11.10</appeared-in>
+
+<para>
+Устанавливает <value>переменную</value> в заданное
+<value>имя</value> параметра JWT claim.
+</para>
+
+</directive>
+
+
 <directive name="auth_jwt_key_file">
 <syntax><value>файл</value></syntax>
 <default/>
@@ -120,84 +148,21 @@ auth_jwt "closed site" token=$cookie_auth_token;
 
 <para>
 Модуль <literal>ngx_http_auth_jwt_module</literal>
-поддерживает встроенные переменные.
+поддерживает встроенные переменные:
 </para>
 
 <para>
-Переменные, возвращающие
-<link url="https://tools.ietf.org/html/rfc7519#section-4">JWT claims</link>:
-
 <list type="tag" compact="yes">
-<tag-name id="var_jwt_claim_aud"><var>$jwt_claim_aud</var></tag-name>
+<tag-name id="var_jwt_header_"><var>$jwt_header_</var><value>имя</value></tag-name>
 <tag-desc>
-audience (аудитория)
+возвращает значение указанного
+<link url="https://tools.ietf.org/html/rfc7515#section-4">заголовка JOSE</link>
 </tag-desc>
 
-<tag-name id="var_jwt_claim_email"><var>$jwt_claim_email</var></tag-name>
+<tag-name id="var_jwt_claim_"><var>$jwt_claim_</var><value>имя</value></tag-name>
 <tag-desc>
-email
-</tag-desc>
-
-<tag-name id="var_jwt_claim_exp"><var>$jwt_claim_exp</var></tag-name>
-<tag-desc>
-expiration time (время окончания действия)
-</tag-desc>
-
-<tag-name id="var_jwt_claim_iat"><var>$jwt_claim_iat</var></tag-name>
-<tag-desc>
-issued at (когда выдан)
-</tag-desc>
-
-<tag-name id="var_jwt_claim_iss"><var>$jwt_claim_iss</var></tag-name>
-<tag-desc>
-issuer (издатель)
-</tag-desc>
-
-<tag-name id="var_jwt_claim_jti"><var>$jwt_claim_jti</var></tag-name>
-<tag-desc>
-JWT ID (идентификатор JWT)
-</tag-desc>
-
-<tag-name id="var_jwt_claim_nbf"><var>$jwt_claim_nbf</var></tag-name>
-<tag-desc>
-not-before (не ранее, чем)
-</tag-desc>
-
-<tag-name id="var_jwt_claim_sub"><var>$jwt_claim_sub</var></tag-name>
-<tag-desc>
-subject (субъект)
-</tag-desc>
-</list>
-</para>
-
-<para>
-Переменные, возвращающие параметры
-<link url="https://tools.ietf.org/html/rfc7515#section-4">заголовка JOSE</link>:
-
-<list type="tag" compact="yes">
-<tag-name id="var_jwt_header_alg"><var>$jwt_header_alg</var></tag-name>
-<tag-desc>
-algorithm (алгоритм)
-</tag-desc>
-
-<tag-name id="var_jwt_header_cty"><var>$jwt_header_cty</var></tag-name>
-<tag-desc>
-content type (тип содержимого)
-</tag-desc>
-
-<tag-name id="var_jwt_header_enc"><var>$jwt_header_enc</var></tag-name>
-<tag-desc>
-encryption algorithm (алгоритм шифрования)
-</tag-desc>
-
-<tag-name id="var_jwt_header_kid"><var>$jwt_header_kid</var></tag-name>
-<tag-desc>
-key ID (идентификатор ключа)
-</tag-desc>
-
-<tag-name id="var_jwt_header_typ"><var>$jwt_header_typ</var></tag-name>
-<tag-desc>
-type (тип)
+возвращает значение указанной
+<link url="https://tools.ietf.org/html/rfc7519#section-4">JWT claim</link>
 </tag-desc>
 
 </list>

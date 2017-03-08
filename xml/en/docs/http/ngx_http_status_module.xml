@@ -9,7 +9,7 @@
 <module name="Module ngx_http_status_module"
         link="/en/docs/http/ngx_http_status_module.html"
         lang="en"
-        rev="12">
+        rev="13">
 
 <section id="summary">
 
@@ -184,12 +184,17 @@ The following status information is provided:
 <tag-name id="version"><literal>version</literal></tag-name>
 <tag-desc>
 Version of the provided data set.
-The current version is 7.
+The current version is 8.
 </tag-desc>
 
 <tag-name><literal>nginx_version</literal></tag-name>
 <tag-desc>
 Version of nginx.
+</tag-desc>
+
+<tag-name id="nginx_build"><literal>nginx_build</literal></tag-name>
+<tag-desc>
+Name of nginx build.
 </tag-desc>
 
 <tag-name><literal>address</literal></tag-name>
@@ -216,6 +221,12 @@ Current time in milliseconds since Epoch.
 <tag-name id="pid"><literal>pid</literal></tag-name>
 <tag-desc>
 The ID of the worker process that handled status request.
+</tag-desc>
+
+<tag-name id="ppid"><literal>ppid</literal></tag-name>
+<tag-desc>
+The ID of the master process that started
+the <link id="pid">worker process</link>.
 </tag-desc>
 
 <tag-name id="processes"><literal>processes</literal></tag-name>
@@ -356,6 +367,60 @@ The total number of bytes sent to clients.
 </list>
 </tag-desc>
 
+<tag-name id="slabs"><literal>slabs</literal></tag-name>
+<tag-desc>
+For each shared memory zone that uses slab allocator:
+<list type="tag">
+
+<tag-name><literal>pages</literal></tag-name>
+<tag-desc>
+<list type="tag">
+
+<tag-name><literal>used</literal></tag-name>
+<tag-desc>
+The current number of used memory pages.
+</tag-desc>
+
+<tag-name><literal>free</literal></tag-name>
+<tag-desc>
+The current number of free memory pages.
+</tag-desc>
+
+</list>
+</tag-desc>
+
+<tag-name><literal>slots</literal></tag-name>
+<tag-desc>
+For each memory slot size (8, 16, 32, 64, 128, etc.)
+the following data are provided:
+<list type="tag">
+
+<tag-name><literal>used</literal></tag-name>
+<tag-desc>
+The current number of used memory slots.
+</tag-desc>
+
+<tag-name><literal>free</literal></tag-name>
+<tag-desc>
+The current number of free memory slots.
+</tag-desc>
+
+<tag-name><literal>reqs</literal></tag-name>
+<tag-desc>
+The total number of attempts to allocate memory of specified size.
+</tag-desc>
+
+<tag-name><literal>fails</literal></tag-name>
+<tag-desc>
+The number of unsuccessful attempts to allocate memory of specified size.
+</tag-desc>
+
+</list>
+</tag-desc>
+
+</list>
+</tag-desc>
+
 <tag-name id="upstreams"><literal>upstreams</literal></tag-name>
 <tag-desc>
 For each
@@ -384,6 +449,20 @@ An
 of the server.
 </tag-desc>
 
+<tag-name id="name"><literal>name</literal></tag-name>
+<tag-desc>
+The name of the server specified in the
+<link doc="ngx_http_upstream_module.xml" id="server"/>
+directive.
+</tag-desc>
+
+<tag-name id="service"><literal>service</literal></tag-name>
+<tag-desc>
+The <link doc="ngx_http_upstream_module.xml" id="service"/>
+parameter value of the
+<link doc="ngx_http_upstream_module.xml" id="server"/> directive.
+</tag-desc>
+
 <tag-name><literal>backup</literal></tag-name>
 <tag-desc>
 A boolean value indicating whether the server is a
@@ -404,6 +483,7 @@ Current state, which may be one of
 “<literal>draining</literal>”,
 “<literal>down</literal>”,
 “<literal>unavail</literal>”,
+“<literal>checking</literal>”,
 or
 “<literal>unhealthy</literal>”.
 </tag-desc>
@@ -510,16 +590,16 @@ if the last health check request was successful and passed
 <tag-name><literal>downtime</literal></tag-name>
 <tag-desc>
 Total time
-the server was in the “<literal>unavail</literal>”
-and “<literal>unhealthy</literal>” states.
+the server was in the “<literal>unavail</literal>”,
+“<literal>checking</literal>”, and “<literal>unhealthy</literal>” states.
 </tag-desc>
 
 <tag-name><literal>downstart</literal></tag-name>
 <tag-desc>
 The time (in milliseconds since Epoch)
 when the server became
-“<literal>unavail</literal>”
-or “<literal>unhealthy</literal>”.
+“<literal>unavail</literal>”,
+“<literal>checking</literal>”, or “<literal>unhealthy</literal>”.
 </tag-desc>
 
 <tag-name id="selected"><literal>selected</literal></tag-name>
@@ -561,6 +641,13 @@ idle <link doc="ngx_http_upstream_module.xml" id="keepalive"/> connections.
 <tag-desc>
 The current number of servers removed
 from the group but still processing active client requests.
+</tag-desc>
+
+<tag-name id="zone"><literal>zone</literal></tag-name>
+<tag-desc>
+The name of the shared memory
+<link doc="ngx_http_upstream_module.xml" id="zone"/>
+that keeps the group’s configuration and run-time state.
 </tag-desc>
 
 <tag-name id="queue"><literal>queue</literal></tag-name>
@@ -735,7 +822,7 @@ The total number of bytes sent to clients.
 </list>
 </tag-desc>
 
-<tag-name><literal>upstreams</literal></tag-name>
+<tag-name id="stream_upstreams"><literal>upstreams</literal></tag-name>
 <tag-desc>
 For each
 <link doc="../stream/ngx_stream_upstream_module.xml" id="zone">dynamically
@@ -763,6 +850,20 @@ An
 of the server.
 </tag-desc>
 
+
+<tag-name id="stream_name"><literal>name</literal></tag-name>
+<tag-desc>
+The name of the server specified in the
+<link doc="../stream/ngx_stream_upstream_module.xml" id="server"/> directive.
+</tag-desc>
+
+<tag-name id="stream_service"><literal>service</literal></tag-name>
+<tag-desc>
+The <link doc="../stream/ngx_stream_upstream_module.xml" id="service"/>
+parameter value of the
+<link doc="../stream/ngx_stream_upstream_module.xml" id="server"/> directive.
+</tag-desc>
+
 <tag-name><literal>backup</literal></tag-name>
 <tag-desc>
 A boolean value indicating whether the server is a
@@ -782,6 +883,7 @@ Current state, which may be one of
 “<literal>up</literal>”,
 “<literal>down</literal>”,
 “<literal>unavail</literal>”,
+“<literal>checking</literal>”,
 or
 “<literal>unhealthy</literal>”.
 </tag-desc>
@@ -882,16 +984,16 @@ if the last health check request was successful and passed
 <tag-name><literal>downtime</literal></tag-name>
 <tag-desc>
 Total time
-the server was in the “<literal>unavail</literal>”
-and “<literal>unhealthy</literal>” states.
+the server was in the “<literal>unavail</literal>”,
+“<literal>checking</literal>”, and “<literal>unhealthy</literal>” states.
 </tag-desc>
 
 <tag-name><literal>downstart</literal></tag-name>
 <tag-desc>
 The time (in milliseconds since Epoch)
 when the server became
-“<literal>unavail</literal>”
-or “<literal>unhealthy</literal>”.
+“<literal>unavail</literal>”,
+“<literal>checking</literal>”, or “<literal>unhealthy</literal>”.
 </tag-desc>
 
 <tag-name><literal>selected</literal></tag-name>
@@ -901,6 +1003,19 @@ when the server was last selected to process a connection.
 </tag-desc>
 
 </list>
+</tag-desc>
+
+<tag-name><literal>zombies</literal></tag-name>
+<tag-desc>
+The current number of servers removed
+from the group but still processing active client connections.
+</tag-desc>
+
+<tag-name><literal>zone</literal></tag-name>
+<tag-desc>
+The name of the shared memory
+<link doc="../stream/ngx_stream_upstream_module.xml" id="zone"/>
+that keeps the group’s configuration and run-time state.
 </tag-desc>
 
 </list>
@@ -918,6 +1033,39 @@ when the server was last selected to process a connection.
 
 <para>
 <list type="bullet">
+
+<listitem>
+The
+<link id="zone"/> field in
+<link id="upstreams">http</link> and <link id="stream_upstreams">stream</link>
+upstreams
+was added in <link id="version"/> 8.
+</listitem>
+
+<listitem>
+The <link id="slabs"/> status data
+were added in <link id="version"/> 8.
+</listitem>
+
+<listitem>
+The
+<link id="state">checking</link> state
+was added in <link id="version"/> 8.
+</listitem>
+
+<listitem>
+The
+<link id="name"/> and <link id="service"/> fields in
+<link id="upstreams">http</link> and <link id="stream_upstreams">stream</link>
+upstreams
+were added in <link id="version"/> 8.
+</listitem>
+
+<listitem>
+The
+<link id="nginx_build"/> and <link id="ppid"/> fields
+were added in <link id="version"/> 8.
+</listitem>
 
 <listitem>
 The

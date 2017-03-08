@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_status_module"
         link="/ru/docs/http/ngx_http_status_module.html"
         lang="ru"
-        rev="12">
+        rev="13">
 
 <section id="summary">
 
@@ -187,12 +187,17 @@ http://127.0.0.1/status/stream/upstreams/backend/peers/1/weight
 <tag-name id="version"><literal>version</literal></tag-name>
 <tag-desc>
 Версия предоставляемого набора данных.
-Текущей является версия 7.
+Текущей является версия 8.
 </tag-desc>
 
 <tag-name><literal>nginx_version</literal></tag-name>
 <tag-desc>
 Версия nginx.
+</tag-desc>
+
+<tag-name id="nginx_build"><literal>nginx_build</literal></tag-name>
+<tag-desc>
+Название сборки nginx.
 </tag-desc>
 
 <tag-name><literal>address</literal></tag-name>
@@ -221,6 +226,12 @@ http://127.0.0.1/status/stream/upstreams/backend/peers/1/weight
 <tag-desc>
 Идентификатор рабочего процесса,
 обработавшего запрос на получение информации о состоянии.
+</tag-desc>
+
+<tag-name id="ppid"><literal>ppid</literal></tag-name>
+<tag-desc>
+Идентификатор главного процесса,
+запустившего <link id="pid">рабочий процесс</link>.
 </tag-desc>
 
 <tag-name id="processes"><literal>processes</literal></tag-name>
@@ -362,6 +373,60 @@ http://127.0.0.1/status/stream/upstreams/backend/peers/1/weight
 </list>
 </tag-desc>
 
+<tag-name id="slabs"><literal>slabs</literal></tag-name>
+<tag-desc>
+Для каждой зоны разделяемой памяти, в которой используется распределение slab:
+<list type="tag">
+
+<tag-name><literal>pages</literal></tag-name>
+<tag-desc>
+<list type="tag">
+
+<tag-name><literal>used</literal></tag-name>
+<tag-desc>
+Текущее число занятых страниц памяти.
+</tag-desc>
+
+<tag-name><literal>free</literal></tag-name>
+<tag-desc>
+Текущее число свободных страниц памяти.
+</tag-desc>
+
+</list>
+</tag-desc>
+
+<tag-name><literal>slots</literal></tag-name>
+<tag-desc>
+Для каждого размера слота памяти (8, 16, 32, 64, 128 и т.д.)
+доступны следующие данные:
+<list type="tag">
+
+<tag-name><literal>used</literal></tag-name>
+<tag-desc>
+Текущее число занятых слотов памяти.
+</tag-desc>
+
+<tag-name><literal>free</literal></tag-name>
+<tag-desc>
+Текущее число свободных слотов памяти.
+</tag-desc>
+
+<tag-name><literal>reqs</literal></tag-name>
+<tag-desc>
+Суммарное число попыток выделения памяти указанного размера.
+</tag-desc>
+
+<tag-name><literal>fails</literal></tag-name>
+<tag-desc>
+Число неудачных попыток выделения памяти указанного размера.
+</tag-desc>
+
+</list>
+</tag-desc>
+
+</list>
+</tag-desc>
+
 <tag-name id="upstreams"><literal>upstreams</literal></tag-name>
 <tag-desc>
 Для каждой
@@ -389,6 +454,19 @@ http://127.0.0.1/status/stream/upstreams/backend/peers/1/weight
 сервера.
 </tag-desc>
 
+<tag-name id="name"><literal>name</literal></tag-name>
+<tag-desc>
+Имя сервера, указанное в директиве
+<link doc="ngx_http_upstream_module.xml" id="server"/>.
+</tag-desc>
+
+<tag-name id="service"><literal>service</literal></tag-name>
+<tag-desc>
+Значение параметра
+<link doc="ngx_http_upstream_module.xml" id="service"/>
+директивы <link doc="ngx_http_upstream_module.xml" id="server"/>.
+</tag-desc>
+
 <tag-name><literal>backup</literal></tag-name>
 <tag-desc>
 Логическое значение, означающее, является ли сервер
@@ -407,7 +485,8 @@ http://127.0.0.1/status/stream/upstreams/backend/peers/1/weight
 “<literal>up</literal>”,
 “<literal>draining</literal>”,
 “<literal>down</literal>”,
-“<literal>unavail</literal>”
+“<literal>unavail</literal>”,
+“<literal>checking</literal>”
 или
 “<literal>unhealthy</literal>”.
 </tag-desc>
@@ -513,16 +592,16 @@ http://127.0.0.1/status/stream/upstreams/backend/peers/1/weight
 <tag-name><literal>downtime</literal></tag-name>
 <tag-desc>
 Суммарное время,
-когда сервер находился в состояниях “<literal>unavail</literal>”
-и “<literal>unhealthy</literal>”.
+когда сервер находился в состояниях “<literal>unavail</literal>”,
+“<literal>checking</literal>” и “<literal>unhealthy</literal>”.
 </tag-desc>
 
 <tag-name><literal>downstart</literal></tag-name>
 <tag-desc>
 Время (в миллисекундах с начала эпохи),
 когда сервер стал
-“<literal>unavail</literal>”
-или “<literal>unhealthy</literal>”.
+“<literal>unavail</literal>”,
+“<literal>checking</literal>” или “<literal>unhealthy</literal>”.
 </tag-desc>
 
 <tag-name id="selected"><literal>selected</literal></tag-name>
@@ -562,6 +641,13 @@ http://127.0.0.1/status/stream/upstreams/backend/peers/1/weight
 <tag-desc>
 Текущее число серверов, удалённых
 из группы, но всё ещё обрабатывающих активные клиентские запросы.
+</tag-desc>
+
+<tag-name id="zone"><literal>zone</literal></tag-name>
+<tag-desc>
+Имя <link doc="ngx_http_upstream_module.xml" id="zone">зоны</link>
+разделяемой памяти,
+в которой хранятся конфигурация группы и её рабочее состояние.
 </tag-desc>
 
 <tag-name id="queue"><literal>queue</literal></tag-name>
@@ -739,7 +825,7 @@ http://127.0.0.1/status/stream/upstreams/backend/peers/1/weight
 </list>
 </tag-desc>
 
-<tag-name><literal>upstreams</literal></tag-name>
+<tag-name id="stream_upstreams"><literal>upstreams</literal></tag-name>
 <tag-desc>
 Для каждого
 <link doc="../stream/ngx_stream_upstream_module.xml" id="server">сервера</link>
@@ -761,6 +847,19 @@ http://127.0.0.1/status/stream/upstreams/backend/peers/1/weight
 сервера.
 </tag-desc>
 
+<tag-name id="stream_name"><literal>name</literal></tag-name>
+<tag-desc>
+Имя сервера, указанное в директиве
+<link doc="../stream/ngx_stream_upstream_module.xml" id="server"/>.
+</tag-desc>
+
+<tag-name id="stream_service"><literal>service</literal></tag-name>
+<tag-desc>
+Значение параметра
+<link doc="ngx_http_upstream_module.xml" id="service"/>
+директивы <link doc="ngx_http_upstream_module.xml" id="server"/>.
+</tag-desc>
+
 <tag-name><literal>backup</literal></tag-name>
 <tag-desc>
 Логическое значение, означающее, является ли сервер
@@ -778,7 +877,8 @@ http://127.0.0.1/status/stream/upstreams/backend/peers/1/weight
 Текущее состояние, которое может быть одним из
 “<literal>up</literal>”,
 “<literal>down</literal>”,
-“<literal>unavail</literal>”
+“<literal>unavail</literal>”,
+“<literal>checking</literal>”
 или
 “<literal>unhealthy</literal>”.
 </tag-desc>
@@ -875,16 +975,16 @@ http://127.0.0.1/status/stream/upstreams/backend/peers/1/weight
 <tag-name><literal>downtime</literal></tag-name>
 <tag-desc>
 Суммарное время,
-когда сервер находился в состояниях “<literal>unavail</literal>”
-и “<literal>unhealthy</literal>”.
+когда сервер находился в состояниях “<literal>unavail</literal>”,
+“<literal>checking</literal>” и “<literal>unhealthy</literal>”.
 </tag-desc>
 
 <tag-name><literal>downstart</literal></tag-name>
 <tag-desc>
 Время (в миллисекундах с начала эпохи),
 когда сервер стал
-“<literal>unavail</literal>”
-или “<literal>unhealthy</literal>”.
+“<literal>unavail</literal>”,
+“<literal>checking</literal>” или “<literal>unhealthy</literal>”.
 </tag-desc>
 
 <tag-name><literal>selected</literal></tag-name>
@@ -894,6 +994,19 @@ http://127.0.0.1/status/stream/upstreams/backend/peers/1/weight
 </tag-desc>
 
 </list>
+</tag-desc>
+
+<tag-name><literal>zombies</literal></tag-name>
+<tag-desc>
+Текущее число серверов, удалённых
+из группы, но всё ещё обрабатывающих активные клиентские соединения.
+</tag-desc>
+
+<tag-name><literal>zone</literal></tag-name>
+<tag-desc>
+Имя <link doc="../stream/ngx_stream_upstream_module.xml" id="zone">зоны</link>
+разделяемой памяти,
+в которой хранятся конфигурация группы и её рабочее состояние.
 </tag-desc>
 
 </list>
@@ -908,6 +1021,37 @@ http://127.0.0.1/status/stream/upstreams/backend/peers/1/weight
 
 <para>
 <list type="bullet">
+
+<listitem>
+Поле <link id="zone"/> в
+<link id="upstreams">http</link> и <link id="stream_upstreams">stream</link>
+upstreams
+было добавлено в <link id="version">версии</link> 8.
+</listitem>
+
+<listitem>
+Поля <link id="slabs"/>
+были добавлены в <link id="version">версии</link> 8.
+</listitem>
+
+<listitem>
+Состояние
+<link id="state">checking</link>
+было добавлено в <link id="version">версии</link> 8.
+</listitem>
+
+<listitem>
+Поля
+<link id="name"/> и <link id="service"/> в
+<link id="upstreams">http</link> и <link id="stream_upstreams">stream</link>
+upstreams
+были добавлены в <link id="version">версии</link> 8.
+</listitem>
+
+<listitem>
+Поля <link id="nginx_build"/> и <link id="ppid"/>
+были добавлены в <link id="version">версии</link> 8.
+</listitem>
 
 <listitem>
 Поля <link id="sessions"/>

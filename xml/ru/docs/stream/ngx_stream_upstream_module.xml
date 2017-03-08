@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_upstream_module"
         link="/ru/docs/stream/ngx_stream_upstream_module.html"
         lang="ru"
-        rev="23">
+        rev="24">
 
 <section id="summary">
 
@@ -451,9 +451,11 @@ hash $remote_addr;
 
 
 <directive name="least_time">
-<syntax><literal>connect</literal> |
-     <literal>first_byte</literal> |
-     <literal>last_byte</literal></syntax>
+<syntax>
+    <literal>connect</literal> |
+    <literal>first_byte</literal> |
+    <literal>last_byte</literal>
+    [<literal>inflight</literal>]</syntax>
 <default/>
 <context>upstream</context>
 
@@ -472,6 +474,12 @@ hash $remote_addr;
 то учитывается время получения первого байта данных.
 Если указан параметр <literal>last_byte</literal>,
 то учитывается время получения ответа.
+Если указан параметр <literal>inflight</literal> (1.11.6),
+то также учитываются незавершённые соединения.
+<note>
+До версии 1.11.6
+незавершённые соединения учитывались по умолчанию.
+</note>
 </para>
 
 <para>
@@ -533,13 +541,32 @@ hash $remote_addr;
 по умолчанию 1.
 </tag-desc>
 
+<tag-name id="health_check_mandatory">
+<literal>mandatory</literal>
+</tag-name>
+<tag-desc>
+устанавливает исходное состояние “checking” для сервера
+до завершения первой проверки работоспособности (1.11.7).
+Если параметр не указан,
+то исходно сервер будет считаться работоспособным.
+</tag-desc>
+
 <tag-name id="hc_match">
 <literal>match</literal>=<value>имя</value>
 </tag-name>
 <tag-desc>
 указывает на блок <literal>match</literal> с условиями, которым должно
 удовлетворять соединение, чтобы результат проверки считался успешным.
-По умолчанию проверяется лишь возможность установки TCP-соединения с сервером.
+По умолчанию для TCP проверяется
+лишь возможность установки TCP-соединения с сервером,
+для <link id="health_check_udp">UDP</link> проверяется отсутствие
+сообщения ICMP “<literal>Destination Unreachable</literal>”
+в ответ на отправленную строку “<literal>nginx health check</literal>”.
+<note>
+До версии 1.11.7 по умолчанию для UDP
+требовалось наличие блока <link id="hc_match">match</link> с параметрами
+<link id="match_send">send</link> и <link id="match_expect">expect</link>.
+</note>
 </tag-desc>
 
 <tag-name id="health_check_port">
@@ -557,9 +584,7 @@ hash $remote_addr;
 <tag-desc>
 указывает, что для проверки работоспособности будет использоваться протокол
 <literal>UDP</literal>
-вместо протокола <literal>TCP</literal>, используемого по умолчанию (1.9.13);
-требует наличия блока <link id="hc_match">match</link> с параметрами
-<link id="match_send">send</link> и <link id="match_expect">expect</link>.
+вместо протокола <literal>TCP</literal>, используемого по умолчанию (1.9.13).
 </tag-desc>
 
 </list>
@@ -578,7 +603,8 @@ server {
 Если соединение с сервером не может быть установлено,
 проверка считается неуспешной и сервер
 признаётся неработоспособным.
-На неработоспособные серверы клиентские соединения передаваться не будут.
+На неработоспособные серверы и серверы в состоянии “checking”
+клиентские соединения передаваться не будут.
 </para>
 
 <para>
