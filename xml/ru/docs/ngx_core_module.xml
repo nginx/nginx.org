@@ -10,7 +10,7 @@
 <module name="Основная функциональность"
         link="/ru/docs/ngx_core_module.html"
         lang="ru"
-        rev="23">
+        rev="24">
 
 <section id="example" name="Пример конфигурации">
 
@@ -696,6 +696,22 @@ worker_priority -10;
 Изменяет ограничение на максимальное число открытых файлов
 (<c-def>RLIMIT_NOFILE</c-def>) для рабочих процессов.
 Используется для увеличения ограничения без перезапуска главного процесса.
+</para>
+
+</directive>
+
+
+<directive name="worker_shutdown_timeout">
+<syntax><value>время</value></syntax>
+<default/>
+<context>main</context>
+<appeared-in>1.11.11</appeared-in>
+
+<para>
+Задаёт таймаут в секундах для плавного завершения рабочих процессов.
+По истечении указанного <value>времени</value>
+nginx попытается закрыть все открытые соединения
+для ускорения завершения.
 </para>
 
 </directive>

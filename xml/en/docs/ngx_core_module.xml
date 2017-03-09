@@ -10,7 +10,7 @@
 <module name="Core functionality"
         link="/en/docs/ngx_core_module.html"
         lang="en"
-        rev="23">
+        rev="24">
 
 <section id="example" name="Example Configuration">
 
@@ -696,6 +696,22 @@ Used to increase the limit without restarting the main process.
 Changes the limit on the maximum number of open files
 (<c-def>RLIMIT_NOFILE</c-def>) for worker processes.
 Used to increase the limit without restarting the main process.
+</para>
+
+</directive>
+
+
+<directive name="worker_shutdown_timeout">
+<syntax><value>time</value></syntax>
+<default/>
+<context>main</context>
+<appeared-in>1.11.11</appeared-in>
+
+<para>
+Configures a timeout for a graceful shutdown of worker processes.
+When the <value>time</value> expires,
+nginx will try to close all the connections currently open
+to facilitate shutdown.
 </para>
 
 </directive>
