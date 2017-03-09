@@ -32,10 +32,6 @@ configuration parameter.
 <section id="issues" name="Known Issues">
 
 <para>
-The module is experimental, caveat emptor applies.
-</para>
-
-<para>
 Before version 1.9.14,
 buffering of a client request body could not be disabled
 regardless of
