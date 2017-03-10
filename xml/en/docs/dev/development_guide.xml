@@ -2728,4 +2728,663 @@ process, whose pid is read from nginx pid file.
 
 </section>
 
+<section name="Modules" id="Modules">
+
+<section name="Adding new modules" id="adding_new_modules">
+<para>
+The standalone nginx module resides in a separate directory that contains
+at least two files:
+<literal>config</literal> and a file with the module source.
+The first file contains all information needed for nginx to integrate
+the module, for example:
+<programlisting>
+ngx_module_type=CORE
+ngx_module_name=ngx_foo_module
+ngx_module_srcs="$ngx_addon_dir/ngx_foo_module.c"
+
+. auto/module
+
+ngx_addon_name=$ngx_module_name
+</programlisting>
+The file is a POSIX shell script and it can set (or access) the
+following variables:
+<list type="bullet">
+
+<listitem>
+<literal>ngx_module_type</literal> - the type of module to build.
+Possible options are <literal>CORE</literal>, <literal>HTTP</literal>,
+<literal>HTTP_FILTER</literal>, <literal>HTTP_INIT_FILTER</literal>,
+<literal>HTTP_AUX_FILTER</literal>, <literal>MAIL</literal>,
+<literal>STREAM</literal>, or <literal>MISC</literal>
+</listitem>
+
+<listitem>
+<literal>ngx_module_name</literal> - the name of the module.
+A whitespace separated values list is accepted and may be used to build
+multiple modules from a single set of source files.
+The first name indicates the name of the output binary for a dynamic module.
+The names in this list should match the names used in the module.
+</listitem>
+
+<listitem>
+<literal>ngx_addon_name</literal> - supplies the name of the module in the
+console output text of the configure script.
+</listitem>
+
+<listitem>
+<literal>ngx_module_srcs</literal> - a whitespace separated list of source
+files used to compile the module.
+The $ngx_addon_dir variable can be used as a placeholder for the path of the
+module source.
+</listitem>
+
+<listitem>
+<literal>ngx_module_incs</literal> - include paths required to build the module
+</listitem>
+
+<listitem>
+<literal>ngx_module_deps</literal> - a list of module's header files.
+</listitem>
+
+<listitem>
+<literal>ngx_module_libs</literal> - a list of libraries to link with the
+module.
+For example, libpthread would be linked using
+<literal>ngx_module_libs=-lpthread</literal>.
+The following macros can be used to link against the same libraries as
+nginx:
+<literal>LIBXSLT</literal>, <literal>LIBGD</literal>, <literal>GEOIP</literal>,
+<literal>PCRE</literal>, <literal>OPENSSL</literal>, <literal>MD5</literal>,
+<literal>SHA1</literal>, <literal>ZLIB</literal>, and <literal>PERL</literal>
+</listitem>
+
+<listitem>
+<literal>ngx_module_link</literal> - set by the build system to
+<literal>DYNAMIC</literal> for a dynamic module or <literal>ADDON</literal>
+for a static module and used to perform different actions depending on
+linking type.
+</listitem>
+
+<listitem>
+<literal>ngx_module_order</literal> - sets the load order for the module which
+is useful for <literal>HTTP_FILTER</literal> and
+<literal>HTTP_AUX_FILTER</literal> module types.
+The order is stored in a reverse list.
+
+<para>
+The <literal>ngx_http_copy_filter_module</literal> is near the bottom of the
+list so is one of the first to be executed.
+This reads the data for other filters.
+Near the top of the list is <literal>ngx_http_write_filter_module</literal>
+which writes the data out and is one of the last to be executed.
+</para>
+
+<para>
+The format for this option is typically the current module’s name followed by
+a whitespace separated list of modules to insert before, and therefore execute
+after.
+The module will be inserted before the last module in the list that is found
+to be currently loaded.
+</para>
+
+<para>
+By default for filter modules this is set to
+“<literal>ngx_http_copy_filter</literal>” which will insert the module before
+the copy filter in the list and therefore will execute after the copy filter.
+For other module types the default is empty.
+</para>
+
+</listitem>
+
+</list>
+
+A module can be added to nginx by means of the configure script using
+<literal>--add-module=/path/to/module</literal> for static compilation and
+<literal>--add-dynamic-module=/path/to/module</literal> for dynamic compilation.
+</para>
+
+</section>
+
+
+<section name="Core modules" id="core_modules">
+
+<para>
+Modules are building blocks of nginx, and most of its functionality is
+implemented as modules.
+The module source file must contain a global variable of
+<literal>ngx_module_t</literal> type which is defined as follows:
+<programlisting>
+struct ngx_module_s {
+
+    /* private part is omitted */
+
+    void                 *ctx;
+    ngx_command_t        *commands;
+    ngx_uint_t            type;
+
+    ngx_int_t           (*init_master)(ngx_log_t *log);
+
+    ngx_int_t           (*init_module)(ngx_cycle_t *cycle);
+
+    ngx_int_t           (*init_process)(ngx_cycle_t *cycle);
+    ngx_int_t           (*init_thread)(ngx_cycle_t *cycle);
+    void                (*exit_thread)(ngx_cycle_t *cycle);
+    void                (*exit_process)(ngx_cycle_t *cycle);
+
+    void                (*exit_master)(ngx_cycle_t *cycle);
+
+    /* stubs for future extensions are omitted */
+};
+</programlisting>
+The omitted private part includes module version, signature and is filled
+using the predefined macro <literal>NGX_MODULE_V1</literal>.
+</para>
+
+<para>
+Each module keeps its private data in the <literal>ctx</literal> field,
+recognizes specific configuration directives, specified in the
+<literal>commands</literal> array, and may be invoked at certain stages of
+nginx lifecycle.
+The module lifecycle consists of the following events:
+
+<list type="bullet">
+
+<listitem>
+Configuration directive handlers are called as they appear
+in configuration files in the context of the master process
+</listitem>
+
+<listitem>
+The <literal>init_module</literal> handler is called in the context of
+the master process after the configuration is parsed successfully
+</listitem>
+
+<listitem>
+The master process creates worker process(es) and
+<literal>init_process</literal> handler is called in each of them
+</listitem>
+
+<listitem>
+When a worker process receives the shutdown command from master, it invokes
+the <literal>exit_process</literal> handler
+</listitem>
+
+<listitem>
+The master process calls the <literal>exit_master</literal> handler before
+exiting.
+</listitem>
+
+</list>
+
+<note>
+<literal>init_module</literal> handler may be called multiple times
+in the master process if the configuration reload is requested.
+</note>
+
+The <literal>init_master</literal>, <literal>init_thread</literal> and
+<literal>exit_thread</literal> handlers are not implemented at the moment;
+Threads in nginx are only used as supplementary I/O facility with its own
+API and <literal>init_master</literal> handler looks unnecessary.
+</para>
+
+<para>
+The module <literal>type</literal> defines what exactly is stored in the
+<literal>ctx</literal> field.
+There are several types of modules:
+<list type="bullet">
+<listitem><literal>NGX_CORE_MODULE</literal></listitem>
+<listitem><literal>NGX_EVENT_MODULE</literal></listitem>
+<listitem><literal>NGX_HTTP_MODULE</literal></listitem>
+<listitem><literal>NGX_MAIL_MODULE</literal></listitem>
+<listitem><literal>NGX_STREAM_MODULE</literal></listitem>
+</list>
+The <literal>NGX_CORE_MODULE</literal> is the most basic and thus the most
+generic and most low-level type of module. Other module types are implemented
+on top of it and provide more convenient way to deal with corresponding
+problem domains, like handling events or http requests.
+</para>
+
+<para>
+The examples of core modules are <literal>ngx_core_module</literal>,
+<literal>ngx_errlog_module</literal>, <literal>ngx_regex_module</literal>,
+<literal>ngx_thread_pool_module</literal>,
+<literal>ngx_openssl_module</literal>
+modules and, of course, http, stream, mail and event modules itself.
+The context of a core module is defined as:
+<programlisting>
+typedef struct {
+    ngx_str_t             name;
+    void               *(*create_conf)(ngx_cycle_t *cycle);
+    char               *(*init_conf)(ngx_cycle_t *cycle, void *conf);
+} ngx_core_module_t;
+</programlisting>
+where the <literal>name</literal> is a string with a module name for
+convenience, <literal>create_conf</literal> and <literal>init_conf</literal>
+are pointers to functions that create and initialize module configuration
+correspondingly.
+For core modules, nginx will call <literal>create_conf</literal> before parsing
+a new configuration and <literal>init_conf</literal> after all configuration
+was parsed successfully.
+The typical <literal>create_conf</literal> function allocates memory for the
+configuration and sets default values.
+The <literal>init_conf</literal> deals with known configuration and thus may
+perform sanity checks and complete initialization.
+</para>
+
+<para>
+For example, the simplistic <literal>ngx_foo_module</literal> can look like
+this:
+<programlisting>
+/*
+ * Copyright (C) Author.
+ */
+
+
+#include &lt;ngx_config.h&gt;
+#include &lt;ngx_core.h&gt;
+
+
+typedef struct {
+    ngx_flag_t  enable;
+} ngx_foo_conf_t;
+
+
+static void *ngx_foo_create_conf(ngx_cycle_t *cycle);
+static char *ngx_foo_init_conf(ngx_cycle_t *cycle, void *conf);
+
+static char *ngx_foo_enable(ngx_conf_t *cf, void *post, void *data);
+static ngx_conf_post_t  ngx_foo_enable_post = { ngx_foo_enable };
+
+
+static ngx_command_t  ngx_foo_commands[] = {
+
+    { ngx_string("foo_enabled"),
+      NGX_MAIN_CONF|NGX_DIRECT_CONF|NGX_CONF_FLAG,
+      ngx_conf_set_flag_slot,
+      0,
+      offsetof(ngx_foo_conf_t, enable),
+      &amp;ngx_foo_enable_post },
+
+      ngx_null_command
+};
+
+
+static ngx_core_module_t  ngx_foo_module_ctx = {
+    ngx_string("foo"),
+    ngx_foo_create_conf,
+    ngx_foo_init_conf
+};
+
+
+ngx_module_t  ngx_foo_module = {
+    NGX_MODULE_V1,
+    &amp;ngx_foo_module_ctx,                   /* module context */
+    ngx_foo_commands,                      /* module directives */
+    NGX_CORE_MODULE,                       /* module type */
+    NULL,                                  /* init master */
+    NULL,                                  /* init module */
+    NULL,                                  /* init process */
+    NULL,                                  /* init thread */
+    NULL,                                  /* exit thread */
+    NULL,                                  /* exit process */
+    NULL,                                  /* exit master */
+    NGX_MODULE_V1_PADDING
+};
+
+
+static void *
+ngx_foo_create_conf(ngx_cycle_t *cycle)
+{
+    ngx_foo_conf_t  *fcf;
+
+    fcf = ngx_pcalloc(cycle->pool, sizeof(ngx_foo_conf_t));
+    if (fcf == NULL) {
+        return NULL;
+    }
+
+    fcf->enable = NGX_CONF_UNSET;
+
+    return fcf;
+}
+
+
+static char *
+ngx_foo_init_conf(ngx_cycle_t *cycle, void *conf)
+{
+    ngx_foo_conf_t *fcf = conf;
+
+    ngx_conf_init_value(fcf->enable, 0);
+
+    return NGX_CONF_OK;
+}
+
+
+static char *
+ngx_foo_enable(ngx_conf_t *cf, void *post, void *data)
+{
+    ngx_flag_t  *fp = data;
+
+    if (*fp == 0) {
+        return NGX_CONF_OK;
+    }
+
+    ngx_log_error(NGX_LOG_NOTICE, cf->log, 0, "Foo Module is enabled");
+
+    return NGX_CONF_OK;
+}
+</programlisting>
+</para>
+
+</section>
+
+
+<section name="Configuration directives" id="config_directives">
+
+<para>
+The <literal>ngx_command_t</literal> describes single configuration directive.
+Each module, supporting configuration, provides an array of such specifications
+that describe how to process arguments and what handlers to call:
+<programlisting>
+struct ngx_command_s {
+    ngx_str_t             name;
+    ngx_uint_t            type;
+    char               *(*set)(ngx_conf_t *cf, ngx_command_t *cmd, void *conf);
+    ngx_uint_t            conf;
+    ngx_uint_t            offset;
+    void                 *post;
+};
+</programlisting>
+The array should be terminated by a special value
+“<literal>ngx_null_command</literal>”.
+The <literal>name</literal> is the literal name of a directive, as it appears
+in configuration file, for example “<literal>worker_processes</literal>” or
+“<literal>listen</literal>”.
+The <literal>type</literal> is a bitfield that controls number of arguments,
+command type and other properties using corresponding flags.
+Arguments flags:
+
+<list type="bullet">
+
+<listitem>
+<literal>NGX_CONF_NOARGS</literal> - directive without arguments
+</listitem>
+
+<listitem><literal>NGX_CONF_1MORE</literal> - one required argument</listitem>
+
+<listitem><literal>NGX_CONF_2MORE</literal> - two required arguments</listitem>
+
+<listitem>
+<literal>NGX_CONF_TAKE1..7</literal> - exactly 1..7 arguments
+</listitem>
+
+<listitem>
+<literal>NGX_CONF_TAKE12, 13, 23, 123, 1234</literal> - one or two arguments,
+or other combinations
+</listitem>
+
+</list>
+
+Directive types:
+
+<list type="bullet">
+
+<listitem>
+<literal>NGX_CONF_BLOCK</literal> - the directive is a block, i.e. it may
+contain other directives in curly braces, or even implement its own parser
+to handle contents inside.
+</listitem>
+
+<listitem>
+<literal>NGX_CONF_FLAG</literal> - the directive value is a flag, a boolean
+value represented by “<literal>on</literal>” or “<literal>off</literal>”
+strings.
+</listitem>
+</list>
+
+Context of a directive defines where in the configuration it may appear
+and how to access module context to store corresponding values:
+<list type="bullet">
+
+<listitem>
+<literal>NGX_MAIN_CONF</literal> - top level configuration
+</listitem>
+
+<listitem>
+<literal>NGX_HTTP_MAIN_CONF</literal> - in the http block
+</listitem>
+
+<listitem>
+<literal>NGX_HTTP_SRV_CONF</literal> - in the http server block
+</listitem>
+
+<listitem>
+<literal>NGX_HTTP_LOC_CONF</literal> - in the http location
+</listitem>
+
+<listitem>
+<literal>NGX_HTTP_UPS_CONF</literal> - in the http upstream block
+</listitem>
+
+<listitem>
+<literal>NGX_HTTP_SIF_CONF</literal> - in the http server “if”
+</listitem>
+
+<listitem>
+<literal>NGX_HTTP_LIF_CONF</literal> - in the http location “if”
+</listitem>
+
+<listitem>
+<literal>NGX_HTTP_LMT_CONF</literal> - in the http “limit_except”
+</listitem>
+
+<listitem>
+<literal>NGX_STREAM_MAIN_CONF</literal> - in the stream block
+</listitem>
+
+<listitem>
+<literal>NGX_STREAM_SRV_CONF</literal> - in the stream server block
+</listitem>
+
+<listitem>
+<literal>NGX_STREAM_UPS_CONF</literal> - in the stream upstream block
+</listitem>
+
+<listitem>
+<literal>NGX_MAIL_MAIN_CONF</literal> - in the the mail block
+</listitem>
+
+<listitem>
+<literal>NGX_MAIL_SRV_CONF</literal> - in the mail server block
+</listitem>
+
+<listitem>
+<literal>NGX_EVENT_CONF</literal> - in the event block
+</listitem>
+
+<listitem>
+<literal>NGX_DIRECT_CONF</literal> - used by modules that don't
+create a hierarchy of contexts and store module configuration directly in ctx
+</listitem>
+</list>
+The configuration parser uses this flags to throw an error in case of
+a misplaced directive and calls directive handlers supplied with a proper
+configuration pointer, so that same directives in different locations could
+store their values in distinct places.
+</para>
+
+<para>
+The <literal>set</literal> field defines a handler that processes a directive
+and stores parsed values into corresponding configuration.
+Nginx offers a convenient set of functions that perform common conversions:
+
+<list type="bullet">
+
+<listitem>
+<literal>ngx_conf_set_flag_slot</literal> - converts literal
+“<literal>on</literal>” or “<literal>off</literal>” strings into
+<literal>ngx_flag_t</literal> type with values 1 or 0
+</listitem>
+
+<listitem>
+<literal>ngx_conf_set_str_slot</literal> - stores string as a value of the
+<literal>ngx_str_t</literal> type
+</listitem>
+
+<listitem>
+<literal>ngx_conf_set_str_array_slot</literal> - appends
+<literal>ngx_array_t</literal> of <literal>ngx_str_t</literal> with a new value.
+The array is created if not yet exists
+</listitem>
+
+<listitem>
+<literal>ngx_conf_set_keyval_slot</literal> - appends
+<literal>ngx_array_t</literal> of <literal>ngx_keyval_t</literal> with
+a new value, where key is the first string and value is second.
+The array is created if not yet exists
+</listitem>
+
+<listitem>
+<literal>ngx_conf_set_num_slot</literal> - converts directive argument
+to a <literal>ngx_int_t</literal> value
+</listitem>
+
+<listitem>
+<literal>ngx_conf_set_size_slot</literal> - converts
+<link doc="../syntax.xml">size</link> to <literal>size_t</literal> value
+in bytes
+</listitem>
+
+<listitem>
+<literal>ngx_conf_set_off_slot</literal> - converts
+<link doc="../syntax.xml">offset</link> to <literal>off_t</literal> value
+in bytes
+</listitem>
+
+<listitem>
+<literal>ngx_conf_set_msec_slot</literal> - converts
+<link doc="../syntax.xml">time</link> to <literal>ngx_msec_t</literal> value
+in milliseconds
+</listitem>
+
+<listitem>
+<literal>ngx_conf_set_sec_slot</literal> - converts
+<link doc="../syntax.xml">time</link> to <literal>time_t</literal> value
+in seconds
+</listitem>
+
+<listitem>
+<literal>ngx_conf_set_bufs_slot</literal> - converts two arguments
+into <literal>ngx_bufs_t</literal> that holds <literal>ngx_int_t</literal>
+number and <link doc="../syntax.xml">size</link> of buffers
+</listitem>
+
+<listitem>
+<literal>ngx_conf_set_enum_slot</literal> - converts argument
+into <literal>ngx_uint_t</literal> value.
+The null-terminated array of <literal>ngx_conf_enum_t</literal> passed in the
+<literal>post</literal> field defines acceptable strings and corresponding
+integer values
+</listitem>
+
+<listitem>
+<literal>ngx_conf_set_bitmask_slot</literal> - arguments are converted to
+<literal>ngx_uint_t</literal> value and OR'ed with the resulting value,
+forming a bitmask.
+The null-terminated array of <literal>ngx_conf_bitmask_t</literal> passed in
+the <literal>post</literal> field defines acceptable strings and corresponding
+mask values
+</listitem>
+
+<listitem>
+<literal>set_path_slot</literal> - converts arguments to
+<literal>ngx_path_t</literal> type and performs all required initializations.
+See the
+<link doc="../http/ngx_http_proxy_module.xml" id="proxy_temp_path">proxy_temp_path</link>
+directive description for details
+</listitem>
+
+<listitem>
+<literal>set_access_slot</literal> - converts arguments to file permissions
+mask.
+See the
+<link doc="../http/ngx_http_proxy_module.xml" id="proxy_store_access">proxy_store_access</link>
+directive description for details
+</listitem>
+
+</list>
+
+</para>
+
+<para>
+The <literal>conf</literal> field defines which context is used to store
+the value of the directive, or zero if contexts are not used.
+Only simple core modules use configuration without context and set
+<literal>NGX_DIRECT_CONF</literal> flag.
+In real life, such modules like http or stream require more sophisticated
+configuration that can be applied per-server or per-location, or even more
+precisely, in the context of the “<literal>if</literal>” directive or
+some limit.
+In this modules, configuration structure is more complex.
+Please refer to corresponding modules description to understand how
+they manage their configuration.
+
+<list type="bullet">
+<listitem>
+<literal>NGX_HTTP_MAIN_CONF_OFFSET</literal> - http block configuration
+</listitem>
+
+<listitem>
+<literal>NGX_HTTP_SRV_CONF_OFFSET</literal> - http server configuration
+</listitem>
+
+<listitem>
+<literal>NGX_HTTP_LOC_CONF_OFFSET</literal> - http location configuration
+</listitem>
+
+<listitem>
+<literal>NGX_STREAM_MAIN_CONF_OFFSET</literal> - stream block configuration
+</listitem>
+
+<listitem>
+<literal>NGX_STREAM_SRV_CONF_OFFSET</literal> - stream server configuration
+</listitem>
+
+<listitem>
+<literal>NGX_MAIL_MAIN_CONF_OFFSET</literal> - mail block configuration
+</listitem>
+
+<listitem>
+<literal>NGX_MAIL_SRV_CONF_OFFSET</literal> - mail server configuration
+</listitem>
+
+</list>
+
+</para>
+
+<para>
+The <literal>offset</literal> defines an offset of a field in a module
+configuration structure that holds values of this particular directive.
+The typical use is to employ <literal>offsetof()</literal> macro.
+</para>
+
+<para>
+The <literal>post</literal> is a twofold field: it may be used to define
+a handler to be called after main handler completed or to pass additional
+data to the main handler.
+In the first case, <literal>ngx_conf_post_t</literal> structure needs to
+be initialized with a pointer to handler, for example:
+<programlisting>
+static char *ngx_do_foo(ngx_conf_t *cf, void *post, void *data);
+static ngx_conf_post_t  ngx_foo_post = { ngx_do_foo };
+</programlisting>
+The <literal>post</literal> argument is the <literal>ngx_conf_post_t</literal>
+object itself, and the <literal>data</literal> is a pointer to value,
+converted from arguments by the main handler with the appropriate type.
+</para>
+
+</section>
+
+</section>
+
+
 </article>
