@@ -3387,4 +3387,865 @@ converted from arguments by the main handler with the appropriate type.
 </section>
 
 
+<section name="HTTP" id="http">
+
+
+<section name="Connection" id="http_connection">
+
+<para>
+Each client HTTP connection runs through the following stages:
+</para>
+
+<list type="bullet">
+
+<listitem>
+<literal>ngx_event_accept()</literal> accepts a client TCP connection.
+This handler is called in response to a read notification on a listen socket.
+A new <literal>ngx_connecton_t</literal> object is created at this stage.
+The object wraps the newly accepted client socket.
+Each nginx listener provides a handler to pass the new connection object to.
+For HTTP connections it's <literal>ngx_http_init_connection(c)</literal>
+</listitem>
+
+<listitem>
+<literal>ngx_http_init_connection()</literal> performs early initialization of
+an HTTP connection.
+At this stage an <literal>ngx_http_connection_t</literal> object is created for
+the connection and its reference is stored in connection's
+<literal>data</literal> field.
+Later it will be substituted with an HTTP request object.
+PROXY protocol parser and SSL handshake are started at this stage as well
+</listitem>
+
+<listitem>
+<literal>ngx_http_wait_request_handler()</literal> is a read event handler, that
+is called when data is available in the client socket.
+At this stage an HTTP request object <literal>ngx_http_request_t</literal> is
+created and set to connection's <literal>data</literal> field
+</listitem>
+
+<listitem>
+<literal>ngx_http_process_request_line()</literal> is a read event handler,
+which reads client request line.
+The handler is set by <literal>ngx_http_wait_request_handler()</literal>.
+Reading is done into connection's <literal>buffer</literal>.
+The size of the buffer is initially set by the directive
+<link doc="../http/ngx_http_core_module.xml" id="client_header_buffer_size"/>.
+The entire client header is supposed to fit the buffer.
+If the initial size is not enough, a bigger buffer is allocated, whose size is
+set by the <literal>large_client_header_buffers</literal> directive
+</listitem>
+
+<listitem>
+<literal>ngx_http_process_request_headers()</literal> is a read event handler,
+which is set after <literal>ngx_http_process_request_line()</literal> to read
+client request header
+</listitem>
+
+<listitem>
+<literal>ngx_http_core_run_phases()</literal> is called when the request header
+is completely read and parsed.
+This function runs request phases from
+<literal>NGX_HTTP_POST_READ_PHASE</literal> to
+<literal>NGX_HTTP_CONTENT_PHASE</literal>.
+The last phase is supposed to generate response and pass it along the filter
+chain.
+The response in not necessarily sent to the client at this phase.
+It may remain buffered and will be sent at the finalization stage
+</listitem>
+
+<listitem>
+<literal>ngx_http_finalize_request()</literal> is usually called when the
+request has generated all the output or produced an error.
+In the latter case an appropriate error page is looked up and used as the
+response.
+If the response is not completely sent to the client by this point, an
+HTTP writer <literal>ngx_http_writer()</literal> is activated to finish
+sending outstanding data
+</listitem>
+
+<listitem>
+<literal>ngx_http_finalize_connection()</literal> is called when the response is
+completely sent to the client and the request can be destroyed.
+If client connection keepalive feature is enabled,
+<literal>ngx_http_set_keepalive()</literal> is called, which destroys current
+request and waits for the next request on the connection.
+Otherwise, <literal>ngx_http_close_request()</literal> destroys both the
+request and the connection
+</listitem>
+
+</list>
+
+</section>
+
+
+<section name="Request" id="http_request">
+
+<para>
+For each client HTTP request the <literal>ngx_http_request_t</literal> object is
+created.  Some of the fields of this object:
+</para>
+
+<list type="bullet">
+
+<listitem>
+
+<para>
+<literal>connection</literal> - pointer to a <literal>ngx_connection_t</literal>
+client connection object.
+Several requests may reference the same connection object at the same time -
+one main request and its subrequests.
+After a request is deleted, a new request may be created on the same connection.
+</para>
+
+<para>
+Note that for HTTP connections <literal>ngx_connection_t</literal>'s
+<literal>data</literal> field points back to the request.
+Such request is called active, as opposed to the other requests tied with the
+connection.
+Active request is used to handle client connection events and is allowed to
+output its response to the client.
+Normally, each request becomes active at some point to be able to send its
+output
+</para>
+
+</listitem>
+
+<listitem>
+
+<para>
+<literal>ctx</literal> - array of HTTP module contexts.
+Each module of type <literal>NGX_HTTP_MODULE</literal> can store any value
+(normally, a pointer to a structure) in the request.
+The value is stored in the <literal>ctx</literal> array at the module's
+<literal>ctx_index</literal> position.
+The following macros provide a convenient way to get and set request contexts:
+</para>
+
+<list type="bullet">
+
+<listitem>
+<literal>ngx_http_get_module_ctx(r, module)</literal> - returns
+<literal>module</literal>'s context
+</listitem>
+
+<listitem>
+<literal>ngx_http_set_ctx(r, c, module)</literal> - sets <literal>c</literal>
+as <literal>module</literal>'s context
+</listitem>
+
+</list>
+
+</listitem>
+
+<listitem>
+<literal>main_conf, srv_conf, loc_conf</literal> - arrays of current request
+configurations.
+Configurations are stored at module's <literal>ctx_index</literal> positions
+</listitem>
+
+<listitem>
+<literal>read_event_handler</literal>, <literal>write_event_handler</literal> -
+read and write event handlers for the request.
+Normally, an HTTP connection has <literal>ngx_http_request_handler()</literal>
+set as both read and write event handlers.
+This function calls <literal>read_event_handler</literal> and
+<literal>write_event_handler</literal> handlers of the currently active request
+</listitem>
+
+<listitem>
+<literal>cache</literal> - request cache object for caching upstream response
+</listitem>
+
+<listitem>
+<literal>upstream</literal> - request upstream object for proxying
+</listitem>
+
+<listitem>
+<literal>pool</literal> - request pool.
+This pool is destroyed when the request is deleted.
+The request object itself is allocated in this pool.
+For allocations which should be available throughout the client connection's
+lifetime, <literal>ngx_connection_t</literal>'s pool should be used instead
+</listitem>
+
+<listitem>
+<literal>header_in</literal> - buffer where client HTTP request header in read
+</listitem>
+
+<listitem>
+<literal>headers_in, headers_out</literal> - input and output HTTP headers
+objects.
+Both objects contain the <literal>headers</literal> field of type
+<literal>ngx_list_t</literal> keeping the raw list of headers.
+In addition to that, specific headers are available for getting and setting as
+separate fields, for example <literal>content_length_n</literal>,
+<literal>status</literal> etc
+</listitem>
+
+<listitem>
+<literal>request_body</literal> - client request body object
+</listitem>
+
+<listitem>
+<literal>start_sec, start_msec</literal> - time point when the request was
+created.
+Used for tracking request duration
+</listitem>
+
+<listitem>
+<literal>method, method_name</literal> - numeric and textual representation of
+client HTTP request method.
+Numeric values for methods are defined in
+<literal>src/http/ngx_http_request.h</literal> with macros
+<literal>NGX_HTTP_GET, NGX_HTTP_HEAD, NGX_HTTP_POST</literal> etc
+</listitem>
+
+<listitem>
+<literal>http_protocol, http_version, http_major, http_minor</literal> -
+client HTTP protocol version in its original textual form ("HTTP/1.0",
+"HTTP/1.1" etc), numeric form (<literal>NGX_HTTP_VERSION_10</literal>,
+<literal>NGX_HTTP_VERSION_11</literal> etc) and separate major and minor
+versions
+</listitem>
+
+<listitem>
+<literal>request_line, unparsed_uri</literal> - client original request line
+and URI
+</listitem>
+
+<listitem>
+<literal>uri, args, exten</literal> - current request URI, arguments and file
+extention.
+The URI value here might differ from the original URI sent by the client due to
+normalization.
+Throughout request processing, these value can change while performing internal
+redirects
+</listitem>
+
+<listitem>
+<literal>main</literal> - pointer to a main request object.
+This object is created to process client HTTP request, as opposed to
+subrequests, created to perform a specific sub-task within the main request
+</listitem>
+
+<listitem>
+<literal>parent</literal> - pointer to a parent request of a subrequest
+</listitem>
+
+<listitem>
+<literal>postponed</literal> - list of output buffers and subrequests in the
+order they are sent and created.
+The list is used by the postpone filter to provide consistent request output,
+when parts of it are created by subrequests
+</listitem>
+
+<listitem>
+<literal>post_subrequest</literal> - pointer to a handler with context to be
+called when a subrequest gets finalized.
+Unused for main requests
+</listitem>
+
+<listitem>
+
+<para>
+<literal>posted_requests</literal> - list of requests to be started or
+resumed.
+Starting or resuming is done by calling the request's
+<literal>write_event_handler</literal>. 
+Normally, this handler holds the request main function, which at first runs
+request phases and then produces the output.
+</para>
+
+<para>
+A request is usually posted by the
+<literal>ngx_http_post_request(r, NULL)</literal> call.
+It is always posted to the main request <literal>posted_requests</literal> list.
+The function <literal>ngx_http_run_posted_requests(c)</literal> runs all
+requests, posted in the main request of the passed connection's active request.
+This function should be called in all event handlers, which can lead to new
+posted requests.
+Normally, it's called always after invoking a request's read or write handler
+</para>
+
+</listitem>
+
+<listitem>
+<literal>phase_handler</literal> - index of current request phase
+</listitem>
+
+<listitem>
+<literal>ncaptures, captures, captures_data</literal> - regex captures produced
+by the last regex match of the request.
+While processing a request, there's a number of places where a regex match can
+happen: map lookup, server lookup by SNI or HTTP Host, rewrite, proxy_redirect
+etc.
+Captures produced by a lookup are stored in the above mentioned fields.
+The field <literal>ncaptures</literal> holds the number of captures,
+<literal>captures</literal> holds captures boundaries,
+<literal>captures_data</literal> holds a string, against which the regex was
+matched and which should be used to extract captures.
+After each new regex match request captures are reset to hold new values
+</listitem>
+
+<listitem>
+<literal>count</literal> - request reference counter.
+The field only makes sense for the main request.
+Increasing the counter is done by simple <literal>r->main->count++</literal>.
+To decrease the counter <literal>ngx_http_finalize_request(r, rc)</literal>
+should be called.
+Creation of a subrequest or running request body read process increase the
+counter
+</listitem>
+
+<listitem>
+<literal>subrequests</literal> - current subrequest nesting level.
+Each subrequest gets the nesting level of its parent decreased by one.
+Once the value reaches zero an error is generated.
+The value for the main request is defined by the
+<literal>NGX_HTTP_MAX_SUBREQUESTS</literal> constant
+</listitem>
+
+<listitem>
+<literal>uri_changes</literal> - number of URI changes left for the request.
+The total number of times a request can change its URI is limited by the
+<literal>NGX_HTTP_MAX_URI_CHANGES</literal> constant.
+With each change the value is decreased until it reaches zero.
+In the latter case an error is generated.
+The actions considered as URI changes are rewrites and internal redirects to
+normal or named locations
+</listitem>
+
+<listitem>
+<literal>blocked</literal> - counter of blocks held on the request.
+While this value is non-zero, request cannot be terminated.
+Currently, this value is increased by pending AIO operations (POSIX AIO and
+thread operations) and active cache lock
+</listitem>
+
+<listitem>
+<literal>buffered</literal> - bitmask showing which modules have buffered the
+output produced by the request.
+A number of filters can buffer output, for example sub_filter can buffer data
+due to a partial string match, copy filter can buffer data because of the lack
+of free output_buffers etc.
+As long as this value is non-zero, request is not finalized, expecting the flush
+</listitem>
+
+<listitem>
+<literal>header_only</literal> - flag showing that output does not require body.
+For example, this flag is used by HTTP HEAD requests
+</listitem>
+
+<listitem>
+<para>
+<literal>keepalive</literal> - flag showing if client connection keepalive is
+supported.
+The value is inferred from HTTP version and <header>Connection</header> header
+value
+</para>
+</listitem>
+
+<listitem>
+<literal>header_sent</literal> - flag showing that output header has already
+been sent by the request
+</listitem>
+
+<listitem>
+<literal>internal</literal> - flag showing that current request is internal.
+To enter the internal state, a request should pass through an internal
+redirect or be a subrequest.
+Internal requests are allowed to enter internal locations
+</listitem>
+
+<listitem>
+<literal>allow_ranges</literal> - flag showing that partial response can be
+sent to client, if requested by the HTTP Range header
+</listitem>
+
+<listitem>
+<literal>subrequest_ranges</literal> - flag showing that a partial response is
+allowed to be sent while processing a subrequest
+</listitem>
+
+<listitem>
+<literal>single_range</literal> - flag showing that only a single continuous
+range of output data can be sent to the client.
+This flag is usually set when sending a stream of data, for example from a
+proxied server, and the entire response is not available at once
+</listitem>
+
+<listitem>
+<literal>main_filter_need_in_memory, filter_need_in_memory</literal> - flags
+showing that the output should be produced in memory buffers but not in files.
+This is a signal to the copy filter to read data from file buffers even if
+sendfile is enabled.
+The difference between these two flags is the location of filter modules which
+set them.
+Filters called before the postpone filter in filter chain, set
+<literal>filter_need_in_memory</literal> requesting that only the current
+request output should come in memory buffers.
+Filters called later in filter chain set
+<literal>main_filter_need_in_memory</literal> requiring that both the main
+request and all the subrequest read files in memory while sending output
+</listitem>
+
+<listitem>
+<literal>filter_need_temporary</literal> - flag showing that the request output
+should be produced in temporary buffers, but not in readonly memory buffers or
+file buffers.
+This is used by filters which may change output directly in the buffers, where
+it's sent </listitem>
+
+</list>
+
+</section>
+
+
+<section name="Configuration" id="http_conf">
+
+<para>
+Each HTTP module may have three types of configuration:
+</para>
+
+<list type="bullet">
+
+<listitem>
+Main configuration.
+This configuration applies to the entire nginx http{} block.  This is global
+configuration.
+It stores global settings for a module
+</listitem>
+
+<listitem>
+Server configuration.
+This configuraion applies to a single nginx server{}.
+It stores server-specific settings for a module
+</listitem>
+
+<listitem>
+Location configuration.
+This configuraion applies to a single location{}, if{} or limit_except() block.
+This configuration stores settings specific to a location
+</listitem>
+
+</list>
+
+<para>
+Configuration structures are created at nginx configuration stage by calling
+functions, which allocate these structures, initialize them and merge.
+The following example shows how to create a simple module location
+configuration.
+The configuration has one setting <literal>foo</literal> of unsiged integer
+type.
+</para>
+
+<programlisting>
+typedef struct {
+    ngx_uint_t  foo;
+} ngx_http_foo_loc_conf_t;
+
+
+static ngx_http_module_t  ngx_http_foo_module_ctx = {
+    NULL,                                  /* preconfiguration */
+    NULL,                                  /* postconfiguration */
+
+    NULL,                                  /* create main configuration */
+    NULL,                                  /* init main configuration */
+
+    NULL,                                  /* create server configuration */
+    NULL,                                  /* merge server configuration */
+
+    ngx_http_foo_create_loc_conf,          /* create location configuration */
+    ngx_http_foo_merge_loc_conf            /* merge location configuration */
+};
+
+
+static void *
+ngx_http_foo_create_loc_conf(ngx_conf_t *cf)
+{
+    ngx_http_foo_loc_conf_t  *conf;
+
+    conf = ngx_pcalloc(cf->pool, sizeof(ngx_http_foo_loc_conf_t));
+    if (conf == NULL) {
+        return NULL;
+    }
+
+    conf->foo = NGX_CONF_UNSET_UINT;
+
+    return conf;
+}
+
+
+static char *
+ngx_http_foo_merge_loc_conf(ngx_conf_t *cf, void *parent, void *child)
+{
+    ngx_http_foo_loc_conf_t *prev = parent;
+    ngx_http_foo_loc_conf_t *conf = child;
+
+    ngx_conf_merge_uint_value(conf->foo, prev->foo, 1);
+}
+</programlisting>
+
+<para>
+As seen in the example, <literal>ngx_http_foo_create_loc_conf()</literal>
+function creates a new configuration structure and
+<literal>ngx_http_foo_merge_loc_conf()</literal> merges a configuration with
+another configuration from a higher level.
+In fact, server and location configuration do not only exist at server and
+location levels, but also created for all the levels above.
+Specifically, a server configuration is created at the main level as well and
+location configurations are created for main, server and location levels.
+These configurations make it possible to specify server and location-specific
+settings at any level of nginx configuration file.
+Eventually configurations are merged down.
+To indicate a missing setting and ignore it while merging, nginx provides a
+number of macros like <literal>NGX_CONF_UNSET</literal> and
+<literal>NGX_CONF_UNSET_UINT</literal>.
+Standard nginx merge macros like <literal>ngx_conf_merge_value()</literal> and
+<literal>ngx_conf_merge_uint_value()</literal> provide a convenient way to
+merge a setting and set the default value if none of configurations provided an
+explicit value.
+For complete list of macros for different types see
+<literal>src/core/ngx_conf_file.h</literal>.
+</para>
+
+<para>
+To access configuration of any HTTP module at configuration time, the following
+macros are available.
+They receive <literal>ngx_conf_t</literal> reference as the first argument.
+</para>
+
+<list type="bullet">
+
+<listitem>
+<literal>ngx_http_conf_get_module_main_conf(cf, module)</literal>
+</listitem>
+
+<listitem>
+<literal>ngx_http_conf_get_module_srv_conf(cf, module)</literal>
+</listitem>
+
+<listitem>
+<literal>ngx_http_conf_get_module_loc_conf(cf, module)</literal>
+</listitem>
+
+</list>
+
+<para>
+The following example gets a pointer to a location configuration of
+standard nginx core module
+<link doc="../http/ngx_http_core_module.xml">ngx_http_core_module</link>
+and changes
+location content handler kept in the <literal>handler</literal> field of the
+structure.
+</para>
+
+<programlisting>
+static ngx_int_t ngx_http_foo_handler(ngx_http_request_t *r);
+
+
+static ngx_command_t  ngx_http_foo_commands[] = {
+
+    { ngx_string("foo"),
+      NGX_HTTP_LOC_CONF|NGX_CONF_NOARGS,
+      ngx_http_foo,
+      0,
+      0,
+      NULL },
+
+      ngx_null_command
+};
+
+
+static char *
+ngx_http_foo(ngx_conf_t *cf, ngx_command_t *cmd, void *conf)
+{
+    ngx_http_core_loc_conf_t  *clcf;
+
+    clcf = ngx_http_conf_get_module_loc_conf(cf, ngx_http_core_module);
+    clcf->handler = ngx_http_bar_handler;
+
+    return NGX_CONF_OK;
+}
+</programlisting>
+
+<para>
+In runtime the following macros are available to get configurations of HTTP
+modules.
+</para>
+
+<list type="bullet">
+
+<listitem>
+<literal>ngx_http_get_module_main_conf(r, module)</literal>
+</listitem>
+
+<listitem>
+<literal>ngx_http_get_module_srv_conf(r, module)</literal>
+</listitem>
+
+<listitem>
+<literal>ngx_http_get_module_loc_conf(r, module)</literal>
+</listitem>
+
+</list>
+
+<para>
+These macros receive a reference to an HTTP request
+<literal>ngx_http_request_t</literal>.
+Main configuration of a request never changes.
+Server configuration may change from a default one after choosing a virtual
+server for a request.
+Request location configuration may change multiple times as a result of a
+rewrite or internal redirect.
+The following example shows how to access HTTP configuration in runtime.
+</para>
+
+<programlisting>
+static ngx_int_t
+ngx_http_foo_handler(ngx_http_request_t *r)
+{
+    ngx_http_foo_loc_conf_t  *flcf;
+
+    flcf = ngx_http_get_module_loc_conf(r, ngx_http_foo_module);
+
+    ...
+}
+</programlisting>
+
+</section>
+
+
+<section name="Phases" id="http_phases">
+
+<para>
+Each HTTP request passes through a list of HTTP phases.
+Each phase is specialized in a particular type of processing.
+Most phases allow installing handlers.
+The phase handlers are called successively once the request reaches the phase.
+Many standard nginx modules install their phase handlers as a way to get called
+at a specific request processing stage.
+Following is the list of nginx HTTP phases.
+</para>
+
+<list type="bullet">
+
+<listitem>
+<literal>NGX_HTTP_POST_READ_PHASE</literal> is the earliest phase.
+The <link doc="../http/ngx_http_realip_module.xml">ngx_http_realip_module</link>
+installs its handler at this phase.
+This allows to substitute client address before any other module is invoked
+</listitem>
+
+<listitem>
+<literal>NGX_HTTP_SERVER_REWRITE_PHASE</literal> is used to run rewrite script,
+defined at the server level, that is out of any location block.
+The
+<link doc="../http/ngx_http_rewrite_module.xml">ngx_http_rewrite_module</link>
+installs its handler at this phase
+</listitem>
+
+<listitem>
+<literal>NGX_HTTP_FIND_CONFIG_PHASE</literal> - a special phase used to choose a
+location based on request URI.
+This phase does not allow installing any handlers.
+It only performs the default action of choosing a location.
+Before this phase, the server default location is assigned to the request.
+Any module requesting a location configuration, will receive the default server
+location configuration.
+After this phase a new location is assigned to the request
+</listitem>
+
+<listitem>
+<literal>NGX_HTTP_REWRITE_PHASE</literal> - same as
+<literal>NGX_HTTP_SERVER_REWRITE_PHASE</literal>, but for a new location,
+chosen at the prevous phase
+</listitem>
+
+<listitem>
+<literal>NGX_HTTP_POST_REWRITE_PHASE</literal> - a special phase, used to
+redirect the request to a new location, if the URI was changed during rewrite.
+The redirect is done by going back to
+<literal>NGX_HTTP_FIND_CONFIG_PHASE</literal>.
+No handlers are allowed at this phase
+</listitem>
+
+<listitem>
+<literal>NGX_HTTP_PREACCESS_PHASE</literal> - a common phase for different
+types of handlers, not associated with access check.
+Standard nginx modules
+<link doc="../http/ngx_http_limit_conn_module.xml">ngx_http_limit_conn_module
+</link> and
+<link doc="../http/ngx_http_limit_req_module.xml">
+ngx_http_limit_req_module</link> register their handlers at this phase
+</listitem>
+
+<listitem>
+<literal>NGX_HTTP_ACCESS_PHASE</literal> - used to check access permissions
+for the request.
+Standard nginx modules such as
+<link doc="../http/ngx_http_access_module.xml">ngx_http_access_module</link> and
+<link doc="../http/ngx_http_auth_basic_module.xml">ngx_http_auth_basic_module
+</link> register their handlers at this phase.
+If configured so by the
+<link doc="../http/ngx_http_core_module.xml" id="satisfy"/> directive, only one
+of access phase handlers may allow access to the request in order to confinue
+processing
+</listitem>
+
+<listitem>
+<literal>NGX_HTTP_POST_ACCESS_PHASE</literal> - a special phase for the
+<link doc="../http/ngx_http_core_module.xml" id="satisfy">satisfy any</link>
+case.
+If some access phase handlers denied the access and none of them allowed, the
+request is finalized.
+No handlers are supported at this phase
+</listitem>
+
+<listitem>
+<literal>NGX_HTTP_TRY_FILES_PHASE</literal> - a special phase, for the
+<link doc="../http/ngx_http_core_module.xml" id="try_files"/> feature.
+No handlers are allowed at this phase
+</listitem>
+
+<listitem>
+<literal>NGX_HTTP_CONTENT_PHASE</literal> - a phase, at which the response
+is supposed to be generated.
+Multiple nginx standard modules register their handers at this phase, for
+example
+<link doc="../http/ngx_http_index_module.xml">ngx_http_index_module</link> or
+<literal>ngx_http_static_module</literal>.
+All these handlers are called sequentially until one of them finally produces
+the output.
+It's also possible to set content handlers on a per-location basis.
+If the
+<link doc="../http/ngx_http_core_module.xml">ngx_http_core_module</link>'s
+location configuration has <literal>handler</literal> set, this handler is
+called as the content handler and content phase handlers are ignored
+</listitem>
+
+<listitem>
+<literal>NGX_HTTP_LOG_PHASE</literal> is used to perform request logging.
+Currently, only the
+<link doc="../http/ngx_http_log_module.xml">ngx_http_log_module</link>
+registers its handler
+at this stage for access logging.
+Log phase handlers are called at the very end of request processing, right
+before freeing the request
+</listitem>
+
+</list>
+
+<para>
+Following is the example of a preaccess phase handler.
+</para>
+
+<programlisting>
+static ngx_http_module_t  ngx_http_foo_module_ctx = {
+    NULL,                                  /* preconfiguration */
+    ngx_http_foo_init,                     /* postconfiguration */
+
+    NULL,                                  /* create main configuration */
+    NULL,                                  /* init main configuration */
+
+    NULL,                                  /* create server configuration */
+    NULL,                                  /* merge server configuration */
+
+    NULL,                                  /* create location configuration */
+    NULL                                   /* merge location configuration */
+};
+
+
+static ngx_int_t
+ngx_http_foo_handler(ngx_http_request_t *r)
+{
+    ngx_str_t  *ua;
+
+    ua = r->headers_in->user_agent;
+
+    if (ua == NULL) {
+        return NGX_DECLINED;
+    }
+
+    /* reject requests with "User-Agent: foo" */
+    if (ua->value.len == 3 &amp;&amp; ngx_strncmp(ua->value.data, "foo", 3) == 0) {
+        return NGX_HTTP_FORBIDDEN;
+    }
+
+    return NGX_DECLINED;
+}
+
+
+static ngx_int_t
+ngx_http_foo_init(ngx_conf_t *cf)
+{
+    ngx_http_handler_pt        *h;
+    ngx_http_core_main_conf_t  *cmcf;
+
+    cmcf = ngx_http_conf_get_module_main_conf(cf, ngx_http_core_module);
+
+    h = ngx_array_push(&amp;cmcf->phases[NGX_HTTP_PREACCESS_PHASE].handlers);
+    if (h == NULL) {
+        return NGX_ERROR;
+    }
+
+    *h = ngx_http_foo_handler;
+
+    return NGX_OK;
+}
+</programlisting>
+
+<para>
+Phase handlers are expected to return specific codes:
+</para>
+
+<list type="bullet">
+
+<listitem>
+<literal>NGX_OK</literal> - proceed to the next phase 
+</listitem>
+
+<listitem>
+<literal>NGX_DECLINED</literal> - proceed to the next handler of the current
+phase.
+If current handler is the last in current phase, move to the next phase
+</listitem>
+
+<listitem>
+<literal>NGX_AGAIN, NGX_DONE</literal> - suspend phase handling until some
+future event.
+This can be for example asynchronous I/O operation or just a delay.
+It is supposed, that phase handling will be resumed later by calling
+<literal>ngx_http_core_run_phases()</literal>
+</listitem>
+
+<listitem>
+Any other value returned by the phase handler is treated as a request
+finalization code, in particular, HTTP response code.
+The request is finalized with the code provided
+</listitem>
+
+</list>
+
+<para>
+Some phases treat return codes in a slightly different way.
+At content phase, any return code other that <literal>NGX_DECLINED</literal>
+is considered a finalization code.
+As for the location content handlers, any return from them is considered a
+finalization code.
+At access phase, in
+<link doc="../http/ngx_http_core_module.xml" id="satisfy">satisfy any</link>
+mode, returning a code other
+than <literal>NGX_OK, NGX_DECLINED, NGX_AGAIN, NGX_DONE</literal> is considered
+a denial.
+If none of future access handlers allow access or deny with a new
+code, the denial code will become the finalization code.
+</para>
+
+</section>
+
+</section>
+
+
 </article>
