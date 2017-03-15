@@ -3652,7 +3652,7 @@ Unused for main requests
 <literal>posted_requests</literal> - list of requests to be started or
 resumed.
 Starting or resuming is done by calling the request's
-<literal>write_event_handler</literal>. 
+<literal>write_event_handler</literal>.
 Normally, this handler holds the request main function, which at first runs
 request phases and then produces the output.
 </para>
@@ -4203,7 +4203,7 @@ Phase handlers are expected to return specific codes:
 <list type="bullet">
 
 <listitem>
-<literal>NGX_OK</literal> - proceed to the next phase 
+<literal>NGX_OK</literal> - proceed to the next phase
 </listitem>
 
 <listitem>
