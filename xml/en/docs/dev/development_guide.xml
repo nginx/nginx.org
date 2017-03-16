@@ -19,7 +19,7 @@
 <para>
 <list type="bullet">
 <listitem>
-<literal>auto</literal> - build scripts
+<literal>auto</literal> — build scripts
 </listitem>
 
 <listitem>
@@ -28,17 +28,17 @@
 <list type="bullet">
 
 <listitem>
-<literal>core</literal> - basic types and functions - string, array, log,
+<literal>core</literal> — basic types and functions — string, array, log,
 pool etc
 </listitem>
 
 <listitem>
-<literal>event</literal> - event core
+<literal>event</literal> — event core
 
 <list type="bullet">
 
 <listitem>
-<literal>modules</literal> - event notification modules: epoll, kqueue,
+<literal>modules</literal> — event notification modules: epoll, kqueue,
 select etc
 </listitem>
 
@@ -47,16 +47,16 @@ select etc
 </listitem>
 
 <listitem>
-<literal>http</literal> - core HTTP module and common code
+<literal>http</literal> — core HTTP module and common code
 
 <list type="bullet">
 
 <listitem>
-<literal>modules</literal> - other HTTP modules
+<literal>modules</literal> — other HTTP modules
 </listitem>
 
 <listitem>
-<literal>v2</literal> - HTTPv2
+<literal>v2</literal> — HTTPv2
 </listitem>
 
 </list>
@@ -64,11 +64,11 @@ select etc
 </listitem>
 
 <listitem>
-<literal>mail</literal> - mail modules
+<literal>mail</literal> — mail modules
 </listitem>
 
 <listitem>
-<literal>os</literal> - platform-specific code
+<literal>os</literal> — platform-specific code
 
 <list type="bullet">
 
@@ -85,7 +85,7 @@ select etc
 </listitem>
 
 <listitem>
-<literal>stream</literal> - stream modules
+<literal>stream</literal> — stream modules
 </listitem>
 
 </list>
@@ -161,34 +161,34 @@ Most functions in nginx return the following codes:
 <list type="bullet">
 
 <listitem>
-<literal>NGX_OK</literal> - operation succeeded
+<literal>NGX_OK</literal> — operation succeeded
 </listitem>
 
 <listitem>
-<literal>NGX_ERROR</literal> - operation failed
+<literal>NGX_ERROR</literal> — operation failed
 </listitem>
 
 <listitem>
-<literal>NGX_AGAIN</literal> - operation incomplete, function should be called
+<literal>NGX_AGAIN</literal> — operation incomplete, function should be called
 again
 </listitem>
 
 <listitem>
-<literal>NGX_DECLINED</literal> - operation rejected, for example, if disabled
+<literal>NGX_DECLINED</literal> — operation rejected, for example, if disabled
 in configuration. This is never an error
 </listitem>
 
 <listitem>
-<literal>NGX_BUSY</literal> - resource is not available
+<literal>NGX_BUSY</literal> — resource is not available
 </listitem>
 
 <listitem>
-<literal>NGX_DONE</literal> - operation done or continued elsewhere.
+<literal>NGX_DONE</literal> — operation done or continued elsewhere.
 Also used as an alternative success code
 </listitem>
 
 <listitem>
-<literal>NGX_ABORT</literal> - function was aborted.
+<literal>NGX_ABORT</literal> — function was aborted.
 Also used as an alternative error code
 </listitem>
 
@@ -443,14 +443,14 @@ in <path>src/core/ngx_string.c</path>. Some of them are:
 
 
 <programlisting>
-%O - off_t
-%T - time_t
-%z - size_t
-%i - ngx_int_t
-%p - void *
-%V - ngx_str_t *
-%s - u_char * (null-terminated)
-%*s - size_t + u_char *
+%O — off_t
+%T — time_t
+%z — size_t
+%i — ngx_int_t
+%p — void *
+%V — ngx_str_t *
+%s — u_char * (null-terminated)
+%*s — size_t + u_char *
 </programlisting>
 
 <para>
@@ -467,7 +467,7 @@ ngx_int_t  n;
 
 /* set n here */
 
-len = ngx_sprintf(buf, "%ui", n) - buf;
+len = ngx_sprintf(buf, "%ui", n) — buf;
 </programlisting>
 
 </para>
@@ -485,28 +485,28 @@ Several functions for numeric conversion are implemented in nginx:
 <list type="bullet">
 
 <listitem>
-<literal>ngx_atoi(line, n)</literal> - converts a string of given length to a
+<literal>ngx_atoi(line, n)</literal> — converts a string of given length to a
 positive integer of type <literal>ngx_int_t</literal>.
 Returns <literal>NGX_ERROR</literal> on error
 </listitem>
 
 <listitem>
-<literal>ngx_atosz(line, n)</literal> - same for <literal>ssize_t</literal>
+<literal>ngx_atosz(line, n)</literal> — same for <literal>ssize_t</literal>
 type
 </listitem>
 
 <listitem>
-<literal>ngx_atoof(line, n)</literal> - same for <literal>off_t</literal>
+<literal>ngx_atoof(line, n)</literal> — same for <literal>off_t</literal>
 type
 </listitem>
 
 <listitem>
-<literal>ngx_atotm(line, n)</literal> - same for <literal>time_t</literal>
+<literal>ngx_atotm(line, n)</literal> — same for <literal>time_t</literal>
 type
 </listitem>
 
 <listitem>
-<literal>ngx_atofp(line, n, point)</literal> - converts a fixed point floating
+<literal>ngx_atofp(line, n, point)</literal> — converts a fixed point floating
 number of given length to a positive integer of type
 <literal>ngx_int_t</literal>.
 The result is shifted left by <literal>points</literal> decimal
@@ -517,7 +517,7 @@ Returns <literal>NGX_ERROR</literal> on error. For example,
 </listitem>
 
 <listitem>
-<literal>ngx_hextoi(line, n)</literal> - converts hexadecimal representation of
+<literal>ngx_hextoi(line, n)</literal> — converts hexadecimal representation of
 a positive integer to <literal>ngx_int_t</literal>. Returns
 <literal>NGX_ERROR</literal> on error
 </listitem>
@@ -613,7 +613,7 @@ ngx_str_t   name, value;
 /* all captures */
 for (i = 0; i &lt; n * 2; i += 2) {
     value.data = input.data + captures[i];
-    value.len = captures[i + 1] - captures[i];
+    value.len = captures[i + 1] — captures[i];
 }
 
 /* accessing named captures */
@@ -631,7 +631,7 @@ for (i = 0; i &lt; rc.named_captures; i++, p += size) {
 
     /* captured value */
     value.data = &amp;input.data[captures[n]];
-    value.len = captures[n + 1] - captures[n];
+    value.len = captures[n + 1] — captures[n];
 }
 </programlisting>
 </para>
@@ -862,25 +862,25 @@ Queues support the following operations:
 
 <listitem>
 <literal>ngx_queue_insert_head(h, x)</literal>,
-<literal>ngx_queue_insert_tail(h, x)</literal> - insert a new node
+<literal>ngx_queue_insert_tail(h, x)</literal> — insert a new node
 </listitem>
 
 <listitem>
-<literal>ngx_queue_remove(x)</literal> - remove a queue node
+<literal>ngx_queue_remove(x)</literal> — remove a queue node
 </listitem>
 
 <listitem>
-<literal>ngx_queue_split(h, q, n)</literal> - split a queue at a node,
+<literal>ngx_queue_split(h, q, n)</literal> — split a queue at a node,
 queue tail is returned in a separate queue
 </listitem>
 
 <listitem>
-<literal>ngx_queue_add(h, n)</literal> - add second queue to the first queue
+<literal>ngx_queue_add(h, n)</literal> — add second queue to the first queue
 </listitem>
 
 <listitem>
 <literal>ngx_queue_head(h)</literal>,
-<literal>ngx_queue_last(h)</literal> - get first or last queue node
+<literal>ngx_queue_last(h)</literal> — get first or last queue node
 </listitem>
 
 <listitem>
@@ -889,7 +889,7 @@ queue tail is returned in a separate queue
 </listitem>
 
 <listitem>
-<literal>ngx_queue_data(q, type, link)</literal> - get reference to the beginning of a
+<literal>ngx_queue_data(q, type, link)</literal> — get reference to the beginning of a
 queue node data structure, considering the queue field offset in it
 </listitem>
 
@@ -1241,8 +1241,8 @@ The initialization of <literal>dns_wc_tail</literal> array is done similarly.
 The lookup in a combined hash is handled by the
 <literal>ngx_hash_find_combined(chash, key, name, len)</literal>:
 <programlisting>
-/* key = "bar.example.org"; - will match ".example.org" */
-/* key = "foo.example.com"; - will match "foo.*"        */
+/* key = "bar.example.org"; — will match ".example.org" */
+/* key = "foo.example.com"; — will match "foo.*"        */
 
 hkey = ngx_hash_key(key.data, key.len);
 res = ngx_hash_find_combined(&amp;foo_hash, hkey, key.data, key.len);
@@ -1270,19 +1270,19 @@ nginx:
 <list type="bullet">
 
 <listitem>
-<literal>ngx_alloc(size, log)</literal> - allocate memory from system heap.
+<literal>ngx_alloc(size, log)</literal> — allocate memory from system heap.
 This is a wrapper around <literal>malloc()</literal> with logging support.
 Allocation error and debugging information is logged to <literal>log</literal>
 </listitem>
 
 <listitem>
-<literal>ngx_calloc(size, log)</literal> - same as
+<literal>ngx_calloc(size, log)</literal> — same as
 <literal>ngx_alloc()</literal>, but memory is filled with zeroes after
 allocation
 </listitem>
 
 <listitem>
-<literal>ngx_memalign(alignment, size, log)</literal> - allocate aligned memory
+<literal>ngx_memalign(alignment, size, log)</literal> — allocate aligned memory
 from system heap. This is a wrapper around <literal>posix_memalign()</literal>
 on those platforms which provide it.
 Otherwise implementation falls back to <literal>ngx_alloc()</literal> which
@@ -1290,7 +1290,7 @@ provides maximum alignment
 </listitem>
 
 <listitem>
-<literal>ngx_free(p)</literal> - free allocated memory.
+<literal>ngx_free(p)</literal> — free allocated memory.
 This is a wrapper around <literal>free()</literal>
 </listitem>
 
@@ -1325,31 +1325,31 @@ The following operations are supported:
 <list type="bullet">
 
 <listitem>
-<literal>ngx_create_pool(size, log)</literal> - create a pool with given
+<literal>ngx_create_pool(size, log)</literal> — create a pool with given
 block size. The pool object returned is allocated in the pool as well.
 </listitem>
 
 <listitem>
-<literal>ngx_destroy_pool(pool)</literal> - free all pool memory, including
+<literal>ngx_destroy_pool(pool)</literal> — free all pool memory, including
 the pool object itself.
 </listitem>
 
 <listitem>
-<literal>ngx_palloc(pool, size)</literal> - allocate aligned memory from pool
+<literal>ngx_palloc(pool, size)</literal> — allocate aligned memory from pool
 </listitem>
 
 <listitem>
-<literal>ngx_pcalloc(pool, size)</literal> - allocated aligned memory
+<literal>ngx_pcalloc(pool, size)</literal> — allocated aligned memory
 from pool and fill it with zeroes
 </listitem>
 
 <listitem>
-<literal>ngx_pnalloc(pool, size)</literal> - allocate unaligned memory from pool.
+<literal>ngx_pnalloc(pool, size)</literal> — allocate unaligned memory from pool.
 Mostly used for allocating strings
 </listitem>
 
 <listitem>
-<literal>ngx_pfree(pool, p)</literal> - free memory, previously allocated
+<literal>ngx_pfree(pool, p)</literal> — free memory, previously allocated
 in the pool.
 Only allocations, forwarded to the system allocator, can be freed.
 </listitem>
@@ -1453,47 +1453,47 @@ following fields:
 <list type="bullet">
 
 <listitem>
-<literal>init</literal> - initialization callback, called after shared zone is
+<literal>init</literal> — initialization callback, called after shared zone is
 mapped to actual memory
 </listitem>
 
 <listitem>
-<literal>data</literal> - data context, used to pass arbitrary data to the
+<literal>data</literal> — data context, used to pass arbitrary data to the
 <literal>init</literal> callback
 </listitem>
 
 <listitem>
-<literal>noreuse</literal> - flag, disabling shared zone reuse from the
+<literal>noreuse</literal> — flag, disabling shared zone reuse from the
 old cycle
 </listitem>
 
 <listitem>
-<literal>tag</literal> - shared zone tag
+<literal>tag</literal> — shared zone tag
 </listitem>
 
 <listitem>
-<literal>shm</literal> - platform-specific object of type
+<literal>shm</literal> — platform-specific object of type
 <literal>ngx_shm_t</literal>, having at least the following fields:
 <list type="bullet">
 
 <listitem>
-<literal>addr</literal> - mapped shared memory address, initially NULL
+<literal>addr</literal> — mapped shared memory address, initially NULL
 </listitem>
 
 <listitem>
-<literal>size</literal> - shared memory size
+<literal>size</literal> — shared memory size
 </listitem>
 
 <listitem>
-<literal>name</literal> - shared memory name
+<literal>name</literal> — shared memory name
 </listitem>
 
 <listitem>
-<literal>log</literal> - shared memory log
+<literal>log</literal> — shared memory log
 </listitem>
 
 <listitem>
-<literal>exists</literal> - flag, showing that shared memory was inherited
+<literal>exists</literal> — flag, showing that shared memory was inherited
 from the master process (Windows-specific)
 </listitem>
 
@@ -1627,19 +1627,19 @@ Nginx logger provides support for several types of output:
 <list type="bullet">
 
 <listitem>
-stderr - logging to standard error output
+stderr — logging to standard error output
 </listitem>
 
 <listitem>
-file - logging to file
+file — logging to file
 </listitem>
 
 <listitem>
-syslog - logging to syslog
+syslog — logging to syslog
 </listitem>
 
 <listitem>
-memory - logging to internal memory storage for development purposes.
+memory — logging to internal memory storage for development purposes.
 The memory could be accessed later with debugger
 </listitem>
 
@@ -1748,12 +1748,12 @@ Nginx provides the following logging macros:
 <list type="bullet">
 
 <listitem>
-<literal>ngx_log_error(level, log, err, fmt, ...)</literal> - error logging
+<literal>ngx_log_error(level, log, err, fmt, ...)</literal> — error logging
 </listitem>
 
 <listitem>
 <literal>ngx_log_debug0(level, log, err, fmt)</literal>,
-<literal>ngx_log_debug1(level, log, err, fmt, arg1)</literal> etc - debug
+<literal>ngx_log_debug1(level, log, err, fmt, arg1)</literal> etc — debug
 logging, up to 8 formatting arguments are supported
 </listitem>
 
@@ -1833,23 +1833,23 @@ Some members of the cycle:
 <list type="bullet">
 
 <listitem>
-<literal>pool</literal> - cycle pool. Created for each new cycle
+<literal>pool</literal> — cycle pool. Created for each new cycle
 </listitem>
 
 <listitem>
-<literal>log</literal> - cycle log. Initially, this log is inherited from the
+<literal>log</literal> — cycle log. Initially, this log is inherited from the
 old cycle.
 After reading configuration, this member is set to point to
 <literal>new_log</literal>
 </listitem>
 
 <listitem>
-<literal>new_log</literal> - cycle log, created by the configuration.
+<literal>new_log</literal> — cycle log, created by the configuration.
 It's affected by the root scope <literal>error_log</literal> directive
 </listitem>
 
 <listitem>
-<literal>connections</literal>, <literal>connections_n</literal> - per-worker
+<literal>connections</literal>, <literal>connections_n</literal> — per-worker
 array of connections of type <literal>ngx_connection_t</literal>, created by
 the event module while initializing each nginx worker.
 The number of connections is set by the <literal>worker_connections</literal>
@@ -1858,32 +1858,32 @@ directive
 
 <listitem>
 <literal>free_connections</literal>,
-<literal>free_connections_n</literal> - the and number of currently available
+<literal>free_connections_n</literal> — the and number of currently available
 connections.
 If no connections are available, nginx worker refuses to accept new clients
 </listitem>
 
 <listitem>
-<literal>files</literal>, <literal>files_n</literal> - array for mapping file
+<literal>files</literal>, <literal>files_n</literal> — array for mapping file
 descriptors to nginx connections.
 This mapping is used by the event modules, having the
 <literal>NGX_USE_FD_EVENT</literal> flag (currently, it's poll and devpoll)
 </listitem>
 
 <listitem>
-<literal>conf_ctx</literal> - array of core module configurations.
+<literal>conf_ctx</literal> — array of core module configurations.
 The configurations are created and filled while reading nginx configuration
 files
 </listitem>
 
 <listitem>
-<literal>modules</literal>, <literal>modules_n</literal> - array of modules
+<literal>modules</literal>, <literal>modules_n</literal> — array of modules
 <literal>ngx_module_t</literal>, both static and dynamic, loaded by current
 configuration
 </listitem>
 
 <listitem>
-<literal>listening</literal> - array of listening objects
+<literal>listening</literal> — array of listening objects
 <literal>ngx_listening_t</literal>.
 Listening objects are normally added by the the <literal>listen</literal>
 directive of different modules which call the
@@ -1892,7 +1892,7 @@ Based on listening objects, listen sockets are created by nginx
 </listitem>
 
 <listitem>
-<literal>paths</literal> - array of paths <literal>ngx_path_t</literal>.
+<literal>paths</literal> — array of paths <literal>ngx_path_t</literal>.
 Paths are added by calling the function <literal>ngx_add_path()</literal> from
 modules which are going to operate on certain directories.
 These directories are created by nginx after reading configuration, if missing.
@@ -1901,14 +1901,14 @@ Moreover, two handlers can be added for each path:
 <list type="bullet">
 
 <listitem>
-path loader - executed only once in 60 seconds after starting or reloading
+path loader — executed only once in 60 seconds after starting or reloading
 nginx. Normally, reads the directory and stores data in nginx shared
 memory. The handler is called from a dedicated nginx process "nginx
 cache loader"
 </listitem>
 
 <listitem>
-path manager - executed periodically. Normally, removes old files from the
+path manager — executed periodically. Normally, removes old files from the
 directory and reflects these changes in nginx memory. The handler is
 called from a dedicated nginx process "nginx cache manager"
 </listitem>
@@ -1917,7 +1917,7 @@ called from a dedicated nginx process "nginx cache manager"
 </listitem>
 
 <listitem>
-<literal>open_files</literal> - list of <literal>ngx_open_file_t</literal>
+<literal>open_files</literal> — list of <literal>ngx_open_file_t</literal>
 objects.
 An open file object is created by calling the function
 <literal>ngx_conf_open_file()</literal>.
@@ -1932,7 +1932,7 @@ The open files are currently used for logging
 </listitem>
 
 <listitem>
-<literal>shared_memory</literal> - list of shared memory zones, each added by
+<literal>shared_memory</literal> — list of shared memory zones, each added by
 calling the <literal>ngx_shared_memory_add()</literal> function.
 Shared zones are mapped to the same address range in all nginx processes and
 are used to share common data, for example HTTP cache in-memory tree
@@ -1964,85 +1964,85 @@ The structure <literal>ngx_buf_t</literal> has the following fields:
 <list type="bullet">
 
 <listitem>
-<literal>start</literal>, <literal>end</literal> - the boundaries of memory
+<literal>start</literal>, <literal>end</literal> — the boundaries of memory
 block, allocated for the buffer
 </listitem>
 
 <listitem>
-<literal>pos</literal>, <literal>last</literal> - memory buffer boundaries,
+<literal>pos</literal>, <literal>last</literal> — memory buffer boundaries,
 normally a subrange of <literal>start</literal> .. <literal>end</literal>
 </listitem>
 
 <listitem>
-<literal>file_pos</literal>, <literal>file_last</literal> - file buffer
+<literal>file_pos</literal>, <literal>file_last</literal> — file buffer
 boundaries, these are offsets from the beginning of the file
 </listitem>
 
 <listitem>
-<literal>tag</literal> - unique value, used to distinguish buffers, created by
+<literal>tag</literal> — unique value, used to distinguish buffers, created by
 different nginx module, usually, for the purpose of buffer reuse
 </listitem>
 
 <listitem>
-<literal>file</literal> - file object
+<literal>file</literal> — file object
 </listitem>
 
 <listitem>
-<literal>temporary</literal> - flag, meaning that the buffer references
+<literal>temporary</literal> — flag, meaning that the buffer references
 writable memory
 </listitem>
 
 <listitem>
-<literal>memory</literal> - flag, meaning that the buffer references read-only
+<literal>memory</literal> — flag, meaning that the buffer references read-only
 memory
 </listitem>
 
 <listitem>
-<literal>in_file</literal> - flag, meaning that current buffer references data
+<literal>in_file</literal> — flag, meaning that current buffer references data
 in a file
 </listitem>
 
 <listitem>
-<literal>flush</literal> - flag, meaning that all data prior to this buffer
+<literal>flush</literal> — flag, meaning that all data prior to this buffer
 should be flushed
 </listitem>
 
 <listitem>
-<literal>recycled</literal> - flag, meaning that the buffer can be reused and
+<literal>recycled</literal> — flag, meaning that the buffer can be reused and
 should be consumed as soon as possible
 </listitem>
 
 <listitem>
-<literal>sync</literal> - flag, meaning that the buffer carries no data or
+<literal>sync</literal> — flag, meaning that the buffer carries no data or
 special signal like <literal>flush</literal> or <literal>last_buf</literal>.
 Normally, such buffers are considered an error by nginx. This flags allows
 skipping the error checks
 </listitem>
 
 <listitem>
-<literal>last_buf</literal> - flag, meaning that current buffer is the last in
+<literal>last_buf</literal> — flag, meaning that current buffer is the last in
 output
 </listitem>
 
 <listitem>
-<literal>last_in_chain</literal> - flag, meaning that there's no more data
+<literal>last_in_chain</literal> — flag, meaning that there's no more data
 buffers in a (sub)request
 </listitem>
 
 <listitem>
-<literal>shadow</literal> - reference to another buffer, related to the current
+<literal>shadow</literal> — reference to another buffer, related to the current
 buffer. Usually current buffer uses data from the shadow buffer. Once current
 buffer is consumed, the shadow buffer should normally also be marked as
 consumed
 </listitem>
 
 <listitem>
-<literal>last_shadow</literal> - flag, meaning that current buffer is the last
+<literal>last_shadow</literal> — flag, meaning that current buffer is the last
 buffer, referencing a particular shadow buffer
 </listitem>
 
 <listitem>
-<literal>temp_file</literal> - flag, meaning that the buffer is in a temporary
+<literal>temp_file</literal> — flag, meaning that the buffer is in a temporary
 file
 </listitem>
 
@@ -2144,41 +2144,41 @@ socket descriptor. Some of the structure fields are:
 <list type="bullet">
 
 <listitem>
-<literal>fd</literal> - socket descriptor
+<literal>fd</literal> — socket descriptor
 </listitem>
 
 <listitem>
-<literal>data</literal> - arbitrary connection context.
+<literal>data</literal> — arbitrary connection context.
 Normally, a pointer to a higher level object, built on top of the connection,
 like HTTP request or Stream session
 </listitem>
 
 <listitem>
-<literal>read</literal>, <literal>write</literal> - read and write events for
+<literal>read</literal>, <literal>write</literal> — read and write events for
 the connection
 </listitem>
 
 <listitem>
 <literal>recv</literal>, <literal>send</literal>,
-<literal>recv_chain</literal>, <literal>send_chain</literal> - I/O operations
+<literal>recv_chain</literal>, <literal>send_chain</literal> — I/O operations
 for the connection
 </listitem>
 
 <listitem>
-<literal>pool</literal> - connection pool
+<literal>pool</literal> — connection pool
 </listitem>
 
 <listitem>
-<literal>log</literal> - connection log
+<literal>log</literal> — connection log
 </listitem>
 
 <listitem>
 <literal>sockaddr</literal>, <literal>socklen</literal>,
-<literal>addr_text</literal> - remote socket address in binary and text forms
+<literal>addr_text</literal> — remote socket address in binary and text forms
 </listitem>
 
 <listitem>
-<literal>local_sockaddr</literal>, <literal>local_socklen</literal> - local
+<literal>local_sockaddr</literal>, <literal>local_socklen</literal> — local
 socket address in binary form.
 Initially, these fields are empty.
 Function <literal>ngx_connection_local_sockaddr()</literal> should be used to
@@ -2192,16 +2192,16 @@ connection
 </listitem>
 
 <listitem>
-<literal>ssl</literal> - nginx connection SSL context
+<literal>ssl</literal> — nginx connection SSL context
 </listitem>
 
 <listitem>
-<literal>reusable</literal> - flag, meaning, that the connection is at the
+<literal>reusable</literal> — flag, meaning, that the connection is at the
 state, when it can be reused
 </listitem>
 
 <listitem>
-<literal>close</literal> - flag, meaning, that the connection is being reused
+<literal>close</literal> — flag, meaning, that the connection is being reused
 and should be closed
 </listitem>
 
@@ -2275,80 +2275,80 @@ Some of the fields of the <literal>ngx_event_t</literal> are:
 <list type="bullet">
 
 <listitem>
-<literal>data</literal> - arbitrary event context, used in event handler,
+<literal>data</literal> — arbitrary event context, used in event handler,
 usually, a pointer to a connection, tied with the event
 </listitem>
 
 <listitem>
-<literal>handler</literal> - callback function to be invoked when the event
+<literal>handler</literal> — callback function to be invoked when the event
 happens
 </listitem>
 
 <listitem>
-<literal>write</literal> - flag, meaning that this is the write event.
+<literal>write</literal> — flag, meaning that this is the write event.
 Used to distinguish between read and write events
 </listitem>
 
 <listitem>
-<literal>active</literal> - flag, meaning that the event is registered for
+<literal>active</literal> — flag, meaning that the event is registered for
 receiving I/O notifications, normally from notification mechanisms like epoll,
 kqueue, poll
 </listitem>
 
 <listitem>
-<literal>ready</literal> - flag, meaning that the event has received an
+<literal>ready</literal> — flag, meaning that the event has received an
 I/O notification
 </listitem>
 
 <listitem>
-<literal>delayed</literal> - flag, meaning that I/O is delayed due to rate
+<literal>delayed</literal> — flag, meaning that I/O is delayed due to rate
 limiting
 </listitem>
 
 <listitem>
-<literal>timer</literal> - Red-Black tree node for inserting the event into
+<literal>timer</literal> — Red-Black tree node for inserting the event into
 the timer tree
 </listitem>
 
 <listitem>
-<literal>timer_set</literal> - flag, meaning that the event timer is set,
+<literal>timer_set</literal> — flag, meaning that the event timer is set,
 but not yet expired
 </listitem>
 
 <listitem>
-<literal>timedout</literal> - flag, meaning that the event timer has expired
+<literal>timedout</literal> — flag, meaning that the event timer has expired
 </listitem>
 
 <listitem>
-<literal>eof</literal> - read event flag, meaning that the eof has happened
+<literal>eof</literal> — read event flag, meaning that the eof has happened
 while reading data
 </listitem>
 
 <listitem>
-<literal>pending_eof</literal> - flag, meaning that the eof is pending on the
+<literal>pending_eof</literal> — flag, meaning that the eof is pending on the
 socket, even though there may be some data available before it.
 The flag is delivered via <literal>EPOLLRDHUP</literal> epoll event or
 <literal>EV_EOF</literal> kqueue flag
 </listitem>
 
 <listitem>
-<literal>error</literal> - flag, meaning that an error has happened while
+<literal>error</literal> — flag, meaning that an error has happened while
 reading (for read event) or writing (for write event)
 </listitem>
 
 <listitem>
-<literal>cancelable</literal> - timer event flag, meaning that the event
+<literal>cancelable</literal> — timer event flag, meaning that the event
 handler should be called while performing nginx worker graceful shutdown, event
 though event timeout has not yet expired.  The flag provides a way to finalize
 certain activities, for example, flush log files
 </listitem>
 
 <listitem>
-<literal>posted</literal> - flag, meaning that the event is posted to queue
+<literal>posted</literal> — flag, meaning that the event is posted to queue
 </listitem>
 
 <listitem>
-<literal>queue</literal> - queue node for posting the event to a queue
+<literal>queue</literal> — queue node for posting the event to a queue
 </listitem>
 
 </list>
@@ -2417,7 +2417,7 @@ The macro <literal>ngx_post_event(ev, q)</literal> posts the event
 Macro <literal>ngx_delete_posted_event(ev)</literal> deletes the event
 <literal>ev</literal> from whatever queue it's currently posted.
 Normally, events are posted to the <literal>ngx_posted_events</literal> queue.
-This queue is processed late in the event loop - after all I/O and timer
+This queue is processed late in the event loop — after all I/O and timer
 events are already handled.
 The function <literal>ngx_event_process_posted()</literal> is called to process
 an event queue.
@@ -2552,7 +2552,7 @@ global variable:
 <listitem>
 
 <para>
-<literal>NGX_PROCESS_MASTER</literal> - the master process runs the
+<literal>NGX_PROCESS_MASTER</literal> — the master process runs the
 <literal>ngx_master_process_cycle()</literal> function.
 Master process does not have any I/O and responds only to signals.
 It reads configuration, creates cycles, starts and controls child processes
@@ -2564,7 +2564,7 @@ It reads configuration, creates cycles, starts and controls child processes
 <listitem>
 
 <para>
-<literal>NGX_PROCESS_WORKER</literal> - the worker process runs the
+<literal>NGX_PROCESS_WORKER</literal> — the worker process runs the
 <literal>ngx_worker_process_cycle()</literal> function.
 Worker processes are started by master and handle client connections.
 They also respond to signals and channel commands, sent from master
@@ -2576,7 +2576,7 @@ They also respond to signals and channel commands, sent from master
 <listitem>
 
 <para>
-<literal>NGX_PROCESS_SINGLE</literal> - single process is the only type
+<literal>NGX_PROCESS_SINGLE</literal> — single process is the only type
 of processes which exist in the <literal>master_process off</literal> mode.
 The cycle function for this process is
 <literal>ngx_single_process_cycle()</literal>.
@@ -2589,7 +2589,7 @@ This process creates cycles and handles client connections
 <listitem>
 
 <para>
-<literal>NGX_PROCESS_HELPER</literal> - currently, there are two types of
+<literal>NGX_PROCESS_HELPER</literal> — currently, there are two types of
 helper processes: cache manager and cache loader.
 Both of them share the same cycle function
 <literal>ngx_cache_manager_process_cycle()</literal>.
@@ -2609,7 +2609,7 @@ All nginx processes handle the following signals:
 <listitem>
 
 <para>
-<literal>NGX_SHUTDOWN_SIGNAL</literal> (<literal>SIGQUIT</literal>) - graceful
+<literal>NGX_SHUTDOWN_SIGNAL</literal> (<literal>SIGQUIT</literal>) — graceful
 shutdown.
 Upon receiving this signal master process sends shutdown signal to all child
 processes.
@@ -2676,7 +2676,7 @@ Worker and helper processes ignore this signal
 <listitem>
 
 <para>
-<literal>NGX_REOPEN_SIGNAL</literal> (<literal>SIGUSR1</literal>) - reopen
+<literal>NGX_REOPEN_SIGNAL</literal> (<literal>SIGUSR1</literal>) — reopen
 files.
 Master process passes this signal to workers.
 Worker processes reopen all <literal>open_files</literal> from the cycle
@@ -2688,7 +2688,7 @@ Worker processes reopen all <literal>open_files</literal> from the cycle
 <listitem>
 
 <para>
-<literal>NGX_CHANGEBIN_SIGNAL</literal> (<literal>SIGUSR2</literal>) - change
+<literal>NGX_CHANGEBIN_SIGNAL</literal> (<literal>SIGUSR2</literal>) — change
 nginx binary.
 Master process starts a new nginx binary and passes there a list of all listen
 sockets.
@@ -2751,7 +2751,7 @@ following variables:
 <list type="bullet">
 
 <listitem>
-<literal>ngx_module_type</literal> - the type of module to build.
+<literal>ngx_module_type</literal> — the type of module to build.
 Possible options are <literal>CORE</literal>, <literal>HTTP</literal>,
 <literal>HTTP_FILTER</literal>, <literal>HTTP_INIT_FILTER</literal>,
 <literal>HTTP_AUX_FILTER</literal>, <literal>MAIL</literal>,
@@ -2759,7 +2759,7 @@ Possible options are <literal>CORE</literal>, <literal>HTTP</literal>,
 </listitem>
 
 <listitem>
-<literal>ngx_module_name</literal> - the name of the module.
+<literal>ngx_module_name</literal> — the name of the module.
 A whitespace separated values list is accepted and may be used to build
 multiple modules from a single set of source files.
 The first name indicates the name of the output binary for a dynamic module.
@@ -2767,27 +2767,27 @@ The names in this list should match the names used in the module.
 </listitem>
 
 <listitem>
-<literal>ngx_addon_name</literal> - supplies the name of the module in the
+<literal>ngx_addon_name</literal> — supplies the name of the module in the
 console output text of the configure script.
 </listitem>
 
 <listitem>
-<literal>ngx_module_srcs</literal> - a whitespace separated list of source
+<literal>ngx_module_srcs</literal> — a whitespace separated list of source
 files used to compile the module.
 The $ngx_addon_dir variable can be used as a placeholder for the path of the
 module source.
 </listitem>
 
 <listitem>
-<literal>ngx_module_incs</literal> - include paths required to build the module
+<literal>ngx_module_incs</literal> — include paths required to build the module
 </listitem>
 
 <listitem>
-<literal>ngx_module_deps</literal> - a list of module's header files.
+<literal>ngx_module_deps</literal> — a list of module's header files.
 </listitem>
 
 <listitem>
-<literal>ngx_module_libs</literal> - a list of libraries to link with the
+<literal>ngx_module_libs</literal> — a list of libraries to link with the
 module.
 For example, libpthread would be linked using
 <literal>ngx_module_libs=-lpthread</literal>.
@@ -2799,14 +2799,14 @@ nginx:
 </listitem>
 
 <listitem>
-<literal>ngx_module_link</literal> - set by the build system to
+<literal>ngx_module_link</literal> — set by the build system to
 <literal>DYNAMIC</literal> for a dynamic module or <literal>ADDON</literal>
 for a static module and used to perform different actions depending on
 linking type.
 </listitem>
 
 <listitem>
-<literal>ngx_module_order</literal> - sets the load order for the module which
+<literal>ngx_module_order</literal> — sets the load order for the module which
 is useful for <literal>HTTP_FILTER</literal> and
 <literal>HTTP_AUX_FILTER</literal> module types.
 The order is stored in a reverse list.
@@ -3106,19 +3106,19 @@ Arguments flags:
 <list type="bullet">
 
 <listitem>
-<literal>NGX_CONF_NOARGS</literal> - directive without arguments
+<literal>NGX_CONF_NOARGS</literal> — directive without arguments
 </listitem>
 
-<listitem><literal>NGX_CONF_1MORE</literal> - one required argument</listitem>
+<listitem><literal>NGX_CONF_1MORE</literal> — one required argument</listitem>
 
-<listitem><literal>NGX_CONF_2MORE</literal> - two required arguments</listitem>
+<listitem><literal>NGX_CONF_2MORE</literal> — two required arguments</listitem>
 
 <listitem>
-<literal>NGX_CONF_TAKE1..7</literal> - exactly 1..7 arguments
+<literal>NGX_CONF_TAKE1..7</literal> — exactly 1..7 arguments
 </listitem>
 
 <listitem>
-<literal>NGX_CONF_TAKE12, 13, 23, 123, 1234</literal> - one or two arguments,
+<literal>NGX_CONF_TAKE12, 13, 23, 123, 1234</literal> — one or two arguments,
 or other combinations
 </listitem>
 
@@ -3129,13 +3129,13 @@ Directive types:
 <list type="bullet">
 
 <listitem>
-<literal>NGX_CONF_BLOCK</literal> - the directive is a block, i.e. it may
+<literal>NGX_CONF_BLOCK</literal> — the directive is a block, i.e. it may
 contain other directives in curly braces, or even implement its own parser
 to handle contents inside.
 </listitem>
 
 <listitem>
-<literal>NGX_CONF_FLAG</literal> - the directive value is a flag, a boolean
+<literal>NGX_CONF_FLAG</literal> — the directive value is a flag, a boolean
 value represented by “<literal>on</literal>” or “<literal>off</literal>”
 strings.
 </listitem>
@@ -3146,63 +3146,63 @@ and how to access module context to store corresponding values:
 <list type="bullet">
 
 <listitem>
-<literal>NGX_MAIN_CONF</literal> - top level configuration
+<literal>NGX_MAIN_CONF</literal> — top level configuration
 </listitem>
 
 <listitem>
-<literal>NGX_HTTP_MAIN_CONF</literal> - in the http block
+<literal>NGX_HTTP_MAIN_CONF</literal> — in the http block
 </listitem>
 
 <listitem>
-<literal>NGX_HTTP_SRV_CONF</literal> - in the http server block
+<literal>NGX_HTTP_SRV_CONF</literal> — in the http server block
 </listitem>
 
 <listitem>
-<literal>NGX_HTTP_LOC_CONF</literal> - in the http location
+<literal>NGX_HTTP_LOC_CONF</literal> — in the http location
 </listitem>
 
 <listitem>
-<literal>NGX_HTTP_UPS_CONF</literal> - in the http upstream block
+<literal>NGX_HTTP_UPS_CONF</literal> — in the http upstream block
 </listitem>
 
 <listitem>
-<literal>NGX_HTTP_SIF_CONF</literal> - in the http server “if”
+<literal>NGX_HTTP_SIF_CONF</literal> — in the http server “if”
 </listitem>
 
 <listitem>
-<literal>NGX_HTTP_LIF_CONF</literal> - in the http location “if”
+<literal>NGX_HTTP_LIF_CONF</literal> — in the http location “if”
 </listitem>
 
 <listitem>
-<literal>NGX_HTTP_LMT_CONF</literal> - in the http “limit_except”
+<literal>NGX_HTTP_LMT_CONF</literal> — in the http “limit_except”
 </listitem>
 
 <listitem>
-<literal>NGX_STREAM_MAIN_CONF</literal> - in the stream block
+<literal>NGX_STREAM_MAIN_CONF</literal> — in the stream block
 </listitem>
 
 <listitem>
-<literal>NGX_STREAM_SRV_CONF</literal> - in the stream server block
+<literal>NGX_STREAM_SRV_CONF</literal> — in the stream server block
 </listitem>
 
 <listitem>
-<literal>NGX_STREAM_UPS_CONF</literal> - in the stream upstream block
+<literal>NGX_STREAM_UPS_CONF</literal> — in the stream upstream block
 </listitem>
 
 <listitem>
-<literal>NGX_MAIL_MAIN_CONF</literal> - in the the mail block
+<literal>NGX_MAIL_MAIN_CONF</literal> — in the the mail block
 </listitem>
 
 <listitem>
-<literal>NGX_MAIL_SRV_CONF</literal> - in the mail server block
+<literal>NGX_MAIL_SRV_CONF</literal> — in the mail server block
 </listitem>
 
 <listitem>
-<literal>NGX_EVENT_CONF</literal> - in the event block
+<literal>NGX_EVENT_CONF</literal> — in the event block
 </listitem>
 
 <listitem>
-<literal>NGX_DIRECT_CONF</literal> - used by modules that don't
+<literal>NGX_DIRECT_CONF</literal> — used by modules that don't
 create a hierarchy of contexts and store module configuration directly in ctx
 </listitem>
 </list>
@@ -3220,66 +3220,66 @@ Nginx offers a convenient set of functions that perform common conversions:
 <list type="bullet">
 
 <listitem>
-<literal>ngx_conf_set_flag_slot</literal> - converts literal
+<literal>ngx_conf_set_flag_slot</literal> — converts literal
 “<literal>on</literal>” or “<literal>off</literal>” strings into
 <literal>ngx_flag_t</literal> type with values 1 or 0
 </listitem>
 
 <listitem>
-<literal>ngx_conf_set_str_slot</literal> - stores string as a value of the
+<literal>ngx_conf_set_str_slot</literal> — stores string as a value of the
 <literal>ngx_str_t</literal> type
 </listitem>
 
 <listitem>
-<literal>ngx_conf_set_str_array_slot</literal> - appends
+<literal>ngx_conf_set_str_array_slot</literal> — appends
 <literal>ngx_array_t</literal> of <literal>ngx_str_t</literal> with a new value.
 The array is created if not yet exists
 </listitem>
 
 <listitem>
-<literal>ngx_conf_set_keyval_slot</literal> - appends
+<literal>ngx_conf_set_keyval_slot</literal> — appends
 <literal>ngx_array_t</literal> of <literal>ngx_keyval_t</literal> with
 a new value, where key is the first string and value is second.
 The array is created if not yet exists
 </listitem>
 
 <listitem>
-<literal>ngx_conf_set_num_slot</literal> - converts directive argument
+<literal>ngx_conf_set_num_slot</literal> — converts directive argument
 to a <literal>ngx_int_t</literal> value
 </listitem>
 
 <listitem>
-<literal>ngx_conf_set_size_slot</literal> - converts
+<literal>ngx_conf_set_size_slot</literal> — converts
 <link doc="../syntax.xml">size</link> to <literal>size_t</literal> value
 in bytes
 </listitem>
 
 <listitem>
-<literal>ngx_conf_set_off_slot</literal> - converts
+<literal>ngx_conf_set_off_slot</literal> — converts
 <link doc="../syntax.xml">offset</link> to <literal>off_t</literal> value
 in bytes
 </listitem>
 
 <listitem>
-<literal>ngx_conf_set_msec_slot</literal> - converts
+<literal>ngx_conf_set_msec_slot</literal> — converts
 <link doc="../syntax.xml">time</link> to <literal>ngx_msec_t</literal> value
 in milliseconds
 </listitem>
 
 <listitem>
-<literal>ngx_conf_set_sec_slot</literal> - converts
+<literal>ngx_conf_set_sec_slot</literal> — converts
 <link doc="../syntax.xml">time</link> to <literal>time_t</literal> value
 in seconds
 </listitem>
 
 <listitem>
-<literal>ngx_conf_set_bufs_slot</literal> - converts two arguments
+<literal>ngx_conf_set_bufs_slot</literal> — converts two arguments
 into <literal>ngx_bufs_t</literal> that holds <literal>ngx_int_t</literal>
 number and <link doc="../syntax.xml">size</link> of buffers
 </listitem>
 
 <listitem>
-<literal>ngx_conf_set_enum_slot</literal> - converts argument
+<literal>ngx_conf_set_enum_slot</literal> — converts argument
 into <literal>ngx_uint_t</literal> value.
 The null-terminated array of <literal>ngx_conf_enum_t</literal> passed in the
 <literal>post</literal> field defines acceptable strings and corresponding
@@ -3287,7 +3287,7 @@ integer values
 </listitem>
 
 <listitem>
-<literal>ngx_conf_set_bitmask_slot</literal> - arguments are converted to
+<literal>ngx_conf_set_bitmask_slot</literal> — arguments are converted to
 <literal>ngx_uint_t</literal> value and OR'ed with the resulting value,
 forming a bitmask.
 The null-terminated array of <literal>ngx_conf_bitmask_t</literal> passed in
@@ -3296,7 +3296,7 @@ mask values
 </listitem>
 
 <listitem>
-<literal>set_path_slot</literal> - converts arguments to
+<literal>set_path_slot</literal> — converts arguments to
 <literal>ngx_path_t</literal> type and performs all required initializations.
 See the
 <link doc="../http/ngx_http_proxy_module.xml" id="proxy_temp_path">proxy_temp_path</link>
@@ -3304,7 +3304,7 @@ directive description for details
 </listitem>
 
 <listitem>
-<literal>set_access_slot</literal> - converts arguments to file permissions
+<literal>set_access_slot</literal> — converts arguments to file permissions
 mask.
 See the
 <link doc="../http/ngx_http_proxy_module.xml" id="proxy_store_access">proxy_store_access</link>
@@ -3330,31 +3330,31 @@ they manage their configuration.
 
 <list type="bullet">
 <listitem>
-<literal>NGX_HTTP_MAIN_CONF_OFFSET</literal> - http block configuration
+<literal>NGX_HTTP_MAIN_CONF_OFFSET</literal> — http block configuration
 </listitem>
 
 <listitem>
-<literal>NGX_HTTP_SRV_CONF_OFFSET</literal> - http server configuration
+<literal>NGX_HTTP_SRV_CONF_OFFSET</literal> — http server configuration
 </listitem>
 
 <listitem>
-<literal>NGX_HTTP_LOC_CONF_OFFSET</literal> - http location configuration
+<literal>NGX_HTTP_LOC_CONF_OFFSET</literal> — http location configuration
 </listitem>
 
 <listitem>
-<literal>NGX_STREAM_MAIN_CONF_OFFSET</literal> - stream block configuration
+<literal>NGX_STREAM_MAIN_CONF_OFFSET</literal> — stream block configuration
 </listitem>
 
 <listitem>
-<literal>NGX_STREAM_SRV_CONF_OFFSET</literal> - stream server configuration
+<literal>NGX_STREAM_SRV_CONF_OFFSET</literal> — stream server configuration
 </listitem>
 
 <listitem>
-<literal>NGX_MAIL_MAIN_CONF_OFFSET</literal> - mail block configuration
+<literal>NGX_MAIL_MAIN_CONF_OFFSET</literal> — mail block configuration
 </listitem>
 
 <listitem>
-<literal>NGX_MAIL_SRV_CONF_OFFSET</literal> - mail server configuration
+<literal>NGX_MAIL_SRV_CONF_OFFSET</literal> — mail server configuration
 </listitem>
 
 </list>
@@ -3491,7 +3491,7 @@ created.  Some of the fields of this object:
 <listitem>
 
 <para>
-<literal>connection</literal> - pointer to a <literal>ngx_connection_t</literal>
+<literal>connection</literal> — pointer to a <literal>ngx_connection_t</literal>
 client connection object.
 Several requests may reference the same connection object at the same time -
 one main request and its subrequests.
@@ -3514,7 +3514,7 @@ output
 <listitem>
 
 <para>
-<literal>ctx</literal> - array of HTTP module contexts.
+<literal>ctx</literal> — array of HTTP module contexts.
 Each module of type <literal>NGX_HTTP_MODULE</literal> can store any value
 (normally, a pointer to a structure) in the request.
 The value is stored in the <literal>ctx</literal> array at the module's
@@ -3525,12 +3525,12 @@ The following macros provide a convenient way to get and set request contexts:
 <list type="bullet">
 
 <listitem>
-<literal>ngx_http_get_module_ctx(r, module)</literal> - returns
+<literal>ngx_http_get_module_ctx(r, module)</literal> — returns
 <literal>module</literal>'s context
 </listitem>
 
 <listitem>
-<literal>ngx_http_set_ctx(r, c, module)</literal> - sets <literal>c</literal>
+<literal>ngx_http_set_ctx(r, c, module)</literal> — sets <literal>c</literal>
 as <literal>module</literal>'s context
 </listitem>
 
@@ -3539,7 +3539,7 @@ as <literal>module</literal>'s context
 </listitem>
 
 <listitem>
-<literal>main_conf, srv_conf, loc_conf</literal> - arrays of current request
+<literal>main_conf, srv_conf, loc_conf</literal> — arrays of current request
 configurations.
 Configurations are stored at module's <literal>ctx_index</literal> positions
 </listitem>
@@ -3554,15 +3554,15 @@ This function calls <literal>read_event_handler</literal> and
 </listitem>
 
 <listitem>
-<literal>cache</literal> - request cache object for caching upstream response
+<literal>cache</literal> — request cache object for caching upstream response
 </listitem>
 
 <listitem>
-<literal>upstream</literal> - request upstream object for proxying
+<literal>upstream</literal> — request upstream object for proxying
 </listitem>
 
 <listitem>
-<literal>pool</literal> - request pool.
+<literal>pool</literal> — request pool.
 This pool is destroyed when the request is deleted.
 The request object itself is allocated in this pool.
 For allocations which should be available throughout the client connection's
@@ -3570,11 +3570,11 @@ lifetime, <literal>ngx_connection_t</literal>'s pool should be used instead
 </listitem>
 
 <listitem>
-<literal>header_in</literal> - buffer where client HTTP request header in read
+<literal>header_in</literal> — buffer where client HTTP request header in read
 </listitem>
 
 <listitem>
-<literal>headers_in, headers_out</literal> - input and output HTTP headers
+<literal>headers_in, headers_out</literal> — input and output HTTP headers
 objects.
 Both objects contain the <literal>headers</literal> field of type
 <literal>ngx_list_t</literal> keeping the raw list of headers.
@@ -3584,17 +3584,17 @@ separate fields, for example <literal>content_length_n</literal>,
 </listitem>
 
 <listitem>
-<literal>request_body</literal> - client request body object
+<literal>request_body</literal> — client request body object
 </listitem>
 
 <listitem>
-<literal>start_sec, start_msec</literal> - time point when the request was
+<literal>start_sec, start_msec</literal> — time point when the request was
 created.
 Used for tracking request duration
 </listitem>
 
 <listitem>
-<literal>method, method_name</literal> - numeric and textual representation of
+<literal>method, method_name</literal> — numeric and textual representation of
 client HTTP request method.
 Numeric values for methods are defined in
 <literal>src/http/ngx_http_request.h</literal> with macros
@@ -3610,12 +3610,12 @@ versions
 </listitem>
 
 <listitem>
-<literal>request_line, unparsed_uri</literal> - client original request line
+<literal>request_line, unparsed_uri</literal> — client original request line
 and URI
 </listitem>
 
 <listitem>
-<literal>uri, args, exten</literal> - current request URI, arguments and file
+<literal>uri, args, exten</literal> — current request URI, arguments and file
 extention.
 The URI value here might differ from the original URI sent by the client due to
 normalization.
@@ -3624,24 +3624,24 @@ redirects
 </listitem>
 
 <listitem>
-<literal>main</literal> - pointer to a main request object.
+<literal>main</literal> — pointer to a main request object.
 This object is created to process client HTTP request, as opposed to
 subrequests, created to perform a specific sub-task within the main request
 </listitem>
 
 <listitem>
-<literal>parent</literal> - pointer to a parent request of a subrequest
+<literal>parent</literal> — pointer to a parent request of a subrequest
 </listitem>
 
 <listitem>
-<literal>postponed</literal> - list of output buffers and subrequests in the
+<literal>postponed</literal> — list of output buffers and subrequests in the
 order they are sent and created.
 The list is used by the postpone filter to provide consistent request output,
 when parts of it are created by subrequests
 </listitem>
 
 <listitem>
-<literal>post_subrequest</literal> - pointer to a handler with context to be
+<literal>post_subrequest</literal> — pointer to a handler with context to be
 called when a subrequest gets finalized.
 Unused for main requests
 </listitem>
@@ -3649,7 +3649,7 @@ Unused for main requests
 <listitem>
 
 <para>
-<literal>posted_requests</literal> - list of requests to be started or
+<literal>posted_requests</literal> — list of requests to be started or
 resumed.
 Starting or resuming is done by calling the request's
 <literal>write_event_handler</literal>.
@@ -3671,11 +3671,11 @@ Normally, it's called always after invoking a request's read or write handler
 </listitem>
 
 <listitem>
-<literal>phase_handler</literal> - index of current request phase
+<literal>phase_handler</literal> — index of current request phase
 </listitem>
 
 <listitem>
-<literal>ncaptures, captures, captures_data</literal> - regex captures produced
+<literal>ncaptures, captures, captures_data</literal> — regex captures produced
 by the last regex match of the request.
 While processing a request, there's a number of places where a regex match can
 happen: map lookup, server lookup by SNI or HTTP Host, rewrite, proxy_redirect
@@ -3689,7 +3689,7 @@ After each new regex match request captures are reset to hold new values
 </listitem>
 
 <listitem>
-<literal>count</literal> - request reference counter.
+<literal>count</literal> — request reference counter.
 The field only makes sense for the main request.
 Increasing the counter is done by simple <literal>r->main->count++</literal>.
 To decrease the counter <literal>ngx_http_finalize_request(r, rc)</literal>
@@ -3699,7 +3699,7 @@ counter
 </listitem>
 
 <listitem>
-<literal>subrequests</literal> - current subrequest nesting level.
+<literal>subrequests</literal> — current subrequest nesting level.
 Each subrequest gets the nesting level of its parent decreased by one.
 Once the value reaches zero an error is generated.
 The value for the main request is defined by the
@@ -3707,7 +3707,7 @@ The value for the main request is defined by the
 </listitem>
 
 <listitem>
-<literal>uri_changes</literal> - number of URI changes left for the request.
+<literal>uri_changes</literal> — number of URI changes left for the request.
 The total number of times a request can change its URI is limited by the
 <literal>NGX_HTTP_MAX_URI_CHANGES</literal> constant.
 With each change the value is decreased until it reaches zero.
@@ -3717,14 +3717,14 @@ normal or named locations
 </listitem>
 
 <listitem>
-<literal>blocked</literal> - counter of blocks held on the request.
+<literal>blocked</literal> — counter of blocks held on the request.
 While this value is non-zero, request cannot be terminated.
 Currently, this value is increased by pending AIO operations (POSIX AIO and
 thread operations) and active cache lock
 </listitem>
 
 <listitem>
-<literal>buffered</literal> - bitmask showing which modules have buffered the
+<literal>buffered</literal> — bitmask showing which modules have buffered the
 output produced by the request.
 A number of filters can buffer output, for example sub_filter can buffer data
 due to a partial string match, copy filter can buffer data because of the lack
@@ -3733,13 +3733,13 @@ As long as this value is non-zero, request is not finalized, expecting the flush
 </listitem>
 
 <listitem>
-<literal>header_only</literal> - flag showing that output does not require body.
+<literal>header_only</literal> — flag showing that output does not require body.
 For example, this flag is used by HTTP HEAD requests
 </listitem>
 
 <listitem>
 <para>
-<literal>keepalive</literal> - flag showing if client connection keepalive is
+<literal>keepalive</literal> — flag showing if client connection keepalive is
 supported.
 The value is inferred from HTTP version and <header>Connection</header> header
 value
@@ -3747,36 +3747,36 @@ value
 </listitem>
 
 <listitem>
-<literal>header_sent</literal> - flag showing that output header has already
+<literal>header_sent</literal> — flag showing that output header has already
 been sent by the request
 </listitem>
 
 <listitem>
-<literal>internal</literal> - flag showing that current request is internal.
+<literal>internal</literal> — flag showing that current request is internal.
 To enter the internal state, a request should pass through an internal
 redirect or be a subrequest.
 Internal requests are allowed to enter internal locations
 </listitem>
 
 <listitem>
-<literal>allow_ranges</literal> - flag showing that partial response can be
+<literal>allow_ranges</literal> — flag showing that partial response can be
 sent to client, if requested by the HTTP Range header
 </listitem>
 
 <listitem>
-<literal>subrequest_ranges</literal> - flag showing that a partial response is
+<literal>subrequest_ranges</literal> — flag showing that a partial response is
 allowed to be sent while processing a subrequest
 </listitem>
 
 <listitem>
-<literal>single_range</literal> - flag showing that only a single continuous
+<literal>single_range</literal> — flag showing that only a single continuous
 range of output data can be sent to the client.
 This flag is usually set when sending a stream of data, for example from a
 proxied server, and the entire response is not available at once
 </listitem>
 
 <listitem>
-<literal>main_filter_need_in_memory, filter_need_in_memory</literal> - flags
+<literal>main_filter_need_in_memory, filter_need_in_memory</literal> — flags
 showing that the output should be produced in memory buffers but not in files.
 This is a signal to the copy filter to read data from file buffers even if
 sendfile is enabled.
@@ -3791,7 +3791,7 @@ request and all the subrequest read files in memory while sending output
 </listitem>
 
 <listitem>
-<literal>filter_need_temporary</literal> - flag showing that the request output
+<literal>filter_need_temporary</literal> — flag showing that the request output
 should be produced in temporary buffers, but not in readonly memory buffers or
 file buffers.
 This is used by filters which may change output directly in the buffers, where
@@ -4047,7 +4047,7 @@ installs its handler at this phase
 </listitem>
 
 <listitem>
-<literal>NGX_HTTP_FIND_CONFIG_PHASE</literal> - a special phase used to choose a
+<literal>NGX_HTTP_FIND_CONFIG_PHASE</literal> — a special phase used to choose a
 location based on request URI.
 This phase does not allow installing any handlers.
 It only performs the default action of choosing a location.
@@ -4058,13 +4058,13 @@ After this phase a new location is assigned to the request
 </listitem>
 
 <listitem>
-<literal>NGX_HTTP_REWRITE_PHASE</literal> - same as
+<literal>NGX_HTTP_REWRITE_PHASE</literal> — same as
 <literal>NGX_HTTP_SERVER_REWRITE_PHASE</literal>, but for a new location,
 chosen at the prevous phase
 </listitem>
 
 <listitem>
-<literal>NGX_HTTP_POST_REWRITE_PHASE</literal> - a special phase, used to
+<literal>NGX_HTTP_POST_REWRITE_PHASE</literal> — a special phase, used to
 redirect the request to a new location, if the URI was changed during rewrite.
 The redirect is done by going back to
 <literal>NGX_HTTP_FIND_CONFIG_PHASE</literal>.
@@ -4072,7 +4072,7 @@ No handlers are allowed at this phase
 </listitem>
 
 <listitem>
-<literal>NGX_HTTP_PREACCESS_PHASE</literal> - a common phase for different
+<literal>NGX_HTTP_PREACCESS_PHASE</literal> — a common phase for different
 types of handlers, not associated with access check.
 Standard nginx modules
 <link doc="../http/ngx_http_limit_conn_module.xml">ngx_http_limit_conn_module
@@ -4082,7 +4082,7 @@ ngx_http_limit_req_module</link> register their handlers at this phase
 </listitem>
 
 <listitem>
-<literal>NGX_HTTP_ACCESS_PHASE</literal> - used to check access permissions
+<literal>NGX_HTTP_ACCESS_PHASE</literal> — used to check access permissions
 for the request.
 Standard nginx modules such as
 <link doc="../http/ngx_http_access_module.xml">ngx_http_access_module</link> and
@@ -4095,7 +4095,7 @@ processing
 </listitem>
 
 <listitem>
-<literal>NGX_HTTP_POST_ACCESS_PHASE</literal> - a special phase for the
+<literal>NGX_HTTP_POST_ACCESS_PHASE</literal> — a special phase for the
 <link doc="../http/ngx_http_core_module.xml" id="satisfy">satisfy any</link>
 case.
 If some access phase handlers denied the access and none of them allowed, the
@@ -4104,13 +4104,13 @@ No handlers are supported at this phase
 </listitem>
 
 <listitem>
-<literal>NGX_HTTP_TRY_FILES_PHASE</literal> - a special phase, for the
+<literal>NGX_HTTP_TRY_FILES_PHASE</literal> — a special phase, for the
 <link doc="../http/ngx_http_core_module.xml" id="try_files"/> feature.
 No handlers are allowed at this phase
 </listitem>
 
 <listitem>
-<literal>NGX_HTTP_CONTENT_PHASE</literal> - a phase, at which the response
+<literal>NGX_HTTP_CONTENT_PHASE</literal> — a phase, at which the response
 is supposed to be generated.
 Multiple nginx standard modules register their handers at this phase, for
 example
@@ -4203,17 +4203,17 @@ Phase handlers are expected to return specific codes:
 <list type="bullet">
 
 <listitem>
-<literal>NGX_OK</literal> - proceed to the next phase
+<literal>NGX_OK</literal> — proceed to the next phase
 </listitem>
 
 <listitem>
-<literal>NGX_DECLINED</literal> - proceed to the next handler of the current
+<literal>NGX_DECLINED</literal> — proceed to the next handler of the current
 phase.
 If current handler is the last in current phase, move to the next phase
 </listitem>
 
 <listitem>
-<literal>NGX_AGAIN, NGX_DONE</literal> - suspend phase handling until some
+<literal>NGX_AGAIN, NGX_DONE</literal> — suspend phase handling until some
 future event.
 This can be for example asynchronous I/O operation or just a delay.
 It is supposed, that phase handling will be resumed later by calling
