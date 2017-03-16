@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_realip_module"
         link="/ru/docs/http/ngx_http_realip_module.html"
         lang="ru"
-        rev="6">
+        rev="7">
 
 <section id="summary">
 
@@ -86,8 +86,8 @@ IPv6-адреса поддерживаются начиная с версий 1.
 </para>
 
 <para>
-Параметры <literal>X-Real-IP</literal> и <literal>X-Forwarded-For</literal>
-могут содержать необязательный порт (1.11.0).
+Значение поля заголовка запроса, содержащее необязательный порт,
+также используется для замены порта клиента (1.11.0).
 Адрес и порт должны быть указаны согласно
 <link url="https://tools.ietf.org/html/rfc3986">RFC 3986</link>.
 </para>
