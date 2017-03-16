@@ -790,11 +790,11 @@ if (list == NULL) { /* error */ }
 
 v = ngx_list_push(list);
 if (v == NULL) { /* error */ }
-ngx_str_set(v, “foo”);
+ngx_str_set(v, "foo");
 
 v = ngx_list_push(list);
 if (v == NULL) { /* error */ }
-ngx_str_set(v, “bar”);
+ngx_str_set(v, "bar");
 
 /* iterate over the list */
 
@@ -914,7 +914,7 @@ ngx_queue_init(&amp;values);
 
 f = ngx_palloc(pool, sizeof(ngx_foo_t));
 if (f == NULL) { /* error */ }
-ngx_str_set(&amp;f->value, “foo”);
+ngx_str_set(&amp;f->value, "foo");
 
 ngx_queue_insert_tail(&amp;values, f);
 
@@ -1367,11 +1367,11 @@ if (pool == NULL) { /* error */ }
 
 s = ngx_palloc(pool, sizeof(ngx_str_t));
 if (s == NULL) { /* error */ }
-ngx_str_set(s, “foo”);
+ngx_str_set(s, "foo");
 
 p = ngx_pnalloc(pool, 3);
 if (p == NULL) { /* error */ }
-ngx_memcpy(p, “foo”, 3);
+ngx_memcpy(p, "foo", 3);
 </programlisting>
 
 <para>
@@ -1412,7 +1412,7 @@ cln = ngx_pool_cleanup_add(pool, 0);
 if (cln == NULL) { /* error */ }
 
 cln->handler = ngx_my_cleanup;
-cln->data = “foo”;
+cln->data = "foo";
 
 ...
 
@@ -1821,7 +1821,7 @@ A cycle is created by the function <literal>ngx_init_cycle()</literal>.
 The function receives the old cycle as the argument.
 It's used to locate the configuration file and inherit as much resources as
 possible from the old cycle to keep nginx running smoothly.
-When nginx starts, a fake cycle called "init cycle" is created and is then
+When nginx starts, a fake cycle called “init cycle” is created and is then
 replaced by a normal cycle, built from configuration.
 </para>
 
@@ -1903,14 +1903,14 @@ Moreover, two handlers can be added for each path:
 <listitem>
 path loader — executed only once in 60 seconds after starting or reloading
 nginx. Normally, reads the directory and stores data in nginx shared
-memory. The handler is called from a dedicated nginx process "nginx
-cache loader"
+memory. The handler is called from a dedicated nginx process “nginx
+cache loader”
 </listitem>
 
 <listitem>
 path manager — executed periodically. Normally, removes old files from the
 directory and reflects these changes in nginx memory. The handler is
-called from a dedicated nginx process "nginx cache manager"
+called from a dedicated nginx process “nginx cache manager”
 </listitem>
 
 </list>
@@ -2692,7 +2692,7 @@ Worker processes reopen all <literal>open_files</literal> from the cycle
 nginx binary.
 Master process starts a new nginx binary and passes there a list of all listen
 sockets.
-The list is passed in the environment variable <literal>"NGINX"</literal> in
+The list is passed in the environment variable <literal>“NGINX”</literal> in
 text format, where descriptor numbers separated with semicolons.
 A new nginx instance reads that variable and adds the sockets to its init
 cycle.
@@ -3603,8 +3603,8 @@ Numeric values for methods are defined in
 
 <listitem>
 <literal>http_protocol, http_version, http_major, http_minor</literal> -
-client HTTP protocol version in its original textual form ("HTTP/1.0",
-"HTTP/1.1" etc), numeric form (<literal>NGX_HTTP_VERSION_10</literal>,
+client HTTP protocol version in its original textual form (“HTTP/1.0”,
+“HTTP/1.1” etc), numeric form (<literal>NGX_HTTP_VERSION_10</literal>,
 <literal>NGX_HTTP_VERSION_11</literal> etc) and separate major and minor
 versions
 </listitem>
