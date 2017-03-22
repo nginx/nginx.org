@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_js_module"
         link="/ru/docs/stream/ngx_stream_js_module.html"
         lang="ru"
-        rev="6">
+        rev="7">
 
 <section id="summary">
 
@@ -37,15 +37,6 @@ hg clone http://hg.nginx.org/njs
 <example>
 ./configure --add-dynamic_module=<value>path-to-njs</value>/nginx
 </example>
-</para>
-
-</section>
-
-
-<section id="issues" name="Известные проблемы">
-
-<para>
-Модуль экспериментальный, поэтому возможно всё.
 </para>
 
 </section>

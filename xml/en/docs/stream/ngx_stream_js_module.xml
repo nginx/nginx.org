@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_js_module"
         link="/en/docs/stream/ngx_stream_js_module.html"
         lang="en"
-        rev="6">
+        rev="7">
 
 <section id="summary">
 
@@ -37,15 +37,6 @@ This module can also be built as
 <example>
 ./configure --add-dynamic_module=<value>path-to-njs</value>/nginx
 </example>
-</para>
-
-</section>
-
-
-<section id="issues" name="Known Issues">
-
-<para>
-The module is experimental, caveat emptor applies.
 </para>
 
 </section>
