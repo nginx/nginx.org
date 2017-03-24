@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_upstream_module"
         link="/ru/docs/stream/ngx_stream_upstream_module.html"
         lang="ru"
-        rev="24">
+        rev="25">
 
 <section id="summary">
 
@@ -46,7 +46,9 @@ server {
 </para>
 
 <para>
-Динамически настраиваемая группа,
+Динамически настраиваемая группа
+с периодическими
+<link doc="ngx_stream_upstream_hc_module.xml">проверками работоспособности</link>
 доступна как часть
 <commercial_version>коммерческой подписки</commercial_version>:
 <example>
@@ -298,7 +300,7 @@ SRV-записи с наивысшим приоритетом
 задаёт <value>время</value>, в течение которого вес сервера
 восстановится от нуля до своего номинального значения в ситуации, когда
 неработоспособный (unhealthy) сервер вновь становится работоспособным
-(<link id="health_check">healthy</link>)
+(<link doc="ngx_http_upstream_hc_module.xml" id="health_check">healthy</link>)
 или когда сервер становится доступным по прошествии времени,
 в течение которого он считался <link id="fail_timeout">недоступным</link>.
 Значение по умолчанию равно нулю и означает, что медленный старт выключен.
@@ -479,274 +481,6 @@ hash $remote_addr;
 <note>
 До версии 1.11.6
 незавершённые соединения учитывались по умолчанию.
-</note>
-</para>
-
-<para>
-<note>
-Эта директива доступна как часть
-<commercial_version>коммерческой подписки</commercial_version>.
-</note>
-</para>
-
-</directive>
-
-
-<directive name="health_check">
-<syntax>[<value>параметры</value>]</syntax>
-<default/>
-<context>server</context>
-
-<para>
-Активирует периодические проверки работоспособности серверов в
-<link id="upstream">группе</link>.
-</para>
-
-<para>
-Могут быть заданы следующие необязательные параметры:
-<list type="tag">
-
-<tag-name id="interval">
-<literal>interval</literal>=<value>время</value>
-</tag-name>
-<tag-desc>
-задаёт интервал между двумя последовательными проверками,
-по умолчанию 5 секунд.
-</tag-desc>
-
-<tag-name id="health_check_jitter">
-<literal>jitter</literal>=<value>время</value>
-</tag-name>
-<tag-desc>
-задаёт время, в пределах которого
-случайным образом задерживается каждая проверка,
-по умолчанию задержки нет.
-</tag-desc>
-
-<tag-name id="fails">
-<literal>fails</literal>=<value>число</value>
-</tag-name>
-<tag-desc>
-задаёт число последовательных неуспешных проверок для определённого сервера,
-после которых сервер будет считаться неработоспособным,
-по умолчанию 1.
-</tag-desc>
-
-<tag-name id="passes">
-<literal>passes</literal>=<value>число</value>
-</tag-name>
-<tag-desc>
-задаёт число последовательных успешных проверок для определённого сервера,
-после которых сервер будет считаться работоспособным,
-по умолчанию 1.
-</tag-desc>
-
-<tag-name id="health_check_mandatory">
-<literal>mandatory</literal>
-</tag-name>
-<tag-desc>
-устанавливает исходное состояние “checking” для сервера
-до завершения первой проверки работоспособности (1.11.7).
-Если параметр не указан,
-то исходно сервер будет считаться работоспособным.
-</tag-desc>
-
-<tag-name id="hc_match">
-<literal>match</literal>=<value>имя</value>
-</tag-name>
-<tag-desc>
-указывает на блок <literal>match</literal> с условиями, которым должно
-удовлетворять соединение, чтобы результат проверки считался успешным.
-По умолчанию для TCP проверяется
-лишь возможность установки TCP-соединения с сервером,
-для <link id="health_check_udp">UDP</link> проверяется отсутствие
-сообщения ICMP “<literal>Destination Unreachable</literal>”
-в ответ на отправленную строку “<literal>nginx health check</literal>”.
-<note>
-До версии 1.11.7 по умолчанию для UDP
-требовалось наличие блока <link id="hc_match">match</link> с параметрами
-<link id="match_send">send</link> и <link id="match_expect">expect</link>.
-</note>
-</tag-desc>
-
-<tag-name id="health_check_port">
-<literal>port</literal>=<value>число</value>
-</tag-name>
-<tag-desc>
-задаёт порт, используемый при подключении к серверу
-для проверки его работоспособности (1.9.7).
-По умолчанию совпадает с портом <link id="server">сервера</link>.
-</tag-desc>
-
-<tag-name id="health_check_udp">
-<literal>udp</literal>
-</tag-name>
-<tag-desc>
-указывает, что для проверки работоспособности будет использоваться протокол
-<literal>UDP</literal>
-вместо протокола <literal>TCP</literal>, используемого по умолчанию (1.9.13).
-</tag-desc>
-
-</list>
-</para>
-
-<para>
-В примере
-<example>
-server {
-    proxy_pass backend;
-    health_check;
-}
-</example>
-для каждого сервера группы <literal>backend</literal>
-с интервалом в 5 секунд проверяется возможность установки TCP-соединения.
-Если соединение с сервером не может быть установлено,
-проверка считается неуспешной и сервер
-признаётся неработоспособным.
-На неработоспособные серверы и серверы в состоянии “checking”
-клиентские соединения передаваться не будут.
-</para>
-
-<para>
-Проверки работоспособности могут тестировать данные, полученные от сервера.
-Тесты настраиваются отдельно при помощи директивы <link id="match"/>
-и указываются в параметре <literal>match</literal>.
-</para>
-
-<para>
-Группа должна находиться в <link id="zone">зоне разделяемой памяти</link>.
-</para>
-
-<para>
-Если для группы задано несколько проверок,
-то при любой неуспешной проверке соответствующий сервер будет
-считаться неработоспособным.
-</para>
-
-<para>
-<note>
-Эта директива доступна как часть
-<commercial_version>коммерческой подписки</commercial_version>.
-</note>
-</para>
-
-</directive>
-
-
-<directive name="health_check_timeout">
-<syntax><value>время</value></syntax>
-<default>5s</default>
-<context>stream</context>
-<context>server</context>
-
-<para>
-Переопределяет значение
-<link doc="ngx_stream_proxy_module.xml" id="proxy_timeout"/>
-для проверок работоспособности.
-</para>
-
-<para>
-<note>
-Эта директива доступна как часть
-<commercial_version>коммерческой подписки</commercial_version>.
-</note>
-</para>
-
-</directive>
-
-
-<directive name="match">
-<syntax block="yes"><value>имя</value> </syntax>
-<default/>
-<context>stream</context>
-
-<para>
-Задаёт именованный набор тестов для для анализа ответов сервера
-на запросы проверки работоспособности.
-</para>
-
-<para>
-Могут быть заданы следующие параметры:
-<list type="tag">
-
-<tag-name id="match_send">
-<literal>send</literal> <value>строка</value>;
-</tag-name>
-<tag-desc>
-отправляет <value>строку</value> на сервер;
-</tag-desc>
-
-<tag-name id="match_expect">
-<literal>expect</literal> <value>стока</value> |
-<literal>~</literal> <value>regex</value>;
-</tag-name>
-<tag-desc>
-текстовая строка (1.9.12) или регулярное выражение,
-которым должны соответствовать данные, полученные с сервера.
-Регулярное выражение задаётся либо с модификатором
-“<literal>~*</literal>” (для поиска совпадения без учёта регистра символов),
-либо с модификатором “<literal>~</literal>” (с учётом регистра).
-</tag-desc>
-
-</list>
-Параметры <literal>send</literal> и <literal>expect</literal>
-могут содержать строки в шестнадцатеричном виде
-с префиксом “<literal>\x</literal>”
-и последующими двумя шестнадцатеричными цифрами,
-например “<literal>\x80</literal>” (1.9.12).
-</para>
-
-<para>
-Проверка работоспособности считается успешной, если
-<list type="bullet">
-<listitem>
-TCP-соединение успешно установлено;
-</listitem>
-
-<listitem>
-<value>строка</value> из параметра <literal>send</literal>
-была отправлена (если была задана);
-</listitem>
-
-<listitem>
-данные, полученные от сервера, совпали со строкой или регулярным выражением
-из параметра <literal>expect</literal> (если был задан);
-</listitem>
-
-<listitem>
-истёкшее время не превышает значение, указанное
-в директиве <link id="health_check_timeout"/>.
-</listitem>
-
-</list>
-</para>
-
-<para>
-Пример:
-<example>
-upstream backend {
-    zone     upstream_backend 10m;
-    server   127.0.0.1:12345;
-}
-
-match http {
-    send     "GET / HTTP/1.0\r\nHost: localhost\r\n\r\n";
-    expect ~ "200 OK";
-}
-
-server {
-    listen       12346;
-    proxy_pass   backend;
-    health_check match=http;
-}
-</example>
-</para>
-
-<para>
-<note>
-Проверяются лишь первые байты данных
-<link doc="ngx_stream_proxy_module.xml" id="proxy_buffer_size"/>,
-полученные от сервера.
 </note>
 </para>
 

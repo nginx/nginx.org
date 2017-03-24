@@ -8,7 +8,7 @@
 <article name="nginx: документация"
          link="/ru/docs/"
          lang="ru"
-         rev="38"
+         rev="39"
          toc="no">
 
 
@@ -589,6 +589,11 @@ ngx_stream_ssl_preread_module</link>
 <listitem>
 <link doc="stream/ngx_stream_upstream_module.xml">
 ngx_stream_upstream_module</link>
+</listitem>
+
+<listitem>
+<link doc="stream/ngx_stream_upstream_hc_module.xml">
+ngx_stream_upstream_hc_module</link>
 </listitem>
 
 </list>
