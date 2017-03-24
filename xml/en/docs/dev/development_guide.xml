@@ -4245,7 +4245,335 @@ code, the denial code will become the finalization code.
 
 </section>
 
+
+<section name="Load balancing" id="http_load_balancing">
+
+<para>
+The
+<link doc="../http/ngx_http_upstream_module.xml">ngx_http_upstream_module</link>
+provides basic functionality to pass requests to remote servers.
+This functionality is used by modules that implement specific protocols,
+such as HTTP or FastCGI.
+The module also provides an interface for creating custom
+load balancing modules and implements a default round-robin balancing method.
+</para>
+
+<para>
+Examples of modules that implement alternative load balancing methods are
+<link doc="../http/ngx_http_upstream_module.xml" id="least_conn"/>
+and <link doc="../http/ngx_http_upstream_module.xml" id="hash"/>.
+Note that these modules are actually implemented as extensions of the upstream
+module and share a lot of code, such as representation of a server group.
+The <link doc="../http/ngx_http_upstream_module.xml" id="keepalive"/> module
+is an example of an independent module, extending upstream functionality.
+</para>
+
+<para>
+The
+<link doc="../http/ngx_http_upstream_module.xml">ngx_http_upstream_module</link>
+may be configured explicitly by placing the corresponding
+<link doc="../http/ngx_http_upstream_module.xml" id="upstream"/> block into
+the configuration file, or implicitly by using directives
+that accept a URL evaluated at some point to the list of servers,
+for example,
+<link doc="../http/ngx_http_proxy_module.xml" id="proxy_pass"/>.
+Only explicit configurations may use an alternative load balancing method.
+The upstream module configuration has its own directive context
+<literal>NGX_HTTP_UPS_CONF</literal>.
+The structure is defined as follows:
+<programlisting>
+struct ngx_http_upstream_srv_conf_s {
+    ngx_http_upstream_peer_t         peer;
+    void                           **srv_conf;
+
+    ngx_array_t                     *servers;  /* ngx_http_upstream_server_t */
+
+    ngx_uint_t                       flags;
+    ngx_str_t                        host;
+    u_char                          *file_name;
+    ngx_uint_t                       line;
+    in_port_t                        port;
+    ngx_uint_t                       no_port;  /* unsigned no_port:1 */
+
+#if (NGX_HTTP_UPSTREAM_ZONE)
+    ngx_shm_zone_t                  *shm_zone;
+#endif
+};
+</programlisting>
+
+<list type="bullet">
+
+<listitem>
+<literal>srv_conf</literal> — configuration context of upstream modules
+</listitem>
+
+<listitem>
+<literal>servers</literal> — array of
+<literal>ngx_http_upstream_server_t</literal>, the result of parsing a set of
+<link doc="../http/ngx_http_upstream_module.xml" id="server"/> directives
+in the <literal>upstream</literal> block
+</listitem>
+
+<listitem>
+<literal>flags</literal> — flags that mostly mark which features
+(configured as parameters of
+the <link doc="../http/ngx_http_upstream_module.xml" id="server"/> directive)
+are supported by the particular load balancing method.
+
+<list type="bullet">
+
+<listitem>
+<literal>NGX_HTTP_UPSTREAM_CREATE</literal> — used to distinguish explicitly
+defined upstreams from automatically created by
+<link doc="../http/ngx_http_proxy_module.xml" id="proxy_pass"/> and “friends”
+(FastCGI, SCGI, etc.)
+</listitem>
+
+<listitem>
+<literal>NGX_HTTP_UPSTREAM_WEIGHT</literal> — “<literal>weight</literal>”
+is supported
+</listitem>
+
+<listitem>
+<literal>NGX_HTTP_UPSTREAM_MAX_FAILS</literal> — “<literal>max_fails</literal>”
+is supported
+</listitem>
+
+<listitem>
+<literal>NGX_HTTP_UPSTREAM_FAIL_TIMEOUT</literal> —
+“<literal>fail_timeout</literal>” is supported
+</listitem>
+
+<listitem>
+<literal>NGX_HTTP_UPSTREAM_DOWN</literal> — “<literal>down</literal>”
+is supported
+</listitem>
+
+<listitem>
+<literal>NGX_HTTP_UPSTREAM_BACKUP</literal> — “<literal>backup</literal>”
+is supported
+</listitem>
+
+<listitem>
+<literal>NGX_HTTP_UPSTREAM_MAX_CONNS</literal> — “<literal>max_conns</literal>”
+is supported
+</listitem>
+
+</list>
+
+</listitem>
+
+<listitem>
+<literal>host</literal> — the name of an upstream
+</listitem>
+
+<listitem>
+<literal>file_name, line</literal> — the name of the configuration file
+and the line where the <literal>upstream</literal> block is located
+</listitem>
+
+<listitem>
+<literal>port</literal> and <literal>no_port</literal> — unused by explicit
+upstreams
+</listitem>
+
+<listitem>
+<literal>shm_zone</literal> — a shared memory zone used by this upstream, if any
+</listitem>
+
+<listitem>
+<literal>peer</literal> — an object that holds generic methods for
+initializing upstream configuration:
+
+<programlisting>
+typedef struct {
+    ngx_http_upstream_init_pt        init_upstream;
+    ngx_http_upstream_init_peer_pt   init;
+    void                            *data;
+} ngx_http_upstream_peer_t;
+</programlisting>
+A module that implements a load balancing algorithm must set these
+methods and initialize private <literal>data</literal>.
+If <literal>init_upstream</literal> was not initialized during configuration
+parsing, <literal>ngx_http_upstream_module</literal> sets it to default
+<literal>ngx_http_upstream_init_round_robin</literal>.
+
+<list type="bullet">
+<listitem>
+<literal>init_upstream(cf, us)</literal> — configuration-time
+method responsible for initializing a group of servers and
+initializing the <literal>init()</literal> method in case of success.
+A typical load balancing module uses a list of servers in the upstream block
+to create some efficient data structure that it uses and saves own
+configuration to the <literal>data</literal> field.
+</listitem>
+
+<listitem>
+<literal>init(r, us)</literal> — initializes per-request
+<literal>ngx_http_upstream_peer_t.peer</literal> (not to be confused with the
+<literal>ngx_http_upstream_srv_conf_t.peer</literal> described above which
+is per-upstream) structure that is used for load balancing.
+It will be passed as <literal>data</literal> argument to all callbacks that
+deal with server selection.
+</listitem>
+</list>
+
+</listitem>
+</list>
+</para>
+
+<para>
+When nginx has to pass a request to another host for processing, it uses
+a configured load balancing method to obtain an address to connect to.
+The method is taken from the
+<literal>ngx_http_upstream_peer_t.peer</literal> object
+of type <literal>ngx_peer_connection_t</literal>:
+<programlisting>
+struct ngx_peer_connection_s {
+    [...]
+
+    struct sockaddr                 *sockaddr;
+    socklen_t                        socklen;
+    ngx_str_t                       *name;
+
+    ngx_uint_t                       tries;
+
+    ngx_event_get_peer_pt            get;
+    ngx_event_free_peer_pt           free;
+    ngx_event_notify_peer_pt         notify;
+    void                            *data;
+
+#if (NGX_SSL || NGX_COMPAT)
+    ngx_event_set_peer_session_pt    set_session;
+    ngx_event_save_peer_session_pt   save_session;
+#endif
+
+    [..]
+};
+</programlisting>
+
+The structure has the following fields:
+
+<list type="bullet">
+<listitem>
+<literal>sockaddr</literal>, <literal>socklen</literal>,
+<literal>name</literal> — address of an upstream server to connect to;
+this is the output parameter of a load balancing method
+</listitem>
+
+<listitem>
+<literal>data</literal> — per-request load balancing method data; keeps the
+state of selection algorithm and usually includes the link to upstream
+configuration.
+It will be passed as an argument to all methods that deal with server selection
+(see below)
+</listitem>
+
+<listitem>
+<literal>tries</literal> — allowed
+<link doc="../http/ngx_http_proxy_module.xml" id="proxy_next_upstream_tries">number</link>
+of attempts to connect to an upstream.
+</listitem>
+
+<listitem>
+<literal>get</literal>, <literal>free</literal>, <literal>notify</literal>,
+<literal>set_session</literal>, and <literal>save_session</literal>
+- methods of the load balancing module, see description below
+</listitem>
+
+</list>
+
+</para>
+
+<para>
+All methods accept at least two arguments: peer connection object
+<literal>pc</literal> and the <literal>data</literal> created by
+<literal>ngx_http_upstream_srv_conf_t.peer.init()</literal>.
+Note that in general case it may differ from <literal>pc.data</literal> due
+to “chaining” of load balancing modules.
+</para>
+
+<para>
+
+<list type="bullet">
+<listitem>
+<literal>get(pc, data)</literal> — the method is called when the upstream
+module is ready to pass a request to an upstream server and needs to know
+its address.
+The method is responsible to fill in the <literal>sockaddr</literal>,
+<literal>socklen</literal>, and <literal>name</literal> fields of
+<literal>ngx_peer_connection_t</literal> structure.
+The return value may be one of:
+
+<list type="bullet">
+
+<listitem>
+<literal>NGX_OK</literal> — server was selected
+</listitem>
+
+<listitem>
+<literal>NGX_ERROR</literal> — internal error occurred
+</listitem>
+
+<listitem>
+<literal>NGX_BUSY</literal> — there are no available servers at the moment.
+This can happen due to many reasons, such as: dynamic server group is empty,
+all servers in the group are in the failed state,
+all servers in the group are already
+handling the maximum number of connections or similar.
+</listitem>
+
+<listitem>
+<literal>NGX_DONE</literal> — this is set by the <literal>keepalive</literal>
+module to indicate that the underlying connection was reused and there is no
+need to create a new connection to the upstream server.
+</listitem>
+
+<!--
+<listitem>
+<literal>NGX_ABORT</literal> — this is set by the <literal>queue</literal>
+module to indicate that the request was queued and the further processing
+of this request should be postponed.
+</listitem>
+-->
+
+</list>
+
+</listitem>
+
+<listitem>
+<literal>free(pc, data, state)</literal> — the method is called when an
+upstream module has finished work with a particular server.
+The <literal>state</literal> argument is the status of upstream connection
+completion.
+This is a bitmask, the following values may be set:
+<literal>NGX_PEER_FAILED</literal> — this attempt is considered
+<link doc="../http/ngx_http_upstream_module.xml" id="max_fails">unsuccessful</link>,
+<literal>NGX_PEER_NEXT</literal> — a special case with codes 403 and 404
+(see link above), which are not considered a failure.
+<literal>NGX_PEER_KEEPALIVE</literal>.
+Also, <literal>tries</literal> counter is decremented by this method.
+</listitem>
+
+<listitem>
+<literal>notify(pc, data, type)</literal> — currently unused
+in the OSS version.
+</listitem>
+
+<listitem>
+<literal>set_session(pc, data)</literal> and
+<literal>save_session(pc, data)</literal>
+— SSL-specific methods that allow to cache sessions to upstream
+servers.
+The implementation is provided by the round-robin balancing method.
+</listitem>
+
+</list>
+
+</para>
+
 </section>
 
+</section>
 
 </article>
