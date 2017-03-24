@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_upstream_hc_module"
         link="/en/docs/stream/ngx_stream_upstream_hc_module.html"
         lang="en"
-        rev="4">
+        rev="5">
 
 <section id="summary">
 
@@ -67,6 +67,29 @@ in the <literal>tcp</literal> group every five seconds.
 When a connection to the server cannot be established,
 the health check will fail, and the server will
 be considered unhealthy.
+</para>
+
+<para>
+Health checks can be configured for the UDP protocol:
+<example>
+upstream dns_upstream {
+
+    zone   dns_zone 64k;
+
+    server dns1.example.com:53;
+    server dns2.example.com:53;
+    server dns3.example.com:53;
+}
+
+server {
+    listen       53 udp;
+    proxy_pass   dns_upstream;
+    health_check udp;
+}
+</example>
+In this case, the absence of
+ICMP “<literal>Destination Unreachable</literal>” message is expected
+in reply to the sent string “<literal>nginx health check</literal>”.
 </para>
 
 <para>

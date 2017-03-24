@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_upstream_hc_module"
         link="/ru/docs/stream/ngx_stream_upstream_hc_module.html"
         lang="ru"
-        rev="4">
+        rev="5">
 
 <section id="summary">
 
@@ -62,11 +62,34 @@ server {
     health_check;
 }
 </example>
-Для каждого сервера группы <literal>backend</literal>
+Для каждого сервера группы <literal>tcp</literal>
 с интервалом в 5 секунд проверяется возможность установки TCP-соединения.
 Если соединение с сервером не может быть установлено,
 проверка считается неуспешной и сервер
 признаётся неработоспособным.
+</para>
+
+<para>
+Проверки работоспособности можно настроить для протокола UDP:
+<example>
+upstream dns_upstream {
+
+    zone   dns_zone 64k;
+
+    server dns1.example.com:53;
+    server dns2.example.com:53;
+    server dns3.example.com:53;
+}
+
+server {
+    listen       53 udp;
+    proxy_pass   dns_upstream;
+    health_check udp;
+}
+</example>
+В этом случае проверяется отсутствие
+сообщения ICMP “<literal>Destination Unreachable</literal>”
+в ответ на отправленную строку “<literal>nginx health check</literal>”.
 </para>
 
 <para>
