@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_upstream_hc_module"
         link="/en/docs/stream/ngx_stream_upstream_hc_module.html"
         lang="en"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
@@ -19,6 +19,15 @@ allows enabling periodic health checks of the servers in a
 <link doc="ngx_stream_upstream_module.xml" id="upstream">group</link>.
 The server group must reside in the
 <link doc="ngx_stream_upstream_module.xml" id="zone">shared memory</link>.
+</para>
+
+<para>
+If a health check fails, the server will be considered unhealthy.
+If several health checks are defined for the same group of servers,
+a single failure of any check will make the corresponding server be
+considered unhealthy.
+Client connections are not passed to unhealthy servers
+and servers in the “checking” state.
 </para>
 
 <para>
@@ -52,6 +61,19 @@ server {
     health_check;
 }
 </example>
+With this configuration, nginx
+will check the ability to establish a TCP connection to each server
+in the <literal>tcp</literal> group every five seconds.
+When a connection to the server cannot be established,
+the health check will fail, and the server will
+be considered unhealthy.
+</para>
+
+<para>
+Health checks can also be configured to test data obtained from the server.
+Tests are configured separately using the <link id="match"/> directive
+and referenced in the <literal>match</literal> parameter
+of the <link id="health_check"/> directive.
 </para>
 
 </section>
@@ -156,40 +178,6 @@ health checks instead of the default <literal>TCP</literal> protocol (1.9.13).
 </tag-desc>
 
 </list>
-</para>
-
-<para>
-For example,
-<example>
-server {
-    proxy_pass backend;
-    health_check;
-}
-</example>
-will check the ability to establish a TCP connection to each server
-in the <literal>backend</literal> group every five seconds.
-When a connection to the server cannot be established,
-the health check will fail, and the server will
-be considered unhealthy.
-Client connections are not passed to unhealthy servers
-and servers in the “checking” state.
-</para>
-
-<para>
-Health checks can also be configured to test data obtained from the server.
-Tests are configured separately using the <link id="match"/> directive
-and referenced in the <literal>match</literal> parameter.
-</para>
-
-<para>
-The server group must reside in the
-<link doc="ngx_stream_upstream_module.xml" id="zone">shared memory</link>.
-</para>
-
-<para>
-If several health checks are defined for the same group of servers,
-a single failure of any check will make the corresponding server be
-considered unhealthy.
 </para>
 
 </directive>
