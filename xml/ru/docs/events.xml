@@ -8,7 +8,7 @@
 <article name="Методы обработки соединений"
          link="/ru/docs/events.html"
          lang="ru"
-         rev="5">
+         rev="6">
 
 <section>
 
@@ -81,8 +81,9 @@ nginx поддерживает различные методы обработк�
 
 <listitem id="eventport">
 <para>
-<literal>eventport</literal>&mdash;event ports, эффективный метод,
-используемый в Solaris 10.
+<literal>eventport</literal>&mdash;event ports, метод,
+используемый в Solaris 10+ (из-за имеющихся проблем вместо него
+рекомендуется использовать метод <literal>/dev/poll</literal>).
 </para>
 </listitem>
 
