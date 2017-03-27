@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_status_module"
         link="/ru/docs/http/ngx_http_status_module.html"
         lang="ru"
-        rev="13">
+        rev="14">
 
 <section id="summary">
 
@@ -615,7 +615,8 @@ http://127.0.0.1/status/stream/upstreams/backend/peers/1/weight
 Среднее время получения
 <link doc="ngx_http_upstream_module.xml" id="var_upstream_header_time">заголовка
 ответа</link> от сервера (1.7.10).
-Поле доступно при использовании метода балансировки
+До версии 1.11.6
+поле было доступно только при использовании метода балансировки
 <link doc="ngx_http_upstream_module.xml" id="least_time"/>.
 </tag-desc>
 
@@ -624,7 +625,8 @@ http://127.0.0.1/status/stream/upstreams/backend/peers/1/weight
 Среднее время получения
 <link doc="ngx_http_upstream_module.xml" id="var_upstream_response_time">всего
 ответа</link> от сервера (1.7.10).
-Поле доступно при использовании метода балансировки
+До версии 1.11.6
+поле было доступно только при использовании метода балансировки
 <link doc="ngx_http_upstream_module.xml" id="least_time"/>.
 </tag-desc>
 
@@ -897,21 +899,24 @@ http://127.0.0.1/status/stream/upstreams/backend/peers/1/weight
 <tag-name><literal>connect_time</literal></tag-name>
 <tag-desc>
 Среднее время установки соединения с сервером группы.
-Поле доступно при использовании метода балансировки
+До версии 1.11.6
+поле было доступно только при использовании метода балансировки
 <link doc="../stream/ngx_stream_upstream_module.xml" id="least_time"/>.
 </tag-desc>
 
 <tag-name><literal>first_byte_time</literal></tag-name>
 <tag-desc>
 Среднее время получения первого байта данных.
-Поле доступно при использовании метода балансировки
+До версии 1.11.6
+поле было доступно только при использовании метода балансировки
 <link doc="../stream/ngx_stream_upstream_module.xml" id="least_time"/>.
 </tag-desc>
 
 <tag-name><literal>response_time</literal></tag-name>
 <tag-desc>
 Среднее время получения последнего байта данных.
-Поле доступно при использовании метода балансировки
+До версии 1.11.6
+поле было доступно только при использовании метода балансировки
 <link doc="../stream/ngx_stream_upstream_module.xml" id="least_time"/>.
 </tag-desc>
 
