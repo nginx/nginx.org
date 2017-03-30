@@ -9,7 +9,7 @@
 <module name="Module ngx_http_status_module"
         link="/en/docs/http/ngx_http_status_module.html"
         lang="en"
-        rev="14">
+        rev="15">
 
 <section id="summary">
 
@@ -562,7 +562,7 @@ threshold.
 <tag-name><literal>checks</literal></tag-name>
 <tag-desc>
 The total number of
-<link doc="ngx_http_upstream_module.xml" id="health_check">health check</link>
+<link doc="ngx_http_upstream_hc_module.xml" id="health_check">health check</link>
 requests made.
 </tag-desc>
 
@@ -581,7 +581,7 @@ the server became unhealthy (state “<literal>unhealthy</literal>”).
 <tag-desc>
 Boolean indicating
 if the last health check request was successful and passed
-<link doc="ngx_http_upstream_module.xml" id="match">tests</link>.
+<link doc="ngx_http_upstream_hc_module.xml" id="match">tests</link>.
 </tag-desc>
 
 </list>
