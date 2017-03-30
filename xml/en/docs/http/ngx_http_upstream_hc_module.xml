@@ -9,7 +9,7 @@
 <module name="Module ngx_http_upstream_hc_module"
         link="/en/docs/http/ngx_http_upstream_hc_module.html"
         lang="en"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
@@ -18,6 +18,25 @@ The <literal>ngx_http_upstream_hc_module</literal> module
 allows enabling periodic health checks of the servers in a
 <link doc="ngx_http_upstream_module.xml" id="upstream">group</link>
 referenced in the surrounding location.
+The server group must reside in the
+<link doc="ngx_http_upstream_module.xml" id="zone">shared memory</link>.
+</para>
+
+<para>
+If a health check fails,
+the server will be considered unhealthy.
+If several health checks are defined for the same group of servers,
+a single failure of any check will make the corresponding server be
+considered unhealthy.
+Client requests are not passed to unhealthy servers
+and servers in the “checking” state.
+</para>
+
+<para>
+<note>
+Please note that most of the variables will have empty values
+when used with health checks.
+</note>
 </para>
 
 <para>
@@ -52,6 +71,41 @@ server {
     }
 }
 </example>
+With this configuration, nginx will send “<literal>/</literal>” requests to each
+server in the <literal>backend</literal> group every five seconds.
+If any communication error or timeout occurs, or a
+proxied server responds with the status code other than
+2xx or 3xx, the health check will fail, and the server will
+be considered unhealthy.
+</para>
+
+<para>
+Health checks can be configured to test the status code of a response,
+presence of certain header fields and their values,
+and the body contents.
+Tests are configured separately using the <link id="match"/> directive
+and referenced in the <literal>match</literal> parameter
+of the  <link id="health_check"/> directive:
+<example>
+http {
+    server {
+    ...
+        location / {
+            proxy_pass http://backend;
+            health_check match=welcome;
+        }
+    }
+
+    match welcome {
+        status 200;
+        header Content-Type = text/html;
+        body ~ "Welcome to nginx!";
+    }
+}
+</example>
+This configuration shows that in order for a health check to pass, the response
+to a health check request should succeed, have status 200,
+and contain “<literal>Welcome to nginx!</literal>” in the body.
 </para>
 
 </section>
@@ -147,72 +201,6 @@ By default, equals the
 </tag-desc>
 
 </list>
-</para>
-
-<para>
-For example,
-<example>
-location / {
-    proxy_pass http://backend;
-    health_check;
-}
-</example>
-will send “<literal>/</literal>” requests to each
-server in the <literal>backend</literal> group every five seconds.
-If any communication error or timeout occurs, or a
-proxied server responds with the status code other than
-2xx or 3xx, the health check will fail, and the server will
-be considered unhealthy.
-Client requests are not passed to unhealthy servers
-and servers in the “checking” state.
-</para>
-
-<para>
-Health checks can be configured to test the status code of a response,
-presence of certain header fields and their values,
-and the body contents.
-Tests are configured separately using the <link id="match"/> directive
-and referenced in the <literal>match</literal> parameter.
-For example:
-<example>
-http {
-    server {
-    ...
-        location / {
-            proxy_pass http://backend;
-            health_check match=welcome;
-        }
-    }
-
-    match welcome {
-        status 200;
-        header Content-Type = text/html;
-        body ~ "Welcome to nginx!";
-    }
-}
-</example>
-This configuration shows that in order for a health check to pass, the response
-to a health check request should succeed,
-have status 200, content type “<literal>text/html</literal>”,
-and contain “<literal>Welcome to nginx!</literal>” in the body.
-</para>
-
-<para>
-The server group must reside in the
-<link doc="ngx_http_upstream_module.xml" id="zone">shared memory</link>.
-</para>
-
-<para>
-If several health checks are defined for the same group of servers,
-a single failure of any check will make the corresponding server be
-considered unhealthy.
-</para>
-
-<para>
-<note>
-Please note that most of the variables will have empty values
-when used with health checks.
-</note>
 </para>
 
 </directive>
