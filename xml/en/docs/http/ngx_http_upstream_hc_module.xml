@@ -9,7 +9,7 @@
 <module name="Module ngx_http_upstream_hc_module"
         link="/en/docs/http/ngx_http_upstream_hc_module.html"
         lang="en"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -177,6 +177,7 @@ by default, “<literal>/</literal>”.
 <tag-desc>
 sets the initial “checking” state for a server
 until the first health check is completed (1.11.7).
+Client requests are not passed to servers in the “checking” state.
 If the parameter is not specified,
 the server will be initially considered healthy.
 </tag-desc>
