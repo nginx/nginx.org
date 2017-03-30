@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_upstream_hc_module"
         link="/en/docs/stream/ngx_stream_upstream_hc_module.html"
         lang="en"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -95,7 +95,7 @@ Enables periodic health checks of the servers in a
 The following optional parameters are supported:
 <list type="tag">
 
-<tag-name id="interval">
+<tag-name id="health_check_interval">
 <literal>interval</literal>=<value>time</value>
 </tag-name>
 <tag-desc>
@@ -112,7 +112,7 @@ each health check will be randomly delayed,
 by default, there is no delay.
 </tag-desc>
 
-<tag-name id="fails">
+<tag-name id="health_check_fails">
 <literal>fails</literal>=<value>number</value>
 </tag-name>
 <tag-desc>
@@ -121,7 +121,7 @@ after which this server will be considered unhealthy,
 by default, 1.
 </tag-desc>
 
-<tag-name id="passes">
+<tag-name id="health_check_passes">
 <literal>passes</literal>=<value>number</value>
 </tag-name>
 <tag-desc>
@@ -140,7 +140,7 @@ If the parameter is not specified,
 the server will be initially considered healthy.
 </tag-desc>
 
-<tag-name id="hc_match">
+<tag-name id="health_check_match">
 <literal>match</literal>=<value>name</value>
 </tag-name>
 <tag-desc>

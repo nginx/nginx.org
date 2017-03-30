@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_upstream_hc_module"
         link="/ru/docs/stream/ngx_stream_upstream_hc_module.html"
         lang="ru"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -95,7 +95,7 @@ server {
 Могут быть заданы следующие необязательные параметры:
 <list type="tag">
 
-<tag-name id="interval">
+<tag-name id="health_check_interval">
 <literal>interval</literal>=<value>время</value>
 </tag-name>
 <tag-desc>
@@ -112,7 +112,7 @@ server {
 по умолчанию задержки нет.
 </tag-desc>
 
-<tag-name id="fails">
+<tag-name id="health_check_fails">
 <literal>fails</literal>=<value>число</value>
 </tag-name>
 <tag-desc>
@@ -121,7 +121,7 @@ server {
 по умолчанию 1.
 </tag-desc>
 
-<tag-name id="passes">
+<tag-name id="health_check_passes">
 <literal>passes</literal>=<value>число</value>
 </tag-name>
 <tag-desc>
@@ -140,7 +140,7 @@ server {
 то исходно сервер будет считаться работоспособным.
 </tag-desc>
 
-<tag-name id="hc_match">
+<tag-name id="health_check_match">
 <literal>match</literal>=<value>имя</value>
 </tag-name>
 <tag-desc>
