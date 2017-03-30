@@ -8,7 +8,7 @@
 <article name="Сборка nginx из исходных файлов"
          link="/ru/docs/configure.html"
          lang="ru"
-         rev="8">
+         rev="9">
 
 <section>
 
@@ -86,6 +86,13 @@
 <link doc="http/ngx_http_log_module.xml" id="access_log"/>.
 По умолчанию имя
 файла&mdash;<path><value>префикс</value>/logs/access.log</path>.
+</para>
+</listitem>
+
+<listitem id="build">
+<para>
+<literal>--build=<value>имя</value></literal>&mdash;задаёт
+необязательное имя сборки nginx.
 </para>
 </listitem>
 

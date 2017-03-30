@@ -8,7 +8,7 @@
 <article name="Building nginx from Sources"
          link="/en/docs/configure.html"
          lang="en"
-         rev="8">
+         rev="9">
 
 <section>
 
@@ -87,6 +87,13 @@ After installation, the file name can always be changed in the
 <link doc="http/ngx_http_log_module.xml" id="access_log"/> directive.
 By default the file is named
 <path><value>prefix</value>/logs/access.log</path>.
+</para>
+</listitem>
+
+<listitem id="build">
+<para>
+<literal>--build=<value>name</value></literal>&mdash;sets
+an optional nginx build name.
 </para>
 </listitem>
 
