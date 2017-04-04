@@ -9,7 +9,7 @@
 <article name="About nginScript"
         link="/en/docs/njs_about.html"
         lang="en"
-        rev="7">
+        rev="8">
 
 <section id="summary">
 
@@ -107,6 +107,12 @@ ES5.1:
 <literal>some</literal>, <literal>every</literal>, <literal>filter</literal>,
 <literal>map</literal>, <literal>reduce</literal>,
 <literal>reduceRight</literal>
+</listitem>
+
+<listitem>
+ES6:
+<literal>of</literal>, <literal>fill</literal>, <literal>find</literal>,
+<literal>findIndex</literal>
 </listitem>
 
 <listitem>
