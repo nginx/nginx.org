@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_fastcgi_module"
         link="/ru/docs/http/ngx_http_fastcgi_module.html"
         lang="ru"
-        rev="44">
+        rev="45">
 
 <section id="summary">
 
@@ -612,6 +612,7 @@ server {
     <literal>http_503</literal> |
     <literal>http_403</literal> |
     <literal>http_404</literal> |
+    <literal>http_429</literal> |
     <literal>off</literal>
     ...</syntax>
 <default>off</default>
@@ -1030,6 +1031,7 @@ FastCGI-сервера, и ответ не вмещается целиком в 
     <literal>http_503</literal> |
     <literal>http_403</literal> |
     <literal>http_404</literal> |
+    <literal>http_429</literal> |
     <literal>non_idempotent</literal> |
     <literal>off</literal>
     ...</syntax>
@@ -1065,6 +1067,9 @@ FastCGI-сервера, и ответ не вмещается целиком в 
 <tag-name><literal>http_404</literal></tag-name>
 <tag-desc>сервер вернул ответ с кодом 404;</tag-desc>
 
+<tag-name><literal>http_429</literal></tag-name>
+<tag-desc>сервер вернул ответ с кодом 429 (1.11.13);</tag-desc>
+
 <tag-name id="non_idempotent"><literal>non_idempotent</literal></tag-name>
 <tag-desc>обычно запросы с
 <link url="https://tools.ietf.org/html/rfc7231#section-4.2.2">неидемпотентным</link>
@@ -1096,7 +1101,8 @@ FastCGI-сервера, и ответ не вмещается целиком в 
 Случаи <literal>error</literal>, <literal>timeout</literal> и
 <literal>invalid_header</literal>
 всегда считаются неудачными попытками, даже если они не указаны в директиве.
-Случаи <literal>http_500</literal> и <literal>http_503</literal>
+Случаи <literal>http_500</literal>, <literal>http_503</literal>
+и <literal>http_429</literal>
 считаются неудачными попытками, только если они указаны в директиве.
 Случаи <literal>http_403</literal> и <literal>http_404</literal>
 никогда не считаются неудачными попытками.

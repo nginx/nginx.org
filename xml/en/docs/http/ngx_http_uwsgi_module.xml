@@ -10,7 +10,7 @@
 <module name="Module ngx_http_uwsgi_module"
         link="/en/docs/http/ngx_http_uwsgi_module.html"
         lang="en"
-        rev="36">
+        rev="37">
 
 <section id="summary">
 
@@ -604,6 +604,7 @@ header fields.
     <literal>http_503</literal> |
     <literal>http_403</literal> |
     <literal>http_404</literal> |
+    <literal>http_429</literal> |
     <literal>off</literal>
     ...</syntax>
 <default>off</default>
@@ -981,6 +982,7 @@ packet header</link>.
     <literal>http_503</literal> |
     <literal>http_403</literal> |
     <literal>http_404</literal> |
+    <literal>http_429</literal> |
     <literal>non_idempotent</literal> |
     <literal>off</literal>
     ...</syntax>
@@ -1016,6 +1018,9 @@ server, passing a request to it, or reading the response header;</tag-desc>
 <tag-name><literal>http_404</literal></tag-name>
 <tag-desc>a server returned a response with the code 404;</tag-desc>
 
+<tag-name><literal>http_429</literal></tag-name>
+<tag-desc>a server returned a response with the code 429 (1.11.13);</tag-desc>
+
 <tag-name id="non_idempotent"><literal>non_idempotent</literal></tag-name>
 <tag-desc>normally, requests with a
 <link url="https://tools.ietf.org/html/rfc7231#section-4.2.2">non-idempotent</link>
@@ -1046,7 +1051,8 @@ attempt</link> of communication with a server.
 The cases of <literal>error</literal>, <literal>timeout</literal> and
 <literal>invalid_header</literal> are always considered unsuccessful attempts,
 even if they are not specified in the directive.
-The cases of <literal>http_500</literal> and <literal>http_503</literal> are
+The cases of <literal>http_500</literal>, <literal>http_503</literal>,
+and <literal>http_429</literal> are
 considered unsuccessful attempts only if they are specified in the directive.
 The cases of <literal>http_403</literal> and <literal>http_404</literal>
 are never considered unsuccessful attempts.
