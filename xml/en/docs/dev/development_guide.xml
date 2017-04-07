@@ -4246,6 +4246,394 @@ code, the denial code will become the finalization code.
 </section>
 
 
+<section name="Variables" id="http_variables">
+
+<section name="Accessing existing variables" id="http_existing_variables">
+
+<para>
+Variables may be referenced using index (this is the most common method)
+or names (see below in the section about creating variables).
+Index is created at configuration stage, when a variable is added
+to configuration.
+The variable index can be obtained using
+<literal>ngx_http_get_variable_index()</literal>:
+<programlisting>
+ngx_str_t  name;  /* ngx_string("foo") */
+ngx_int_t  index;
+
+index = ngx_http_get_variable_index(cf, &amp;name);
+</programlisting>
+Here, the <literal>cf</literal> is a pointer to nginx configuration and the
+<literal>name</literal> points to a string with the variable name.
+The function returns <literal>NGX_ERROR</literal> on error or valid index
+otherwise, which is typically stored somewhere in a module configuration for
+future use.
+</para>
+
+<para>
+All HTTP variables are evaluated in the context of HTTP request and results
+are specific to and cached in HTTP request.
+All functions that evaluate variables return
+<literal>ngx_http_variable_value_t</literal> type, representing
+the variable value:
+<programlisting>
+typedef ngx_variable_value_t  ngx_http_variable_value_t;
+
+typedef struct {
+    unsigned    len:28;
+
+    unsigned    valid:1;
+    unsigned    no_cacheable:1;
+    unsigned    not_found:1;
+    unsigned    escape:1;
+
+    u_char     *data;
+} ngx_variable_value_t;
+</programlisting>
+where:
+<list type="bullet">
+
+<listitem>
+<literal>len</literal> — length of a value
+</listitem>
+
+<listitem>
+<literal>data</literal> — value itself
+</listitem>
+
+<listitem>
+<literal>valid</literal> — value is valid
+</listitem>
+
+<listitem>
+<literal>not_found</literal> — variable was not found and thus
+the <literal>data</literal> and <literal>len</literal> fields are irrelevant;
+this may happen, for example, with such variables as <var>$arg_foo</var>
+when a corresponding argument was not passed in a request
+</listitem>
+
+<listitem>
+<literal>no_cacheable</literal> — do not cache result
+</listitem>
+
+<listitem>
+<literal>escape</literal> — used internally by the logging module to mark
+values that require escaping on output
+</listitem>
+
+</list>
+</para>
+
+<para>
+The <literal>ngx_http_get_flushed_variable()</literal>
+and <literal>ngx_http_get_indexed_variable()</literal> functions
+are used to obtain the variable value.
+They have the same interface - accepting a HTTP request <literal>r</literal>
+as a context for evaluating the variable and an <literal>index</literal>,
+identifying it.
+Example of typical usage:
+<programlisting>
+ngx_http_variable_value_t  *v;
+
+v = ngx_http_get_flushed_variable(r, index);
+
+if (v == NULL || v->not_found) {
+    /* we failed to get value or there is no such variable, handle it */
+    return NGX_ERROR;
+}
+
+/* some meaningful value is found */
+</programlisting>
+The difference between functions is that the
+<literal>ngx_http_get_indexed_variable()</literal> returns cached value
+and <literal>ngx_http_get_flushed_variable()</literal> flushes cache for
+non-cacheable variables.
+</para>
+
+<para>
+There are cases when it is required to deal with variables which names are
+not known at configuration time and thus they cannot be accessed using indexes,
+for example in modules like SSI or Perl.
+The <literal>ngx_http_get_variable(r, name, key)</literal> function may be
+used in such cases.
+It searches for the <literal>variable</literal> with a given
+<literal>name</literal> and its hash <literal>key</literal>.
+</para>
+
+</section>
+
+
+<section name="Creating variables" id="http_creating_variables">
+
+<para>
+To create a variable <literal>ngx_http_add_variable()</literal> function
+is used.
+It takes configuration (where variable is registered), variable name and
+flags that control its behaviour:
+
+<list type="bullet">
+<listitem><literal>NGX_HTTP_VAR_CHANGEABLE</literal>  — allows redefining
+the variable; If another module will define a variable with such name,
+no conflict will happen.
+For example, this allows user to override variables using the
+<link doc="../http/ngx_http_rewrite_module.xml" id="set"/> directive.
+</listitem>
+
+<listitem><literal>NGX_HTTP_VAR_NOCACHEABLE</literal>  — disables caching,
+is useful for such variables as <literal>$time_local</literal>
+</listitem>
+
+<listitem><literal>NGX_HTTP_VAR_NOHASH</literal>  — indicates that
+this variable is only accessible by index, not by name.
+This is a small optimization which may be used when it is known that the
+variable is not needed in modules like SSI or Perl.
+</listitem>
+
+<listitem><literal>NGX_HTTP_VAR_PREFIX</literal>  — the name of this
+variable is a prefix.
+A handler must implement additional logic to obtain value of specific
+variable.
+For example, all “<literal>arg_</literal>” variables are processed by the
+same handler which performs lookup in request arguments and returns value
+of specific argument.
+</listitem>
+
+</list>
+
+The function returns NULL in case of error or a pointer to
+<literal>ngx_http_variable_t</literal>:
+<programlisting>
+struct ngx_http_variable_s {
+    ngx_str_t                     name;
+    ngx_http_set_variable_pt      set_handler;
+    ngx_http_get_variable_pt      get_handler;
+    uintptr_t                     data;
+    ngx_uint_t                    flags;
+    ngx_uint_t                    index;
+};
+</programlisting>
+
+The <literal>get</literal> and <literal>set</literal> handlers
+are called to obtain or set the variable value,
+<literal>data</literal> will be passed to variable handlers,
+<literal>index</literal> will hold assigned variable index, used to reference
+the variable.
+</para>
+
+<para>
+Usually, a null-terminated static array of such structures is created
+by a module and processed at the preconfiguration stage to add variables
+into configuration:
+<programlisting>
+static ngx_http_variable_t  ngx_http_foo_vars[] = {
+
+    { ngx_string("foo_v1"), NULL, ngx_http_foo_v1_variable, NULL, 0, 0 },
+
+    { ngx_null_string, NULL, NULL, 0, 0, 0 }
+};
+
+static ngx_int_t
+ngx_http_foo_add_variables(ngx_conf_t *cf)
+{
+    ngx_http_variable_t  *var, *v;
+
+    for (v = ngx_http_foo_vars; v->name.len; v++) {
+        var = ngx_http_add_variable(cf, &amp;v->name, v->flags);
+        if (var == NULL) {
+            return NGX_ERROR;
+        }
+
+        var->get_handler = v->get_handler;
+        var->data = v->data;
+    }
+
+    return NGX_OK;
+}
+</programlisting>
+This function is used to initialize the <literal>preconfiguration</literal>
+field of the HTTP module context and is called before parsing HTTP configuration,
+so it could refer to these variables.
+</para>
+
+<para>
+The <literal>get</literal> handler is responsible for evaluating the variable
+in a context of specific request, for example:
+<programlisting>
+static ngx_int_t
+ngx_http_variable_connection(ngx_http_request_t *r,
+    ngx_http_variable_value_t *v, uintptr_t data)
+{
+    u_char  *p;
+
+    p = ngx_pnalloc(r->pool, NGX_ATOMIC_T_LEN);
+    if (p == NULL) {
+        return NGX_ERROR;
+    }
+
+    v->len = ngx_sprintf(p, "%uA", r->connection->number) - p;
+    v->valid = 1;
+    v->no_cacheable = 0;
+    v->not_found = 0;
+    v->data = p;
+
+    return NGX_OK;
+}
+</programlisting>
+It returns <literal>NGX_ERROR</literal> in case of internal error
+(for example, failed memory allocation) or <literal>NGX_OK</literal> otherwise.
+The status of variable evaluation may be understood by inspecting flags
+of the <literal>ngx_http_variable_value_t</literal> (see description above).
+</para>
+
+<para>
+The <literal>set</literal> handler allows setting the property
+referred by the variable.
+For example, the <literal>$limit_rate</literal> variable set handler
+modifies the request's <literal>limit_rate</literal> field:
+<programlisting>
+...
+{ ngx_string("limit_rate"), ngx_http_variable_request_set_size,
+  ngx_http_variable_request_get_size,
+  offsetof(ngx_http_request_t, limit_rate),
+  NGX_HTTP_VAR_CHANGEABLE|NGX_HTTP_VAR_NOCACHEABLE, 0 },
+...
+
+static void
+ngx_http_variable_request_set_size(ngx_http_request_t *r,
+    ngx_http_variable_value_t *v, uintptr_t data)
+{
+    ssize_t    s, *sp;
+    ngx_str_t  val;
+
+    val.len = v->len;
+    val.data = v->data;
+
+    s = ngx_parse_size(&amp;val);
+
+    if (s == NGX_ERROR) {
+        ngx_log_error(NGX_LOG_ERR, r->connection->log, 0,
+                      "invalid size \"%V\"", &amp;val);
+        return;
+    }
+
+    sp = (ssize_t *) ((char *) r + data);
+
+    *sp = s;
+
+    return;
+}
+</programlisting>
+
+</para>
+
+</section>
+
+</section>
+
+
+<section name="Complex values" id="http_complex_values">
+
+<para>
+A complex value, despite its name, provides an easy way to evaluate
+expressions that may contain text, variables, and their combination.
+</para>
+
+<para>
+The complex value description in
+<literal>ngx_http_compile_complex_value</literal> is compiled at the
+configuration stage into <literal>ngx_http_complex_value_t</literal>
+which is used at runtime to obtain evaluated expression results.
+
+<programlisting>
+ngx_str_t                         *value;
+ngx_http_complex_value_t           cv;
+ngx_http_compile_complex_value_t   ccv;
+
+value = cf->args->elts; /* directive arguments */
+
+ngx_memzero(&amp;ccv, sizeof(ngx_http_compile_complex_value_t));
+
+ccv.cf = cf;
+ccv.value = &amp;value[1];
+ccv.complex_value = &amp;cv;
+ccv.zero = 1;
+ccv.conf_prefix = 1;
+
+if (ngx_http_compile_complex_value(&amp;ccv) != NGX_OK) {
+    return NGX_CONF_ERROR;
+}
+</programlisting>
+
+Here, <literal>ccv</literal> holds all parameters that are required to
+initialize the complex value <literal>cv</literal>:
+
+<list type="bullet">
+
+<listitem>
+<literal>cf</literal> — configuration pointer
+</listitem>
+
+<listitem>
+<literal>value</literal> — string for parsing (input)
+</listitem>
+
+<listitem>
+<literal>complex_value</literal> — compiled value (output)
+</listitem>
+
+<listitem>
+<literal>zero</literal> — flag that enables zero-terminating value
+</listitem>
+
+<listitem>
+<literal>conf_prefix</literal> — prefixes result with configuration prefix
+(the directory where nginx is currently looking for configuration)
+</listitem>
+
+<listitem>
+<literal>root_prefix</literal> — prefixes result with root prefix
+(this is the normal nginx installation prefix)
+</listitem>
+
+</list>
+The <literal>zero</literal> flag is usable when results are to be passed to
+libraries that require zero-terminated strings, and prefixes are handy when
+dealing with filenames.
+</para>
+
+<para>
+Upon successful compilation, <literal>cv.lengths</literal> may
+be inspected to get information about the presence of variables
+in the expression.
+The NULL value means that the expression contained static text only,
+and there is no need in storing it as a complex value,
+so a simple string can be used.
+</para>
+
+<para>
+The <literal>ngx_http_set_complex_value_slot()</literal> is a convenient
+function used to initialize complex value completely right in the directive
+declaration.
+</para>
+
+<para>
+At runtime, a complex value may be calculated using the
+<literal>ngx_http_complex_value()</literal> function:
+<programlisting>
+ngx_str_t  res;
+
+if (ngx_http_complex_value(r, &amp;cv, &amp;res) != NGX_OK) {
+    return NGX_ERROR;
+}
+</programlisting>
+Given the request <literal>r</literal> and previously compiled
+value <literal>cv</literal> the function will evaluate
+expression and put result into <literal>res</literal>.
+</para>
+
+</section>
+
+
 <section name="Load balancing" id="http_load_balancing">
 
 <para>
