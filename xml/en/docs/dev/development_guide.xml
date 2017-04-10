@@ -4634,6 +4634,568 @@ expression and put result into <literal>res</literal>.
 </section>
 
 
+<section name="Response" id="http_response">
+
+<para>
+An HTTP response in nginx is produced by sending the response header followed by
+the optional response body.
+Both header and body are passed through a chain of filters and eventually get
+written to the client socket.
+An nginx module can install its handler into the header or body filter chain
+and process the output coming from the previous handler.
+</para>
+
+
+<section name="Response header" id="http_response_header">
+
+<para>
+Output header is sent by the function
+<literal>ngx_http_send_header(r)</literal>.
+Prior to calling this function, <literal>r->headers_out</literal> should contain
+all the data required to produce the HTTP response header.
+It's always required to set the <literal>status</literal> field of
+<literal>r->headers_out</literal>.
+If the response status suggests that a response body follows the header, 
+<literal>content_length_n</literal> can be set as well.
+The default value for this field is -1, which means that the body size is
+unknown.
+In this case, chunked transfer encoding is used.
+To output an arbitrary header, <literal>headers</literal> list should be
+appended.
+</para>
+
+<programlisting>
+static ngx_int_t
+ngx_http_foo_content_handler(ngx_http_request_t *r)
+{
+    ngx_int_t         rc;
+    ngx_table_elt_t  *h;
+
+    /* send header */
+
+    r->headers_out.status = NGX_HTTP_OK;
+    r->headers_out.content_length_n = 3;
+
+    /* X-Foo: foo */
+
+    h = ngx_list_push(&amp;r->headers_out.headers);
+    if (h == NULL) {
+        return NGX_ERROR;
+    }
+
+    h->hash = 1;
+    ngx_str_set(&amp;h->key, "X-Foo");
+    ngx_str_set(&amp;h->value, "foo");
+
+    rc = ngx_http_send_header(r);
+
+    if (rc == NGX_ERROR || rc > NGX_OK || r->header_only) {
+        return rc;
+    }
+
+    /* send body */
+
+    ...
+}
+</programlisting>
+
+</section>
+
+
+<section name="Header filters" id="http_header_filters">
+
+<para>
+The <literal>ngx_http_send_header(r)</literal> function invokes the header
+filter chain by calling the top header filter handler
+<literal>ngx_http_top_header_filter</literal>.
+It's assumed that every header handler calls the next handler in chain until
+the final handler <literal>ngx_http_header_filter(r)</literal> is called.
+The final header handler constructs the HTTP response based on
+<literal>r->headers_out</literal> and passes it to the
+<literal>ngx_http_writer_filter</literal> for output.
+</para>
+
+<para>
+To add a handler to the header filter chain, one should store its address in
+<literal>ngx_http_top_header_filter</literal> global variable at configuration
+time.
+The previous handler address is normally stored in a module's static variable
+and is called by the newly added handler before exiting.
+</para>
+
+<para>
+The following is an example header filter module, adding the HTTP header
+"X-Foo: foo" to every output with the status 200.
+</para>
+
+<programlisting>
+#include &lt;ngx_config.h&gt;
+#include &lt;ngx_core.h&gt;
+#include &lt;ngx_http.h&gt;
+
+
+static ngx_int_t ngx_http_foo_header_filter(ngx_http_request_t *r);
+static ngx_int_t ngx_http_foo_header_filter_init(ngx_conf_t *cf);
+
+
+static ngx_http_module_t  ngx_http_foo_header_filter_module_ctx = {
+    NULL,                                   /* preconfiguration */
+    ngx_http_foo_header_filter_init,        /* postconfiguration */
+
+    NULL,                                   /* create main configuration */
+    NULL,                                   /* init main configuration */
+
+    NULL,                                   /* create server configuration */
+    NULL,                                   /* merge server configuration */
+
+    NULL,                                   /* create location configuration */
+    NULL                                    /* merge location configuration */
+};
+
+
+ngx_module_t  ngx_http_foo_header_filter_module = {
+    NGX_MODULE_V1,
+    &amp;ngx_http_foo_header_filter_module_ctx, /* module context */
+    NULL,                                   /* module directives */
+    NGX_HTTP_MODULE,                        /* module type */
+    NULL,                                   /* init master */
+    NULL,                                   /* init module */
+    NULL,                                   /* init process */
+    NULL,                                   /* init thread */
+    NULL,                                   /* exit thread */
+    NULL,                                   /* exit process */
+    NULL,                                   /* exit master */
+    NGX_MODULE_V1_PADDING
+};
+
+
+static ngx_http_output_header_filter_pt  ngx_http_next_header_filter;
+
+
+static ngx_int_t
+ngx_http_foo_header_filter(ngx_http_request_t *r)
+{
+    ngx_table_elt_t  *h;
+
+    /* 
+     * The filter handler adds "X-Foo: foo" header
+     * to every HTTP 200 response
+     */
+
+    if (r->headers_out.status != NGX_HTTP_OK) {
+        return ngx_http_next_header_filter(r);
+    }
+
+    h = ngx_list_push(&amp;r->headers_out.headers);
+    if (h == NULL) {
+        return NGX_ERROR;
+    }
+
+    h->hash = 1;
+    ngx_str_set(&amp;h->key, "X-Foo");
+    ngx_str_set(&amp;h->value, "foo");
+
+    return ngx_http_next_header_filter(r);
+}
+
+
+static ngx_int_t
+ngx_http_foo_header_filter_init(ngx_conf_t *cf)
+{
+    ngx_http_next_header_filter = ngx_http_top_header_filter;
+    ngx_http_top_header_filter = ngx_http_foo_header_filter;
+
+    return NGX_OK;
+}
+</programlisting>
+
+</section>
+
+</section>
+
+
+<section name="Response body" id="http_response_body">
+
+<para>
+Response body is sent by calling the function
+<literal>ngx_http_output_filter(r, cl)</literal>.
+The function can be called multiple times.
+Each time it sends a part of the response body passed as a buffer chain.
+The last body buffer should have the <literal>last_buf</literal> flag set.
+</para>
+
+<para>
+The following example produces a complete HTTP output with "foo" as its body.
+In order for the example to work not only as a main request but as a subrequest
+as well, the <literal>last_in_chain_flag</literal> is set in the last buffer
+of the output.
+The <literal>last_buf</literal> flag is set only for the main request since
+a subrequest's last buffers does not end the entire output.
+</para>
+
+<programlisting>
+static ngx_int_t
+ngx_http_bar_content_handler(ngx_http_request_t *r)
+{
+    ngx_int_t     rc;
+    ngx_buf_t    *b;
+    ngx_chain_t   out;
+
+    /* send header */
+
+    r->headers_out.status = NGX_HTTP_OK;
+    r->headers_out.content_length_n = 3;
+
+    rc = ngx_http_send_header(r);
+
+    if (rc == NGX_ERROR || rc > NGX_OK || r->header_only) {
+        return rc;
+    }
+
+    /* send body */
+
+    b = ngx_calloc_buf(r->pool);
+    if (b == NULL) {
+        return NGX_ERROR;
+    }
+
+    b->last_buf = (r == r->main) ? 1: 0;
+    b->last_in_chain = 1;
+
+    b->memory = 1;
+
+    b->pos = (u_char *) "foo";
+    b->last = b->pos + 3;
+
+    out.buf = b;
+    out.next = NULL;
+
+    return ngx_http_output_filter(r, &amp;out);
+}
+</programlisting>
+
+</section>
+
+
+<section name="Body filters" id="http_body_filters">
+
+<para>
+The function <literal>ngx_http_output_filter(r, cl)</literal> invokes the
+body filter chain by calling the top body filter handler
+<literal>ngx_http_top_body_filter</literal>.
+It's assumed that every body handler calls the next handler in chain until
+the final handler <literal>ngx_http_write_filter(r, cl)</literal> is called.
+</para>
+
+<para>
+A body filter handler receives a chain of buffers.
+The handler is supposed to process the buffers and pass a possibly new chain to
+the next handler.
+It's worth noting that the chain links <literal>ngx_chain_t</literal> of the
+incoming chain belong to the caller.
+They should never be reused or changed.
+Right after the handler completes, the caller can use its output chain links
+to keep track of the buffers it has sent.
+To save the buffer chain or to substitute some buffers before sending further,
+a handler should allocate its own chain links.
+</para>
+
+<para>
+Following is the example of a simple body filter counting the number of
+body bytes.
+The result is available as the <literal>$counter</literal> variable which can be
+used in the access log.
+</para>
+
+<programlisting>
+#include &lt;ngx_config.h&gt;
+#include &lt;ngx_core.h&gt;
+#include &lt;ngx_http.h&gt;
+
+
+typedef struct {
+    off_t  count;
+} ngx_http_counter_filter_ctx_t;
+
+
+static ngx_int_t ngx_http_counter_body_filter(ngx_http_request_t *r,
+    ngx_chain_t *in);
+static ngx_int_t ngx_http_counter_variable(ngx_http_request_t *r,
+    ngx_http_variable_value_t *v, uintptr_t data);
+static ngx_int_t ngx_http_counter_add_variables(ngx_conf_t *cf);
+static ngx_int_t ngx_http_counter_filter_init(ngx_conf_t *cf);
+
+
+static ngx_http_module_t  ngx_http_counter_filter_module_ctx = {
+    ngx_http_counter_add_variables,        /* preconfiguration */
+    ngx_http_counter_filter_init,          /* postconfiguration */
+
+    NULL,                                  /* create main configuration */
+    NULL,                                  /* init main configuration */
+
+    NULL,                                  /* create server configuration */
+    NULL,                                  /* merge server configuration */
+
+    NULL,                                  /* create location configuration */
+    NULL                                   /* merge location configuration */
+};
+
+
+ngx_module_t  ngx_http_counter_filter_module = {
+    NGX_MODULE_V1,
+    &amp;ngx_http_counter_filter_module_ctx,   /* module context */
+    NULL,                                  /* module directives */
+    NGX_HTTP_MODULE,                       /* module type */
+    NULL,                                  /* init master */
+    NULL,                                  /* init module */
+    NULL,                                  /* init process */
+    NULL,                                  /* init thread */
+    NULL,                                  /* exit thread */
+    NULL,                                  /* exit process */
+    NULL,                                  /* exit master */
+    NGX_MODULE_V1_PADDING
+};
+
+
+static ngx_http_output_body_filter_pt  ngx_http_next_body_filter;
+
+static ngx_str_t  ngx_http_counter_name = ngx_string("counter");
+
+
+static ngx_int_t
+ngx_http_counter_body_filter(ngx_http_request_t *r, ngx_chain_t *in)
+{
+    ngx_chain_t                    *cl;
+    ngx_http_counter_filter_ctx_t  *ctx;
+
+    ctx = ngx_http_get_module_ctx(r, ngx_http_counter_filter_module);
+    if (ctx == NULL) {
+        ctx = ngx_pcalloc(r->pool, sizeof(ngx_http_counter_filter_ctx_t));
+        if (ctx == NULL) {
+            return NGX_ERROR;
+        }
+
+        ngx_http_set_ctx(r, ctx, ngx_http_counter_filter_module);
+    }
+
+    for (cl = in; cl; cl = cl->next) {
+        ctx->count += ngx_buf_size(cl->buf);
+    }
+
+    return ngx_http_next_body_filter(r, in);
+}
+
+
+static ngx_int_t
+ngx_http_counter_variable(ngx_http_request_t *r, ngx_http_variable_value_t *v,
+    uintptr_t data)
+{
+    u_char                         *p;
+    ngx_http_counter_filter_ctx_t  *ctx;
+
+    ctx = ngx_http_get_module_ctx(r, ngx_http_counter_filter_module);
+    if (ctx == NULL) {
+        v->not_found = 1;
+        return NGX_OK;
+    }
+
+    p = ngx_pnalloc(r->pool, NGX_OFF_T_LEN);
+    if (p == NULL) {
+        return NGX_ERROR;
+    }
+
+    v->data = p;
+    v->len = ngx_sprintf(p, "%O", ctx->count) - p;
+    v->valid = 1;
+    v->no_cacheable = 0;
+    v->not_found = 0;
+
+    return NGX_OK;
+}
+
+
+static ngx_int_t
+ngx_http_counter_add_variables(ngx_conf_t *cf)
+{
+    ngx_http_variable_t  *var;
+
+    var = ngx_http_add_variable(cf, &amp;ngx_http_counter_name, 0);
+    if (var == NULL) {
+        return NGX_ERROR;
+    }
+
+    var->get_handler = ngx_http_counter_variable;
+
+    return NGX_OK;
+}
+
+
+static ngx_int_t
+ngx_http_counter_filter_init(ngx_conf_t *cf)
+{
+    ngx_http_next_body_filter = ngx_http_top_body_filter;
+    ngx_http_top_body_filter = ngx_http_counter_body_filter;
+
+    return NGX_OK;
+}
+</programlisting>
+
+</section>
+
+
+<section name="Building filter modules" id="http_building_filter_modules">
+
+<para>
+When writing a body or header filter, a special care should be taken of the
+filters order.
+There's a number of header and body filters registered by nginx standard
+modules.
+It's important to register a filter module in the right place in respect to
+other filters.
+Normally, filters are registered by modules in their postconfiguration handlers.
+The order in which filters are called is obviously the reverse of when they are
+registered.
+</para>
+
+<para>
+A special slot <literal>HTTP_AUX_FILTER_MODULES</literal> for third-party filter
+modules is provided by nginx.
+To register a filter module in this slot, the <literal>ngx_module_type</literal>
+variable should be set to the value of <literal>HTTP_AUX_FILTER</literal> in
+module's configuration.
+</para>
+
+<para>
+The following example shows a filter module config file assuming it only has
+one source file <literal>ngx_http_foo_filter_module.c</literal>
+</para>
+
+<programlisting>
+ngx_module_type=HTTP_AUX_FILTER
+ngx_module_name=ngx_http_foo_filter_module
+ngx_module_srcs="$ngx_addon_dir/ngx_http_foo_filter_module.c"
+
+. auto/module
+</programlisting>
+
+</section>
+
+
+<section name="Buffer reuse" id="http_body_buffers_reuse">
+
+<para>
+When issuing or altering a stream of buffers, it's often desirable to reuse the
+allocated buffers.
+A standard approach widely adopted in nginx code is to keep two buffer chains
+for this purpose: <literal>free</literal> and <literal>busy</literal>.
+The <literal>free</literal> chain keeps all free buffers.
+These buffers can be reused.
+The <literal>busy</literal> chain keeps all buffers sent by the current
+module which are still in use by some other filter handler.
+A buffer is considered in use if its size is greater than zero.
+Normally, when a buffer is consumed by a filter, its <literal>pos</literal>
+(or <literal>file_pos</literal> for a file buffer) is moved towards
+<literal>last</literal> (<literal>file_last</literal> for a file buffer).
+Once a buffer is completely consumed, it's ready to be reused.
+To update the <literal>free</literal> chain with newly freed buffers,
+it's enough to iterate over the <literal>busy</literal> chain and move the zero
+size buffers at the head of it to <literal>free</literal>.
+This operation is so common that there is a special function
+<literal>ngx_chain_update_chains(free, busy, out, tag)</literal> which does
+this.
+The function appends the output chain <literal>out</literal> to
+<literal>busy</literal> and moves free buffers from the top of
+<literal>busy</literal> to <literal>free</literal>.
+Only the buffers with the given <literal>tag</literal> are reused.
+This lets a module reuse only the buffers allocated by itself.
+</para>
+
+<para>
+The following example is a body filter inserting the “foo” string before each
+incoming buffer.
+The new buffers allocated by the module are reused if possible.
+Note that for this example to work properly, it's also required to set up a
+header filter and reset <literal>content_length_n</literal> to -1, which is
+beyond the scope of this section.
+</para>
+
+<programlisting>
+typedef struct {
+    ngx_chain_t  *free;
+    ngx_chain_t  *busy;
+}  ngx_http_foo_filter_ctx_t;
+
+
+ngx_int_t
+ngx_http_foo_body_filter(ngx_http_request_t *r, ngx_chain_t *in)
+{
+    ngx_int_t                   rc;
+    ngx_buf_t                  *b;
+    ngx_chain_t                *cl, *tl, *out, **ll;
+    ngx_http_foo_filter_ctx_t  *ctx;
+
+    ctx = ngx_http_get_module_ctx(r, ngx_http_foo_filter_module);
+    if (ctx == NULL) {
+        ctx = ngx_pcalloc(r->pool, sizeof(ngx_http_foo_filter_ctx_t));
+        if (ctx == NULL) {
+            return NGX_ERROR;
+        }
+
+        ngx_http_set_ctx(r, ctx, ngx_http_foo_filter_module);
+    }
+
+    /* create a new chain "out" from "in" with all the changes */
+
+    ll = &amp;out;
+
+    for (cl = in; cl; cl = cl->next) {
+
+        /* append "foo" in a reused buffer if possible */
+
+        tl = ngx_chain_get_free_buf(r->pool, &amp;ctx->free);
+        if (tl == NULL) {
+            return NGX_ERROR;
+        }
+
+        b = tl->buf;
+        b->tag = (ngx_buf_tag_t) &amp;ngx_http_foo_filter_module;
+        b->memory = 1;
+        b->pos = (u_char *) "foo";
+        b->last = b->pos + 3;
+
+        *ll = tl;
+        ll = &amp;tl->next;
+
+        /* append the next incoming buffer */
+
+        tl = ngx_alloc_chain_link(r->pool);
+        if (tl == NULL) {
+            return NGX_ERROR;
+        }
+
+        tl->buf = cl->buf;
+        *ll = tl;
+        ll = &amp;tl->next;
+    }
+
+    *ll = NULL;
+
+    /* send the new chain */
+
+    rc = ngx_http_next_body_filter(r, out);
+
+    /* update "busy" and "free" chains for reuse */
+
+    ngx_chain_update_chains(r->pool, &amp;ctx->free, &amp;ctx->busy, &amp;out,
+                            (ngx_buf_tag_t) &amp;ngx_http_foo_filter_module);
+
+    return rc;
+}
+</programlisting>
+
+</section>
+
+
 <section name="Load balancing" id="http_load_balancing">
 
 <para>
