@@ -7,6 +7,21 @@
 
 <news name="nginx news" link="/" lang="en">
 
+<event date="2017-04-12">
+<para>
+<link doc="en/download.xml">nginx-1.12.0</link>
+stable version has been released,
+incorporating new features and bug fixes from the 1.11.x mainline branch -
+including variables support and other improvements in the
+<link doc="en/docs/stream/ngx_stream_core_module.xml">stream module</link>,
+<link doc="en/docs/http/ngx_http_v2_module.xml">HTTP/2</link> fixes,
+support for
+<link doc="en/docs/http/ngx_http_ssl_module.xml" id="ssl_certificate">multiple
+SSL certificates of different types</link>,
+improved dynamic modules support, and more.
+</para>
+</event>
+
 <event date="2017-04-04">
 <para>
 <link doc="en/download.xml">nginx-1.11.13</link>
