@@ -7,7 +7,7 @@
 <article name="nginx: Linux packages"
          link="/en/linux_packages.html"
          lang="en"
-         rev="24"
+         rev="25"
          toc="no">
 
 <section id="distributions">
@@ -25,11 +25,6 @@ RHEL/CentOS:
 <tr>
 <td width="20%">Version</td>
 <td>Supported Platforms</td>
-</tr>
-
-<tr>
-<td width="20%">5.x</td>
-<td>x86_64, i386</td>
 </tr>
 
 <tr>
@@ -68,6 +63,12 @@ Debian:
 <td>x86_64, i386</td>
 </tr>
 
+<tr>
+<td width="20%">9.x</td>
+<td width="20%">stretch</td>
+<td>x86_64, i386</td>
+</tr>
+
 </table>
 </para>
 
@@ -97,7 +98,7 @@ Ubuntu:
 <tr>
 <td width="20%">16.04</td>
 <td width="20%">xenial</td>
-<td>x86_64, i386, ppc64el</td>
+<td>x86_64, i386, ppc64el, aarch64/arm64</td>
 </tr>
 
 <tr>
@@ -155,8 +156,8 @@ enabled=1
 Replace “<literal>OS</literal>” with “<literal>rhel</literal>” or
 “<literal>centos</literal>”,
 depending on the distribution used, and “<literal>OSRELEASE</literal>”
-with “<literal>5</literal>”, “<literal>6</literal>”, or “<literal>7</literal>”,
-for 5.x, 6.x, or 7.x versions, respectively.
+with “<literal>6</literal>” or “<literal>7</literal>”, for 6.x or 7.x versions,
+respectively.
 </para>
 
 <para>
@@ -230,8 +231,8 @@ enabled=1
 Replace “<literal>OS</literal>” with “<literal>rhel</literal>” or
 “<literal>centos</literal>”,
 depending on the distribution used, and “<literal>OSRELEASE</literal>”
-with “<literal>5</literal>”, “<literal>6</literal>”, or “<literal>7</literal>”,
-for 5.x, 6.x, or 7.x versions, respectively.
+with “<literal>6</literal>” or “<literal>7</literal>”, for 6.x or 7.x versions,
+respectively.
 </para>
 
 <para>

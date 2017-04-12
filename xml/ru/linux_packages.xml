@@ -7,7 +7,7 @@
 <article name="nginx: пакеты для Linux"
          link="/ru/linux_packages.html"
          lang="ru"
-         rev="24"
+         rev="25"
          toc="no">
 
 <section id="distributions">
@@ -25,11 +25,6 @@ RHEL/CentOS:
 <tr>
 <td width="20%">Версия</td>
 <td>Поддерживаемые платформы</td>
-</tr>
-
-<tr>
-<td width="20%">5.x</td>
-<td>x86_64, i386</td>
 </tr>
 
 <tr>
@@ -68,6 +63,12 @@ Debian:
 <td>x86_64, i386</td>
 </tr>
 
+<tr>
+<td width="20%">9.x</td>
+<td width="20%">stretch</td>
+<td>x86_64, i386</td>
+</tr>
+
 </table>
 </para>
 
@@ -97,7 +98,7 @@ Ubuntu:
 <tr>
 <td width="20%">16.04</td>
 <td width="20%">xenial</td>
-<td>x86_64, i386, ppc64el</td>
+<td>x86_64, i386, ppc64el, aarch64/arm64</td>
 </tr>
 
 <tr>
@@ -154,8 +155,8 @@ enabled=1
 Замените “<literal>OS</literal>” на “<literal>rhel</literal>” или
 “<literal>centos</literal>”,
 в зависимости от используемого дистрибутива, а “<literal>OSRELEASE</literal>”
-на “<literal>5</literal>”, “<literal>6</literal>” или “<literal>7</literal>”,
-для, соответственно, 5.x, 6.x или 7.x версий.
+на “<literal>6</literal>” или “<literal>7</literal>”, для, соответственно, 6.x
+или 7.x версий.
 </para>
 
 <para>
@@ -231,8 +232,8 @@ enabled=1
 Замените “<literal>OS</literal>” на “<literal>rhel</literal>” или
 “<literal>centos</literal>”,
 в зависимости от используемого дистрибутива, а “<literal>OSRELEASE</literal>”
-на “<literal>5</literal>”, “<literal>6</literal>” или “<literal>7</literal>”,
-для, соответственно, 5.x, 6.x или 7.x версий.
+на “<literal>6</literal>” или “<literal>7</literal>”, для, соответственно, 6.x
+или 7.x версий.
 </para>
 
 <para>
