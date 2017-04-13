@@ -10,7 +10,7 @@
 <module name="Модуль ngx_mail_core_module"
         link="/ru/docs/mail/ngx_mail_core_module.html"
         lang="ru"
-        rev="9">
+        rev="10">
 
 <section id="summary">
 
@@ -79,6 +79,8 @@ mail {
     <value>адрес</value>:<value>порт</value>
     [<literal>ssl</literal>]
     [<literal>backlog</literal>=<value>число</value>]
+    [<literal>rcvbuf</literal>=<value>размер</value>]
+    [<literal>sndbuf</literal>=<value>размер</value>]
     [<literal>bind</literal>]
     [<literal>ipv6only</literal>=<literal>on</literal>|<literal>off</literal>]
     [<literal>so_keepalive</literal>=<literal>on</literal>|<literal>off</literal>|[<value>keepidle</value>]:[<value>keepintvl</value>]:[<value>keepcnt</value>]]</syntax>
@@ -133,6 +135,22 @@ listen unix:/var/run/nginx.sock;
 максимальный размер очереди ожидающих приёма соединений (1.9.2).
 По умолчанию <literal>backlog</literal> устанавливается равным -1 для
 FreeBSD, DragonFly BSD и macOS, и 511 для других платформ.
+</tag-desc>
+
+<tag-name>
+<literal>rcvbuf</literal>=<value>размер</value>
+</tag-name>
+<tag-desc>
+задаёт размер буфера приёма
+(параметр <c-def>SO_RCVBUF</c-def>) для слушающего сокета (1.11.13).
+</tag-desc>
+
+<tag-name>
+<literal>sndbuf</literal>=<value>размер</value>
+</tag-name>
+<tag-desc>
+задаёт размер буфера передачи
+(параметр <c-def>SO_SNDBUF</c-def>) для слушающего сокета (1.11.13).
 </tag-desc>
 
 <tag-name>

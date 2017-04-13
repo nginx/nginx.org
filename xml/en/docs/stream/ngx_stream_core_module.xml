@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_core_module"
         link="/en/docs/stream/ngx_stream_core_module.html"
         lang="en"
-        rev="22">
+        rev="23">
 
 <section id="summary">
 
@@ -84,6 +84,8 @@ stream {
     [<literal>udp</literal>]
     [<literal>proxy_protocol</literal>]
     [<literal>backlog</literal>=<value>number</value>]
+    [<literal>rcvbuf</literal>=<value>size</value>]
+    [<literal>sndbuf</literal>=<value>size</value>]
     [<literal>bind</literal>]
     [<literal>ipv6only</literal>=<literal>on</literal>|<literal>off</literal>]
     [<literal>reuseport</literal>]
@@ -147,6 +149,22 @@ the maximum length for the queue of pending connections (1.9.2).
 By default,
 <literal>backlog</literal> is set to -1 on FreeBSD, DragonFly BSD, and macOS,
 and to 511 on other platforms.
+</tag-desc>
+
+<tag-name>
+<literal>rcvbuf</literal>=<value>size</value>
+</tag-name>
+<tag-desc>
+sets the receive buffer size
+(the <c-def>SO_RCVBUF</c-def> option) for the listening socket (1.11.13).
+</tag-desc>
+
+<tag-name>
+<literal>sndbuf</literal>=<value>size</value>
+</tag-name>
+<tag-desc>
+sets the send buffer size
+(the <c-def>SO_SNDBUF</c-def> option) for the listening socket (1.11.13).
 </tag-desc>
 
 <tag-name>

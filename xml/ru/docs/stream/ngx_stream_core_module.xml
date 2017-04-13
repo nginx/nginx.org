@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_core_module"
         link="/ru/docs/stream/ngx_stream_core_module.html"
         lang="ru"
-        rev="22">
+        rev="23">
 
 <section id="summary">
 
@@ -84,6 +84,8 @@ stream {
     [<literal>udp</literal>]
     [<literal>proxy_protocol</literal>]
     [<literal>backlog</literal>=<value>число</value>]
+    [<literal>rcvbuf</literal>=<value>размер</value>]
+    [<literal>sndbuf</literal>=<value>размер</value>]
     [<literal>bind</literal>]
     [<literal>ipv6only</literal>=<literal>on</literal>|<literal>off</literal>]
     [<literal>reuseport</literal>]
@@ -148,6 +150,22 @@ PROXY</link>.
 По умолчанию <literal>backlog</literal> устанавливается равным -1 для
 FreeBSD, DragonFly BSD и macOS,
 и 511 для других платформ.
+</tag-desc>
+
+<tag-name>
+<literal>rcvbuf</literal>=<value>размер</value>
+</tag-name>
+<tag-desc>
+задаёт размер буфера приёма
+(параметр <c-def>SO_RCVBUF</c-def>) для слушающего сокета (1.11.13).
+</tag-desc>
+
+<tag-name>
+<literal>sndbuf</literal>=<value>размер</value>
+</tag-name>
+<tag-desc>
+задаёт размер буфера передачи
+(параметр <c-def>SO_SNDBUF</c-def>) для слушающего сокета (1.11.13).
 </tag-desc>
 
 <tag-name>
