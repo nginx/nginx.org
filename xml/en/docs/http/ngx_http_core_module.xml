@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="73">
+        rev="74">
 
 <section id="directives" name="Directives">
 
@@ -698,6 +698,13 @@ error_page 404 =301 http://example.com/notfound.html;
 In this case, by default, the response code 302 is returned to the client.
 It can only be changed to one of the redirect status
 codes (301, 302, 303, 307, and 308).
+<note>
+The code 307 was not treated as a redirect until versions 1.1.16 and 1.0.13.
+</note>
+
+<note>
+The code 308 was not treated as a redirect until version 1.13.0.
+</note>
 </para>
 
 <para>
