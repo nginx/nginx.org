@@ -10,7 +10,7 @@
 <module name="Module ngx_http_rewrite_module"
         link="/en/docs/http/ngx_http_rewrite_module.html"
         lang="en"
-        rev="7">
+        rev="8">
 
 <section id="summary">
 
@@ -212,7 +212,7 @@ a response header.
 
 <para>
 Starting from version 0.8.42, it is possible to specify
-either a redirect URL (for codes 301, 302, 303, and 307),
+either a redirect URL (for codes 301, 302, 303, 307, and 308)
 or the response body <value>text</value> (for other codes).
 A response body text and redirect URL can contain variables.
 As a special case, a redirect URL can be specified as a URI
@@ -238,6 +238,10 @@ Only the following codes could be returned before version 0.7.51:
 
 <note>
 The code 307 was not treated as a redirect until versions 1.1.16 and 1.0.13.
+</note>
+
+<note>
+The code 308 was not treated as a redirect until version 1.13.0.
 </note>
 </para>
 

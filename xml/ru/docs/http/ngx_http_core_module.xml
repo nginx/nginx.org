@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="70">
+        rev="71">
 
 <section id="directives" name="Директивы">
 
@@ -694,7 +694,7 @@ error_page 404 =301 http://example.com/notfound.html;
 </example>
 В этом случае по умолчанию клиенту возвращается код ответа 302.
 Его можно изменить только на один из кодов ответа, относящихся к
-перенаправлениям (301, 302, 303 и 307).
+перенаправлениям (301, 302, 303, 307 и 308).
 </para>
 
 <para>
