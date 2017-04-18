@@ -20,10 +20,9 @@
 
     <div id="banner">
         <xsl:if test="@lang = 'he'"> <xsl:attribute name="class"> <xsl:text>ltr</xsl:text> </xsl:attribute> </xsl:if>
-        <strong>Announcing NGINX Plus R12</strong><br/>
-        Now with configuration sharing, nginScript, enhanced caching,<br/>
-        deeper monitoring and instrumentation, and more.
-        <a href="https://www.nginx.com/blog/nginx-plus-r12-released/?utm_source=nginxorg&amp;utm_medium=banner"><em>Explore R12</em></a><br/>
+        <br/><a href="https://www.nginx.com/nginxconf/?utm_source=nginxorg">
+        nginx.conf 2017</a>: Call For Proposal Now Open --
+        <a href="https://nginxconf17.busyconf.com/proposals/new?utm_source=nginxorg">Submit a Talk!</a>
     </div>
 
     <div id="main">
