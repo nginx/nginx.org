@@ -4985,6 +4985,69 @@ The result of the subrequest can be analyzed in the callback handler.
 </section>
 
 
+<section name="Request finalization" id="http_request_finalization">
+
+<para>
+An HTTP request is finalized by calling the function
+<literal>ngx_http_finalize_request(r, rc)</literal>.
+It is usually finalized by the content handler after sending all output buffers
+to the filter chain.
+At this point the output may not be completely sent to the client, but remain
+buffered somewhere along the filter chain.
+If it is, the <literal>ngx_http_finalize_request(r, rc)</literal> function will
+automatically install a special handler <literal>ngx_http_writer(r)</literal>
+to finish sending the output.
+A request is also finalized in case of an error or if a standard HTTP response
+code needs to be returned to the client.
+</para>
+
+<para>
+The function <literal>ngx_http_finalize_request(r, rc)</literal> expects the
+following <literal>rc</literal> values:
+</para>
+
+<list type="bullet">
+
+<listitem>
+<literal>NGX_DONE</literal> - fast finalization.
+Decrement request <literal>count</literal> and destroy the request if it
+reaches zero.
+The client connection may still be used for more requests after that
+</listitem>
+
+<listitem>
+<literal>NGX_ERROR</literal>, <literal>NGX_HTTP_REQUEST_TIME_OUT</literal>
+(408), <literal>NGX_HTTP_CLIENT_CLOSED_REQUEST</literal> (499) - error
+finalization.
+Terminate the request as soon as possible and close the client connection.
+</listitem>
+
+<listitem>
+<literal>NGX_HTTP_CREATED</literal> (201),
+<literal>NGX_HTTP_NO_CONTENT</literal> (204), codes greater than or equal to
+<literal>NGX_HTTP_SPECIAL_RESPONSE</literal> (300) - special response
+finalization.
+For these values nginx either sends a default code response page to the client
+or performs the internal redirect to an
+<link doc="../http/ngx_http_core_module.xml" id="error_page"/> location if it's
+configured for the code
+</listitem>
+
+<listitem>
+Other codes are considered success finalization codes and may activate the
+request writer to finish sending the response body.
+Once body is completely sent, request <literal>count</literal> is decremented.
+If it reaches zero, the request is destroyed, but the client connection may
+still be used for other requests.
+If <literal>count</literal> is positive, there are unfinished activities
+within the request, which will be finalized at a later point.
+</listitem>
+
+</list>
+
+</section>
+
+
 <section name="Response" id="http_response">
 
 <para>
