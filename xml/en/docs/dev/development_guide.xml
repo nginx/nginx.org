@@ -4634,6 +4634,110 @@ expression and put result into <literal>res</literal>.
 </section>
 
 
+<section name="Request redirection" id="http_request_redirection">
+
+<para>
+An HTTP request is always connected to a location via the
+<literal>loc_conf</literal> field of the <literal>ngx_http_request_t</literal>
+structure.
+This means that at any point the location configuration of any module can be
+retrieved from the request by calling
+<literal>ngx_http_get_module_loc_conf(r, module)</literal>.
+Request location may be changed several times throughout its lifetime.
+Initially, a default server location of the default server is assigned to a
+request.
+Once a request switches to a different server (chosen by the HTTP
+<header>Host</header> header or SSL SNI extension), the request switches to the
+default location of that server as well.
+The next change of the location takes place at the
+<literal>NGX_HTTP_FIND_CONFIG_PHASE</literal> request phase.
+At this phase a location is chosen by request URI among all non-named locations
+configured for the server.
+The
+<link doc="../http/ngx_http_rewrite_module.xml">ngx_http_rewrite_module</link>
+may change the request URI at the
+<literal>NGX_HTTP_REWRITE_PHASE</literal> request phase as a result of
+<link doc="../http/ngx_http_rewrite_module.xml" id="rewrite">rewrite</link> and
+return to the <literal>NGX_HTTP_FIND_CONFIG_PHASE</literal> phase for choosing a
+new location based on the new URI.
+</para>
+
+<para>
+It is also possible to redirect a request to a new location at any point by
+calling one of the functions
+<literal>ngx_http_internal_redirect(r, uri, args)</literal> or
+<literal>ngx_http_named_location(r, name)</literal>.
+</para>
+
+<para>
+The function <literal>ngx_http_internal_redirect(r, uri, args)</literal> changes
+the request URI and returns the request to the
+<literal>NGX_HTTP_SERVER_REWRITE_PHASE</literal> phase.
+The request proceeds with a server default location.
+Later at <literal>NGX_HTTP_FIND_CONFIG_PHASE</literal> a new location is chosen
+based on the new request URI.
+</para>
+
+<para>
+The following example performs an internal redirect with the new request
+arguments.
+</para>
+
+<programlisting>
+ngx_int_t
+ngx_http_foo_redirect(ngx_http_request_t *r)
+{
+    ngx_str_t  uri, args;
+
+    ngx_str_set(&amp;uri, "/foo");
+    ngx_str_set(&amp;args, "bar=1");
+
+    return ngx_http_internal_redirect(r, &amp;uri, &amp;args);
+}
+</programlisting>
+
+<para>
+The function <literal>ngx_http_named_location(r, name)</literal> redirects
+a request to a named location.  The name of the location is passed as the
+argument.  The location is looked up among all named locations of the current
+server, after which the requests switches to the
+<literal>NGX_HTTP_REWRITE_PHASE</literal> phase.
+</para>
+
+<para>
+The following example performs a redirect to a named location @foo.
+</para>
+
+<programlisting>
+ngx_int_t
+ngx_http_foo_named_redirect(ngx_http_request_t *r)
+{
+    ngx_str_t  name;
+
+    ngx_str_set(&amp;name, "foo");
+
+    return ngx_http_named_location(r, &amp;name);
+}
+</programlisting>
+
+<para>
+Both functions <literal>ngx_http_internal_redirect(r, uri, args)</literal>
+and <literal>ngx_http_named_location(r, name)</literal> may be called when
+a request already has some contexts saved in its <literal>ctx</literal> field
+by nginx modules.  These contexts could become inconsistent with the new
+location configuration.  To prevent inconsistency, all request contexts are
+erased by both redirect functions.
+</para>
+
+<para>
+Redirected and rewritten requests become internal and may access the
+<link doc="../http/ngx_http_core_module.xml" id="internal">internal</link>
+locations.  Internal requests have the <literal>internal</literal> flag set.
+</para>
+
+</section>
+
+
 <section name="Response" id="http_response">
 
 <para>
