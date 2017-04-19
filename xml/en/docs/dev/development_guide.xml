@@ -4738,6 +4738,253 @@ locations.  Internal requests have the <literal>internal</literal> flag set.
 </section>
 
 
+<section name="Subrequests" id="http_subrequests">
+
+<para>
+Subrequests are primarily used to include output of one request into another,
+possibly mixed with other data.
+A subrequest looks like a normal request, but shares some data with its parent.
+Particularly, all fields related to client input are shared since a subrequest
+does not receive any other input from client.
+The request field <literal>parent</literal> for a subrequest keeps a link to its
+parent request and is NULL for the main request.
+The field <literal>main</literal> keeps a link to the main request in a group of
+requests.
+</para>
+
+<para>
+A subrequest starts with <literal>NGX_HTTP_SERVER_REWRITE_PHASE</literal> phase.
+It passes through the same phases as a normal request and is assigned a location
+based on its own URI.
+</para>
+
+<para>
+Subrequest output header is always ignored.
+Subrequest output body is placed by the
+<literal>ngx_http_postpone_filter</literal> into the right position in relation
+to other data produced by the parent request.
+</para>
+
+<para>
+Subrequests are related to the concept of active requests.
+A request <literal>r</literal> is considered active if
+<literal>c->data == r</literal>, where <literal>c</literal> is the client
+connection object.
+At any point, only the active request in a request group is allowed to output
+its buffers to the client.
+A non-active request can still send its data to the filter chain, but they
+will not pass beyond the <literal>ngx_http_postpone_filter</literal> and will
+remain buffered by that filter until the request becomes active.
+Here are some rules of request activation:
+</para>
+
+<list type="bullet">
+
+<listitem>
+Initially, the main request is active
+</listitem>
+
+<listitem>
+The first subrequest of an active request becomes active right after creation
+</listitem>
+
+<listitem>
+The <literal>ngx_http_postpone_filter</literal> activates the next request
+in active request's subrequest list, once all data prior to that request are
+sent
+</listitem>
+
+<listitem>
+When a request is finalized, its parent is activated
+</listitem>
+
+</list>
+
+<para>
+A subrequest is created by calling the function
+<literal>ngx_http_subrequest(r, uri, args, psr, ps, flags)</literal>, where
+<literal>r</literal> is the parent request, <literal>uri</literal> and
+<literal>args</literal> are URI and arguments of the
+subrequest, <literal>psr</literal> is the output parameter, receiving the
+newly created subrequest reference, <literal>ps</literal> is a callback object
+for notifying the parent request that the subrequest is being finalized,
+<literal>flags</literal> is subrequest creation flags bitmask.
+The following flags are available:
+</para>
+
+<list type="bullet">
+
+<listitem>
+<literal>NGX_HTTP_SUBREQUEST_IN_MEMORY</literal> - subrequest output should not
+be sent to the client, but rather stored in memory.
+This only works for proxying subrequests.
+After subrequest finalization its output is available in
+<literal>r->upstream->buffer</literal> buffer of type
+<literal>ngx_buf_t</literal>
+</listitem>
+
+<listitem>
+<literal>NGX_HTTP_SUBREQUEST_WAITED</literal> - the subrequest
+<literal>done</literal> flag is set even if it is finalized being non-active.
+This subrequest flag is used by the SSI filter
+</listitem>
+
+<listitem>
+<literal>NGX_HTTP_SUBREQUEST_CLONE</literal> - the subrequest is created as a
+clone of its parent.
+It is started at the same location and proceeds from the same phase as the
+parent request
+</listitem>
+
+</list>
+
+<para>
+The following example creates a subrequest with the URI of "/foo".
+</para>
+
+<programlisting>
+ngx_int_t            rc;
+ngx_str_t            uri;
+ngx_http_request_t  *sr;
+
+...
+
+ngx_str_set(&amp;uri, "/foo");
+
+rc = ngx_http_subrequest(r, &amp;uri, NULL, &amp;sr, NULL, 0);
+if (rc == NGX_ERROR) {
+    /* error */
+}
+</programlisting>
+
+<para>
+This example clones the current request and sets a finalization callback for the
+subrequest.
+</para>
+
+<programlisting>
+ngx_int_t
+ngx_http_foo_clone(ngx_http_request_t *r)
+{
+    ngx_http_request_t          *sr;
+    ngx_http_post_subrequest_t  *ps;
+
+    ps = ngx_palloc(r->pool, sizeof(ngx_http_post_subrequest_t));
+    if (ps == NULL) {
+        return NGX_ERROR;
+    }
+
+    ps->handler = ngx_http_foo_subrequest_done;
+    ps->data = "foo";
+
+    return ngx_http_subrequest(r, &amp;r->uri, &amp;r->args, &amp;sr, ps,
+                               NGX_HTTP_SUBREQUEST_CLONE);
+}
+
+
+ngx_int_t
+ngx_http_foo_subrequest_done(ngx_http_request_t *r, void *data, ngx_int_t rc)
+{
+    char  *msg = (char *) data;
+
+    ngx_log_error(NGX_LOG_INFO, r->connection->log, 0,
+                  "done subrequest r:%p msg:%s rc:%i", r, msg, rc);
+
+    return rc;
+}
+</programlisting>
+
+<para>
+Subrequests are normally created in a body filter.
+In this case subrequest output can be treated as any other explicit request
+output.
+This means that eventually the output of a subrequest is sent to the client
+after all explicit buffers passed prior to subrequest creation and before any
+buffers passed later.
+This ordering is preserved even for large hierarchies of subrequests.
+The following example inserts a subrequest output after all request data
+buffers, but before the final buffer with the <literal>last_buf</literal> flag.
+</para>
+
+<programlisting>
+ngx_int_t
+ngx_http_foo_body_filter(ngx_http_request_t *r, ngx_chain_t *in)
+{
+    ngx_int_t                   rc;
+    ngx_buf_t                  *b;
+    ngx_uint_t                  last;
+    ngx_chain_t                *cl, out;
+    ngx_http_request_t         *sr;
+    ngx_http_foo_filter_ctx_t  *ctx;
+
+    ctx = ngx_http_get_module_ctx(r, ngx_http_foo_filter_module);
+    if (ctx == NULL) {
+        return ngx_http_next_body_filter(r, in);
+    }
+
+    last = 0;
+
+    for (cl = in; cl; cl = cl->next) {
+        if (cl->buf->last_buf) {
+            cl->buf->last_buf = 0;
+            cl->buf->last_in_chain = 1;
+            cl->buf->sync = 1;
+            last = 1;
+        }
+    }
+
+    /* Output explicit output buffers */
+
+    rc = ngx_http_next_body_filter(r, in);
+
+    if (rc == NGX_ERROR || !last) {
+        return rc;
+    }
+
+    /*
+     * Create the subrequest.  The output of the subrequest
+     * will automatically be sent after all preceding buffers,
+     * but before the last_buf buffer passed later in this function.
+     */
+
+    if (ngx_http_subrequest(r, ctx->uri, NULL, &amp;sr, NULL, 0) != NGX_OK) {
+        return NGX_ERROR;
+    }
+
+    ngx_http_set_ctx(r, NULL, ngx_http_foo_filter_module);
+
+
+    /* Output the final buffer with the last_buf flag */
+
+    b = ngx_calloc_buf(r->pool);
+    if (b == NULL) {
+        return NGX_ERROR;
+    }
+
+    b->last_buf = 1;
+
+    out.buf = b;
+    out.next = NULL;
+
+    return ngx_http_output_filter(r, &amp;out);
+}
+</programlisting>
+
+<para>
+A subrequest may also be created for other purposes than data output.
+For example, the <link doc="../http/ngx_http_auth_request_module.xml">
+ngx_http_auth_request_module</link>
+creates a subrequest at <literal>NGX_HTTP_ACCESS_PHASE</literal> phase.
+To disable any output at this point, the subrequest
+<literal>header_only</literal> flag is set.
+This prevents subrequest body from being sent to the client.
+Its header is ignored anyway.
+The result of the subrequest can be analyzed in the callback handler.
+</para>
+
+</section>
+
+
 <section name="Response" id="http_response">
 
 <para>
