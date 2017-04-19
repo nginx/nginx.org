@@ -5048,6 +5048,182 @@ within the request, which will be finalized at a later point.
 </section>
 
 
+<section name="Request body" id="http_request_body">
+
+<para>
+For dealing with client request body, nginx provides the following functions:
+<literal>ngx_http_read_client_request_body(r, post_handler)</literal> and
+<literal>ngx_http_discard_request_body(r)</literal>.
+The first function reads the request body and makes it available via the
+<literal>request_body</literal> request field.
+The second function instructs nginx to discard (read and ignore) the request
+body.
+One of these functions must be called for every request.
+Normally, it is done in the content handler.
+</para>
+
+<para>
+Reading or discarding client request body from a subrequest is not allowed.
+It should always be done in the main request.
+When a subrequest is created, it inherits the parent
+<literal>request_body</literal> object which can be used by the subrequest if
+the main request has previously read the request body.
+</para>
+
+<para>
+The function
+<literal>ngx_http_read_client_request_body(r, post_handler)</literal> starts
+the process of reading the request body.
+When the body is completely read, the <literal>post_handler</literal> callback
+is called to continue processing the request.
+If request body is missing or already read, the callback is called immediately.
+The function
+<literal>ngx_http_read_client_request_body(r, post_handler)</literal>
+allocates the <literal>request_body</literal> request field of type
+<literal>ngx_http_request_body_t</literal>.
+The field <literal>bufs</literal> of this object keeps the result as a buffer
+chain.
+The body can be saved in memory buffers or file buffers, if
+<link doc="../http/ngx_http_core_module.xml" id="client_body_buffer_size"/>
+is not enough to fit the entire body in memory.
+</para>
+
+<para>
+The following example reads client request body and returns its size.
+</para>
+
+<programlisting>
+ngx_int_t
+ngx_http_foo_content_handler(ngx_http_request_t *r)
+{
+    ngx_int_t  rc;
+
+    rc = ngx_http_read_client_request_body(r, ngx_http_foo_init);
+
+    if (rc >= NGX_HTTP_SPECIAL_RESPONSE) {
+        /* error */
+        return rc;
+    }
+
+    return NGX_DONE;
+}
+
+
+void
+ngx_http_foo_init(ngx_http_request_t *r)
+{
+    off_t         len;
+    ngx_buf_t    *b;
+    ngx_int_t     rc;
+    ngx_chain_t  *in, out;
+
+    if (r->request_body == NULL) {
+        ngx_http_finalize_request(r, NGX_HTTP_INTERNAL_SERVER_ERROR);
+        return;
+    }
+
+    len = 0;
+
+    for (in = r->request_body->bufs; in; in = in->next) {
+        len += ngx_buf_size(in->buf);
+    }
+
+    b = ngx_create_temp_buf(r->pool, NGX_OFF_T_LEN);
+    if (b == NULL) {
+        ngx_http_finalize_request(r, NGX_HTTP_INTERNAL_SERVER_ERROR);
+        return;
+    }
+
+    b->last = ngx_sprintf(b->pos, "%O", len);
+    b->last_buf = (r == r->main) ? 1: 0;
+    b->last_in_chain = 1;
+
+    r->headers_out.status = NGX_HTTP_OK;
+    r->headers_out.content_length_n = b->last - b->pos;
+
+    rc = ngx_http_send_header(r);
+
+    if (rc == NGX_ERROR || rc > NGX_OK || r->header_only) {
+        ngx_http_finalize_request(r, rc);
+        return;
+    }
+
+    out.buf = b;
+    out.next = NULL;
+
+    rc = ngx_http_output_filter(r, &amp;out);
+
+    ngx_http_finalize_request(r, rc);
+}
+</programlisting>
+
+<para>
+The following fields of the request affect the way request body is read:
+</para>
+
+<list type="bullet">
+
+<listitem>
+<literal>request_body_in_single_buf</literal> - read body to a single memory
+buffer
+</listitem>
+
+<listitem>
+<literal>request_body_in_file_only</literal> - always read body to a file,
+even if fits the memory buffer
+</listitem>
+
+<listitem>
+<literal>request_body_in_persistent_file</literal> - do not unlink the file
+right after creation.
+Such a file can be moved to another directory
+</listitem>
+
+<listitem>
+<literal>request_body_in_clean_file</literal> - unlink the file the when the
+request is finalized.
+This can be useful when a file was supposed to be moved to another directory
+but eventually was not moved for some reason
+</listitem>
+
+<listitem>
+<literal>request_body_file_group_access</literal> - enable file group access.
+By default a file is created with 0600 access mask.
+When the flag is set, 0660 access mask is used
+</listitem>
+
+<listitem>
+<literal>request_body_file_log_level</literal> - log file errors with this
+log level
+</listitem>
+
+<listitem>
+<literal>request_body_no_buffering</literal> - read request body without
+buffering
+</listitem>
+
+</list>
+
+<para>
+When the <literal>request_body_no_buffering</literal> flag is set, the
+unbuffered mode of reading the request body is enabled.
+In this mode, after calling
+<literal>ngx_http_read_client_request_body()</literal>, the
+<literal>bufs</literal> chain may keep only a part of the body.
+To read the next part, the
+<literal>ngx_http_read_unbuffered_request_body(r)</literal> function should be
+called.
+The return value of <literal>NGX_AGAIN</literal> and the request flag
+<literal>reading_body</literal> indicate that more data is available.
+If <literal>bufs</literal> is NULL after calling this function, there is
+nothing to read at the moment.
+The request callback <literal>read_event_handler</literal> will be called when
+the next part of request body is available.
+</para>
+
+</section>
+
+
 <section name="Response" id="http_response">
 
 <para>
