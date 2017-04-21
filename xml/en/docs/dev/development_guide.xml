@@ -4090,7 +4090,7 @@ Standard nginx modules such as
 </link> register their handlers at this phase.
 If configured so by the
 <link doc="../http/ngx_http_core_module.xml" id="satisfy"/> directive, only one
-of access phase handlers may allow access to the request in order to confinue
+of access phase handlers may allow access to the request in order to continue
 processing
 </listitem>
 
@@ -5245,7 +5245,7 @@ Prior to calling this function, <literal>r->headers_out</literal> should contain
 all the data required to produce the HTTP response header.
 It's always required to set the <literal>status</literal> field of
 <literal>r->headers_out</literal>.
-If the response status suggests that a response body follows the header, 
+If the response status suggests that a response body follows the header,
 <literal>content_length_n</literal> can be set as well.
 The default value for this field is -1, which means that the body size is
 unknown.
@@ -5367,7 +5367,7 @@ ngx_http_foo_header_filter(ngx_http_request_t *r)
 {
     ngx_table_elt_t  *h;
 
-    /* 
+    /*
      * The filter handler adds "X-Foo: foo" header
      * to every HTTP 200 response
      */
