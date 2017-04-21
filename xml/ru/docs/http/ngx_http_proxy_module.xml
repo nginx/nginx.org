@@ -42,7 +42,7 @@ location / {
 <directive name="proxy_bind">
 <syntax>
     <value>адрес</value>
-    [<literal>transparent</literal><literal>transparent</literal>] |
+    [<literal>transparent</literal> |
     <literal>off</literal></syntax>
 <default/>
 <context>http</context>
