@@ -10,7 +10,7 @@
 <module name="Module ngx_http_uwsgi_module"
         link="/en/docs/http/ngx_http_uwsgi_module.html"
         lang="en"
-        rev="37">
+        rev="38">
 
 <section id="summary">
 
@@ -515,6 +515,14 @@ By default, <literal>purger_sleep</literal> is set to 50 milliseconds.
 </tag-desc>
 
 </list>
+</para>
+
+<para>
+<note>
+In versions 1.7.3, 1.7.7, and 1.11.10 cache header format has been changed.
+Previously cached responses will be considered invalid
+after upgrading to a newer nginx version.
+</note>
 </para>
 
 </directive>

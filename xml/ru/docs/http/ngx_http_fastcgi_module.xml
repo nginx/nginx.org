@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_fastcgi_module"
         link="/ru/docs/http/ngx_http_fastcgi_module.html"
         lang="ru"
-        rev="45">
+        rev="46">
 
 <section id="summary">
 
@@ -522,6 +522,14 @@ fastcgi_cache_path /data/nginx/cache levels=1:2 keys_zone=one:10m;
 </tag-desc>
 
 </list>
+</para>
+
+<para>
+<note>
+В версиях 1.7.3, 1.7.7 и 1.11.10 формат заголовка кэша был изменён.
+При обновлении на более новую версию nginx
+ранее закэшированные ответы будут считаться недействительными.
+</note>
 </para>
 
 </directive>
