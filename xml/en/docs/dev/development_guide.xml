@@ -422,7 +422,7 @@ A number of formatting functions are provided by nginx.  These functions support
 </listitem>
 
 <listitem>
-<literal>ngx_slrintf(buf, last, fmt, ...)</literal>
+<literal>ngx_slprintf(buf, last, fmt, ...)</literal>
 </listitem>
 
 <listitem>
