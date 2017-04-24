@@ -1858,7 +1858,7 @@ directive
 
 <listitem>
 <literal>free_connections</literal>,
-<literal>free_connections_n</literal> — the and number of currently available
+<literal>free_connections_n</literal> — the array of currently available
 connections.
 If no connections are available, nginx worker refuses to accept new clients
 </listitem>
