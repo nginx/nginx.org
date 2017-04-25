@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_proxy_module"
         link="/ru/docs/stream/ngx_stream_proxy_module.html"
         lang="ru"
-        rev="17">
+        rev="18">
 
 <section id="summary">
 
@@ -423,7 +423,8 @@ Server Name Indication протокола TLS</link> (SNI, RFC 6066)
     [<literal>SSLv3</literal>]
     [<literal>TLSv1</literal>]
     [<literal>TLSv1.1</literal>]
-    [<literal>TLSv1.2</literal>]</syntax>
+    [<literal>TLSv1.2</literal>]
+    [<literal>TLSv1.3</literal>]</syntax>
 <default>TLSv1 TLSv1.1 TLSv1.2</default>
 <context>stream</context>
 <context>server</context>

@@ -10,7 +10,7 @@
 <module name="Module ngx_http_ssl_module"
         link="/en/docs/http/ngx_http_ssl_module.html"
         lang="en"
-        rev="33">
+        rev="34">
 
 <section id="summary">
 
@@ -398,21 +398,21 @@ ciphers when using the SSLv3 and TLS protocols.
     [<literal>SSLv3</literal>]
     [<literal>TLSv1</literal>]
     [<literal>TLSv1.1</literal>]
-    [<literal>TLSv1.2</literal>]</syntax>
+    [<literal>TLSv1.2</literal>]
+    [<literal>TLSv1.3</literal>]</syntax>
 <default>TLSv1 TLSv1.1 TLSv1.2</default>
 <context>http</context>
 <context>server</context>
 
 <para>
 Enables the specified protocols.
-The <literal>TLSv1.1</literal> and <literal>TLSv1.2</literal> parameters work
-only when the OpenSSL library of version 1.0.1 or higher is used.
 <note>
-The <literal>TLSv1.1</literal> and <literal>TLSv1.2</literal> parameters are
-supported starting from versions 1.1.13 and 1.0.12,
-so when the OpenSSL version 1.0.1 or higher
-is used on older nginx versions, these protocols work, but cannot
-be disabled.
+The <literal>TLSv1.1</literal> and <literal>TLSv1.2</literal> parameters
+(1.1.13, 1.0.12) work only when OpenSSL 1.0.1 or higher is used.
+</note>
+<note>
+The <literal>TLSv1.3</literal> parameter (1.13.0) works only when
+OpenSSL 1.1.1 built with TLSv1.3 support is used.
 </note>
 </para>
 

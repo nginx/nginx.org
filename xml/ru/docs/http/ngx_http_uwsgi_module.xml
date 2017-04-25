@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_uwsgi_module"
         link="/ru/docs/http/ngx_http_uwsgi_module.html"
         lang="ru"
-        rev="38">
+        rev="39">
 
 <section id="summary">
 
@@ -1449,7 +1449,8 @@ uwsgi-сервер.
     [<literal>SSLv3</literal>]
     [<literal>TLSv1</literal>]
     [<literal>TLSv1.1</literal>]
-    [<literal>TLSv1.2</literal>]</syntax>
+    [<literal>TLSv1.2</literal>]
+    [<literal>TLSv1.3</literal>]</syntax>
 <default>TLSv1 TLSv1.1 TLSv1.2</default>
 <context>http</context>
 <context>server</context>

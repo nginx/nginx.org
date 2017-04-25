@@ -10,7 +10,7 @@
 <module name="Module ngx_http_proxy_module"
         link="/en/docs/http/ngx_http_proxy_module.html"
         lang="en"
-        rev="60">
+        rev="61">
 
 <section id="summary">
 
@@ -1990,7 +1990,8 @@ appear in the logs, try disabling session reuse.
     [<literal>SSLv3</literal>]
     [<literal>TLSv1</literal>]
     [<literal>TLSv1.1</literal>]
-    [<literal>TLSv1.2</literal>]</syntax>
+    [<literal>TLSv1.2</literal>]
+    [<literal>TLSv1.3</literal>]</syntax>
 <default>TLSv1 TLSv1.1 TLSv1.2</default>
 <context>http</context>
 <context>server</context>
