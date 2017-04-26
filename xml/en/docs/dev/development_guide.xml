@@ -3450,7 +3450,7 @@ This function runs request phases from
 <literal>NGX_HTTP_CONTENT_PHASE</literal>.
 The last phase is supposed to generate response and pass it along the filter
 chain.
-The response in not necessarily sent to the client at this phase.
+The response is not necessarily sent to the client at this phase.
 It may remain buffered and will be sent at the finalization stage
 </listitem>
 
