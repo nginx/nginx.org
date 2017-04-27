@@ -1849,18 +1849,19 @@ It's affected by the root scope <literal>error_log</literal> directive
 </listitem>
 
 <listitem>
-<literal>connections</literal>, <literal>connections_n</literal> — per-worker
+<literal>connections</literal>, <literal>connection_n</literal> —
 array of connections of type <literal>ngx_connection_t</literal>, created by
 the event module while initializing each nginx worker.
-The number of connections is set by the <literal>worker_connections</literal>
-directive
+The number of connections <literal>connection_n</literal> is set by the
+<literal>worker_connections</literal> directive
 </listitem>
 
 <listitem>
 <literal>free_connections</literal>,
-<literal>free_connections_n</literal> — the array of currently available
+<literal>free_connection_n</literal> — list and number of currently available
 connections.
-If no connections are available, nginx worker refuses to accept new clients
+If no connections are available, nginx worker refuses to accept new clients or
+connect to upstream servers
 </listitem>
 
 <listitem>
