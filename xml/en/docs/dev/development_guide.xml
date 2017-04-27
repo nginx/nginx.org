@@ -5417,7 +5417,7 @@ The last body buffer should have the <literal>last_buf</literal> flag set.
 <para>
 The following example produces a complete HTTP output with "foo" as its body.
 In order for the example to work not only as a main request but as a subrequest
-as well, the <literal>last_in_chain_flag</literal> is set in the last buffer
+as well, the <literal>last_in_chain</literal> flag is set in the last buffer
 of the output.
 The <literal>last_buf</literal> flag is set only for the main request since
 a subrequest's last buffers does not end the entire output.
