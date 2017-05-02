@@ -652,6 +652,108 @@ in case of error.
 </section>
 
 
+<section name="Time" id="time">
+
+<para>
+The <literal>ngx_time_t</literal> structure represents time split into seconds
+and milliseconds with specification of GMT offset:
+<programlisting>
+typedef struct {
+    time_t      sec;
+    ngx_uint_t  msec;
+    ngx_int_t   gmtoff;
+} ngx_time_t;
+</programlisting>
+The <literal>ngx_tm_t</literal> is an alias for <literal>struct tm</literal>
+on UNIX platforms and <literal>SYSTEMTIME</literal> on Windows.
+</para>
+
+<para>
+To obtain current time, usually it is enough to access one of available global
+variables, representing the cached time value in desired format.
+The <literal>ngx_current_msec</literal> variable holds milliseconds elapsed
+since Epoch and truncated to <literal>ngx_msec_t</literal>.
+</para>
+
+<para>
+Available string representations are:
+
+<list type="bullet">
+
+<listitem>
+<literal>ngx_cached_err_log_time</literal> — used in error log:
+"<literal>1970/09/28 12:00:00</literal>"
+</listitem>
+
+<listitem>
+<literal>ngx_cached_http_log_time</literal> — used in HTTP access log:
+"<literal>28/Sep/1970:12:00:00 +0600</literal>"
+</listitem>
+
+<listitem>
+<literal>ngx_cached_syslog_time</literal> — used in syslog:
+"<literal>Sep 28 12:00:00</literal>"
+</listitem>
+
+<listitem>
+<literal>ngx_cached_http_time</literal> — used in HTTP for headers:
+"<literal>Mon, 28 Sep 1970 06:00:00 GMT</literal>"
+</listitem>
+
+<listitem>
+<literal>ngx_cached_http_log_iso8601</literal> — in the ISO 8601
+standard format:
+"<literal>1970-09-28T12:00:00+06:00</literal>"
+</listitem>
+
+</list>
+</para>
+
+<para>
+The <literal>ngx_time()</literal> and <literal>ngx_timeofday()</literal> macros
+returning current value of seconds are a preferred way to access cached
+time value.
+</para>
+
+<para>
+To obtain the time explicitly, <literal>ngx_gettimeofday()</literal> may
+be used, which updates its  argument (pointer to
+<literal>struct timeval</literal>).
+Time is always updated when nginx returns to event loop from system calls.
+To update the time immediately, call <literal>ngx_time_update()</literal>,
+or <literal>ngx_time_sigsafe_update()</literal> if you need it in the
+signal handler context.
+</para>
+
+<para>
+The following functions convert <literal>time_t</literal> into broken-down time
+representation, either <literal>ngx_tm_t</literal> or
+<literal>struct tm</literal> for those with <literal>libc</literal> prefix:
+
+<list type="bullet">
+
+<listitem>
+<literal>ngx_gmtime(), ngx_libc_gmtime()</literal> — result time is UTC
+</listitem>
+
+<listitem>
+<literal>ngx_localtime(), ngx_libc_localtime()</literal> — result time is
+relative to the timezone
+</listitem>
+
+</list>
+
+The <literal>ngx_http_time(buf, time)</literal> returns string
+representation suitable for use with HTTP headers (for example,
+"<literal>Mon, 28 Sep 1970 06:00:00 GMT</literal>").
+Another possible conversion is provided by
+<literal>ngx_http_cookie_time(buf, time)</literal> that produces format suitable
+for HTTP cookies ("<literal>Thu, 31-Dec-37 23:55:55 GMT</literal>").
+</para>
+
+</section>
+
+
 <section name="Containers" id="containers">
 
 
