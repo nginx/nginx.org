@@ -2831,6 +2831,142 @@ process, whose pid is read from nginx pid file.
 
 </section>
 
+<section name="Threads" id="threads">
+
+<para>
+It is possible to offload tasks that would otherwise block nginx worker process
+into a separate thread.
+For example, nginx may be configured to use threads to perform
+<link doc="../http/ngx_http_core_module.xml" id="aio">file I/O</link>.
+Another example is using a library that doesn't have asynchronous interface
+and thus cannot be normally used with nginx.
+Keep in mind that threads interface is a helper for existing asynchronous
+approach in processing client connections, and by no means a replacement.
+</para>
+
+<para>
+To deal with synchronization the following wrappers over pthreads primitives
+are available:
+<programlisting>
+typedef pthread_mutex_t  ngx_thread_mutex_t;
+
+ngx_int_t ngx_thread_mutex_create(ngx_thread_mutex_t *mtx, ngx_log_t *log);
+ngx_int_t ngx_thread_mutex_destroy(ngx_thread_mutex_t *mtx, ngx_log_t *log);
+ngx_int_t ngx_thread_mutex_lock(ngx_thread_mutex_t *mtx, ngx_log_t *log);
+ngx_int_t ngx_thread_mutex_unlock(ngx_thread_mutex_t *mtx, ngx_log_t *log);
+
+typedef pthread_cond_t  ngx_thread_cond_t;
+
+ngx_int_t ngx_thread_cond_create(ngx_thread_cond_t *cond, ngx_log_t *log);
+ngx_int_t ngx_thread_cond_destroy(ngx_thread_cond_t *cond, ngx_log_t *log);
+ngx_int_t ngx_thread_cond_signal(ngx_thread_cond_t *cond, ngx_log_t *log);
+ngx_int_t ngx_thread_cond_wait(ngx_thread_cond_t *cond, ngx_thread_mutex_t *mtx,
+    ngx_log_t *log);
+</programlisting>
+</para>
+
+<para>
+Instead of creating a new thread for each task, nginx implements
+a <link doc="../ngx_core_module.xml" id="thread_pool"/> strategy.
+Multiple thread pools may be configured intended for different purposes
+(for example, performing I/O on different sets of disks).
+Each thread pool is created on start and contains a limited number of threads
+that process a queue of tasks.
+When a task is completed, a predefined completion handler is called.
+</para>
+
+<para>
+The <literal>src/core/ngx_thread_pool.h</literal> header file contains
+corresponding definitions:
+<programlisting>
+struct ngx_thread_task_s {
+    ngx_thread_task_t   *next;
+    ngx_uint_t           id;
+    void                *ctx;
+    void               (*handler)(void *data, ngx_log_t *log);
+    ngx_event_t          event;
+};
+
+typedef struct ngx_thread_pool_s  ngx_thread_pool_t;
+
+ngx_thread_pool_t *ngx_thread_pool_add(ngx_conf_t *cf, ngx_str_t *name);
+ngx_thread_pool_t *ngx_thread_pool_get(ngx_cycle_t *cycle, ngx_str_t *name);
+
+ngx_thread_task_t *ngx_thread_task_alloc(ngx_pool_t *pool, size_t size);
+ngx_int_t ngx_thread_task_post(ngx_thread_pool_t *tp, ngx_thread_task_t *task);
+
+</programlisting>
+At configuration time, a module willing to use threads has to obtain a
+reference to thread pool by calling
+<literal>ngx_thread_pool_add(cf, name)</literal> which will either create a
+new thread pool with given <literal>name</literal> or return a reference
+to an existing one if a pool with such name already exists.
+</para>
+
+<para>
+At runtime, the <literal>ngx_thread_task_post(tp, task)</literal> function
+is used to add a <literal>task</literal> into a queue of a thread pool
+<literal>tp</literal>.
+
+The <literal>ngx_thread_task_t</literal> structure contains all necessary
+to execute user function in thread, pass parameters and setup completion
+handler:
+<programlisting>
+typedef struct {
+    int    foo;
+} my_thread_ctx_t;
+
+
+static void
+my_thread_func(void *data, ngx_log_t *log)
+{
+    my_thread_ctx_t *ctx = data;
+
+    /* this function is executed in a separate thread */
+}
+
+
+static void
+my_thread_completion(ngx_event_t *ev)
+{
+    my_thread_ctx_t *ctx = ev->data;
+
+    /* executed in nginx event loop */
+}
+
+
+ngx_int_t
+my_task_offload(my_conf_t *conf)
+{
+    my_thread_ctx_t    *ctx;
+    ngx_thread_task_t  *task;
+
+    task = ngx_thread_task_alloc(conf->pool, sizeof(my_thread_ctx_t));
+    if (task == NULL) {
+        return NGX_ERROR;
+    }
+
+    ctx = task->ctx;
+
+    ctx->foo = 42;
+
+    task->handler = my_thread_func;
+    task->event.handler = my_thread_completion;
+    task->event.data = ctx;
+
+    if (ngx_thread_task_post(conf->thread_pool, task) != NGX_OK) {
+        return NGX_ERROR;
+    }
+
+    return NGX_OK;
+}
+</programlisting>
+
+</para>
+
+</section>
+
+
 <section name="Modules" id="Modules">
 
 <section name="Adding new modules" id="adding_new_modules">
