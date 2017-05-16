@@ -10,7 +10,7 @@
 <module name="Module ngx_http_realip_module"
         link="/en/docs/http/ngx_http_realip_module.html"
         lang="en"
-        rev="7">
+        rev="8">
 
 <section id="summary">
 
@@ -61,6 +61,7 @@ Defines trusted addresses that are known to send correct
 replacement addresses.
 If the special value <literal>unix:</literal> is specified,
 all UNIX-domain sockets will be trusted.
+Trusted addresses may also be specified using a hostname (1.13.1).
 <note>
 IPv6 addresses are supported starting from versions 1.3.0 and 1.2.1.
 </note>
