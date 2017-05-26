@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_proxy_module"
         link="/ru/docs/http/ngx_http_proxy_module.html"
         lang="ru"
-        rev="61">
+        rev="62">
 
 <section id="summary">
 
@@ -1379,6 +1379,14 @@ proxy_pass http://unix:/tmp/backend.socket:/uri/;
 </para>
 
 <para>
+В значении параметра можно использовать переменные.
+В этом случае, если адрес указан в виде доменного имени,
+имя ищется среди описанных групп серверов
+и если не найдено, то определяется с помощью
+<link doc="ngx_http_core_module.xml" id="resolver"/>’а.
+</para>
+
+<para>
 URI запроса передаётся на сервер так:
 <list type="bullet" compact="no">
 
@@ -1445,26 +1453,19 @@ location /name/ {
 передаётся изменённый URI запроса целиком.
 </para>
 </listitem>
+
+<listitem>
+При использовании переменных в <literal>proxy_pass</literal>:
+<example>
+location /name/ {
+    proxy_pass http://127.0.0.1$request_uri;
+}
+</example>
+В этом случае если в директиве указан URI,
+он передаётся на сервер как есть,
+заменяя URI первоначального запроса.
+</listitem>
 </list>
-</para>
-
-<para>
-Имя сервера, его порт и передаваемый URI можно также полностью задать
-с помощью переменных:
-<example>
-proxy_pass http://$host$uri;
-</example>
-или даже так:
-<example>
-proxy_pass $request;
-</example>
-</para>
-
-<para>
-В этом случае имя сервера ищется среди описанных
-<link doc="ngx_http_upstream_module.xml">групп серверов</link>
-и если не найдено, то определяется с помощью
-<link doc="ngx_http_core_module.xml" id="resolver"/>’а.
 </para>
 
 <para>
