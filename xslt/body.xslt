@@ -20,9 +20,8 @@
 
     <div id="banner">
         <xsl:if test="@lang = 'he'"> <xsl:attribute name="class"> <xsl:text>ltr</xsl:text> </xsl:attribute> </xsl:if>
-        <br/><a href="https://www.nginx.com/nginxconf/?utm_source=nginxorg">
-        nginx.conf 2017</a>: Call For Proposal Now Open --
-        <a href="https://nginxconf17.busyconf.com/proposals/new?utm_source=nginxorg">Submit a Talk!</a>
+        nginx.conf 2017: Registration is Open.<br/>
+        <a href="https://www.nginx.com/nginxconf/?utm_source=nginxorg">Get your ticket now!</a>
     </div>
 
     <div id="main">
