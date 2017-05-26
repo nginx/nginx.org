@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_uwsgi_module"
         link="/ru/docs/http/ngx_http_uwsgi_module.html"
         lang="ru"
-        rev="39">
+        rev="40">
 
 <section id="summary">
 
@@ -1196,6 +1196,15 @@ uwsgi_pass unix:/tmp/uwsgi.socket;
 использоваться по очереди (round-robin).
 И, кроме того, адрес может быть
 <link doc="ngx_http_upstream_module.xml">группой серверов</link>.
+</para>
+
+<para>
+В значении параметра можно использовать переменные.
+В этом случае, если адрес указан в виде доменного имени,
+имя ищется среди описанных
+<link doc="ngx_http_upstream_module.xml">групп серверов</link>
+и если не найдено, то определяется с помощью
+<link doc="ngx_http_core_module.xml" id="resolver"/>’а.
 </para>
 
 <para>
