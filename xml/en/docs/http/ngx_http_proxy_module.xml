@@ -1419,9 +1419,11 @@ In some cases, the part of a request URI to be replaced cannot be determined:
 <list type="bullet" compact="no">
 
 <listitem>
-When location is specified using a regular expression.
+When location is specified using a regular expression,
+and also inside named locations.
 <para>
-In this case, the directive should be specified without a URI.
+In these cases,
+<literal>proxy_pass</literal> should be specified without a URI.
 </para>
 </listitem>
 
