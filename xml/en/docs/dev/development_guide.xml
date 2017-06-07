@@ -2499,11 +2499,10 @@ reading (for a read event) or writing (for a write event).
 </listitem>
 
 <listitem>
-<literal>cancelable</literal> — Timer event flag, used during graceful shutdown
-of nginx workers, to signal that the event handler needs to be called even
-though the event timeout has not yet expired.
-The flag provides a way to finalize certain activities, for example flush log
-files.
+<literal>cancelable</literal> — Timer event flag indicating that the event
+should be ignored while shutting down the worker.
+Graceful worker shutdown is delayed until there are no non-cancelable timer
+events scheduled.
 </listitem>
 
 <listitem>
