@@ -6270,7 +6270,7 @@ deal with server selection.
 When nginx has to pass a request to another host for processing, it uses
 a configured load balancing method to obtain an address to connect to.
 The method is taken from the
-<literal>ngx_http_upstream_peer_t.peer</literal> object
+<literal>ngx_http_upstream_t.peer</literal> object
 of type <literal>ngx_peer_connection_t</literal>:
 <programlisting>
 struct ngx_peer_connection_s {
