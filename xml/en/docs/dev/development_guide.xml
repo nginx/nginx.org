@@ -397,6 +397,36 @@ The following functions perform case conversion and comparison:
 </list>
 </para>
 
+<para>
+The following macros simplify string initialization:
+</para>
+
+<list type="bullet">
+
+<listitem>
+<literal>ngx_string(text)</literal> — static initializer for the
+<literal>ngx_str_t</literal> type from the C string literal
+<literal>text</literal>
+</listitem>
+
+<listitem>
+<literal>ngx_null_string</literal> — static empty string initializer for the
+<literal>ngx_str_t</literal> type
+</listitem>
+
+<listitem>
+<literal>ngx_str_set(str, text)</literal> — initializes string
+<literal>str</literal> of <literal>ngx_str_t *</literal> type with the C string
+literal <literal>text</literal>
+</listitem>
+
+<listitem>
+<literal>ngx_str_null(str)</literal> — initializes string <literal>str</literal>
+of <literal>ngx_str_t *</literal> type with the empty string
+</listitem>
+
+</list>
+
 </section>
 
 
