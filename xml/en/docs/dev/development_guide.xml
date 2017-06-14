@@ -450,11 +450,11 @@ in <path>src/core/ngx_string.c</path>. Some of them are:
 </listitem>
 
 <listitem>
-<literal>%z</literal> — <literal>size_t</literal>
+<literal>%z</literal> — <literal>ssize_t</literal>
 </listitem>
 
 <listitem>
-<literal>%i</literal> — <literal>ngx_int_t_t</literal>
+<literal>%i</literal> — <literal>ngx_int_t</literal>
 </listitem>
 
 <listitem>
@@ -485,9 +485,9 @@ To convert output to hex, use <literal>X</literal> or <literal>x</literal>.
 For example:
 
 <programlisting>
-u_char     buf[NGX_INT_T_LEN];
-size_t     len;
-ngx_int_t  n;
+u_char      buf[NGX_INT_T_LEN];
+size_t      len;
+ngx_uint_t  n;
 
 /* set n here */
 
