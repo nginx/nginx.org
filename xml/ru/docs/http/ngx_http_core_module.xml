@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="71">
+        rev="72">
 
 <section id="directives" name="Директивы">
 
@@ -3162,6 +3162,13 @@ scgi_pass_request_body off</link>
 <tag-name id="var_sent_http_"><var>$sent_http_</var><value>имя</value></tag-name>
 <tag-desc>
 произвольное поле заголовка ответа;
+последняя часть имени переменной соответствует имени поля, приведённому
+к нижнему регистру, с заменой символов тире на символы подчёркивания
+</tag-desc>
+
+<tag-name id="var_sent_trailer_"><var>$sent_trailer_</var><value>имя</value></tag-name>
+<tag-desc>
+произвольное поле, отправленное в конце ответа (1.13.2);
 последняя часть имени переменной соответствует имени поля, приведённому
 к нижнему регистру, с заменой символов тире на символы подчёркивания
 </tag-desc>

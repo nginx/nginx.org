@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="71">
+        rev="72">
 
 <section id="directives" name="Directives">
 
@@ -3165,6 +3165,13 @@ request scheme, “<literal>http</literal>” or “<literal>https</literal>”
 <tag-name id="var_sent_http_"><var>$sent_http_</var><value>name</value></tag-name>
 <tag-desc>
 arbitrary response header field;
+the last part of a variable name is the field name converted
+to lower case with dashes replaced by underscores
+</tag-desc>
+
+<tag-name id="var_sent_trailer_"><var>$sent_trailer_</var><value>name</value></tag-name>
+<tag-desc>
+arbitrary field sent at the end of the response (1.13.2);
 the last part of a variable name is the field name converted
 to lower case with dashes replaced by underscores
 </tag-desc>
