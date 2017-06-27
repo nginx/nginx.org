@@ -321,11 +321,14 @@ dir.map:	xslt/dirmap.xslt xml/en/docs/dirindex.xml		\
 
 ifeq ($(patsubst %.nginx.com,YES,$(shell hostname)), YES)
 all:	images
+
+ifeq ($(NGINX_ORG), /data/www/nginx.org)
 all:	dir.map
 copy:	copy_dirmap
 .PHONY:	copy_dirmap
 copy_dirmap:
 	/usr/local/bin/copy_dirmap.sh dir.map $(NGINX_ORG)
+endif
 
 draft:	copy_draft
 .PHONY:	copy_draft
