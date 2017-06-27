@@ -9,7 +9,7 @@
 <article name="Информация о nginScript"
         link="/ru/docs/njs_about.html"
         lang="ru"
-        rev="9">
+        rev="10">
 
 <section id="summary">
 
@@ -89,8 +89,27 @@ ES6:
 </listitem>
 
 <listitem>
-<literal>Object</literal>:
-рудиментарная поддержка <literal>Object.create()</literal> без списка свойств
+Методы <literal>Object</literal>:
+<list type="bullet">
+<listitem>
+ES5.1:
+<literal>create</literal> (поддержка без списка свойств),
+<literal>keys</literal>,
+<literal>defineProperty</literal>,
+<literal>defineProperties</literal>,
+<literal>getOwnPropertyDescriptor</literal>,
+<literal>getPrototypeOf</literal>,
+<literal>hasOwnProperty</literal>,
+<literal>isPrototypeOf</literal>,
+<literal>preventExtensions</literal>,
+<literal>isExtensible</literal>,
+<literal>freeze</literal>,
+<literal>isFrozen</literal>,
+<literal>seal</literal>,
+<literal>isSealed</literal>
+</listitem>
+</list>
+
 </listitem>
 
 <listitem>
@@ -185,10 +204,8 @@ labels
 
 <listitem>
 дроби без целой части (<literal>.235</literal>),
-экспоненциальные (<literal>3.35e10</literal>),
 двоичные (<literal>0b0101</literal>),
-восьмеричные (<literal>0o77</literal>),
-шестнадцатеричные (<literal>0x1123</literal>) литералы
+восьмеричные (<literal>0o77</literal>) литералы
 </listitem>
 
 </list>

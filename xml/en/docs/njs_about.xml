@@ -9,7 +9,7 @@
 <article name="About nginScript"
         link="/en/docs/njs_about.html"
         lang="en"
-        rev="9">
+        rev="10">
 
 <section id="summary">
 
@@ -90,8 +90,27 @@ non-standard:
 </listitem>
 
 <listitem>
-<literal>Object</literal>:
-rudimentary <literal>Object.create()</literal> support without properties list
+<literal>Object</literal> methods:
+<list type="bullet">
+<listitem>
+ES5.1:
+<literal>create</literal> (support without properties list),
+<literal>keys</literal>,
+<literal>defineProperty</literal>,
+<literal>defineProperties</literal>,
+<literal>getOwnPropertyDescriptor</literal>,
+<literal>getPrototypeOf</literal>,
+<literal>hasOwnProperty</literal>,
+<literal>isPrototypeOf</literal>,
+<literal>preventExtensions</literal>,
+<literal>isExtensible</literal>,
+<literal>freeze</literal>,
+<literal>isFrozen</literal>,
+<literal>seal</literal>,
+<literal>isSealed</literal>
+</listitem>
+</list>
+
 </listitem>
 
 <listitem>
@@ -186,10 +205,8 @@ labels
 
 <listitem>
 non-integer fractions (<literal>.235</literal>),
-exponential (<literal>3.35e10</literal>),
 binary (<literal>0b0101</literal>),
-octal (<literal>0o77</literal>),
-hexadecimal (<literal>0x1123</literal>) literals
+octal (<literal>0o77</literal>) literals
 </listitem>
 
 </list>
