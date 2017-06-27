@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_headers_module"
         link="/ru/docs/http/ngx_http_headers_module.html"
         lang="ru"
-        rev="8">
+        rev="9">
 
 <section id="summary">
 
@@ -68,6 +68,37 @@ add_header Cache-Control private;
 <para>
 Если указан параметр <literal>always</literal> (1.7.5),
 то поле заголовка будет добавлено независимо от кода ответа.
+</para>
+
+</directive>
+
+
+<directive name="add_trailer">
+<syntax>
+<value>имя</value> <value>значение</value>
+[<literal>always</literal>]</syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<context>if в location</context>
+<appeared-in>1.13.2</appeared-in>
+
+<para>
+Добавляет указанное поле в конец ответа при условии, что код ответа
+равен 200, 201, 206, 301, 302, 303, 307 или 308.
+В значении можно использовать переменные.
+</para>
+
+<para>
+Директив <literal>add_trailer</literal> может быть несколько.
+Директивы наследуются с предыдущего уровня при условии, что на данном
+уровне не описаны свои директивы <literal>add_trailer</literal>.
+</para>
+
+<para>
+Если указан параметр <literal>always</literal>,
+то указанное поле будет добавлено независимо от кода ответа.
 </para>
 
 </directive>
