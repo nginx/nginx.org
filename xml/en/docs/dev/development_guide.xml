@@ -4855,7 +4855,7 @@ into the configuration, for example:
 <programlisting>
 static ngx_http_variable_t  ngx_http_foo_vars[] = {
 
-    { ngx_string("foo_v1"), NULL, ngx_http_foo_v1_variable, NULL, 0, 0 },
+    { ngx_string("foo_v1"), NULL, ngx_http_foo_v1_variable, 0, 0, 0 },
 
     { ngx_null_string, NULL, NULL, 0, 0, 0 }
 };
