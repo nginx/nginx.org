@@ -2736,8 +2736,8 @@ Signal handlers only set global variables which are checked after the
 
 <para>
 There are several types of processes in nginx.
-The type of current process is kept in the <literal>ngx_process</literal>
-global variable:
+The type of a process is kept in the <literal>ngx_process</literal>
+global variable, and is one of the following:
 </para>
 
 <list type="bullet">
@@ -2745,10 +2745,10 @@ global variable:
 <listitem>
 
 <para>
-<literal>NGX_PROCESS_MASTER</literal> — the master process runs the
-<literal>ngx_master_process_cycle()</literal> function.
-Master process does not have any I/O and responds only to signals.
-It reads configuration, creates cycles, starts and controls child processes
+<literal>NGX_PROCESS_MASTER</literal> — The master process, which reads the
+NGINX configuration, creates cycles, and starts and controls child processes.
+It does not perform any I/O and responds only to signals.
+Its cycle function is <literal>ngx_master_process_cycle()</literal>.
 </para>
 
 
@@ -2757,44 +2757,45 @@ It reads configuration, creates cycles, starts and controls child processes
 <listitem>
 
 <para>
-<literal>NGX_PROCESS_WORKER</literal> — the worker process runs the
-<literal>ngx_worker_process_cycle()</literal> function.
-Worker processes are started by master and handle client connections.
-They also respond to signals and channel commands, sent from master
+<literal>NGX_PROCESS_WORKER</literal> — The worker process, which handles client
+connections.
+It is started by the master process and responds to its signals and channel
+commands as well.
+Its cycle function is <literal>ngx_worker_process_cycle()</literal>.
+There can be multiple worker processes, as configured by the
+<literal>worker_processes</literal> directive.
 </para>
-
 
 </listitem>
 
 <listitem>
 
 <para>
-<literal>NGX_PROCESS_SINGLE</literal> — single process is the only type
-of processes which exist in the <literal>master_process off</literal> mode.
-The cycle function for this process is
-<literal>ngx_single_process_cycle()</literal>.
-This process creates cycles and handles client connections
+<literal>NGX_PROCESS_SINGLE</literal> — The single process, which exists only in
+<literal>master_process off</literal> mode, and is the only process running in
+that mode.
+It creates cycles (like the master process does) and handles client connections
+(like the worker process does).
+Its cycle function is <literal>ngx_single_process_cycle()</literal>.
 </para>
-
 
 </listitem>
 
 <listitem>
 
 <para>
-<literal>NGX_PROCESS_HELPER</literal> — currently, there are two types of
-helper processes: cache manager and cache loader.
-Both of them share the same cycle function
+<literal>NGX_PROCESS_HELPER</literal> — The helper process, of which currently
+there are two types: cache manager and cache loader.
+The cycle function for both is
 <literal>ngx_cache_manager_process_cycle()</literal>.
 </para>
-
 
 </listitem>
 
 </list>
 
 <para>
-All nginx processes handle the following signals:
+The nginx processes handle the following signals:
 </para>
 
 <list type="bullet">
@@ -2802,18 +2803,53 @@ All nginx processes handle the following signals:
 <listitem>
 
 <para>
-<literal>NGX_SHUTDOWN_SIGNAL</literal> (<literal>SIGQUIT</literal>) — graceful
-shutdown.
-Upon receiving this signal master process sends shutdown signal to all child
-processes.
-When no child processes are left, master destroys cycle pool and exits.
-A worker process which received this signal, closes all listening sockets and
-waits until timeout tree becomes empty, then destroys cycle pool and exits.
-A cache manager process exits right after receiving this signal.
-The variable <literal>ngx_quit</literal> is set to one after receiving this
-signal and immediately reset after being processed.
-The variable <literal>ngx_exiting</literal> is set to one when worker process
-is in shutdown state
+<literal>NGX_SHUTDOWN_SIGNAL</literal> (<literal>SIGQUIT</literal> on most
+systems) — Gracefully shutdown.
+Upon receiving this signal, the master process sends a shutdown signal to all
+child processes.
+When no child processes are left, the master destroys the cycle pool and exits.
+When a worker process receives this signal, it closes all listening sockets and
+waits until there are no non-cancelable events scheduled, then destroys the
+cycle pool and exits.
+When the cache manager or the cache loader process receives this signal, it
+exits immediately.
+The <literal>ngx_quit</literal> variable is set to <literal>1</literal> when a
+process receives this signal, and is immediately reset after being processed.
+The <literal>ngx_exiting</literal> variable is set to <literal>1</literal> while
+a worker process is in the shutdown state.
+</para>
+
+</listitem>
+
+<listitem>
+
+<para>
+<literal>NGX_TERMINATE_SIGNAL</literal> (<literal>SIGTERM</literal> on most
+systems) — Terminate.
+Upon receiving this signal, the master process sends a terminate signal to all
+child processes.
+If a child process does not exit within 1 second, the master process sends the
+<literal>SIGKILL</literal> signal to kill it.
+When no child processes are left, the master process destroys the cycle pool and
+exits.
+When a worker process, the cache manager process or the cache loader process
+receives this signal, it destroys the cycle pool and exits.
+The variable <literal>ngx_terminate</literal> is set to <literal>1</literal>
+when this signal is received.
+</para>
+
+</listitem>
+
+<listitem>
+
+<para>
+<literal>NGX_NOACCEPT_SIGNAL</literal> (<literal>SIGWINCH</literal> on most
+systems) - Shut down all worker and helper processes.
+Upon receiving this signal, the master process shuts down its child processes.
+If a previously started new nginx binary exits, the child processes of the old
+master are started again.
+When a worker process receives this signal, it shuts down in debug mode
+set by the <literal>debug_points</literal> directive.
 </para>
 
 
@@ -2822,76 +2858,45 @@ is in shutdown state
 <listitem>
 
 <para>
-<literal>NGX_TERMINATE_SIGNAL</literal> (<literal>SIGTERM</literal>) -
-terminate.
-Upon receiving this signal master process sends terminate signal to all child
-processes.
-If child processes do not exit in 1 second, they are killed with the
-<literal>SIGKILL</literal> signal.
-When no child processes are left, master process destroys cycle pool and exits.
-A worker or cache manager process which received this signal destroys cycle
-pool and exits.
-The variable <literal>ngx_terminate</literal> is set to one after receiving
-this signal
-</para>
-
-
-</listitem>
-
-<listitem>
-
-<para>
-<literal>NGX_NOACCEPT_SIGNAL</literal> (<literal>SIGWINCH</literal>)
-- gracefully shut down worker processes
-</para>
-
-
-</listitem>
-
-<listitem>
-
-<para>
-<literal>NGX_RECONFIGURE_SIGNAL</literal> (<literal>SIGHUP</literal>) -
-reconfigure.
-Upon receiving this signal master process creates a new cycle from
-configuration file.
-If the new cycle was created successfully, the old cycle is deleted and new
+<literal>NGX_RECONFIGURE_SIGNAL</literal> (<literal>SIGHUP</literal> on most
+systems) - Reconfigure.
+Upon receiving this signal, the master process re-reads the configuration and
+creates a new cycle based on it.
+If the new cycle is created successfully, the old cycle is deleted and new
 child processes are started.
-Meanwhile, the old processes receive the shutdown signal.
-In single-process mode, nginx creates a new cycle as well, but keeps the old
-one until all clients, tied to the old cycle, are gone.
-Worker and helper processes ignore this signal
+Meanwhile, the old child processes receive the
+<literal>NGX_SHUTDOWN_SIGNAL</literal> signal.
+In single-process mode, nginx creates a new cycle, but keeps the old one until
+there are no longer clients with active connections tied to it.
+The worker and helper processes ignore this signal.
 </para>
-
 
 </listitem>
 
 <listitem>
 
 <para>
-<literal>NGX_REOPEN_SIGNAL</literal> (<literal>SIGUSR1</literal>) — reopen
-files.
-Master process passes this signal to workers.
-Worker processes reopen all <literal>open_files</literal> from the cycle
+<literal>NGX_REOPEN_SIGNAL</literal> (<literal>SIGUSR1</literal> on most
+systems) — Reopen files.
+The master process sends this signal to workers, which reopen all
+<literal>open_files</literal> related to the cycle.
 </para>
-
 
 </listitem>
 
 <listitem>
 
 <para>
-<literal>NGX_CHANGEBIN_SIGNAL</literal> (<literal>SIGUSR2</literal>) — change
-nginx binary.
-Master process starts a new nginx binary and passes there a list of all listen
+<literal>NGX_CHANGEBIN_SIGNAL</literal> (<literal>SIGUSR2</literal> on most
+systems) — Change the nginx binary.
+The master process starts a new nginx binary and passes in a list of all listen
 sockets.
-The list is passed in the environment variable <literal>“NGINX”</literal> in
-text format, where descriptor numbers separated with semicolons.
-A new nginx instance reads that variable and adds the sockets to its init
-cycle.
-Other processes ignore this signal
+The text-format list, passed in the <literal>“NGINX”</literal> environment
+variable, consists of descriptor numbers separated with semicolons.
+The new nginx binary reads the <literal>“NGINX”</literal> variable and adds the
+sockets to its init cycle.
+Other processes ignore this signal.
 </para>
-
 
 </listitem>
 
@@ -2899,24 +2904,12 @@ Other processes ignore this signal
 
 <para>
 While all nginx worker processes are able to receive and properly handle POSIX
-signals, master process normally does not pass any signals to workers and
-helpers with the standard <literal>kill()</literal> syscall.
-Instead, nginx uses inter-process channels which allow sending messages between
-all nginx processes.
-Currently, however, messages are only sent from master to its children.
-Those messages carry the same signals.
-The channels are socketpairs with their ends in different processes.
-</para>
-
-<para>
-When running nginx binary, several values can be specified next to
-<literal>-s</literal> parameter.
-Those values are <literal>stop</literal>, <literal>quit</literal>,
-<literal>reopen</literal>, <literal>reload</literal>.
-They are converted to signals <literal>NGX_TERMINATE_SIGNAL</literal>,
-<literal>NGX_SHUTDOWN_SIGNAL</literal>, <literal>NGX_REOPEN_SIGNAL</literal>
-and <literal>NGX_RECONFIGURE_SIGNAL</literal> and sent to the nginx master
-process, whose pid is read from nginx pid file.
+signals, the master process does not use the standard <literal>kill()</literal>
+syscall to pass signals to workers and helpers.
+Instead, nginx uses inter-process socket pairs which allow sending messages
+between all nginx processes.
+Currently, however, messages are only sent from the master to its children.
+The messages carry the standard signals.
 </para>
 
 </section>
@@ -2924,50 +2917,99 @@ process, whose pid is read from nginx pid file.
 <section name="Threads" id="threads">
 
 <para>
-It is possible to offload tasks that would otherwise block nginx worker process
-into a separate thread.
-For example, nginx may be configured to use threads to perform
+It is possible to offload into a separate thread tasks that would otherwise
+block the nginx worker process.
+For example, nginx can be configured to use threads to perform
 <link doc="../http/ngx_http_core_module.xml" id="aio">file I/O</link>.
-Another example is using a library that doesn't have asynchronous interface
+Another use case is a library that doesn't have asynchronous interface
 and thus cannot be normally used with nginx.
-Keep in mind that threads interface is a helper for existing asynchronous
-approach in processing client connections, and by no means a replacement.
+Keep in mind that the threads interface is a helper for the existing
+asynchronous approach to processing client connections, and by no means
+intended as a replacement.
 </para>
 
 <para>
-To deal with synchronization the following wrappers over pthreads primitives
-are available:
-<programlisting>
-typedef pthread_mutex_t  ngx_thread_mutex_t;
+To deal with synchronization, the following wrappers over
+<literal>pthreads</literal> primitives are available:
 
-ngx_int_t ngx_thread_mutex_create(ngx_thread_mutex_t *mtx, ngx_log_t *log);
-ngx_int_t ngx_thread_mutex_destroy(ngx_thread_mutex_t *mtx, ngx_log_t *log);
-ngx_int_t ngx_thread_mutex_lock(ngx_thread_mutex_t *mtx, ngx_log_t *log);
-ngx_int_t ngx_thread_mutex_unlock(ngx_thread_mutex_t *mtx, ngx_log_t *log);
+<list type="bullet">
 
-typedef pthread_cond_t  ngx_thread_cond_t;
+<listitem>
+<literal>typedef pthread_mutex_t  ngx_thread_mutex_t;</literal>
 
-ngx_int_t ngx_thread_cond_create(ngx_thread_cond_t *cond, ngx_log_t *log);
-ngx_int_t ngx_thread_cond_destroy(ngx_thread_cond_t *cond, ngx_log_t *log);
-ngx_int_t ngx_thread_cond_signal(ngx_thread_cond_t *cond, ngx_log_t *log);
-ngx_int_t ngx_thread_cond_wait(ngx_thread_cond_t *cond, ngx_thread_mutex_t *mtx,
-    ngx_log_t *log);
-</programlisting>
+<list type="bullet">
+
+<listitem>
+<literal>ngx_int_t
+ngx_thread_mutex_create(ngx_thread_mutex_t *mtx, ngx_log_t *log);</literal>
+</listitem>
+
+<listitem>
+<literal>ngx_int_t
+ngx_thread_mutex_destroy(ngx_thread_mutex_t *mtx, ngx_log_t *log);</literal>
+</listitem>
+
+<listitem>
+<literal>ngx_int_t
+ngx_thread_mutex_lock(ngx_thread_mutex_t *mtx, ngx_log_t *log);</literal>
+</listitem>
+
+<listitem>
+<literal>ngx_int_t
+ngx_thread_mutex_unlock(ngx_thread_mutex_t *mtx, ngx_log_t *log);</literal>
+</listitem>
+
+</list>
+
+</listitem>
+
+<listitem>
+<literal>typedef pthread_cond_t  ngx_thread_cond_t;</literal>
+
+<list type="bullet">
+
+<listitem>
+<literal>ngx_int_t
+ngx_thread_cond_create(ngx_thread_cond_t *cond, ngx_log_t *log);</literal>
+</listitem>
+
+<listitem>
+<literal>ngx_int_t
+ngx_thread_cond_destroy(ngx_thread_cond_t *cond, ngx_log_t *log);</literal>
+</listitem>
+
+<listitem>
+<literal>ngx_int_t
+ngx_thread_cond_signal(ngx_thread_cond_t *cond, ngx_log_t *log);</literal>
+</listitem>
+
+<listitem>
+<literal>ngx_int_t
+ngx_thread_cond_wait(ngx_thread_cond_t *cond, ngx_thread_mutex_t *mtx,
+ngx_log_t *log);</literal>
+</listitem>
+
+</list>
+
+</listitem>
+
+</list>
+
 </para>
 
 <para>
 Instead of creating a new thread for each task, nginx implements
 a <link doc="../ngx_core_module.xml" id="thread_pool"/> strategy.
-Multiple thread pools may be configured intended for different purposes
+Multiple thread pools may be configured for different purposes
 (for example, performing I/O on different sets of disks).
-Each thread pool is created on start and contains a limited number of threads
+Each thread pool is created at startup and contains a limited number of threads
 that process a queue of tasks.
 When a task is completed, a predefined completion handler is called.
 </para>
 
 <para>
 The <literal>src/core/ngx_thread_pool.h</literal> header file contains
-corresponding definitions:
+relevant definitions:
 <programlisting>
 struct ngx_thread_task_s {
     ngx_thread_task_t   *next;
@@ -2987,20 +3029,19 @@ ngx_int_t ngx_thread_task_post(ngx_thread_pool_t *tp, ngx_thread_task_t *task);
 
 </programlisting>
 At configuration time, a module willing to use threads has to obtain a
-reference to thread pool by calling
-<literal>ngx_thread_pool_add(cf, name)</literal> which will either create a
-new thread pool with given <literal>name</literal> or return a reference
-to an existing one if a pool with such name already exists.
+reference to a thread pool by calling
+<literal>ngx_thread_pool_add(cf, name)</literal>, which either creates a
+new thread pool with the given <literal>name</literal> or returns a reference
+to the pool with that name if it already exists.
 </para>
 
 <para>
-At runtime, the <literal>ngx_thread_task_post(tp, task)</literal> function
-is used to add a <literal>task</literal> into a queue of a thread pool
-<literal>tp</literal>.
+To add a <literal>task</literal> into a queue of a specified thread pool
+<literal>tp</literal> at runtime, use the
+<literal>ngx_thread_task_post(tp, task)</literal> function.
 
-The <literal>ngx_thread_task_t</literal> structure contains all necessary
-to execute user function in thread, pass parameters and setup completion
-handler:
+To execute a function in a thread, pass parameters and setup a completion
+handler using the <literal>ngx_thread_task_t</literal> structure:
 <programlisting>
 typedef struct {
     int    foo;
@@ -3061,11 +3102,11 @@ my_task_offload(my_conf_t *conf)
 
 <section name="Adding new modules" id="adding_new_modules">
 <para>
-The standalone nginx module resides in a separate directory that contains
+Each standalone nginx module resides in a separate directory that contains
 at least two files:
-<literal>config</literal> and a file with the module source.
-The first file contains all information needed for nginx to integrate
-the module, for example:
+<literal>config</literal> and a file with the module source code.
+The <literal>config</literal> file contains all information needed for nginx to
+integrate the module, for example:
 <programlisting>
 ngx_module_type=CORE
 ngx_module_name=ngx_foo_module
@@ -3075,113 +3116,114 @@ ngx_module_srcs="$ngx_addon_dir/ngx_foo_module.c"
 
 ngx_addon_name=$ngx_module_name
 </programlisting>
-The file is a POSIX shell script and it can set (or access) the
-following variables:
+The <literal>config</literal> file is a POSIX shell script that can set
+and access the following variables:
 <list type="bullet">
 
 <listitem>
-<literal>ngx_module_type</literal> — the type of module to build.
-Possible options are <literal>CORE</literal>, <literal>HTTP</literal>,
+<literal>ngx_module_type</literal> — Type of module to build.
+Possible values are <literal>CORE</literal>, <literal>HTTP</literal>,
 <literal>HTTP_FILTER</literal>, <literal>HTTP_INIT_FILTER</literal>,
 <literal>HTTP_AUX_FILTER</literal>, <literal>MAIL</literal>,
-<literal>STREAM</literal>, or <literal>MISC</literal>
+<literal>STREAM</literal>, or <literal>MISC</literal>.
 </listitem>
 
 <listitem>
-<literal>ngx_module_name</literal> — the name of the module.
-A whitespace separated values list is accepted and may be used to build
-multiple modules from a single set of source files.
-The first name indicates the name of the output binary for a dynamic module.
-The names in this list should match the names used in the module.
+<literal>ngx_module_name</literal> — Module names.
+To build multiple modules from a set of source files, specify a
+whitespace-separated list of names.
+The first name indicates the name of the output binary for the dynamic module.
+The names in the list must match the names used in the source code.
 </listitem>
 
 <listitem>
-<literal>ngx_addon_name</literal> — supplies the name of the module in the
-console output text of the configure script.
+<literal>ngx_addon_name</literal> — Name of the module as it appears in output
+on the console from the configure script.
 </listitem>
 
 <listitem>
-<literal>ngx_module_srcs</literal> — a whitespace separated list of source
+<literal>ngx_module_srcs</literal> — Whitespace-separated list of source
 files used to compile the module.
-The $ngx_addon_dir variable can be used as a placeholder for the path of the
-module source.
+The <literal>$ngx_addon_dir</literal> variable can be used to represent the path
+to the module directory.
 </listitem>
 
 <listitem>
-<literal>ngx_module_incs</literal> — include paths required to build the module
+<literal>ngx_module_incs</literal> — Include paths required to build the module
 </listitem>
 
 <listitem>
-<literal>ngx_module_deps</literal> — a list of module's header files.
+<literal>ngx_module_deps</literal> — Whitespace-separated list of the module's
+dependencies.
+Usually, it is the list of header files.
 </listitem>
 
 <listitem>
-<literal>ngx_module_libs</literal> — a list of libraries to link with the
-module.
-For example, libpthread would be linked using
-<literal>ngx_module_libs=-lpthread</literal>.
+<literal>ngx_module_libs</literal> — Whitespace-separated list of libraries to
+link with the module.
+For example, use <literal>ngx_module_libs=-lpthread</literal> to link
+<literal>libpthread</literal> library.
 The following macros can be used to link against the same libraries as
 nginx:
 <literal>LIBXSLT</literal>, <literal>LIBGD</literal>, <literal>GEOIP</literal>,
 <literal>PCRE</literal>, <literal>OPENSSL</literal>, <literal>MD5</literal>,
-<literal>SHA1</literal>, <literal>ZLIB</literal>, and <literal>PERL</literal>
+<literal>SHA1</literal>, <literal>ZLIB</literal>, and <literal>PERL</literal>.
 </listitem>
 
 <listitem>
-<literal>ngx_module_link</literal> — set by the build system to
+<literal>ngx_module_link</literal> — Variable set by the build system to
 <literal>DYNAMIC</literal> for a dynamic module or <literal>ADDON</literal>
-for a static module and used to perform different actions depending on
-linking type.
+for a static module and used to determine different actions to perform
+depending on linking type.
 </listitem>
 
 <listitem>
-<literal>ngx_module_order</literal> — sets the load order for the module which
-is useful for <literal>HTTP_FILTER</literal> and
+<literal>ngx_module_order</literal> — Load order for the module;
+useful for the <literal>HTTP_FILTER</literal> and
 <literal>HTTP_AUX_FILTER</literal> module types.
-The order is stored in a reverse list.
+The format for this option is a whitespace-separated list of modules.
+All modules in the list following the current module's name end up after it in
+the global list of modules, which sets up the order for modules initialization.
+For filter modules later initialization means earlier execution.
 
 <para>
-The <literal>ngx_http_copy_filter_module</literal> is near the bottom of the
-list so is one of the first to be executed.
-This reads the data for other filters.
-Near the top of the list is <literal>ngx_http_write_filter_module</literal>
-which writes the data out and is one of the last to be executed.
+The following modules are typically used as references.
+The <literal>ngx_http_copy_filter_module</literal> reads the data for other
+filter modules and is placed near the bottom of the list so that it is one of
+the first to be executed.
+The <literal>ngx_http_write_filter_module</literal> writes the data to the
+client socket and is placed near the top of the list, and is the last to be
+executed.
 </para>
 
 <para>
-The format for this option is typically the current module’s name followed by
-a whitespace separated list of modules to insert before, and therefore execute
-after.
-The module will be inserted before the last module in the list that is found
-to be currently loaded.
-</para>
-
-<para>
-By default for filter modules this is set to
-“<literal>ngx_http_copy_filter</literal>” which will insert the module before
-the copy filter in the list and therefore will execute after the copy filter.
-For other module types the default is empty.
+By default, filter modules are placed before the
+<literal>ngx_http_copy_filter</literal> in the module list so that the filter
+handler is executed after the copy filter handler.
+For other module types the default is the empty string.
 </para>
 
 </listitem>
 
 </list>
 
-A module can be added to nginx by means of the configure script using
-<literal>--add-module=/path/to/module</literal> for static compilation and
-<literal>--add-dynamic-module=/path/to/module</literal> for dynamic compilation.
+To compile a module into nginx statically, use the
+<literal>--add-module=/path/to/module</literal> argument to the configure
+script.
+To compile a module for later dynamic loading into nginx, use the
+<literal>--add-dynamic-module=/path/to/module</literal> argument.
 </para>
 
 </section>
 
 
-<section name="Core modules" id="core_modules">
+<section name="Core Modules" id="core_modules">
 
 <para>
-Modules are building blocks of nginx, and most of its functionality is
+Modules are the building blocks of nginx, and most of its functionality is
 implemented as modules.
-The module source file must contain a global variable of
-<literal>ngx_module_t</literal> type which is defined as follows:
+The module source file must contain a global variable of type
+<literal>ngx_module_t</literal>, which is defined as follows:
 <programlisting>
 struct ngx_module_s {
 
@@ -3205,14 +3247,14 @@ struct ngx_module_s {
     /* stubs for future extensions are omitted */
 };
 </programlisting>
-The omitted private part includes module version, signature and is filled
-using the predefined macro <literal>NGX_MODULE_V1</literal>.
+The omitted private part includes the module version and a signature and is
+filled using the predefined macro <literal>NGX_MODULE_V1</literal>.
 </para>
 
 <para>
 Each module keeps its private data in the <literal>ctx</literal> field,
-recognizes specific configuration directives, specified in the
-<literal>commands</literal> array, and may be invoked at certain stages of
+recognizes the configuration directives, specified in the
+<literal>commands</literal> array, and can be invoked at certain stages of
 nginx lifecycle.
 The module lifecycle consists of the following events:
 
@@ -3220,22 +3262,24 @@ The module lifecycle consists of the following events:
 
 <listitem>
 Configuration directive handlers are called as they appear
-in configuration files in the context of the master process
+in configuration files in the context of the master process.
 </listitem>
 
 <listitem>
-The <literal>init_module</literal> handler is called in the context of
-the master process after the configuration is parsed successfully
+After the configuration is parsed successfully, <literal>init_module</literal>
+handler is called in the context of the master process.
+The <literal>init_module</literal> handler is called in the master process each
+time a configuration is loaded.
 </listitem>
 
 <listitem>
-The master process creates worker process(es) and
-<literal>init_process</literal> handler is called in each of them
+The master process creates one or more worker processes and the
+<literal>init_process</literal> handler is called in each of them.
 </listitem>
 
 <listitem>
-When a worker process receives the shutdown command from master, it invokes
-the <literal>exit_process</literal> handler
+When a worker process receives the shutdown or terminate command from the
+master, it invokes the <literal>exit_process</literal> handler.
 </listitem>
 
 <listitem>
@@ -3245,21 +3289,17 @@ exiting.
 
 </list>
 
-<note>
-<literal>init_module</literal> handler may be called multiple times
-in the master process if the configuration reload is requested.
-</note>
-
-The <literal>init_master</literal>, <literal>init_thread</literal> and
-<literal>exit_thread</literal> handlers are not implemented at the moment;
-Threads in nginx are only used as supplementary I/O facility with its own
-API and <literal>init_master</literal> handler looks unnecessary.
+Because threads are used in nginx only as a supplementary I/O facility with its
+own API, <literal>init_thread</literal> and <literal>exit_thread</literal>
+handlers are not currently called.
+There is also no <literal>init_master</literal> handler, because it would be
+unnecessary overhead.
 </para>
 
 <para>
-The module <literal>type</literal> defines what exactly is stored in the
+The module <literal>type</literal> defines exactly what is stored in the
 <literal>ctx</literal> field.
-There are several types of modules:
+Its value is one of the following types:
 <list type="bullet">
 <listitem><literal>NGX_CORE_MODULE</literal></listitem>
 <listitem><literal>NGX_EVENT_MODULE</literal></listitem>
@@ -3268,17 +3308,19 @@ There are several types of modules:
 <listitem><literal>NGX_STREAM_MODULE</literal></listitem>
 </list>
 The <literal>NGX_CORE_MODULE</literal> is the most basic and thus the most
-generic and most low-level type of module. Other module types are implemented
-on top of it and provide more convenient way to deal with corresponding
-problem domains, like handling events or http requests.
+generic and most low-level type of module.
+The other module types are implemented on top of it and provide a more
+convenient way to deal with corresponding domains, like handling events or HTTP
+requests.
 </para>
 
 <para>
-The examples of core modules are <literal>ngx_core_module</literal>,
+The set of core modules includes <literal>ngx_core_module</literal>,
 <literal>ngx_errlog_module</literal>, <literal>ngx_regex_module</literal>,
-<literal>ngx_thread_pool_module</literal>,
-<literal>ngx_openssl_module</literal>
-modules and, of course, http, stream, mail and event modules itself.
+<literal>ngx_thread_pool_module</literal> and
+<literal>ngx_openssl_module</literal> modules.
+The HTTP module, the stream module, the mail module and event modules are core
+modules too.
 The context of a core module is defined as:
 <programlisting>
 typedef struct {
@@ -3287,22 +3329,20 @@ typedef struct {
     char               *(*init_conf)(ngx_cycle_t *cycle, void *conf);
 } ngx_core_module_t;
 </programlisting>
-where the <literal>name</literal> is a string with a module name for
-convenience, <literal>create_conf</literal> and <literal>init_conf</literal>
+where the <literal>name</literal> is a module name string,
+<literal>create_conf</literal> and <literal>init_conf</literal>
 are pointers to functions that create and initialize module configuration
-correspondingly.
-For core modules, nginx will call <literal>create_conf</literal> before parsing
+respectively.
+For core modules, nginx calls <literal>create_conf</literal> before parsing
 a new configuration and <literal>init_conf</literal> after all configuration
-was parsed successfully.
+is parsed successfully.
 The typical <literal>create_conf</literal> function allocates memory for the
 configuration and sets default values.
-The <literal>init_conf</literal> deals with known configuration and thus may
-perform sanity checks and complete initialization.
 </para>
 
 <para>
-For example, the simplistic <literal>ngx_foo_module</literal> can look like
-this:
+For example, a simplistic module called <literal>ngx_foo_module</literal> might
+look like this:
 <programlisting>
 /*
  * Copyright (C) Author.
@@ -3407,13 +3447,16 @@ ngx_foo_enable(ngx_conf_t *cf, void *post, void *data)
 </section>
 
 
-<section name="Configuration directives" id="config_directives">
+<section name="Configuration Directives" id="config_directives">
 
 <para>
-The <literal>ngx_command_t</literal> describes single configuration directive.
-Each module, supporting configuration, provides an array of such specifications
+The <literal>ngx_command_t</literal> type defines a single configuration
+directive.
+Each module that supports configuration provides an array of such structures
 that describe how to process arguments and what handlers to call:
 <programlisting>
+typedef struct ngx_command_s  ngx_command_t;
+
 struct ngx_command_s {
     ngx_str_t             name;
     ngx_uint_t            type;
@@ -3423,221 +3466,243 @@ struct ngx_command_s {
     void                 *post;
 };
 </programlisting>
-The array should be terminated by a special value
-“<literal>ngx_null_command</literal>”.
-The <literal>name</literal> is the literal name of a directive, as it appears
-in configuration file, for example “<literal>worker_processes</literal>” or
-“<literal>listen</literal>”.
-The <literal>type</literal> is a bitfield that controls number of arguments,
-command type and other properties using corresponding flags.
-Arguments flags:
+Terminate the array with the special value <literal>ngx_null_command</literal>.
+The <literal>name</literal> is the name of a directive as it appears
+in the configuration file, for example "worker_processes" or "listen".
+The <literal>type</literal> is a bit-field of flags that specify the number of
+arguments the directive takes, its type, and the context in which it appears.
+The flags are:
 
 <list type="bullet">
 
 <listitem>
-<literal>NGX_CONF_NOARGS</literal> — directive without arguments
-</listitem>
-
-<listitem><literal>NGX_CONF_1MORE</literal> — one required argument</listitem>
-
-<listitem><literal>NGX_CONF_2MORE</literal> — two required arguments</listitem>
-
-<listitem>
-<literal>NGX_CONF_TAKE1..7</literal> — exactly 1..7 arguments
+<literal>NGX_CONF_NOARGS</literal> — Directive takes no arguments.
 </listitem>
 
 <listitem>
-<literal>NGX_CONF_TAKE12, 13, 23, 123, 1234</literal> — one or two arguments,
-or other combinations
+<literal>NGX_CONF_1MORE</literal> — Directive takes one or more arguments.
+</listitem>
+
+<listitem>
+<literal>NGX_CONF_2MORE</literal> — Directive takes two or more arguments.
+</listitem>
+
+<listitem>
+<literal>NGX_CONF_TAKE1</literal>..<literal>NGX_CONF_TAKE7</literal> —
+Directive takes exactly the indicated number of arguments.
+</listitem>
+
+<listitem>
+<literal>NGX_CONF_TAKE12</literal>, <literal>NGX_CONF_TAKE13</literal>,
+<literal>NGX_CONF_TAKE23</literal>, <literal>NGX_CONF_TAKE123</literal>,
+<literal>NGX_CONF_TAKE1234</literal> — Directive may take different number of
+arguments.
+Options are limited to the given numbers.
+For example, <literal>NGX_CONF_TAKE12</literal> means it takes one or two
+arguments.
 </listitem>
 
 </list>
 
-Directive types:
+The flags for directive types are:
 
 <list type="bullet">
 
 <listitem>
-<literal>NGX_CONF_BLOCK</literal> — the directive is a block, i.e. it may
-contain other directives in curly braces, or even implement its own parser
-to handle contents inside.
+<literal>NGX_CONF_BLOCK</literal> — Directive is a block, that is, it can
+contain other directives within its opening and closing curly braces, or even
+implement its own parser to handle contents inside.
 </listitem>
 
 <listitem>
-<literal>NGX_CONF_FLAG</literal> — the directive value is a flag, a boolean
-value represented by “<literal>on</literal>” or “<literal>off</literal>”
-strings.
+<literal>NGX_CONF_FLAG</literal> — Directive takes a boolean value, either
+<literal>on</literal> or <literal>off</literal>.
 </listitem>
+
 </list>
 
-Context of a directive defines where in the configuration it may appear
-and how to access module context to store corresponding values:
+A directive's context defines where it may appear in the configuration:
+
 <list type="bullet">
 
 <listitem>
-<literal>NGX_MAIN_CONF</literal> — top level configuration
+<literal>NGX_MAIN_CONF</literal> — In the top level context.
 </listitem>
 
 <listitem>
-<literal>NGX_HTTP_MAIN_CONF</literal> — in the http block
+<literal>NGX_HTTP_MAIN_CONF</literal> — In the <literal>http</literal> block.
 </listitem>
 
 <listitem>
-<literal>NGX_HTTP_SRV_CONF</literal> — in the http server block
+<literal>NGX_HTTP_SRV_CONF</literal> — In a <literal>server</literal> block
+within the <literal>http</literal> block.
 </listitem>
 
 <listitem>
-<literal>NGX_HTTP_LOC_CONF</literal> — in the http location
+<literal>NGX_HTTP_LOC_CONF</literal> — In a <literal>location</literal> block
+within the <literal>http</literal> block.
 </listitem>
 
 <listitem>
-<literal>NGX_HTTP_UPS_CONF</literal> — in the http upstream block
+<literal>NGX_HTTP_UPS_CONF</literal> — In an <literal>upstream</literal> block
+within the <literal>http</literal> block.
 </listitem>
 
 <listitem>
-<literal>NGX_HTTP_SIF_CONF</literal> — in the http server “if”
+<literal>NGX_HTTP_SIF_CONF</literal> — In an <literal>if</literal> block within
+a <literal>server</literal> block in the <literal>http</literal> block.
 </listitem>
 
 <listitem>
-<literal>NGX_HTTP_LIF_CONF</literal> — in the http location “if”
+<literal>NGX_HTTP_LIF_CONF</literal> — In an <literal>if</literal> block within
+a <literal>location</literal> block in the <literal>http</literal> block.
 </listitem>
 
 <listitem>
-<literal>NGX_HTTP_LMT_CONF</literal> — in the http “limit_except”
+<literal>NGX_HTTP_LMT_CONF</literal> — In a <literal>limit_except</literal>
+block within the <literal>http</literal> block.
 </listitem>
 
 <listitem>
-<literal>NGX_STREAM_MAIN_CONF</literal> — in the stream block
+<literal>NGX_STREAM_MAIN_CONF</literal> — In the <literal>stream</literal>
+block.
 </listitem>
 
 <listitem>
-<literal>NGX_STREAM_SRV_CONF</literal> — in the stream server block
+<literal>NGX_STREAM_SRV_CONF</literal> — In a <literal>server</literal> block
+within the <literal>stream</literal> block.
 </listitem>
 
 <listitem>
-<literal>NGX_STREAM_UPS_CONF</literal> — in the stream upstream block
+<literal>NGX_STREAM_UPS_CONF</literal> — In an <literal>upstream</literal> block
+within the <literal>stream</literal> block.
 </listitem>
 
 <listitem>
-<literal>NGX_MAIL_MAIN_CONF</literal> — in the the mail block
+<literal>NGX_MAIL_MAIN_CONF</literal> — In the <literal>mail</literal> block.
 </listitem>
 
 <listitem>
-<literal>NGX_MAIL_SRV_CONF</literal> — in the mail server block
+<literal>NGX_MAIL_SRV_CONF</literal> — In a <literal>server</literal> block
+within the <literal>mail</literal> block.
 </listitem>
 
 <listitem>
-<literal>NGX_EVENT_CONF</literal> — in the event block
+<literal>NGX_EVENT_CONF</literal> — In the <literal>event</literal> block.
 </listitem>
 
 <listitem>
-<literal>NGX_DIRECT_CONF</literal> — used by modules that don't
-create a hierarchy of contexts and store module configuration directly in ctx
+<literal>NGX_DIRECT_CONF</literal> — Used by modules that don't
+create a hierarchy of contexts and only have one global configuration.
+This configuration is passed to the handler as the <literal>conf</literal>
+argument.
 </listitem>
 </list>
-The configuration parser uses this flags to throw an error in case of
+
+The configuration parser uses these flags to throw an error in case of
 a misplaced directive and calls directive handlers supplied with a proper
-configuration pointer, so that same directives in different locations could
+configuration pointer, so that the same directives in different locations can
 store their values in distinct places.
 </para>
 
 <para>
 The <literal>set</literal> field defines a handler that processes a directive
-and stores parsed values into corresponding configuration.
-Nginx offers a convenient set of functions that perform common conversions:
+and stores parsed values into the corresponding configuration.
+There's a number of functions that perform common conversions:
 
 <list type="bullet">
 
 <listitem>
-<literal>ngx_conf_set_flag_slot</literal> — converts literal
-“<literal>on</literal>” or “<literal>off</literal>” strings into
-<literal>ngx_flag_t</literal> type with values 1 or 0
+<literal>ngx_conf_set_flag_slot</literal> — Converts the literal strings
+<literal>on</literal> and <literal>off</literal> into an
+<literal>ngx_flag_t</literal> value with values 1 or 0, respectively.
 </listitem>
 
 <listitem>
-<literal>ngx_conf_set_str_slot</literal> — stores string as a value of the
-<literal>ngx_str_t</literal> type
+<literal>ngx_conf_set_str_slot</literal> — Stores a string as a value of the
+<literal>ngx_str_t</literal> type.
 </listitem>
 
 <listitem>
-<literal>ngx_conf_set_str_array_slot</literal> — appends
-<literal>ngx_array_t</literal> of <literal>ngx_str_t</literal> with a new value.
-The array is created if not yet exists
+<literal>ngx_conf_set_str_array_slot</literal> — Appends a value to an array
+<literal>ngx_array_t</literal> of strings <literal>ngx_str_t</literal>.
+The array is created if does not already exist.
 </listitem>
 
 <listitem>
-<literal>ngx_conf_set_keyval_slot</literal> — appends
-<literal>ngx_array_t</literal> of <literal>ngx_keyval_t</literal> with
-a new value, where key is the first string and value is second.
-The array is created if not yet exists
+<literal>ngx_conf_set_keyval_slot</literal> — Appends a key-value pair to an
+array <literal>ngx_array_t</literal> of key-value pairs
+<literal>ngx_keyval_t</literal>.
+The first string becomes the key and the second the value.
+The array is created if it does not already exist.
 </listitem>
 
 <listitem>
-<literal>ngx_conf_set_num_slot</literal> — converts directive argument
-to a <literal>ngx_int_t</literal> value
+<literal>ngx_conf_set_num_slot</literal> — Converts a directive's argument
+to an <literal>ngx_int_t</literal> value.
 </listitem>
 
 <listitem>
-<literal>ngx_conf_set_size_slot</literal> — converts
-<link doc="../syntax.xml">size</link> to <literal>size_t</literal> value
-in bytes
+<literal>ngx_conf_set_size_slot</literal> — Converts a
+<link doc="../syntax.xml">size</link> to a <literal>size_t</literal> value
+expressed in bytes.
 </listitem>
 
 <listitem>
-<literal>ngx_conf_set_off_slot</literal> — converts
-<link doc="../syntax.xml">offset</link> to <literal>off_t</literal> value
-in bytes
+<literal>ngx_conf_set_off_slot</literal> — Converts an
+<link doc="../syntax.xml">offset</link> to an <literal>off_t</literal> value
+expressed in bytes.
 </listitem>
 
 <listitem>
-<literal>ngx_conf_set_msec_slot</literal> — converts
-<link doc="../syntax.xml">time</link> to <literal>ngx_msec_t</literal> value
-in milliseconds
+<literal>ngx_conf_set_msec_slot</literal> — Converts a
+<link doc="../syntax.xml">time</link> to an <literal>ngx_msec_t</literal> value
+expressed in milliseconds.
 </listitem>
 
 <listitem>
-<literal>ngx_conf_set_sec_slot</literal> — converts
-<link doc="../syntax.xml">time</link> to <literal>time_t</literal> value
-in seconds
+<literal>ngx_conf_set_sec_slot</literal> — Converts a
+<link doc="../syntax.xml">time</link> to a <literal>time_t</literal> value
+expressed in in seconds.
 </listitem>
 
 <listitem>
-<literal>ngx_conf_set_bufs_slot</literal> — converts two arguments
-into <literal>ngx_bufs_t</literal> that holds <literal>ngx_int_t</literal>
-number and <link doc="../syntax.xml">size</link> of buffers
+<literal>ngx_conf_set_bufs_slot</literal> — Converts the two supplied arguments
+into an <literal>ngx_bufs_t</literal> object that holds the number and
+<link doc="../syntax.xml">size</link> of buffers.
 </listitem>
 
 <listitem>
-<literal>ngx_conf_set_enum_slot</literal> — converts argument
-into <literal>ngx_uint_t</literal> value.
+<literal>ngx_conf_set_enum_slot</literal> — Converts the supplied argument
+into an <literal>ngx_uint_t</literal> value.
 The null-terminated array of <literal>ngx_conf_enum_t</literal> passed in the
-<literal>post</literal> field defines acceptable strings and corresponding
-integer values
+<literal>post</literal> field defines the acceptable strings and corresponding
+integer values.
 </listitem>
 
 <listitem>
-<literal>ngx_conf_set_bitmask_slot</literal> — arguments are converted to
-<literal>ngx_uint_t</literal> value and OR'ed with the resulting value,
-forming a bitmask.
-The null-terminated array of <literal>ngx_conf_bitmask_t</literal> passed in
-the <literal>post</literal> field defines acceptable strings and corresponding
-mask values
+<literal>ngx_conf_set_bitmask_slot</literal> — Converts the supplied arguments
+into an <literal>ngx_uint_t</literal> value.
+The mask values for each argument are ORed producing the result.
+The null-terminated array of <literal>ngx_conf_bitmask_t</literal> passed in the
+<literal>post</literal> field defines the acceptable strings and corresponding
+mask values.
 </listitem>
 
 <listitem>
-<literal>set_path_slot</literal> — converts arguments to
-<literal>ngx_path_t</literal> type and performs all required initializations.
-See the
-<link doc="../http/ngx_http_proxy_module.xml" id="proxy_temp_path">proxy_temp_path</link>
-directive description for details
+<literal>set_path_slot</literal> — Converts the supplied arguments to an
+<literal>ngx_path_t</literal> value and performs all required initializations.
+For details, see the documentation for the
+<link doc="../http/ngx_http_proxy_module.xml" id="proxy_temp_path">
+proxy_temp_path</link> directive.
 </listitem>
 
 <listitem>
-<literal>set_access_slot</literal> — converts arguments to file permissions
-mask.
-See the
-<link doc="../http/ngx_http_proxy_module.xml" id="proxy_store_access">proxy_store_access</link>
-directive description for details
+<literal>set_access_slot</literal> — Converts the supplied arguments to a file
+permissions mask.
+For details, see the documentation for the
+<link doc="../http/ngx_http_proxy_module.xml" id="proxy_store_access">
+proxy_store_access</link> directive.
 </listitem>
 
 </list>
@@ -3645,45 +3710,48 @@ directive description for details
 </para>
 
 <para>
-The <literal>conf</literal> field defines which context is used to store
-the value of the directive, or zero if contexts are not used.
-Only simple core modules use configuration without context and set
-<literal>NGX_DIRECT_CONF</literal> flag.
-In real life, such modules like http or stream require more sophisticated
-configuration that can be applied per-server or per-location, or even more
-precisely, in the context of the “<literal>if</literal>” directive or
-some limit.
-In this modules, configuration structure is more complex.
-Please refer to corresponding modules description to understand how
-they manage their configuration.
+The <literal>conf</literal> field defines which configuration structure is
+passed to the directory handler.
+Core modules only have the global configuration and set
+<literal>NGX_DIRECT_CONF</literal> flag to access it.
+Modules like HTTP, Stream or Mail create hierarchies of configurations.
+For example, a module's configuration is created for <literal>server</literal>,
+<literal>location</literal> and <literal>if</literal> scopes.
 
 <list type="bullet">
 <listitem>
-<literal>NGX_HTTP_MAIN_CONF_OFFSET</literal> — http block configuration
+<literal>NGX_HTTP_MAIN_CONF_OFFSET</literal> — Configuration for the
+<literal>http</literal> block.
 </listitem>
 
 <listitem>
-<literal>NGX_HTTP_SRV_CONF_OFFSET</literal> — http server configuration
+<literal>NGX_HTTP_SRV_CONF_OFFSET</literal> — Configuration for a
+<literal>server</literal> block within the <literal>http</literal> block.
 </listitem>
 
 <listitem>
-<literal>NGX_HTTP_LOC_CONF_OFFSET</literal> — http location configuration
+<literal>NGX_HTTP_LOC_CONF_OFFSET</literal> — Configuration for a
+<literal>location</literal> block within the <literal>http</literal>.
 </listitem>
 
 <listitem>
-<literal>NGX_STREAM_MAIN_CONF_OFFSET</literal> — stream block configuration
+<literal>NGX_STREAM_MAIN_CONF_OFFSET</literal> — Configuration for the
+<literal>stream</literal> block.
 </listitem>
 
 <listitem>
-<literal>NGX_STREAM_SRV_CONF_OFFSET</literal> — stream server configuration
+<literal>NGX_STREAM_SRV_CONF_OFFSET</literal> — Configuration for a
+<literal>server</literal> block within the <literal>stream</literal> block.
 </listitem>
 
 <listitem>
-<literal>NGX_MAIL_MAIN_CONF_OFFSET</literal> — mail block configuration
+<literal>NGX_MAIL_MAIN_CONF_OFFSET</literal> — Configuration for the
+<literal>mail</literal> block.
 </listitem>
 
 <listitem>
-<literal>NGX_MAIL_SRV_CONF_OFFSET</literal> — mail server configuration
+<literal>NGX_MAIL_SRV_CONF_OFFSET</literal> — Configuration for a
+<literal>server</literal> block within the <literal>mail</literal> block.
 </listitem>
 
 </list>
@@ -3691,23 +3759,23 @@ they manage their configuration.
 </para>
 
 <para>
-The <literal>offset</literal> defines an offset of a field in a module
-configuration structure that holds values of this particular directive.
-The typical use is to employ <literal>offsetof()</literal> macro.
+The <literal>offset</literal> defines the offset of a field in a module
+configuration structure that holds values for this particular directive.
+The typical use is to employ the <literal>offsetof()</literal> macro.
 </para>
 
 <para>
-The <literal>post</literal> is a twofold field: it may be used to define
-a handler to be called after main handler completed or to pass additional
-data to the main handler.
-In the first case, <literal>ngx_conf_post_t</literal> structure needs to
-be initialized with a pointer to handler, for example:
+The <literal>post</literal> field has two purposes: it may be used to define
+a handler to be called after the main handler has completed, or to pass
+additional data to the main handler.
+In the first case, the <literal>ngx_conf_post_t</literal> structure needs to
+be initialized with a pointer to the handler, for example:
 <programlisting>
 static char *ngx_do_foo(ngx_conf_t *cf, void *post, void *data);
 static ngx_conf_post_t  ngx_foo_post = { ngx_do_foo };
 </programlisting>
 The <literal>post</literal> argument is the <literal>ngx_conf_post_t</literal>
-object itself, and the <literal>data</literal> is a pointer to value,
+object itself, and the <literal>data</literal> is a pointer to the value,
 converted from arguments by the main handler with the appropriate type.
 </para>
 
@@ -3722,7 +3790,7 @@ converted from arguments by the main handler with the appropriate type.
 <section name="Connection" id="http_connection">
 
 <para>
-Each client HTTP connection runs through the following stages:
+Each HTTP client connection runs through the following stages:
 </para>
 
 <list type="bullet">
@@ -3730,45 +3798,47 @@ Each client HTTP connection runs through the following stages:
 <listitem>
 <literal>ngx_event_accept()</literal> accepts a client TCP connection.
 This handler is called in response to a read notification on a listen socket.
-A new <literal>ngx_connecton_t</literal> object is created at this stage.
-The object wraps the newly accepted client socket.
+A new <literal>ngx_connecton_t</literal> object is created at this stage
+to wrap the newly accepted client socket.
 Each nginx listener provides a handler to pass the new connection object to.
-For HTTP connections it's <literal>ngx_http_init_connection(c)</literal>
+For HTTP connections it's <literal>ngx_http_init_connection(c)</literal>.
 </listitem>
 
 <listitem>
 <literal>ngx_http_init_connection()</literal> performs early initialization of
-an HTTP connection.
+the HTTP connection.
 At this stage an <literal>ngx_http_connection_t</literal> object is created for
-the connection and its reference is stored in connection's
+the connection and its reference is stored in the connection's
 <literal>data</literal> field.
-Later it will be substituted with an HTTP request object.
-PROXY protocol parser and SSL handshake are started at this stage as well
+Later it will be replaced by an HTTP request object.
+A PROXY protocol parser and the SSL handshake are started at
+this stage as well.
 </listitem>
 
 <listitem>
-<literal>ngx_http_wait_request_handler()</literal> is a read event handler, that
-is called when data is available in the client socket.
+<literal>ngx_http_wait_request_handler()</literal> read event handler
+is called when data is available on the client socket.
 At this stage an HTTP request object <literal>ngx_http_request_t</literal> is
-created and set to connection's <literal>data</literal> field
+created and set to the connection's <literal>data</literal> field.
 </listitem>
 
 <listitem>
-<literal>ngx_http_process_request_line()</literal> is a read event handler,
-which reads client request line.
+<literal>ngx_http_process_request_line()</literal> read event handler
+reads client request line.
 The handler is set by <literal>ngx_http_wait_request_handler()</literal>.
-Reading is done into connection's <literal>buffer</literal>.
+The data is read into connection's <literal>buffer</literal>.
 The size of the buffer is initially set by the directive
 <link doc="../http/ngx_http_core_module.xml" id="client_header_buffer_size"/>.
-The entire client header is supposed to fit the buffer.
-If the initial size is not enough, a bigger buffer is allocated, whose size is
-set by the <literal>large_client_header_buffers</literal> directive
+The entire client header is supposed to fit in the buffer.
+If the initial size is not sufficient, a bigger buffer is allocated,
+with the capacity set by the <literal>large_client_header_buffers</literal>
+directive.
 </listitem>
 
 <listitem>
-<literal>ngx_http_process_request_headers()</literal> is a read event handler,
-which is set after <literal>ngx_http_process_request_line()</literal> to read
-client request header
+<literal>ngx_http_process_request_headers()</literal> read event handler,
+is set after <literal>ngx_http_process_request_line()</literal> to read
+the client request header.
 </listitem>
 
 <listitem>
@@ -3777,10 +3847,10 @@ is completely read and parsed.
 This function runs request phases from
 <literal>NGX_HTTP_POST_READ_PHASE</literal> to
 <literal>NGX_HTTP_CONTENT_PHASE</literal>.
-The last phase is supposed to generate response and pass it along the filter
+The last phase is intended to generate a response and pass it along the filter
 chain.
 The response is not necessarily sent to the client at this phase.
-It may remain buffered and will be sent at the finalization stage
+It might remain buffered and be sent at the finalization stage.
 </listitem>
 
 <listitem>
@@ -3790,17 +3860,17 @@ In the latter case an appropriate error page is looked up and used as the
 response.
 If the response is not completely sent to the client by this point, an
 HTTP writer <literal>ngx_http_writer()</literal> is activated to finish
-sending outstanding data
+sending outstanding data.
 </listitem>
 
 <listitem>
-<literal>ngx_http_finalize_connection()</literal> is called when the response is
-completely sent to the client and the request can be destroyed.
-If client connection keepalive feature is enabled,
-<literal>ngx_http_set_keepalive()</literal> is called, which destroys current
-request and waits for the next request on the connection.
+<literal>ngx_http_finalize_connection()</literal> is called when the complete
+response has been sent to the client and the request can be destroyed.
+If the client connection keepalive feature is enabled,
+<literal>ngx_http_set_keepalive()</literal> is called, which destroys the
+current request and waits for the next request on the connection.
 Otherwise, <literal>ngx_http_close_request()</literal> destroys both the
-request and the connection
+request and the connection.
 </listitem>
 
 </list>
@@ -3812,7 +3882,7 @@ request and the connection
 
 <para>
 For each client HTTP request the <literal>ngx_http_request_t</literal> object is
-created.  Some of the fields of this object:
+created.  Some of the fields of this object are:
 </para>
 
 <list type="bullet">
@@ -3820,22 +3890,22 @@ created.  Some of the fields of this object:
 <listitem>
 
 <para>
-<literal>connection</literal> — pointer to a <literal>ngx_connection_t</literal>
+<literal>connection</literal> — Pointer to a <literal>ngx_connection_t</literal>
 client connection object.
-Several requests may reference the same connection object at the same time -
+Several requests can reference the same connection object at the same time -
 one main request and its subrequests.
-After a request is deleted, a new request may be created on the same connection.
+After a request is deleted, a new request can be created on the same connection.
 </para>
 
 <para>
 Note that for HTTP connections <literal>ngx_connection_t</literal>'s
 <literal>data</literal> field points back to the request.
-Such request is called active, as opposed to the other requests tied with the
+Such requests are called active, as opposed to the other requests tied to the
 connection.
-Active request is used to handle client connection events and is allowed to
+An active request is used to handle client connection events and is allowed to
 output its response to the client.
-Normally, each request becomes active at some point to be able to send its
-output
+Normally, each request becomes active at some point so that it can send its
+output.
 </para>
 
 </listitem>
@@ -3843,7 +3913,7 @@ output
 <listitem>
 
 <para>
-<literal>ctx</literal> — array of HTTP module contexts.
+<literal>ctx</literal> — Array of HTTP module contexts.
 Each module of type <literal>NGX_HTTP_MODULE</literal> can store any value
 (normally, a pointer to a structure) in the request.
 The value is stored in the <literal>ctx</literal> array at the module's
@@ -3854,13 +3924,13 @@ The following macros provide a convenient way to get and set request contexts:
 <list type="bullet">
 
 <listitem>
-<literal>ngx_http_get_module_ctx(r, module)</literal> — returns
-<literal>module</literal>'s context
+<literal>ngx_http_get_module_ctx(r, module)</literal> — Returns
+the <literal>module</literal>'s context
 </listitem>
 
 <listitem>
-<literal>ngx_http_set_ctx(r, c, module)</literal> — sets <literal>c</literal>
-as <literal>module</literal>'s context
+<literal>ngx_http_set_ctx(r, c, module)</literal> — Sets <literal>c</literal>
+as the <literal>module</literal>'s context
 </listitem>
 
 </list>
@@ -3868,119 +3938,132 @@ as <literal>module</literal>'s context
 </listitem>
 
 <listitem>
-<literal>main_conf, srv_conf, loc_conf</literal> — arrays of current request
+<literal>main_conf</literal>, <literal>srv_conf</literal>,
+<literal>loc_conf</literal> — Arrays of current request
 configurations.
-Configurations are stored at module's <literal>ctx_index</literal> positions
+Configurations are stored at the module's <literal>ctx_index</literal>
+positions.
 </listitem>
 
 <listitem>
 <literal>read_event_handler</literal>, <literal>write_event_handler</literal> -
-read and write event handlers for the request.
-Normally, an HTTP connection has <literal>ngx_http_request_handler()</literal>
-set as both read and write event handlers.
-This function calls <literal>read_event_handler</literal> and
-<literal>write_event_handler</literal> handlers of the currently active request
+Read and write event handlers for the request.
+Normally, both the read and write event handlers for an HTTP connection
+are set to <literal>ngx_http_request_handler()</literal>.
+This function calls the <literal>read_event_handler</literal> and
+<literal>write_event_handler</literal> handlers for the currently
+active request.
 </listitem>
 
 <listitem>
-<literal>cache</literal> — request cache object for caching upstream response
+<literal>cache</literal> — Request cache object for caching the
+upstream response.
 </listitem>
 
 <listitem>
-<literal>upstream</literal> — request upstream object for proxying
+<literal>upstream</literal> — Request upstream object for proxying.
 </listitem>
 
 <listitem>
-<literal>pool</literal> — request pool.
-This pool is destroyed when the request is deleted.
-The request object itself is allocated in this pool.
-For allocations which should be available throughout the client connection's
-lifetime, <literal>ngx_connection_t</literal>'s pool should be used instead
+<literal>pool</literal> — Request pool.
+The request object itself is allocated in this pool, which is destroyed when
+the request is deleted.
+For allocations that need to be available throughout the client connection's
+lifetime, use <literal>ngx_connection_t</literal>'s pool instead.
 </listitem>
 
 <listitem>
-<literal>header_in</literal> — buffer where client HTTP request header in read
+<literal>header_in</literal> — Buffer into which the client HTTP request
+header is read.
 </listitem>
 
 <listitem>
-<literal>headers_in, headers_out</literal> — input and output HTTP headers
-objects.
+<literal>headers_in</literal>, <literal>headers_out</literal> — Input and
+output HTTP headers objects.
 Both objects contain the <literal>headers</literal> field of type
-<literal>ngx_list_t</literal> keeping the raw list of headers.
+<literal>ngx_list_t</literal> for keeping the raw list of headers.
 In addition to that, specific headers are available for getting and setting as
 separate fields, for example <literal>content_length_n</literal>,
-<literal>status</literal> etc
+<literal>status</literal> etc.
 </listitem>
 
 <listitem>
-<literal>request_body</literal> — client request body object
+<literal>request_body</literal> — Client request body object.
 </listitem>
 
 <listitem>
-<literal>start_sec, start_msec</literal> — time point when the request was
-created.
-Used for tracking request duration
+<literal>start_sec</literal>, <literal>start_msec</literal> — Time point when
+the request was created, used for tracking request duration.
 </listitem>
 
 <listitem>
-<literal>method, method_name</literal> — numeric and textual representation of
-client HTTP request method.
+<literal>method</literal>, <literal>method_name</literal> — Numeric and text
+representation of the client HTTP request method.
 Numeric values for methods are defined in
-<literal>src/http/ngx_http_request.h</literal> with macros
-<literal>NGX_HTTP_GET, NGX_HTTP_HEAD, NGX_HTTP_POST</literal> etc
+<literal>src/http/ngx_http_request.h</literal> with the macros
+<literal>NGX_HTTP_GET</literal>, <literal>NGX_HTTP_HEAD</literal>,
+<literal>NGX_HTTP_POST</literal>, etc.
 </listitem>
 
 <listitem>
-<literal>http_protocol, http_version, http_major, http_minor</literal> -
-client HTTP protocol version in its original textual form (“HTTP/1.0”,
-“HTTP/1.1” etc), numeric form (<literal>NGX_HTTP_VERSION_10</literal>,
-<literal>NGX_HTTP_VERSION_11</literal> etc) and separate major and minor
-versions
+<literal>http_protocol</literal>  — Client HTTP protocol version in its
+original text form (“HTTP/1.0”, “HTTP/1.1” etc).
 </listitem>
 
 <listitem>
-<literal>request_line, unparsed_uri</literal> — client original request line
-and URI
+<literal>http_version</literal>  — Client HTTP protocol version in
+numeric form  (<literal>NGX_HTTP_VERSION_10</literal>,
+<literal>NGX_HTTP_VERSION_11</literal>, etc.).
 </listitem>
 
 <listitem>
-<literal>uri, args, exten</literal> — current request URI, arguments and file
-extention.
+<literal>http_major</literal>, <literal>http_minor</literal>  — Client HTTP
+protocol version in numeric form split into major and minor parts.
+</listitem>
+
+<listitem>
+<literal>request_line</literal>, <literal>unparsed_uri</literal> — Request line
+and URI in the original client request.
+</listitem>
+
+<listitem>
+<literal>uri</literal>, <literal>args</literal>, <literal>exten</literal> —
+URI, arguments and file extension for the current request.
 The URI value here might differ from the original URI sent by the client due to
 normalization.
-Throughout request processing, these value can change while performing internal
-redirects
+Throughout request processing, these values can change as internal redirects
+are performed.
 </listitem>
 
 <listitem>
-<literal>main</literal> — pointer to a main request object.
-This object is created to process client HTTP request, as opposed to
-subrequests, created to perform a specific sub-task within the main request
+<literal>main</literal> — Pointer to a main request object.
+This object is created to process a client HTTP request, as opposed to
+subrequests, which are created to perform a specific subtask within the main
+request.
 </listitem>
 
 <listitem>
-<literal>parent</literal> — pointer to a parent request of a subrequest
+<literal>parent</literal> — Pointer to the parent request of a subrequest.
 </listitem>
 
 <listitem>
-<literal>postponed</literal> — list of output buffers and subrequests in the
-order they are sent and created.
-The list is used by the postpone filter to provide consistent request output,
-when parts of it are created by subrequests
+<literal>postponed</literal> — List of output buffers and subrequests, in the
+order in which they are sent and created.
+The list is used by the postpone filter to provide consistent request output
+when parts of it are created by subrequests.
 </listitem>
 
 <listitem>
-<literal>post_subrequest</literal> — pointer to a handler with context to be
-called when a subrequest gets finalized.
-Unused for main requests
+<literal>post_subrequest</literal> — Pointer to a handler with the context
+to be called when a subrequest gets finalized.
+Unused for main requests.
 </listitem>
 
 <listitem>
 
 <para>
-<literal>posted_requests</literal> — list of requests to be started or
-resumed.
-Starting or resuming is done by calling the request's
+<literal>posted_requests</literal> — List of requests to be started or
+resumed, which is done by calling the request's
 <literal>write_event_handler</literal>.
 Normally, this handler holds the request main function, which at first runs
 request phases and then produces the output.
@@ -3991,140 +4074,147 @@ A request is usually posted by the
 <literal>ngx_http_post_request(r, NULL)</literal> call.
 It is always posted to the main request <literal>posted_requests</literal> list.
 The function <literal>ngx_http_run_posted_requests(c)</literal> runs all
-requests, posted in the main request of the passed connection's active request.
-This function should be called in all event handlers, which can lead to new
-posted requests.
-Normally, it's called always after invoking a request's read or write handler
+requests that are posted in the main request of the passed
+connection's active request.
+All event handlers call <literal>ngx_http_run_posted_requests</literal>,
+which can lead to new posted requests.
+Normally, it is called after invoking a request's read or write handler.
 </para>
 
 </listitem>
 
 <listitem>
-<literal>phase_handler</literal> — index of current request phase
+<literal>phase_handler</literal> — Index of current request phase.
 </listitem>
 
 <listitem>
-<literal>ncaptures, captures, captures_data</literal> — regex captures produced
+<literal>ncaptures</literal>, <literal>captures</literal>,
+<literal>captures_data</literal> — Regex captures produced
 by the last regex match of the request.
-While processing a request, there's a number of places where a regex match can
-happen: map lookup, server lookup by SNI or HTTP Host, rewrite, proxy_redirect
-etc.
+A regex match can occur at a number of places during request processing:
+map lookup, server lookup by SNI or HTTP Host, rewrite, proxy_redirect, etc.
 Captures produced by a lookup are stored in the above mentioned fields.
 The field <literal>ncaptures</literal> holds the number of captures,
-<literal>captures</literal> holds captures boundaries,
-<literal>captures_data</literal> holds a string, against which the regex was
-matched and which should be used to extract captures.
-After each new regex match request captures are reset to hold new values
+<literal>captures</literal> holds captures boundaries and
+<literal>captures_data</literal> holds the string against which the regex was
+matched and which is used to extract captures.
+After each new regex match, request captures are reset to hold new values.
 </listitem>
 
 <listitem>
-<literal>count</literal> — request reference counter.
+<literal>count</literal> — Request reference counter.
 The field only makes sense for the main request.
 Increasing the counter is done by simple <literal>r->main->count++</literal>.
-To decrease the counter <literal>ngx_http_finalize_request(r, rc)</literal>
-should be called.
-Creation of a subrequest or running request body read process increase the
-counter
+To decrease the counter, call
+<literal>ngx_http_finalize_request(r, rc)</literal>.
+Creating of a subrequest and running the request body read process both
+increment the counter.
 </listitem>
 
 <listitem>
-<literal>subrequests</literal> — current subrequest nesting level.
-Each subrequest gets the nesting level of its parent decreased by one.
-Once the value reaches zero an error is generated.
+<literal>subrequests</literal> — Current subrequest nesting level.
+Each subrequest inherits its parent's nesting level, decreased by one.
+An error is generated if the value reaches zero.
 The value for the main request is defined by the
-<literal>NGX_HTTP_MAX_SUBREQUESTS</literal> constant
+<literal>NGX_HTTP_MAX_SUBREQUESTS</literal> constant.
 </listitem>
 
 <listitem>
-<literal>uri_changes</literal> — number of URI changes left for the request.
+<literal>uri_changes</literal> — Number of URI changes remaining for
+the request.
 The total number of times a request can change its URI is limited by the
 <literal>NGX_HTTP_MAX_URI_CHANGES</literal> constant.
-With each change the value is decreased until it reaches zero.
-In the latter case an error is generated.
-The actions considered as URI changes are rewrites and internal redirects to
-normal or named locations
+With each change the value is decremented until it reaches zero, at which time
+an error is generated.
+Rewrites and internal redirects to normal or named locations are considered URI
+changes.
 </listitem>
 
 <listitem>
-<literal>blocked</literal> — counter of blocks held on the request.
-While this value is non-zero, request cannot be terminated.
+<literal>blocked</literal> — Counter of blocks held on the request.
+While this value is non-zero, the request cannot be terminated.
 Currently, this value is increased by pending AIO operations (POSIX AIO and
-thread operations) and active cache lock
+thread operations) and active cache lock.
 </listitem>
 
 <listitem>
-<literal>buffered</literal> — bitmask showing which modules have buffered the
+<literal>buffered</literal> — Bitmask showing which modules have buffered the
 output produced by the request.
-A number of filters can buffer output, for example sub_filter can buffer data
-due to a partial string match, copy filter can buffer data because of the lack
-of free output_buffers etc.
-As long as this value is non-zero, request is not finalized, expecting the flush
+A number of filters can buffer output; for example, sub_filter can buffer data
+because of a partial string match, copy filter can buffer data because of the
+lack of free output buffers etc.
+As long as this value is non-zero, the request is not finalized
+pending the flush.
 </listitem>
 
 <listitem>
-<literal>header_only</literal> — flag showing that output does not require body.
-For example, this flag is used by HTTP HEAD requests
+<literal>header_only</literal> — Flag indicating that the output does not
+require a body.
+For example, this flag is used by HTTP HEAD requests.
 </listitem>
 
 <listitem>
 <para>
-<literal>keepalive</literal> — flag showing if client connection keepalive is
-supported.
-The value is inferred from HTTP version and <header>Connection</header> header
-value
+<literal>keepalive</literal> — Flag indicating whether client connection
+keepalive is supported.
+The value is inferred from the HTTP version and the value of the
+<header>Connection</header> header.
 </para>
 </listitem>
 
 <listitem>
-<literal>header_sent</literal> — flag showing that output header has already
-been sent by the request
+<literal>header_sent</literal> — Flag indicating that the output header
+has already been sent by the request.
 </listitem>
 
 <listitem>
-<literal>internal</literal> — flag showing that current request is internal.
-To enter the internal state, a request should pass through an internal
+<literal>internal</literal> — Flag indicating that the current request
+is internal.
+To enter the internal state, a request must pass through an internal
 redirect or be a subrequest.
-Internal requests are allowed to enter internal locations
+Internal requests are allowed to enter internal locations.
 </listitem>
 
 <listitem>
-<literal>allow_ranges</literal> — flag showing that partial response can be
-sent to client, if requested by the HTTP Range header
+<literal>allow_ranges</literal> — Flag indicating that a partial response
+can be sent to the client, as requested by the HTTP Range header.
 </listitem>
 
 <listitem>
-<literal>subrequest_ranges</literal> — flag showing that a partial response is
-allowed to be sent while processing a subrequest
+<literal>subrequest_ranges</literal> — Flag indicating that a partial response
+can be sent while a subrequest is being processed.
 </listitem>
 
 <listitem>
-<literal>single_range</literal> — flag showing that only a single continuous
+<literal>single_range</literal> — Flag indicating that only a single continuous
 range of output data can be sent to the client.
 This flag is usually set when sending a stream of data, for example from a
-proxied server, and the entire response is not available at once
+proxied server, and the entire response is not available in one buffer.
 </listitem>
 
 <listitem>
-<literal>main_filter_need_in_memory, filter_need_in_memory</literal> — flags
-showing that the output should be produced in memory buffers but not in files.
+<literal>main_filter_need_in_memory</literal>,
+<literal>filter_need_in_memory</literal> — Flags
+requesting that the output produced in memory buffers rather than files.
 This is a signal to the copy filter to read data from file buffers even if
 sendfile is enabled.
-The difference between these two flags is the location of filter modules which
+The difference between the two flags is the location of the filter modules that
 set them.
-Filters called before the postpone filter in filter chain, set
-<literal>filter_need_in_memory</literal> requesting that only the current
-request output should come in memory buffers.
-Filters called later in filter chain set
-<literal>main_filter_need_in_memory</literal> requiring that both the main
-request and all the subrequest read files in memory while sending output
+Filters called before the postpone filter in the filter chain set
+<literal>filter_need_in_memory</literal>, requesting that only the current
+request output come in memory buffers.
+Filters called later in the filter chain set
+<literal>main_filter_need_in_memory</literal>, requesting that
+both the main request and all subrequests read files in memory
+while sending output.
 </listitem>
 
 <listitem>
-<literal>filter_need_temporary</literal> — flag showing that the request output
-should be produced in temporary buffers, but not in readonly memory buffers or
+<literal>filter_need_temporary</literal> — Flag requesting that the request
+output be produced in temporary buffers, but not in readonly memory buffers or
 file buffers.
-This is used by filters which may change output directly in the buffers, where
-it's sent </listitem>
+This is used by filters which may change output directly in the buffers where
+it's sent.</listitem>
 
 </list>
 
@@ -4134,39 +4224,37 @@ it's sent </listitem>
 <section name="Configuration" id="http_conf">
 
 <para>
-Each HTTP module may have three types of configuration:
+Each HTTP module can have three types of configuration:
 </para>
 
 <list type="bullet">
 
 <listitem>
-Main configuration.
-This configuration applies to the entire nginx http{} block.  This is global
-configuration.
-It stores global settings for a module
+Main configuration — Applies to the entire <literal>http</literal> block.
+Functions as global settings for a module.
 </listitem>
 
 <listitem>
-Server configuration.
-This configuration applies to a single nginx server{}.
-It stores server-specific settings for a module
+Server configuration — Applies to a single <literal>server</literal> block.
+Functions as server-specific settings for a module.
 </listitem>
 
 <listitem>
-Location configuration.
-This configuration applies to a single location{}, if{} or limit_except() block.
-This configuration stores settings specific to a location
+Location configuration — Applies to a single <literal>location</literal>,
+<literal>if</literal> or <literal>limit_except</literal> block.
+Functions as location-specific settings for a module.
 </listitem>
 
 </list>
 
 <para>
-Configuration structures are created at nginx configuration stage by calling
-functions, which allocate these structures, initialize them and merge.
-The following example shows how to create a simple module location
-configuration.
-The configuration has one setting <literal>foo</literal> of unsiged integer
-type.
+Configuration structures are created at the nginx configuration stage by
+calling functions, which allocate the structures, initialize them
+and merge them.
+The following example shows how to create a simple location
+configuration for a module.
+The configuration has one setting, <literal>foo</literal>, of type
+unsigned integer.
 </para>
 
 <programlisting>
@@ -4217,32 +4305,32 @@ ngx_http_foo_merge_loc_conf(ngx_conf_t *cf, void *parent, void *child)
 </programlisting>
 
 <para>
-As seen in the example, <literal>ngx_http_foo_create_loc_conf()</literal>
-function creates a new configuration structure and
+As seen in the example, the <literal>ngx_http_foo_create_loc_conf()</literal>
+function creates a new configuration structure, and
 <literal>ngx_http_foo_merge_loc_conf()</literal> merges a configuration with
-another configuration from a higher level.
-In fact, server and location configuration do not only exist at server and
-location levels, but also created for all the levels above.
-Specifically, a server configuration is created at the main level as well and
-location configurations are created for main, server and location levels.
-These configurations make it possible to specify server and location-specific
-settings at any level of nginx configuration file.
+configuration from a higher level.
+In fact, server and location configuration do not exist only at the server and
+location levels, but are also created for all levels above them.
+Specifically, a server configuration is also created at the main level and
+location configurations are created at the main, server, and location levels.
+These configurations make it possible to specify server- and location-specific
+settings at any level of an nginx configuration file.
 Eventually configurations are merged down.
-To indicate a missing setting and ignore it while merging, nginx provides a
-number of macros like <literal>NGX_CONF_UNSET</literal> and
-<literal>NGX_CONF_UNSET_UINT</literal>.
+A number of macros like <literal>NGX_CONF_UNSET</literal> and
+<literal>NGX_CONF_UNSET_UINT</literal> are provided
+for indicating a missing setting and ignoring it while merging.
 Standard nginx merge macros like <literal>ngx_conf_merge_value()</literal> and
 <literal>ngx_conf_merge_uint_value()</literal> provide a convenient way to
-merge a setting and set the default value if none of configurations provided an
-explicit value.
-For complete list of macros for different types see
+merge a setting and set the default value if none of the configurations
+provided an explicit value.
+For complete list of macros for different types, see
 <literal>src/core/ngx_conf_file.h</literal>.
 </para>
 
 <para>
-To access configuration of any HTTP module at configuration time, the following
-macros are available.
-They receive <literal>ngx_conf_t</literal> reference as the first argument.
+The following macros are available.
+for accessing configuration for HTTP modules at configuration time.
+They all take <literal>ngx_conf_t</literal> reference as the first argument.
 </para>
 
 <list type="bullet">
@@ -4265,9 +4353,8 @@ They receive <literal>ngx_conf_t</literal> reference as the first argument.
 The following example gets a pointer to a location configuration of
 standard nginx core module
 <link doc="../http/ngx_http_core_module.xml">ngx_http_core_module</link>
-and changes
-location content handler kept in the <literal>handler</literal> field of the
-structure.
+and replaces the location content handler kept
+in the <literal>handler</literal> field of the structure.
 </para>
 
 <programlisting>
@@ -4300,8 +4387,8 @@ ngx_http_foo(ngx_conf_t *cf, ngx_command_t *cmd, void *conf)
 </programlisting>
 
 <para>
-In runtime the following macros are available to get configurations of HTTP
-modules.
+The following macros are available for accessing configuration for HTTP
+modules at runtime.
 </para>
 
 <list type="bullet">
@@ -4323,12 +4410,13 @@ modules.
 <para>
 These macros receive a reference to an HTTP request
 <literal>ngx_http_request_t</literal>.
-Main configuration of a request never changes.
-Server configuration may change from a default one after choosing a virtual
-server for a request.
-Request location configuration may change multiple times as a result of a
-rewrite or internal redirect.
-The following example shows how to access HTTP configuration in runtime.
+The main configuration of a request never changes.
+Server configuration can change from the default after
+the virtual server for the request is chosen.
+Location configuration selected for processing a request can change multiple
+times as a result of a rewrite operation or internal redirect.
+The following example shows how to access a module's HTTP configuration at
+runtime.
 </para>
 
 <programlisting>
@@ -4349,119 +4437,125 @@ ngx_http_foo_handler(ngx_http_request_t *r)
 <section name="Phases" id="http_phases">
 
 <para>
-Each HTTP request passes through a list of HTTP phases.
-Each phase is specialized in a particular type of processing.
-Most phases allow installing handlers.
-The phase handlers are called successively once the request reaches the phase.
-Many standard nginx modules install their phase handlers as a way to get called
-at a specific request processing stage.
+Each HTTP request passes through a sequence of phases.
+In each phase a distinct type of processing is performed on the request.
+Module-specific handlers can be registered in most phases,
+and many standard nginx modules register their phase handlers as a way
+to get called at a specific stage of request processing.
+Phases are processed successively and the phase handlers are called
+once the request reaches the phase.
 Following is the list of nginx HTTP phases.
 </para>
 
 <list type="bullet">
 
 <listitem>
-<literal>NGX_HTTP_POST_READ_PHASE</literal> is the earliest phase.
+<literal>NGX_HTTP_POST_READ_PHASE</literal> — First phase.
 The <link doc="../http/ngx_http_realip_module.xml">ngx_http_realip_module</link>
-installs its handler at this phase.
-This allows to substitute client address before any other module is invoked
+registers its handler at this phase to enable
+substitution of client addresses before any other module is invoked.
 </listitem>
 
 <listitem>
-<literal>NGX_HTTP_SERVER_REWRITE_PHASE</literal> is used to run rewrite script,
-defined at the server level, that is out of any location block.
+<literal>NGX_HTTP_SERVER_REWRITE_PHASE</literal> — Phase where
+rewrite directives defined in a <literal>server</literal> block
+(but outside a <literal>location</literal> block) are processed.
 The
 <link doc="../http/ngx_http_rewrite_module.xml">ngx_http_rewrite_module</link>
-installs its handler at this phase
+installs its handler at this phase.
 </listitem>
 
 <listitem>
-<literal>NGX_HTTP_FIND_CONFIG_PHASE</literal> — a special phase used to choose a
-location based on request URI.
-This phase does not allow installing any handlers.
-It only performs the default action of choosing a location.
-Before this phase, the server default location is assigned to the request.
-Any module requesting a location configuration, will receive the default server
-location configuration.
-After this phase a new location is assigned to the request
+<literal>NGX_HTTP_FIND_CONFIG_PHASE</literal> — Special phase
+where a location is chosen based on the request URI.
+Before this phase, the default location for the relevant virtual server
+is assigned to the request, and any module requesting a location configuration
+receives the configuration for the default server location.
+This phase a assigns a new location to the request.
+No additional handlers can be registered at this phase.
 </listitem>
 
 <listitem>
-<literal>NGX_HTTP_REWRITE_PHASE</literal> — same as
-<literal>NGX_HTTP_SERVER_REWRITE_PHASE</literal>, but for a new location,
-chosen at the previous phase
+<literal>NGX_HTTP_REWRITE_PHASE</literal> — Same as
+<literal>NGX_HTTP_SERVER_REWRITE_PHASE</literal>, but for
+rewrite rules defined in the location, chosen in the previous phase.
 </listitem>
 
 <listitem>
-<literal>NGX_HTTP_POST_REWRITE_PHASE</literal> — a special phase, used to
-redirect the request to a new location, if the URI was changed during rewrite.
-The redirect is done by going back to
-<literal>NGX_HTTP_FIND_CONFIG_PHASE</literal>.
-No handlers are allowed at this phase
+<literal>NGX_HTTP_POST_REWRITE_PHASE</literal> — Special phase
+where the request is redirected to a new location if its URI changed
+during a rewrite.
+This is implemented by the request going through
+the <literal>NGX_HTTP_FIND_CONFIG_PHASE</literal> again.
+No additional handlers can be registered at this phase.
 </listitem>
 
 <listitem>
-<literal>NGX_HTTP_PREACCESS_PHASE</literal> — a common phase for different
-types of handlers, not associated with access check.
-Standard nginx modules
+<literal>NGX_HTTP_PREACCESS_PHASE</literal> — A common phase for different
+types of handlers, not associated with access control.
+The standard nginx modules
 <link doc="../http/ngx_http_limit_conn_module.xml">ngx_http_limit_conn_module
 </link> and
 <link doc="../http/ngx_http_limit_req_module.xml">
-ngx_http_limit_req_module</link> register their handlers at this phase
+ngx_http_limit_req_module</link> register their handlers at this phase.
 </listitem>
 
 <listitem>
-<literal>NGX_HTTP_ACCESS_PHASE</literal> — used to check access permissions
-for the request.
+<literal>NGX_HTTP_ACCESS_PHASE</literal> — Phase where it is verified
+that the client is authorized to make the request.
 Standard nginx modules such as
 <link doc="../http/ngx_http_access_module.xml">ngx_http_access_module</link> and
 <link doc="../http/ngx_http_auth_basic_module.xml">ngx_http_auth_basic_module
 </link> register their handlers at this phase.
-If configured so by the
-<link doc="../http/ngx_http_core_module.xml" id="satisfy"/> directive, only one
-of access phase handlers may allow access to the request in order to continue
-processing
+By default the client must pass the authorization check of all handlers
+registered at this phase for the request to continue to the next phase.
+The <link doc="../http/ngx_http_core_module.xml" id="satisfy"/> directive,
+can be used to permit processing to continue if any of the phase handlers
+authorizes the client.
 </listitem>
 
 <listitem>
-<literal>NGX_HTTP_POST_ACCESS_PHASE</literal> — a special phase for the
+<literal>NGX_HTTP_POST_ACCESS_PHASE</literal> — Special phase where the
 <link doc="../http/ngx_http_core_module.xml" id="satisfy">satisfy any</link>
-case.
-If some access phase handlers denied the access and none of them allowed, the
+directive is processed.
+If some access phase handlers denied access and none explictly allowed it, the
 request is finalized.
-No handlers are supported at this phase
+No additional handlers can be registered at this phase.
 </listitem>
 
 <listitem>
-<literal>NGX_HTTP_TRY_FILES_PHASE</literal> — a special phase, for the
-<link doc="../http/ngx_http_core_module.xml" id="try_files"/> feature.
-No handlers are allowed at this phase
+<literal>NGX_HTTP_TRY_FILES_PHASE</literal> — Special phase where
+the <link doc="../http/ngx_http_core_module.xml" id="try_files"/> directive
+is processed.
+No additional handlers can be registered at this phase.
 </listitem>
 
 <listitem>
-<literal>NGX_HTTP_CONTENT_PHASE</literal> — a phase, at which the response
-is supposed to be generated.
-Multiple nginx standard modules register their handers at this phase, for
-example
+<literal>NGX_HTTP_CONTENT_PHASE</literal> — Phase where the response
+is normally generated.
+Multiple nginx standard modules register their handlers at this phase,
+including
 <link doc="../http/ngx_http_index_module.xml">ngx_http_index_module</link> or
 <literal>ngx_http_static_module</literal>.
-All these handlers are called sequentially until one of them finally produces
+They are called sequentially until one of them produces
 the output.
 It's also possible to set content handlers on a per-location basis.
 If the
 <link doc="../http/ngx_http_core_module.xml">ngx_http_core_module</link>'s
-location configuration has <literal>handler</literal> set, this handler is
-called as the content handler and content phase handlers are ignored
+location configuration has <literal>handler</literal> set, it is
+called as the content handler and the handlers installed at this phase
+are ignored.
 </listitem>
 
 <listitem>
-<literal>NGX_HTTP_LOG_PHASE</literal> is used to perform request logging.
+<literal>NGX_HTTP_LOG_PHASE</literal> — Phase where request logging
+is performed.
 Currently, only the
 <link doc="../http/ngx_http_log_module.xml">ngx_http_log_module</link>
 registers its handler
 at this stage for access logging.
 Log phase handlers are called at the very end of request processing, right
-before freeing the request
+before freeing the request.
 </listitem>
 
 </list>
@@ -4532,43 +4626,45 @@ Phase handlers are expected to return specific codes:
 <list type="bullet">
 
 <listitem>
-<literal>NGX_OK</literal> — proceed to the next phase
+<literal>NGX_OK</literal> — Proceed to the next phase.
 </listitem>
 
 <listitem>
-<literal>NGX_DECLINED</literal> — proceed to the next handler of the current
+<literal>NGX_DECLINED</literal> — Proceed to the next handler of the current
 phase.
-If current handler is the last in current phase, move to the next phase
+If the current handler is the last in the current phase,
+move to the next phase.
 </listitem>
 
 <listitem>
-<literal>NGX_AGAIN, NGX_DONE</literal> — suspend phase handling until some
-future event.
-This can be for example asynchronous I/O operation or just a delay.
-It is supposed, that phase handling will be resumed later by calling
-<literal>ngx_http_core_run_phases()</literal>
+<literal>NGX_AGAIN</literal>, <literal>NGX_DONE</literal> — Suspend
+phase handling until some future event which can be
+an asynchronous I/O operation or just a delay, for example.
+It is assumed, that phase handling will be resumed later by calling
+<literal>ngx_http_core_run_phases()</literal>.
 </listitem>
 
 <listitem>
 Any other value returned by the phase handler is treated as a request
-finalization code, in particular, HTTP response code.
-The request is finalized with the code provided
+finalization code, in particular, an HTTP response code.
+The request is finalized with the code provided.
 </listitem>
 
 </list>
 
 <para>
-Some phases treat return codes in a slightly different way.
-At content phase, any return code other that <literal>NGX_DECLINED</literal>
-is considered a finalization code.
-As for the location content handlers, any return from them is considered a
+For some phases, return codes are treated in a slightly different way.
+At the content phase, any return code other that
+<literal>NGX_DECLINED</literal> is considered a finalization code.
+Any return code from the location content handlers is considered a
 finalization code.
-At access phase, in
+At the access phase, in
 <link doc="../http/ngx_http_core_module.xml" id="satisfy">satisfy any</link>
-mode, returning a code other
-than <literal>NGX_OK, NGX_DECLINED, NGX_AGAIN, NGX_DONE</literal> is considered
-a denial.
-If none of future access handlers allow access or deny with a new
+mode,
+any return code other than <literal>NGX_OK</literal>,
+<literal>NGX_DECLINED</literal>, <literal>NGX_AGAIN</literal>,
+<literal>NGX_DONE</literal> is considered a denial.
+If no subsequent access handlers allow or deny access with a different
 code, the denial code will become the finalization code.
 </para>
 
@@ -4580,11 +4676,11 @@ code, the denial code will become the finalization code.
 <section name="Accessing existing variables" id="http_existing_variables">
 
 <para>
-Variables may be referenced using index (this is the most common method)
-or names (see below in the section about creating variables).
-Index is created at configuration stage, when a variable is added
-to configuration.
-The variable index can be obtained using
+Variables can be referenced by index (this is the most common method)
+or name (see <link id="http_creating_variables">below</link>).
+The index is created at configuration stage, when a variable is added
+to the configuration.
+To obtain the variable index, use
 <literal>ngx_http_get_variable_index()</literal>:
 <programlisting>
 ngx_str_t  name;  /* ngx_string("foo") */
@@ -4592,17 +4688,17 @@ ngx_int_t  index;
 
 index = ngx_http_get_variable_index(cf, &amp;name);
 </programlisting>
-Here, the <literal>cf</literal> is a pointer to nginx configuration and the
-<literal>name</literal> points to a string with the variable name.
-The function returns <literal>NGX_ERROR</literal> on error or valid index
-otherwise, which is typically stored somewhere in a module configuration for
-future use.
+Here, <literal>cf</literal> is a pointer to nginx configuration and
+<literal>name</literal> points to a string containing the variable name.
+The function returns <literal>NGX_ERROR</literal> on error or a valid index
+otherwise, which is typically stored somewhere in the module's
+configuration for future use.
 </para>
 
 <para>
-All HTTP variables are evaluated in the context of HTTP request and results
-are specific to and cached in HTTP request.
-All functions that evaluate variables return
+All HTTP variables are evaluated in the context of a given HTTP request,
+and results are specific to and cached in that HTTP request.
+All functions that evaluate variables return the
 <literal>ngx_http_variable_value_t</literal> type, representing
 the variable value:
 <programlisting>
@@ -4623,31 +4719,31 @@ where:
 <list type="bullet">
 
 <listitem>
-<literal>len</literal> — length of a value
+<literal>len</literal> — The length of the value
 </listitem>
 
 <listitem>
-<literal>data</literal> — value itself
+<literal>data</literal> — The value itself
 </listitem>
 
 <listitem>
-<literal>valid</literal> — value is valid
+<literal>valid</literal> — The value is valid
 </listitem>
 
 <listitem>
-<literal>not_found</literal> — variable was not found and thus
+<literal>not_found</literal> — The variable was not found and thus
 the <literal>data</literal> and <literal>len</literal> fields are irrelevant;
-this may happen, for example, with such variables as <var>$arg_foo</var>
+this can happen, for example, with variables like <var>$arg_foo</var>
 when a corresponding argument was not passed in a request
 </listitem>
 
 <listitem>
-<literal>no_cacheable</literal> — do not cache result
+<literal>no_cacheable</literal> — Do not cache result
 </listitem>
 
 <listitem>
-<literal>escape</literal> — used internally by the logging module to mark
-values that require escaping on output
+<literal>escape</literal> — Used internally by the logging module to mark
+values that require escaping on output.
 </listitem>
 
 </list>
@@ -4656,11 +4752,11 @@ values that require escaping on output
 <para>
 The <literal>ngx_http_get_flushed_variable()</literal>
 and <literal>ngx_http_get_indexed_variable()</literal> functions
-are used to obtain the variable value.
-They have the same interface - accepting a HTTP request <literal>r</literal>
-as a context for evaluating the variable and an <literal>index</literal>,
-identifying it.
-Example of typical usage:
+are used to obtain the value of a variable.
+They have the same interface - accepting an HTTP request <literal>r</literal>
+as a context for evaluating the variable and an <literal>index</literal>
+that identifies it.
+An example of typical usage:
 <programlisting>
 ngx_http_variable_value_t  *v;
 
@@ -4674,19 +4770,20 @@ if (v == NULL || v->not_found) {
 /* some meaningful value is found */
 </programlisting>
 The difference between functions is that the
-<literal>ngx_http_get_indexed_variable()</literal> returns cached value
-and <literal>ngx_http_get_flushed_variable()</literal> flushes cache for
+<literal>ngx_http_get_indexed_variable()</literal> returns a cached value
+and <literal>ngx_http_get_flushed_variable()</literal> flushes the cache for
 non-cacheable variables.
 </para>
 
 <para>
-There are cases when it is required to deal with variables which names are
-not known at configuration time and thus they cannot be accessed using indexes,
-for example in modules like SSI or Perl.
-The <literal>ngx_http_get_variable(r, name, key)</literal> function may be
-used in such cases.
-It searches for the <literal>variable</literal> with a given
-<literal>name</literal> and its hash <literal>key</literal>.
+Some modules, such as SSI and Perl, need to deal with variables for which the
+name is not known at configuration time.
+An index therefore cannot be used to access them, but the
+<literal>ngx_http_get_variable(r, name, key)</literal> function
+is available.
+It searches for a variable with a given
+<literal>name</literal> and its hash <literal>key</literal> derived
+from the name.
 </para>
 
 </section>
@@ -4695,42 +4792,43 @@ It searches for the <literal>variable</literal> with a given
 <section name="Creating variables" id="http_creating_variables">
 
 <para>
-To create a variable <literal>ngx_http_add_variable()</literal> function
-is used.
-It takes configuration (where variable is registered), variable name and
-flags that control its behaviour:
+To create a variable, use the <literal>ngx_http_add_variable()</literal>
+function.
+It takes as arguments a configuration (where the variable is registered),
+the variable name and flags that control the function's behaviour:
 
 <list type="bullet">
-<listitem><literal>NGX_HTTP_VAR_CHANGEABLE</literal> — allows redefining
-the variable; If another module will define a variable with such name,
-no conflict will happen.
-For example, this allows user to override variables using the
-<link doc="../http/ngx_http_rewrite_module.xml" id="set"/> directive.
+<listitem><literal>NGX_HTTP_VAR_CHANGEABLE</literal> — Enables redefinition of
+the variable: there is no conflict if another module defines a variable with
+the same name.
+This allows the
+<link doc="../http/ngx_http_rewrite_module.xml" id="set"/> directive
+to override variables.
 </listitem>
 
-<listitem><literal>NGX_HTTP_VAR_NOCACHEABLE</literal> — disables caching,
-is useful for such variables as <literal>$time_local</literal>
+<listitem><literal>NGX_HTTP_VAR_NOCACHEABLE</literal> — Disables caching,
+which is useful for variables such as <literal>$time_local</literal>.
 </listitem>
 
-<listitem><literal>NGX_HTTP_VAR_NOHASH</literal> — indicates that
+<listitem><literal>NGX_HTTP_VAR_NOHASH</literal> — Indicates that
 this variable is only accessible by index, not by name.
-This is a small optimization which may be used when it is known that the
+This is a small optimization for use when it is known that the
 variable is not needed in modules like SSI or Perl.
 </listitem>
 
-<listitem><literal>NGX_HTTP_VAR_PREFIX</literal> — the name of this
+<listitem><literal>NGX_HTTP_VAR_PREFIX</literal> — The name of the
 variable is a prefix.
-A handler must implement additional logic to obtain value of specific
-variable.
+In this case, a handler must implement additional logic to obtain the value
+of a specific variable.
 For example, all “<literal>arg_</literal>” variables are processed by the
-same handler which performs lookup in request arguments and returns value
-of specific argument.
+same handler, which performs lookup in request arguments and returns the value
+of a specific argument.
 </listitem>
 
 </list>
 
 The function returns NULL in case of error or a pointer to
-<literal>ngx_http_variable_t</literal>:
+<literal>ngx_http_variable_t</literal> otherwise:
 <programlisting>
 struct ngx_http_variable_s {
     ngx_str_t                     name;
@@ -4744,15 +4842,16 @@ struct ngx_http_variable_s {
 
 The <literal>get</literal> and <literal>set</literal> handlers
 are called to obtain or set the variable value,
-<literal>data</literal> will be passed to variable handlers,
-<literal>index</literal> will hold assigned variable index, used to reference
+<literal>data</literal> is passed to variable handlers, and
+<literal>index</literal> holds assigned variable index used to reference
 the variable.
 </para>
 
 <para>
-Usually, a null-terminated static array of such structures is created
+Usually, a null-terminated static array of
+<literal>ngx_http_variable_t</literal> structures is created
 by a module and processed at the preconfiguration stage to add variables
-into configuration:
+into the configuration, for example:
 <programlisting>
 static ngx_http_variable_t  ngx_http_foo_vars[] = {
 
@@ -4779,14 +4878,15 @@ ngx_http_foo_add_variables(ngx_conf_t *cf)
     return NGX_OK;
 }
 </programlisting>
-This function is used to initialize the <literal>preconfiguration</literal>
-field of the HTTP module context and is called before parsing HTTP configuration,
-so it could refer to these variables.
+This function in the example is used to initialize
+the <literal>preconfiguration</literal>
+field of the HTTP module context and is called before the parsing of HTTP
+configuration, so that the parser can refer to these variables.
 </para>
 
 <para>
-The <literal>get</literal> handler is responsible for evaluating the variable
-in a context of specific request, for example:
+The <literal>get</literal> handler is responsible for evaluating a variable
+in the context of a specific request, for example:
 <programlisting>
 static ngx_int_t
 ngx_http_variable_connection(ngx_http_request_t *r,
@@ -4810,14 +4910,15 @@ ngx_http_variable_connection(ngx_http_request_t *r,
 </programlisting>
 It returns <literal>NGX_ERROR</literal> in case of internal error
 (for example, failed memory allocation) or <literal>NGX_OK</literal> otherwise.
-The status of variable evaluation may be understood by inspecting flags
-of the <literal>ngx_http_variable_value_t</literal> (see description above).
+To learn the status of variable evaluation, inspect the flags
+in <literal>ngx_http_variable_value_t</literal> (see the description
+<link id="http_existing_variables">above</link>).
 </para>
 
 <para>
 The <literal>set</literal> handler allows setting the property
-referred by the variable.
-For example, the <literal>$limit_rate</literal> variable set handler
+referenced by the variable.
+For example, the set handler of the <literal>$limit_rate</literal> variable
 modifies the request's <literal>limit_rate</literal> field:
 <programlisting>
 ...
@@ -4864,14 +4965,14 @@ ngx_http_variable_request_set_size(ngx_http_request_t *r,
 
 <para>
 A complex value, despite its name, provides an easy way to evaluate
-expressions that may contain text, variables, and their combination.
+expressions which can contain text, variables, and their combination.
 </para>
 
 <para>
 The complex value description in
 <literal>ngx_http_compile_complex_value</literal> is compiled at the
 configuration stage into <literal>ngx_http_complex_value_t</literal>
-which is used at runtime to obtain evaluated expression results.
+which is used at runtime to obtain results of expression evaluation.
 
 <programlisting>
 ngx_str_t                         *value;
@@ -4899,54 +5000,54 @@ initialize the complex value <literal>cv</literal>:
 <list type="bullet">
 
 <listitem>
-<literal>cf</literal> — configuration pointer
+<literal>cf</literal> — Configuration pointer
 </listitem>
 
 <listitem>
-<literal>value</literal> — string for parsing (input)
+<literal>value</literal> — String to be parsed (input)
 </listitem>
 
 <listitem>
-<literal>complex_value</literal> — compiled value (output)
+<literal>complex_value</literal> — Compiled value (output)
 </listitem>
 
 <listitem>
-<literal>zero</literal> — flag that enables zero-terminating value
+<literal>zero</literal> — Flag that enables zero-terminating value
 </listitem>
 
 <listitem>
-<literal>conf_prefix</literal> — prefixes result with configuration prefix
-(the directory where nginx is currently looking for configuration)
+<literal>conf_prefix</literal> — Prefixes the result with the
+configuration prefix (the directory where nginx is currently looking for
+configuration)
 </listitem>
 
 <listitem>
-<literal>root_prefix</literal> — prefixes result with root prefix
-(this is the normal nginx installation prefix)
+<literal>root_prefix</literal> — Prefixes the result with the root prefix
+(the normal nginx installation prefix)
 </listitem>
 
 </list>
-The <literal>zero</literal> flag is usable when results are to be passed to
+The <literal>zero</literal> flag is useful when results are to be passed to
 libraries that require zero-terminated strings, and prefixes are handy when
 dealing with filenames.
 </para>
 
 <para>
-Upon successful compilation, <literal>cv.lengths</literal> may
-be inspected to get information about the presence of variables
+Upon successful compilation, <literal>cv.lengths</literal>
+contains information about the presence of variables
 in the expression.
 The NULL value means that the expression contained static text only,
-and there is no need in storing it as a complex value,
-so a simple string can be used.
+and so can be stored in a simple string rather than as a complex value.
 </para>
 
 <para>
 The <literal>ngx_http_set_complex_value_slot()</literal> is a convenient
-function used to initialize complex value completely right in the directive
-declaration.
+function used to initialize a complex value completely in the directive
+declaration itself.
 </para>
 
 <para>
-At runtime, a complex value may be calculated using the
+At runtime, a complex value can be calculated using the
 <literal>ngx_http_complex_value()</literal> function:
 <programlisting>
 ngx_str_t  res;
@@ -4956,8 +5057,8 @@ if (ngx_http_complex_value(r, &amp;cv, &amp;res) != NGX_OK) {
 }
 </programlisting>
 Given the request <literal>r</literal> and previously compiled
-value <literal>cv</literal> the function will evaluate
-expression and put result into <literal>res</literal>.
+value <literal>cv</literal>, the function evaluates the
+expression and writes the result to <literal>res</literal>.
 </para>
 
 </section>
@@ -4972,10 +5073,10 @@ structure.
 This means that at any point the location configuration of any module can be
 retrieved from the request by calling
 <literal>ngx_http_get_module_loc_conf(r, module)</literal>.
-Request location may be changed several times throughout its lifetime.
+Request location can change several times during the request's lifetime.
 Initially, a default server location of the default server is assigned to a
 request.
-Once a request switches to a different server (chosen by the HTTP
+If the request switches to a different server (chosen by the HTTP
 <header>Host</header> header or SSL SNI extension), the request switches to the
 default location of that server as well.
 The next change of the location takes place at the
@@ -4984,22 +5085,23 @@ At this phase a location is chosen by request URI among all non-named locations
 configured for the server.
 The
 <link doc="../http/ngx_http_rewrite_module.xml">ngx_http_rewrite_module</link>
-may change the request URI at the
+can change the request URI at the
 <literal>NGX_HTTP_REWRITE_PHASE</literal> request phase as a result of
-<link doc="../http/ngx_http_rewrite_module.xml" id="rewrite">rewrite</link> and
-return to the <literal>NGX_HTTP_FIND_CONFIG_PHASE</literal> phase for choosing a
+the <link doc="../http/ngx_http_rewrite_module.xml" id="rewrite">rewrite</link>
+directive and send the request back
+to the <literal>NGX_HTTP_FIND_CONFIG_PHASE</literal> phase for selection of a
 new location based on the new URI.
 </para>
 
 <para>
 It is also possible to redirect a request to a new location at any point by
-calling one of the functions
+calling one of
 <literal>ngx_http_internal_redirect(r, uri, args)</literal> or
 <literal>ngx_http_named_location(r, name)</literal>.
 </para>
 
 <para>
-The function <literal>ngx_http_internal_redirect(r, uri, args)</literal> changes
+The <literal>ngx_http_internal_redirect(r, uri, args)</literal> function changes
 the request URI and returns the request to the
 <literal>NGX_HTTP_SERVER_REWRITE_PHASE</literal> phase.
 The request proceeds with a server default location.
@@ -5051,18 +5153,28 @@ ngx_http_foo_named_redirect(ngx_http_request_t *r)
 </programlisting>
 
 <para>
-Both functions <literal>ngx_http_internal_redirect(r, uri, args)</literal>
-and <literal>ngx_http_named_location(r, name)</literal> may be called when
-a request already has some contexts saved in its <literal>ctx</literal> field
-by nginx modules.
-These contexts could become inconsistent with the new
+Both functions - <literal>ngx_http_internal_redirect(r, uri, args)</literal>
+and <literal>ngx_http_named_location(r, name)</literal> can be called when
+nginx modules have already stored some contexts in a request's
+<literal>ctx</literal> field.
+It's possible for these contexts to become inconsistent with the new
 location configuration.
 To prevent inconsistency, all request contexts are
 erased by both redirect functions.
 </para>
 
 <para>
-Redirected and rewritten requests become internal and may access the
+Calling <literal>ngx_http_internal_redirect(r, uri, args)</literal>
+or <literal>ngx_http_named_location(r, name)</literal> increases the request
+<literal>count</literal>.
+For consistent request reference counting, call
+<literal>ngx_http_finalize_request(r, NGX_DONE)</literal> after redirecting the
+request.
+This will finalize current request code path and decrease the counter.
+</para>
+
+<para>
+Redirected and rewritten requests become internal and can access the
 <link doc="../http/ngx_http_core_module.xml" id="internal">internal</link>
 locations.
 Internal requests have the <literal>internal</literal> flag set.
@@ -5074,28 +5186,29 @@ Internal requests have the <literal>internal</literal> flag set.
 <section name="Subrequests" id="http_subrequests">
 
 <para>
-Subrequests are primarily used to include output of one request into another,
+Subrequests are primarily used to insert output of one request into another,
 possibly mixed with other data.
 A subrequest looks like a normal request, but shares some data with its parent.
-Particularly, all fields related to client input are shared since a subrequest
-does not receive any other input from client.
-The request field <literal>parent</literal> for a subrequest keeps a link to its
-parent request and is NULL for the main request.
-The field <literal>main</literal> keeps a link to the main request in a group of
-requests.
+In particular, all fields related to client input are shared
+because a subrequest does not receive any other input from the client.
+The request field <literal>parent</literal> for a subrequest contains a link
+to its parent request and is NULL for the main request.
+The field <literal>main</literal> contains a link to the main request in
+a group of requests.
 </para>
 
 <para>
-A subrequest starts with <literal>NGX_HTTP_SERVER_REWRITE_PHASE</literal> phase.
-It passes through the same phases as a normal request and is assigned a location
-based on its own URI.
+A subrequest starts in the <literal>NGX_HTTP_SERVER_REWRITE_PHASE</literal>
+phase.
+It passes through the same subsequent phases as a normal request and is
+assigned a location based on its own URI.
 </para>
 
 <para>
-Subrequest output header is always ignored.
-Subrequest output body is placed by the
-<literal>ngx_http_postpone_filter</literal> into the right position in relation
-to other data produced by the parent request.
+The output header in a subrequest is always ignored.
+The <literal>ngx_http_postpone_filter</literal> places the subrequest's
+output body in the right position relative to other data produced
+by the parent request.
 </para>
 
 <para>
@@ -5103,76 +5216,78 @@ Subrequests are related to the concept of active requests.
 A request <literal>r</literal> is considered active if
 <literal>c->data == r</literal>, where <literal>c</literal> is the client
 connection object.
-At any point, only the active request in a request group is allowed to output
-its buffers to the client.
-A non-active request can still send its data to the filter chain, but they
-will not pass beyond the <literal>ngx_http_postpone_filter</literal> and will
-remain buffered by that filter until the request becomes active.
+At any given point, only the active request in a request group is allowed
+to output its buffers to the client.
+An inactive request can still send its output to the filter chain, but it
+does not pass beyond the <literal>ngx_http_postpone_filter</literal> and
+remains buffered by that filter until the request becomes active.
 Here are some rules of request activation:
 </para>
 
 <list type="bullet">
 
 <listitem>
-Initially, the main request is active
+Initially, the main request is active.
 </listitem>
 
 <listitem>
-The first subrequest of an active request becomes active right after creation
+The first subrequest of an active request becomes active right after creation.
 </listitem>
 
 <listitem>
 The <literal>ngx_http_postpone_filter</literal> activates the next request
-in active request's subrequest list, once all data prior to that request are
-sent
+in the active request's subrequest list, once all data prior to that request
+are sent.
 </listitem>
 
 <listitem>
-When a request is finalized, its parent is activated
+When a request is finalized, its parent is activated.
 </listitem>
 
 </list>
 
 <para>
-A subrequest is created by calling the function
+Create a subrequest by calling the function
 <literal>ngx_http_subrequest(r, uri, args, psr, ps, flags)</literal>, where
 <literal>r</literal> is the parent request, <literal>uri</literal> and
-<literal>args</literal> are URI and arguments of the
-subrequest, <literal>psr</literal> is the output parameter, receiving the
+<literal>args</literal> are the URI and arguments of the
+subrequest, <literal>psr</literal> is the output parameter, which receives the
 newly created subrequest reference, <literal>ps</literal> is a callback object
-for notifying the parent request that the subrequest is being finalized,
-<literal>flags</literal> is subrequest creation flags bitmask.
+for notifying the parent request that the subrequest is being finalized, and
+<literal>flags</literal> is bitmask of flags.
 The following flags are available:
 </para>
 
 <list type="bullet">
 
 <listitem>
-<literal>NGX_HTTP_SUBREQUEST_IN_MEMORY</literal> - subrequest output should not
-be sent to the client, but rather stored in memory.
-This only works for proxying subrequests.
-After subrequest finalization its output is available in
-<literal>r->upstream->buffer</literal> buffer of type
-<literal>ngx_buf_t</literal>
+<literal>NGX_HTTP_SUBREQUEST_IN_MEMORY</literal> - Output is not
+sent to the client, but rather stored in memory.
+The flag only affects subrequests which are processed by one of the proxying
+modules.
+After a subrequest is finalized its output is available in
+a <literal>r->upstream->buffer</literal> of type <literal>ngx_buf_t</literal>.
 </listitem>
 
 <listitem>
-<literal>NGX_HTTP_SUBREQUEST_WAITED</literal> - the subrequest
-<literal>done</literal> flag is set even if it is finalized being non-active.
-This subrequest flag is used by the SSI filter
+<literal>NGX_HTTP_SUBREQUEST_WAITED</literal> - The subrequest's
+<literal>done</literal> flag is set even if the subrequest is not active when
+it is finalized.
+This subrequest flag is used by the SSI filter.
 </listitem>
 
 <listitem>
-<literal>NGX_HTTP_SUBREQUEST_CLONE</literal> - the subrequest is created as a
+<literal>NGX_HTTP_SUBREQUEST_CLONE</literal> - The subrequest is created as a
 clone of its parent.
 It is started at the same location and proceeds from the same phase as the
-parent request
+parent request.
 </listitem>
 
 </list>
 
 <para>
-The following example creates a subrequest with the URI of "/foo".
+The following example creates a subrequest with the URI
+of <literal>/foo</literal>.
 </para>
 
 <programlisting>
@@ -5228,14 +5343,13 @@ ngx_http_foo_subrequest_done(ngx_http_request_t *r, void *data, ngx_int_t rc)
 </programlisting>
 
 <para>
-Subrequests are normally created in a body filter.
-In this case subrequest output can be treated as any other explicit request
-output.
-This means that eventually the output of a subrequest is sent to the client
-after all explicit buffers passed prior to subrequest creation and before any
-buffers passed later.
+Subrequests are normally created in a body filter, in which case their output
+can be treated like the output from any explicit request.
+This means that eventually the output of a subrequest is sent to the client,
+after all explicit buffers that are passed before subrequest creation and
+before any buffers that are passed after creation.
 This ordering is preserved even for large hierarchies of subrequests.
-The following example inserts a subrequest output after all request data
+The following example inserts output from a subrequest after all request data
 buffers, but before the final buffer with the <literal>last_buf</literal> flag.
 </para>
 
@@ -5286,7 +5400,6 @@ ngx_http_foo_body_filter(ngx_http_request_t *r, ngx_chain_t *in)
 
     ngx_http_set_ctx(r, NULL, ngx_http_foo_filter_module);
 
-
     /* Output the final buffer with the last_buf flag */
 
     b = ngx_calloc_buf(r->pool);
@@ -5304,14 +5417,14 @@ ngx_http_foo_body_filter(ngx_http_request_t *r, ngx_chain_t *in)
 </programlisting>
 
 <para>
-A subrequest may also be created for other purposes than data output.
+A subrequest can also be created for other purposes than data output.
 For example, the <link doc="../http/ngx_http_auth_request_module.xml">
-ngx_http_auth_request_module</link>
-creates a subrequest at <literal>NGX_HTTP_ACCESS_PHASE</literal> phase.
-To disable any output at this point, the subrequest
-<literal>header_only</literal> flag is set.
-This prevents subrequest body from being sent to the client.
-Its header is ignored anyway.
+ngx_http_auth_request_module</link> module
+creates a subrequest at the <literal>NGX_HTTP_ACCESS_PHASE</literal> phase.
+To disable output at this point, the
+<literal>header_only</literal> flag is set on the subrequest.
+This prevents the subrequest body from being sent to the client.
+Note that the subrequest's header is never sent to the client.
 The result of the subrequest can be analyzed in the callback handler.
 </para>
 
@@ -5323,12 +5436,12 @@ The result of the subrequest can be analyzed in the callback handler.
 <para>
 An HTTP request is finalized by calling the function
 <literal>ngx_http_finalize_request(r, rc)</literal>.
-It is usually finalized by the content handler after sending all output buffers
-to the filter chain.
-At this point the output may not be completely sent to the client, but remain
-buffered somewhere along the filter chain.
-If it is, the <literal>ngx_http_finalize_request(r, rc)</literal> function will
-automatically install a special handler <literal>ngx_http_writer(r)</literal>
+It is usually finalized by the content handler after all output buffers
+are sent to the filter chain.
+At this point all of the output might not be sent to the client,
+with some of it remaining buffered somewhere along the filter chain.
+If it is, the <literal>ngx_http_finalize_request(r, rc)</literal> function
+automatically installs a special handler <literal>ngx_http_writer(r)</literal>
 to finish sending the output.
 A request is also finalized in case of an error or if a standard HTTP response
 code needs to be returned to the client.
@@ -5342,35 +5455,37 @@ following <literal>rc</literal> values:
 <list type="bullet">
 
 <listitem>
-<literal>NGX_DONE</literal> - fast finalization.
-Decrement request <literal>count</literal> and destroy the request if it
+<literal>NGX_DONE</literal> - Fast finalization.
+Decrement the request <literal>count</literal> and destroy the request if it
 reaches zero.
-The client connection may still be used for more requests after that
+The client connection can be used for more requests after the current request
+is destroyed.
 </listitem>
 
 <listitem>
 <literal>NGX_ERROR</literal>, <literal>NGX_HTTP_REQUEST_TIME_OUT</literal>
-(408), <literal>NGX_HTTP_CLIENT_CLOSED_REQUEST</literal> (499) - error
-finalization.
+(<literal>408</literal>), <literal>NGX_HTTP_CLIENT_CLOSED_REQUEST</literal>
+(<literal>499</literal>) - Error finalization.
 Terminate the request as soon as possible and close the client connection.
 </listitem>
 
 <listitem>
-<literal>NGX_HTTP_CREATED</literal> (201),
-<literal>NGX_HTTP_NO_CONTENT</literal> (204), codes greater than or equal to
-<literal>NGX_HTTP_SPECIAL_RESPONSE</literal> (300) - special response
-finalization.
-For these values nginx either sends a default code response page to the client
-or performs the internal redirect to an
-<link doc="../http/ngx_http_core_module.xml" id="error_page"/> location if it's
-configured for the code
+<literal>NGX_HTTP_CREATED</literal> (<literal>201</literal>),
+<literal>NGX_HTTP_NO_CONTENT</literal> (<literal>204</literal>), codes greater
+than or equal to <literal>NGX_HTTP_SPECIAL_RESPONSE</literal>
+(<literal>300</literal>) - Special response finalization.
+For these values nginx either sends to the client a default response page for
+the code or performs the internal redirect to an
+<link doc="../http/ngx_http_core_module.xml" id="error_page"/> location if that
+is configured for the code.
 </listitem>
 
 <listitem>
-Other codes are considered success finalization codes and may activate the
+Other codes are considered successful finalization codes and might activate the
 request writer to finish sending the response body.
-Once body is completely sent, request <literal>count</literal> is decremented.
-If it reaches zero, the request is destroyed, but the client connection may
+Once the body is completely sent, the request <literal>count</literal>
+is decremented.
+If it reaches zero, the request is destroyed, but the client connection can
 still be used for other requests.
 If <literal>count</literal> is positive, there are unfinished activities
 within the request, which will be finalized at a later point.
@@ -5384,21 +5499,21 @@ within the request, which will be finalized at a later point.
 <section name="Request body" id="http_request_body">
 
 <para>
-For dealing with client request body, nginx provides the following functions:
+For dealing with the body of a client request, nginx provides the
 <literal>ngx_http_read_client_request_body(r, post_handler)</literal> and
-<literal>ngx_http_discard_request_body(r)</literal>.
+<literal>ngx_http_discard_request_body(r)</literal> functions.
 The first function reads the request body and makes it available via the
 <literal>request_body</literal> request field.
 The second function instructs nginx to discard (read and ignore) the request
 body.
 One of these functions must be called for every request.
-Normally, it is done in the content handler.
+Normally, the content handler makes the call.
 </para>
 
 <para>
-Reading or discarding client request body from a subrequest is not allowed.
-It should always be done in the main request.
-When a subrequest is created, it inherits the parent
+Reading or discarding the client request body from a subrequest is not allowed.
+It must always be done in the main request.
+When a subrequest is created, it inherits the parent's
 <literal>request_body</literal> object which can be used by the subrequest if
 the main request has previously read the request body.
 </para>
@@ -5409,20 +5524,22 @@ The function
 the process of reading the request body.
 When the body is completely read, the <literal>post_handler</literal> callback
 is called to continue processing the request.
-If request body is missing or already read, the callback is called immediately.
+If the request body is missing or has already been read, the callback is called
+immediately.
 The function
 <literal>ngx_http_read_client_request_body(r, post_handler)</literal>
 allocates the <literal>request_body</literal> request field of type
 <literal>ngx_http_request_body_t</literal>.
 The field <literal>bufs</literal> of this object keeps the result as a buffer
 chain.
-The body can be saved in memory buffers or file buffers, if
+The body can be saved in memory buffers or file buffers, if the capacity
+specified by the
 <link doc="../http/ngx_http_core_module.xml" id="client_body_buffer_size"/>
-is not enough to fit the entire body in memory.
+directive is not enough to fit the entire body in memory.
 </para>
 
 <para>
-The following example reads client request body and returns its size.
+The following example reads a client request body and returns its size.
 </para>
 
 <programlisting>
@@ -5491,62 +5608,60 @@ ngx_http_foo_init(ngx_http_request_t *r)
 </programlisting>
 
 <para>
-The following fields of the request affect the way request body is read:
+The following fields of the request determine how the request body is read:
 </para>
 
 <list type="bullet">
 
 <listitem>
-<literal>request_body_in_single_buf</literal> - read body to a single memory
-buffer
+<literal>request_body_in_single_buf</literal> - Read the body to a single memory
+buffer.
 </listitem>
 
 <listitem>
-<literal>request_body_in_file_only</literal> - always read body to a file,
-even if fits the memory buffer
+<literal>request_body_in_file_only</literal> - Always read the body to a file,
+even if fits in the memory buffer.
 </listitem>
 
 <listitem>
-<literal>request_body_in_persistent_file</literal> - do not unlink the file
-right after creation.
-Such a file can be moved to another directory
+<literal>request_body_in_persistent_file</literal> - Do not unlink the file
+immediately after creation.
+A file with this flag can be moved to another directory.
 </listitem>
 
 <listitem>
-<literal>request_body_in_clean_file</literal> - unlink the file the when the
+<literal>request_body_in_clean_file</literal> - Unlink the file when the
 request is finalized.
 This can be useful when a file was supposed to be moved to another directory
-but eventually was not moved for some reason
+but was not moved for some reason.
 </listitem>
 
 <listitem>
-<literal>request_body_file_group_access</literal> - enable file group access.
-By default a file is created with 0600 access mask.
-When the flag is set, 0660 access mask is used
+<literal>request_body_file_group_access</literal> - Enable group access to the
+file by replacing the default 0600 access mask with 0660.
 </listitem>
 
 <listitem>
-<literal>request_body_file_log_level</literal> - log file errors with this
-log level
+<literal>request_body_file_log_level</literal> - Severity level at which to
+log file errors.
 </listitem>
 
 <listitem>
-<literal>request_body_no_buffering</literal> - read request body without
-buffering
+<literal>request_body_no_buffering</literal> - Read the request body without
+buffering.
 </listitem>
 
 </list>
 
 <para>
-When the <literal>request_body_no_buffering</literal> flag is set, the
-unbuffered mode of reading the request body is enabled.
+The <literal>request_body_no_buffering</literal> flag enables the
+unbuffered mode of reading a request body.
 In this mode, after calling
 <literal>ngx_http_read_client_request_body()</literal>, the
-<literal>bufs</literal> chain may keep only a part of the body.
-To read the next part, the
-<literal>ngx_http_read_unbuffered_request_body(r)</literal> function should be
-called.
-The return value of <literal>NGX_AGAIN</literal> and the request flag
+<literal>bufs</literal> chain might keep only a part of the body.
+To read the next part, call the
+<literal>ngx_http_read_unbuffered_request_body(r)</literal> function.
+The return value <literal>NGX_AGAIN</literal> and the request flag
 <literal>reading_body</literal> indicate that more data is available.
 If <literal>bufs</literal> is NULL after calling this function, there is
 nothing to read at the moment.
@@ -5560,7 +5675,7 @@ the next part of request body is available.
 <section name="Response" id="http_response">
 
 <para>
-An HTTP response in nginx is produced by sending the response header followed by
+In nginx an HTTP response is produced by sending the response header followed by
 the optional response body.
 Both header and body are passed through a chain of filters and eventually get
 written to the client socket.
@@ -5572,19 +5687,18 @@ and process the output coming from the previous handler.
 <section name="Response header" id="http_response_header">
 
 <para>
-Output header is sent by the function
-<literal>ngx_http_send_header(r)</literal>.
-Prior to calling this function, <literal>r->headers_out</literal> should contain
-all the data required to produce the HTTP response header.
-It's always required to set the <literal>status</literal> field of
-<literal>r->headers_out</literal>.
-If the response status suggests that a response body follows the header,
+The <literal>ngx_http_send_header(r)</literal>
+function sends the output header.
+Do not call this function until <literal>r->headers_out</literal>
+contains all of the data  required to produce the HTTP response header.
+The <literal>status</literal> field in <literal>r->headers_out</literal>
+must always be set.
+If the response status indicates that a response body follows the header,
 <literal>content_length_n</literal> can be set as well.
-The default value for this field is -1, which means that the body size is
-unknown.
+The default value for this field is <literal>-1</literal>,
+which means that the body size is unknown.
 In this case, chunked transfer encoding is used.
-To output an arbitrary header, <literal>headers</literal> list should be
-appended.
+To output an arbitrary header, append the <literal>headers</literal> list.
 </para>
 
 <programlisting>
@@ -5629,26 +5743,27 @@ ngx_http_foo_content_handler(ngx_http_request_t *r)
 
 <para>
 The <literal>ngx_http_send_header(r)</literal> function invokes the header
-filter chain by calling the top header filter handler
-<literal>ngx_http_top_header_filter</literal>.
-It's assumed that every header handler calls the next handler in chain until
-the final handler <literal>ngx_http_header_filter(r)</literal> is called.
+filter chain by calling the first header filter handler stored in
+the <literal>ngx_http_top_header_filter</literal> variable.
+It's assumed that every header handler calls the next handler in the chain
+until the final handler <literal>ngx_http_header_filter(r)</literal> is called.
 The final header handler constructs the HTTP response based on
 <literal>r->headers_out</literal> and passes it to the
 <literal>ngx_http_writer_filter</literal> for output.
 </para>
 
 <para>
-To add a handler to the header filter chain, one should store its address in
-<literal>ngx_http_top_header_filter</literal> global variable at configuration
-time.
-The previous handler address is normally stored in a module's static variable
+To add a handler to the header filter chain, store its address in
+the global variable <literal>ngx_http_top_header_filter</literal>
+at configuration time.
+The previous handler address is normally stored in a static variable in a module
 and is called by the newly added handler before exiting.
 </para>
 
 <para>
-The following is an example header filter module, adding the HTTP header
-"X-Foo: foo" to every output with the status 200.
+The following example of a header filter module adds the HTTP header
+"<literal>X-Foo: foo</literal>" to every response with status
+<literal>200</literal>.
 </para>
 
 <programlisting>
@@ -5740,20 +5855,20 @@ ngx_http_foo_header_filter_init(ngx_conf_t *cf)
 <section name="Response body" id="http_response_body">
 
 <para>
-Response body is sent by calling the function
-<literal>ngx_http_output_filter(r, cl)</literal>.
+To send the response body, call the
+<literal>ngx_http_output_filter(r, cl)</literal> function.
 The function can be called multiple times.
-Each time it sends a part of the response body passed as a buffer chain.
-The last body buffer should have the <literal>last_buf</literal> flag set.
+Each time, it sends a part of the response body in the form of a buffer chain.
+Set the <literal>last_buf</literal> flag in the last body buffer.
 </para>
 
 <para>
-The following example produces a complete HTTP output with "foo" as its body.
-In order for the example to work not only as a main request but as a subrequest
-as well, the <literal>last_in_chain</literal> flag is set in the last buffer
+The following example produces a complete HTTP response with "foo" as its body.
+For the example to work as subrequest as well as a main request,
+the <literal>last_in_chain</literal> flag is set in the last buffer
 of the output.
-The <literal>last_buf</literal> flag is set only for the main request since
-a subrequest's last buffers does not end the entire output.
+The <literal>last_buf</literal> flag is set only for the main request because
+the last buffer for a subrequest does not end the entire output.
 </para>
 
 <programlisting>
@@ -5804,9 +5919,9 @@ ngx_http_bar_content_handler(ngx_http_request_t *r)
 
 <para>
 The function <literal>ngx_http_output_filter(r, cl)</literal> invokes the
-body filter chain by calling the top body filter handler
-<literal>ngx_http_top_body_filter</literal>.
-It's assumed that every body handler calls the next handler in chain until
+body filter chain by calling the first body filter handler stored in
+the <literal>ngx_http_top_body_filter</literal> variable.
+It's assumed that every body handler calls the next handler in the chain until
 the final handler <literal>ngx_http_write_filter(r, cl)</literal> is called.
 </para>
 
@@ -5815,17 +5930,16 @@ A body filter handler receives a chain of buffers.
 The handler is supposed to process the buffers and pass a possibly new chain to
 the next handler.
 It's worth noting that the chain links <literal>ngx_chain_t</literal> of the
-incoming chain belong to the caller.
-They should never be reused or changed.
+incoming chain belong to the caller, and must not be reused or changed.
 Right after the handler completes, the caller can use its output chain links
 to keep track of the buffers it has sent.
-To save the buffer chain or to substitute some buffers before sending further,
-a handler should allocate its own chain links.
+To save the buffer chain or to substitute some buffers before passing to the
+next filter, a handler needs to allocate its own chain links.
 </para>
 
 <para>
-Following is the example of a simple body filter counting the number of
-body bytes.
+Following is an example of a simple body filter that counts the number of
+bytes in the body.
 The result is available as the <literal>$counter</literal> variable which can be
 used in the access log.
 </para>
@@ -5969,28 +6083,30 @@ ngx_http_counter_filter_init(ngx_conf_t *cf)
 <section name="Building filter modules" id="http_building_filter_modules">
 
 <para>
-When writing a body or header filter, a special care should be taken of the
-filters order.
+When writing a body or header filter, pay special attention to the filter's
+position in the filter order.
 There's a number of header and body filters registered by nginx standard
 modules.
-It's important to register a filter module in the right place in respect to
-other filters.
-Normally, filters are registered by modules in their postconfiguration handlers.
-The order in which filters are called is obviously the reverse of when they are
-registered.
+The nginx standard modules register a number of head and body filters and it's
+important to register a new filter module in the right place with respect to
+them.
+Normally, modules register filters in their postconfiguration handlers.
+The order in which filters are called during processing is obviously the
+reverse of the order in which they are registered.
 </para>
 
 <para>
-A special slot <literal>HTTP_AUX_FILTER_MODULES</literal> for third-party filter
-modules is provided by nginx.
-To register a filter module in this slot, the <literal>ngx_module_type</literal>
-variable should be set to the value of <literal>HTTP_AUX_FILTER</literal> in
-module's configuration.
+For third-party filter modules nginx provides a special slot
+<literal>HTTP_AUX_FILTER_MODULES</literal>.
+To register a filter module in this slot, set
+the <literal>ngx_module_type</literal> variable to
+<literal>HTTP_AUX_FILTER</literal> in the module's configuration.
 </para>
 
 <para>
-The following example shows a filter module config file assuming it only has
-one source file <literal>ngx_http_foo_filter_module.c</literal>
+The following example shows a filter module config file assuming
+for a module with just
+one source file, <literal>ngx_http_foo_filter_module.c</literal>.
 </para>
 
 <programlisting>
@@ -6009,37 +6125,38 @@ ngx_module_srcs="$ngx_addon_dir/ngx_http_foo_filter_module.c"
 <para>
 When issuing or altering a stream of buffers, it's often desirable to reuse the
 allocated buffers.
-A standard approach widely adopted in nginx code is to keep two buffer chains
-for this purpose: <literal>free</literal> and <literal>busy</literal>.
-The <literal>free</literal> chain keeps all free buffers.
-These buffers can be reused.
+A standard and widely adopted approach in nginx code is to keep
+two buffer chains for this purpose:
+<literal>free</literal> and <literal>busy</literal>.
+The <literal>free</literal> chain keeps all free buffers,
+which can be reused.
 The <literal>busy</literal> chain keeps all buffers sent by the current
-module which are still in use by some other filter handler.
+module that are still in use by some other filter handler.
 A buffer is considered in use if its size is greater than zero.
 Normally, when a buffer is consumed by a filter, its <literal>pos</literal>
 (or <literal>file_pos</literal> for a file buffer) is moved towards
 <literal>last</literal> (<literal>file_last</literal> for a file buffer).
 Once a buffer is completely consumed, it's ready to be reused.
-To update the <literal>free</literal> chain with newly freed buffers,
+To add newly freed buffers to the <literal>free</literal> chain
 it's enough to iterate over the <literal>busy</literal> chain and move the zero
 size buffers at the head of it to <literal>free</literal>.
-This operation is so common that there is a special function
-<literal>ngx_chain_update_chains(free, busy, out, tag)</literal> which does
-this.
+This operation is so common that there is a special function for it,
+<literal>ngx_chain_update_chains(free, busy, out, tag)</literal>.
 The function appends the output chain <literal>out</literal> to
 <literal>busy</literal> and moves free buffers from the top of
 <literal>busy</literal> to <literal>free</literal>.
-Only the buffers with the given <literal>tag</literal> are reused.
-This lets a module reuse only the buffers allocated by itself.
+Only the buffers with the specified <literal>tag</literal> are reused.
+This lets a module reuse only the buffers that it allocated itself.
 </para>
 
 <para>
-The following example is a body filter inserting the “foo” string before each
+The following example is a body filter that inserts the string “foo” before each
 incoming buffer.
 The new buffers allocated by the module are reused if possible.
-Note that for this example to work properly, it's also required to set up a
-header filter and reset <literal>content_length_n</literal> to -1, which is
-beyond the scope of this section.
+Note that for this example to work properly, setting up a
+<link id="http_header_filters">header filter</link>
+and resetting <literal>content_length_n</literal> to <literal>-1</literal>
+is also required, but the relevant code is not provided here.
 </para>
 
 <programlisting>
@@ -6124,33 +6241,34 @@ ngx_http_foo_body_filter(ngx_http_request_t *r, ngx_chain_t *in)
 <para>
 The
 <link doc="../http/ngx_http_upstream_module.xml">ngx_http_upstream_module</link>
-provides basic functionality to pass requests to remote servers.
-This functionality is used by modules that implement specific protocols,
-such as HTTP or FastCGI.
+provides the basic functionality needed to pass requests to remote servers.
+Modules that implement specific protocols, such as HTTP or FastCGI, use
+this functionality.
 The module also provides an interface for creating custom
-load balancing modules and implements a default round-robin balancing method.
+load-balancing modules and implements a default round-robin method.
 </para>
 
 <para>
-Examples of modules that implement alternative load balancing methods are
-<link doc="../http/ngx_http_upstream_module.xml" id="least_conn"/>
-and <link doc="../http/ngx_http_upstream_module.xml" id="hash"/>.
-Note that these modules are actually implemented as extensions of the upstream
-module and share a lot of code, such as representation of a server group.
+The <link doc="../http/ngx_http_upstream_module.xml" id="least_conn"/>
+and <link doc="../http/ngx_http_upstream_module.xml" id="hash"/>
+modules implement alternative load-balancing methods, but
+are actually implemented as extensions of the upstream round-robin
+module and share a lot of code with it, such as the representation
+of a server group.
 The <link doc="../http/ngx_http_upstream_module.xml" id="keepalive"/> module
-is an example of an independent module, extending upstream functionality.
+is an independent module that extends upstream functionality.
 </para>
 
 <para>
 The
 <link doc="../http/ngx_http_upstream_module.xml">ngx_http_upstream_module</link>
-may be configured explicitly by placing the corresponding
+can be configured explicitly by placing the corresponding
 <link doc="../http/ngx_http_upstream_module.xml" id="upstream"/> block into
 the configuration file, or implicitly by using directives
-that accept a URL evaluated at some point to the list of servers,
-for example,
-<link doc="../http/ngx_http_proxy_module.xml" id="proxy_pass"/>.
-Only explicit configurations may use an alternative load balancing method.
+such as <link doc="../http/ngx_http_proxy_module.xml" id="proxy_pass"/>
+that accept a URL that gets evaluated at some point into a list of servers.
+The alternative load-balancing methods are available only with an explicit
+upstream configuration.
 The upstream module configuration has its own directive context
 <literal>NGX_HTTP_UPS_CONF</literal>.
 The structure is defined as follows:
@@ -6177,59 +6295,61 @@ struct ngx_http_upstream_srv_conf_s {
 <list type="bullet">
 
 <listitem>
-<literal>srv_conf</literal> — configuration context of upstream modules
+<literal>srv_conf</literal> — Configuration context of upstream modules.
 </listitem>
 
 <listitem>
-<literal>servers</literal> — array of
+<literal>servers</literal> — Array of
 <literal>ngx_http_upstream_server_t</literal>, the result of parsing a set of
 <link doc="../http/ngx_http_upstream_module.xml" id="server"/> directives
-in the <literal>upstream</literal> block
+in the <literal>upstream</literal> block.
 </listitem>
 
 <listitem>
-<literal>flags</literal> — flags that mostly mark which features
-(configured as parameters of
-the <link doc="../http/ngx_http_upstream_module.xml" id="server"/> directive)
-are supported by the particular load balancing method.
+<literal>flags</literal> — Flags that mostly mark which features
+are supported by the load-balancing method.
+The features are configured as parameters of
+the <link doc="../http/ngx_http_upstream_module.xml" id="server"/> directive:
+
 
 <list type="bullet">
 
 <listitem>
-<literal>NGX_HTTP_UPSTREAM_CREATE</literal> — used to distinguish explicitly
-defined upstreams from automatically created by
-<link doc="../http/ngx_http_proxy_module.xml" id="proxy_pass"/> and “friends”
+<literal>NGX_HTTP_UPSTREAM_CREATE</literal> — Distinguishes explicitly
+defined upstreams from those that are automatically created by the
+<link doc="../http/ngx_http_proxy_module.xml" id="proxy_pass"/> directive
+and “friends”
 (FastCGI, SCGI, etc.)
 </listitem>
 
 <listitem>
-<literal>NGX_HTTP_UPSTREAM_WEIGHT</literal> — “<literal>weight</literal>”
-is supported
+<literal>NGX_HTTP_UPSTREAM_WEIGHT</literal> — The “<literal>weight</literal>”
+parameter is supported
 </listitem>
 
 <listitem>
-<literal>NGX_HTTP_UPSTREAM_MAX_FAILS</literal> — “<literal>max_fails</literal>”
-is supported
+<literal>NGX_HTTP_UPSTREAM_MAX_FAILS</literal> — The
+“<literal>max_fails</literal>” parameter is supported
 </listitem>
 
 <listitem>
 <literal>NGX_HTTP_UPSTREAM_FAIL_TIMEOUT</literal> —
-“<literal>fail_timeout</literal>” is supported
+The “<literal>fail_timeout</literal>” parameter is supported
 </listitem>
 
 <listitem>
-<literal>NGX_HTTP_UPSTREAM_DOWN</literal> — “<literal>down</literal>”
-is supported
+<literal>NGX_HTTP_UPSTREAM_DOWN</literal> — The “<literal>down</literal>”
+parameter is supported
 </listitem>
 
 <listitem>
-<literal>NGX_HTTP_UPSTREAM_BACKUP</literal> — “<literal>backup</literal>”
-is supported
+<literal>NGX_HTTP_UPSTREAM_BACKUP</literal> — The “<literal>backup</literal>”
+parameter is supported
 </listitem>
 
 <listitem>
-<literal>NGX_HTTP_UPSTREAM_MAX_CONNS</literal> — “<literal>max_conns</literal>”
-is supported
+<literal>NGX_HTTP_UPSTREAM_MAX_CONNS</literal> — The
+“<literal>max_conns</literal>” parameter is supported
 </listitem>
 
 </list>
@@ -6237,25 +6357,26 @@ is supported
 </listitem>
 
 <listitem>
-<literal>host</literal> — the name of an upstream
+<literal>host</literal> — Name of the upstream.
 </listitem>
 
 <listitem>
-<literal>file_name, line</literal> — the name of the configuration file
-and the line where the <literal>upstream</literal> block is located
+<literal>file_name, line</literal> — Name of the configuration file
+and the line where the <literal>upstream</literal> block is located.
 </listitem>
 
 <listitem>
-<literal>port</literal> and <literal>no_port</literal> — unused by explicit
-upstreams
+<literal>port</literal> and <literal>no_port</literal> — Not used for
+explicitly defined upstream groups.
 </listitem>
 
 <listitem>
-<literal>shm_zone</literal> — a shared memory zone used by this upstream, if any
+<literal>shm_zone</literal> — Shared memory zone used by this upstream group,
+if any.
 </listitem>
 
 <listitem>
-<literal>peer</literal> — an object that holds generic methods for
+<literal>peer</literal> — object that holds generic methods for
 initializing upstream configuration:
 
 <programlisting>
@@ -6265,28 +6386,30 @@ typedef struct {
     void                            *data;
 } ngx_http_upstream_peer_t;
 </programlisting>
-A module that implements a load balancing algorithm must set these
+A module that implements a load-balancing algorithm must set these
 methods and initialize private <literal>data</literal>.
 If <literal>init_upstream</literal> was not initialized during configuration
-parsing, <literal>ngx_http_upstream_module</literal> sets it to default
-<literal>ngx_http_upstream_init_round_robin</literal>.
+parsing, <literal>ngx_http_upstream_module</literal> sets it to the default
+<literal>ngx_http_upstream_init_round_robin</literal> algorithm.
 
 <list type="bullet">
 <listitem>
-<literal>init_upstream(cf, us)</literal> — configuration-time
+<literal>init_upstream(cf, us)</literal> — Configuration-time
 method responsible for initializing a group of servers and
 initializing the <literal>init()</literal> method in case of success.
-A typical load balancing module uses a list of servers in the upstream block
-to create some efficient data structure that it uses and saves own
+A typical load-balancing module uses a list of servers in the
+<literal>upstream</literal> block
+to create an efficient data structure that it uses and saves its own
 configuration to the <literal>data</literal> field.
 </listitem>
 
 <listitem>
-<literal>init(r, us)</literal> — initializes per-request
-<literal>ngx_http_upstream_peer_t.peer</literal> (not to be confused with the
+<literal>init(r, us)</literal> — Initializes a per-request
+<literal>ngx_http_upstream_peer_t.peer</literal> structure that is used for
+load balancing (not to be confused with the
 <literal>ngx_http_upstream_srv_conf_t.peer</literal> described above which
-is per-upstream) structure that is used for load balancing.
-It will be passed as <literal>data</literal> argument to all callbacks that
+is per-upstream).
+It is passed as the <literal>data</literal> argument to all callbacks that
 deal with server selection.
 </listitem>
 </list>
@@ -6297,13 +6420,13 @@ deal with server selection.
 
 <para>
 When nginx has to pass a request to another host for processing, it uses
-a configured load balancing method to obtain an address to connect to.
-The method is taken from the
+the configured load-balancing method to obtain an address to connect to.
+The method is obtained from the
 <literal>ngx_http_upstream_t.peer</literal> object
 of type <literal>ngx_peer_connection_t</literal>:
 <programlisting>
 struct ngx_peer_connection_s {
-    [...]
+    ...
 
     struct sockaddr                 *sockaddr;
     socklen_t                        socklen;
@@ -6321,7 +6444,7 @@ struct ngx_peer_connection_s {
     ngx_event_save_peer_session_pt   save_session;
 #endif
 
-    [..]
+    ...
 };
 </programlisting>
 
@@ -6330,28 +6453,28 @@ The structure has the following fields:
 <list type="bullet">
 <listitem>
 <literal>sockaddr</literal>, <literal>socklen</literal>,
-<literal>name</literal> — address of an upstream server to connect to;
-this is the output parameter of a load balancing method
+<literal>name</literal> — Address of the upstream server to connect to;
+this is the output parameter of a load-balancing method.
 </listitem>
 
 <listitem>
-<literal>data</literal> — per-request load balancing method data; keeps the
-state of selection algorithm and usually includes the link to upstream
-configuration.
-It will be passed as an argument to all methods that deal with server selection
-(see below)
+<literal>data</literal> — The per-request data of a load-balancing method;
+keeps the state of the selection algorithm and usually includes the link
+to the upstream configuration.
+It is passed as an argument to all methods that deal with server selection
+(see <link id="lb_method_get">below</link>).
 </listitem>
 
 <listitem>
-<literal>tries</literal> — allowed
+<literal>tries</literal> — Allowed
 <link doc="../http/ngx_http_proxy_module.xml" id="proxy_next_upstream_tries">number</link>
-of attempts to connect to an upstream.
+of attempts to connect to an upstream server.
 </listitem>
 
 <listitem>
 <literal>get</literal>, <literal>free</literal>, <literal>notify</literal>,
 <literal>set_session</literal>, and <literal>save_session</literal>
-- methods of the load balancing module, see description below
+- Methods of the load-balancing module, described below.
 </listitem>
 
 </list>
@@ -6359,54 +6482,54 @@ of attempts to connect to an upstream.
 </para>
 
 <para>
-All methods accept at least two arguments: peer connection object
+All methods accept at least two arguments: a peer connection object
 <literal>pc</literal> and the <literal>data</literal> created by
 <literal>ngx_http_upstream_srv_conf_t.peer.init()</literal>.
-Note that in general case it may differ from <literal>pc.data</literal> due
-to “chaining” of load balancing modules.
+Note that it might differ from <literal>pc.data</literal> due
+to “chaining” of load-balancing modules.
 </para>
 
 <para>
 
 <list type="bullet">
-<listitem>
-<literal>get(pc, data)</literal> — the method is called when the upstream
+<listitem id="lb_method_get">
+<literal>get(pc, data)</literal> — The method called when the upstream
 module is ready to pass a request to an upstream server and needs to know
 its address.
-The method is responsible to fill in the <literal>sockaddr</literal>,
+The method has to fill the <literal>sockaddr</literal>,
 <literal>socklen</literal>, and <literal>name</literal> fields of
 <literal>ngx_peer_connection_t</literal> structure.
-The return value may be one of:
+The return is one of:
 
 <list type="bullet">
 
 <listitem>
-<literal>NGX_OK</literal> — server was selected
+<literal>NGX_OK</literal> — Server was selected.
 </listitem>
 
 <listitem>
-<literal>NGX_ERROR</literal> — internal error occurred
+<literal>NGX_ERROR</literal> — Internal error occurred.
 </listitem>
 
 <listitem>
-<literal>NGX_BUSY</literal> — there are no available servers at the moment.
-This can happen due to many reasons, such as: dynamic server group is empty,
-all servers in the group are in the failed state,
+<literal>NGX_BUSY</literal> — no servers are currently available.
+This can happen due to many reasons, including: the dynamic server group is
+empty, all servers in the group are in the failed state, or
 all servers in the group are already
-handling the maximum number of connections or similar.
+handling the maximum number of connections.
 </listitem>
 
 <listitem>
-<literal>NGX_DONE</literal> — this is set by the <literal>keepalive</literal>
-module to indicate that the underlying connection was reused and there is no
-need to create a new connection to the upstream server.
+<literal>NGX_DONE</literal> — the underlying connection was reused and there
+is no need to create a new connection to the upstream server.
+This value is set by the <literal>keepalive</literal> module.
 </listitem>
 
 <!--
 <listitem>
-<literal>NGX_ABORT</literal> — this is set by the <literal>queue</literal>
-module to indicate that the request was queued and the further processing
-of this request should be postponed.
+<literal>NGX_ABORT</literal> — the request was queued and the further
+processing of this request should be postponed.
+This value is set by the <literal>queue</literal> module.
 </listitem>
 -->
 
@@ -6415,28 +6538,44 @@ of this request should be postponed.
 </listitem>
 
 <listitem>
-<literal>free(pc, data, state)</literal> — the method is called when an
+<literal>free(pc, data, state)</literal> — The method called when an
 upstream module has finished work with a particular server.
-The <literal>state</literal> argument is the status of upstream connection
-completion.
-This is a bitmask, the following values may be set:
-<literal>NGX_PEER_FAILED</literal> — this attempt is considered
-<link doc="../http/ngx_http_upstream_module.xml" id="max_fails">unsuccessful</link>,
-<literal>NGX_PEER_NEXT</literal> — a special case with codes 403 and 404
-(see link above), which are not considered a failure.
-<literal>NGX_PEER_KEEPALIVE</literal>.
-Also, <literal>tries</literal> counter is decremented by this method.
+The <literal>state</literal> argument is the completion status of the upstream
+connection, a bitmask with the following possible values:
+
+<list type="bullet">
+
+<listitem>
+<literal>NGX_PEER_FAILED</literal> — Attempt was
+<link doc="../http/ngx_http_upstream_module.xml" id="max_fails">unsuccessful</link>
 </listitem>
 
 <listitem>
-<literal>notify(pc, data, type)</literal> — currently unused
+<literal>NGX_PEER_NEXT</literal> — A special case when upstream server
+returns codes <literal>403</literal> or <literal>404</literal>,
+which are not considered a
+<link doc="../http/ngx_http_upstream_module.xml" id="max_fails">failure</link>.
+</listitem>
+
+<listitem>
+<literal>NGX_PEER_KEEPALIVE</literal> — Currently unused
+</listitem>
+
+</list>
+
+This method also decrements the <literal>tries</literal> counter.
+
+</listitem>
+
+<listitem>
+<literal>notify(pc, data, type)</literal> — Currently unused
 in the OSS version.
 </listitem>
 
 <listitem>
 <literal>set_session(pc, data)</literal> and
 <literal>save_session(pc, data)</literal>
-— SSL-specific methods that allow to cache sessions to upstream
+— SSL-specific methods that enable caching sessions to upstream
 servers.
 The implementation is provided by the round-robin balancing method.
 </listitem>
