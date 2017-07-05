@@ -1082,7 +1082,7 @@ typedef struct {
 } ngx_foo_t;
 
 ngx_foo_t    *f;
-ngx_queue_t   values;
+ngx_queue_t   values, *q;
 
 ngx_queue_init(&amp;values);
 
@@ -1090,7 +1090,7 @@ f = ngx_palloc(pool, sizeof(ngx_foo_t));
 if (f == NULL) { /* error */ }
 ngx_str_set(&amp;f->value, "foo");
 
-ngx_queue_insert_tail(&amp;values, f);
+ngx_queue_insert_tail(&amp;values, &amp;f->queue);
 
 /* insert more nodes here */
 
