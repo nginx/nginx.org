@@ -26,6 +26,7 @@ Patches are signed using one of the
 
 <item name="Integer overflow in the range filter"
       severity="medium"
+      advisory="http://mailman.nginx.org/pipermail/nginx-announce/2017/000200.html"
       cve="2017-7529"
       good="1.13.3+, 1.12.1+"
       vulnerable="0.5.6-1.13.2">
