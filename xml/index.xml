@@ -7,6 +7,18 @@
 
 <news name="nginx news" link="/" lang="en">
 
+<event date="2017-07-11">
+<para>
+<link doc="en/download.xml">nginx-1.12.1</link>
+stable and
+<link doc="en/download.xml">nginx-1.13.3</link>
+mainline versions have been released
+with a fix for the
+<link doc="en/security_advisories.xml">integer overflow in the range
+filter</link> vulnerability (CVE-2017-7529).
+</para>
+</event>
+
 <event date="2017-06-27">
 <para>
 <link doc="en/download.xml">nginx-1.13.2</link>

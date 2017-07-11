@@ -24,6 +24,14 @@ Patches are signed using one of the
 
 <security>
 
+<item name="Integer overflow in the range filter"
+      severity="medium"
+      cve="2017-7529"
+      good="1.13.3+, 1.12.1+"
+      vulnerable="0.5.6-1.13.2">
+<patch name="patch.2017.ranges.txt" />
+</item>
+
 <item name="NULL pointer dereference while writing client request body"
       severity="medium"
       advisory="http://mailman.nginx.org/pipermail/nginx-announce/2016/000179.html"
