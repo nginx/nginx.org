@@ -8,7 +8,7 @@
 <article name="nginx documentation"
          link="/en/docs/"
          lang="en"
-         rev="39"
+         rev="40"
          toc="no">
 
 
@@ -342,6 +342,11 @@ ngx_http_map_module</link>
 <listitem>
 <link doc="http/ngx_http_memcached_module.xml">
 ngx_http_memcached_module</link>
+</listitem>
+
+<listitem>
+<link doc="http/ngx_http_mirror_module.xml">
+ngx_http_mirror_module</link>
 </listitem>
 
 <listitem>

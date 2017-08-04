@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Module ngx_http_mirror_module"
+        link="/en/docs/http/ngx_http_mirror_module.html"
+        lang="en"
+        rev="1">
+
+<section id="summary">
+
+<para>
+The <literal>ngx_http_mirror_module</literal> module (1.13.4) implements
+mirroring of an original request
+by creating background mirror subrequests.
+The output of mirror subrequests is ignored.
+</para>
+
+</section>
+
+
+<section id="example" name="Example Configuration">
+
+<para>
+<example>
+location / {
+    mirror /mirror;
+    proxy_pass http://backend;
+}
+
+location /mirror {
+    internal;
+    proxy_pass http://test_backend$request_uri;
+}
+</example>
+</para>
+
+</section>
+
+
+<section id="directives" name="Directives">
+
+<directive name="mirror">
+<syntax><value>uri</value> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Sets the URI to which an original request will be mirrored.
+Several mirrors can be specified on the same level.
+</para>
+
+</directive>
+
+
+<directive name="mirror_request_body">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>on</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Indicates whether the client request body is mirrored.
+When enabled, the client request body will be read
+prior to creating mirror subrequests.
+In this case, unbuffered client request body proxying
+set by
+<link doc="ngx_http_proxy_module.xml" id="proxy_request_buffering">proxy_request_bufferning</link>,
+<link doc="ngx_http_fastcgi_module.xml" id="fastcgi_request_buffering">fastcgi_request_bufferning</link>,
+<link doc="ngx_http_scgi_module.xml" id="scgi_request_buffering">scgi_request_bufferning</link>,
+and
+<link doc="ngx_http_uwsgi_module.xml" id="uwsgi_request_buffering">uwsgi_request_bufferning</link>
+directives will be disabled.
+<example>
+location / {
+    mirror /mirror;
+    mirror_request_body off;
+    proxy_pass http://backend;
+}
+
+location /mirror {
+    internal;
+    proxy_pass http://log_backend;
+    proxy_pass_request_body off;
+    proxy_set_header Content-Length "";
+    proxy_set_header X-Original-URI $request_uri;
+}
+</example>
+</para>
+
+</directive>
+
+</section>
+
+</module>

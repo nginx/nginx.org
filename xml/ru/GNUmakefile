@@ -56,6 +56,7 @@ REFS =									\
 		http/ngx_http_log_module				\
 		http/ngx_http_map_module				\
 		http/ngx_http_memcached_module				\
+		http/ngx_http_mirror_module				\
 		http/ngx_http_mp4_module				\
 		http/ngx_http_perl_module				\
 		http/ngx_http_proxy_module				\

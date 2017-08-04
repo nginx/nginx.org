@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Модуль ngx_http_mirror_module"
+        link="/ru/docs/http/ngx_http_mirror_module.html"
+        lang="ru"
+        rev="1">
+
+<section id="summary">
+
+<para>
+Модуль <literal>ngx_http_mirror_module</literal> (1.13.4) позволяет
+зеркалировать исходный запрос
+при помощи создания фоновых зеркалирующих подзапросов.
+Результат зеркалирующих подзапросов игнорируется.
+</para>
+
+</section>
+
+
+<section id="example" name="Пример конфигурации">
+
+<para>
+<example>
+location / {
+    mirror /mirror;
+    proxy_pass http://backend;
+}
+
+location /mirror {
+    internal;
+    proxy_pass http://test_backend$request_uri;
+}
+</example>
+</para>
+
+</section>
+
+
+<section id="directives" name="Директивы">
+
+<directive name="mirror">
+<syntax><value>uri</value> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Задаёт URI, на который будет зеркалироваться исходный запрос.
+На одном уровне может использоваться несколько зеркал.
+</para>
+
+</directive>
+
+
+<directive name="mirror_request_body">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>on</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Позволяет зеркалировать исходное тело запроса.
+Если включено, то тело запроса клиента будет прочитано
+перед созданием зеркалирующих подзапросов.
+В этом случае будет отключено
+небуферизованное проксирование тела запроса клиента, задаваемое директивами
+<link doc="ngx_http_proxy_module.xml" id="proxy_request_buffering">proxy_request_bufferning</link>,
+<link doc="ngx_http_fastcgi_module.xml" id="fastcgi_request_buffering">fastcgi_request_bufferning</link>,
+<link doc="ngx_http_scgi_module.xml" id="scgi_request_buffering">scgi_request_bufferning</link>
+и
+<link doc="ngx_http_uwsgi_module.xml" id="uwsgi_request_buffering">uwsgi_request_bufferning</link>.
+<example>
+location / {
+    mirror /mirror;
+    mirror_request_body off;
+    proxy_pass http://backend;
+}
+
+location /mirror {
+    internal;
+    proxy_pass http://log_backend;
+    proxy_pass_request_body off;
+    proxy_set_header Content-Length "";
+    proxy_set_header X-Original-URI $request_uri;
+}
+</example>
+</para>
+
+</directive>
+
+</section>
+
+</module>
