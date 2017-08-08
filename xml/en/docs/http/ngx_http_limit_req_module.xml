@@ -10,7 +10,7 @@
 <module name="Module ngx_http_limit_req_module"
         link="/en/docs/http/ngx_http_limit_req_module.html"
         lang="en"
-        rev="7">
+        rev="8">
 
 <section id="summary">
 
@@ -198,9 +198,12 @@ The stored state always occupies
 64 bytes on 32-bit platforms and 128 bytes on 64-bit platforms.
 One megabyte zone can keep about 16 thousand 64-byte states
 or about 8 thousand 128-byte states.
-If the zone storage is exhausted, the server will return the
-<link id="limit_req_status">error</link>
-to all further requests.
+</para>
+
+<para>
+If the zone storage is exhausted, the least recently used state is removed.
+Even if after that a new state cannot be created, the request is terminated with
+an <link id="limit_req_status">error</link>.
 </para>
 
 <para>
