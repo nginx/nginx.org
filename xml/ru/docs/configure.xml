@@ -8,7 +8,7 @@
 <article name="Сборка nginx из исходных файлов"
          link="/ru/docs/configure.html"
          lang="ru"
-         rev="9">
+         rev="10">
 
 <section>
 
@@ -247,7 +247,7 @@ HTTPS</link>.
     --conf-path=/usr/local/nginx/nginx.conf
     --pid-path=/usr/local/nginx/nginx.pid
     --with-http_ssl_module
-    --with-pcre=../pcre-8.40
+    --with-pcre=../pcre-8.41
     --with-zlib=../zlib-1.2.11
 </programlisting>
 </para>
