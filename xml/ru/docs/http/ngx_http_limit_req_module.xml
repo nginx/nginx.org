@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_limit_req_module"
         link="/ru/docs/http/ngx_http_limit_req_module.html"
         lang="ru"
-        rev="6">
+        rev="7">
 
 <section id="summary">
 
@@ -67,8 +67,8 @@ http {
 с заданной скоростью.
 Избыточные запросы задерживаются до тех пор, пока их число
 не превысит максимальный размер всплеска.
-При превышении запрос завершается с ошибкой
-<http-status code="503" text="Service Temporarily Unavailable"/>.
+При превышении запрос завершается с
+<link id="limit_req_status">ошибкой</link>.
 По умолчанию максимальный размер всплеска равен нулю.
 Например, директивы
 <example>
@@ -196,8 +196,8 @@ limit_req_zone $binary_remote_addr zone=one:10m rate=1r/s;
 В зоне размером 1 мегабайт может разместиться около 16 тысяч состояний
 размером 64 байта или около 8 тысяч состояний размером 128 байт.
 При переполнении зоны в ответ на последующие запросы сервер будет
-возвращать ошибку
-<http-status code="503" text="Service Temporarily Unavailable"/>.
+возвращать
+<link id="limit_req_status">ошибку</link>.
 </para>
 
 <para>

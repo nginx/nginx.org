@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_limit_conn_module"
         link="/ru/docs/http/ngx_http_limit_conn_module.html"
         lang="ru"
-        rev="9">
+        rev="10">
 
 <section id="summary">
 
@@ -62,8 +62,8 @@ http {
 <para>
 Задаёт зону разделяемой памяти и максимально допустимое число соединений
 для одного значения ключа.
-При превышении этого числа в ответ на запрос сервер вернёт ошибку
-<http-status code="503" text="Service Temporarily Unavailable"/>.
+При превышении этого числа в ответ на запрос сервер вернёт
+<link id="limit_conn_status">ошибку</link>.
 Например, директивы
 <example>
 limit_conn_zone $binary_remote_addr zone=addr:10m;
@@ -175,8 +175,8 @@ limit_conn_zone $binary_remote_addr zone=addr:10m;
 В зоне размером 1 мегабайт может разместиться около 32 тысяч состояний
 размером 32 байта или 16 тысяч состояний размером 64 байта.
 При переполнении зоны в ответ на последующие запросы сервер будет
-возвращать ошибку
-<http-status code="503" text="Service Temporarily Unavailable"/>.
+возвращать
+<link id="limit_conn_status">ошибку</link>.
 </para>
 
 </directive>

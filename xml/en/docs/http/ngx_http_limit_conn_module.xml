@@ -10,7 +10,7 @@
 <module name="Module ngx_http_limit_conn_module"
         link="/en/docs/http/ngx_http_limit_conn_module.html"
         lang="en"
-        rev="9">
+        rev="10">
 
 <section id="summary">
 
@@ -64,8 +64,8 @@ http {
 Sets the shared memory zone
 and the maximum allowed number of connections for a given key value.
 When this limit is exceeded, the server will return the
-<http-status code="503" text="Service Temporarily Unavailable"/>
-error in reply to a request.
+<link id="limit_conn_status">error</link>
+in reply to a request.
 For example, the directives
 <example>
 limit_conn_zone $binary_remote_addr zone=addr:10m;
@@ -179,8 +179,8 @@ on 32-bit platforms and 64 bytes on 64-bit platforms.
 One megabyte zone can keep about 32 thousand 32-byte states
 or about 16 thousand 64-byte states.
 If the zone storage is exhausted, the server will return the
-<http-status code="503" text="Service Temporarily Unavailable"/>
-error to all further requests.
+<link id="limit_conn_status">error</link>
+to all further requests.
 </para>
 
 </directive>
