@@ -20,8 +20,9 @@
 
     <div id="banner">
         <xsl:if test="@lang = 'he'"> <xsl:attribute name="class"> <xsl:text>ltr</xsl:text> </xsl:attribute> </xsl:if>
-        nginx.conf 2017: Registration is Open.<br/>
-        <a href="https://www.nginx.com/nginxconf/?utm_source=nginxorg">Get your ticket now!</a>
+        50% off
+        <a href="https://www.nginx.com/nginxconf/?utm_source=nginxorg">nginx.conf 2017</a> in Portland, OR. Limited time and availability.<br/>
+        Use code <b>OPENSOURCE</b>
     </div>
 
     <div id="main">
