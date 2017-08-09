@@ -19,8 +19,9 @@ X:template body (lang) {
 
     <div id="banner">
         X:if "@lang = 'he'" { X:attribute "class" { X:text{ltr} } }
-        nginx.conf 2017: Registration is Open.<br/>
-        <a href="https://www.nginx.com/nginxconf/?utm_source=nginxorg">Get your ticket now!</a>
+        50% off
+        <a href="https://www.nginx.com/nginxconf/?utm_source=nginxorg">nginx.conf 2017</a> in Portland, OR. Limited time and availability.<br/>
+        Use code <b>OPENSOURCE</b>
     </div>
 
     <div id="main">
