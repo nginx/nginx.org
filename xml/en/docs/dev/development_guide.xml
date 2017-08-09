@@ -4524,10 +4524,13 @@ No additional handlers can be registered at this phase.
 </listitem>
 
 <listitem>
-<literal>NGX_HTTP_TRY_FILES_PHASE</literal> — Special phase where
-the <link doc="../http/ngx_http_core_module.xml" id="try_files"/> directive
-is processed.
-No additional handlers can be registered at this phase.
+<literal>NGX_HTTP_PRECONTENT_PHASE</literal> — Phase for handlers to be called
+prior to generating content.
+Standard modules such as
+<link doc="../http/ngx_http_core_module.xml" id="try_files">
+ngx_http_try_files_module</link> and
+<link doc="../http/ngx_http_mirror_module.xml">ngx_http_mirror_module</link>
+register their handlers at this phase.
 </listitem>
 
 <listitem>
