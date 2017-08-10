@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_mirror_module"
         link="/ru/docs/http/ngx_http_mirror_module.html"
         lang="ru"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
@@ -17,7 +17,7 @@
 Модуль <literal>ngx_http_mirror_module</literal> (1.13.4) позволяет
 зеркалировать исходный запрос
 при помощи создания фоновых зеркалирующих подзапросов.
-Результат зеркалирующих подзапросов игнорируется.
+Ответы на зеркалирующие подзапросы игнорируются.
 </para>
 
 </section>
@@ -53,7 +53,7 @@ location /mirror {
 
 <para>
 Задаёт URI, на который будет зеркалироваться исходный запрос.
-На одном уровне может использоваться несколько зеркал.
+На одном уровне может быть задано несколько зеркал.
 </para>
 
 </directive>
@@ -67,16 +67,17 @@ location /mirror {
 <context>location</context>
 
 <para>
-Позволяет зеркалировать исходное тело запроса.
+Определяет, зеркалировать ли тело запроса клиента.
 Если включено, то тело запроса клиента будет прочитано
 перед созданием зеркалирующих подзапросов.
-В этом случае будет отключено
-небуферизованное проксирование тела запроса клиента, задаваемое директивами
+В этом случае небуферизованное проксирование тела запроса клиента,
+задаваемое директивами
 <link doc="ngx_http_proxy_module.xml" id="proxy_request_buffering"/>,
 <link doc="ngx_http_fastcgi_module.xml" id="fastcgi_request_buffering"/>,
 <link doc="ngx_http_scgi_module.xml" id="scgi_request_buffering"/>
 и
-<link doc="ngx_http_uwsgi_module.xml" id="uwsgi_request_buffering"/>.
+<link doc="ngx_http_uwsgi_module.xml" id="uwsgi_request_buffering"/>,
+будет отключено.
 <example>
 location / {
     mirror /mirror;
