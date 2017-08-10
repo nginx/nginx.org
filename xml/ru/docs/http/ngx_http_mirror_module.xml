@@ -72,11 +72,11 @@ location /mirror {
 перед созданием зеркалирующих подзапросов.
 В этом случае будет отключено
 небуферизованное проксирование тела запроса клиента, задаваемое директивами
-<link doc="ngx_http_proxy_module.xml" id="proxy_request_buffering">proxy_request_buffering</link>,
-<link doc="ngx_http_fastcgi_module.xml" id="fastcgi_request_buffering">fastcgi_request_buffering</link>,
-<link doc="ngx_http_scgi_module.xml" id="scgi_request_buffering">scgi_request_buffering</link>
+<link doc="ngx_http_proxy_module.xml" id="proxy_request_buffering"/>,
+<link doc="ngx_http_fastcgi_module.xml" id="fastcgi_request_buffering"/>,
+<link doc="ngx_http_scgi_module.xml" id="scgi_request_buffering"/>
 и
-<link doc="ngx_http_uwsgi_module.xml" id="uwsgi_request_buffering">uwsgi_request_buffering</link>.
+<link doc="ngx_http_uwsgi_module.xml" id="uwsgi_request_buffering"/>.
 <example>
 location / {
     mirror /mirror;
