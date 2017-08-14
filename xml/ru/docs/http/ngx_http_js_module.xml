@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_js_module"
         link="/ru/docs/http/ngx_http_js_module.html"
         lang="ru"
-        rev="6">
+        rev="7">
 
 <section id="summary">
 
@@ -23,7 +23,7 @@
 <para>
 По умолчанию этот модуль не собирается, его необходимо собрать с
 модулем nginScript с помощью конфигурационного параметра
-<literal>--add_module</literal>:
+<literal>--add-module</literal>:
 <example>
 ./configure --add-module=<value>path-to-njs</value>/nginx
 </example>
@@ -36,7 +36,7 @@ hg clone http://hg.nginx.org/njs
 Модуль также можно собрать как
 <link doc="../ngx_core_module.xml" id="load_module">динамический</link>:
 <example>
-./configure --add-dynamic_module=<value>path-to-njs</value>/nginx
+./configure --add-dynamic-module=<value>path-to-njs</value>/nginx
 </example>
 </para>
 

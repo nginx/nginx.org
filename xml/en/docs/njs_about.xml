@@ -9,7 +9,7 @@
 <article name="About nginScript"
         link="/en/docs/njs_about.html"
         lang="en"
-        rev="10">
+        rev="11">
 
 <section id="summary">
 
@@ -268,14 +268,14 @@ with nginScript sources can be cloned with the following command:
 hg clone http://hg.nginx.org/njs
 </example>
 Then the modules should be compiled using the
-<literal>--add_module</literal> configuration parameter:
+<literal>--add-module</literal> configuration parameter:
 <example>
 ./configure --add-module=<value>path-to-njs</value>/nginx
 </example>
 The modules can also be built as
 <link doc="ngx_core_module.xml" id="load_module">dynamic</link>:
 <example>
-./configure --add-dynamic_module=<value>path-to-njs</value>/nginx
+./configure --add-dynamic-module=<value>path-to-njs</value>/nginx
 </example>
 </para>
 

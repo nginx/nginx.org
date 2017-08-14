@@ -9,7 +9,7 @@
 <article name="Информация о nginScript"
         link="/ru/docs/njs_about.html"
         lang="ru"
-        rev="10">
+        rev="11">
 
 <section id="summary">
 
@@ -268,14 +268,14 @@ nginScript
 hg clone http://hg.nginx.org/njs
 </example>
 Затем модули необходимо собрать с помощью
-конфигурационного параметра <literal>--add_module</literal>:
+конфигурационного параметра <literal>--add-module</literal>:
 <example>
 ./configure --add-module=<value>path-to-njs</value>/nginx
 </example>
 Модули также можно собрать как
 <link doc="ngx_core_module.xml" id="load_module">динамические</link>:
 <example>
-./configure --add-dynamic_module=<value>path-to-njs</value>/nginx
+./configure --add-dynamic-module=<value>path-to-njs</value>/nginx
 </example>
 </para>
 
