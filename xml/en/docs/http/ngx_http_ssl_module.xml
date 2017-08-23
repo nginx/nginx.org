@@ -10,7 +10,7 @@
 <module name="Module ngx_http_ssl_module"
         link="/en/docs/http/ngx_http_ssl_module.html"
         lang="en"
-        rev="34">
+        rev="35">
 
 <section id="summary">
 
@@ -779,6 +779,12 @@ only for new sessions and lists only known ciphers.
 </note>
 </tag-desc>
 
+<tag-name id="var_ssl_client_escaped_cert"><var>$ssl_client_escaped_cert</var></tag-name>
+<tag-desc>
+returns the client certificate in the PEM format (urlencoded)
+for an established SSL connection (1.13.5);
+</tag-desc>
+
 <tag-name id="var_ssl_client_cert"><var>$ssl_client_cert</var></tag-name>
 <tag-desc>
 returns the client certificate in the PEM format
@@ -786,6 +792,10 @@ for an established SSL connection, with each line except the first
 prepended with the tab character;
 this is intended for the use in the
 <link doc="ngx_http_proxy_module.xml" id="proxy_set_header"/> directive;
+<note>
+The variable is deprecated,
+the <var>$ssl_client_escaped_cert</var> variable should be used instead.
+</note>
 </tag-desc>
 
 <tag-name id="var_ssl_client_fingerprint"><var>$ssl_client_fingerprint</var></tag-name>

@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_ssl_module"
         link="/ru/docs/http/ngx_http_ssl_module.html"
         lang="ru"
-        rev="34">
+        rev="35">
 
 <section id="summary">
 
@@ -782,6 +782,12 @@ AES128-SHA:AES256-SHA:0x00ff
 </note>
 </tag-desc>
 
+<tag-name id="var_ssl_client_escaped_cert"><var>$ssl_client_escaped_cert</var></tag-name>
+<tag-desc>
+возвращает клиентский сертификат в формате PEM
+(закодирован в формате urlencode) для установленного SSL-соединения (1.13.5);
+</tag-desc>
+
 <tag-name id="var_ssl_client_cert"><var>$ssl_client_cert</var></tag-name>
 <tag-desc>
 возвращает клиентский сертификат
@@ -789,6 +795,10 @@ AES128-SHA:AES256-SHA:0x00ff
 перед каждой строкой которого, кроме первой, вставляется символ табуляции;
 предназначена для использования в директиве
 <link doc="ngx_http_proxy_module.xml" id="proxy_set_header"/>;
+<note>
+Переменная устарела, вместо неё следует использовать
+переменную <var>$ssl_client_escaped_cert</var>.
+</note>
 </tag-desc>
 
 <tag-name id="var_ssl_client_fingerprint"><var>$ssl_client_fingerprint</var></tag-name>
