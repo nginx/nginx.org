@@ -80,6 +80,13 @@ X:template body (lang) {
                         <a href="#{@name}"> !{@name} </a><br/>
                     }
                 }
+                X:if "@id = 'endpoints'" {
+                    X:for-each "para/list/tag-name[@name]" {
+                        X:text{&#160;&#160;&#160;&#160;&#160;}
+                        <a href="#{@id}"> !{@name} </a><br/>
+                    }
+                }
+
             }
             </td></tr></table>
         }

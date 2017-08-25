@@ -8,7 +8,7 @@
 <article name="nginx: документация"
          link="/ru/docs/"
          lang="ru"
-         rev="40"
+         rev="41"
          toc="no">
 
 
@@ -164,6 +164,11 @@ rewrite-правил</link> [en]
 <link doc="contributing_changes.xml"/>
 </listitem>
 
+<listitem>
+<link doc="../../en/docs/dev/development_guide.xml">Руководство
+по разработке</link> [en]
+</listitem>
+
 </list>
 </para>
 
@@ -212,6 +217,11 @@ ngx_http_access_module</link>
 <listitem>
 <link doc="http/ngx_http_addition_module.xml">
 ngx_http_addition_module</link>
+</listitem>
+
+<listitem>
+<link doc="http/ngx_http_api_module.xml">
+ngx_http_api_module</link> [en]
 </listitem>
 
 <listitem>
@@ -317,6 +327,11 @@ ngx_http_index_module</link>
 <listitem>
 <link doc="http/ngx_http_js_module.xml">
 ngx_http_js_module</link>
+</listitem>
+
+<listitem>
+<link doc="http/ngx_http_keyval_module.xml">
+ngx_http_keyval_module</link> [en]
 </listitem>
 
 <listitem>

@@ -1,0 +1,161 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Module ngx_http_api_module"
+        link="/en/docs/http/ngx_http_api_module.html"
+        lang="en"
+        rev="1">
+
+<section id="summary">
+
+<para>
+The <literal>ngx_http_api_module</literal> module (1.13.3) provides REST API
+for accessing various status information,
+configuring upstream server groups on-the-fly, and managing
+<link doc="ngx_http_keyval_module.xml">key-value pairs</link>
+without the need of reconfiguring nginx.
+</para>
+
+<para>
+<note>
+The module supersedes the
+<link doc="ngx_http_status_module.xml">ngx_http_status_module</link> and
+<link doc="ngx_http_upstream_conf_module.xml">ngx_http_upstream_conf_module</link>
+modules.
+</note>
+</para>
+
+<para>
+<note>
+This module is available as part of our
+<commercial_version>commercial subscription</commercial_version>.
+</note>
+</para>
+
+</section>
+
+
+<section id="example" name="Example Configuration">
+
+<para>
+<example>
+http {
+    upstream backend {
+        zone http_backend 64k;
+
+        server backend1.example.com weight=5;
+        server backend2.example.com;
+    }
+
+    proxy_cache_path /data/nginx/cache_backend keys_zone=cache_backend:10m;
+
+    server {
+        server_name backend.example.com;
+
+        location / {
+            proxy_pass  http://backend;
+            proxy_cache cache_backend;
+
+            health_check;
+        }
+
+        status_zone server_backend;
+    }
+
+    keyval_zone zone=one:32k state=one.keyval;
+    keyval $arg_text $text zone=one;
+
+    server {
+        listen 127.0.0.1;
+
+        location /api {
+            <emphasis>api</emphasis> write=on;
+            allow 127.0.0.1;
+            deny all;
+        }
+    }
+}
+
+stream {
+    upstream backend {
+        zone stream_backend 64k;
+
+        server backend1.example.com:12345 weight=5;
+        server backend2.example.com:12345;
+    }
+
+    server {
+        listen      127.0.0.1:12345;
+        proxy_pass  backend;
+        status_zone server_backend;
+        health_check;
+    }
+}
+</example>
+All API requests include a supported API version in the URI.
+Examples of API requests with this configuration:
+<example>
+http://127.0.0.1/api/1/
+http://127.0.0.1/api/1/nginx
+http://127.0.0.1/api/1/connections
+http://127.0.0.1/api/1/http/requests
+http://127.0.0.1/api/1/http/server_zones/server_backend
+http://127.0.0.1/api/1/http/caches/cache_backend
+http://127.0.0.1/api/1/http/upstreams/backend
+http://127.0.0.1/api/1/http/upstreams/backend/servers/
+http://127.0.0.1/api/1/http/upstreams/backend/servers/1
+http://127.0.0.1/api/1/http/keyvals/one?key=arg1
+http://127.0.0.1/api/1/stream/
+http://127.0.0.1/api/1/stream/server_zones/server_backend
+http://127.0.0.1/api/1/stream/upstreams/
+http://127.0.0.1/api/1/stream/upstreams/backend
+http://127.0.0.1/api/1/stream/upstreams/backend/servers/1
+</example>
+</para>
+
+</section>
+
+
+<section id="directives" name="Directives">
+
+<directive name="api">
+<syntax>
+[<literal>write</literal>=<literal>on</literal>|<literal>off</literal>]</syntax>
+<default/>
+<context>location</context>
+
+<para>
+Turns on the REST API interface in the surrounding location.
+Access to this location should be
+<link doc="ngx_http_core_module.xml" id="satisfy">limited</link>.
+</para>
+
+<para>
+The <literal>write</literal> parameter determines whether the API
+is read-only or read-write.
+By default, the API is read-only.
+</para>
+
+<para>
+All API requests should contain a supported API version in the URI.
+If the request URI equals the location prefix,
+the list of supported API versions is returned.
+The current and the only API version is “<literal>1</literal>”.
+</para>
+
+<para>
+The optional “<literal>fields</literal>” argument in the request line
+specifies which fields of the requested objects will be output:
+<example>
+http://127.0.0.1/api/1/nginx?fields=version,build
+</example>
+</para>
+
+</directive>
+
+</section>

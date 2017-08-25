@@ -39,6 +39,7 @@ REFS =									\
 		ngx_core_module						\
 		http/ngx_http_access_module				\
 		http/ngx_http_addition_module				\
+		http/ngx_http_api_module				\
 		http/ngx_http_auth_basic_module				\
 		http/ngx_http_auth_jwt_module				\
 		http/ngx_http_auth_request_module			\
@@ -61,6 +62,7 @@ REFS =									\
 		http/ngx_http_image_filter_module			\
 		http/ngx_http_index_module				\
 		http/ngx_http_js_module					\
+		http/ngx_http_keyval_module				\
 		http/ngx_http_limit_conn_module				\
 		http/ngx_http_limit_req_module				\
 		http/ngx_http_log_module				\

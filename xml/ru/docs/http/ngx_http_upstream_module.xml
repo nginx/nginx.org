@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_upstream_module"
         link="/ru/docs/http/ngx_http_upstream_module.html"
         lang="ru"
-        rev="60">
+        rev="61">
 
 <section id="summary">
 
@@ -805,7 +805,8 @@ server {
     <literal>create=</literal><value>$переменная</value>
     <literal>lookup=</literal><value>$переменная</value>
     <literal>zone=</literal><value>имя</value>:<value>размер</value>
-    [<literal>timeout=</literal><value>время</value>]</syntax>
+    [<literal>timeout=</literal><value>время</value>]
+    [<literal>header</literal>]</syntax>
 <default/>
 <context>upstream</context>
 <appeared-in>1.5.7</appeared-in>
@@ -969,6 +970,11 @@ upstream backend {
 Сессии, к которым не было обращений в течение времени, заданного параметром
 <literal>timeout</literal>, удаляются из зоны.
 По умолчанию <literal>timeout</literal> равен 10 минутам.
+</para>
+
+<para id="sticky_learn_header">
+Параметр <literal>header</literal> (1.13.1) позволяет создавать сессию
+сразу после получения заголовков ответа от сервера группы.
 </para>
 
 </tag-desc>

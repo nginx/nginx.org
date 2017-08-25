@@ -83,6 +83,7 @@
 <!ELEMENT   tag-name    ANY >
 <!ATTLIST   tag-name
             id          ID #IMPLIED
+            name        CDATA #IMPLIED
 >
 
 <!ELEMENT   tag-desc    ANY >

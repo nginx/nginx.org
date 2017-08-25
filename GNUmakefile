@@ -168,6 +168,16 @@ xslt/%.xslt:	xsls/%.xsls
 	mkdir -p $(dir $@)
 	$(call XSLScript, $<, $@)
 
+
+xml/en/docs/http/ngx_http_api_module.xml:                                     \
+		yaml/nginx_api.yaml                                           \
+		yaml/yaml2xml.py                                              \
+		xml/en/docs/http/ngx_http_api_module_head.xml
+	@cat xml/en/docs/http/ngx_http_api_module_head.xml > $@
+	@yaml/yaml2xml.py yaml/nginx_api.yaml >> $@
+	@echo "</module>" >> $@
+
+
 images:									\
 		binary/books/nginx_troubleshooting.jpg			\
 		binary/books/nginx_richtig_konfigurieren.jpg		\
@@ -338,6 +348,7 @@ endif
 
 clean:
 	rm -rf $(ZIP) $(OUT) xml/*/docs/dirindex.xml dir.map 		\
-	xml/*/docs/varindex.xml
+	xml/*/docs/varindex.xml \
+	xml/en/docs/http/ngx_http_api_module.xml
 
 .DELETE_ON_ERROR:

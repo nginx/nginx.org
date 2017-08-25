@@ -9,13 +9,18 @@
 <module name="Модуль ngx_http_status_module"
         link="/ru/docs/http/ngx_http_status_module.html"
         lang="ru"
-        rev="16">
+        rev="17">
 
 <section id="summary">
 
 <para>
 Модуль <literal>ngx_http_status_module</literal> предоставляет
 доступ к информации о состоянии сервера.
+<note>
+Этот модуль был заменён модулем
+<link doc="ngx_http_api_module.xml">ngx_http_api_module</link>
+в версии 1.13.0.
+</note>
 </para>
 
 <para>
@@ -888,6 +893,13 @@ http://127.0.0.1/status/stream/upstreams/backend/peers/1/weight
 <tag-name><literal>active</literal></tag-name>
 <tag-desc>
 Текущее число соединений.
+</tag-desc>
+
+<tag-name><literal>max_conns</literal></tag-name>
+<tag-desc>
+Ограничение
+<link doc="../stream/ngx_stream_upstream_module.xml" id="max_conns"/>
+для сервера.
 </tag-desc>
 
 <tag-name><literal>connections</literal></tag-name>

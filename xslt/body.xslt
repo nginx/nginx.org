@@ -80,6 +80,13 @@
                         <a href="#{@name}"> <xsl:value-of select="@name"/> </a><br/>
                     </xsl:for-each>
                 </xsl:if>
+                <xsl:if test="@id = 'endpoints'">
+                    <xsl:for-each select="para/list/tag-name[@name]">
+                        <xsl:text>&#160;&#160;&#160;&#160;&#160;</xsl:text>
+                        <a href="#{@id}"> <xsl:value-of select="@name"/> </a><br/>
+                    </xsl:for-each>
+                </xsl:if>
+
             </xsl:for-each>
             </td></tr></table>
         </xsl:if>

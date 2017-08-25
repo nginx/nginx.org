@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="60">
+        rev="61">
 
 <section id="summary">
 
@@ -798,7 +798,8 @@ This directive is available as part of our
     <literal>create=</literal><value>$variable</value>
     <literal>lookup=</literal><value>$variable</value>
     <literal>zone=</literal><value>name</value>:<value>size</value>
-    [<literal>timeout=</literal><value>time</value>]</syntax>
+    [<literal>timeout=</literal><value>time</value>]
+    [<literal>header</literal>]</syntax>
 <default/>
 <context>upstream</context>
 <appeared-in>1.5.7</appeared-in>
@@ -963,6 +964,11 @@ One megabyte zone can store about 8000 sessions on the 64-bit platform.
 The sessions that are not accessed during the time specified by the
 <literal>timeout</literal> parameter get removed from the zone.
 By default, <literal>timeout</literal> is set to 10 minutes.
+</para>
+
+<para id="sticky_learn_header">
+The <literal>header</literal> parameter (1.13.1) allows creating a session
+right after receiving response headers from the upstream server.
 </para>
 
 </tag-desc>
