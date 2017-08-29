@@ -9,14 +9,14 @@
 <module name="Module ngx_http_keyval_module"
         link="/en/docs/http/ngx_http_keyval_module.html"
         lang="en"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
 <para>
 The <literal>ngx_http_keyval_module</literal> module (1.13.3) creates variables
 with values taken from key-value pairs managed by the
-<link doc="ngx_http_api_module.xml" id="http_keyvals">API</link>.
+<link doc="ngx_http_api_module.xml" id="http_keyvals_">API</link>.
 </para>
 
 <para>
@@ -87,7 +87,7 @@ specified by the <literal>zone</literal> parameter.
 Sets the <value>name</value> and <value>size</value> of the shared memory zone
 that keeps the key-value database.
 Key-value pairs are managed by the
-<link doc="ngx_http_api_module.xml" id="http_keyvals">API</link>.
+<link doc="ngx_http_api_module.xml" id="http_keyvals_">API</link>.
 </para>
 
 <para>
