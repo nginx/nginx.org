@@ -28,10 +28,10 @@ def node_description(node):
     t = re.sub('\<i\>', r'<value>', t)
     t = re.sub('\</i\>', r'</value>', t)
 
-    t = re.sub('\<a href=\"(.*)\"\>(.*)\</a\>', r'<link url="\1">\2</link>', t)
+    t = re.sub('\<a href=\"(.*?)\"\>(.*?)\</a\>', r'<link url="\1">\2</link>', t)
 
     # [desc](url)
-    t = re.sub('\[(.*)\]\((.*)\)', r'<link url="\2">\1</link>', t)
+    t = re.sub('\[(.*)\]\((.*?)\)', r'<link url="\2">\1</link>', t)
 
     # ** foo ** is value
     t = re.sub('[*?][*?](\w+)[*?][*?]', r'<value>\1</value>', t)
