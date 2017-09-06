@@ -378,6 +378,7 @@ Possible responses:
 <list type="bullet">
 <listitem>204 - Success</listitem>
 <listitem>404 - Slab not found (<literal>SlabNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 </list>
@@ -433,6 +434,7 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>204 - Success</listitem>
+<listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 </list>
@@ -506,6 +508,7 @@ Possible responses:
 <list type="bullet">
 <listitem>204 - Success</listitem>
 <listitem>404 - Server zone not found (<literal>ServerZoneNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 </list>
@@ -579,6 +582,7 @@ Possible responses:
 <list type="bullet">
 <listitem>204 - Success</listitem>
 <listitem>404 - Cache not found (<literal>CacheNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 </list>
@@ -654,6 +658,7 @@ Possible responses:
 <listitem>204 - Success</listitem>
 <listitem>400 - Upstream is static (<literal>UpstreamStatic</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>404 - Upstream not found (<literal>UpstreamNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 </list>
@@ -719,6 +724,7 @@ no resolver defined to resolve (<literal>UpstreamConfNoResolver</literal>),
 upstream “<value>name</value>” has no backup (<literal>UpstreamNoBackup</literal>),
 upstream “<value>name</value>” memory exhausted (<literal>UpstreamOutOfMemory</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>404 - Upstream not found (<literal>UpstreamNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>415 - JSON error (<literal>JsonError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
@@ -791,6 +797,7 @@ server “<literal>ID</literal>” weight is immutable (<literal>UpstreamServerW
 upstream “<literal>name</literal>” memory exhausted (<literal>UpstreamOutOfMemory</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>404 - Upstream not found (<literal>UpstreamNotFound</literal>),
 server with ID “<value>id</value>” does not exist (<literal>UpstreamServerNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>415 - JSON error (<literal>JsonError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
@@ -807,6 +814,7 @@ invalid server ID (<literal>UpstreamBadServerId</literal>),
 server “<value>id</value>” not removable (<literal>UpstreamServerImmutable</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>404 - Upstream not found (<literal>UpstreamNotFound</literal>),
 server with ID “<value>id</value>” does not exist (<literal>UpstreamServerNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 </list>
@@ -893,6 +901,7 @@ Possible responses:
 only one key can be added (<literal>KeyvalFormatError</literal>),
 nested object or list (<literal>KeyvalFormatError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>404 - Keyval not found (<literal>KeyvalNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>409 - Key already exists (<literal>KeyvalKeyExists</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>415 - JSON error (<literal>JsonError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
@@ -919,6 +928,7 @@ only one key can be updated (<literal>KeyvalFormatError</literal>),
 nested object or list (<literal>KeyvalFormatError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>404 - Keyval not found (<literal>KeyvalNotFound</literal>),
 keyval key not found (<literal>KeyvalKeyNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>415 - JSON error (<literal>JsonError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
@@ -931,6 +941,7 @@ Possible responses:
 <list type="bullet">
 <listitem>204 - Success</listitem>
 <listitem>404 - Keyval not found (<literal>KeyvalNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 </list>
@@ -1025,6 +1036,7 @@ Possible responses:
 <listitem>204 - Success</listitem>
 <listitem>404 - Server zone not found (<literal>ServerZoneNotFound</literal>),
 <link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream">stream</link> not configured (<literal>StreamNotConfigured</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 </list>
@@ -1103,6 +1115,7 @@ Possible responses:
 <listitem>400 - Upstream is static (<literal>UpstreamStatic</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>404 - Upstream not found (<literal>UpstreamNotFound</literal>),
 <link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream">stream</link> not configured (<literal>StreamNotConfigured</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 </list>
@@ -1170,6 +1183,7 @@ upstream “<value>name</value>” has no backup (<literal>UpstreamNoBackup</lit
 upstream “<value>name</value>” memory exhausted (<literal>UpstreamOutOfMemory</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>404 - Upstream not found (<literal>UpstreamNotFound</literal>),
 <link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream">stream</link> not configured (<literal>StreamNotConfigured</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>415 - JSON error (<literal>JsonError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
@@ -1244,6 +1258,7 @@ upstream “<literal>name</literal>” memory exhausted (<literal>UpstreamOutOfM
 <listitem>404 - Upstream not found (<literal>UpstreamNotFound</literal>),
 server with ID “<value>id</value>” does not exist (<literal>UpstreamServerNotFound</literal>),
 <link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream">stream</link> not configured (<literal>StreamNotConfigured</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>415 - JSON error (<literal>JsonError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
@@ -1261,6 +1276,7 @@ server “<value>id</value>” not removable (<literal>UpstreamServerImmutable</
 <listitem>404 - Upstream not found (<literal>UpstreamNotFound</literal>),
 server with ID “<value>id</value>” does not exist (<literal>UpstreamServerNotFound</literal>),
 <link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream">stream</link> not configured (<literal>StreamNotConfigured</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 </list>

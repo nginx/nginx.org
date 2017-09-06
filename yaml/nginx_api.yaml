@@ -224,6 +224,10 @@ paths:
           description: Slab not found (*SlabNotFound*)
           schema:
             $ref: '#/definitions/NginxError'
+        '405':
+          description: Method disabled (*MethodDisabled*)
+          schema:
+            $ref: '#/definitions/NginxError'
   /http/:
     get:
       tags:
@@ -270,6 +274,10 @@ paths:
       responses:
         '204':
           description: Success
+        '405':
+          description: Method disabled (*MethodDisabled*)
+          schema:
+            $ref: '#/definitions/NginxError'
   /http/server_zones/:
     get:
       tags:
@@ -338,6 +346,10 @@ paths:
           description: Server zone not found (*ServerZoneNotFound*)
           schema:
             $ref: '#/definitions/NginxError'
+        '405':
+          description: Method disabled (*MethodDisabled*)
+          schema:
+            $ref: '#/definitions/NginxError'
   /http/caches/:
     get:
       tags:
@@ -404,6 +416,10 @@ paths:
           description: Success
         '404':
           description: Cache not found (*CacheNotFound*)
+          schema:
+            $ref: '#/definitions/NginxError'
+        '405':
+          description: Method disabled (*MethodDisabled*)
           schema:
             $ref: '#/definitions/NginxError'
   /http/upstreams/:
@@ -485,6 +501,10 @@ paths:
           description: Upstream not found (*UpstreamNotFound*)
           schema:
             $ref: '#/definitions/NginxError'
+        '405':
+          description: Method disabled (*MethodDisabled*)
+          schema:
+            $ref: '#/definitions/NginxError'
   '/http/upstreams/{httpUpstreamName}/servers/':
     parameters:
       - name: httpUpstreamName
@@ -564,6 +584,10 @@ paths:
             $ref: '#/definitions/NginxError'
         '404':
           description: Upstream not found (*UpstreamNotFound*)
+          schema:
+            $ref: '#/definitions/NginxError'
+        '405':
+          description: Method disabled (*MethodDisabled*)
           schema:
             $ref: '#/definitions/NginxError'
         '415':
@@ -661,6 +685,10 @@ paths:
             server with ID “**id**” does not exist (*UpstreamServerNotFound*)
           schema:
             $ref: '#/definitions/NginxError'
+        '405':
+          description: Method disabled (*MethodDisabled*)
+          schema:
+            $ref: '#/definitions/NginxError'
         '415':
           description: JSON error (*JsonError*)
           schema:
@@ -690,6 +718,10 @@ paths:
           description: |
             Upstream not found (*UpstreamNotFound*),
             server with ID “**id**” does not exist (*UpstreamServerNotFound*)
+          schema:
+            $ref: '#/definitions/NginxError'
+        '405':
+          description: Method disabled (*MethodDisabled*)
           schema:
             $ref: '#/definitions/NginxError'
   /http/keyvals/:
@@ -782,6 +814,10 @@ paths:
           description: Keyval not found (*KeyvalNotFound*)
           schema:
             $ref: '#/definitions/NginxError'
+        '405':
+          description: Method disabled (*MethodDisabled*)
+          schema:
+            $ref: '#/definitions/NginxError'
         '409':
           description: Key already exists (*KeyvalKeyExists*)
           schema:
@@ -823,6 +859,10 @@ paths:
             keyval key not found (*KeyvalKeyNotFound*)
           schema:
             $ref: '#/definitions/NginxError'
+        '405':
+          description: Method disabled (*MethodDisabled*)
+          schema:
+            $ref: '#/definitions/NginxError'
         '415':
           description: JSON error (*JsonError*)
           schema:
@@ -840,6 +880,10 @@ paths:
           description: Success
         '404':
           description: Keyval not found (*KeyvalNotFound*)
+          schema:
+            $ref: '#/definitions/NginxError'
+        '405':
+          description: Method disabled (*MethodDisabled*)
           schema:
             $ref: '#/definitions/NginxError'
   /stream/:
@@ -934,6 +978,10 @@ paths:
             [stream](https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream) not configured (*StreamNotConfigured*)
           schema:
             $ref: '#/definitions/NginxError'
+        '405':
+          description: Method disabled (*MethodDisabled*)
+          schema:
+            $ref: '#/definitions/NginxError'
   /stream/upstreams/:
     get:
       tags:
@@ -1023,6 +1071,10 @@ paths:
             [stream](https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream) not configured (*StreamNotConfigured*)
           schema:
             $ref: '#/definitions/NginxError'
+        '405':
+          description: Method disabled (*MethodDisabled*)
+          schema:
+            $ref: '#/definitions/NginxError'
   '/stream/upstreams/{streamUpstreamName}/servers/':
     parameters:
       - name: streamUpstreamName
@@ -1106,6 +1158,10 @@ paths:
           description: |
             Upstream not found (*UpstreamNotFound*),
             [stream](https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream) not configured (*StreamNotConfigured*)
+          schema:
+            $ref: '#/definitions/NginxError'
+        '405':
+          description: Method disabled (*MethodDisabled*)
           schema:
             $ref: '#/definitions/NginxError'
         '415':
@@ -1205,6 +1261,10 @@ paths:
             [stream](https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream) not configured (*StreamNotConfigured*)
           schema:
             $ref: '#/definitions/NginxError'
+        '405':
+          description: Method disabled (*MethodDisabled*)
+          schema:
+            $ref: '#/definitions/NginxError'
         '415':
           description: JSON error (*JsonError*)
           schema:
@@ -1235,6 +1295,10 @@ paths:
             Upstream not found (*UpstreamNotFound*),
             server with ID “**id**” does not exist (*UpstreamServerNotFound*),
             [stream](https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream) not configured (*StreamNotConfigured*)
+          schema:
+            $ref: '#/definitions/NginxError'
+        '405':
+          description: Method disabled (*MethodDisabled*)
           schema:
             $ref: '#/definitions/NginxError'
 ###
