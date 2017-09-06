@@ -20,9 +20,8 @@
 
     <div id="banner">
         <xsl:if test="@lang = 'he'"> <xsl:attribute name="class"> <xsl:text>ltr</xsl:text> </xsl:attribute> </xsl:if>
-        50% off
-        <a href="https://www.nginx.com/nginxconf/?utm_source=nginxorg">nginx.conf 2017</a> in Portland, OR. Limited time and availability.<br/>
-        Use code <b>OPENSOURCE</b>
+        Learn how to configure caching, load balancing, cloud deployments, and other critical NGINX features.<br/>
+        <a href="https://www.nginx.com/resources/library/complete-nginx-cookbook/?utm_source=nginxorg&amp;utm_medium=homepagebanner&amp;utm_campaign=complete_cookbook">Download the Complete NGINX Cookbook</a>
     </div>
 
     <div id="main">
