@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_ssl_module"
         link="/ru/docs/http/ngx_http_ssl_module.html"
         lang="ru"
-        rev="35">
+        rev="36">
 
 <section id="summary">
 
@@ -175,25 +175,9 @@ server {
 
 <para>
 Нужно иметь в виду, что из-за ограничения протокола HTTPS
-виртуальные серверы должны слушать на разных IP-адресах:
-<example>
-server {
-    listen          192.168.1.1:443;
-    server_name     one.example.com;
-    ssl_certificate one.example.com.crt;
-    ...
-}
-
-server {
-    listen          192.168.1.2:443;
-    server_name     two.example.com;
-    ssl_certificate two.example.com.crt;
-    ...
-}
-</example>
-иначе для второго сайта будет выдаваться
-<link doc="configuring_https_servers.xml"
-    id="name_based_https_servers">сертификат первого сервера</link>.
+для максимальной совместимости виртуальные серверы должны слушать на
+<link doc="configuring_https_servers.xml" id="name_based_https_servers">разных
+IP-адресах</link>.
 </para>
 
 </directive>

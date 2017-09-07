@@ -10,7 +10,7 @@
 <module name="Module ngx_http_ssl_module"
         link="/en/docs/http/ngx_http_ssl_module.html"
         lang="en"
-        rev="35">
+        rev="36">
 
 <section id="summary">
 
@@ -173,26 +173,9 @@ With older versions, only one certificate chain can be used.
 
 <para>
 It should be kept in mind that due to the HTTPS protocol limitations
-virtual servers should listen on different IP addresses:
-<example>
-server {
-    listen          192.168.1.1:443;
-    server_name     one.example.com;
-    ssl_certificate one.example.com.crt;
-    ...
-}
-
-server {
-    listen          192.168.1.2:443;
-    server_name     two.example.com;
-    ssl_certificate two.example.com.crt;
-    ...
-}
-</example>
-otherwise
-<link doc="configuring_https_servers.xml"
-    id="name_based_https_servers">the first server’s certificate</link>
-will be issued for the second site.
+for maximum interoperability virtual servers should listen on
+<link doc="configuring_https_servers.xml" id="name_based_https_servers">different
+IP addresses</link>.
 </para>
 
 </directive>

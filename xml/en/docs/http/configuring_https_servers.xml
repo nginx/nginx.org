@@ -8,7 +8,7 @@
 <article name="Configuring HTTPS servers"
          link="/en/docs/http/configuring_https_servers.html"
          lang="en"
-         rev="11"
+         rev="12"
          author="Igor Sysoev"
          editor="Brian Mercer">
 
@@ -364,34 +364,9 @@ Server Name Indication extension</link> (SNI, RFC 6066),
 which allows a browser to pass a requested server name during the SSL handshake
 and, therefore, the server will know which certificate it should use
 for the connection.
-However, SNI has limited browser support.
-Currently it is supported starting with the following browsers versions:
-</para>
-
-<para>
-<list type="bullet">
-
-<listitem>
-Opera 8.0;
-</listitem>
-
-<listitem>
-MSIE 7.0 (but only on Windows Vista or higher);
-</listitem>
-
-<listitem>
-Firefox 2.0 and other browsers using Mozilla Platform rv:1.8.1;
-</listitem>
-
-<listitem>
-Safari 3.2.1 (Windows version supports SNI on Vista or higher);
-</listitem>
-
-<listitem>
-and Chrome (Windows version supports SNI on Vista or higher, too).
-</listitem>
-
-</list>
+SNI is currently
+<link url="http://en.wikipedia.org/wiki/Server_Name_Indication#Support">supported</link>
+by most modern browsers, though may not be used by some old or special clients.
 <note>
 Only domain names can be passed in SNI,
 however some browsers may erroneously pass an IP address of the server

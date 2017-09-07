@@ -8,7 +8,7 @@
 <article name="Настройка HTTPS-серверов"
          link="/ru/docs/http/configuring_https_servers.html"
          lang="ru"
-         rev="11"
+         rev="12"
          author="Игорь Сысоев"
          editor="Brian Mercer">
 
@@ -362,34 +362,10 @@ Server Name Indication протокола TLS</link> (SNI, RFC 6066),
 которое позволяет браузеру передать запрашиваемое имя сервера во время
 SSL handshake, а значит сервер будет знать, какой сертификат ему
 следует использовать для соединения.
-Однако, поддержка SNI браузерами ограничена.
-Сейчас это поддерживается браузерами начиная со следующих версий:
-</para>
-
-<para>
-<list type="bullet">
-
-<listitem>
-Opera 8.0;
-</listitem>
-
-<listitem>
-MSIE 7.0 (но только на Windows Vista и выше);
-</listitem>
-
-<listitem>
-Firefox 2.0 и другие браузеры, использующие Mozilla Platform rv:1.8.1;
-</listitem>
-
-<listitem>
-Safari 3.2.1 (Windows-версия поддерживает SNI только на Vista и выше);
-</listitem>
-
-<listitem>
-и Chrome (Windows-версия также поддерживает SNI только на Vista и выше).
-</listitem>
-
-</list>
+Сейчас SNI
+<link url="http://en.wikipedia.org/wiki/Server_Name_Indication#Support">поддерживается</link>
+большинством современных браузеров, однако может не использоваться некоторыми
+старыми или специализированными клиентами.
 <note>
 В SNI можно передавать только доменные имена,
 однако некоторые браузеры могут ошибочно передавать IP-адрес сервера
