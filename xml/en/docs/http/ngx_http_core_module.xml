@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="72">
+        rev="73">
 
 <section id="directives" name="Directives">
 
@@ -837,9 +837,11 @@ subrequests formed by the
 “<command>include virtual</command>”
 command of the
 <link doc="ngx_http_ssi_module.xml">ngx_http_ssi_module</link>
-module and by the
+module, by the
 <link doc="ngx_http_addition_module.xml">ngx_http_addition_module</link>
-module directives;
+module directives, and by
+<link doc="ngx_http_auth_request_module.xml" id="auth_request"/> and
+<link doc="ngx_http_mirror_module.xml" id="mirror"/> directives;
 </listitem>
 
 <listitem>

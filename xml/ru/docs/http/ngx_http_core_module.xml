@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="72">
+        rev="73">
 
 <section id="directives" name="Директивы">
 
@@ -830,9 +830,13 @@ error_page 404 =301 http://example.com/notfound.html;
 подзапросы, формируемые командой
 “<command>include virtual</command>”
 модуля
-<link doc="ngx_http_ssi_module.xml">ngx_http_ssi_module</link>
-и директивами модуля
-<link doc="ngx_http_addition_module.xml">ngx_http_addition_module</link>;
+<link doc="ngx_http_ssi_module.xml">ngx_http_ssi_module</link>,
+директивами модуля
+<link doc="ngx_http_addition_module.xml">ngx_http_addition_module</link>,
+а также директивами
+<link doc="ngx_http_auth_request_module.xml" id="auth_request"/> и
+<link doc="ngx_http_mirror_module.xml" id="mirror"/>;
+
 </listitem>
 
 <listitem>
