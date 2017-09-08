@@ -169,13 +169,15 @@ xslt/%.xslt:	xsls/%.xsls
 	$(call XSLScript, $<, $@)
 
 
-xml/en/docs/http/ngx_http_api_module.xml:                                     \
-		yaml/nginx_api.yaml                                           \
-		yaml/yaml2xml.py                                              \
+API_OUT=xml/en/docs/http/ngx_http_api_module.xml
+
+genapi:					\
+		yaml/nginx_api.yaml	\
+		yaml/yaml2xml.py	\
 		xml/en/docs/http/ngx_http_api_module_head.xml
-	@cat xml/en/docs/http/ngx_http_api_module_head.xml > $@
-	@yaml/yaml2xml.py yaml/nginx_api.yaml >> $@
-	@echo "</module>" >> $@
+	@cat xml/en/docs/http/ngx_http_api_module_head.xml > $(API_OUT)
+	@yaml/yaml2xml.py yaml/nginx_api.yaml >> $(API_OUT)
+	@echo "</module>" >> $(API_OUT)
 
 
 images:									\
@@ -348,7 +350,6 @@ endif
 
 clean:
 	rm -rf $(ZIP) $(OUT) xml/*/docs/dirindex.xml dir.map 		\
-	xml/*/docs/varindex.xml \
-	xml/en/docs/http/ngx_http_api_module.xml
+	xml/*/docs/varindex.xml
 
 .DELETE_ON_ERROR:
