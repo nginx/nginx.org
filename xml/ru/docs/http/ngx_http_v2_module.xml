@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_v2_module"
         link="/ru/docs/http/ngx_http_v2_module.html"
         lang="ru"
-        rev="9">
+        rev="10">
 
 <section id="summary">
 
@@ -180,7 +180,6 @@ server {
 <default>1000</default>
 <context>http</context>
 <context>server</context>
-<context>location</context>
 <appeared-in>1.11.6</appeared-in>
 
 <para>

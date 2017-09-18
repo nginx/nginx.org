@@ -9,7 +9,7 @@
 <module name="Module ngx_http_v2_module"
         link="/en/docs/http/ngx_http_v2_module.html"
         lang="en"
-        rev="9">
+        rev="10">
 
 <section id="summary">
 
@@ -180,7 +180,6 @@ For most requests, the default limit should be enough.
 <default>1000</default>
 <context>http</context>
 <context>server</context>
-<context>location</context>
 <appeared-in>1.11.6</appeared-in>
 
 <para>
