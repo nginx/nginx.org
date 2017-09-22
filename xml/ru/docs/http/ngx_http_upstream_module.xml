@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_upstream_module"
         link="/ru/docs/http/ngx_http_upstream_module.html"
         lang="ru"
-        rev="61">
+        rev="62">
 
 <section id="summary">
 
@@ -842,6 +842,24 @@ upstream backend {
 
 <para>
 Первый параметр задаёт имя куки, которую необходимо установить или проверить.
+Значением куки является MD5-хэш IP-адреса и порта
+(или пути UNIX-сокета) в шестнадцатеричном виде.
+Однако если указан параметр “<literal>route</literal>”
+директивы <link id="server"/>, то значением куки будет
+значение параметра “<literal>route</literal>”:
+<example>
+upstream backend {
+    server backend1.example.com route=<emphasis>a</emphasis>;
+    server backend2.example.com route=<emphasis>b</emphasis>;
+
+    sticky cookie srv_id expires=1h domain=.example.com path=/;
+}
+</example>
+В этом случае значение куки “<literal>srv_id</literal>” будет
+или <value>a</value>, или <value>b</value>.
+</para>
+
+<para>
 Дополнительные параметры могут быть следующими:
 <list type="tag">
 

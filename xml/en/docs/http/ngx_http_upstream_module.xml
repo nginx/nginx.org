@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="61">
+        rev="62">
 
 <section id="summary">
 
@@ -835,6 +835,25 @@ selected as if the client has not been bound yet.
 
 <para>
 The first parameter sets the name of the cookie to be set or inspected.
+The cookie value is
+a hexadecimal representation of the MD5 hash of the IP address and port,
+or of the UNIX-domain socket path.
+However, if the “<literal>route</literal>” parameter of the
+<link id="server"/> directive is specified, the cookie value will be
+the value of the “<literal>route</literal>” parameter:
+<example>
+upstream backend {
+    server backend1.example.com route=<emphasis>a</emphasis>;
+    server backend2.example.com route=<emphasis>b</emphasis>;
+
+    sticky cookie srv_id expires=1h domain=.example.com path=/;
+}
+</example>
+In this case, the value of the “<literal>srv_id</literal>” cookie will be
+either <value>a</value> or <value>b</value>.
+</para>
+
+<para>
 Additional parameters may be as follows:
 <list type="tag">
 
