@@ -8,7 +8,7 @@
 <article name="Building nginx from Sources"
          link="/en/docs/configure.html"
          lang="en"
-         rev="10">
+         rev="11">
 
 <section>
 
@@ -187,7 +187,7 @@ The OpenSSL library is required to build and run this module.
 <literal>--with-pcre=<value>path</value></literal>&mdash;sets
 the path to the sources of the PCRE library.
 The library distribution (version
-4.4&mdash;8.40) needs to be downloaded from the
+4.4&mdash;8.41) needs to be downloaded from the
 <link url="http://www.pcre.org">PCRE</link> site and extracted.
 The rest is done by nginx’s <command>./configure</command> and
 <command>make</command>.
