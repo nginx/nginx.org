@@ -8,7 +8,7 @@
 <article name="Имена сервера"
          link="/ru/docs/http/server_names.html"
          lang="ru"
-         rev="2"
+         rev="3"
          author="Игорь Сысоев"
          editor="Brian Mercer">
 
@@ -319,6 +319,25 @@ server {
 </programlisting>
 </para>
 
+
+</section>
+
+
+<section id="idn"
+        name="Интернационализованные имена">
+<para>
+Для указания интернационализированных доменных имён
+(<link url="https://en.wikipedia.org/wiki/Internationalized_domain_name">IDNs</link>)
+в директиве <link doc="ngx_http_core_module.xml" id="server_name"/>
+следует указывать Punycode-представление имени:
+<programlisting>
+server {
+    listen       80;
+    server_name  xn--e1afmkfd.xn--80akhbyknj4f;  # пример.испытание
+    ...
+}
+</programlisting>
+</para>
 
 </section>
 

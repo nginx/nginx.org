@@ -8,7 +8,7 @@
 <article name="Server names"
          link="/en/docs/http/server_names.html"
          lang="en"
-         rev="2"
+         rev="3"
          author="Igor Sysoev"
          editor="Brian Mercer">
 
@@ -314,6 +314,25 @@ server {
 </programlisting>
 </para>
 
+
+</section>
+
+
+<section id="idn"
+        name="Internationalized names">
+<para>
+Internationalized domain names
+(<link url="https://en.wikipedia.org/wiki/Internationalized_domain_name">IDNs</link>)
+should be specified using an ASCII (Punycode) representation
+in the <link doc="ngx_http_core_module.xml" id="server_name"/> directive:
+<programlisting>
+server {
+    listen       80;
+    server_name  xn--e1afmkfd.xn--80akhbyknj4f;  # пример.испытание
+    ...
+}
+</programlisting>
+</para>
 
 </section>
 
