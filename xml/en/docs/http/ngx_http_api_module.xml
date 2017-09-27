@@ -170,7 +170,6 @@ http://127.0.0.1/api/1/nginx?fields=version,build
 <list type="bullet" compact="yes">
 <listitem id="getAPIEndpoints">
 <literal>GET</literal> - Return list of root endpoints
-
 <para>Returns a list of root endpoints.</para>
 <para>
 Possible responses:
@@ -189,9 +188,7 @@ Possible responses:
 <list type="bullet" compact="yes">
 <listitem id="getNginx">
 <literal>GET</literal> - Return status of nginx running instance
-
-<para>Returns nginx version, build name, address,
-number of configuration reloads, IDs of master and worker processes.</para>
+<para>Returns nginx version, build name, address, number of configuration reloads, IDs of master and worker processes.</para>
 <para>
 Request parameters:
 <list type="tag">
@@ -218,9 +215,7 @@ Possible responses:
 <list type="bullet" compact="yes">
 <listitem id="getProcesses">
 <literal>GET</literal> - Return nginx processes status
-
-<para>Returns the number of abnormally terminated
-and respawned child processes.</para>
+<para>Returns the number of abnormally terminated and respawned child processes.</para>
 <para>
 Possible responses:
 </para>
@@ -230,9 +225,7 @@ Possible responses:
 </listitem>
 <listitem id="deleteProcesses">
 <literal>DELETE</literal> - Reset nginx processes statistics
-
-<para>Resets counters of abnormally terminated and respawned
-child processes.</para>
+<para>Resets counters of abnormally terminated and respawned child processes.</para>
 <para>
 Possible responses:
 </para>
@@ -250,7 +243,6 @@ Possible responses:
 <list type="bullet" compact="yes">
 <listitem id="getConnections">
 <literal>GET</literal> - Return client connections statistics
-
 <para>Returns statistics of client connections.</para>
 <para>
 Request parameters:
@@ -270,9 +262,7 @@ Possible responses:
 </listitem>
 <listitem id="deleteConnections">
 <literal>DELETE</literal> - Reset client connections statistics
-
-<para>Resets statistics of accepted and dropped
-client connections.</para>
+<para>Resets statistics of accepted and dropped client connections.</para>
 <para>
 Possible responses:
 </para>
@@ -290,7 +280,6 @@ Possible responses:
 <list type="bullet" compact="yes">
 <listitem id="getSsl">
 <literal>GET</literal> - Return SSL statistics
-
 <para>Returns SSL statistics.</para>
 <para>
 Request parameters:
@@ -310,7 +299,6 @@ Possible responses:
 </listitem>
 <listitem id="deleteSslStat">
 <literal>DELETE</literal> - Reset SSL statistics
-
 <para>Resets counters of SSL handshakes and session reuses.</para>
 <para>
 Possible responses:
@@ -329,18 +317,14 @@ Possible responses:
 <list type="bullet" compact="yes">
 <listitem id="getSlabs">
 <literal>GET</literal> - Return status of all slabs
-
-<para>Returns status of slabs
-for each shared memory zone with slab allocator.</para>
+<para>Returns status of slabs for each shared memory zone with slab allocator.</para>
 <para>
 Request parameters:
 <list type="tag">
 <tag-name><literal>fields</literal>
 (<literal>string</literal>, optional)</tag-name>
 <tag-desc>
-Limits which fields of slab zones will be output.
-If the “<literal>fields</literal>” value is empty,
-then only zone names are output.</tag-desc>
+Limits which fields of slab zones will be output. If the “<literal>fields</literal>” value is empty, then only zone names are output.</tag-desc>
 </list>
 </para>
 <para>
@@ -367,9 +351,7 @@ The name of the shared memory zone with slab allocator.</tag-desc>
 <list type="bullet" compact="yes">
 <listitem id="getSlabZone">
 <literal>GET</literal> - Return status of a slab
-
-<para>Returns status of slabs for a particular shared memory zone
-with slab allocator.</para>
+<para>Returns status of slabs for a particular shared memory zone with slab allocator.</para>
 <para>
 Request parameters:
 <list type="tag">
@@ -389,9 +371,7 @@ Possible responses:
 </listitem>
 <listitem id="deleteSlabZoneStats">
 <literal>DELETE</literal> - Reset slab statistics
-
-<para>Resets the “<literal>reqs</literal>” and “<literal>fails</literal>”
-metrics for each memory slot.</para>
+<para>Resets the “<literal>reqs</literal>” and “<literal>fails</literal>” metrics for each memory slot.</para>
 <para>
 Possible responses:
 </para>
@@ -410,7 +390,6 @@ Possible responses:
 <list type="bullet" compact="yes">
 <listitem id="getHttp">
 <literal>GET</literal> - Return list of HTTP-related endpoints
-
 <para>Returns a list of first level HTTP endpoints.</para>
 <para>
 Possible responses:
@@ -429,7 +408,6 @@ Possible responses:
 <list type="bullet" compact="yes">
 <listitem id="getHttpRequests">
 <literal>GET</literal> - Return HTTP requests statistics
-
 <para>Returns status of client HTTP requests.</para>
 <para>
 Request parameters:
@@ -437,8 +415,7 @@ Request parameters:
 <tag-name><literal>fields</literal>
 (<literal>string</literal>, optional)</tag-name>
 <tag-desc>
-Limits which fields of client HTTP requests statistics 
-will be output.</tag-desc>
+Limits which fields of client HTTP requests statistics will be output.</tag-desc>
 </list>
 </para>
 <para>
@@ -450,7 +427,6 @@ Possible responses:
 </listitem>
 <listitem id="deleteHttpRequests">
 <literal>DELETE</literal> - Reset HTTP requests statistics
-
 <para>Resets the number of total client HTTP requests.</para>
 <para>
 Possible responses:
@@ -469,18 +445,14 @@ Possible responses:
 <list type="bullet" compact="yes">
 <listitem id="getHttpServerZones">
 <literal>GET</literal> - Return status of all HTTP server zones
-
-<para>Returns status information for each HTTP
-<link url="https://nginx.org/en/docs/http/ngx_http_status_module.html#status_zone">server zone</link>.</para>
+<para>Returns status information for each HTTP <link url="https://nginx.org/en/docs/http/ngx_http_status_module.html#status_zone">server zone</link>.</para>
 <para>
 Request parameters:
 <list type="tag">
 <tag-name><literal>fields</literal>
 (<literal>string</literal>, optional)</tag-name>
 <tag-desc>
-Limits which fields of server zones will be output.
-If the “<literal>fields</literal>” value is empty,
-then only server zone names are output.</tag-desc>
+Limits which fields of server zones will be output. If the “<literal>fields</literal>” value is empty, then only server zone names are output.</tag-desc>
 </list>
 </para>
 <para>
@@ -507,7 +479,6 @@ The name of an HTTP server zone.</tag-desc>
 <list type="bullet" compact="yes">
 <listitem id="getHttpServerZone">
 <literal>GET</literal> - Return status of an HTTP server zone
-
 <para>Returns status of a particular HTTP server zone.</para>
 <para>
 Request parameters:
@@ -528,9 +499,7 @@ Possible responses:
 </listitem>
 <listitem id="deleteHttpServerZoneStat">
 <literal>DELETE</literal> - Reset statistics for an HTTP server zone
-
-<para>Resets statistics of accepted and discarded requests, responses,
-received and sent bytes in a particular HTTP server zone.</para>
+<para>Resets statistics of accepted and discarded requests, responses, received and sent bytes in a particular HTTP server zone.</para>
 <para>
 Possible responses:
 </para>
@@ -549,19 +518,14 @@ Possible responses:
 <list type="bullet" compact="yes">
 <listitem id="getHttpCaches">
 <literal>GET</literal> - Return status of all caches
-
-<para>Returns status of each cache configured by
-<link url="https://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_cache_path">proxy_cache_path</link>
-and other “<literal>*_cache_path</literal>” directives.</para>
+<para>Returns status of each cache configured by <link url="https://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_cache_path">proxy_cache_path</link> and other “<literal>*_cache_path</literal>” directives.</para>
 <para>
 Request parameters:
 <list type="tag">
 <tag-name><literal>fields</literal>
 (<literal>string</literal>, optional)</tag-name>
 <tag-desc>
-Limits which fields of cache zones will be output.
-If the “<literal>fields</literal>” value is empty,
-then only names of cache zones are output.</tag-desc>
+Limits which fields of cache zones will be output. If the “<literal>fields</literal>” value is empty, then only names of cache zones are output.</tag-desc>
 </list>
 </para>
 <para>
@@ -588,7 +552,6 @@ The name of the cache zone.</tag-desc>
 <list type="bullet" compact="yes">
 <listitem id="getHttpCacheZone">
 <literal>GET</literal> - Return status of a cache
-
 <para>Returns status of a particular cache.</para>
 <para>
 Request parameters:
@@ -609,7 +572,6 @@ Possible responses:
 </listitem>
 <listitem id="deleteHttpCacheZoneStat">
 <literal>DELETE</literal> - Reset cache statistics
-
 <para>Resets statistics of cache hits/misses in a particular cache zone.</para>
 <para>
 Possible responses:
@@ -629,18 +591,14 @@ Possible responses:
 <list type="bullet" compact="yes">
 <listitem id="getHttpUpstreams">
 <literal>GET</literal> - Return status of all HTTP upstream server groups
-
-<para>Returns status of each HTTP upstream server group
-and its servers.</para>
+<para>Returns status of each HTTP upstream server group and its servers.</para>
 <para>
 Request parameters:
 <list type="tag">
 <tag-name><literal>fields</literal>
 (<literal>string</literal>, optional)</tag-name>
 <tag-desc>
-Limits which fields of upstream server groups will be output.
-If the “<literal>fields</literal>” value is empty,
-only names of upstreams are output.</tag-desc>
+Limits which fields of upstream server groups will be output. If the “<literal>fields</literal>” value is empty, only names of upstreams are output.</tag-desc>
 </list>
 </para>
 <para>
@@ -667,9 +625,7 @@ The name of an HTTP upstream server group.</tag-desc>
 <list type="bullet" compact="yes">
 <listitem id="getHttpUpstreamName">
 <literal>GET</literal> - Return status of an HTTP upstream server group
-
-<para>Returns status of a particular HTTP upstream server group
-and its servers.</para>
+<para>Returns status of a particular HTTP upstream server group and its servers.</para>
 <para>
 Request parameters:
 <list type="tag">
@@ -690,9 +646,7 @@ Possible responses:
 </listitem>
 <listitem id="deleteHttpUpstreamStat">
 <literal>DELETE</literal> - Reset statistics of an HTTP upstream server group
-
-<para>Resets the statistics for each upstream server
-in an upstream server group and queue statistics.</para>
+<para>Resets the statistics for each upstream server in an upstream server group and queue statistics.</para>
 <para>
 Possible responses:
 </para>
@@ -719,9 +673,7 @@ The name of an upstream server group.</tag-desc>
 <list type="bullet" compact="yes">
 <listitem id="getHttpUpstreamServers">
 <literal>GET</literal> - Return configuration of all servers in an HTTP upstream server group
-
-<para>Returns configuration of each server
-in a particular HTTP upstream server group.</para>
+<para>Returns configuration of each server in a particular HTTP upstream server group.</para>
 <para>
 Possible responses:
 </para>
@@ -733,19 +685,14 @@ Possible responses:
 </listitem>
 <listitem id="postHttpUpstreamServer">
 <literal>POST</literal> - Add a server to an HTTP upstream server group
-
-<para>Adds a new server to an HTTP upstream server group.
-Server parameters are specified in the JSON format.</para>
+<para>Adds a new server to an HTTP upstream server group. Server parameters are specified in the JSON format.</para>
 <para>
 Request parameters:
 <list type="tag">
 <tag-name><literal>postHttpUpstreamServer</literal>
 (<link id="def_nginx_http_upstream_conf_server">HTTP Upstream Server</link>, required)</tag-name>
 <tag-desc>
-Address of a new server and other optional parameters
-in the JSON format.
-The “<literal>ID</literal>”, “<literal>backup</literal>”, and “<literal>service</literal>” parameters
-cannot be changed.</tag-desc>
+Address of a new server and other optional parameters in the JSON format. The “<literal>ID</literal>”, “<literal>backup</literal>”, and “<literal>service</literal>” parameters cannot be changed.</tag-desc>
 </list>
 </para>
 <para>
@@ -796,9 +743,7 @@ The ID of the server.</tag-desc>
 <list type="bullet" compact="yes">
 <listitem id="getHttpUpstreamPeer">
 <literal>GET</literal> - Return configuration of a server in an HTTP upstream server group
-
-<para>Returns configuration of a particular server
-in the HTTP upstream server group.</para>
+<para>Returns configuration of a particular server in the HTTP upstream server group.</para>
 <para>
 Possible responses:
 </para>
@@ -812,19 +757,14 @@ server with ID “<value>id</value>” does not exist (<literal>UpstreamServerNo
 </listitem>
 <listitem id="patchHttpUpstreamPeer">
 <literal>PATCH</literal> - Modify a server in an HTTP upstream server group
-
-<para>Modifies settings of a particular server
-in an HTTP upstream server group.
-Server parameters are specified in the JSON format.</para>
+<para>Modifies settings of a particular server in an HTTP upstream server group. Server parameters are specified in the JSON format.</para>
 <para>
 Request parameters:
 <list type="tag">
 <tag-name><literal>patchHttpUpstreamServer</literal>
 (<link id="def_nginx_http_upstream_conf_server">HTTP Upstream Server</link>, required)</tag-name>
 <tag-desc>
-Server parameters, specified in the JSON format.
-The “<literal>ID</literal>”, “<literal>backup</literal>”, and “<literal>service</literal>” parameters
-cannot be changed.</tag-desc>
+Server parameters, specified in the JSON format. The “<literal>ID</literal>”, “<literal>backup</literal>”, and “<literal>service</literal>” parameters cannot be changed.</tag-desc>
 </list>
 </para>
 <para>
@@ -856,7 +796,6 @@ server with ID “<value>id</value>” does not exist (<literal>UpstreamServerNo
 </listitem>
 <listitem id="deleteHttpUpstreamServer">
 <literal>DELETE</literal> - Remove a server from an HTTP upstream server group
-
 <para>Removes a server from an HTTP upstream server group.</para>
 <para>
 Possible responses:
@@ -880,17 +819,14 @@ server with ID “<value>id</value>” does not exist (<literal>UpstreamServerNo
 <list type="bullet" compact="yes">
 <listitem id="getHttpKeyvalZones">
 <literal>GET</literal> - Return key-value pairs from all keyval zones
-
-<para>Returns key-value pairs for each keyval shared memory
-<link url="https://nginx.org/en/docs/http/ngx_http_keyval_module.html#keyval_zone">zone</link>.</para>
+<para>Returns key-value pairs for each keyval shared memory <link url="https://nginx.org/en/docs/http/ngx_http_keyval_module.html#keyval_zone">zone</link>.</para>
 <para>
 Request parameters:
 <list type="tag">
 <tag-name><literal>fields</literal>
 (<literal>string</literal>, optional)</tag-name>
 <tag-desc>
-If the “<literal>fields</literal>” value is empty,
-then only keyval zone names are output.</tag-desc>
+If the “<literal>fields</literal>” value is empty, then only keyval zone names are output.</tag-desc>
 </list>
 </para>
 <para>
@@ -917,9 +853,7 @@ The name of a keyval shared memory zone.</tag-desc>
 <list type="bullet" compact="yes">
 <listitem id="getHttpKeyvalZoneKeysValues">
 <literal>GET</literal> - Return key-value pairs from a keyval zone
-
-<para>Returns key-value pairs stored in a particular keyval shared memory
-<link url="https://nginx.org/en/docs/http/ngx_http_keyval_module.html#keyval_zone">zone</link>.</para>
+<para>Returns key-value pairs stored in a particular keyval shared memory <link url="https://nginx.org/en/docs/http/ngx_http_keyval_module.html#keyval_zone">zone</link>.</para>
 <para>
 Request parameters:
 <list type="tag">
@@ -940,20 +874,14 @@ keyval key not found (<literal>KeyvalKeyNotFound</literal>), returns <link id="d
 </listitem>
 <listitem id="postHttpKeyvalZoneData">
 <literal>POST</literal> - Add a key-value pair to the keyval zone
-
-<para>Adds a new key-value pair to the keyval shared memory
-<link url="https://nginx.org/en/docs/http/ngx_http_keyval_module.html#keyval_zone">zone</link>.
-Several key-value pairs can be entered
-if the keyval shared memory zone is empty.</para>
+<para>Adds a new key-value pair to the keyval shared memory <link url="https://nginx.org/en/docs/http/ngx_http_keyval_module.html#keyval_zone">zone</link>. Several key-value pairs can be entered if the keyval shared memory zone is empty.</para>
 <para>
 Request parameters:
 <list type="tag">
 <tag-name><literal>Key-value</literal>
 (<link id="def_nginx_http_keyval_zone">Keyval Shared Memory Zone</link>, required)</tag-name>
 <tag-desc>
-A key-value pair is specified in the JSON format.
-Several key-value pairs can be entered
-if the keyval shared memory zone is empty.</tag-desc>
+A key-value pair is specified in the JSON format. Several key-value pairs can be entered if the keyval shared memory zone is empty.</tag-desc>
 </list>
 </para>
 <para>
@@ -971,9 +899,7 @@ nested object or list (<literal>KeyvalFormatError</literal>), returns <link id="
 </listitem>
 <listitem id="patchHttpKeyvalZoneKeyValue">
 <literal>PATCH</literal> - Modify a key-value or delete a key
-
-<para>Changes the value of the selected key in the key-value pair
-or deletes a key by setting the key value to <literal>null</literal>.</para>
+<para>Changes the value of the selected key in the key-value pair or deletes a key by setting the key value to <literal>null</literal>.</para>
 <para>
 Request parameters:
 <list type="tag">
@@ -998,9 +924,7 @@ keyval key not found (<literal>KeyvalKeyNotFound</literal>), returns <link id="d
 </listitem>
 <listitem id="deleteHttpKeyvalZoneData">
 <literal>DELETE</literal> - Empty the keyval zone
-
-<para>Deletes all key-value pairs from the keyval shared memory
-<link url="https://nginx.org/en/docs/http/ngx_http_keyval_module.html#keyval_zone">zone</link>.</para>
+<para>Deletes all key-value pairs from the keyval shared memory <link url="https://nginx.org/en/docs/http/ngx_http_keyval_module.html#keyval_zone">zone</link>.</para>
 <para>
 Possible responses:
 </para>
@@ -1019,7 +943,6 @@ Possible responses:
 <list type="bullet" compact="yes">
 <listitem id="getStream">
 <literal>GET</literal> - Return list of stream-related endpoints
-
 <para>Returns a list of first level stream endpoints.</para>
 <para>
 Possible responses:
@@ -1038,18 +961,14 @@ Possible responses:
 <list type="bullet" compact="yes">
 <listitem id="getStreamServerZones">
 <literal>GET</literal> - Return status of all stream server zones
-
-<para>Returns status information for each stream
-<link url="https://nginx.org/en/docs/http/ngx_http_status_module.html#status_zone">server zone</link>.</para>
+<para>Returns status information for each stream <link url="https://nginx.org/en/docs/http/ngx_http_status_module.html#status_zone">server zone</link>.</para>
 <para>
 Request parameters:
 <list type="tag">
 <tag-name><literal>fields</literal>
 (<literal>string</literal>, optional)</tag-name>
 <tag-desc>
-Limits which fields of server zones will be output.
-If the “<literal>fields</literal>” value is empty,
-then only server zone names are output.</tag-desc>
+Limits which fields of server zones will be output. If the “<literal>fields</literal>” value is empty, then only server zone names are output.</tag-desc>
 </list>
 </para>
 <para>
@@ -1057,8 +976,7 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>200 - Success, returns a collection of "<link id="def_nginx_stream_server_zone">Stream Server Zone</link>" objects for all  stream server zones </listitem>
-<listitem>404 - <link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream">stream</link>
-not configured (<literal>StreamNotConfigured</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>404 - <link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream">stream</link> not configured (<literal>StreamNotConfigured</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 </list>
@@ -1078,7 +996,6 @@ The name of a stream server zone.</tag-desc>
 <list type="bullet" compact="yes">
 <listitem id="getStreamServerZone">
 <literal>GET</literal> - Return status of a stream server zone
-
 <para>Returns status of a particular stream server zone.</para>
 <para>
 Request parameters:
@@ -1095,23 +1012,19 @@ Possible responses:
 <list type="bullet">
 <listitem>200 - Success, returns <link id="def_nginx_stream_server_zone">Stream Server Zone</link></listitem>
 <listitem>404 - Server zone not found (<literal>ServerZoneNotFound</literal>),
-<link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream">stream</link>
-not configured (<literal>StreamNotConfigured</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream">stream</link> not configured (<literal>StreamNotConfigured</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 <listitem id="deleteStreamServerZoneStat">
 <literal>DELETE</literal> - Reset statistics for a stream server zone
-
-<para>Resets statistics of accepted and discarded connections, sessions,
-received and sent bytes in a particular stream server zone.</para>
+<para>Resets statistics of accepted and discarded connections, sessions, received and sent bytes in a particular stream server zone.</para>
 <para>
 Possible responses:
 </para>
 <list type="bullet">
 <listitem>204 - Success</listitem>
 <listitem>404 - Server zone not found (<literal>ServerZoneNotFound</literal>),
-<link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream">stream</link>
-not configured (<literal>StreamNotConfigured</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream">stream</link> not configured (<literal>StreamNotConfigured</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 </list>
@@ -1124,18 +1037,14 @@ not configured (<literal>StreamNotConfigured</literal>), returns <link id="def_n
 <list type="bullet" compact="yes">
 <listitem id="getStreamUpstreams">
 <literal>GET</literal> - Return status of all stream upstream server groups
-
-<para>Returns status of each stream upstream server group
-and its servers.</para>
+<para>Returns status of each stream upstream server group and its servers.</para>
 <para>
 Request parameters:
 <list type="tag">
 <tag-name><literal>fields</literal>
 (<literal>string</literal>, optional)</tag-name>
 <tag-desc>
-Limits which fields of upstream server groups will be output.
-If the “<literal>fields</literal>” value is empty,
-only names of upstreams are output.</tag-desc>
+Limits which fields of upstream server groups will be output. If the “<literal>fields</literal>” value is empty, only names of upstreams are output.</tag-desc>
 </list>
 </para>
 <para>
@@ -1143,8 +1052,7 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>200 - Success, returns a collection of "<link id="def_nginx_stream_upstream">Stream Upstream</link>" objects for all  stream upstreams </listitem>
-<listitem>404 - <link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream">stream</link>
-not configured (<literal>StreamNotConfigured</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>404 - <link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream">stream</link> not configured (<literal>StreamNotConfigured</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 </list>
@@ -1164,9 +1072,7 @@ The name of a stream upstream server group.</tag-desc>
 <list type="bullet" compact="yes">
 <listitem id="getStreamUpstream">
 <literal>GET</literal> - Return status of a stream upstream server group
-
-<para>Returns status of a particular stream upstream server group
-and its servers.</para>
+<para>Returns status of a particular stream upstream server group and its servers.</para>
 <para>
 Request parameters:
 <list type="tag">
@@ -1183,15 +1089,12 @@ Possible responses:
 <listitem>200 - Success, returns <link id="def_nginx_stream_upstream">Stream Upstream</link></listitem>
 <listitem>400 - Upstream is static (<literal>UpstreamStatic</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>404 - Upstream not found (<literal>UpstreamNotFound</literal>),
-<link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream">stream</link>
-not configured (<literal>StreamNotConfigured</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream">stream</link> not configured (<literal>StreamNotConfigured</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 <listitem id="deleteStreamUpstreamStat">
 <literal>DELETE</literal> - Reset statistics of a stream upstream server group
-
-<para>Resets the statistics for each upstream server
-in an upstream server group.</para>
+<para>Resets the statistics for each upstream server in an upstream server group.</para>
 <para>
 Possible responses:
 </para>
@@ -1199,8 +1102,7 @@ Possible responses:
 <listitem>204 - Success</listitem>
 <listitem>400 - Upstream is static (<literal>UpstreamStatic</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>404 - Upstream not found (<literal>UpstreamNotFound</literal>),
-<link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream">stream</link>
-not configured (<literal>StreamNotConfigured</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream">stream</link> not configured (<literal>StreamNotConfigured</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 </list>
@@ -1220,9 +1122,7 @@ The name of an upstream server group.</tag-desc>
 <list type="bullet" compact="yes">
 <listitem id="getStreamUpstreamServers">
 <literal>GET</literal> - Return configuration of all servers in a stream upstream server group
-
-<para>Returns configuration of each server
-in a particular stream upstream server group.</para>
+<para>Returns configuration of each server in a particular stream upstream server group.</para>
 <para>
 Possible responses:
 </para>
@@ -1230,25 +1130,19 @@ Possible responses:
 <listitem>200 - Success, returns an array of <link id="def_nginx_stream_upstream_conf_server">Stream Upstream Servers</link></listitem>
 <listitem>400 - Upstream is static (<literal>UpstreamStatic</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>404 - Upstream not found (<literal>UpstreamNotFound</literal>),
-<link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream">stream</link>
-not configured (<literal>StreamNotConfigured</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream">stream</link> not configured (<literal>StreamNotConfigured</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 <listitem id="postStreamUpstreamServer">
 <literal>POST</literal> - Add a server to a stream upstream server group
-
-<para>Adds a new server to a stream upstream server group.
-Server parameters are specified in the JSON format.</para>
+<para>Adds a new server to a stream upstream server group. Server parameters are specified in the JSON format.</para>
 <para>
 Request parameters:
 <list type="tag">
 <tag-name><literal>postStreamUpstreamServer</literal>
 (<link id="def_nginx_stream_upstream_conf_server">Stream Upstream Server</link>, required)</tag-name>
 <tag-desc>
-Address of a new server and other optional parameters
-in the JSON format.
-The “<literal>ID</literal>”, “<literal>backup</literal>”, and “<literal>service</literal>” parameters
-cannot be changed.</tag-desc>
+Address of a new server and other optional parameters in the JSON format. The “<literal>ID</literal>”, “<literal>backup</literal>”, and “<literal>service</literal>” parameters cannot be changed.</tag-desc>
 </list>
 </para>
 <para>
@@ -1275,8 +1169,7 @@ no resolver defined to resolve (<literal>UpstreamConfNoResolver</literal>),
 upstream “<value>name</value>” has no backup (<literal>UpstreamNoBackup</literal>),
 upstream “<value>name</value>” memory exhausted (<literal>UpstreamOutOfMemory</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>404 - Upstream not found (<literal>UpstreamNotFound</literal>),
-<link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream">stream</link>
-not configured (<literal>StreamNotConfigured</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream">stream</link> not configured (<literal>StreamNotConfigured</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>415 - JSON error (<literal>JsonError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
@@ -1301,9 +1194,7 @@ The ID of the server.</tag-desc>
 <list type="bullet" compact="yes">
 <listitem id="getStreamUpstreamServer">
 <literal>GET</literal> - Return configuration of a server in a stream upstream server group
-
-<para>Returns configuration of a particular server
-in the stream upstream server group.</para>
+<para>Returns configuration of a particular server in the stream upstream server group.</para>
 <para>
 Possible responses:
 </para>
@@ -1313,25 +1204,19 @@ Possible responses:
 invalid server ID (<literal>UpstreamBadServerId</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>404 - Upstream not found (<literal>UpstreamNotFound</literal>),
 server with ID “<value>id</value>” does not exist (<literal>UpstreamServerNotFound</literal>),
-<link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream">stream</link>
-not configured (<literal>StreamNotConfigured</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream">stream</link> not configured (<literal>StreamNotConfigured</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 <listitem id="patchStreamUpstreamServer">
 <literal>PATCH</literal> - Modify a server in a stream upstream server group
-
-<para>Modifies settings of a particular server
-in a stream upstream server group.
-Server parameters are specified in the JSON format.</para>
+<para>Modifies settings of a particular server in a stream upstream server group. Server parameters are specified in the JSON format.</para>
 <para>
 Request parameters:
 <list type="tag">
 <tag-name><literal>patchStreamUpstreamServer</literal>
 (<link id="def_nginx_stream_upstream_conf_server">Stream Upstream Server</link>, required)</tag-name>
 <tag-desc>
-Server parameters, specified in the JSON format.
-The “<literal>ID</literal>”, “<literal>backup</literal>”, and “<literal>service</literal>” parameters
-cannot be changed.</tag-desc>
+Server parameters, specified in the JSON format. The “<literal>ID</literal>”, “<literal>backup</literal>”, and “<literal>service</literal>” parameters cannot be changed.</tag-desc>
 </list>
 </para>
 <para>
@@ -1358,14 +1243,12 @@ server “<value>ID</value>” weight is immutable (<literal>UpstreamServerWeigh
 upstream “<literal>name</literal>” memory exhausted (<literal>UpstreamOutOfMemory</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>404 - Upstream not found (<literal>UpstreamNotFound</literal>),
 server with ID “<value>id</value>” does not exist (<literal>UpstreamServerNotFound</literal>),
-<link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream">stream</link>
-not configured (<literal>StreamNotConfigured</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream">stream</link> not configured (<literal>StreamNotConfigured</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>415 - JSON error (<literal>JsonError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 <listitem id="deleteStreamUpstreamServer">
 <literal>DELETE</literal> - Remove a server from a stream upstream server group
-
 <para>Removes a server from a stream server group.</para>
 <para>
 Possible responses:
@@ -1377,8 +1260,7 @@ invalid server ID (<literal>UpstreamBadServerId</literal>),
 server “<value>id</value>” not removable (<literal>UpstreamServerImmutable</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>404 - Upstream not found (<literal>UpstreamNotFound</literal>),
 server with ID “<value>id</value>” does not exist (<literal>UpstreamServerNotFound</literal>),
-<link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream">stream</link>
-not configured (<literal>StreamNotConfigured</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream">stream</link> not configured (<literal>StreamNotConfigured</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 </list>
@@ -1414,15 +1296,13 @@ The address of the server that accepted status request.
 <literal>generation</literal> (<literal>integer</literal>)
 </tag-name>
 <tag-desc>
-The total number of configuration
-<link url="https://nginx.org/en/docs/control.html#reconfiguration">reloads</link>.
+The total number of configuration <link url="https://nginx.org/en/docs/control.html#reconfiguration">reloads</link>.
 </tag-desc>
 <tag-name>
 <literal>load_timestamp</literal> (<literal>string</literal>)
 </tag-name>
 <tag-desc>
-Time of the last reload of configuration,
-in milliseconds since Epoch.
+Time of the last reload of configuration, in milliseconds since Epoch.
 </tag-desc>
 <tag-name>
 <literal>timestamp</literal> (<literal>string</literal>)
@@ -1440,8 +1320,7 @@ The ID of the worker process that handled status request.
 <literal>ppid</literal> (<literal>integer</literal>)
 </tag-name>
 <tag-desc>
-The ID of the master process that started the
-<link url="https://nginx.org/en/docs/http/ngx_http_status_module.html#pid">worker process</link>.
+The ID of the master process that started the <link url="https://nginx.org/en/docs/http/ngx_http_status_module.html#pid">worker process</link>.
 </tag-desc>
 </list>
 <para>Example:</para>
@@ -1466,8 +1345,7 @@ The ID of the master process that started the
 <literal>respawned</literal> (<literal>integer</literal>)
 </tag-name>
 <tag-desc>
-The total number of abnormally terminated
-and respawned child processes.
+The total number of abnormally terminated and respawned child processes.
 </tag-desc>
 </list>
 <para>Example:</para>
@@ -1636,15 +1514,13 @@ The current number of free memory slots.
 <literal>reqs</literal> (<literal>integer</literal>)
 </tag-name>
 <tag-desc>
-The total number of attempts
-to allocate memory of specified size.
+The total number of attempts to allocate memory of specified size.
 </tag-desc>
 <tag-name>
 <literal>fails</literal> (<literal>integer</literal>)
 </tag-name>
 <tag-desc>
-The number of unsuccessful attempts
-to allocate memory of specified size.
+The number of unsuccessful attempts to allocate memory of specified size.
 </tag-desc>
 </list>
 </listitem>
@@ -1678,8 +1554,7 @@ The current number of client requests.
 <literal>processing</literal> (<literal>integer</literal>)
 </tag-name>
 <tag-desc>
-The number of client requests
-that are currently being processed.
+The number of client requests that are currently being processed.
 </tag-desc>
 <tag-name>
 <literal>requests</literal> (<literal>integer</literal>)
@@ -1690,10 +1565,7 @@ The total number of client requests received from clients.
 <tag-name>
 <literal>responses</literal></tag-name>
 <tag-desc>
-The total number of responses sent to clients and the
-number of responses with status codes
-“<literal>1xx</literal>”, “<literal>2xx</literal>”, “<literal>3xx</literal>”,
-“<literal>4xx</literal>”, and “<literal>5xx</literal>”.<list type="tag">
+The total number of responses sent to clients and the number of responses with status codes “<literal>1xx</literal>”, “<literal>2xx</literal>”, “<literal>3xx</literal>”, “<literal>4xx</literal>”, and “<literal>5xx</literal>”.<list type="tag">
 <tag-name>
 <literal>1xx</literal> (<literal>integer</literal>)
 </tag-name>
@@ -1736,8 +1608,7 @@ The total number of responses sent to clients.
 <literal>discarded</literal> (<literal>integer</literal>)
 </tag-name>
 <tag-desc>
-The total number of
-requests completed without sending a response.
+The total number of requests completed without sending a response.
 </tag-desc>
 <tag-name>
 <literal>received</literal> (<literal>integer</literal>)
@@ -1783,15 +1654,13 @@ The current size of the cache.
 <literal>max_size</literal> (<literal>integer</literal>)
 </tag-name>
 <tag-desc>
-The limit on the maximum size of the cache
-specified in the configuration.
+The limit on the maximum size of the cache specified in the configuration.
 </tag-desc>
 <tag-name>
 <literal>cold</literal> (<literal>boolean</literal>)
 </tag-name>
 <tag-desc>
-A boolean value indicating whether the “cache loader” process
-is still loading data from disk into the cache.
+A boolean value indicating whether the “cache loader” process is still loading data from disk into the cache.
 </tag-desc>
 <tag-name>
 <literal>hit</literal></tag-name>
@@ -1801,9 +1670,7 @@ is still loading data from disk into the cache.
 <literal>responses</literal> (<literal>integer</literal>)
 </tag-name>
 <tag-desc>
-The total number of
-<link url="https://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_cache_valid">valid</link>
- responses read from the cache.
+The total number of <link url="https://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_cache_valid">valid</link> responses read from the cache.
 </tag-desc>
 <tag-name>
 <literal>bytes</literal> (<literal>integer</literal>)
@@ -1821,9 +1688,7 @@ The total number of bytes read from the cache.
 <literal>responses</literal> (<literal>integer</literal>)
 </tag-name>
 <tag-desc>
-The total number of expired responses read from the cache (see
-<link url="https://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_cache_use_stale">proxy_cache_use_stale</link>
-and other “<literal>*_cache_use_stale</literal>” directives).
+The total number of expired responses read from the cache (see <link url="https://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_cache_use_stale">proxy_cache_use_stale</link> and other “<literal>*_cache_use_stale</literal>” directives).
 </tag-desc>
 <tag-name>
 <literal>bytes</literal> (<literal>integer</literal>)
@@ -1841,10 +1706,7 @@ The total number of bytes read from the cache.
 <literal>responses</literal> (<literal>integer</literal>)
 </tag-name>
 <tag-desc>
-The total number of expired responses read from the cache
-while responses were being updated (see
-<link url="https://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_cache_use_stale_updating">proxy_cache_use_stale</link>
-and other “<literal>*_cache_use_stale</literal>” directives).
+The total number of expired responses read from the cache while responses were being updated (see <link url="https://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_cache_use_stale_updating">proxy_cache_use_stale</link> and other “<literal>*_cache_use_stale</literal>” directives).
 </tag-desc>
 <tag-name>
 <literal>bytes</literal> (<literal>integer</literal>)
@@ -1862,10 +1724,7 @@ The total number of bytes read from the cache.
 <literal>responses</literal> (<literal>integer</literal>)
 </tag-name>
 <tag-desc>
-The total number of expired and revalidated responses
-read from the cache (see
-<link url="https://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_cache_revalidate">proxy_cache_revalidate</link>
-and other “<literal>*_cache_revalidate</literal>” directives.
+The total number of expired and revalidated responses read from the cache (see <link url="https://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_cache_revalidate">proxy_cache_revalidate</link> and other “<literal>*_cache_revalidate</literal>” directives.
 </tag-desc>
 <tag-name>
 <literal>bytes</literal> (<literal>integer</literal>)
@@ -1943,9 +1802,7 @@ The total number of bytes written to the cache.
 <literal>responses</literal> (<literal>integer</literal>)
 </tag-name>
 <tag-desc>
-The total number of responses not looked up in the cache due to the
-<link url="https://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_cache_bypass">proxy_cache_bypass</link>
-and other “<literal>*_cache_bypass</literal>” directives.
+The total number of responses not looked up in the cache due to the <link url="https://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_cache_bypass">proxy_cache_bypass</link> and other “<literal>*_cache_bypass</literal>” directives.
 </tag-desc>
 <tag-name>
 <literal>bytes</literal> (<literal>integer</literal>)
@@ -2025,50 +1882,37 @@ The ID of the server.
 <literal>server</literal> (<literal>string</literal>)
 </tag-name>
 <tag-desc>
-An  <link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#server">address</link>
-of the server.
+An  <link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#server">address</link> of the server.
 </tag-desc>
 <tag-name>
 <literal>service</literal> (<literal>string</literal>)
 </tag-name>
 <tag-desc>
-The
-<link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#service">service</link>
-parameter value of the
-<link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#server">server</link>
-directive.
+The <link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#service">service</link> parameter value of the <link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#server">server</link> directive.
 </tag-desc>
 <tag-name>
 <literal>name</literal> (<literal>string</literal>)
 </tag-name>
 <tag-desc>
-The name of the server specified in the
-<link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#server">server</link>
-directive.
+The name of the server specified in the <link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#server">server</link> directive.
 </tag-desc>
 <tag-name>
 <literal>backup</literal> (<literal>boolean</literal>)
 </tag-name>
 <tag-desc>
-A boolean value indicating whether the server is a
-<link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#backup">backup</link>
-server.
+A boolean value indicating whether the server is a <link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#backup">backup</link> server.
 </tag-desc>
 <tag-name>
 <literal>weight</literal> (<literal>integer</literal>)
 </tag-name>
 <tag-desc>
-<link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#weight">Weight</link>
-of the server.
+<link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#weight">Weight</link> of the server.
 </tag-desc>
 <tag-name>
 <literal>state</literal> (<literal>string</literal>)
 </tag-name>
 <tag-desc>
-Current state, which may be one of
-“<literal>up</literal>”, “<literal>draining</literal>”, “<literal>down</literal>”,
-“<literal>unavail</literal>”, “<literal>checking</literal>”,
-and “<literal>unhealthy</literal>”.
+Current state, which may be one of “<literal>up</literal>”, “<literal>draining</literal>”, “<literal>down</literal>”, “<literal>unavail</literal>”, “<literal>checking</literal>”, and “<literal>unhealthy</literal>”.
 </tag-desc>
 <tag-name>
 <literal>active</literal> (<literal>integer</literal>)
@@ -2080,9 +1924,7 @@ The current number of active connections.
 <literal>max_conns</literal> (<literal>integer</literal>)
 </tag-name>
 <tag-desc>
-The
-<link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#max_conns">max_conns</link>
-limit for the server.
+The <link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#max_conns">max_conns</link> limit for the server.
 </tag-desc>
 <tag-name>
 <literal>requests</literal> (<literal>integer</literal>)
@@ -2148,18 +1990,13 @@ The total number of bytes received from this server.
 <literal>fails</literal> (<literal>integer</literal>)
 </tag-name>
 <tag-desc>
-The total number of unsuccessful attempts
-to communicate with the server.
+The total number of unsuccessful attempts to communicate with the server.
 </tag-desc>
 <tag-name>
 <literal>unavail</literal> (<literal>integer</literal>)
 </tag-name>
 <tag-desc>
-How many times the server became unavailable for client requests
-(state “<literal>unavail</literal>”) due to the number of unsuccessful
-attempts reaching the
-<link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#max_fails">max_fails</link>
-threshold.
+How many times the server became unavailable for client requests (state “<literal>unavail</literal>”) due to the number of unsuccessful attempts reaching the <link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#max_fails">max_fails</link> threshold.
 </tag-desc>
 <tag-name>
 <literal>health_checks</literal></tag-name>
@@ -2169,9 +2006,7 @@ threshold.
 <literal>checks</literal> (<literal>integer</literal>)
 </tag-name>
 <tag-desc>
-The total number of
-<link url="https://nginx.org/en/docs/http/ngx_http_upstream_hc_module.html#health_check">health check</link>
-requests made.
+The total number of <link url="https://nginx.org/en/docs/http/ngx_http_upstream_hc_module.html#health_check">health check</link> requests made.
 </tag-desc>
 <tag-name>
 <literal>fails</literal> (<literal>integer</literal>)
@@ -2183,16 +2018,13 @@ The number of failed health checks.
 <literal>unhealthy</literal> (<literal>integer</literal>)
 </tag-name>
 <tag-desc>
-How many times the server became unhealthy
-(state “<literal>unhealthy</literal>”).
+How many times the server became unhealthy (state “<literal>unhealthy</literal>”).
 </tag-desc>
 <tag-name>
 <literal>last_passed</literal> (<literal>boolean</literal>)
 </tag-name>
 <tag-desc>
-Boolean indicating if the last health check request was successful
-and passed
-<link url="https://nginx.org/en/docs/http/ngx_http_upstream_hc_module.html#match">tests</link>.
+Boolean indicating if the last health check request was successful and passed <link url="https://nginx.org/en/docs/http/ngx_http_upstream_hc_module.html#match">tests</link>.
 </tag-desc>
 </list>
 </tag-desc>
@@ -2200,39 +2032,31 @@ and passed
 <literal>downtime</literal> (<literal>integer</literal>)
 </tag-name>
 <tag-desc>
-Total time the server was in the “<literal>unavail</literal>”,
-“<literal>checking</literal>”, and “<literal>unhealthy</literal>” states.
+Total time the server was in the “<literal>unavail</literal>”, “<literal>checking</literal>”, and “<literal>unhealthy</literal>” states.
 </tag-desc>
 <tag-name>
 <literal>downstart</literal> (<literal>string</literal>)
 </tag-name>
 <tag-desc>
-The time (in milliseconds since Epoch) when the server became
-“<literal>unavail</literal>”, “<literal>checking</literal>”,
-or “<literal>unhealthy</literal>”.
+The time (in milliseconds since Epoch) when the server became “<literal>unavail</literal>”, “<literal>checking</literal>”, or “<literal>unhealthy</literal>”.
 </tag-desc>
 <tag-name>
 <literal>selected</literal> (<literal>string</literal>)
 </tag-name>
 <tag-desc>
-The time (in milliseconds since Epoch)
-when the server was last selected to process a request.
+The time (in milliseconds since Epoch) when the server was last selected to process a request.
 </tag-desc>
 <tag-name>
 <literal>header_time</literal> (<literal>integer</literal>)
 </tag-name>
 <tag-desc>
-The average time to get the
-<link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#var_upstream_header_time">response header</link>
-from the server.
+The average time to get the <link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#var_upstream_header_time">response header</link> from the server.
 </tag-desc>
 <tag-name>
 <literal>response_time</literal> (<literal>integer</literal>)
 </tag-name>
 <tag-desc>
-The average time to get the
-<link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#var_upstream_response_time">full response</link>
-from the server.
+The average time to get the <link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#var_upstream_response_time">full response</link> from the server.
 </tag-desc>
 </list>
 </tag-desc>
@@ -2240,31 +2064,24 @@ from the server.
 <literal>keepalive</literal> (<literal>integer</literal>)
 </tag-name>
 <tag-desc>
-The current number of idle
-<link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#keepalive">keepalive</link>
-connections.
+The current number of idle <link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#keepalive">keepalive</link> connections.
 </tag-desc>
 <tag-name>
 <literal>zombies</literal> (<literal>integer</literal>)
 </tag-name>
 <tag-desc>
-The current number of servers removed
-from the group but still processing active client requests.
+The current number of servers removed from the group but still processing active client requests.
 </tag-desc>
 <tag-name>
 <literal>zone</literal> (<literal>string</literal>)
 </tag-name>
 <tag-desc>
-The name of the shared memory
-<link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#zone">zone</link>
-that keeps the group’s configuration and run-time state.
+The name of the shared memory <link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#zone">zone</link> that keeps the group’s configuration and run-time state.
 </tag-desc>
 <tag-name>
 <literal>queue</literal></tag-name>
 <tag-desc>
-For the requests
-<link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#queue">queue</link>,
-the following data are provided:<list type="tag">
+For the requests <link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#queue">queue</link>, the following data are provided:<list type="tag">
 <tag-name>
 <literal>size</literal> (<literal>integer</literal>)
 </tag-name>
@@ -2275,8 +2092,7 @@ The current number of requests in the queue.
 <literal>max_size</literal> (<literal>integer</literal>)
 </tag-name>
 <tag-desc>
-The maximum number of requests that can be in the queue
-at the same time.
+The maximum number of requests that can be in the queue at the same time.
 </tag-desc>
 <tag-name>
 <literal>overflows</literal> (<literal>integer</literal>)
@@ -2373,126 +2189,85 @@ Dynamically configurable parameters of an HTTP upstream
 <literal>id</literal> (<literal>integer</literal>)
 </tag-name>
 <tag-desc>
-The ID of the HTTP upstream server.
-The ID is assigned automatically and cannot be changed.
+The ID of the HTTP upstream server. The ID is assigned automatically and cannot be changed.
 </tag-desc>
 <tag-name>
 <literal>server</literal> (<literal>string</literal>)
 </tag-name>
 <tag-desc>
-Same as the
-<link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#address">address</link>
-parameter of the HTTP upstream server.
-When adding a server, it is possible to specify it as a domain name.
-In this case, changes of the IP addresses
-that correspond to a domain name will be monitored and automatically
-applied to the upstream configuration
-without the need of restarting nginx.
-This requires the
-<link url="https://nginx.org/en/docs/http/ngx_http_core_module.html#resolver">resolver</link>
-directive in the “<literal>http</literal>” block.
-See also the
-<link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#resolve">resolve</link>
-parameter of the HTTP upstream server.
+Same as the <link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#address">address</link> parameter of the HTTP upstream server. When adding a server, it is possible to specify it as a domain name. In this case, changes of the IP addresses that correspond to a domain name will be monitored and automatically applied to the upstream configuration without the need of restarting nginx. This requires the <link url="https://nginx.org/en/docs/http/ngx_http_core_module.html#resolver">resolver</link> directive in the “<literal>http</literal>” block. See also the <link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#resolve">resolve</link> parameter of the HTTP upstream server.
 </tag-desc>
 <tag-name>
 <literal>service</literal> (<literal>string</literal>)
 </tag-name>
 <tag-desc>
-Same as the
-<link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#service">service</link>
-parameter of the HTTP upstream server.
-This parameter cannot be changed.
+Same as the <link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#service">service</link> parameter of the HTTP upstream server. This parameter cannot be changed.
 </tag-desc>
 <tag-name>
 <literal>weight</literal> (<literal>integer</literal>)
 </tag-name>
 <tag-desc>
-Same as the
-<link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#weight">weight</link>
-parameter of the HTTP upstream server.
+Same as the <link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#weight">weight</link> parameter of the HTTP upstream server.
 </tag-desc>
 <tag-name>
 <literal>max_conns</literal> (<literal>integer</literal>)
 </tag-name>
 <tag-desc>
-Same as the
-<link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#max_conns">max_conns</link>
-parameter of the HTTP upstream server.
+Same as the <link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#max_conns">max_conns</link> parameter of the HTTP upstream server.
 </tag-desc>
 <tag-name>
 <literal>max_fails</literal> (<literal>integer</literal>)
 </tag-name>
 <tag-desc>
-Same as the
-<link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#max_fails">max_fails</link>
-parameter of the HTTP upstream server.
+Same as the <link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#max_fails">max_fails</link> parameter of the HTTP upstream server.
 </tag-desc>
 <tag-name>
 <literal>fail_timeout</literal> (<literal>integer</literal>)
 </tag-name>
 <tag-desc>
-Same as the
-<link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#fail_timeout">fail_timeout</link>
-parameter of the HTTP upstream server.
+Same as the <link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#fail_timeout">fail_timeout</link> parameter of the HTTP upstream server.
 </tag-desc>
 <tag-name>
 <literal>slow_start</literal> (<literal>integer</literal>)
 </tag-name>
 <tag-desc>
-Same as the
-<link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#slow_start">slow_start</link>
-parameter of the HTTP upstream server.
+Same as the <link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#slow_start">slow_start</link> parameter of the HTTP upstream server.
 </tag-desc>
 <tag-name>
 <literal>route</literal> (<literal>string</literal>)
 </tag-name>
 <tag-desc>
-Same as the
-<link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#route">route</link>
-parameter of the HTTP upstream server.
+Same as the <link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#route">route</link> parameter of the HTTP upstream server.
 </tag-desc>
 <tag-name>
 <literal>backup</literal> (<literal>boolean</literal>)
 </tag-name>
 <tag-desc>
-When <literal>true</literal>, adds a
-<link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#backup">backup</link>
-server.
-This parameter cannot be changed.
+When <literal>true</literal>, adds a <link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#backup">backup</link> server. This parameter cannot be changed.
 </tag-desc>
 <tag-name>
 <literal>down</literal> (<literal>boolean</literal>)
 </tag-name>
 <tag-desc>
-Same as the
-<link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#down">down</link>
-parameter of the HTTP upstream server.
+Same as the <link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#down">down</link> parameter of the HTTP upstream server.
 </tag-desc>
 <tag-name>
 <literal>parent</literal> (<literal>string</literal>)
 </tag-name>
 <tag-desc>
-Parent server ID of the resolved server.
-The ID is assigned automatically and cannot be changed.
+Parent server ID of the resolved server. The ID is assigned automatically and cannot be changed.
 </tag-desc>
 <tag-name>
 <literal>host</literal> (<literal>string</literal>)
 </tag-name>
 <tag-desc>
-Hostname of the resolved server.
-The hostname is assigned automatically and cannot be changed.
+Hostname of the resolved server. The hostname is assigned automatically and cannot be changed.
 </tag-desc>
 <tag-name>
 <literal>drain</literal> (<literal>string</literal>)
 </tag-name>
 <tag-desc>
-Puts the HTTP upstream server into the “draining” mode.
-In this mode, only requests
-<link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#sticky">bound</link>
-to the server will be proxied to it.
-The parameter cannot be initially set,
-it can only be changed with the <literal>PATCH</literal> method.
+Puts the HTTP upstream server into the “draining” mode. In this mode, only requests <link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#sticky">bound</link> to the server will be proxied to it. The parameter cannot be initially set, it can only be changed with the <literal>PATCH</literal> method.
 </tag-desc>
 </list>
 <para>Example:</para>
@@ -2527,8 +2302,7 @@ Contents of a keyval shared memory zone.<para>Example:</para>
 <literal>processing</literal> (<literal>integer</literal>)
 </tag-name>
 <tag-desc>
-The number of client connections
-that are currently being processed.
+The number of client connections that are currently being processed.
 </tag-desc>
 <tag-name>
 <literal>connections</literal> (<literal>integer</literal>)
@@ -2539,32 +2313,24 @@ The total number of connections accepted from clients.
 <tag-name>
 <literal>sessions</literal></tag-name>
 <tag-desc>
-Total number of completed sessions,
-and the number of sessions completed with status codes
-“<literal>2xx</literal>”, “<literal>4xx</literal>”, or “<literal>5xx</literal>”.<list type="tag">
+The total number of completed sessions, and the number of sessions completed with status codes “<literal>2xx</literal>”, “<literal>4xx</literal>”, or “<literal>5xx</literal>”.<list type="tag">
 <tag-name>
 <literal>2xx</literal> (<literal>integer</literal>)
 </tag-name>
 <tag-desc>
-The total number of sessions completed with
-<link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#var_status">status codes</link>
-“<literal>2xx</literal>”.
+The total number of sessions completed with <link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#var_status">status codes</link> “<literal>2xx</literal>”.
 </tag-desc>
 <tag-name>
 <literal>4xx</literal> (<literal>integer</literal>)
 </tag-name>
 <tag-desc>
-The total number of sessions completed with
-<link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#var_status">status codes</link>
-“<literal>4xx</literal>”.
+The total number of sessions completed with <link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#var_status">status codes</link> “<literal>4xx</literal>”.
 </tag-desc>
 <tag-name>
 <literal>5xx</literal> (<literal>integer</literal>)
 </tag-name>
 <tag-desc>
-The total number of sessions completed with
-<link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#var_status">status codes</link>
-“<literal>5xx</literal>”.
+The total number of sessions completed with <link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#var_status">status codes</link> “<literal>5xx</literal>”.
 </tag-desc>
 <tag-name>
 <literal>total</literal> (<literal>integer</literal>)
@@ -2578,8 +2344,7 @@ The total number of completed client sessions.
 <literal>discarded</literal> (<literal>integer</literal>)
 </tag-name>
 <tag-desc>
-The total number of
-connections completed without creating a session.
+The total number of connections completed without creating a session.
 </tag-desc>
 <tag-name>
 <literal>received</literal> (<literal>integer</literal>)
@@ -2629,50 +2394,37 @@ The ID of the server.
 <literal>server</literal> (<literal>string</literal>)
 </tag-name>
 <tag-desc>
-An
-<link url="https://nginx.org/en/docs/stream/ngx_stream_upstream_module.html#server">address</link>
-of the server.
+An <link url="https://nginx.org/en/docs/stream/ngx_stream_upstream_module.html#server">address</link> of the server.
 </tag-desc>
 <tag-name>
 <literal>service</literal> (<literal>string</literal>)
 </tag-name>
 <tag-desc>
-The
-<link url="https://nginx.org/en/docs/stream/ngx_stream_upstream_module.html#service">service</link>
-parameter value of the
-<link url="https://nginx.org/en/docs/stream/ngx_stream_upstream_module.html#server">server</link>
-directive.
+The <link url="https://nginx.org/en/docs/stream/ngx_stream_upstream_module.html#service">service</link> parameter value of the <link url="https://nginx.org/en/docs/stream/ngx_stream_upstream_module.html#server">server</link> directive.
 </tag-desc>
 <tag-name>
 <literal>name</literal> (<literal>string</literal>)
 </tag-name>
 <tag-desc>
-The name of the server specified in the
-<link url="https://nginx.org/en/docs/stream/ngx_stream_upstream_module.html#server">server</link>
-directive.
+The name of the server specified in the <link url="https://nginx.org/en/docs/stream/ngx_stream_upstream_module.html#server">server</link> directive.
 </tag-desc>
 <tag-name>
 <literal>backup</literal> (<literal>boolean</literal>)
 </tag-name>
 <tag-desc>
-A boolean value indicating whether the server is a
-<link url="https://nginx.org/en/docs/stream/ngx_stream_upstream_module.html#backup">backup</link>
-server.
+A boolean value indicating whether the server is a <link url="https://nginx.org/en/docs/stream/ngx_stream_upstream_module.html#backup">backup</link> server.
 </tag-desc>
 <tag-name>
 <literal>weight</literal> (<literal>integer</literal>)
 </tag-name>
 <tag-desc>
-<link url="https://nginx.org/en/docs/stream/ngx_stream_upstream_module.html#weight">Weight</link>
-of the server.
+<link url="https://nginx.org/en/docs/stream/ngx_stream_upstream_module.html#weight">Weight</link> of the server.
 </tag-desc>
 <tag-name>
 <literal>state</literal> (<literal>string</literal>)
 </tag-name>
 <tag-desc>
-Current state, which may be one of
-“<literal>up</literal>”, “<literal>down</literal>”, “<literal>unavail</literal>”,
-“<literal>checking</literal>”, or “<literal>unhealthy</literal>”.
+Current state, which may be one of “<literal>up</literal>”, “<literal>down</literal>”, “<literal>unavail</literal>”, “<literal>checking</literal>”, or “<literal>unhealthy</literal>”.
 </tag-desc>
 <tag-name>
 <literal>active</literal> (<literal>integer</literal>)
@@ -2684,9 +2436,7 @@ The current number of connections.
 <literal>max_conns</literal> (<literal>integer</literal>)
 </tag-name>
 <tag-desc>
-The
-<link url="https://nginx.org/en/docs/stream/ngx_stream_upstream_module.html#max_conns">max_conns</link>
-limit for the server.
+The <link url="https://nginx.org/en/docs/stream/ngx_stream_upstream_module.html#max_conns">max_conns</link> limit for the server.
 </tag-desc>
 <tag-name>
 <literal>connections</literal> (<literal>integer</literal>)
@@ -2728,18 +2478,13 @@ The total number of bytes received from this server.
 <literal>fails</literal> (<literal>integer</literal>)
 </tag-name>
 <tag-desc>
-The total number of unsuccessful attempts
-to communicate with the server.
+The total number of unsuccessful attempts to communicate with the server.
 </tag-desc>
 <tag-name>
 <literal>unavail</literal> (<literal>integer</literal>)
 </tag-name>
 <tag-desc>
-How many times the server became unavailable for client connections
-(state “<literal>unavail</literal>”) due to the number of unsuccessful
-attempts reaching the
-<link url="https://nginx.org/en/docs/stream/ngx_stream_upstream_module.html#max_fails">max_fails</link>
-threshold.
+How many times the server became unavailable for client connections (state “<literal>unavail</literal>”) due to the number of unsuccessful attempts reaching the <link url="https://nginx.org/en/docs/stream/ngx_stream_upstream_module.html#max_fails">max_fails</link> threshold.
 </tag-desc>
 <tag-name>
 <literal>health_checks</literal></tag-name>
@@ -2749,9 +2494,7 @@ threshold.
 <literal>checks</literal> (<literal>integer</literal>)
 </tag-name>
 <tag-desc>
-The total number of
-<link url="https://nginx.org/en/docs/stream/ngx_stream_upstream_hc_module.html#health_check">health check</link>
-requests made.
+The total number of <link url="https://nginx.org/en/docs/stream/ngx_stream_upstream_hc_module.html#health_check">health check</link> requests made.
 </tag-desc>
 <tag-name>
 <literal>fails</literal> (<literal>integer</literal>)
@@ -2763,16 +2506,13 @@ The number of failed health checks.
 <literal>unhealthy</literal> (<literal>integer</literal>)
 </tag-name>
 <tag-desc>
-How many times the server became unhealthy
-(state “<literal>unhealthy</literal>”).
+How many times the server became unhealthy (state “<literal>unhealthy</literal>”).
 </tag-desc>
 <tag-name>
 <literal>last_passed</literal> (<literal>boolean</literal>)
 </tag-name>
 <tag-desc>
-Boolean indicating whether the last health check request
-was successful and passed
-<link url="https://nginx.org/en/docs/stream/ngx_stream_upstream_hc_module.html#match">tests</link>.
+Boolean indicating whether the last health check request was successful and passed <link url="https://nginx.org/en/docs/stream/ngx_stream_upstream_hc_module.html#match">tests</link>.
 </tag-desc>
 </list>
 </tag-desc>
@@ -2780,24 +2520,19 @@ was successful and passed
 <literal>downtime</literal> (<literal>integer</literal>)
 </tag-name>
 <tag-desc>
-Total time the server was in the
-“<literal>unavail</literal>”, “<literal>checking</literal>”,
-and “<literal>unhealthy</literal>” states.
+Total time the server was in the “<literal>unavail</literal>”, “<literal>checking</literal>”, and “<literal>unhealthy</literal>” states.
 </tag-desc>
 <tag-name>
 <literal>downstart</literal> (<literal>string</literal>)
 </tag-name>
 <tag-desc>
-The time (in milliseconds since Epoch) when the server became
-“<literal>unavail</literal>”, “<literal>checking</literal>”,
-or “<literal>unhealthy</literal>”.
+The time (in milliseconds since Epoch) when the server became “<literal>unavail</literal>”, “<literal>checking</literal>”, or “<literal>unhealthy</literal>”.
 </tag-desc>
 <tag-name>
 <literal>selected</literal> (<literal>string</literal>)
 </tag-name>
 <tag-desc>
-The time (in milliseconds since Epoch)
-when the server was last selected to process a connection.
+The time (in milliseconds since Epoch) when the server was last selected to process a connection.
 </tag-desc>
 </list>
 </tag-desc>
@@ -2805,16 +2540,13 @@ when the server was last selected to process a connection.
 <literal>zombies</literal> (<literal>integer</literal>)
 </tag-name>
 <tag-desc>
-The current number of servers removed from the group
-but still processing active client connections.
+The current number of servers removed from the group but still processing active client connections.
 </tag-desc>
 <tag-name>
 <literal>zone</literal> (<literal>string</literal>)
 </tag-name>
 <tag-desc>
-The name of the shared memory
-<link url="https://nginx.org/en/docs/stream/ngx_stream_upstream_module.html#zone">zone</link>
-that keeps the group’s configuration and run-time state.
+The name of the shared memory <link url="https://nginx.org/en/docs/stream/ngx_stream_upstream_module.html#zone">zone</link> that keeps the group’s configuration and run-time state.
 </tag-desc>
 </list>
 <para>Example:</para>
@@ -2884,107 +2616,73 @@ Dynamically configurable parameters of a stream upstream
 <literal>id</literal> (<literal>integer</literal>)
 </tag-name>
 <tag-desc>
-The ID of the stream upstream server.
-The ID is assigned automatically and cannot be changed.
+The ID of the stream upstream server. The ID is assigned automatically and cannot be changed.
 </tag-desc>
 <tag-name>
 <literal>server</literal> (<literal>string</literal>)
 </tag-name>
 <tag-desc>
-Same as the
-<link url="https://nginx.org/en/docs/stream/ngx_stream_upstream_module.html#server">address</link>
-parameter of the stream upstream server.
-When adding a server, it is possible to specify it as a domain name.
-In this case, changes of the IP addresses
-that correspond to a domain name will be monitored and automatically
-applied to the upstream configuration
-without the need of restarting nginx.
-This requires the
-<link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#resolver">resolver</link>
-directive in the “<literal>stream</literal>” block.
-See also the
-<link url="https://nginx.org/en/docs/stream/ngx_stream_upstream_module.html#resolve">resolve</link>
-parameter of the stream upstream server.
+Same as the <link url="https://nginx.org/en/docs/stream/ngx_stream_upstream_module.html#server">address</link> parameter of the stream upstream server. When adding a server, it is possible to specify it as a domain name. In this case, changes of the IP addresses that correspond to a domain name will be monitored and automatically applied to the upstream configuration without the need of restarting nginx. This requires the <link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#resolver">resolver</link> directive in the “<literal>stream</literal>” block. See also the <link url="https://nginx.org/en/docs/stream/ngx_stream_upstream_module.html#resolve">resolve</link> parameter of the stream upstream server.
 </tag-desc>
 <tag-name>
 <literal>service</literal> (<literal>string</literal>)
 </tag-name>
 <tag-desc>
-Same as the
-<link url="https://nginx.org/en/docs/stream/ngx_stream_upstream_module.html#service">service</link>
-parameter of the stream upstream server.
-This parameter cannot be changed.
+Same as the <link url="https://nginx.org/en/docs/stream/ngx_stream_upstream_module.html#service">service</link> parameter of the stream upstream server. This parameter cannot be changed.
 </tag-desc>
 <tag-name>
 <literal>weight</literal> (<literal>integer</literal>)
 </tag-name>
 <tag-desc>
-Same as the
-<link url="https://nginx.org/en/docs/stream/ngx_stream_upstream_module.html#weight">weight</link>
-parameter of the stream upstream server.
+Same as the <link url="https://nginx.org/en/docs/stream/ngx_stream_upstream_module.html#weight">weight</link> parameter of the stream upstream server.
 </tag-desc>
 <tag-name>
 <literal>max_conns</literal> (<literal>integer</literal>)
 </tag-name>
 <tag-desc>
-Same as the
-<link url="https://nginx.org/en/docs/stream/ngx_stream_upstream_module.html#max_conns">max_conns</link>
-parameter of the stream upstream server.
+Same as the <link url="https://nginx.org/en/docs/stream/ngx_stream_upstream_module.html#max_conns">max_conns</link> parameter of the stream upstream server.
 </tag-desc>
 <tag-name>
 <literal>max_fails</literal> (<literal>integer</literal>)
 </tag-name>
 <tag-desc>
-Same as the
-<link url="https://nginx.org/en/docs/stream/ngx_stream_upstream_module.html#max_fails">max_fails</link>
-parameter of the stream upstream server.
+Same as the <link url="https://nginx.org/en/docs/stream/ngx_stream_upstream_module.html#max_fails">max_fails</link> parameter of the stream upstream server.
 </tag-desc>
 <tag-name>
 <literal>fail_timeout</literal> (<literal>integer</literal>)
 </tag-name>
 <tag-desc>
-Same as the
-<link url="https://nginx.org/en/docs/stream/ngx_stream_upstream_module.html#fail_timeout">fail_timeout</link>
-parameter of the stream upstream server.
+Same as the <link url="https://nginx.org/en/docs/stream/ngx_stream_upstream_module.html#fail_timeout">fail_timeout</link> parameter of the stream upstream server.
 </tag-desc>
 <tag-name>
 <literal>slow_start</literal> (<literal>integer</literal>)
 </tag-name>
 <tag-desc>
-Same as the
-<link url="https://nginx.org/en/docs/stream/ngx_stream_upstream_module.html#slow_start">slow_start</link>
-parameter of the stream upstream server.
+Same as the <link url="https://nginx.org/en/docs/stream/ngx_stream_upstream_module.html#slow_start">slow_start</link> parameter of the stream upstream server.
 </tag-desc>
 <tag-name>
 <literal>backup</literal> (<literal>boolean</literal>)
 </tag-name>
 <tag-desc>
-When <literal>true</literal>, adds a
-<link url="https://nginx.org/en/docs/stream/ngx_stream_upstream_module.html#backup">backup</link>
-server.
-This parameter cannot be changed.
+When <literal>true</literal>, adds a <link url="https://nginx.org/en/docs/stream/ngx_stream_upstream_module.html#backup">backup</link> server. This parameter cannot be changed.
 </tag-desc>
 <tag-name>
 <literal>down</literal> (<literal>boolean</literal>)
 </tag-name>
 <tag-desc>
-Same as the
-<link url="https://nginx.org/en/docs/stream/ngx_stream_upstream_module.html#down">down</link>
-parameter of the stream upstream server.
+Same as the <link url="https://nginx.org/en/docs/stream/ngx_stream_upstream_module.html#down">down</link> parameter of the stream upstream server.
 </tag-desc>
 <tag-name>
 <literal>parent</literal> (<literal>string</literal>)
 </tag-name>
 <tag-desc>
-Parent server ID of the resolved server.
-The ID is assigned automatically and cannot be changed.
+Parent server ID of the resolved server. The ID is assigned automatically and cannot be changed.
 </tag-desc>
 <tag-name>
 <literal>host</literal> (<literal>string</literal>)
 </tag-name>
 <tag-desc>
-Hostname of the resolved server.
-The hostname is assigned automatically and cannot be changed.
+Hostname of the resolved server. The hostname is assigned automatically and cannot be changed.
 </tag-desc>
 </list>
 <para>Example:</para>
@@ -3044,9 +2742,7 @@ Internal nginx error code.
 <literal>request_id</literal> (<literal>string</literal>)
 </tag-name>
 <tag-desc>
-The ID of the request, equals the value of the
-<link url="https://nginx.org/en/docs/http/ngx_http_core_module.html#var_request_id">$request_id</link>
-variable.
+The ID of the request, equals the value of the <link url="https://nginx.org/en/docs/http/ngx_http_core_module.html#var_request_id">$request_id</link> variable.
 </tag-desc>
 <tag-name>
 <literal>href</literal> (<literal>string</literal>)
