@@ -169,15 +169,8 @@ xslt/%.xslt:	xsls/%.xsls
 	$(call XSLScript, $<, $@)
 
 
-API_OUT=xml/en/docs/http/ngx_http_api_module.xml
-
-genapi:					\
-		yaml/nginx_api.yaml	\
-		yaml/yaml2xml.py	\
-		xml/en/docs/http/ngx_http_api_module_head.xml
-	@cat xml/en/docs/http/ngx_http_api_module_head.xml > $(API_OUT)
-	@yaml/yaml2xml.py yaml/nginx_api.yaml >> $(API_OUT)
-	@echo "</module>" >> $(API_OUT)
+genapi:
+	$(MAKE) -C yaml
 
 
 images:									\
