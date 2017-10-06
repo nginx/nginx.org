@@ -181,6 +181,8 @@ genapi:					\
 
 
 images:									\
+		binary/books/nginx_cookbook.jpg			\
+		binary/books/nginx_http_server_3rd_ed.jpg		\
 		binary/books/nginx_troubleshooting.jpg			\
 		binary/books/nginx_richtig_konfigurieren.jpg		\
 		binary/books/practical_nginx_guide_jp.jpg		\
@@ -195,6 +197,15 @@ images:									\
 		binary/books/nginx_module_extension.jpg			\
 		binary/books/nginx_high_performance.jpg			\
 		binary/books/nginx_essentials.jpg
+
+binary/books/nginx_cookbook.jpg:	sources/B05431_0.jpg
+	mkdir -p $(dir $@)
+	$(call JPEGNORM, $<, $@)
+
+binary/books/nginx_http_server_3rd_ed.jpg:				\
+		sources/0337OS_4846_Nginx.jpg
+	mkdir -p $(dir $@)
+	$(call JPEGNORM, $<, $@)
 
 binary/books/nginx_troubleshooting.jpg:					\
 		sources/51T7ds6JdBL._SX404_BO1,204,203,200_.jpg

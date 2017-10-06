@@ -8,10 +8,29 @@
 <article name="nginx books"
          link="/en/books.html"
          lang="en"
-         rev="4">
+         rev="5">
 
 
 <section>
+
+<book
+    title="Nginx Cookbook"
+    link=
+      "https://www.packtpub.com/networking-and-servers/nginx-cookbook"
+    author="Tim Butler"
+    site="https://www.packtpub.com/books/info/authors/tim-butler"
+    publisher="Packt Publishing"
+    lang="English"
+    cover="../books/nginx_cookbook.jpg" />
+
+<book
+    title="Nginx HTTP Server - Third Edition"
+    link="https://www.packtpub.com/networking-and-servers/nginx-http-server-third-edition"
+    author="Clément Nedelcu"
+    site="http://cnedelcu.blogspot.com"
+    publisher="Packt Publishing"
+    lang="English"
+    cover="../books/nginx_http_server_3rd_ed.jpg" />
 
 <book
     title="Nginx Troubleshooting"
