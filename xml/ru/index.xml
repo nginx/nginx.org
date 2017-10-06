@@ -8,7 +8,7 @@
 <article name="nginx"
          link="/ru/"
          lang="ru"
-         rev="82">
+         rev="83">
 
 
 <section>
@@ -197,6 +197,10 @@ PUT, DELETE, MKCOL, COPY и MOVE</link>;
 
 <listitem>
 <link doc="docs/http/ngx_http_split_clients_module.xml">A/B-тестирование</link>;
+</listitem>
+
+<listitem>
+<link doc="docs/http/ngx_http_mirror_module.xml">Зеркалирование запросов</link>;
 </listitem>
 
 <listitem>

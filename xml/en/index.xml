@@ -8,7 +8,7 @@
 <article name="nginx"
          link="/en/"
          lang="en"
-         rev="82">
+         rev="83">
 
 
 <section>
@@ -198,6 +198,10 @@ coming from one address;
 
 <listitem>
 <link doc="docs/http/ngx_http_split_clients_module.xml">A/B testing</link>;
+</listitem>
+
+<listitem>
+<link doc="docs/http/ngx_http_mirror_module.xml">Request mirroring</link>;
 </listitem>
 
 <listitem>
