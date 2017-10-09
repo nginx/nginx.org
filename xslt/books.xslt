@@ -27,7 +27,8 @@
     <br/>
     <xsl:if test="@translator"> <xsl:text>translator: </xsl:text> <xsl:value-of select="@translator"/> <br/> </xsl:if>
     <xsl:if test="@publisher"> <xsl:text>publisher: </xsl:text> <xsl:value-of select="@publisher"/> <br/> </xsl:if>
-    <xsl:text>language: </xsl:text> <xsl:value-of select="@lang"/>
+    <xsl:text>language: </xsl:text> <xsl:value-of select="@lang"/> <br/>
+    <xsl:text>year: </xsl:text> <xsl:value-of select="@year"/>
     </td>
 
     </tr></table>
