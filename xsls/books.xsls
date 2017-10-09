@@ -27,7 +27,8 @@ X:template = "book" {
     <br/>
     X:if "@translator" { X:text {translator: } !{@translator} <br/> }
     X:if "@publisher" { X:text {publisher: } !{@publisher} <br/> }
-    X:text {language: } !{@lang}
+    X:text {language: } !{@lang} <br/>
+    X:text {year: } !{@year}
     </td>
 
     </tr></table>

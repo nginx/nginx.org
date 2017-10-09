@@ -111,6 +111,7 @@
            lang         CDATA #REQUIRED
            cover        CDATA #REQUIRED
            translator   CDATA #IMPLIED
+           year         CDATA #IMPLIED
 >
 
 <!ELEMENT  download     EMPTY >
