@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_upstream_module"
         link="/ru/docs/stream/ngx_stream_upstream_module.html"
         lang="ru"
-        rev="25">
+        rev="26">
 
 <section id="summary">
 
@@ -509,6 +509,8 @@ hash $remote_addr;
 Если при проксировании были сделаны обращения к нескольким серверам,
 то их адреса разделяются запятой, например
 “<literal>192.168.1.1:12345, 192.168.1.2:12345, unix:/tmp/sock</literal>”.
+Если сервер не может быть выбран,
+то переменная хранит имя группы серверов.
 </tag-desc>
 
 <tag-name id="var_upstream_bytes_sent"><var>$upstream_bytes_sent</var></tag-name>

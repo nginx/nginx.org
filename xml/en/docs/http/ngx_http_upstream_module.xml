@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="62">
+        rev="63">
 
 <section id="summary">
 
@@ -1049,6 +1049,8 @@ initiated by
 <link doc="ngx_http_core_module.xml" id="error_page"/>,
 then the server addresses from different groups are separated by colons, e.g.
 “<literal>192.168.1.1:80, 192.168.1.2:80, unix:/tmp/sock : 192.168.10.1:80, 192.168.10.2:80</literal>”.
+If a server cannot be selected,
+the variable keeps the name of the server group.
 </tag-desc>
 
 <tag-name id="var_upstream_bytes_received"><var>$upstream_bytes_received</var></tag-name>
