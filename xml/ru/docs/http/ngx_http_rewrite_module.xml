@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_rewrite_module"
         link="/ru/docs/http/ngx_http_rewrite_module.html"
         lang="ru"
-        rev="8">
+        rev="9">
 
 <section id="summary">
 
@@ -21,7 +21,8 @@
 </para>
 
 <para>
-Директивы модуля <literal>ngx_http_rewrite_module</literal>
+Директивы <link id="break"/>, <link id="if"/>, <link id="return"/>,
+<link id="rewrite"/> и <link id="set"/>
 обрабатываются в следующем порядке:
 <list type="bullet">
 
