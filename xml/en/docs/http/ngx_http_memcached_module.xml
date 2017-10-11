@@ -202,7 +202,7 @@ The directive also defines what is considered an
 <link doc="ngx_http_upstream_module.xml" id="max_fails">unsuccessful
 attempt</link> of communication with a server.
 The cases of <literal>error</literal>, <literal>timeout</literal> and
-<literal>invalid_header</literal> are always considered unsuccessful attempts,
+<literal>invalid_response</literal> are always considered unsuccessful attempts,
 even if they are not specified in the directive.
 The case of <literal>not_found</literal>
 is never considered an unsuccessful attempt.
