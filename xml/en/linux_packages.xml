@@ -7,7 +7,7 @@
 <article name="nginx: Linux packages"
          link="/en/linux_packages.html"
          lang="en"
-         rev="25"
+         rev="26"
          toc="no">
 
 <section id="distributions">
@@ -33,7 +33,7 @@ RHEL/CentOS:
 </tr>
 
 <tr>
-<td width="20%">7.x</td>
+<td width="20%">7.4+</td>
 <td>x86_64, ppc64le</td>
 </tr>
 
@@ -49,12 +49,6 @@ Debian:
 <td width="20%">Version</td>
 <td width="20%">Codename</td>
 <td>Supported Platforms</td>
-</tr>
-
-<tr>
-<td width="20%">7.x</td>
-<td width="20%">wheezy</td>
-<td>x86_64, i386</td>
 </tr>
 
 <tr>
@@ -84,12 +78,6 @@ Ubuntu:
 </tr>
 
 <tr>
-<td width="20%">12.04</td>
-<td width="20%">precise</td>
-<td>x86_64, i386</td>
-</tr>
-
-<tr>
 <td width="20%">14.04</td>
 <td width="20%">trusty</td>
 <td>x86_64, i386, aarch64/arm64</td>
@@ -102,8 +90,8 @@ Ubuntu:
 </tr>
 
 <tr>
-<td width="20%">16.10</td>
-<td width="20%">yakkety</td>
+<td width="20%">17.04</td>
+<td width="20%">zesty</td>
 <td>x86_64, i386</td>
 </tr>
 
