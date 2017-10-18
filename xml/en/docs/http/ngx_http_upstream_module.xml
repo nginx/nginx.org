@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="63">
+        rev="64">
 
 <section id="summary">
 
@@ -1138,6 +1138,8 @@ keeps status code of the response obtained from the upstream server.
 Status codes of several responses
 are separated by commas and colons like addresses in the
 <link id="var_upstream_addr">$upstream_addr</link> variable.
+If a server cannot be selected,
+the variable keeps the <http-status code="502" text="Bad Gateway"/> status code.
 </tag-desc>
 
 </list>

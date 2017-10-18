@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_upstream_module"
         link="/ru/docs/http/ngx_http_upstream_module.html"
         lang="ru"
-        rev="63">
+        rev="64">
 
 <section id="summary">
 
@@ -1145,6 +1145,8 @@ upstream backend {
 Статусы нескольких ответов
 разделяются запятыми и двоеточиями подобно адресам в переменной
 <link id="var_upstream_addr">$upstream_addr</link>.
+Если сервер не может быть выбран, то
+переменная хранит статус <http-status code="502" text="Bad Gateway"/>.
 </tag-desc>
 
 </list>
