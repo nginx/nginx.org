@@ -8,7 +8,7 @@
 <article name="Настройка HTTPS-серверов"
          link="/ru/docs/http/configuring_https_servers.html"
          lang="ru"
-         rev="12"
+         rev="13"
          author="Игорь Сысоев"
          editor="Brian Mercer">
 
@@ -195,6 +195,12 @@ Certificate chain
      /CN=http://www.valicert.com//emailAddress=info@valicert.com
 ...
 </programlisting>
+
+<note>
+При тестировании конфигураций с <link id="sni">SNI</link>
+необходимо указывать опцию <literal>-servername</literal>,
+так как <command>openssl</command> по умолчанию не использует SNI.
+</note>
 
 В этом примере субъект (“<i>s</i>”) сертификата №0 сервера
 <literal>www.GoDaddy.com</literal> подписан издателем (“<i>i</i>”),
