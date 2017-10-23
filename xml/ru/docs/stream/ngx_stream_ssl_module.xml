@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_ssl_module"
         link="/ru/docs/stream/ngx_stream_ssl_module.html"
         lang="ru"
-        rev="17">
+        rev="18">
 
 <section id="summary">
 
@@ -32,19 +32,22 @@
 <list type="bullet">
 
 <listitem>
-установить число рабочих процессов равным числу процессоров,
+установить число
+<link doc="../ngx_core_module.xml" id="worker_processes">рабочих процессов</link>
+равным числу процессоров,
 </listitem>
 
 <listitem>
-включить разделяемый кэш сессий,
+включить <link id="ssl_session_cache_shared">разделяемый</link> кэш сессий,
 </listitem>
 
 <listitem>
-выключить встроенный кэш сессий
+выключить <link id="ssl_session_cache_builtin">встроенный</link> кэш сессий
 </listitem>
 
 <listitem>
-и, возможно, увеличить время жизни сессии (по умолчанию 5 минут):
+и, возможно, увеличить <link id="ssl_session_timeout">время жизни</link> сессии
+(по умолчанию 5 минут):
 </listitem>
 
 </list>
@@ -368,7 +371,7 @@ nginx сообщает клиенту, что сессии могут испол
 на самом деле не хранит параметры сессии в кэше.
 </tag-desc>
 
-<tag-name><literal>builtin</literal></tag-name>
+<tag-name id="ssl_session_cache_builtin"><literal>builtin</literal></tag-name>
 <tag-desc>
 встроенный в OpenSSL кэш, используется в рамках только одного рабочего процесса.
 Размер кэша задаётся в сессиях.
@@ -376,7 +379,7 @@ nginx сообщает клиенту, что сессии могут испол
 Использование встроенного кэша может вести к фрагментации памяти.
 </tag-desc>
 
-<tag-name><literal>shared</literal></tag-name>
+<tag-name id="ssl_session_cache_shared"><literal>shared</literal></tag-name>
 <tag-desc>
 кэш, разделяемый между всеми рабочими процессами.
 Размер кэша задаётся в байтах, в 1 мегабайт может поместиться

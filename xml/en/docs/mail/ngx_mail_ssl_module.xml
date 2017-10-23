@@ -10,7 +10,7 @@
 <module name="Module ngx_mail_ssl_module"
         link="/en/docs/mail/ngx_mail_ssl_module.html"
         lang="en"
-        rev="16">
+        rev="17">
 
 <section id="summary">
 
@@ -39,19 +39,22 @@ To reduce the processor load, it is recommended to
 <list type="bullet">
 
 <listitem>
-set the number of worker processes equal to the number of processors,
+set the number of
+<link doc="../ngx_core_module.xml" id="worker_processes">worker processes</link>
+equal to the number of processors,
 </listitem>
 
 <listitem>
-enable the shared session cache,
+enable the <link id="ssl_session_cache_shared">shared</link> session cache,
 </listitem>
 
 <listitem>
-disable the built-in session cache,
+disable the <link id="ssl_session_cache_builtin">built-in</link> session cache,
 </listitem>
 
 <listitem>
-and possibly increase the session lifetime (by default, 5 minutes):
+and possibly increase the session <link id="ssl_session_timeout">lifetime</link>
+(by default, 5 minutes):
 </listitem>
 
 </list>
@@ -387,7 +390,7 @@ nginx tells a client that sessions may be reused, but does not
 actually store session parameters in the cache.
 </tag-desc>
 
-<tag-name><literal>builtin</literal></tag-name>
+<tag-name id="ssl_session_cache_builtin"><literal>builtin</literal></tag-name>
 <tag-desc>
 a cache built in OpenSSL; used by one worker process only.
 The cache size is specified in sessions.
@@ -395,7 +398,7 @@ If size is not given, it is equal to 20480 sessions.
 Use of the built-in cache can cause memory fragmentation.
 </tag-desc>
 
-<tag-name><literal>shared</literal></tag-name>
+<tag-name id="ssl_session_cache_shared"><literal>shared</literal></tag-name>
 <tag-desc>
 a cache shared between all worker processes.
 The cache size is specified in bytes; one megabyte can store
