@@ -10,7 +10,7 @@
 <module name="Module ngx_http_uwsgi_module"
         link="/en/docs/http/ngx_http_uwsgi_module.html"
         lang="en"
-        rev="40">
+        rev="41">
 
 <section id="summary">
 
@@ -429,6 +429,15 @@ In addition, all active keys and information about data are stored
 in a shared memory zone, whose <value>name</value> and <value>size</value>
 are configured by the <literal>keys_zone</literal> parameter.
 One megabyte zone can store about 8 thousand keys.
+<note>
+As part of
+<commercial_version>commercial subscription</commercial_version>,
+the shared memory zone also stores extended
+cache <link doc="ngx_http_api_module.xml" id="http_caches_">information</link>,
+thus, it is required to specify a larger zone size for the same number of keys.
+For example,
+one megabyte zone can store about 4 thousand keys.
+</note>
 </para>
 
 <para>

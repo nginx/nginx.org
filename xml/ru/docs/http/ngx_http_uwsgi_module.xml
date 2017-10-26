@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_uwsgi_module"
         link="/ru/docs/http/ngx_http_uwsgi_module.html"
         lang="ru"
-        rev="40">
+        rev="41">
 
 <section id="summary">
 
@@ -427,6 +427,16 @@ uwsgi_cache_path /data/nginx/cache levels=1:2 keys_zone=one:10m;
 разделяемой памяти, <value>имя</value> и <value>размер</value> которой
 задаются параметром <literal>keys_zone</literal>.
 Зоны размером в 1 мегабайт достаточно для хранения около 8 тысяч ключей.
+<note>
+Как часть
+<commercial_version>коммерческой подписки</commercial_version>
+в зоне разделяемой памяти также хранится расширенная
+<link doc="ngx_http_api_module.xml" id="http_caches_">информация</link> о кэше,
+поэтому для хранения аналогичного количества ключей необходимо указывать
+больший размер зоны.
+Например
+зоны размером в 1 мегабайт достаточно для хранения около 4 тысяч ключей.
+</note>
 </para>
 
 <para>
