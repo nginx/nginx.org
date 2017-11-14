@@ -9,7 +9,7 @@
 <article name="About nginScript"
         link="/en/docs/njs_about.html"
         lang="en"
-        rev="11">
+        rev="12">
 
 <section id="summary">
 
@@ -156,6 +156,10 @@ ES5.1 <literal>Date</literal> methods
 </listitem>
 
 <listitem>
+ES5.1 <literal>JSON</literal> object
+</listitem>
+
+<listitem>
 ES5.1 global functions:
 <literal>isFinite</literal>, <literal>isNaN</literal>,
 <literal>parseFloat</literal>, <literal>parseInt</literal>,
@@ -188,10 +192,6 @@ labels
 
 <listitem>
 <literal>eval</literal> function
-</listitem>
-
-<listitem>
-<literal>JSON</literal> object
 </listitem>
 
 <listitem>

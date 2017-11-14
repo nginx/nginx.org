@@ -9,7 +9,7 @@
 <article name="Информация о nginScript"
         link="/ru/docs/njs_about.html"
         lang="ru"
-        rev="11">
+        rev="12">
 
 <section id="summary">
 
@@ -155,6 +155,10 @@ ES5.1 методы <literal>Date</literal>
 </listitem>
 
 <listitem>
+ES5.1 объект <literal>JSON</literal>
+</listitem>
+
+<listitem>
 ES5.1 глобальные функции:
 <literal>isFinite</literal>, <literal>isNaN</literal>,
 <literal>parseFloat</literal>, <literal>parseInt</literal>,
@@ -187,10 +191,6 @@ labels
 
 <listitem>
 функция <literal>eval</literal>
-</listitem>
-
-<listitem>
-объект <literal>JSON</literal>
 </listitem>
 
 <listitem>
