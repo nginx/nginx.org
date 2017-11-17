@@ -2280,7 +2280,7 @@ Parent server ID of the resolved server. The ID is assigned automatically and ca
 Hostname of the resolved server. The hostname is assigned automatically and cannot be changed.
 </tag-desc>
 <tag-name>
-<literal>drain</literal> (<literal>string</literal>)
+<literal>drain</literal> (<literal>boolean</literal>)
 </tag-name>
 <tag-desc>
 Puts the HTTP upstream server into the “draining” mode. In this mode, only requests <link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#sticky">bound</link> to the server will be proxied to it. The parameter cannot be initially set, it can only be changed with the <literal>PATCH</literal> method.

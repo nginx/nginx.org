@@ -2389,7 +2389,7 @@ definitions:
           The hostname is assigned automatically and cannot be changed.
         readOnly: true
       drain:
-        type: string
+        type: boolean
         description: Puts the HTTP upstream server into the “draining” mode.
           In this mode, only requests
           <a href="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#sticky">bound</a>
