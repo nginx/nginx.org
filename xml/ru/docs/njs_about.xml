@@ -9,7 +9,7 @@
 <article name="Информация о nginScript"
         link="/ru/docs/njs_about.html"
         lang="ru"
-        rev="12">
+        rev="13">
 
 <section id="summary">
 
@@ -166,6 +166,22 @@ ES5.1 глобальные функции:
 <literal>encodeURI</literal>, <literal>encodeURIComponent</literal>
 </listitem>
 
+<listitem>
+Объекты <literal>Error</literal>:
+<literal>Error</literal>, <literal>EvalError</literal>,
+<literal>InternalError</literal>, <literal>RangeError</literal>,
+<literal>ReferenceError</literal>, <literal>SyntaxError</literal>,
+<literal>TypeError</literal>, <literal>URIError</literal>
+</listitem>
+
+<listitem>
+Методы <literal>File system</literal>
+(<link url="https://nodejs.org/api/fs.html#fs_file_system">стиль</link> Node.js):
+<literal>fs.readFile</literal>, <literal>fs.readFileSync</literal>,
+<literal>fs.appendFile</literal>, <literal>fs.appendFileSync</literal>,
+<literal>fs.writeFile</literal>, <literal>fs.writeFileSync</literal>
+</listitem>
+
 </list>
 </para>
 
@@ -194,18 +210,13 @@ labels
 </listitem>
 
 <listitem>
-объект <literal>Error</literal>
-</listitem>
-
-<listitem>
 функции <literal>setTimeout</literal>, <literal>setInterval</literal>,
 <literal>setImmediate</literal>
 </listitem>
 
 <listitem>
 дроби без целой части (<literal>.235</literal>),
-двоичные (<literal>0b0101</literal>),
-восьмеричные (<literal>0o77</literal>) литералы
+двоичные литералы (<literal>0b0101</literal>)
 </listitem>
 
 </list>

@@ -9,7 +9,7 @@
 <article name="About nginScript"
         link="/en/docs/njs_about.html"
         lang="en"
-        rev="12">
+        rev="13">
 
 <section id="summary">
 
@@ -167,6 +167,22 @@ ES5.1 global functions:
 <literal>encodeURI</literal>, <literal>encodeURIComponent</literal>
 </listitem>
 
+<listitem>
+<literal>Error</literal> objects:
+<literal>Error</literal>, <literal>EvalError</literal>,
+<literal>InternalError</literal>, <literal>RangeError</literal>,
+<literal>ReferenceError</literal>, <literal>SyntaxError</literal>,
+<literal>TypeError</literal>, <literal>URIError</literal>
+</listitem>
+
+<listitem>
+<literal>File system</literal> methods
+(Node.js <link url="https://nodejs.org/api/fs.html#fs_file_system">style</link>):
+<literal>fs.readFile</literal>, <literal>fs.readFileSync</literal>,
+<literal>fs.appendFile</literal>, <literal>fs.appendFileSync</literal>,
+<literal>fs.writeFile</literal>, <literal>fs.writeFileSync</literal>
+</listitem>
+
 </list>
 </para>
 
@@ -195,18 +211,13 @@ labels
 </listitem>
 
 <listitem>
-<literal>Error</literal> object
-</listitem>
-
-<listitem>
 <literal>setTimeout</literal>, <literal>setInterval</literal>,
 <literal>setImmediate</literal> functions
 </listitem>
 
 <listitem>
 non-integer fractions (<literal>.235</literal>),
-binary (<literal>0b0101</literal>),
-octal (<literal>0o77</literal>) literals
+binary literals (<literal>0b0101</literal>)
 </listitem>
 
 </list>
