@@ -10,7 +10,7 @@
 <module name="Core functionality"
         link="/en/docs/ngx_core_module.html"
         lang="en"
-        rev="24">
+        rev="25">
 
 <section id="example" name="Example Configuration">
 
@@ -404,7 +404,7 @@ the JIT support is enabled via the
 
 <directive name="pid">
 <syntax><value>file</value></syntax>
-<default>nginx.pid</default>
+<default>logs/nginx.pid</default>
 <context>main</context>
 
 <para>
