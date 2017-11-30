@@ -453,11 +453,11 @@ The following formatting functions support nginx-specific types:
 </listitem>
 
 <listitem>
-<literal>ngx_vslprint(buf, last, fmt, args)</literal>
+<literal>ngx_vslprintf(buf, last, fmt, args)</literal>
 </listitem>
 
 <listitem>
-<literal>ngx_vsnprint(buf, max, fmt, args)</literal>
+<literal>ngx_vsnprintf(buf, max, fmt, args)</literal>
 </listitem>
 
 </list>
