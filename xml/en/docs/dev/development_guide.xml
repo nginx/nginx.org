@@ -1506,6 +1506,9 @@ The following operations are supported:
 <literal>ngx_create_pool(size, log)</literal> — Create a pool with specified
 block size.
 The pool object returned is allocated in the pool as well.
+The <literal>size</literal>
+should be at least <literal>NGX_MIN_POOL_SIZE</literal>
+and a multiple of <literal>NGX_POOL_ALIGNMENT</literal>.
 </listitem>
 
 <listitem>
