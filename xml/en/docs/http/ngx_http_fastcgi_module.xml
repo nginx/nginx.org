@@ -1242,7 +1242,7 @@ fastcgi_param REDIRECT_STATUS 200;
 
 <para>
 If the directive is specified with <literal>if_not_empty</literal> (1.1.11) then
-such a parameter will not be passed to the server until its value is not empty:
+such a parameter will be passed to the server only if its value is not empty:
 <example>
 fastcgi_param HTTPS           $https if_not_empty;
 </example>
