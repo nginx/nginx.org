@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_upstream_module"
         link="/ru/docs/http/ngx_http_upstream_module.html"
         lang="ru"
-        rev="65">
+        rev="66">
 
 <section id="summary">
 
@@ -333,6 +333,20 @@ SRV-записи с наивысшим приоритетом
 <note>
 Параметр нельзя использовать совместно с
 методами балансировки нагрузки <link id="hash"/> и <link id="ip_hash"/>.
+</note>
+</tag-desc>
+
+<tag-name id="drain">
+<literal>drain</literal>
+</tag-name>
+<tag-desc>
+переводит сервер в режим “draining” (1.13.6).
+В этом режиме на сервер будут проксироваться только
+<link id="sticky">привязанные</link> к нему запросы.
+<note>
+До версии 1.13.6
+параметр мог быть изменён только при помощи
+модуля <link doc="ngx_http_api_module.xml">API</link>.
 </note>
 </tag-desc>
 

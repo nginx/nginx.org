@@ -9,7 +9,7 @@
 <module name="Module ngx_http_auth_jwt_module"
         link="/en/docs/http/ngx_http_auth_jwt_module.html"
         lang="en"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -34,6 +34,30 @@ other access modules, such as
 and
 <link doc="ngx_http_auth_request_module.xml">ngx_http_auth_request_module</link>,
 via the <link doc="ngx_http_core_module.xml" id="satisfy"/> directive.
+</para>
+
+<para>
+The module supports the following cryptographic
+<link url="https://tools.ietf.org/html/rfc7518#section-3.1">algorithms</link>:
+
+<list type="bullet">
+
+<listitem>
+HS256, HS384, HS512
+</listitem>
+
+<listitem>
+RS256, RS384, RS512
+</listitem>
+
+<listitem>
+ES256, ES384, ES512
+</listitem>
+
+</list>
+
+Prior to version 1.13.7,
+only HS256, RS256, ES256 algorithms were supported.
 </para>
 
 <para>
@@ -100,28 +124,48 @@ inherited from the previous configuration level.
 
 
 <directive name="auth_jwt_header_set">
-<syntax><value>$variable</value> <value>name</value></syntax>
+<syntax><value>$variable</value> <value>name</value> ...</syntax>
 <default/>
 <context>http</context>
 <appeared-in>1.11.10</appeared-in>
 
 <para>
-Sets the <value>variable</value> to the given
-JOSE header parameter <value>name</value>.
+Sets the <value>variable</value> to a JOSE header parameter
+identified by key names.
+Name matching starts from the top level of the JSON tree.
+For arrays, the variable keeps a list of array elements separated by commas.
+<note>
+Prior to version 1.13.7, only one key name could be specified,
+and the result was undefined for arrays.
+</note>
 </para>
 
 </directive>
 
 
 <directive name="auth_jwt_claim_set">
-<syntax><value>$variable</value> <value>name</value></syntax>
+<syntax><value>$variable</value> <value>name</value> ...</syntax>
 <default/>
 <context>http</context>
 <appeared-in>1.11.10</appeared-in>
 
 <para>
-Sets the <value>variable</value> to the given
-JWT claim parameter <value>name</value>.
+Sets the <value>variable</value> to a JWT claim parameter
+identified by key names.
+Name matching starts from the top level of the JSON tree.
+For arrays, the variable keeps a list of array elements separated by commas.
+<example>
+location / {
+    auth_jwt           "closed site";
+    auth_jwt_key_file  conf/keys.json;
+    auth_jwt_claim_set $email info e-mail;
+    auth_jwt_claim_set $job info "job title";
+}
+</example>
+<note>
+Prior to version 1.13.7, only one key name could be specified,
+and the result was undefined for arrays.
+</note>
 </para>
 
 </directive>

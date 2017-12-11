@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_auth_jwt_module"
         link="/ru/docs/http/ngx_http_auth_jwt_module.html"
         lang="ru"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -32,6 +32,30 @@ JWT claims должны быть зашифрованы в структуре
 и
 <link doc="ngx_http_auth_request_module.xml">ngx_http_auth_request_module</link>
 с помощью директивы <link doc="ngx_http_core_module.xml" id="satisfy"/>.
+</para>
+
+<para>
+Модуль поддерживает следующие криптографические
+<link url="https://tools.ietf.org/html/rfc7518#section-3.1">алгоритмы</link>:
+
+<list type="bullet">
+
+<listitem>
+HS256, HS384, HS512
+</listitem>
+
+<listitem>
+RS256, RS384, RS512
+</listitem>
+
+<listitem>
+ES256, ES384, ES512
+</listitem>
+
+</list>
+
+До версии 1.13.7
+поддерживались только алгоритмы HS256, RS256 и RS256.
 </para>
 
 <para>
@@ -98,28 +122,48 @@ auth_jwt "closed site" token=$cookie_auth_token;
 
 
 <directive name="auth_jwt_header_set">
-<syntax><value>$переменная</value> <value>имя</value></syntax>
+<syntax><value>$переменная</value> <value>имя</value> ...</syntax>
 <default/>
 <context>http</context>
 <appeared-in>1.11.10</appeared-in>
 
 <para>
-Устанавливает <value>переменную</value> в заданное
-<value>имя</value> параметра заголовка JOSE.
+Устанавливает <value>переменную</value> в параметр заголовка JOSE,
+определяемый именами ключей.
+Сопоставление имён начинается с верхнего уровня дерева JSON.
+Для массива переменная хранит список его элементов, разделяемых запятыми.
+<note>
+До версии 1.13.7 можно было указать лишь одно имя,
+результат для массивов был не определён.
+</note>
 </para>
 
 </directive>
 
 
 <directive name="auth_jwt_claim_set">
-<syntax><value>$переменная</value> <value>имя</value></syntax>
+<syntax><value>$переменная</value> <value>имя</value> ...</syntax>
 <default/>
 <context>http</context>
 <appeared-in>1.11.10</appeared-in>
 
 <para>
-Устанавливает <value>переменную</value> в заданное
-<value>имя</value> параметра JWT claim.
+Устанавливает <value>переменную</value> в параметр JWT claim,
+определяемый именами ключей.
+Сопоставление имён начинается с верхнего уровня дерева JSON.
+Для массива переменная хранит список его элементов, разделяемых запятыми.
+<example>
+location / {
+    auth_jwt           "closed site";
+    auth_jwt_key_file  conf/keys.json;
+    auth_jwt_claim_set $email info e-mail;
+    auth_jwt_claim_set $job info "job title";
+}
+</example>
+<note>
+До версии 1.13.7 можно было указать лишь одно имя,
+результат для массивов был не определён.
+</note>
 </para>
 
 </directive>

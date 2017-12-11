@@ -97,24 +97,25 @@ stream {
     }
 }
 </example>
-All API requests include a supported API version in the URI.
+All API requests include
+a supported API <link id="api_version">version</link> in the URI.
 Examples of API requests with this configuration:
 <example>
-http://127.0.0.1/api/1/
-http://127.0.0.1/api/1/nginx
-http://127.0.0.1/api/1/connections
-http://127.0.0.1/api/1/http/requests
-http://127.0.0.1/api/1/http/server_zones/server_backend
-http://127.0.0.1/api/1/http/caches/cache_backend
-http://127.0.0.1/api/1/http/upstreams/backend
-http://127.0.0.1/api/1/http/upstreams/backend/servers/
-http://127.0.0.1/api/1/http/upstreams/backend/servers/1
-http://127.0.0.1/api/1/http/keyvals/one?key=arg1
-http://127.0.0.1/api/1/stream/
-http://127.0.0.1/api/1/stream/server_zones/server_backend
-http://127.0.0.1/api/1/stream/upstreams/
-http://127.0.0.1/api/1/stream/upstreams/backend
-http://127.0.0.1/api/1/stream/upstreams/backend/servers/1
+http://127.0.0.1/api/2/
+http://127.0.0.1/api/2/nginx
+http://127.0.0.1/api/2/connections
+http://127.0.0.1/api/2/http/requests
+http://127.0.0.1/api/2/http/server_zones/server_backend
+http://127.0.0.1/api/2/http/caches/cache_backend
+http://127.0.0.1/api/2/http/upstreams/backend
+http://127.0.0.1/api/2/http/upstreams/backend/servers/
+http://127.0.0.1/api/2/http/upstreams/backend/servers/1
+http://127.0.0.1/api/2/http/keyvals/one?key=arg1
+http://127.0.0.1/api/2/stream/
+http://127.0.0.1/api/2/stream/server_zones/server_backend
+http://127.0.0.1/api/2/stream/upstreams/
+http://127.0.0.1/api/2/stream/upstreams/backend
+http://127.0.0.1/api/2/stream/upstreams/backend/servers/1
 </example>
 </para>
 
@@ -141,22 +142,42 @@ is read-only or read-write.
 By default, the API is read-only.
 </para>
 
-<para>
+<para id="api_version">
 All API requests should contain a supported API version in the URI.
 If the request URI equals the location prefix,
 the list of supported API versions is returned.
-The current and the only API version is “<literal>1</literal>”.
+The current API version is “<literal>2</literal>”.
 </para>
 
 <para>
 The optional “<literal>fields</literal>” argument in the request line
 specifies which fields of the requested objects will be output:
 <example>
-http://127.0.0.1/api/1/nginx?fields=version,build
+http://127.0.0.1/api/2/nginx?fields=version,build
 </example>
 </para>
 
 </directive>
+
+</section>
+
+<section id="compatibility" name="Compatibility">
+
+<para>
+<list type="bullet">
+
+<listitem>
+The <link id="def_nginx_http_upstream_conf_server">drain</link> parameter
+was added in <link id="api_version">version</link> 2.
+</listitem>
+
+<listitem>
+The <link id="stream_keyvals_">/stream/keyvals/</link> data
+were added in <link id="api_version">version</link> 2.
+</listitem>
+
+</list>
+</para>
 
 </section>
 <section id="endpoints" name="Endpoints">
@@ -826,22 +847,22 @@ server with ID “<value>id</value>” does not exist (<literal>UpstreamServerNo
 <para>Supported methods:</para>
 <list type="bullet" compact="yes">
 <listitem id="getHttpKeyvalZones">
-<literal>GET</literal> - Return key-value pairs from all keyval zones
-<para>Returns key-value pairs for each keyval shared memory <link url="https://nginx.org/en/docs/http/ngx_http_keyval_module.html#keyval_zone">zone</link>.</para>
+<literal>GET</literal> - Return key-value pairs from all HTTP keyval zones
+<para>Returns key-value pairs for each HTTP keyval shared memory <link url="https://nginx.org/en/docs/http/ngx_http_keyval_module.html#keyval_zone">zone</link>.</para>
 <para>
 Request parameters:
 <list type="tag">
 <tag-name><literal>fields</literal>
 (<literal>string</literal>, optional)</tag-name>
 <tag-desc>
-If the “<literal>fields</literal>” value is empty, then only keyval zone names are output.</tag-desc>
+If the “<literal>fields</literal>” value is empty, then only HTTP keyval zone names are output.</tag-desc>
 </list>
 </para>
 <para>
 Possible responses:
 </para>
 <list type="bullet">
-<listitem>200 - Success, returns a collection of "<link id="def_nginx_http_keyval_zone">Keyval Shared Memory Zone</link>" objects for all  http keyvals </listitem>
+<listitem>200 - Success, returns a collection of "<link id="def_nginx_http_keyval_zone">HTTP Keyval Shared Memory Zone</link>" objects for all  http keyvals </listitem>
 </list>
 </listitem>
 </list>
@@ -855,41 +876,41 @@ Parameters common for all methods:
 <tag-name><literal>httpKeyvalZoneName</literal>
 (<literal>string</literal>, required)</tag-name>
 <tag-desc>
-The name of a keyval shared memory zone.</tag-desc>
+The name of an HTTP keyval shared memory zone.</tag-desc>
 </list>
 <para>Supported methods:</para>
 <list type="bullet" compact="yes">
 <listitem id="getHttpKeyvalZoneKeysValues">
-<literal>GET</literal> - Return key-value pairs from a keyval zone
-<para>Returns key-value pairs stored in a particular keyval shared memory <link url="https://nginx.org/en/docs/http/ngx_http_keyval_module.html#keyval_zone">zone</link>.</para>
+<literal>GET</literal> - Return key-value pairs from an HTTP keyval zone
+<para>Returns key-value pairs stored in a particular HTTP keyval shared memory <link url="https://nginx.org/en/docs/http/ngx_http_keyval_module.html#keyval_zone">zone</link>.</para>
 <para>
 Request parameters:
 <list type="tag">
 <tag-name><literal>key</literal>
 (<literal>string</literal>, optional)</tag-name>
 <tag-desc>
-Get a particular key-value pair from the keyval zone.</tag-desc>
+Get a particular key-value pair from the HTTP keyval zone.</tag-desc>
 </list>
 </para>
 <para>
 Possible responses:
 </para>
 <list type="bullet">
-<listitem>200 - Success, returns <link id="def_nginx_http_keyval_zone">Keyval Shared Memory Zone</link></listitem>
+<listitem>200 - Success, returns <link id="def_nginx_http_keyval_zone">HTTP Keyval Shared Memory Zone</link></listitem>
 <listitem>404 - Keyval not found (<literal>KeyvalNotFound</literal>),
 keyval key not found (<literal>KeyvalKeyNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 <listitem id="postHttpKeyvalZoneData">
-<literal>POST</literal> - Add a key-value pair to the keyval zone
-<para>Adds a new key-value pair to the keyval shared memory <link url="https://nginx.org/en/docs/http/ngx_http_keyval_module.html#keyval_zone">zone</link>. Several key-value pairs can be entered if the keyval shared memory zone is empty.</para>
+<literal>POST</literal> - Add a key-value pair to the HTTP keyval zone
+<para>Adds a new key-value pair to the HTTP keyval shared memory <link url="https://nginx.org/en/docs/http/ngx_http_keyval_module.html#keyval_zone">zone</link>. Several key-value pairs can be entered if the HTTP keyval shared memory zone is empty.</para>
 <para>
 Request parameters:
 <list type="tag">
 <tag-name><literal>Key-value</literal>
-(<link id="def_nginx_http_keyval_zone">Keyval Shared Memory Zone</link>, required)</tag-name>
+(<link id="def_nginx_http_keyval_zone">HTTP Keyval Shared Memory Zone</link>, required)</tag-name>
 <tag-desc>
-A key-value pair is specified in the JSON format. Several key-value pairs can be entered if the keyval shared memory zone is empty.</tag-desc>
+A key-value pair is specified in the JSON format. Several key-value pairs can be entered if the HTTP keyval shared memory zone is empty.</tag-desc>
 </list>
 </para>
 <para>
@@ -913,7 +934,7 @@ nested object or list (<literal>KeyvalFormatError</literal>), returns <link id="
 Request parameters:
 <list type="tag">
 <tag-name><literal>httpKeyvalZoneKeyValue</literal>
-(<link id="def_nginx_http_keyval_zone">Keyval Shared Memory Zone</link>, required)</tag-name>
+(<link id="def_nginx_http_keyval_zone">HTTP Keyval Shared Memory Zone</link>, required)</tag-name>
 <tag-desc>
 A new value for the key is specified in the JSON format.</tag-desc>
 </list>
@@ -933,8 +954,8 @@ keyval key not found (<literal>KeyvalKeyNotFound</literal>), returns <link id="d
 </list>
 </listitem>
 <listitem id="deleteHttpKeyvalZoneData">
-<literal>DELETE</literal> - Empty the keyval zone
-<para>Deletes all key-value pairs from the keyval shared memory <link url="https://nginx.org/en/docs/http/ngx_http_keyval_module.html#keyval_zone">zone</link>.</para>
+<literal>DELETE</literal> - Empty the HTTP keyval zone
+<para>Deletes all key-value pairs from the HTTP keyval shared memory <link url="https://nginx.org/en/docs/http/ngx_http_keyval_module.html#keyval_zone">zone</link>.</para>
 <para>
 Possible responses:
 </para>
@@ -1275,6 +1296,138 @@ invalid server ID (<literal>UpstreamBadServerId</literal>),
 server “<value>id</value>” not removable (<literal>UpstreamServerImmutable</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>404 - Upstream not found (<literal>UpstreamNotFound</literal>),
 server with ID “<value>id</value>” does not exist (<literal>UpstreamServerNotFound</literal>),
+<link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream">stream</link> not configured (<literal>StreamNotConfigured</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+</list>
+</listitem>
+</list>
+</tag-desc>
+<tag-name id="stream_keyvals_" name="/stream/keyvals/">
+<literal>/stream/keyvals/</literal>
+</tag-name>
+<tag-desc>
+<para>Supported methods:</para>
+<list type="bullet" compact="yes">
+<listitem id="getStreamKeyvalZones">
+<literal>GET</literal> - Return key-value pairs from all stream keyval zones
+<para>Returns key-value pairs for each stream keyval shared memory <link url="https://nginx.org/en/docs/stream/ngx_stream_keyval_module.html#keyval_zone">zone</link>.</para>
+<para>
+Request parameters:
+<list type="tag">
+<tag-name><literal>fields</literal>
+(<literal>string</literal>, optional)</tag-name>
+<tag-desc>
+If the “<literal>fields</literal>” value is empty, then only stream keyval zone names are output.</tag-desc>
+</list>
+</para>
+<para>
+Possible responses:
+</para>
+<list type="bullet">
+<listitem>200 - Success, returns a collection of "<link id="def_nginx_stream_keyval_zone">Stream Keyval Shared Memory Zone</link>" objects for all  stream keyvals </listitem>
+<listitem>404 - <link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream">stream</link> not configured (<literal>StreamNotConfigured</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+</list>
+</listitem>
+</list>
+</tag-desc>
+<tag-name id="stream_keyvals_stream_keyval_zone_name" name="/stream/keyvals/{streamKeyvalZoneName}">
+<literal>/stream/keyvals/{streamKeyvalZoneName}</literal>
+</tag-name>
+<tag-desc>
+Parameters common for all methods:
+<list type="tag">
+<tag-name><literal>streamKeyvalZoneName</literal>
+(<literal>string</literal>, required)</tag-name>
+<tag-desc>
+The name of a stream keyval shared memory zone.</tag-desc>
+</list>
+<para>Supported methods:</para>
+<list type="bullet" compact="yes">
+<listitem id="getStreamKeyvalZoneKeysValues">
+<literal>GET</literal> - Return key-value pairs from a stream keyval zone
+<para>Returns key-value pairs stored in a particular stream keyval shared memory <link url="https://nginx.org/en/docs/stream/ngx_stream_keyval_module.html#keyval_zone">zone</link>.</para>
+<para>
+Request parameters:
+<list type="tag">
+<tag-name><literal>key</literal>
+(<literal>string</literal>, optional)</tag-name>
+<tag-desc>
+Get a particular key-value pair from the stream keyval zone.</tag-desc>
+</list>
+</para>
+<para>
+Possible responses:
+</para>
+<list type="bullet">
+<listitem>200 - Success, returns <link id="def_nginx_stream_keyval_zone">Stream Keyval Shared Memory Zone</link></listitem>
+<listitem>404 - Keyval not found (<literal>KeyvalNotFound</literal>),
+keyval key not found (<literal>KeyvalKeyNotFound</literal>),
+<link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream">stream</link> not configured (<literal>StreamNotConfigured</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+</list>
+</listitem>
+<listitem id="postStreamKeyvalZoneData">
+<literal>POST</literal> - Add a key-value pair to the stream keyval zone
+<para>Adds a new key-value pair to the stream keyval shared memory <link url="https://nginx.org/en/docs/stream/ngx_stream_keyval_module.html#keyval_zone">zone</link>. Several key-value pairs can be entered if the stream keyval shared memory zone is empty.</para>
+<para>
+Request parameters:
+<list type="tag">
+<tag-name><literal>Key-value</literal>
+(<link id="def_nginx_stream_keyval_zone">Stream Keyval Shared Memory Zone</link>, required)</tag-name>
+<tag-desc>
+A key-value pair is specified in the JSON format. Several key-value pairs can be entered if the stream keyval shared memory zone is empty.</tag-desc>
+</list>
+</para>
+<para>
+Possible responses:
+</para>
+<list type="bullet">
+<listitem>201 - Created</listitem>
+<listitem>400 - Key required (<literal>KeyvalFormatError</literal>),
+only one key can be added (<literal>KeyvalFormatError</literal>),
+nested object or list (<literal>KeyvalFormatError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>404 - Keyval not found (<literal>KeyvalNotFound</literal>),
+<link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream">stream</link> not configured (<literal>StreamNotConfigured</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>409 - Key already exists (<literal>KeyvalKeyExists</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>415 - JSON error (<literal>JsonError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+</list>
+</listitem>
+<listitem id="patchStreamKeyvalZoneKeyValue">
+<literal>PATCH</literal> - Modify a key-value or delete a key
+<para>Changes the value of the selected key in the key-value pair or deletes a key by setting the key value to <literal>null</literal>.</para>
+<para>
+Request parameters:
+<list type="tag">
+<tag-name><literal>streamKeyvalZoneKeyValue</literal>
+(<link id="def_nginx_stream_keyval_zone">Stream Keyval Shared Memory Zone</link>, required)</tag-name>
+<tag-desc>
+A new value for the key is specified in the JSON format.</tag-desc>
+</list>
+</para>
+<para>
+Possible responses:
+</para>
+<list type="bullet">
+<listitem>204 - Success</listitem>
+<listitem>400 - Key required (<literal>KeyvalFormatError</literal>),
+only one key can be updated (<literal>KeyvalFormatError</literal>),
+nested object or list (<literal>KeyvalFormatError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>404 - Keyval not found (<literal>KeyvalNotFound</literal>),
+keyval key not found (<literal>KeyvalKeyNotFound</literal>),
+<link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream">stream</link> not configured (<literal>StreamNotConfigured</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>415 - JSON error (<literal>JsonError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+</list>
+</listitem>
+<listitem id="deleteStreamKeyvalZoneData">
+<literal>DELETE</literal> - Empty the stream keyval zone
+<para>Deletes all key-value pairs from the stream keyval shared memory <link url="https://nginx.org/en/docs/stream/ngx_stream_keyval_module.html#keyval_zone">zone</link>.</para>
+<para>
+Possible responses:
+</para>
+<list type="bullet">
+<listitem>204 - Success</listitem>
+<listitem>404 - Keyval not found (<literal>KeyvalNotFound</literal>),
 <link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream">stream</link> not configured (<literal>StreamNotConfigured</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
@@ -2268,6 +2421,12 @@ When <literal>true</literal>, adds a <link url="https://nginx.org/en/docs/http/n
 Same as the <link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#down">down</link> parameter of the HTTP upstream server.
 </tag-desc>
 <tag-name>
+<literal>drain</literal> (<literal>boolean</literal>)
+</tag-name>
+<tag-desc>
+Same as the <link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#drain">drain</link> parameter of the HTTP upstream server.
+</tag-desc>
+<tag-name>
 <literal>parent</literal> (<literal>string</literal>)
 </tag-name>
 <tag-desc>
@@ -2278,12 +2437,6 @@ Parent server ID of the resolved server. The ID is assigned automatically and ca
 </tag-name>
 <tag-desc>
 Hostname of the resolved server. The hostname is assigned automatically and cannot be changed.
-</tag-desc>
-<tag-name>
-<literal>drain</literal> (<literal>boolean</literal>)
-</tag-name>
-<tag-desc>
-Puts the HTTP upstream server into the “draining” mode. In this mode, only requests <link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#sticky">bound</link> to the server will be proxied to it. The parameter cannot be initially set, it can only be changed with the <literal>PATCH</literal> method.
 </tag-desc>
 </list>
 <para>Example:</para>
@@ -2302,8 +2455,8 @@ Puts the HTTP upstream server into the “draining” mode. In this mode, only r
 }</example>
 </listitem>
 <listitem id="def_nginx_http_keyval_zone">
-<para>Keyval Shared Memory Zone:</para>
-Contents of a keyval shared memory zone.<para>Example:</para>
+<para>HTTP Keyval Shared Memory Zone:</para>
+Contents of an HTTP keyval shared memory zone.<para>Example:</para>
 <example>
 {
   "key1" : "value1",
@@ -2713,6 +2866,16 @@ Hostname of the resolved server. The hostname is assigned automatically and cann
   "slow_start" : 0,
   "backup" : false,
   "down" : false
+}</example>
+</listitem>
+<listitem id="def_nginx_stream_keyval_zone">
+<para>Stream Keyval Shared Memory Zone:</para>
+Contents of a stream keyval shared memory zone.<para>Example:</para>
+<example>
+{
+  "key1" : "value1",
+  "key2" : "value2",
+  "key3" : "value3"
 }</example>
 </listitem>
 <listitem id="def_nginx_error">

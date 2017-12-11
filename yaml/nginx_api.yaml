@@ -1,14 +1,15 @@
 swagger: '2.0'
 info:
-  version: '1.0'
+  version: '2.0'
   title: NGINX Plus REST API
   description: NGINX Plus REST
     [API](https://nginx.org/en/docs/http/ngx_http_api_module.html)
     provides access to NGINX Plus status information,
     on-the-fly configuration of upstream servers and
-    [key-value](https://nginx.org/en/docs/http/ngx_http_keyval_module.html)
-    pairs management.
-basePath: /api/1
+    key-value pairs management for
+    [http](https://nginx.org/en/docs/http/ngx_http_keyval_module.html) and
+    [stream](https://nginx.org/en/docs/stream/ngx_stream_keyval_module.html).
+basePath: /api/2
 tags:
   - name: General Info
   - name: Processes
@@ -24,6 +25,7 @@ tags:
   - name: Stream
   - name: Stream Server Zones
   - name: Stream Upstreams
+  - name: Stream Keyvals
   - name: Method GET
   - name: Method POST
   - name: Method PATCH
@@ -729,8 +731,8 @@ paths:
       tags:
         - HTTP Keyvals
         - Method GET
-      summary: Return key-value pairs from all keyval zones
-      description: Returns key-value pairs for each keyval shared memory
+      summary: Return key-value pairs from all HTTP keyval zones
+      description: Returns key-value pairs for each HTTP keyval shared memory
         [zone](https://nginx.org/en/docs/http/ngx_http_keyval_module.html#keyval_zone).
       operationId: getHttpKeyvalZones
       produces:
@@ -740,7 +742,7 @@ paths:
           in: query
           type: string
           description: If the “<literal>fields</literal>” value is empty,
-            then only keyval zone names are output.
+            then only HTTP keyval zone names are output.
       responses:
         '200':
           description: Success
@@ -750,15 +752,15 @@ paths:
     parameters:
       - name: httpKeyvalZoneName
         in: path
-        description: The name of a keyval shared memory zone.
+        description: The name of an HTTP keyval shared memory zone.
         required: true
         type: string
     get:
       tags:
         - HTTP Keyvals
         - Method GET
-      summary: Return key-value pairs from a keyval zone
-      description: Returns key-value pairs stored in a particular keyval shared memory
+      summary: Return key-value pairs from an HTTP keyval zone
+      description: Returns key-value pairs stored in a particular HTTP keyval shared memory
         [zone](https://nginx.org/en/docs/http/ngx_http_keyval_module.html#keyval_zone).
       operationId: getHttpKeyvalZoneKeysValues
       produces:
@@ -767,7 +769,7 @@ paths:
         - name: key
           in: query
           type: string
-          description: Get a particular key-value pair from the keyval zone.
+          description: Get a particular key-value pair from the HTTP keyval zone.
       responses:
         '200':
           description: Success
@@ -783,11 +785,11 @@ paths:
       tags:
         - HTTP Keyvals
         - Method POST
-      summary: Add a key-value pair to the keyval zone
-      description: Adds a new key-value pair to the keyval shared memory
+      summary: Add a key-value pair to the HTTP keyval zone
+      description: Adds a new key-value pair to the HTTP keyval shared memory
         [zone](https://nginx.org/en/docs/http/ngx_http_keyval_module.html#keyval_zone).
         Several key-value pairs can be entered
-        if the keyval shared memory zone is empty.
+        if the HTTP keyval shared memory zone is empty.
       operationId: postHttpKeyvalZoneData
       produces:
         - application/json
@@ -796,7 +798,7 @@ paths:
           name: Key-value
           description: A key-value pair is specified in the JSON format.
             Several key-value pairs can be entered
-            if the keyval shared memory zone is empty.
+            if the HTTP keyval shared memory zone is empty.
           required: true
           schema:
             $ref: '#/definitions/NginxHTTPKeyvalZone'
@@ -871,8 +873,8 @@ paths:
       tags:
         - HTTP Keyvals
         - Method DELETE
-      summary: Empty the keyval zone
-      description: Deletes all key-value pairs from the keyval shared memory
+      summary: Empty the HTTP keyval zone
+      description: Deletes all key-value pairs from the HTTP keyval shared memory
         [zone](https://nginx.org/en/docs/http/ngx_http_keyval_module.html#keyval_zone).
       operationId: deleteHttpKeyvalZoneData
       responses:
@@ -1294,6 +1296,179 @@ paths:
           description: |
             Upstream not found (*UpstreamNotFound*),
             server with ID “**id**” does not exist (*UpstreamServerNotFound*),
+            [stream](https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream) not configured (*StreamNotConfigured*)
+          schema:
+            $ref: '#/definitions/NginxError'
+        '405':
+          description: Method disabled (*MethodDisabled*)
+          schema:
+            $ref: '#/definitions/NginxError'
+  /stream/keyvals/:
+    get:
+      tags:
+        - Stream Keyvals
+        - Method GET
+      summary: Return key-value pairs from all stream keyval zones
+      description: Returns key-value pairs for each stream keyval shared memory
+        [zone](https://nginx.org/en/docs/stream/ngx_stream_keyval_module.html#keyval_zone).
+      operationId: getStreamKeyvalZones
+      produces:
+        - application/json
+      parameters:
+        - name: fields
+          in: query
+          type: string
+          description: If the “<literal>fields</literal>” value is empty,
+            then only stream keyval zone names are output.
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/NginxStreamKeyvalZonesMap'
+        '404':
+          description: |
+            [stream](https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream) not configured (*StreamNotConfigured*)
+          schema:
+            $ref: '#/definitions/NginxError'
+  '/stream/keyvals/{streamKeyvalZoneName}':
+    parameters:
+      - name: streamKeyvalZoneName
+        in: path
+        description: The name of a stream keyval shared memory zone.
+        required: true
+        type: string
+    get:
+      tags:
+        - Stream Keyvals
+        - Method GET
+      summary: Return key-value pairs from a stream keyval zone
+      description: Returns key-value pairs stored in a particular stream keyval shared memory
+        [zone](https://nginx.org/en/docs/stream/ngx_stream_keyval_module.html#keyval_zone).
+      operationId: getStreamKeyvalZoneKeysValues
+      produces:
+        - application/json
+      parameters:
+        - name: key
+          in: query
+          type: string
+          description: Get a particular key-value pair from the stream keyval zone.
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/NginxStreamKeyvalZone'
+        '404':
+          description: |
+            Keyval not found (*KeyvalNotFound*),
+            keyval key not found (*KeyvalKeyNotFound*),
+            [stream](https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream) not configured (*StreamNotConfigured*)
+          schema:
+            $ref: '#/definitions/NginxError'
+    post:
+      tags:
+        - Stream Keyvals
+        - Method POST
+      summary: Add a key-value pair to the stream keyval zone
+      description: Adds a new key-value pair to the stream keyval shared memory
+        [zone](https://nginx.org/en/docs/stream/ngx_stream_keyval_module.html#keyval_zone).
+        Several key-value pairs can be entered
+        if the stream keyval shared memory zone is empty.
+      operationId: postStreamKeyvalZoneData
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: Key-value
+          description: A key-value pair is specified in the JSON format.
+            Several key-value pairs can be entered
+            if the stream keyval shared memory zone is empty.
+          required: true
+          schema:
+            $ref: '#/definitions/NginxStreamKeyvalZone'
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: |
+            Key required (*KeyvalFormatError*),
+            only one key can be added (*KeyvalFormatError*),
+            nested object or list (*KeyvalFormatError*)
+          schema:
+            $ref: '#/definitions/NginxError'
+        '404':
+          description: |
+            Keyval not found (*KeyvalNotFound*),
+            [stream](https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream) not configured (*StreamNotConfigured*)
+          schema:
+            $ref: '#/definitions/NginxError'
+        '405':
+          description: Method disabled (*MethodDisabled*)
+          schema:
+            $ref: '#/definitions/NginxError'
+        '409':
+          description: Key already exists (*KeyvalKeyExists*)
+          schema:
+            $ref: '#/definitions/NginxError'
+        '415':
+          description: JSON error (*JsonError*)
+          schema:
+            $ref: '#/definitions/NginxError'
+    patch:
+      tags:
+        - Stream Keyvals
+        - Method PATCH
+      summary: Modify a key-value or delete a key
+      description: Changes the value of the selected key in the key-value pair
+        or deletes a key by setting the key value to <literal>null</literal>.
+      operationId: patchStreamKeyvalZoneKeyValue
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: streamKeyvalZoneKeyValue
+          description: A new value for the key is specified in the JSON format.
+          required: true
+          schema:
+            $ref: '#/definitions/NginxStreamKeyvalZone'
+      responses:
+        '204':
+          description: Success
+        '400':
+          description: |
+            Key required (*KeyvalFormatError*),
+            only one key can be updated (*KeyvalFormatError*),
+            nested object or list (*KeyvalFormatError*)
+          schema:
+            $ref: '#/definitions/NginxError'
+        '404':
+          description: |
+            Keyval not found (*KeyvalNotFound*),
+            keyval key not found (*KeyvalKeyNotFound*),
+            [stream](https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream) not configured (*StreamNotConfigured*)
+          schema:
+            $ref: '#/definitions/NginxError'
+        '405':
+          description: Method disabled (*MethodDisabled*)
+          schema:
+            $ref: '#/definitions/NginxError'
+        '415':
+          description: JSON error (*JsonError*)
+          schema:
+            $ref: '#/definitions/NginxError'
+    delete:
+      tags:
+        - Stream Keyvals
+        - Method DELETE
+      summary: Empty the stream keyval zone
+      description: Deletes all key-value pairs from the stream keyval shared memory
+        [zone](https://nginx.org/en/docs/stream/ngx_stream_keyval_module.html#keyval_zone).
+      operationId: deleteStreamKeyvalZoneData
+      responses:
+        '204':
+          description: Success
+        '404':
+          description: |
+            Keyval not found (*KeyvalNotFound*),
             [stream](https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream) not configured (*StreamNotConfigured*)
           schema:
             $ref: '#/definitions/NginxError'
@@ -2378,6 +2553,11 @@ definitions:
         description: Same as the
           <a href="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#down">down</a>
           parameter of the HTTP upstream server.
+      drain:
+        type: boolean
+        description: Same as the
+          <a href="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#drain">drain</a>
+          parameter of the HTTP upstream server.
       parent:
         type: string
         description: Parent server ID of the resolved server.
@@ -2388,14 +2568,6 @@ definitions:
         description: Hostname of the resolved server.
           The hostname is assigned automatically and cannot be changed.
         readOnly: true
-      drain:
-        type: boolean
-        description: Puts the HTTP upstream server into the “draining” mode.
-          In this mode, only requests
-          <a href="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#sticky">bound</a>
-          to the server will be proxied to it.
-          The parameter cannot be initially set,
-          it can only be changed with the <code>PATCH</code> method.
     example:
       id: 1
       server: 10.0.0.1:8089
@@ -2408,9 +2580,9 @@ definitions:
       backup: true
       down: true
   NginxHTTPKeyvalZonesMap:
-    title: Keyval Shared Memory Zones
+    title: HTTP Keyval Shared Memory Zones
     description: |
-      Contents of all keyval shared memory zones.
+      Contents of all HTTP keyval shared memory zones.
     type: object
     additionalProperties:
       $ref: '#/definitions/NginxHTTPKeyvalZone'
@@ -2424,9 +2596,9 @@ definitions:
         arg2: value2
         arg3: value3
   NginxHTTPKeyvalZone:
-    title: Keyval Shared Memory Zone
+    title: HTTP Keyval Shared Memory Zone
     description: |
-      Contents of a keyval shared memory zone.
+      Contents of an HTTP keyval shared memory zone.
     type: object
     example:
       key1: value1
@@ -2943,6 +3115,31 @@ definitions:
       slow_start: 0
       backup: false
       down: false
+  NginxStreamKeyvalZonesMap:
+    title: Stream Keyval Shared Memory Zones
+    description: |
+      Contents of all stream keyval shared memory zones.
+    type: object
+    additionalProperties:
+      $ref: '#/definitions/NginxStreamKeyvalZone'
+    example:
+      keyval_zone:
+        key1: value1
+        key2: value2
+        key3: value3
+      one:
+        arg1: value1
+        arg2: value2
+        arg3: value3
+  NginxStreamKeyvalZone:
+    title: Stream Keyval Shared Memory Zone
+    description: |
+      Contents of a stream keyval shared memory zone.
+    type: object
+    example:
+      key1: value1
+      key2: value2
+      key3: value3
   NginxError:
     title: Error
     description: |

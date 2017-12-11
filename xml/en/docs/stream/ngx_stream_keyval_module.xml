@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Module ngx_stream_keyval_module"
+        link="/en/docs/stream/ngx_stream_keyval_module.html"
+        lang="en"
+        rev="1">
+
+<section id="summary">
+
+<para>
+The <literal>ngx_stream_keyval_module</literal> module (1.13.7) creates variables
+with values taken from key-value pairs managed by the
+<link doc="../http/ngx_http_api_module.xml" id="stream_keyvals_">API</link>.
+</para>
+
+<para>
+<note>
+This module is available as part of our
+<commercial_version>commercial subscription</commercial_version>.
+</note>
+</para>
+
+</section>
+
+
+<section id="example" name="Example Configuration">
+
+<para>
+<example>
+http {
+
+    server {
+        ...
+        location /api {
+            api write=on;
+        }
+    }
+}
+
+stream {
+
+    keyval_zone zone=one:32k state=one.keyval;
+    keyval      $ssl_server_name $name zone=one;
+
+    server {
+        listen              12345 ssl;
+        proxy_pass          $name;
+        ssl_certificate     /usr/local/nginx/conf/cert.pem;
+        ssl_certificate_key /usr/local/nginx/conf/cert.key;
+    }
+}
+</example>
+</para>
+
+</section>
+
+
+<section id="directives" name="Directives">
+
+<directive name="keyval">
+<syntax>
+    <value>key</value>
+    <value>$variable</value>
+    <literal>zone</literal>=<value>name</value></syntax>
+<default/>
+<context>stream</context>
+
+<para>
+Creates a new <value>$variable</value> whose value
+is looked up by the <value>key</value> in the key-value database.
+Strings are matched ignoring the case.
+The database is stored in a shared memory zone
+specified by the <literal>zone</literal> parameter.
+</para>
+
+</directive>
+
+
+<directive name="keyval_zone">
+<syntax>
+    <literal>zone</literal>=<value>name</value>:<value>size</value>
+    [<literal>state</literal>=<value>file</value>]</syntax>
+<default/>
+<context>stream</context>
+
+<para>
+Sets the <value>name</value> and <value>size</value> of the shared memory zone
+that keeps the key-value database.
+Key-value pairs are managed by the
+<link doc="ngx_http_api_module.xml" id="stream_keyvals_">API</link>.
+</para>
+
+<para>
+The optional <literal>state</literal> parameter specifies a <value>file</value>
+that keeps the current state of the key-value database in the JSON format
+and makes it persistent across nginx restarts.
+</para>
+
+</directive>
+
+</section>
+
+</module>

@@ -97,24 +97,25 @@ stream {
     }
 }
 </example>
-All API requests include a supported API version in the URI.
+All API requests include
+a supported API <link id="api_version">version</link> in the URI.
 Examples of API requests with this configuration:
 <example>
-http://127.0.0.1/api/1/
-http://127.0.0.1/api/1/nginx
-http://127.0.0.1/api/1/connections
-http://127.0.0.1/api/1/http/requests
-http://127.0.0.1/api/1/http/server_zones/server_backend
-http://127.0.0.1/api/1/http/caches/cache_backend
-http://127.0.0.1/api/1/http/upstreams/backend
-http://127.0.0.1/api/1/http/upstreams/backend/servers/
-http://127.0.0.1/api/1/http/upstreams/backend/servers/1
-http://127.0.0.1/api/1/http/keyvals/one?key=arg1
-http://127.0.0.1/api/1/stream/
-http://127.0.0.1/api/1/stream/server_zones/server_backend
-http://127.0.0.1/api/1/stream/upstreams/
-http://127.0.0.1/api/1/stream/upstreams/backend
-http://127.0.0.1/api/1/stream/upstreams/backend/servers/1
+http://127.0.0.1/api/2/
+http://127.0.0.1/api/2/nginx
+http://127.0.0.1/api/2/connections
+http://127.0.0.1/api/2/http/requests
+http://127.0.0.1/api/2/http/server_zones/server_backend
+http://127.0.0.1/api/2/http/caches/cache_backend
+http://127.0.0.1/api/2/http/upstreams/backend
+http://127.0.0.1/api/2/http/upstreams/backend/servers/
+http://127.0.0.1/api/2/http/upstreams/backend/servers/1
+http://127.0.0.1/api/2/http/keyvals/one?key=arg1
+http://127.0.0.1/api/2/stream/
+http://127.0.0.1/api/2/stream/server_zones/server_backend
+http://127.0.0.1/api/2/stream/upstreams/
+http://127.0.0.1/api/2/stream/upstreams/backend
+http://127.0.0.1/api/2/stream/upstreams/backend/servers/1
 </example>
 </para>
 
@@ -141,21 +142,41 @@ is read-only or read-write.
 By default, the API is read-only.
 </para>
 
-<para>
+<para id="api_version">
 All API requests should contain a supported API version in the URI.
 If the request URI equals the location prefix,
 the list of supported API versions is returned.
-The current and the only API version is “<literal>1</literal>”.
+The current API version is “<literal>2</literal>”.
 </para>
 
 <para>
 The optional “<literal>fields</literal>” argument in the request line
 specifies which fields of the requested objects will be output:
 <example>
-http://127.0.0.1/api/1/nginx?fields=version,build
+http://127.0.0.1/api/2/nginx?fields=version,build
 </example>
 </para>
 
 </directive>
+
+</section>
+
+<section id="compatibility" name="Compatibility">
+
+<para>
+<list type="bullet">
+
+<listitem>
+The <link id="def_nginx_http_upstream_conf_server">drain</link> parameter
+was added in <link id="api_version">version</link> 2.
+</listitem>
+
+<listitem>
+The <link id="stream_keyvals_">/stream/keyvals/</link> data
+were added in <link id="api_version">version</link> 2.
+</listitem>
+
+</list>
+</para>
 
 </section>

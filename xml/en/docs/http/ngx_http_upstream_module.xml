@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="65">
+        rev="66">
 
 <section id="summary">
 
@@ -329,6 +329,20 @@ Default value is zero, i.e. slow start is disabled.
 <note>
 The parameter cannot be used along with the
 <link id="hash"/> and <link id="ip_hash"/> load balancing methods.
+</note>
+</tag-desc>
+
+<tag-name id="drain">
+<literal>drain</literal>
+</tag-name>
+<tag-desc>
+puts the server into the “draining” mode (1.13.6).
+In this mode, only requests <link id="sticky">bound</link> to the server
+will be proxied to it.
+<note>
+Prior to version 1.13.6,
+the parameter could be changed only with the
+<link doc="ngx_http_api_module.xml">API</link> module.
 </note>
 </tag-desc>
 
