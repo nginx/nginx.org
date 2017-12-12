@@ -20,8 +20,9 @@
 
     <div id="banner">
         <xsl:if test="@lang = 'he'"> <xsl:attribute name="class"> <xsl:text>ltr</xsl:text> </xsl:attribute> </xsl:if>
-        Learn how to configure caching, load balancing, cloud deployments, and other critical NGINX features.<br/>
-        <a href="https://www.nginx.com/resources/library/complete-nginx-cookbook/?utm_source=nginxorg&amp;utm_medium=homepagebanner&amp;utm_campaign=complete_cookbook">Download the Complete NGINX Cookbook</a>
+        NGINX Plus R14 now available with enhanced JWT authentication and<br/>
+        a preview of upcoming clustering support.<br/>
+        <a href="https://www.nginx.com/blog/nginx-plus-r14-released?utm_campaign=plus&amp;utm_medium=product-launch&amp;utm_source=nginxorg&amp;utm_content=r14">Learn more.</a>
     </div>
 
     <div id="main">
