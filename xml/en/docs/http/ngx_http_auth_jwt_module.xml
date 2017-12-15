@@ -9,7 +9,7 @@
 <module name="Module ngx_http_auth_jwt_module"
         link="/en/docs/http/ngx_http_auth_jwt_module.html"
         lang="en"
-        rev="4">
+        rev="5">
 
 <section id="summary">
 
@@ -155,12 +155,8 @@ identified by key names.
 Name matching starts from the top level of the JSON tree.
 For arrays, the variable keeps a list of array elements separated by commas.
 <example>
-location / {
-    auth_jwt           "closed site";
-    auth_jwt_key_file  conf/keys.json;
-    auth_jwt_claim_set $email info e-mail;
-    auth_jwt_claim_set $job info "job title";
-}
+auth_jwt_claim_set $email info e-mail;
+auth_jwt_claim_set $job info "job title";
 </example>
 <note>
 Prior to version 1.13.7, only one key name could be specified,
