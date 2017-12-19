@@ -22,7 +22,7 @@ particular, the number of connections from a single IP address.
 
 <para>
 Not all connections are counted.
-A connection is counted only if it has a request processed by the server
+A connection is counted only if it has a request being processed by the server
 and the whole request header has already been read.
 </para>
 
