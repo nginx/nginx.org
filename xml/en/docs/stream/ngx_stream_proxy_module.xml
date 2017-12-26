@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_proxy_module"
         link="/en/docs/stream/ngx_stream_proxy_module.html"
         lang="en"
-        rev="18">
+        rev="19">
 
 <section id="summary">
 
@@ -85,9 +85,12 @@ for example, from a real IP address of a client:
 proxy_bind $remote_addr transparent;
 </example>
 In order for this parameter to work,
-it is necessary to run nginx worker processes with the
-<link doc="../ngx_core_module.xml" id="user">superuser</link> privileges
-and configure kernel routing table
+it is usually necessary to run nginx worker processes with the
+<link doc="../ngx_core_module.xml" id="user">superuser</link> privileges.
+On Linux it is not required (1.13.8) as if
+the <literal>transparent</literal> parameter is specified, worker processes
+inherit the <literal>CAP_NET_RAW</literal> capability from the master process.
+It is also necessary to configure kernel routing table
 to intercept network traffic from the proxied server.
 </para>
 

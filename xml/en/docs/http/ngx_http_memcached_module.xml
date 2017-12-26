@@ -10,7 +10,7 @@
 <module name="Module ngx_http_memcached_module"
         link="/en/docs/http/ngx_http_memcached_module.html"
         lang="en"
-        rev="15">
+        rev="16">
 
 <section id="summary">
 
@@ -78,9 +78,12 @@ for example, from a real IP address of a client:
 memcached_bind $remote_addr transparent;
 </example>
 In order for this parameter to work,
-it is necessary to run nginx worker processes with the
-<link doc="../ngx_core_module.xml" id="user">superuser</link> privileges
-and configure kernel routing table
+it is usually necessary to run nginx worker processes with the
+<link doc="../ngx_core_module.xml" id="user">superuser</link> privileges.
+On Linux it is not required (1.13.8) as if
+the <literal>transparent</literal> parameter is specified, worker processes
+inherit the <literal>CAP_NET_RAW</literal> capability from the master process.
+It is also necessary to configure kernel routing table
 to intercept network traffic from the memcached server.
 </para>
 

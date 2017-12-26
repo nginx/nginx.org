@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_proxy_module"
         link="/ru/docs/http/ngx_http_proxy_module.html"
         lang="ru"
-        rev="63">
+        rev="64">
 
 <section id="summary">
 
@@ -69,9 +69,13 @@ location / {
 proxy_bind $remote_addr transparent;
 </example>
 Для работы параметра
-необходимо запустить рабочие процессы nginx с привилегиями
-<link doc="../ngx_core_module.xml" id="user">суперпользователя</link>,
-а также настроить таблицу маршрутизации ядра
+обычно требуется
+запустить рабочие процессы nginx с привилегиями
+<link doc="../ngx_core_module.xml" id="user">суперпользователя</link>.
+В Linux этого не требуется (1.13.8), так как если
+указан параметр <literal>transparent</literal>, то рабочие процессы
+наследуют capability <literal>CAP_NET_RAW</literal> из главного процесса.
+Также необходимо настроить таблицу маршрутизации ядра
 для перехвата сетевого трафика с проксируемого сервера.
 </para>
 
