@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_upstream_module"
         link="/ru/docs/stream/ngx_stream_upstream_module.html"
         lang="ru"
-        rev="26">
+        rev="27">
 
 <section id="summary">
 
@@ -343,9 +343,14 @@ SRV-записи с наивысшим приоритетом
 в таких группах для изменения состава группы
 или настроек отдельных серверов
 нет необходимости перезапускать nginx.
-Конфигурация доступна через специальный location,
+Конфигурация доступна через
+модуль <link doc="../http/ngx_http_api_module.xml">API</link> (1.13.3).
+<note>
+До версии 1.13.3
+конфигурация была доступна только через специальный location,
 в котором указана директива
 <link doc="../http/ngx_http_upstream_conf_module.xml" id="upstream_conf"/>.
+</note>
 </para>
 
 </directive>

@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_upstream_module"
         link="/en/docs/stream/ngx_stream_upstream_module.html"
         lang="en"
-        rev="26">
+        rev="27">
 
 <section id="summary">
 
@@ -341,9 +341,14 @@ as part of our <commercial_version>commercial subscription</commercial_version>,
 such groups allow changing the group membership
 or modifying the settings of a particular server
 without the need of restarting nginx.
-The configuration is accessible via a special location
+The configuration is accessible via the
+<link doc="../http/ngx_http_api_module.xml">API</link> module (1.13.3).
+<note>
+Prior to version 1.13.3,
+the configuration was accessible only via a special location
 handled by
 <link doc="../http/ngx_http_upstream_conf_module.xml" id="upstream_conf"/>.
+</note>
 </para>
 
 </directive>
