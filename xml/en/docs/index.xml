@@ -8,7 +8,7 @@
 <article name="nginx documentation"
          link="/en/docs/"
          lang="en"
-         rev="42"
+         rev="43"
          toc="no">
 
 
@@ -19,6 +19,10 @@
 
 <listitem>
 <link doc="install.xml"/>
+</listitem>
+
+<listitem>
+<link doc="configure.xml"/>
 </listitem>
 
 <listitem>
@@ -116,10 +120,6 @@
 
 <para>
 <list type="bullet">
-
-<listitem>
-<link doc="configure.xml"/>
-</listitem>
 
 <listitem>
 <link doc="howto_build_on_win32.xml"/>
