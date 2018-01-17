@@ -9,7 +9,7 @@
 <module name="Module ngx_http_upstream_conf_module"
         link="/en/docs/http/ngx_http_upstream_conf_module.html"
         lang="en"
-        rev="4">
+        rev="5">
 
 <section id="summary">
 
@@ -25,7 +25,7 @@ server group must reside in the shared memory.
 <note>
 This module was superseded by the
 <link doc="ngx_http_api_module.xml">ngx_http_api_module</link> module
-in 1.13.0.
+in 1.13.3.
 </note>
 <note>
 This module is available as part of our
