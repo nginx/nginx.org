@@ -10,7 +10,7 @@
 <module name="Модуль ngx_mail_smtp_module"
         link="/ru/docs/mail/ngx_mail_smtp_module.html"
         lang="ru"
-        rev="5">
+        rev="6">
 
 <section id="directives" name="Директивы">
 
@@ -87,6 +87,36 @@ SMTP-клиентов.
 <para>
 Текущий список стандартизованных расширений опубликован на
 <link url="http://www.iana.org/assignments/mail-parameters">www.iana.org</link>.
+</para>
+
+</directive>
+
+
+<directive name="smtp_client_buffer">
+<syntax><value>размер</value></syntax>
+<default>4k|8k</default>
+<context>mail</context>
+<context>server</context>
+
+<para>
+Задаёт <value>размер</value> буфера для чтения SMTP-команд.
+По умолчанию размер одного буфера равен размеру страницы.
+В зависимости от платформы это или 4K, или 8K.
+</para>
+
+</directive>
+
+
+<directive name="smtp_greeting_delay">
+<syntax><value>время</value></syntax>
+<default>0</default>
+<context>mail</context>
+<context>server</context>
+
+<para>
+Позволяет задать задержку перед отправкой SMTP-приветствия,
+чтобы отклонить клиентов, не дожидающихся приветствия до
+начала отправки SMTP-команд.
 </para>
 
 </directive>
