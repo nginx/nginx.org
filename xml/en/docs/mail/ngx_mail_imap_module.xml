@@ -10,7 +10,7 @@
 <module name="Module ngx_mail_imap_module"
         link="/en/docs/mail/ngx_mail_imap_module.html"
         lang="en"
-        rev="4">
+        rev="5">
 
 <section id="directives" name="Directives">
 
@@ -92,7 +92,7 @@ The current list of standardized extensions is published at
 <context>server</context>
 
 <para>
-Sets the IMAP commands read buffer size.
+Sets the <value>size</value> of the buffer used for reading IMAP commands.
 By default, the buffer size is equal to one memory page.
 This is either 4K or 8K, depending on a platform.
 </para>
