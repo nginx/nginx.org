@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_v2_module"
         link="/ru/docs/http/ngx_http_v2_module.html"
         lang="ru"
-        rev="10">
+        rev="11">
 
 <section id="summary">
 
@@ -127,6 +127,21 @@ server {
 </directive>
 
 
+<directive name="http2_max_concurrent_pushes">
+<syntax><value>число</value></syntax>
+<default>10</default>
+<context>http</context>
+<context>server</context>
+<appeared-in>1.13.9</appeared-in>
+
+<para>
+Ограничивает максимальное число параллельных
+<link id="http2_push">push</link>-запросов в соединении.
+</para>
+
+</directive>
+
+
 <directive name="http2_max_concurrent_streams">
 <syntax><value>число</value></syntax>
 <default>128</default>
@@ -183,10 +198,62 @@ server {
 <appeared-in>1.11.6</appeared-in>
 
 <para>
-Задаёт максимальное число запросов, которые можно
+Задаёт максимальное число запросов (включая
+<link id="http2_push">push</link>-запросы), которые можно
 сделать по одному соединению HTTP/2,
-после чего соединение закрывается
-и клиенту необходимо использовать новое соединение.
+после чего очередной клиентский запрос приведёт к закрытию соединения
+и необходимости установить новое соединение.
+</para>
+
+</directive>
+
+
+<directive name="http2_push">
+<syntax><value>uri</value> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.13.9</appeared-in>
+
+<para>
+Заблаговременно отправляет
+(<link url="https://tools.ietf.org/html/rfc7540#section-8.2">push</link>) запрос
+к заданному <value>uri</value>
+вместе с ответом на оригинальный запрос.
+Будут обработаны только относительные URI с абсолютными путями,
+например:
+<example>
+http2_push /static/css/main.css;
+</example>
+В значении <value>uri</value> допустимо использование переменных.
+</para>
+
+<para>
+На одном уровне конфигурации можно указать несколько
+<literal>http2_push</literal> директив.
+Параметр <literal>off</literal> отменяет действие
+унаследованных с предыдущего уровня конфигурации
+директив <literal>http2_push</literal>.
+</para>
+
+</directive>
+
+
+<directive name="http2_push_preload">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.13.9</appeared-in>
+
+<para>
+Разрешает автоматическое преобразование
+<link url="https://www.w3.org/TR/preload/#server-push-http-2">preload
+links</link>,
+указанных в полях <header>Link</header> заголовка ответа, в
+<link url="https://tools.ietf.org/html/rfc7540#section-8.2">push</link>-запросы.
 </para>
 
 </directive>

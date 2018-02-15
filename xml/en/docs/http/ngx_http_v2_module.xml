@@ -9,7 +9,7 @@
 <module name="Module ngx_http_v2_module"
         link="/en/docs/http/ngx_http_v2_module.html"
         lang="en"
-        rev="10">
+        rev="11">
 
 <section id="summary">
 
@@ -127,6 +127,21 @@ Sets the timeout of inactivity after which the connection is closed.
 </directive>
 
 
+<directive name="http2_max_concurrent_pushes">
+<syntax><value>number</value></syntax>
+<default>10</default>
+<context>http</context>
+<context>server</context>
+<appeared-in>1.13.9</appeared-in>
+
+<para>
+Limits the maximum number of concurrent
+<link id="http2_push">push</link> requests in a connection.
+</para>
+
+</directive>
+
+
 <directive name="http2_max_concurrent_streams">
 <syntax><value>number</value></syntax>
 <default>128</default>
@@ -183,10 +198,63 @@ For most requests, the default limit should be enough.
 <appeared-in>1.11.6</appeared-in>
 
 <para>
-Sets the maximum number of requests that can be
-served through one HTTP/2 connection,
-after which the connection is closed
-and the client should use a new connection.
+Sets the maximum number of requests (including
+<link id="http2_push">push</link> requests) that can be served
+through one HTTP/2 connection,
+after which the next client request will lead to connection closing
+and the need of establishing a new connection.
+</para>
+
+</directive>
+
+
+<directive name="http2_push">
+<syntax><value>uri</value> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.13.9</appeared-in>
+
+<para>
+Pre-emptively sends
+(<link url="https://tools.ietf.org/html/rfc7540#section-8.2">pushes</link>)
+a request to the specified <value>uri</value>
+along with the response to the original request.
+Only relative URIs with absolute path will be processed,
+for example:
+<example>
+http2_push /static/css/main.css;
+</example>
+The <value>uri</value> value can contain variables.
+</para>
+
+<para>
+Several <literal>http2_push</literal> directives
+can be specified on the same configuration level.
+The <literal>off</literal> parameter cancels the effect
+of the <literal>http2_push</literal> directives
+inherited from the previous configuration level.
+</para>
+
+</directive>
+
+
+<directive name="http2_push_preload">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.13.9</appeared-in>
+
+<para>
+Enables automatic conversion of
+<link url="https://www.w3.org/TR/preload/#server-push-http-2">preload
+links</link>
+specified in the <header>Link</header> response header fields into
+<link url="https://tools.ietf.org/html/rfc7540#section-8.2">push</link>
+requests.
 </para>
 
 </directive>
