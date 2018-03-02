@@ -10,7 +10,7 @@
 <module name="Module ngx_http_log_module"
         link="/en/docs/http/ngx_http_log_module.html"
         lang="en"
-        rev="17">
+        rev="18">
 
 <section id="summary">
 
@@ -194,7 +194,7 @@ access_log /path/to/access.log combined if=$loggable;
 <directive name="log_format">
 <syntax>
     <value>name</value>
-    [<literal>escape</literal>=<literal>default</literal>|<literal>json</literal>]
+    [<literal>escape</literal>=<literal>default</literal>|<literal>json</literal>|<literal>none</literal>]
     <value>string</value> ...</syntax>
 <default>combined "..."</default>
 <context>http</context>
@@ -207,6 +207,7 @@ Specifies log format.
 The <literal>escape</literal> parameter (1.11.8) allows setting
 <literal>json</literal> or <literal>default</literal> characters escaping
 in variables, by default, <literal>default</literal> escaping is used.
+The <literal>none</literal> parameter (1.13.10) disables escaping.
 </para>
 
 <para>
