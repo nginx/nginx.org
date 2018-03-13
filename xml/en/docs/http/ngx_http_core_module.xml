@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="75">
+        rev="76">
 
 <section id="directives" name="Directives">
 
@@ -2605,8 +2605,11 @@ For example, such subrequests are created by
 
 <para>
 Enables or disables the use of the <c-def>TCP_NODELAY</c-def> option.
-The option is enabled only when a connection is transitioned into the
+The option is enabled when a connection is transitioned into the
 keep-alive state.
+Additionally, it is enabled on SSL connections,
+for unbuffered proxying,
+and for <link doc="websocket.xml">WebSocket</link> proxying.
 </para>
 
 </directive>
