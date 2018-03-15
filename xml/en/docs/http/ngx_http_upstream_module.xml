@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="67">
+        rev="68">
 
 <section id="summary">
 
@@ -1159,6 +1159,12 @@ are separated by commas and colons like addresses in the
 <link id="var_upstream_addr">$upstream_addr</link> variable.
 If a server cannot be selected,
 the variable keeps the <http-status code="502" text="Bad Gateway"/> status code.
+</tag-desc>
+
+<tag-name id="var_upstream_trailer_"><var>$upstream_trailer_</var><value>name</value></tag-name>
+<tag-desc>
+keeps fields from the end of the response
+obtained from the upstream server (1.13.10).
 </tag-desc>
 
 </list>
