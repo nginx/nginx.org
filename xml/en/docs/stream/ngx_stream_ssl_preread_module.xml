@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_ssl_preread_module"
         link="/en/docs/stream/ngx_stream_ssl_preread_module.html"
         lang="en"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
@@ -19,7 +19,9 @@ extracting information from the
 <link url="https://tools.ietf.org/html/rfc5246#section-7.4.1.2">ClientHello</link>
 message without terminating SSL/TLS,
 for example, the sever name requested through
-<link url="https://tools.ietf.org/html/rfc6066#section-3">SNI</link>.
+<link url="https://tools.ietf.org/html/rfc6066#section-3">SNI</link>
+or protocols advertised in
+<link url="https://tools.ietf.org/html/rfc7301">ALPN</link>.
 This module is not built by default, it should be enabled with the
 <literal>--with-stream_ssl_preread_module</literal>
 configuration parameter.
@@ -31,6 +33,9 @@ configuration parameter.
 <section id="example" name="Example Configuration">
 
 <para>
+
+Selecting an upstream based on server name:
+
 <example>
 map $ssl_preread_server_name $name {
     backend.example.com      backend;
@@ -48,9 +53,25 @@ upstream backend2 {
 }
 
 server {
-    listen      12346;
-    proxy_pass  $name;
-    ssl_preread on;
+    listen       12346;
+    proxy_pass   $name;
+    ssl_preread  on;
+}
+</example>
+
+Selecting an upstream based on protocol:
+
+<example>
+map $ssl_preread_alpn_protocols $proxy {
+    ~\bh2\b           127.0.0.1:8001;
+    ~\bhttp/1.1\b     127.0.0.1:8002;
+    ~\bxmpp-client\b  127.0.0.1:8003;
+}
+
+server {
+    listen       9000;
+    proxy_pass   $proxy;
+    ssl_preread  on;
 }
 </example>
 
@@ -84,7 +105,15 @@ the <link doc="stream_processing.xml" id="preread_phase">preread</link> phase.
 
 <tag-name id="var_ssl_preread_server_name"><var>$ssl_preread_server_name</var></tag-name>
 <tag-desc>
-returns the server name requested through SNI
+server name requested through SNI
+</tag-desc>
+
+<tag-name id="var_ssl_preread_alpn_protocols"><var>$ssl_preread_alpn_protocols</var></tag-name>
+<tag-desc>
+list of protocols advertised by the client through ALPN (1.13.10)
+<para>
+The values are separated by commas.
+</para>
 </tag-desc>
 
 </list>

@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_ssl_preread_module"
         link="/ru/docs/stream/ngx_stream_ssl_preread_module.html"
         lang="ru"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
@@ -19,7 +19,9 @@
 <link url="https://tools.ietf.org/html/rfc5246#section-7.4.1.2">ClientHello</link>
 без терминирования SSL/TLS,
 например имя сервера, запрошенное через
-<link url="https://tools.ietf.org/html/rfc6066#section-3">SNI</link>.
+<link url="https://tools.ietf.org/html/rfc6066#section-3">SNI</link>
+или протоколы указанные в
+<link url="https://tools.ietf.org/html/rfc7301">ALPN</link>.
 По умолчанию этот модуль не собирается, его сборку необходимо
 разрешить с помощью конфигурационного параметра
 <literal>--with-stream_ssl_preread_module</literal>.
@@ -31,6 +33,9 @@
 <section id="example" name="Пример конфигурации">
 
 <para>
+
+Выбор сервера по имени:
+
 <example>
 map $ssl_preread_server_name $name {
     backend.example.com      backend;
@@ -48,11 +53,28 @@ upstream backend2 {
 }
 
 server {
-    listen      12346;
-    proxy_pass  $name;
-    ssl_preread on;
+    listen       12346;
+    proxy_pass   $name;
+    ssl_preread  on;
 }
 </example>
+
+Выбор сервера по протоколу:
+
+<example>
+map $ssl_preread_alpn_protocols $proxy {
+    ~\bh2\b           127.0.0.1:8001;
+    ~\bhttp/1.1\b     127.0.0.1:8002;
+    ~\bxmpp-client\b  127.0.0.1:8003;
+}
+
+server {
+    listen       9000;
+    proxy_pass   $proxy;
+    ssl_preread  on;
+}
+</example>
+
 </para>
 
 </section>
@@ -83,7 +105,15 @@ server {
 
 <tag-name id="var_ssl_preread_server_name"><var>$ssl_preread_server_name</var></tag-name>
 <tag-desc>
-возвращает имя сервера, запрошенное через SNI
+имя сервера, запрошенное через SNI
+</tag-desc>
+
+<tag-name id="var_ssl_preread_alpn_protocols"><var>$ssl_preread_alpn_protocols</var></tag-name>
+<tag-desc>
+список протоколов, переданный клиентом через ALPN (1.3.10)
+<para>
+Значения разделены запятыми.
+</para>
 </tag-desc>
 
 </list>
