@@ -1,0 +1,657 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Igor Sysoev
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Module ngx_http_grpc_module"
+        link="/en/docs/http/ngx_http_grpc_module.html"
+        lang="en"
+        rev="1">
+
+<section id="summary">
+
+<para>
+The <literal>ngx_http_grpc_module</literal> module allows passing requests
+to a gRPC server (1.13.10).
+The module requires the
+<link doc="ngx_http_v2_module.xml">ngx_http_v2_module</link> module.
+</para>
+
+</section>
+
+
+<section id="example" name="Example Configuration">
+
+<para>
+<example>
+server {
+    listen 9000 http2;
+
+    location / {
+        grpc_pass 127.0.0.1:9000;
+    }
+}
+</example>
+</para>
+
+</section>
+
+
+<section id="directives" name="Directives">
+
+<directive name="grpc_bind">
+<syntax>
+    <value>address</value>
+    [<literal>transparent </literal>] |
+    <literal>off</literal></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Makes outgoing connections to a gRPC server originate
+from the specified local IP address with an optional port.
+Parameter value can contain variables.
+The special value <literal>off</literal> cancels the effect
+of the <literal>grpc_bind</literal> directive
+inherited from the previous configuration level, which allows the
+system to auto-assign the local IP address and port.
+</para>
+
+<para id="grpc_bind_transparent">
+The <literal>transparent</literal> parameter allows
+outgoing connections to a gRPC server originate
+from a non-local IP address,
+for example, from a real IP address of a client:
+<example>
+grpc_bind $remote_addr transparent;
+</example>
+In order for this parameter to work,
+it is usually necessary to run nginx worker processes with the
+<link doc="../ngx_core_module.xml" id="user">superuser</link> privileges.
+On Linux it is not required as if
+the <literal>transparent</literal> parameter is specified, worker processes
+inherit the <literal>CAP_NET_RAW</literal> capability from the master process.
+It is also necessary to configure kernel routing table
+to intercept network traffic from the gRPC server.
+</para>
+
+</directive>
+
+
+<directive name="grpc_buffer_size">
+<syntax><value>size</value></syntax>
+<default>4k|8k</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Sets the <value>size</value> of the buffer used for reading the response
+received from the gRPC server.
+The response is passed to the client synchronously, as soon as it is received.
+</para>
+
+</directive>
+
+
+<directive name="grpc_connect_timeout">
+<syntax><value>time</value></syntax>
+<default>60s</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Defines a timeout for establishing a connection with a gRPC server.
+It should be noted that this timeout cannot usually exceed 75 seconds.
+</para>
+
+</directive>
+
+
+<directive name="grpc_hide_header">
+<syntax><value>field</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+By default,
+nginx does not pass the header fields <header>Date</header>,
+<header>Server</header>, and
+<header>X-Accel-...</header> from the response of a gRPC
+server to a client.
+The <literal>grpc_hide_header</literal> directive sets additional fields
+that will not be passed.
+If, on the contrary, the passing of fields needs to be permitted,
+the <link id="grpc_pass_header"/> directive can be used.
+</para>
+
+</directive>
+
+
+<directive name="grpc_ignore_headers">
+<syntax><value>field</value> ...</syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Disables processing of certain response header fields from the gRPC server.
+The following fields can be ignored: <header>X-Accel-Redirect</header>
+and <header>X-Accel-Charset</header>.
+</para>
+
+<para>
+If not disabled, processing of these header fields has the following
+effect:
+<list type="bullet" compact="no">
+
+<listitem>
+<header>X-Accel-Redirect</header> performs an
+<link doc="ngx_http_core_module.xml" id="internal">internal
+redirect</link> to the specified URI;
+</listitem>
+
+<listitem>
+<header>X-Accel-Charset</header> sets the desired
+<link doc="ngx_http_charset_module.xml" id="charset"/>
+of a response.
+</listitem>
+
+</list>
+</para>
+
+</directive>
+
+
+<directive name="grpc_intercept_errors">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Determines whether gRPC server responses with codes greater than or equal
+to 300 should be passed to a client
+or be intercepted and redirected to nginx for processing
+with the <link doc="ngx_http_core_module.xml" id="error_page"/> directive.
+</para>
+
+</directive>
+
+
+<directive name="grpc_next_upstream">
+<syntax>
+    <literal>error</literal> |
+    <literal>timeout</literal> |
+    <literal>invalid_header</literal> |
+    <literal>http_500</literal> |
+    <literal>http_502</literal> |
+    <literal>http_503</literal> |
+    <literal>http_504</literal> |
+    <literal>http_403</literal> |
+    <literal>http_404</literal> |
+    <literal>http_429</literal> |
+    <literal>non_idempotent</literal> |
+    <literal>off</literal>
+    ...</syntax>
+<default>error timeout</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Specifies in which cases a request should be passed to the next server:
+<list type="tag">
+
+<tag-name><literal>error</literal></tag-name>
+<tag-desc>an error occurred while establishing a connection with the
+server, passing a request to it, or reading the response header;</tag-desc>
+
+<tag-name><literal>timeout</literal></tag-name>
+<tag-desc>a timeout has occurred while establishing a connection with the
+server, passing a request to it, or reading the response header;</tag-desc>
+
+<tag-name><literal>invalid_header</literal></tag-name>
+<tag-desc>a server returned an empty or invalid response;</tag-desc>
+
+<tag-name><literal>http_500</literal></tag-name>
+<tag-desc>a server returned a response with the code 500;</tag-desc>
+
+<tag-name><literal>http_502</literal></tag-name>
+<tag-desc>a server returned a response with the code 502;</tag-desc>
+
+<tag-name><literal>http_503</literal></tag-name>
+<tag-desc>a server returned a response with the code 503;</tag-desc>
+
+<tag-name><literal>http_504</literal></tag-name>
+<tag-desc>a server returned a response with the code 504;</tag-desc>
+
+<tag-name><literal>http_403</literal></tag-name>
+<tag-desc>a server returned a response with the code 403;</tag-desc>
+
+<tag-name><literal>http_404</literal></tag-name>
+<tag-desc>a server returned a response with the code 404;</tag-desc>
+
+<tag-name><literal>http_429</literal></tag-name>
+<tag-desc>a server returned a response with the code 429;</tag-desc>
+
+<tag-name id="non_idempotent"><literal>non_idempotent</literal></tag-name>
+<tag-desc>normally, requests with a
+<link url="https://tools.ietf.org/html/rfc7231#section-4.2.2">non-idempotent</link>
+method
+(<literal>POST</literal>, <literal>LOCK</literal>, <literal>PATCH</literal>)
+are not passed to the next server
+if a request has been sent to an upstream server;
+enabling this option explicitly allows retrying such requests;
+</tag-desc>
+
+<tag-name><literal>off</literal></tag-name>
+<tag-desc>disables passing a request to the next server.</tag-desc>
+
+</list>
+</para>
+
+<para>
+One should bear in mind that passing a request to the next server is
+only possible if nothing has been sent to a client yet.
+That is, if an error or timeout occurs in the middle of the
+transferring of a response, fixing this is impossible.
+</para>
+
+<para>
+The directive also defines what is considered an
+<link doc="ngx_http_upstream_module.xml" id="max_fails">unsuccessful
+attempt</link> of communication with a server.
+The cases of <literal>error</literal>, <literal>timeout</literal> and
+<literal>invalid_header</literal> are always considered unsuccessful attempts,
+even if they are not specified in the directive.
+The cases of <literal>http_500</literal>, <literal>http_502</literal>,
+<literal>http_503</literal>, <literal>http_504</literal>,
+and <literal>http_429</literal> are
+considered unsuccessful attempts only if they are specified in the directive.
+The cases of <literal>http_403</literal> and <literal>http_404</literal>
+are never considered unsuccessful attempts.
+</para>
+
+<para>
+Passing a request to the next server can be limited by
+<link id="grpc_next_upstream_tries">the number of tries</link>
+and by <link id="grpc_next_upstream_timeout">time</link>.
+</para>
+
+</directive>
+
+
+<directive name="grpc_next_upstream_timeout">
+<syntax><value>time</value></syntax>
+<default>0</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Limits the time during which a request can be passed to the
+<link id="grpc_next_upstream">next server</link>.
+The <literal>0</literal> value turns off this limitation.
+</para>
+
+</directive>
+
+
+<directive name="grpc_next_upstream_tries">
+<syntax><value>number</value></syntax>
+<default>0</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Limits the number of possible tries for passing a request to the
+<link id="grpc_next_upstream">next server</link>.
+The <literal>0</literal> value turns off this limitation.
+</para>
+
+</directive>
+
+
+<directive name="grpc_pass">
+<syntax><value>address</value></syntax>
+<default/>
+<context>location</context>
+<context>if in location</context>
+
+<para>
+Sets the gRPC server address.
+The address can be specified as a domain name or IP address,
+and a port:
+<example>
+grpc_pass localhost:9000;
+</example>
+or as a UNIX-domain socket path:
+<example>
+grpc_pass unix:/tmp/grpc.socket;
+</example>
+Alternatively, the “<literal>grpc://</literal>” scheme can be used:
+<example>
+grpc_pass grpc://127.0.0.1:9000;
+</example>
+To use gRPC over SSL, the “<literal>grpcs://</literal>” scheme should be used:
+<example>
+grpc_pass grpcs://127.0.0.1:443;
+</example>
+</para>
+
+<para>
+If a domain name resolves to several addresses, all of them will be
+used in a round-robin fashion.
+In addition, an address can be specified as a
+<link doc="ngx_http_upstream_module.xml">server group</link>.
+</para>
+
+</directive>
+
+
+<directive name="grpc_pass_header">
+<syntax><value>field</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Permits passing <link id="grpc_hide_header">otherwise disabled</link> header
+fields from a gRPC server to a client.
+</para>
+
+</directive>
+
+
+<directive name="grpc_read_timeout">
+<syntax><value>time</value></syntax>
+<default>60s</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Defines a timeout for reading a response from the gRPC server.
+The timeout is set only between two successive read operations,
+not for the transmission of the whole response.
+If the gRPC server does not transmit anything within this time,
+the connection is closed.
+</para>
+
+</directive>
+
+
+<directive name="grpc_send_timeout">
+<syntax><value>time</value></syntax>
+<default>60s</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Sets a timeout for transmitting a request to the gRPC server.
+The timeout is set only between two successive write operations,
+not for the transmission of the whole request.
+If the gRPC server does not receive anything within this time,
+the connection is closed.
+</para>
+
+</directive>
+
+
+<directive name="grpc_set_header">
+<syntax><value>field</value> <value>value</value></syntax>
+<default>Content-Length $content_length</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Allows redefining or appending fields to the request header
+<link id="grpc_pass_request_headers">passed</link> to the gRPC server.
+The <value>value</value> can contain text, variables, and their combinations.
+These directives are inherited from the previous level if and
+only if there are no
+<literal>grpc_set_header</literal>
+directives defined on the current level.
+</para>
+
+<para>
+If the value of a header field is an empty string then this
+field will not be passed to a gRPC server:
+<example>
+grpc_set_header Accept-Encoding "";
+</example>
+</para>
+
+</directive>
+
+
+<directive name="grpc_ssl_certificate">
+<syntax><value>file</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Specifies a <value>file</value> with the certificate in the PEM format
+used for authentication to a gRPC SSL server.
+</para>
+
+</directive>
+
+
+<directive name="grpc_ssl_certificate_key">
+<syntax><value>file</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Specifies a <value>file</value> with the secret key in the PEM format
+used for authentication to a gRPC SSL server.
+</para>
+
+<para>
+The value
+<literal>engine</literal>:<value>name</value>:<value>id</value>
+can be specified instead of the <value>file</value>,
+which loads a secret key with a specified <value>id</value>
+from the OpenSSL engine <value>name</value>.
+</para>
+
+</directive>
+
+
+<directive name="grpc_ssl_ciphers">
+<syntax><value>ciphers</value></syntax>
+<default>DEFAULT</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Specifies the enabled ciphers for requests to a gRPC SSL server.
+The ciphers are specified in the format understood by the OpenSSL library.
+</para>
+
+<para>
+The full list can be viewed using the
+“<command>openssl ciphers</command>” command.
+</para>
+
+</directive>
+
+
+<directive name="grpc_ssl_crl">
+<syntax><value>file</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Specifies a <value>file</value> with revoked certificates (CRL)
+in the PEM format used to <link id="grpc_ssl_verify">verify</link>
+the certificate of the gRPC SSL server.
+</para>
+
+</directive>
+
+
+<directive name="grpc_ssl_name">
+<syntax><value>name</value></syntax>
+<default>host from grpc_pass</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Allows overriding the server name used to
+<link id="grpc_ssl_verify">verify</link>
+the certificate of the gRPC SSL server and to be
+<link id="grpc_ssl_server_name">passed through SNI</link>
+when establishing a connection with the gRPC SSL server.
+</para>
+
+<para>
+By default, the host part from <link id="grpc_pass"/> is used.
+</para>
+
+</directive>
+
+
+<directive name="grpc_ssl_password_file">
+<syntax><value>file</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Specifies a <value>file</value> with passphrases for
+<link id="grpc_ssl_certificate_key">secret keys</link>
+where each passphrase is specified on a separate line.
+Passphrases are tried in turn when loading the key.
+</para>
+
+</directive>
+
+
+<directive name="grpc_ssl_server_name">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Enables or disables passing of the server name through
+<link url="http://en.wikipedia.org/wiki/Server_Name_Indication">TLS
+Server Name Indication extension</link> (SNI, RFC 6066)
+when establishing a connection with the gRPC SSL server.
+</para>
+
+</directive>
+
+
+<directive name="grpc_ssl_session_reuse">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>on</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Determines whether SSL sessions can be reused when working with
+the gRPC server.
+If the errors
+“<literal>SSL3_GET_FINISHED:digest check failed</literal>”
+appear in the logs, try disabling session reuse.
+</para>
+
+</directive>
+
+
+<directive name="grpc_ssl_protocols">
+<syntax>
+    [<literal>SSLv2</literal>]
+    [<literal>SSLv3</literal>]
+    [<literal>TLSv1</literal>]
+    [<literal>TLSv1.1</literal>]
+    [<literal>TLSv1.2</literal>]
+    [<literal>TLSv1.3</literal>]</syntax>
+<default>TLSv1 TLSv1.1 TLSv1.2</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Enables the specified protocols for requests to a gRPC SSL server.
+</para>
+
+</directive>
+
+
+<directive name="grpc_ssl_trusted_certificate">
+<syntax><value>file</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Specifies a <value>file</value> with trusted CA certificates in the PEM format
+used to <link id="grpc_ssl_verify">verify</link>
+the certificate of the gRPC SSL server.
+</para>
+
+</directive>
+
+
+<directive name="grpc_ssl_verify">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Enables or disables verification of the gRPC SSL server certificate.
+</para>
+
+</directive>
+
+
+<directive name="grpc_ssl_verify_depth">
+<syntax><value>number</value></syntax>
+<default>1</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Sets the verification depth in the gRPC SSL server certificates chain.
+</para>
+
+</directive>
+
+</section>
+
+</module>

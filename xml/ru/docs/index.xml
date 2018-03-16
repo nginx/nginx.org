@@ -8,7 +8,7 @@
 <article name="nginx: документация"
          link="/ru/docs/"
          lang="ru"
-         rev="43"
+         rev="44"
          toc="no">
 
 
@@ -287,6 +287,11 @@ ngx_http_geo_module</link>
 <listitem>
 <link doc="http/ngx_http_geoip_module.xml">
 ngx_http_geoip_module</link>
+</listitem>
+
+<listitem>
+<link doc="http/ngx_http_grpc_module.xml">
+ngx_http_grpc_module</link>
 </listitem>
 
 <listitem>
