@@ -33,9 +33,7 @@ configuration parameter.
 <section id="example" name="Example Configuration">
 
 <para>
-
 Selecting an upstream based on server name:
-
 <example>
 map $ssl_preread_server_name $name {
     backend.example.com      backend;
@@ -53,14 +51,15 @@ upstream backend2 {
 }
 
 server {
-    listen       12346;
-    proxy_pass   $name;
-    ssl_preread  on;
+    listen      12346;
+    proxy_pass  $name;
+    ssl_preread on;
 }
 </example>
+</para>
 
+<para>
 Selecting an upstream based on protocol:
-
 <example>
 map $ssl_preread_alpn_protocols $proxy {
     ~\bh2\b           127.0.0.1:8001;
@@ -69,9 +68,9 @@ map $ssl_preread_alpn_protocols $proxy {
 }
 
 server {
-    listen       9000;
-    proxy_pass   $proxy;
-    ssl_preread  on;
+    listen      9000;
+    proxy_pass  $proxy;
+    ssl_preread on;
 }
 </example>
 
@@ -110,10 +109,8 @@ server name requested through SNI
 
 <tag-name id="var_ssl_preread_alpn_protocols"><var>$ssl_preread_alpn_protocols</var></tag-name>
 <tag-desc>
-list of protocols advertised by the client through ALPN (1.13.10)
-<para>
+list of protocols advertised by the client through ALPN (1.13.10).
 The values are separated by commas.
-</para>
 </tag-desc>
 
 </list>
