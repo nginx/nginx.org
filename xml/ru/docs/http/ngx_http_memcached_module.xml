@@ -51,7 +51,7 @@ server {
 <directive name="memcached_bind">
 <syntax>
     <value>адрес</value>
-    [ <literal>transparent </literal>] |
+    [<literal>transparent </literal>] |
     <literal>off</literal></syntax>
 <default/>
 <context>http</context>
