@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="74">
+        rev="75">
 
 <section id="directives" name="Directives">
 
@@ -2565,6 +2565,32 @@ the signature on error pages and
 the <header>Server</header> response header field value
 can be set explicitly using the <value>string</value> with variables.
 An empty string disables the emission of the <header>Server</header> field.
+</para>
+
+</directive>
+
+
+<directive name="subrequest_output_buffer_size">
+<syntax><value>size</value></syntax>
+<default>4k|8k</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.13.10</appeared-in>
+
+<para>
+Sets the <value>size</value> of the buffer used for
+storing the response body of a subrequest.
+By default, the buffer size is equal to one memory page.
+This is either 4K or 8K, depending on a platform.
+It can be made smaller, however.
+</para>
+
+<para>
+The directive is applicable only for subrequests
+with response bodies saved into memory.
+For example, such subrequests are created by
+<link doc="ngx_http_ssi_module.xml" id="ssi_include_set">SSI</link>.
 </para>
 
 </directive>

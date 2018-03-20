@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_ssi_module"
         link="/ru/docs/http/ngx_http_ssi_module.html"
         lang="ru"
-        rev="8">
+        rev="9">
 
 <section id="summary">
 
@@ -362,7 +362,7 @@ SSI, например:
 </example>
 </tag-desc>
 
-<tag-name><literal>set</literal></tag-name>
+<tag-name id="ssi_include_set"><literal>set</literal></tag-name>
 <tag-desc>
 нестандартный параметр, указывающий, что удачный
 результат выполнения запроса нужно записать в заданную переменную,
@@ -370,13 +370,24 @@ SSI, например:
 <example>
 &lt;!--# include virtual="/remote/body.php?argument=value" set="one" --&gt;
 </example>
-Необходимо учитывать, что в переменные можно записать только результаты
+Максимальный размер ответа задаётся значением
+<link doc="ngx_http_core_module.xml" id="subrequest_output_buffer_size"/>
+в целевом location (1.13.10).
+<para>
+До версии 1.13.10 в переменные можно было записать только результаты
 ответов, полученные через модули
 <link doc="ngx_http_proxy_module.xml">ngx_http_proxy_module</link>,
 <link doc="ngx_http_memcached_module.xml">ngx_http_memcached_module</link>,
 <link doc="ngx_http_fastcgi_module.xml">ngx_http_fastcgi_module</link> (1.5.6),
 <link doc="ngx_http_uwsgi_module.xml">ngx_http_uwsgi_module</link> (1.5.6)
 и <link doc="ngx_http_scgi_module.xml">ngx_http_scgi_module</link> (1.5.6).
+Максимальный размер ответа задавался при помощи директив
+<link doc="ngx_http_proxy_module.xml" id="proxy_buffer_size"/>,
+<link doc="ngx_http_memcached_module.xml" id="memcached_buffer_size"/>,
+<link doc="ngx_http_fastcgi_module.xml" id="fastcgi_buffer_size"/>,
+<link doc="ngx_http_uwsgi_module.xml" id="uwsgi_buffer_size"/>
+и <link doc="ngx_http_scgi_module.xml" id="scgi_buffer_size"/>.
+</para>
 </tag-desc>
 
 </list>

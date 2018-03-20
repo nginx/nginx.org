@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="74">
+        rev="75">
 
 <section id="directives" name="Директивы">
 
@@ -2568,6 +2568,32 @@ server {
 значение поля <header>Server</header> заголовка ответа
 можно задать явно с помощью строки с переменными.
 Пустая строка запрещает выдачу поля <header>Server</header>.
+</para>
+
+</directive>
+
+
+<directive name="subrequest_output_buffer_size">
+<syntax><value>размер</value></syntax>
+<default>4k|8k</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.13.10</appeared-in>
+
+<para>
+Задаёт <value>размер</value> буфера, используемого для
+хранения тела ответа подзапроса.
+По умолчанию размер одного буфера равен размеру страницы памяти.
+В зависимости от платформы это или 4K, или 8K,
+однако его можно сделать меньше.
+</para>
+
+<para>
+Директива применима только для подзапросов,
+тело ответа которых сохраняется в памяти.
+Например, подобные подзапросы создаются при помощи
+<link doc="ngx_http_ssi_module.xml" id="ssi_include_set">SSI</link>.
 </para>
 
 </directive>
