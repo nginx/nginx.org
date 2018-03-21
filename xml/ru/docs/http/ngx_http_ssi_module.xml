@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_ssi_module"
         link="/ru/docs/http/ngx_http_ssi_module.html"
         lang="ru"
-        rev="9">
+        rev="10">
 
 <section id="summary">
 
@@ -370,10 +370,15 @@ SSI, например:
 <example>
 &lt;!--# include virtual="/remote/body.php?argument=value" set="one" --&gt;
 </example>
-Максимальный размер ответа задаётся значением
+Максимальный размер ответа задаётся директивой
 <link doc="ngx_http_core_module.xml" id="subrequest_output_buffer_size"/>
-в целевом location (1.13.10).
-<para>
+(1.13.10):
+<example>
+location /remote {
+    subrequest_output_buffer_size 64k;
+    ...
+}
+</example>
 До версии 1.13.10 в переменные можно было записать только результаты
 ответов, полученные через модули
 <link doc="ngx_http_proxy_module.xml">ngx_http_proxy_module</link>,
@@ -387,7 +392,6 @@ SSI, например:
 <link doc="ngx_http_fastcgi_module.xml" id="fastcgi_buffer_size"/>,
 <link doc="ngx_http_uwsgi_module.xml" id="uwsgi_buffer_size"/>
 и <link doc="ngx_http_scgi_module.xml" id="scgi_buffer_size"/>.
-</para>
 </tag-desc>
 
 </list>
