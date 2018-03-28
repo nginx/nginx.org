@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="76">
+        rev="77">
 
 <section id="directives" name="Directives">
 
@@ -1308,6 +1308,9 @@ The <literal>proxy_protocol</literal> parameter (1.5.12)
 allows specifying that all connections accepted on this port should use the
 <link url="http://www.haproxy.org/download/1.5/doc/proxy-protocol.txt">PROXY
 protocol</link>.
+<note>
+The PROXY protocol version 2 is supported since version 1.13.11.
+</note>
 </para>
 
 <para>

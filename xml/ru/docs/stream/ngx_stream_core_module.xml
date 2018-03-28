@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_core_module"
         link="/ru/docs/stream/ngx_stream_core_module.html"
         lang="ru"
-        rev="23">
+        rev="24">
 
 <section id="summary">
 
@@ -132,6 +132,9 @@ listen unix:/var/run/nginx.sock;
 должны использовать
 <link url="http://www.haproxy.org/download/1.5/doc/proxy-protocol.txt">протокол
 PROXY</link>.
+<note>
+Протокол PROXY версии 2 поддерживается начиная с версии 1.13.11.
+</note>
 </para>
 
 <para>

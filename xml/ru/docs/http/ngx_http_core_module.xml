@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="76">
+        rev="77">
 
 <section id="directives" name="Директивы">
 
@@ -1302,6 +1302,9 @@ SPDY-соединений без SSL.
 должны использовать
 <link url="http://www.haproxy.org/download/1.5/doc/proxy-protocol.txt">протокол
 PROXY</link>.
+<note>
+Протокол PROXY версии 2 поддерживается начиная с версии 1.13.11.
+</note>
 </para>
 
 <para>
