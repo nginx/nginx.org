@@ -6,19 +6,19 @@
 
 <!DOCTYPE article SYSTEM "../../../dtd/article.dtd">
 
-<article name="Информация о nginScript"
+<article name="Информация о njs"
         link="/ru/docs/njs_about.html"
         lang="ru"
-        rev="13">
+        rev="14">
 
 <section id="summary">
 
 <para>
-nginScript - это подмножество языка JavaScript, который позволяет
+njs - это подмножество языка JavaScript, который позволяет
 задавать обработчики location и переменных в
 <link doc="http/ngx_http_js_module.xml">http</link> и
 <link doc="stream/ngx_stream_js_module.xml">stream</link>.
-nginScript совместим с
+njs совместим с
 <link url="http://www.ecma-international.org/ecma-262/5.1/">ECMAScript 5.1</link>
 c некоторыми расширениями
 <link url="http://www.ecma-international.org/ecma-262/6.0/">ECMAScript 6</link>.
@@ -228,7 +228,7 @@ labels
 <section id="install" name="Загрузка и установка">
 
 <para>
-nginScript доступен в двух модулях:
+njs доступен в двух модулях:
 <list type="bullet">
 
 <listitem>
@@ -248,14 +248,14 @@ nginScript доступен в двух модулях:
 
 <section id="install_package" name="Установка пакета Linux">
 <para>
-Для установки модулей nginScript на Linux могут быть использованы
+Для установки модулей njs на Linux могут быть использованы
 <link doc="../linux_packages.xml" id="dynmodules">пакеты</link>:
 <list type="bullet">
 
 <listitem>
 <literal>nginx-module-njs</literal> —
 <link doc="ngx_core_module.xml" id="load_module">динамические</link> модули
-nginScript
+njs
 </listitem>
 
 <listitem>
@@ -273,7 +273,7 @@ nginScript
 
 <para>
 <link url="http://hg.nginx.org/njs">Репозиторий</link>
-с исходным кодом nginScript можно клонировать следующей командой:
+с исходным кодом njs можно клонировать следующей командой:
 (необходим клиент <link url="https://www.mercurial-scm.org">Mercurial</link>):
 <example>
 hg clone http://hg.nginx.org/njs

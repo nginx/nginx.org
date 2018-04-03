@@ -9,25 +9,25 @@
 <module name="Module ngx_stream_js_module"
         link="/en/docs/stream/ngx_stream_js_module.html"
         lang="en"
-        rev="8">
+        rev="9">
 
 <section id="summary">
 
 <para>
 The <literal>ngx_stream_js_module</literal> module is used to implement
-handlers in <link doc="../njs_about.xml">nginScript</link> —
+handlers in <link doc="../njs_about.xml">njs</link> —
 a subset of the JavaScript language.
 </para>
 
 <para>
 This module is not built by default, it should be compiled with
-the nginScript module using the
+the njs module using the
 <literal>--add-module</literal> configuration parameter:
 <example>
 ./configure --add-module=<value>path-to-njs</value>/nginx
 </example>
 The <link url="http://hg.nginx.org/njs">repository</link>
-with the nginScript module can be cloned with the following command
+with the njs module can be cloned with the following command
 (requires <link url="https://www.mercurial-scm.org">Mercurial</link> client):
 <example>
 hg clone http://hg.nginx.org/njs
@@ -168,7 +168,7 @@ function xyz(s) {
 <context>server</context>
 
 <para>
-Sets an nginScript function which will be called at the
+Sets an njs function which will be called at the
 <link doc="stream_processing.xml" id="access_phase">access</link> phase.
 </para>
 
@@ -194,7 +194,7 @@ Sets a data filter.
 <context>stream</context>
 
 <para>
-Specifies a file that implements server and variable handlers in nginScript.
+Specifies a file that implements server and variable handlers in njs.
 </para>
 
 </directive>
@@ -207,7 +207,7 @@ Specifies a file that implements server and variable handlers in nginScript.
 <context>server</context>
 
 <para>
-Sets an nginScript function which will be called at the
+Sets an njs function which will be called at the
 <link doc="stream_processing.xml" id="preread_phase">preread</link> phase.
 </para>
 
@@ -221,7 +221,7 @@ Sets an nginScript function which will be called at the
 <context>stream</context>
 
 <para>
-Sets an nginScript function for the specified variable.
+Sets an njs function for the specified variable.
 </para>
 
 </directive>
@@ -231,7 +231,7 @@ Sets an nginScript function for the specified variable.
 
 <section id="properties" name="Session Object Properties">
 <para>
-Each stream nginScript handler receives one argument, a stream session object.
+Each stream njs handler receives one argument, a stream session object.
 </para>
 
 <para>
