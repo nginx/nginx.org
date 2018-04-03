@@ -122,6 +122,7 @@ REFS =									\
 		stream/stream_processing				\
 		ngx_google_perftools_module				\
 		dev/development_guide					\
+		njs/njs_changes						\
 
 TOP =									\
 		download						\

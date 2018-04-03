@@ -1,0 +1,576 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE article SYSTEM "../../../../dtd/article.dtd">
+
+<article name="njs Changes"
+        link="/en/docs/njs/njs_changes.html"
+        lang="en"
+        rev="1"
+        toc="no">
+
+<section id="njs0.2.0" name="Changes with 0.2.0">
+
+<para>
+Release Date:
+3 Apr 2018
+</para>
+
+<para>
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+reporting njs version by CLI.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+textual description for type converting exceptions.
+</para>
+</listitem>
+
+<listitem>
+Feature:
+<literal>setTimeout()</literal> and
+<literal>clearTimeout() </literal> methods.
+</listitem>
+
+<listitem>
+<para>
+Feature:
+Byte string to
+<literal>hex</literal>,
+<literal>base64</literal>,
+<literal>base64url</literal> encodings.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+<link url="https://nodejs.org/api/crypto.html#crypto_class_hash">Node.js style</link>
+<literal>Crypto</literal> methods.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+HTTP and stream
+<literal>warn()</literal> and
+<literal>error()</literal> methods.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+HTTP <literal>subrequest()</literal> method.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+HTTP <literal>return()</literal> method.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+miscellaneous bugs have been fixed in the core and
+interactive shell.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+<section id="njs0.1.15" name="Changes with 0.1.15">
+
+<para>
+Release Date:
+20 Nov 2017
+</para>
+
+<para>
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+<literal>Error</literal>,
+<literal>EvalError</literal>,
+<literal>InternalError</literal>,
+<literal>RangeError</literal>,
+<literal>ReferenceError</literal>,
+<literal>SyntaxError</literal>,
+<literal>TypeError</literal>,
+<literal>URIError</literal> objects.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+octal literals support.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+File system access
+(<link url="https://nodejs.org/api/fs.html#fs_file_system">Node.js style</link>)
+<literal>fs.readFile()</literal>,
+<literal>fs.readFileSync()</literal>,
+<literal>fs.appendFile()</literal>,
+<literal>fs.appendFileSync()</literal>,
+<literal>fs.writeFile()</literal>,
+<literal>fs.writeFileSync()</literal>
+methods.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+nginx modules print backtrace on exception.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+miscellaneous bugs have been fixed.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+
+<section id="njs0.1.14" name="Changes with 0.1.14">
+
+<para>
+Release Date:
+09 Oct 2017
+</para>
+
+<para>
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+JSON object.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+object level completions in interactive shell.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+various configure improvements.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+miscellaneous bugs have been fixed in the core and
+interactive shell.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+
+<section id="njs0.1.13" name="Changes with 0.1.13">
+
+<para>
+Release Date:
+31 Aug 2017
+</para>
+
+<para>
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+<literal>console.log()</literal> and
+<literal>console.help()</literal>
+methods in interactive shell.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+interactive shell prints backtrace on exception.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+interactive shell by default
+if <literal>libedit</literal> is available.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+processing of large files from
+<literal>stdin</literal> in command line mode.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+improved <literal>editline</literal> detection.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+
+<section id="njs0.1.12" name="Changes with 0.1.12">
+
+<para>
+Release Date:
+08 Aug 2017
+</para>
+
+<para>
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+Interactive shell.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+in <literal>Object.isSealed()</literal>.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+
+<section id="njs0.1.11" name="Changes with 0.1.11">
+
+<para>
+Release Date:
+27 Jun 2017
+</para>
+
+<para>
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+<literal>Object.keys()</literal>,
+<literal>Object.prototype.hasOwnProperty()</literal>
+methods.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+<literal>Object.defineProperty()</literal>,
+<literal>Object.defineProperties()</literal>,
+<literal>Object.getOwnPropertyDescriptor()</literal>
+methods.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+<literal>Object.getPrototypeOf()</literal>,
+<literal>Object.prototype.isPrototypeOf()</literal>
+methods.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+<literal>Object.preventExtensions()</literal>,
+<literal>Object.isExtensible()</literal>,
+<literal>Object.freeze()</literal>,
+<literal>Object.isFrozen()</literal>,
+<literal>Object.seal()</literal>,
+<literal>Object.isSealed()</literal>
+methods.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+scientific notation literals support.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+hexadecimal literals support.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+processing of large array indexes.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+in <literal>parseInt()</literal> and
+<literal>Date.parse()</literal>.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+
+<section id="njs0.1.10" name="Changes with 0.1.10">
+
+<para>
+Release Date:
+04 Apr 2017
+</para>
+
+<para>
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+nested functions and function closures.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+<literal>Array.of()</literal>,
+<literal>Array.prototype.fill()</literal>,
+<literal>Array.prototype.find()</literal>,
+<literal>Array.prototype.findIndex()</literal>
+methods.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+miscellaneous bugs and segmentation faults have been fixed.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+
+<section id="njs0.1.9" name="Changes with 0.1.9">
+
+<para>
+Release Date:
+01 Feb 2017
+</para>
+
+<para>
+<list type="bullet">
+
+<listitem>
+<para>
+Bugfix:
+global variables were not initialized when nJScript was used
+in nginx.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+
+<section id="njs0.1.8" name="Changes with 0.1.8">
+
+<para>
+Release Date:
+24 Jan 2017
+</para>
+
+<para>
+<list type="bullet">
+
+<listitem>
+<para>
+Change:
+the <literal>strict</literal> mode is enforced,
+variables must be explicitly declared.
+</para>
+</listitem>
+
+
+<listitem>
+<para>
+Feature:
+<literal>for</literal> and
+<literal>for-in</literal> loops support variable declaration.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+global and function scopes have been fixed.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+now <literal>for-in</literal> loop does not discard the last value
+of property variable.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+miscellaneous bugs and segmentation faults have been fixed.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+
+<section id="njs0.1.7" name="Changes with 0.1.7">
+
+<para>
+Release Date:
+27 Dec 2016
+</para>
+
+<para>
+<list type="bullet">
+
+<listitem>
+<para>
+Change:
+the <link doc="../http/ngx_http_js_module.xml" id="js_include"/> directive
+has been disabled at server and location levels.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+exponentiation operators.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+miscellaneous bugs and segmentation faults have been fixed.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+
+<section id="njs0.1.6" name="Changes with 0.1.6">
+
+<para>
+Release Date:
+13 Dec 2016
+</para>
+
+<para>
+<list type="bullet">
+
+<listitem>
+<para>
+Change:
+the <link doc="../http/ngx_http_js_module.xml" id="js_set"/> directive
+has been disabled at server and location levels.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+ES6 <literal>Math</literal> methods.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+miscellaneous bugs and segmentation faults have been fixed.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+</article>
