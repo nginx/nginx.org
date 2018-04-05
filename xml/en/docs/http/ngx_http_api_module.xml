@@ -2391,13 +2391,13 @@ Same as the <link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.h
 Same as the <link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#max_fails">max_fails</link> parameter of the HTTP upstream server.
 </tag-desc>
 <tag-name>
-<literal>fail_timeout</literal> (<literal>integer</literal>)
+<literal>fail_timeout</literal> (<literal>string</literal>)
 </tag-name>
 <tag-desc>
 Same as the <link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#fail_timeout">fail_timeout</link> parameter of the HTTP upstream server.
 </tag-desc>
 <tag-name>
-<literal>slow_start</literal> (<literal>integer</literal>)
+<literal>slow_start</literal> (<literal>string</literal>)
 </tag-name>
 <tag-desc>
 Same as the <link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#slow_start">slow_start</link> parameter of the HTTP upstream server.
@@ -2818,13 +2818,13 @@ Same as the <link url="https://nginx.org/en/docs/stream/ngx_stream_upstream_modu
 Same as the <link url="https://nginx.org/en/docs/stream/ngx_stream_upstream_module.html#max_fails">max_fails</link> parameter of the stream upstream server.
 </tag-desc>
 <tag-name>
-<literal>fail_timeout</literal> (<literal>integer</literal>)
+<literal>fail_timeout</literal> (<literal>string</literal>)
 </tag-name>
 <tag-desc>
 Same as the <link url="https://nginx.org/en/docs/stream/ngx_stream_upstream_module.html#fail_timeout">fail_timeout</link> parameter of the stream upstream server.
 </tag-desc>
 <tag-name>
-<literal>slow_start</literal> (<literal>integer</literal>)
+<literal>slow_start</literal> (<literal>string</literal>)
 </tag-name>
 <tag-desc>
 Same as the <link url="https://nginx.org/en/docs/stream/ngx_stream_upstream_module.html#slow_start">slow_start</link> parameter of the stream upstream server.

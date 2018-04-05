@@ -2527,12 +2527,12 @@ definitions:
           <a href="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#max_fails">max_fails</a>
           parameter of the HTTP upstream server.
       fail_timeout:
-        type: integer
+        type: string
         description: Same as the
           <a href="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#fail_timeout">fail_timeout</a>
           parameter of the HTTP upstream server.
       slow_start:
-        type: integer
+        type: string
         description: Same as the
           <a href="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#slow_start">slow_start</a>
           parameter of the HTTP upstream server.
@@ -3074,12 +3074,12 @@ definitions:
           <a href="https://nginx.org/en/docs/stream/ngx_stream_upstream_module.html#max_fails">max_fails</a>
           parameter of the stream upstream server.
       fail_timeout:
-        type: integer
+        type: string
         description: Same as the
           <a href="https://nginx.org/en/docs/stream/ngx_stream_upstream_module.html#fail_timeout">fail_timeout</a>
           parameter of the stream upstream server.
       slow_start:
-        type: integer
+        type: string
         description: Same as the
           <a href="https://nginx.org/en/docs/stream/ngx_stream_upstream_module.html#slow_start">slow_start</a>
           parameter of the stream upstream server.
