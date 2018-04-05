@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_js_module"
         link="/ru/docs/stream/ngx_stream_js_module.html"
         lang="ru"
-        rev="9">
+        rev="10">
 
 <section id="summary">
 
@@ -305,6 +305,7 @@ true, если текущий буфер является буфером от п
 <tag-name><literal>log(<value>строка</value>)</literal></tag-name>
 <tag-desc>
 записывает отправленную <value>строку</value> в лог-файл ошибок
+на уровне лога <literal>info</literal>
 </tag-desc>
 </list>
 </para>

@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_js_module"
         link="/en/docs/stream/ngx_stream_js_module.html"
         lang="en"
-        rev="9">
+        rev="10">
 
 <section id="summary">
 
@@ -300,6 +300,7 @@ The session object has the following methods:
 <tag-name><literal>log(<value>string</value>)</literal></tag-name>
 <tag-desc>
 writes a sent <value>string</value> to the error log
+on the <literal>info</literal> level of logging
 </tag-desc>
 </list>
 </para>

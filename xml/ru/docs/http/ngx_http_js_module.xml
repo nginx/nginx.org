@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_js_module"
         link="/ru/docs/http/ngx_http_js_module.html"
         lang="ru"
-        rev="8">
+        rev="9">
 
 <section id="summary">
 
@@ -212,6 +212,7 @@ function baz(req, res) {
 <tag-name><literal>log(<value>строка</value>)</literal></tag-name>
 <tag-desc>
 записывает <literal>строку</literal> в лог-файл ошибок
+на уровне лога <literal>info</literal>
 </tag-desc>
 </list>
 </para>
