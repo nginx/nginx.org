@@ -20,8 +20,8 @@
 
     <div id="banner">
         <xsl:if test="@lang = 'he'"> <xsl:attribute name="class"> <xsl:text>ltr</xsl:text> </xsl:attribute> </xsl:if>
-        Introducing NGINX 1.13.10 with gRPC support.<br/>
-        <a href="https://www.nginx.com/blog/nginx-1-13-10-grpc/">Learn more</a>
+        Simplify your journey to microservices with the new NGINX Application Platform.<br/>
+        <a href="https://www.nginx.com/blog/updating-nginx-application-platform/">Learn more</a>
     </div>
 
     <div id="main">
