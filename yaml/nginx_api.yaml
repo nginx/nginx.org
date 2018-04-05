@@ -3156,7 +3156,7 @@ definitions:
         type: object
         properties:
           status:
-            type: string
+            type: integer
             description: HTTP error code.
           text:
             type: string
