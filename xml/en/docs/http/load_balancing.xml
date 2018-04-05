@@ -9,7 +9,7 @@
 <article name="Using nginx as HTTP load balancer"
          link="/en/docs/http/load_balancing.html"
          lang="en"
-         rev="4">
+         rev="5">
 
 <section name="Introduction">
 
@@ -95,7 +95,7 @@ balancing to distribute the requests.
 
 <para>
 Reverse proxy implementation in nginx includes load balancing for HTTP,
-HTTPS, FastCGI, uwsgi, SCGI, and memcached.
+HTTPS, FastCGI, uwsgi, SCGI, memcached, and gRPC.
 </para>
 
 <para>
@@ -104,11 +104,12 @@ as the protocol.
 </para>
 
 <para>
-When setting up load balancing for FastCGI, uwsgi, SCGI, or memcached, use
+When setting up load balancing for FastCGI, uwsgi, SCGI, memcached, or gRPC, use
 <link doc="ngx_http_fastcgi_module.xml" id="fastcgi_pass"/>,
 <link doc="ngx_http_uwsgi_module.xml" id="uwsgi_pass"/>,
-<link doc="ngx_http_scgi_module.xml" id="scgi_pass"/>, and
-<link doc="ngx_http_memcached_module.xml" id="memcached_pass"/>
+<link doc="ngx_http_scgi_module.xml" id="scgi_pass"/>,
+<link doc="ngx_http_memcached_module.xml" id="memcached_pass"/>, and
+<link doc="ngx_http_grpc_module.xml" id="grpc_pass"/>
 directives respectively.
 </para>
 

@@ -657,7 +657,8 @@ error_page 404 =200 /empty.gif;
 
 <para>
 Если ошибочный ответ обрабатывается проксированным сервером или
-FastCGI/uwsgi/SCGI-сервером, и этот сервер может вернуть разные коды ответов,
+FastCGI/uwsgi/SCGI/gRPC-сервером,
+и этот сервер может вернуть разные коды ответов,
 например, 200, 302, 401 или 404, то можно выдавать возвращаемый им код:
 <example>
 error_page 404 = /404.php;
@@ -1625,8 +1626,9 @@ location ~* \.(gif|jpg|jpeg)$ {
 <link doc="ngx_http_proxy_module.xml" id="proxy_pass"/>,
 <link doc="ngx_http_fastcgi_module.xml" id="fastcgi_pass"/>,
 <link doc="ngx_http_uwsgi_module.xml" id="uwsgi_pass"/>,
-<link doc="ngx_http_scgi_module.xml" id="scgi_pass"/> или
-<link doc="ngx_http_memcached_module.xml" id="memcached_pass"/>,
+<link doc="ngx_http_scgi_module.xml" id="scgi_pass"/>,
+<link doc="ngx_http_memcached_module.xml" id="memcached_pass"/> или
+<link doc="ngx_http_grpc_module.xml" id="grpc_pass"/>,
 происходит специальная обработка.
 В ответ на запрос с URI равным этой строке, но без завершающего слэша,
 будет возвращено постоянное перенаправление с кодом 301

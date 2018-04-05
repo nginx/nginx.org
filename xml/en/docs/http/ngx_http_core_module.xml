@@ -660,7 +660,7 @@ error_page 404 =200 /empty.gif;
 
 <para>
 If an error response is processed by a proxied server
-or a FastCGI/uwsgi/SCGI server,
+or a FastCGI/uwsgi/SCGI/gRPC server,
 and the server may return different response codes (e.g., 200, 302, 401
 or 404), it is possible to respond with the code it returns:
 <example>
@@ -1627,8 +1627,9 @@ and requests are processed by one of
 <link doc="ngx_http_proxy_module.xml" id="proxy_pass"/>,
 <link doc="ngx_http_fastcgi_module.xml" id="fastcgi_pass"/>,
 <link doc="ngx_http_uwsgi_module.xml" id="uwsgi_pass"/>,
-<link doc="ngx_http_scgi_module.xml" id="scgi_pass"/>, or
-<link doc="ngx_http_memcached_module.xml" id="memcached_pass"/>,
+<link doc="ngx_http_scgi_module.xml" id="scgi_pass"/>,
+<link doc="ngx_http_memcached_module.xml" id="memcached_pass"/>, or
+<link doc="ngx_http_grpc_module.xml" id="grpc_pass"/>,
 then the special processing is performed.
 In response to a request with URI equal to this string,
 but without the trailing slash,

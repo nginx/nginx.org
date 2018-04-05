@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="68">
+        rev="69">
 
 <section id="summary">
 
@@ -20,8 +20,9 @@ is used to define groups of servers that can be referenced
 by the <link doc="ngx_http_proxy_module.xml" id="proxy_pass"/>,
 <link doc="ngx_http_fastcgi_module.xml" id="fastcgi_pass"/>,
 <link doc="ngx_http_uwsgi_module.xml" id="uwsgi_pass"/>,
-<link doc="ngx_http_scgi_module.xml" id="scgi_pass"/>, and
-<link doc="ngx_http_memcached_module.xml" id="memcached_pass"/> directives.
+<link doc="ngx_http_scgi_module.xml" id="scgi_pass"/>,
+<link doc="ngx_http_memcached_module.xml" id="memcached_pass"/>, and
+<link doc="ngx_http_grpc_module.xml" id="grpc_pass"/> directives.
 </para>
 
 </section>
@@ -188,8 +189,9 @@ What is considered an unsuccessful attempt is defined by the
 <link doc="ngx_http_proxy_module.xml" id="proxy_next_upstream"/>,
 <link doc="ngx_http_fastcgi_module.xml" id="fastcgi_next_upstream"/>,
 <link doc="ngx_http_uwsgi_module.xml" id="uwsgi_next_upstream"/>,
-<link doc="ngx_http_scgi_module.xml" id="scgi_next_upstream"/>, and
-<link doc="ngx_http_memcached_module.xml" id="memcached_next_upstream"/>
+<link doc="ngx_http_scgi_module.xml" id="scgi_next_upstream"/>,
+<link doc="ngx_http_memcached_module.xml" id="memcached_next_upstream"/>, and
+<link doc="ngx_http_grpc_module.xml" id="grpc_next_upstream"/>
 directives.
 </tag-desc>
 

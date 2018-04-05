@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_upstream_module"
         link="/ru/docs/http/ngx_http_upstream_module.html"
         lang="ru"
-        rev="68">
+        rev="69">
 
 <section id="summary">
 
@@ -21,8 +21,9 @@
 <link doc="ngx_http_proxy_module.xml" id="proxy_pass"/>,
 <link doc="ngx_http_fastcgi_module.xml" id="fastcgi_pass"/>,
 <link doc="ngx_http_uwsgi_module.xml" id="uwsgi_pass"/>,
-<link doc="ngx_http_scgi_module.xml" id="scgi_pass"/> и
-<link doc="ngx_http_memcached_module.xml" id="memcached_pass"/>.
+<link doc="ngx_http_scgi_module.xml" id="scgi_pass"/>,
+<link doc="ngx_http_memcached_module.xml" id="memcached_pass"/> и
+<link doc="ngx_http_grpc_module.xml" id="grpc_pass"/>.
 </para>
 
 </section>
@@ -192,8 +193,9 @@ upstream backend {
 <link doc="ngx_http_proxy_module.xml" id="proxy_next_upstream"/>,
 <link doc="ngx_http_fastcgi_module.xml" id="fastcgi_next_upstream"/>,
 <link doc="ngx_http_uwsgi_module.xml" id="uwsgi_next_upstream"/>,
-<link doc="ngx_http_scgi_module.xml" id="scgi_next_upstream"/> и
-<link doc="ngx_http_memcached_module.xml" id="memcached_next_upstream"/>.
+<link doc="ngx_http_scgi_module.xml" id="scgi_next_upstream"/>,
+<link doc="ngx_http_memcached_module.xml" id="memcached_next_upstream"/> и
+<link doc="ngx_http_grpc_module.xml" id="grpc_next_upstream"/>.
 </tag-desc>
 
 <tag-name id="fail_timeout">

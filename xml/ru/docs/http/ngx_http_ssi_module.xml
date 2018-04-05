@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_ssi_module"
         link="/ru/docs/http/ngx_http_ssi_module.html"
         lang="ru"
-        rev="10">
+        rev="11">
 
 <section id="summary">
 
@@ -335,7 +335,7 @@ location / {
 &lt;!--# include virtual="/remote/body.php?argument=value" --&gt;
 </example>
 Несколько запросов, указанных на одной странице и обрабатываемых
-проксируемыми или FastCGI/uwsgi/SCGI-серверами, работают параллельно.
+проксируемыми или FastCGI/uwsgi/SCGI/gRPC-серверами, работают параллельно.
 Если нужна последовательная обработка, следует воспользоваться параметром
 <literal>wait</literal>.
 </tag-desc>
