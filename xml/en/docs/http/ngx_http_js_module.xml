@@ -9,7 +9,7 @@
 <module name="Module ngx_http_js_module"
         link="/en/docs/http/ngx_http_js_module.html"
         lang="en"
-        rev="9">
+        rev="10">
 
 <section id="summary">
 
@@ -208,10 +208,72 @@ request arguments object, read-only
 nginx variables object, read-only
 </tag-desc>
 
+<tag-name><literal>response</literal></tag-name>
+<tag-desc>
+the response object (0.2.0), read-only
+</tag-desc>
+</list>
+</para>
+
+<para>
+The request object has the following methods:
+<list type="tag">
+
 <tag-name><literal>log(<value>string</value>)</literal></tag-name>
 <tag-desc>
 writes a <literal>string</literal> to the error log
 on the <literal>info</literal> level of logging
+</tag-desc>
+
+<tag-name><literal>warn(<value>string</value>)</literal></tag-name>
+<tag-desc>
+writes a <literal>string</literal> to the error log
+on the <literal>warning</literal> level of logging (0.2.0)
+</tag-desc>
+
+<tag-name><literal>error(<value>string</value>)</literal></tag-name>
+<tag-desc>
+writes a <literal>string</literal> to the error log
+on the <literal>error</literal> level of logging (0.2.0)
+</tag-desc>
+
+<tag-name><literal>subrequest(<value>uri</value>[, <value>options</value>[,
+<value>callback</value>]])</literal></tag-name>
+<tag-desc>
+creates a subrequest with the given <literal>uri</literal> and
+<literal>options</literal>, and installs
+an optional completion <literal>callback</literal> (0.2.0).
+
+<para>
+If <literal>options</literal> is a string, then it
+holds the subrequest arguments string.
+Otherwise <literal>options</literal> is expected to be
+an object with the following keys:
+<list type="tag">
+<tag-name><literal>args</literal></tag-name>
+<tag-desc>arguments string</tag-desc>
+
+<tag-name><literal>body</literal></tag-name>
+<tag-desc>request body</tag-desc>
+
+<tag-name><literal>method</literal></tag-name>
+<tag-desc>HTTP method</tag-desc>
+</list>
+</para>
+
+<para>
+The <literal>callback</literal> receives a response object
+with the following properties:
+<literal>uri</literal>, <literal>method</literal>,
+<literal>status</literal>, <literal>contentType</literal>,
+<literal>contentLength</literal>, <literal>headers</literal>,
+<literal>args</literal>.
+These properties have the same meaning as the request object properties.
+Additionally, a reply object has the <literal>body</literal> property
+holding the subrequest response body
+and the <literal>parent</literal> property
+referencing the parent request object.
+</para>
 </tag-desc>
 </list>
 </para>
@@ -259,6 +321,18 @@ sends a part of the response body to the client
 <tag-name><literal>finish()</literal></tag-name>
 <tag-desc>
 finishes sending a response to the client
+</tag-desc>
+
+<tag-name><literal>return(status[, string])</literal></tag-name>
+<tag-desc>
+sends
+the entire response with the specified <literal>status</literal> to the client
+(0.2.0)
+<para>
+It is possible to specify either a redirect URL
+(for codes 301, 302, 303, 307, and 308)
+or the response body text (for other codes) as the second argument.
+</para>
 </tag-desc>
 </list>
 </para>
