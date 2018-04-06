@@ -9,7 +9,7 @@
 <article name="njs Changes"
         link="/en/docs/njs/njs_changes.html"
         lang="en"
-        rev="1"
+        rev="2"
         toc="no">
 
 <section id="njs0.2.0" name="Changes with 0.2.0">
@@ -39,7 +39,7 @@ textual description for type converting exceptions.
 <listitem>
 Feature:
 <literal>setTimeout()</literal> and
-<literal>clearTimeout() </literal> methods.
+<literal>clearTimeout()</literal> methods.
 </listitem>
 
 <listitem>
@@ -130,15 +130,14 @@ octal literals support.
 <listitem>
 <para>
 Feature:
-File system access
-(<link url="https://nodejs.org/api/fs.html#fs_file_system">Node.js style</link>)
+<link url="https://nodejs.org/api/fs.html#fs_file_system">Node.js style</link>
+<literal>File system</literal> access methods:
 <literal>fs.readFile()</literal>,
 <literal>fs.readFileSync()</literal>,
 <literal>fs.appendFile()</literal>,
 <literal>fs.appendFileSync()</literal>,
 <literal>fs.writeFile()</literal>,
-<literal>fs.writeFileSync()</literal>
-methods.
+<literal>fs.writeFileSync()</literal>.
 </para>
 </listitem>
 
@@ -346,14 +345,14 @@ methods.
 <listitem>
 <para>
 Feature:
-scientific notation literals support.
+scientific notation (<literal>3.35e10</literal>) literals support.
 </para>
 </listitem>
 
 <listitem>
 <para>
 Feature:
-hexadecimal literals support.
+hexadecimal (<literal>0x1123</literal>) literals support.
 </para>
 </listitem>
 
@@ -432,7 +431,7 @@ Release Date:
 <listitem>
 <para>
 Bugfix:
-global variables were not initialized when nJScript was used
+global variables were not initialized when njs was used
 in nginx.
 </para>
 </listitem>

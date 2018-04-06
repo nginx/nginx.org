@@ -9,7 +9,7 @@
 <article name="Информация о njs"
         link="/ru/docs/njs_about.html"
         lang="ru"
-        rev="16">
+        rev="17">
 
 <section id="summary">
 
@@ -175,12 +175,13 @@ ES5.1 глобальные функции:
 </listitem>
 
 <listitem>
-функции <literal>setTimeout</literal>, <literal>clearTimeout</literal>
+Функции <literal>setTimeout()</literal> и <literal>clearTimeout()</literal>
+(0.2.0)
 </listitem>
 
 <listitem>
 Методы <literal>File system</literal>
-(<link url="https://nodejs.org/api/fs.html#fs_file_system">стиль Node.js</link>):
+<link url="https://nodejs.org/api/fs.html#fs_file_system">стиль Node.js</link>:
 <literal>fs.readFile</literal>, <literal>fs.readFileSync</literal>,
 <literal>fs.appendFile</literal>, <literal>fs.appendFileSync</literal>,
 <literal>fs.writeFile</literal>, <literal>fs.writeFileSync</literal>
@@ -188,7 +189,8 @@ ES5.1 глобальные функции:
 
 <listitem>
 Методы <literal>Crypto</literal>
-(<link url="https://nodejs.org/api/crypto.html#crypto_class_hash">стиль Node.js</link>):
+<link url="https://nodejs.org/api/crypto.html#crypto_class_hash">стиль Node.js</link>
+(0.2.0):
 <literal>crypto.createHash</literal>,
 <literal>crypto.createHmac</literal>
 </listitem>

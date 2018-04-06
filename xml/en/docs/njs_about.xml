@@ -9,7 +9,7 @@
 <article name="About njs"
         link="/en/docs/njs_about.html"
         lang="en"
-        rev="16">
+        rev="17">
 
 <section id="summary">
 
@@ -176,22 +176,24 @@ ES5.1 global functions:
 </listitem>
 
 <listitem>
-<literal>setTimeout</literal>, <literal>clearTimeout</literal> functions
+<literal>setTimeout()</literal> and <literal>clearTimeout()</literal> functions
+(0.2.0)
 </listitem>
 
 <listitem>
-<literal>File system</literal> methods
-(<link url="https://nodejs.org/api/fs.html#fs_file_system">Node.js style</link>):
+<link url="https://nodejs.org/api/fs.html#fs_file_system">Node.js style</link>
+<literal>File system</literal> methods:
 <literal>fs.readFile</literal>, <literal>fs.readFileSync</literal>,
 <literal>fs.appendFile</literal>, <literal>fs.appendFileSync</literal>,
 <literal>fs.writeFile</literal>, <literal>fs.writeFileSync</literal>
 </listitem>
 
 <listitem>
-<literal>Crypto</literal> methods
-(<link url="https://nodejs.org/api/crypto.html#crypto_class_hash">Node.js style</link>):
+<link url="https://nodejs.org/api/crypto.html#crypto_class_hash">Node.js style</link>
+<literal>Crypto</literal> methods (0.2.0):
 <literal>crypto.createHash</literal>,
 <literal>crypto.createHmac</literal>
+
 </listitem>
 
 </list>
