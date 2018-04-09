@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_upstream_module"
         link="/ru/docs/http/ngx_http_upstream_module.html"
         lang="ru"
-        rev="69">
+        rev="70">
 
 <section id="summary">
 
@@ -827,7 +827,8 @@ server {
     <literal>lookup=</literal><value>$переменная</value>
     <literal>zone=</literal><value>имя</value>:<value>размер</value>
     [<literal>timeout=</literal><value>время</value>]
-    [<literal>header</literal>]</syntax>
+    [<literal>header</literal>]
+    [<literal>sync</literal>]</syntax>
 <default/>
 <context>upstream</context>
 <appeared-in>1.5.7</appeared-in>
@@ -1004,7 +1005,7 @@ upstream backend {
 <para>
 Сессии хранятся в зоне разделяемой памяти, <value>имя</value> и
 <value>размер</value> которой задаются параметром <literal>zone</literal>.
-Зоны размером в 1 мегабайт достаточно для хранения около 8 тысяч сессий
+Зоны размером в 1 мегабайт достаточно для хранения около 4 тысяч сессий
 на 64-битной платформе.
 Сессии, к которым не было обращений в течение времени, заданного параметром
 <literal>timeout</literal>, удаляются из зоны.
@@ -1014,6 +1015,12 @@ upstream backend {
 <para id="sticky_learn_header">
 Параметр <literal>header</literal> (1.13.1) позволяет создавать сессию
 сразу после получения заголовков ответа от сервера группы.
+</para>
+
+<para id="sticky_learn_sync">
+Параметр <literal>sync</literal> (1.13.8) разрешает
+<link doc="../stream/ngx_stream_zone_sync_module.xml" id="zone_sync">синхронизацию</link>
+данной зоны разделяемой памяти.
 </para>
 
 </tag-desc>
@@ -1138,6 +1145,16 @@ upstream backend {
 “<link doc="ngx_http_core_module.xml" id="var_http_">$http_</link>”.
 Необходимо иметь в виду, что поля заголовка запоминаются только из ответа
 последнего сервера.
+</tag-desc>
+
+<tag-name id="var_upstream_queue_time"><var>$upstream_queue_time</var></tag-name>
+<tag-desc>
+хранит время, проведённое запросом в <link id="queue">очереди</link>
+(1.13.9);
+время хранится в секундах с точностью до миллисекунд.
+Времена нескольких ответов
+разделяются запятыми и двоеточиями подобно адресам в переменной
+<link id="var_upstream_addr">$upstream_addr</link>.
 </tag-desc>
 
 <tag-name id="var_upstream_response_length"><var>$upstream_response_length</var>

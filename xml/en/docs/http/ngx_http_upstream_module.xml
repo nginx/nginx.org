@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="69">
+        rev="70">
 
 <section id="summary">
 
@@ -820,7 +820,8 @@ This directive is available as part of our
     <literal>lookup=</literal><value>$variable</value>
     <literal>zone=</literal><value>name</value>:<value>size</value>
     [<literal>timeout=</literal><value>time</value>]
-    [<literal>header</literal>]</syntax>
+    [<literal>header</literal>]
+    [<literal>sync</literal>]</syntax>
 <default/>
 <context>upstream</context>
 <appeared-in>1.5.7</appeared-in>
@@ -1000,7 +1001,7 @@ non-empty variable is used.
 <para>
 Sessions are stored in a shared memory zone, whose <value>name</value> and
 <value>size</value> are configured by the <literal>zone</literal> parameter.
-One megabyte zone can store about 8000 sessions on the 64-bit platform.
+One megabyte zone can store about 4000 sessions on the 64-bit platform.
 The sessions that are not accessed during the time specified by the
 <literal>timeout</literal> parameter get removed from the zone.
 By default, <literal>timeout</literal> is set to 10 minutes.
@@ -1009,6 +1010,12 @@ By default, <literal>timeout</literal> is set to 10 minutes.
 <para id="sticky_learn_header">
 The <literal>header</literal> parameter (1.13.1) allows creating a session
 right after receiving response headers from the upstream server.
+</para>
+
+<para id="sticky_learn_sync">
+The <literal>sync</literal> parameter (1.13.8) enables
+<link doc="../stream/ngx_stream_zone_sync_module.xml" id="zone_sync">synchronization</link>
+of the shared memory zone.
 </para>
 
 </tag-desc>
@@ -1131,6 +1138,16 @@ The rules of converting header field names to variable names are the same
 as for the variables that start with the
 “<link doc="ngx_http_core_module.xml" id="var_http_">$http_</link>” prefix.
 Only the header fields from the response of the last server are saved.
+</tag-desc>
+
+<tag-name id="var_upstream_queue_time"><var>$upstream_queue_time</var></tag-name>
+<tag-desc>
+keeps time the request spent in the upstream <link id="queue">queue</link>
+(1.13.9);
+the time is kept in seconds with millisecond resolution.
+Times of several responses
+are separated by commas and colons like addresses in the
+<link id="var_upstream_addr">$upstream_addr</link> variable.
 </tag-desc>
 
 <tag-name id="var_upstream_response_length"><var>$upstream_response_length</var>

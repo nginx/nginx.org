@@ -9,7 +9,7 @@ info:
     key-value pairs management for
     [http](https://nginx.org/en/docs/http/ngx_http_keyval_module.html) and
     [stream](https://nginx.org/en/docs/stream/ngx_stream_keyval_module.html).
-basePath: /api/2
+basePath: /api/3
 tags:
   - name: General Info
   - name: Processes
@@ -26,6 +26,7 @@ tags:
   - name: Stream Server Zones
   - name: Stream Upstreams
   - name: Stream Keyvals
+  - name: Stream Zone Sync
   - name: Method GET
   - name: Method POST
   - name: Method PATCH
@@ -1474,6 +1475,27 @@ paths:
             $ref: '#/definitions/NginxError'
         '405':
           description: Method disabled (*MethodDisabled*)
+          schema:
+            $ref: '#/definitions/NginxError'
+  /stream/zone_sync/:
+    get:
+      tags:
+        - Stream Zone Sync
+        - Method GET
+      summary: Return sync status of a node
+      description: Returns synchronization status of a cluster node.
+      operationId: getStreamZoneSync
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/NginxStreamZoneSync'
+        '404':
+          description: |
+            Zone sync not configured (*ZoneSyncNotConfigured*),
+            [stream](https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream) not configured (*StreamNotConfigured*)
           schema:
             $ref: '#/definitions/NginxError'
 ###
@@ -3140,6 +3162,60 @@ definitions:
       key1: value1
       key2: value2
       key3: value3
+  NginxStreamZoneSync:
+    title: Stream Zone Sync Node
+    type: object
+    properties:
+      zones:
+        type: object
+        title: Zone Sync Zones
+        description: Synchronization information per each shared memory zone.
+        additionalProperties:
+          $ref: '#/definitions/NginxStreamZoneSyncZone'
+      status:
+        type: object
+        description: Synchronization information per node in a cluster.
+        properties:
+          bytes_in:
+            type: integer
+            description: The number of bytes received by this node.
+          msgs_in:
+            type: integer
+            description: The number of messages received by this node.
+          msgs_out:
+            type: integer
+            description: The number of messages sent by this node.
+          bytes_out:
+            type: integer
+            description: The number of bytes sent by this node.
+          nodes_online:
+            type: integer
+            description: The number of peers this node is connected to.
+    example:
+      zones:
+        zone1:
+          records_pending: 2061
+          records_total: 260575
+        zone2:
+          records_pending: 0
+          records_total: 14749
+      status:
+        bytes_in: 1364923761
+        msgs_in: 337236
+        msgs_out: 346717
+        bytes_out: 1402765472
+        nodes_online: 15
+  NginxStreamZoneSyncZone:
+    title: Sync Zone
+    description: Synchronization status of a shared memory zone.
+    type: object
+    properties:
+      records_pending:
+        type: integer
+        description: The number of records that need to be sent to the cluster.
+      records_total:
+        type: integer
+        description: The total number of records stored in the shared memory zone.
   NginxError:
     title: Error
     description: |

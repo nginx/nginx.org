@@ -101,21 +101,21 @@ All API requests include
 a supported API <link id="api_version">version</link> in the URI.
 Examples of API requests with this configuration:
 <example>
-http://127.0.0.1/api/2/
-http://127.0.0.1/api/2/nginx
-http://127.0.0.1/api/2/connections
-http://127.0.0.1/api/2/http/requests
-http://127.0.0.1/api/2/http/server_zones/server_backend
-http://127.0.0.1/api/2/http/caches/cache_backend
-http://127.0.0.1/api/2/http/upstreams/backend
-http://127.0.0.1/api/2/http/upstreams/backend/servers/
-http://127.0.0.1/api/2/http/upstreams/backend/servers/1
-http://127.0.0.1/api/2/http/keyvals/one?key=arg1
-http://127.0.0.1/api/2/stream/
-http://127.0.0.1/api/2/stream/server_zones/server_backend
-http://127.0.0.1/api/2/stream/upstreams/
-http://127.0.0.1/api/2/stream/upstreams/backend
-http://127.0.0.1/api/2/stream/upstreams/backend/servers/1
+http://127.0.0.1/api/3/
+http://127.0.0.1/api/3/nginx
+http://127.0.0.1/api/3/connections
+http://127.0.0.1/api/3/http/requests
+http://127.0.0.1/api/3/http/server_zones/server_backend
+http://127.0.0.1/api/3/http/caches/cache_backend
+http://127.0.0.1/api/3/http/upstreams/backend
+http://127.0.0.1/api/3/http/upstreams/backend/servers/
+http://127.0.0.1/api/3/http/upstreams/backend/servers/1
+http://127.0.0.1/api/3/http/keyvals/one?key=arg1
+http://127.0.0.1/api/3/stream/
+http://127.0.0.1/api/3/stream/server_zones/server_backend
+http://127.0.0.1/api/3/stream/upstreams/
+http://127.0.0.1/api/3/stream/upstreams/backend
+http://127.0.0.1/api/3/stream/upstreams/backend/servers/1
 </example>
 </para>
 
@@ -146,14 +146,14 @@ By default, the API is read-only.
 All API requests should contain a supported API version in the URI.
 If the request URI equals the location prefix,
 the list of supported API versions is returned.
-The current API version is “<literal>2</literal>”.
+The current API version is “<literal>3</literal>”.
 </para>
 
 <para>
 The optional “<literal>fields</literal>” argument in the request line
 specifies which fields of the requested objects will be output:
 <example>
-http://127.0.0.1/api/2/nginx?fields=version,build
+http://127.0.0.1/api/3/nginx?fields=version,build
 </example>
 </para>
 
@@ -165,6 +165,11 @@ http://127.0.0.1/api/2/nginx?fields=version,build
 
 <para>
 <list type="bullet">
+
+<listitem>
+The <link id="stream_zone_sync_">/stream/zone_sync/</link> data
+were added in <link id="api_version">version</link> 3.
+</listitem>
 
 <listitem>
 The <link id="def_nginx_http_upstream_conf_server">drain</link> parameter
@@ -1430,6 +1435,26 @@ Possible responses:
 <listitem>404 - Keyval not found (<literal>KeyvalNotFound</literal>),
 <link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream">stream</link> not configured (<literal>StreamNotConfigured</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+</list>
+</listitem>
+</list>
+</tag-desc>
+<tag-name id="stream_zone_sync_" name="/stream/zone_sync/">
+<literal>/stream/zone_sync/</literal>
+</tag-name>
+<tag-desc>
+<para>Supported methods:</para>
+<list type="bullet" compact="yes">
+<listitem id="getStreamZoneSync">
+<literal>GET</literal> - Return sync status of a node
+<para>Returns synchronization status of a cluster node.</para>
+<para>
+Possible responses:
+</para>
+<list type="bullet">
+<listitem>200 - Success, returns <link id="def_nginx_stream_zone_sync">Stream Zone Sync Node</link></listitem>
+<listitem>404 - Zone sync not configured (<literal>ZoneSyncNotConfigured</literal>),
+<link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream">stream</link> not configured (<literal>StreamNotConfigured</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 </list>
@@ -2877,6 +2902,90 @@ Contents of a stream keyval shared memory zone.<para>Example:</para>
   "key2" : "value2",
   "key3" : "value3"
 }</example>
+</listitem>
+<listitem id="def_nginx_stream_zone_sync">
+<para>Stream Zone Sync Node:</para>
+<list type="tag">
+<tag-name>
+<literal>zones</literal></tag-name>
+<tag-desc>
+<para>Synchronization information per each shared memory zone.</para><para>A collection of "<link id="def_nginx_stream_zone_sync_zone">Sync Zone</link>" objects</para>
+</tag-desc>
+<tag-name>
+<literal>status</literal></tag-name>
+<tag-desc>
+Synchronization information per node in a cluster.<list type="tag">
+<tag-name>
+<literal>bytes_in</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The number of bytes received by this node.
+</tag-desc>
+<tag-name>
+<literal>msgs_in</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The number of messages received by this node.
+</tag-desc>
+<tag-name>
+<literal>msgs_out</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The number of messages sent by this node.
+</tag-desc>
+<tag-name>
+<literal>bytes_out</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The number of bytes sent by this node.
+</tag-desc>
+<tag-name>
+<literal>nodes_online</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The number of peers this node is connected to.
+</tag-desc>
+</list>
+</tag-desc>
+</list>
+<para>Example:</para>
+<example>
+{
+  "zones" : {
+    "zone1" : {
+      "records_pending" : 2061,
+      "records_total" : 260575
+    },
+    "zone2" : {
+      "records_pending" : 0,
+      "records_total" : 14749
+    }
+  },
+  "status" : {
+    "bytes_in" : 1364923761,
+    "msgs_in" : 337236,
+    "msgs_out" : 346717,
+    "bytes_out" : 1402765472,
+    "nodes_online" : 15
+  }
+}</example>
+</listitem>
+<listitem id="def_nginx_stream_zone_sync_zone">
+<para>Sync Zone:</para>
+Synchronization status of a shared memory zone.<list type="tag">
+<tag-name>
+<literal>records_pending</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The number of records that need to be sent to the cluster.
+</tag-desc>
+<tag-name>
+<literal>records_total</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The total number of records stored in the shared memory zone.
+</tag-desc>
+</list>
 </listitem>
 <listitem id="def_nginx_error">
 <para>Error:</para>

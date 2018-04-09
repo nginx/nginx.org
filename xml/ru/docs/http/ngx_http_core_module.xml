@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="77">
+        rev="78">
 
 <section id="directives" name="Директивы">
 
@@ -1002,9 +1002,11 @@ keep-alive, эти буферы освобождаются.
 Если разрешён метод <literal>GET</literal>, то метод
 <literal>HEAD</literal> также будет разрешён.
 Доступ к остальным методам может быть ограничен при помощи директив модулей
-<link doc="ngx_http_access_module.xml">ngx_http_access_module</link>
+<link doc="ngx_http_access_module.xml">ngx_http_access_module</link>,
+<link doc="ngx_http_auth_basic_module.xml">ngx_http_auth_basic_module</link>
 и
-<link doc="ngx_http_auth_basic_module.xml">ngx_http_auth_basic_module</link>:
+<link doc="ngx_http_auth_jwt_module.xml">ngx_http_auth_jwt_module</link>
+(1.13.10):
 <example>
 limit_except GET {
     allow 192.168.1.0/32;

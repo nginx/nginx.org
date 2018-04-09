@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="77">
+        rev="78">
 
 <section id="directives" name="Directives">
 
@@ -1005,9 +1005,11 @@ or
 Allowing the <literal>GET</literal> method makes the
 <literal>HEAD</literal> method also allowed.
 Access to other methods can be limited using the
-<link doc="ngx_http_access_module.xml">ngx_http_access_module</link>
+<link doc="ngx_http_access_module.xml">ngx_http_access_module</link>,
+<link doc="ngx_http_auth_basic_module.xml">ngx_http_auth_basic_module</link>,
 and
-<link doc="ngx_http_auth_basic_module.xml">ngx_http_auth_basic_module</link>
+<link doc="ngx_http_auth_jwt_module.xml">ngx_http_auth_jwt_module</link>
+(1.13.10)
 modules directives:
 <example>
 limit_except GET {

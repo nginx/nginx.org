@@ -8,7 +8,7 @@
 <article name="nginx documentation"
          link="/en/docs/"
          lang="en"
-         rev="44"
+         rev="45"
          toc="no">
 
 
@@ -619,6 +619,11 @@ ngx_stream_upstream_module</link>
 <listitem>
 <link doc="stream/ngx_stream_upstream_hc_module.xml">
 ngx_stream_upstream_hc_module</link>
+</listitem>
+
+<listitem>
+<link doc="stream/ngx_stream_zone_sync_module.xml">
+ngx_stream_zone_sync_module</link>
 </listitem>
 
 </list>

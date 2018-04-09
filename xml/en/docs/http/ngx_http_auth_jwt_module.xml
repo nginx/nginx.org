@@ -9,7 +9,7 @@
 <module name="Module ngx_http_auth_jwt_module"
         link="/en/docs/http/ngx_http_auth_jwt_module.html"
         lang="en"
-        rev="5">
+        rev="6">
 
 <section id="summary">
 
@@ -95,6 +95,7 @@ location / {
 <context>http</context>
 <context>server</context>
 <context>location</context>
+<context>limit_except</context>
 
 <para>
 Enables validation of JSON Web Token.
@@ -155,13 +156,37 @@ identified by key names.
 Name matching starts from the top level of the JSON tree.
 For arrays, the variable keeps a list of array elements separated by commas.
 <example>
-auth_jwt_claim_set $email info e-mail;
-auth_jwt_claim_set $job info "job title";
+location / {
+    auth_jwt           "closed site";
+    auth_jwt_key_file  conf/keys.json;
+    auth_jwt_claim_set $email info e-mail;
+    auth_jwt_claim_set $job info "job title";
+}
 </example>
 <note>
 Prior to version 1.13.7, only one key name could be specified,
 and the result was undefined for arrays.
 </note>
+</para>
+
+</directive>
+
+
+<directive name="auth_jwt_leeway">
+<syntax><value>time</value></syntax>
+<default>0s</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.13.11</appeared-in>
+
+<para>
+Sets the maximum allowable leeway to compensate
+clock skew when verifying the
+<link url="https://tools.ietf.org/html/rfc7519#section-4.1.4">exp</link>
+and
+<link url="https://tools.ietf.org/html/rfc7519#section-4.1.5">nbf</link>
+JWT claims.
 </para>
 
 </directive>
@@ -173,6 +198,7 @@ and the result was undefined for arrays.
 <context>http</context>
 <context>server</context>
 <context>location</context>
+<context>limit_except</context>
 
 <para>
 Specifies a <value>file</value> in

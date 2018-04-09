@@ -119,6 +119,7 @@ REFS =									\
 		stream/ngx_stream_ssl_preread_module			\
 		stream/ngx_stream_upstream_module			\
 		stream/ngx_stream_upstream_hc_module			\
+		stream/ngx_stream_zone_sync_module			\
 		stream/stream_processing				\
 		ngx_google_perftools_module				\
 		dev/development_guide					\

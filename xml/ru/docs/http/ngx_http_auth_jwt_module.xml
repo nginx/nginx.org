@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_auth_jwt_module"
         link="/ru/docs/http/ngx_http_auth_jwt_module.html"
         lang="ru"
-        rev="5">
+        rev="6">
 
 <section id="summary">
 
@@ -93,6 +93,7 @@ location / {
 <context>http</context>
 <context>server</context>
 <context>location</context>
+<context>limit_except</context>
 
 <para>
 Включает проверку JSON Web Token.
@@ -153,13 +154,36 @@ auth_jwt "closed site" token=$cookie_auth_token;
 Сопоставление имён начинается с верхнего уровня дерева JSON.
 Для массива переменная хранит список его элементов, разделяемых запятыми.
 <example>
-auth_jwt_claim_set $email info e-mail;
-auth_jwt_claim_set $job info "job title";
+location / {
+    auth_jwt           "closed site";
+    auth_jwt_key_file  conf/keys.json;
+    auth_jwt_claim_set $email info e-mail;
+    auth_jwt_claim_set $job info "job title";
+}
 </example>
 <note>
 До версии 1.13.7 можно было указать лишь одно имя,
 результат для массивов был не определён.
 </note>
+</para>
+
+</directive>
+
+
+<directive name="auth_jwt_leeway">
+<syntax><value>время</value></syntax>
+<default>0s</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.13.11</appeared-in>
+
+<para>
+Задаёт максимально допустимое отклонение времени для компенсации
+расхождения часов при проверке JWT claims
+<link url="https://tools.ietf.org/html/rfc7519#section-4.1.4">exp</link>
+и
+<link url="https://tools.ietf.org/html/rfc7519#section-4.1.5">nbf</link>.
 </para>
 
 </directive>
@@ -171,6 +195,7 @@ auth_jwt_claim_set $job info "job title";
 <context>http</context>
 <context>server</context>
 <context>location</context>
+<context>limit_except</context>
 
 <para>
 Задаёт <value>файл</value> в формате
