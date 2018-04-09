@@ -101,7 +101,6 @@ stream {
 <directive name="zone_sync">
 <syntax></syntax>
 <default></default>
-<context>stream</context>
 <context>server</context>
 
 <para>
@@ -115,7 +114,6 @@ Cluster nodes are defined using <link id="zone_sync_server"/> directives.
 <directive name="zone_sync_server">
 <syntax><value>address</value> [<literal>resolve</literal>]</syntax>
 <default></default>
-<context>stream</context>
 <context>server</context>
 
 <para>
