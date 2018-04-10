@@ -119,19 +119,6 @@ function baz(req, res) {
 
 <section id="directives" name="Директивы">
 
-<directive name="js_include">
-<syntax><value>файл</value></syntax>
-<default/>
-<context>http</context>
-
-<para>
-Задаёт файл, позволяющий задавать обработчики location и переменных
-на njs.
-</para>
-
-</directive>
-
-
 <directive name="js_content">
 <syntax><value>функция</value></syntax>
 <default/>
@@ -140,6 +127,19 @@ function baz(req, res) {
 
 <para>
 Задаёт функцию njs в качестве обработчика содержимого location.
+</para>
+
+</directive>
+
+
+<directive name="js_include">
+<syntax><value>файл</value></syntax>
+<default/>
+<context>http</context>
+
+<para>
+Задаёт файл, позволяющий задавать обработчики location и переменных
+на njs.
 </para>
 
 </directive>

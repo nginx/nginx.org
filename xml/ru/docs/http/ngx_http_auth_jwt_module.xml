@@ -122,26 +122,6 @@ auth_jwt "closed site" token=$cookie_auth_token;
 </directive>
 
 
-<directive name="auth_jwt_header_set">
-<syntax><value>$переменная</value> <value>имя</value> ...</syntax>
-<default/>
-<context>http</context>
-<appeared-in>1.11.10</appeared-in>
-
-<para>
-Устанавливает <value>переменную</value> в параметр заголовка JOSE,
-определяемый именами ключей.
-Сопоставление имён начинается с верхнего уровня дерева JSON.
-Для массива переменная хранит список его элементов, разделяемых запятыми.
-<note>
-До версии 1.13.7 можно было указать лишь одно имя,
-результат для массивов был не определён.
-</note>
-</para>
-
-</directive>
-
-
 <directive name="auth_jwt_claim_set">
 <syntax><value>$переменная</value> <value>имя</value> ...</syntax>
 <default/>
@@ -170,20 +150,21 @@ location / {
 </directive>
 
 
-<directive name="auth_jwt_leeway">
-<syntax><value>время</value></syntax>
-<default>0s</default>
+<directive name="auth_jwt_header_set">
+<syntax><value>$переменная</value> <value>имя</value> ...</syntax>
+<default/>
 <context>http</context>
-<context>server</context>
-<context>location</context>
-<appeared-in>1.13.11</appeared-in>
+<appeared-in>1.11.10</appeared-in>
 
 <para>
-Задаёт максимально допустимое отклонение времени для компенсации
-расхождения часов при проверке JWT claims
-<link url="https://tools.ietf.org/html/rfc7519#section-4.1.4">exp</link>
-и
-<link url="https://tools.ietf.org/html/rfc7519#section-4.1.5">nbf</link>.
+Устанавливает <value>переменную</value> в параметр заголовка JOSE,
+определяемый именами ключей.
+Сопоставление имён начинается с верхнего уровня дерева JSON.
+Для массива переменная хранит список его элементов, разделяемых запятыми.
+<note>
+До версии 1.13.7 можно было указать лишь одно имя,
+результат для массивов был не определён.
+</note>
 </para>
 
 </directive>
@@ -202,6 +183,25 @@ location / {
 <link url="https://tools.ietf.org/html/rfc7517#section-5">JSON Web Key Set</link>
 для проверки подписи JWT.
 В значении параметра допустимо использование переменных.
+</para>
+
+</directive>
+
+
+<directive name="auth_jwt_leeway">
+<syntax><value>время</value></syntax>
+<default>0s</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.13.11</appeared-in>
+
+<para>
+Задаёт максимально допустимое отклонение времени для компенсации
+расхождения часов при проверке JWT claims
+<link url="https://tools.ietf.org/html/rfc7519#section-4.1.4">exp</link>
+и
+<link url="https://tools.ietf.org/html/rfc7519#section-4.1.5">nbf</link>.
 </para>
 
 </directive>

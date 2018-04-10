@@ -119,18 +119,6 @@ function baz(req, res) {
 
 <section id="directives" name="Directives">
 
-<directive name="js_include">
-<syntax><value>file</value></syntax>
-<default/>
-<context>http</context>
-
-<para>
-Specifies a file that implements location and variable handlers in njs.
-</para>
-
-</directive>
-
-
 <directive name="js_content">
 <syntax><value>function</value></syntax>
 <default/>
@@ -139,6 +127,18 @@ Specifies a file that implements location and variable handlers in njs.
 
 <para>
 Sets an njs function as a location content handler.
+</para>
+
+</directive>
+
+
+<directive name="js_include">
+<syntax><value>file</value></syntax>
+<default/>
+<context>http</context>
+
+<para>
+Specifies a file that implements location and variable handlers in njs.
 </para>
 
 </directive>

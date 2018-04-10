@@ -64,6 +64,22 @@ location / {
 
 <section id="directives" name="Директивы">
 
+<directive name="create_full_put_path">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+По спецификации WebDAV-метод PUT может создавать файл только в
+уже существующем каталоге.
+Данная директива разрешает создавать все необходимые промежуточные каталоги.
+</para>
+
+</directive>
+
+
 <directive name="dav_access">
 <syntax><value>пользователи</value>:<value>права</value> ...</syntax>
 <default>user:rw</default>
@@ -125,22 +141,6 @@ dav_access group:rw all:r;
 <para>
 При создании файла с помощью метода PUT можно задать дату модификации,
 передав её в поле заголовка <header>Date</header>.
-</para>
-
-</directive>
-
-
-<directive name="create_full_put_path">
-<syntax><literal>on</literal> | <literal>off</literal></syntax>
-<default>off</default>
-<context>http</context>
-<context>server</context>
-<context>location</context>
-
-<para>
-По спецификации WebDAV-метод PUT может создавать файл только в
-уже существующем каталоге.
-Данная директива разрешает создавать все необходимые промежуточные каталоги.
 </para>
 
 </directive>

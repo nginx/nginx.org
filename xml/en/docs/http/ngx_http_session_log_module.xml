@@ -51,6 +51,23 @@ request header field:
 
 <section id="directives" name="Directives">
 
+<directive name="session_log">
+<syntax><value>name</value> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Enables the use of the specified session log.
+The special value <literal>off</literal> cancels all
+<literal>session_log</literal> directives inherited from the previous
+configuration level.
+</para>
+
+</directive>
+
+
 <directive name="session_log_format">
 <syntax>
     <value>name</value>
@@ -110,23 +127,6 @@ The <literal>format</literal> parameter sets the custom session log
 format configured by the <link id="session_log_format"/> directive.
 If <literal>format</literal> is not specified, the predefined
 “<literal>combined</literal>” format is used.
-</para>
-
-</directive>
-
-
-<directive name="session_log">
-<syntax><value>name</value> | <literal>off</literal></syntax>
-<default>off</default>
-<context>http</context>
-<context>server</context>
-<context>location</context>
-
-<para>
-Enables the use of the specified session log.
-The special value <literal>off</literal> cancels all
-<literal>session_log</literal> directives inherited from the previous
-configuration level.
 </para>
 
 </directive>

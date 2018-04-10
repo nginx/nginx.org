@@ -146,6 +146,68 @@ analysis using a system debugger.
 </directive>
 
 
+<directive name="env">
+<syntax><value>variable</value>[=<value>value</value>]</syntax>
+<default>TZ</default>
+<context>main</context>
+
+<para>
+By default, nginx removes all environment variables inherited
+from its parent process except the TZ variable.
+This directive allows preserving some of the inherited variables,
+changing their values, or creating new environment variables.
+These variables are then:
+<list type="bullet">
+
+<listitem>
+inherited during a <link doc="control.xml" id="upgrade">live upgrade</link>
+of an executable file;
+</listitem>
+
+<listitem>
+used by the
+<link doc="http/ngx_http_perl_module.xml">ngx_http_perl_module</link> module;
+</listitem>
+
+<listitem>
+used by worker processes.
+One should bear in mind that controlling system libraries in this way
+is not always possible as it is common for libraries to check
+variables only during initialization, well before they can be set
+using this directive.
+An exception from this is an above mentioned
+<link doc="control.xml" id="upgrade">live upgrade</link>
+of an executable file.
+</listitem>
+
+</list>
+</para>
+
+<para>
+The TZ variable is always inherited and available to the
+<link doc="http/ngx_http_perl_module.xml">ngx_http_perl_module</link>
+module, unless it is configured explicitly.
+</para>
+
+<para>
+Usage example:
+<example>
+env MALLOC_OPTIONS;
+env PERL5LIB=/data/site/modules;
+env OPENSSL_ALLOW_PROXY_CERTS=1;
+</example>
+</para>
+
+<para>
+<note>
+The NGINX environment variable is used internally by nginx
+and should not be set directly by the user.
+</note>
+</para>
+
+</directive>
+
+
 <directive name="error_log">
 <syntax><value>file</value> [<value>level</value>]</syntax>
 <default>logs/error.log error</default>
@@ -203,68 +265,6 @@ The directive can be specified on the
 starting from version 1.7.11,
 and on the <literal>mail</literal> level
 starting from version 1.9.0.
-</note>
-</para>
-
-</directive>
-
-
-<directive name="env">
-<syntax><value>variable</value>[=<value>value</value>]</syntax>
-<default>TZ</default>
-<context>main</context>
-
-<para>
-By default, nginx removes all environment variables inherited
-from its parent process except the TZ variable.
-This directive allows preserving some of the inherited variables,
-changing their values, or creating new environment variables.
-These variables are then:
-<list type="bullet">
-
-<listitem>
-inherited during a <link doc="control.xml" id="upgrade">live upgrade</link>
-of an executable file;
-</listitem>
-
-<listitem>
-used by the
-<link doc="http/ngx_http_perl_module.xml">ngx_http_perl_module</link> module;
-</listitem>
-
-<listitem>
-used by worker processes.
-One should bear in mind that controlling system libraries in this way
-is not always possible as it is common for libraries to check
-variables only during initialization, well before they can be set
-using this directive.
-An exception from this is an above mentioned
-<link doc="control.xml" id="upgrade">live upgrade</link>
-of an executable file.
-</listitem>
-
-</list>
-</para>
-
-<para>
-The TZ variable is always inherited and available to the
-<link doc="http/ngx_http_perl_module.xml">ngx_http_perl_module</link>
-module, unless it is configured explicitly.
-</para>
-
-<para>
-Usage example:
-<example>
-env MALLOC_OPTIONS;
-env PERL5LIB=/data/site/modules;
-env OPENSSL_ALLOW_PROXY_CERTS=1;
-</example>
-</para>
-
-<para>
-<note>
-The NGINX environment variable is used internally by nginx
-and should not be set directly by the user.
 </note>
 </para>
 

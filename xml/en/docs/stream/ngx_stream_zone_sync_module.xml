@@ -111,6 +111,77 @@ Cluster nodes are defined using <link id="zone_sync_server"/> directives.
 </directive>
 
 
+<directive name="zone_sync_buffers">
+<syntax><value>number</value> <value>size</value></syntax>
+<default>256 4k|8k</default>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Sets the <value>number</value> and <value>size</value> of the
+per-zone buffers used for pushing zone contents.
+By default, the buffer size is equal to one memory page.
+This is either 4K or 8K, depending on a platform.
+</para>
+
+</directive>
+
+
+<directive name="zone_sync_connect_retry_interval">
+<syntax><value>time</value></syntax>
+<default>1s</default>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Defines an interval between connection attempts to another cluster node.
+</para>
+
+</directive>
+
+
+<directive name="zone_sync_connect_timeout">
+<syntax><value>time</value></syntax>
+<default>5s</default>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Defines a timeout for establishing a connection with another cluster node.
+</para>
+
+</directive>
+
+
+<directive name="zone_sync_interval">
+<syntax><value>time</value></syntax>
+<default>1s</default>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Defines an interval for polling updates in a shared memory zone.
+</para>
+
+</directive>
+
+
+<directive name="zone_sync_recv_buffer_size">
+<syntax><value>size</value></syntax>
+<default>4k|8k</default>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Sets <value>size</value> of a per-connection receive buffer used to parse
+incoming stream of synchronization messages.
+By default, the buffer size is equal to one memory page.
+This is either 4K or 8K, depending on a platform.
+</para>
+
+</directive>
+
+
 <directive name="zone_sync_server">
 <syntax><value>address</value> [<literal>resolve</literal>]</syntax>
 <default></default>
@@ -162,92 +233,6 @@ If using domain names, ensure they are resolvable to a single IP address.
 The own address of a node is ignored, thus, there is no need to have different
 configurations on different nodes.
 </note>
-</para>
-
-</directive>
-
-
-<directive name="zone_sync_interval">
-<syntax><value>time</value></syntax>
-<default>1s</default>
-<context>stream</context>
-<context>server</context>
-
-<para>
-Defines an interval for polling updates in a shared memory zone.
-</para>
-
-</directive>
-
-
-<directive name="zone_sync_connect_timeout">
-<syntax><value>time</value></syntax>
-<default>5s</default>
-<context>stream</context>
-<context>server</context>
-
-<para>
-Defines a timeout for establishing a connection with another cluster node.
-</para>
-
-</directive>
-
-
-<directive name="zone_sync_connect_retry_interval">
-<syntax><value>time</value></syntax>
-<default>1s</default>
-<context>stream</context>
-<context>server</context>
-
-<para>
-Defines an interval between connection attempts to another cluster node.
-</para>
-
-</directive>
-
-
-<directive name="zone_sync_timeout">
-<syntax><value>timeout</value></syntax>
-<default>5s</default>
-<context>stream</context>
-<context>server</context>
-
-<para>
-Sets the <value>timeout</value> between two successive
-read or write operations on connection to another cluster node.
-If no data is transmitted within this time, the connection is closed.
-</para>
-
-</directive>
-
-
-<directive name="zone_sync_buffers">
-<syntax><value>number</value> <value>size</value></syntax>
-<default>256 4k|8k</default>
-<context>stream</context>
-<context>server</context>
-
-<para>
-Sets the <value>number</value> and <value>size</value> of the
-per-zone buffers used for pushing zone contents.
-By default, the buffer size is equal to one memory page.
-This is either 4K or 8K, depending on a platform.
-</para>
-
-</directive>
-
-
-<directive name="zone_sync_recv_buffer_size">
-<syntax><value>size</value></syntax>
-<default>4k|8k</default>
-<context>stream</context>
-<context>server</context>
-
-<para>
-Sets <value>size</value> of a per-connection receive buffer used to parse
-incoming stream of synchronization messages.
-By default, the buffer size is equal to one memory page.
-This is either 4K or 8K, depending on a platform.
 </para>
 
 </directive>
@@ -399,6 +384,21 @@ Enables or disables verification of another cluster server certificate.
 
 <para>
 Sets the verification depth in another cluster server certificates chain.
+</para>
+
+</directive>
+
+
+<directive name="zone_sync_timeout">
+<syntax><value>timeout</value></syntax>
+<default>5s</default>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Sets the <value>timeout</value> between two successive
+read or write operations on connection to another cluster node.
+If no data is transmitted within this time, the connection is closed.
 </para>
 
 </directive>

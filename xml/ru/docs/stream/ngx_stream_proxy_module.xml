@@ -387,6 +387,25 @@ PROXY</link> для соединений с проксируемым серве�
 </directive>
 
 
+<directive name="proxy_ssl_protocols">
+<syntax>
+    [<literal>SSLv2</literal>]
+    [<literal>SSLv3</literal>]
+    [<literal>TLSv1</literal>]
+    [<literal>TLSv1.1</literal>]
+    [<literal>TLSv1.2</literal>]
+    [<literal>TLSv1.3</literal>]</syntax>
+<default>TLSv1 TLSv1.1 TLSv1.2</default>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Разрешает указанные протоколы для соединений с проксируемым сервером.
+</para>
+
+</directive>
+
+
 <directive name="proxy_ssl_server_name">
 <syntax><literal>on</literal> | <literal>off</literal></syntax>
 <default>off</default>
@@ -416,25 +435,6 @@ Server Name Indication протокола TLS</link> (SNI, RFC 6066)
 “<literal>SSL3_GET_FINISHED:digest check failed</literal>”,
 то можно попробовать выключить
 повторное использование сессий.
-</para>
-
-</directive>
-
-
-<directive name="proxy_ssl_protocols">
-<syntax>
-    [<literal>SSLv2</literal>]
-    [<literal>SSLv3</literal>]
-    [<literal>TLSv1</literal>]
-    [<literal>TLSv1.1</literal>]
-    [<literal>TLSv1.2</literal>]
-    [<literal>TLSv1.3</literal>]</syntax>
-<default>TLSv1 TLSv1.1 TLSv1.2</default>
-<context>stream</context>
-<context>server</context>
-
-<para>
-Разрешает указанные протоколы для соединений с проксируемым сервером.
 </para>
 
 </directive>

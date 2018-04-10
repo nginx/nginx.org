@@ -64,6 +64,22 @@ location / {
 
 <section id="directives" name="Directives">
 
+<directive name="create_full_put_path">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+The WebDAV specification only allows creating files in already
+existing directories.
+This directive allows creating all needed intermediate directories.
+</para>
+
+</directive>
+
+
 <directive name="dav_access">
 <syntax><value>users</value>:<value>permissions</value> ...</syntax>
 <default>user:rw</default>
@@ -123,22 +139,6 @@ directive, are put on the same file system.
 When creating a file with the PUT method, it is possible to specify
 the modification date by passing it in the <header>Date</header>
 header field.
-</para>
-
-</directive>
-
-
-<directive name="create_full_put_path">
-<syntax><literal>on</literal> | <literal>off</literal></syntax>
-<default>off</default>
-<context>http</context>
-<context>server</context>
-<context>location</context>
-
-<para>
-The WebDAV specification only allows creating files in already
-existing directories.
-This directive allows creating all needed intermediate directories.
 </para>
 
 </directive>

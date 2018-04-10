@@ -119,6 +119,20 @@ is excluded from this mask.
 </directive>
 
 
+<directive name="gzip_http_version">
+<syntax><literal>1.0</literal> | <literal>1.1</literal></syntax>
+<default>1.1</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Sets the minimum HTTP version of a request required to compress a response.
+</para>
+
+</directive>
+
+
 <directive name="gzip_min_length">
 <syntax><value>length</value></syntax>
 <default>20</default>
@@ -130,20 +144,6 @@ is excluded from this mask.
 Sets the minimum length of a response that will be gzipped.
 The length is determined only from the <header>Content-Length</header>
 response header field.
-</para>
-
-</directive>
-
-
-<directive name="gzip_http_version">
-<syntax><literal>1.0</literal> | <literal>1.1</literal></syntax>
-<default>1.1</default>
-<context>http</context>
-<context>server</context>
-<context>location</context>
-
-<para>
-Sets the minimum HTTP version of a request required to compress a response.
 </para>
 
 </directive>

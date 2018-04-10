@@ -119,6 +119,20 @@ gzip_types      text/plain application/xml;
 </directive>
 
 
+<directive name="gzip_http_version">
+<syntax><literal>1.0</literal> | <literal>1.1</literal></syntax>
+<default>1.1</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Устанавливает минимальную HTTP-версию запроса, необходимую для сжатия ответа.
+</para>
+
+</directive>
+
+
 <directive name="gzip_min_length">
 <syntax><value>длина</value></syntax>
 <default>20</default>
@@ -130,20 +144,6 @@ gzip_types      text/plain application/xml;
 Устанавливает минимальную длину ответа, который будет сжиматься методом gzip.
 Длина определяется только из поля <header>Content-Length</header>
 заголовка ответа.
-</para>
-
-</directive>
-
-
-<directive name="gzip_http_version">
-<syntax><literal>1.0</literal> | <literal>1.1</literal></syntax>
-<default>1.1</default>
-<context>http</context>
-<context>server</context>
-<context>location</context>
-
-<para>
-Устанавливает минимальную HTTP-версию запроса, необходимую для сжатия ответа.
 </para>
 
 </directive>

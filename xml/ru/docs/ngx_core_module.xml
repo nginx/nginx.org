@@ -146,6 +146,67 @@ events {
 </directive>
 
 
+<directive name="env">
+<syntax><value>переменная</value>[=<value>значение</value>]</syntax>
+<default>TZ</default>
+<context>main</context>
+
+<para>
+По умолчанию nginx удаляет все переменные окружения, унаследованные
+от своего родительского процесса, кроме переменной TZ.
+Эта директива позволяет сохранить часть унаследованных переменных,
+поменять им значения или же создать новые переменные окружения.
+Эти переменные затем:
+<list type="bullet">
+
+<listitem>
+наследуются во время
+<link doc="control.xml" id="upgrade">обновления исполняемого файла на лету</link>;
+</listitem>
+
+<listitem>
+используются модулем
+<link doc="http/ngx_http_perl_module.xml">ngx_http_perl_module</link>;
+</listitem>
+
+<listitem>
+используются рабочими процессами.
+Следует иметь в виду, что управление поведением системных библиотек
+подобным образом возможно не всегда, поскольку зачастую библиотеки используют
+переменные только во время инициализации, то есть ещё до того, как их
+можно задать с помощью данной директивы.
+Исключением из этого является упомянутое выше
+<link doc="control.xml" id="upgrade">обновление исполняемого файла на лету</link>.
+</listitem>
+
+</list>
+</para>
+
+<para>
+Если переменная TZ не описана явно, то она всегда наследуется
+и всегда доступна модулю
+<link doc="http/ngx_http_perl_module.xml">ngx_http_perl_module</link>.
+</para>
+
+<para>
+Пример использования:
+<example>
+env MALLOC_OPTIONS;
+env PERL5LIB=/data/site/modules;
+env OPENSSL_ALLOW_PROXY_CERTS=1;
+</example>
+</para>
+
+<para>
+<note>
+Переменная окружения NGINX используется для внутренних целей nginx
+и не должна устанавливаться непосредственно самим пользователем.
+</note>
+</para>
+
+</directive>
+
+
 <directive name="error_log">
 <syntax><value>файл</value> [<value>уровень</value>]</syntax>
 <default>logs/error.log error</default>
@@ -202,67 +263,6 @@ nginx с <literal>--with-debug</literal>,
 начиная с версии 1.7.11
 и на уровне <literal>mail</literal>
 начиная с версии 1.9.0.
-</note>
-</para>
-
-</directive>
-
-
-<directive name="env">
-<syntax><value>переменная</value>[=<value>значение</value>]</syntax>
-<default>TZ</default>
-<context>main</context>
-
-<para>
-По умолчанию nginx удаляет все переменные окружения, унаследованные
-от своего родительского процесса, кроме переменной TZ.
-Эта директива позволяет сохранить часть унаследованных переменных,
-поменять им значения или же создать новые переменные окружения.
-Эти переменные затем:
-<list type="bullet">
-
-<listitem>
-наследуются во время
-<link doc="control.xml" id="upgrade">обновления исполняемого файла на лету</link>;
-</listitem>
-
-<listitem>
-используются модулем
-<link doc="http/ngx_http_perl_module.xml">ngx_http_perl_module</link>;
-</listitem>
-
-<listitem>
-используются рабочими процессами.
-Следует иметь в виду, что управление поведением системных библиотек
-подобным образом возможно не всегда, поскольку зачастую библиотеки используют
-переменные только во время инициализации, то есть ещё до того, как их
-можно задать с помощью данной директивы.
-Исключением из этого является упомянутое выше
-<link doc="control.xml" id="upgrade">обновление исполняемого файла на лету</link>.
-</listitem>
-
-</list>
-</para>
-
-<para>
-Если переменная TZ не описана явно, то она всегда наследуется
-и всегда доступна модулю
-<link doc="http/ngx_http_perl_module.xml">ngx_http_perl_module</link>.
-</para>
-
-<para>
-Пример использования:
-<example>
-env MALLOC_OPTIONS;
-env PERL5LIB=/data/site/modules;
-env OPENSSL_ALLOW_PROXY_CERTS=1;
-</example>
-</para>
-
-<para>
-<note>
-Переменная окружения NGINX используется для внутренних целей nginx
-и не должна устанавливаться непосредственно самим пользователем.
 </note>
 </para>
 

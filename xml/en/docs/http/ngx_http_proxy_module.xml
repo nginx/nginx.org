@@ -1963,6 +1963,27 @@ Passphrases are tried in turn when loading the key.
 </directive>
 
 
+<directive name="proxy_ssl_protocols">
+<syntax>
+    [<literal>SSLv2</literal>]
+    [<literal>SSLv3</literal>]
+    [<literal>TLSv1</literal>]
+    [<literal>TLSv1.1</literal>]
+    [<literal>TLSv1.2</literal>]
+    [<literal>TLSv1.3</literal>]</syntax>
+<default>TLSv1 TLSv1.1 TLSv1.2</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.5.6</appeared-in>
+
+<para>
+Enables the specified protocols for requests to a proxied HTTPS server.
+</para>
+
+</directive>
+
+
 <directive name="proxy_ssl_server_name">
 <syntax><literal>on</literal> | <literal>off</literal></syntax>
 <default>off</default>
@@ -1994,27 +2015,6 @@ the proxied server.
 If the errors
 “<literal>SSL3_GET_FINISHED:digest check failed</literal>”
 appear in the logs, try disabling session reuse.
-</para>
-
-</directive>
-
-
-<directive name="proxy_ssl_protocols">
-<syntax>
-    [<literal>SSLv2</literal>]
-    [<literal>SSLv3</literal>]
-    [<literal>TLSv1</literal>]
-    [<literal>TLSv1.1</literal>]
-    [<literal>TLSv1.2</literal>]
-    [<literal>TLSv1.3</literal>]</syntax>
-<default>TLSv1 TLSv1.1 TLSv1.2</default>
-<context>http</context>
-<context>server</context>
-<context>location</context>
-<appeared-in>1.5.6</appeared-in>
-
-<para>
-Enables the specified protocols for requests to a proxied HTTPS server.
 </para>
 
 </directive>

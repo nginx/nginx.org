@@ -124,26 +124,6 @@ inherited from the previous configuration level.
 </directive>
 
 
-<directive name="auth_jwt_header_set">
-<syntax><value>$variable</value> <value>name</value> ...</syntax>
-<default/>
-<context>http</context>
-<appeared-in>1.11.10</appeared-in>
-
-<para>
-Sets the <value>variable</value> to a JOSE header parameter
-identified by key names.
-Name matching starts from the top level of the JSON tree.
-For arrays, the variable keeps a list of array elements separated by commas.
-<note>
-Prior to version 1.13.7, only one key name could be specified,
-and the result was undefined for arrays.
-</note>
-</para>
-
-</directive>
-
-
 <directive name="auth_jwt_claim_set">
 <syntax><value>$variable</value> <value>name</value> ...</syntax>
 <default/>
@@ -172,21 +152,21 @@ and the result was undefined for arrays.
 </directive>
 
 
-<directive name="auth_jwt_leeway">
-<syntax><value>time</value></syntax>
-<default>0s</default>
+<directive name="auth_jwt_header_set">
+<syntax><value>$variable</value> <value>name</value> ...</syntax>
+<default/>
 <context>http</context>
-<context>server</context>
-<context>location</context>
-<appeared-in>1.13.11</appeared-in>
+<appeared-in>1.11.10</appeared-in>
 
 <para>
-Sets the maximum allowable leeway to compensate
-clock skew when verifying the
-<link url="https://tools.ietf.org/html/rfc7519#section-4.1.4">exp</link>
-and
-<link url="https://tools.ietf.org/html/rfc7519#section-4.1.5">nbf</link>
-JWT claims.
+Sets the <value>variable</value> to a JOSE header parameter
+identified by key names.
+Name matching starts from the top level of the JSON tree.
+For arrays, the variable keeps a list of array elements separated by commas.
+<note>
+Prior to version 1.13.7, only one key name could be specified,
+and the result was undefined for arrays.
+</note>
 </para>
 
 </directive>
@@ -205,6 +185,26 @@ Specifies a <value>file</value> in
 <link url="https://tools.ietf.org/html/rfc7517#section-5">JSON Web Key Set</link>
 format for validating JWT signature.
 Parameter value can contain variables.
+</para>
+
+</directive>
+
+
+<directive name="auth_jwt_leeway">
+<syntax><value>time</value></syntax>
+<default>0s</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.13.11</appeared-in>
+
+<para>
+Sets the maximum allowable leeway to compensate
+clock skew when verifying the
+<link url="https://tools.ietf.org/html/rfc7519#section-4.1.4">exp</link>
+and
+<link url="https://tools.ietf.org/html/rfc7519#section-4.1.5">nbf</link>
+JWT claims.
 </para>
 
 </directive>

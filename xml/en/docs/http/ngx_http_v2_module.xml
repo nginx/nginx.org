@@ -79,6 +79,22 @@ black list and supported by clients.
 
 <section id="directives" name="Directives">
 
+<directive name="http2_body_preread_size">
+<syntax><value>size</value></syntax>
+<default>64k</default>
+<context>http</context>
+<context>server</context>
+<appeared-in>1.11.0</appeared-in>
+
+<para>
+Sets the <value>size</value> of the buffer per each request
+in which the request body may be saved
+before it is started to be processed.
+</para>
+
+</directive>
+
+
 <directive name="http2_chunk_size">
 <syntax><value>size</value></syntax>
 <default>8k</default>
@@ -93,22 +109,6 @@ A too low value results in higher overhead.
 A too high value impairs prioritization due to
 <link url="http://en.wikipedia.org/wiki/Head-of-line_blocking">
 HOL blocking</link>.
-</para>
-
-</directive>
-
-
-<directive name="http2_body_preread_size">
-<syntax><value>size</value></syntax>
-<default>64k</default>
-<context>http</context>
-<context>server</context>
-<appeared-in>1.11.0</appeared-in>
-
-<para>
-Sets the <value>size</value> of the buffer per each request
-in which the request body may be saved
-before it is started to be processed.
 </para>
 
 </directive>

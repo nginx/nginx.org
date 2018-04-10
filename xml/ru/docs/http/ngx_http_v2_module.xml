@@ -79,6 +79,22 @@ server {
 
 <section id="directives" name="Директивы">
 
+<directive name="http2_body_preread_size">
+<syntax><value>размер</value></syntax>
+<default>64k</default>
+<context>http</context>
+<context>server</context>
+<appeared-in>1.11.0</appeared-in>
+
+<para>
+Задаёт <value>размер</value> буфера для каждого запроса,
+в который может сохраняться тело запроса
+до того, как оно начнёт обрабатываться.
+</para>
+
+</directive>
+
+
 <directive name="http2_chunk_size">
 <syntax><value>размер</value></syntax>
 <default>8k</default>
@@ -93,22 +109,6 @@ server {
 Слишком большое значение может негативно сказаться на приоритизации из-за
 <link url="http://en.wikipedia.org/wiki/Head-of-line_blocking">
 блокировки очереди</link>.
-</para>
-
-</directive>
-
-
-<directive name="http2_body_preread_size">
-<syntax><value>размер</value></syntax>
-<default>64k</default>
-<context>http</context>
-<context>server</context>
-<appeared-in>1.11.0</appeared-in>
-
-<para>
-Задаёт <value>размер</value> буфера для каждого запроса,
-в который может сохраняться тело запроса
-до того, как оно начнёт обрабатываться.
 </para>
 
 </directive>
