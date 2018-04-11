@@ -9,12 +9,12 @@
 <module name="Module ngx_stream_zone_sync_module"
         link="/en/docs/stream/ngx_stream_zone_sync_module.html"
         lang="en"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
 <para>
-The <literal>ngx_stream_zone_sync_module</literal> module (1.13.8)
+The <literal>ngx_stream_zone_sync_module</literal> module (1.13.10)
 provides the necessary support for synchronizing contents of
 <link doc="ngx_stream_upstream_module.xml" id="zone">shared memory zones</link>
 between nodes of a cluster.
@@ -24,6 +24,14 @@ Currently, it is possible to synchronize
 <link doc="../http/ngx_http_upstream_module.xml" id="sticky">sticky</link>
 sessions.
 </para>
+
+<para>
+<note>
+This module is available as part of our
+<commercial_version>commercial subscription</commercial_version>.
+</note>
+</para>
+
 </section>
 
 
