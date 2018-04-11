@@ -9,7 +9,7 @@
 <module name="Module ngx_http_auth_jwt_module"
         link="/en/docs/http/ngx_http_auth_jwt_module.html"
         lang="en"
-        rev="6">
+        rev="7">
 
 <section id="summary">
 
@@ -196,7 +196,7 @@ Parameter value can contain variables.
 <context>http</context>
 <context>server</context>
 <context>location</context>
-<appeared-in>1.13.11</appeared-in>
+<appeared-in>1.13.10</appeared-in>
 
 <para>
 Sets the maximum allowable leeway to compensate
