@@ -4521,7 +4521,7 @@ authorizes the client.
 <literal>NGX_HTTP_POST_ACCESS_PHASE</literal> — Special phase where the
 <link doc="../http/ngx_http_core_module.xml" id="satisfy">satisfy any</link>
 directive is processed.
-If some access phase handlers denied access and none explictly allowed it, the
+If some access phase handlers denied access and none explicitly allowed it, the
 request is finalized.
 No additional handlers can be registered at this phase.
 </listitem>
