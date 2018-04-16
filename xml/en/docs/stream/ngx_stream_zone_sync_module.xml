@@ -14,7 +14,7 @@
 <section id="summary">
 
 <para>
-The <literal>ngx_stream_zone_sync_module</literal> module (1.13.10)
+The <literal>ngx_stream_zone_sync_module</literal> module (1.13.8)
 provides the necessary support for synchronizing contents of
 <link doc="ngx_stream_upstream_module.xml" id="zone">shared memory zones</link>
 between nodes of a cluster.
@@ -65,7 +65,7 @@ stream {
 
         listen 127.0.0.1:8090;
 
-        # cluster of 2 nodes: each name resolves to a single IP address
+        # cluster of 2 nodes
         zone_sync_server a.example.com;
         zone_sync_server b.example.com;
 
@@ -196,25 +196,36 @@ This is either 4K or 8K, depending on a platform.
 <context>server</context>
 
 <para>
-Defines the <value>address</value> of a cluster node
-and an optional method of resolving it.
+Defines the <value>address</value> of a cluster node.
 The address can be specified as a domain name or IP address
 with a mandatory port, or as a UNIX-domain socket path
 specified after the “<literal>unix:</literal>” prefix.
 A domain name that resolves to several IP addresses defines
-multiple servers at once.
+multiple nodes at once.
 </para>
 
 <para>
-The "<literal>resolve</literal>" parameter makes nginx to
-monitor changes of the IP addresses
-that correspond to a domain name of the server
-and automatically modifies the configuration
+The <literal>resolve</literal> parameter instructs nginx to monitor
+changes of the IP addresses that correspond to a domain name of the node
+and automatically modify the configuration
 without the need of restarting nginx.
 </para>
 
 <para>
-In order for this parameter to work,
+Cluster nodes are specified either dynamically as a single
+<literal>zone_sync_server</literal> directive with
+the <literal>resolve</literal> parameter, or statically as a series of several
+directives without the parameter.
+<note>
+Each cluster node should be specified only once.
+</note>
+<note>
+All cluster nodes should use the same configuration.
+</note>
+</para>
+
+<para>
+In order for the <literal>resolve</literal> parameter to work,
 the <link doc="ngx_stream_core_module.xml" id="resolver"/> directive
 must be specified in the
 <link doc="ngx_stream_core_module.xml" id="stream"/> block.
@@ -225,22 +236,11 @@ stream {
 
     server {
         zone_sync;
+        zone_sync_server cluster.example.com resolve;
         ...
-        zone_sync_server example.com resolve;
     }
 }
 </example>
-</para>
-
-<para>
-<note>
-Each cluster node must be specified only once.
-If using domain names, ensure they are resolvable to a single IP address.
-</note>
-<note>
-The own address of a node is ignored, thus, there is no need to have different
-configurations on different nodes.
-</note>
 </para>
 
 </directive>
