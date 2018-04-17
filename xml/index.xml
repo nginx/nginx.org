@@ -7,6 +7,20 @@
 
 <news name="nginx news" link="/" lang="en">
 
+<event date="2018-04-17">
+<para>
+<link doc="en/download.xml">nginx-1.14.0</link>
+stable version has been released,
+incorporating new features and bug fixes from the 1.13.x mainline branch -
+including the
+<link doc="en/docs/http/ngx_http_mirror_module.xml">mirror module</link>,
+<link doc="en/docs/http/ngx_http_v2_module.xml" id="http2_push">HTTP/2
+push</link>, the
+<link doc="en/docs/http/ngx_http_grpc_module.xml">gRPC proxy module</link>,
+and more.
+</para>
+</event>
+
 <event date="2018-04-12">
 <para>
 <link url="https://unit.nginx.org/">unit-1.0</link>
