@@ -9,7 +9,7 @@
 <article name="About njs"
         link="/en/docs/njs_about.html"
         lang="en"
-        rev="17">
+        rev="18">
 
 <section id="summary">
 
@@ -221,6 +221,10 @@ labels
 
 <listitem>
 <literal>eval</literal> function
+</listitem>
+
+<listitem>
+<literal>new Function()</literal> constructor
 </listitem>
 
 <listitem>

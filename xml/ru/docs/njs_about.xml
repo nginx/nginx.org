@@ -9,7 +9,7 @@
 <article name="Информация о njs"
         link="/ru/docs/njs_about.html"
         lang="ru"
-        rev="17">
+        rev="18">
 
 <section id="summary">
 
@@ -220,6 +220,10 @@ labels
 
 <listitem>
 функция <literal>eval</literal>
+</listitem>
+
+<listitem>
+конструктор <literal>new Function()</literal>
 </listitem>
 
 <listitem>
