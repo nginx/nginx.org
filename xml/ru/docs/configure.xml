@@ -8,7 +8,7 @@
 <article name="Сборка nginx из исходных файлов"
          link="/ru/docs/configure.html"
          lang="ru"
-         rev="12">
+         rev="13">
 
 <section>
 
@@ -57,7 +57,8 @@
 <literal>--pid-path=<value>путь</value></literal>
 </tag-name>
 <tag-desc>
-задаёт имя файла nginx.pid, в котором будет храниться номер главного процесса.
+задаёт имя файла <path>nginx.pid</path>,
+в котором будет храниться номер главного процесса.
 После установки имя файла можно всегда поменять в конфигурационном
 файле <path>nginx.conf</path> с помощью директивы
 <link doc="ngx_core_module.xml" id="pid"/>.

@@ -8,7 +8,7 @@
 <article name="Building nginx from Sources"
          link="/en/docs/configure.html"
          lang="en"
-         rev="12">
+         rev="13">
 
 <section>
 
@@ -57,8 +57,8 @@ By default the file is named
 <literal>--pid-path=<value>path</value></literal>
 </tag-name>
 <tag-desc>
-sets the name of an nginx.pid file that will store the process ID
-of the main process.
+sets the name of an <path>nginx.pid</path> file
+that will store the process ID of the main process.
 After installation, the file name can always be changed in the
 <path>nginx.conf</path> configuration file using the
 <link doc="ngx_core_module.xml" id="pid"/> directive.
