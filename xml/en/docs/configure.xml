@@ -8,7 +8,7 @@
 <article name="Building nginx from Sources"
          link="/en/docs/configure.html"
          lang="en"
-         rev="13">
+         rev="14">
 
 <section>
 
@@ -17,7 +17,26 @@ The build is configured using the <command>configure</command> command.
 It defines various aspects of the system, including the methods nginx
 is allowed to use for connection processing.
 At the end it creates a <path>Makefile</path>.
+</para>
+
+<para>
 The <command>configure</command> command supports the following parameters:
+</para>
+
+<para>
+<list type="tag">
+
+<tag-name>
+<literal>--help</literal>
+</tag-name>
+<tag-desc>
+prints a help message.
+</tag-desc>
+
+</list>
+</para>
+
+<para>
 <list type="tag">
 
 <tag-name>
@@ -42,6 +61,14 @@ By default the file is named
 </tag-desc>
 
 <tag-name>
+<literal>--modules-path=<value>path</value></literal>
+</tag-name>
+<tag-desc>
+defines a directory where nginx dynamic modules will be installed.
+By default the <path><value>prefix</value>/modules</path> directory is used.
+</tag-desc>
+
+<tag-name>
 <literal>--conf-path=<value>path</value></literal>
 </tag-name>
 <tag-desc>
@@ -51,6 +78,18 @@ by specifying it in the command-line parameter
 <nobr><literal>-c <value>file</value></literal></nobr>.
 By default the file is named
 <path><value>prefix</value>/conf/nginx.conf</path>.
+</tag-desc>
+
+<tag-name>
+<literal>--error-log-path=<value>path</value></literal>
+</tag-name>
+<tag-desc>
+sets the name of the primary error, warnings, and diagnostic file.
+After installation, the file name can always be changed in the
+<path>nginx.conf</path> configuration file using the
+<link doc="ngx_core_module.xml" id="error_log"/> directive.
+By default the file is named
+<path><value>prefix</value>/logs/error.log</path>.
 </tag-desc>
 
 <tag-name>
@@ -67,35 +106,22 @@ By default the file is named
 </tag-desc>
 
 <tag-name>
-<literal>--error-log-path=<value>path</value></literal>
+<literal>--lock-path=<value>path</value></literal>
 </tag-name>
 <tag-desc>
-sets the name of the primary error, warnings, and diagnostic file.
-After installation, the file name can always be changed in the
+sets a prefix for the names of lock files.
+After installation, the value can always be changed in the
 <path>nginx.conf</path> configuration file using the
-<link doc="ngx_core_module.xml" id="error_log"/> directive.
-By default the file is named
-<path><value>prefix</value>/logs/error.log</path>.
+<link doc="ngx_core_module.xml" id="lock_file"/> directive.
+By default the value is
+<path><value>prefix</value>/logs/nginx.lock</path>.
 </tag-desc>
 
-<tag-name>
-<literal>--http-log-path=<value>path</value></literal>
-</tag-name>
-<tag-desc>
-sets the name of the primary request log file of the HTTP server.
-After installation, the file name can always be changed in the
-<path>nginx.conf</path> configuration file using the
-<link doc="http/ngx_http_log_module.xml" id="access_log"/> directive.
-By default the file is named
-<path><value>prefix</value>/logs/access.log</path>.
-</tag-desc>
+</list>
+</para>
 
-<tag-name id="build">
-<literal>--build=<value>name</value></literal>
-</tag-name>
-<tag-desc>
-sets an optional nginx build name.
-</tag-desc>
+<para>
+<list type="tag">
 
 <tag-name>
 <literal>--user=<value>name</value></literal>
@@ -121,6 +147,32 @@ After installation, the name can always be changed in the
 By default, a group name is set to the name of an unprivileged user.
 </tag-desc>
 
+</list>
+</para>
+
+<para>
+<list type="tag">
+
+<tag-name id="build">
+<literal>--build=<value>name</value></literal>
+</tag-name>
+<tag-desc>
+sets an optional nginx build name.
+</tag-desc>
+
+<tag-name>
+<literal>--builddir=<value>path</value></literal>
+</tag-name>
+<tag-desc>
+sets a build directory.
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+<list type="tag">
+
 <tag-name>
 <literal>--with-select_module</literal><br/>
 <literal>--without-select_module</literal>
@@ -144,6 +196,254 @@ to support more appropriate methods such as kqueue, epoll, or /dev/poll.
 </tag-desc>
 
 <tag-name>
+<literal>--with-threads</literal>
+</tag-name>
+<tag-desc>
+enables the use of
+<link doc="ngx_core_module.xml" id="thread_pool">thread pools</link>.
+</tag-desc>
+
+<tag-name>
+<literal>--with-file-aio</literal>
+</tag-name>
+<tag-desc>
+enables the use of
+<link doc="http/ngx_http_core_module.xml" id="aio">asynchronous file I/O</link>
+(AIO) on FreeBSD and Linux.
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+<list type="tag">
+
+<tag-name>
+<literal>--with-http_ssl_module</literal>
+</tag-name>
+<tag-desc>
+enables building a module that adds the
+<link doc="http/ngx_http_ssl_module.xml">HTTPS protocol support</link>
+to an HTTP server.
+This module is not built by default.
+The OpenSSL library is required to build and run this module.
+</tag-desc>
+
+<tag-name>
+<literal>--with-http_v2_module</literal>
+</tag-name>
+<tag-desc>
+enables building a module that provides support for
+<link doc="http/ngx_http_v2_module.xml">HTTP/2</link>.
+This module is not built by default.
+</tag-desc>
+
+<tag-name>
+<literal>--with-http_realip_module</literal>
+</tag-name>
+<tag-desc>
+enables building the
+<link doc="http/ngx_http_realip_module.xml">ngx_http_realip_module</link>
+module that changes the client address to the address
+sent in the specified header field.
+This module is not built by default.
+</tag-desc>
+
+<tag-name>
+<literal>--with-http_addition_module</literal>
+</tag-name>
+<tag-desc>
+enables building the
+<link doc="http/ngx_http_addition_module.xml">ngx_http_addition_module</link>
+module that adds text before and after a response.
+This module is not built by default.
+</tag-desc>
+
+<tag-name>
+<literal>--with-http_xslt_module</literal><br/>
+<literal>--with-http_xslt_module=dynamic</literal>
+</tag-name>
+<tag-desc>
+enables building the
+<link doc="http/ngx_http_xslt_module.xml">ngx_http_xslt_module</link>
+module that transforms XML responses using one or more XSLT stylesheets.
+This module is not built by default.
+The <link url="http://xmlsoft.org">libxml2</link> and
+<link url="http://xmlsoft.org/XSLT/">libxslt</link> libraries
+are required to build and run this module.
+</tag-desc>
+
+<tag-name>
+<literal>--with-http_image_filter_module</literal><br/>
+<literal>--with-http_image_filter_module=dynamic</literal>
+</tag-name>
+<tag-desc>
+enables building the
+<link doc="http/ngx_http_image_filter_module.xml">ngx_http_image_filter_module</link>
+module that transforms images in JPEG, GIF, PNG, and WebP formats.
+This module is not built by default.
+</tag-desc>
+
+<tag-name>
+<literal>--with-http_geoip_module</literal><br/>
+<literal>--with-http_geoip_module=dynamic</literal>
+</tag-name>
+<tag-desc>
+enables building the
+<link doc="http/ngx_http_geoip_module.xml">ngx_http_geoip_module</link>
+module that creates variables depending on the client IP address
+and the precompiled
+<link url="http://www.maxmind.com">MaxMind</link> databases.
+This module is not built by default.
+</tag-desc>
+
+<tag-name>
+<literal>--with-http_sub_module</literal>
+</tag-name>
+<tag-desc>
+enables building the
+<link doc="http/ngx_http_sub_module.xml">ngx_http_sub_module</link>
+module that modifies a response by replacing one specified string by another.
+This module is not built by default.
+</tag-desc>
+
+<tag-name>
+<literal>--with-http_dav_module</literal>
+</tag-name>
+<tag-desc>
+enables building the
+<link doc="http/ngx_http_dav_module.xml">ngx_http_dav_module</link>
+module that provides file management automation via the WebDAV protocol.
+This module is not built by default.
+</tag-desc>
+
+<tag-name>
+<literal>--with-http_flv_module</literal>
+</tag-name>
+<tag-desc>
+enables building the
+<link doc="http/ngx_http_flv_module.xml">ngx_http_flv_module</link>
+module that provides pseudo-streaming server-side support
+for Flash Video (FLV) files.
+This module is not built by default.
+</tag-desc>
+
+<tag-name>
+<literal>--with-http_mp4_module</literal>
+</tag-name>
+<tag-desc>
+enables building the
+<link doc="http/ngx_http_mp4_module.xml">ngx_http_mp4_module</link>
+module that provides pseudo-streaming server-side support
+for MP4 files.
+This module is not built by default.
+</tag-desc>
+
+<tag-name>
+<literal>--with-http_gunzip_module</literal>
+</tag-name>
+<tag-desc>
+enables building the
+<link doc="http/ngx_http_gunzip_module.xml">ngx_http_gunzip_module</link>
+module that decompresses responses
+with “<literal>Content-Encoding: gzip</literal>”
+for clients that do not support “gzip” encoding method.
+This module is not built by default.
+</tag-desc>
+
+<tag-name>
+<literal>--with-http_gzip_static_module</literal>
+</tag-name>
+<tag-desc>
+enables building the
+<link doc="http/ngx_http_gzip_static_module.xml">ngx_http_gzip_static_module</link>
+module that enables sending precompressed files
+with the “<literal>.gz</literal>” filename extension instead of regular files.
+This module is not built by default.
+</tag-desc>
+
+<tag-name>
+<literal>--with-http_auth_request_module</literal>
+</tag-name>
+<tag-desc>
+enables building the
+<link doc="http/ngx_http_auth_request_module.xml">ngx_http_auth_request_module</link>
+module that implements client authorization
+based on the result of a subrequest.
+This module is not built by default.
+</tag-desc>
+
+<tag-name>
+<literal>--with-http_random_index_module</literal>
+</tag-name>
+<tag-desc>
+enables building the
+<link doc="http/ngx_http_random_index_module.xml">ngx_http_random_index_module</link>
+module that processes requests
+ending with the slash character (‘<literal>/</literal>’) and picks a random
+file in a directory to serve as an index file.
+This module is not built by default.
+</tag-desc>
+
+<tag-name>
+<literal>--with-http_secure_link_module</literal>
+</tag-name>
+<tag-desc>
+enables building the
+<link doc="http/ngx_http_secure_link_module.xml">ngx_http_secure_link_module</link>
+module.
+This module is not built by default.
+</tag-desc>
+
+<tag-name>
+<literal>--with-http_degradation_module</literal>
+</tag-name>
+<tag-desc>
+enables building the
+<literal>ngx_http_degradation_module</literal> module.
+This module is not built by default.
+</tag-desc>
+
+<tag-name>
+<literal>--with-http_slice_module</literal>
+</tag-name>
+<tag-desc>
+enables building the
+<link doc="http/ngx_http_slice_module.xml">ngx_http_slice_module</link>
+module that splits a request into subrequests,
+each returning a certain range of response.
+The module provides more effective caching of big responses.
+This module is not built by default.
+</tag-desc>
+
+<tag-name>
+<literal>--with-http_stub_status_module</literal>
+</tag-name>
+<tag-desc>
+enables building the
+<link doc="http/ngx_http_stub_status_module.xml">ngx_http_stub_status_module</link>
+module that provides access to basic status information.
+This module is not built by default.
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+<list type="tag">
+
+<tag-name>
+<literal>--without-http_charset_module</literal>
+</tag-name>
+<tag-desc>
+disables building the
+<link doc="http/ngx_http_charset_module.xml">ngx_http_charset_module</link>
+module that adds the specified charset to the
+<header>Content-Type</header> response header field
+and can additionally convert data from one charset to another.
+</tag-desc>
+
+<tag-name>
 <literal>--without-http_gzip_module</literal>
 </tag-name>
 <tag-desc>
@@ -151,6 +451,106 @@ disables building a module
 that <link doc="http/ngx_http_gzip_module.xml">compresses responses</link>
 of an HTTP server.
 The zlib library is required to build and run this module.
+</tag-desc>
+
+<tag-name>
+<literal>--without-http_ssi_module</literal>
+</tag-name>
+<tag-desc>
+disables building the
+<link doc="http/ngx_http_ssi_module.xml">ngx_http_ssi_module</link>
+module that processes SSI (Server Side Includes) commands in responses
+passing through it.
+</tag-desc>
+
+<tag-name>
+<literal>--without-http_userid_module</literal>
+</tag-name>
+<tag-desc>
+disables building the
+<link doc="http/ngx_http_userid_module.xml">ngx_http_userid_module</link>
+module that sets cookies suitable for client identification.
+</tag-desc>
+
+<tag-name>
+<literal>--without-http_access_module</literal>
+</tag-name>
+<tag-desc>
+disables building the
+<link doc="http/ngx_http_access_module.xml">ngx_http_access_module</link>
+module that allows limiting access to certain client addresses.
+</tag-desc>
+
+<tag-name>
+<literal>--without-http_auth_basic_module</literal>
+</tag-name>
+<tag-desc>
+disables building the
+<link doc="http/ngx_http_auth_basic_module.xml">ngx_http_auth_basic_module</link>
+module that allows limiting access to resources by validating the user name
+and password using the “HTTP Basic Authentication” protocol.
+</tag-desc>
+
+<tag-name>
+<literal>--without-http_mirror_module</literal>
+</tag-name>
+<tag-desc>
+disables building the
+<link doc="http/ngx_http_mirror_module.xml">ngx_http_mirror_module</link>
+module that implements mirroring of an original request
+by creating background mirror subrequests.
+</tag-desc>
+
+<tag-name>
+<literal>--without-http_autoindex_module</literal>
+</tag-name>
+<tag-desc>
+disables building the
+<link doc="http/ngx_http_autoindex_module.xml">ngx_http_autoindex_module</link>
+module that processes requests
+ending with the slash character (‘<literal>/</literal>’) and produces
+a directory listing in case the
+<link doc="http/ngx_http_index_module.xml">ngx_http_index_module</link> module
+cannot find an index file.
+</tag-desc>
+
+<tag-name>
+<literal>--without-http_geo_module</literal>
+</tag-name>
+<tag-desc>
+disables building the
+<link doc="http/ngx_http_geo_module.xml">ngx_http_geo_module</link>
+module that creates variables
+with values depending on the client IP address.
+</tag-desc>
+
+<tag-name>
+<literal>--without-http_map_module</literal>
+</tag-name>
+<tag-desc>
+disables building the
+<link doc="http/ngx_http_map_module.xml">ngx_http_map_module</link>
+module that creates variables
+with values depending on values of other variables.
+</tag-desc>
+
+<tag-name>
+<literal>--without-http_split_clients_module</literal>
+</tag-name>
+<tag-desc>
+disables building the
+<link doc="http/ngx_http_split_clients_module.xml">ngx_http_split_clients_module</link>
+module that creates variables for A/B testing.
+</tag-desc>
+
+<tag-name>
+<literal>--without-http_referer_module</literal>
+</tag-name>
+<tag-desc>
+disables building the
+<link doc="http/ngx_http_referer_module.xml">ngx_http_referer_module</link>
+module that can block access to a site for requests with invalid values
+in the <header>Referer</header> header field.
 </tag-desc>
 
 <tag-name>
@@ -175,54 +575,547 @@ The MD5 library is required to build and run this module.
 </tag-desc>
 
 <tag-name>
-<literal>--with-http_ssl_module</literal>
+<literal>--without-http_fastcgi_module</literal>
+</tag-name>
+<tag-desc>
+disables building the
+<link doc="http/ngx_http_fastcgi_module.xml">ngx_http_fastcgi_module</link>
+module that passes requests to a FastCGI server.
+</tag-desc>
+
+<tag-name>
+<literal>--without-http_uwsgi_module</literal>
+</tag-name>
+<tag-desc>
+disables building the
+<link doc="http/ngx_http_uwsgi_module.xml">ngx_http_uwsgi_module</link>
+module that passes requests to a uwsgi server.
+</tag-desc>
+
+<tag-name>
+<literal>--without-http_scgi_module</literal>
+</tag-name>
+<tag-desc>
+disables building the
+<link doc="http/ngx_http_scgi_module.xml">ngx_http_scgi_module</link>
+module that passes requests to an SCGI server.
+</tag-desc>
+
+<tag-name>
+<literal>--without-http_grpc_module</literal>
+</tag-name>
+<tag-desc>
+disables building the
+<link doc="http/ngx_http_grpc_module.xml">ngx_http_grpc_module</link>
+module that passes requests to a gRPC server.
+</tag-desc>
+
+<tag-name>
+<literal>--without-http_memcached_module</literal>
+</tag-name>
+<tag-desc>
+disables building the
+<link doc="http/ngx_http_memcached_module.xml">ngx_http_memcached_module</link>
+module that obtains responses from a memcached server.
+</tag-desc>
+
+<tag-name>
+<literal>--without-http_limit_conn_module</literal>
+</tag-name>
+<tag-desc>
+disables building the
+<link doc="http/ngx_http_limit_conn_module.xml">ngx_http_limit_conn_module</link>
+module that limits the number of connections per key, for example,
+the number of connections from a single IP address.
+</tag-desc>
+
+<tag-name>
+<literal>--without-http_limit_req_module</literal>
+</tag-name>
+<tag-desc>
+disables building the
+<link doc="http/ngx_http_limit_req_module.xml">ngx_http_limit_req_module</link>
+module that limits the request processing rate per key, for example,
+the processing rate of requests coming from a single IP address.
+</tag-desc>
+
+<tag-name>
+<literal>--without-http_empty_gif_module</literal>
+</tag-name>
+<tag-desc>
+disables building a module that
+<link doc="http/ngx_http_empty_gif_module.xml">emits single-pixel
+transparent GIF</link>.
+</tag-desc>
+
+<tag-name>
+<literal>--without-http_browser_module</literal>
+</tag-name>
+<tag-desc>
+disables building the
+<link doc="http/ngx_http_browser_module.xml">ngx_http_browser_module</link>
+module that creates variables whose values depend on the value of the
+<header>User-Agent</header> request header field.
+</tag-desc>
+
+<tag-name>
+<literal>--without-http_upstream_hash_module</literal>
+</tag-name>
+<tag-desc>
+disables building a module that implements the
+<link doc="http/ngx_http_upstream_module.xml" id="hash"/>
+load balancing method.
+</tag-desc>
+
+<tag-name>
+<literal>--without-http_upstream_ip_hash_module</literal>
+</tag-name>
+<tag-desc>
+disables building a module that implements the
+<link doc="http/ngx_http_upstream_module.xml" id="ip_hash"/>
+load balancing method.
+</tag-desc>
+
+<tag-name>
+<literal>--without-http_upstream_least_conn_module</literal>
+</tag-name>
+<tag-desc>
+disables building a module that implements the
+<link doc="http/ngx_http_upstream_module.xml" id="least_conn"/>
+load balancing method.
+</tag-desc>
+
+<tag-name>
+<literal>--without-http_upstream_keepalive_module</literal>
+</tag-name>
+<tag-desc>
+disables building a module that provides
+<link doc="http/ngx_http_upstream_module.xml" id="keepalive">caching of
+connections</link> to upstream servers.
+</tag-desc>
+
+<tag-name>
+<literal>--without-http_upstream_zone_module</literal>
+</tag-name>
+<tag-desc>
+disables building a module that makes it possible to store run-time state
+of an upstream group in a shared memory
+<link doc="http/ngx_http_upstream_module.xml" id="zone"/>.
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+<list type="tag">
+
+<tag-name>
+<literal>--with-http_perl_module</literal><br/>
+<literal>--with-http_perl_module=dynamic</literal>
+</tag-name>
+<tag-desc>
+enables building the
+<link doc="http/ngx_http_perl_module.xml">embedded Perl module</link>.
+This module is not built by default.
+</tag-desc>
+
+<tag-name>
+<literal>--with-perl_modules_path=<value>path</value></literal>
+</tag-name>
+<tag-desc>
+defines a directory that will keep Perl modules.
+</tag-desc>
+
+<tag-name>
+<literal>--with-perl=<value>path</value></literal>
+</tag-name>
+<tag-desc>
+sets the name of the Perl binary.
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+<list type="tag">
+
+<tag-name>
+<literal>--http-log-path=<value>path</value></literal>
+</tag-name>
+<tag-desc>
+sets the name of the primary request log file of the HTTP server.
+After installation, the file name can always be changed in the
+<path>nginx.conf</path> configuration file using the
+<link doc="http/ngx_http_log_module.xml" id="access_log"/> directive.
+By default the file is named
+<path><value>prefix</value>/logs/access.log</path>.
+</tag-desc>
+
+<tag-name>
+<literal>--http-client-body-temp-path=<value>path</value></literal>
+</tag-name>
+<tag-desc>
+defines a directory for storing temporary files
+that hold client request bodies.
+After installation, the directory can always be changed in the
+<path>nginx.conf</path> configuration file using the
+<link doc="http/ngx_http_core_module.xml" id="client_body_temp_path"/>
+directive.
+By default the directory is named
+<path><value>prefix</value>/client_body_temp</path>.
+</tag-desc>
+
+<tag-name>
+<literal>--http-proxy-temp-path=<value>path</value></literal>
+</tag-name>
+<tag-desc>
+defines a directory for storing temporary files
+with data received from proxied servers.
+After installation, the directory can always be changed in the
+<path>nginx.conf</path> configuration file using the
+<link doc="http/ngx_http_proxy_module.xml" id="proxy_temp_path"/>
+directive.
+By default the directory is named
+<path><value>prefix</value>/proxy_temp</path>.
+</tag-desc>
+
+<tag-name>
+<literal>--http-fastcgi-temp-path=<value>path</value></literal>
+</tag-name>
+<tag-desc>
+defines a directory for storing temporary files
+with data received from FastCGI servers.
+After installation, the directory can always be changed in the
+<path>nginx.conf</path> configuration file using the
+<link doc="http/ngx_http_fastcgi_module.xml" id="fastcgi_temp_path"/>
+directive.
+By default the directory is named
+<path><value>prefix</value>/fastcgi_temp</path>.
+</tag-desc>
+
+<tag-name>
+<literal>--http-uwsgi-temp-path=<value>path</value></literal>
+</tag-name>
+<tag-desc>
+defines a directory for storing temporary files
+with data received from uwsgi servers.
+After installation, the directory can always be changed in the
+<path>nginx.conf</path> configuration file using the
+<link doc="http/ngx_http_uwsgi_module.xml" id="uwsgi_temp_path"/>
+directive.
+By default the directory is named
+<path><value>prefix</value>/uwsgi_temp</path>.
+</tag-desc>
+
+<tag-name>
+<literal>--http-scgi-temp-path=<value>path</value></literal>
+</tag-name>
+<tag-desc>
+defines a directory for storing temporary files
+with data received from SCGI servers.
+After installation, the directory can always be changed in the
+<path>nginx.conf</path> configuration file using the
+<link doc="http/ngx_http_scgi_module.xml" id="scgi_temp_path"/>
+directive.
+By default the directory is named
+<path><value>prefix</value>/scgi_temp</path>.
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+<list type="tag">
+
+<tag-name>
+<literal>--without-http</literal>
+</tag-name>
+<tag-desc>
+disables the <link doc="http/ngx_http_core_module.xml">HTTP</link> server.
+</tag-desc>
+
+<tag-name>
+<literal>--without-http-cache</literal>
+</tag-name>
+<tag-desc>
+disables HTTP cache.
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+<list type="tag">
+
+<tag-name>
+<literal>--with-mail</literal><br/>
+<literal>--with-mail=dynamic</literal>
+</tag-name>
+<tag-desc>
+enables POP3/IMAP4/SMTP
+<link doc="mail/ngx_mail_core_module.xml">mail proxy</link> server.
+</tag-desc>
+
+<tag-name>
+<literal>--with-mail_ssl_module</literal>
 </tag-name>
 <tag-desc>
 enables building a module that adds the
-<link doc="http/ngx_http_ssl_module.xml">HTTPS protocol support</link>
-to an HTTP server.
+<link doc="mail/ngx_mail_ssl_module.xml">SSL/TLS protocol support</link>
+to the mail proxy server.
 This module is not built by default.
 The OpenSSL library is required to build and run this module.
 </tag-desc>
 
 <tag-name>
-<literal>--with-pcre=<value>path</value></literal>
+<literal>--without-mail_pop3_module</literal>
 </tag-name>
 <tag-desc>
-sets the path to the sources of the PCRE library.
-The library distribution (version
-4.4&mdash;8.41) needs to be downloaded from the
-<link url="http://www.pcre.org">PCRE</link> site and extracted.
-The rest is done by nginx’s <command>./configure</command> and
-<command>make</command>.
-The library is required for regular expressions support in the
-<link doc="http/ngx_http_core_module.xml" id="location"/> directive
-and for the
-<link doc="http/ngx_http_rewrite_module.xml">ngx_http_rewrite_module</link>
-module.
+disables the <link doc="mail/ngx_mail_pop3_module.xml">POP3</link> protocol
+in mail proxy server.
 </tag-desc>
 
 <tag-name>
-<literal>--with-pcre-jit</literal>
+<literal>--without-mail_imap_module</literal>
 </tag-name>
 <tag-desc>
-builds the PCRE library with
-“just-in-time compilation” support (1.1.12, the
-<link doc="ngx_core_module.xml" id="pcre_jit"/> directive).
+disables the <link doc="mail/ngx_mail_imap_module.xml">IMAP</link> protocol
+in mail proxy server.
 </tag-desc>
 
 <tag-name>
-<literal>--with-zlib=<value>path</value></literal>
+<literal>--without-mail_smtp_module</literal>
 </tag-name>
 <tag-desc>
-sets the path to the sources of the zlib library.
-The library distribution (version
-1.1.3&mdash;1.2.11) needs to be downloaded from the
-<link url="http://zlib.net">zlib</link> site and extracted.
-The rest is done by nginx’s <command>./configure</command> and
-<command>make</command>.
-The library is required for the
-<link doc="http/ngx_http_gzip_module.xml">ngx_http_gzip_module</link> module.
+disables the <link doc="mail/ngx_mail_smtp_module.xml">SMTP</link> protocol
+in mail proxy server.
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+<list type="tag">
+
+<tag-name>
+<literal>--with-stream</literal><br/>
+<literal>--with-stream=dynamic</literal>
+</tag-name>
+<tag-desc>
+enables building the
+<link doc="stream/ngx_stream_core_module.xml">stream module</link>
+for generic TCP/UDP proxying and load balancing.
+This module is not built by default.
+</tag-desc>
+
+<tag-name>
+<literal>--with-stream_ssl_module</literal>
+</tag-name>
+<tag-desc>
+enables building a module that adds the
+<link doc="stream/ngx_stream_ssl_module.xml">SSL/TLS protocol support</link>
+to the stream module.
+This module is not built by default.
+The OpenSSL library is required to build and run this module.
+</tag-desc>
+
+<tag-name>
+<literal>--with-stream_realip_module</literal>
+</tag-name>
+<tag-desc>
+enables building the
+<link doc="http/ngx_stream_realip_module.xml">ngx_stream_realip_module</link>
+module that changes the client address to the address
+sent in the PROXY protocol header.
+This module is not built by default.
+</tag-desc>
+
+<tag-name>
+<literal>--with-stream_geoip_module</literal><br/>
+<literal>--with-stream_geoip_module=dynamic</literal>
+</tag-name>
+<tag-desc>
+enables building the
+<link doc="stream/ngx_stream_geoip_module.xml">ngx_stream_geoip_module</link>
+module that creates variables depending on the client IP address
+and the precompiled
+<link url="http://www.maxmind.com">MaxMind</link> databases.
+This module is not built by default.
+</tag-desc>
+
+<tag-name>
+<literal>--with-stream_ssl_preread_module</literal>
+</tag-name>
+<tag-desc>
+enables building the
+<link doc="stream/ngx_stream_ssl_preread_module.xml">ngx_stream_ssl_preread_module</link>
+module that allows extracting information from the
+<link url="https://tools.ietf.org/html/rfc5246#section-7.4.1.2">ClientHello</link>
+message without terminating SSL/TLS.
+This module is not built by default.
+</tag-desc>
+
+<tag-name>
+<literal>--without-stream_limit_conn_module</literal>
+</tag-name>
+<tag-desc>
+disables building the
+<link doc="stream/ngx_stream_limit_conn_module.xml">ngx_stream_limit_conn_module</link>
+module that limits the number of connections per key, for example,
+the number of connections from a single IP address.
+</tag-desc>
+
+<tag-name>
+<literal>--without-stream_access_module</literal>
+</tag-name>
+<tag-desc>
+disables building the
+<link doc="stream/ngx_stream_access_module.xml">ngx_stream_access_module</link>
+module that allows limiting access to certain client addresses.
+</tag-desc>
+
+<tag-name>
+<literal>--without-stream_geo_module</literal>
+</tag-name>
+<tag-desc>
+disables building the
+<link doc="stream/ngx_stream_geo_module.xml">ngx_stream_geo_module</link>
+module that creates variables
+with values depending on the client IP address.
+</tag-desc>
+
+<tag-name>
+<literal>--without-stream_map_module</literal>
+</tag-name>
+<tag-desc>
+disables building the
+<link doc="stream/ngx_stream_map_module.xml">ngx_stream_map_module</link>
+module that creates variables
+with values depending on values of other variables.
+</tag-desc>
+
+<tag-name>
+<literal>--without-stream_split_clients_module</literal>
+</tag-name>
+<tag-desc>
+disables building the
+<link doc="stream/ngx_stream_split_clients_module.xml">ngx_stream_split_clients_module</link>
+module that creates variables for A/B testing.
+</tag-desc>
+
+<tag-name>
+<literal>--without-stream_return_module</literal>
+</tag-name>
+<tag-desc>
+disables building the
+<link doc="stream/ngx_stream_return_module.xml">ngx_stream_return_module</link>
+module that sends some specified value to the client
+and then closes the connection.
+</tag-desc>
+
+<tag-name>
+<literal>--without-stream_upstream_hash_module</literal>
+</tag-name>
+<tag-desc>
+disables building a module that implements the
+<link doc="stream/ngx_stream_upstream_module.xml" id="hash"/>
+load balancing method.
+</tag-desc>
+
+<tag-name>
+<literal>--without-stream_upstream_least_conn_module</literal>
+</tag-name>
+<tag-desc>
+disables building a module that implements the
+<link doc="stream/ngx_stream_upstream_module.xml" id="least_conn"/>
+load balancing method.
+</tag-desc>
+
+<tag-name>
+<literal>--without-stream_upstream_zone_module</literal>
+</tag-name>
+<tag-desc>
+disables building a module that makes it possible to store run-time state
+of an upstream group in a shared memory
+<link doc="stream/ngx_stream_upstream_module.xml" id="zone"/>.
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+<list type="tag">
+
+<tag-name>
+<literal>--with-google_perftools_module</literal>
+</tag-name>
+<tag-desc>
+enables building the
+<link doc="ngx_google_perftools_module.xml">ngx_google_perftools_module</link>
+module that enables profiling of nginx worker processes using
+<link url="https://github.com/gperftools/gperftools">Google Performance Tools</link>.
+The module is intended for nginx developers and is not built by default.
+</tag-desc>
+
+<tag-name>
+<literal>--with-cpp_test_module</literal>
+</tag-name>
+<tag-desc>
+enables building the
+<literal>ngx_cpp_test_module</literal> module.
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+<list type="tag">
+
+<tag-name>
+<literal>--add-module=<value>path</value></literal>
+</tag-name>
+<tag-desc>
+enables an external module.
+</tag-desc>
+
+<tag-name>
+<literal>--add-dynamic-module=<value>path</value></literal>
+</tag-name>
+<tag-desc>
+enables an external dynamic module.
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+<list type="tag">
+
+<tag-name>
+<literal>--with-compat</literal>
+</tag-name>
+<tag-desc>
+enables dynamic modules compatibility.
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+<list type="tag">
+
+<tag-name>
+<literal>--with-cc=<value>path</value></literal>
+</tag-name>
+<tag-desc>
+sets the name of the C compiler.
+</tag-desc>
+
+<tag-name>
+<literal>--with-cpp=<value>path</value></literal>
+</tag-name>
+<tag-desc>
+sets the name of the C preprocessor.
 </tag-desc>
 
 <tag-name>
@@ -248,8 +1141,161 @@ When using the system PCRE library under FreeBSD,
 should be specified.
 </tag-desc>
 
-</list>
+<tag-name>
+<literal>--with-cpu-opt=<value>cpu</value></literal>
+</tag-name>
+<tag-desc>
+enables building per specified CPU:
+<literal>pentium</literal>, <literal>pentiumpro</literal>,
+<literal>pentium3</literal>, <literal>pentium4</literal>,
+<literal>athlon</literal>, <literal>opteron</literal>,
+<literal>sparc32</literal>, <literal>sparc64</literal>,
+<literal>ppc64</literal>.
+</tag-desc>
 
+</list>
+</para>
+
+<para>
+<list type="tag">
+
+<tag-name>
+<literal>--without-pcre</literal>
+</tag-name>
+<tag-desc>
+disables the usage of the PCRE library.
+</tag-desc>
+
+<tag-name>
+<literal>--with-pcre</literal>
+</tag-name>
+<tag-desc>
+forces the usage of the PCRE library.
+</tag-desc>
+
+<tag-name>
+<literal>--with-pcre=<value>path</value></literal>
+</tag-name>
+<tag-desc>
+sets the path to the sources of the PCRE library.
+The library distribution (version
+4.4&mdash;8.41) needs to be downloaded from the
+<link url="http://www.pcre.org">PCRE</link> site and extracted.
+The rest is done by nginx’s <command>./configure</command> and
+<command>make</command>.
+The library is required for regular expressions support in the
+<link doc="http/ngx_http_core_module.xml" id="location"/> directive
+and for the
+<link doc="http/ngx_http_rewrite_module.xml">ngx_http_rewrite_module</link>
+module.
+</tag-desc>
+
+<tag-name>
+<literal>--with-pcre-opt=<value>parameters</value></literal>
+</tag-name>
+<tag-desc>
+sets additional build options for PCRE.
+</tag-desc>
+
+<tag-name>
+<literal>--with-pcre-jit</literal>
+</tag-name>
+<tag-desc>
+builds the PCRE library with
+“just-in-time compilation” support (1.1.12, the
+<link doc="ngx_core_module.xml" id="pcre_jit"/> directive).
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+<list type="tag">
+
+<tag-name>
+<literal>--with-zlib=<value>path</value></literal>
+</tag-name>
+<tag-desc>
+sets the path to the sources of the zlib library.
+The library distribution (version
+1.1.3&mdash;1.2.11) needs to be downloaded from the
+<link url="http://zlib.net">zlib</link> site and extracted.
+The rest is done by nginx’s <command>./configure</command> and
+<command>make</command>.
+The library is required for the
+<link doc="http/ngx_http_gzip_module.xml">ngx_http_gzip_module</link> module.
+</tag-desc>
+
+<tag-name>
+<literal>--with-zlib-opt=<value>parameters</value></literal>
+</tag-name>
+<tag-desc>
+sets additional build options for zlib.
+</tag-desc>
+
+<tag-name>
+<literal>--with-zlib-asm=<value>cpu</value></literal>
+</tag-name>
+<tag-desc>
+enables the use of the zlib assembler sources optimized
+for one of the specified CPUs:
+<literal>pentium</literal>, <literal>pentiumpro</literal>.
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+<list type="tag">
+
+<tag-name>
+<literal>--with-libatomic</literal>
+</tag-name>
+<tag-desc>
+forces the libatomic_ops library usage.
+</tag-desc>
+
+<tag-name>
+<literal>--with-libatomic=<value>path</value></literal>
+</tag-name>
+<tag-desc>
+sets the path to the libatomic_ops library sources.
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+<list type="tag">
+
+<tag-name>
+<literal>--with-openssl=<value>path</value></literal>
+</tag-name>
+<tag-desc>
+sets the path to the OpenSSL library sources.
+</tag-desc>
+
+<tag-name>
+<literal>--with-openssl-opt=<value>parameters</value></literal>
+</tag-name>
+<tag-desc>
+sets additional build options for OpenSSL.
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+<list type="tag">
+
+<tag-name>
+<literal>--with-debug</literal>
+</tag-name>
+<tag-desc>
+enables the <link doc="debugging_log.xml">debugging log</link>.
+</tag-desc>
+
+</list>
 </para>
 
 <para>

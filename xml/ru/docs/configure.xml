@@ -8,7 +8,7 @@
 <article name="Сборка nginx из исходных файлов"
          link="/ru/docs/configure.html"
          lang="ru"
-         rev="13">
+         rev="14">
 
 <section>
 
@@ -17,7 +17,26 @@
 Она определяет особенности системы и, в частности, методы, которые nginx
 может использовать для обработки соединений.
 В конце концов она создаёт <path>Makefile</path>.
+</para>
+
+<para>
 Команда <command>configure</command> поддерживает следующие параметры:
+</para>
+
+<para>
+<list type="tag">
+
+<tag-name>
+<literal>--help</literal>
+</tag-name>
+<tag-desc>
+печатает справочное сообщение.
+</tag-desc>
+
+</list>
+</para>
+
+<para>
 <list type="tag">
 
 <tag-name>
@@ -42,6 +61,14 @@
 </tag-desc>
 
 <tag-name>
+<literal>--modules-path=<value>путь</value></literal>
+</tag-name>
+<tag-desc>
+задаёт каталог, в который будут устанавливаться динамические модули.
+По умолчанию используется каталог <path><value>префикс</value>/modules</path>.
+</tag-desc>
+
+<tag-name>
 <literal>--conf-path=<value>путь</value></literal>
 </tag-name>
 <tag-desc>
@@ -51,6 +78,18 @@
 <nobr><literal>-c <value>файл</value></literal></nobr>.
 По умолчанию файл называется
 <path><value>префикс</value>/conf/nginx.conf</path>.
+</tag-desc>
+
+<tag-name>
+<literal>--error-log-path=<value>путь</value></literal>
+</tag-name>
+<tag-desc>
+задаёт имя основного файла ошибок, предупреждений и диагностики.
+После установки имя файла можно всегда поменять в конфигурационном
+файле <path>nginx.conf</path> с помощью директивы
+<link doc="ngx_core_module.xml" id="error_log"/>.
+По умолчанию имя
+файла&mdash;<path><value>префикс</value>/logs/error.log</path>.
 </tag-desc>
 
 <tag-name>
@@ -67,35 +106,22 @@
 </tag-desc>
 
 <tag-name>
-<literal>--error-log-path=<value>путь</value></literal>
+<literal>--lock-path=<value>путь</value></literal>
 </tag-name>
 <tag-desc>
-задаёт имя основного файла ошибок, предупреждений и диагностики.
-После установки имя файла можно всегда поменять в конфигурационном
+задаёт префикс имён файлов блокировок.
+После установки значение можно всегда поменять в конфигурационном
 файле <path>nginx.conf</path> с помощью директивы
-<link doc="ngx_core_module.xml" id="error_log"/>.
-По умолчанию имя
-файла&mdash;<path><value>префикс</value>/logs/error.log</path>.
+<link doc="ngx_core_module.xml" id="lock_file"/>.
+По умолчанию используется значение
+<path><value>префикс</value>/logs/nginx.lock</path>.
 </tag-desc>
 
-<tag-name>
-<literal>--http-log-path=<value>путь</value></literal>
-</tag-name>
-<tag-desc>
-задаёт имя основного файла регистрации запросов HTTP-сервера.
-После установки имя файла можно всегда поменять в конфигурационном
-файле <path>nginx.conf</path> с помощью директивы
-<link doc="http/ngx_http_log_module.xml" id="access_log"/>.
-По умолчанию имя
-файла&mdash;<path><value>префикс</value>/logs/access.log</path>.
-</tag-desc>
+</list>
+</para>
 
-<tag-name id="build">
-<literal>--build=<value>имя</value></literal>
-</tag-name>
-<tag-desc>
-задаёт необязательное имя сборки nginx.
-</tag-desc>
+<para>
+<list type="tag">
 
 <tag-name>
 <literal>--user=<value>имя</value></literal>
@@ -120,6 +146,32 @@
 По умолчанию группа совпадает с именем непривилегированного пользователя.
 </tag-desc>
 
+</list>
+</para>
+
+<para>
+<list type="tag">
+
+<tag-name id="build">
+<literal>--build=<value>имя</value></literal>
+</tag-name>
+<tag-desc>
+задаёт необязательное имя сборки nginx.
+</tag-desc>
+
+<tag-name>
+<literal>--builddir=<value>путь</value></literal>
+</tag-name>
+<tag-desc>
+задаёт каталог для сборки.
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+<list type="tag">
+
 <tag-name>
 <literal>--with-select_module</literal><br/>
 <literal>--without-select_module</literal>
@@ -143,12 +195,355 @@
 </tag-desc>
 
 <tag-name>
+<literal>--with-threads</literal>
+</tag-name>
+<tag-desc>
+разрешает использование
+<link doc="ngx_core_module.xml" id="thread_pool">пулов потоков</link>.
+</tag-desc>
+
+<tag-name>
+<literal>--with-file-aio</literal>
+</tag-name>
+<tag-desc>
+разрешает использование
+<link doc="http/ngx_http_core_module.xml" id="aio">файлового асинхронного
+ввода-вывода</link> (AIO) во FreeBSD и Linux.
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+<list type="tag">
+
+<tag-name>
+<literal>--with-http_ssl_module</literal>
+</tag-name>
+<tag-desc>
+разрешает сборку модуля для работы HTTP-сервера по
+<link doc="http/ngx_http_ssl_module.xml">протоколу HTTPS</link>.
+По умолчанию модуль не собирается.
+Для сборки и работы этого модуля нужна библиотека OpenSSL.
+</tag-desc>
+
+<tag-name>
+<literal>--with-http_v2_module</literal>
+</tag-name>
+<tag-desc>
+разрешает сборку модуля для работы HTTP-сервера по протоколу
+<link doc="http/ngx_http_v2_module.xml">HTTP/2</link>.
+По умолчанию модуль не собирается.
+</tag-desc>
+
+<tag-name>
+<literal>--with-http_realip_module</literal>
+</tag-name>
+<tag-desc>
+разрешает сборку модуля
+<link doc="http/ngx_http_realip_module.xml">ngx_http_realip_module</link>,
+позволяющего менять адрес клиента на переданный в указанном поле заголовка.
+По умолчанию модуль не собирается.
+</tag-desc>
+
+<tag-name>
+<literal>--with-http_addition_module</literal>
+</tag-name>
+<tag-desc>
+разрешает сборку модуля
+<link doc="http/ngx_http_addition_module.xml">ngx_http_addition_module</link>,
+позволяющего добавлять текст до и после ответа.
+По умолчанию модуль не собирается.
+</tag-desc>
+
+<tag-name>
+<literal>--with-http_xslt_module</literal><br/>
+<literal>--with-http_xslt_module=dynamic</literal>
+</tag-name>
+<tag-desc>
+разрешает сборку модуля
+<link doc="http/ngx_http_xslt_module.xml">ngx_http_xslt_module</link>,
+позволяющего преобразовывать XML-ответ с помощью XSLT-шаблонов.
+По умолчанию модуль не собирается.
+Для сборки и работы этого модуля нужны библиотеки
+<link url="http://xmlsoft.org">libxml2</link> и
+<link url="http://xmlsoft.org/XSLT/">libxslt</link>.
+</tag-desc>
+
+<tag-name>
+<literal>--with-http_image_filter_module</literal><br/>
+<literal>--with-http_image_filter_module=dynamic</literal>
+</tag-name>
+<tag-desc>
+разрешает сборку модуля
+<link doc="http/ngx_http_image_filter_module.xml">ngx_http_image_filter_module</link>,
+позволяющего преобразовывать изображения в форматах JPEG, GIF, PNG и WebP.
+По умолчанию модуль не собирается.
+</tag-desc>
+
+<tag-name>
+<literal>--with-http_geoip_module</literal><br/>
+<literal>--with-http_geoip_module=dynamic</literal>
+</tag-name>
+<tag-desc>
+разрешает сборку модуля
+<link doc="http/ngx_http_geoip_module.xml">ngx_http_geoip_module</link>,
+создающего переменные, значения которых зависят от IP-адреса клиента,
+используя готовые базы данных
+<link url="http://www.maxmind.com">MaxMind</link>.
+По умолчанию модуль не собирается.
+</tag-desc>
+
+<tag-name>
+<literal>--with-http_sub_module</literal>
+</tag-name>
+<tag-desc>
+разрешает сборку модуля
+<link doc="http/ngx_http_sub_module.xml">ngx_http_sub_module</link>,
+позволяющего изменять в ответе одну заданную строку на другую.
+По умолчанию модуль не собирается.
+</tag-desc>
+
+<tag-name>
+<literal>--with-http_dav_module</literal>
+</tag-name>
+<tag-desc>
+разрешает сборку модуля
+<link doc="http/ngx_http_dav_module.xml">ngx_http_dav_module</link>,
+предназначенного для автоматизации задач управления файлами на сервере
+по протоколу WebDAV.
+По умолчанию модуль не собирается.
+</tag-desc>
+
+<tag-name>
+<literal>--with-http_flv_module</literal>
+</tag-name>
+<tag-desc>
+разрешает сборку модуля
+<link doc="http/ngx_http_flv_module.xml">ngx_http_flv_module</link>,
+обеспечивающего серверную поддержку псевдо-стриминга
+для файлов Flash Video (FLV).
+По умолчанию модуль не собирается.
+</tag-desc>
+
+<tag-name>
+<literal>--with-http_mp4_module</literal>
+</tag-name>
+<tag-desc>
+разрешает сборку модуля
+<link doc="http/ngx_http_mp4_module.xml">ngx_http_mp4_module</link>,
+обеспечивающего серверную поддержку псевдо-стриминга
+для файлов в формате MP4.
+По умолчанию модуль не собирается.
+</tag-desc>
+
+<tag-name>
+<literal>--with-http_gunzip_module</literal>
+</tag-name>
+<tag-desc>
+разрешает сборку модуля
+<link doc="http/ngx_http_gunzip_module.xml">ngx_http_gunzip_module</link>,
+позволяющего распаковывать ответы с “<literal>Content-Encoding: gzip</literal>”
+для тех клиентов, которые не поддерживают метод сжатия “gzip”.
+По умолчанию модуль не собирается.
+</tag-desc>
+
+<tag-name>
+<literal>--with-http_gzip_static_module</literal>
+</tag-name>
+<tag-desc>
+разрешает сборку модуля
+<link doc="http/ngx_http_gzip_static_module.xml">ngx_http_gzip_static_module</link>,
+позволяющего отдавать вместо обычного файла предварительно сжатый файл
+с таким же именем и с расширением “<literal>.gz</literal>”.
+По умолчанию модуль не собирается.
+</tag-desc>
+
+<tag-name>
+<literal>--with-http_auth_request_module</literal>
+</tag-name>
+<tag-desc>
+разрешает сборку модуля
+<link doc="http/ngx_http_auth_request_module.xml">ngx_http_auth_request_module</link>,
+предоставляющего возможность авторизации клиента,
+основанной на результате подзапроса.
+По умолчанию модуль не собирается.
+</tag-desc>
+
+<tag-name>
+<literal>--with-http_random_index_module</literal>
+</tag-name>
+<tag-desc>
+разрешает сборку модуля
+<link doc="http/ngx_http_random_index_module.xml">ngx_http_random_index_module</link>,
+обслуживающего запросы, оканчивающиеся слэшом (‘<literal>/</literal>’),
+и выдающего случайный файл в качестве индексного файла каталога.
+По умолчанию модуль не собирается.
+</tag-desc>
+
+<tag-name>
+<literal>--with-http_secure_link_module</literal>
+</tag-name>
+<tag-desc>
+разрешает сборку модуля
+<link doc="http/ngx_http_secure_link_module.xml">ngx_http_secure_link_module</link>.
+По умолчанию модуль не собирается.
+</tag-desc>
+
+<tag-name>
+<literal>--with-http_degradation_module</literal>
+</tag-name>
+<tag-desc>
+разрешает сборку модуля
+<literal>ngx_http_degradation_module</literal>.
+По умолчанию модуль не собирается.
+</tag-desc>
+
+<tag-name>
+<literal>--with-http_slice_module</literal>
+</tag-name>
+<tag-desc>
+разрешает сборку модуля
+<link doc="http/ngx_http_slice_module.xml">ngx_http_slice_module</link>,
+позволяющего разбить запрос на подзапросы,
+каждый из которых возвращает определённый диапазон ответа.
+Модуль обеспечивает более эффективное кэширование больших ответов.
+По умолчанию модуль не собирается.
+</tag-desc>
+
+<tag-name>
+<literal>--with-http_stub_status_module</literal>
+</tag-name>
+<tag-desc>
+разрешает сборку модуля
+<link doc="http/ngx_http_stub_status_module.xml">ngx_http_stub_status_module</link>,
+предоставляющего доступ к базовой информации о состоянии сервера.
+По умолчанию модуль не собирается.
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+<list type="tag">
+
+<tag-name>
+<literal>--without-http_charset_module</literal>
+</tag-name>
+<tag-desc>
+запрещает сборку модуля
+<link doc="http/ngx_http_charset_module.xml">ngx_http_charset_module</link>,
+позволяющего добавлять указанную кодировку в
+поле <header>Content-Type</header> заголовка ответа
+и перекодировать данные из одной кодировки в другую.
+</tag-desc>
+
+<tag-name>
 <literal>--without-http_gzip_module</literal>
 </tag-name>
 <tag-desc>
 запрещает сборку модуля
 <link doc="http/ngx_http_gzip_module.xml">сжатия ответов</link> HTTP-сервера.
 Для сборки и работы этого модуля нужна библиотека zlib.
+</tag-desc>
+
+<tag-name>
+<literal>--without-http_ssi_module</literal>
+</tag-name>
+<tag-desc>
+запрещает сборку модуля
+<link doc="http/ngx_http_ssi_module.xml">ngx_http_ssi_module</link>,
+обрабатывающего команды SSI (Server Side Includes)
+в проходящих через него ответах.
+</tag-desc>
+
+<tag-name>
+<literal>--without-http_userid_module</literal>
+</tag-name>
+<tag-desc>
+запрещает сборку модуля
+<link doc="http/ngx_http_userid_module.xml">ngx_http_userid_module</link>,
+выдающего куки для идентификации клиентов.
+</tag-desc>
+
+<tag-name>
+<literal>--without-http_access_module</literal>
+</tag-name>
+<tag-desc>
+запрещает сборку модуля
+<link doc="http/ngx_http_access_module.xml">ngx_http_access_module</link>,
+позволяющего ограничить доступ для определённых адресов клиентов.
+</tag-desc>
+
+<tag-name>
+<literal>--without-http_auth_basic_module</literal>
+</tag-name>
+<tag-desc>
+запрещает сборку модуля
+<link doc="http/ngx_http_auth_basic_module.xml">ngx_http_auth_basic_module</link>,
+позволяющего ограничить доступ к ресурсам с проверкой имени
+и пароля пользователя по протоколу “HTTP Basic Authentication”.
+</tag-desc>
+
+<tag-name>
+<literal>--without-http_mirror_module</literal>
+</tag-name>
+<tag-desc>
+запрещает сборку модуля
+<link doc="http/ngx_http_mirror_module.xml">ngx_http_mirror_module</link>,
+позволяющего зеркалировать исходный запрос при помощи создания фоновых
+зеркалирующих подзапросов.
+</tag-desc>
+
+<tag-name>
+<literal>--without-http_autoindex_module</literal>
+</tag-name>
+<tag-desc>
+запрещает сборку модуля
+<link doc="http/ngx_http_autoindex_module.xml">ngx_http_autoindex_module</link>,
+обслуживающего запросы, оканчивающиеся слэшом (‘<literal>/</literal>’),
+и выдающего листинг каталога, когда модуль
+<link doc="http/ngx_http_index_module.xml">ngx_http_index_module</link>
+не нашёл индексный файл.
+</tag-desc>
+
+<tag-name>
+<literal>--without-http_geo_module</literal>
+</tag-name>
+<tag-desc>
+запрещает сборку модуля
+<link doc="http/ngx_http_geo_module.xml">ngx_http_geo_module</link>,
+позволяющего создавать переменные,
+значения которых зависят от IP-адреса клиента.
+</tag-desc>
+
+<tag-name>
+<literal>--without-http_map_module</literal>
+</tag-name>
+<tag-desc>
+запрещает сборку модуля
+<link doc="http/ngx_http_map_module.xml">ngx_http_map_module</link>,
+позволяющего создавать переменные,
+значения которых зависят от значений других переменных.
+</tag-desc>
+
+<tag-name>
+<literal>--without-http_split_clients_module</literal>
+</tag-name>
+<tag-desc>
+запрещает сборку модуля
+<link doc="http/ngx_http_split_clients_module.xml">ngx_http_split_clients_module</link>,
+позволяющего создавать переменные для A/B тестирования.
+</tag-desc>
+
+<tag-name>
+<literal>--without-http_referer_module</literal>
+</tag-name>
+<tag-desc>
+запрещает сборку модуля
+<link doc="http/ngx_http_referer_module.xml">ngx_http_referer_module</link>,
+позволяющего блокировать доступ к сайту для запросов с неверными значениями
+поля <header>Referer</header> в заголовке.
 </tag-desc>
 
 <tag-name>
@@ -174,52 +569,536 @@ HTTP-сервера.
 </tag-desc>
 
 <tag-name>
-<literal>--with-http_ssl_module</literal>
+<literal>--without-http_fastcgi_module</literal>
 </tag-name>
 <tag-desc>
-разрешает сборку модуля для работы HTTP-сервера по
-<link doc="http/ngx_http_ssl_module.xml">протоколу HTTPS</link>.
+запрещает сборку модуля
+<link doc="http/ngx_http_fastcgi_module.xml">ngx_http_fastcgi_module</link>,
+позволяющего передавать запросы FastCGI-серверу.
+</tag-desc>
+
+<tag-name>
+<literal>--without-http_uwsgi_module</literal>
+</tag-name>
+<tag-desc>
+запрещает сборку модуля
+<link doc="http/ngx_http_uwsgi_module.xml">ngx_http_uwsgi_module</link>,
+позволяющего передавать запросы uwsgi-серверу.
+</tag-desc>
+
+<tag-name>
+<literal>--without-http_scgi_module</literal>
+</tag-name>
+<tag-desc>
+запрещает сборку модуля
+<link doc="http/ngx_http_scgi_module.xml">ngx_http_scgi_module</link>,
+позволяющего передавать запросы SCGI-серверу.
+</tag-desc>
+
+<tag-name>
+<literal>--without-http_grpc_module</literal>
+</tag-name>
+<tag-desc>
+запрещает сборку модуля
+<link doc="http/ngx_http_grpc_module.xml">ngx_http_grpc_module</link>,
+позволяющего передавать запросы gRPC-серверу.
+</tag-desc>
+
+<tag-name>
+<literal>--without-http_memcached_module</literal>
+</tag-name>
+<tag-desc>
+запрещает сборку модуля
+<link doc="http/ngx_http_memcached_module.xml">ngx_http_memcached_module</link>,
+позволяющего получать ответы из сервера memcached.
+</tag-desc>
+
+<tag-name>
+<literal>--without-http_limit_conn_module</literal>
+</tag-name>
+<tag-desc>
+запрещает сборку модуля
+<link doc="http/ngx_http_limit_conn_module.xml">ngx_http_limit_conn_module</link>,
+позволяющего ограничить число соединений по заданному ключу,
+в частности, число соединений с одного IP-адреса.
+</tag-desc>
+
+<tag-name>
+<literal>--without-http_limit_req_module</literal>
+</tag-name>
+<tag-desc>
+запрещает сборку модуля
+<link doc="http/ngx_http_limit_req_module.xml">ngx_http_limit_req_module</link>,
+позволяющего ограничить скорость обработки запросов по заданному ключу или,
+как частный случай, скорость обработки запросов, поступающих с одного IP-адреса.
+</tag-desc>
+
+<tag-name>
+<literal>--without-http_empty_gif_module</literal>
+</tag-name>
+<tag-desc>
+запрещает сборку модуля,
+<link doc="http/ngx_http_empty_gif_module.xml">выдающего однопиксельный
+прозрачный GIF</link>.
+</tag-desc>
+
+<tag-name>
+<literal>--without-http_browser_module</literal>
+</tag-name>
+<tag-desc>
+запрещает сборку модуля
+<link doc="http/ngx_http_browser_module.xml">ngx_http_browser_module</link>,
+создающего переменные, значения которых зависят от значения
+поля <header>User-Agent</header> в заголовке запроса.
+</tag-desc>
+
+<tag-name>
+<literal>--without-http_upstream_hash_module</literal>
+</tag-name>
+<tag-desc>
+запрещает сборку модуля, реализующего метод балансировки нагрузки
+<link doc="http/ngx_http_upstream_module.xml" id="hash"/>.
+</tag-desc>
+
+<tag-name>
+<literal>--without-http_upstream_ip_hash_module</literal>
+</tag-name>
+<tag-desc>
+запрещает сборку модуля, реализующего метод балансировки нагрузки
+<link doc="http/ngx_http_upstream_module.xml" id="ip_hash"/>.
+</tag-desc>
+
+<tag-name>
+<literal>--without-http_upstream_least_conn_module</literal>
+</tag-name>
+<tag-desc>
+запрещает сборку модуля, реализующего метод балансировки нагрузки
+<link doc="http/ngx_http_upstream_module.xml" id="least_conn"/>.
+</tag-desc>
+
+<tag-name>
+<literal>--without-http_upstream_keepalive_module</literal>
+</tag-name>
+<tag-desc>
+запрещает сборку модуля, реализующего
+<link doc="http/ngx_http_upstream_module.xml" id="keepalive">кэширование
+соединений</link> к вышестоящим серверам.
+</tag-desc>
+
+<tag-name>
+<literal>--without-http_upstream_zone_module</literal>
+</tag-name>
+<tag-desc>
+запрещает сборку модуля, позволяющего сохранять рабочее состояние группы
+вышестоящих серверов в
+<link doc="http/ngx_http_upstream_module.xml" id="zone">разделяемой
+памяти</link>.
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+<list type="tag">
+
+<tag-name>
+<literal>--with-http_perl_module</literal><br/>
+<literal>--with-http_perl_module=dynamic</literal>
+</tag-name>
+<tag-desc>
+разрешает сборку модуля, добавляющего
+<link doc="http/ngx_http_perl_module.xml">встроенный Perl</link>.
+По умолчанию модуль не собирается.
+</tag-desc>
+
+<tag-name>
+<literal>--with-perl_modules_path=<value>путь</value></literal>
+</tag-name>
+<tag-desc>
+задаёт каталог, в котором будут находиться файлы модулей Perl.
+</tag-desc>
+
+<tag-name>
+<literal>--with-perl=<value>путь</value></literal>
+</tag-name>
+<tag-desc>
+задаёт имя исполняемого файла Perl.
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+<list type="tag">
+
+<tag-name>
+<literal>--http-log-path=<value>путь</value></literal>
+</tag-name>
+<tag-desc>
+задаёт имя основного файла регистрации запросов HTTP-сервера.
+После установки имя файла можно всегда поменять в конфигурационном
+файле <path>nginx.conf</path> с помощью директивы
+<link doc="http/ngx_http_log_module.xml" id="access_log"/>.
+По умолчанию имя
+файла&mdash;<path><value>префикс</value>/logs/access.log</path>.
+</tag-desc>
+
+<tag-name>
+<literal>--http-client-body-temp-path=<value>путь</value></literal>
+</tag-name>
+<tag-desc>
+задаёт каталог для хранения временных файлов
+с телами запросов клиентов.
+После установки имя файла можно всегда поменять в конфигурационном
+файле <path>nginx.conf</path> с помощью директивы
+<link doc="http/ngx_http_core_module.xml" id="client_body_temp_path"/>.
+По умолчанию используется каталог
+<path><value>префикс</value>/client_body_temp</path>.
+</tag-desc>
+
+<tag-name>
+<literal>--http-proxy-temp-path=<value>путь</value></literal>
+</tag-name>
+<tag-desc>
+задаёт каталог для хранения временных файлов
+с данными, полученными от проксируемых серверов.
+После установки имя файла можно всегда поменять в конфигурационном
+файле <path>nginx.conf</path> с помощью директивы
+<link doc="http/ngx_http_proxy_module.xml" id="proxy_temp_path"/>.
+По умолчанию используется каталог
+<path><value>префикс</value>/proxy_temp</path>.
+</tag-desc>
+
+<tag-name>
+<literal>--http-fastcgi-temp-path=<value>путь</value></literal>
+</tag-name>
+<tag-desc>
+задаёт каталог для хранения временных файлов
+с данными, полученными от FastCGI-серверов.
+После установки имя файла можно всегда поменять в конфигурационном
+файле <path>nginx.conf</path> с помощью директивы
+<link doc="http/ngx_http_fastcgi_module.xml" id="fastcgi_temp_path"/>.
+По умолчанию используется каталог
+<path><value>префикс</value>/fastcgi_temp</path>.
+</tag-desc>
+
+<tag-name>
+<literal>--http-uwsgi-temp-path=<value>путь</value></literal>
+</tag-name>
+<tag-desc>
+задаёт каталог для хранения временных файлов
+с данными, полученными от uwsgi-серверов.
+После установки имя файла можно всегда поменять в конфигурационном
+файле <path>nginx.conf</path> с помощью директивы
+<link doc="http/ngx_http_uwsgi_module.xml" id="uwsgi_temp_path"/>.
+По умолчанию используется каталог
+<path><value>префикс</value>/uwsgi_temp</path>.
+</tag-desc>
+
+<tag-name>
+<literal>--http-scgi-temp-path=<value>путь</value></literal>
+</tag-name>
+<tag-desc>
+задаёт каталог для хранения временных файлов
+с данными, полученными от SCGI-серверов.
+После установки имя файла можно всегда поменять в конфигурационном
+файле <path>nginx.conf</path> с помощью директивы
+<link doc="http/ngx_http_scgi_module.xml" id="scgi_temp_path"/>.
+По умолчанию используется каталог
+<path><value>префикс</value>/scgi_temp</path>.
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+<list type="tag">
+
+<tag-name>
+<literal>--without-http</literal>
+</tag-name>
+<tag-desc>
+запрещает <link doc="http/ngx_http_core_module.xml">HTTP-сервер</link>.
+</tag-desc>
+
+<tag-name>
+<literal>--without-http-cache</literal>
+</tag-name>
+<tag-desc>
+запрещает HTTP-кэш.
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+<list type="tag">
+
+<tag-name>
+<literal>--with-mail</literal><br/>
+<literal>--with-mail=dynamic</literal>
+</tag-name>
+<tag-desc>
+разрешает POP3/IMAP4/SMTP
+<link doc="mail/ngx_mail_core_module.xml">почтовый прокси-сервер</link>.
+</tag-desc>
+
+<tag-name>
+<literal>--with-mail_ssl_module</literal>
+</tag-name>
+<tag-desc>
+разрешает сборку модуля для работы почтового прокси-сервера по
+<link doc="mail/ngx_mail_ssl_module.xml">протоколу SSL/TLS</link>.
 По умолчанию модуль не собирается.
 Для сборки и работы этого модуля нужна библиотека OpenSSL.
 </tag-desc>
 
 <tag-name>
-<literal>--with-pcre=<value>путь</value></literal>
+<literal>--without-mail_pop3_module</literal>
 </tag-name>
 <tag-desc>
-задаёт путь к исходным текстам библиотеки PCRE.
-Дистрибутив библиотеки (версию
-4.4&mdash;8.41) нужно взять на сайте <link url="http://www.pcre.org">PCRE</link>
-и распаковать.
-Всё остальное сделают <command>./configure</command> nginx’а и
-<command>make</command>.
-Библиотека нужна для использования регулярных выражений в директиве
-<link doc="http/ngx_http_core_module.xml" id="location"/>
-и для модуля
-<link doc="http/ngx_http_rewrite_module.xml">ngx_http_rewrite_module</link>.
+запрещает протокол <link doc="mail/ngx_mail_pop3_module.xml">POP3</link>
+в почтовом прокси-сервере.
 </tag-desc>
 
 <tag-name>
-<literal>--with-pcre-jit</literal>
+<literal>--without-mail_imap_module</literal>
 </tag-name>
 <tag-desc>
-собирает библиотеку PCRE с
-поддержкой JIT-компиляции (1.1.12, директива
-<link doc="ngx_core_module.xml" id="pcre_jit"/>).
+запрещает протокол <link doc="mail/ngx_mail_imap_module.xml">IMAP</link>
+в почтовом прокси-сервере.
 </tag-desc>
 
 <tag-name>
-<literal>--with-zlib=<value>путь</value></literal>
+<literal>--without-mail_smtp_module</literal>
 </tag-name>
 <tag-desc>
-задаёт путь к исходным текстам библиотеки zlib.
-Дистрибутив библиотеки (версию
-1.1.3&mdash;1.2.11) нужно взять на сайте
-<link url="http://zlib.net">zlib</link> и распаковать.
-Всё остальное сделают <command>./configure</command> nginx’а и
-<command>make</command>.
-Библиотека нужна для модуля
-<link doc="http/ngx_http_gzip_module.xml">ngx_http_gzip_module</link>.
+запрещает протокол <link doc="mail/ngx_mail_smtp_module.xml">SMTP</link>
+в почтовом прокси-сервере.
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+<list type="tag">
+
+<tag-name>
+<literal>--with-stream</literal><br/>
+<literal>--with-stream=dynamic</literal>
+</tag-name>
+<tag-desc>
+разрешает сборку
+<link doc="stream/ngx_stream_core_module.xml">модуля stream</link>
+для TCP/UDP-проксирования и балансировки.
+По умолчанию модуль не собирается.
+</tag-desc>
+
+<tag-name>
+<literal>--with-stream_ssl_module</literal>
+</tag-name>
+<tag-desc>
+разрешает сборку модуля для работы модуля stream по
+<link doc="stream/ngx_stream_ssl_module.xml">протоколу SSL/TLS</link>.
+По умолчанию модуль не собирается.
+Для сборки и работы этого модуля нужна библиотека OpenSSL.
+</tag-desc>
+
+<tag-name>
+<literal>--with-stream_realip_module</literal>
+</tag-name>
+<tag-desc>
+разрешает сборку модуля
+<link doc="http/ngx_stream_realip_module.xml">ngx_stream_realip_module</link>,
+позволяющего менять адрес клиента на переданный в заголовке протокола PROXY.
+По умолчанию модуль не собирается.
+</tag-desc>
+
+<tag-name>
+<literal>--with-stream_geoip_module</literal><br/>
+<literal>--with-stream_geoip_module=dynamic</literal>
+</tag-name>
+<tag-desc>
+разрешает сборку модуля
+<link doc="stream/ngx_stream_geoip_module.xml">ngx_stream_geoip_module</link>,
+создающего переменные, значения которых зависят от IP-адреса клиента,
+используя готовые базы данных
+<link url="http://www.maxmind.com">MaxMind</link>.
+По умолчанию модуль не собирается.
+</tag-desc>
+
+<tag-name>
+<literal>--with-stream_ssl_preread_module</literal>
+</tag-name>
+<tag-desc>
+разрешает сборку модуля
+<link doc="stream/ngx_stream_ssl_preread_module.xml">ngx_stream_ssl_preread_module</link>,
+позволяющего извлекать информацию из сообщения
+<link url="https://tools.ietf.org/html/rfc5246#section-7.4.1.2">ClientHello</link>
+без терминирования SSL/TLS.
+По умолчанию модуль не собирается.
+</tag-desc>
+
+<tag-name>
+<literal>--without-stream_limit_conn_module</literal>
+</tag-name>
+<tag-desc>
+запрещает сборку модуля
+<link doc="stream/ngx_stream_limit_conn_module.xml">ngx_stream_limit_conn_module</link>,
+позволяющего ограничить число соединений по заданному ключу,
+в частности, число соединений с одного IP-адреса.
+</tag-desc>
+
+<tag-name>
+<literal>--without-stream_access_module</literal>
+</tag-name>
+<tag-desc>
+запрещает сборку модуля
+<link doc="stream/ngx_stream_access_module.xml">ngx_stream_access_module</link>,
+позволяющего ограничить доступ для определённых адресов клиентов.
+</tag-desc>
+
+<tag-name>
+<literal>--without-stream_geo_module</literal>
+</tag-name>
+<tag-desc>
+запрещает сборку модуля
+<link doc="stream/ngx_stream_geo_module.xml">ngx_stream_geo_module</link>,
+позволяющего создавать переменные,
+значения которых зависят от IP-адреса клиента.
+</tag-desc>
+
+<tag-name>
+<literal>--without-stream_map_module</literal>
+</tag-name>
+<tag-desc>
+запрещает сборку модуля
+<link doc="stream/ngx_stream_map_module.xml">ngx_stream_map_module</link>,
+позволяющего создавать переменные,
+значения которых зависят от значений других переменных.
+</tag-desc>
+
+<tag-name>
+<literal>--without-stream_split_clients_module</literal>
+</tag-name>
+<tag-desc>
+запрещает сборку модуля
+<link doc="stream/ngx_stream_split_clients_module.xml">ngx_stream_split_clients_module</link>,
+позволяющего создавать переменные для A/B тестирования.
+</tag-desc>
+
+<tag-name>
+<literal>--without-stream_return_module</literal>
+</tag-name>
+<tag-desc>
+запрещает сборку модуля
+<link doc="stream/ngx_stream_return_module.xml">ngx_stream_return_module</link>,
+позволяющего отправить заданное значение клиенту
+и после этого закрыть соединение.
+</tag-desc>
+
+<tag-name>
+<literal>--without-stream_upstream_hash_module</literal>
+</tag-name>
+<tag-desc>
+запрещает сборку модуля, реализующего метод балансировки нагрузки
+<link doc="stream/ngx_stream_upstream_module.xml" id="hash"/>.
+</tag-desc>
+
+<tag-name>
+<literal>--without-stream_upstream_least_conn_module</literal>
+</tag-name>
+<tag-desc>
+запрещает сборку модуля, реализующего метод балансировки нагрузки
+<link doc="stream/ngx_stream_upstream_module.xml" id="least_conn"/>.
+</tag-desc>
+
+<tag-name>
+<literal>--without-stream_upstream_zone_module</literal>
+</tag-name>
+<tag-desc>
+запрещает сборку модуля, позволяющего сохранять рабочее состояние группы
+вышестоящих серверов в
+<link doc="stream/ngx_stream_upstream_module.xml" id="zone">разделяемой
+памяти</link>.
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+<list type="tag">
+
+<tag-name>
+<literal>--with-google_perftools_module</literal>
+</tag-name>
+<tag-desc>
+разрешает сборку модуля
+<link doc="ngx_google_perftools_module.xml">ngx_google_perftools_module</link>,
+обеспечивающего поддержку профилирования рабочих процессов nginx при помощи
+<link url="https://github.com/gperftools/gperftools">Google Performance Tools</link>.
+Модуль предназначен для разработчиков nginx и не собирается по умолчанию.
+</tag-desc>
+
+<tag-name>
+<literal>--with-cpp_test_module</literal>
+</tag-name>
+<tag-desc>
+разрешает сборку модуля
+<literal>ngx_cpp_test_module</literal>.
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+<list type="tag">
+
+<tag-name>
+<literal>--add-module=<value>путь</value></literal>
+</tag-name>
+<tag-desc>
+разрешает сборку внешнего модуля.
+</tag-desc>
+
+<tag-name>
+<literal>--add-dynamic-module=<value>путь</value></literal>
+</tag-name>
+<tag-desc>
+разрешает сборку внешнего динамического модуля.
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+<list type="tag">
+
+<tag-name>
+<literal>--with-compat</literal>
+</tag-name>
+<tag-desc>
+включает режим совместимости с динамическими модулями.
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+<list type="tag">
+
+<tag-name>
+<literal>--with-cc=<value>путь</value></literal>
+</tag-name>
+<tag-desc>
+задаёт компилятор, который будет использоваться при сборке.
+</tag-desc>
+
+<tag-name>
+<literal>--with-cpp=<value>путь</value></literal>
+</tag-name>
+<tag-desc>
+задаёт препроцессор, который будет использоваться при сборке.
 </tag-desc>
 
 <tag-name>
@@ -243,8 +1122,160 @@ HTTP-сервера.
 <literal>--with-ld-opt="-L /usr/local/lib"</literal>.
 </tag-desc>
 
-</list>
+<tag-name>
+<literal>--with-cpu-opt=<value>cpu</value></literal>
+</tag-name>
+<tag-desc>
+разрешает сборку для одного из следующих процессоров:
+<literal>pentium</literal>, <literal>pentiumpro</literal>,
+<literal>pentium3</literal>, <literal>pentium4</literal>,
+<literal>athlon</literal>, <literal>opteron</literal>,
+<literal>sparc32</literal>, <literal>sparc64</literal>,
+<literal>ppc64</literal>.
+</tag-desc>
 
+</list>
+</para>
+
+<para>
+<list type="tag">
+
+<tag-name>
+<literal>--without-pcre</literal>
+</tag-name>
+<tag-desc>
+запрещает использование библиотеки PCRE.
+</tag-desc>
+
+<tag-name>
+<literal>--with-pcre</literal>
+</tag-name>
+<tag-desc>
+разрешает использование библиотеки PCRE.
+</tag-desc>
+
+<tag-name>
+<literal>--with-pcre=<value>путь</value></literal>
+</tag-name>
+<tag-desc>
+задаёт путь к исходным текстам библиотеки PCRE.
+Дистрибутив библиотеки (версию
+4.4&mdash;8.41) нужно взять на сайте <link url="http://www.pcre.org">PCRE</link>
+и распаковать.
+Всё остальное сделают <command>./configure</command> nginx’а и
+<command>make</command>.
+Библиотека нужна для использования регулярных выражений в директиве
+<link doc="http/ngx_http_core_module.xml" id="location"/>
+и для модуля
+<link doc="http/ngx_http_rewrite_module.xml">ngx_http_rewrite_module</link>.
+</tag-desc>
+
+<tag-name>
+<literal>--with-pcre-opt=<value>параметры</value></literal>
+</tag-name>
+<tag-desc>
+задаёт дополнительные параметры сборки PCRE.
+</tag-desc>
+
+<tag-name>
+<literal>--with-pcre-jit</literal>
+</tag-name>
+<tag-desc>
+собирает библиотеку PCRE с
+поддержкой JIT-компиляции (1.1.12, директива
+<link doc="ngx_core_module.xml" id="pcre_jit"/>).
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+<list type="tag">
+
+<tag-name>
+<literal>--with-zlib=<value>путь</value></literal>
+</tag-name>
+<tag-desc>
+задаёт путь к исходным текстам библиотеки zlib.
+Дистрибутив библиотеки (версию
+1.1.3&mdash;1.2.11) нужно взять на сайте
+<link url="http://zlib.net">zlib</link> и распаковать.
+Всё остальное сделают <command>./configure</command> nginx’а и
+<command>make</command>.
+Библиотека нужна для модуля
+<link doc="http/ngx_http_gzip_module.xml">ngx_http_gzip_module</link>.
+</tag-desc>
+
+<tag-name>
+<literal>--with-zlib-opt=<value>параметры</value></literal>
+</tag-name>
+<tag-desc>
+задаёт дополнительные параметры сборки zlib.
+</tag-desc>
+
+<tag-name>
+<literal>--with-zlib-asm=<value>cpu</value></literal>
+</tag-name>
+<tag-desc>
+разрешает использование при сборке библиотеки zlib ассемблерных вставок,
+оптимизированных для одного из следующих процессоров:
+<literal>pentium</literal>, <literal>pentiumpro</literal>.
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+<list type="tag">
+
+<tag-name>
+<literal>--with-libatomic</literal>
+</tag-name>
+<tag-desc>
+разрешает сборку с библиотекой libatomic_ops.
+</tag-desc>
+
+<tag-name>
+<literal>--with-libatomic=<value>путь</value></literal>
+</tag-name>
+<tag-desc>
+задаёт путь к исходным текстам библиотеки libatomic_ops.
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+<list type="tag">
+
+<tag-name>
+<literal>--with-openssl=<value>путь</value></literal>
+</tag-name>
+<tag-desc>
+задаёт путь к исходным текстам библиотеки OpenSSL.
+</tag-desc>
+
+<tag-name>
+<literal>--with-openssl-opt=<value>параметры</value></literal>
+</tag-name>
+<tag-desc>
+задаёт дополнительные параметры сборки OpenSSL.
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+<list type="tag">
+
+<tag-name>
+<literal>--with-debug</literal>
+</tag-name>
+<tag-desc>
+разрешает <link doc="debugging_log.xml">отладочный лог</link>.
+</tag-desc>
+
+</list>
 </para>
 
 <para>
