@@ -9,7 +9,7 @@
 <article name="Contributing Changes"
          link="/en/docs/contributing_changes.html"
          lang="en"
-         rev="3">
+         rev="4">
 
 <section id="getting_sources" name="Getting Sources">
 
@@ -29,31 +29,11 @@ hg clone http://hg.nginx.org/nginx
 <section id="formatting_changes" name="Formatting Changes">
 
 <para>
-Changes should be formatted according to the code style used by nginx.
-Code formatting should not rely on such editor features like syntax
-highlighting or automatic line breaking.
-Below are some basic rules:
-<list type="bullet">
-
-<listitem>
-maximum text width is 80 characters
-</listitem>
-
-<listitem>
-indentation is four spaces
-</listitem>
-
-<listitem>
-no tabs
-</listitem>
-
-<listitem>
-logical code blocks in a file are separated with two empty lines
-</listitem>
-
-</list>
-Examine how existing nginx sources are formatted and mimic this style
-in your code.
+Changes should be formatted according to the
+<link doc="../docs/dev/development_guide.xml" id="code_style">code style</link>
+used by nginx.
+Sometimes, there is no clear rule; in such cases
+examine how existing nginx sources are formatted and mimic this style.
 Changes will more likely be accepted if style corresponds to the surrounding
 code.
 </para>
