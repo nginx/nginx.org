@@ -8,7 +8,7 @@
 <article name="Сборка nginx из исходных файлов"
          link="/ru/docs/configure.html"
          lang="ru"
-         rev="11">
+         rev="12">
 
 <section>
 
@@ -18,169 +18,175 @@
 может использовать для обработки соединений.
 В конце концов она создаёт <path>Makefile</path>.
 Команда <command>configure</command> поддерживает следующие параметры:
-<list type="bullet">
+<list type="tag">
 
-<listitem>
-<para>
-<literal>--prefix=<value>путь</value></literal>&mdash;задаёт каталог,
-в котором будут находиться файлы сервера.
+<tag-name>
+<literal>--prefix=<value>путь</value></literal>
+</tag-name>
+<tag-desc>
+задаёт каталог, в котором будут находиться файлы сервера.
 Этот же каталог будет использоваться для всех относительных путей,
 задаваемых <command>configure</command> (кроме путей к исходным текстам
 библиотек) и в конфигурационном файле <path>nginx.conf</path>.
 По умолчанию&mdash;каталог <path>/usr/local/nginx</path>.
-</para>
-</listitem>
+</tag-desc>
 
-<listitem>
-<para>
-<literal>--sbin-path=<value>путь</value></literal>&mdash;задаёт
-имя исполняемого файла nginx.
+<tag-name>
+<literal>--sbin-path=<value>путь</value></literal>
+</tag-name>
+<tag-desc>
+задаёт имя исполняемого файла nginx.
 Это имя используется только на стадии установки.
 По умолчанию файл называется
 <path><value>префикс</value>/sbin/nginx</path>.
-</para>
-</listitem>
+</tag-desc>
 
-<listitem>
-<para>
-<literal>--conf-path=<value>путь</value></literal>&mdash;задаёт
-имя конфигурационного файла <path>nginx.conf</path>.
+<tag-name>
+<literal>--conf-path=<value>путь</value></literal>
+</tag-name>
+<tag-desc>
+задаёт имя конфигурационного файла <path>nginx.conf</path>.
 При желании nginx можно всегда запустить с другим конфигурационным файлом,
 указав его в параметре командной строки
 <nobr><literal>-c <value>файл</value></literal></nobr>.
 По умолчанию файл называется
 <path><value>префикс</value>/conf/nginx.conf</path>.
-</para>
-</listitem>
+</tag-desc>
 
-<listitem>
-<para>
-<literal>--pid-path=<value>путь</value></literal>&mdash;задаёт
-имя файла nginx.pid, в котором будет храниться номер главного процесса.
+<tag-name>
+<literal>--pid-path=<value>путь</value></literal>
+</tag-name>
+<tag-desc>
+задаёт имя файла nginx.pid, в котором будет храниться номер главного процесса.
 После установки имя файла можно всегда поменять в конфигурационном
 файле <path>nginx.conf</path> с помощью директивы
 <link doc="ngx_core_module.xml" id="pid"/>.
 По умолчанию имя
 файла&mdash;<path><value>префикс</value>/logs/nginx.pid</path>.
-</para>
-</listitem>
+</tag-desc>
 
-<listitem>
-<para>
-<literal>--error-log-path=<value>путь</value></literal>&mdash;задаёт
-имя основного файла ошибок, предупреждений и диагностики.
+<tag-name>
+<literal>--error-log-path=<value>путь</value></literal>
+</tag-name>
+<tag-desc>
+задаёт имя основного файла ошибок, предупреждений и диагностики.
 После установки имя файла можно всегда поменять в конфигурационном
 файле <path>nginx.conf</path> с помощью директивы
 <link doc="ngx_core_module.xml" id="error_log"/>.
 По умолчанию имя
 файла&mdash;<path><value>префикс</value>/logs/error.log</path>.
-</para>
-</listitem>
+</tag-desc>
 
-<listitem>
-<para>
-<literal>--http-log-path=<value>путь</value></literal>&mdash;задаёт
-имя основного файла регистрации запросов HTTP-сервера.
+<tag-name>
+<literal>--http-log-path=<value>путь</value></literal>
+</tag-name>
+<tag-desc>
+задаёт имя основного файла регистрации запросов HTTP-сервера.
 После установки имя файла можно всегда поменять в конфигурационном
 файле <path>nginx.conf</path> с помощью директивы
 <link doc="http/ngx_http_log_module.xml" id="access_log"/>.
 По умолчанию имя
 файла&mdash;<path><value>префикс</value>/logs/access.log</path>.
-</para>
-</listitem>
+</tag-desc>
 
-<listitem id="build">
-<para>
-<literal>--build=<value>имя</value></literal>&mdash;задаёт
-необязательное имя сборки nginx.
-</para>
-</listitem>
+<tag-name id="build">
+<literal>--build=<value>имя</value></literal>
+</tag-name>
+<tag-desc>
+задаёт необязательное имя сборки nginx.
+</tag-desc>
 
-<listitem>
-<para>
-<literal>--user=<value>имя</value></literal>&mdash;задаёт
-имя непривилегированного пользователя, с правами которого будут
+<tag-name>
+<literal>--user=<value>имя</value></literal>
+</tag-name>
+<tag-desc>
+задаёт имя непривилегированного пользователя, с правами которого будут
 выполняться рабочие процессы.
 После установки это имя можно всегда поменять в конфигурационном
 файле <path>nginx.conf</path> с помощью директивы
 <link doc="ngx_core_module.xml" id="user"/>.
 По умолчанию имя пользователя nobody.
-</para>
-</listitem>
+</tag-desc>
 
-<listitem>
-<para>
-<literal>--group=<value>имя</value></literal>&mdash;задаёт
-имя группы, с правами которой будут выполняться рабочие процессы.
+<tag-name>
+<literal>--group=<value>имя</value></literal>
+</tag-name>
+<tag-desc>
+задаёт имя группы, с правами которой будут выполняться рабочие процессы.
 После установки это имя можно всегда поменять в конфигурационном
 файле <path>nginx.conf</path> с помощью директивы
 <link doc="ngx_core_module.xml" id="user"/>.
 По умолчанию группа совпадает с именем непривилегированного пользователя.
-</para>
-</listitem>
+</tag-desc>
 
-<listitem>
-<para>
+<tag-name>
 <literal>--with-select_module</literal><br/>
-<literal>--without-select_module</literal>&mdash;разрешает или запрещает
-сборку модуля для работы сервера с помощью метода <c-func>select</c-func>.
+<literal>--without-select_module</literal>
+</tag-name>
+<tag-desc>
+разрешает или запрещает сборку модуля для работы сервера
+с помощью метода <c-func>select</c-func>.
 Этот модуль собирается автоматически, если на платформе не обнаружено
 более подходящего метода&mdash;kqueue, epoll или /dev/poll.
-</para>
-</listitem>
+</tag-desc>
 
-<listitem>
-<para>
+<tag-name>
 <literal>--with-poll_module</literal><br/>
-<literal>--without-poll_module</literal>&mdash;разрешает или запрещает
-сборку модуля для работы сервера с помощью метода <c-func>poll</c-func>.
+<literal>--without-poll_module</literal>
+</tag-name>
+<tag-desc>
+разрешает или запрещает сборку модуля для работы сервера
+с помощью метода <c-func>poll</c-func>.
 Этот модуль собирается автоматически, если на платформе не обнаружено
 более подходящего метода&mdash;kqueue, epoll или /dev/poll.
-</para>
-</listitem>
+</tag-desc>
 
-<listitem>
-<para>
-<literal>--without-http_gzip_module</literal>&mdash;запрещает сборку модуля
+<tag-name>
+<literal>--without-http_gzip_module</literal>
+</tag-name>
+<tag-desc>
+запрещает сборку модуля
 <link doc="http/ngx_http_gzip_module.xml">сжатия ответов</link> HTTP-сервера.
 Для сборки и работы этого модуля нужна библиотека zlib.
-</para>
-</listitem>
+</tag-desc>
 
-<listitem>
-<para>
-<literal>--without-http_rewrite_module</literal>&mdash;запрещает сборку модуля
-HTTP-сервера, позволяющего <link doc="http/ngx_http_rewrite_module.xml">делать
+<tag-name>
+<literal>--without-http_rewrite_module</literal>
+</tag-name>
+<tag-desc>
+запрещает сборку модуля HTTP-сервера, позволяющего
+<link doc="http/ngx_http_rewrite_module.xml">делать
 перенаправления и менять URI запросов</link>.
 Для сборки и работы этого модуля нужна библиотека PCRE.
-</para>
-</listitem>
+</tag-desc>
 
-<listitem>
-<para>
-<literal>--without-http_proxy_module</literal>&mdash;запрещает сборку
+<tag-name>
+<literal>--without-http_proxy_module</literal>
+</tag-name>
+<tag-desc>
+запрещает сборку
 <link doc="http/ngx_http_proxy_module.xml">проксирующего модуля</link>
 HTTP-сервера.
 <!--
 Для сборки и работы этого модуля нужна библиотека md5.
 -->
-</para>
-</listitem>
+</tag-desc>
 
-<listitem>
-<para>
-<literal>--with-http_ssl_module</literal>&mdash;разрешает сборку модуля
-для работы HTTP-сервера по <link doc="http/ngx_http_ssl_module.xml">протоколу
-HTTPS</link>.
+<tag-name>
+<literal>--with-http_ssl_module</literal>
+</tag-name>
+<tag-desc>
+разрешает сборку модуля для работы HTTP-сервера по
+<link doc="http/ngx_http_ssl_module.xml">протоколу HTTPS</link>.
 По умолчанию модуль не собирается.
 Для сборки и работы этого модуля нужна библиотека OpenSSL.
-</para>
-</listitem>
+</tag-desc>
 
-<listitem>
-<para>
-<literal>--with-pcre=<value>путь</value></literal>&mdash;задаёт
-путь к исходным текстам библиотеки PCRE.
+<tag-name>
+<literal>--with-pcre=<value>путь</value></literal>
+</tag-name>
+<tag-desc>
+задаёт путь к исходным текстам библиотеки PCRE.
 Дистрибутив библиотеки (версию
 4.4&mdash;8.41) нужно взять на сайте <link url="http://www.pcre.org">PCRE</link>
 и распаковать.
@@ -190,50 +196,51 @@ HTTPS</link>.
 <link doc="http/ngx_http_core_module.xml" id="location"/>
 и для модуля
 <link doc="http/ngx_http_rewrite_module.xml">ngx_http_rewrite_module</link>.
-</para>
-</listitem>
+</tag-desc>
 
-<listitem>
-<para>
-<literal>--with-pcre-jit</literal>&mdash;собирает библиотеку PCRE с
+<tag-name>
+<literal>--with-pcre-jit</literal>
+</tag-name>
+<tag-desc>
+собирает библиотеку PCRE с
 поддержкой JIT-компиляции (1.1.12, директива
 <link doc="ngx_core_module.xml" id="pcre_jit"/>).
-</para>
-</listitem>
+</tag-desc>
 
-<listitem>
-<para>
-<literal>--with-zlib=<value>путь</value></literal>&mdash;задаёт
-путь к исходным текстам библиотеки zlib. Дистрибутив библиотеки (версию
+<tag-name>
+<literal>--with-zlib=<value>путь</value></literal>
+</tag-name>
+<tag-desc>
+задаёт путь к исходным текстам библиотеки zlib.
+Дистрибутив библиотеки (версию
 1.1.3&mdash;1.2.11) нужно взять на сайте
 <link url="http://zlib.net">zlib</link> и распаковать.
 Всё остальное сделают <command>./configure</command> nginx’а и
 <command>make</command>.
 Библиотека нужна для модуля
 <link doc="http/ngx_http_gzip_module.xml">ngx_http_gzip_module</link>.
-</para>
-</listitem>
+</tag-desc>
 
-<listitem>
-<para>
-<literal>--with-cc-opt=<value>параметры</value></literal>&mdash;задаёт
-дополнительные параметры, которые будут добавлены к переменной CFLAGS.
+<tag-name>
+<literal>--with-cc-opt=<value>параметры</value></literal>
+</tag-name>
+<tag-desc>
+задаёт дополнительные параметры, которые будут добавлены к переменной CFLAGS.
 При использовании системной библиотеки PCRE во FreeBSD, нужно указать
 <literal>--with-cc-opt="-I /usr/local/include"</literal>.
 Если нужно увеличить число файлов, с которыми может работать
 <c-func>select</c-func>, то это тоже можно задать здесь же:
 <literal>--with-cc-opt="-D FD_SETSIZE=2048"</literal>.
-</para>
-</listitem>
+</tag-desc>
 
-<listitem>
-<para>
-<literal>--with-ld-opt=<value>параметры</value></literal>&mdash;задаёт
-дополнительные параметры, которые будут использованы при линковке.
+<tag-name>
+<literal>--with-ld-opt=<value>параметры</value></literal>
+</tag-name>
+<tag-desc>
+задаёт дополнительные параметры, которые будут использованы при линковке.
 При использовании системной библиотеки PCRE во FreeBSD, нужно указать
 <literal>--with-ld-opt="-L /usr/local/lib"</literal>.
-</para>
-</listitem>
+</tag-desc>
 
 </list>
 
