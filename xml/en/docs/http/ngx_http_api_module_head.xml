@@ -9,7 +9,7 @@
 <module name="Module ngx_http_api_module"
         link="/en/docs/http/ngx_http_api_module.html"
         lang="en"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
@@ -155,6 +155,24 @@ specifies which fields of the requested objects will be output:
 <example>
 http://127.0.0.1/api/3/nginx?fields=version,build
 </example>
+</para>
+
+</directive>
+
+
+<directive name="status_zone">
+<syntax><value>zone</value></syntax>
+<default/>
+<context>server</context>
+<appeared-in>1.13.12</appeared-in>
+
+<para>
+Enables collection of virtual
+<link doc="ngx_http_core_module.xml" id="server">http</link>
+or
+<link doc="../stream/ngx_stream_core_module.xml" id="server">stream</link>
+server status information in the specified <value>zone</value>.
+Several servers may share the same zone.
 </para>
 
 </directive>

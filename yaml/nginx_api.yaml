@@ -288,7 +288,7 @@ paths:
         - Method GET
       summary: Return status of all HTTP server zones
       description: Returns status information for each HTTP
-        [server zone](https://nginx.org/en/docs/http/ngx_http_status_module.html#status_zone).
+        [server zone](https://nginx.org/en/docs/http/ngx_http_api_module.html#status_zone).
       operationId: getHttpServerZones
       produces:
         - application/json
@@ -910,7 +910,7 @@ paths:
         - Method GET
       summary: Return status of all stream server zones
       description: Returns status information for each stream
-        [server zone](https://nginx.org/en/docs/http/ngx_http_status_module.html#status_zone).
+        [server zone](https://nginx.org/en/docs/http/ngx_http_api_module.html#status_zone).
       operationId: getStreamServerZones
       produces:
         - application/json
@@ -1768,7 +1768,7 @@ definitions:
     title: HTTP Server Zones
     description: |
       Status data for all HTTP
-      <a href="https://nginx.org/en/docs/http/ngx_http_status_module.html#status_zone">status zones</a>.
+      <a href="https://nginx.org/en/docs/http/ngx_http_api_module.html#status_zone">status zones</a>.
     type: object
     additionalProperties:
       $ref: '#/definitions/NginxHTTPServerZone'
@@ -2630,7 +2630,7 @@ definitions:
     title: Stream Server Zones
     description: |
       Status information for all stream
-      <a href="https://nginx.org/en/docs/http/ngx_http_status_module.html#status_zone">status zones</a>.
+      <a href="https://nginx.org/en/docs/http/ngx_http_api_module.html#status_zone">status zones</a>.
     type: object
     additionalProperties:
       $ref: '#/definitions/NginxStreamServerZone'
