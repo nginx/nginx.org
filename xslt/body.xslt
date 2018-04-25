@@ -20,8 +20,8 @@
 
     <div id="banner">
         <xsl:if test="@lang = 'he'"> <xsl:attribute name="class"> <xsl:text>ltr</xsl:text> </xsl:attribute> </xsl:if>
-        Simplify your journey to microservices with the new NGINX Application Platform.<br/>
-        <a href="https://www.nginx.com/blog/updating-nginx-application-platform/">Learn more</a>
+        Learn how to configure caching, load balancing, cloud deployments, and other critical NGINX features.<br/>
+        <a href="https://www.nginx.com/resources/library/complete-nginx-cookbook/?utm_source=nginxorg&amp;utm_medium=homepagebanner&amp;utm_campaign=complete_cookbook">Download the Complete NGINX Cookbook</a>
     </div>
 
     <div id="main">
