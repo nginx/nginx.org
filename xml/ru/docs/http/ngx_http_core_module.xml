@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="79">
+        rev="80">
 
 <section id="directives" name="Директивы">
 
@@ -860,7 +860,7 @@ error_page 404 =301 http://example.com/notfound.html;
 <example>
 error_page 404 /404.html;
 
-location /404.html {
+location = /404.html {
     internal;
 }
 </example>

@@ -9,7 +9,7 @@
 <module name="Module ngx_http_mirror_module"
         link="/en/docs/http/ngx_http_mirror_module.html"
         lang="en"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -32,7 +32,7 @@ location / {
     proxy_pass http://backend;
 }
 
-location /mirror {
+location = /mirror {
     internal;
     proxy_pass http://test_backend$request_uri;
 }
@@ -85,7 +85,7 @@ location / {
     proxy_pass http://backend;
 }
 
-location /mirror {
+location = /mirror {
     internal;
     proxy_pass http://log_backend;
     proxy_pass_request_body off;

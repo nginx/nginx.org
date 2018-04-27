@@ -10,7 +10,7 @@
 <module name="Module ngx_http_fastcgi_module"
         link="/en/docs/http/ngx_http_fastcgi_module.html"
         lang="en"
-        rev="49">
+        rev="50">
 
 <section id="summary">
 
@@ -786,7 +786,7 @@ If the <value>string</value> is found then it is considered that the FastCGI
 server has returned an <link id="fastcgi_next_upstream">invalid response</link>.
 This allows handling application errors in nginx, for example:
 <example>
-location /php {
+location /php/ {
     fastcgi_pass backend:9000;
     ...
     fastcgi_catch_stderr "PHP Fatal error";

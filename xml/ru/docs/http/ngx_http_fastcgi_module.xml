@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_fastcgi_module"
         link="/ru/docs/http/ngx_http_fastcgi_module.html"
         lang="ru"
-        rev="49">
+        rev="50">
 
 <section id="summary">
 
@@ -788,7 +788,7 @@ fastcgi_cache_valid any      1m;
 вернул <link id="fastcgi_next_upstream">неверный ответ</link>.
 Это позволяет обрабатывать ошибки приложений в nginx, например:
 <example>
-location /php {
+location /php/ {
     fastcgi_pass backend:9000;
     ...
     fastcgi_catch_stderr "PHP Fatal error";

@@ -9,7 +9,7 @@
 <module name="Module ngx_http_hls_module"
         link="/ru/docs/http/ngx_http_hls_module.html"
         lang="ru"
-        rev="6">
+        rev="7">
 
 <section id="summary">
 
@@ -197,11 +197,11 @@ http {
     server {
         ...
 
-        location /hls {
+        location /hls/ {
             hls;
             hls_forward_args on;
 
-            alias /var/videos;
+            alias /var/videos/;
 
             secure_link $arg_md5,$arg_expires;
             secure_link_md5 "$secure_link_expires$hls_uri$remote_addr secret";

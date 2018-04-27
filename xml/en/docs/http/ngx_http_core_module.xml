@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="79">
+        rev="80">
 
 <section id="directives" name="Directives">
 
@@ -864,7 +864,7 @@ Example:
 <example>
 error_page 404 /404.html;
 
-location /404.html {
+location = /404.html {
     internal;
 }
 </example>

@@ -9,7 +9,7 @@
 <module name="Module ngx_http_js_module"
         link="/en/docs/http/ngx_http_js_module.html"
         lang="en"
-        rev="14">
+        rev="15">
 
 <section id="summary">
 
@@ -50,11 +50,11 @@ http {
             js_content baz;
         }
 
-        location /summary {
+        location = /summary {
             return 200 $summary;
         }
 
-        location /hello {
+        location = /hello {
             js_content hello;
         }
     }

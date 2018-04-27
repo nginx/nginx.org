@@ -10,7 +10,7 @@
 <module name="Module ngx_http_stub_status_module"
         link="/en/docs/http/ngx_http_stub_status_module.html"
         lang="en"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -32,7 +32,7 @@ configuration parameter.
 
 <para>
 <example>
-location /basic_status {
+location = /basic_status {
     stub_status;
 }
 </example>
