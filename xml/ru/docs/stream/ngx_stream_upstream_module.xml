@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_upstream_module"
         link="/ru/docs/stream/ngx_stream_upstream_module.html"
         lang="ru"
-        rev="30">
+        rev="31">
 
 <section id="summary">
 
@@ -378,7 +378,7 @@ state /var/db/nginx/state/servers.conf;  # путь для FreeBSD
 <para>
 В данный момент состояние ограничено списком серверов с их параметрами.
 Файл читается при парсинге конфигурации и обновляется каждый раз при
-<link doc="ngx_http_upstream_conf_module.xml" id="upstream_conf">изменении</link>
+<link doc="ngx_http_api_module.xml" id="stream_upstreams_stream_upstream_name_servers_">изменении</link>
 конфигурации группы.
 Изменение содержимого файла напрямую не рекомендуется.
 Директиву нельзя использовать

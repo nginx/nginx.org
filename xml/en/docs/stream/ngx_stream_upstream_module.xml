@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_upstream_module"
         link="/en/docs/stream/ngx_stream_upstream_module.html"
         lang="en"
-        rev="30">
+        rev="31">
 
 <section id="summary">
 
@@ -377,7 +377,7 @@ state /var/db/nginx/state/servers.conf;  # path for FreeBSD
 The state is currently limited to the list of servers with their parameters.
 The file is read when parsing the configuration and is updated each time
 the upstream configuration is
-<link doc="ngx_http_upstream_conf_module.xml" id="upstream_conf">changed</link>.
+<link doc="ngx_http_api_module.xml" id="stream_upstreams_stream_upstream_name_servers_">changed</link>.
 Changing the file content directly should be avoided.
 The directive cannot be used
 along with the <link id="server"/> directive.
