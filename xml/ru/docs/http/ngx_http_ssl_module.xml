@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_ssl_module"
         link="/ru/docs/http/ngx_http_ssl_module.html"
         lang="ru"
-        rev="37">
+        rev="38">
 
 <section id="summary">
 
@@ -546,7 +546,7 @@ AES256 (для 80-байтных ключей, 1.11.8), либо AES128 (для 
 
 <para>
 Разрешает или запрещает
-<link url="https://tools.ietf.org/html/rfc4366#section-3.6">прикрепление
+<link url="https://tools.ietf.org/html/rfc6066#section-8">прикрепление
 OCSP-ответов</link> сервером.
 Пример:
 <example>
