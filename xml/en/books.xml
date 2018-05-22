@@ -8,10 +8,20 @@
 <article name="nginx books"
          link="/en/books.html"
          lang="en"
-         rev="7">
+         rev="8">
 
 
 <section>
+
+<book
+    title="Nginx HTTP Server - Fourth Edition"
+    link="https://www.packtpub.com/virtualization-and-cloud/nginx-http-server-fourth-edition"
+    author="Martin Fjordvald, Clément Nedelcu"
+    site="http://blog.martinfjordvald.com"
+    publisher="Packt Publishing"
+    lang="English"
+    cover="../books/nginx_http_server_4th_ed.jpg"
+    year="2018" />
 
 <book
     title="Nginx Cookbook"

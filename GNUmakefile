@@ -189,7 +189,8 @@ images:									\
 		binary/books/instant_nginx_starter.jpg			\
 		binary/books/nginx_module_extension.jpg			\
 		binary/books/nginx_high_performance.jpg			\
-		binary/books/nginx_essentials.jpg
+		binary/books/nginx_essentials.jpg			\
+		binary/books/nginx_http_server_4th_ed.jpg
 
 binary/books/nginx_cookbook.jpg:	sources/B05431_0.jpg
 	mkdir -p $(dir $@)
@@ -259,6 +260,9 @@ binary/books/nginx_essentials.jpg:	sources/B04282_MockupCover_Normal.jpg
 	mkdir -p $(dir $@)
 	$(call JPEGNORM, $<, $@)
 
+binary/books/nginx_http_server_4th_ed.jpg:	sources/9781788623551.jpg
+	mkdir -p $(dir $@)
+	$(call JPEGNORM, $<, $@)
 
 .PHONY:	gzip
 gzip:	rsync_gzip
