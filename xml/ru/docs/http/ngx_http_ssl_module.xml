@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_ssl_module"
         link="/ru/docs/http/ngx_http_ssl_module.html"
         lang="ru"
-        rev="38">
+        rev="39">
 
 <section id="summary">
 
@@ -100,12 +100,10 @@ http {
 <context>server</context>
 
 <para>
-Включает протокол HTTPS для данного виртуального сервера.
-<note>
-Вместо этой директивы рекомендуется использовать параметр
-<literal>ssl</literal> директивы
-<link doc="ngx_http_core_module.xml" id="listen"/>.
-</note>
+Эта директива устарела в версии 1.15.0.
+Вместо неё следует
+использовать параметр <literal>ssl</literal>
+директивы <link doc="ngx_http_core_module.xml" id="listen"/>.
 </para>
 
 </directive>
