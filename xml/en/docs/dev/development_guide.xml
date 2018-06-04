@@ -733,9 +733,6 @@ on Windows.
 To obtain the current time, it is usually sufficient to access one of the
 available global variables, representing the cached time value in the desired
 format.
-For example, the <literal>ngx_current_msec</literal> variable holds the number
-of milliseconds elapsed since Epoch and truncated to
-<literal>ngx_msec_t</literal>.
 </para>
 
 <para>
@@ -2582,13 +2579,19 @@ event handler.
 
 <para>
 An event can be set to send a notification when a timeout expires.
+The timer used by events counts milliseconds since some unspecified point
+in the past truncated to <literal>ngx_msec_t</literal> type.
+Its current value can be obtained from the <literal>ngx_current_msec</literal>
+variable.
+</para>
+
+<para>
 The function <literal>ngx_add_timer(ev, timer)</literal> sets a timeout for an
 event, <literal>ngx_del_timer(ev)</literal> deletes a previously set timeout.
 The global timeout red-black tree <literal>ngx_event_timer_rbtree</literal>
 stores all timeouts currently set.
 The key in the tree is of type <literal>ngx_msec_t</literal> and is the time
-when the event expires, expressed in milliseconds since the midnight on of
-January 1, 1970 modulus <literal>ngx_msec_t</literal> max value.
+when the event occurs.
 The tree structure enables fast insertion and deletion operations, as well as
 access to the nearest timeouts, which nginx uses to find out how long to wait
 for I/O events and for expiring timeout events.
