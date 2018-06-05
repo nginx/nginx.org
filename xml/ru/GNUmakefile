@@ -107,6 +107,7 @@ REFS =									\
 		stream/ngx_stream_upstream_hc_module			\
 		stream/stream_processing				\
 		ngx_google_perftools_module				\
+		njs/njs_api						\
 
 TOP =									\
 		download						\

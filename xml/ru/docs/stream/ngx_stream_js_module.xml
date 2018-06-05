@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_js_module"
         link="/ru/docs/stream/ngx_stream_js_module.html"
         lang="ru"
-        rev="10">
+        rev="11">
 
 <section id="summary">
 
@@ -231,83 +231,10 @@ function xyz(s) {
 
 
 <section id="properties" name="Свойства объекта сессии">
-<para>
-Каждый stream-обработчик njs получает один аргумент:
-объект stream-сессии.
-</para>
 
 <para>
-Объект сессии имеет следующие свойства:
-
-<list type="tag">
-
-<tag-name><literal>remoteAddress</literal></tag-name>
-<tag-desc>
-адрес клиента, только чтение
-</tag-desc>
-
-<tag-name><literal>eof</literal></tag-name>
-<tag-desc>
-логическое свойство,
-true, если текущий буфер является последним буфером,
-только чтение
-</tag-desc>
-
-<tag-name><literal>fromUpstream</literal></tag-name>
-<tag-desc>
-логическое свойство,
-true, если текущий буфер является буфером от проксируемого сервера к клиенту,
-только чтение
-</tag-desc>
-
-<tag-name><literal>buffer</literal></tag-name>
-<tag-desc>
-текущий буфер, доступен для записи
-</tag-desc>
-
-<tag-name><literal>variables{}</literal></tag-name>
-<tag-desc>
-объект переменных nginx, только чтение
-</tag-desc>
-
-<tag-name><literal>OK</literal></tag-name>
-<tag-desc>
-код <literal>OK</literal>
-</tag-desc>
-
-<tag-name><literal>DECLINED</literal></tag-name>
-<tag-desc>
-код <literal>DECLINED</literal>
-</tag-desc>
-
-<tag-name><literal>AGAIN</literal></tag-name>
-<tag-desc>
-код <literal>AGAIN</literal>
-</tag-desc>
-
-<tag-name><literal>ERROR</literal></tag-name>
-<tag-desc>
-код <literal>ERROR</literal>
-</tag-desc>
-
-<tag-name><literal>ABORT</literal></tag-name>
-<tag-desc>
-код <literal>ABORT</literal>
-</tag-desc>
-</list>
-</para>
-
-<para>
-Объект сессии имеет следующие методы:
-
-<list type="tag">
-
-<tag-name><literal>log(<value>строка</value>)</literal></tag-name>
-<tag-desc>
-записывает отправленную <value>строку</value> в лог-файл ошибок
-на уровне лога <literal>info</literal>
-</tag-desc>
-</list>
+Каждый stream-обработчик njs получает один аргумент,
+<link doc="../njs/njs_api.xml" id="stream_session">объект</link> stream-сессии.
 </para>
 
 </section>

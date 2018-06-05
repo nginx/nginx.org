@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_js_module"
         link="/en/docs/stream/ngx_stream_js_module.html"
         lang="en"
-        rev="10">
+        rev="11">
 
 <section id="summary">
 
@@ -230,79 +230,10 @@ Sets an njs function for the specified variable.
 
 
 <section id="properties" name="Session Object Properties">
-<para>
-Each stream njs handler receives one argument, a stream session object.
-</para>
 
 <para>
-The session object has the following properties:
-
-<list type="tag">
-
-<tag-name><literal>remoteAddress</literal></tag-name>
-<tag-desc>
-client address, read-only
-</tag-desc>
-
-<tag-name><literal>eof</literal></tag-name>
-<tag-desc>
-a boolean read-only property, true if the current buffer is the last buffer
-</tag-desc>
-
-<tag-name><literal>fromUpstream</literal></tag-name>
-<tag-desc>
-a boolean read-only property,
-true if the current buffer is from the upstream server to the client
-</tag-desc>
-
-<tag-name><literal>buffer</literal></tag-name>
-<tag-desc>
-the current buffer, writable
-</tag-desc>
-
-<tag-name><literal>variables{}</literal></tag-name>
-<tag-desc>
-nginx variables object, read-only
-</tag-desc>
-
-<tag-name><literal>OK</literal></tag-name>
-<tag-desc>
-the <literal>OK</literal> return code
-</tag-desc>
-
-<tag-name><literal>DECLINED</literal></tag-name>
-<tag-desc>
-the <literal>DECLINED</literal> return code
-</tag-desc>
-
-<tag-name><literal>AGAIN</literal></tag-name>
-<tag-desc>
-the <literal>AGAIN</literal> return code
-</tag-desc>
-
-<tag-name><literal>ERROR</literal></tag-name>
-<tag-desc>
-the <literal>ERROR</literal> return code
-</tag-desc>
-
-<tag-name><literal>ABORT</literal></tag-name>
-<tag-desc>
-the <literal>ABORT</literal> return code
-</tag-desc>
-</list>
-</para>
-
-<para>
-The session object has the following methods:
-
-<list type="tag">
-
-<tag-name><literal>log(<value>string</value>)</literal></tag-name>
-<tag-desc>
-writes a sent <value>string</value> to the error log
-on the <literal>info</literal> level of logging
-</tag-desc>
-</list>
+Each stream njs handler receives one argument, a stream session
+<link doc="../njs/njs_api.xml" id="stream_session">object</link>.
 </para>
 
 </section>

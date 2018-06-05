@@ -1,0 +1,361 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE article SYSTEM "../../../../dtd/article.dtd">
+
+<article name="njs API"
+        link="/ru/docs/njs/njs_api.html"
+        lang="ru"
+        rev="1">
+
+<section id="summary">
+
+<para>
+<link doc="../njs_about.xml">njs</link> предоставляет объекты, методы и свойства 
+для расширения функциональности nginx.
+</para>
+
+</section>
+
+
+<section id="http" name="HTTP">
+
+<para>
+Объекты <literal>HTTP</literal> доступны только в
+модуле <link doc="../http/ngx_http_js_module.xml">ngx_http_js_module</link>.
+</para>
+
+
+<section id="http_request" name="Запрос">
+
+<para>
+<list type="tag">
+
+<tag-name><literal>req.uri</literal></tag-name>
+<tag-desc>
+текущий URI запроса, только чтение
+</tag-desc>
+
+<tag-name><literal>req.method</literal></tag-name>
+<tag-desc>
+метод запроса, только чтение
+</tag-desc>
+
+<tag-name><literal>req.httpVersion</literal></tag-name>
+<tag-desc>
+версия HTTP, только чтение
+</tag-desc>
+
+<tag-name><literal>req.remoteAddress</literal></tag-name>
+<tag-desc>
+адрес клиента, только чтение
+</tag-desc>
+
+<tag-name><literal>req.headers{}</literal></tag-name>
+<tag-desc>
+объект заголовков запроса, только чтение.
+<para>
+Например, доступ к заголовку <literal>Header-Name</literal>
+можно получить при помощи синтаксиса <literal>headers['Header-Name']</literal>
+или <literal>headers.Header_name</literal>
+</para>
+</tag-desc>
+
+<tag-name><literal>req.args{}</literal></tag-name>
+<tag-desc>
+объект аргументов запроса, только чтение
+</tag-desc>
+
+<tag-name><literal>req.variables{}</literal></tag-name>
+<tag-desc>
+объект переменных nginx, только чтение
+</tag-desc>
+
+<tag-name><literal>req.response</literal></tag-name>
+<tag-desc>
+объект <link id="http_response_object">ответа</link> (0.2.0), только чтение
+</tag-desc>
+
+<tag-name><literal>req.log(<value>строка</value>)</literal></tag-name>
+<tag-desc>
+записывает <literal>строку</literal> в лог-файл ошибок
+на уровне лога <literal>info</literal>
+</tag-desc>
+
+<tag-name><literal>req.warn(<value>строка</value>)</literal></tag-name>
+<tag-desc>
+записывает <literal>строку</literal> в лог-файл ошибок
+на уровне лога <literal>warning</literal> (0.2.0)
+</tag-desc>
+
+<tag-name><literal>req.error(<value>строка</value>)</literal></tag-name>
+<tag-desc>
+записывает <literal>строку</literal> в лог-файл ошибок
+на уровне лога <literal>error</literal> (0.2.0)
+</tag-desc>
+
+<tag-name id="subrequest"><literal>req.subrequest(<value>uri</value>[,
+<value>options</value>[, <value>callback</value>]])</literal></tag-name>
+<tag-desc>
+создаёт подзапрос с заданными <literal>uri</literal> и
+<literal>options</literal> и
+устанавливает необязательный <literal>callback</literal> завершения (0.2.0).
+
+<para>
+Если <literal>options</literal> является строкой, то в ней
+содержится срока аргументов подзапроса.
+В противном случае ожидается, что <literal>options</literal> является объектом
+со следующими ключами:
+<list type="tag">
+<tag-name><literal>args</literal></tag-name>
+<tag-desc>
+строка с аргументами
+</tag-desc>
+
+<tag-name><literal>body</literal></tag-name>
+<tag-desc>
+тело запроса
+</tag-desc>
+
+<tag-name><literal>method</literal></tag-name>
+<tag-desc
+>метод HTTP
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+<literal>callback</literal>
+получает объект <link id="http_reply">reply</link>.
+</para>
+</tag-desc>
+
+</list>
+</para>
+
+</section>
+
+
+<section id="http_response" name="Ответ">
+
+<para>
+<list type="tag">
+
+<tag-name><literal>res.status</literal></tag-name>
+<tag-desc>
+статус ответа, доступно для записи
+</tag-desc>
+
+<tag-name><literal>res.headers{}</literal></tag-name>
+<tag-desc>
+объект заголовков ответа
+</tag-desc>
+
+<tag-name><literal>res.contentType</literal></tag-name>
+<tag-desc>
+значение поля <header>Content-Type</header> заголовка ответа,
+доступно для записи
+</tag-desc>
+
+<tag-name><literal>res.contentLength</literal></tag-name>
+<tag-desc>
+значение поля <header>Content-Length</header> заголовка ответа,
+доступно для записи
+</tag-desc>
+
+<tag-name><literal>res.sendHeader()</literal></tag-name>
+<tag-desc>
+отправляет заголовок HTTP клиенту
+</tag-desc>
+
+<tag-name><literal>res.send(<value>строка</value>)</literal></tag-name>
+<tag-desc>
+отправляет часть тела ответа клиенту
+</tag-desc>
+
+<tag-name><literal>res.finish()</literal></tag-name>
+<tag-desc>
+завершает отправку ответа клиенту
+</tag-desc>
+
+<tag-name><literal>res.return(код[, строка])</literal></tag-name>
+<tag-desc>
+отправляет
+клиенту полный ответ с указанным <literal>кодом</literal> (0.2.0)
+<para>
+Можно задать или URL перенаправления
+(для кодов 301, 302, 303, 307 и 308),
+или текст тела ответа (для остальных кодов) в качестве второго аргумента
+</para>
+</tag-desc>
+
+</list>
+</para>
+
+</section>
+
+
+<section id="http_reply" name="Reply">
+
+<para>
+<list type="tag">
+
+<tag-name><literal>reply.uri</literal></tag-name>
+<tag-desc>
+текущий URI, только чтение
+</tag-desc>
+
+<tag-name><literal>reply.method</literal></tag-name>
+<tag-desc>
+метод, только чтение
+</tag-desc>
+
+<tag-name><literal>reply.status</literal></tag-name>
+<tag-desc>
+статус, доступно для записи
+</tag-desc>
+
+<tag-name><literal>reply.contentType</literal></tag-name>
+<tag-desc>
+значение поля <header>Content-Type</header> заголовка,
+доступно для записи
+</tag-desc>
+
+<tag-name><literal>reply.contentLength</literal></tag-name>
+<tag-desc>
+значение поля <header>Content-Length</header> заголовка,
+доступно для записи
+</tag-desc>
+
+<tag-name><literal>reply.headers{}</literal></tag-name>
+<tag-desc>
+объект заголовков ответа, только чтение
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+Кроме того, у объект <literal>reply</literal> имеет
+следующие свойства:
+
+<list type="tag">
+
+<tag-name><literal>reply.body</literal></tag-name>
+<tag-desc>
+хранит тело ответа подзапроса
+</tag-desc>
+
+<tag-name><literal>reply.parent</literal></tag-name>
+<tag-desc>
+ссылается на родительский объект запроса
+</tag-desc>
+
+</list>
+</para>
+
+</section>
+
+</section>
+
+
+<section id="stream" name="Stream">
+
+<para>
+Объекты <literal>stream</literal> доступны только в
+модуле
+<link doc="../stream/ngx_stream_js_module.xml">ngx_stream_js_module</link>.
+</para>
+
+
+<section id="stream_session" name="Сессия">
+
+<para>
+<list type="tag">
+
+<tag-name><literal>s.remoteAddress</literal></tag-name>
+<tag-desc>
+адрес клиента, только чтение
+</tag-desc>
+
+<tag-name><literal>s.eof</literal></tag-name>
+<tag-desc>
+логическое свойство,
+true, если текущий буфер является последним буфером,
+только чтение
+</tag-desc>
+
+<tag-name><literal>s.fromUpstream</literal></tag-name>
+<tag-desc>
+логическое свойство,
+true, если текущий буфер является буфером от проксируемого сервера к клиенту,
+только чтение
+</tag-desc>
+
+<tag-name><literal>s.buffer</literal></tag-name>
+<tag-desc>
+текущий буфер, доступен для записи
+</tag-desc>
+
+<tag-name><literal>s.variables{}</literal></tag-name>
+<tag-desc>
+объект переменных nginx, только чтение
+</tag-desc>
+
+<tag-name><literal>s.OK</literal></tag-name>
+<tag-desc>
+код <literal>OK</literal>
+</tag-desc>
+
+<tag-name><literal>s.DECLINED</literal></tag-name>
+<tag-desc>
+код <literal>DECLINED</literal>
+</tag-desc>
+
+<tag-name><literal>s.AGAIN</literal></tag-name>
+<tag-desc>
+код <literal>AGAIN</literal>
+</tag-desc>
+
+<tag-name><literal>s.ERROR</literal></tag-name>
+<tag-desc>
+код <literal>ERROR</literal>
+</tag-desc>
+
+<tag-name><literal>s.ABORT</literal></tag-name>
+<tag-desc>
+код <literal>ABORT</literal>
+</tag-desc>
+
+<tag-name><literal>s.log(<value>строка</value>)</literal></tag-name>
+<tag-desc>
+записывает отправленную <value>строку</value> в лог-файл ошибок
+на уровне лога <literal>info</literal>
+</tag-desc>
+
+<tag-name><literal>s.warn(<value>строка</value>)</literal></tag-name>
+<tag-desc>
+записывает отправленную <literal>строку</literal> в лог-файл ошибок
+на уровне лога <literal>warning</literal> (0.2.0)
+</tag-desc>
+
+<tag-name><literal>s.error(<value>строка</value>)</literal></tag-name>
+<tag-desc>
+записывает отправленную <literal>строку</literal> в лог-файл ошибок
+на уровне лога <literal>error</literal> (0.2.0)
+</tag-desc>
+
+</list>
+</para>
+
+</section>
+
+</section>
+
+
+</article>
+

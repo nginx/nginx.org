@@ -1,0 +1,354 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE article SYSTEM "../../../../dtd/article.dtd">
+
+<article name="njs API"
+        link="/en/docs/njs/njs_api.html"
+        lang="en"
+        rev="1">
+
+<section id="summary">
+
+<para>
+<link doc="../njs_about.xml">njs</link> provides objects, methods and properties
+for extending nginx functionality.
+</para>
+
+</section>
+
+
+<section id="http" name="HTTP">
+
+<para>
+The <literal>HTTP</literal> objects are available only in the
+<link doc="../http/ngx_http_js_module.xml">ngx_http_js_module</link> module.
+</para>
+
+
+<section id="http_request" name="Request">
+
+<para>
+<list type="tag">
+
+<tag-name><literal>req.uri</literal></tag-name>
+<tag-desc>
+current URI in a request, read-only
+</tag-desc>
+
+<tag-name><literal>req.method</literal></tag-name>
+<tag-desc>
+request method, read-only
+</tag-desc>
+
+<tag-name><literal>req.httpVersion</literal></tag-name>
+<tag-desc>
+HTTP version, read-only
+</tag-desc>
+
+<tag-name><literal>req.remoteAddress</literal></tag-name>
+<tag-desc>
+client address, read-only
+</tag-desc>
+
+<tag-name><literal>req.headers{}</literal></tag-name>
+<tag-desc>
+request headers object, read-only.
+<para>
+For example, the <literal>Header-Name</literal> header
+can be accessed with the syntax <literal>headers['Header-Name']</literal>
+or <literal>headers.Header_name</literal>
+</para>
+</tag-desc>
+
+<tag-name><literal>req.args{}</literal></tag-name>
+<tag-desc>
+request arguments object, read-only
+</tag-desc>
+
+<tag-name><literal>request.variables{}</literal></tag-name>
+<tag-desc>
+nginx variables object, read-only
+</tag-desc>
+
+<tag-name><literal>req.response</literal></tag-name>
+<tag-desc>
+the <link id="http_response">response</link> object (0.2.0), read-only
+</tag-desc>
+
+<tag-name><literal>req.log(<value>string</value>)</literal></tag-name>
+<tag-desc>
+writes a <literal>string</literal> to the error log
+on the <literal>info</literal> level of logging
+</tag-desc>
+
+<tag-name><literal>req.warn(<value>string</value>)</literal></tag-name>
+<tag-desc>
+writes a <literal>string</literal> to the error log
+on the <literal>warning</literal> level of logging (0.2.0)
+</tag-desc>
+
+<tag-name><literal>req.error(<value>string</value>)</literal></tag-name>
+<tag-desc>
+writes a <literal>string</literal> to the error log
+on the <literal>error</literal> level of logging (0.2.0)
+</tag-desc>
+
+<tag-name id="subrequest"><literal>req.subrequest(<value>uri</value>[,
+<value>options</value>[, <value>callback</value>]])</literal></tag-name>
+<tag-desc>
+creates a subrequest with the given <literal>uri</literal> and
+<literal>options</literal>, and installs
+an optional completion <literal>callback</literal> (0.2.0).
+
+<para>
+If <literal>options</literal> is a string, then it
+holds the subrequest arguments string.
+Otherwise, <literal>options</literal> is expected to be
+an object with the following keys:
+
+<list type="tag">
+<tag-name><literal>args</literal></tag-name>
+<tag-desc>
+arguments string
+</tag-desc>
+
+<tag-name><literal>body</literal></tag-name>
+<tag-desc>
+request body
+</tag-desc>
+
+<tag-name><literal>method</literal></tag-name>
+<tag-desc>
+HTTP method
+</tag-desc>
+</list>
+</para>
+
+<para>
+The completion <literal>callback</literal>
+receives a <link id="http_reply_object">reply</link> object.
+</para>
+</tag-desc>
+
+</list>
+</para>
+
+</section>
+
+
+<section id="http_response" name="Response">
+
+<para>
+<list type="tag">
+
+<tag-name><literal>res.status</literal></tag-name>
+<tag-desc>
+response status, writable
+</tag-desc>
+
+<tag-name><literal>res.headers{}</literal></tag-name>
+<tag-desc>
+response headers object
+</tag-desc>
+
+<tag-name><literal>res.contentType</literal></tag-name>
+<tag-desc>
+the response <header>Content-Type</header> header field value, writable
+</tag-desc>
+
+<tag-name><literal>res.contentLength</literal></tag-name>
+<tag-desc>
+the response <header>Content-Length</header> header field value, writable
+</tag-desc>
+
+<tag-name><literal>res.sendHeader()</literal></tag-name>
+<tag-desc>
+sends the HTTP header to the client
+</tag-desc>
+
+<tag-name><literal>res.send(<value>string</value>)</literal></tag-name>
+<tag-desc>
+sends a part of the response body to the client
+</tag-desc>
+
+<tag-name><literal>res.finish()</literal></tag-name>
+<tag-desc>
+finishes sending a response to the client
+</tag-desc>
+
+<tag-name><literal>res.return(status[, string])</literal></tag-name>
+<tag-desc>
+sends
+the entire response with the specified <literal>status</literal> to the client
+(0.2.0)
+<para>
+It is possible to specify either a redirect URL
+(for codes 301, 302, 303, 307, and 308)
+or the response body text (for other codes) as the second argument
+</para>
+</tag-desc>
+
+</list>
+</para>
+
+</section>
+
+
+<section id="http_reply" name="Reply">
+
+<para>
+<list type="tag">
+
+<tag-name><literal>reply.uri</literal></tag-name>
+<tag-desc>
+current URI in a reply, read-only
+</tag-desc>
+
+<tag-name><literal>reply.method</literal></tag-name>
+<tag-desc>
+reply method, read-only
+</tag-desc>
+
+<tag-name><literal>reply.status</literal></tag-name>
+<tag-desc>
+reply status, writable
+</tag-desc>
+
+<tag-name><literal>reply.contentType</literal></tag-name>
+<tag-desc>
+the response <header>Content-Type</header> header field value, writable
+</tag-desc>
+
+<tag-name><literal>reply.contentLength</literal></tag-name>
+<tag-desc>
+the response <header>Content-Length</header> header field value, writable
+</tag-desc>
+
+<tag-name><literal>reply.headers{}</literal></tag-name>
+<tag-desc>
+reply headers object, read-only
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+Additionally, the <literal>reply</literal> object has
+the following properties:
+
+<list type="tag">
+
+<tag-name><literal>reply.body</literal></tag-name>
+<tag-desc>
+holds the subrequest response body
+</tag-desc>
+
+<tag-name><literal>reply.parent</literal></tag-name>
+<tag-desc>
+references the parent request object
+</tag-desc>
+
+</list>
+</para>
+
+</section>
+
+</section>
+
+
+<section id="stream" name="Stream">
+
+<para>
+The <literal>stream</literal> objects are available only in the
+<link doc="../stream/ngx_stream_js_module.xml">ngx_stream_js_module</link>
+module.
+</para>
+
+
+<section id="stream_session" name="Session">
+
+<para>
+<list type="tag">
+
+<tag-name><literal>s.remoteAddress</literal></tag-name>
+<tag-desc>
+client address, read-only
+</tag-desc>
+
+<tag-name><literal>s.eof</literal></tag-name>
+<tag-desc>
+a boolean read-only property, true if the current buffer is the last buffer
+</tag-desc>
+
+<tag-name><literal>s.fromUpstream</literal></tag-name>
+<tag-desc>
+a boolean read-only property,
+true if the current buffer is from the upstream server to the client
+</tag-desc>
+
+<tag-name><literal>s.buffer</literal></tag-name>
+<tag-desc>
+the current buffer, writable
+</tag-desc>
+
+<tag-name><literal>s.variables{}</literal></tag-name>
+<tag-desc>
+nginx variables object, read-only
+</tag-desc>
+
+<tag-name><literal>s.OK</literal></tag-name>
+<tag-desc>
+the <literal>OK</literal> return code
+</tag-desc>
+
+<tag-name><literal>s.DECLINED</literal></tag-name>
+<tag-desc>
+the <literal>DECLINED</literal> return code
+</tag-desc>
+
+<tag-name><literal>s.AGAIN</literal></tag-name>
+<tag-desc>
+the <literal>AGAIN</literal> return code
+</tag-desc>
+
+<tag-name><literal>s.ERROR</literal></tag-name>
+<tag-desc>
+the <literal>ERROR</literal> return code
+</tag-desc>
+
+<tag-name><literal>s.ABORT</literal></tag-name>
+<tag-desc>
+the <literal>ABORT</literal> return code
+</tag-desc>
+
+<tag-name><literal>s.log(<value>string</value>)</literal></tag-name>
+<tag-desc>
+writes a sent <value>string</value> to the error log
+on the <literal>info</literal> level of logging
+</tag-desc>
+
+<tag-name><literal>s.warn(<value>string</value>)</literal></tag-name>
+<tag-desc>
+writes a sent <literal>string</literal> to the error log
+on the <literal>warning</literal> level of logging (0.2.0)
+</tag-desc>
+
+<tag-name><literal>s.error(<value>string</value>)</literal></tag-name>
+<tag-desc>
+writes a sent <literal>string</literal> to the error log
+on the <literal>error</literal> level of logging (0.2.0)
+</tag-desc>
+
+</list>
+</para>
+
+</section>
+
+</section>
+
+
+</article>

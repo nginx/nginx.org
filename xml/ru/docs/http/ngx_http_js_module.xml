@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_js_module"
         link="/ru/docs/http/ngx_http_js_module.html"
         lang="ru"
-        rev="10">
+        rev="11">
 
 <section id="summary">
 
@@ -161,183 +161,11 @@ function baz(req, res) {
 
 
 <section id="arguments" name="Аргументы запроса и ответа">
-<para>
-Каждый HTTP-обработчик njs получает два аргумента: запрос и ответ.
-</para>
 
 <para>
-Объект запроса имеет следующие свойства:
-<list type="tag">
-
-<tag-name><literal>uri</literal></tag-name>
-<tag-desc>
-текущий URI запроса, только чтение
-</tag-desc>
-
-<tag-name><literal>method</literal></tag-name>
-<tag-desc>
-метод запроса, только чтение
-</tag-desc>
-
-<tag-name><literal>httpVersion</literal></tag-name>
-<tag-desc>
-версия HTTP, только чтение
-</tag-desc>
-
-<tag-name><literal>remoteAddress</literal></tag-name>
-<tag-desc>
-адрес клиента, только чтение
-</tag-desc>
-
-<tag-name><literal>headers{}</literal></tag-name>
-<tag-desc>
-объект заголовков запроса, только чтение.
-<para>
-Например, доступ к заголовку <literal>Header-Name</literal>
-можно получить при помощи синтаксиса <literal>headers['Header-Name']</literal>
-или <literal>headers.Header_name</literal>
-</para>
-</tag-desc>
-
-<tag-name><literal>args{}</literal></tag-name>
-<tag-desc>
-объект аргументов запроса, только чтение
-</tag-desc>
-
-<tag-name><literal>variables{}</literal></tag-name>
-<tag-desc>
-объект переменных nginx, только чтение
-</tag-desc>
-
-<tag-name><literal>response</literal></tag-name>
-<tag-desc>
-объект ответа (0.2.0), только чтение
-</tag-desc>
-</list>
-</para>
-
-<para>
-Объект запроса имеет следующие свойства:
-<list type="tag">
-
-<tag-name><literal>log(<value>строка</value>)</literal></tag-name>
-<tag-desc>
-записывает <literal>строку</literal> в лог-файл ошибок
-на уровне лога <literal>info</literal>
-</tag-desc>
-
-<tag-name><literal>warn(<value>строка</value>)</literal></tag-name>
-<tag-desc>
-записывает <literal>строку</literal> в лог-файл ошибок
-на уровне лога <literal>warning</literal> (0.2.0)
-</tag-desc>
-
-<tag-name><literal>error(<value>строка</value>)</literal></tag-name>
-<tag-desc>
-записывает <literal>строку</literal> в лог-файл ошибок
-на уровне лога <literal>error</literal> (0.2.0)
-</tag-desc>
-
-<tag-name><literal>subrequest(<value>uri</value>[, <value>options</value>[,
-<value>callback</value>]])</literal></tag-name>
-<tag-desc>
-создаёт подзапрос с заданными <literal>uri</literal> и
-<literal>options</literal> и
-устанавливает необязательный <literal>callback</literal> завершения (0.2.0).
-
-<para>
-Если <literal>options</literal> является строкой, то в ней
-содержится срока аргументов подзапроса.
-В противном случае ожидается, что <literal>options</literal> является объектом
-со следующими ключами:
-<list type="tag">
-<tag-name><literal>args</literal></tag-name>
-<tag-desc>строка с аргументами</tag-desc>
-
-<tag-name><literal>body</literal></tag-name>
-<tag-desc>тело запроса</tag-desc>
-
-<tag-name><literal>method</literal></tag-name>
-<tag-desc>метод HTTP</tag-desc>
-</list>
-</para>
-
-<para>
-<literal>callback</literal> получает объект ответа
-со следующими свойствами:
-<literal>uri</literal>, <literal>method</literal>,
-<literal>status</literal>, <literal>contentType</literal>,
-<literal>contentLength</literal>, <literal>headers</literal>,
-<literal>args</literal>.
-Эти свойства имеют те же значения, что и свойства объекта запроса.
-Дополнительно у объекта ответа есть свойство <literal>body</literal>,
-содержащее тело ответа подзапроса,
-и свойство <literal>parent</literal>,
-ссылающееся на родительский объект запроса.
-</para>
-</tag-desc>
-</list>
-</para>
-
-<para>
-Объект ответа имеет следующие свойства:
-<list type="tag">
-
-<tag-name><literal>status</literal></tag-name>
-<tag-desc>
-статус ответа, доступно для записи
-</tag-desc>
-
-<tag-name><literal>headers{}</literal></tag-name>
-<tag-desc>
-объект заголовков ответа
-</tag-desc>
-
-<tag-name><literal>contentType</literal></tag-name>
-<tag-desc>
-значение поля <header>Content-Type</header> заголовка ответа,
-доступно для записи
-</tag-desc>
-
-<tag-name><literal>contentLength</literal></tag-name>
-<tag-desc>
-значение поля <header>Content-Length</header> заголовка ответа,
-доступно для записи
-</tag-desc>
-</list>
-</para>
-
-<para>
-Объект ответа имеет следующие методы:
-<list type="tag">
-
-<tag-name><literal>sendHeader()</literal></tag-name>
-<tag-desc>
-отправляет заголовок HTTP клиенту
-</tag-desc>
-
-<tag-name><literal>send(<value>строка</value>)</literal></tag-name>
-<tag-desc>
-отправляет часть тела ответа клиенту
-</tag-desc>
-
-<tag-name><literal>finish()</literal></tag-name>
-<tag-desc>
-завершает отправку ответа клиенту
-</tag-desc>
-
-<tag-name><literal>return(код[, строка])</literal></tag-name>
-<tag-desc>
-отправляет
-клиенту полный ответ с указанным <literal>кодом</literal> (0.2.0)
-<para>
-Можно задать или URL перенаправления
-(для кодов 301, 302, 303, 307 и 308),
-или текст тела ответа (для остальных кодов) в качестве второго аргумента.
-</para>
-</tag-desc>
-
-</list>
+Каждый HTTP-обработчик njs получает два аргумента,
+<link doc="../njs/njs_api.xml" id="http_request">запрос</link>
+и <link doc="../njs/njs_api.xml" id="http_response">ответ</link>.
 </para>
 
 </section>
