@@ -95,6 +95,117 @@ If omitted or is <literal>null</literal>, no white space is used.
 
 </section>
 
+
+<section id="crypto" name="Crypto">
+
+<para>
+The Crypto module provides cryptographic functionality support.
+The Crypto module object is returned by <literal>require('crypto')</literal>.
+</para>
+
+<para>
+<list type="tag">
+
+<tag-name><literal>crypto.createHash(<value>algorithm</value>)</literal></tag-name>
+<tag-desc>
+Creates and returns a <link id="crypto_hash">Hash</link> object
+that can be used to generate hash digests
+using the given <value>algorithm</value>.
+The algorighm can be
+<literal>md5</literal>,
+<literal>sha1</literal>, and
+<literal>sha256</literal>.
+</tag-desc>
+
+<tag-name><literal>crypto.createHmac(<value>algorithm</value>,
+<value>secret key</value>)</literal></tag-name>
+<tag-desc>
+Creates and returns an <link id="crypto_hmac">HMAC</link> object
+that uses the given <value>algorithm</value> and <value>secret key</value>.
+The algorighm can be
+<literal>md5</literal>,
+<literal>sha1</literal>, and
+<literal>sha256</literal>.
+</tag-desc>
+
+</list>
+</para>
+
+
+<section id="crypto_hash" name="Hash">
+
+<para>
+<list type="tag">
+
+<tag-name><literal>hash.update(<value>data</value>)</literal></tag-name>
+<tag-desc>
+Updates the hash content with the given <value>data</value>.
+</tag-desc>
+
+<tag-name><literal>hash.digest([<value>encoding</value>])</literal></tag-name>
+<tag-desc>
+Calculates the digest of all of the data passed using
+<literal>hash.update()</literal>.
+The encoding can be
+<literal>hex</literal>,
+<literal>base64</literal>, and
+<literal>base64url</literal>.
+If encoding is not provided, a byte string is returned.
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+<example>
+>> var cr = require('crypto')
+undefined
+
+>> cr.createHash('sha1').update('A').update('B').digest('base64url')
+BtlFlCqiamG-GMPiK_GbvKjdK10
+</example>
+</para>
+
+</section>
+
+
+<section id="crypto_hmac" name="HMAC">
+
+<para>
+<list type="tag">
+
+<tag-name><literal>hmac.update(<value>data</value>)</literal></tag-name>
+<tag-desc>
+Updates the HMAC content with the given <value>data</value>.
+</tag-desc>
+
+<tag-name><literal>hmac.digest([<value>encoding</value>])</literal></tag-name>
+<tag-desc>
+Calculates the HMAC digest of all of the data passed using
+<literal>hmac.update()</literal>.
+The encoding can be
+<literal>hex</literal>,
+<literal>base64</literal>, and
+<literal>base64url</literal>.
+If encoding is not provided, a byte string is returned.
+</tag-desc>
+</list>
+</para>
+
+<para>
+<example>
+>> var cr = require('crypto')
+undefined
+
+>> cr.createHmac('sha1', 'secret.key').update('AB').digest('base64url')
+Oglm93xn23_MkiaEq_e9u8zk374
+</example>
+</para>
+
+</section>
+
+</section>
+
 </section>
 
 
