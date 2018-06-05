@@ -9,7 +9,7 @@
 <article name="Информация о njs"
         link="/ru/docs/njs_about.html"
         lang="ru"
-        rev="18">
+        rev="19">
 
 <section id="summary">
 
@@ -269,6 +269,8 @@ njs доступен в двух модулях:
 По умолчанию модули не собираются
 их необходимо собрать из исходного кода
 или установить из отдельного пакета Linux.
+Кроме того, в пакете Linux предоставляется
+<link id="cli">утилита</link> командной строки njs.
 </para>
 
 
@@ -313,6 +315,47 @@ hg clone http://hg.nginx.org/njs
 <link doc="ngx_core_module.xml" id="load_module">динамические</link>:
 <example>
 ./configure --add-dynamic-module=<value>path-to-njs</value>/nginx
+</example>
+</para>
+
+<para>
+Чтобы собрать только <link id="cli">утилиту</link> командной строки njs
+необходимо запустить
+команды <literal>./configure</literal> и <literal>make njs</literal>
+из корневого каталога.
+Утилита доступна как <literal>./build/njs</literal>.
+</para>
+
+</section>
+
+
+<section id="cli" name="Интерфейс командной строки">
+
+<para>
+Создание и отладка njs-скриптов может осуществляться
+в командной строке.
+Утилита командной строки доступна после установки
+<link id="install_package">пакета</link> Linux
+или после сборки из <link id="install_sources">исходных файлов</link>.
+В отличие от njs, запущенном внутри nginx,
+в утилите недоступны объекты nginx
+(<link doc="njs/njs_api.xml" id="http">HTTP</link> и
+<link doc="njs/njs_api.xml" id="stream">Stream</link>).
+<example>
+$ echo "2**3" | njs -
+8
+
+$ njs
+>> var o = {a:[]}
+undefined
+
+>> JSON.stringify(o, undefined,1)
+{
+ "a": [
+
+ ]
+}
+>>
 </example>
 </para>
 

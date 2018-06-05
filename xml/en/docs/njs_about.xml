@@ -9,7 +9,7 @@
 <article name="About njs"
         link="/en/docs/njs_about.html"
         lang="en"
-        rev="18">
+        rev="19">
 
 <section id="summary">
 
@@ -270,6 +270,8 @@ njs is available in two modules:
 Both modules are not built by default,
 they should be either compiled from the sources
 or installed as a Linux package.
+In addition, the Linux package provides
+njs command-line <link id="cli">utility</link>.
 </para>
 
 
@@ -316,7 +318,48 @@ The modules can also be built as
 </example>
 </para>
 
+<para>
+To build only njs command-line <link id="cli">utility</link>, run
+<literal>./configure</literal> and <literal>make njs</literal> commands
+from njs root directory.
+The utility is available as <literal>./build/njs</literal>.
+</para>
+
 </section>
+
+</section>
+
+
+<section id="cli" name="Command-line interface">
+
+<para>
+njs scripts development and debugging can be performed
+from the command-line.
+The command-line utility is available after the installation of
+the Linux <link id="install_package">package</link>
+or after building from the <link id="install_sources">sources</link>.
+Compared to njs running inside nginx,
+nginx objects
+(<link doc="njs/njs_api.xml" id="http">HTTP</link> and
+<link doc="njs/njs_api.xml" id="stream">Stream</link>)
+are not available in the utility.
+<example>
+$ echo "2**3" | njs -
+8
+
+$ njs
+>> var o = {a:[]}
+undefined
+
+>> JSON.stringify(o, undefined,1)
+{
+ "a": [
+
+ ]
+}
+>>
+</example>
+</para>
 
 </section>
 
