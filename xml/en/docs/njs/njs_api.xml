@@ -9,7 +9,7 @@
 <article name="njs API"
         link="/en/docs/njs/njs_api.html"
         lang="en"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
@@ -17,6 +17,83 @@
 <link doc="../njs_about.xml">njs</link> provides objects, methods and properties
 for extending nginx functionality.
 </para>
+
+</section>
+
+
+<section id="core" name="Core">
+
+
+<section id="core_json" name="JSON">
+
+<para>
+The <literal>JSON</literal> object (ES 5.1) provides functions
+to convert njs values to and from JSON format.
+<list type="tag">
+
+<tag-name><literal>JSON.parse(<value>string</value>[,
+<value>reviver</value>])</literal></tag-name>
+<tag-desc>
+Converts a <literal>string</literal> that represents JSON data
+into an njs object (<literal>{...}</literal>) or
+array (<literal>[...]</literal>).
+The optional <literal>reviver</literal> parameter is a function (key, value)
+that will be called for each (key,value) pair and can transform the value.
+</tag-desc>
+
+<tag-name><literal>JSON.stringify(<value>value</value>[,
+<value>replacer</value>] [, <value>space</value>])</literal></tag-name>
+<tag-desc>
+Converts an njs object back to JSON.
+The obligatory <literal>value</literal> parameter is generally a JSON
+<literal>object</literal> or <literal>array</literal> that will be converted.
+If the value has a <literal>toJSON()</literal> method,
+it defines how the object will be serialized.
+The optional <literal>replacer</literal> parameter is
+a <literal>function</literal> or <literal>array</literal>
+that transforms results.
+The optional <literal>space</literal> parameter is
+a <literal>string</literal> or <literal>number</literal>.
+If it is a <literal>number</literal>,
+it indicates the number of white spaces placed before a result
+(no more than 10).
+If it is a <literal>string</literal>,
+it is used as a white space (or first 10 characters of it).
+If omitted or is <literal>null</literal>, no white space is used.
+</tag-desc>
+</list>
+</para>
+
+<para>
+<example>
+>> var json = JSON.parse('{"a":1, "b":true}')
+>> json.a
+1
+
+>> JSON.stringify(json)
+{"a":1,"b":true}
+
+>> JSON.stringify(json, undefined, 1)
+{
+"a": 1,
+"b": true
+}
+
+>> JSON.stringify({ x: [10, undefined, function(){}] })
+{"x":[10,null,null]}
+
+>> JSON.stringify({"a":1, "toJSON": function() {return "xxx"}})
+"xxx"
+
+# Example with function replacer
+
+>> function replacer(key, value) {return (typeof value === 'string') ? undefined : value}
+>>JSON.stringify({a:1, b:"b", c:true}, replacer)
+{"a":1,"c":true}
+</example>
+</para>
+
+</section>
 
 </section>
 
