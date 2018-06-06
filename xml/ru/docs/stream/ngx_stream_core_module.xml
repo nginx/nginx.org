@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_core_module"
         link="/ru/docs/stream/ngx_stream_core_module.html"
         lang="ru"
-        rev="24">
+        rev="25">
 
 <section id="summary">
 
@@ -58,8 +58,7 @@ stream {
     }
 
     server {
-        listen 127.0.0.1:53 udp;
-        proxy_responses 1;
+        listen 127.0.0.1:53 udp reuseport;
         proxy_timeout 20s;
         proxy_pass dns;
     }
