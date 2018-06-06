@@ -9,8 +9,174 @@
 <article name="njs Changes"
         link="/en/docs/njs/njs_changes.html"
         lang="en"
-        rev="2"
+        rev="3"
         toc="no">
+
+<section id="njs0.2.1" name="Changes with 0.2.1">
+
+<para>
+Release Date:
+31 May 2018
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+HTTP request body getter.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+moved njs vm to the <literal>main</literal> configuration.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+improved logging for
+<link doc="../http/ngx_http_js_module.xml" id="js_set"/> and
+<link doc="../http/ngx_http_js_module.xml" id="js_content"/> directives.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+setting status code to 500 by default in the
+<link doc="../http/ngx_http_js_module.xml" id="js_content"/> handler
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+added the debug for the returned status code in
+<link doc="../http/ngx_http_js_module.xml" id="js_content"/> handler
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix: fixed error logging in
+<link doc="../http/ngx_http_js_module.xml" id="js_include"/>.
+</para>
+</listitem>
+
+</list>
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+added array length setter.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+public header <literal>cleanup. njscript.h</literal> is renamed to
+<literal>njs.h</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed crypto <literal>update()</literal> method after 
+<literal>digest()</literal> is called.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>crypto.createHmac()</literal> for keys with size &lt;= alg size
+and &gt; 64.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>JSON.stringify()</literal> for arrays with empty cells.
+</para>
+</listitem>
+
+<listitem>
+<para>
+ Bugfix:
+fixed exception type for unsupported types in
+<literal>JSON.stringify()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed handling of undefined arguments of functions.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed handling of missing <literal>arg</literal> of
+<literal>Object.getOwnPropertyDescriptor()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed handling of properties in
+<literal>Object.getOwnPropertyDescriptor()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed the writeable flag of <literal>Array.length</literal> property.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix: fixed return value type of <literal>clearTimeout()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>njs_vm_external_bind()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+miscellaneous additional bugs have been fixed.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.2.0" name="Changes with 0.2.0">
 
