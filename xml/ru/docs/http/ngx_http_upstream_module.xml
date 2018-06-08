@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_upstream_module"
         link="/ru/docs/http/ngx_http_upstream_module.html"
         lang="ru"
-        rev="70">
+        rev="71">
 
 <section id="summary">
 
@@ -806,6 +806,32 @@ server {
 Эта директива доступна как часть
 <commercial_version>коммерческой подписки</commercial_version>.
 </note>
+</para>
+
+</directive>
+
+
+<directive name="random">
+<syntax>[<literal>two</literal> [<value>метод</value>]]</syntax>
+<default/>
+<context>upstream</context>
+<appeared-in>1.15.1</appeared-in>
+
+<para>
+Задаёт для группы метод балансировки нагрузки, при котором запрос
+передаётся случайно выбранному серверу, с учётом весов
+серверов.
+</para>
+
+<para>
+Если указан необязательный параметр <literal>two</literal>,
+то nginx случайным образом выбирает
+<link url="http://www.eecs.harvard.edu/~michaelm/postscripts/handbook2001.pdf">два</link>
+сервера, из которых выбирает сервер,
+используя указанный <literal>метод</literal>.
+Методом по умолчанию является <literal>least_conn</literal>,
+при котором запрос передаётся на сервер
+с наименьшим количеством активных соединений.
 </para>
 
 </directive>
