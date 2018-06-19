@@ -211,40 +211,36 @@ Oglm93xn23_MkiaEq_e9u8zk374
 
 <section id="http" name="HTTP">
 
-<para>
-The <literal>HTTP</literal> objects are available only in the
-<link doc="../http/ngx_http_js_module.xml">ngx_http_js_module</link> module.
-</para>
-
 
 <section id="http_request" name="Request">
 
 <para>
+The <literal>HTTP</literal> object is available only in the
+<link doc="../http/ngx_http_js_module.xml">ngx_http_js_module</link> module.
+</para>
+
+<para>
 <list type="tag">
 
-<tag-name><literal>req.uri</literal></tag-name>
+<tag-name><literal>r.args{}</literal></tag-name>
 <tag-desc>
-current URI in a request, read-only
+request arguments object, read-only
 </tag-desc>
 
-<tag-name><literal>req.method</literal></tag-name>
+<tag-name><literal>r.error(<value>string</value>)</literal></tag-name>
 <tag-desc>
-request method, read-only
+writes a <literal>string</literal> to the error log
+on the <literal>error</literal> level of logging
 </tag-desc>
 
-<tag-name><literal>req.httpVersion</literal></tag-name>
+<tag-name><literal>r.finish()</literal></tag-name>
 <tag-desc>
-HTTP version, read-only
+finishes sending a response to the client
 </tag-desc>
 
-<tag-name><literal>req.remoteAddress</literal></tag-name>
+<tag-name><literal>r.headersIn{}</literal></tag-name>
 <tag-desc>
-client address, read-only
-</tag-desc>
-
-<tag-name><literal>req.headers{}</literal></tag-name>
-<tag-desc>
-request headers object, read-only.
+incoming headers object, read-only.
 <para>
 For example, the <literal>Header-Name</literal> header
 can be accessed with the syntax <literal>headers['Header-Name']</literal>
@@ -252,45 +248,100 @@ or <literal>headers.Header_name</literal>
 </para>
 </tag-desc>
 
-<tag-name><literal>req.args{}</literal></tag-name>
+<tag-name><literal>r.headersOut{}</literal></tag-name>
 <tag-desc>
-request arguments object, read-only
+outgoing headers object, writable.
+<para>
+For example, the <literal>Header-Name</literal> header
+can be accessed with the syntax <literal>headers['Header-Name']</literal>
+or <literal>headers.Header_name</literal>
+</para>
 </tag-desc>
 
-<tag-name><literal>request.variables{}</literal></tag-name>
+<tag-name><literal>r.httpVersion</literal></tag-name>
 <tag-desc>
-nginx variables object, read-only
+HTTP version, read-only
 </tag-desc>
 
-<tag-name><literal>req.response</literal></tag-name>
-<tag-desc>
-the <link id="http_response">response</link> object (0.2.0), read-only
-</tag-desc>
-
-<tag-name><literal>req.log(<value>string</value>)</literal></tag-name>
+<tag-name><literal>r.log(<value>string</value>)</literal></tag-name>
 <tag-desc>
 writes a <literal>string</literal> to the error log
 on the <literal>info</literal> level of logging
 </tag-desc>
 
-<tag-name><literal>req.warn(<value>string</value>)</literal></tag-name>
+<tag-name><literal>r.method</literal></tag-name>
 <tag-desc>
-writes a <literal>string</literal> to the error log
-on the <literal>warning</literal> level of logging (0.2.0)
+HTTP method, read-only
 </tag-desc>
 
-<tag-name><literal>req.error(<value>string</value>)</literal></tag-name>
+<tag-name><literal>r.parent</literal></tag-name>
 <tag-desc>
-writes a <literal>string</literal> to the error log
-on the <literal>error</literal> level of logging (0.2.0)
+references the parent request object
 </tag-desc>
 
-<tag-name id="subrequest"><literal>req.subrequest(<value>uri</value>[,
+<tag-name><literal>r.remoteAddress</literal></tag-name>
+<tag-desc>
+client address, read-only
+</tag-desc>
+
+<tag-name><literal>r.requestBody</literal></tag-name>
+<tag-desc>
+holds the request body, read-only
+</tag-desc>
+
+<tag-name><literal>r.responseBody</literal></tag-name>
+<tag-desc>
+holds the <link id="subrequest">subrequest</link> response body, read-only
+</tag-desc>
+
+<tag-name><literal>r.return(status[, string])</literal></tag-name>
+<tag-desc>
+sends the entire response
+with the specified <literal>status</literal> to the client
+<para>
+It is possible to specify either a redirect URL
+(for codes 301, 302, 303, 307, and 308)
+or the response body text (for other codes) as the second argument
+</para>
+</tag-desc>
+
+<tag-name><literal>r.send(<value>string</value>)</literal></tag-name>
+<tag-desc>
+sends a part of the response body to the client
+</tag-desc>
+
+<tag-name><literal>r.sendHeader()</literal></tag-name>
+<tag-desc>
+sends the HTTP headers to the client
+</tag-desc>
+
+<tag-name><literal>r.status</literal></tag-name>
+<tag-desc>
+status, writable
+</tag-desc>
+
+<tag-name><literal>r.variables{}</literal></tag-name>
+<tag-desc>
+nginx variables object, read-only
+</tag-desc>
+
+<tag-name><literal>r.warn(<value>string</value>)</literal></tag-name>
+<tag-desc>
+writes a <literal>string</literal> to the error log
+on the <literal>warning</literal> level of logging
+</tag-desc>
+
+<tag-name><literal>r.uri</literal></tag-name>
+<tag-desc>
+current URI, read-only
+</tag-desc>
+
+<tag-name id="subrequest"><literal>r.subrequest(<value>uri</value>[,
 <value>options</value>[, <value>callback</value>]])</literal></tag-name>
 <tag-desc>
 creates a subrequest with the given <literal>uri</literal> and
 <literal>options</literal>, and installs
-an optional completion <literal>callback</literal> (0.2.0).
+an optional completion <literal>callback</literal>.
 
 <para>
 If <literal>options</literal> is a string, then it
@@ -313,131 +364,15 @@ request body
 <tag-desc>
 HTTP method
 </tag-desc>
-</list>
-</para>
-
-<para>
-The completion <literal>callback</literal>
-receives a <link id="http_reply_object">reply</link> object.
-</para>
-</tag-desc>
-
-</list>
-</para>
-
-</section>
-
-
-<section id="http_response" name="Response">
-
-<para>
-<list type="tag">
-
-<tag-name><literal>res.status</literal></tag-name>
-<tag-desc>
-response status, writable
-</tag-desc>
-
-<tag-name><literal>res.headers{}</literal></tag-name>
-<tag-desc>
-response headers object
-</tag-desc>
-
-<tag-name><literal>res.contentType</literal></tag-name>
-<tag-desc>
-the response <header>Content-Type</header> header field value, writable
-</tag-desc>
-
-<tag-name><literal>res.contentLength</literal></tag-name>
-<tag-desc>
-the response <header>Content-Length</header> header field value, writable
-</tag-desc>
-
-<tag-name><literal>res.sendHeader()</literal></tag-name>
-<tag-desc>
-sends the HTTP header to the client
-</tag-desc>
-
-<tag-name><literal>res.send(<value>string</value>)</literal></tag-name>
-<tag-desc>
-sends a part of the response body to the client
-</tag-desc>
-
-<tag-name><literal>res.finish()</literal></tag-name>
-<tag-desc>
-finishes sending a response to the client
-</tag-desc>
-
-<tag-name><literal>res.return(status[, string])</literal></tag-name>
-<tag-desc>
-sends
-the entire response with the specified <literal>status</literal> to the client
-(0.2.0)
-<para>
-It is possible to specify either a redirect URL
-(for codes 301, 302, 303, 307, and 308)
-or the response body text (for other codes) as the second argument
-</para>
-</tag-desc>
-
-</list>
-</para>
-
-</section>
-
-
-<section id="http_reply" name="Reply">
-
-<para>
-<list type="tag">
-
-<tag-name><literal>reply.uri</literal></tag-name>
-<tag-desc>
-current URI in a reply, read-only
-</tag-desc>
-
-<tag-name><literal>reply.method</literal></tag-name>
-<tag-desc>
-reply method, read-only
-</tag-desc>
-
-<tag-name><literal>reply.status</literal></tag-name>
-<tag-desc>
-reply status, writable
-</tag-desc>
-
-<tag-name><literal>reply.contentType</literal></tag-name>
-<tag-desc>
-the response <header>Content-Type</header> header field value, writable
-</tag-desc>
-
-<tag-name><literal>reply.contentLength</literal></tag-name>
-<tag-desc>
-the response <header>Content-Length</header> header field value, writable
-</tag-desc>
-
-<tag-name><literal>reply.headers{}</literal></tag-name>
-<tag-desc>
-reply headers object, read-only
-</tag-desc>
 
 </list>
 </para>
 
 <para>
-Additionally, the <literal>reply</literal> object has
-the following properties:
-
-<list type="tag">
-
-<tag-name><literal>reply.body</literal></tag-name>
-<tag-desc>
-holds the subrequest response body
-</tag-desc>
-
-<tag-name><literal>reply.parent</literal></tag-name>
-<tag-desc>
-references the parent request object
+The completion <literal>callback</literal> receives
+a subrequest response object with methods and properties
+identical to the parent request object.
+</para>
 </tag-desc>
 
 </list>
@@ -451,7 +386,7 @@ references the parent request object
 <section id="stream" name="Stream">
 
 <para>
-The <literal>stream</literal> objects are available only in the
+The <literal>stream</literal> object is available only in the
 <link doc="../stream/ngx_stream_js_module.xml">ngx_stream_js_module</link>
 module.
 </para>
@@ -522,13 +457,13 @@ on the <literal>info</literal> level of logging
 <tag-name><literal>s.warn(<value>string</value>)</literal></tag-name>
 <tag-desc>
 writes a sent <literal>string</literal> to the error log
-on the <literal>warning</literal> level of logging (0.2.0)
+on the <literal>warning</literal> level of logging
 </tag-desc>
 
 <tag-name><literal>s.error(<value>string</value>)</literal></tag-name>
 <tag-desc>
 writes a sent <literal>string</literal> to the error log
-on the <literal>error</literal> level of logging (0.2.0)
+on the <literal>error</literal> level of logging
 </tag-desc>
 
 </list>
@@ -555,8 +490,8 @@ js_set $decoded_foo decoded_foo;
 <para>
 The <path>urldecode.js</path> file:
 <example>
-function decoded_foo(req, res) {
-    return decodeURIComponent(req.args.foo);
+function decoded_foo(r) {
+    return decodeURIComponent(r.args.foo);
 }
 </example>
 </para>
@@ -582,7 +517,7 @@ location / {
 <para>
 The <path>urlencode.js</path> file:
 <example>
-function encoded_foo(req, res) {
+function encoded_foo(r) {
     return encodeURIComponent('foo &amp; bar?');
 }
 </example>
@@ -614,17 +549,17 @@ location /bar {
 <para>
 The <path>fastresponse.js</path> file:
 <example>
-function content(req, res) {
+function content(r) {
     var n = 0;
 
-    function done(reply) {
+    function done(res) {
         if (n++ == 0) {
-            res.return(reply.status, reply.body);
+            r.return(res.status, res.responseBody);
         }
     }
 
-    req.subrequest('/foo', req.variables.args, done);
-    req.subrequest('/bar', req.variables.args, done);
+    r.subrequest('/foo', r.variables.args, done);
+    r.subrequest('/bar', r.variables.args, done);
 }
 </example>
 </para>
@@ -656,7 +591,7 @@ function create_hs256_jwt(claims, key, valid) {
     return s + '.' + h.update(s).digest().toString('base64url');
 }
 
-function jwt(req, res) {
+function jwt(r) {
     var claims = {
         "iss" : "nginx",
         "sub" : "alice",
@@ -699,28 +634,28 @@ location /api {
 <para>
 The <path>subrequest.js</path> file:
 <example>
-function set_keyval(req, res) {
-    req.subrequest('/api/3/http/keyvals/foo',
+function set_keyval(r) {
+    r.subrequest('/api/3/http/keyvals/foo',
         { method: 'POST',
           body: JSON.stringify({ foo: 789, bar: "ss dd 00" })},
 
-        function(reply) {
-            if (reply.status >= 300) {
-                res.return(reply.status, reply.body);
+        function(res) {
+            if (res.status >= 300) {
+                r.return(res.status, res.responseBody);
                 return;
             }
-            res.return(500);
+            r.return(500);
         });
 }
-function version(req, res) {
-    req.subrequest('/api/3/nginx', { method: 'GET' }, function(reply) {
-        if (reply.status != 200) {
-            res.return(reply.status);
+function version(r) {
+    r.subrequest('/api/3/nginx', { method: 'GET' }, function(res) {
+        if (res.status != 200) {
+            r.return(res.status);
             return;
         }
 
-        var json = JSON.parse(reply.body);
-        res.return(200, json.version);
+        var json = JSON.parse(res.responseBody);
+        r.return(200, json.version);
     });
 }
 </example>
@@ -754,9 +689,9 @@ location @login {
 <para>
 The <path>hash.js</path> file:
 <example>
-function create_secure_link(req, res) {
+function create_secure_link(r) {
     return require('crypto').createHash('md5')
-                            .update(req.uri).update(" mykey")
+                            .update(r.uri).update(" mykey")
                             .digest('base64url');
 }
 </example>

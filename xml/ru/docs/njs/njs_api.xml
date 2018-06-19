@@ -23,40 +23,36 @@
 
 <section id="http" name="HTTP">
 
+
+<section id="http_request" name="Запрос">
+
 <para>
 Объекты <literal>HTTP</literal> доступны только в
 модуле <link doc="../http/ngx_http_js_module.xml">ngx_http_js_module</link>.
 </para>
 
-
-<section id="http_request" name="Запрос">
-
 <para>
 <list type="tag">
 
-<tag-name><literal>req.uri</literal></tag-name>
+<tag-name><literal>r.args{}</literal></tag-name>
 <tag-desc>
-текущий URI запроса, только чтение
+объект аргументов запроса, только чтение
 </tag-desc>
 
-<tag-name><literal>req.method</literal></tag-name>
+<tag-name><literal>r.error(<value>строка</value>)</literal></tag-name>
 <tag-desc>
-метод запроса, только чтение
+записывает <literal>строку</literal> в лог-файл ошибок
+на уровне лога <literal>error</literal>
 </tag-desc>
 
-<tag-name><literal>req.httpVersion</literal></tag-name>
+<tag-name><literal>r.finish()</literal></tag-name>
 <tag-desc>
-версия HTTP, только чтение
+завершает отправку ответа клиенту
 </tag-desc>
 
-<tag-name><literal>req.remoteAddress</literal></tag-name>
+<tag-name><literal>r.headersIn{}</literal></tag-name>
 <tag-desc>
-адрес клиента, только чтение
-</tag-desc>
-
-<tag-name><literal>req.headers{}</literal></tag-name>
-<tag-desc>
-объект заголовков запроса, только чтение.
+объект исходящих заголовков, только чтение.
 <para>
 Например, доступ к заголовку <literal>Header-Name</literal>
 можно получить при помощи синтаксиса <literal>headers['Header-Name']</literal>
@@ -64,9 +60,76 @@
 </para>
 </tag-desc>
 
-<tag-name><literal>req.args{}</literal></tag-name>
+<tag-name><literal>r.headersOut{}</literal></tag-name>
 <tag-desc>
-объект аргументов запроса, только чтение
+объект исходящих заголовков, доступно для записи.
+<para>
+Например, доступ к заголовку <literal>Header-Name</literal>
+можно получить при помощи синтаксиса <literal>headers['Header-Name']</literal>
+или <literal>headers.Header_name</literal>
+</para>
+</tag-desc>
+
+<tag-name><literal>r.httpVersion</literal></tag-name>
+<tag-desc>
+версия HTTP, только чтение
+</tag-desc>
+
+<tag-name><literal>r.log(<value>строка</value>)</literal></tag-name>
+<tag-desc>
+записывает <literal>строку</literal> в лог-файл ошибок
+на уровне лога <literal>info</literal>
+</tag-desc>
+
+<tag-name><literal>r.method</literal></tag-name>
+<tag-desc>
+HTTP метод, только чтение
+</tag-desc>
+
+<tag-name><literal>r.parent</literal></tag-name>
+<tag-desc>
+ссылается на родительский объект запроса
+</tag-desc>
+
+<tag-name><literal>r.remoteAddress</literal></tag-name>
+<tag-desc>
+адрес клиента, только чтение
+</tag-desc>
+
+<tag-name><literal>r.requestBody</literal></tag-name>
+<tag-desc>
+хранит тело запроса, только чтение
+</tag-desc>
+
+<tag-name><literal>r.responseBody</literal></tag-name>
+<tag-desc>
+хранит тело ответа <link id="subrequest">подзапроса</link>, только чтение
+</tag-desc>
+
+<tag-name><literal>r.return(код[, строка])</literal></tag-name>
+<tag-desc>
+отправляет
+клиенту полный ответ с указанным <literal>кодом</literal>
+<para>
+Можно задать или URL перенаправления
+(для кодов 301, 302, 303, 307 и 308),
+или текст тела ответа (для остальных кодов) в качестве второго аргумента
+</para>
+</tag-desc>
+
+<tag-name><literal>r.send(<value>строка</value>)</literal></tag-name>
+<tag-desc>
+отправляет часть тела ответа клиенту
+</tag-desc>
+
+<tag-name><literal>r.sendHeader()</literal></tag-name>
+<tag-desc>
+отправляет заголовок HTTP клиенту
+</tag-desc>
+
+<tag-name><literal>r.status</literal></tag-name>
+<tag-desc>
+статус, доступно для записи
 </tag-desc>
 
 <tag-name><literal>req.variables{}</literal></tag-name>
@@ -74,41 +137,30 @@
 объект переменных nginx, только чтение
 </tag-desc>
 
-<tag-name><literal>req.response</literal></tag-name>
-<tag-desc>
-объект <link id="http_response_object">ответа</link> (0.2.0), только чтение
-</tag-desc>
-
-<tag-name><literal>req.log(<value>строка</value>)</literal></tag-name>
+<tag-name><literal>r.warn(<value>строка</value>)</literal></tag-name>
 <tag-desc>
 записывает <literal>строку</literal> в лог-файл ошибок
-на уровне лога <literal>info</literal>
+на уровне лога <literal>warning</literal>
 </tag-desc>
 
-<tag-name><literal>req.warn(<value>строка</value>)</literal></tag-name>
+<tag-name><literal>r.uri</literal></tag-name>
 <tag-desc>
-записывает <literal>строку</literal> в лог-файл ошибок
-на уровне лога <literal>warning</literal> (0.2.0)
+текущий URI, только чтение
 </tag-desc>
 
-<tag-name><literal>req.error(<value>строка</value>)</literal></tag-name>
-<tag-desc>
-записывает <literal>строку</literal> в лог-файл ошибок
-на уровне лога <literal>error</literal> (0.2.0)
-</tag-desc>
-
-<tag-name id="subrequest"><literal>req.subrequest(<value>uri</value>[,
+<tag-name id="subrequest"><literal>r.subrequest(<value>uri</value>[,
 <value>options</value>[, <value>callback</value>]])</literal></tag-name>
 <tag-desc>
 создаёт подзапрос с заданными <literal>uri</literal> и
 <literal>options</literal> и
-устанавливает необязательный <literal>callback</literal> завершения (0.2.0).
+устанавливает необязательный <literal>callback</literal> завершения.
 
 <para>
 Если <literal>options</literal> является строкой, то в ней
 содержится срока аргументов подзапроса.
 В противном случае ожидается, что <literal>options</literal> является объектом
 со следующими ключами:
+
 <list type="tag">
 <tag-name><literal>args</literal></tag-name>
 <tag-desc>
@@ -129,130 +181,10 @@
 </para>
 
 <para>
-<literal>callback</literal>
-получает объект <link id="http_reply">reply</link>.
+<literal>callback</literal> получает
+объект ответа подзапроса с методами и свойствами,
+идентичными родительскому объекту запроса.
 </para>
-</tag-desc>
-
-</list>
-</para>
-
-</section>
-
-
-<section id="http_response" name="Ответ">
-
-<para>
-<list type="tag">
-
-<tag-name><literal>res.status</literal></tag-name>
-<tag-desc>
-статус ответа, доступно для записи
-</tag-desc>
-
-<tag-name><literal>res.headers{}</literal></tag-name>
-<tag-desc>
-объект заголовков ответа
-</tag-desc>
-
-<tag-name><literal>res.contentType</literal></tag-name>
-<tag-desc>
-значение поля <header>Content-Type</header> заголовка ответа,
-доступно для записи
-</tag-desc>
-
-<tag-name><literal>res.contentLength</literal></tag-name>
-<tag-desc>
-значение поля <header>Content-Length</header> заголовка ответа,
-доступно для записи
-</tag-desc>
-
-<tag-name><literal>res.sendHeader()</literal></tag-name>
-<tag-desc>
-отправляет заголовок HTTP клиенту
-</tag-desc>
-
-<tag-name><literal>res.send(<value>строка</value>)</literal></tag-name>
-<tag-desc>
-отправляет часть тела ответа клиенту
-</tag-desc>
-
-<tag-name><literal>res.finish()</literal></tag-name>
-<tag-desc>
-завершает отправку ответа клиенту
-</tag-desc>
-
-<tag-name><literal>res.return(код[, строка])</literal></tag-name>
-<tag-desc>
-отправляет
-клиенту полный ответ с указанным <literal>кодом</literal> (0.2.0)
-<para>
-Можно задать или URL перенаправления
-(для кодов 301, 302, 303, 307 и 308),
-или текст тела ответа (для остальных кодов) в качестве второго аргумента
-</para>
-</tag-desc>
-
-</list>
-</para>
-
-</section>
-
-
-<section id="http_reply" name="Reply">
-
-<para>
-<list type="tag">
-
-<tag-name><literal>reply.uri</literal></tag-name>
-<tag-desc>
-текущий URI, только чтение
-</tag-desc>
-
-<tag-name><literal>reply.method</literal></tag-name>
-<tag-desc>
-метод, только чтение
-</tag-desc>
-
-<tag-name><literal>reply.status</literal></tag-name>
-<tag-desc>
-статус, доступно для записи
-</tag-desc>
-
-<tag-name><literal>reply.contentType</literal></tag-name>
-<tag-desc>
-значение поля <header>Content-Type</header> заголовка,
-доступно для записи
-</tag-desc>
-
-<tag-name><literal>reply.contentLength</literal></tag-name>
-<tag-desc>
-значение поля <header>Content-Length</header> заголовка,
-доступно для записи
-</tag-desc>
-
-<tag-name><literal>reply.headers{}</literal></tag-name>
-<tag-desc>
-объект заголовков ответа, только чтение
-</tag-desc>
-
-</list>
-</para>
-
-<para>
-Кроме того, у объект <literal>reply</literal> имеет
-следующие свойства:
-
-<list type="tag">
-
-<tag-name><literal>reply.body</literal></tag-name>
-<tag-desc>
-хранит тело ответа подзапроса
-</tag-desc>
-
-<tag-name><literal>reply.parent</literal></tag-name>
-<tag-desc>
-ссылается на родительский объект запроса
 </tag-desc>
 
 </list>
@@ -340,13 +272,13 @@ true, если текущий буфер является буфером от п
 <tag-name><literal>s.warn(<value>строка</value>)</literal></tag-name>
 <tag-desc>
 записывает отправленную <literal>строку</literal> в лог-файл ошибок
-на уровне лога <literal>warning</literal> (0.2.0)
+на уровне лога <literal>warning</literal>
 </tag-desc>
 
 <tag-name><literal>s.error(<value>строка</value>)</literal></tag-name>
 <tag-desc>
 записывает отправленную <literal>строку</literal> в лог-файл ошибок
-на уровне лога <literal>error</literal> (0.2.0)
+на уровне лога <literal>error</literal>
 </tag-desc>
 
 </list>
@@ -356,6 +288,233 @@ true, если текущий буфер является буфером от п
 
 </section>
 
+
+<section id="example" name="Примеры">
+
+
+<section id="example_urldecode" name="Декодирование URL">
+
+<para>
+<example>
+js_include urldecode.js;
+
+js_set $decoded_foo decoded_foo;
+</example>
+</para>
+
+<para>
+Файл <path>urldecode.js</path>:
+<example>
+function decoded_foo(r) {
+    return decodeURIComponent(r.args.foo);
+}
+</example>
+</para>
+
+</section>
+
+
+<section id="example_urlencode" name="Кодирование URL">
+
+<para>
+<example>
+js_include urlencode.js;
+
+js_set $encoded_foo encoded_foo;
+...
+
+location / {
+    proxy_pass http://example.com?foo=$encoded_foo;
+}
+</example>
+</para>
+
+<para>
+Файл <path>urlencode.js</path>:
+<example>
+function encoded_foo(r) {
+    return encodeURIComponent('foo &amp; bar?');
+}
+</example>
+</para>
+
+</section>
+
+
+<section id="example_fast_response" name="Возврат самого быстрого ответа от прокси">
+
+<para>
+<example>
+js_include fastresponse.js;
+
+location /start {
+    js_content content;
+}
+
+location /foo {
+    proxy_pass http://backend1;
+}
+
+location /bar {
+    proxy_pass http://backend2;
+}
+</example>
+</para>
+
+<para>
+Файл <path>fastresponse.js</path>:
+<example>
+function content(r) {
+    var n = 0;
+
+    function done(res) {
+        if (n++ == 0) {
+            r.return(res.status, res.responseBody);
+        }
+    }
+
+    r.subrequest('/foo', r.variables.args, done);
+    r.subrequest('/bar', r.variables.args, done);TBD
+}
+</example>
+</para>
+
+</section>
+
+
+<section id="example_jwt" name="Создание HS JWT">
+
+<para>
+<example>
+js_include hs_jwt.js;
+
+js_set $jwt jwt;
+</example>
+</para>
+
+<para>
+Файл <path>hs_jwt.js</path>:
+<example>
+function create_hs256_jwt(claims, key, valid) {
+    var header = { "typ" : "JWT", "alg" : "HS256", "exp" : Date.now() + valid };
+
+    var s = JSON.stringify(header).toBytes().toString('base64url') + '.'
+            + JSON.stringify(claims).toBytes().toString('base64url');
+
+    var h = require('crypto').createHmac('sha256', key);
+
+    return s + '.' + h.update(s).digest().toString('base64url');
+}
+
+function jwt(r) {
+    var claims = {
+        "iss" : "nginx",
+        "sub" : "alice",
+        "foo" : 123,
+        "bar" : "qq",
+        "zyx" : false
+    };
+
+    return create_hs256_jwt(claims, 'foo', 600);
+}
+</example>
+</para>
+
+</section>
+
+
+<section id="example_subrequest" name="Доступ к API при помощи подзапроса">
+
+<para>
+<example>
+js_include subrequest.js;
+
+keyval_zone zone=foo:10m;
+...
+
+location /keyval {
+    js_content set_keyval;
+}
+
+location /version {
+    js_content version;
+}
+
+location /api {
+    api write=on;
+}
+</example>
+</para>
+
+<para>
+Файл <path>subrequest.js</path>:
+<example>
+function set_keyval(r) {
+    r.subrequest('/api/3/http/keyvals/foo',
+        { method: 'POST',
+          body: JSON.stringify({ foo: 789, bar: "ss dd 00" })},
+
+        function(res) {
+            if (res.status >= 300) {
+                r.return(res.status, res.responseBody);
+                return;
+            }
+            r.return(500);
+        });
+}
+function version(r) {
+    r.subrequest('/api/3/nginx', { method: 'GET' }, function(res) {
+        if (res.status != 200) {
+            r.return(res.status);
+            return;
+        }
+
+        var json = JSON.parse(res.responseBody);
+        r.return(200, json.version);
+    });
+}
+</example>
+</para>
+
+</section>
+
+
+<section id="example_secure_link" name="Создание хэша secure_link">
+
+<para>
+<example>
+js_include hash.js;
+
+js_set $new_foo create_secure_link;
+...
+
+location / {
+    secure_link $cookie_foo;
+    secure_link_md5 "$uri mykey";
+    ...
+}
+
+location @login {
+    add_header Set-Cookie "foo=$new_foo; Max-Age=60";
+    return 302 /;
+}
+</example>
+</para>
+
+<para>
+Файл <path>hash.js</path>:
+<example>
+function create_secure_link(r) {
+    return require('crypto').createHash('md5')
+                            .update(r.uri).update(" mykey")
+                            .digest('base64url');
+}
+</example>
+</para>
+
+</section>
+
+</section>
 
 </article>
 
