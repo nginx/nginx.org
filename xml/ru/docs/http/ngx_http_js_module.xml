@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_js_module"
         link="/ru/docs/http/ngx_http_js_module.html"
         lang="ru"
-        rev="11">
+        rev="12">
 
 <section id="summary">
 
@@ -70,46 +70,46 @@ server {
 <para>
 Файл <path>http.js</path>:
 <example>
-function foo(req, res) {
-    req.log("hello from foo() handler");
+function foo(r) {
+    r.log("hello from foo() handler");
     return "foo";
 }
 
-function summary(req, res) {
+function summary(r) {
     var a, s, h;
 
     s = "JS summary\n\n";
 
-    s += "Method: " + req.method + "\n";
-    s += "HTTP version: " + req.httpVersion + "\n";
-    s += "Host: " + req.headers.host + "\n";
-    s += "Remote Address: " + req.remoteAddress + "\n";
-    s += "URI: " + req.uri + "\n";
+    s += "Method: " + r.method + "\n";
+    s += "HTTP version: " + r.httpVersion + "\n";
+    s += "Host: " + r.headersIn.host + "\n";
+    s += "Remote Address: " + r.remoteAddress + "\n";
+    s += "URI: " + r.uri + "\n";
 
     s += "Headers:\n";
-    for (h in req.headers) {
-        s += "  header '" + h + "' is '" + req.headers[h] + "'\n";
+    for (h in r.headersIn) {
+        s += "  header '" + h + "' is '" + r.headersIn[h] + "'\n";
     }
 
     s += "Args:\n";
-    for (a in req.args) {
-        s += "  arg '" + a + "' is '" + req.args[a] + "'\n";
+    for (a in r.args) {
+        s += "  arg '" + a + "' is '" + r.args[a] + "'\n";
     }
 
     return s;
 }
 
-function baz(req, res) {
-    res.headers.foo = 1234;
-    res.status = 200;
-    res.contentType = "text/plain; charset=utf-8";
-    res.contentLength = 15;
-    res.sendHeader();
-    res.send("nginx");
-    res.send("java");
-    res.send("script");
+function baz(r) {
+    r.status = 200;
+    r.headersOut.foo = 1234;
+    r.headersOut['Content-Type'] = "text/plain; charset=utf-8";
+    r.headersOut['Content-Length'] = 15;
+    r.sendHeader();
+    r.send("nginx");
+    r.send("java");
+    r.send("script");
 
-    res.finish();
+    r.finish();
 }
 </example>
 </para>
@@ -160,12 +160,11 @@ function baz(req, res) {
 </section>
 
 
-<section id="arguments" name="Аргументы запроса и ответа">
+<section id="arguments" name="Аргумент запроса">
 
 <para>
-Каждый HTTP-обработчик njs получает два аргумента,
-<link doc="../njs/njs_api.xml" id="http_request">запрос</link>
-и <link doc="../njs/njs_api.xml" id="http_response">ответ</link>.
+Каждый HTTP-обработчик njs получает один аргумент,
+<link doc="../njs/njs_api.xml" id="http_request">объект</link> запроса.
 </para>
 
 </section>
