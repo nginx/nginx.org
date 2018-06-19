@@ -9,8 +9,146 @@
 <article name="njs Changes"
         link="/en/docs/njs/njs_changes.html"
         lang="en"
-        rev="3"
+        rev="4"
         toc="no">
+
+<section id="njs0.2.2" name="Changes with 0.2.2">
+
+<para>
+Release Date:
+19 June 2018
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Change:
+merged HTTP <literal>Response</literal> and <literal>Reply</literal>
+into <link doc="njs_api.xml" id="http_request">Request</link>.
+New members of <literal>Request</literal>:
+
+<list type="bullet">
+
+<listitem>
+<para>
+<literal>req.status</literal> (<literal>res.status</literal>)
+</para>
+</listitem>
+
+<listitem>
+<para>
+<literal>req.parent</literal> (<literal>reply.parent</literal>)
+</para>
+</listitem>
+
+<listitem>
+<para>
+<literal>req.requestBody</literal> (<literal>req.body</literal>)
+</para>
+</listitem>
+
+<listitem>
+<para>
+<literal>req.responseBody</literal> (<literal>reply.body</literal>)
+</para>
+</listitem>
+
+<listitem>
+<para>
+<literal>req.headersIn</literal> (<literal>req.headers</literal>)
+</para>
+</listitem>
+
+<listitem>
+<para>
+<literal>req.headersOut</literal> (<literal>res.headers</literal>)
+</para>
+</listitem>
+
+<listitem>
+<para>
+<literal>req.sendHeader()</literal> (<literal>res.sendHeader()</literal>)
+</para>
+</listitem>
+
+<listitem>
+<para>
+<literal>req.send()</literal> (<literal>res.send()</literal>)
+</para>
+</listitem>
+
+<listitem>
+<para>
+<literal>req.finish()</literal> (<literal>res.finish()</literal>)
+</para>
+</listitem>
+
+<listitem>
+<para>
+<literal>req.return()</literal> (<literal>res.return()</literal>)
+</para>
+</listitem>
+
+</list>
+Deprecated members of <literal>Request</literal>:
+
+<list type="bullet">
+
+<listitem>
+<para>
+<literal>req.body</literal> (use <literal>req.requestBody</literal>
+or <literal>req.responseBody</literal>)
+</para>
+</listitem>
+
+<listitem>
+<para>
+<literal>req.headers</literal> (use <literal>req.headersIn</literal>
+or <literal>req.headersOut</literal>)
+</para>
+</listitem>
+
+<listitem>
+<para>
+<literal>req.response</literal>
+</para>
+</listitem>
+
+</list>
+The deprecated properties will be removed in next releases.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+HTTP <link doc="njs_api.xml" id="r_internal_redirect">internalRedirect()</link>
+method.
+</para>
+</listitem>
+
+</list>
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Bugfix:
+fixed heap-buffer-overflow in <literal>crypto.createHmac()</literal>.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.2.1" name="Changes with 0.2.1">
 
