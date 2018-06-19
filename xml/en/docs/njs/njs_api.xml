@@ -269,6 +269,13 @@ writes a <literal>string</literal> to the error log
 on the <literal>info</literal> level of logging
 </tag-desc>
 
+<tag-name id="r_internal_redirect"><literal>r.internalRedirect(<value>uri</value>)</literal></tag-name>
+<tag-desc>
+performs an internal redirect to the specified <literal>uri</literal>.
+If the uri starts with the “<literal>@</literal>” prefix,
+it is considered a named location.
+</tag-desc>
+
 <tag-name><literal>r.method</literal></tag-name>
 <tag-desc>
 HTTP method, read-only
@@ -519,6 +526,34 @@ The <path>urlencode.js</path> file:
 <example>
 function encoded_foo(r) {
     return encodeURIComponent('foo &amp; bar?');
+}
+</example>
+</para>
+
+</section>
+
+
+<section id="example_internal_redirect" name="Internal Redirect">
+
+<para>
+<example>
+js_include redirect.js;
+
+location /redirect {
+    js_content redirect;
+}
+
+@named {
+    return 200 named;
+}
+</example>
+</para>
+
+<para>
+The <path>redirect.js</path> file:
+<example>
+function redirect(r) {
+    r.internalRedirect('@named');
 }
 </example>
 </para>
