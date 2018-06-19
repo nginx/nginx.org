@@ -24,6 +24,383 @@ for extending nginx functionality.
 <section id="core" name="Core">
 
 
+<section id="string" name="String">
+
+<para>
+There are two types of strings:
+a <literal>Unicode string</literal> (default) and
+a <literal>byte string</literal>.
+</para>
+
+<para>
+A <literal>Unicode string</literal> corresponds to an ECMAScript string
+which contains Unicode characters.
+</para>
+
+<para>
+<literal>Byte strings</literal> contain a sequence of bytes.
+They are used to serialize Unicode strings
+to external data and deserialize from external sources.
+For example, the <link id="string_toutf8">toUTF8()</link> method serializes
+a Unicode string to a byte string using UTF8 encoding:
+<example>
+>> '£'.toUTF8().toString('hex')
+c2a3  /* C2 A3 is the UTF8 representation of 00A3 ('£') code point */
+</example>
+The <link id="string_tobytes">toBytes()</link> method serializes
+a Unicode string with code points up to 255 into a byte string,
+otherwise, <literal>null</literal> is returned:
+<example>
+>> '£'.toBytes().toString('hex')
+a3  /* a3 is a byte equal to 00A3 ('£') code point  */
+</example>
+Only byte strings can be converted to different encodings.
+For example, a string cannot be encoded to <literal>hex</literal> directly:
+<example>
+>> 'αβγδ'.toString('base64')
+TypeError: argument must be a byte string
+    at String.prototype.toString (native)
+    at main (native)
+</example>
+To convert a Unicode string to hex,
+first, it should be converted to a byte string and then to hex:
+<example>
+>> 'αβγδ'.toUTF8().toString('base64')
+zrHOss6zzrQ=
+</example>
+
+<list type="tag">
+
+<tag-name><literal>String.fromCodePoint(<value>codePoint1</value>[, ...[,
+<value>codePoint2</value>]])</literal></tag-name>
+<tag-desc>
+Returns a string from one or more Unicode code points.
+<example>
+>> String.fromCodePoint(97, 98, 99, 100)
+abcd
+</example>
+</tag-desc>
+
+<tag-name><literal>String.prototype.concat(<value>string1</value>[, ...,
+<value>stringN</value>])</literal></tag-name>
+<tag-desc>
+Returns a string that contains the concatenation of specified
+<literal>strings</literal>.
+<example>
+>> "a".concat("b", "c")
+abc
+</example>
+</tag-desc>
+
+<tag-name><literal>String.prototype.endsWith(<value>searchString</value>[,
+<value>length</value>])</literal></tag-name>
+<tag-desc>
+Returns <literal>true</literal> if a string ends with the characters
+of a specified string, otherwise <literal>false</literal>.
+The optional <literal>length</literal> parameter is the the length of string.
+If omitted, the default value is the length of the string.
+<example>
+>> 'abc'.endsWith('abc')
+true
+>> 'abca'.endsWith('abc')
+false
+</example>
+</tag-desc>
+
+<tag-name><literal>String.prototype.fromBytes(<value>start</value>[,
+<value>end</value>])</literal></tag-name>
+<tag-desc>
+(njs specific) Returns a new Unicode string from a byte string
+where each byte is replaced with a corresponding Unicode code point.
+</tag-desc>
+
+<tag-name><literal>String.prototype.fromUTF8(<value>start</value>[,
+<value>end</value>])</literal></tag-name>
+<tag-desc>
+(njs specific) Converts a byte string containing a valid UTF8 string
+into a Unicode string,
+otherwise <literal>null</literal> is returned.
+</tag-desc>
+
+<tag-name><literal>String.prototype.includes(<value>searchString</value>[,
+<value>position</value>]))</literal></tag-name>
+<tag-desc>
+Returns <literal>true</literal> if a string is found within another string,
+otherwise <literal>false</literal>.
+The optional <literal>position</literal> parameter is the position
+within the string at which to begin search for <literal>searchString</literal>. 
+Default value is 0.
+<example>
+>> 'abc'.includes('bc')
+true
+</example>
+</tag-desc>
+
+<tag-name><literal>String.prototype.indexOf(<value>searchString</value>[,
+<value>fromIndex</value>])</literal></tag-name>
+<tag-desc>
+Returns the position of the first occurrence
+of the <literal>searchString</literal>
+The search is started at <literal>fromIndex</literal>.
+Returns <value>-1</value> if the value is not found.
+The <literal>fromIndex</literal> is an integer,
+default value is 0.
+If <literal>fromIndex</literal> is lower than 0
+or greater than
+<link id="string_length">String.prototype.length</link><value></value>,
+the search starts at index <value>0</value> and
+<value>String.prototype.length</value>.
+<example>
+>> 'abcdef'.indexOf('de', 2)
+3
+</example>
+</tag-desc>
+
+<tag-name><literal>String.prototype.lastIndexOf(<value>searchString</value>[,
+<value>fromIndex</value>])</literal></tag-name>
+<tag-desc>
+Returns the position of the last occurrence
+of the <literal>searchString</literal>,
+searching backwards from <literal>fromIndex</literal>.
+Returns <value>-1</value> if the value is not found.
+If <literal>searchString</literal>  is empty,
+then <literal>fromIndex</literal> is returned.
+<example>
+>> "nginx".lastIndexOf("gi")
+1
+</example>
+</tag-desc>
+
+<tag-name id="string_length"><literal>String.prototype.length</literal></tag-name>
+<tag-desc>
+Returns the length of the string.
+<example>
+>> 'αβγδ'.length
+4
+</example>
+</tag-desc>
+
+<tag-name><literal>String.prototype.match([<value>regexp</value>])</literal></tag-name>
+<tag-desc>
+Matches a string against a <literal>regexp</literal>.
+<example>
+>> 'nginx'.match( /ng/i )
+ng
+</example>
+</tag-desc>
+
+<tag-name><literal>String.prototype.repeat(<value>number</value>)</literal></tag-name>
+<tag-desc>
+Returns a string 
+with the specified <literal>number</literal> of copies of the string.
+<example>
+>> 'abc'.repeat(3)
+abcabcabc
+</example>
+</tag-desc>
+
+<tag-name><literal>String.prototype.replace([<value>regexp</value>|<value>string</value>[,
+<value>string</value>|<value>function</value>]])</literal></tag-name>
+<tag-desc>
+Returns a new string with matches of a pattern
+(<literal>string</literal> or a <literal>regexp</literal>)
+replaced by a <literal>string</literal> or a <literal>function</literal>.
+<example>
+>> 'abcdefgh'.replace('d', 1)
+abc1efgh
+</example>
+</tag-desc>
+
+<tag-name><literal>String.prototype.search([<value>regexp</value>])</literal></tag-name>
+<tag-desc>
+Searches for a string using a <literal>regexp</literal>
+<example>
+>> 'abcdefgh'.search('def')
+3
+</example>
+</tag-desc>
+
+<tag-name><literal>String.prototype.slice(<value>start</value>[,
+<value>end</value>])</literal></tag-name>
+<tag-desc>
+Returns a new string containing a part of an
+original string between <literal>start</literal>
+and <literal>end</literal> or
+from <literal>start</literal> to the end of the string.
+<example>
+>> 'abcdefghijklmno'.slice(NaN, 5)
+abcde
+</example>
+</tag-desc>
+
+<tag-name><literal>String.prototype.startsWith(<value>searchString</value>[,
+<value>position</value>])</literal></tag-name>
+<tag-desc>
+Returns <literal>true</literal> if a string begins with the characters
+of a specified string, otherwise <literal>false</literal>.
+The optional <literal>position</literal> parameter is the position
+in this string at which to begin search for <literal>searchString</literal>.
+Default value is 0.
+<example>
+>> 'abc'.startsWith('abc')
+true
+> 'aabc'.startsWith('abc')
+false
+</example>
+</tag-desc>
+
+<tag-name><literal>String.prototype.substr(<value>start</value>[,
+<value>length</value>])</literal></tag-name>
+<tag-desc>
+Returns the part of the string of the specified <literal>length</literal>
+from <literal>start</literal>
+or from <literal>start</literal> to the end of the string.
+<example>
+>>  'abcdefghijklmno'.substr(3, 5)
+defgh
+</example>
+</tag-desc>
+
+<tag-name><literal>String.prototype.substring(<value>start</value>[,
+<value>end</value>])</literal></tag-name>
+<tag-desc>
+Returns the part of the string between
+<literal>start</literal> and <literal>end</literal> or
+from <literal>start</literal> to the end of the string.
+<example>
+>> 'abcdefghijklmno'.substring(3, 5)
+de
+</example>
+</tag-desc>
+
+<tag-name id="string_tobytes"><literal>String.prototype.toBytes(start[,
+end])</literal></tag-name>
+<tag-desc>
+(njs specific) Serializes a Unicode string to a byte string.
+Returns <literal>null</literal> if a character larger than 255 is
+found in the string.
+</tag-desc>
+
+<tag-name><literal>String.prototype.toLowerCase()</literal></tag-name>
+<tag-desc>
+Converts a string to lower case.
+The method supports only simple Unicode folding.
+<example>
+>> 'ΑΒΓΔ'.toLowerCase()
+αβγδ
+</example>
+</tag-desc>
+
+<tag-name><literal>String.prototype.toString([<value>encoding</value>])</literal></tag-name>
+<tag-desc>
+<para>
+If no <literal>encoding</literal> is specified,
+returns a specified Unicode string or byte string as in ECMAScript.
+</para>
+
+<para>
+(njs specific) If <literal>encoding</literal> is specified,
+encodes a <link id="string_tobytes">byte string</link> to
+<literal>hex</literal>,
+<literal>base64</literal>, or
+<literal>base64url</literal>.
+</para>
+<example>
+>>  'αβγδ'.toUTF8().toString('base64url')
+zrHOss6zzrQ
+</example>
+</tag-desc>
+
+<tag-name><literal>String.prototype.toUpperCase()</literal></tag-name>
+<tag-desc>
+Converts a string to upper case.
+The method supports only simple Unicode folding.
+<example>
+>> 'αβγδ'.toUpperCase()
+ΑΒΓΔ
+</example>
+</tag-desc>
+
+<tag-name id="string_toutf8"><literal>String.prototype.toUTF8(<value>start</value>[,
+<value>end</value>])</literal></tag-name>
+<tag-desc>
+(njs specific) Serializes a Unicode string
+to a byte string using UTF8 encoding.
+<example>
+>> 'αβγδ'.toUTF8().length
+8
+>> 'αβγδ'.length
+4
+</example>
+</tag-desc>
+
+<tag-name><literal>String.prototype.trim()</literal></tag-name>
+<tag-desc>
+Removes whitespaces from both ends of a string.
+<example>
+>> '   abc  '.trim()
+abc
+</example>
+</tag-desc>
+
+<tag-name><literal>String.prototype.split(([<value>string</value>|<value>regexp</value>[,
+<value>limit</value>]]))</literal></tag-name>
+<tag-desc>
+Returns match of a string against a <literal>regexp</literal>.
+The optional <literal>limit</literal> parameter is an integer that specifies
+a limit on the number of splits to be found.
+<example>
+>> 'abc'.split('')
+a,b,c
+</example>
+</tag-desc>
+
+<tag-name id="encodeuri"><literal>encodeURI(<value>URI</value>)</literal></tag-name>
+<tag-desc>
+encodes a URI by replacing each instance of certain characters by
+one, two, three, or four escape sequences
+representing the UTF-8 encoding of the character
+<example>
+>> encodeURI('012αβγδ')
+012%CE%B1%CE%B2%CE%B3%CE%B4
+</example>
+</tag-desc>
+
+<tag-name><literal>encodeURIComponent(<value>encodedURIString</value>)</literal></tag-name>
+<tag-desc>
+Encodes a URI by replacing each instance of certain characters
+by one, two, three, or four escape sequences
+representing the UTF-8 encoding of the character.
+<example>
+>> encodeURIComponent('[@?=')
+%5B%40%3F%3D
+</example>
+</tag-desc>
+
+<tag-name><literal>decodeURI(<value>encodedURI</value>)</literal></tag-name>
+<tag-desc>
+Decodes a previously <link id="encodeuri">encoded</link> URI.
+<example>
+>> decodeURI('012%CE%B1%CE%B2%CE%B3%CE%B4')
+012αβγδ
+</example>
+</tag-desc>
+
+<tag-name><literal>decodeURIComponent(<value>decodedURIString</value>)</literal></tag-name>
+<tag-desc>
+Decodes an encoded component of a previously encoded URI.
+<example>
+>> decodeURIComponent('%5B%40%3F%3D')
+[@?=
+</example>
+</tag-desc>
+
+</list>
+</para>
+
+</section>
+
+
 <section id="core_json" name="JSON">
 
 <para>
