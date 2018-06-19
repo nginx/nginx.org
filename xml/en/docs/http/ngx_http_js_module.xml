@@ -9,7 +9,7 @@
 <module name="Module ngx_http_js_module"
         link="/en/docs/http/ngx_http_js_module.html"
         lang="en"
-        rev="12">
+        rev="13">
 
 <section id="summary">
 
@@ -21,23 +21,9 @@ a subset of the JavaScript language.
 </para>
 
 <para>
-This module is not built by default, it should be compiled with
-the njs module using the
-<literal>--add-module</literal> configuration parameter:
-<example>
-./configure --add-module=<value>path-to-njs</value>/nginx
-</example>
-The <link url="http://hg.nginx.org/njs">repository</link>
-with the njs module can be cloned with the following command
-(requires <link url="https://www.mercurial-scm.org">Mercurial</link> client):
-<example>
-hg clone http://hg.nginx.org/njs
-</example>
-This module can also be built as
-<link doc="../ngx_core_module.xml" id="load_module">dynamic</link>:
-<example>
-./configure --add-dynamic-module=<value>path-to-njs</value>/nginx
-</example>
+This module is not built by default.
+Download and install instructions are available
+<link doc="../njs_about.xml" id="install">here</link>.
 </para>
 
 </section>

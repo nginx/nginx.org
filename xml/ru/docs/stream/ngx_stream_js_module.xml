@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_js_module"
         link="/ru/docs/stream/ngx_stream_js_module.html"
         lang="ru"
-        rev="11">
+        rev="12">
 
 <section id="summary">
 
@@ -20,23 +20,9 @@
 </para>
 
 <para>
-По умолчанию этот модуль не собирается, его необходимо собрать с
-модулем njs с помощью конфигурационного параметра
-<literal>--add-module</literal>:
-<example>
-./configure --add-module=<value>path-to-njs</value>/nginx
-</example>
-<link url="http://hg.nginx.org/njs">Репозиторий</link>
-модуля njs можно клонировать следующей командой
-(необходим клиент <link url="https://www.mercurial-scm.org">Mercurial</link>):
-<example>
-hg clone http://hg.nginx.org/njs
-</example>
-Модуль также можно собрать как
-<link doc="../ngx_core_module.xml" id="load_module">динамический</link>:
-<example>
-./configure --add-dynamic-module=<value>path-to-njs</value>/nginx
-</example>
+По умолчанию этот модуль не собирается.
+Инструкция по сборке и установке доступны
+<link doc="../njs_about.xml" id="install">здесь</link>.
 </para>
 
 </section>
