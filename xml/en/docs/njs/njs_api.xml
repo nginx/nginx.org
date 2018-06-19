@@ -588,13 +588,15 @@ Oglm93xn23_MkiaEq_e9u8zk374
 
 <section id="http" name="HTTP">
 
-
-<section id="http_request" name="Request">
-
 <para>
 The <literal>HTTP</literal> object is available only in the
 <link doc="../http/ngx_http_js_module.xml">ngx_http_js_module</link> module.
+All string properties of the <literal>HTTP</literal> object are
+<link id="string">byte strings</link>.
 </para>
+
+
+<section id="http_request" name="Request">
 
 <para>
 <list type="tag">
@@ -773,6 +775,8 @@ identical to the parent request object.
 The <literal>stream</literal> object is available only in the
 <link doc="../stream/ngx_stream_js_module.xml">ngx_stream_js_module</link>
 module.
+All string properties of the <literal>stream</literal> object are
+<link id="string">byte strings</link>.
 </para>
 
 
@@ -1059,6 +1063,7 @@ function set_keyval(r) {
             r.return(500);
         });
 }
+
 function version(r) {
     r.subrequest('/api/3/nginx', { method: 'GET' }, function(res) {
         if (res.status != 200) {

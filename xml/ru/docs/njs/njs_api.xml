@@ -23,13 +23,15 @@
 
 <section id="http" name="HTTP">
 
+<para>
+Объект <literal>HTTP</literal> доступен только в
+модуле <link doc="../http/ngx_http_js_module.xml">ngx_http_js_module</link>.
+Все строки в объекте <literal>HTTP</literal> являются
+<link id="strings">байтовыми строками</link>.
+</para>
+
 
 <section id="http_request" name="Запрос">
-
-<para>
-Объекты <literal>HTTP</literal> доступны только в
-модуле <link doc="../http/ngx_http_js_module.xml">ngx_http_js_module</link>.
-</para>
 
 <para>
 <list type="tag">
@@ -198,9 +200,11 @@ HTTP метод, только чтение
 <section id="stream" name="Stream">
 
 <para>
-Объекты <literal>stream</literal> доступны только в
+Объект <literal>stream</literal> доступен только в
 модуле
 <link doc="../stream/ngx_stream_js_module.xml">ngx_stream_js_module</link>.
+Все строки в объекте <literal>stream</literal> являются
+<link id="strings">байтовыми строками</link>.
 </para>
 
 
@@ -462,6 +466,7 @@ function set_keyval(r) {
             r.return(500);
         });
 }
+
 function version(r) {
     r.subrequest('/api/3/nginx', { method: 'GET' }, function(res) {
         if (res.status != 200) {
