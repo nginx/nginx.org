@@ -7,6 +7,16 @@
 
 <news name="nginx news" link="/" lang="en">
 
+<event date="2018-06-19">
+<para>
+<link doc="en/docs/njs_about.xml">njs-0.2.2</link>
+version has been released, featuring
+<link doc="en/docs/njs/njs_api.xml" id="r_internal_redirect">r.internalRedirect()</link>
+method support
+and <link doc="en/docs/njs/njs_changes.xml" id="njs0.2.2">more</link>.
+</para>
+</event>
+
 <event date="2018-06-07">
 <para>
 <link url="https://unit.nginx.org/">unit-1.2</link>
