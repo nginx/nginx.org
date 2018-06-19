@@ -32,6 +32,9 @@
 
 <para>
 <example>
+load_module modules/ngx_stream_js_module.so;
+...
+
 stream {
     js_include stream.js;
 
