@@ -583,6 +583,45 @@ Oglm93xn23_MkiaEq_e9u8zk374
 
 </section>
 
+<section id="njs_api_timers" name="Timers">
+
+<para>
+
+<list type="tag">
+
+<tag-name id="cleartimeout"><literal>clearTimeout(<value>timeout</value>)</literal></tag-name>
+<tag-desc>
+Cancels a <literal>timeout</literal> object
+created by <link id="settimeout">setTimeout()</link>.
+</tag-desc>
+
+<tag-name id="settimeout"><literal>setTimeout(<value>function</value>,
+<value>ms</value>[, <value>arg1</value>, <value>argN</value>])</literal></tag-name>
+<tag-desc>
+Calls a <literal>function</literal>
+after a specified number of <literal>milliseconds</literal>.
+One or more optional <literal>arguments</literal>
+can be passed to the specified function.
+Returns a <literal>timeout</literal> object.
+<example>
+function handler(v)
+{
+    // ...
+}
+
+t = setTimeout(handler, 12);
+
+// ...
+
+clearTimeout(t);
+</example>
+</tag-desc>
+
+</list>
+</para>
+
+</section>
+
 </section>
 
 
