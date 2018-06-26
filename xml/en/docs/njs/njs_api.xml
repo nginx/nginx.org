@@ -622,6 +622,192 @@ clearTimeout(t);
 
 </section>
 
+
+<section id="njs_api_fs" name="File System">
+
+<para>
+The File System module provides operations with files.
+The module object is returned by <literal>require('fs')</literal>.
+<list type="tag">
+
+<tag-name id="appendfilesync"><literal>appendFileSync(<value>filename</value>,
+<value>data</value>[, <value>options</value>])</literal></tag-name>
+<tag-desc>
+Synchronously appends specified <literal>data</literal>
+to a file with provided <literal>filename</literal>.
+If the file does not exist, it will be created.
+The <literal>options</literal> parameter is expected to be
+an object with the following keys:
+<list type="tag">
+
+<tag-name><literal>mode</literal></tag-name>
+<tag-desc>
+mode option, by default is <literal>0o666</literal>
+</tag-desc>
+
+<tag-name><literal>flag</literal></tag-name>
+<tag-desc>
+file system <link id="njs_api_fs_flags">flag</link>,
+by default is <literal>a</literal>
+</tag-desc>
+
+</list>
+</tag-desc>
+
+<tag-name id="readfilesync"><literal>readFileSync(<value>filename</value>[,
+<value>options</value>])</literal></tag-name>
+<tag-desc>
+Synchronously returns the contents of the file
+with provided <literal>filename</literal>.
+The <literal>options</literal> parameter holds
+<literal>string</literal> that specifies encoding.
+If not specified, a <link id="string_tobytes">byte string</link> is returned.
+If <literal>utf8</literal> encoding is specified, a Unicode string is returned.
+Otherwise, <literal>options</literal> is expected to be
+an object with the following keys:
+<list type="tag">
+
+<tag-name><literal>encoding</literal></tag-name>
+<tag-desc>
+encoding, by default is not specified.
+The encoding can be <literal>utf8</literal>
+</tag-desc>
+
+<tag-name><literal>flag</literal></tag-name>
+<tag-desc>
+file system <link id="njs_api_fs_flags">flag</link>,
+by default is <literal>r</literal>
+</tag-desc>
+
+</list>
+<example>
+>> var fs = require('fs')
+undefined
+>> var file = fs.readFileSync('/file/path.tar.gz')
+undefined
+>> var gzipped = /^\x1f\x8b/.test(file); gzipped
+true
+</example>
+</tag-desc>
+
+<tag-name id="writefilesync"><literal>writeFileSync(<value>filename</value>,
+<value>data</value>[,
+<value>options</value>])</literal></tag-name>
+<tag-desc>
+Synchronously writes <literal>data</literal> to a file
+with provided <literal>filename</literal>.
+If the file does not exist, it will be created,
+if the file exists, it will be replaced.
+The <literal>options</literal> parameter is expected to be
+an object with the following keys:
+<list type="tag">
+<tag-name><literal>mode</literal></tag-name>
+<tag-desc>
+mode option, by default is <literal>0o666</literal>
+</tag-desc>
+
+<tag-name><literal>flag</literal></tag-name>
+<tag-desc>
+file system <link id="njs_api_fs_flags">flag</link>,
+by default is <literal>w</literal>
+</tag-desc>
+
+</list>
+<example>
+>> var fs = require('fs')
+undefined
+>> var file = fs.writeFileSync('hello.txt', 'Hello world')
+undefined
+</example>
+</tag-desc>
+
+</list>
+</para>
+
+
+<section id="njs_api_fs_flags" name="File System Flags">
+
+<para>
+The <literal>flag</literal> option can accept the following values:
+
+<list type= "bullet" compact="no">
+
+<listitem>
+<literal>a</literal>&mdash;open a file for appending.
+The file is created if it does not exist
+</listitem>
+
+<listitem>
+<literal>ax</literal>&mdash;the same as <literal>a</literal>
+but fails if the file already exists
+</listitem>
+
+<listitem>
+<literal>a+</literal>&mdash;open a file for reading and appending.
+If the file does not exist, it will be created
+</listitem>
+
+<listitem>
+<literal>ax+</literal>&mdash;the same as  <literal>a+</literal>
+but fails if the file already exists
+</listitem>
+
+<listitem>
+<literal>as</literal>&mdash;open a file for appending in synchronous mode.
+If the file does not exist, it will be created
+</listitem>
+
+<listitem>
+<literal>as+</literal>&mdash;open a file for reading and appending
+in synchronous mode.
+If the file does not exist, it will be created
+</listitem>
+
+<listitem>
+<literal>r</literal>&mdash;open a file for reading.
+An exception occurs if the file does not exist
+</listitem>
+
+<listitem>
+<literal>r+</literal>&mdash;open a file for reading and writing.
+An exception occurs if the file does not exist
+</listitem>
+
+<listitem>
+<literal>rs+</literal>&mdash;open a file for reading and writing
+in synchronous mode.
+Instructs the operating system to bypass the local file system cache
+</listitem>
+
+<listitem>
+<literal>w</literal>&mdash;open a file for writing.
+If the file does not exist, it will be created.
+If the file exists, it will be replaced
+</listitem>
+
+<listitem>
+<literal>wx</literal>&mdash;the same as <literal>w</literal>
+but fails if the file already exists
+</listitem>
+
+<listitem>
+<literal>w+</literal>&mdash;open a file for reading and writing.
+If the file does not exist, it will be created.
+If the file exists, it will be replaced
+</listitem>
+
+<listitem>
+<literal>wx+</literal>&mdash;the same as <literal>w+</literal>
+but fails if the file already exists
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+</section>
+
 </section>
 
 
@@ -770,7 +956,6 @@ If <literal>options</literal> is a string, then it
 holds the subrequest arguments string.
 Otherwise, <literal>options</literal> is expected to be
 an object with the following keys:
-
 <list type="tag">
 <tag-name><literal>args</literal></tag-name>
 <tag-desc>
