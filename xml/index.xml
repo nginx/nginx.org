@@ -10,8 +10,8 @@
 <event date="2018-06-19">
 <para>
 <link doc="en/docs/njs_about.xml">njs-0.2.2</link>
-version has been released, featuring
-<link doc="en/docs/njs/njs_api.xml" id="r_internal_redirect">r.internalRedirect()</link>
+version has been released, featuring HTTP
+<link doc="en/docs/njs/njs_api.xml" id="r_internal_redirect">internalRedirect()</link>
 method support
 and <link doc="en/docs/njs/njs_changes.xml" id="njs0.2.2">more</link>.
 </para>
@@ -95,7 +95,9 @@ mainline version has been released.
 <event date="2018-04-03">
 <para>
 <link doc="en/docs/njs_about.xml">njs-0.2.0</link>
-version has been released, featuring HTTP subrequest() method support
+version has been released, featuring HTTP
+<link doc="en/docs/njs/njs_api.xml" id="subrequest">subrequest()</link>
+method support
 and <link doc="en/docs/njs/njs_changes.xml" id="njs0.2.0">more</link>.
 </para>
 </event>
