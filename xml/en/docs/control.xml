@@ -239,8 +239,8 @@ the <path>.oldbin</path> suffix from the file name with the process ID.
 </para>
 
 <para>
-If upgrade was successful, then the old master process should be sent
-the QUIT signal, and only new processes will stay:
+If upgrade was successful, then the QUIT signal should be sent to
+the old master process, and only new processes will stay:
 <programlisting>
   PID  PPID USER    %CPU   VSZ WCHAN  COMMAND
 36264     1 root     0.0  1148 pause  nginx: master process /usr/local/nginx/sbin/nginx
