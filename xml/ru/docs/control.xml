@@ -8,7 +8,7 @@
 <article name="Управление nginx"
          link="/ru/docs/control.html"
          lang="ru"
-         rev="6">
+         rev="7">
 
 <section>
 
@@ -72,7 +72,7 @@
 </para>
 
 <para>
-Предположим, на FreeBSD 4.x команда
+Предположим, на FreeBSD команда
 <programlisting>
 ps axw -o pid,ppid,user,%cpu,vsz,wchan,command | egrep '(nginx|PID)'
 </programlisting>

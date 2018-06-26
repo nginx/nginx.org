@@ -8,7 +8,7 @@
 <article name="Controlling nginx"
          link="/en/docs/control.html"
          lang="en"
-         rev="6">
+         rev="7">
 
 <section>
 
@@ -79,7 +79,7 @@ After all clients are serviced, old worker processes are shut down.
 
 <para>
 Let’s illustrate this by example.
-Imagine that nginx is run on FreeBSD 4.x and the command
+Imagine that nginx is run on FreeBSD and the command
 <programlisting>
 ps axw -o pid,ppid,user,%cpu,vsz,wchan,command | egrep '(nginx|PID)'
 </programlisting>
