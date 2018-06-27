@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_upstream_module"
         link="/ru/docs/stream/ngx_stream_upstream_module.html"
         lang="ru"
-        rev="28">
+        rev="29">
 
 <section id="summary">
 
@@ -476,11 +476,14 @@ hash $remote_addr;
 
 <para>
 Если указан параметр <literal>connect</literal>,
-то учитывается время соединения с сервером группы.
+то учитывается время
+<link id="var_upstream_connect_time">соединения</link> с сервером группы.
 Если указан параметр <literal>first_byte</literal>,
-то учитывается время получения первого байта данных.
+то учитывается время получения
+<link id="var_upstream_first_byte_time">первого байта</link> данных.
 Если указан параметр <literal>last_byte</literal>,
-то учитывается время получения ответа.
+то учитывается время получения
+<link id="var_upstream_session_time">ответа</link>.
 Если указан параметр <literal>inflight</literal> (1.11.6),
 то также учитываются незавершённые соединения.
 <note>

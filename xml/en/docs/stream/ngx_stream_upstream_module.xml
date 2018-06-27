@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_upstream_module"
         link="/en/docs/stream/ngx_stream_upstream_module.html"
         lang="en"
-        rev="28">
+        rev="29">
 
 <section id="summary">
 
@@ -475,11 +475,15 @@ weighted round-robin balancing method.
 
 <para>
 If the <literal>connect</literal> parameter is specified,
-time to connect to the upstream server is used.
+time to
+<link id="var_upstream_connect_time">connect</link>
+to the upstream server is used.
 If the <literal>first_byte</literal> parameter is specified,
-time to receive the first byte of data is used.
+time to receive the
+<link id="var_upstream_first_byte_time">first byte</link> of data is used.
 If the <literal>last_byte</literal> is specified,
-time to receive the last byte of data is used.
+time to receive the
+<link id="var_upstream_session_time">last byte</link> of data is used.
 If the <literal>inflight</literal> parameter is specified (1.11.6),
 incomplete connections are also taken into account.
 <note>
