@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_upstream_module"
         link="/ru/docs/stream/ngx_stream_upstream_module.html"
         lang="ru"
-        rev="29">
+        rev="30">
 
 <section id="summary">
 
@@ -517,7 +517,7 @@ hash $remote_addr;
 <para>
 Если указан необязательный параметр <literal>two</literal>,
 то nginx случайным образом выбирает
-<link url="http://www.eecs.harvard.edu/~michaelm/postscripts/handbook2001.pdf">два</link>
+<link url="https://homes.cs.washington.edu/~karlin/papers/balls.pdf">два</link>
 сервера, из которых выбирает сервер,
 используя указанный <literal>метод</literal>.
 Методом по умолчанию является <literal>least_conn</literal>,
