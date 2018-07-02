@@ -677,7 +677,10 @@ holds the request body, read-only
 
 <tag-name><literal>r.responseBody</literal></tag-name>
 <tag-desc>
-holds the <link id="subrequest">subrequest</link> response body, read-only
+holds the <link id="subrequest">subrequest</link> response body, read-only.
+The size of <literal>r.responseBody</literal> is limited by the
+<link doc="../http/ngx_http_core_module.xml" id="subrequest_output_buffer_size"/>
+directive.
 </tag-desc>
 
 <tag-name><literal>r.return(status[, string])</literal></tag-name>
