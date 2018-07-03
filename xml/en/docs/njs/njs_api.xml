@@ -927,7 +927,7 @@ location /redirect {
     js_content redirect;
 }
 
-@named {
+location @named {
     return 200 named;
 }
 </example>
