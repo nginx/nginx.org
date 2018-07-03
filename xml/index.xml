@@ -7,6 +7,16 @@
 
 <news name="nginx news" link="/" lang="en">
 
+<event date="2018-07-03">
+<para>
+<link doc="en/download.xml">nginx-1.15.1</link>
+mainline version has been released,
+featuring
+<link doc="en/docs/http/ngx_http_upstream_module.xml" id="random">random load
+balancing method</link>.
+</para>
+</event>
+
 <event date="2018-06-19">
 <para>
 <link doc="en/docs/njs_about.xml">njs-0.2.2</link>
