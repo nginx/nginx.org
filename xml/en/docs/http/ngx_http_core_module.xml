@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="78">
+        rev="79">
 
 <section id="directives" name="Directives">
 
@@ -1452,9 +1452,12 @@ in effect for the socket.
 <tag-desc>
 this parameter (1.9.1) instructs to create an individual listening socket
 for each worker process
-(using the <c-def>SO_REUSEPORT</c-def> socket option), allowing a kernel
+(using the
+<c-def>SO_REUSEPORT</c-def> socket option on Linux 3.9+ and DragonFly BSD,
+or <c-def>SO_REUSEPORT_LB</c-def> on FreeBSD&nbsp;12+), allowing a kernel
 to distribute incoming connections between worker processes.
-This currently works only on Linux 3.9+ and DragonFly BSD.
+This currently works only on Linux 3.9+, DragonFly BSD,
+and FreeBSD 12+ (1.15.1).
 <note>
 Inappropriate use of this option may have its security
 <link url="http://man7.org/linux/man-pages/man7/socket.7.html">implications</link>.
