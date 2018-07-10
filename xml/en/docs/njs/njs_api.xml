@@ -586,19 +586,13 @@ Oglm93xn23_MkiaEq_e9u8zk374
 </section>
 
 
-<section id="http" name="HTTP">
+<section id="http" name="HTTP Request">
 
 <para>
-The <literal>HTTP</literal> object is available only in the
+The HTTP request object is available only in the
 <link doc="../http/ngx_http_js_module.xml">ngx_http_js_module</link> module.
-All string properties of the <literal>HTTP</literal> object are
-<link id="string">byte strings</link>.
-</para>
+All string properties of the object are <link id="string">byte strings</link>.
 
-
-<section id="http_request" name="Request">
-
-<para>
 <list type="tag">
 
 <tag-name><literal>r.args{}</literal></tag-name>
@@ -769,23 +763,15 @@ identical to the parent request object.
 
 </section>
 
-</section>
 
-
-<section id="stream" name="Stream">
+<section id="stream" name="Stream Session">
 
 <para>
-The <literal>stream</literal> object is available only in the
+The stream session object is available only in the
 <link doc="../stream/ngx_stream_js_module.xml">ngx_stream_js_module</link>
 module.
-All string properties of the <literal>stream</literal> object are
-<link id="string">byte strings</link>.
-</para>
+All string properties of the object are <link id="string">byte strings</link>.
 
-
-<section id="stream_session" name="Session">
-
-<para>
 <list type="tag">
 
 <tag-name><literal>s.remoteAddress</literal></tag-name>
@@ -859,8 +845,6 @@ on the <literal>error</literal> level of logging
 
 </list>
 </para>
-
-</section>
 
 </section>
 

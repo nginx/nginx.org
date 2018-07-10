@@ -9,7 +9,7 @@
 <article name="njs Changes"
         link="/en/docs/njs/njs_changes.html"
         lang="en"
-        rev="4"
+        rev="5"
         toc="no">
 
 <section id="njs0.2.2" name="Changes with 0.2.2">
@@ -27,7 +27,7 @@ nginx modules:
 <para>
 Change:
 merged HTTP <literal>Response</literal> and <literal>Reply</literal>
-into <link doc="njs_api.xml" id="http_request">Request</link>.
+into <link doc="njs_api.xml" id="http">HTTP Request</link>.
 New members of <literal>Request</literal>:
 
 <list type="bullet">
