@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_ssl_preread_module"
         link="/en/docs/stream/ngx_stream_ssl_preread_module.html"
         lang="en"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -73,7 +73,25 @@ server {
     ssl_preread on;
 }
 </example>
+</para>
 
+
+<para>
+Selecting an upstream based on SSL protocol version:
+<example>
+map $ssl_preread_protocol $upstream {
+    ""        ssh.example.com:22;
+    "TLSv1.2" new.example.com:443;
+    default   tls.example.com:443;
+}
+
+# ssh and https on the same port
+server {
+    listen      192.168.0.1:443;
+    proxy_pass  $upstream;
+    ssl_preread on;
+}
+</example>
 </para>
 
 </section>
@@ -101,6 +119,11 @@ the <link doc="stream_processing.xml" id="preread_phase">preread</link> phase.
 
 <para>
 <list type="tag">
+
+<tag-name id="var_ssl_preread_protocol"><var>$ssl_preread_protocol</var></tag-name>
+<tag-desc>
+the highest SSL protocol version supported by the client (1.15.2)
+</tag-desc>
 
 <tag-name id="var_ssl_preread_server_name"><var>$ssl_preread_server_name</var></tag-name>
 <tag-desc>

@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_ssl_preread_module"
         link="/ru/docs/stream/ngx_stream_ssl_preread_module.html"
         lang="ru"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -73,7 +73,24 @@ server {
     ssl_preread on;
 }
 </example>
+</para>
 
+<para>
+Выбор сервера по версии протокола SSL:
+<example>
+map $ssl_preread_protocol $upstream {
+    ""        ssh.example.com:22;
+    "TLSv1.2" new.example.com:443;
+    default   tls.example.com:443;
+}
+
+# ssh и https на одном порту
+server {
+    listen      192.168.0.1:443;
+    proxy_pass  $upstream;
+    ssl_preread on;
+}
+</example>
 </para>
 
 </section>
@@ -101,6 +118,11 @@ server {
 
 <para>
 <list type="tag">
+
+<tag-name id="var_ssl_preread_protocol"><var>$ssl_preread_protocol</var></tag-name>
+<tag-desc>
+максимальная версия протокола SSL, поддерживаемая клиентом (1.15.2)
+</tag-desc>
 
 <tag-name id="var_ssl_preread_server_name"><var>$ssl_preread_server_name</var></tag-name>
 <tag-desc>
