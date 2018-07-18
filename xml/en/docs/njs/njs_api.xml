@@ -9,7 +9,7 @@
 <article name="njs API"
         link="/en/docs/njs/njs_api.html"
         lang="en"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -840,9 +840,9 @@ finishes sending a response to the client
 <tag-desc>
 incoming headers object, read-only.
 <para>
-For example, the <literal>Header-Name</literal> header
-can be accessed with the syntax <literal>headers['Header-Name']</literal>
-or <literal>headers.Header_name</literal>
+For example, the <literal>Foo</literal> header
+can be accessed with the syntax <literal>headersIn.foo</literal>
+or <literal>headersIn['Foo']</literal>
 </para>
 </tag-desc>
 
@@ -850,9 +850,9 @@ or <literal>headers.Header_name</literal>
 <tag-desc>
 outgoing headers object, writable.
 <para>
-For example, the <literal>Header-Name</literal> header
-can be accessed with the syntax <literal>headers['Header-Name']</literal>
-or <literal>headers.Header_name</literal>
+For example, the <literal>Foo</literal> header
+can be accessed with the syntax <literal>headersOut.foo</literal>
+or <literal>headersOut['Foo']</literal>
 </para>
 </tag-desc>
 
