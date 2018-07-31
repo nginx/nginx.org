@@ -9,7 +9,7 @@
 <article name="njs API"
         link="/en/docs/njs/njs_api.html"
         lang="en"
-        rev="5">
+        rev="6">
 
 <section id="summary">
 
@@ -45,14 +45,14 @@ For example, the <link id="string_toutf8">toUTF8()</link> method serializes
 a Unicode string to a byte string using UTF8 encoding:
 <example>
 >> '£'.toUTF8().toString('hex')
-c2a3  /* C2 A3 is the UTF8 representation of 00A3 ('£') code point */
+'c2a3'  /* C2 A3 is the UTF8 representation of 00A3 ('£') code point */
 </example>
 The <link id="string_tobytes">toBytes()</link> method serializes
 a Unicode string with code points up to 255 into a byte string,
 otherwise, <literal>null</literal> is returned:
 <example>
 >> '£'.toBytes().toString('hex')
-a3  /* a3 is a byte equal to 00A3 ('£') code point  */
+'a3'  /* a3 is a byte equal to 00A3 ('£') code point  */
 </example>
 Only byte strings can be converted to different encodings.
 For example, a string cannot be encoded to <literal>hex</literal> directly:
@@ -66,7 +66,7 @@ To convert a Unicode string to hex,
 first, it should be converted to a byte string and then to hex:
 <example>
 >> 'αβγδ'.toUTF8().toString('base64')
-zrHOss6zzrQ=
+'zrHOss6zzrQ='
 </example>
 
 <list type="tag">
@@ -95,7 +95,7 @@ The encoding can be
 Returns a string from one or more Unicode code points.
 <example>
 >> String.fromCodePoint(97, 98, 99, 100)
-abcd
+'abcd'
 </example>
 </tag-desc>
 
@@ -106,7 +106,7 @@ Returns a string that contains the concatenation of specified
 <literal>strings</literal>.
 <example>
 >> "a".concat("b", "c")
-abc
+'abc'
 </example>
 </tag-desc>
 
@@ -203,7 +203,7 @@ Returns the length of the string.
 Matches a string against a <literal>regexp</literal>.
 <example>
 >> 'nginx'.match( /ng/i )
-ng
+'ng'
 </example>
 </tag-desc>
 
@@ -237,7 +237,7 @@ Returns a string
 with the specified <literal>number</literal> of copies of the string.
 <example>
 >> 'abc'.repeat(3)
-abcabcabc
+'abcabcabc'
 </example>
 </tag-desc>
 
@@ -249,7 +249,7 @@ Returns a new string with matches of a pattern
 replaced by a <literal>string</literal> or a <literal>function</literal>.
 <example>
 >> 'abcdefgh'.replace('d', 1)
-abc1efgh
+'abc1efgh'
 </example>
 </tag-desc>
 
@@ -271,7 +271,7 @@ and <literal>end</literal> or
 from <literal>start</literal> to the end of the string.
 <example>
 >> 'abcdefghijklmno'.slice(NaN, 5)
-abcde
+'abcde'
 </example>
 </tag-desc>
 
@@ -299,7 +299,7 @@ from <literal>start</literal>
 or from <literal>start</literal> to the end of the string.
 <example>
 >>  'abcdefghijklmno'.substr(3, 5)
-defgh
+'defgh'
 </example>
 </tag-desc>
 
@@ -311,7 +311,7 @@ Returns the part of the string between
 from <literal>start</literal> to the end of the string.
 <example>
 >> 'abcdefghijklmno'.substring(3, 5)
-de
+'de'
 </example>
 </tag-desc>
 
@@ -329,7 +329,7 @@ Converts a string to lower case.
 The method supports only simple Unicode folding.
 <example>
 >> 'ΑΒΓΔ'.toLowerCase()
-αβγδ
+'αβγδ'
 </example>
 </tag-desc>
 
@@ -349,7 +349,7 @@ encodes a <link id="string_tobytes">byte string</link> to
 </para>
 <example>
 >>  'αβγδ'.toUTF8().toString('base64url')
-zrHOss6zzrQ
+'zrHOss6zzrQ'
 </example>
 </tag-desc>
 
@@ -359,7 +359,7 @@ Converts a string to upper case.
 The method supports only simple Unicode folding.
 <example>
 >> 'αβγδ'.toUpperCase()
-ΑΒΓΔ
+'ΑΒΓΔ'
 </example>
 </tag-desc>
 
@@ -381,7 +381,7 @@ to a byte string using UTF8 encoding.
 Removes whitespaces from both ends of a string.
 <example>
 >> '   abc  '.trim()
-abc
+'abc'
 </example>
 </tag-desc>
 
@@ -393,7 +393,11 @@ The optional <literal>limit</literal> parameter is an integer that specifies
 a limit on the number of splits to be found.
 <example>
 >> 'abc'.split('')
-a,b,c
+[
+ 'a',
+ 'b',
+ 'c'
+]
 </example>
 </tag-desc>
 
@@ -404,7 +408,7 @@ one, two, three, or four escape sequences
 representing the UTF-8 encoding of the character
 <example>
 >> encodeURI('012αβγδ')
-012%CE%B1%CE%B2%CE%B3%CE%B4
+'012%CE%B1%CE%B2%CE%B3%CE%B4'
 </example>
 </tag-desc>
 
@@ -415,7 +419,7 @@ by one, two, three, or four escape sequences
 representing the UTF-8 encoding of the character.
 <example>
 >> encodeURIComponent('[@?=')
-%5B%40%3F%3D
+'%5B%40%3F%3D'
 </example>
 </tag-desc>
 
@@ -424,7 +428,7 @@ representing the UTF-8 encoding of the character.
 Decodes a previously <link id="encodeuri">encoded</link> URI.
 <example>
 >> decodeURI('012%CE%B1%CE%B2%CE%B3%CE%B4')
-012αβγδ
+'012αβγδ'
 </example>
 </tag-desc>
 
@@ -433,7 +437,7 @@ Decodes a previously <link id="encodeuri">encoded</link> URI.
 Decodes an encoded component of a previously encoded URI.
 <example>
 >> decodeURIComponent('%5B%40%3F%3D')
-[@?=
+'[@?='
 </example>
 </tag-desc>
 
@@ -490,25 +494,22 @@ If omitted or is <literal>null</literal>, no white space is used.
 1
 
 >> JSON.stringify(json)
-{"a":1,"b":true}
+'{"a":1,"b":true}'
 
 >> JSON.stringify(json, undefined, 1)
-{
-"a": 1,
-"b": true
-}
+'{\n "a": 1,\n "b": true\n}'
 
 >> JSON.stringify({ x: [10, undefined, function(){}] })
-{"x":[10,null,null]}
+'{"x":[10,null,null]}'
 
 >> JSON.stringify({"a":1, "toJSON": function() {return "xxx"}})
-"xxx"
+'"xxx"'
 
 # Example with function replacer
 
 >> function replacer(key, value) {return (typeof value === 'string') ? undefined : value}
 >>JSON.stringify({a:1, b:"b", c:true}, replacer)
-{"a":1,"c":true}
+'{"a":1,"c":true}'
 </example>
 </para>
 
@@ -581,7 +582,7 @@ If encoding is not provided, a byte string is returned.
 undefined
 
 >> cr.createHash('sha1').update('A').update('B').digest('base64url')
-BtlFlCqiamG-GMPiK_GbvKjdK10
+'BtlFlCqiamG-GMPiK_GbvKjdK10'
 </example>
 </para>
 
@@ -617,7 +618,7 @@ If encoding is not provided, a byte string is returned.
 undefined
 
 >> cr.createHmac('sha1', 'secret.key').update('AB').digest('base64url')
-Oglm93xn23_MkiaEq_e9u8zk374
+'Oglm93xn23_MkiaEq_e9u8zk374'
 </example>
 </para>
 
