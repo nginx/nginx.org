@@ -9,7 +9,7 @@
 <article name="njs API"
         link="/en/docs/njs/njs_api.html"
         lang="en"
-        rev="4">
+        rev="5">
 
 <section id="summary">
 
@@ -204,6 +204,30 @@ Matches a string against a <literal>regexp</literal>.
 <example>
 >> 'nginx'.match( /ng/i )
 ng
+</example>
+</tag-desc>
+
+<tag-name id="string_padend"><literal>String.prototype.padEnd(<value>length</value>
+[, <value>string</value>])</literal></tag-name>
+<tag-desc>
+Returns a string of a specified <literal>length</literal>
+with the pad <literal>string</literal> applied
+to the end of the specified string (0.2.3).
+<example>
+>> '1234'.padEnd(8, 'abcd')
+'1234abcd'
+</example>
+</tag-desc>
+
+<tag-name id="string_padstart"><literal>String.prototype.padStart(<value>length</value>
+[, <value>string</value>])</literal></tag-name>
+<tag-desc>
+Returns a string of a specified <literal>length</literal>
+with the pad <literal>string</literal> applied
+to the start of the specified string (0.2.3).
+<example>
+>> '1234'.padStart(8, 'abcd')
+'abcd1234'
 </example>
 </tag-desc>
 
