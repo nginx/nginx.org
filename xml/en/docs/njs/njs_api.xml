@@ -9,7 +9,7 @@
 <article name="njs API"
         link="/en/docs/njs/njs_api.html"
         lang="en"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -70,6 +70,24 @@ zrHOss6zzrQ=
 </example>
 
 <list type="tag">
+
+<tag-name id="string_bytesfrom"><literal>String.bytesFrom(<value>array</value>
+| <value>string</value>, <value>encoding</value>)</literal></tag-name>
+<tag-desc>
+(njs specific) Creates a byte string either from an array that contains octets,
+or from an encoded string (0.2.3).
+The encoding can be
+<literal>hex</literal>,
+<literal>base64</literal>, and
+<literal>base64url</literal>.
+<example>
+>> String.bytesFrom([0x62, 0x75, 0x66, 0x66, 0x65, 0x72])
+'buffer'
+
+>> String.bytesFrom('YnVmZmVy', 'base64')
+'buffer'
+</example>
+</tag-desc>
 
 <tag-name><literal>String.fromCodePoint(<value>codePoint1</value>[, ...[,
 <value>codePoint2</value>]])</literal></tag-name>
