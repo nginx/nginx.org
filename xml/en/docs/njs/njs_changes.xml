@@ -9,8 +9,165 @@
 <article name="njs Changes"
         link="/en/docs/njs/njs_changes.html"
         lang="en"
-        rev="5"
+        rev="6"
         toc="no">
+
+<section id="njs0.2.3" name="Changes with 0.2.3">
+
+<para>
+Release Date:
+31 July 2018
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Bugfix:
+making a subrequest from a <literal>Reply</literal> object caused
+a segmentation fault.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+getting the parent property of the main
+<link doc="njs_api.xml" id="http">HTTP Request</link>
+object caused a segmentation fault.
+</para>
+</listitem>
+
+</list>
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+added the pretty string representation for values.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+correctly printing floating point numbers.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+correctly parsing floating point numbers.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+<link doc="njs_api.xml" id="string_bytesfrom">String.bytesFrom()</link> method
+(decoding <literal>hex</literal>,
+<literal>base64</literal>,
+<literal>base64url</literal> into a byte string).
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+<link doc="njs_api.xml" id="string_padstart">String.padStart()</link> and
+<link doc="njs_api.xml" id="string_padend">String.padEnd()</link> methods.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added support of binary literals.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+added information about illegal token in number parsing.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+allowed uppercased <literal>O</literal> in octal literal values.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+added support for multiple arguments in <literal>console.log()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed applying <literal>call()</literal> to methods of external values.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed addition operator applied to an object.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed exception handling in <literal>njs_vm_value_to_ext_string()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>Number()</literal> with boolean, null and undefined arguments.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed error handling of setting non-numeric <literal>Array.length</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed autocompletion for global objects.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+miscellaneous additional bugs have been fixed.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.2.2" name="Changes with 0.2.2">
 

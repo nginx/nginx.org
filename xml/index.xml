@@ -7,6 +7,18 @@
 
 <news name="nginx news" link="/" lang="en">
 
+<event date="2018-07-31">
+<para>
+<link doc="en/docs/njs_about.xml">njs-0.2.3</link>
+version has been released, featuring
+<link doc="en/docs/njs/njs_api.xml" id="string_bytesfrom">String.bytesFrom()</link>,
+<link doc="en/docs/njs/njs_api.xml" id="string_padstart">String.padStart()</link>,
+<link doc="en/docs/njs/njs_api.xml" id="string_padend">String.padEnd()</link>
+methods support
+and <link doc="en/docs/njs/njs_changes.xml" id="njs0.2.3">more</link>.
+</para>
+</event>
+
 <event date="2018-07-24">
 <para>
 <link doc="en/download.xml">nginx-1.15.2</link>

@@ -9,7 +9,7 @@
 <article name="About njs"
         link="/en/docs/njs_about.html"
         lang="en"
-        rev="20">
+        rev="21">
 
 <section id="summary">
 
@@ -82,6 +82,7 @@ ES6:
 
 <listitem>
 non-standard:
+<literal>bytesFrom</literal> (0.2.3)
 <literal>fromUTF8</literal>, <literal>toUTF8</literal>,
 <literal>fromBytes</literal>, <literal>toBytes</literal>
 </listitem>
@@ -233,8 +234,7 @@ labels
 </listitem>
 
 <listitem>
-non-integer fractions (<literal>.235</literal>),
-binary literals (<literal>0b0101</literal>)
+non-integer fractions (<literal>.235</literal>)
 </listitem>
 
 </list>

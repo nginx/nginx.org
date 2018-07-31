@@ -9,7 +9,7 @@
 <article name="Информация о njs"
         link="/ru/docs/njs_about.html"
         lang="ru"
-        rev="20">
+        rev="21">
 
 <section id="summary">
 
@@ -81,6 +81,7 @@ ES6:
 
 <listitem>
 нестандартные:
+<literal>bytesFrom</literal> (0.2.3),
 <literal>fromUTF8</literal>, <literal>toUTF8</literal>,
 <literal>fromBytes</literal>, <literal>toBytes</literal>
 </listitem>
@@ -232,8 +233,7 @@ labels
 </listitem>
 
 <listitem>
-дроби без целой части (<literal>.235</literal>),
-двоичные литералы (<literal>0b0101</literal>)
+дроби без целой части (<literal>.235</literal>)
 </listitem>
 
 </list>
