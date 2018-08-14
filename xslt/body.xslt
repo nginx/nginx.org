@@ -21,7 +21,7 @@
     <div id="banner">
         <xsl:if test="@lang = 'he'"> <xsl:attribute name="class"> <xsl:text>ltr</xsl:text> </xsl:attribute> </xsl:if>
         Join us for <b>NGINX Conf 2018</b> in Atlanta, GA, October 8th - 11th<br/>
-        Speakers from Google, AppNexus, CapitallOne, and more.<br/>
+        Speakers from Google, AppNexus, CapitalOne, and more.<br/>
         <a href="https://www.nginx.com/nginxconf/2018/?utm_source=nginxorg&amp;utm_medium=homepagebanner&amp;utm_campaign=nginxconf2018">Agenda, Speakers, and Registration Info</a>
     </div>
 
