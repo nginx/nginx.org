@@ -10,7 +10,7 @@
 <module name="Module ngx_http_ssl_module"
         link="/en/docs/http/ngx_http_ssl_module.html"
         lang="en"
-        rev="39">
+        rev="40">
 
 <section id="summary">
 
@@ -283,6 +283,25 @@ client certificates.
 
 <para>
 Specifies a <value>file</value> with DH parameters for DHE ciphers.
+</para>
+
+</directive>
+
+
+<directive name="ssl_early_data">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<appeared-in>1.15.3</appeared-in>
+
+<para>
+Enables or disables TLS 1.3
+<link url="https://tools.ietf.org/html/rfc8446#section-2.3">early data</link>.
+<note>
+Requests sent within early data are subject to
+<link id="var_ssl_early_data">replay attacks</link>.
+</note>
 </para>
 
 </directive>
@@ -877,6 +896,19 @@ With older versions, the variable value will be an empty string.
 <note>
 The variable is available only for new sessions.
 </note>
+</tag-desc>
+
+<tag-name id="var_ssl_early_data"><var>$ssl_early_data</var></tag-name>
+<tag-desc>
+returns “<literal>1</literal>” if
+TLS 1.3 early data is <link id="ssl_early_data">used</link>
+and the handshake is not complete, otherwise “” (1.15.3).
+The variable is used to protect against
+<link url="https://tools.ietf.org/html/draft-ietf-httpbis-replay-04">replay attacks</link>
+at the application layer:
+<example>
+proxy_set_header Early-Data $ssl_early_data;
+</example>
 </tag-desc>
 
 <tag-name id="var_ssl_protocol"><var>$ssl_protocol</var></tag-name>

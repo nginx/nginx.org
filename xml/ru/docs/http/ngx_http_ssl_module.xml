@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_ssl_module"
         link="/ru/docs/http/ngx_http_ssl_module.html"
         lang="ru"
-        rev="39">
+        rev="40">
 
 <section id="summary">
 
@@ -285,6 +285,25 @@ PEM, которые используются для
 
 <para>
 Указывает <value>файл</value> с параметрами для DHE-шифров.
+</para>
+
+</directive>
+
+
+<directive name="ssl_early_data">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<appeared-in>1.15.3</appeared-in>
+
+<para>
+Разрешает или запрещает TLS 1.3
+<link url="https://tools.ietf.org/html/rfc8446#section-2.3">early data</link>.
+<note>
+Запросы, отправленные внутри early data, могут быть подвержены
+<link id="var_ssl_early_data">атакам повторного воспроизведения</link> (replay).
+</note>
 </para>
 
 </directive>
@@ -881,6 +900,19 @@ AES128-SHA:AES256-SHA:0x00ff
 <note>
 Переменная доступна только для новых сессий.
 </note>
+</tag-desc>
+
+<tag-name id="var_ssl_early_data"><var>$ssl_early_data</var></tag-name>
+<tag-desc>
+возвращает “<literal>1</literal>”, если
+<link id="ssl_early_data">используется</link> TLS 1.3 early data
+и операция handshake не завершена, иначе “” (1.15.3).
+Переменная используется для защиты от
+<link url="https://tools.ietf.org/html/draft-ietf-httpbis-replay-04">атак
+повторного воспроизведения </link> (replay) на уровне приложения:
+<example>
+proxy_set_header Early-Data $ssl_early_data;
+</example>
 </tag-desc>
 
 <tag-name id="var_ssl_protocol"><var>$ssl_protocol</var></tag-name>
