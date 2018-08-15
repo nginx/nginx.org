@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="80">
+        rev="81">
 
 <section id="directives" name="Директивы">
 
@@ -375,7 +375,7 @@ client_body_temp_path /spool/nginx/client_temp 1 2;
 Таймаут устанавливается не на всю передачу тела запроса,
 а только между двумя последовательными операциями чтения.
 Если по истечении этого времени клиент ничего не передаст,
-то клиенту возвращается ошибка
+обработка запроса прекращается с ошибкой
 <http-status code="408" text="Request Time-out"/>.
 </para>
 
@@ -411,7 +411,7 @@ client_body_temp_path /spool/nginx/client_temp 1 2;
 <para>
 Задаёт таймаут при чтении заголовка запроса клиента.
 Если по истечении этого времени клиент не передаст полностью заголовок,
-то клиенту возвращается ошибка
+обработка запроса прекращается с ошибкой
 <http-status code="408" text="Request Time-out"/>.
 </para>
 

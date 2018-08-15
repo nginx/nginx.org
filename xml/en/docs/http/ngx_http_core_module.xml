@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="80">
+        rev="81">
 
 <section id="directives" name="Directives">
 
@@ -378,8 +378,9 @@ Defines a timeout for reading client request body.
 The timeout is set only for a period between two successive read operations,
 not for the transmission of the whole request body.
 If a client does not transmit anything within this time, the
+request is terminated with the
 <http-status code="408" text="Request Time-out"/>
-error is returned to the client.
+error.
 </para>
 
 </directive>
@@ -414,8 +415,9 @@ are allocated.
 <para>
 Defines a timeout for reading client request header.
 If a client does not transmit the entire header within this time, the
+request is terminated with the
 <http-status code="408" text="Request Time-out"/>
-error is returned to the client.
+error.
 </para>
 
 </directive>
