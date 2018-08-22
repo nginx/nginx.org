@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="73">
+        rev="74">
 
 <section id="summary">
 
@@ -637,6 +637,35 @@ the <literal>keepalive</literal> directive.
 <note>
 SCGI and uwsgi protocols do not have a notion of keepalive connections.
 </note>
+</para>
+
+</directive>
+
+
+<directive name="keepalive_requests">
+<syntax><value>number</value></syntax>
+<default>100</default>
+<context>upstream</context>
+<appeared-in>1.15.3</appeared-in>
+
+<para>
+Sets the maximum number of requests that can be
+served through one keep-alive connection.
+After the maximum number of requests is made, the connection is closed.
+</para>
+
+</directive>
+
+
+<directive name="keepalive_timeout">
+<syntax><value>timeout</value></syntax>
+<default>60s</default>
+<context>upstream</context>
+<appeared-in>1.15.3</appeared-in>
+
+<para>
+Sets a timeout during which a keep-alive
+connection to an upstream server will stay open.
 </para>
 
 </directive>
