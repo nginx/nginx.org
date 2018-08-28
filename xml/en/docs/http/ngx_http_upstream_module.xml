@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="74">
+        rev="75">
 
 <section id="summary">
 
@@ -650,7 +650,7 @@ SCGI and uwsgi protocols do not have a notion of keepalive connections.
 
 <para>
 Sets the maximum number of requests that can be
-served through one keep-alive connection.
+served through one keepalive connection.
 After the maximum number of requests is made, the connection is closed.
 </para>
 
@@ -664,7 +664,7 @@ After the maximum number of requests is made, the connection is closed.
 <appeared-in>1.15.3</appeared-in>
 
 <para>
-Sets a timeout during which a keep-alive
+Sets a timeout during which an idle keepalive
 connection to an upstream server will stay open.
 </para>
 
