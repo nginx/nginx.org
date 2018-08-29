@@ -9,7 +9,7 @@
 <article name="About njs"
         link="/en/docs/njs_about.html"
         lang="en"
-        rev="21">
+        rev="22">
 
 <section id="summary">
 
@@ -20,7 +20,7 @@ implementing location and variable handlers in
 <link doc="stream/ngx_stream_js_module.xml">stream</link>.
 njs is created in compliance with
 <link url="http://www.ecma-international.org/ecma-262/5.1/">ECMAScript 5.1</link>
-with some
+(strict mode) with some
 <link url="http://www.ecma-international.org/ecma-262/6.0/">ECMAScript 6</link>
 extensions.
 The compliance is still evolving.

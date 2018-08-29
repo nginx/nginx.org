@@ -9,7 +9,7 @@
 <article name="Информация о njs"
         link="/ru/docs/njs_about.html"
         lang="ru"
-        rev="21">
+        rev="22">
 
 <section id="summary">
 
@@ -20,7 +20,7 @@ njs - это подмножество языка JavaScript, который по
 <link doc="stream/ngx_stream_js_module.xml">stream</link>.
 njs совместим с
 <link url="http://www.ecma-international.org/ecma-262/5.1/">ECMAScript 5.1</link>
-c некоторыми расширениями
+(строгий режим) c некоторыми расширениями
 <link url="http://www.ecma-international.org/ecma-262/6.0/">ECMAScript 6</link>.
 Совместимость находится в стадии развития.
 </para>
