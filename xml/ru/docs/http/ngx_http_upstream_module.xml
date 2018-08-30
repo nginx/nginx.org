@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_upstream_module"
         link="/ru/docs/http/ngx_http_upstream_module.html"
         lang="ru"
-        rev="75">
+        rev="76">
 
 <section id="summary">
 
@@ -862,6 +862,19 @@ server {
 Методом по умолчанию является <literal>least_conn</literal>,
 при котором запрос передаётся на сервер
 с наименьшим количеством активных соединений.
+</para>
+
+<para id="random_least_time">
+Если указан метод <literal>least_time</literal>, то запрос передаётся серверу
+с наименьшими средним временем ответа и числом активных соединений.
+Если указан <literal>least_time=header</literal>, то учитывается
+время получения <link id="var_upstream_header_time">заголовка ответа</link>.
+Если указан <literal>least_time=last_byte</literal>, то учитывается
+время получения <link id="var_upstream_response_time">всего ответа</link>.
+<note>
+Метод <literal>least_time</literal> доступен как часть
+<commercial_version>коммерческой подписки</commercial_version>.
+</note>
 </para>
 
 </directive>

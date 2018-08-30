@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_limit_req_module"
         link="/ru/docs/http/ngx_http_limit_req_module.html"
         lang="ru"
-        rev="8">
+        rev="9">
 
 <section id="summary">
 
@@ -160,7 +160,8 @@ server {
 <syntax>
     <value>ключ</value>
     <literal>zone</literal>=<value>название</value>:<value>размер</value>
-    <literal>rate</literal>=<value>скорость</value></syntax>
+    <literal>rate</literal>=<value>скорость</value>
+    [<literal>sync</literal>]</syntax>
 <default/>
 <context>http</context>
 
@@ -208,6 +209,16 @@ limit_req_zone $binary_remote_addr zone=one:10m rate=1r/s;
 Если же нужна скорость меньше одного запроса в секунду,
 то она задаётся в запросах в минуту (r/m), например,
 ползапроса в секунду — это 30r/m.
+</para>
+
+<para id="limit_req_zone_sync">
+Параметр <literal>sync</literal> (1.15.3) разрешает
+<link doc="../stream/ngx_stream_zone_sync_module.xml" id="zone_sync">синхронизацию</link>
+данной зоны разделяемой памяти.
+<note>
+Параметр <literal>sync</literal> доступен как часть
+<commercial_version>коммерческой подписки</commercial_version>.
+</note>
 </para>
 
 </directive>

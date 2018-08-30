@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="75">
+        rev="76">
 
 <section id="summary">
 
@@ -854,6 +854,19 @@ using the specified <literal>method</literal>.
 The default method is <literal>least_conn</literal>
 which passes a request to a server
 with the least number of active connections.
+</para>
+
+<para id="random_least_time">
+The <literal>least_time</literal> method passes a request to a server
+with the least average response time and least number of active connections.
+If <literal>least_time=header</literal> is specified, the time to receive the
+<link id="var_upstream_header_time">response header</link> is used.
+If <literal>least_time=last_byte</literal> is specified, the time to receive the
+<link id="var_upstream_response_time">full response</link> is used.
+<note>
+The <literal>least_time</literal> method is available as a part of our
+<commercial_version>commercial subscription</commercial_version>.
+</note>
 </para>
 
 </directive>

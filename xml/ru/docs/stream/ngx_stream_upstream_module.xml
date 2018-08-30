@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_upstream_module"
         link="/ru/docs/stream/ngx_stream_upstream_module.html"
         lang="ru"
-        rev="31">
+        rev="32">
 
 <section id="summary">
 
@@ -483,7 +483,7 @@ hash $remote_addr;
 <link id="var_upstream_first_byte_time">первого байта</link> данных.
 Если указан параметр <literal>last_byte</literal>,
 то учитывается время получения
-<link id="var_upstream_session_time">ответа</link>.
+<link id="var_upstream_session_time">последнего байта</link> данных.
 Если указан параметр <literal>inflight</literal> (1.11.6),
 то также учитываются незавершённые соединения.
 <note>
@@ -523,6 +523,25 @@ hash $remote_addr;
 Методом по умолчанию является <literal>least_conn</literal>,
 при котором соединение передаётся на сервер
 с наименьшим количеством активных соединений.
+</para>
+
+<para id="random_least_time">
+Если указан метод <literal>least_time</literal>, то соединение передаётся
+серверу
+с наименьшими средним временем ответа и числом активных соединений.
+Если указан <literal>least_time=connect</literal>,
+то учитывается время
+<link id="var_upstream_connect_time">соединения</link> с сервером группы.
+Если указан <literal>least_time=first_byte</literal>,
+то учитывается время получения
+<link id="var_upstream_first_byte_time">первого байта</link> данных.
+Если указан <literal>least_time=last_byte</literal>,
+то учитывается время получения
+<link id="var_upstream_session_time">последнего байта</link> данных.
+<note>
+Метод <literal>least_time</literal> доступен как часть
+<commercial_version>коммерческой подписки</commercial_version>.
+</note>
 </para>
 
 </directive>

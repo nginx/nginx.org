@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_zone_sync_module"
         link="/en/docs/stream/ngx_stream_zone_sync_module.html"
         lang="en"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -20,9 +20,13 @@ provides the necessary support for synchronizing contents of
 between nodes of a cluster.
 To enable synchronization for a particular zone, a corresponding module
 must support this feature.
-Currently, it is possible to synchronize
+Currently, it is possible to synchronize HTTP
 <link doc="../http/ngx_http_upstream_module.xml" id="sticky">sticky</link>
-sessions.
+sessions, information about
+<link doc="../http/ngx_http_limit_req_module.xml">excessive HTTP requests</link>,
+and key-value pairs both in
+<link doc="../http/ngx_http_keyval_module.xml">http</link>
+and <link doc="../stream/ngx_stream_keyval_module.xml">stream</link>.
 </para>
 
 <para>

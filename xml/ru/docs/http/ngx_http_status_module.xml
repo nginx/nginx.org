@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_status_module"
         link="/ru/docs/http/ngx_http_status_module.html"
         lang="ru"
-        rev="17">
+        rev="18">
 
 <section id="summary">
 
@@ -17,16 +17,12 @@
 Модуль <literal>ngx_http_status_module</literal> предоставляет
 доступ к информации о состоянии сервера.
 <note>
-Этот модуль был заменён модулем
+Этот модуль был доступен как часть
+<commercial_version>коммерческой подписки</commercial_version>
+до версии 1.13.10.
+Модуль был заменён модулем
 <link doc="ngx_http_api_module.xml">ngx_http_api_module</link>
-в версии 1.13.0.
-</note>
-</para>
-
-<para>
-<note>
-Модуль доступен как часть
-<commercial_version>коммерческой подписки</commercial_version>.
+в версии 1.13.3.
 </note>
 </para>
 

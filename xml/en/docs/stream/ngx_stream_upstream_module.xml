@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_upstream_module"
         link="/en/docs/stream/ngx_stream_upstream_module.html"
         lang="en"
-        rev="31">
+        rev="32">
 
 <section id="summary">
 
@@ -523,6 +523,25 @@ using the specified <literal>method</literal>.
 The default method is <literal>least_conn</literal>
 which passes a connection to a server
 with the least number of active connections.
+</para>
+
+<para id="random_least_time">
+The <literal>least_time</literal> method passes a connection to a server
+with the least average time and least number of active connections.
+If <literal>least_time=connect</literal> parameter is specified,
+time to
+<link id="var_upstream_connect_time">connect</link>
+to the upstream server is used.
+If <literal>least_time=first_byte</literal> parameter is specified,
+time to receive the
+<link id="var_upstream_first_byte_time">first byte</link> of data is used.
+If <literal>least_time=last_byte</literal> is specified,
+time to receive the
+<link id="var_upstream_session_time">last byte</link> of data is used.
+<note>
+The <literal>least_time</literal> method is available as a part of our
+<commercial_version>commercial subscription</commercial_version>.
+</note>
 </para>
 
 </directive>

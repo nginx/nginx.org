@@ -9,7 +9,7 @@
 <module name="Module ngx_http_status_module"
         link="/en/docs/http/ngx_http_status_module.html"
         lang="en"
-        rev="17">
+        rev="18">
 
 <section id="summary">
 
@@ -17,16 +17,12 @@
 The <literal>ngx_http_status_module</literal> module provides
 access to various status information.
 <note>
-This module was superseded by the
+This module was available as part of our
+<commercial_version>commercial subscription</commercial_version>
+until 1.13.10.
+It was superseded by the
 <link doc="ngx_http_api_module.xml">ngx_http_api_module</link> module
-in 1.13.0.
-</note>
-</para>
-
-<para>
-<note>
-This module is available as part of our
-<commercial_version>commercial subscription</commercial_version>.
+in 1.13.3.
 </note>
 </para>
 

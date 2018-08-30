@@ -9,7 +9,7 @@
 <module name="Module ngx_http_keyval_module"
         link="/en/docs/http/ngx_http_keyval_module.html"
         lang="en"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -79,7 +79,9 @@ specified by the <literal>zone</literal> parameter.
 <directive name="keyval_zone">
 <syntax>
     <literal>zone</literal>=<value>name</value>:<value>size</value>
-    [<literal>state</literal>=<value>file</value>]</syntax>
+    [<literal>state</literal>=<value>file</value>]
+    [<literal>timeout</literal>=<value>time</value>]
+    [<literal>sync</literal>]</syntax>
 <default/>
 <context>http</context>
 
@@ -90,10 +92,23 @@ Key-value pairs are managed by the
 <link doc="ngx_http_api_module.xml" id="http_keyvals_">API</link>.
 </para>
 
-<para>
+<para id="keyval_state">
 The optional <literal>state</literal> parameter specifies a <value>file</value>
 that keeps the current state of the key-value database in the JSON format
 and makes it persistent across nginx restarts.
+</para>
+
+<para id="keyval_timeout">
+The optional <literal>timeout</literal> parameter (1.15.0) sets
+the time after which key-value pairs are removed from the zone.
+</para>
+
+<para id="keyval_sync">
+The optional <literal>sync</literal> parameter (1.15.0) enables
+<link doc="../stream/ngx_stream_zone_sync_module.xml" id="zone_sync">synchronization</link>
+of the shared memory zone.
+The synchronization requires the
+<link id="keyval_timeout">timeout</link> parameter to be set.
 </para>
 
 </directive>
