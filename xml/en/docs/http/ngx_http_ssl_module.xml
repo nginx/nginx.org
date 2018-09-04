@@ -10,7 +10,7 @@
 <module name="Module ngx_http_ssl_module"
         link="/en/docs/http/ngx_http_ssl_module.html"
         lang="en"
-        rev="40">
+        rev="41">
 
 <section id="summary">
 
@@ -300,7 +300,20 @@ Enables or disables TLS 1.3
 <link url="https://tools.ietf.org/html/rfc8446#section-2.3">early data</link>.
 <note>
 Requests sent within early data are subject to
-<link id="var_ssl_early_data">replay attacks</link>.
+<link url="https://tools.ietf.org/html/draft-ietf-httpbis-replay-04">replay attacks</link>.
+To protect against such attacks at the application layer,
+the <link id="var_ssl_early_data">$ssl_early_data</link> variable
+should be used.
+</note>
+
+<example>
+proxy_set_header Early-Data $ssl_early_data;
+</example>
+
+<note>
+The directive is supported only when using the
+<link url="https://boringssl.googlesource.com/boringssl/">BoringSSL</link>
+library.
 </note>
 </para>
 
@@ -901,14 +914,13 @@ The variable is available only for new sessions.
 <tag-name id="var_ssl_early_data"><var>$ssl_early_data</var></tag-name>
 <tag-desc>
 returns “<literal>1</literal>” if
-TLS 1.3 early data is <link id="ssl_early_data">used</link>
+TLS 1.3 <link id="ssl_early_data">early data</link> is used
 and the handshake is not complete, otherwise “” (1.15.3).
-The variable is used to protect against
-<link url="https://tools.ietf.org/html/draft-ietf-httpbis-replay-04">replay attacks</link>
-at the application layer:
-<example>
-proxy_set_header Early-Data $ssl_early_data;
-</example>
+<note>
+The variable is supported only when using the
+<link url="https://boringssl.googlesource.com/boringssl/">BoringSSL</link>
+library.
+</note>
 </tag-desc>
 
 <tag-name id="var_ssl_protocol"><var>$ssl_protocol</var></tag-name>
