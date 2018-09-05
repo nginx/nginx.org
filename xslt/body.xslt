@@ -20,9 +20,8 @@
 
     <div id="banner">
         <xsl:if test="@lang = 'he'"> <xsl:attribute name="class"> <xsl:text>ltr</xsl:text> </xsl:attribute> </xsl:if>
-        Join us for <b>NGINX Conf 2018</b> in Atlanta, GA, October 8th - 11th<br/>
-        Speakers from Google, AppNexus, CapitalOne, and more.<br/>
-        <a href="https://www.nginx.com/nginxconf/2018/?utm_source=nginxorg&amp;utm_medium=homepagebanner&amp;utm_campaign=nginxconf2018">Agenda, Speakers, and Registration Info</a> (use promo code NGINX18ORG to get $200 off)
+        NGINX Plus R16 released with enhanced clustering, load balancing, and security features.<br/>
+        <a href="https://www.nginx.com/blog/nginx-plus-r16-released/?utm_source=nginxorg&amp;utm_medium=homepagebanner&amp;utm_campaign=r16">Read more</a>
     </div>
 
     <div id="main">
