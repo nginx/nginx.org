@@ -7,7 +7,7 @@
 <article name="nginx: Linux packages"
          link="/en/linux_packages.html"
          lang="en"
-         rev="28"
+         rev="29"
          toc="no">
 
 <section id="distributions">
@@ -119,6 +119,11 @@ SLES:
 <td>x86_64</td>
 </tr>
 
+<tr>
+<td width="20%">15</td>
+<td>x86_64</td>
+</tr>
+
 </table>
 </para>
 
@@ -198,9 +203,16 @@ apt-get install nginx
 </para>
 
 <para>
-For SLES run the following command:
+For SLES 12 run the following command:
 <programlisting>
 zypper addrepo -G -t yum -c 'http://nginx.org/packages/sles/12' nginx
+</programlisting>
+</para>
+
+<para>
+For SLES 15 run the following command:
+<programlisting>
+zypper addrepo -G -t yum -c 'http://nginx.org/packages/sles/15' nginx
 </programlisting>
 </para>
 
@@ -273,9 +285,16 @@ apt-get install nginx
 </para>
 
 <para>
-For SLES run the following command:
+For SLES 12 run the following command:
 <programlisting>
 zypper addrepo -G -t yum -c 'http://nginx.org/packages/mainline/sles/12' nginx
+</programlisting>
+</para>
+
+<para>
+For SLES 15 run the following command:
+<programlisting>
+zypper addrepo -G -t yum -c 'http://nginx.org/packages/mainline/sles/15' nginx
 </programlisting>
 </para>
 
