@@ -7,6 +7,21 @@
 
 <news name="nginx news" link="/" lang="en">
 
+<event date="2018-09-18">
+<para>
+<link doc="en/docs/njs_about.xml">njs-0.2.4</link>
+version has been released, featuring
+<link doc="en/docs/njs/njs_api.xml" id="s_on">s.on()</link>,
+<link doc="en/docs/njs/njs_api.xml" id="s_off">s.off()</link>,
+<link doc="en/docs/njs/njs_api.xml" id="s_allow">s.allow()</link>,
+<link doc="en/docs/njs/njs_api.xml" id="s_done">s.done()</link>,
+<link doc="en/docs/njs/njs_api.xml" id="s_decline">s.decline()</link>,
+<link doc="en/docs/njs/njs_api.xml" id="s_deny">s.deny()</link>
+methods support
+and <link doc="en/docs/njs/njs_changes.xml" id="njs0.2.4">more</link>.
+</para>
+</event>
+
 <event date="2018-08-28">
 <para>
 <link doc="en/download.xml">nginx-1.15.3</link>

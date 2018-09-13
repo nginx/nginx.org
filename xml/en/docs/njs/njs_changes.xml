@@ -9,8 +9,181 @@
 <article name="njs Changes"
         link="/en/docs/njs/njs_changes.html"
         lang="en"
-        rev="6"
+        rev="7"
         toc="no">
+
+<section id="njs0.2.4" name="Changes with 0.2.4">
+
+<para>
+Release Date:
+18 September 2018
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Change:
+stream module handlers refactored.
+</para>
+
+<para>
+New methods and properties:
+<link doc="njs_api.xml" id="s_on">s.on()</link>,
+<link doc="njs_api.xml" id="s_off">s.off()</link>,
+<link doc="njs_api.xml" id="s_allow">s.allow()</link>,
+<link doc="njs_api.xml" id="s_done">s.done()</link>,
+<link doc="njs_api.xml" id="s_decline">s.decline()</link>,
+<link doc="njs_api.xml" id="s_deny">s.deny()</link>.
+</para>
+
+<para>
+Removed properties of the
+<link doc="njs_api.xml" id="stream">Stream</link> object:
+<literal>s.OK</literal>,
+<literal>s.ABORT</literal>,
+<literal>s.AGAIN</literal>,
+<literal>s.DECLINED</literal>,
+<literal>s.ERROR</literal>
+(replaced with
+<link doc="njs_api.xml" id="s_allow">s.allow()</link>,
+<link doc="njs_api.xml" id="s_done">s.done()</link>,
+<link doc="njs_api.xml" id="s_deny">s.deny()</link>).
+</para>
+
+<para>
+<literal>s.buffer</literal>
+(for reading replaced with data argument of
+the corresponding callback, for writing use
+<link doc="njs_api.xml" id="s_send">s.send()</link>).
+</para>
+
+<para>
+<literal>s.fromUpstream</literal>
+(replaced with a callback for a corresponding event).
+</para>
+
+<para>
+<literal>s.eof</literal>
+(replaced with <literal></literal>
+<link doc="njs_api.xml" id="s_on_callback_last">flags.last</link>).
+</para>
+
+</listitem>
+
+</list>
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+added <literal>Function.prototype.length</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+introduced sandboxing mode.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+added exception strings where appropriate.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+improved wording for primitive type conversion exception.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+throwing <literal>TypeError</literal>
+for attempts to change frozen properties.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>Object.defineProperty()</literal> for existing properties.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+respecting the enumerable attribute while iterating by for in.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+respecting writable attribute for property handlers.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed exception handling in arguments of a function.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>Object.prototype.toString</literal> for different value types.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>Object()</literal> constructor for object types arguments.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed comparison of objects and strings.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>String.slice()</literal> for undefined arguments.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+miscellaneous additional bugs have been fixed.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.2.3" name="Changes with 0.2.3">
 

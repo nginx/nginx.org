@@ -9,7 +9,7 @@
 <article name="njs API"
         link="/en/docs/njs/njs_api.html"
         lang="en"
-        rev="6">
+        rev="7">
 
 <section id="summary">
 
@@ -1004,7 +1004,6 @@ an object with the following keys:
 <tag-desc>
 arguments string
 </tag-desc>
-
 <tag-name><literal>body</literal></tag-name>
 <tag-desc>
 request body
@@ -1038,70 +1037,42 @@ The stream session object is available only in the
 <link doc="../stream/ngx_stream_js_module.xml">ngx_stream_js_module</link>
 module.
 All string properties of the object are <link id="string">byte strings</link>.
+</para>
 
+<para>
+<note>
+Prior to njs <link doc="../njs/njs_changes.xml" id="njs0.2.4">0.2.4</link>,
+the stream session object had some properties which are currently
+<link id="stream_obsolete">removed</link>.
+</note>
+</para>
+
+<para>
 <list type="tag">
 
-<tag-name><literal>s.remoteAddress</literal></tag-name>
+<tag-name id="s_allow"><literal>s.allow()</literal></tag-name>
 <tag-desc>
-client address, read-only
+successfully finalizes the phase handler
+(<link doc="../njs/njs_changes.xml" id="njs0.2.4">0.2.4</link>)
 </tag-desc>
 
-<tag-name><literal>s.eof</literal></tag-name>
+<tag-name id="s_decline"><literal>s.decline()</literal></tag-name>
 <tag-desc>
-a boolean read-only property, true if the current buffer is the last buffer
+finalizes the phase handler and passes control to the next handler
+(<link doc="../njs/njs_changes.xml" id="njs0.2.4">0.2.4</link>)
 </tag-desc>
 
-<tag-name><literal>s.fromUpstream</literal></tag-name>
+<tag-name id="s_deny"><literal>s.deny()</literal></tag-name>
 <tag-desc>
-a boolean read-only property,
-true if the current buffer is from the upstream server to the client
+finalizes the phase handler with the access error code
+(<link doc="../njs/njs_changes.xml" id="njs0.2.4">0.2.4</link>)
 </tag-desc>
 
-<tag-name><literal>s.buffer</literal></tag-name>
+<tag-name id="s_done"><literal>s.done</literal>(<value>[code]</value>)</tag-name>
 <tag-desc>
-the current buffer, writable
-</tag-desc>
-
-<tag-name><literal>s.variables{}</literal></tag-name>
-<tag-desc>
-nginx variables object, read-only
-</tag-desc>
-
-<tag-name><literal>s.OK</literal></tag-name>
-<tag-desc>
-the <literal>OK</literal> return code
-</tag-desc>
-
-<tag-name><literal>s.DECLINED</literal></tag-name>
-<tag-desc>
-the <literal>DECLINED</literal> return code
-</tag-desc>
-
-<tag-name><literal>s.AGAIN</literal></tag-name>
-<tag-desc>
-the <literal>AGAIN</literal> return code
-</tag-desc>
-
-<tag-name><literal>s.ERROR</literal></tag-name>
-<tag-desc>
-the <literal>ERROR</literal> return code
-</tag-desc>
-
-<tag-name><literal>s.ABORT</literal></tag-name>
-<tag-desc>
-the <literal>ABORT</literal> return code
-</tag-desc>
-
-<tag-name><literal>s.log(<value>string</value>)</literal></tag-name>
-<tag-desc>
-writes a sent <value>string</value> to the error log
-on the <literal>info</literal> level of logging
-</tag-desc>
-
-<tag-name><literal>s.warn(<value>string</value>)</literal></tag-name>
-<tag-desc>
-writes a sent <literal>string</literal> to the error log
-on the <literal>warning</literal> level of logging
+successfully finalizes the current phase handler
+or finalizes it with the specified numeric code
+(<link doc="../njs/njs_changes.xml" id="njs0.2.4">0.2.4</link>).
 </tag-desc>
 
 <tag-name><literal>s.error(<value>string</value>)</literal></tag-name>
@@ -1110,8 +1081,199 @@ writes a sent <literal>string</literal> to the error log
 on the <literal>error</literal> level of logging
 </tag-desc>
 
+<tag-name><literal>s.log(<value>string</value>)</literal></tag-name>
+<tag-desc>
+writes a sent <value>string</value> to the error log
+on the <literal>info</literal> level of logging
+</tag-desc>
+
+<tag-name id="s_off"><literal>s.off(<value>eventName</value>)</literal></tag-name>
+<tag-desc>
+unregisters the callback set by the <link id="s_on">s.on()</link> method
+(<link doc="../njs/njs_changes.xml" id="njs0.2.4">0.2.4</link>)
+</tag-desc>
+
+<tag-name id="s_on"><literal>s.on(<value>event</value>,
+<value>callback</value>)</literal></tag-name>
+<tag-desc>
+registers a <literal>callback</literal> for the specified <literal>event</literal>
+(<link doc="../njs/njs_changes.xml" id="njs0.2.4">0.2.4</link>).
+
+<para>
+An <literal>event</literal> may be one of the following strings:
+<list type="tag">
+<tag-name><literal>upload</literal></tag-name>
+<tag-desc>
+new data from a client
+</tag-desc>
+
+<tag-name><literal>download</literal></tag-name>
+<tag-desc>
+new data to a client
+</tag-desc>
+
 </list>
 </para>
+
+<para>
+The completion callback has the following prototype:
+<literal>callback(data, flags)</literal>, where
+<literal>data</literal> is string,
+<literal>flags</literal> is an object
+with the following properties:
+<list type="tag">
+<tag-name id="s_on_callback_last"><literal>last</literal></tag-name>
+<tag-desc>
+a boolean value, true if data is a last buffer.
+</tag-desc>
+
+</list>
+</para>
+</tag-desc>
+
+<tag-name><literal>s.remoteAddress</literal></tag-name>
+<tag-desc>
+client address, read-only
+</tag-desc>
+
+<tag-name id="s_send"><literal>s.send(<value>data</value>[,
+<value>options</value>])</literal></tag-name>
+<tag-desc>
+sends the data to the client
+(<link doc="../njs/njs_changes.xml" id="njs0.2.4">0.2.4</link>).
+The <literal>options</literal> is an object used
+to override nginx buffer flags derived from an incoming data chunk buffer.
+The flags can be overriden with the following flags:
+<para>
+<list type="tag">
+
+<tag-name><literal>last</literal></tag-name>
+<tag-desc>
+boolean, true if the buffer is the last buffer
+</tag-desc>
+
+<tag-name><literal>flush</literal></tag-name>
+<tag-desc>
+boolean, true if the buffer should have the <literal>flush</literal> flag
+</tag-desc>
+</list>
+</para>
+The method can be called multiple times per callback invocation.
+</tag-desc>
+
+<tag-name><literal>s.variables{}</literal></tag-name>
+<tag-desc>
+nginx variables object, read-only
+</tag-desc>
+
+<tag-name><literal>s.warn(<value>string</value>)</literal></tag-name>
+<tag-desc>
+writes a sent <literal>string</literal> to the error log
+on the <literal>warning</literal> level of logging
+</tag-desc>
+
+</list>
+</para>
+
+
+<section id="stream_obsolete" name="Obsolete properties">
+
+<para>
+These properties have been removed
+in njs <link doc="../njs/njs_changes.xml" id="njs0.2.4">0.2.4</link>
+and are not backward compatible with the existing njs code.
+</para>
+
+<para>
+<list type="tag">
+
+<tag-name id="s_abort"><literal>s.ABORT</literal></tag-name>
+<tag-desc>
+the <literal>ABORT</literal> return code
+<note>
+Starting from njs <link doc="../njs/njs_changes.xml" id="njs0.2.4">0.2.4</link>,
+the <link id="s_deny">s.deny()</link> method should be used instead.
+</note>
+</tag-desc>
+
+<tag-name><literal>s.AGAIN</literal></tag-name>
+<tag-desc>
+the <literal>AGAIN</literal> return code
+<note>
+Starting from njs <link doc="../njs/njs_changes.xml" id="njs0.2.4">0.2.4</link>,
+the corresponding behavior is achieved if no
+<link id="s_allow">s.allow()</link>,
+<link id="s_deny">s.deny()</link>,
+<link id="s_decline">s.decline()</link>,
+<link id="s_done">s.done()</link>
+is invoked and a callback is registered.
+</note>
+</tag-desc>
+
+<tag-name id="s_buffer"><literal>s.buffer</literal></tag-name>
+<tag-desc>
+the current buffer, writable
+<note>
+Starting from <link doc="../njs/njs_changes.xml" id="njs0.2.4">0.2.4</link>,
+the <link id="s_send">s.send()</link> method should be used for writing.
+For reading, the current buffer is available as the first argument of the
+<literal>event</literal> callback.
+</note>
+</tag-desc>
+
+<tag-name><literal>s.DECLINED</literal></tag-name>
+<tag-desc>
+the <literal>DECLINED</literal> return code
+<note>
+Starting from njs <link doc="../njs/njs_changes.xml" id="njs0.2.4">0.2.4</link>,
+the <link id="s_decline">s.decline()</link> method should be used instead.
+</note>
+</tag-desc>
+
+<tag-name><literal>s.eof</literal></tag-name>
+<tag-desc>
+a boolean read-only property, true if the current buffer is the last buffer
+<note>
+Starting from <link doc="../njs/njs_changes.xml" id="njs0.2.4">0.2.4</link>,
+the <link id="s_on_callback_last">flags.last</link> property
+should be used instead.
+</note>
+</tag-desc>
+
+<tag-name><literal>s.ERROR</literal></tag-name>
+<tag-desc>
+the <literal>ERROR</literal> return code
+<note>
+Starting from njs <link doc="../njs/njs_changes.xml" id="njs0.2.4">0.2.4</link>,
+an appropriate exception can be thrown to report an error.
+</note>
+</tag-desc>
+
+<tag-name><literal>s.fromUpstream</literal></tag-name>
+<tag-desc>
+a boolean read-only property,
+true if the current buffer is from the upstream server to the client
+<note>
+Starting from <link doc="../njs/njs_changes.xml" id="njs0.2.4">0.2.4</link>,
+a corresponding <link id="s_on">event</link>
+(<literal>upload</literal> or <literal>download</literal>)
+should be used to handle data to or from client.
+</note>
+</tag-desc>
+
+<tag-name id="s_ok"><literal>s.OK</literal></tag-name>
+<tag-desc>
+the <literal>OK</literal> return code
+<note>
+Starting from njs <link doc="../njs/njs_changes.xml" id="njs0.2.4">0.2.4</link>,
+the <link id="s_allow">s.allow()</link> method should be used instead.
+</note>
+</tag-desc>
+
+</list>
+</para>
+
+</section>
 
 </section>
 
@@ -1367,6 +1529,137 @@ function create_secure_link(r) {
 }
 </example>
 </para>
+
+</section>
+
+
+<section id="example_legacy" name="Legacy Examples">
+
+
+<section id="example_legacy_stream" name="Stream Example">
+
+<para>
+Starting from njs <link doc="../njs/njs_changes.xml" id="njs0.2.4">0.2.4</link>,
+stream configuration
+<link doc="../stream/ngx_stream_js_module.xml" id="example">example</link>
+has been changed.
+For njs <link doc="../njs/njs_changes.xml" id="njs-0.2.3">0.2.3</link>
+and earlier, use this configuration example:
+<example>
+load_module modules/ngx_stream_js_module.so;
+...
+
+stream {
+    js_include stream.js;
+
+    js_set $foo foo;
+    js_set $bar bar;
+
+    server {
+        listen 12345;
+
+        js_preread qux;
+        return     $foo;
+    }
+
+    server {
+        listen 12346;
+
+        js_access  xyz;
+        proxy_pass 127.0.0.1:8000;
+        js_filter  baz;
+    }
+}
+
+http {
+    server {
+        listen 8000;
+        location / {
+            return 200 $http_foo\n;
+        }
+    }
+}
+</example>
+</para>
+
+<para>
+The <path>stream.js</path> file:
+<example>
+var req = '';
+var matched = 0;
+var line = '';
+
+function qux(s) {
+    var n = s.buffer.indexOf('\n');
+    if (n == -1) {
+        return s.AGAIN;
+    }
+
+    line = s.buffer.substr(0, n);
+}
+
+function foo(s) {
+    return line;
+}
+
+function bar(s) {
+    var v = s.variables;
+    s.log("hello from bar() handler!");
+    return "foo-var" + v.remote_port + "; pid=" + v.pid;
+}
+
+// The filter processes one buffer per call.
+// The buffer is available in s.buffer both for
+// reading and writing.  Called for both directions.
+
+function baz(s) {
+    if (s.fromUpstream || matched) {
+        return;
+    }
+
+    // Disable certain addresses.
+
+    if (s.remoteAddress.match('^192.*')) {
+        return s.ERROR;
+    }
+
+    // Read HTTP request line.
+    // Collect bytes in 'req' until request
+    // line is read.  Clear current buffer to
+    // disable output.
+
+    req = req + s.buffer;
+    s.buffer = '';
+
+    var n = req.search('\n');
+
+    if (n != -1) {
+        // Inject a new HTTP header.
+        var rest = req.substr(n + 1);
+        req = req.substr(0, n + 1);
+
+        var addr = s.remoteAddress;
+
+        s.log('req:' + req);
+        s.log('rest:' + rest);
+
+        // Output the result and skip further
+        // processing.
+
+        s.buffer = req + 'Foo: addr_' + addr + '\r\n' + rest;
+        matched = 1;
+    }
+}
+
+function xyz(s) {
+    if (s.remoteAddress.match('^192.*')) {
+        return s.ABORT;
+    }
+}
+</example>
+</para>
+
+</section>
 
 </section>
 
