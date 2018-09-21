@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_ssl_module"
         link="/ru/docs/http/ngx_http_ssl_module.html"
         lang="ru"
-        rev="41">
+        rev="42">
 
 <section id="summary">
 
@@ -302,7 +302,7 @@ PEM, которые используются для
 <link url="https://tools.ietf.org/html/rfc8446#section-2.3">early data</link>.
 <note>
 Запросы, отправленные внутри early data, могут быть подвержены
-<link url="https://tools.ietf.org/html/draft-ietf-httpbis-replay-04">атакам повторного воспроизведения</link> (replay).
+<link url="https://tools.ietf.org/html/rfc8470">атакам повторного воспроизведения</link> (replay).
 Для защиты от подобных атак на уровне приложения
 необходимо использовать
 переменную <link id="var_ssl_early_data">$ssl_early_data</link>.
