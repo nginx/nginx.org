@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE article SYSTEM "../../../../dtd/article.dtd">
+
+<article name="Command-line interface"
+        link="/en/docs/njs/cli.html"
+        lang="en"
+        rev="1">
+
+<section>
+<para>
+njs scripts development and debugging can be performed
+from the command-line.
+The command-line utility is available after the installation of
+the Linux <link doc="install.xml" id="install_package">package</link>
+or after building from the
+<link doc="install.xml" id="install_sources">sources</link>.
+Compared to njs running inside nginx,
+nginx objects
+(<link doc="njs_api.xml" id="http">HTTP</link> and
+<link doc="njs_api.xml" id="stream">Stream</link>)
+are not available in the utility.
+<example>
+$ echo "2**3" | njs -
+8
+
+$ njs
+>> var o = {a:[]}
+undefined
+
+>> JSON.stringify(o, undefined,1)
+{
+ "a": [
+
+ ]
+}
+>>
+</example>
+</para>
+
+</section>
+
+</article>

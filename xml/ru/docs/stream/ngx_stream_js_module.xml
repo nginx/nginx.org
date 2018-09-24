@@ -9,20 +9,20 @@
 <module name="Модуль ngx_stream_js_module"
         link="/ru/docs/stream/ngx_stream_js_module.html"
         lang="ru"
-        rev="14">
+        rev="15">
 
 <section id="summary">
 
 <para>
 Модуль <literal>ngx_stream_js_module</literal> позволяет задавать
-обработчики на <link doc="../njs/">njs</link> —
+обработчики на <link doc="../njs/index.xml">njs</link> —
 подмножестве языка JavaScript.
 </para>
 
 <para>
 По умолчанию этот модуль не собирается.
 Инструкция по сборке и установке доступны
-<link doc="../njs/index.xml" id="install">здесь</link>.
+<link doc="../njs/install.xml">здесь</link>.
 </para>
 
 </section>
@@ -36,7 +36,7 @@
 версией njs <link doc="../njs_changes.xml" id="njs-0.2.4">0.2.4</link>.
 Для версий njs <link doc="../njs_changes.xml" id="njs-0.2.3">0.2.3</link>
 и ранее необходимо использовать
-<link doc="../njs_api.xml" id="example_legacy">этот</link> пример.
+<link doc="../examples.xml" id="legacy">этот</link> пример.
 </note>
 <example>
 load_module modules/ngx_stream_js_module.so;

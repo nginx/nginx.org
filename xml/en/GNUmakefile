@@ -125,6 +125,10 @@ REFS =									\
 		njs/index						\
 		njs/njs_changes						\
 		njs/njs_api						\
+		njs/cli							\
+		njs/compatibility					\
+		njs/examples						\
+		njs/install						\
 
 TOP =									\
 		download						\

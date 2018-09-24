@@ -9,365 +9,161 @@
 <article name="njs scripting language"
         link="/en/docs/njs/index.html"
         lang="en"
-        rev="23">
+        rev="24"
+        toc="no">
+
+<section id="links">
+
+<para>
+<list type="bullet">
+
+<listitem>
+<link doc="install.xml"/>
+</listitem>
+
+<listitem>
+<link doc="njs_changes.xml"/>
+</listitem>
+
+<listitem>
+<link doc="njs_api.xml"/>
+</listitem>
+
+<listitem>
+<link doc="examples.xml"/>
+</listitem>
+
+<listitem>
+<link doc="compatibility.xml"/>
+</listitem>
+
+<listitem>
+<link doc="cli.xml"/>
+</listitem>
+
+</list>
+</para>
+
+<para>
+<list type="bullet">
+
+<listitem>
+<link doc="../http/ngx_http_js_module.xml">
+ngx_http_js_module</link>
+</listitem>
+
+<listitem>
+<link doc="../stream/ngx_stream_js_module.xml">
+ngx_stream_js_module</link>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="summary">
 
 <para>
 njs is a subset of the JavaScript language that allows
-implementing location and variable handlers in
-<link doc="../http/ngx_http_js_module.xml">http</link> and
-<link doc="../stream/ngx_stream_js_module.xml">stream</link>.
+extending nginx functionality.
 njs is created in compliance with
 <link url="http://www.ecma-international.org/ecma-262/5.1/">ECMAScript 5.1</link>
 (strict mode) with some
 <link url="http://www.ecma-international.org/ecma-262/6.0/">ECMAScript 6</link>
-extensions.
-The compliance is still evolving.
+and later extensions.
+The compliance is still <link doc="compatibility.xml">evolving</link>.
 </para>
 
 </section>
 
 
-<section id="supported" name="What is currently supported">
+<section id="usecases" name="Use cases">
 
 <para>
 <list type="bullet">
 
 <listitem>
-Boolean values, numbers, strings, objects, arrays,
-functions, and regular expressions
+Complex access control and security checks in njs
+before a request reaches an upstream server
 </listitem>
 
 <listitem>
-ES5.1 operators, ES7 exponentiation operators
+Manipulating response headers
 </listitem>
 
 <listitem>
-ES5.1 statements: <literal>var</literal>, <literal>if</literal>,
-<literal>else</literal>, <literal>switch</literal>, <literal>for</literal>,
-<literal>for in</literal>, <literal>while</literal>,
-<literal>do while</literal>, <literal>break</literal>,
-<literal>continue</literal>, <literal>return</literal>, <literal>try</literal>,
-<literal>catch</literal>, <literal>throw</literal>, <literal>finally</literal>
-</listitem>
-
-<listitem>
-ES6 <literal>Number</literal> and
-<literal>Math</literal> properties and methods
-</listitem>
-
-<listitem>
-<literal>String</literal> methods:
-<list type="bullet">
-
-<listitem>
-ES5.1:
-<literal>fromCharCode</literal>, <literal>concat</literal>,
-<literal>slice</literal>, <literal>substring</literal>,
-<literal>substr</literal>, <literal>charAt</literal>,
-<literal>charCodeAt</literal>, <literal>indexOf</literal>,
-<literal>lastIndexOf</literal>, <literal>toLowerCase</literal>,
-<literal>toUpperCase</literal>, <literal>trim</literal>,
-<literal>search</literal>, <literal>match</literal>, <literal>split</literal>,
-<literal>replace</literal>
-</listitem>
-
-<listitem>
-ES6:
-<literal>fromCodePoint</literal>, <literal>codePointAt</literal>,
-<literal>includes</literal>, <literal>startsWith</literal>,
-<literal>endsWith</literal>, <literal>repeat</literal>
-</listitem>
-
-<listitem>
-non-standard:
-<literal>bytesFrom</literal> (0.2.3)
-<literal>fromUTF8</literal>, <literal>toUTF8</literal>,
-<literal>fromBytes</literal>, <literal>toBytes</literal>
-</listitem>
-</list>
-
-</listitem>
-
-<listitem>
-<literal>Object</literal> methods:
-<list type="bullet">
-<listitem>
-ES5.1:
-<literal>create</literal> (support without properties list),
-<literal>keys</literal>,
-<literal>defineProperty</literal>,
-<literal>defineProperties</literal>,
-<literal>getOwnPropertyDescriptor</literal>,
-<literal>getPrototypeOf</literal>,
-<literal>hasOwnProperty</literal>,
-<literal>isPrototypeOf</literal>,
-<literal>preventExtensions</literal>,
-<literal>isExtensible</literal>,
-<literal>freeze</literal>,
-<literal>isFrozen</literal>,
-<literal>seal</literal>,
-<literal>isSealed</literal>
-</listitem>
-</list>
-
-</listitem>
-
-<listitem>
-<literal>Array</literal> methods:
-<list type="bullet">
-<listitem>
-ES5.1:
-<literal>isArray</literal>, <literal>slice</literal>, <literal>splice</literal>,
-<literal>push</literal>, <literal>pop</literal>, <literal>unshift</literal>,
-<literal>shift</literal>, <literal>reverse</literal>, <literal>sort</literal>,
-<literal>join</literal>, <literal>concat</literal>, <literal>indexOf</literal>,
-<literal>lastIndexOf</literal>, <literal>forEach</literal>,
-<literal>some</literal>, <literal>every</literal>, <literal>filter</literal>,
-<literal>map</literal>, <literal>reduce</literal>,
-<literal>reduceRight</literal>
-</listitem>
-
-<listitem>
-ES6:
-<literal>of</literal>, <literal>fill</literal>, <literal>find</literal>,
-<literal>findIndex</literal>
-</listitem>
-
-<listitem>
-ES7: <literal>includes</literal>
-</listitem>
-</list>
-
-</listitem>
-
-<listitem>
-ES5.1 <literal>Function</literal> methods:
-<literal>call</literal>, <literal>apply</literal>, <literal>bind</literal>
-</listitem>
-
-<listitem>
-ES5.1 <literal>RegExp</literal> methods:
-<literal>test</literal>, <literal>exec</literal>
-</listitem>
-
-<listitem>
-ES5.1 <literal>Date</literal> methods
-</listitem>
-
-<listitem>
-ES5.1 <literal>JSON</literal> object
-</listitem>
-
-<listitem>
-ES5.1 global functions:
-<literal>isFinite</literal>, <literal>isNaN</literal>,
-<literal>parseFloat</literal>, <literal>parseInt</literal>,
-<literal>decodeURI</literal>, <literal>decodeURIComponent</literal>,
-<literal>encodeURI</literal>, <literal>encodeURIComponent</literal>
-</listitem>
-
-<listitem>
-<literal>Error</literal> objects:
-<literal>Error</literal>, <literal>EvalError</literal>,
-<literal>InternalError</literal>, <literal>RangeError</literal>,
-<literal>ReferenceError</literal>, <literal>SyntaxError</literal>,
-<literal>TypeError</literal>, <literal>URIError</literal>
-</listitem>
-
-<listitem>
-<literal>setTimeout()</literal> and <literal>clearTimeout()</literal> functions
-(0.2.0)
-</listitem>
-
-<listitem>
-<link url="https://nodejs.org/api/fs.html#fs_file_system">Node.js style</link>
-<literal>File system</literal> methods:
-<literal>fs.readFile</literal>, <literal>fs.readFileSync</literal>,
-<literal>fs.appendFile</literal>, <literal>fs.appendFileSync</literal>,
-<literal>fs.writeFile</literal>, <literal>fs.writeFileSync</literal>
-</listitem>
-
-<listitem>
-<link url="https://nodejs.org/api/crypto.html#crypto_class_hash">Node.js style</link>
-<literal>Crypto</literal> methods (0.2.0):
-<literal>crypto.createHash</literal>,
-<literal>crypto.createHmac</literal>
-
+Writing flexible asynchronous content handlers and filters
 </listitem>
 
 </list>
+See <link doc="examples.xml">examples</link> and
+<link url="https://www.nginx.com/blog/tag/nginscript/">blog posts</link>
+for more njs use cases.
 </para>
 
 </section>
 
 
-<section id="not_supported" name="What is not supported yet">
+<section id="example" name="Basic HTTP Example">
 
 <para>
+To use njs in nginx:
 <list type="bullet">
 
 <listitem>
-ES6 <literal>let</literal> and <literal>const</literal> declarations
-</listitem>
-
-<listitem>
-labels
-</listitem>
-
-<listitem>
-<literal>arguments</literal> array
-</listitem>
-
-<listitem>
-<literal>eval</literal> function
-</listitem>
-
-<listitem>
-<literal>new Function()</literal> constructor
-</listitem>
-
-<listitem>
-<literal>setInterval</literal>,
-<literal>setImmediate</literal> functions
-</listitem>
-
-<listitem>
-non-integer fractions (<literal>.235</literal>)
-</listitem>
-
-</list>
-</para>
-
-</section>
-
-
-<section id="changelog" name="Change Log">
-
 <para>
-The complete list of njs changes is available
-<link doc="njs_changes.xml">here</link>.
+<link doc="install.xml">install</link> njs scripting language
 </para>
-</section>
-
-
-<section id="njs_api" name="njs API Reference">
-
-<para>
-njs API reference is available
-<link doc="njs_api.xml">here</link>.
-</para>
-</section>
-
-
-<section id="install" name="Download and install">
-
-<para>
-njs is available in two modules:
-<list type="bullet">
-
-<listitem>
-<link doc="../http/ngx_http_js_module.xml">ngx_http_js_module</link>
 </listitem>
 
-<listitem>
-<link doc="../stream/ngx_stream_js_module.xml">ngx_stream_js_module</link>
-</listitem>
-
-</list>
-Both modules are not built by default,
-they should be either compiled from the sources
-or installed as a Linux package.
-In addition, the Linux package provides
-njs command-line <link id="cli">utility</link>.
-</para>
-
-
-<section id="install_package" name="Installing as a Linux package">
+<listitem id="hello_world">
 <para>
-For Linux, njs modules
-<link doc="../../linux_packages.xml" id="dynmodules">packages</link> can be used:
-<list type="bullet">
-
-<listitem>
-<literal>nginx-module-njs</literal> — njs
-<link doc="../ngx_core_module.xml" id="load_module">dynamic</link> modules
-</listitem>
-
-<listitem>
-<literal>nginx-module-njs-dbg</literal> — debug symbols for the
-<literal>nginx-module-njs</literal> package
-</listitem>
-
-</list>
-</para>
-
-</section>
-
-
-<section id="install_sources" name="Building from the sources">
-
-<para>
-The <link url="http://hg.nginx.org/njs">repository</link>
-with njs sources can be cloned with the following command:
-(requires <link url="https://www.mercurial-scm.org">Mercurial</link> client):
+create an njs script file, for example, <path>hello_world.js</path>.
+See <link doc="njs_api.xml">Reference</link>
+for the list of njs properties and methods.
 <example>
-hg clone http://hg.nginx.org/njs
-</example>
-Then the modules should be compiled using the
-<literal>--add-module</literal> configuration parameter:
-<example>
-./configure --add-module=<value>path-to-njs</value>/nginx
-</example>
-The modules can also be built as
-<link doc="../ngx_core_module.xml" id="load_module">dynamic</link>:
-<example>
-./configure --add-dynamic-module=<value>path-to-njs</value>/nginx
-</example>
-</para>
-
-<para>
-To build only njs command-line <link id="cli">utility</link>, run
-<literal>./configure</literal> and <literal>make njs</literal> commands
-from njs root directory.
-The utility is available as <literal>./build/njs</literal>.
-</para>
-
-</section>
-
-</section>
-
-
-<section id="cli" name="Command-line interface">
-
-<para>
-njs scripts development and debugging can be performed
-from the command-line.
-The command-line utility is available after the installation of
-the Linux <link id="install_package">package</link>
-or after building from the <link id="install_sources">sources</link>.
-Compared to njs running inside nginx,
-nginx objects
-(<link doc="njs_api.xml" id="http">HTTP</link> and
-<link doc="njs_api.xml" id="stream">Stream</link>)
-are not available in the utility.
-<example>
-$ echo "2**3" | njs -
-8
-
-$ njs
->> var o = {a:[]}
-undefined
-
->> JSON.stringify(o, undefined,1)
-{
- "a": [
-
- ]
+function hello(r) {
+    r.return(200, “Hello world!”);
 }
->>
 </example>
+</para>
+</listitem>
+
+<listitem>
+
+<para>
+in the <path>nginx.conf</path> file, enable
+<link doc="../http/ngx_http_js_module.xml">ngx_http_js_module</link> module
+and specify the
+<link doc="../http/ngx_http_js_module.xml" id="js_include">js_include</link>
+directive
+with the <path>hello_world.js</path> script file:
+<example>
+load_module modules/ngx_http_js_module.so;
+
+events {}
+
+http {
+    js_include hello_world.js;
+
+    server {
+        listen 8000;
+
+        location / {
+            js_content hello;
+        }
+    }
+}
+
+</example>
+</para>
+</listitem>
+
+</list>
+There is also a standalone <link doc="cli.xml">command line</link> utility
+that can be used independently of nginx for njs development and debugging.
 </para>
 
 </section>

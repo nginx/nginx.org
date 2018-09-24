@@ -9,21 +9,21 @@
 <module name="Модуль ngx_http_js_module"
         link="/ru/docs/http/ngx_http_js_module.html"
         lang="ru"
-        rev="16">
+        rev="17">
 
 <section id="summary">
 
 <para>
 Модуль <literal>ngx_http_js_module</literal> позволяет задавать
 обработчики location и переменных
-на <link doc="../njs/">njs</link> —
+на <link doc="../njs/index.xml">njs</link> —
 подмножестве языка JavaScript.
 </para>
 
 <para>
 По умолчанию этот модуль не собирается.
 Инструкция по сборке и установке доступны
-<link doc="../njs/index.xml" id="install">здесь</link>.
+<link doc="../njs/install.xml">здесь</link>.
 </para>
 
 </section>

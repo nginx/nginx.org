@@ -1,0 +1,242 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE article SYSTEM "../../../../dtd/article.dtd">
+
+<article name="Compatibility"
+        link="/en/docs/njs/compatibility.html"
+        lang="en"
+        rev="1">
+
+<section>
+
+<para>
+njs is created in compliance with
+<link url="http://www.ecma-international.org/ecma-262/5.1/">ECMAScript 5.1</link>
+(strict mode) with some
+<link url="http://www.ecma-international.org/ecma-262/6.0/">ECMAScript 6</link>
+and later extensions.
+The compliance is still evolving.
+</para>
+
+</section>
+
+
+<section id="supported" name="What is currently supported">
+
+<para>
+<list type="bullet">
+
+<listitem>
+Boolean values, numbers, strings, objects, arrays,
+functions, and regular expressions
+</listitem>
+
+<listitem>
+ES5.1 operators, ES7 exponentiation operators
+</listitem>
+
+<listitem>
+ES5.1 statements: <literal>var</literal>, <literal>if</literal>,
+<literal>else</literal>, <literal>switch</literal>, <literal>for</literal>,
+<literal>for in</literal>, <literal>while</literal>,
+<literal>do while</literal>, <literal>break</literal>,
+<literal>continue</literal>, <literal>return</literal>, <literal>try</literal>,
+<literal>catch</literal>, <literal>throw</literal>, <literal>finally</literal>
+</listitem>
+
+<listitem>
+ES6 <literal>Number</literal> and
+<literal>Math</literal> properties and methods
+</listitem>
+
+<listitem>
+<literal>String</literal> methods:
+<list type="bullet">
+
+<listitem>
+ES5.1:
+<literal>fromCharCode</literal>, <literal>concat</literal>,
+<literal>slice</literal>, <literal>substring</literal>,
+<literal>substr</literal>, <literal>charAt</literal>,
+<literal>charCodeAt</literal>, <literal>indexOf</literal>,
+<literal>lastIndexOf</literal>, <literal>toLowerCase</literal>,
+<literal>toUpperCase</literal>, <literal>trim</literal>,
+<literal>search</literal>, <literal>match</literal>, <literal>split</literal>,
+<literal>replace</literal>
+</listitem>
+
+<listitem>
+ES6:
+<literal>fromCodePoint</literal>, <literal>codePointAt</literal>,
+<literal>includes</literal>, <literal>startsWith</literal>,
+<literal>endsWith</literal>, <literal>repeat</literal>
+</listitem>
+
+<listitem>
+non-standard:
+<literal>bytesFrom</literal> (0.2.3)
+<literal>fromUTF8</literal>, <literal>toUTF8</literal>,
+<literal>fromBytes</literal>, <literal>toBytes</literal>
+</listitem>
+</list>
+
+</listitem>
+
+<listitem>
+<literal>Object</literal> methods:
+<list type="bullet">
+<listitem>
+ES5.1:
+<literal>create</literal> (support without properties list),
+<literal>keys</literal>,
+<literal>defineProperty</literal>,
+<literal>defineProperties</literal>,
+<literal>getOwnPropertyDescriptor</literal>,
+<literal>getPrototypeOf</literal>,
+<literal>hasOwnProperty</literal>,
+<literal>isPrototypeOf</literal>,
+<literal>preventExtensions</literal>,
+<literal>isExtensible</literal>,
+<literal>freeze</literal>,
+<literal>isFrozen</literal>,
+<literal>seal</literal>,
+<literal>isSealed</literal>
+</listitem>
+</list>
+
+</listitem>
+
+<listitem>
+<literal>Array</literal> methods:
+<list type="bullet">
+<listitem>
+ES5.1:
+<literal>isArray</literal>, <literal>slice</literal>, <literal>splice</literal>,
+<literal>push</literal>, <literal>pop</literal>, <literal>unshift</literal>,
+<literal>shift</literal>, <literal>reverse</literal>, <literal>sort</literal>,
+<literal>join</literal>, <literal>concat</literal>, <literal>indexOf</literal>,
+<literal>lastIndexOf</literal>, <literal>forEach</literal>,
+<literal>some</literal>, <literal>every</literal>, <literal>filter</literal>,
+<literal>map</literal>, <literal>reduce</literal>,
+<literal>reduceRight</literal>
+</listitem>
+
+<listitem>
+ES6:
+<literal>of</literal>, <literal>fill</literal>, <literal>find</literal>,
+<literal>findIndex</literal>
+</listitem>
+
+<listitem>
+ES7: <literal>includes</literal>
+</listitem>
+</list>
+
+</listitem>
+
+<listitem>
+ES5.1 <literal>Function</literal> methods:
+<literal>call</literal>, <literal>apply</literal>, <literal>bind</literal>
+</listitem>
+
+<listitem>
+ES5.1 <literal>RegExp</literal> methods:
+<literal>test</literal>, <literal>exec</literal>
+</listitem>
+
+<listitem>
+ES5.1 <literal>Date</literal> methods
+</listitem>
+
+<listitem>
+ES5.1 <literal>JSON</literal> object
+</listitem>
+
+<listitem>
+ES5.1 global functions:
+<literal>isFinite</literal>, <literal>isNaN</literal>,
+<literal>parseFloat</literal>, <literal>parseInt</literal>,
+<literal>decodeURI</literal>, <literal>decodeURIComponent</literal>,
+<literal>encodeURI</literal>, <literal>encodeURIComponent</literal>
+</listitem>
+
+<listitem>
+<literal>Error</literal> objects:
+<literal>Error</literal>, <literal>EvalError</literal>,
+<literal>InternalError</literal>, <literal>RangeError</literal>,
+<literal>ReferenceError</literal>, <literal>SyntaxError</literal>,
+<literal>TypeError</literal>, <literal>URIError</literal>
+</listitem>
+
+<listitem>
+<literal>setTimeout()</literal> and <literal>clearTimeout()</literal> functions
+(0.2.0)
+</listitem>
+
+<listitem>
+<link url="https://nodejs.org/api/fs.html#fs_file_system">Node.js style</link>
+<literal>File system</literal> methods:
+<literal>fs.readFile</literal>, <literal>fs.readFileSync</literal>,
+<literal>fs.appendFile</literal>, <literal>fs.appendFileSync</literal>,
+<literal>fs.writeFile</literal>, <literal>fs.writeFileSync</literal>
+</listitem>
+
+<listitem>
+<link url="https://nodejs.org/api/crypto.html#crypto_class_hash">Node.js style</link>
+<literal>Crypto</literal> methods (0.2.0):
+<literal>crypto.createHash</literal>,
+<literal>crypto.createHmac</literal>
+
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+
+<section id="not_supported" name="What is not supported yet">
+
+<para>
+<list type="bullet">
+
+<listitem>
+ES6 <literal>let</literal> and <literal>const</literal> declarations
+</listitem>
+
+<listitem>
+labels
+</listitem>
+
+<listitem>
+<literal>arguments</literal> array
+</listitem>
+
+<listitem>
+<literal>eval</literal> function
+</listitem>
+
+<listitem>
+<literal>new Function()</literal> constructor
+</listitem>
+
+<listitem>
+<literal>setInterval</literal>,
+<literal>setImmediate</literal> functions
+</listitem>
+
+<listitem>
+non-integer fractions (<literal>.235</literal>)
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+</article>
+

@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE article SYSTEM "../../../../dtd/article.dtd">
+
+<article name="Интерфейс командной строки"
+        link="/ru/docs/njs/cli.html"
+        lang="ru"
+        rev="1">
+
+<section>
+<para>
+Создание и отладка njs-скриптов может осуществляться
+в командной строке.
+Утилита командной строки доступна после установки
+<link doc="install.xml" id="install_package">пакета</link> Linux
+или после сборки из
+<link doc="install.xml" id="install_sources">исходных файлов</link>.
+В отличие от njs, запущенном внутри nginx,
+в утилите недоступны объекты nginx
+(<link doc="njs_api.xml" id="http">HTTP</link> и
+<link doc="njs_api.xml" id="stream">Stream</link>).
+<example>
+$ echo "2**3" | njs -
+8
+
+$ njs
+>> var o = {a:[]}
+undefined
+
+>> JSON.stringify(o, undefined,1)
+{
+ "a": [
+
+ ]
+}
+>>
+</example>
+</para>
+
+</section>
+
+</article>

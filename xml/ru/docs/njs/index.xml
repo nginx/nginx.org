@@ -9,365 +9,162 @@
 <article name="Сценарный язык njs"
         link="/ru/docs/njs/index.html"
         lang="ru"
-        rev="23">
+        rev="24"
+        toc="no">
+
+<section id="links">
+
+<para>
+<list type="bullet">
+
+<listitem>
+<link doc="install.xml"/>
+</listitem>
+
+<listitem>
+<link doc="njs_changes.xml">Изменения в njs</link>
+</listitem>
+
+<listitem>
+<link doc="njs_api.xml"/>
+</listitem>
+
+<listitem>
+<link doc="examples.xml"/>
+</listitem>
+
+<listitem>
+<link doc="compatibility.xml"/>
+</listitem>
+
+<listitem>
+<link doc="cli.xml"/>
+</listitem>
+
+</list>
+</para>
+
+<para>
+<list type="bullet">
+
+<listitem>
+<link doc="../http/ngx_http_js_module.xml">
+ngx_http_js_module</link>
+</listitem>
+
+<listitem>
+<link doc="../stream/ngx_stream_js_module.xml">
+ngx_stream_js_module</link>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="summary">
 
 <para>
-njs - это подмножество языка JavaScript, который позволяет
-задавать обработчики location и переменных в
-<link doc="../http/ngx_http_js_module.xml">http</link> и
-<link doc="../stream/ngx_stream_js_module.xml">stream</link>.
+njs - это подмножество языка JavaScript, позволяющее
+расширить функциональность nginx.
 njs совместим с
 <link url="http://www.ecma-international.org/ecma-262/5.1/">ECMAScript 5.1</link>
 (строгий режим) c некоторыми расширениями
-<link url="http://www.ecma-international.org/ecma-262/6.0/">ECMAScript 6</link>.
-Совместимость находится в стадии развития.
+<link url="http://www.ecma-international.org/ecma-262/6.0/">ECMAScript 6</link>
+и позже.
+Совместимость находится в стадии
+<link doc="compatibility.xml">развития</link>.
 </para>
 
 </section>
 
 
-<section id="supported" name="Готовая функциональность">
+<section id="usecases" name="Сценарии использования">
 
 <para>
 <list type="bullet">
 
 <listitem>
-Логические значения, числа, строки, объекты, массивы,
-функции и регулярные выражения
+Комплексное управление доступом и проверка защиты при помощи njs
+до получения запроса сервером группы
 </listitem>
 
 <listitem>
-ES5.1 операторы, ES7 операторы возведения в степень
+Управление заголовками ответа
 </listitem>
 
 <listitem>
-ES5.1 инструкции: <literal>var</literal>, <literal>if</literal>,
-<literal>else</literal>, <literal>switch</literal>, <literal>for</literal>,
-<literal>for in</literal>, <literal>while</literal>,
-<literal>do while</literal>, <literal>break</literal>,
-<literal>continue</literal>, <literal>return</literal>, <literal>try</literal>,
-<literal>catch</literal>, <literal>throw</literal>, <literal>finally</literal>
-</listitem>
-
-<listitem>
-ES6 методы и свойства <literal>Number</literal> и
-<literal>Math</literal>
-</listitem>
-
-<listitem>
-Методы <literal>String</literal>:
-<list type="bullet">
-
-<listitem>
-ES5.1:
-<literal>fromCharCode</literal>, <literal>concat</literal>,
-<literal>slice</literal>, <literal>substring</literal>,
-<literal>substr</literal>, <literal>charAt</literal>,
-<literal>charCodeAt</literal>, <literal>indexOf</literal>,
-<literal>lastIndexOf</literal>, <literal>toLowerCase</literal>,
-<literal>toUpperCase</literal>, <literal>trim</literal>,
-<literal>search</literal>, <literal>match</literal>, <literal>split</literal>,
-<literal>replace</literal>
-</listitem>
-
-<listitem>
-ES6:
-<literal>fromCodePoint</literal>, <literal>codePointAt</literal>,
-<literal>includes</literal>, <literal>startsWith</literal>,
-<literal>endsWith</literal>, <literal>repeat</literal>
-</listitem>
-
-<listitem>
-нестандартные:
-<literal>bytesFrom</literal> (0.2.3),
-<literal>fromUTF8</literal>, <literal>toUTF8</literal>,
-<literal>fromBytes</literal>, <literal>toBytes</literal>
-</listitem>
-</list>
-
-</listitem>
-
-<listitem>
-Методы <literal>Object</literal>:
-<list type="bullet">
-<listitem>
-ES5.1:
-<literal>create</literal> (поддержка без списка свойств),
-<literal>keys</literal>,
-<literal>defineProperty</literal>,
-<literal>defineProperties</literal>,
-<literal>getOwnPropertyDescriptor</literal>,
-<literal>getPrototypeOf</literal>,
-<literal>hasOwnProperty</literal>,
-<literal>isPrototypeOf</literal>,
-<literal>preventExtensions</literal>,
-<literal>isExtensible</literal>,
-<literal>freeze</literal>,
-<literal>isFrozen</literal>,
-<literal>seal</literal>,
-<literal>isSealed</literal>
-</listitem>
-</list>
-
-</listitem>
-
-<listitem>
-Методы <literal>Array</literal>:
-<list type="bullet">
-<listitem>
-ES5.1:
-<literal>isArray</literal>, <literal>slice</literal>, <literal>splice</literal>,
-<literal>push</literal>, <literal>pop</literal>, <literal>unshift</literal>,
-<literal>shift</literal>, <literal>reverse</literal>, <literal>sort</literal>,
-<literal>join</literal>, <literal>concat</literal>, <literal>indexOf</literal>,
-<literal>lastIndexOf</literal>, <literal>forEach</literal>,
-<literal>some</literal>, <literal>every</literal>, <literal>filter</literal>,
-<literal>map</literal>, <literal>reduce</literal>,
-<literal>reduceRight</literal>
-</listitem>
-
-<listitem>
-ES6:
-<literal>of</literal>, <literal>fill</literal>, <literal>find</literal>,
-<literal>findIndex</literal>
-</listitem>
-
-<listitem>
-ES7: <literal>includes</literal>
-</listitem>
-</list>
-
-</listitem>
-
-<listitem>
-ES5.1 методы <literal>Function</literal>:
-<literal>call</literal>, <literal>apply</literal>, <literal>bind</literal>
-</listitem>
-
-<listitem>
-ES5.1 методы <literal>RegExp</literal>:
-<literal>test</literal>, <literal>exec</literal>
-</listitem>
-
-<listitem>
-ES5.1 методы <literal>Date</literal>
-</listitem>
-
-<listitem>
-ES5.1 объект <literal>JSON</literal>
-</listitem>
-
-<listitem>
-ES5.1 глобальные функции:
-<literal>isFinite</literal>, <literal>isNaN</literal>,
-<literal>parseFloat</literal>, <literal>parseInt</literal>,
-<literal>decodeURI</literal>, <literal>decodeURIComponent</literal>,
-<literal>encodeURI</literal>, <literal>encodeURIComponent</literal>
-</listitem>
-
-<listitem>
-Объекты <literal>Error</literal>:
-<literal>Error</literal>, <literal>EvalError</literal>,
-<literal>InternalError</literal>, <literal>RangeError</literal>,
-<literal>ReferenceError</literal>, <literal>SyntaxError</literal>,
-<literal>TypeError</literal>, <literal>URIError</literal>
-</listitem>
-
-<listitem>
-Функции <literal>setTimeout()</literal> и <literal>clearTimeout()</literal>
-(0.2.0)
-</listitem>
-
-<listitem>
-Методы <literal>File system</literal>
-<link url="https://nodejs.org/api/fs.html#fs_file_system">стиль Node.js</link>:
-<literal>fs.readFile</literal>, <literal>fs.readFileSync</literal>,
-<literal>fs.appendFile</literal>, <literal>fs.appendFileSync</literal>,
-<literal>fs.writeFile</literal>, <literal>fs.writeFileSync</literal>
-</listitem>
-
-<listitem>
-Методы <literal>Crypto</literal>
-<link url="https://nodejs.org/api/crypto.html#crypto_class_hash">стиль Node.js</link>
-(0.2.0):
-<literal>crypto.createHash</literal>,
-<literal>crypto.createHmac</literal>
+Создание гибких асинхронных обработчиков содержимого и фильтров
 </listitem>
 
 </list>
+Подробнее о сценариях использования
+см. в <link doc="examples.xml">примерах</link>
+и <link url="https://www.nginx.com/blog/tag/nginscript/">блогпостах</link>.
 </para>
 
 </section>
 
 
-<section id="not_supported" name="Функциональность в разработке">
+<section id="example" name="Базовый пример HTTP">
 
 <para>
+Чтобы использовать njs в nginx, необходимо:
 <list type="bullet">
 
 <listitem>
-ES6 объявления <literal>let</literal> и <literal>const</literal>
-</listitem>
-
-<listitem>
-labels
-</listitem>
-
-<listitem>
-массив <literal>arguments</literal>
-</listitem>
-
-<listitem>
-функция <literal>eval</literal>
-</listitem>
-
-<listitem>
-конструктор <literal>new Function()</literal>
-</listitem>
-
-<listitem>
-функции <literal>setInterval</literal>,
-<literal>setImmediate</literal>
-</listitem>
-
-<listitem>
-дроби без целой части (<literal>.235</literal>)
-</listitem>
-
-</list>
-</para>
-
-</section>
-
-
-<section id="changelog" name="История изменений">
-
 <para>
-Полная история изменений njs доступна
-<link doc="njs_changes.xml">здесь</link>.
+<link doc="install.xml">установить</link> njs
 </para>
-</section>
-
-<section id="njs_api" name="Справочник njs API">
-
-<para>
-Справочник njs API доступен
-<link doc="njs_api.xml">здесь</link>.
-</para>
-</section>
-
-
-<section id="install" name="Загрузка и установка">
-
-<para>
-njs доступен в двух модулях:
-<list type="bullet">
-
-<listitem>
-<link doc="../http/ngx_http_js_module.xml">ngx_http_js_module</link>
 </listitem>
 
-<listitem>
-<link doc="../stream/ngx_stream_js_module.xml">ngx_stream_js_module</link>
-</listitem>
-
-</list>
-По умолчанию модули не собираются
-их необходимо собрать из исходного кода
-или установить из отдельного пакета Linux.
-Кроме того, в пакете Linux предоставляется
-<link id="cli">утилита</link> командной строки njs.
-</para>
-
-
-<section id="install_package" name="Установка пакета Linux">
+<listitem id="hello_world">
 <para>
-Для установки модулей njs на Linux могут быть использованы
-<link doc="../../linux_packages.xml" id="dynmodules">пакеты</link>:
-<list type="bullet">
-
-<listitem>
-<literal>nginx-module-njs</literal> —
-<link doc="../ngx_core_module.xml" id="load_module">динамические</link> модули
-njs
-</listitem>
-
-<listitem>
-<literal>nginx-module-njs-dbg</literal> — debug-символы для
-пакета <literal>nginx-module-njs</literal>
-</listitem>
-
-</list>
-</para>
-
-</section>
-
-
-<section id="install_sources" name="Установка из исходных файлов">
-
-<para>
-<link url="http://hg.nginx.org/njs">Репозиторий</link>
-с исходным кодом njs можно клонировать следующей командой:
-(необходим клиент <link url="https://www.mercurial-scm.org">Mercurial</link>):
+создать файл сценария njs, например <path>hello_world.js</path>.
+Описание свойств и методов языка njs
+см. в <link doc="njs_api.xml">справочнике</link>.
 <example>
-hg clone http://hg.nginx.org/njs
-</example>
-Затем модули необходимо собрать с помощью
-конфигурационного параметра <literal>--add-module</literal>:
-<example>
-./configure --add-module=<value>path-to-njs</value>/nginx
-</example>
-Модули также можно собрать как
-<link doc="../ngx_core_module.xml" id="load_module">динамические</link>:
-<example>
-./configure --add-dynamic-module=<value>path-to-njs</value>/nginx
-</example>
-</para>
-
-<para>
-Чтобы собрать только <link id="cli">утилиту</link> командной строки njs
-необходимо запустить
-команды <literal>./configure</literal> и <literal>make njs</literal>
-из корневого каталога.
-Утилита доступна как <literal>./build/njs</literal>.
-</para>
-
-</section>
-
-
-<section id="cli" name="Интерфейс командной строки">
-
-<para>
-Создание и отладка njs-скриптов может осуществляться
-в командной строке.
-Утилита командной строки доступна после установки
-<link id="install_package">пакета</link> Linux
-или после сборки из <link id="install_sources">исходных файлов</link>.
-В отличие от njs, запущенном внутри nginx,
-в утилите недоступны объекты nginx
-(<link doc="njs_api.xml" id="http">HTTP</link> и
-<link doc="njs_api.xml" id="stream">Stream</link>).
-<example>
-$ echo "2**3" | njs -
-8
-
-$ njs
->> var o = {a:[]}
-undefined
-
->> JSON.stringify(o, undefined,1)
-{
- "a": [
-
- ]
+function hello(r) {
+    r.return(200, “Hello world!”);
 }
->>
 </example>
 </para>
+</listitem>
 
-</section>
+<listitem>
+
+<para>
+в файле <path>nginx.conf</path> включить
+модуль <link doc="../http/ngx_http_js_module.xml">ngx_http_js_module</link>
+и указать директиву
+<link doc="../http/ngx_http_js_module.xml" id="js_include">js_include</link>
+с файлом сценария <path>hello_world.js</path>:
+<example>
+load_module modules/ngx_http_js_module.so;
+
+events {}
+
+http {
+    js_include hello_world.js;
+
+    server {
+        listen 8000;
+
+        location / {
+            js_content hello;
+        }
+    }
+}
+
+</example>
+</para>
+</listitem>
+
+</list>
+ Также доступна отдельная утилита <link doc="cli.xml">командной строки</link>,
+которая может использоваться независимо от nginx для разработки и отладки njs.
+</para>
 
 </section>
 

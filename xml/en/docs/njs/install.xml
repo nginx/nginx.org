@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE article SYSTEM "../../../../dtd/article.dtd">
+
+<article name="Download and install"
+        link="/en/docs/njs/install.html"
+        lang="en"
+        rev="1">
+
+<section id="install_package" name="Installing as a Linux package">
+
+<para>
+For Linux, njs modules
+<link doc="../../linux_packages.xml" id="dynmodules">packages</link> can be used:
+<list type="bullet">
+
+<listitem>
+<literal>nginx-module-njs</literal> — njs
+<link doc="../ngx_core_module.xml" id="load_module">dynamic</link> modules
+</listitem>
+
+<listitem>
+<literal>nginx-module-njs-dbg</literal> — debug symbols for the
+<literal>nginx-module-njs</literal> package
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+
+<section id="install_sources" name="Building from the sources">
+
+<para>
+The <link url="http://hg.nginx.org/njs">repository</link>
+with njs sources can be cloned with the following command:
+(requires <link url="https://www.mercurial-scm.org">Mercurial</link> client):
+<example>
+hg clone http://hg.nginx.org/njs
+</example>
+Then the modules should be compiled using the
+<literal>--add-module</literal> configuration parameter:
+<example>
+./configure --add-module=<value>path-to-njs</value>/nginx
+</example>
+The modules can also be built as
+<link doc="../ngx_core_module.xml" id="load_module">dynamic</link>:
+<example>
+./configure --add-dynamic-module=<value>path-to-njs</value>/nginx
+</example>
+</para>
+
+<para>
+To build only njs command-line <link doc="cli.xml">utility</link>, run
+<literal>./configure</literal> and <literal>make njs</literal> commands
+from njs root directory.
+The utility is available as <literal>./build/njs</literal>.
+</para>
+
+</section>
+
+</article>

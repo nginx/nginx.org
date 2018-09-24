@@ -9,20 +9,20 @@
 <module name="Module ngx_stream_js_module"
         link="/en/docs/stream/ngx_stream_js_module.html"
         lang="en"
-        rev="14">
+        rev="15">
 
 <section id="summary">
 
 <para>
 The <literal>ngx_stream_js_module</literal> module is used to implement
-handlers in <link doc="../njs/">njs</link> —
+handlers in <link doc="../njs/index.xml">njs</link> —
 a subset of the JavaScript language.
 </para>
 
 <para>
 This module is not built by default.
 Download and install instructions are available
-<link doc="../njs/index.xml" id="install">here</link>.
+<link doc="../njs/install.xml">here</link>.
 </para>
 
 </section>
@@ -36,7 +36,7 @@ This example is valid for
 njs <link doc="../njs/njs_changes.xml" id="njs-0.2.4">0.2.4</link>.
 For njs <link doc="../njs/njs_changes.xml" id="njs-0.2.3">0.2.3</link>
 and earlier, use
-<link doc="../njs/njs_api.xml" id="example_legacy">this</link> example.
+<link doc="../njs/examples.xml" id="legacy">this</link> example.
 </note>
 <example>
 load_module modules/ngx_stream_js_module.so;
