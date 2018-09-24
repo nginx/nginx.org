@@ -9,7 +9,7 @@
 <article name="Интерфейс командной строки"
         link="/ru/docs/njs/cli.html"
         lang="ru"
-        rev="1">
+        rev="2">
 
 <section>
 <para>
@@ -21,8 +21,8 @@
 <link doc="install.xml" id="install_sources">исходных файлов</link>.
 В отличие от njs, запущенном внутри nginx,
 в утилите недоступны объекты nginx
-(<link doc="njs_api.xml" id="http">HTTP</link> и
-<link doc="njs_api.xml" id="stream">Stream</link>).
+(<link doc="reference.xml" id="http">HTTP</link> и
+<link doc="reference.xml" id="stream">Stream</link>).
 <example>
 $ echo "2**3" | njs -
 8

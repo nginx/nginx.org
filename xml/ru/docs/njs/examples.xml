@@ -9,7 +9,7 @@
 <article name="Примеры использования"
         link="/ru/docs/njs/examples.html"
         lang="ru"
-        rev="1">
+        rev="2">
 
 <section id="helloword" name="Hello World">
 
@@ -311,11 +311,11 @@ function create_secure_link(r) {
 <section id="legacy_stream" name="Внедрение HTTP-заголовка при помощи stream proxy">
 
 <para>
-Начиная с версии njs <link doc="../njs/njs_changes.xml" id="njs0.2.4">0.2.4</link>
+Начиная с версии njs <link doc="../njs/changes.xml" id="njs0.2.4">0.2.4</link>
 <link doc="../stream/ngx_stream_js_module.xml" id="example">пример</link>
 конфигурации в stream
 был изменён.
-Для njs <link doc="../njs/njs_changes.xml" id="njs0.2.3">0.2.3</link>
+Для njs <link doc="../njs/changes.xml" id="njs0.2.3">0.2.3</link>
 и более ранних версий необходимо использовать следующий пример конфигурации:
 <example>
 load_module modules/ngx_stream_js_module.so;

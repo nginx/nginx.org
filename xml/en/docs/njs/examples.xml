@@ -9,7 +9,7 @@
 <article name="Examples"
         link="/en/docs/njs/examples.html"
         lang="en"
-        rev="1">
+        rev="2">
 
 <section id="helloword" name="Hello World">
 
@@ -311,11 +311,11 @@ function create_secure_link(r) {
 <section id="legacy_stream" name="Injecting HTTP header using stream proxy">
 
 <para>
-Starting from njs <link doc="../njs/njs_changes.xml" id="njs0.2.4">0.2.4</link>,
+Starting from njs <link doc="../njs/changes.xml" id="njs0.2.4">0.2.4</link>,
 stream configuration
 <link doc="../stream/ngx_stream_js_module.xml" id="example">example</link>
 has been changed.
-For njs <link doc="../njs/njs_changes.xml" id="njs0.2.3">0.2.3</link>
+For njs <link doc="../njs/changes.xml" id="njs0.2.3">0.2.3</link>
 and earlier, use this configuration example:
 <example>
 load_module modules/ngx_stream_js_module.so;

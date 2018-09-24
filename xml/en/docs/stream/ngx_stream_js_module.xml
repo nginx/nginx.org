@@ -33,8 +33,8 @@ Download and install instructions are available
 <para>
 <note>
 This example is valid for
-njs <link doc="../njs/njs_changes.xml" id="njs-0.2.4">0.2.4</link>.
-For njs <link doc="../njs/njs_changes.xml" id="njs-0.2.3">0.2.3</link>
+njs <link doc="../njs/changes.xml" id="njs0.2.4">0.2.4</link>.
+For njs <link doc="../njs/changes.xml" id="njs0.2.3">0.2.3</link>
 and earlier, use
 <link doc="../njs/examples.xml" id="legacy">this</link> example.
 </note>
@@ -208,7 +208,7 @@ Sets an njs function for the specified variable.
 
 <para>
 Each stream njs handler receives one argument, a stream session
-<link doc="../njs/njs_api.xml" id="stream_session">object</link>.
+<link doc="../njs/reference.xml" id="stream">object</link>.
 </para>
 
 </section>

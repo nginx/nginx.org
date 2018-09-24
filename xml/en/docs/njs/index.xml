@@ -9,7 +9,7 @@
 <article name="njs scripting language"
         link="/en/docs/njs/index.html"
         lang="en"
-        rev="24"
+        rev="25"
         toc="no">
 
 <section id="links">
@@ -22,11 +22,11 @@
 </listitem>
 
 <listitem>
-<link doc="njs_changes.xml"/>
+<link doc="changes.xml"/>
 </listitem>
 
 <listitem>
-<link doc="njs_api.xml"/>
+<link doc="reference.xml"/>
 </listitem>
 
 <listitem>
@@ -121,7 +121,7 @@ To use njs in nginx:
 <listitem id="hello_world">
 <para>
 create an njs script file, for example, <path>hello_world.js</path>.
-See <link doc="njs_api.xml">Reference</link>
+See <link doc="reference.xml">Reference</link>
 for the list of njs properties and methods.
 <example>
 function hello(r) {

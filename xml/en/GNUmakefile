@@ -123,12 +123,12 @@ REFS =									\
 		ngx_google_perftools_module				\
 		dev/development_guide					\
 		njs/index						\
-		njs/njs_changes						\
-		njs/njs_api						\
+		njs/changes						\
 		njs/cli							\
 		njs/compatibility					\
 		njs/examples						\
 		njs/install						\
+		njs/reference						\
 
 TOP =									\
 		download						\

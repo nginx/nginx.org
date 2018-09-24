@@ -9,7 +9,7 @@
 <article name="Сценарный язык njs"
         link="/ru/docs/njs/index.html"
         lang="ru"
-        rev="24"
+        rev="25"
         toc="no">
 
 <section id="links">
@@ -22,11 +22,11 @@
 </listitem>
 
 <listitem>
-<link doc="njs_changes.xml">Изменения в njs</link>
+<link doc="changes.xml">Изменения в njs</link>
 </listitem>
 
 <listitem>
-<link doc="njs_api.xml"/>
+<link doc="reference.xml"/>
 </listitem>
 
 <listitem>
@@ -123,7 +123,7 @@ njs совместим с
 <para>
 создать файл сценария njs, например <path>hello_world.js</path>.
 Описание свойств и методов языка njs
-см. в <link doc="njs_api.xml">справочнике</link>.
+см. в <link doc="reference.xml">справочнике</link>.
 <example>
 function hello(r) {
     r.return(200, “Hello world!”);

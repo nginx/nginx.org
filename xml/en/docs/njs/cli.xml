@@ -9,7 +9,7 @@
 <article name="Command-line interface"
         link="/en/docs/njs/cli.html"
         lang="en"
-        rev="1">
+        rev="2">
 
 <section>
 <para>
@@ -21,8 +21,8 @@ or after building from the
 <link doc="install.xml" id="install_sources">sources</link>.
 Compared to njs running inside nginx,
 nginx objects
-(<link doc="njs_api.xml" id="http">HTTP</link> and
-<link doc="njs_api.xml" id="stream">Stream</link>)
+(<link doc="reference.xml" id="http">HTTP</link> and
+<link doc="reference.xml" id="stream">Stream</link>)
 are not available in the utility.
 <example>
 $ echo "2**3" | njs -
