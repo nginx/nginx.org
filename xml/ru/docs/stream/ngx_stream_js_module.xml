@@ -9,20 +9,20 @@
 <module name="Модуль ngx_stream_js_module"
         link="/ru/docs/stream/ngx_stream_js_module.html"
         lang="ru"
-        rev="13">
+        rev="14">
 
 <section id="summary">
 
 <para>
 Модуль <literal>ngx_stream_js_module</literal> позволяет задавать
-обработчики на <link doc="../njs_about.xml">njs</link> —
+обработчики на <link doc="../njs/">njs</link> —
 подмножестве языка JavaScript.
 </para>
 
 <para>
 По умолчанию этот модуль не собирается.
 Инструкция по сборке и установке доступны
-<link doc="../njs_about.xml" id="install">здесь</link>.
+<link doc="../njs/index.xml" id="install">здесь</link>.
 </para>
 
 </section>

@@ -24,7 +24,6 @@ DOCS =									\
 		contributing_changes					\
 		beginners_guide						\
 		configure						\
-		njs_about						\
 
 FAQ =									\
 		welcome_nginx_facebook					\
@@ -123,6 +122,7 @@ REFS =									\
 		stream/stream_processing				\
 		ngx_google_perftools_module				\
 		dev/development_guide					\
+		njs/index						\
 		njs/njs_changes						\
 		njs/njs_api						\
 

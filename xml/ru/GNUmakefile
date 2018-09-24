@@ -19,7 +19,6 @@ DOCS =									\
 		contributing_changes					\
 		beginners_guide						\
 		configure						\
-		njs_about						\
 
 FAQ =									\
 		sys_errlist						\
@@ -107,6 +106,7 @@ REFS =									\
 		stream/ngx_stream_upstream_hc_module			\
 		stream/stream_processing				\
 		ngx_google_perftools_module				\
+		njs/index						\
 		njs/njs_api						\
 
 TOP =									\

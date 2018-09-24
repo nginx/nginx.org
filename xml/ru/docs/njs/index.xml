@@ -4,20 +4,20 @@
   Copyright (C) Nginx, Inc.
   -->
 
-<!DOCTYPE article SYSTEM "../../../dtd/article.dtd">
+<!DOCTYPE article SYSTEM "../../../../dtd/article.dtd">
 
-<article name="Информация о njs"
-        link="/ru/docs/njs_about.html"
+<article name="Сценарный язык njs"
+        link="/ru/docs/njs/index.html"
         lang="ru"
-        rev="22">
+        rev="23">
 
 <section id="summary">
 
 <para>
 njs - это подмножество языка JavaScript, который позволяет
 задавать обработчики location и переменных в
-<link doc="http/ngx_http_js_module.xml">http</link> и
-<link doc="stream/ngx_stream_js_module.xml">stream</link>.
+<link doc="../http/ngx_http_js_module.xml">http</link> и
+<link doc="../stream/ngx_stream_js_module.xml">stream</link>.
 njs совместим с
 <link url="http://www.ecma-international.org/ecma-262/5.1/">ECMAScript 5.1</link>
 (строгий режим) c некоторыми расширениями
@@ -246,7 +246,7 @@ labels
 
 <para>
 Полная история изменений njs доступна
-<link doc="njs/njs_changes.xml">здесь</link>.
+<link doc="njs_changes.xml">здесь</link>.
 </para>
 </section>
 
@@ -254,7 +254,7 @@ labels
 
 <para>
 Справочник njs API доступен
-<link doc="njs/njs_api.xml">здесь</link>.
+<link doc="njs_api.xml">здесь</link>.
 </para>
 </section>
 
@@ -266,11 +266,11 @@ njs доступен в двух модулях:
 <list type="bullet">
 
 <listitem>
-<link doc="http/ngx_http_js_module.xml">ngx_http_js_module</link>
+<link doc="../http/ngx_http_js_module.xml">ngx_http_js_module</link>
 </listitem>
 
 <listitem>
-<link doc="stream/ngx_stream_js_module.xml">ngx_stream_js_module</link>
+<link doc="../stream/ngx_stream_js_module.xml">ngx_stream_js_module</link>
 </listitem>
 
 </list>
@@ -285,12 +285,12 @@ njs доступен в двух модулях:
 <section id="install_package" name="Установка пакета Linux">
 <para>
 Для установки модулей njs на Linux могут быть использованы
-<link doc="../linux_packages.xml" id="dynmodules">пакеты</link>:
+<link doc="../../linux_packages.xml" id="dynmodules">пакеты</link>:
 <list type="bullet">
 
 <listitem>
 <literal>nginx-module-njs</literal> —
-<link doc="ngx_core_module.xml" id="load_module">динамические</link> модули
+<link doc="../ngx_core_module.xml" id="load_module">динамические</link> модули
 njs
 </listitem>
 
@@ -320,7 +320,7 @@ hg clone http://hg.nginx.org/njs
 ./configure --add-module=<value>path-to-njs</value>/nginx
 </example>
 Модули также можно собрать как
-<link doc="ngx_core_module.xml" id="load_module">динамические</link>:
+<link doc="../ngx_core_module.xml" id="load_module">динамические</link>:
 <example>
 ./configure --add-dynamic-module=<value>path-to-njs</value>/nginx
 </example>
@@ -347,8 +347,8 @@ hg clone http://hg.nginx.org/njs
 или после сборки из <link id="install_sources">исходных файлов</link>.
 В отличие от njs, запущенном внутри nginx,
 в утилите недоступны объекты nginx
-(<link doc="njs/njs_api.xml" id="http">HTTP</link> и
-<link doc="njs/njs_api.xml" id="stream">Stream</link>).
+(<link doc="njs_api.xml" id="http">HTTP</link> и
+<link doc="njs_api.xml" id="stream">Stream</link>).
 <example>
 $ echo "2**3" | njs -
 8
