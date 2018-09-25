@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_ssl_module"
         link="/ru/docs/http/ngx_http_ssl_module.html"
         lang="ru"
-        rev="42">
+        rev="43">
 
 <section id="summary">
 
@@ -313,7 +313,7 @@ proxy_set_header Early-Data $ssl_early_data;
 </example>
 
 <note>
-Директива поддерживается только при использовании библиотеки
+Директива поддерживается при использовании OpenSSL 1.1.1 и выше (1.15.4) или
 <link url="https://boringssl.googlesource.com/boringssl/">BoringSSL</link>.
 </note>
 </para>
@@ -919,10 +919,6 @@ AES128-SHA:AES256-SHA:0x00ff
 возвращает “<literal>1</literal>”, если
 используется TLS 1.3 <link id="ssl_early_data">early data</link>
 и операция handshake не завершена, иначе “” (1.15.3).
-<note>
-Переменная поддерживается только при использовании библиотеки
-<link url="https://boringssl.googlesource.com/boringssl/">BoringSSL</link>.
-</note>
 </tag-desc>
 
 <tag-name id="var_ssl_protocol"><var>$ssl_protocol</var></tag-name>
