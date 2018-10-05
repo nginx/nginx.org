@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE article SYSTEM "../../../../dtd/article.dtd">
+
+<article name="Загрузка и установка"
+        link="/ru/docs/njs/install.html"
+        lang="ru"
+        rev="1">
+
+<section id="install_package" name="Установка пакета Linux">
+
+<para>
+Для установки модулей njs на Linux могут быть использованы
+<link doc="../../linux_packages.xml" id="dynmodules">пакеты</link>:
+<list type="bullet">
+
+<listitem>
+<literal>nginx-module-njs</literal> —
+<link doc="../ngx_core_module.xml" id="load_module">динамические</link> модули
+njs
+</listitem>
+
+<listitem>
+<literal>nginx-module-njs-dbg</literal> — debug-символы для
+пакета <literal>nginx-module-njs</literal>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+
+<section id="install_sources" name="Установка из исходных файлов">
+
+<para>
+<link url="http://hg.nginx.org/njs">Репозиторий</link>
+с исходным кодом njs можно клонировать следующей командой:
+(необходим клиент <link url="https://www.mercurial-scm.org">Mercurial</link>):
+<example>
+hg clone http://hg.nginx.org/njs
+</example>
+Затем модули необходимо собрать с помощью
+конфигурационного параметра <literal>--add-module</literal>:
+<example>
+./configure --add-module=<value>path-to-njs</value>/nginx
+</example>
+Модули также можно собрать как
+<link doc="../ngx_core_module.xml" id="load_module">динамические</link>:
+<example>
+./configure --add-dynamic-module=<value>path-to-njs</value>/nginx
+</example>
+</para>
+
+<para>
+Чтобы собрать только <link doc="cli.xml">утилиту</link> командной строки njs
+необходимо запустить
+команды <literal>./configure</literal> и <literal>make njs</literal>
+из корневого каталога.
+Утилита доступна как <literal>./build/njs</literal>.
+</para>
+
+</section>
+
+</article>
