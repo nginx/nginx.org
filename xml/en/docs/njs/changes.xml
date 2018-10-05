@@ -9,7 +9,7 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="8"
+        rev="9"
         toc="no">
 
 <section id="njs0.2.4" name="Changes with 0.2.4">
@@ -31,33 +31,33 @@ stream module handlers refactored.
 
 <para>
 New methods and properties:
-<link doc="njs_api.xml" id="s_on">s.on()</link>,
-<link doc="njs_api.xml" id="s_off">s.off()</link>,
-<link doc="njs_api.xml" id="s_allow">s.allow()</link>,
-<link doc="njs_api.xml" id="s_done">s.done()</link>,
-<link doc="njs_api.xml" id="s_decline">s.decline()</link>,
-<link doc="njs_api.xml" id="s_deny">s.deny()</link>.
+<link doc="reference.xml" id="s_on">s.on()</link>,
+<link doc="reference.xml" id="s_off">s.off()</link>,
+<link doc="reference.xml" id="s_allow">s.allow()</link>,
+<link doc="reference.xml" id="s_done">s.done()</link>,
+<link doc="reference.xml" id="s_decline">s.decline()</link>,
+<link doc="reference.xml" id="s_deny">s.deny()</link>.
 </para>
 
 <para>
 Removed properties of the
-<link doc="njs_api.xml" id="stream">Stream</link> object:
+<link doc="reference.xml" id="stream">Stream</link> object:
 <literal>s.OK</literal>,
 <literal>s.ABORT</literal>,
 <literal>s.AGAIN</literal>,
 <literal>s.DECLINED</literal>,
 <literal>s.ERROR</literal>
 (replaced with
-<link doc="njs_api.xml" id="s_allow">s.allow()</link>,
-<link doc="njs_api.xml" id="s_done">s.done()</link>,
-<link doc="njs_api.xml" id="s_deny">s.deny()</link>).
+<link doc="reference.xml" id="s_allow">s.allow()</link>,
+<link doc="reference.xml" id="s_done">s.done()</link>,
+<link doc="reference.xml" id="s_deny">s.deny()</link>).
 </para>
 
 <para>
 <literal>s.buffer</literal>
 (for reading replaced with data argument of
 the corresponding callback, for writing use
-<link doc="njs_api.xml" id="s_send">s.send()</link>).
+<link doc="reference.xml" id="s_send">s.send()</link>).
 </para>
 
 <para>
@@ -68,7 +68,7 @@ the corresponding callback, for writing use
 <para>
 <literal>s.eof</literal>
 (replaced with <literal></literal>
-<link doc="njs_api.xml" id="s_on_callback_last">flags.last</link>).
+<link doc="reference.xml" id="s_on_callback_last">flags.last</link>).
 </para>
 
 </listitem>
@@ -208,7 +208,7 @@ a segmentation fault.
 <para>
 Bugfix:
 getting the parent property of the main
-<link doc="njs_api.xml" id="http">HTTP Request</link>
+<link doc="reference.xml" id="http">HTTP Request</link>
 object caused a segmentation fault.
 </para>
 </listitem>
@@ -244,7 +244,7 @@ correctly parsing floating point numbers.
 <listitem>
 <para>
 Feature:
-<link doc="njs_api.xml" id="string_bytesfrom">String.bytesFrom()</link> method
+<link doc="reference.xml" id="string_bytesfrom">String.bytesFrom()</link> method
 (decoding <literal>hex</literal>,
 <literal>base64</literal>,
 <literal>base64url</literal> into a byte string).
@@ -254,8 +254,8 @@ Feature:
 <listitem>
 <para>
 Feature:
-<link doc="njs_api.xml" id="string_padstart">String.padStart()</link> and
-<link doc="njs_api.xml" id="string_padend">String.padEnd()</link> methods.
+<link doc="reference.xml" id="string_padstart">String.padStart()</link> and
+<link doc="reference.xml" id="string_padend">String.padEnd()</link> methods.
 </para>
 </listitem>
 
@@ -357,7 +357,7 @@ nginx modules:
 <para>
 Change:
 merged HTTP <literal>Response</literal> and <literal>Reply</literal>
-into <link doc="njs_api.xml" id="http">HTTP Request</link>.
+into <link doc="reference.xml" id="http">HTTP Request</link>.
 New members of <literal>Request</literal>:
 
 <list type="bullet">
@@ -455,7 +455,7 @@ The deprecated properties will be removed in next releases.
 <listitem>
 <para>
 Feature:
-HTTP <link doc="njs_api.xml" id="r_internal_redirect">internalRedirect()</link>
+HTTP <link doc="reference.xml" id="r_internal_redirect">internalRedirect()</link>
 method.
 </para>
 </listitem>
