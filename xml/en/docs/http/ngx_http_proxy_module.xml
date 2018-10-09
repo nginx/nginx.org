@@ -10,7 +10,7 @@
 <module name="Module ngx_http_proxy_module"
         link="/en/docs/http/ngx_http_proxy_module.html"
         lang="en"
-        rev="64">
+        rev="65">
 
 <section id="summary">
 
@@ -1839,6 +1839,25 @@ field will not be passed to a proxied server:
 <example>
 proxy_set_header Accept-Encoding "";
 </example>
+</para>
+
+</directive>
+
+
+<directive name="proxy_socket_keepalive">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.15.6</appeared-in>
+
+<para>
+Configures the “TCP keepalive” behavior
+for outgoing connections to a proxied server.
+By default, the operating system’s settings are in effect for the socket.
+If the directive is set to the value “<literal>on</literal>”, the
+<c-def>SO_KEEPALIVE</c-def> socket option is turned on for the socket.
 </para>
 
 </directive>

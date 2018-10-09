@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_proxy_module"
         link="/en/docs/stream/ngx_stream_proxy_module.html"
         lang="en"
-        rev="20">
+        rev="21">
 
 <section id="summary">
 
@@ -264,6 +264,24 @@ if the <link doc="ngx_stream_core_module.xml" id="udp">UDP</link>
 protocol is used.
 The number serves as a hint for session termination.
 By default, the number of datagrams is not limited.
+</para>
+
+</directive>
+
+
+<directive name="proxy_socket_keepalive">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.15.6</appeared-in>
+
+<para>
+Configures the “TCP keepalive” behavior
+for outgoing connections to a proxied server.
+By default, the operating system’s settings are in effect for the socket.
+If the directive is set to the value “<literal>on</literal>”, the
+<c-def>SO_KEEPALIVE</c-def> socket option is turned on for the socket.
 </para>
 
 </directive>

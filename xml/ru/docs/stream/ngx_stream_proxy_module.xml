@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_proxy_module"
         link="/ru/docs/stream/ngx_stream_proxy_module.html"
         lang="ru"
-        rev="20">
+        rev="21">
 
 <section id="summary">
 
@@ -266,6 +266,24 @@ PROXY</link> для соединений с проксируемым серве�
 <link doc="ngx_stream_core_module.xml" id="udp">UDP</link>.
 Задаваемое число cлужит подсказкой для завершения сессии.
 По умолчанию количество датаграмм не ограничено.
+</para>
+
+</directive>
+
+
+<directive name="proxy_socket_keepalive">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.15.6</appeared-in>
+
+<para>
+Конфигурирует поведение “TCP keepalive”
+для исходящих соединений к проксируемому серверу.
+По умолчанию для сокета действуют настройки операционной системы.
+Если указано значение “<literal>on</literal>”, то
+для сокета включается параметр <c-def>SO_KEEPALIVE</c-def>.
 </para>
 
 </directive>

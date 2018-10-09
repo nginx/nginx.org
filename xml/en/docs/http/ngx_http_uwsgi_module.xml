@@ -10,7 +10,7 @@
 <module name="Module ngx_http_uwsgi_module"
         link="/en/docs/http/ngx_http_uwsgi_module.html"
         lang="en"
-        rev="42">
+        rev="43">
 
 <section id="summary">
 
@@ -1347,6 +1347,25 @@ The timeout is set only between two successive write operations,
 not for the transmission of the whole request.
 If the uwsgi server does not receive anything within this time,
 the connection is closed.
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_socket_keepalive">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.15.6</appeared-in>
+
+<para>
+Configures the “TCP keepalive” behavior
+for outgoing connections to a uwsgi server.
+By default, the operating system’s settings are in effect for the socket.
+If the directive is set to the value “<literal>on</literal>”, the
+<c-def>SO_KEEPALIVE</c-def> socket option is turned on for the socket.
 </para>
 
 </directive>

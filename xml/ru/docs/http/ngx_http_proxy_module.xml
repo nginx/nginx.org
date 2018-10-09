@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_proxy_module"
         link="/ru/docs/http/ngx_http_proxy_module.html"
         lang="ru"
-        rev="64">
+        rev="65">
 
 <section id="summary">
 
@@ -1842,6 +1842,25 @@ proxy_set_header Host       $host:$proxy_port;
 <example>
 proxy_set_header Accept-Encoding "";
 </example>
+</para>
+
+</directive>
+
+
+<directive name="proxy_socket_keepalive">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.15.6</appeared-in>
+
+<para>
+Конфигурирует поведение “TCP keepalive”
+для исходящих соединений к проксируемому серверу.
+По умолчанию для сокета действуют настройки операционной системы.
+Если указано значение “<literal>on</literal>”, то
+для сокета включается параметр <c-def>SO_KEEPALIVE</c-def>.
 </para>
 
 </directive>
