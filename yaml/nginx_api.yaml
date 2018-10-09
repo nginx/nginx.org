@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: '2.0'
+  version: '3.0'
   title: NGINX Plus REST API
   description: NGINX Plus REST
     [API](https://nginx.org/en/docs/http/ngx_http_api_module.html)
@@ -1532,11 +1532,12 @@ definitions:
         type: string
         format: date-time
         description: Time of the last reload of configuration,
-          in milliseconds since Epoch.
+          in the ISO 8601 format with millisecond resolution.
       timestamp:
         type: string
         format: date-time
-        description: Current time in milliseconds since Epoch.
+        description: Current time
+          in the ISO 8601 format with millisecond resolution.
       pid:
         type: integer
         description: The ID of the worker process that handled status request.
@@ -1546,12 +1547,12 @@ definitions:
           <a href="https://nginx.org/en/docs/http/ngx_http_status_module.html#pid">worker process</a>.
     example:
       nginx:
-        version: 1.13.3
-        build: nginx-plus-r12-p3
+        version: 1.15.2
+        build: nginx-plus-r16
         address: 206.251.255.64
-        generation: 2
-        load_timestamp: 2017-07-07T11:09:21.594Z
-        timestamp: 2017-07-11T09:31:13.477Z
+        generation: 6
+        load_timestamp: 2018-10-08T09:05:48.776Z
+        timestamp: 2018-10-08T15:23:17.056Z
         pid: 32212
         ppid: 32210
   NginxProcesses:
@@ -2450,15 +2451,16 @@ definitions:
         type: string
         format: date-time
         readOnly: true
-        description: The time (in milliseconds since Epoch) when the server became
+        description: The time when the server became
           “<code>unavail</code>”, “<code>checking</code>”,
-          or “<code>unhealthy</code>”.
+          or “<code>unhealthy</code>”,
+          in the ISO 8601 format with millisecond resolution.
       selected:
         type: string
         format: date-time
         readOnly: true
-        description: The time (in milliseconds since Epoch)
-          when the server was last selected to process a request.
+        description: The time when the server was last selected to process a request,
+          in the ISO 8601 format with millisecond resolution.
       header_time:
         type: integer
         readOnly: true
@@ -3009,15 +3011,17 @@ definitions:
       downstart:
         type: string
         format: date-time
-        description: The time (in milliseconds since Epoch) when the server became
+        description: The time when the server became
           “<code>unavail</code>”, “<code>checking</code>”,
-          or “<code>unhealthy</code>”.
+          or “<code>unhealthy</code>”,
+          in the ISO 8601 format with millisecond resolution.
         readOnly: true
       selected:
         type: string
         format: date-time
-        description: The time (in milliseconds since Epoch)
-          when the server was last selected to process a connection.
+        description: The time when the server was last selected
+          to process a connection,
+          in the ISO 8601 format with millisecond resolution.
         readOnly: true
   NginxStreamUpstreamConfServerMap:
     title: Stream Upstream Servers
