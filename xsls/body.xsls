@@ -19,9 +19,8 @@ X:template body (lang) {
 
     <div id="banner">
         X:if "@lang = 'he'" { X:attribute "class" { X:text{ltr} } }
-        Don't miss out! NGINX Conf 2018 keynote sessions will be streamed live
-        on October 9 and 10 at 9 am - 12 pm ET.<br/>
-        <a href="https://www.nginx.com/livestream/?utm_source=nginxorg&amp;utm_medium=homepagebanner&amp;utm_campaign=nginxconf2018">Watch here</a>
+        Learn how to configure caching, load balancing, cloud deployments, and other critical NGINX features.<br/>
+        <a href="https://www.nginx.com/resources/library/complete-nginx-cookbook/?utm_source=nginxorg&amp;utm_medium=homepagebanner&amp;utm_campaign=complete_cookbook">Download the Complete NGINX Cookbook</a>
     </div>
 
     <div id="main">
