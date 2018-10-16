@@ -20,9 +20,8 @@
 
     <div id="banner">
         <xsl:if test="@lang = 'he'"> <xsl:attribute name="class"> <xsl:text>ltr</xsl:text> </xsl:attribute> </xsl:if>
-        Don't miss out! NGINX Conf 2018 keynote sessions will be streamed live
-        on October 9 and 10 at 9 am - 12 pm ET.<br/>
-        <a href="https://www.nginx.com/livestream/?utm_source=nginxorg&amp;utm_medium=homepagebanner&amp;utm_campaign=nginxconf2018">Watch here</a>
+        Learn how to configure caching, load balancing, cloud deployments, and other critical NGINX features.<br/>
+        <a href="https://www.nginx.com/resources/library/complete-nginx-cookbook/?utm_source=nginxorg&amp;utm_medium=homepagebanner&amp;utm_campaign=complete_cookbook">Download the Complete NGINX Cookbook</a>
     </div>
 
     <div id="main">
