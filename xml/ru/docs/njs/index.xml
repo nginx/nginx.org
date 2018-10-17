@@ -9,7 +9,7 @@
 <article name="Сценарный язык njs"
         link="/ru/docs/njs/index.html"
         lang="ru"
-        rev="25"
+        rev="26"
         toc="no">
 
 <section id="links">
@@ -126,7 +126,7 @@ njs совместим с
 см. в <link doc="reference.xml">справочнике</link>.
 <example>
 function hello(r) {
-    r.return(200, “Hello world!”);
+    r.return(200, "Hello world!");
 }
 </example>
 </para>

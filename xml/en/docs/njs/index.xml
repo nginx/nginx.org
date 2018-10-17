@@ -9,7 +9,7 @@
 <article name="njs scripting language"
         link="/en/docs/njs/index.html"
         lang="en"
-        rev="25"
+        rev="26"
         toc="no">
 
 <section id="links">
@@ -125,7 +125,7 @@ See <link doc="reference.xml">Reference</link>
 for the list of njs properties and methods.
 <example>
 function hello(r) {
-    r.return(200, “Hello world!”);
+    r.return(200, "Hello world!");
 }
 </example>
 </para>

@@ -9,7 +9,7 @@
 <article name="Examples"
         link="/en/docs/njs/examples.html"
         lang="en"
-        rev="2">
+        rev="3">
 
 <section id="helloword" name="Hello World">
 
@@ -39,7 +39,7 @@ http {
 <literal>hello_world.js</literal>:
 <example>
 function hello(r) {
-    r.return(200, “Hello world!”);
+    r.return(200, "Hello world!");
 }
 </example>
 </para>
