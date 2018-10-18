@@ -1964,14 +1964,14 @@ handler to log client and server addresses, current action (stored in
 
 <programlisting>
 /* specify what is currently done */
-log->action = "sending mp4 to client”;
+log->action = "sending mp4 to client";
 
 /* error and debug log */
 ngx_log_error(NGX_LOG_INFO, c->log, 0, "client prematurely
-              closed connection”);
+              closed connection");
 
 ngx_log_debug2(NGX_LOG_DEBUG_HTTP, mp4->file.log, 0,
-               "mp4 start:%ui, length:%ui”, mp4->start, mp4->length);
+               "mp4 start:%ui, length:%ui", mp4->start, mp4->length);
 </programlisting>
 
 <para>
@@ -1981,7 +1981,7 @@ The example above results in log entries like these:
 
 <programlisting>
 2016/09/16 22:08:52 [info] 17445#0: *1 client prematurely closed connection while
-sending mp4 to client, client: 127.0.0.1, server: , request: "GET /file.mp4 HTTP/1.1”
+sending mp4 to client, client: 127.0.0.1, server: , request: "GET /file.mp4 HTTP/1.1"
 2016/09/16 23:28:33 [debug] 22140#0: *1 mp4 start:0, length:10000
 </programlisting>
 
