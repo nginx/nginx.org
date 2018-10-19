@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="10">
+        rev="11">
 
 <section id="summary">
 
@@ -102,9 +102,15 @@ references the parent request object
 client address, read-only
 </tag-desc>
 
-<tag-name><literal>r.requestBody</literal></tag-name>
+<tag-name id="r_request_body"><literal>r.requestBody</literal></tag-name>
 <tag-desc>
-holds the request body, read-only
+returns the client request body if it has not been
+written to a temporary file.
+To ensure that the client request body is in memory,
+its size should be limited by
+<link doc="../http/ngx_http_core_module.xml" id="client_max_body_size"/>,
+and a sufficient buffer size should be set using
+<link doc="../http/ngx_http_core_module.xml" id="client_body_buffer_size"/>.
 </tag-desc>
 
 <tag-name><literal>r.responseBody</literal></tag-name>
