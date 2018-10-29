@@ -9,7 +9,7 @@
 <article name="Совместимость"
         link="/ru/docs/njs/compatibility.html"
         lang="ru"
-        rev="2">
+        rev="3">
 
 <section>
 
@@ -59,28 +59,40 @@ ES6 методы и свойства <literal>Number</literal> и
 
 <listitem>
 ES5.1:
-<literal>fromCharCode</literal>, <literal>concat</literal>,
-<literal>slice</literal>, <literal>substring</literal>,
-<literal>substr</literal>, <literal>charAt</literal>,
-<literal>charCodeAt</literal>, <literal>indexOf</literal>,
-<literal>lastIndexOf</literal>, <literal>toLowerCase</literal>,
-<literal>toUpperCase</literal>, <literal>trim</literal>,
-<literal>search</literal>, <literal>match</literal>, <literal>split</literal>,
-<literal>replace</literal>
+<literal>fromCharCode</literal>,
+<link doc="reference.xml" id="string_concat"><literal>concat</literal></link>,
+<link doc="reference.xml" id="string_slice"><literal>slice</literal></link>,
+<link doc="reference.xml" id="string_substring"><literal>substring</literal></link>,
+<link doc="reference.xml" id="string_substr"><literal>substr</literal></link>,
+<literal>charAt</literal>,
+<link doc="reference.xml" id="string_indexof"><literal>indexOf</literal></link>,
+<link doc="reference.xml" id="string_lastindexof"><literal>lastIndexOf</literal></link>,
+<link doc="reference.xml" id="string_tolowercase"><literal>toLowerCase</literal></link>,
+<link doc="reference.xml" id="string_touppercase"><literal>toUpperCase</literal></link>,
+<link doc="reference.xml" id="string_trim"><literal>trim</literal></link>,
+<link doc="reference.xml" id="string_search"><literal>search</literal></link>,
+<link doc="reference.xml" id="string_match"><literal>match</literal></link>,
+<link doc="reference.xml" id="string_split"><literal>split</literal></link>,
+<link doc="reference.xml" id="string_replace"><literal>replace</literal></link>
 </listitem>
 
 <listitem>
 ES6:
-<literal>fromCodePoint</literal>, <literal>codePointAt</literal>,
-<literal>includes</literal>, <literal>startsWith</literal>,
-<literal>endsWith</literal>, <literal>repeat</literal>
+<link doc="reference.xml" id="string_fromcodepoint"><literal>fromCodePoint</literal></link>,
+<literal>codePointAt</literal>,
+<link doc="reference.xml" id="string_includes"><literal>includes</literal></link>,
+<link doc="reference.xml" id="string_startswith"><literal>startsWith</literal></link>,
+<link doc="reference.xml" id="string_endswith"><literal>endsWith</literal></link>,
+<link doc="reference.xml" id="string_repeat"><literal>repeat</literal></link>
 </listitem>
 
 <listitem>
 нестандартные:
-<literal>bytesFrom</literal> (0.2.3),
-<literal>fromUTF8</literal>, <literal>toUTF8</literal>,
-<literal>fromBytes</literal>, <literal>toBytes</literal>
+<link doc="reference.xml" id="string_bytesfrom"><literal>bytesFrom</literal></link> (0.2.3)
+<link doc="reference.xml" id="string_fromutf8"><literal>fromUTF8</literal></link>,
+<link doc="reference.xml" id="string_toutf8"><literal>toUTF8</literal></link>,
+<link doc="reference.xml" id="string_frombytes"><literal>fromBytes</literal></link>,
+<link doc="reference.xml" id="string_tobytes"><literal>toBytes</literal></link>
 </listitem>
 </list>
 
@@ -153,7 +165,7 @@ ES5.1 методы <literal>Date</literal>
 </listitem>
 
 <listitem>
-ES5.1 объект <literal>JSON</literal>
+ES5.1 объект <link doc="reference.xml" id="core_json"><literal>JSON</literal></link>
 </listitem>
 
 <listitem>
@@ -164,8 +176,10 @@ ES5.1 объект <literal>arguments</literal> (0.2.5)
 ES5.1 глобальные функции:
 <literal>isFinite</literal>, <literal>isNaN</literal>,
 <literal>parseFloat</literal>, <literal>parseInt</literal>,
-<literal>decodeURI</literal>, <literal>decodeURIComponent</literal>,
-<literal>encodeURI</literal>, <literal>encodeURIComponent</literal>
+<link doc="reference.xml" id="decodeuri"><literal>decodeURI</literal></link>,
+<link doc="reference.xml" id="decodeuricomponent"><literal>decodeURIComponent</literal></link>,
+<link doc="reference.xml" id="encodeuri"><literal>encodeURI</literal></link>,
+<link doc="reference.xml" id="encodeuricomponent"><literal>encodeURIComponent</literal></link>
 </listitem>
 
 <listitem>
@@ -177,24 +191,30 @@ ES5.1 глобальные функции:
 </listitem>
 
 <listitem>
-Функции <literal>setTimeout()</literal> и <literal>clearTimeout()</literal>
+Функции
+<link doc="reference.xml" id="settimeout"><literal>setTimeout</literal></link>
+и
+<link doc="reference.xml" id="cleartimeout"><literal>clearTimeout</literal></link>
 (0.2.0)
 </listitem>
 
 <listitem>
 Методы <literal>File system</literal>
 <link url="https://nodejs.org/api/fs.html#fs_file_system">стиль Node.js</link>:
-<literal>fs.readFile</literal>, <literal>fs.readFileSync</literal>,
-<literal>fs.appendFile</literal>, <literal>fs.appendFileSync</literal>,
-<literal>fs.writeFile</literal>, <literal>fs.writeFileSync</literal>
+<literal>fs.readFile</literal>,
+<link doc="reference.xml" id="readfilesync"><literal>fs.readFileSync</literal></link>,
+<literal>fs.appendFile</literal>,
+<link doc="reference.xml" id="appendfilesync"><literal>fs.appendFileSync</literal></link>,
+<literal>fs.writeFile</literal>,
+<link doc="reference.xml" id="writefilesync"><literal>fs.writeFileSync</literal></link>
 </listitem>
 
 <listitem>
 Методы <literal>Crypto</literal>
 <link url="https://nodejs.org/api/crypto.html#crypto_class_hash">стиль Node.js</link>
 (0.2.0):
-<literal>crypto.createHash</literal>,
-<literal>crypto.createHmac</literal>
+<link doc="reference.xml" id="crypto_createhash"><literal>crypto.createHash</literal></link>,
+<link doc="reference.xml" id="crypto_createhmac"><literal>crypto.createHmac</literal></link>
 </listitem>
 
 </list>

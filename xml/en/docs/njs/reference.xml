@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="11">
+        rev="13">
 
 <section id="summary">
 
@@ -524,7 +524,7 @@ The encoding can be
 </example>
 </tag-desc>
 
-<tag-name><literal>String.fromCodePoint(<value>codePoint1</value>[, ...[,
+<tag-name id="string_fromcodepoint"><literal>String.fromCodePoint(<value>codePoint1</value>[, ...[,
 <value>codePoint2</value>]])</literal></tag-name>
 <tag-desc>
 Returns a string from one or more Unicode code points.
@@ -534,7 +534,7 @@ Returns a string from one or more Unicode code points.
 </example>
 </tag-desc>
 
-<tag-name><literal>String.prototype.concat(<value>string1</value>[, ...,
+<tag-name id="string_concat"><literal>String.prototype.concat(<value>string1</value>[, ...,
 <value>stringN</value>])</literal></tag-name>
 <tag-desc>
 Returns a string that contains the concatenation of specified
@@ -545,7 +545,7 @@ Returns a string that contains the concatenation of specified
 </example>
 </tag-desc>
 
-<tag-name><literal>String.prototype.endsWith(<value>searchString</value>[,
+<tag-name id="string_endswith"><literal>String.prototype.endsWith(<value>searchString</value>[,
 <value>length</value>])</literal></tag-name>
 <tag-desc>
 Returns <literal>true</literal> if a string ends with the characters
@@ -560,14 +560,14 @@ false
 </example>
 </tag-desc>
 
-<tag-name><literal>String.prototype.fromBytes(<value>start</value>[,
+<tag-name id="string_frombytes"><literal>String.prototype.fromBytes(<value>start</value>[,
 <value>end</value>])</literal></tag-name>
 <tag-desc>
 (njs specific) Returns a new Unicode string from a byte string
 where each byte is replaced with a corresponding Unicode code point.
 </tag-desc>
 
-<tag-name><literal>String.prototype.fromUTF8(<value>start</value>[,
+<tag-name id="string_fromutf8"><literal>String.prototype.fromUTF8(<value>start</value>[,
 <value>end</value>])</literal></tag-name>
 <tag-desc>
 (njs specific) Converts a byte string containing a valid UTF8 string
@@ -575,7 +575,7 @@ into a Unicode string,
 otherwise <literal>null</literal> is returned.
 </tag-desc>
 
-<tag-name><literal>String.prototype.includes(<value>searchString</value>[,
+<tag-name id="string_includes"><literal>String.prototype.includes(<value>searchString</value>[,
 <value>position</value>]))</literal></tag-name>
 <tag-desc>
 Returns <literal>true</literal> if a string is found within another string,
@@ -589,7 +589,7 @@ true
 </example>
 </tag-desc>
 
-<tag-name><literal>String.prototype.indexOf(<value>searchString</value>[,
+<tag-name id="string_indexof"><literal>String.prototype.indexOf(<value>searchString</value>[,
 <value>fromIndex</value>])</literal></tag-name>
 <tag-desc>
 Returns the position of the first occurrence
@@ -609,7 +609,7 @@ the search starts at index <value>0</value> and
 </example>
 </tag-desc>
 
-<tag-name><literal>String.prototype.lastIndexOf(<value>searchString</value>[,
+<tag-name id="string_lastindexof"><literal>String.prototype.lastIndexOf(<value>searchString</value>[,
 <value>fromIndex</value>])</literal></tag-name>
 <tag-desc>
 Returns the position of the last occurrence
@@ -633,7 +633,7 @@ Returns the length of the string.
 </example>
 </tag-desc>
 
-<tag-name><literal>String.prototype.match([<value>regexp</value>])</literal></tag-name>
+<tag-name id="string_match"><literal>String.prototype.match([<value>regexp</value>])</literal></tag-name>
 <tag-desc>
 Matches a string against a <literal>regexp</literal>.
 <example>
@@ -666,7 +666,7 @@ to the start of the specified string (0.2.3).
 </example>
 </tag-desc>
 
-<tag-name><literal>String.prototype.repeat(<value>number</value>)</literal></tag-name>
+<tag-name id="string_repeat"><literal>String.prototype.repeat(<value>number</value>)</literal></tag-name>
 <tag-desc>
 Returns a string 
 with the specified <literal>number</literal> of copies of the string.
@@ -676,7 +676,7 @@ with the specified <literal>number</literal> of copies of the string.
 </example>
 </tag-desc>
 
-<tag-name><literal>String.prototype.replace([<value>regexp</value>|<value>string</value>[,
+<tag-name id="string_replace"><literal>String.prototype.replace([<value>regexp</value>|<value>string</value>[,
 <value>string</value>|<value>function</value>]])</literal></tag-name>
 <tag-desc>
 Returns a new string with matches of a pattern
@@ -688,7 +688,7 @@ replaced by a <literal>string</literal> or a <literal>function</literal>.
 </example>
 </tag-desc>
 
-<tag-name><literal>String.prototype.search([<value>regexp</value>])</literal></tag-name>
+<tag-name id="string_search"><literal>String.prototype.search([<value>regexp</value>])</literal></tag-name>
 <tag-desc>
 Searches for a string using a <literal>regexp</literal>
 <example>
@@ -697,7 +697,7 @@ Searches for a string using a <literal>regexp</literal>
 </example>
 </tag-desc>
 
-<tag-name><literal>String.prototype.slice(<value>start</value>[,
+<tag-name id="string_slice"><literal>String.prototype.slice(<value>start</value>[,
 <value>end</value>])</literal></tag-name>
 <tag-desc>
 Returns a new string containing a part of an
@@ -710,7 +710,7 @@ from <literal>start</literal> to the end of the string.
 </example>
 </tag-desc>
 
-<tag-name><literal>String.prototype.startsWith(<value>searchString</value>[,
+<tag-name id="string_startswith"><literal>String.prototype.startsWith(<value>searchString</value>[,
 <value>position</value>])</literal></tag-name>
 <tag-desc>
 Returns <literal>true</literal> if a string begins with the characters
@@ -726,7 +726,7 @@ false
 </example>
 </tag-desc>
 
-<tag-name><literal>String.prototype.substr(<value>start</value>[,
+<tag-name id="string_substr"><literal>String.prototype.substr(<value>start</value>[,
 <value>length</value>])</literal></tag-name>
 <tag-desc>
 Returns the part of the string of the specified <literal>length</literal>
@@ -738,7 +738,7 @@ or from <literal>start</literal> to the end of the string.
 </example>
 </tag-desc>
 
-<tag-name><literal>String.prototype.substring(<value>start</value>[,
+<tag-name id="string_substring"><literal>String.prototype.substring(<value>start</value>[,
 <value>end</value>])</literal></tag-name>
 <tag-desc>
 Returns the part of the string between
@@ -758,7 +758,7 @@ Returns <literal>null</literal> if a character larger than 255 is
 found in the string.
 </tag-desc>
 
-<tag-name><literal>String.prototype.toLowerCase()</literal></tag-name>
+<tag-name id="string_tolowercase"><literal>String.prototype.toLowerCase()</literal></tag-name>
 <tag-desc>
 Converts a string to lower case.
 The method supports only simple Unicode folding.
@@ -788,7 +788,7 @@ encodes a <link id="string_tobytes">byte string</link> to
 </example>
 </tag-desc>
 
-<tag-name><literal>String.prototype.toUpperCase()</literal></tag-name>
+<tag-name id="string_touppercase"><literal>String.prototype.toUpperCase()</literal></tag-name>
 <tag-desc>
 Converts a string to upper case.
 The method supports only simple Unicode folding.
@@ -811,7 +811,7 @@ to a byte string using UTF8 encoding.
 </example>
 </tag-desc>
 
-<tag-name><literal>String.prototype.trim()</literal></tag-name>
+<tag-name id="string_trim"><literal>String.prototype.trim()</literal></tag-name>
 <tag-desc>
 Removes whitespaces from both ends of a string.
 <example>
@@ -820,7 +820,7 @@ Removes whitespaces from both ends of a string.
 </example>
 </tag-desc>
 
-<tag-name><literal>String.prototype.split(([<value>string</value>|<value>regexp</value>[,
+<tag-name id="string_split"><literal>String.prototype.split(([<value>string</value>|<value>regexp</value>[,
 <value>limit</value>]]))</literal></tag-name>
 <tag-desc>
 Returns match of a string against a <literal>regexp</literal>.
@@ -847,7 +847,7 @@ representing the UTF-8 encoding of the character
 </example>
 </tag-desc>
 
-<tag-name><literal>encodeURIComponent(<value>encodedURIString</value>)</literal></tag-name>
+<tag-name id="encodeuricomponent"><literal>encodeURIComponent(<value>encodedURIString</value>)</literal></tag-name>
 <tag-desc>
 Encodes a URI by replacing each instance of certain characters
 by one, two, three, or four escape sequences
@@ -858,7 +858,7 @@ representing the UTF-8 encoding of the character.
 </example>
 </tag-desc>
 
-<tag-name><literal>decodeURI(<value>encodedURI</value>)</literal></tag-name>
+<tag-name id="decodeuri"><literal>decodeURI(<value>encodedURI</value>)</literal></tag-name>
 <tag-desc>
 Decodes a previously <link id="encodeuri">encoded</link> URI.
 <example>
@@ -867,7 +867,7 @@ Decodes a previously <link id="encodeuri">encoded</link> URI.
 </example>
 </tag-desc>
 
-<tag-name><literal>decodeURIComponent(<value>decodedURIString</value>)</literal></tag-name>
+<tag-name id="decodeuricomponent"><literal>decodeURIComponent(<value>decodedURIString</value>)</literal></tag-name>
 <tag-desc>
 Decodes an encoded component of a previously encoded URI.
 <example>
@@ -961,7 +961,7 @@ The Crypto module object is returned by <literal>require('crypto')</literal>.
 <para>
 <list type="tag">
 
-<tag-name><literal>crypto.createHash(<value>algorithm</value>)</literal></tag-name>
+<tag-name id="crypto_createhash"><literal>crypto.createHash(<value>algorithm</value>)</literal></tag-name>
 <tag-desc>
 Creates and returns a <link id="crypto_hash">Hash</link> object
 that can be used to generate hash digests
@@ -972,7 +972,7 @@ The algorighm can be
 <literal>sha256</literal>.
 </tag-desc>
 
-<tag-name><literal>crypto.createHmac(<value>algorithm</value>,
+<tag-name id="crypto_createhmac"><literal>crypto.createHmac(<value>algorithm</value>,
 <value>secret key</value>)</literal></tag-name>
 <tag-desc>
 Creates and returns an <link id="crypto_hmac">HMAC</link> object
