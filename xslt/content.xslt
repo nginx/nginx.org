@@ -179,5 +179,10 @@
     <xsl:template match="nobr"> <nobr> <xsl:apply-templates/> </nobr> </xsl:template>
     <xsl:template match="br"> <br/> </xsl:template>
 
-
+    <xsl:template match="video[@id]">
+        <div class="video">
+        <iframe type="text/html" src="https://www.youtube.com/embed/{@id}?modestbranding=1&amp;rel=0&amp;showinfo=0&amp;color=white" frameborder="0" allowfullscreen="1">
+        </iframe>
+        </div>
+    </xsl:template>
 </xsl:stylesheet>
