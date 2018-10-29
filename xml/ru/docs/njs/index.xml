@@ -9,7 +9,7 @@
 <article name="Сценарный язык njs"
         link="/ru/docs/njs/index.html"
         lang="ru"
-        rev="26"
+        rev="27"
         toc="no">
 
 <section id="links">
@@ -165,6 +165,13 @@ http {
  Также доступна отдельная утилита <link doc="cli.xml">командной строки</link>,
 которая может использоваться независимо от nginx для разработки и отладки njs.
 </para>
+
+</section>
+
+
+<section id="presentation" name="Презентация на nginx.conf 2018">
+
+<para><video id="Jc_L6UffFOs" /></para>
 
 </section>
 
