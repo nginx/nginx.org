@@ -9,7 +9,7 @@
 <article name="Compatibility"
         link="/en/docs/njs/compatibility.html"
         lang="en"
-        rev="3">
+        rev="4">
 
 <section>
 
@@ -84,6 +84,12 @@ ES6:
 <link doc="reference.xml" id="string_startswith"><literal>startsWith</literal></link>,
 <link doc="reference.xml" id="string_endswith"><literal>endsWith</literal></link>,
 <link doc="reference.xml" id="string_repeat"><literal>repeat</literal></link>
+</listitem>
+
+<listitem>
+ES8:
+<link doc="reference.xml" id="string_padstart"><literal>padStart</literal></link>,
+<link doc="reference.xml" id="string_padend"><literal>padEnd</literal></link>
 </listitem>
 
 <listitem>
@@ -200,11 +206,8 @@ functions (0.2.0)
 <listitem>
 <link url="https://nodejs.org/api/fs.html#fs_file_system">Node.js style</link>
 <literal>File system</literal> methods:
-<literal>fs.readFile</literal>,
 <link doc="reference.xml" id="readfilesync"><literal>fs.readFileSync</literal></link>,
-<literal>fs.appendFile</literal>,
 <link doc="reference.xml" id="appendfilesync"><literal>fs.appendFileSync</literal></link>,
-<literal>fs.writeFile</literal>,
 <link doc="reference.xml" id="writefilesync"><literal>fs.writeFileSync</literal></link>
 </listitem>
 
