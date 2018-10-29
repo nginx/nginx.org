@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="13">
+        rev="14">
 
 <section id="summary">
 
@@ -710,6 +710,22 @@ from <literal>start</literal> to the end of the string.
 </example>
 </tag-desc>
 
+<tag-name id="string_split"><literal>String.prototype.split(([<value>string</value>|<value>regexp</value>[,
+<value>limit</value>]]))</literal></tag-name>
+<tag-desc>
+Returns match of a string against a <literal>regexp</literal>.
+The optional <literal>limit</literal> parameter is an integer that specifies
+a limit on the number of splits to be found.
+<example>
+>> 'abc'.split('')
+[
+ 'a',
+ 'b',
+ 'c'
+]
+</example>
+</tag-desc>
+
 <tag-name id="string_startswith"><literal>String.prototype.startsWith(<value>searchString</value>[,
 <value>position</value>])</literal></tag-name>
 <tag-desc>
@@ -817,22 +833,6 @@ Removes whitespaces from both ends of a string.
 <example>
 >> '   abc  '.trim()
 'abc'
-</example>
-</tag-desc>
-
-<tag-name id="string_split"><literal>String.prototype.split(([<value>string</value>|<value>regexp</value>[,
-<value>limit</value>]]))</literal></tag-name>
-<tag-desc>
-Returns match of a string against a <literal>regexp</literal>.
-The optional <literal>limit</literal> parameter is an integer that specifies
-a limit on the number of splits to be found.
-<example>
->> 'abc'.split('')
-[
- 'a',
- 'b',
- 'c'
-]
 </example>
 </tag-desc>
 
