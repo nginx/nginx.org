@@ -11,7 +11,7 @@
 >
 
 <!ELEMENT  para         (#PCDATA | link | links | varlinks | br | list | note |
-                         i | b | nobr | table | literal | command |
+                         i | b | nobr | table | literal | command | video |
                          path | example | header | value | programlisting |
                          initial |
                          mainline_version | stable_version | commercial_version |
@@ -94,6 +94,11 @@
 >
 
 <!ELEMENT  paypal       EMPTY >
+
+<!ELEMENT  video        EMPTY >
+<!ATTLIST  video
+           id           CDATA #IMPLIED
+>
 
 <!ELEMENT  mainline_version    EMPTY >
 <!ELEMENT  stable_version      EMPTY >

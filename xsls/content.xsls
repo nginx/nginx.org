@@ -178,5 +178,12 @@ X:stylesheet {
     X:template = "nobr" { <nobr> !!; </nobr> }
     X:template = "br" { <br/> }
 
-
+    X:template = "video[@id]" {
+        <div class="video">
+        <iframe type="text/html"
+                src="https://www.youtube.com/embed/{@id}?modestbranding=1&amp;rel=0&amp;showinfo=0&amp;color=white"
+                frameborder="0" allowfullscreen="1">
+        </iframe>
+        </div>
+    }
 }
