@@ -9,7 +9,7 @@
 <article name="Compatibility"
         link="/en/docs/njs/compatibility.html"
         lang="en"
-        rev="1">
+        rev="2">
 
 <section>
 
@@ -157,6 +157,10 @@ ES5.1 <literal>JSON</literal> object
 </listitem>
 
 <listitem>
+ES5.1 <literal>arguments</literal> object (0.2.5)
+</listitem>
+
+<listitem>
 ES5.1 global functions:
 <literal>isFinite</literal>, <literal>isNaN</literal>,
 <literal>parseFloat</literal>, <literal>parseInt</literal>,
@@ -213,10 +217,6 @@ labels
 </listitem>
 
 <listitem>
-<literal>arguments</literal> array
-</listitem>
-
-<listitem>
 <literal>eval</literal> function
 </listitem>
 
@@ -227,10 +227,6 @@ labels
 <listitem>
 <literal>setInterval</literal>,
 <literal>setImmediate</literal> functions
-</listitem>
-
-<listitem>
-non-integer fractions (<literal>.235</literal>)
 </listitem>
 
 </list>

@@ -9,7 +9,7 @@
 <article name="Совместимость"
         link="/ru/docs/njs/compatibility.html"
         lang="ru"
-        rev="1">
+        rev="2">
 
 <section>
 
@@ -157,6 +157,10 @@ ES5.1 объект <literal>JSON</literal>
 </listitem>
 
 <listitem>
+ES5.1 объект <literal>arguments</literal> (0.2.5)
+</listitem>
+
+<listitem>
 ES5.1 глобальные функции:
 <literal>isFinite</literal>, <literal>isNaN</literal>,
 <literal>parseFloat</literal>, <literal>parseInt</literal>,
@@ -213,10 +217,6 @@ labels
 </listitem>
 
 <listitem>
-массив <literal>arguments</literal>
-</listitem>
-
-<listitem>
 функция <literal>eval</literal>
 </listitem>
 
@@ -227,10 +227,6 @@ labels
 <listitem>
 функции <literal>setInterval</literal>,
 <literal>setImmediate</literal>
-</listitem>
-
-<listitem>
-дроби без целой части (<literal>.235</literal>)
 </listitem>
 
 </list>

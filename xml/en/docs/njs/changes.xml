@@ -9,8 +9,147 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="9"
+        rev="10"
         toc="no">
+
+<section id="njs0.2.5" name="Changes with 0.2.5">
+
+<para>
+Release Date:
+30 October 2018
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Bugfix:
+fixed counting pending events in stream module.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>s.off()</literal> in stream module.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed processing of data chunks in <literal>js_filter</literal> in stream module.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed http <literal>status</literal> and
+<literal>contentType</literal> getter in http module.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed http response and parent getters in http module.
+</para>
+</listitem>
+
+</list>
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+arguments object support.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+non-integer fractions support.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+handling non-array values in <literal>Array.prototype.slice()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>Array.prototype.length</literal> setter
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>njs_array_alloc()</literal> for length > 2**31.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+handling int overflow in <literal>njs_array_alloc()</literal> on 32bit archs.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed code size mismatch error message.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed delete operator in a loop.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>Object.getOwnPropertyDescriptor()</literal> for complex object
+(inherited from <literal>Array</literal> and <literal>string</literal> values).
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>Object.prototype.hasOwnProperty()</literal>
+for non-object properties
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+miscellaneous additional bugs have been fixed.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.2.4" name="Changes with 0.2.4">
 
