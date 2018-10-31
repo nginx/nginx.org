@@ -9,7 +9,7 @@
 <article name="Compatibility"
         link="/en/docs/njs/compatibility.html"
         lang="en"
-        rev="4">
+        rev="5">
 
 <section>
 
@@ -59,12 +59,12 @@ ES6 <literal>Number</literal> and
 
 <listitem>
 ES5.1:
-<literal>fromCharCode</literal>,
+<link doc="reference.xml" id="string_fromcharcode"><literal>fromCharCode</literal></link>,
 <link doc="reference.xml" id="string_concat"><literal>concat</literal></link>,
 <link doc="reference.xml" id="string_slice"><literal>slice</literal></link>,
 <link doc="reference.xml" id="string_substring"><literal>substring</literal></link>,
 <link doc="reference.xml" id="string_substr"><literal>substr</literal></link>,
-<literal>charAt</literal>,
+<link doc="reference.xml" id="string_charat"><literal>charAt</literal></link>,
 <link doc="reference.xml" id="string_indexof"><literal>indexOf</literal></link>,
 <link doc="reference.xml" id="string_lastindexof"><literal>lastIndexOf</literal></link>,
 <link doc="reference.xml" id="string_tolowercase"><literal>toLowerCase</literal></link>,
@@ -79,7 +79,7 @@ ES5.1:
 <listitem>
 ES6:
 <link doc="reference.xml" id="string_fromcodepoint"><literal>fromCodePoint</literal></link>,
-<literal>codePointAt</literal>,
+<link doc="reference.xml" id="string_codepointat"><literal>codePointAt</literal></link>,
 <link doc="reference.xml" id="string_includes"><literal>includes</literal></link>,
 <link doc="reference.xml" id="string_startswith"><literal>startsWith</literal></link>,
 <link doc="reference.xml" id="string_endswith"><literal>endsWith</literal></link>,
