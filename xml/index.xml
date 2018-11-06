@@ -7,6 +7,19 @@
 
 <news name="nginx news" link="/" lang="en">
 
+<event date="2018-11-06">
+<para>
+<link doc="en/download.xml">nginx-1.14.1</link>
+stable and
+<link doc="en/download.xml">nginx-1.15.6</link>
+mainline versions have been released,
+with fixes for
+<link doc="en/security_advisories.xml">vulnerabilities in HTTP/2</link>
+(CVE-2018-16843, CVE-2018-16844) and
+<link doc="en/security_advisories.xml">the MP4 module</link> (CVE-2018-16845).
+</para>
+</event>
+
 <event date="2018-10-30">
 <para>
 <link doc="en/docs/njs/index.xml">njs-0.2.5</link>

@@ -24,6 +24,28 @@ Patches are signed using one of the
 
 <security>
 
+<item name="Excessive memory usage in HTTP/2"
+      severity="low"
+      cve="2018-16843"
+      good="1.15.6+, 1.14.1+"
+      vulnerable="1.9.5-1.15.5">
+</item>
+
+<item name="Excessive CPU usage in HTTP/2"
+      severity="low"
+      cve="2018-16844"
+      good="1.15.6+, 1.14.1+"
+      vulnerable="1.9.5-1.15.5">
+</item>
+
+<item name="Memory disclosure in the ngx_http_mp4_module"
+      severity="medium"
+      cve="2018-16845"
+      good="1.15.6+, 1.14.1+"
+      vulnerable="1.1.3-1.15.5, 1.0.7-1.0.15">
+<patch name="patch.2018.mp4.txt" />
+</item>
+
 <item name="Integer overflow in the range filter"
       severity="medium"
       advisory="http://mailman.nginx.org/pipermail/nginx-announce/2017/000200.html"
