@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_upstream_module"
         link="/en/docs/stream/ngx_stream_upstream_module.html"
         lang="en"
-        rev="32">
+        rev="33">
 
 <section id="summary">
 
@@ -425,7 +425,7 @@ Perl library.
 
 <para>
 If the <literal>consistent</literal> parameter is specified,
-the <link url="http://www.last.fm/user/RJ/journal/2007/04/10/392555/">ketama</link>
+the <link url="https://www.metabrew.com/article/libketama-consistent-hashing-algo-memcached-clients">ketama</link>
 consistent hashing method will be used instead.
 The method ensures that only a few keys
 will be remapped to different servers

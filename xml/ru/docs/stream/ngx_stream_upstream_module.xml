@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_upstream_module"
         link="/ru/docs/stream/ngx_stream_upstream_module.html"
         lang="ru"
-        rev="32">
+        rev="33">
 
 <section id="summary">
 
@@ -428,7 +428,7 @@ hash $remote_addr;
 <para>
 Если задан параметр <literal>consistent</literal>, то вместо
 вышеописанного метода будет использоваться метод консистентного хэширования
-<link url="http://www.last.fm/user/RJ/journal/2007/04/10/392555/">ketama</link>.
+<link url="https://www.metabrew.com/article/libketama-consistent-hashing-algo-memcached-clients">ketama</link>.
 Метод гарантирует, что при добавлении сервера в группу или его удалении
 на другие серверы будет перераспределено минимальное число ключей.
 Применение метода для кэширующих серверов обеспечивает
