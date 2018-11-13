@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_upstream_module"
         link="/ru/docs/stream/ngx_stream_upstream_module.html"
         lang="ru"
-        rev="33">
+        rev="34">
 
 <section id="summary">
 
@@ -422,7 +422,7 @@ hash $remote_addr;
 Следует отметить, что любое добавление или удаление серверов в группе
 может привести к перераспределению большинства ключей на другие серверы.
 Метод совместим с библиотекой Perl
-<link url="http://search.cpan.org/perldoc?Cache%3A%3AMemcached">Cache::Memcached</link>.
+<link url="https://metacpan.org/pod/Cache::Memcached">Cache::Memcached</link>.
 </para>
 
 <para>
@@ -434,7 +434,7 @@ hash $remote_addr;
 Применение метода для кэширующих серверов обеспечивает
 больший процент попаданий в кэш.
 Метод совместим с библиотекой Perl
-<link url="http://search.cpan.org/perldoc?Cache%3A%3AMemcached%3A%3AFast">Cache::Memcached::Fast</link>
+<link url="https://metacpan.org/pod/Cache::Memcached::Fast">Cache::Memcached::Fast</link>
 при значении параметра <value>ketama_points</value> равным 160.
 </para>
 

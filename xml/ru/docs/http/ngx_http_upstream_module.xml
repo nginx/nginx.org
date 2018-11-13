@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_upstream_module"
         link="/ru/docs/http/ngx_http_upstream_module.html"
         lang="ru"
-        rev="77">
+        rev="78">
 
 <section id="summary">
 
@@ -462,7 +462,7 @@ state /var/db/nginx/state/servers.conf;  # путь для FreeBSD
 Следует отметить, что любое добавление или удаление серверов в группе
 может привести к перераспределению большинства ключей на другие серверы.
 Метод совместим с библиотекой Perl
-<link url="http://search.cpan.org/perldoc?Cache%3A%3AMemcached">Cache::Memcached</link>.
+<link url="https://metacpan.org/pod/Cache::Memcached">Cache::Memcached</link>.
 </para>
 
 <para>
@@ -474,7 +474,7 @@ state /var/db/nginx/state/servers.conf;  # путь для FreeBSD
 Применение метода для кэширующих серверов обеспечивает
 больший процент попаданий в кэш.
 Метод совместим с библиотекой Perl
-<link url="http://search.cpan.org/perldoc?Cache%3A%3AMemcached%3A%3AFast">Cache::Memcached::Fast</link>
+<link url="https://metacpan.org/pod/Cache::Memcached::Fast">Cache::Memcached::Fast</link>
 при значении параметра <value>ketama_points</value> равным 160.
 </para>
 

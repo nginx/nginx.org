@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="77">
+        rev="78">
 
 <section id="summary">
 
@@ -456,7 +456,7 @@ The <value>key</value> can contain text, variables, and their combinations.
 Note that adding or removing a server from the group
 may result in remapping most of the keys to different servers.
 The method is compatible with the
-<link url="http://search.cpan.org/perldoc?Cache%3A%3AMemcached">Cache::Memcached</link>
+<link url="https://metacpan.org/pod/Cache::Memcached">Cache::Memcached</link>
 Perl library.
 </para>
 
@@ -469,7 +469,7 @@ will be remapped to different servers
 when a server is added to or removed from the group.
 This helps to achieve a higher cache hit ratio for caching servers.
 The method is compatible with the
-<link url="http://search.cpan.org/perldoc?Cache%3A%3AMemcached%3A%3AFast">Cache::Memcached::Fast</link>
+<link url="https://metacpan.org/pod/Cache::Memcached::Fast">Cache::Memcached::Fast</link>
 Perl library with the <value>ketama_points</value> parameter set to 160.
 </para>
 
