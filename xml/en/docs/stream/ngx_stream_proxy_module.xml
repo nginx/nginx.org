@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_proxy_module"
         link="/en/docs/stream/ngx_stream_proxy_module.html"
         lang="en"
-        rev="21">
+        rev="22">
 
 <section id="summary">
 
@@ -250,6 +250,27 @@ protocol</link> for connections to a proxied server.
 </directive>
 
 
+<directive name="proxy_requests">
+<syntax><value>number</value></syntax>
+<default>0</default>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.15.7</appeared-in>
+
+<para>
+Sets the number of client datagrams at which
+binding between a client and existing UDP stream session is dropped.
+After receiving the specified number of datagrams, next datagram
+from the same client starts a new session.
+The session terminates when all client datagrams are transmitted
+to a proxied server and the expected number of
+<link id="proxy_responses">responses</link> is received,
+or when it reaches a <link id="proxy_timeout">timeout</link>.
+</para>
+
+</directive>
+
+
 <directive name="proxy_responses">
 <syntax><value>number</value></syntax>
 <default/>
@@ -264,6 +285,12 @@ if the <link doc="ngx_stream_core_module.xml" id="udp">UDP</link>
 protocol is used.
 The number serves as a hint for session termination.
 By default, the number of datagrams is not limited.
+</para>
+
+<para>
+If zero value is specified, no response is expected.
+However, if a response is received and the
+session is still not finished, the response will be handled.
 </para>
 
 </directive>
