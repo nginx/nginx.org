@@ -20,7 +20,7 @@
 <!ELEMENT  links        (link)+ >
 <!ELEMENT  varlinks     (link)+ >
 
-<!ELEMENT  link         (#PCDATA | literal)* >
+<!ELEMENT  link         (#PCDATA | literal | var)* >
 <!ATTLIST  link
            doc          CDATA #IMPLIED
            id           CDATA #IMPLIED

@@ -62,7 +62,7 @@
             text        CDATA #IMPLIED
 >
 
-<!ELEMENT   link        (#PCDATA)* >
+<!ELEMENT   link        (#PCDATA | literal | var)* >
 <!ATTLIST   link
             doc         CDATA #IMPLIED
             id          CDATA #IMPLIED
