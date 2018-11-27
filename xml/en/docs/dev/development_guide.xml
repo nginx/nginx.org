@@ -9,7 +9,7 @@
 <article name="Development guide"
          link="/en/docs/dev/development_guide.html"
          lang="en"
-         rev="4">
+         rev="5">
 
 <section name="Introduction" id="introduction">
 
@@ -347,6 +347,13 @@ Other string functions are nginx-specific
 
 <listitem>
 <literal>ngx_memzero()</literal> — Fills memory with zeroes.
+</listitem>
+
+<listitem>
+<literal>ngx_explicit_memzero()</literal> — Does the same as
+<literal>ngx_memzero()</literal>, but this call is never removed by the
+compiler's dead store elimination optimization.
+This function can be used to clear sensitive data such as passwords and keys.
 </listitem>
 
 <listitem>
