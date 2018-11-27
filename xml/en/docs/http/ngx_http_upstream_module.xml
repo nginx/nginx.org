@@ -461,7 +461,7 @@ Perl library.
 </para>
 
 <para>
-If the <literal>consistent</literal> parameter is specified
+If the <literal>consistent</literal> parameter is specified,
 the <link url="https://www.metabrew.com/article/libketama-consistent-hashing-algo-memcached-clients">ketama</link>
 consistent hashing method will be used instead.
 The method ensures that only a few keys

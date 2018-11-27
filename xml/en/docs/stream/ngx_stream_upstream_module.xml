@@ -409,7 +409,7 @@ This directive is available as part of our
 
 <para>
 Specifies a load balancing method for a server group
-where client-server mapping is based on the hashed <value>key</value> value.
+where the client-server mapping is based on the hashed <value>key</value> value.
 The <value>key</value> can contain text, variables,
 and their combinations (1.11.2).
 Usage example:
@@ -445,8 +445,7 @@ Perl library with the <value>ketama_points</value> parameter set to 160.
 <context>upstream</context>
 
 <para>
-Specifies that a server group should use a load balancing method
-where a connection
+Specifies that a group should use a load balancing method where a connection
 is passed to the server with the least number of active connections,
 taking into account weights of servers.
 If there are several such servers, they are tried in turn using a
