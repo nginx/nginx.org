@@ -300,7 +300,7 @@ SRV-записи с наивысшим приоритетом
 задаёт <value>время</value>, в течение которого вес сервера
 восстановится от нуля до своего номинального значения в ситуации, когда
 неработоспособный (unhealthy) сервер вновь становится работоспособным
-(<link doc="ngx_http_upstream_hc_module.xml" id="health_check">healthy</link>)
+(<link doc="ngx_stream_upstream_hc_module.xml" id="health_check">healthy</link>)
 или когда сервер становится доступным по прошествии времени,
 в течение которого он считался <link id="fail_timeout">недоступным</link>.
 Значение по умолчанию равно нулю и означает, что медленный старт выключен.
@@ -378,7 +378,7 @@ state /var/db/nginx/state/servers.conf;  # путь для FreeBSD
 <para>
 В данный момент состояние ограничено списком серверов с их параметрами.
 Файл читается при парсинге конфигурации и обновляется каждый раз при
-<link doc="ngx_http_api_module.xml" id="stream_upstreams_stream_upstream_name_servers_">изменении</link>
+<link doc="../http/ngx_http_api_module.xml" id="stream_upstreams_stream_upstream_name_servers_">изменении</link>
 конфигурации группы.
 Изменение содержимого файла напрямую не рекомендуется.
 Директиву нельзя использовать
