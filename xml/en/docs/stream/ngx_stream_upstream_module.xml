@@ -332,7 +332,7 @@ Defines the <value>name</value> and <value>size</value> of the shared
 memory zone that keeps the group’s configuration and run-time state that are
 shared between worker processes.
 Several groups may share the same zone.
-In this case, it is enough to specify the zone size only once.
+In this case, it is enough to specify the <value>size</value> only once.
 </para>
 
 <para>
