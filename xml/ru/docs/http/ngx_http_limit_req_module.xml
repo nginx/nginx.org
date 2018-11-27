@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_limit_req_module"
         link="/ru/docs/http/ngx_http_limit_req_module.html"
         lang="ru"
-        rev="9">
+        rev="10">
 
 <section id="summary">
 
@@ -53,7 +53,8 @@ http {
 <syntax>
     <literal>zone</literal>=<value>название</value>
     [<literal>burst</literal>=<value>число</value>]
-    [<literal>nodelay</literal>]</syntax>
+    [<literal>nodelay</literal> |
+     <literal>delay</literal>=<value>число</value>]</syntax>
 <default/>
 <context>http</context>
 <context>server</context>
@@ -89,6 +90,13 @@ server {
 <example>
 limit_req zone=one burst=5 nodelay;
 </example>
+</para>
+
+<para id="limit_req_delay">
+Параметр <literal>delay</literal> (1.15.7) задаёт лимит,
+по достижении которого избыточные запросы задерживаются.
+Значение по умолчанию равно нулю и означает,
+что задерживаются все избыточные запросы.
 </para>
 
 <para>
