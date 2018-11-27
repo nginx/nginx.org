@@ -453,7 +453,7 @@ resolver_timeout 5s;
 <section id="variables" name="Встроенные переменные">
 
 <para>
-Модуль <literal>ngx_http_core_module</literal> поддерживает переменные
+Модуль <literal>ngx_stream_core_module</literal> поддерживает переменные
 начиная с версии 1.11.2.
 <list type="tag">
 
