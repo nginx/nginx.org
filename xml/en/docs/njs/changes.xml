@@ -9,8 +9,154 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="10"
+        rev="11"
         toc="no">
+
+<section id="njs0.2.6" name="Changes with 0.2.6">
+
+<para>
+Release Date:
+27 November 2018
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+making built-in prototypes mutable.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+making global object mutable.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+<literal>console.time()</literal> and
+<literal>console.timeEnd()</literal> methods.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+allowing variables and functions to be redeclared.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+extending <literal>Object.defineProperty()</literal> spec conformance.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+introduced quiet mode for CLI to handle simple expressions from stdin.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+introduced compact form of backtraces to handle stack overflows.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+improved wording for various exceptions.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed closure values handling.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed equality operator for various value types.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed handling of “this” keyword in various scopes.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed handling non-object values in <literal>Object.keys()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed parsing of throw statement inside <literal>if</literal> statement.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed parsing of newline after throw statement.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed parsing of statements in if statement without newline.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed size <literal>uint32_t</literal> overflow
+in <literal>njs_array_expand()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>typeof</literal> operator
+for <literal>object_value</literal> type.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+miscellaneous additional bugs have been fixed.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.2.5" name="Changes with 0.2.5">
 
