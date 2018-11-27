@@ -9,7 +9,7 @@
 <article name="Интерфейс командной строки"
         link="/ru/docs/njs/cli.html"
         lang="ru"
-        rev="2">
+        rev="3">
 
 <section>
 <para>
@@ -24,7 +24,7 @@
 (<link doc="reference.xml" id="http">HTTP</link> и
 <link doc="reference.xml" id="stream">Stream</link>).
 <example>
-$ echo "2**3" | njs -
+$ echo "2**3" | njs -q
 8
 
 $ njs

@@ -9,7 +9,7 @@
 <article name="Command-line interface"
         link="/en/docs/njs/cli.html"
         lang="en"
-        rev="2">
+        rev="3">
 
 <section>
 <para>
@@ -25,7 +25,7 @@ nginx objects
 <link doc="reference.xml" id="stream">Stream</link>)
 are not available in the utility.
 <example>
-$ echo "2**3" | njs -
+$ echo "2**3" | njs -q
 8
 
 $ njs
