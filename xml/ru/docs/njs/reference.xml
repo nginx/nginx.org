@@ -463,5 +463,466 @@ true, если текущий буфер является буфером от п
 
 </section>
 
+
+<section id="core" name="Core">
+
+
+<section id="string" name="Строка">
+
+<para>
+В njs существует два типа строк: строка Unicode (по умолчанию) и
+байтовая строка.
+</para>
+
+<para>
+Строка Unicode соответствует строке ECMAScript,
+содержащей символы Unicode.
+</para>
+
+<para>
+Байтовые строки содержат последовательность байт и
+используются для сериализации строк Unicode
+во внешние данные и десериализации из внешних источников.
+Например метод <link id="string_toutf8">toUTF8()</link> сериализует
+строку Unicode в байтовую строку используя кодировку UTF8:
+<example>
+>> '£'.toUTF8().toString('hex')
+'c2a3'  /* C2 A3 является UTF8-представлением codepoint 00A3 ('£') */
+</example>
+Метод <link id="string_tobytes">toBytes()</link> сериализует
+строку Unicode с codepoints до 255 в байтовую строку,
+в противном случае возвращается <literal>null</literal>:
+<example>
+>> '£'.toBytes().toString('hex')
+'a3'  /* a3 является байтом, равным codepoint 00A3 ('£')  */
+</example>
+В различные кодировки могут быть преобразованы только байтовые строки.
+Например строка не может быть кодирована напрямую в <literal>hex</literal>:
+<example>
+>> 'αβγδ'.toString('base64')
+TypeError: argument must be a byte string
+    at String.prototype.toString (native)
+    at main (native)
+</example>
+Чтобы преобразовать строку Unicode в hex,
+сначала необходимо её преобразовать в байтовую строку и затем в hex:
+<example>
+>> 'αβγδ'.toUTF8().toString('base64')
+'zrHOss6zzrQ='
+</example>
+
+<list type="tag">
+
+<tag-name id="string_bytesfrom"><literal>String.bytesFrom(<value>массив</value>
+| <value>строка</value>, <value>кодировка</value>)</literal></tag-name>
+<tag-desc>
+(только в njs) Создаёт байтовую строку или из массива, содержащего октеты,
+или из кодированной строки
+(<link doc="../njs/changes.xml" id="njs0.2.3">0.2.3</link>).
+Кодировкой может быть
+<literal>hex</literal>,
+<literal>base64</literal> и
+<literal>base64url</literal>.
+<example>
+>> String.bytesFrom([0x62, 0x75, 0x66, 0x66, 0x65, 0x72])
+'buffer'
+
+>> String.bytesFrom('YnVmZmVy', 'base64')
+'buffer'
+</example>
+</tag-desc>
+
+<tag-name id="string_fromcharcode"><literal>String.fromCharCode(<value>CharCode1</value>[, ...[,
+<value>CharCodeN</value>]])</literal></tag-name>
+<tag-desc>
+Возвращает строку из одной или более Unicode codepoints.
+<example>
+>> String.fromCharCode(97, 98, 99, 100)
+'abcd'
+</example>
+</tag-desc>
+
+<tag-name id="string_fromcodepoint"><literal>String.fromCodePoint(<value>codePoint1</value>[, ...[,
+<value>codePoint2</value>]])</literal></tag-name>
+<tag-desc>
+Возвращает строку из одной или более Unicode codepoints.
+<example>
+>> String.fromCodePoint(97, 98, 99, 100)
+'abcd'
+</example>
+</tag-desc>
+
+<tag-name id="string_charat"><literal>String.prototype.charAt(<value>индекс</value>)</literal></tag-name>
+<tag-desc>
+Возвращает строку, представляющую одну кодовую единицу Unicode
+внутри указанного <literal>индекса</literal>;
+пустая строка, если индекс вне диапазона значений.
+Индекс может быть числом
+между 0 и длиной строки минус 1.
+Если индекс не указан, то значение по умолчанию равно <literal>0</literal>,
+т.е. возвращается первый символ в строке.
+</tag-desc>
+
+<tag-name id="string_codepointat"><literal>String.prototype.CodePointAt(<value>позиция</value>)</literal></tag-name>
+<tag-desc>
+Возвращает число, представляющее codepoint-значение символа
+в пределах указанной <literal>позиции</literal>;
+<literal>undefined</literal>, если элемент в позиции отсутствует.
+<example>
+>> 'ABCD'.codePointAt(3);
+68
+</example>
+</tag-desc>
+
+<tag-name id="string_concat"><literal>String.prototype.concat(<value>строка1</value>[, ...,
+<value>строкаN</value>])</literal></tag-name>
+<tag-desc>
+Возвращает строку, содержающую результат объединения указанных
+<literal>строк</literal>.
+<example>
+>> "a".concat("b", "c")
+'abc'
+</example>
+</tag-desc>
+
+<tag-name id="string_endswith"><literal>String.prototype.endsWith(<value>ПоисковаяСтрока</value>[,
+<value>длина</value>])</literal></tag-name>
+<tag-desc>
+Возвращает <literal>true</literal>, если строка заканчивается символами
+указанной строки, иначе <literal>false</literal>.
+Необязательный параметр <literal>длина</literal> задаёт длину строки.
+Если <value>ПоисковаяСтрока</value> не указана,
+значением по умолчанию является длина строки.
+<example>
+>> 'abc'.endsWith('abc')
+true
+>> 'abca'.endsWith('abc')
+false
+</example>
+</tag-desc>
+
+<tag-name id="string_frombytes"><literal>String.prototype.fromBytes(<value>начало</value>[,
+<value>конец</value>])</literal></tag-name>
+<tag-desc>
+(только в njs) Возвращает новую строку Unicode из байтовой строки,
+в которой каждый байт заменяется соответствующей Unicode codepoint.
+</tag-desc>
+
+<tag-name id="string_fromutf8"><literal>String.prototype.fromUTF8(<value>начало</value>[,
+<value>конец</value>])</literal></tag-name>
+<tag-desc>
+(только в njs) Преобразует байтовую строку, содержащую валидную строку UTF8,
+в строку Unicode,
+иначе возвращается <literal>null</literal>.
+</tag-desc>
+
+<tag-name id="string_includes"><literal>String.prototype.includes(<value>поисковаяСтрока</value>[,
+<value>позиция</value>]))</literal></tag-name>
+<tag-desc>
+Возвращает <literal>true</literal>, если строка ищется внутри другой строки,
+иначе <literal>false</literal>.
+Необязательный параметр <literal>позиция</literal> задаёт позицию
+внутри строки, от которой начинается поиск для <literal>поисковойСтроки</literal>. 
+Значение по умолчанию равно 0.
+<example>
+>> 'abc'.includes('bc')
+true
+</example>
+</tag-desc>
+
+<tag-name id="string_indexof"><literal>String.prototype.indexOf(<value>поисковаяСтрока</value>[,
+<value>fromIndex</value>])</literal></tag-name>
+<tag-desc>
+Возвращает позицию первого появления
+<literal>поисковойСтроки</literal>.
+Поиск начинается с <literal>fromIndex</literal>.
+Возвращает <value>-1</value>, если значение не найдено.
+<literal>fromIndex</literal> является числом,
+значение по умолчанию равно 0.
+Если <literal>fromIndex</literal> меньше, чем 0
+или больше, чем
+<link id="string_length">String.prototype.length</link><value></value>,
+поиск начнётся на индексе <value>0</value> и
+<value>String.prototype.length</value>.
+<example>
+>> 'abcdef'.indexOf('de', 2)
+3
+</example>
+</tag-desc>
+
+<tag-name id="string_lastindexof"><literal>String.prototype.lastIndexOf(<value>поисковаяСтрока</value>[,
+<value>fromIndex</value>])</literal></tag-name>
+<tag-desc>
+Возвращает позицию последнего появления
+of the <literal>поисковойСтроки</literal>,
+поиск осуществляется в обратном порядке от <literal>fromIndex</literal>.
+Возвращает <value>-1</value>, если значение не найдено.
+Если значение <literal>поисковойСтроки</literal> пустое,
+то возвращается <literal>fromIndex</literal>.
+<example>
+>> "nginx".lastIndexOf("gi")
+1
+</example>
+</tag-desc>
+
+<tag-name id="string_length"><literal>String.prototype.length</literal></tag-name>
+<tag-desc>
+Возвращает длину строки.
+<example>
+>> 'αβγδ'.length
+4
+</example>
+</tag-desc>
+
+<tag-name id="string_match"><literal>String.prototype.match([<value>регулярноеВыражение</value>])</literal></tag-name>
+<tag-desc>
+Возвращает совпадение при сопоставлении строки с
+регулярным выражением.
+<example>
+>> 'nginx'.match( /ng/i )
+'ng'
+</example>
+</tag-desc>
+
+<tag-name id="string_padend"><literal>String.prototype.padEnd(<value>длина</value>
+[, <value>строка</value>])</literal></tag-name>
+<tag-desc>
+Возвращает строку указанной длины,
+добавляя строку в конец указанной
+строки (<link doc="../njs/changes.xml" id="njs0.2.3">0.2.3</link>).
+<example>
+>> '1234'.padEnd(8, 'abcd')
+'1234abcd'
+</example>
+</tag-desc>
+
+<tag-name id="string_padstart"><literal>String.prototype.padStart(<value>длина</value>
+[, <value>строка</value>])</literal></tag-name>
+<tag-desc>
+Возвращает строку указанной длины,
+добавляя строку к началу указанной
+строки (<link doc="../njs/changes.xml" id="njs0.2.3">0.2.3</link>).
+<example>
+>> '1234'.padStart(8, 'abcd')
+'abcd1234'
+</example>
+</tag-desc>
+
+<tag-name id="string_repeat"><literal>String.prototype.repeat(<value>число</value>)</literal></tag-name>
+<tag-desc>
+Возвращает строку
+с указанным числом копий строки.
+<example>
+>> 'abc'.repeat(3)
+'abcabcabc'
+</example>
+</tag-desc>
+
+<tag-name id="string_replace"><literal>String.prototype.replace([<value>регулярноеВыражение</value>|<value>string</value>[,
+<value>string</value>|<value>function</value>]])</literal></tag-name>
+<tag-desc>
+Возвращает новую строку, которая сопоставляется со
+строкой или регулярным выражением,
+и заменяется на <literal>строку</literal> или <literal>функцию</literal>.
+<example>
+>> 'abcdefgh'.replace('d', 1)
+'abc1efgh'
+</example>
+</tag-desc>
+
+<tag-name id="string_search"><literal>String.prototype.search([<value>регулярноеВыражение</value>])</literal></tag-name>
+<tag-desc>
+Осуществляет поиск строки при помощи регулярного выражения.
+<example>
+>> 'abcdefgh'.search('def')
+3
+</example>
+</tag-desc>
+
+<tag-name id="string_slice"><literal>String.prototype.slice(<value>начало</value>[,
+<value>конец</value>])</literal></tag-name>
+<tag-desc>
+Возвращает новую строку, содержащую часть
+исходной строки между <literal>началом</literal>
+и <literal>концом</literal> или
+от <literal>начала</literal> до конца строки.
+<example>
+>> 'abcdefghijklmno'.slice(NaN, 5)
+'abcde'
+</example>
+</tag-desc>
+
+<tag-name id="string_split"><literal>String.prototype.split(([<value>строка</value>|<value>регулярноеВыражение</value>[,
+<value>лимит</value>]]))</literal></tag-name>
+<tag-desc>
+Возвращает совпадение строки регулярному выражению.
+Необязательный параметр <literal>лимит</literal> является числом, задающим
+ограничение на количество найденных подстрок.
+<example>
+>> 'abc'.split('')
+[
+ 'a',
+ 'b',
+ 'c'
+]
+</example>
+</tag-desc>
+
+<tag-name id="string_startswith"><literal>String.prototype.startsWith(<value>поисковаяСтрока</value>[,
+<value>позиция</value>])</literal></tag-name>
+<tag-desc>
+Возвращает <literal>true</literal>, если строка начинается с символов
+указанной строки, иначе <literal>false</literal>.
+Необязательный параметр <literal>позиция</literal> является местом
+в этой строке, с которого начинается поиск <literal>поисковойСтоки</literal>.
+Значение по умолчанию равно 0.
+<example>
+>> 'abc'.startsWith('abc')
+true
+> 'aabc'.startsWith('abc')
+false
+</example>
+</tag-desc>
+
+<tag-name id="string_substr"><literal>String.prototype.substr(<value>начало</value>[,
+<value>длина</value>])</literal></tag-name>
+<tag-desc>
+Возвращает часть строки указанной <literal>длины</literal>
+от <literal>начала</literal>
+или от <literal>начала</literal> до конца строки.
+<example>
+>>  'abcdefghijklmno'.substr(3, 5)
+'defgh'
+</example>
+</tag-desc>
+
+<tag-name id="string_substring"><literal>String.prototype.substring(<value>начало</value>[,
+<value>конец</value>])</literal></tag-name>
+<tag-desc>
+Возвращает часть строки между
+<literal>началом</literal> и <literal>концом</literal> или
+от от <literal>начала</literal> до конца строки.
+<example>
+>> 'abcdefghijklmno'.substring(3, 5)
+'de'
+</example>
+</tag-desc>
+
+<tag-name id="string_tobytes"><literal>String.prototype.toBytes(начало[,
+конец])</literal></tag-name>
+<tag-desc>
+(только в njs) Сериализует строку Unicode в байтовую строку.
+Возвращает <literal>null</literal>, если в строке найден символ больше, чем 255.
+</tag-desc>
+
+<tag-name id="string_tolowercase"><literal>String.prototype.toLowerCase()</literal></tag-name>
+<tag-desc>
+Преобразует строку в нижний регистр.
+Метод поддерживает только простое свёртывание Unicode.
+<example>
+>> 'ΑΒΓΔ'.toLowerCase()
+'αβγδ'
+</example>
+</tag-desc>
+
+<tag-name><literal>String.prototype.toString([<value>кодировка</value>])</literal></tag-name>
+<tag-desc>
+<para>
+Если кодировка не указана,
+возвращает указанную строку Unicode string или байтовую строку как в ECMAScript.
+</para>
+
+<para>
+(только в njs) Если кодировка указана,
+кодирует <link id="string_tobytes">байтовую строку</link> в
+<literal>hex</literal>,
+<literal>base64</literal> или
+<literal>base64url</literal>.
+</para>
+<example>
+>>  'αβγδ'.toUTF8().toString('base64url')
+'zrHOss6zzrQ'
+</example>
+</tag-desc>
+
+<tag-name id="string_touppercase"><literal>String.prototype.toUpperCase()</literal></tag-name>
+<tag-desc>
+Преобразует строку в верхний регистр.
+Метод поддерживает только простое свёртывание Unicode.
+<example>
+>> 'αβγδ'.toUpperCase()
+'ΑΒΓΔ'
+</example>
+</tag-desc>
+
+<tag-name id="string_toutf8"><literal>String.prototype.toUTF8(<value>начало</value>[,
+<value>конец</value>])</literal></tag-name>
+<tag-desc>
+(только в njs) Сериализует строку Unicode
+в байтовую строку при помощи кодирования UTF8.
+<example>
+>> 'αβγδ'.toUTF8().length
+8
+>> 'αβγδ'.length
+4
+</example>
+</tag-desc>
+
+<tag-name id="string_trim"><literal>String.prototype.trim()</literal></tag-name>
+<tag-desc>
+Удаляет пробелы в начале и конце строки.
+<example>
+>> '   abc  '.trim()
+'abc'
+</example>
+</tag-desc>
+
+<tag-name id="encodeuri"><literal>encodeURI(<value>URI</value>)</literal></tag-name>
+<tag-desc>
+Кодирует URI путём замены определённых символов
+на одну, две, три или четыре последовательности,
+представляющие UTF-8 кодировку символа.
+<example>
+>> encodeURI('012αβγδ')
+'012%CE%B1%CE%B2%CE%B3%CE%B4'
+</example>
+</tag-desc>
+
+<tag-name id="encodeuricomponent"><literal>encodeURIComponent(<value>encodedURIString</value>)</literal></tag-name>
+<tag-desc>
+Кодирует URI путём замены определённых символов
+на одну, две, три или четыре последовательности,
+представляющие UTF-8 кодировку символа.
+<example>
+>> encodeURIComponent('[@?=')
+'%5B%40%3F%3D'
+</example>
+</tag-desc>
+
+<tag-name id="decodeuri"><literal>decodeURI(<value>encodedURI</value>)</literal></tag-name>
+<tag-desc>
+Декодирует ранее <link id="encodeuri">кодированный</link> URI.
+<example>
+>> decodeURI('012%CE%B1%CE%B2%CE%B3%CE%B4')
+'012αβγδ'
+</example>
+</tag-desc>
+
+<tag-name id="decodeuricomponent"><literal>decodeURIComponent(<value>decodedURIString</value>)</literal></tag-name>
+<tag-desc>
+Декодирует ранее <link id="encodeuri">кодированный</link> URI.
+<example>
+>> decodeURIComponent('%5B%40%3F%3D')
+'[@?='
+</example>
+</tag-desc>
+
+</list>
+</para>
+
+</section>
+
+</section>
+
 </article>
 
