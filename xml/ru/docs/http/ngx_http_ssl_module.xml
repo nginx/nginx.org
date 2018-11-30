@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_ssl_module"
         link="/ru/docs/http/ngx_http_ssl_module.html"
         lang="ru"
-        rev="43">
+        rev="44">
 
 <section id="summary">
 
@@ -285,6 +285,14 @@ PEM, которые используются для
 
 <para>
 Указывает <value>файл</value> с параметрами для DHE-шифров.
+</para>
+
+<para>
+По умолчанию параметры не заданы,
+и соответственно DHE-шифры не будут использоваться.
+<note>
+До версии 1.11.0 по умолчанию использовались встроенные параметры.
+</note>
 </para>
 
 </directive>

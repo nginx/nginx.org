@@ -10,7 +10,7 @@
 <module name="Module ngx_mail_ssl_module"
         link="/en/docs/mail/ngx_mail_ssl_module.html"
         lang="en"
-        rev="18">
+        rev="19">
 
 <section id="summary">
 
@@ -243,6 +243,14 @@ client certificates.
 
 <para>
 Specifies a <value>file</value> with DH parameters for DHE ciphers.
+</para>
+
+<para>
+By default no parameters are set,
+and therefore DHE ciphers will not be used.
+<note>
+Prior to version 1.11.0, builtin parameters were used by default.
+</note>
 </para>
 
 </directive>
