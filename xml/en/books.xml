@@ -8,10 +8,75 @@
 <article name="nginx books"
          link="/en/books.html"
          lang="en"
-         rev="8">
+         rev="9">
 
 
 <section>
+
+<book
+    title="The Complete NGINX Cookbook - 2019 Edition"
+    link="https://www.nginx.com/resources/library/complete-nginx-cookbook"
+    author="Derek DeJonghe"
+    site="https://www.oreilly.com/people/02bb3-derek-dejonghe"
+    publisher="O'Reilly"
+    lang="English"
+    cover="../books/complete_nginx_cookbook_2019.jpg"
+    year="2018" />
+
+<book
+    title="Deploying NGINX Plus as an API Gateway"
+    link="https://www.nginx.com/resources/library/nginx-api-gateway-deployment"
+    author="Liam Crilly"
+    publisher="NGINX"
+    lang="English"
+    cover="../books/deploying_nginx_as_api_gateway.jpg"
+    year="2018" />
+
+<book
+    title="High-Performance Caching with NGINX and NGINX Plus"
+    link="https://www.nginx.com/resources/library/high-performance-caching-with-nginx-and-nginx-plus"
+    author="Owen Garrett"
+    publisher="NGINX"
+    lang="English"
+    cover="../books/high_performance_caching.jpg"
+    year="2018" />
+
+<book
+    title="Load Balancing in the Cloud: Practical Solutions with NGINX and AWS"
+    link="https://www.nginx.com/resources/library/load-balancing-in-the-cloud-aws-nlb-elb-nginx-plus"
+    author="Derek DeJonghe"
+    site="https://www.oreilly.com/people/02bb3-derek-dejonghe"
+    publisher="O'Reilly"
+    lang="English"
+    cover="../books/loadbalancing_cloud.jpg"
+    year="2018" />
+
+<book
+    title="F5 BIG-IP to NGINX Plus: Migration Guide"
+    link="https://www.nginx.com/resources/library/f5-big-ip-nginx-migration-guide"
+    author="Faisal Memon, Alan Murphy"
+    publisher="NGINX"
+    lang="English"
+    cover="../books/f5_to_nginx_migration.jpg"
+    year="2018" />
+
+<book
+    title="How to Easily and Cost Effectively Replace Cisco ACE"
+    link="https://www.nginx.com/resources/library/cisco-ace-nginx-migration-guide"
+    author=" Faisal Memon"
+    publisher="NGINX"
+    lang="English"
+    cover="../books/cisco_ace_to_nginx.jpg"
+    year="2018" />
+
+<book
+    title="ModSecurity 3.0 and NGINX: Quick Start Guide"
+    link="https://www.nginx.com/resources/library/modsecurity-3-nginx-quick-start-guide"
+    author="Faisal Memon, Owen Garrett, Michael Pleshakov"
+    publisher="NGINX"
+    lang="English"
+    cover="../books/modsec3_and_nginx.jpg"
+    year="2018" />
 
 <book
     title="Nginx HTTP Server - Fourth Edition"
