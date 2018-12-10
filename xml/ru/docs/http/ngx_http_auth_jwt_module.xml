@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_auth_jwt_module"
         link="/ru/docs/http/ngx_http_auth_jwt_module.html"
         lang="ru"
-        rev="7">
+        rev="8">
 
 <section id="summary">
 
@@ -36,7 +36,7 @@ JWT claims должны быть зашифрованы в структуре
 
 <para>
 Модуль поддерживает следующие криптографические
-<link url="https://tools.ietf.org/html/rfc7518#section-3.1">алгоритмы</link>:
+<link url="https://www.iana.org/assignments/jose/jose.xhtml#web-signature-encryption-algorithms">алгоритмы</link>:
 
 <list type="bullet">
 
@@ -50,6 +50,10 @@ RS256, RS384, RS512
 
 <listitem>
 ES256, ES384, ES512
+</listitem>
+
+<listitem>
+EdDSA (подписи Ed25519 и Ed448) (1.15.7)
 </listitem>
 
 </list>
@@ -183,6 +187,45 @@ location / {
 <link url="https://tools.ietf.org/html/rfc7517#section-5">JSON Web Key Set</link>
 для проверки подписи JWT.
 В значении параметра допустимо использование переменных.
+</para>
+
+</directive>
+
+
+<directive name="auth_jwt_key_request">
+<syntax><value>uri</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<context>limit_except</context>
+<appeared-in>1.15.6</appeared-in>
+
+<para>
+Позволяет получать файл в формате
+<link url="https://tools.ietf.org/html/rfc7517#section-5">JSON Web Key Set</link>
+из подзапроса для проверки подписи JWT и
+задаёт URI, на который будет отправлен подзапрос.
+Для предотвращения дополнительных затрат на проверку
+файл рекомендутеся кэшировать.
+<example>
+proxy_cache_path /data/nginx/cache levels=1 keys_zone=foo:10m;
+
+server {
+    ...
+
+    location / {
+        auth_jwt             "closed site";
+        auth_jwt_key_request /jwks_uri;
+    }
+
+    location = /jwks_uri {
+        internal;
+        proxy_cache foo;
+        proxy_pass  http://idp.example.com/keys;
+    }
+}
+</example>
 </para>
 
 </directive>

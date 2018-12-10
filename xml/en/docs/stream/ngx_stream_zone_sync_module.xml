@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_zone_sync_module"
         link="/en/docs/stream/ngx_stream_zone_sync_module.html"
         lang="en"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -208,7 +208,7 @@ A domain name that resolves to several IP addresses defines
 multiple nodes at once.
 </para>
 
-<para>
+<para id="resolve">
 The <literal>resolve</literal> parameter instructs nginx to monitor
 changes of the IP addresses that correspond to a domain name of the node
 and automatically modify the configuration
@@ -325,6 +325,29 @@ the certificate of another cluster server.
 </directive>
 
 
+<directive name="zone_sync_ssl_name">
+<syntax><value>name</value></syntax>
+<default>host from zone_sync_server</default>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.15.7</appeared-in>
+
+<para>
+Allows overriding the server name used to
+<link id="zone_sync_ssl_verify">verify</link>
+the certificate of a cluster server and to be
+<link id="zone_sync_ssl_server_name">passed through SNI</link>
+when establishing a connection with the cluster server.
+</para>
+
+<para>
+By default, the host part of the <link id="zone_sync_server"/> address is used,
+or resolved IP address if the <link id="resolve"/> parameter is specified.
+</para>
+
+</directive>
+
+
 <directive name="zone_sync_ssl_password_file">
 <syntax><value>file</value></syntax>
 <default/>
@@ -355,6 +378,23 @@ Passphrases are tried in turn when loading the key.
 
 <para>
 Enables the specified protocols for connections to another cluster server.
+</para>
+
+</directive>
+
+
+<directive name="zone_sync_ssl_server_name">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.15.7</appeared-in>
+
+<para>
+Enables or disables passing of the server name through
+<link url="http://en.wikipedia.org/wiki/Server_Name_Indication">TLS
+Server Name Indication extension</link> (SNI, RFC 6066)
+when establishing a connection with another cluster server.
 </para>
 
 </directive>
