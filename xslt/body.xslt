@@ -20,8 +20,8 @@
 
     <div id="banner">
         <xsl:if test="@lang = 'he'"> <xsl:attribute name="class"> <xsl:text>ltr</xsl:text> </xsl:attribute> </xsl:if>
-        Learn how to configure caching, load balancing, cloud deployments, and other critical NGINX features.<br/>
-        <a href="https://www.nginx.com/resources/library/complete-nginx-cookbook/?utm_source=nginxorg&amp;utm_medium=homepagebanner&amp;utm_campaign=complete_cookbook">Download the Complete NGINX Cookbook</a>
+        NGINX Plus R17 released: TLS 1.3, two-stage rate limiting, easier OpenID Connect SSO, and 2x faster NGINX WAF.<br/>
+        <a href="https://www.nginx.com/blog/nginx-plus-r17-released/?utm_source=nginxorg&amp;utm_medium=homepagebanner&amp;utm_campaign=r17">Learn more.</a>
     </div>
 
     <div id="main">
