@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="78">
+        rev="79">
 
 <section id="summary">
 
@@ -1152,6 +1152,14 @@ the variable keeps the name of the server group.
 <tag-name id="var_upstream_bytes_received"><var>$upstream_bytes_received</var></tag-name>
 <tag-desc>
 number of bytes received from an upstream server (1.11.4).
+Values from several connections
+are separated by commas and colons like addresses in the
+<link id="var_upstream_addr">$upstream_addr</link> variable.
+</tag-desc>
+
+<tag-name id="var_upstream_bytes_sent"><var>$upstream_bytes_sent</var></tag-name>
+<tag-desc>
+number of bytes sent to an upstream server (1.15.8).
 Values from several connections
 are separated by commas and colons like addresses in the
 <link id="var_upstream_addr">$upstream_addr</link> variable.
