@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_upstream_module"
         link="/ru/docs/stream/ngx_stream_upstream_module.html"
         lang="ru"
-        rev="34">
+        rev="35">
 
 <section id="summary">
 
@@ -566,17 +566,17 @@ hash $remote_addr;
 то переменная хранит имя группы серверов.
 </tag-desc>
 
-<tag-name id="var_upstream_bytes_sent"><var>$upstream_bytes_sent</var></tag-name>
+<tag-name id="var_upstream_bytes_received"><var>$upstream_bytes_received</var></tag-name>
 <tag-desc>
-число байт, переданных на сервер группы (1.11.4).
+число байт, полученных от сервера группы (1.11.4).
 Значения нескольких соединений
 разделяются запятыми подобно адресам в переменной
 <link id="var_upstream_addr">$upstream_addr</link>.
 </tag-desc>
 
-<tag-name id="var_upstream_bytes_received"><var>$upstream_bytes_received</var></tag-name>
+<tag-name id="var_upstream_bytes_sent"><var>$upstream_bytes_sent</var></tag-name>
 <tag-desc>
-число байт, полученных от сервера группы (1.11.4).
+число байт, переданных на сервер группы (1.11.4).
 Значения нескольких соединений
 разделяются запятыми подобно адресам в переменной
 <link id="var_upstream_addr">$upstream_addr</link>.

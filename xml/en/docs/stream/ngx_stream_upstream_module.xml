@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_upstream_module"
         link="/en/docs/stream/ngx_stream_upstream_module.html"
         lang="en"
-        rev="34">
+        rev="35">
 
 <section id="summary">
 
@@ -566,17 +566,17 @@ If a server cannot be selected,
 the variable keeps the name of the server group.
 </tag-desc>
 
-<tag-name id="var_upstream_bytes_sent"><var>$upstream_bytes_sent</var></tag-name>
+<tag-name id="var_upstream_bytes_received"><var>$upstream_bytes_received</var></tag-name>
 <tag-desc>
-number of bytes sent to an upstream server (1.11.4).
+number of bytes received from an upstream server (1.11.4).
 Values from several connections
 are separated by commas like addresses in the
 <link id="var_upstream_addr">$upstream_addr</link> variable.
 </tag-desc>
 
-<tag-name id="var_upstream_bytes_received"><var>$upstream_bytes_received</var></tag-name>
+<tag-name id="var_upstream_bytes_sent"><var>$upstream_bytes_sent</var></tag-name>
 <tag-desc>
-number of bytes received from an upstream server (1.11.4).
+number of bytes sent to an upstream server (1.11.4).
 Values from several connections
 are separated by commas like addresses in the
 <link id="var_upstream_addr">$upstream_addr</link> variable.
