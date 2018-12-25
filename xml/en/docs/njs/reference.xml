@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="17">
+        rev="18">
 
 <section id="summary">
 
@@ -989,9 +989,6 @@ If omitted or is <literal>null</literal>, no white space is used.
 
 >> JSON.stringify(json)
 '{"a":1,"b":true}'
-
->> JSON.stringify(json, undefined, 1)
-'{\n "a": 1,\n "b": true\n}'
 
 >> JSON.stringify({ x: [10, undefined, function(){}] })
 '{"x":[10,null,null]}'
