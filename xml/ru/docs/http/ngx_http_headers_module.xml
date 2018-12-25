@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_headers_module"
         link="/ru/docs/http/ngx_http_headers_module.html"
         lang="ru"
-        rev="10">
+        rev="11">
 
 <section id="summary">
 
@@ -143,9 +143,6 @@ expires @15h30m;
 </para>
 
 <para>
-Параметр <literal>epoch</literal> соответствует абсолютному времени
-“<literal>Thu, 01 Jan 1970 00:00:01 GMT</literal>”
-(1 января 1970 года 00:00:01 GMT).
 Содержимое поля <header>Cache-Control</header> зависит от знака
 заданного времени:
 <list type="bullet">
@@ -161,6 +158,13 @@ expires @15h30m;
 </listitem>
 
 </list>
+</para>
+
+<para>
+Параметр <literal>epoch</literal> задаёт время
+“<literal>Thu, 01 Jan 1970 00:00:01 GMT</literal>”
+(1 января 1970 00:00:01 GMT) для поля <header>Expires</header>
+и “<literal>no-cache</literal>” для поля <header>Cache-Control</header>.
 </para>
 
 <para>

@@ -10,7 +10,7 @@
 <module name="Module ngx_http_headers_module"
         link="/en/docs/http/ngx_http_headers_module.html"
         lang="en"
-        rev="10">
+        rev="11">
 
 <section id="summary">
 
@@ -147,8 +147,6 @@ expires @15h30m;
 </para>
 
 <para>
-The <literal>epoch</literal> parameter corresponds to the absolute time
-“<literal>Thu, 01 Jan 1970 00:00:01 GMT</literal>”.
 The contents of the <header>Cache-Control</header> field depends
 on the sign of the specified time:
 <list type="bullet">
@@ -164,6 +162,12 @@ where <value>t</value> is a time specified in the directive, in seconds.
 </listitem>
 
 </list>
+</para>
+
+<para>
+The <literal>epoch</literal> parameter sets <header>Expires</header>
+to the value “<literal>Thu, 01 Jan 1970 00:00:01 GMT</literal>”,
+and <header>Cache-Control</header> to “<literal>no-cache</literal>”.
 </para>
 
 <para>
