@@ -9,7 +9,7 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="12"
+        rev="13"
         toc="no">
 
 <section id="njs0.2.7" name="Changes with 0.2.7">
@@ -87,14 +87,14 @@ fixed type of iteration variable in for-in with array values.
 <listitem>
 <para>
 Bugfix:
-fixed building on paltforms without librt.
+fixed building on platforms without librt.
 </para>
 </listitem>
 
 <listitem>
 <para>
 Bugfix:
-miscellaneous additional bugs have been fixed.
+miscellaneous bugs have been fixed.
 </para>
 </listitem>
 
@@ -240,7 +240,7 @@ for <literal>object_value</literal> type.
 <listitem>
 <para>
 Bugfix:
-miscellaneous additional bugs have been fixed.
+miscellaneous bugs have been fixed.
 </para>
 </listitem>
 
@@ -379,7 +379,7 @@ for non-object properties
 <listitem>
 <para>
 Bugfix:
-miscellaneous additional bugs have been fixed.
+miscellaneous bugs have been fixed.
 </para>
 </listitem>
 
@@ -552,7 +552,7 @@ fixed <literal>String.slice()</literal> for undefined arguments.
 <listitem>
 <para>
 Bugfix:
-miscellaneous additional bugs have been fixed.
+miscellaneous bugs have been fixed.
 </para>
 </listitem>
 
@@ -709,7 +709,7 @@ fixed autocompletion for global objects.
 <listitem>
 <para>
 Bugfix:
-miscellaneous additional bugs have been fixed.
+miscellaneous bugs have been fixed.
 </para>
 </listitem>
 
@@ -1013,7 +1013,7 @@ fixed <literal>njs_vm_external_bind()</literal>.
 <listitem>
 <para>
 Bugfix:
-miscellaneous additional bugs have been fixed.
+miscellaneous bugs have been fixed.
 </para>
 </listitem>
 

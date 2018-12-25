@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="18">
+        rev="19">
 
 <section id="summary">
 
@@ -489,19 +489,18 @@ of the given <literal>object</literal>
 <section id="string" name="String">
 
 <para>
-There are two types of strings:
-a <literal>Unicode string</literal> (default) and
-a <literal>byte string</literal>.
+There are two types of strings in njs: a Unicode string (default) and
+a byte string.
 </para>
 
 <para>
-A <literal>Unicode string</literal> corresponds to an ECMAScript string
+A Unicode string corresponds to an ECMAScript string
 which contains Unicode characters.
 </para>
 
 <para>
-<literal>Byte strings</literal> contain a sequence of bytes.
-They are used to serialize Unicode strings
+Byte strings contain a sequence of bytes
+and are used to serialize Unicode strings
 to external data and deserialize from external sources.
 For example, the <link id="string_toutf8">toUTF8()</link> method serializes
 a Unicode string to a byte string using UTF8 encoding:
@@ -537,7 +536,8 @@ first, it should be converted to a byte string and then to hex:
 | <value>string</value>, <value>encoding</value>)</literal></tag-name>
 <tag-desc>
 (njs specific) Creates a byte string either from an array that contains octets,
-or from an encoded string (0.2.3).
+or from an encoded string
+(<link doc="../njs/changes.xml" id="njs0.2.3">0.2.3</link>).
 The encoding can be
 <literal>hex</literal>,
 <literal>base64</literal>, and
@@ -576,7 +576,7 @@ Returns a string from one or more Unicode code points.
 Returns a string representing one Unicode code unit
 at the specified <literal>index</literal>;
 empty string if index is out of range.
-The <literal>index</literal> can be integer
+The index can be an integer
 between 0 and 1-less-than the length of the string.
 If no index is provided, the default is <literal>0</literal>,
 so the first character in the string is returned.
@@ -585,7 +585,7 @@ so the first character in the string is returned.
 <tag-name id="string_codepointat"><literal>String.prototype.CodePointAt(<value>position</value>)</literal></tag-name>
 <tag-desc>
 Returns a number representing the code point value of the character
-at the given index;
+at the given <literal>position</literal>;
 <literal>undefined</literal> if there is no element at position.
 <example>
 >> 'ABCD'.codePointAt(3);
@@ -652,7 +652,7 @@ true
 <value>fromIndex</value>])</literal></tag-name>
 <tag-desc>
 Returns the position of the first occurrence
-of the <literal>searchString</literal>
+of the <literal>searchString</literal>.
 The search is started at <literal>fromIndex</literal>.
 Returns <value>-1</value> if the value is not found.
 The <literal>fromIndex</literal> is an integer,
@@ -705,8 +705,8 @@ Matches a string against a <literal>regexp</literal>.
 [, <value>string</value>])</literal></tag-name>
 <tag-desc>
 Returns a string of a specified <literal>length</literal>
-with the pad <literal>string</literal> applied
-to the end of the specified string (0.2.3).
+with the pad <literal>string</literal> applied to the end of the specified
+string (<link doc="../njs/changes.xml" id="njs0.2.3">0.2.3</link>).
 <example>
 >> '1234'.padEnd(8, 'abcd')
 '1234abcd'
@@ -717,8 +717,8 @@ to the end of the specified string (0.2.3).
 [, <value>string</value>])</literal></tag-name>
 <tag-desc>
 Returns a string of a specified <literal>length</literal>
-with the pad <literal>string</literal> applied
-to the start of the specified string (0.2.3).
+with the pad <literal>string</literal> applied to the start of the specified
+string (<link doc="../njs/changes.xml" id="njs0.2.3">0.2.3</link>).
 <example>
 >> '1234'.padStart(8, 'abcd')
 'abcd1234'
@@ -727,7 +727,7 @@ to the start of the specified string (0.2.3).
 
 <tag-name id="string_repeat"><literal>String.prototype.repeat(<value>number</value>)</literal></tag-name>
 <tag-desc>
-Returns a string 
+Returns a string
 with the specified <literal>number</literal> of copies of the string.
 <example>
 >> 'abc'.repeat(3)
@@ -897,8 +897,8 @@ Removes whitespaces from both ends of a string.
 
 <tag-name id="encodeuri"><literal>encodeURI(<value>URI</value>)</literal></tag-name>
 <tag-desc>
-encodes a URI by replacing each instance of certain characters by
-one, two, three, or four escape sequences
+Encodes a URI by replacing each instance of certain characters
+by one, two, three, or four escape sequences
 representing the UTF-8 encoding of the character
 <example>
 >> encodeURI('012αβγδ')
