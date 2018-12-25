@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="16">
+        rev="17">
 
 <section id="summary">
 
@@ -457,6 +457,33 @@ the <link id="s_allow">s.allow()</link> method should be used instead.
 
 
 <section id="core" name="Core">
+
+
+<section id="core_object" name="Object">
+
+<para>
+The <literal>Object</literal> constructor corresponds to a standard JS object.
+<list type="tag">
+
+<tag-name id="object_entries"><literal>Object.entries(<value>object</value>)</literal></tag-name>
+<tag-desc>
+returns an array of all enumerable property
+<literal>[key, value]</literal> pairs
+of the given <literal>object</literal>
+(<link doc="changes.xml" id="njs0.2.7">0.2.7</link>).
+</tag-desc>
+
+<tag-name id="object_values"><literal>Object.values(<value>object</value>)</literal></tag-name>
+<tag-desc>
+returns an array of all enumerable property values
+of the given <literal>object</literal>
+(<link doc="changes.xml" id="njs0.2.7">0.2.7</link>).
+</tag-desc>
+
+</list>
+</para>
+
+</section>
 
 
 <section id="string" name="String">

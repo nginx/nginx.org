@@ -9,8 +9,100 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="11"
+        rev="12"
         toc="no">
+
+<section id="njs0.2.7" name="Changes with 0.2.7">
+
+<para>
+Release Date:
+25 December 2018
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+rest parameters syntax (destructuring is not supported).
+Thanks to Alexander Pyshchev.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added
+<link doc="reference.xml" id="object_entries"><literal>Object.entries()</literal></link>
+method.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added
+<link doc="reference.xml" id="object_values"><literal>Object.values()</literal></link>
+method.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+code generator refactored and simplified.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed automatic semicolon insertion.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed assignment expression from compound assignment.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed comparison of Byte and UTF8 strings.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed type of iteration variable in for-in with array values.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed building on paltforms without librt.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+miscellaneous additional bugs have been fixed.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.2.6" name="Changes with 0.2.6">
 

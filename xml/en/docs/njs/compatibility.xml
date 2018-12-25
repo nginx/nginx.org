@@ -9,7 +9,7 @@
 <article name="Compatibility"
         link="/en/docs/njs/compatibility.html"
         lang="en"
-        rev="5">
+        rev="6">
 
 <section>
 
@@ -124,6 +124,14 @@ ES5.1:
 <literal>seal</literal>,
 <literal>isSealed</literal>
 </listitem>
+
+<listitem>
+ES8:
+<link doc="reference.xml" id="object_entries"><literal>entries</literal></link>
+(<link doc="changes.xml" id="njs0.2.7">0.2.7</link>),
+<link doc="reference.xml" id="object_values"><literal>values</literal></link>
+(<link doc="changes.xml" id="njs0.2.7">0.2.7</link>)
+</listitem>
 </list>
 
 </listitem>
@@ -176,6 +184,11 @@ ES5.1 <link doc="reference.xml" id="core_json"><literal>JSON</literal></link> ob
 
 <listitem>
 ES5.1 <literal>arguments</literal> object (0.2.5)
+</listitem>
+
+<listitem>
+ES6 rest parameters syntax (without destructuring support)
+(<link doc="changes.xml" id="njs0.2.7">0.2.7</link>)
 </listitem>
 
 <listitem>
