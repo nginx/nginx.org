@@ -9,7 +9,7 @@
 <module name="Module ngx_http_keyval_module"
         link="/en/docs/http/ngx_http_keyval_module.html"
         lang="en"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -108,7 +108,16 @@ The optional <literal>sync</literal> parameter (1.15.0) enables
 <link doc="../stream/ngx_stream_zone_sync_module.xml" id="zone_sync">synchronization</link>
 of the shared memory zone.
 The synchronization requires the
-<link id="keyval_timeout">timeout</link> parameter to be set.
+<literal>timeout</literal> parameter to be set.
+<note>
+If the synchronization is enabled, removal of key-value pairs (no matter
+<link doc="ngx_http_api_module.xml" id="patchHttpKeyvalZoneKeyValue">one</link>
+or
+<link doc="ngx_http_api_module.xml" id="deleteHttpKeyvalZoneData">all</link>)
+will be performed only on a target cluster node.
+The same key-value pairs on other cluster nodes
+will be removed upon <literal>timeout</literal>.
+</note>
 </para>
 
 </directive>
