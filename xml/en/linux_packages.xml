@@ -7,7 +7,7 @@
 <article name="nginx: Linux packages"
          link="/en/linux_packages.html"
          lang="en"
-         rev="34">
+         rev="35">
 
 <section name="Supported distributions and versions" id="distributions">
 
@@ -136,16 +136,16 @@ versions:
 </table>
 </para>
 
+</section>
+
+
+<section name="Installation instructions" id="instructions">
+
 <para>
 Before you install nginx for the first time on a new machine, you need to
 set up the nginx packages repository.
 Afterward, you can install and update nginx from the repository.
 </para>
-
-</section>
-
-
-<section name="Installation instructions" id="instructions">
 
 <section name="RHEL/CentOS" id="RHEL-CentOS">
 

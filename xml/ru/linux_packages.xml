@@ -7,7 +7,7 @@
 <article name="nginx: пакеты для Linux"
          link="/ru/linux_packages.html"
          lang="ru"
-         rev="34">
+         rev="35">
 
 <section name="Поддерживаемые дистрибутивы и версии" id="distributions">
 
@@ -134,16 +134,16 @@
 </table>
 </para>
 
+</section>
+
+
+<section name="Инструкции по установке" id="instructions">
+
 <para>
 Для того, чтобы поставить nginx на новой машине, необходимо подключить
 и настроить репозиторий пакетов nginx.
 После этого можно будет установить и обновлять nginx из этого репозитория.
 </para>
-
-</section>
-
-
-<section name="Инструкции по установке" id="instructions">
 
 <section name="RHEL/CentOS" id="RHEL-CentOS">
 
