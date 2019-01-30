@@ -7,7 +7,7 @@
 <article name="nginx: пакеты для Linux"
          link="/ru/linux_packages.html"
          lang="ru"
-         rev="30"
+         rev="31"
          toc="no">
 
 <section id="distributions">
@@ -119,179 +119,220 @@ SLES:
 </para>
 
 <para>
-Чтобы включить автоматическое обновление пакетов для Linux,
-настройте репозиторий yum для дистрибутивов RHEL/CentOS,
-репозиторий apt для дистрибутивов Debian/Ubuntu,
-или репозиторий zypper для SLES.
+Для того, чтобы поставить nginx на новой машине, необходимо подключить
+и настроить репозиторий пакетов nginx.
+После этого можно будет установить и обновлять nginx из этого репозитория.
 </para>
 
 </section>
 
 
-<section name="Готовые пакеты стабильной версии" id="stable">
+<section name="Инструкции по установке" id="instructions">
+
+<section name="RHEL/CentOS" id="RHEL-CentOS">
 
 <para>
-Для настройки репозитория yum для RHEL/CentOS необходимо
-создать файл с именем <path>/etc/yum.repos.d/nginx.repo</path>
-и таким содержимым:
+Установите пакеты, необходимые для подключения yum-репозитория:
+<programlisting>
+sudo yum install yum-utils
+</programlisting>
+
+Для подключения yum-репозитория создайте файл с именем
+<path>/etc/yum.repos.d/nginx.repo</path>
+со следующим содержимым:
 
 <programlisting>
-[nginx]
-name=nginx repo
-baseurl=http://nginx.org/packages/OS/OSRELEASE/$basearch/
-gpgcheck=0
+[nginx-stable]
+name=nginx stable repo
+baseurl=http://nginx.org/packages/centos/$releasever/$basearch/
+gpgcheck=1
 enabled=1
+gpgkey=https://nginx.org/keys/nginx_signing.key
+
+[nginx-mainline]
+name=nginx mainline repo
+baseurl=http://nginx.org/packages/mainline/centos/$releasever/$basearch/
+gpgcheck=1
+enabled=0
+gpgkey=https://nginx.org/keys/nginx_signing.key
 </programlisting>
 
-Замените “<literal>OS</literal>” на “<literal>rhel</literal>” или
-“<literal>centos</literal>”,
-в зависимости от используемого дистрибутива, а “<literal>OSRELEASE</literal>”
-на “<literal>6</literal>” или “<literal>7</literal>”, для, соответственно, 6.x
-или 7.x версий.
-</para>
-
-<para>
-Для Debian/Ubuntu, для проверки подлинности подписи репозитория nginx,
-и чтобы избавиться от предупреждений об отсутствующем PGP-ключе во время
-установки пакета nginx, необходимо добавить ключ, которым были подписаны
-пакеты и репозиторий nginx, в связку ключей программы <command>apt</command>.
-Загрузите <link url="/keys/nginx_signing.key">этот
-ключ</link> с нашего веб-сайта и добавьте его в связку ключей программы
-<command>apt</command>, выполнив команду:
+По умолчанию используется репозиторий для стабильной версии nginx.
+Если предпочтительно использовать пакеты для основной версии nginx,
+выполните следующую команду:
 <programlisting>
-sudo apt-key add nginx_signing.key
+sudo yum-config-manager --enable nginx-mainline
 </programlisting>
-</para>
 
-<para>
-Для Debian замените <i>codename</i> на
-<link id="distributions">кодовое имя</link> дистрибутива,
-и добавьте в конец файла <path>/etc/apt/sources.list</path>
-следующее:
-
+Чтобы установить nginx, выполните следующую команду:
 <programlisting>
-deb http://nginx.org/packages/debian/ <i>codename</i> nginx
-deb-src http://nginx.org/packages/debian/ <i>codename</i> nginx
+sudo yum install nginx
 </programlisting>
+
+При запросе подтверждения GPG-ключа проверьте, что отпечаток ключа совпадает
+с <command>573B FD6B 3D8F BC64 1079 A6AB ABF5 BD82 7BD9 BF62</command>, и,
+если это так, подтвердите его.
 </para>
 
-<para>
-Для Ubuntu замените <i>codename</i> на
-<link id="distributions">кодовое имя</link> дистрибутива,
-и добавьте в конец файла <path>/etc/apt/sources.list</path>
-следующее:
+</section>
 
+
+<section name="Debian" id="Debian">
+
+<para>
+Установите пакеты, необходимые для подключения apt-репозитория:
 <programlisting>
-deb http://nginx.org/packages/ubuntu/ <i>codename</i> nginx
-deb-src http://nginx.org/packages/ubuntu/ <i>codename</i> nginx
+sudo apt install curl gnupg2 ca-certificates lsb-release
 </programlisting>
-</para>
 
-<para>
-Для Debian/Ubuntu затем выполните команды:
+Для подключения apt-репозитория для стабильной версии nginx,
+выполните следующую команду:
 <programlisting>
-apt-get update
-apt-get install nginx
+echo "deb http://nginx.org/packages/debian `lsb_release -cs` nginx" \
+    | sudo tee /etc/apt/sources.list.d/nginx.list
 </programlisting>
-</para>
 
-<para>
-Для SLES 12 выполните команду:
+Если предпочтительно использовать пакеты для основной версии nginx,
+выполните следующую команду вместо предыдущей:
 <programlisting>
-zypper addrepo -G -t yum -c 'http://nginx.org/packages/sles/12' nginx
+echo "deb http://nginx.org/packages/mainline/debian `lsb_release -cs` nginx" \
+    | sudo tee /etc/apt/sources.list.d/nginx.list
 </programlisting>
-</para>
 
-<para>
-Для SLES 15 выполните команду:
+Теперь нужно импортировать официальный ключ,
+используемый apt для проверки подлинности пакетов:
 <programlisting>
-zypper addrepo -G -t yum -c 'http://nginx.org/packages/sles/15' nginx
+curl -fsSL https://nginx.org/keys/nginx_signing.key | sudo apt-key add -
+</programlisting>
+
+Проверьте, верный ли ключ был импортирован:
+<programlisting>
+sudo apt-key fingerprint ABF5BD827BD9BF62
+</programlisting>
+
+Вывод команды должен содержать полный отпечаток ключа
+<command>573B FD6B 3D8F BC64 1079 A6AB ABF5 BD82 7BD9 BF62</command>:
+<programlisting>
+pub   rsa2048 2011-08-19 [SC] [expires: 2024-06-14]
+      573B FD6B 3D8F BC64 1079  A6AB ABF5 BD82 7BD9 BF62
+uid   [ unknown] nginx signing key &lt;signing-key@nginx.com&gt;
+</programlisting>
+
+Чтобы установить nginx, выполните следующие команды:
+<programlisting>
+sudo apt update
+sudo apt install nginx
 </programlisting>
 </para>
 
 </section>
 
 
-<section name="Готовые пакеты mainline-версии" id="mainline">
+<section name="Ubuntu" id="Ubuntu">
 
 <para>
-Для настройки репозитория yum для RHEL/CentOS необходимо
-создать файл с именем <path>/etc/yum.repos.d/nginx.repo</path>
-и таким содержимым:
-
+Установите пакеты, необходимые для подключения apt-репозитория:
 <programlisting>
-[nginx]
-name=nginx repo
-baseurl=http://nginx.org/packages/mainline/OS/OSRELEASE/$basearch/
-gpgcheck=0
-enabled=1
+sudo apt install curl gnupg2 ca-certificates lsb-release
 </programlisting>
 
-Замените “<literal>OS</literal>” на “<literal>rhel</literal>” или
-“<literal>centos</literal>”,
-в зависимости от используемого дистрибутива, а “<literal>OSRELEASE</literal>”
-на “<literal>6</literal>” или “<literal>7</literal>”, для, соответственно, 6.x
-или 7.x версий.
-</para>
-
-<para>
-Для Debian/Ubuntu, для проверки подлинности подписи репозитория nginx,
-и чтобы избавиться от предупреждений об отсутствующем PGP-ключе во время
-установки пакета nginx, необходимо добавить ключ, которым были подписаны
-пакеты и репозиторий nginx, в связку ключей программы <command>apt</command>.
-Загрузите <link url="/keys/nginx_signing.key">этот
-ключ</link> с нашего веб-сайта и добавьте его в связку ключей программы
-<command>apt</command>, выполнив команду:
+Для подключения apt-репозитория для стабильной версии nginx,
+выполните следующую команду:
 <programlisting>
-sudo apt-key add nginx_signing.key
+echo "deb http://nginx.org/packages/ubuntu `lsb_release -cs` nginx" \
+    | sudo tee /etc/apt/sources.list.d/nginx.list
 </programlisting>
-</para>
 
-<para>
-Для Debian замените <i>codename</i> на
-<link id="distributions">кодовое имя</link> дистрибутива,
-и добавьте в конец файла <path>/etc/apt/sources.list</path>
-следующее:
-
+Если предпочтительно использовать пакеты для основной версии nginx,
+выполните следующую команду вместо предыдущей:
 <programlisting>
-deb http://nginx.org/packages/mainline/debian/ <i>codename</i> nginx
-deb-src http://nginx.org/packages/mainline/debian/ <i>codename</i> nginx
+echo "deb http://nginx.org/packages/mainline/ubuntu `lsb_release -cs` nginx" \
+    | sudo tee /etc/apt/sources.list.d/nginx.list
 </programlisting>
-</para>
 
-<para>
-Для Ubuntu замените <i>codename</i> на
-<link id="distributions">кодовое имя</link> дистрибутива,
-и добавьте в конец файла <path>/etc/apt/sources.list</path>
-следующее:
-
+Теперь нужно импортировать официальный ключ, используемый apt для проверки
+подлинности пакетов:
 <programlisting>
-deb http://nginx.org/packages/mainline/ubuntu/ <i>codename</i> nginx
-deb-src http://nginx.org/packages/mainline/ubuntu/ <i>codename</i> nginx
+curl -fsSL https://nginx.org/keys/nginx_signing.key | sudo apt-key add -
+</programlisting>
+
+Проверьте, верный ли ключ был импортирован:
+<programlisting>
+sudo apt-key fingerprint ABF5BD827BD9BF62
+</programlisting>
+
+Вывод команды должен содержать полный отпечаток ключа
+<command>573B FD6B 3D8F BC64 1079 A6AB ABF5 BD82 7BD9 BF62</command>:
+<programlisting>
+pub   rsa2048 2011-08-19 [SC] [expires: 2024-06-14]
+      573B FD6B 3D8F BC64 1079  A6AB ABF5 BD82 7BD9 BF62
+uid   [ unknown] nginx signing key &lt;signing-key@nginx.com&gt;
+</programlisting>
+
+Чтобы установить nginx, выполните следующие команды:
+<programlisting>
+sudo apt update
+sudo apt install nginx
 </programlisting>
 </para>
 
+</section>
+
+
+<section name="SLES" id="SLES">
+
 <para>
-Для Debian/Ubuntu затем выполните команды:
+Установите пакеты, необходимые для подключения zypper-репозитория:
 <programlisting>
-apt-get update
-apt-get install nginx
+sudo zypper install curl ca-certificates gpg2
+</programlisting>
+
+Для подключения zypper-репозитория для стабильной версии nginx,
+выполните следующую команду:
+<programlisting>
+sudo zypper addrepo --gpgcheck --type yum --refresh --check \
+    'http://nginx.org/packages/sles/$releasever' nginx-stable
+</programlisting>
+
+Если предпочтительно использовать пакеты для основной версии nginx,
+выполните следующую команду вместо предыдущей:
+<programlisting>
+sudo zypper addrepo --gpgcheck --type yum --refresh --check \
+    'http://nginx.org/packages/mainline/sles/$releasever' nginx-mainline
+</programlisting>
+
+Теперь нужно импортировать официальный ключ, используемый zypper/rpm
+для проверки подлинности пакетов.
+Скачайте ключ:
+<programlisting>
+curl -o /tmp/nginx_signing.key https://nginx.org/keys/nginx_signing.key
+</programlisting>
+
+Проверьте, верный ли ключ был загружен:
+<programlisting>
+gpg --with-fingerprint /tmp/nginx_signing.key
+</programlisting>
+
+Вывод команды должен содержать полный отпечаток ключа
+<command>573B FD6B 3D8F BC64 1079 A6AB ABF5 BD82 7BD9 BF62</command>:
+<programlisting>
+pub  2048R/7BD9BF62 2011-08-19 [expires: 2024-06-14]
+      Key fingerprint = 573B FD6B 3D8F BC64 1079  A6AB ABF5 BD82 7BD9 BF62
+uid nginx signing key &lt;signing-key@nginx.com&gt;
+</programlisting>
+
+Импортируйте ключ в базу данных rpm:
+<programlisting>
+sudo rpmkeys --import /tmp/nginx_signing.key
+</programlisting>
+
+Чтобы установить nginx, выполните следующую команду:
+<programlisting>
+sudo zypper install nginx
 </programlisting>
 </para>
 
-<para>
-Для SLES 12 выполните команду:
-<programlisting>
-zypper addrepo -G -t yum -c 'http://nginx.org/packages/mainline/sles/12' nginx
-</programlisting>
-</para>
-
-<para>
-Для SLES 15 выполните команду:
-<programlisting>
-zypper addrepo -G -t yum -c 'http://nginx.org/packages/mainline/sles/15' nginx
-</programlisting>
-</para>
+</section>
 
 </section>
 
@@ -343,42 +384,6 @@ nginx-module-xslt
 
 
 <section name="Подписи" id="signatures">
-
-<para>
-Для проверки целостности и происхождения загруженного пакета
-и в случае RPM, и в случае репозиториев Debian/Ubuntu используется
-цифровая подпись.
-Для проверки подписи необходимо загрузить
-<link url="/keys/nginx_signing.key">этот ключ</link>
-и импортировать его в связку ключей программы <command>rpm</command>
-или <command>apt</command>:
-
-<list type="bullet">
-
-<listitem>
-Для Debian/Ubuntu:
-<programlisting>sudo apt-key add nginx_signing.key</programlisting>
-</listitem>
-
-<listitem>
-Для RHEL/CentOS:
-<programlisting>sudo rpm --import nginx_signing.key</programlisting>
-</listitem>
-
-<listitem>
-Для SLES:
-<programlisting>sudo rpm --import nginx_signing.key</programlisting>
-</listitem>
-
-</list>
-</para>
-
-<para>
-В Debian/Ubuntu/SLES подпись проверяется по умолчанию, однако
-в RHEL/CentOS необходимо добавить
-<programlisting>gpgcheck=1</programlisting> в файл
-<path>/etc/yum.repos.d/nginx.repo</path>.
-</para>
 
 <para>
 Поскольку наши <link doc="../en/pgp_keys.xml">PGP-ключи</link>
