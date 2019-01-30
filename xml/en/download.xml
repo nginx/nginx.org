@@ -8,7 +8,7 @@
 <article name="nginx: download"
          link="/en/download.html"
          lang="en"
-         rev="1">
+         rev="2">
 
 
 <section name="Mainline version">
@@ -58,19 +58,8 @@ site: <literal>http://hg.nginx.org/nginx.org</literal>
 <section name="Pre-Built Packages">
 
 <para>
-<list type="bullet">
-
-<listitem>
 Linux packages for
-<link doc="linux_packages.xml" id="stable">stable version</link>
-</listitem>
-
-<listitem>
-Linux packages for
-<link doc="linux_packages.xml" id="mainline">mainline version</link>
-</listitem>
-
-</list>
+<link doc="linux_packages.xml">stable and mainline</link> versions.
 </para>
 
 </section>

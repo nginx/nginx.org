@@ -8,7 +8,7 @@
 <article name="nginx: скачать"
          link="/ru/download.html"
          lang="ru"
-         rev="1">
+         rev="2">
 
 
 <section name="Основная версия">
@@ -58,19 +58,8 @@
 <section name="Готовые пакеты">
 
 <para>
-<list type="bullet">
-
-<listitem>
-Пакеты <link doc="linux_packages.xml" id="stable">стабильной версии</link>
-для Linux
-</listitem>
-
-<listitem>
-Пакеты <link doc="linux_packages.xml" id="mainline">mainline-версии</link>
-для Linux
-</listitem>
-
-</list>
+Пакеты для Linux
+<link doc="linux_packages.xml">стабильной и основной</link> версий.
 </para>
 
 </section>
