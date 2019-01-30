@@ -7,10 +7,9 @@
 <article name="nginx: пакеты для Linux"
          link="/ru/linux_packages.html"
          lang="ru"
-         rev="32"
-         toc="no">
+         rev="33">
 
-<section id="distributions">
+<section name="Поддерживаемые дистрибутивы и версии" id="distributions">
 
 <para>
 В данный момент доступны готовые пакеты для следующих дистрибутивов и их
@@ -18,7 +17,7 @@
 </para>
 
 <para>
-RHEL/CentOS:
+<link id="RHEL-CentOS">RHEL/CentOS</link>
 
 <table note="yes">
 
@@ -41,7 +40,7 @@ RHEL/CentOS:
 </para>
 
 <para>
-Debian:
+<link id="Debian">Debian</link>
 
 <table note="yes">
 
@@ -64,7 +63,7 @@ Debian:
 </para>
 
 <para>
-Ubuntu:
+<link id="Ubuntu">Ubuntu</link>
 
 <table note="yes">
 
@@ -97,7 +96,7 @@ Ubuntu:
 </para>
 
 <para>
-SLES:
+<link id="SLES">SLES</link>
 
 <table note="yes">
 <tr>
@@ -119,7 +118,7 @@ SLES:
 </para>
 
 <para>
-Alpine:
+<link id="Alpine">Alpine</link>
 
 <table note="yes">
 

@@ -7,10 +7,9 @@
 <article name="nginx: Linux packages"
          link="/en/linux_packages.html"
          lang="en"
-         rev="32"
-         toc="no">
+         rev="33">
 
-<section id="distributions">
+<section name="Supported distributions and versions" id="distributions">
 
 <para>
 Currently, nginx packages are available for the following distributions and
@@ -18,7 +17,7 @@ versions:
 </para>
 
 <para>
-RHEL/CentOS:
+<link id="RHEL-CentOS">RHEL/CentOS</link>
 
 <table note="yes">
 
@@ -41,7 +40,7 @@ RHEL/CentOS:
 </para>
 
 <para>
-Debian:
+<link id="Debian">Debian</link>
 
 <table note="yes">
 
@@ -64,7 +63,7 @@ Debian:
 </para>
 
 <para>
-Ubuntu:
+<link id="Ubuntu">Ubuntu</link>
 
 <table note="yes">
 
@@ -97,7 +96,7 @@ Ubuntu:
 </para>
 
 <para>
-SLES:
+<link id="SLES">SLES</link>
 
 <table note="yes">
 
@@ -120,7 +119,7 @@ SLES:
 </para>
 
 <para>
-Alpine:
+<link id="Alpine">Alpine</link>
 
 <table note="yes">
 
