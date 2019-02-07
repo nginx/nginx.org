@@ -7,6 +7,15 @@
 
 <news name="nginx news" link="/" lang="en">
 
+<event date="2019-02-07">
+<para>
+<link url="https://unit.nginx.org/">unit-1.7.1</link>
+version has been <link
+url="http://mailman.nginx.org/pipermail/unit/2019-February/000112.html">released</link>,
+with a vulnerability fix in the router process (CVE-2019-7401).
+</para>
+</event>
+
 <event date="2018-12-25">
 <para>
 <link doc="en/download.xml">nginx-1.15.8</link>
