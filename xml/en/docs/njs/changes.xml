@@ -9,8 +9,177 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="13"
+        rev="14"
         toc="no">
+
+<section id="njs0.2.8" name="Changes with 0.2.8">
+
+<para>
+Release Date:
+26 February 2019
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Change:
+properties of HTTP request deprecated in <link id="njs0.2.2">0.2.2</link>
+are removed.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added support for delete operation in
+<link doc="reference.xml" id="r_headers_out"><literal>r.headersOut{}</literal></link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added support for setting nginx variables.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<link doc="reference.xml" id="subrequest"><literal>r.subrequest()</literal></link>
+for empty body value.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+setting special response headers in
+<link doc="reference.xml" id="r_headers_out"><literal>r.headersOut{}</literal></link>.
+</para>
+</listitem>
+
+</list>
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+added labels support.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added <literal>setImmediate()</literal> method.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added support for shorthand property names for Object literals.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>Function.prototype.bind()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed parsing of string literals containing newline characters.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed line number in reporting variable reference errors.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed creation of long UTF8 strings.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+setting special response headers in
+<link doc="reference.xml" id="string_split"><literal>String.prototype.split()</literal></link>
+for Unicode strings.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed heap-buffer-overflow in
+<link doc="reference.xml" id="string_split"><literal>String.prototype.split()</literal></link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>Array.prototype.fill()</literal>.
+Thanks to Artem S. Povalyukhin.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+code related to function invocation is refactored.
+Thanks to 洪志道 (Hong Zhi Dao).
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+code related to variables is refactored.
+Thanks to 洪志道 (Hong Zhi Dao).
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement: parser is refactored.
+Thanks to 洪志道 (Hong Zhi Dao).
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+reporting filenames in exceptions.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.2.7" name="Changes with 0.2.7">
 

@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="19">
+        rev="20">
 
 <section id="summary">
 
@@ -59,7 +59,7 @@ or <literal>headersIn['Foo']</literal>
 </para>
 </tag-desc>
 
-<tag-name><literal>r.headersOut{}</literal></tag-name>
+<tag-name id="r_headers_out"><literal>r.headersOut{}</literal></tag-name>
 <tag-desc>
 outgoing headers object, writable.
 <para>
