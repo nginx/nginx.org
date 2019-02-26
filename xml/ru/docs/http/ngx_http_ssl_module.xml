@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_ssl_module"
         link="/ru/docs/http/ngx_http_ssl_module.html"
         lang="ru"
-        rev="44">
+        rev="45">
 
 <section id="summary">
 
@@ -177,6 +177,18 @@ server {
 </para>
 
 <para>
+Начиная с версии 1.15.9 в имени файла можно использовать переменные
+при использовании OpenSSL 1.0.2 и выше:
+<example>
+ssl_certificate     $ssl_server_name.crt;
+ssl_certificate_key $ssl_server_name.key;
+</example>
+Однако нужно учитывать, что при использовании переменных
+сертификат загружается при каждой операции SSL handshake,
+что может отрицательно влиять на производительность.
+</para>
+
+<para>
 Нужно иметь в виду, что из-за ограничения протокола HTTPS
 для максимальной совместимости виртуальные серверы должны слушать на
 <link doc="configuring_https_servers.xml" id="name_based_https_servers">разных
@@ -202,6 +214,11 @@ IP-адресах</link>.
 <literal>engine</literal>:<value>имя</value>:<value>id</value> (1.7.9),
 которое загружает ключ с указанным <value>id</value>
 из OpenSSL engine с заданным <value>именем</value>.
+</para>
+
+<para>
+Начиная с версии 1.15.9 в имени файла можно использовать переменные
+при использовании OpenSSL 1.0.2 и выше.
 </para>
 
 </directive>

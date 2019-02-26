@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_ssl_module"
         link="/en/docs/stream/ngx_stream_ssl_module.html"
         lang="en"
-        rev="19">
+        rev="20">
 
 <section id="summary">
 
@@ -118,6 +118,18 @@ With older versions, only one certificate chain can be used.
 </note>
 </para>
 
+<para>
+Since version 1.15.9, variables can be used in the <value>file</value> name
+when using OpenSSL 1.0.2 or higher:
+<example>
+ssl_certificate     $ssl_server_name.crt;
+ssl_certificate_key $ssl_server_name.key;
+</example>
+Note that using variables implies that
+a certificate will be loaded for each SSL handshake,
+and this may have a negative impact on performance.
+</para>
+
 </directive>
 
 
@@ -138,6 +150,11 @@ The value
 can be specified instead of the <value>file</value>,
 which loads a secret key with a specified <value>id</value>
 from the OpenSSL engine <value>name</value>.
+</para>
+
+<para>
+Since version 1.15.9, variables can be used in the <value>file</value> name
+when using OpenSSL 1.0.2 or higher.
 </para>
 
 </directive>

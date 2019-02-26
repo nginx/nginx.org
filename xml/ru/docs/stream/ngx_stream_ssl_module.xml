@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_ssl_module"
         link="/ru/docs/stream/ngx_stream_ssl_module.html"
         lang="ru"
-        rev="19">
+        rev="20">
 
 <section id="summary">
 
@@ -118,6 +118,18 @@ server {
 </note>
 </para>
 
+<para>
+Начиная с версии 1.15.9 в имени файла можно использовать переменные
+при использовании OpenSSL 1.0.2 и выше:
+<example>
+ssl_certificate     $ssl_server_name.crt;
+ssl_certificate_key $ssl_server_name.key;
+</example>
+Однако нужно учитывать, что при использовании переменных
+сертификат загружается при каждой операции SSL handshake,
+что может отрицательно влиять на производительность.
+</para>
+
 </directive>
 
 
@@ -137,6 +149,11 @@ server {
 <literal>engine</literal>:<value>имя</value>:<value>id</value>,
 которое загружает ключ с указанным <value>id</value>
 из OpenSSL engine с заданным <value>именем</value>.
+</para>
+
+<para>
+Начиная с версии 1.15.9 в имени файла можно использовать переменные
+при использовании OpenSSL 1.0.2 и выше.
 </para>
 
 </directive>
