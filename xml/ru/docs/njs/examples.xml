@@ -9,7 +9,7 @@
 <article name="Примеры использования"
         link="/ru/docs/njs/examples.html"
         lang="ru"
-        rev="3">
+        rev="4">
 
 <section id="helloword" name="Hello World">
 
@@ -302,136 +302,6 @@ function create_secure_link(r) {
 }
 </example>
 </para>
-
-</section>
-
-
-<section id="legacy" name="Устаревшие примеры">
-
-<section id="legacy_stream" name="Внедрение HTTP-заголовка при помощи stream proxy">
-
-<para>
-Начиная с версии njs <link doc="../njs/changes.xml" id="njs0.2.4">0.2.4</link>
-<link doc="../stream/ngx_stream_js_module.xml" id="example">пример</link>
-конфигурации в stream
-был изменён.
-Для njs <link doc="../njs/changes.xml" id="njs0.2.3">0.2.3</link>
-и более ранних версий необходимо использовать следующий пример конфигурации:
-<example>
-load_module modules/ngx_stream_js_module.so;
-...
-
-stream {
-    js_include stream.js;
-
-    js_set $foo foo;
-    js_set $bar bar;
-
-    server {
-        listen 12345;
-
-        js_preread qux;
-        return     $foo;
-    }
-
-    server {
-        listen 12346;
-
-        js_access  xyz;
-        proxy_pass 127.0.0.1:8000;
-        js_filter  baz;
-    }
-}
-
-http {
-    server {
-        listen 8000;
-        location / {
-            return 200 $http_foo\n;
-        }
-    }
-}
-</example>
-</para>
-
-<para>
-Файл <path>stream.js</path>:
-<example>
-var req = '';
-var matched = 0;
-var line = '';
-
-function qux(s) {
-    var n = s.buffer.indexOf('\n');
-    if (n == -1) {
-        return s.AGAIN;
-    }
-
-    line = s.buffer.substr(0, n);
-}
-
-function foo(s) {
-    return line;
-}
-
-function bar(s) {
-    var v = s.variables;
-    s.log("hello from bar() handler!");
-    return "foo-var" + v.remote_port + "; pid=" + v.pid;
-}
-
-// Фильтр обрабатывает один буфер за вызов.
-// Буфер недоступен в s.buffer для
-// чтения и записи.  Вызывается в обоих направлениях.
-
-function baz(s) {
-    if (s.fromUpstream || matched) {
-        return;
-    }
-
-    // Отключение определённых адресов.
-
-    if (s.remoteAddress.match('^192.*')) {
-        return s.ERROR;
-    }
-
-    // Чтение строки HTTP-запроса.
-    // Получение байт в 'req' до того как
-    // будет прочитана строка запроса.  Очистка текущего буфера
-    // для отключения вывода.
-
-    req = req + s.buffer;
-    s.buffer = '';
-
-    var n = req.search('\n');
-
-    if (n != -1) {
-        // Inject a new HTTP header.
-        var rest = req.substr(n + 1);
-        req = req.substr(0, n + 1);
-
-        var addr = s.remoteAddress;
-
-        s.log('req:' + req);
-        s.log('rest:' + rest);
-
-        // Вывод результата и пропуск дальнейшей
-        // обработки.
-
-        s.buffer = req + 'Foo: addr_' + addr + '\r\n' + rest;
-        matched = 1;
-    }
-}
-
-function xyz(s) {
-    if (s.remoteAddress.match('^192.*')) {
-        return s.ABORT;
-    }
-}
-</example>
-</para>
-
-</section>
 
 </section>
 

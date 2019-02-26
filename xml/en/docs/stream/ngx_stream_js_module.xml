@@ -31,14 +31,6 @@ Download and install instructions are available
 <section id="example" name="Example Configuration">
 
 <para>
-<note>
-This example is valid for
-njs <link doc="../njs/changes.xml" id="njs0.2.4">0.2.4</link>
-and later.
-For njs <link doc="../njs/changes.xml" id="njs0.2.3">0.2.3</link>
-and earlier, use
-<link doc="../njs/examples.xml" id="legacy">this</link> example.
-</note>
 <example>
 load_module modules/ngx_stream_js_module.so;
 ...

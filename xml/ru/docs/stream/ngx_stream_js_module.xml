@@ -31,14 +31,6 @@
 <section id="example" name="Пример конфигурации">
 
 <para>
-<note>
-Данный пример необходимо использовать с
-версией njs <link doc="../njs/changes.xml" id="njs0.2.4">0.2.4</link>
-и более поздними.
-Для версий njs <link doc="../njs/changes.xml" id="njs0.2.3">0.2.3</link>
-и ранее необходимо использовать
-<link doc="../njs/examples.xml" id="legacy">этот</link> пример.
-</note>
 <example>
 load_module modules/ngx_stream_js_module.so;
 ...
