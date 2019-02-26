@@ -9,7 +9,8 @@
 <article name="Compatibility"
         link="/en/docs/njs/compatibility.html"
         lang="en"
-        rev="6">
+        rev="7"
+        toc="no">
 
 <section>
 
@@ -111,8 +112,8 @@ non-standard:
 ES5.1:
 <literal>create</literal> (support without properties list),
 <literal>keys</literal>,
-<literal>defineProperty</literal>,
-<literal>defineProperties</literal>,
+<literal>defineProperty</literal> (support without accessor descriptors),
+<literal>defineProperties</literal> (support without accessor descriptors),
 <literal>getOwnPropertyDescriptor</literal>,
 <literal>getPrototypeOf</literal>,
 <literal>hasOwnProperty</literal>,
@@ -217,7 +218,6 @@ functions (0.2.0)
 </listitem>
 
 <listitem>
-<link url="https://nodejs.org/api/fs.html#fs_file_system">Node.js style</link>
 <literal>File system</literal> methods:
 <link doc="reference.xml" id="readfilesync"><literal>fs.readFileSync</literal></link>,
 <link doc="reference.xml" id="appendfilesync"><literal>fs.appendFileSync</literal></link>,
@@ -225,42 +225,9 @@ functions (0.2.0)
 </listitem>
 
 <listitem>
-<link url="https://nodejs.org/api/crypto.html#crypto_class_hash">Node.js style</link>
 <literal>Crypto</literal> methods (0.2.0):
 <link doc="reference.xml" id="crypto_createhash"><literal>crypto.createHash</literal></link>,
 <link doc="reference.xml" id="crypto_createhmac"><literal>crypto.createHmac</literal></link>
-</listitem>
-
-</list>
-</para>
-
-</section>
-
-
-<section id="not_supported" name="What is not supported yet">
-
-<para>
-<list type="bullet">
-
-<listitem>
-ES6 <literal>let</literal> and <literal>const</literal> declarations
-</listitem>
-
-<listitem>
-labels
-</listitem>
-
-<listitem>
-<literal>eval</literal> function
-</listitem>
-
-<listitem>
-<literal>new Function()</literal> constructor
-</listitem>
-
-<listitem>
-<literal>setInterval</literal>,
-<literal>setImmediate</literal> functions
 </listitem>
 
 </list>

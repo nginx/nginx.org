@@ -9,7 +9,8 @@
 <article name="Совместимость"
         link="/ru/docs/njs/compatibility.html"
         lang="ru"
-        rev="6">
+        rev="7"
+        toc="no">
 
 <section>
 
@@ -111,8 +112,8 @@ ES8:
 ES5.1:
 <literal>create</literal> (поддержка без списка свойств),
 <literal>keys</literal>,
-<literal>defineProperty</literal>,
-<literal>defineProperties</literal>,
+<literal>defineProperty</literal> (поддержка без дескрипторов доступа),
+<literal>defineProperties</literal> (поддержка без дескрипторов доступа),
 <literal>getOwnPropertyDescriptor</literal>,
 <literal>getPrototypeOf</literal>,
 <literal>hasOwnProperty</literal>,
@@ -218,51 +219,16 @@ ES5.1 глобальные функции:
 </listitem>
 
 <listitem>
-Методы <literal>File system</literal>
-<link url="https://nodejs.org/api/fs.html#fs_file_system">стиль Node.js</link>:
+Методы <literal>File system</literal>:
 <link doc="reference.xml" id="readfilesync"><literal>fs.readFileSync</literal></link>,
 <link doc="reference.xml" id="appendfilesync"><literal>fs.appendFileSync</literal></link>,
 <link doc="reference.xml" id="writefilesync"><literal>fs.writeFileSync</literal></link>
 </listitem>
 
 <listitem>
-Методы <literal>Crypto</literal>
-<link url="https://nodejs.org/api/crypto.html#crypto_class_hash">стиль Node.js</link>
-(0.2.0):
+Методы <literal>Crypto</literal> (0.2.0):
 <link doc="reference.xml" id="crypto_createhash"><literal>crypto.createHash</literal></link>,
 <link doc="reference.xml" id="crypto_createhmac"><literal>crypto.createHmac</literal></link>
-</listitem>
-
-</list>
-</para>
-
-</section>
-
-
-<section id="not_supported" name="Функциональность в разработке">
-
-<para>
-<list type="bullet">
-
-<listitem>
-ES6 объявления <literal>let</literal> и <literal>const</literal>
-</listitem>
-
-<listitem>
-labels
-</listitem>
-
-<listitem>
-функция <literal>eval</literal>
-</listitem>
-
-<listitem>
-конструктор <literal>new Function()</literal>
-</listitem>
-
-<listitem>
-функции <literal>setInterval</literal>,
-<literal>setImmediate</literal>
 </listitem>
 
 </list>
