@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="21">
+        rev="22">
 
 <section id="summary">
 
@@ -147,9 +147,10 @@ sends the HTTP headers to the client
 status, writable
 </tag-desc>
 
-<tag-name><literal>r.variables{}</literal></tag-name>
+<tag-name id="r_variables"><literal>r.variables{}</literal></tag-name>
 <tag-desc>
-nginx variables object, read-only
+nginx variables object,
+writable (since <link doc="changes.xml" id="njs0.2.8">0.2.8</link>)
 </tag-desc>
 
 <tag-name><literal>r.warn(<value>string</value>)</literal></tag-name>
@@ -329,9 +330,10 @@ boolean, true if the buffer should have the <literal>flush</literal> flag
 The method can be called multiple times per callback invocation.
 </tag-desc>
 
-<tag-name><literal>s.variables{}</literal></tag-name>
+<tag-name id="s_variables"><literal>s.variables{}</literal></tag-name>
 <tag-desc>
-nginx variables object, read-only
+nginx variables object, writable
+(since <link doc="changes.xml" id="njs0.2.8">0.2.8</link>)
 </tag-desc>
 
 <tag-name><literal>s.warn(<value>string</value>)</literal></tag-name>

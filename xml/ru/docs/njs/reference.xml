@@ -147,9 +147,10 @@ HTTP метод, только чтение
 статус, доступно для записи
 </tag-desc>
 
-<tag-name><literal>r.variables{}</literal></tag-name>
+<tag-name id="r_variables"><literal>r.variables{}</literal></tag-name>
 <tag-desc>
-объект переменных nginx, только чтение
+объект переменных nginx, доступно для записи
+(начиная с версии <link doc="changes.xml" id="njs0.2.8">0.2.8</link>)
 </tag-desc>
 
 <tag-name><literal>r.warn(<value>строка</value>)</literal></tag-name>
@@ -343,9 +344,10 @@ true, если буфер должен иметь флаг <literal>flush</liter
 Метод может быть вызван несколько раз в течение одного вызова callback'a.
 </tag-desc>
 
-<tag-name><literal>s.variables{}</literal></tag-name>
+<tag-name id="s_variables"><literal>s.variables{}</literal></tag-name>
 <tag-desc>
-объект переменных nginx, только чтение
+объект переменных nginx, доступно для записи
+(начиная с версии <link doc="changes.xml" id="njs0.2.8">0.2.8</link>)
 </tag-desc>
 
 <tag-name><literal>s.warn(<value>строка</value>)</literal></tag-name>
