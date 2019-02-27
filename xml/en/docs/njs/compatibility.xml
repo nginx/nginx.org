@@ -9,7 +9,7 @@
 <article name="Compatibility"
         link="/en/docs/njs/compatibility.html"
         lang="en"
-        rev="7"
+        rev="8"
         toc="no">
 
 <section>
@@ -46,7 +46,8 @@ ES5.1 statements: <literal>var</literal>, <literal>if</literal>,
 <literal>for in</literal>, <literal>while</literal>,
 <literal>do while</literal>, <literal>break</literal>,
 <literal>continue</literal>, <literal>return</literal>, <literal>try</literal>,
-<literal>catch</literal>, <literal>throw</literal>, <literal>finally</literal>
+<literal>catch</literal>, <literal>throw</literal>, <literal>finally</literal>,
+labeled statements (<link doc="changes.xml" id="njs0.2.8">0.2.8</link>)
 </listitem>
 
 <listitem>
