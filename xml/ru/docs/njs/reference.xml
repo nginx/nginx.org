@@ -172,6 +172,17 @@ HTTP метод, только чтение
 необязательный <literal>callback</literal> завершения.
 
 <para>
+<link doc="../dev/development_guide.xml.xml" id="http_subrequests">Подзапрос</link>
+использует входящиe заголовки клиентского запроса.
+Для отправки на проксируемый сервер заголовков, отличных от оригинальных,
+может использоваться директива
+<link doc="../http/ngx_http_proxy_module.xml" id="proxy_set_header"/>.
+Для отправки на проксируемый сервер нового набора заголовков
+может использоваться директива
+<link doc="../http/ngx_http_proxy_module.xml" id="proxy_pass_request_headers"/>.
+</para>
+
+<para>
 Если <literal>options</literal> является строкой, то в ней
 содержится срока аргументов подзапроса.
 В противном случае ожидается, что <literal>options</literal> является

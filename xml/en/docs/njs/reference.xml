@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="22">
+        rev="23">
 
 <section id="summary">
 
@@ -170,6 +170,18 @@ current URI, read-only
 creates a subrequest with the given <literal>uri</literal> and
 <literal>options</literal>, and installs
 an optional completion <literal>callback</literal>.
+
+<para>
+A
+<link doc="../dev/development_guide.xml.xml" id="http_subrequests">subrequest</link>
+shares its input headers with the client request.
+To send headers different from original headers to a proxied server, the
+<link doc="../http/ngx_http_proxy_module.xml" id="proxy_set_header"/>
+directive can be used.
+To send a completely new set of headers to a proxied server, the
+<link doc="../http/ngx_http_proxy_module.xml" id="proxy_pass_request_headers"/>
+directive can be used.
+</para>
 
 <para>
 If <literal>options</literal> is a string, then it
