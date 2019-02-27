@@ -221,26 +221,26 @@ All string properties of the object are <link id="string">byte strings</link>.
 <tag-name id="s_allow"><literal>s.allow()</literal></tag-name>
 <tag-desc>
 successfully finalizes the phase handler
-(<link doc="../njs/changes.xml" id="njs0.2.4">0.2.4</link>)
+(<link doc="changes.xml" id="njs0.2.4">0.2.4</link>)
 </tag-desc>
 
 <tag-name id="s_decline"><literal>s.decline()</literal></tag-name>
 <tag-desc>
 finalizes the phase handler and passes control to the next handler
-(<link doc="../njs/changes.xml" id="njs0.2.4">0.2.4</link>)
+(<link doc="changes.xml" id="njs0.2.4">0.2.4</link>)
 </tag-desc>
 
 <tag-name id="s_deny"><literal>s.deny()</literal></tag-name>
 <tag-desc>
 finalizes the phase handler with the access error code
-(<link doc="../njs/changes.xml" id="njs0.2.4">0.2.4</link>)
+(<link doc="changes.xml" id="njs0.2.4">0.2.4</link>)
 </tag-desc>
 
 <tag-name id="s_done"><literal>s.done</literal>(<value>[code]</value>)</tag-name>
 <tag-desc>
 successfully finalizes the current phase handler
 or finalizes it with the specified numeric code
-(<link doc="../njs/changes.xml" id="njs0.2.4">0.2.4</link>).
+(<link doc="changes.xml" id="njs0.2.4">0.2.4</link>).
 </tag-desc>
 
 <tag-name><literal>s.error(<value>string</value>)</literal></tag-name>
@@ -258,14 +258,14 @@ on the <literal>info</literal> level of logging
 <tag-name id="s_off"><literal>s.off(<value>eventName</value>)</literal></tag-name>
 <tag-desc>
 unregisters the callback set by the <link id="s_on">s.on()</link> method
-(<link doc="../njs/changes.xml" id="njs0.2.4">0.2.4</link>)
+(<link doc="changes.xml" id="njs0.2.4">0.2.4</link>)
 </tag-desc>
 
 <tag-name id="s_on"><literal>s.on(<value>event</value>,
 <value>callback</value>)</literal></tag-name>
 <tag-desc>
 registers a <literal>callback</literal> for the specified <literal>event</literal>
-(<link doc="../njs/changes.xml" id="njs0.2.4">0.2.4</link>).
+(<link doc="changes.xml" id="njs0.2.4">0.2.4</link>).
 
 <para>
 An <literal>event</literal> may be one of the following strings:
@@ -308,7 +308,7 @@ client address, read-only
 <value>options</value>])</literal></tag-name>
 <tag-desc>
 sends the data to the client
-(<link doc="../njs/changes.xml" id="njs0.2.4">0.2.4</link>).
+(<link doc="changes.xml" id="njs0.2.4">0.2.4</link>).
 The <literal>options</literal> is an object used
 to override nginx buffer flags derived from an incoming data chunk buffer.
 The flags can be overriden with the following flags:
@@ -429,7 +429,7 @@ first, it should be converted to a byte string and then to hex:
 <tag-desc>
 (njs specific) Creates a byte string either from an array that contains octets,
 or from an encoded string
-(<link doc="../njs/changes.xml" id="njs0.2.3">0.2.3</link>).
+(<link doc="changes.xml" id="njs0.2.3">0.2.3</link>).
 The encoding can be
 <literal>hex</literal>,
 <literal>base64</literal>, and
@@ -598,7 +598,7 @@ Matches a string against a <literal>regexp</literal>.
 <tag-desc>
 Returns a string of a specified <literal>length</literal>
 with the pad <literal>string</literal> applied to the end of the specified
-string (<link doc="../njs/changes.xml" id="njs0.2.3">0.2.3</link>).
+string (<link doc="changes.xml" id="njs0.2.3">0.2.3</link>).
 <example>
 >> '1234'.padEnd(8, 'abcd')
 '1234abcd'
@@ -610,7 +610,7 @@ string (<link doc="../njs/changes.xml" id="njs0.2.3">0.2.3</link>).
 <tag-desc>
 Returns a string of a specified <literal>length</literal>
 with the pad <literal>string</literal> applied to the start of the specified
-string (<link doc="../njs/changes.xml" id="njs0.2.3">0.2.3</link>).
+string (<link doc="changes.xml" id="njs0.2.3">0.2.3</link>).
 <example>
 >> '1234'.padStart(8, 'abcd')
 'abcd1234'

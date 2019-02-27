@@ -218,7 +218,7 @@ HTTP метод, только чтение
 
 <para>
 <note>
-До версии njs <link doc="../njs/changes.xml" id="njs0.2.4">0.2.4</link>,
+До версии njs <link doc="changes.xml" id="njs0.2.4">0.2.4</link>,
 у объекта stream-сессии были некоторые свойства, которые на данный момент
 <link id="stream_obsolete">удалены</link>.
 </note>
@@ -230,26 +230,26 @@ HTTP метод, только чтение
 <tag-name id="s_allow"><literal>s.allow()</literal></tag-name>
 <tag-desc>
 успешно финализирует обработчик фазы
-(<link doc="../njs/changes.xml" id="njs0.2.4">0.2.4</link>)
+(<link doc="changes.xml" id="njs0.2.4">0.2.4</link>)
 </tag-desc>
 
 <tag-name id="s_decline"><literal>s.decline()</literal></tag-name>
 <tag-desc>
 финализирует обработчик фазы и передаёт контроль следующему обработчику
-(<link doc="../njs/changes.xml" id="njs0.2.4">0.2.4</link>)
+(<link doc="changes.xml" id="njs0.2.4">0.2.4</link>)
 </tag-desc>
 
 <tag-name id="s_deny"><literal>s.deny()</literal></tag-name>
 <tag-desc>
 финализирует обработчик фазы с кодом ошибки доступа
-(<link doc="../njs/changes.xml" id="njs0.2.4">0.2.4</link>)
+(<link doc="changes.xml" id="njs0.2.4">0.2.4</link>)
 </tag-desc>
 
 <tag-name id="s_done"><literal>s.done</literal>(<value>[код]</value>)</tag-name>
 <tag-desc>
 успешно финализирует текущий обработчик фазы
 или финализирует его с указанным числовым кодом
-(<link doc="../njs/changes.xml" id="njs0.2.4">0.2.4</link>).
+(<link doc="changes.xml" id="njs0.2.4">0.2.4</link>).
 </tag-desc>
 
 <tag-name><literal>s.error(<value>строка</value>)</literal></tag-name>
@@ -268,14 +268,14 @@ HTTP метод, только чтение
 <tag-desc>
 отменяет регистрацию callback'а, установленного методом
 <link id="s_on">s.on()</link>
-(<link doc="../njs/changes.xml" id="njs0.2.4">0.2.4</link>)
+(<link doc="changes.xml" id="njs0.2.4">0.2.4</link>)
 </tag-desc>
 
 <tag-name id="s_on"><literal>s.on(<value>событие</value>,
 <value>callback</value>)</literal></tag-name>
 <tag-desc>
 регистрирует <literal>callback</literal> для указанного <literal>события</literal>
-(<link doc="../njs/changes.xml" id="njs0.2.4">0.2.4</link>).
+(<link doc="changes.xml" id="njs0.2.4">0.2.4</link>).
 
 <para>
 <literal>Событием</literal> может являться одна из следующих строк:
@@ -319,7 +319,7 @@ true, если данные являются последним буфером.
 <value>параметры</value>])</literal></tag-name>
 <tag-desc>
 отправляет данные клиенту
-(<link doc="../njs/changes.xml" id="njs0.2.4">0.2.4</link>).
+(<link doc="changes.xml" id="njs0.2.4">0.2.4</link>).
 <literal>Параметры</literal> являются объектом, используемым
 для переопределения флагов буфера nginx,
 полученных из буфера входных данных.
@@ -416,7 +416,7 @@ TypeError: argument must be a byte string
 <tag-desc>
 (только в njs) Создаёт байтовую строку или из массива, содержащего октеты,
 или из кодированной строки
-(<link doc="../njs/changes.xml" id="njs0.2.3">0.2.3</link>).
+(<link doc="changes.xml" id="njs0.2.3">0.2.3</link>).
 Кодировкой может быть
 <literal>hex</literal>,
 <literal>base64</literal> и
@@ -587,7 +587,7 @@ of the <literal>поисковойСтроки</literal>,
 <tag-desc>
 Возвращает строку указанной длины,
 добавляя строку в конец указанной
-строки (<link doc="../njs/changes.xml" id="njs0.2.3">0.2.3</link>).
+строки (<link doc="changes.xml" id="njs0.2.3">0.2.3</link>).
 <example>
 >> '1234'.padEnd(8, 'abcd')
 '1234abcd'
@@ -599,7 +599,7 @@ of the <literal>поисковойСтроки</literal>,
 <tag-desc>
 Возвращает строку указанной длины,
 добавляя строку к началу указанной
-строки (<link doc="../njs/changes.xml" id="njs0.2.3">0.2.3</link>).
+строки (<link doc="changes.xml" id="njs0.2.3">0.2.3</link>).
 <example>
 >> '1234'.padStart(8, 'abcd')
 'abcd1234'
