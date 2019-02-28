@@ -8,14 +8,15 @@
 <article name="nginx for Windows"
          link="/en/docs/windows.html"
          lang="en"
-         rev="4">
+         rev="5">
 
 <section>
 
 <para>
 Version of nginx for Windows uses the native Win32 API (not the Cygwin emulation
 layer).
-Only the <c-func>select</c-func> connection processing method is currently used,
+Only the <c-func>select</c-func> and <c-func>poll</c-func> (1.15.9)
+connection processing methods are currently used,
 so high performance and scalability should not be expected.
 Due to this and some other known issues version of nginx for Windows
 is considered to be a <i>beta</i> version.
@@ -118,10 +119,6 @@ graceful shutdown of old worker processes
 <listitem>
 Although several workers can be started, only one of them
 actually does any work.
-</listitem>
-
-<listitem>
-A worker can handle no more than 1024 simultaneous connections.
 </listitem>
 
 <listitem>
