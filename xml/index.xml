@@ -7,6 +7,20 @@
 
 <news name="nginx news" link="/" lang="en">
 
+<event date="2019-03-01">
+<para>
+<link url="https://unit.nginx.org/">unit-1.8.0</link>
+version has been
+<link url="http://mailman.nginx.org/pipermail/unit/2019-March/000118.html">released</link>,
+featuring
+<link url="https://unit.nginx.org/configuration/#routes">internal request
+routing</link>
+and experimental
+<link url="https://unit.nginx.org/configuration/#java-application">Java Servlet
+Containers</link> support.
+</para>
+</event>
+
 <event date="2019-02-26">
 <para>
 <link doc="en/download.xml">nginx-1.15.9</link>
