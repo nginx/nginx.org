@@ -190,16 +190,17 @@ HTTP метод, только чтение
 <list type="tag">
 <tag-name><literal>args</literal></tag-name>
 <tag-desc>
-строка с аргументами
+строка с аргументами, по умолчанию используется пустая строка
 </tag-desc>
 <tag-name><literal>body</literal></tag-name>
 <tag-desc>
-тело запроса
+тело запроса,
+по умолчанию используется тело запроса родительского объекта запроса
 </tag-desc>
 
 <tag-name><literal>method</literal></tag-name>
 <tag-desc>
-метод HTTP
+метод HTTP, по умолчанию используется метод <literal>GET</literal>
 </tag-desc>
 
 </list>

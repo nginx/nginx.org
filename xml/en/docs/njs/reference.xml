@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="23">
+        rev="24">
 
 <section id="summary">
 
@@ -191,16 +191,17 @@ an object with the following keys:
 <list type="tag">
 <tag-name><literal>args</literal></tag-name>
 <tag-desc>
-arguments string
+arguments string, by default an empty string is used
 </tag-desc>
 <tag-name><literal>body</literal></tag-name>
 <tag-desc>
-request body
+request body,
+by default the request body of the parent request object is used
 </tag-desc>
 
 <tag-name><literal>method</literal></tag-name>
 <tag-desc>
-HTTP method
+HTTP method, by default the <literal>GET</literal> method is used
 </tag-desc>
 
 </list>
