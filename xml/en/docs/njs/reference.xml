@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="24">
+        rev="25">
 
 <section id="summary">
 
@@ -159,9 +159,12 @@ writes a <literal>string</literal> to the error log
 on the <literal>warning</literal> level of logging
 </tag-desc>
 
-<tag-name><literal>r.uri</literal></tag-name>
+<tag-name id="r_uri"><literal>r.uri</literal></tag-name>
 <tag-desc>
-current URI, read-only
+current <link doc="../http/ngx_http_core_module.xml" id="var_uri">URI</link>
+in request,
+<link doc="../http/ngx_http_core_module.xml" id="location">normalized</link>,
+read-only
 </tag-desc>
 
 <tag-name id="subrequest"><literal>r.subrequest(<value>uri</value>[,

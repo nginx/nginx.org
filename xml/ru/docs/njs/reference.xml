@@ -159,9 +159,12 @@ HTTP метод, только чтение
 на уровне лога <literal>warning</literal>
 </tag-desc>
 
-<tag-name><literal>r.uri</literal></tag-name>
+<tag-name id="r_uri"><literal>r.uri</literal></tag-name>
 <tag-desc>
-текущий URI, только чтение
+текущий <link doc="../http/ngx_http_core_module.xml" id="var_uri">URI</link>
+запроса в
+<link doc="../http/ngx_http_core_module.xml" id="location">нормализованном</link>
+виде, только чтение
 </tag-desc>
 
 <tag-name id="subrequest"><literal>r.subrequest(<value>uri</value>[,
