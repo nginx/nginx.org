@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="25">
+        rev="26">
 
 <section id="summary">
 
@@ -33,7 +33,7 @@ All string properties of the object are <link id="string">byte strings</link>.
 
 <list type="tag">
 
-<tag-name><literal>r.args{}</literal></tag-name>
+<tag-name id="r_args"><literal>r.args{}</literal></tag-name>
 <tag-desc>
 request arguments object, read-only
 </tag-desc>
@@ -49,7 +49,7 @@ on the <literal>error</literal> level of logging
 finishes sending a response to the client
 </tag-desc>
 
-<tag-name><literal>r.headersIn{}</literal></tag-name>
+<tag-name id="r_headers_in"><literal>r.headersIn{}</literal></tag-name>
 <tag-desc>
 incoming headers object, read-only.
 <para>
@@ -113,7 +113,7 @@ and a sufficient buffer size should be set using
 <link doc="../http/ngx_http_core_module.xml" id="client_body_buffer_size"/>.
 </tag-desc>
 
-<tag-name><literal>r.responseBody</literal></tag-name>
+<tag-name id="r_response_body"><literal>r.responseBody</literal></tag-name>
 <tag-desc>
 holds the <link id="subrequest">subrequest</link> response body, read-only.
 The size of <literal>r.responseBody</literal> is limited by the

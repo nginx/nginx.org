@@ -9,8 +9,125 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="14"
+        rev="15"
         toc="no">
+
+<section id="njs0.3.0" name="Changes with 0.3.0">
+
+<para>
+Release Date:
+26 March 2019
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+added the <literal>js_path</literal> directive for
+<link doc="../http/ngx_http_js_module.xml" id="js_path">http</link> and
+<link doc="../stream/ngx_stream_js_module.xml" id="js_path">stream</link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Change:
+returning undefined value instead of empty strings
+for absent properties in the following objects:
+<link doc="reference.xml" id="r_args"><literal>r.args{}</literal></link>,
+<link doc="reference.xml" id="r_headers_in"><literal>r.headersIn{}</literal></link>,
+<link doc="reference.xml" id="r_headers_out"><literal>r.headersOut{}</literal></link>,
+<link doc="reference.xml" id="r_variables"><literal>r.variables{}</literal></link>,
+<link doc="reference.xml" id="s_variables"><literal>s.variables{}</literal></link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Change:
+returning undefined value instead of throwing an exception for
+<link doc="reference.xml" id="r_request_body"><literal>r.requestBody</literal></link>
+when request body is unavailable.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed crash while iterating over
+<link doc="reference.xml" id="r_args"><literal>r.args{}</literal></link>
+when a value is absent in a key-value pair.
+</para>
+</listitem>
+
+</list>
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+added initial ES6 modules support.
+Default import and default export statements are supported.
+Thanks to 洪志道 (Hong Zhi Dao).
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added <literal>Object.prototype.propertyIsEnumerable()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+reporting file name and function name in disassembler output.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed function redeclarations in interactive shell.
+Thanks to 洪志道 (Hong Zhi Dao).
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed RegExp literals parsing.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed setting length of UTF8 string in
+<link doc="reference.xml" id="readfilesync"><literal>fs.readFileSync()</literal></link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>nxt_file_dirname()</literal> for paths with no dir component.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.2.8" name="Changes with 0.2.8">
 

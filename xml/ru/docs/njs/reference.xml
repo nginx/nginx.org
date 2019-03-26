@@ -34,7 +34,7 @@
 
 <list type="tag">
 
-<tag-name><literal>r.args{}</literal></tag-name>
+<tag-name id="r_args"><literal>r.args{}</literal></tag-name>
 <tag-desc>
 объект аргументов запроса, только чтение
 </tag-desc>
@@ -50,7 +50,7 @@
 завершает отправку ответа клиенту
 </tag-desc>
 
-<tag-name><literal>r.headersIn{}</literal></tag-name>
+<tag-name id="r_headers_in"><literal>r.headersIn{}</literal></tag-name>
 <tag-desc>
 объект входящих заголовков, только чтение.
 <para>
@@ -60,7 +60,7 @@
 </para>
 </tag-desc>
 
-<tag-name><literal>r.headersOut{}</literal></tag-name>
+<tag-name id="r_headers_out"><literal>r.headersOut{}</literal></tag-name>
 <tag-desc>
 объект исходящих заголовков, доступно для записи.
 <para>
@@ -114,7 +114,7 @@ HTTP метод, только чтение
 <link doc="../http/ngx_http_core_module.xml" id="client_body_buffer_size"/>.
 </tag-desc>
 
-<tag-name><literal>r.responseBody</literal></tag-name>
+<tag-name id="r_response_body"><literal>r.responseBody</literal></tag-name>
 <tag-desc>
 хранит тело ответа <link id="subrequest">подзапроса</link>, только чтение.
 Размер <literal>r.responseBody</literal> ограничивается директивой

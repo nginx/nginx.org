@@ -124,7 +124,9 @@ ES5.1:
 <literal>freeze</literal>,
 <literal>isFrozen</literal>,
 <literal>seal</literal>,
-<literal>isSealed</literal>
+<literal>isSealed</literal>,
+<literal>isEnumerable</literal>
+(<link doc="changes.xml" id="njs0.3.0">0.3.0</link>)
 </listitem>
 
 <listitem>
@@ -229,6 +231,13 @@ functions (0.2.0)
 <literal>Crypto</literal> methods (0.2.0):
 <link doc="reference.xml" id="crypto_createhash"><literal>crypto.createHash</literal></link>,
 <link doc="reference.xml" id="crypto_createhmac"><literal>crypto.createHmac</literal></link>
+</listitem>
+
+<listitem>
+ES6 modules support:
+default <literal>import</literal> and
+default <literal>export</literal> statements
+(<link doc="changes.xml" id="njs0.3.0">0.3.0</link>)
 </listitem>
 
 </list>
