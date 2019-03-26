@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_js_module"
         link="/ru/docs/stream/ngx_stream_js_module.html"
         lang="ru"
-        rev="16">
+        rev="17">
 
 <section id="summary">
 
@@ -178,6 +178,20 @@ function access(s) {
 <para>
 Задаёт функцию njs, которая будет вызываться в
 <link doc="stream_processing.xml" id="preread_phase">preread</link>-фазе.
+</para>
+
+</directive>
+
+
+<directive name="js_path">
+<syntax>
+<value>путь</value></syntax>
+<default/>
+<context>http</context>
+<appeared-in>0.3.0</appeared-in>
+
+<para>
+Задаёт дополнительный путь для модулей njs.
 </para>
 
 </directive>

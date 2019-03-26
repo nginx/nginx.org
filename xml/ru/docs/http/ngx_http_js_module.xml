@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_js_module"
         link="/ru/docs/http/ngx_http_js_module.html"
         lang="ru"
-        rev="18">
+        rev="19">
 
 <section id="summary">
 
@@ -139,6 +139,20 @@ function hello(r) {
 <para>
 Задаёт файл, позволяющий задавать обработчики location и переменных
 на njs.
+</para>
+
+</directive>
+
+
+<directive name="js_path">
+<syntax>
+<value>путь</value></syntax>
+<default/>
+<context>http</context>
+<appeared-in>0.3.0</appeared-in>
+
+<para>
+Задаёт дополнительный путь для модулей njs.
 </para>
 
 </directive>
