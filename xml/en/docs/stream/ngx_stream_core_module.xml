@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_core_module"
         link="/en/docs/stream/ngx_stream_core_module.html"
         lang="en"
-        rev="26">
+        rev="27">
 
 <section id="summary">
 
@@ -113,7 +113,15 @@ prefix:
 <example>
 listen unix:/var/run/nginx.sock;
 </example>
+</para>
 
+<para id="listen_port_range">
+Port ranges (1.15.10) are specified with the
+first and last port separated by a hyphen:
+<example>
+listen 127.0.0.1:12345-12399;
+listen 12345-12399;
+</example>
 </para>
 
 <para>

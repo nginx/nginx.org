@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_core_module"
         link="/ru/docs/stream/ngx_stream_core_module.html"
         lang="ru"
-        rev="26">
+        rev="27">
 
 <section id="summary">
 
@@ -112,7 +112,15 @@ UNIX-сокеты задаются префиксом “<literal>unix:</literal
 <example>
 listen unix:/var/run/nginx.sock;
 </example>
+</para>
 
+<para id="listen_port_range">
+Диапазоны портов (1.15.10) задаются при помощи
+указания первого и последнего порта через дефис:
+<example>
+listen 127.0.0.1:12345-12399;
+listen 12345-12399;
+</example>
 </para>
 
 <para>
