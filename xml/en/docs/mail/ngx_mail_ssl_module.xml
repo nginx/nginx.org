@@ -10,7 +10,7 @@
 <module name="Module ngx_mail_ssl_module"
         link="/en/docs/mail/ngx_mail_ssl_module.html"
         lang="en"
-        rev="19">
+        rev="20">
 
 <section id="summary">
 
@@ -141,6 +141,16 @@ With older versions, only one certificate chain can be used.
 </note>
 </para>
 
+<para id="ssl_certificate_data">
+The value
+<literal>data</literal>:<value>certificate</value>
+can be specified instead of the <value>file</value> (1.15.10),
+which loads a certificate without using intermediate files.
+Note that inappropriate use of this syntax may have its security implications,
+such as writing secret key data to
+<link doc="../ngx_core_module.xml" id="error_log">error log</link>.
+</para>
+
 </directive>
 
 
@@ -161,6 +171,16 @@ The value
 can be specified instead of the <value>file</value> (1.7.9),
 which loads a secret key with a specified <value>id</value>
 from the OpenSSL engine <value>name</value>.
+</para>
+
+<para id="ssl_certificate_key_data">
+The value
+<literal>data</literal>:<value>key</value>
+can be specified instead of the <value>file</value> (1.15.10),
+which loads a secret key without using intermediate files.
+Note that inappropriate use of this syntax may have its security implications,
+such as writing secret key data to
+<link doc="../ngx_core_module.xml" id="error_log">error log</link>.
 </para>
 
 </directive>

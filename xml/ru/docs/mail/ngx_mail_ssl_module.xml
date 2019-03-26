@@ -10,7 +10,7 @@
 <module name="Модуль ngx_mail_ssl_module"
         link="/ru/docs/mail/ngx_mail_ssl_module.html"
         lang="ru"
-        rev="19">
+        rev="20">
 
 <section id="summary">
 
@@ -141,6 +141,17 @@ server {
 </note>
 </para>
 
+<para id="ssl_certificate_data">
+Вместо <value>файла</value> можно указать значение
+<literal>data</literal>:<value>сертификат</value> (1.15.10),
+при котором сертификат загружается
+без использования промежуточных файлов.
+При этом следует учитывать, что ненадлежащее использование
+подобного синтаксиса может быть небезопасно,
+например данные секретного ключа могут попасть в
+<link doc="../ngx_core_module.xml" id="error_log">лог ошибок</link>.
+</para>
+
 </directive>
 
 
@@ -160,6 +171,17 @@ server {
 <literal>engine</literal>:<value>имя</value>:<value>id</value> (1.7.9),
 которое загружает ключ с указанным <value>id</value>
 из OpenSSL engine с заданным <value>именем</value>.
+</para>
+
+<para id="ssl_certificate_key_data">
+Вместо <value>файла</value> можно указать значение
+<literal>data</literal>:<value>ключ</value> (1.15.10),
+при котором секретный ключ загружается
+без использования промежуточных файлов.
+При этом следует учитывать, что ненадлежащее использование
+подобного синтаксиса может быть небезопасно,
+например данные секретного ключа могут попасть в
+<link doc="../ngx_core_module.xml" id="error_log">лог ошибок</link>.
 </para>
 
 </directive>

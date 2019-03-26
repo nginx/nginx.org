@@ -10,7 +10,7 @@
 <module name="Module ngx_http_ssl_module"
         link="/en/docs/http/ngx_http_ssl_module.html"
         lang="en"
-        rev="45">
+        rev="46">
 
 <section id="summary">
 
@@ -186,6 +186,17 @@ a certificate will be loaded for each SSL handshake,
 and this may have a negative impact on performance.
 </para>
 
+<para id="ssl_certificate_data">
+The value
+<literal>data</literal>:<value>$variable</value>
+can be specified instead of the <value>file</value> (1.15.10),
+which loads a certificate from a variable
+without using intermediate files.
+Note that inappropriate use of this syntax may have its security implications,
+such as writing secret key data to
+<link doc="../ngx_core_module.xml" id="error_log">error log</link>.
+</para>
+
 <para>
 It should be kept in mind that due to the HTTPS protocol limitations
 for maximum interoperability virtual servers should listen on
@@ -213,6 +224,16 @@ The value
 can be specified instead of the <value>file</value> (1.7.9),
 which loads a secret key with a specified <value>id</value>
 from the OpenSSL engine <value>name</value>.
+</para>
+
+<para id="ssl_certificate_key_data">
+The value
+<literal>data</literal>:<value>$variable</value>
+can be specified instead of the <value>file</value> (1.15.10),
+which loads a secret key from a variable without using intermediate files.
+Note that inappropriate use of this syntax may have its security implications,
+such as writing secret key data to
+<link doc="../ngx_core_module.xml" id="error_log">error log</link>.
 </para>
 
 <para>
