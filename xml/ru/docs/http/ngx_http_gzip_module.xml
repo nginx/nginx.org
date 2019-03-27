@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_gzip_module"
         link="/ru/docs/http/ngx_http_gzip_module.html"
         lang="ru"
-        rev="4">
+        rev="5">
 
 <section id="summary">
 
@@ -18,6 +18,10 @@
 Модуль <literal>ngx_http_gzip_module</literal> — это фильтр,
 сжимающий ответ методом gzip,
 что позволяет уменьшить размер передаваемых данных в 2 и более раз.
+<note>
+При использовании протокола SSL/TLS сжатые ответы могут быть подвержены
+атакам <link url="https://en.wikipedia.org/wiki/BREACH">BREACH</link>.
+</note>
 </para>
 
 </section>

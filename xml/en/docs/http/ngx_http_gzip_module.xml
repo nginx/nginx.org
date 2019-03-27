@@ -10,7 +10,7 @@
 <module name="Module ngx_http_gzip_module"
         link="/en/docs/http/ngx_http_gzip_module.html"
         lang="en"
-        rev="4">
+        rev="5">
 
 <section id="summary">
 
@@ -18,6 +18,10 @@
 The <literal>ngx_http_gzip_module</literal> module is a filter
 that compresses responses using the “gzip” method.
 This often helps to reduce the size of transmitted data by half or even more.
+<note>
+When using the SSL/TLS protocol, compressed responses may be subject to
+<link url="https://en.wikipedia.org/wiki/BREACH">BREACH</link> attacks.
+</note>
 </para>
 
 </section>
