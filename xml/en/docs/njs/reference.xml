@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="26">
+        rev="27">
 
 <section id="summary">
 
@@ -111,6 +111,8 @@ its size should be limited by
 <link doc="../http/ngx_http_core_module.xml" id="client_max_body_size"/>,
 and a sufficient buffer size should be set using
 <link doc="../http/ngx_http_core_module.xml" id="client_body_buffer_size"/>.
+The property is available only in the
+<link doc="../http/ngx_http_js_module.xml" id="js_content"/> directive.
 </tag-desc>
 
 <tag-name id="r_response_body"><literal>r.responseBody</literal></tag-name>
