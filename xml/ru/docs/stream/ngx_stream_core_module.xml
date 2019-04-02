@@ -224,9 +224,8 @@ FreeBSD, DragonFly BSD и macOS,
 В настоящий момент это работает только на Linux 3.9+, DragonFly BSD
 и FreeBSD 12+ (1.15.1).
 <note>
-Ненадлежащее использование параметра может иметь
-<link url="http://man7.org/linux/man-pages/man7/socket.7.html">последствия</link>
-в плане безопасности.
+Ненадлежащее использование параметра может быть
+<link url="http://man7.org/linux/man-pages/man7/socket.7.html">небезопасно</link>.
 </note>
 </tag-desc>
 
