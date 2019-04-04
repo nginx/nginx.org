@@ -132,6 +132,9 @@ connections accepted on this port should work in SSL mode.
 <para id="udp">
 The <literal>udp</literal> parameter configures a listening socket
 for working with datagrams (1.9.13).
+In order to handle packets from the same address and port in the same session,
+the <link id="reuseport"><literal>reuseport</literal></link> parameter
+should also be specified.
 </para>
 
 <para id="proxy_protocol">

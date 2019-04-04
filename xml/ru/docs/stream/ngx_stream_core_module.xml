@@ -131,6 +131,9 @@ listen 12345-12399;
 <para id="udp">
 Параметр <literal>udp</literal> конфигурирует слушающий сокет
 для работы с датаграммами (1.9.13).
+Для обработки пакетов с одного адреса и порта в рамках одной сессии
+необходимо также указывать
+параметр <link id="reuseport"><literal>reuseport</literal></link>.
 </para>
 
 <para id="proxy_protocol">
