@@ -9,7 +9,7 @@
 <module name="Module ngx_http_upstream_hc_module"
         link="/en/docs/http/ngx_http_upstream_hc_module.html"
         lang="en"
-        rev="4">
+        rev="5">
 
 <section id="summary">
 
@@ -290,6 +290,17 @@ body does not match regular expression “<literal>Welcome to nginx!</literal>�
 </tag-desc>
 
 </list>
+
+<list type="tag">
+
+<tag-name id="match_require"><literal>require</literal>
+                             <value>$variable</value>
+                             <literal>...;</literal></tag-name>
+<tag-desc>
+all specified variables are not empty and not equal to “0” (1.15.9).
+</tag-desc>
+
+</list>
 </para>
 
 <para>
@@ -325,6 +336,18 @@ match not_redirect {
 match server_ok {
     status 200-399;
     body !~ "maintenance mode";
+}
+</example>
+
+<example>
+# status is 200 or 204
+map $upstream_status $good_status {
+    200 1;
+    204 1;
+}
+
+match server_ok {
+    require $good_status;
 }
 </example>
 

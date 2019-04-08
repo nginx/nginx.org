@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_proxy_module"
         link="/en/docs/stream/ngx_stream_proxy_module.html"
         lang="en"
-        rev="22">
+        rev="23">
 
 <section id="summary">
 
@@ -291,6 +291,40 @@ By default, the number of datagrams is not limited.
 If zero value is specified, no response is expected.
 However, if a response is received and the
 session is still not finished, the response will be handled.
+</para>
+
+</directive>
+
+
+<directive name="proxy_session_drop">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.15.8</appeared-in>
+
+<para>
+Enables terminating all sessions to a proxied server
+after it was removed from the group or marked as permanently unavailable.
+This can occur because of
+<link doc="ngx_stream_core_module.xml" id="resolver">re-resolve</link>
+or with the API
+<link doc="../http/ngx_http_api_module.xml" id="deleteStreamUpstreamServer"><literal>DELETE</literal></link>
+command.
+A server can be marked as permanently unavailable if it is considered
+<link doc="ngx_stream_upstream_hc_module.xml" id="health_check">unhealthy</link>
+or with the API
+<link doc="../http/ngx_http_api_module.xml" id="patchStreamUpstreamServer"><literal>PATCH</literal></link>
+command.
+Each session is terminated when the next
+read or write event is processed for the client or proxied server.
+</para>
+
+<para>
+<note>
+This directive is available as part of our
+<commercial_version>commercial subscription</commercial_version>.
+</note>
 </para>
 
 </directive>

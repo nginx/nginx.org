@@ -101,21 +101,21 @@ All API requests include
 a supported API <link id="api_version">version</link> in the URI.
 Examples of API requests with this configuration:
 <example>
-http://127.0.0.1/api/3/
-http://127.0.0.1/api/3/nginx
-http://127.0.0.1/api/3/connections
-http://127.0.0.1/api/3/http/requests
-http://127.0.0.1/api/3/http/server_zones/server_backend
-http://127.0.0.1/api/3/http/caches/cache_backend
-http://127.0.0.1/api/3/http/upstreams/backend
-http://127.0.0.1/api/3/http/upstreams/backend/servers/
-http://127.0.0.1/api/3/http/upstreams/backend/servers/1
-http://127.0.0.1/api/3/http/keyvals/one?key=arg1
-http://127.0.0.1/api/3/stream/
-http://127.0.0.1/api/3/stream/server_zones/server_backend
-http://127.0.0.1/api/3/stream/upstreams/
-http://127.0.0.1/api/3/stream/upstreams/backend
-http://127.0.0.1/api/3/stream/upstreams/backend/servers/1
+http://127.0.0.1/api/4/
+http://127.0.0.1/api/4/nginx
+http://127.0.0.1/api/4/connections
+http://127.0.0.1/api/4/http/requests
+http://127.0.0.1/api/4/http/server_zones/server_backend
+http://127.0.0.1/api/4/http/caches/cache_backend
+http://127.0.0.1/api/4/http/upstreams/backend
+http://127.0.0.1/api/4/http/upstreams/backend/servers/
+http://127.0.0.1/api/4/http/upstreams/backend/servers/1
+http://127.0.0.1/api/4/http/keyvals/one?key=arg1
+http://127.0.0.1/api/4/stream/
+http://127.0.0.1/api/4/stream/server_zones/server_backend
+http://127.0.0.1/api/4/stream/upstreams/
+http://127.0.0.1/api/4/stream/upstreams/backend
+http://127.0.0.1/api/4/stream/upstreams/backend/servers/1
 </example>
 </para>
 
@@ -146,14 +146,14 @@ By default, the API is read-only.
 All API requests should contain a supported API version in the URI.
 If the request URI equals the location prefix,
 the list of supported API versions is returned.
-The current API version is “<literal>3</literal>”.
+The current API version is “<literal>4</literal>”.
 </para>
 
 <para>
 The optional “<literal>fields</literal>” argument in the request line
 specifies which fields of the requested objects will be output:
 <example>
-http://127.0.0.1/api/3/nginx?fields=version,build
+http://127.0.0.1/api/4/nginx?fields=version,build
 </example>
 </para>
 
@@ -183,6 +183,14 @@ Several servers may share the same zone.
 
 <para>
 <list type="bullet">
+
+<listitem>
+The <literal>path</literal> and <literal>method</literal> fields of
+<link id="def_nginx_error">nginx error object</link>
+were removed in <link id="api_version">version</link> 4.
+These fields continue to exist in earlier api versions,
+but show an empty value.
+</listitem>
 
 <listitem>
 The <link id="stream_zone_sync_">/stream/zone_sync/</link> data
@@ -952,7 +960,7 @@ nested object or list (<literal>KeyvalFormatError</literal>), returns <link id="
 </listitem>
 <listitem id="patchHttpKeyvalZoneKeyValue">
 <literal>PATCH</literal> - Modify a key-value or delete a key
-<para>Changes the value of the selected key in the key-value pair or deletes a key by setting the key value to <literal>null</literal>.</para>
+<para>Changes the value of the selected key in the key-value pair or deletes a key by setting the key value to <literal>null</literal>. If <link url="https://nginx.org/en/docs/stream/ngx_stream_zone_sync_module.html#zone_sync">synchronization</link> of keyval zones in a cluster is enabled, deletes a key only on a target cluster node.</para>
 <para>
 Request parameters:
 <list type="tag">
@@ -978,7 +986,7 @@ keyval key not found (<literal>KeyvalKeyNotFound</literal>), returns <link id="d
 </listitem>
 <listitem id="deleteHttpKeyvalZoneData">
 <literal>DELETE</literal> - Empty the HTTP keyval zone
-<para>Deletes all key-value pairs from the HTTP keyval shared memory <link url="https://nginx.org/en/docs/http/ngx_http_keyval_module.html#keyval_zone">zone</link>.</para>
+<para>Deletes all key-value pairs from the HTTP keyval shared memory <link url="https://nginx.org/en/docs/http/ngx_http_keyval_module.html#keyval_zone">zone</link>. If <link url="https://nginx.org/en/docs/stream/ngx_stream_zone_sync_module.html#zone_sync">synchronization</link> of keyval zones in a cluster is enabled, empties the keyval zone only on a target cluster node.</para>
 <para>
 Possible responses:
 </para>
@@ -1031,7 +1039,6 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>200 - Success, returns a collection of "<link id="def_nginx_stream_server_zone">Stream Server Zone</link>" objects for all  stream server zones </listitem>
-<listitem>404 - <link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream">stream</link> not configured (<literal>StreamNotConfigured</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 </list>
@@ -1066,8 +1073,7 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>200 - Success, returns <link id="def_nginx_stream_server_zone">Stream Server Zone</link></listitem>
-<listitem>404 - Server zone not found (<literal>ServerZoneNotFound</literal>),
-<link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream">stream</link> not configured (<literal>StreamNotConfigured</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>404 - Server zone not found (<literal>ServerZoneNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 <listitem id="deleteStreamServerZoneStat">
@@ -1078,8 +1084,7 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>204 - Success</listitem>
-<listitem>404 - Server zone not found (<literal>ServerZoneNotFound</literal>),
-<link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream">stream</link> not configured (<literal>StreamNotConfigured</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>404 - Server zone not found (<literal>ServerZoneNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
@@ -1108,7 +1113,6 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>200 - Success, returns a collection of "<link id="def_nginx_stream_upstream">Stream Upstream</link>" objects for all  stream upstreams </listitem>
-<listitem>404 - <link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream">stream</link> not configured (<literal>StreamNotConfigured</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 </list>
@@ -1144,8 +1148,7 @@ Possible responses:
 <list type="bullet">
 <listitem>200 - Success, returns <link id="def_nginx_stream_upstream">Stream Upstream</link></listitem>
 <listitem>400 - Upstream is static (<literal>UpstreamStatic</literal>), returns <link id="def_nginx_error">Error</link></listitem>
-<listitem>404 - Upstream not found (<literal>UpstreamNotFound</literal>),
-<link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream">stream</link> not configured (<literal>StreamNotConfigured</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>404 - Upstream not found (<literal>UpstreamNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 <listitem id="deleteStreamUpstreamStat">
@@ -1157,8 +1160,7 @@ Possible responses:
 <list type="bullet">
 <listitem>204 - Success</listitem>
 <listitem>400 - Upstream is static (<literal>UpstreamStatic</literal>), returns <link id="def_nginx_error">Error</link></listitem>
-<listitem>404 - Upstream not found (<literal>UpstreamNotFound</literal>),
-<link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream">stream</link> not configured (<literal>StreamNotConfigured</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>404 - Upstream not found (<literal>UpstreamNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
@@ -1186,8 +1188,7 @@ Possible responses:
 <list type="bullet">
 <listitem>200 - Success, returns an array of <link id="def_nginx_stream_upstream_conf_server">Stream Upstream Servers</link></listitem>
 <listitem>400 - Upstream is static (<literal>UpstreamStatic</literal>), returns <link id="def_nginx_error">Error</link></listitem>
-<listitem>404 - Upstream not found (<literal>UpstreamNotFound</literal>),
-<link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream">stream</link> not configured (<literal>StreamNotConfigured</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>404 - Upstream not found (<literal>UpstreamNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 <listitem id="postStreamUpstreamServer">
@@ -1225,8 +1226,7 @@ invalid “<literal>slow_start</literal>” (<literal>UpstreamBadSlowStart</lite
 no resolver defined to resolve (<literal>UpstreamConfNoResolver</literal>),
 upstream “<value>name</value>” has no backup (<literal>UpstreamNoBackup</literal>),
 upstream “<value>name</value>” memory exhausted (<literal>UpstreamOutOfMemory</literal>), returns <link id="def_nginx_error">Error</link></listitem>
-<listitem>404 - Upstream not found (<literal>UpstreamNotFound</literal>),
-<link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream">stream</link> not configured (<literal>StreamNotConfigured</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>404 - Upstream not found (<literal>UpstreamNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>415 - JSON error (<literal>JsonError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
@@ -1261,8 +1261,7 @@ Possible responses:
 <listitem>400 - Upstream is static (<literal>UpstreamStatic</literal>),
 invalid server ID (<literal>UpstreamBadServerId</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>404 - Upstream not found (<literal>UpstreamNotFound</literal>),
-server with ID “<value>id</value>” does not exist (<literal>UpstreamServerNotFound</literal>),
-<link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream">stream</link> not configured (<literal>StreamNotConfigured</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+server with ID “<value>id</value>” does not exist (<literal>UpstreamServerNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 <listitem id="patchStreamUpstreamServer">
@@ -1300,8 +1299,7 @@ server “<value>ID</value>” address is immutable (<literal>UpstreamServerImmu
 server “<value>ID</value>” weight is immutable (<literal>UpstreamServerWeightImmutable</literal>),
 upstream “<literal>name</literal>” memory exhausted (<literal>UpstreamOutOfMemory</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>404 - Upstream not found (<literal>UpstreamNotFound</literal>),
-server with ID “<value>id</value>” does not exist (<literal>UpstreamServerNotFound</literal>),
-<link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream">stream</link> not configured (<literal>StreamNotConfigured</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+server with ID “<value>id</value>” does not exist (<literal>UpstreamServerNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>415 - JSON error (<literal>JsonError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
@@ -1318,8 +1316,7 @@ Possible responses:
 invalid server ID (<literal>UpstreamBadServerId</literal>),
 server “<value>id</value>” not removable (<literal>UpstreamServerImmutable</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>404 - Upstream not found (<literal>UpstreamNotFound</literal>),
-server with ID “<value>id</value>” does not exist (<literal>UpstreamServerNotFound</literal>),
-<link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream">stream</link> not configured (<literal>StreamNotConfigured</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+server with ID “<value>id</value>” does not exist (<literal>UpstreamServerNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
@@ -1348,7 +1345,6 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>200 - Success, returns a collection of "<link id="def_nginx_stream_keyval_zone">Stream Keyval Shared Memory Zone</link>" objects for all  stream keyvals </listitem>
-<listitem>404 - <link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream">stream</link> not configured (<literal>StreamNotConfigured</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 </list>
@@ -1384,8 +1380,7 @@ Possible responses:
 <list type="bullet">
 <listitem>200 - Success, returns <link id="def_nginx_stream_keyval_zone">Stream Keyval Shared Memory Zone</link></listitem>
 <listitem>404 - Keyval not found (<literal>KeyvalNotFound</literal>),
-keyval key not found (<literal>KeyvalKeyNotFound</literal>),
-<link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream">stream</link> not configured (<literal>StreamNotConfigured</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+keyval key not found (<literal>KeyvalKeyNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 <listitem id="postStreamKeyvalZoneData">
@@ -1408,8 +1403,7 @@ Possible responses:
 <listitem>400 - Key required (<literal>KeyvalFormatError</literal>),
 only one key can be added (<literal>KeyvalFormatError</literal>),
 nested object or list (<literal>KeyvalFormatError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
-<listitem>404 - Keyval not found (<literal>KeyvalNotFound</literal>),
-<link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream">stream</link> not configured (<literal>StreamNotConfigured</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>404 - Keyval not found (<literal>KeyvalNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>409 - Key already exists (<literal>KeyvalKeyExists</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>415 - JSON error (<literal>JsonError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
@@ -1417,7 +1411,7 @@ nested object or list (<literal>KeyvalFormatError</literal>), returns <link id="
 </listitem>
 <listitem id="patchStreamKeyvalZoneKeyValue">
 <literal>PATCH</literal> - Modify a key-value or delete a key
-<para>Changes the value of the selected key in the key-value pair or deletes a key by setting the key value to <literal>null</literal>.</para>
+<para>Changes the value of the selected key in the key-value pair or deletes a key by setting the key value to <literal>null</literal>. If <link url="https://nginx.org/en/docs/stream/ngx_stream_zone_sync_module.html#zone_sync">synchronization</link> of keyval zones in a cluster is enabled, deletes a key only on a target cluster node.</para>
 <para>
 Request parameters:
 <list type="tag">
@@ -1436,22 +1430,20 @@ Possible responses:
 only one key can be updated (<literal>KeyvalFormatError</literal>),
 nested object or list (<literal>KeyvalFormatError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>404 - Keyval not found (<literal>KeyvalNotFound</literal>),
-keyval key not found (<literal>KeyvalKeyNotFound</literal>),
-<link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream">stream</link> not configured (<literal>StreamNotConfigured</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+keyval key not found (<literal>KeyvalKeyNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>415 - JSON error (<literal>JsonError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 <listitem id="deleteStreamKeyvalZoneData">
 <literal>DELETE</literal> - Empty the stream keyval zone
-<para>Deletes all key-value pairs from the stream keyval shared memory <link url="https://nginx.org/en/docs/stream/ngx_stream_keyval_module.html#keyval_zone">zone</link>.</para>
+<para>Deletes all key-value pairs from the stream keyval shared memory <link url="https://nginx.org/en/docs/stream/ngx_stream_keyval_module.html#keyval_zone">zone</link>. If <link url="https://nginx.org/en/docs/stream/ngx_stream_zone_sync_module.html#zone_sync">synchronization</link> of keyval zones in a cluster is enabled, empties the keyval zone only on a target cluster node.</para>
 <para>
 Possible responses:
 </para>
 <list type="bullet">
 <listitem>204 - Success</listitem>
-<listitem>404 - Keyval not found (<literal>KeyvalNotFound</literal>),
-<link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream">stream</link> not configured (<literal>StreamNotConfigured</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>404 - Keyval not found (<literal>KeyvalNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
@@ -1471,8 +1463,6 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>200 - Success, returns <link id="def_nginx_stream_zone_sync">Stream Zone Sync Node</link></listitem>
-<listitem>404 - Zone sync not configured (<literal>ZoneSyncNotConfigured</literal>),
-<link url="https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream">stream</link> not configured (<literal>StreamNotConfigured</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 </list>
@@ -3008,18 +2998,6 @@ The total number of records stored in the shared memory zone.
 <listitem id="def_nginx_error">
 <para>Error:</para>
 nginx error object.<list type="tag">
-<tag-name>
-<literal>path</literal> (<literal>string</literal>)
-</tag-name>
-<tag-desc>
-API path.
-</tag-desc>
-<tag-name>
-<literal>method</literal> (<literal>string</literal>)
-</tag-name>
-<tag-desc>
-HTTP method.
-</tag-desc>
 <tag-name>
 <literal>error</literal></tag-name>
 <tag-desc>

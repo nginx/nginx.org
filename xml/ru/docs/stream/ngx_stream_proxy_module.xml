@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_proxy_module"
         link="/ru/docs/stream/ngx_stream_proxy_module.html"
         lang="ru"
-        rev="22">
+        rev="23">
 
 <section id="summary">
 
@@ -292,6 +292,38 @@ Cессия завершится после отправки всех приня
 <para>
 Если указано нулевое значение, то ответ не ожидается.
 Однако если ответ получен и сессия ещё не завершилась, то ответ будет обработан.
+</para>
+
+</directive>
+
+
+<directive name="proxy_session_drop">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.15.8</appeared-in>
+
+<para>
+Позволяет завершить все сессии к проксируемому серверу,
+если он был удалён из группы или помечен как постоянно недоступный.
+Это может произойти вследствие повторного
+<link doc="ngx_stream_core_module.xml" id="resolver">преобразования имён</link>
+в адреса, а также при помощи команды API
+<link doc="../http/ngx_http_api_module.xml" id="deleteStreamUpstreamServer"><literal>DELETE</literal></link>.
+Сервер может быть помечен как постоянно недоступный в случае неуспешной
+<link doc="ngx_stream_upstream_hc_module.xml" id="health_check">проверки работоспособности</link>,
+а также при помощи команды API
+<link doc="../http/ngx_http_api_module.xml" id="patchStreamUpstreamServer"><literal>PATCH</literal></link>.
+Сессия завершается при обработке очередного
+события чтения или записи на стороне клиента или проксируемого сервера.
+</para>
+
+<para>
+<note>
+Эта директива доступна как часть
+<commercial_version>коммерческой подписки</commercial_version>.
+</note>
 </para>
 
 </directive>
