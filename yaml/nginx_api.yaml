@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: '3.0'
+  version: '4.0'
   title: NGINX Plus REST API
   description: NGINX Plus REST
     [API](https://nginx.org/en/docs/http/ngx_http_api_module.html)
@@ -9,7 +9,7 @@ info:
     key-value pairs management for
     [http](https://nginx.org/en/docs/http/ngx_http_keyval_module.html) and
     [stream](https://nginx.org/en/docs/stream/ngx_stream_keyval_module.html).
-basePath: /api/3
+basePath: /api/4
 tags:
   - name: General Info
   - name: Processes
@@ -836,6 +836,10 @@ paths:
       summary: Modify a key-value or delete a key
       description: Changes the value of the selected key in the key-value pair
         or deletes a key by setting the key value to <literal>null</literal>.
+        If
+        <a href="https://nginx.org/en/docs/stream/ngx_stream_zone_sync_module.html#zone_sync">synchronization</a>
+        of keyval zones in a cluster is enabled,
+        deletes a key only on a target cluster node.
       operationId: patchHttpKeyvalZoneKeyValue
       produces:
         - application/json
@@ -877,6 +881,10 @@ paths:
       summary: Empty the HTTP keyval zone
       description: Deletes all key-value pairs from the HTTP keyval shared memory
         [zone](https://nginx.org/en/docs/http/ngx_http_keyval_module.html#keyval_zone).
+        If
+        <a href="https://nginx.org/en/docs/stream/ngx_stream_zone_sync_module.html#zone_sync">synchronization</a>
+        of keyval zones in a cluster is enabled,
+        empties the keyval zone only on a target cluster node.
       operationId: deleteHttpKeyvalZoneData
       responses:
         '204':
@@ -926,12 +934,6 @@ paths:
           description: Success
           schema:
             $ref: '#/definitions/NginxStreamServerZonesMap'
-        '404':
-          description: >
-            [stream](https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream)
-            not configured (*StreamNotConfigured*)
-          schema:
-            $ref: '#/definitions/NginxError'
   '/stream/server_zones/{streamServerZoneName}':
     parameters:
       - name: streamServerZoneName
@@ -960,8 +962,7 @@ paths:
             $ref: '#/definitions/NginxStreamServerZone'
         '404':
           description: |
-            Server zone not found (*ServerZoneNotFound*),
-            [stream](https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream) not configured (*StreamNotConfigured*)
+            Server zone not found (*ServerZoneNotFound*)
           schema:
             $ref: '#/definitions/NginxError'
     delete:
@@ -977,8 +978,7 @@ paths:
           description: Success
         '404':
           description: |
-            Server zone not found (*ServerZoneNotFound*),
-            [stream](https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream) not configured (*StreamNotConfigured*)
+            Server zone not found (*ServerZoneNotFound*)
           schema:
             $ref: '#/definitions/NginxError'
         '405':
@@ -1008,12 +1008,6 @@ paths:
           description: Success
           schema:
             $ref: '#/definitions/NginxStreamUpstreamMap'
-        '404':
-          description: >
-            [stream](https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream)
-            not configured (*StreamNotConfigured*)
-          schema:
-            $ref: '#/definitions/NginxError'
   '/stream/upstreams/{streamUpstreamName}/':
     parameters:
     - name: streamUpstreamName
@@ -1047,8 +1041,7 @@ paths:
             $ref: '#/definitions/NginxError'
         '404':
           description: |
-            Upstream not found (*UpstreamNotFound*),
-            [stream](https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream) not configured (*StreamNotConfigured*)
+            Upstream not found (*UpstreamNotFound*)
           schema:
             $ref: '#/definitions/NginxError'
     delete:
@@ -1070,8 +1063,7 @@ paths:
             $ref: '#/definitions/NginxError'
         '404':
           description: |
-            Upstream not found (*UpstreamNotFound*),
-            [stream](https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream) not configured (*StreamNotConfigured*)
+            Upstream not found (*UpstreamNotFound*)
           schema:
             $ref: '#/definitions/NginxError'
         '405':
@@ -1106,8 +1098,7 @@ paths:
             $ref: '#/definitions/NginxError'
         '404':
           description: |
-            Upstream not found (*UpstreamNotFound*),
-            [stream](https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream) not configured (*StreamNotConfigured*)
+            Upstream not found (*UpstreamNotFound*)
           schema:
             $ref: '#/definitions/NginxError'
     post:
@@ -1159,8 +1150,7 @@ paths:
             $ref: '#/definitions/NginxError'
         '404':
           description: |
-            Upstream not found (*UpstreamNotFound*),
-            [stream](https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream) not configured (*StreamNotConfigured*)
+            Upstream not found (*UpstreamNotFound*)
           schema:
             $ref: '#/definitions/NginxError'
         '405':
@@ -1207,8 +1197,7 @@ paths:
         '404':
           description: |
             Upstream not found (*UpstreamNotFound*),
-            server with ID “**id**” does not exist (*UpstreamServerNotFound*),
-            [stream](https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream) not configured (*StreamNotConfigured*)
+            server with ID “**id**” does not exist (*UpstreamServerNotFound*)
           schema:
             $ref: '#/definitions/NginxError'
     patch:
@@ -1260,8 +1249,7 @@ paths:
         '404':
           description: |
             Upstream not found (*UpstreamNotFound*),
-            server with ID “**id**” does not exist (*UpstreamServerNotFound*),
-            [stream](https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream) not configured (*StreamNotConfigured*)
+            server with ID “**id**” does not exist (*UpstreamServerNotFound*)
           schema:
             $ref: '#/definitions/NginxError'
         '405':
@@ -1296,8 +1284,7 @@ paths:
         '404':
           description: |
             Upstream not found (*UpstreamNotFound*),
-            server with ID “**id**” does not exist (*UpstreamServerNotFound*),
-            [stream](https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream) not configured (*StreamNotConfigured*)
+            server with ID “**id**” does not exist (*UpstreamServerNotFound*)
           schema:
             $ref: '#/definitions/NginxError'
         '405':
@@ -1326,11 +1313,6 @@ paths:
           description: Success
           schema:
             $ref: '#/definitions/NginxStreamKeyvalZonesMap'
-        '404':
-          description: |
-            [stream](https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream) not configured (*StreamNotConfigured*)
-          schema:
-            $ref: '#/definitions/NginxError'
   '/stream/keyvals/{streamKeyvalZoneName}':
     parameters:
       - name: streamKeyvalZoneName
@@ -1361,8 +1343,7 @@ paths:
         '404':
           description: |
             Keyval not found (*KeyvalNotFound*),
-            keyval key not found (*KeyvalKeyNotFound*),
-            [stream](https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream) not configured (*StreamNotConfigured*)
+            keyval key not found (*KeyvalKeyNotFound*)
           schema:
             $ref: '#/definitions/NginxError'
     post:
@@ -1398,8 +1379,7 @@ paths:
             $ref: '#/definitions/NginxError'
         '404':
           description: |
-            Keyval not found (*KeyvalNotFound*),
-            [stream](https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream) not configured (*StreamNotConfigured*)
+            Keyval not found (*KeyvalNotFound*)
           schema:
             $ref: '#/definitions/NginxError'
         '405':
@@ -1421,6 +1401,10 @@ paths:
       summary: Modify a key-value or delete a key
       description: Changes the value of the selected key in the key-value pair
         or deletes a key by setting the key value to <literal>null</literal>.
+        If
+        <a href="https://nginx.org/en/docs/stream/ngx_stream_zone_sync_module.html#zone_sync">synchronization</a>
+        of keyval zones in a cluster is enabled,
+        deletes a key only on a target cluster node.
       operationId: patchStreamKeyvalZoneKeyValue
       produces:
         - application/json
@@ -1444,8 +1428,7 @@ paths:
         '404':
           description: |
             Keyval not found (*KeyvalNotFound*),
-            keyval key not found (*KeyvalKeyNotFound*),
-            [stream](https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream) not configured (*StreamNotConfigured*)
+            keyval key not found (*KeyvalKeyNotFound*)
           schema:
             $ref: '#/definitions/NginxError'
         '405':
@@ -1463,14 +1446,17 @@ paths:
       summary: Empty the stream keyval zone
       description: Deletes all key-value pairs from the stream keyval shared memory
         [zone](https://nginx.org/en/docs/stream/ngx_stream_keyval_module.html#keyval_zone).
+        If
+        <a href="https://nginx.org/en/docs/stream/ngx_stream_zone_sync_module.html#zone_sync">synchronization</a>
+        of keyval zones in a cluster is enabled,
+        empties the keyval zone only on a target cluster node.
       operationId: deleteStreamKeyvalZoneData
       responses:
         '204':
           description: Success
         '404':
           description: |
-            Keyval not found (*KeyvalNotFound*),
-            [stream](https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream) not configured (*StreamNotConfigured*)
+            Keyval not found (*KeyvalNotFound*)
           schema:
             $ref: '#/definitions/NginxError'
         '405':
@@ -1492,12 +1478,6 @@ paths:
           description: Success
           schema:
             $ref: '#/definitions/NginxStreamZoneSync'
-        '404':
-          description: |
-            Zone sync not configured (*ZoneSyncNotConfigured*),
-            [stream](https://nginx.org/en/docs/stream/ngx_stream_core_module.html#stream) not configured (*StreamNotConfigured*)
-          schema:
-            $ref: '#/definitions/NginxError'
 ###
 ###DEFINITIONS
 ###
@@ -3226,12 +3206,6 @@ definitions:
       nginx error object.
     type: object
     properties:
-      path:
-        type: string
-        description: API path.
-      method:
-        type: string
-        description: HTTP method.
       error:
         type: object
         properties:
