@@ -9,7 +9,7 @@
 <article name="Development guide"
          link="/en/docs/dev/development_guide.html"
          lang="en"
-         rev="5">
+         rev="6">
 
 <section name="Introduction" id="introduction">
 
@@ -4484,7 +4484,7 @@ where a location is chosen based on the request URI.
 Before this phase, the default location for the relevant virtual server
 is assigned to the request, and any module requesting a location configuration
 receives the configuration for the default server location.
-This phase a assigns a new location to the request.
+This phase assigns a new location to the request.
 No additional handlers can be registered at this phase.
 </listitem>
 
