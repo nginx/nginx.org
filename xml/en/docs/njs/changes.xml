@@ -9,7 +9,7 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="15"
+        rev="16"
         toc="no">
 
 <section id="njs0.3.0" name="Changes with 0.3.0">
@@ -1111,7 +1111,26 @@ or <literal>req.headersOut</literal>)
 </listitem>
 
 </list>
-The deprecated properties will be removed in next releases.
+Deprecated members of <literal>Response</literal>:
+
+<list type="bullet">
+
+<listitem>
+<para>
+<literal>res.contentLength</literal> (use
+<link doc="reference.xml" id="r_headers_out"><literal>req.headersOut</literal></link><literal>['Content-Length']</literal>)
+</para>
+</listitem>
+
+<listitem>
+<para>
+<literal>res.contentType</literal> (use <link doc="reference.xml" id="r_headers_out"><literal>req.headersOut</literal></link><literal>['Content-Type']</literal>)
+</para>
+</listitem>
+
+</list>
+The deprecated properties will be removed in
+<link id="njs0.2.8">next</link> releases.
 </para>
 </listitem>
 
