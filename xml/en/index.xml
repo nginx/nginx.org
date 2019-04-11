@@ -8,7 +8,7 @@
 <article name="nginx"
          link="/en/"
          lang="en"
-         rev="102">
+         rev="103">
 
 
 <section>
@@ -426,15 +426,22 @@ Data copy operations are kept to a minimum.
 <list type="bullet">
 
 <listitem>
-FreeBSD 3&mdash;11 / i386; FreeBSD 5&mdash;11 / amd64;
+FreeBSD 3&mdash;12 / i386;
+FreeBSD 5&mdash;12 / amd64;
+FreeBSD 11 / ppc;
+FreeBSD 12 / ppc64;
 </listitem>
 
 <listitem>
-Linux 2.2&mdash;4 / i386; Linux 2.6&mdash;4 / amd64; Linux 3&mdash;4 / armv6l, armv7l, aarch64, ppc64le;
+Linux 2.2&mdash;4 / i386;
+Linux 2.6&mdash;4 / amd64;
+Linux 3&mdash;4 / armv6l, armv7l, aarch64, ppc64le;
 </listitem>
 
 <listitem>
-Solaris 9 / i386, sun4u; Solaris 10 / i386, amd64, sun4v;
+Solaris 9 / i386, sun4u;
+Solaris 10 / i386, amd64, sun4v;
+Solaris 11 / x86;
 </listitem>
 
 <listitem>
@@ -446,11 +453,14 @@ HP-UX 11.31 / ia64;
 </listitem>
 
 <listitem>
-macOS / ppc, i386;
+macOS / ppc, i386, x86_64;
 </listitem>
 
 <listitem>
-Windows XP, Windows Server 2003.
+Windows XP,
+Windows Server 2003,
+Windows 7,
+Windows 10.
 </listitem>
 
 </list>
