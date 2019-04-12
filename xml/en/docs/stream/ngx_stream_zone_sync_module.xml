@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_zone_sync_module"
         link="/en/docs/stream/ngx_stream_zone_sync_module.html"
         lang="en"
-        rev="4">
+        rev="5">
 
 <section id="summary">
 
@@ -67,11 +67,11 @@ stream {
     server {
         zone_sync;
 
-        listen 127.0.0.1:8090;
+        listen 127.0.0.1:12345;
 
         # cluster of 2 nodes
-        zone_sync_server a.example.com;
-        zone_sync_server b.example.com;
+        zone_sync_server a.example.com:12345;
+        zone_sync_server b.example.com:12345;
 
     }
 </example>
@@ -89,7 +89,7 @@ stream {
         zone_sync;
 
         # the name resolves to multiple addresses that correspond to cluster nodes
-        zone_sync_server cluster.example.com resolve;
+        zone_sync_server cluster.example.com:12345 resolve;
 
         listen 127.0.0.1:4433 ssl;
 
@@ -250,7 +250,7 @@ stream {
 
     server {
         zone_sync;
-        zone_sync_server cluster.example.com resolve;
+        zone_sync_server cluster.example.com:12345 resolve;
         ...
     }
 }
