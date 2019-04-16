@@ -194,8 +194,11 @@ Defines an interval for polling updates in a shared memory zone.
 <para>
 Sets <value>size</value> of a per-connection receive buffer used to parse
 incoming stream of synchronization messages.
-By default, the buffer size is equal to one memory page.
-This is either 4K or 8K, depending on a platform.
+The buffer size must be equal or greater than one of the
+<link id="zone_sync_buffers"/>.
+By default, the buffer size is equal to
+<link id="zone_sync_buffers">zone_sync_buffers</link> <value>size</value>
+multiplied by <value>number</value>.
 </para>
 
 </directive>
