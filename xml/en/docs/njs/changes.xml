@@ -9,8 +9,134 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="16"
+        rev="17"
         toc="no">
+
+<section id="njs0.3.1" name="Changes with 0.3.1">
+
+<para>
+Release Date:
+16 April 2019
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+added arrow functions support.
+Thanks to 洪志道 (Hong Zhi Dao) and Artem S. Povalyukhin.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added Object.getOwnPropertyNames().
+Thanks to Artem S. Povalyukhin.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added Object.getOwnPropertyDescriptors().
+Thanks to Artem S. Povalyukhin.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+making __proto__ accessor descriptor of Object instances
+mutable.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added shebang support in CLI.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added support for module mode execution in CLI. In module
+mode global this is unavailable.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed editline detection.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed Function.prototype.bind().
+Thanks to 洪志道 (Hong Zhi Dao).
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed checking of duplication of parameters for functions.
+Thanks to 洪志道 (Hong Zhi Dao).
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed function declaration with the same name as a variable.
+Thanks to 洪志道 (Hong Zhi Dao).
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+code related to parsing of objects, variables and
+functions is refactored.
+Thanks to 洪志道 (Hong Zhi Dao).
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+console.log() improved for outputting large values.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+console.log() improved for outputting strings in a
+compliant way (without escaping and quotes).
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+using ES6 version of ToInt32(), ToUint32(), ToLength().
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.3.0" name="Changes with 0.3.0">
 

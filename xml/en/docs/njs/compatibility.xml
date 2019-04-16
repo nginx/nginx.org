@@ -9,7 +9,7 @@
 <article name="Compatibility"
         link="/en/docs/njs/compatibility.html"
         lang="en"
-        rev="8"
+        rev="9"
         toc="no">
 
 <section>
@@ -238,6 +238,11 @@ ES6 modules support:
 default <literal>import</literal> and
 default <literal>export</literal> statements
 (<link doc="changes.xml" id="njs0.3.0">0.3.0</link>)
+</listitem>
+
+<listitem>
+ES6 arrow functions
+(<link doc="changes.xml" id="njs0.3.1">0.3.1</link>)
 </listitem>
 
 </list>
