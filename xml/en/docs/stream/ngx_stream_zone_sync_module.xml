@@ -125,7 +125,7 @@ Cluster nodes are defined using <link id="zone_sync_server"/> directives.
 
 <directive name="zone_sync_buffers">
 <syntax><value>number</value> <value>size</value></syntax>
-<default>256 4k|8k</default>
+<default>8 4k|8k</default>
 <context>stream</context>
 <context>server</context>
 
