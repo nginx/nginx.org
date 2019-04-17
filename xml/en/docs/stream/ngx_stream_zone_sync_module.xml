@@ -136,6 +136,13 @@ By default, the buffer size is equal to one memory page.
 This is either 4K or 8K, depending on a platform.
 </para>
 
+<para>
+<note>
+A single buffer must be large enough to hold any entry of each zone being
+synchronized.
+</note>
+</para>
+
 </directive>
 
 
