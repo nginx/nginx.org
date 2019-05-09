@@ -20,9 +20,8 @@
 
     <div id="banner">
         <xsl:if test="@lang = 'he'"> <xsl:attribute name="class"> <xsl:text>ltr</xsl:text> </xsl:attribute> </xsl:if>
-        Announcing NGINX Plus R18<br/>
-        Dynamic SSL certificate loading, OpenID opaque session tokens, port ranges.<br/>
-        <a href="https://www.nginx.com/blog/nginx-plus-r18-released/?utm_source=nginxorg&amp;utm_medium=homepagebanner&amp;utm_campaign=r18">Learn more</a>
+        <b>NGINX is now part of F5</b><br/>
+        <a href="https://www.nginx.com/blog/nginx-is-now-officially-part-of-f5/?utm_source=nginxorg&amp;utm_medium=homepagebanner&amp;utm_campaign=f5">Learn more</a>
     </div>
 
     <div id="main">
