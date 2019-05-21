@@ -8,7 +8,7 @@
 <article name="Сборка nginx из исходных файлов"
          link="/ru/docs/configure.html"
          lang="ru"
-         rev="15">
+         rev="16">
 
 <section>
 
@@ -1160,7 +1160,7 @@ HTTP-сервера.
 <tag-desc>
 задаёт путь к исходным текстам библиотеки PCRE.
 Дистрибутив библиотеки (версию
-4.4&mdash;8.42) нужно взять на сайте <link url="http://www.pcre.org">PCRE</link>
+4.4&mdash;8.43) нужно взять на сайте <link url="http://www.pcre.org">PCRE</link>
 и распаковать.
 Всё остальное сделают <command>./configure</command> nginx’а и
 <command>make</command>.
@@ -1286,7 +1286,7 @@ HTTP-сервера.
     --conf-path=/usr/local/nginx/nginx.conf
     --pid-path=/usr/local/nginx/nginx.pid
     --with-http_ssl_module
-    --with-pcre=../pcre-8.42
+    --with-pcre=../pcre-8.43
     --with-zlib=../zlib-1.2.11
 </programlisting>
 </para>

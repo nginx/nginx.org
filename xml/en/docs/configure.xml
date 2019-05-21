@@ -8,7 +8,7 @@
 <article name="Building nginx from Sources"
          link="/en/docs/configure.html"
          lang="en"
-         rev="15">
+         rev="16">
 
 <section>
 
@@ -1179,7 +1179,7 @@ forces the usage of the PCRE library.
 <tag-desc>
 sets the path to the sources of the PCRE library.
 The library distribution (version
-4.4&mdash;8.42) needs to be downloaded from the
+4.4&mdash;8.43) needs to be downloaded from the
 <link url="http://www.pcre.org">PCRE</link> site and extracted.
 The rest is done by nginx’s <command>./configure</command> and
 <command>make</command>.
@@ -1306,7 +1306,7 @@ Example of parameters usage (all of this needs to be typed in one line):
     --conf-path=/usr/local/nginx/nginx.conf
     --pid-path=/usr/local/nginx/nginx.pid
     --with-http_ssl_module
-    --with-pcre=../pcre-8.42
+    --with-pcre=../pcre-8.43
     --with-zlib=../zlib-1.2.11
 </programlisting>
 </para>
