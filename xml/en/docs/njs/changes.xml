@@ -9,7 +9,7 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="17"
+        rev="18"
         toc="no">
 
 <section id="njs0.3.1" name="Changes with 0.3.1">
@@ -34,7 +34,7 @@ Thanks to 洪志道 (Hong Zhi Dao) and Artem S. Povalyukhin.
 <listitem>
 <para>
 Feature:
-added Object.getOwnPropertyNames().
+added <literal>Object.getOwnPropertyNames()</literal>.
 Thanks to Artem S. Povalyukhin.
 </para>
 </listitem>
@@ -42,7 +42,7 @@ Thanks to Artem S. Povalyukhin.
 <listitem>
 <para>
 Feature:
-added Object.getOwnPropertyDescriptors().
+added <literal>Object.getOwnPropertyDescriptors()</literal>.
 Thanks to Artem S. Povalyukhin.
 </para>
 </listitem>
@@ -50,8 +50,8 @@ Thanks to Artem S. Povalyukhin.
 <listitem>
 <para>
 Feature:
-making __proto__ accessor descriptor of Object instances
-mutable.
+making <literal>__proto__</literal> accessor descriptor
+of <literal>Object</literal> instances mutable.
 </para>
 </listitem>
 
@@ -65,8 +65,8 @@ added shebang support in CLI.
 <listitem>
 <para>
 Feature:
-added support for module mode execution in CLI. In module
-mode global this is unavailable.
+added support for module mode execution in CLI.
+In module mode global, this is unavailable.
 </para>
 </listitem>
 
@@ -80,7 +80,7 @@ fixed editline detection.
 <listitem>
 <para>
 Bugfix:
-fixed Function.prototype.bind().
+fixed <literal>Function.prototype.bind()</literal>.
 Thanks to 洪志道 (Hong Zhi Dao).
 </para>
 </listitem>
@@ -113,22 +113,25 @@ Thanks to 洪志道 (Hong Zhi Dao).
 <listitem>
 <para>
 Improvement:
-console.log() improved for outputting large values.
+large-value output improved in <literal>console.log()</literal>.
 </para>
 </listitem>
 
 <listitem>
 <para>
 Improvement:
-console.log() improved for outputting strings in a
-compliant way (without escaping and quotes).
+string output improved in <literal>console.log()</literal>
+in a compliant way (without escaping and quotes).
 </para>
 </listitem>
 
 <listitem>
 <para>
 Improvement:
-using ES6 version of ToInt32(), ToUint32(), ToLength().
+using ES6 version of
+<literal>ToInt32()</literal>,
+<literal>ToUint32()</literal>,
+<literal>ToLength()</literal>.
 </para>
 </listitem>
 
