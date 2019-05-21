@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_ssl_module"
         link="/ru/docs/http/ngx_http_ssl_module.html"
         lang="ru"
-        rev="46">
+        rev="47">
 
 <section id="summary">
 
@@ -823,7 +823,7 @@ ssl_stapling_responder http://ocsp.example.com/;
 
 <para>
 Модуль <literal>ngx_http_ssl_module</literal> поддерживает
-несколько встроенных переменных:
+встроенные переменные:
 <list type="tag">
 
 <tag-name id="var_ssl_cipher"><var>$ssl_cipher</var></tag-name>

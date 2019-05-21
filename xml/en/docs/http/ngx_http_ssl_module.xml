@@ -10,7 +10,7 @@
 <module name="Module ngx_http_ssl_module"
         link="/en/docs/http/ngx_http_ssl_module.html"
         lang="en"
-        rev="46">
+        rev="47">
 
 <section id="summary">
 
@@ -818,7 +818,7 @@ the variables, such as <var>$request_uri</var>,
 
 <para>
 The <literal>ngx_http_ssl_module</literal> module supports
-several embedded variables:
+embedded variables:
 <list type="tag">
 
 <tag-name id="var_ssl_cipher"><var>$ssl_cipher</var></tag-name>
