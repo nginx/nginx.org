@@ -9,8 +9,217 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="18"
+        rev="19"
         toc="no">
+
+<section id="njs0.3.2" name="Changes with 0.3.2">
+
+<para>
+Release Date:
+21 May 2019
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+added support for template literals.
+Thanks to 洪志道 (Hong Zhi Dao) and Artem S. Povalyukhin.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+executing command from command line arguments.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added support for RegExp <literal>groups</literal> object (ES9).
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added block scoped function definitions support.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added support for building with GNU Readline library.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+made configurable
+<literal>length</literal>,
+<literal>name</literal>,
+and most of built-in methods.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+made all constructor properties configurable.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>Regexp.prototype.exec()</literal> for Unicode-only regexps.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>njs_vm_value_dump()</literal> for empty string values.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed RegExp constructor for regexp value arguments.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed walking over prototypes chain during iteration over an object.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed overflow in <literal>Array.prototype.concat()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed length calculation for UTF-8 string with escape characters.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed parsing surrogate pair presents as UTF-16 escape sequences.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed processing the “*” quantifier for
+<literal>String.prototype.match()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>Date()</literal> constructor with one argument.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed arrays expansion.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed heap-buffer-overflow in
+<literal>String.prototype.replace()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed heap-buffer-overflow in
+<literal>String.prototype.lastIndexOf()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed regexp literals parsing with escaped backslash
+and backslash in square brackets.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed regexp literals with lone closing brackets.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed uninitialized-memory-access in
+<literal>Object.defineProperties()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed processing the “*” quantifier for
+<literal>String.prototype.replace()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>Array.prototype.slice()</literal> for UTF8-invalid byte strings.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>String.prototype.split()</literal> for UTF8-invalid byte strings.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed handling of empty block statements.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.3.1" name="Changes with 0.3.1">
 

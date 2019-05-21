@@ -9,7 +9,7 @@
 <article name="Compatibility"
         link="/en/docs/njs/compatibility.html"
         lang="en"
-        rev="9"
+        rev="10"
         toc="no">
 
 <section>
@@ -174,8 +174,18 @@ ES5.1 <literal>Function</literal> methods:
 </listitem>
 
 <listitem>
-ES5.1 <literal>RegExp</literal> methods:
-<literal>test</literal>, <literal>exec</literal>
+<literal>RegExp</literal>:
+<list type="bullet">
+
+<listitem>
+ES5.1: methods <literal>test</literal>, <literal>exec</literal>
+</listitem>
+
+<listitem>
+ES9: named capture groups (<link doc="changes.xml" id="njs0.3.2">0.3.2</link>)
+</listitem>
+</list>
+
 </listitem>
 
 <listitem>
@@ -243,6 +253,12 @@ default <literal>export</literal> statements
 <listitem>
 ES6 arrow functions
 (<link doc="changes.xml" id="njs0.3.1">0.3.1</link>)
+</listitem>
+
+<listitem>
+Template literals:
+multiline strings, expression interpolation, nesting templates
+(<link doc="changes.xml" id="njs0.3.2">0.3.2</link>)
 </listitem>
 
 </list>

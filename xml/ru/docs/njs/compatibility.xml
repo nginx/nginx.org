@@ -9,7 +9,7 @@
 <article name="Совместимость"
         link="/ru/docs/njs/compatibility.html"
         lang="ru"
-        rev="9"
+        rev="10"
         toc="no">
 
 <section>
@@ -174,8 +174,18 @@ ES5.1 методы <literal>Function</literal>:
 </listitem>
 
 <listitem>
-ES5.1 методы <literal>RegExp</literal>:
-<literal>test</literal>, <literal>exec</literal>
+<literal>RegExp</literal>:
+<list type="bullet">
+
+<listitem>
+ES5.1: методы <literal>test</literal>, <literal>exec</literal>
+</listitem>
+
+<listitem>
+ES9: именные группы записи (<link doc="changes.xml" id="njs0.3.2">0.3.2</link>)
+</listitem>
+</list>
+
 </listitem>
 
 <listitem>
@@ -245,6 +255,12 @@ ES6 поддержка модулей:
 <listitem>
 ES6 поддержка стрелочных функций
 (<link doc="changes.xml" id="njs0.3.1">0.3.1</link>)
+</listitem>
+
+<listitem>
+Шаблонные строки:
+многострочные литералы, интерполяция выражений, вложенные шаблоны
+(<link doc="changes.xml" id="njs0.3.2">0.3.2</link>)
 </listitem>
 
 </list>
