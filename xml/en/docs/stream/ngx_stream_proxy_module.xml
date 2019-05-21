@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_proxy_module"
         link="/en/docs/stream/ngx_stream_proxy_module.html"
         lang="en"
-        rev="23">
+        rev="24">
 
 <section id="summary">
 
@@ -140,6 +140,20 @@ The zero value disables rate limiting.
 The limit is set per a connection, so if nginx simultaneously opens
 two connections to the proxied server,
 the overall rate will be twice as much as the specified limit.
+</para>
+
+<para>
+The value can contain variables (1.17.0).
+It may be useful in cases where rate should be limited
+depending on a certain condition:
+<example>
+map $slow $rate {
+    1     4k;
+    2     8k;
+}
+
+proxy_download_rate $rate;
+</example>
 </para>
 
 </directive>
@@ -583,6 +597,20 @@ The zero value disables rate limiting.
 The limit is set per a connection, so if the client simultaneously opens
 two connections,
 the overall rate will be twice as much as the specified limit.
+</para>
+
+<para>
+The value can contain variables (1.17.0).
+It may be useful in cases where rate should be limited
+depending on a certain condition:
+<example>
+map $slow $rate {
+    1     4k;
+    2     8k;
+}
+
+proxy_upload_rate $rate;
+</example>
 </para>
 
 </directive>
