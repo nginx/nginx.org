@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="82">
+        rev="83">
 
 <section id="directives" name="Directives">
 
@@ -2082,7 +2082,10 @@ and should not generally be used.
 <context>location</context>
 
 <para>
-Enables or disables resetting timed out connections.
+Enables or disables resetting timed out connections
+and connections
+<link doc="ngx_http_rewrite_module.xml" id="return">closed</link>
+with the non-standard code 444 (1.15.2).
 The reset is performed as follows.
 Before closing a socket, the
 <c-def>SO_LINGER</c-def>

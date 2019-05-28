@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="82">
+        rev="83">
 
 <section id="directives" name="Директивы">
 
@@ -2080,7 +2080,10 @@ open_file_cache_events   on;
 <context>location</context>
 
 <para>
-Разрешает или запрещает сброс соединений по таймауту.
+Разрешает или запрещает сброс соединений по таймауту,
+а также при
+<link doc="ngx_http_rewrite_module.xml" id="return">закрытии</link>
+соединений с помощью нестандартного кода 444 (1.15.2).
 Сброс делается следующим образом.
 Перед закрытием сокета для него задаётся параметр
 <c-def>SO_LINGER</c-def>
