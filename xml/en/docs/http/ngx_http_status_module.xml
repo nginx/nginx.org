@@ -9,7 +9,7 @@
 <module name="Module ngx_http_status_module"
         link="/en/docs/http/ngx_http_status_module.html"
         lang="en"
-        rev="18">
+        rev="19">
 
 <section id="summary">
 
@@ -149,7 +149,7 @@ By default, status information is output in the JSON format.
 <para>
 Alternatively, data may be output as JSONP.
 The <value>callback</value> parameter specifies the name of a callback function.
-The value can contain variables.
+Parameter value can contain variables.
 If parameter is omitted, or the computed value is an empty string,
 then “<literal>ngx_status_jsonp_callback</literal>” is used.
 </para>

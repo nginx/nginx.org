@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="83">
+        rev="84">
 
 <section id="directives" name="Directives">
 
@@ -1047,7 +1047,7 @@ as the specified limit.
 </para>
 
 <para>
-The value can contain variables (1.17.0).
+Parameter value can contain variables (1.17.0).
 It may be useful in cases where rate should be limited
 depending on a certain condition:
 <example>
@@ -1103,7 +1103,7 @@ directives.
 <para>
 Sets the initial amount after which the further transmission
 of a response to a client will be rate limited.
-The value can contain variables (1.17.0).
+Parameter value can contain variables (1.17.0).
 </para>
 
 <para>

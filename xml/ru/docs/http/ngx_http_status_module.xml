@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_status_module"
         link="/ru/docs/http/ngx_http_status_module.html"
         lang="ru"
-        rev="18">
+        rev="19">
 
 <section id="summary">
 
@@ -151,7 +151,7 @@ http://127.0.0.1/status/stream/upstreams/backend/peers/1/weight
 <para>
 Также данные могут выводиться в формате JSONP.
 Параметр <value>callback</value> задаёт имя callback-функции.
-Значение может содержать переменные.
+В значении параметра можно использовать переменные.
 Если параметр не задан или вычисленное значение является пустой строкой,
 используется имя “<literal>ngx_status_jsonp_callback</literal>”.
 </para>

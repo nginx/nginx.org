@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_proxy_module"
         link="/en/docs/stream/ngx_stream_proxy_module.html"
         lang="en"
-        rev="24">
+        rev="25">
 
 <section id="summary">
 
@@ -143,7 +143,7 @@ the overall rate will be twice as much as the specified limit.
 </para>
 
 <para>
-The value can contain variables (1.17.0).
+Parameter value can contain variables (1.17.0).
 It may be useful in cases where rate should be limited
 depending on a certain condition:
 <example>
@@ -600,7 +600,7 @@ the overall rate will be twice as much as the specified limit.
 </para>
 
 <para>
-The value can contain variables (1.17.0).
+Parameter value can contain variables (1.17.0).
 It may be useful in cases where rate should be limited
 depending on a certain condition:
 <example>
