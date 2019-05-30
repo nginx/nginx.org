@@ -7,6 +7,19 @@
 
 <news name="nginx news" link="/" lang="en">
 
+<event date="2019-05-30">
+<para>
+<link url="https://unit.nginx.org/">unit-1.9.0</link>
+version has been
+<link url="https://mailman.nginx.org/pipermail/unit/2019-May/000152.html">released</link>,
+featuring arguments, cookies, and headers support in
+<link url="https://unit.nginx.org/configuration/#condition-matching">internal
+request routing</link> and
+<link url="https://unit.nginx.org/configuration/#examples">POST
+semantics</link> for arrays.
+</para>
+</event>
+
 <event date="2019-05-21">
 <para>
 <link doc="en/docs/njs/index.xml">njs-0.3.2</link>
