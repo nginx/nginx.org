@@ -9,7 +9,7 @@
 <article name="Compatibility"
         link="/en/docs/njs/compatibility.html"
         lang="en"
-        rev="10"
+        rev="11"
         toc="no">
 
 <section>
@@ -189,7 +189,68 @@ ES9: named capture groups (<link doc="changes.xml" id="njs0.3.2">0.3.2</link>)
 </listitem>
 
 <listitem>
-ES5.1 <literal>Date</literal> methods
+<literal>Date</literal> methods:
+<list type="bullet">
+
+<listitem>
+ES5.1:
+<literal>Date.UTC</literal>,
+<literal>Date.now</literal>,
+<literal>Date.parse</literal>
+</listitem>
+</list>
+
+</listitem>
+
+<listitem>
+<literal>Date</literal> instance methods:
+<list type="bullet">
+
+<listitem>
+ES5.1:
+<literal>toDateString</literal>,
+<literal>toTimeString</literal>,
+<literal>toLocaleString</literal>,
+<literal>toLocaleDateString</literal>,
+<literal>toLocaleTimeString</literal>,
+<literal>toUTCString</literal>,
+<literal>toISOString</literal>,
+<literal>getTime</literal>,
+<literal>getFullYear</literal>,
+<literal>getUTCFullYear</literal>,
+<literal>getMonth</literal>,
+<literal>getUTCMonth</literal>,
+<literal>getDate</literal>,
+<literal>getUTCDate</literal>,
+<literal>getDay</literal>,
+<literal>getUTCDay</literal>,
+<literal>getHours</literal>,
+<literal>getUTCHours</literal>,
+<literal>getMinutes</literal>,
+<literal>getUTCMinutes</literal>,
+<literal>getSeconds</literal>,
+<literal>getUTCSeconds</literal>,
+<literal>getMilliseconds</literal>,
+<literal>getUTCMilliseconds</literal>,
+<literal>getTimezoneOffset</literal>,
+<literal>setTime</literal>,
+<literal>setMilliseconds</literal>,
+<literal>setUTCMilliseconds</literal>,
+<literal>setSeconds</literal>,
+<literal>setUTCSeconds</literal>,
+<literal>setMinutes</literal>,
+<literal>setUTCMinutes</literal>,
+<literal>setHours</literal>,
+<literal>setUTCHours</literal>,
+<literal>setDate</literal>,
+<literal>setUTCDate</literal>,
+<literal>setMonth</literal>,
+<literal>setUTCMonth</literal>,
+<literal>setFullYear</literal>,
+<literal>setUTCFullYear</literal>
+</listitem>
+</list>
+
 </listitem>
 
 <listitem>
