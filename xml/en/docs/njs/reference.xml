@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="27">
+        rev="28">
 
 <section id="summary">
 
@@ -860,7 +860,7 @@ The <literal>JSON</literal> object (ES 5.1) provides functions
 to convert njs values to and from JSON format.
 <list type="tag">
 
-<tag-name><literal>JSON.parse(<value>string</value>[,
+<tag-name id="core_json_parse"><literal>JSON.parse(<value>string</value>[,
 <value>reviver</value>])</literal></tag-name>
 <tag-desc>
 Converts a <literal>string</literal> that represents JSON data
@@ -870,7 +870,7 @@ The optional <literal>reviver</literal> parameter is a function (key, value)
 that will be called for each (key,value) pair and can transform the value.
 </tag-desc>
 
-<tag-name><literal>JSON.stringify(<value>value</value>[,
+<tag-name id="core_json_stringify"><literal>JSON.stringify(<value>value</value>[,
 <value>replacer</value>] [, <value>space</value>])</literal></tag-name>
 <tag-desc>
 Converts an njs object back to JSON.

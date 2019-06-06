@@ -9,7 +9,7 @@
 <article name="Compatibility"
         link="/en/docs/njs/compatibility.html"
         lang="en"
-        rev="11"
+        rev="12"
         toc="no">
 
 <section>
@@ -61,7 +61,23 @@ ES6 <literal>Number</literal> and
 
 <listitem>
 ES5.1:
-<link doc="reference.xml" id="string_fromcharcode"><literal>fromCharCode</literal></link>,
+<link doc="reference.xml" id="string_fromcharcode"><literal>fromCharCode</literal></link>
+</listitem>
+
+<listitem>
+ES6:
+<link doc="reference.xml" id="string_fromcodepoint"><literal>fromCodePoint</literal></link>
+</listitem>
+</list>
+
+</listitem>
+
+<listitem>
+<literal>String</literal> instance methods:
+<list type="bullet">
+
+<listitem>
+ES5.1:
 <link doc="reference.xml" id="string_concat"><literal>concat</literal></link>,
 <link doc="reference.xml" id="string_slice"><literal>slice</literal></link>,
 <link doc="reference.xml" id="string_substring"><literal>substring</literal></link>,
@@ -80,7 +96,6 @@ ES5.1:
 
 <listitem>
 ES6:
-<link doc="reference.xml" id="string_fromcodepoint"><literal>fromCodePoint</literal></link>,
 <link doc="reference.xml" id="string_codepointat"><literal>codePointAt</literal></link>,
 <link doc="reference.xml" id="string_includes"><literal>includes</literal></link>,
 <link doc="reference.xml" id="string_startswith"><literal>startsWith</literal></link>,
@@ -117,16 +132,12 @@ ES5.1:
 <literal>defineProperties</literal> (support without accessor descriptors),
 <literal>getOwnPropertyDescriptor</literal>,
 <literal>getPrototypeOf</literal>,
-<literal>hasOwnProperty</literal>,
-<literal>isPrototypeOf</literal>,
 <literal>preventExtensions</literal>,
 <literal>isExtensible</literal>,
 <literal>freeze</literal>,
 <literal>isFrozen</literal>,
 <literal>seal</literal>,
-<literal>isSealed</literal>,
-<literal>isEnumerable</literal>
-(<link doc="changes.xml" id="njs0.3.0">0.3.0</link>)
+<literal>isSealed</literal>
 </listitem>
 
 <listitem>
@@ -141,11 +152,44 @@ ES8:
 </listitem>
 
 <listitem>
+<literal>Object</literal> instance methods:
+<list type="bullet">
+<listitem>
+ES5.1:
+<literal>hasOwnProperty</literal>,
+<literal>isPrototypeOf</literal>,
+<literal>isEnumerable</literal>
+(<link doc="changes.xml" id="njs0.3.0">0.3.0</link>),
+<literal>valueOf</literal>,
+<literal>toString</literal>,
+<literal>propertyIsEnumerable</literal>
+</listitem>
+</list>
+
+</listitem>
+
+<listitem>
 <literal>Array</literal> methods:
 <list type="bullet">
 <listitem>
 ES5.1:
-<literal>isArray</literal>, <literal>slice</literal>, <literal>splice</literal>,
+<literal>isArray</literal>
+</listitem>
+
+<listitem>
+ES6:
+<literal>of</literal>
+</listitem>
+</list>
+
+</listitem>
+
+<listitem>
+<literal>Array</literal> instance methods:
+<list type="bullet">
+<listitem>
+ES5.1:
+<literal>slice</literal>, <literal>splice</literal>,
 <literal>push</literal>, <literal>pop</literal>, <literal>unshift</literal>,
 <literal>shift</literal>, <literal>reverse</literal>, <literal>sort</literal>,
 <literal>join</literal>, <literal>concat</literal>, <literal>indexOf</literal>,
@@ -157,7 +201,7 @@ ES5.1:
 
 <listitem>
 ES6:
-<literal>of</literal>, <literal>fill</literal>, <literal>find</literal>,
+<literal>fill</literal>, <literal>find</literal>,
 <literal>findIndex</literal>
 </listitem>
 
@@ -169,23 +213,32 @@ ES7: <literal>includes</literal>
 </listitem>
 
 <listitem>
-ES5.1 <literal>Function</literal> methods:
-<literal>call</literal>, <literal>apply</literal>, <literal>bind</literal>
-</listitem>
-
-<listitem>
-<literal>RegExp</literal>:
+<literal>Function</literal> instance methods:
 <list type="bullet">
 
 <listitem>
-ES5.1: methods <literal>test</literal>, <literal>exec</literal>
-</listitem>
-
-<listitem>
-ES9: named capture groups (<link doc="changes.xml" id="njs0.3.2">0.3.2</link>)
+ES5.1:
+<literal>call</literal>, <literal>apply</literal>, <literal>bind</literal>
 </listitem>
 </list>
 
+</listitem>
+
+<listitem>
+<literal>RegExp</literal> instance methods:
+<list type="bullet">
+
+<listitem>
+ES5.1:
+<literal>test</literal>, <literal>exec</literal>, <literal>toString</literal>
+</listitem>
+</list>
+
+</listitem>
+
+<listitem>
+<literal>RegExp</literal>
+ES9 named capture groups (<link doc="changes.xml" id="njs0.3.2">0.3.2</link>)
 </listitem>
 
 <listitem>
@@ -194,9 +247,9 @@ ES9: named capture groups (<link doc="changes.xml" id="njs0.3.2">0.3.2</link>)
 
 <listitem>
 ES5.1:
-<literal>Date.UTC</literal>,
-<literal>Date.now</literal>,
-<literal>Date.parse</literal>
+<literal>UTC</literal>,
+<literal>now</literal>,
+<literal>parse</literal>
 </listitem>
 </list>
 
@@ -254,7 +307,16 @@ ES5.1:
 </listitem>
 
 <listitem>
-ES5.1 <link doc="reference.xml" id="core_json"><literal>JSON</literal></link> object
+<link doc="reference.xml" id="core_json"><literal>JSON</literal></link> methods:
+<list type="bullet">
+
+<listitem>
+ES5.1:
+<link doc="reference.xml" id="core_json_parse"><literal>parse</literal></link>,
+<link doc="reference.xml" id="core_json_stringify"><literal>stringify</literal></link>
+</listitem>
+</list>
+
 </listitem>
 
 <listitem>
