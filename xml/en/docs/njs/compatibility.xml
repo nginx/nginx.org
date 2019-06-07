@@ -9,7 +9,7 @@
 <article name="Compatibility"
         link="/en/docs/njs/compatibility.html"
         lang="en"
-        rev="12"
+        rev="13"
         toc="no">
 
 <section>
@@ -131,6 +131,10 @@ ES5.1:
 <literal>defineProperty</literal> (support without accessor descriptors),
 <literal>defineProperties</literal> (support without accessor descriptors),
 <literal>getOwnPropertyDescriptor</literal>,
+<literal>getOwnPropertyDescriptors</literal>
+(<link doc="changes.xml" id="njs0.3.1">0.3.1</link>),
+<literal>getOwnPropertyNames</literal>
+(<link doc="changes.xml" id="njs0.3.1">0.3.1</link>),
 <literal>getPrototypeOf</literal>,
 <literal>preventExtensions</literal>,
 <literal>isExtensible</literal>,
@@ -158,7 +162,6 @@ ES8:
 ES5.1:
 <literal>hasOwnProperty</literal>,
 <literal>isPrototypeOf</literal>,
-<literal>isEnumerable</literal>
 (<link doc="changes.xml" id="njs0.3.0">0.3.0</link>),
 <literal>valueOf</literal>,
 <literal>toString</literal>,

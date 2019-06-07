@@ -9,7 +9,7 @@
 <article name="Совместимость"
         link="/ru/docs/njs/compatibility.html"
         lang="ru"
-        rev="12"
+        rev="13"
         toc="no">
 
 <section>
@@ -133,6 +133,10 @@ ES5.1:
 <literal>defineProperty</literal> (поддержка без дескрипторов доступа),
 <literal>defineProperties</literal> (поддержка без дескрипторов доступа),
 <literal>getOwnPropertyDescriptor</literal>,
+<literal>getOwnPropertyDescriptors</literal>
+(<link doc="changes.xml" id="njs0.3.1">0.3.1</link>),
+<literal>getOwnPropertyNames</literal>
+(<link doc="changes.xml" id="njs0.3.1">0.3.1</link>),
 <literal>getPrototypeOf</literal>,
 <literal>preventExtensions</literal>,
 <literal>isExtensible</literal>,
@@ -161,7 +165,6 @@ ES8:
 ES5.1:
 <literal>hasOwnProperty</literal>,
 <literal>isPrototypeOf</literal>,
-<literal>isEnumerable</literal>
 (<link doc="changes.xml" id="njs0.3.0">0.3.0</link>),
 <literal>valueOf</literal>,
 <literal>toString</literal>,
