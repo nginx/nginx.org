@@ -9,7 +9,7 @@
 <article name="Compatibility"
         link="/en/docs/njs/compatibility.html"
         lang="en"
-        rev="13"
+        rev="14"
         toc="no">
 
 <section>
@@ -41,18 +41,29 @@ ES5.1 operators, ES7 exponentiation operators
 </listitem>
 
 <listitem>
-ES5.1 statements: <literal>var</literal>, <literal>if</literal>,
-<literal>else</literal>, <literal>switch</literal>, <literal>for</literal>,
-<literal>for in</literal>, <literal>while</literal>,
-<literal>do while</literal>, <literal>break</literal>,
-<literal>continue</literal>, <literal>return</literal>, <literal>try</literal>,
-<literal>catch</literal>, <literal>throw</literal>, <literal>finally</literal>,
+ES5.1 statements:
+<literal>break</literal>,
+<literal>catch</literal>,
+<literal>continue</literal>,
+<literal>do while</literal>,
+<literal>else</literal>,
+<literal>finally</literal>,
+<literal>for</literal>,
+<literal>for in</literal>,
+<literal>if</literal>,
+<literal>return</literal>,
+<literal>switch</literal>,
+<literal>throw</literal>,
+<literal>try</literal>,
+<literal>var</literal>,
+<literal>while</literal>,
 labeled statements (<link doc="changes.xml" id="njs0.2.8">0.2.8</link>)
 </listitem>
 
 <listitem>
-ES6 <literal>Number</literal> and
-<literal>Math</literal> properties and methods
+ES6
+<literal>Math</literal> and <literal>Number</literal>
+properties and methods
 </listitem>
 
 <listitem>
@@ -78,44 +89,44 @@ ES6:
 
 <listitem>
 ES5.1:
-<link doc="reference.xml" id="string_concat"><literal>concat</literal></link>,
-<link doc="reference.xml" id="string_slice"><literal>slice</literal></link>,
-<link doc="reference.xml" id="string_substring"><literal>substring</literal></link>,
-<link doc="reference.xml" id="string_substr"><literal>substr</literal></link>,
 <link doc="reference.xml" id="string_charat"><literal>charAt</literal></link>,
+<link doc="reference.xml" id="string_concat"><literal>concat</literal></link>,
 <link doc="reference.xml" id="string_indexof"><literal>indexOf</literal></link>,
 <link doc="reference.xml" id="string_lastindexof"><literal>lastIndexOf</literal></link>,
-<link doc="reference.xml" id="string_tolowercase"><literal>toLowerCase</literal></link>,
-<link doc="reference.xml" id="string_touppercase"><literal>toUpperCase</literal></link>,
-<link doc="reference.xml" id="string_trim"><literal>trim</literal></link>,
-<link doc="reference.xml" id="string_search"><literal>search</literal></link>,
 <link doc="reference.xml" id="string_match"><literal>match</literal></link>,
-<link doc="reference.xml" id="string_split"><literal>split</literal></link>,
 <link doc="reference.xml" id="string_replace"><literal>replace</literal></link>
+<link doc="reference.xml" id="string_search"><literal>search</literal></link>,
+<link doc="reference.xml" id="string_slice"><literal>slice</literal></link>,
+<link doc="reference.xml" id="string_split"><literal>split</literal></link>,
+<link doc="reference.xml" id="string_substr"><literal>substr</literal></link>,
+<link doc="reference.xml" id="string_substring"><literal>substring</literal></link>,
+<link doc="reference.xml" id="string_tolowercase"><literal>toLowerCase</literal></link>,
+<link doc="reference.xml" id="string_trim"><literal>trim</literal></link>,
+<link doc="reference.xml" id="string_touppercase"><literal>toUpperCase</literal></link>
 </listitem>
 
 <listitem>
 ES6:
 <link doc="reference.xml" id="string_codepointat"><literal>codePointAt</literal></link>,
-<link doc="reference.xml" id="string_includes"><literal>includes</literal></link>,
-<link doc="reference.xml" id="string_startswith"><literal>startsWith</literal></link>,
 <link doc="reference.xml" id="string_endswith"><literal>endsWith</literal></link>,
-<link doc="reference.xml" id="string_repeat"><literal>repeat</literal></link>
+<link doc="reference.xml" id="string_includes"><literal>includes</literal></link>,
+<link doc="reference.xml" id="string_repeat"><literal>repeat</literal></link>,
+<link doc="reference.xml" id="string_startswith"><literal>startsWith</literal></link>
 </listitem>
 
 <listitem>
 ES8:
-<link doc="reference.xml" id="string_padstart"><literal>padStart</literal></link>,
-<link doc="reference.xml" id="string_padend"><literal>padEnd</literal></link>
+<link doc="reference.xml" id="string_padend"><literal>padEnd</literal></link>,
+<link doc="reference.xml" id="string_padstart"><literal>padStart</literal></link>
 </listitem>
 
 <listitem>
 non-standard:
-<link doc="reference.xml" id="string_bytesfrom"><literal>bytesFrom</literal></link> (0.2.3)
-<link doc="reference.xml" id="string_fromutf8"><literal>fromUTF8</literal></link>,
-<link doc="reference.xml" id="string_toutf8"><literal>toUTF8</literal></link>,
+<link doc="reference.xml" id="string_bytesfrom"><literal>bytesFrom</literal></link> (0.2.3),
 <link doc="reference.xml" id="string_frombytes"><literal>fromBytes</literal></link>,
-<link doc="reference.xml" id="string_tobytes"><literal>toBytes</literal></link>
+<link doc="reference.xml" id="string_fromutf8"><literal>fromUTF8</literal></link>,
+<link doc="reference.xml" id="string_tobytes"><literal>toBytes</literal></link>,
+<link doc="reference.xml" id="string_toutf8"><literal>toUTF8</literal></link>
 </listitem>
 </list>
 
@@ -127,21 +138,21 @@ non-standard:
 <listitem>
 ES5.1:
 <literal>create</literal> (support without properties list),
-<literal>keys</literal>,
-<literal>defineProperty</literal> (support without accessor descriptors),
 <literal>defineProperties</literal> (support without accessor descriptors),
+<literal>defineProperty</literal> (support without accessor descriptors),
+<literal>freeze</literal>,
 <literal>getOwnPropertyDescriptor</literal>,
 <literal>getOwnPropertyDescriptors</literal>
 (<link doc="changes.xml" id="njs0.3.1">0.3.1</link>),
 <literal>getOwnPropertyNames</literal>
 (<link doc="changes.xml" id="njs0.3.1">0.3.1</link>),
 <literal>getPrototypeOf</literal>,
-<literal>preventExtensions</literal>,
 <literal>isExtensible</literal>,
-<literal>freeze</literal>,
 <literal>isFrozen</literal>,
-<literal>seal</literal>,
-<literal>isSealed</literal>
+<literal>isSealed</literal>,
+<literal>keys</literal>,
+<literal>preventExtensions</literal>,
+<literal>seal</literal>
 </listitem>
 
 <listitem>
@@ -163,9 +174,9 @@ ES5.1:
 <literal>hasOwnProperty</literal>,
 <literal>isPrototypeOf</literal>,
 (<link doc="changes.xml" id="njs0.3.0">0.3.0</link>),
-<literal>valueOf</literal>,
+<literal>propertyIsEnumerable</literal>,
 <literal>toString</literal>,
-<literal>propertyIsEnumerable</literal>
+<literal>valueOf</literal>
 </listitem>
 </list>
 
@@ -192,19 +203,31 @@ ES6:
 <list type="bullet">
 <listitem>
 ES5.1:
-<literal>slice</literal>, <literal>splice</literal>,
-<literal>push</literal>, <literal>pop</literal>, <literal>unshift</literal>,
-<literal>shift</literal>, <literal>reverse</literal>, <literal>sort</literal>,
-<literal>join</literal>, <literal>concat</literal>, <literal>indexOf</literal>,
-<literal>lastIndexOf</literal>, <literal>forEach</literal>,
-<literal>some</literal>, <literal>every</literal>, <literal>filter</literal>,
-<literal>map</literal>, <literal>reduce</literal>,
-<literal>reduceRight</literal>
+<literal>concat</literal>,
+<literal>every</literal>,
+<literal>filter</literal>,
+<literal>forEach</literal>,
+<literal>indexOf</literal>,
+<literal>join</literal>,
+<literal>lastIndexOf</literal>,
+<literal>map</literal>,
+<literal>pop</literal>,
+<literal>push</literal>,
+<literal>reduce</literal>,
+<literal>reduceRight</literal>,
+<literal>reverse</literal>,
+<literal>shift</literal>,
+<literal>slice</literal>,
+<literal>some</literal>,
+<literal>sort</literal>,
+<literal>splice</literal>,
+<literal>unshift</literal>
 </listitem>
 
 <listitem>
 ES6:
-<literal>fill</literal>, <literal>find</literal>,
+<literal>fill</literal>,
+<literal>find</literal>,
 <literal>findIndex</literal>
 </listitem>
 
@@ -221,7 +244,11 @@ ES7: <literal>includes</literal>
 
 <listitem>
 ES5.1:
-<literal>call</literal>, <literal>apply</literal>, <literal>bind</literal>
+<literal>apply</literal>,
+<literal>bind</literal>,
+<literal>call</literal>
+
+
 </listitem>
 </list>
 
@@ -233,7 +260,9 @@ ES5.1:
 
 <listitem>
 ES5.1:
-<literal>test</literal>, <literal>exec</literal>, <literal>toString</literal>
+<literal>exec</literal>,
+<literal>test</literal>,
+<literal>toString</literal>
 </listitem>
 </list>
 
@@ -250,9 +279,9 @@ ES9 named capture groups (<link doc="changes.xml" id="njs0.3.2">0.3.2</link>)
 
 <listitem>
 ES5.1:
-<literal>UTC</literal>,
 <literal>now</literal>,
-<literal>parse</literal>
+<literal>parse</literal>,
+<literal>UTC</literal>
 </listitem>
 </list>
 
@@ -264,46 +293,46 @@ ES5.1:
 
 <listitem>
 ES5.1:
-<literal>toDateString</literal>,
-<literal>toTimeString</literal>,
-<literal>toLocaleString</literal>,
-<literal>toLocaleDateString</literal>,
-<literal>toLocaleTimeString</literal>,
-<literal>toUTCString</literal>,
-<literal>toISOString</literal>,
-<literal>getTime</literal>,
-<literal>getFullYear</literal>,
-<literal>getUTCFullYear</literal>,
-<literal>getMonth</literal>,
-<literal>getUTCMonth</literal>,
 <literal>getDate</literal>,
-<literal>getUTCDate</literal>,
 <literal>getDay</literal>,
-<literal>getUTCDay</literal>,
+<literal>getFullYear</literal>,
 <literal>getHours</literal>,
-<literal>getUTCHours</literal>,
-<literal>getMinutes</literal>,
-<literal>getUTCMinutes</literal>,
-<literal>getSeconds</literal>,
-<literal>getUTCSeconds</literal>,
 <literal>getMilliseconds</literal>,
-<literal>getUTCMilliseconds</literal>,
+<literal>getMinutes</literal>,
+<literal>getMonth</literal>,
+<literal>getSeconds</literal>,
+<literal>getTime</literal>,
 <literal>getTimezoneOffset</literal>,
-<literal>setTime</literal>,
-<literal>setMilliseconds</literal>,
-<literal>setUTCMilliseconds</literal>,
-<literal>setSeconds</literal>,
-<literal>setUTCSeconds</literal>,
-<literal>setMinutes</literal>,
-<literal>setUTCMinutes</literal>,
-<literal>setHours</literal>,
-<literal>setUTCHours</literal>,
+<literal>getUTCDate</literal>,
+<literal>getUTCDay</literal>,
+<literal>getUTCFullYear</literal>,
+<literal>getUTCHours</literal>,
+<literal>getUTCMilliseconds</literal>,
+<literal>getUTCMinutes</literal>,
+<literal>getUTCMonth</literal>,
+<literal>getUTCSeconds</literal>,
+<literal>toDateString</literal>,
+<literal>toISOString</literal>,
+<literal>toLocaleDateString</literal>,
+<literal>toLocaleString</literal>,
+<literal>toLocaleTimeString</literal>,
+<literal>toTimeString</literal>,
+<literal>toUTCString</literal>,
 <literal>setDate</literal>,
-<literal>setUTCDate</literal>,
-<literal>setMonth</literal>,
-<literal>setUTCMonth</literal>,
 <literal>setFullYear</literal>,
-<literal>setUTCFullYear</literal>
+<literal>setHours</literal>,
+<literal>setMinutes</literal>,
+<literal>setMilliseconds</literal>,
+<literal>setMonth</literal>,
+<literal>setSeconds</literal>,
+<literal>setTime</literal>,
+<literal>setUTCDate</literal>,
+<literal>setUTCFullYear</literal>,
+<literal>setUTCHours</literal>,
+<literal>setUTCMilliseconds</literal>,
+<literal>setUTCMinutes</literal>,
+<literal>setUTCMonth</literal>,
+<literal>setUTCSeconds</literal>
 </listitem>
 </list>
 
@@ -333,33 +362,39 @@ ES6 rest parameters syntax (without destructuring support)
 
 <listitem>
 ES5.1 global functions:
-<literal>isFinite</literal>, <literal>isNaN</literal>,
-<literal>parseFloat</literal>, <literal>parseInt</literal>,
 <link doc="reference.xml" id="decodeuri"><literal>decodeURI</literal></link>,
 <link doc="reference.xml" id="decodeuricomponent"><literal>decodeURIComponent</literal></link>,
 <link doc="reference.xml" id="encodeuri"><literal>encodeURI</literal></link>,
-<link doc="reference.xml" id="encodeuricomponent"><literal>encodeURIComponent</literal></link>
+<link doc="reference.xml" id="encodeuricomponent"><literal>encodeURIComponent</literal></link>,
+<literal>isFinite</literal>,
+<literal>isNaN</literal>,
+<literal>parseFloat</literal>,
+<literal>parseInt</literal>
 </listitem>
 
 <listitem>
 <literal>Error</literal> objects:
-<literal>Error</literal>, <literal>EvalError</literal>,
-<literal>InternalError</literal>, <literal>RangeError</literal>,
-<literal>ReferenceError</literal>, <literal>SyntaxError</literal>,
-<literal>TypeError</literal>, <literal>URIError</literal>
+<literal>Error</literal>,
+<literal>EvalError</literal>,
+<literal>InternalError</literal>,
+<literal>RangeError</literal>,
+<literal>ReferenceError</literal>,
+<literal>SyntaxError</literal>,
+<literal>TypeError</literal>,
+<literal>URIError</literal>
 </listitem>
 
 <listitem>
-<link doc="reference.xml" id="settimeout"><literal>setTimeout</literal></link>
-and
 <link doc="reference.xml" id="cleartimeout"><literal>clearTimeout</literal></link>
+and
+<link doc="reference.xml" id="settimeout"><literal>setTimeout</literal></link>
 functions (0.2.0)
 </listitem>
 
 <listitem>
 <literal>File system</literal> methods:
-<link doc="reference.xml" id="readfilesync"><literal>fs.readFileSync</literal></link>,
 <link doc="reference.xml" id="appendfilesync"><literal>fs.appendFileSync</literal></link>,
+<link doc="reference.xml" id="readfilesync"><literal>fs.readFileSync</literal></link>,
 <link doc="reference.xml" id="writefilesync"><literal>fs.writeFileSync</literal></link>
 </listitem>
 
@@ -371,8 +406,8 @@ functions (0.2.0)
 
 <listitem>
 ES6 modules support:
-default <literal>import</literal> and
-default <literal>export</literal> statements
+default <literal>export</literal> and
+default <literal>import</literal> statements
 (<link doc="changes.xml" id="njs0.3.0">0.3.0</link>)
 </listitem>
 
