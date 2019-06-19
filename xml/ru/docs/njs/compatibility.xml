@@ -9,7 +9,7 @@
 <article name="Совместимость"
         link="/ru/docs/njs/compatibility.html"
         lang="ru"
-        rev="15"
+        rev="16"
         toc="no">
 
 <section>
@@ -109,7 +109,30 @@ ES6 методы и свойства <literal>Math</literal>:
 </listitem>
 
 <listitem>
-ES6 методы и свойства <literal>Number</literal>
+ES6 методы и свойства <literal>Number</literal>:
+<literal>EPSILON</literal>,
+<literal>MAX_SAFE_INTEGER</literal>,
+<literal>MAX_VALUE</literal>,
+<literal>MIN_SAFE_INTEGER</literal>,
+<literal>MIN_VALUE</literal>,
+<literal>NEGATIVE_INFINITY</literal>,
+<literal>NaN</literal>,
+<literal>POSITIVE_INFINITY</literal>
+</listitem>
+
+<listitem>
+ES6 методы <literal>Number</literal>:
+
+</listitem>
+
+<listitem>
+ES6 методы и свойства <literal>Number</literal>:
+<literal>isFinite</literal>,
+<literal>isInteger</literal>,
+<literal>isNaN</literal>,
+<literal>isSafeInteger</literal>,
+<literal>parseFloat</literal>,
+<literal>parseInt</literal>
 </listitem>
 
 

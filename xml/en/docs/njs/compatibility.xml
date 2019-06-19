@@ -9,7 +9,7 @@
 <article name="Compatibility"
         link="/en/docs/njs/compatibility.html"
         lang="en"
-        rev="15"
+        rev="16"
         toc="no">
 
 <section>
@@ -124,7 +124,39 @@ ES6:
 </listitem>
 
 <listitem>
-ES6 <literal>Number</literal> properties and methods
+<literal>Number</literal> properties:
+<list type="bullet">
+
+<listitem>
+ES6:
+<literal>EPSILON</literal>,
+<literal>MAX_SAFE_INTEGER</literal>,
+<literal>MAX_VALUE</literal>,
+<literal>MIN_SAFE_INTEGER</literal>,
+<literal>MIN_VALUE</literal>,
+<literal>NEGATIVE_INFINITY</literal>,
+<literal>NaN</literal>,
+<literal>POSITIVE_INFINITY</literal>
+</listitem>
+</list>
+
+</listitem>
+
+<listitem>
+<literal>Number</literal> methods:
+<list type="bullet">
+
+<listitem>
+ES6:
+<literal>isFinite</literal>,
+<literal>isInteger</literal>,
+<literal>isNaN</literal>,
+<literal>isSafeInteger</literal>,
+<literal>parseFloat</literal>,
+<literal>parseInt</literal>
+</listitem>
+</list>
+
 </listitem>
 
 <listitem>
