@@ -9,7 +9,7 @@
 <article name="Compatibility"
         link="/en/docs/njs/compatibility.html"
         lang="en"
-        rev="14"
+        rev="15"
         toc="no">
 
 <section>
@@ -61,9 +61,70 @@ labeled statements (<link doc="changes.xml" id="njs0.2.8">0.2.8</link>)
 </listitem>
 
 <listitem>
-ES6
-<literal>Math</literal> and <literal>Number</literal>
-properties and methods
+<literal>Math</literal> properties:
+<list type="bullet">
+
+<listitem>
+ES6:
+<literal>E</literal>,
+<literal>LN10</literal>,
+<literal>LN2</literal>,
+<literal>LOG10E</literal>,
+<literal>LOG2E</literal>,
+<literal>PI</literal>,
+<literal>SQRT1_2</literal>,
+<literal>SQRT2</literal>
+</listitem>
+</list>
+</listitem>
+
+<listitem>
+<literal>Math</literal> methods:
+<list type="bullet">
+
+<listitem>
+ES6:
+<literal>abs</literal>,
+<literal>acos</literal>,
+<literal>acosh</literal>,
+<literal>asin</literal>,
+<literal>asinh</literal>,
+<literal>atan</literal>,
+<literal>atan2</literal>,
+<literal>atanh</literal>,
+<literal>cbrt</literal>,
+<literal>ceil</literal>,
+<literal>clz32</literal>,
+<literal>cos</literal>,
+<literal>cosh</literal>,
+<literal>exp</literal>,
+<literal>expm1</literal>,
+<literal>floor</literal>,
+<literal>fround</literal>,
+<literal>hypot</literal>,
+<literal>imul</literal>,
+<literal>log</literal>,
+<literal>log10</literal>,
+<literal>log1p</literal>,
+<literal>log2</literal>,
+<literal>max</literal>,
+<literal>min</literal>,
+<literal>pow</literal>,
+<literal>random</literal>,
+<literal>round</literal>,
+<literal>sign</literal>,
+<literal>sin</literal>,
+<literal>sinh</literal>,
+<literal>sqrt</literal>,
+<literal>tan</literal>,
+<literal>tanh</literal>,
+<literal>trunc</literal>
+</listitem>
+</list>
+</listitem>
+
+<listitem>
+ES6 <literal>Number</literal> properties and methods
 </listitem>
 
 <listitem>
