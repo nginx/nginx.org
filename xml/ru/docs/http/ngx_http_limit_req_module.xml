@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_limit_req_module"
         link="/ru/docs/http/ngx_http_limit_req_module.html"
         lang="ru"
-        rev="10">
+        rev="11">
 
 <section id="summary">
 
@@ -120,6 +120,24 @@ server {
 <para>
 Директивы наследуются с предыдущего уровня при условии, что на данном уровне
 не описаны свои директивы <literal>limit_req</literal>.
+</para>
+
+</directive>
+
+
+<directive name="limit_req_dry_run">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>on</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.17.1</appeared-in>
+
+<para>
+Включает режим пробного запуска.
+В данном режиме скорость обработки запросов не ограничивается, однако
+в зоне разделяемой памяти текущее число избыточных запросов учитывается
+как обычно.
 </para>
 
 </directive>

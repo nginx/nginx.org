@@ -10,7 +10,7 @@
 <module name="Module ngx_http_limit_req_module"
         link="/en/docs/http/ngx_http_limit_req_module.html"
         lang="en"
-        rev="10">
+        rev="11">
 
 <section id="summary">
 
@@ -121,6 +121,24 @@ These directives are inherited from the previous level if and
 only if there are no
 <literal>limit_req</literal>
 directives on the current level.
+</para>
+
+</directive>
+
+
+<directive name="limit_req_dry_run">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>on</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.17.1</appeared-in>
+
+<para>
+Enables the dry run mode.
+In this mode, requests processing rate is not limited, however,
+in the shared memory zone, the number of excessive requests is accounted
+as usual.
 </para>
 
 </directive>
