@@ -9,8 +9,205 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="19"
+        rev="20"
         toc="no">
+
+<section id="njs0.3.3" name="Changes with 0.3.3">
+
+<para>
+Release Date:
+25 June 2019
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Improvement:
+getting of special response headers in
+<link doc="reference.xml" id="r_headers_out"><literal>r.headersOut{}</literal></link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+working with unknown methods in
+<link doc="reference.xml" id="subrequest"><literal>r.subrequest()</literal></link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+added support for null as a second argument of
+<link doc="reference.xml" id="subrequest"><literal>r.subrequest()</literal></link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed processing empty output chain in stream body filter.
+</para>
+</listitem>
+
+</list>
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+added runtime support for property getter/setter.
+Thanks to 洪志道 (Hong Zhi Dao) and Artem S. Povalyukhin.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added “process” global object.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+writable most of built-in properties and methods.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added generic implementation of
+<literal>Array.prototype.fill()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed integer-overflow in
+<link doc="reference.xml" id="string_concat"><literal>String.prototype.concat()</literal></link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed setting of object properties.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<literal>Array.prototype.toString()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<literal>Date.prototype.toJSON()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed overwriting “constructor” property of built-in prototypes.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed processing of invalid surrogate pairs in strings.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed processing of invalid surrogate pairs in JSON strings.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed heap-buffer-overflow in
+<link doc="reference.xml" id="string_touppercase"><literal>toUpperCase()</literal></link>
+and
+<link doc="reference.xml" id="string_touppercase"><literal>toLowerCase()</literal></link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed escaping lone closing square brackets in
+<literal>RegExp()</literal> constructor.
+</para>
+</listitem>
+
+
+
+<listitem>
+<para>
+Bugfix:
+fixed handling zero byte characters inside RegExp pattern strings.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<link doc="reference.xml" id="string_tobytes"><literal>String.prototype.toBytes()</literal></link>
+for ASCII strings.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed truth value of JSON numbers in
+<link doc="reference.xml" id="core_json_parse"><literal>JSON.parse()</literal></link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed use-of-uninitialized-value in
+<literal>njs_string_replace_join()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>parseInt('-0')</literal>.
+Thanks to Artem S. Povalyukhin.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.3.2" name="Changes with 0.3.2">
 
