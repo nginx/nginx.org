@@ -9,7 +9,7 @@
 <article name="Совместимость"
         link="/ru/docs/njs/compatibility.html"
         lang="ru"
-        rev="16"
+        rev="17"
         toc="no">
 
 <section>
@@ -493,6 +493,19 @@ ES6 поддержка стрелочных функций
 многострочные литералы, интерполяция выражений, вложенные шаблоны
 (<link doc="changes.xml" id="njs0.3.2">0.3.2</link>)
 </listitem>
+
+<listitem>
+Глобальные объекты
+(<link doc="changes.xml" id="njs0.3.3">0.3.3</link>):
+<list type="bullet">
+
+<listitem>
+<link doc="reference.xml" id="process"><literal>process</literal></link>
+</listitem>
+
+</list>
+</listitem>
+
 
 </list>
 </para>

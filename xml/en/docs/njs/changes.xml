@@ -9,7 +9,7 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="20"
+        rev="21"
         toc="no">
 
 <section id="njs0.3.3" name="Changes with 0.3.3">
@@ -72,7 +72,9 @@ Thanks to 洪志道 (Hong Zhi Dao) and Artem S. Povalyukhin.
 <listitem>
 <para>
 Feature:
-added “process” global object.
+added
+<link doc="reference.xml" id="global_process"><literal>process</literal></link>
+global object.
 </para>
 </listitem>
 

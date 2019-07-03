@@ -384,6 +384,56 @@ true, если буфер должен иметь флаг <literal>flush</liter
 <section id="core" name="Core">
 
 
+<section id="core_global" name="Global">
+
+
+<section id="process" name="Process">
+
+<para>
+Объект <literal>process</literal> является глобальным объектом,
+предоставляющим информацию о текущем процессе
+(<link doc="changes.xml" id="njs0.3.3">0.3.3</link>).
+</para>
+
+
+<para>
+<list type="tag">
+
+<tag-name id="process_argv"><literal>process.argv</literal></tag-name>
+<tag-desc>
+Возвращает массив, содержащий аргументы командной строки,
+передаваемые в момент запуска текущего процесса.
+</tag-desc>
+
+<tag-name id="process_env"><literal>process.env</literal></tag-name>
+<tag-desc>
+Возвращает объект, содержащий переменные окружения пользователя.
+<note>
+По умолчанию nginx удаляет все переменные окружения, унаследованные
+от своего родительского процесса, кроме переменной TZ.
+Для сохранения части унаследованных переменных
+необходимо использовать директиву <link doc="../ngx_core_module.xml" id="env"/>.
+</note>
+</tag-desc>
+
+<tag-name id="process_pid"><literal>process.pid</literal></tag-name>
+<tag-desc>
+Возвращает PID текущего процесса.
+</tag-desc>
+
+<tag-name id="process_ppid"><literal>process.ppid</literal></tag-name>
+<tag-desc>
+Возвращает PID текущего родительского процесса.
+</tag-desc>
+
+</list>
+</para>
+
+</section>
+
+</section>
+
+
 <section id="string" name="Строка">
 
 <para>

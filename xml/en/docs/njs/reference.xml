@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="28">
+        rev="29">
 
 <section id="summary">
 
@@ -369,6 +369,56 @@ on the <literal>warning</literal> level of logging
 
 
 <section id="core" name="Core">
+
+
+<section id="core_global" name="Global">
+
+
+<section id="process" name="Process">
+
+<para>
+The <literal>process</literal> object is a global object
+that provides information about the current process
+(<link doc="changes.xml" id="njs0.3.3">0.3.3</link>).
+</para>
+
+
+<para>
+<list type="tag">
+
+<tag-name id="process_argv"><literal>process.argv</literal></tag-name>
+<tag-desc>
+Returns an array that contains the command line arguments
+passed when the current process was launched.
+</tag-desc>
+
+<tag-name id="process_env"><literal>process.env</literal></tag-name>
+<tag-desc>
+Returns an object containing the user environment.
+<note>
+By default, nginx removes all environment variables inherited
+from its parent process except the TZ variable.
+Use the <link doc="../ngx_core_module.xml" id="env"/> directive
+to preserve some of the inherited variables.
+</note>
+</tag-desc>
+
+<tag-name id="process_pid"><literal>process.pid</literal></tag-name>
+<tag-desc>
+Returns the PID of the current process.
+</tag-desc>
+
+<tag-name id="process_ppid"><literal>process.ppid</literal></tag-name>
+<tag-desc>
+Returns the PID of the current parent process.
+</tag-desc>
+
+</list>
+</para>
+
+</section>
+
+</section>
 
 
 <section id="core_object" name="Object">

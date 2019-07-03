@@ -9,7 +9,7 @@
 <article name="Compatibility"
         link="/en/docs/njs/compatibility.html"
         lang="en"
-        rev="16"
+        rev="17"
         toc="no">
 
 <section>
@@ -514,6 +514,19 @@ Template literals:
 multiline strings, expression interpolation, nesting templates
 (<link doc="changes.xml" id="njs0.3.2">0.3.2</link>)
 </listitem>
+
+<listitem>
+Global objects
+(<link doc="changes.xml" id="njs0.3.3">0.3.3</link>):
+<list type="bullet">
+
+<listitem>
+<link doc="reference.xml" id="process"><literal>process</literal></link>
+</listitem>
+
+</list>
+</listitem>
+
 
 </list>
 </para>
