@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_auth_jwt_module"
         link="/ru/docs/http/ngx_http_auth_jwt_module.html"
         lang="ru"
-        rev="8">
+        rev="9">
 
 <section id="summary">
 
@@ -271,6 +271,12 @@ server {
 <tag-desc>
 возвращает значение указанной
 <link url="https://tools.ietf.org/html/rfc7519#section-4">JWT claim</link>
+
+<para>
+Для вложенных claim, а также claim, содержащих точку (“.”),
+значение переменной вычислить невозможно,
+следует использовать директиву <link id="auth_jwt_claim_set"/>.
+</para>
 </tag-desc>
 
 </list>

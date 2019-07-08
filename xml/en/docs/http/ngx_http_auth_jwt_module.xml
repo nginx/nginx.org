@@ -9,7 +9,7 @@
 <module name="Module ngx_http_auth_jwt_module"
         link="/en/docs/http/ngx_http_auth_jwt_module.html"
         lang="en"
-        rev="8">
+        rev="9">
 
 <section id="summary">
 
@@ -274,6 +274,12 @@ returns the value of a specified
 <tag-desc>
 returns the value of a specified
 <link url="https://tools.ietf.org/html/rfc7519#section-4">JWT claim</link>
+
+<para>
+For nested claims and claims including a dot (“.”),
+the value of the variable cannot be evaluated;
+the <link id="auth_jwt_claim_set"/> directive should be used instead.
+</para>
 </tag-desc>
 
 </list>
