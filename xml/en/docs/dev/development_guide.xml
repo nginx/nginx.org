@@ -9,7 +9,7 @@
 <article name="Development guide"
          link="/en/docs/dev/development_guide.html"
          lang="en"
-         rev="6">
+         rev="7">
 
 <section name="Introduction" id="introduction">
 
@@ -228,7 +228,7 @@ Example using <literal>ngx_errno</literal>:
 
 
 <programlisting>
-void
+ngx_int_t
 ngx_my_kill(ngx_pid_t pid, ngx_log_t *log, int signo)
 {
     ngx_err_t  err;
