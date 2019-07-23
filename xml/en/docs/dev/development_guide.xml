@@ -9,7 +9,7 @@
 <article name="Development guide"
          link="/en/docs/dev/development_guide.html"
          lang="en"
-         rev="7">
+         rev="8">
 
 <section name="Introduction" id="introduction">
 
@@ -258,7 +258,7 @@ ngx_my_kill(ngx_pid_t pid, ngx_log_t *log, int signo)
 <section name="Strings" id="strings">
 
 
-<section name="Overview" id="overview">
+<section name="Overview" id="string_overview">
 
 <para>
 For C strings, nginx uses the unsigned character type pointer
@@ -7263,6 +7263,183 @@ failed:
     return NGX_ERROR;
 </programlisting>
 </para>
+</section>
+</section>
+
+<section name="Common Pitfalls" id="common_pitfals">
+
+<section name="Writing a C module" id="module_pitfall">
+
+<para>
+The most common pitfall is an attempt to write a full-fledged C module.
+In most cases your task can be accomplished by creating a proper configuration.
+If writing a module is inevitable, try to make it
+as small and simple as possible.
+For example, a module can only export some
+<link id="http_variables">variables</link>.
+</para>
+
+<para>
+Before starting a module, consider the following questions:
+
+<list type="bullet">
+
+<listitem>
+Is it possible to implement a desired feature using already
+<link doc="../../docs/index.xml">available modules</link>?
+</listitem>
+
+<listitem>
+Is it possible to solve an issue using built-in scripting languages,
+such as <link doc="../http/ngx_http_perl_module.xml">Perl</link>
+or <link doc="../njs/index.xml">njs</link>?
+</listitem>
+
+</list>
+
+</para>
+
+</section>
+
+<section name="C Strings" id="c_strings">
+
+<para>
+The most used string type in nginx,
+<link id="string_overview">ngx_str_t</link> is not a C-Style
+zero-terminated string.
+You cannot pass the data to standard C library functions
+such as <c-func>strlen</c-func> or <c-func>strstr</c-func>.
+Instead, nginx <link id="string_overview">counterparts</link>
+should be used that accept either <literal>ngx_str_t</literal>
+or pointer to data and a length.
+However, there is a case when <literal>ngx_str_t</literal> holds
+a pointer to a zero-terminated string: strings that come as a result of
+configuration file parsing are zero-terminated.
+</para>
+
+</section>
+
+<section name="Global Variables" id="global_variables">
+
+<para>
+Avoid using global variables in your modules.
+Most likely this is an error to have a global variable.
+Any global data should be tied to a <link id="cycle">configuration cycle</link>
+and be allocated from the corresponding <link id="pool">memory pool</link>.
+This allows nginx to perform graceful configuration reloads.
+An attempt to use global variables will likely break this feature,
+because it will be impossible to have two configurations at
+the same time and abandon of them.
+Sometimes global variables are required.
+In this case, special attention is needed to manage reconfiguration
+properly.
+Also, check if libraries used by your code have implicit
+global state that may be broken on reload.
+</para>
+
+</section>
+
+<section name="Manual Memory Management" id="manual_memory_management">
+
+<para>
+Instead of dealing with malloc/free approach which is error prone,
+learn how to use nginx <link id="pool">pools</link>.
+A pool is created and tied to some object -
+<link id="http_conf">configuration</link>,
+<link id="cycle">cycle</link>,
+<link id="connection">connection</link>,
+or <link id="http_request">HTTP request</link>.
+When an object is destroyed, the associated pool is destroyed too.
+So when working with an object, it is possible to allocate as much as
+needed from the corresponding pool and don't care about freeing memory,
+even in case of errors.
+</para>
+
+</section>
+
+<section name="Threads" id="threads_pitfalls">
+
+<para>
+It is recommended to avoid using threads in nginx because it will
+definitely break things: most nginx functions are not thread-safe.
+It is expected that a thread will be executing only system calls and
+thread-safe library functions.
+If you need to run some code that is not related to client request processing,
+the proper way is to schedule a timer in the <literal>init_process</literal>
+module handler and perform required actions in timer handler.
+Internally nginx makes use of <link id="threads">threads</link> to
+boost IO-related operations, but this is a special case with a lot
+of limitations.
+</para>
+
+</section>
+
+<section name="Blocking Libraries" id="libraries">
+
+<para>
+A common mistake is to use libraries that are blocking internally.
+Most libraries out there are synchronous and blocking by nature.
+In other words, they perform one operation at a time and waste
+time waiting response from other peer.
+As a result, when a request is processed with such library, whole
+nginx worker is blocked, thus destroying performance.
+Use only libraries that provide asynchronous interface and don't
+block whole process.
+</para>
+
+</section>
+
+
+<section name="HTTP Requests to External Services" id="http_requests_to_ext">
+
+<para>
+Often modules need to perform an HTTP call to some external service.
+A common mistake is to use some external library, such as libcurl,
+to perform HTTP request.
+It is absolutely unnecessary to bring a huge amount of external
+(probably <link id="using_libraries">blocking</link>!) code
+for the task which can be accomplished by nginx itself.
+</para>
+
+<para>
+There are two basic usage scenarios when an external request is needed:
+
+<list type="bullet">
+
+<listitem>
+in the context of processing a client request (for example, in content handler)
+</listitem>
+
+<listitem>
+in the context of a worker process (for example, timer handler)
+</listitem>
+
+</list>
+
+</para>
+
+<para>
+In the first case, the best is to use
+<link id="http_subrequests">subrequests API</link>.
+Instead of directly accessing external service, you declare a location
+in nginx configuration and direct your subrequest to this location.
+This location is not limited to
+<link doc="../http/ngx_http_proxy_module.xml" id="proxy_pass">proxying</link>
+requests, but may contain other nginx directives.
+An example of such approach is the
+<link doc="../http/ngx_http_auth_request_module.xml" id="auth_request"/>
+directive implemented in
+<link url="http://hg.nginx.org/nginx/file/tip/src/http/modules/ngx_http_auth_request_module.c">ngx_http_auth_request module</link>.
+</para>
+
+<para>
+For the second case, it is possible to use basic HTTP client functionality
+available in nginx.
+For example,
+<link url="http://hg.nginx.org/nginx/file/tip/src/event/ngx_event_openssl_stapling.c">OCSP module</link>
+implements simple HTTP client.
+</para>
+
 </section>
 
 </section>
