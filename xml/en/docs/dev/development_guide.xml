@@ -7271,7 +7271,8 @@ failed:
 <section name="Writing a C module" id="module_pitfall">
 
 <para>
-The most common pitfall is an attempt to write a full-fledged C module.
+The most common pitfall is an attempt to write a full-fledged C module
+when it can be avoided.
 In most cases your task can be accomplished by creating a proper configuration.
 If writing a module is inevitable, try to make it
 as small and simple as possible.
@@ -7310,7 +7311,7 @@ zero-terminated string.
 You cannot pass the data to standard C library functions
 such as <c-func>strlen</c-func> or <c-func>strstr</c-func>.
 Instead, nginx <link id="string_overview">counterparts</link>
-should be used that accept either <literal>ngx_str_t</literal>
+that accept either <literal>ngx_str_t</literal> should be used
 or pointer to data and a length.
 However, there is a case when <literal>ngx_str_t</literal> holds
 a pointer to a zero-terminated string: strings that come as a result of
@@ -7329,7 +7330,7 @@ and be allocated from the corresponding <link id="pool">memory pool</link>.
 This allows nginx to perform graceful configuration reloads.
 An attempt to use global variables will likely break this feature,
 because it will be impossible to have two configurations at
-the same time and abandon of them.
+the same time and get rid of them.
 Sometimes global variables are required.
 In this case, special attention is needed to manage reconfiguration
 properly.
@@ -7344,14 +7345,14 @@ global state that may be broken on reload.
 <para>
 Instead of dealing with malloc/free approach which is error prone,
 learn how to use nginx <link id="pool">pools</link>.
-A pool is created and tied to some object -
+A pool is created and tied to an object -
 <link id="http_conf">configuration</link>,
 <link id="cycle">cycle</link>,
 <link id="connection">connection</link>,
 or <link id="http_request">HTTP request</link>.
-When an object is destroyed, the associated pool is destroyed too.
-So when working with an object, it is possible to allocate as much as
-needed from the corresponding pool and don't care about freeing memory,
+When the object is destroyed, the associated pool is destroyed too.
+So when working with an object, it is possible to allocate the amount
+needed from the corresponding pool and don't care about freeing memory
 even in case of errors.
 </para>
 
@@ -7380,7 +7381,7 @@ of limitations.
 A common mistake is to use libraries that are blocking internally.
 Most libraries out there are synchronous and blocking by nature.
 In other words, they perform one operation at a time and waste
-time waiting response from other peer.
+time waiting for response from other peer.
 As a result, when a request is processed with such library, whole
 nginx worker is blocked, thus destroying performance.
 Use only libraries that provide asynchronous interface and don't
@@ -7395,7 +7396,7 @@ block whole process.
 <para>
 Often modules need to perform an HTTP call to some external service.
 A common mistake is to use some external library, such as libcurl,
-to perform HTTP request.
+to perform the HTTP request.
 It is absolutely unnecessary to bring a huge amount of external
 (probably <link id="using_libraries">blocking</link>!) code
 for the task which can be accomplished by nginx itself.
