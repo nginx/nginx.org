@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_perl_module"
         link="/ru/docs/http/ngx_http_perl_module.html"
         lang="ru"
-        rev="6">
+        rev="7">
 
 <section id="summary">
 
@@ -304,14 +304,15 @@ __END__
 устанавливает значение для заданного поля в заголовке ответа.
 </tag-desc>
 
-<tag-name>
+<tag-name id="r_internal_redirect">
     <literal>$r->internal_redirect(<value>uri</value>)</literal>
 </tag-name>
 <tag-desc>
 делает внутреннее перенаправление на указанный <value>uri</value>.
 Перенаправление происходит уже после завершения обработчика Perl.
 <note>
-На данный момент перенаправления в именованные location’ы не поддерживаются.
+Начиная с версии 1.17.2 метод принимает экранированные URI и
+поддерживает перенаправления в именованные location.
 </note>
 </tag-desc>
 

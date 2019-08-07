@@ -10,7 +10,7 @@
 <module name="Module ngx_http_perl_module"
         link="/en/docs/http/ngx_http_perl_module.html"
         lang="en"
-        rev="6">
+        rev="7">
 
 <section id="summary">
 
@@ -304,14 +304,15 @@ the client.
 sets a value for the specified response header field.
 </tag-desc>
 
-<tag-name>
+<tag-name id="r_internal_redirect">
     <literal>$r->internal_redirect(<value>uri</value>)</literal>
 </tag-name>
 <tag-desc>
 does an internal redirect to the specified <value>uri</value>.
 An actual redirect happens after the Perl handler execution is completed.
 <note>
-Redirections to named locations are currently not supported.
+Since version 1.17.2, the method accepts escaped URIs and
+supports redirections to named locations.
 </note>
 </tag-desc>
 
