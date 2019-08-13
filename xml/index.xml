@@ -9,6 +9,18 @@
 
 <event date="2019-08-13">
 <para>
+<link doc="en/download.xml">nginx-1.16.1</link>
+stable and
+<link doc="en/download.xml">nginx-1.17.3</link>
+mainline versions have been released,
+with fixes for
+<link doc="en/security_advisories.xml">vulnerabilities in HTTP/2</link>
+(CVE-2019-9511, CVE-2019-9513, CVE-2019-9516).
+</para>
+</event>
+
+<event date="2019-08-13">
+<para>
 <link doc="en/docs/njs/index.xml">njs-0.3.4</link>
 version has been released, featuring
 getter/setter literals support

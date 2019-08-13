@@ -24,6 +24,27 @@ Patches are signed using one of the
 
 <security>
 
+<item name="Excessive CPU usage in HTTP/2 with small window updates"
+      severity="medium"
+      cve="2019-9511"
+      good="1.17.3+, 1.16.1+"
+      vulnerable="1.9.5-1.17.2">
+</item>
+
+<item name="Excessive CPU usage in HTTP/2 with priority changes"
+      severity="low"
+      cve="2019-9513"
+      good="1.17.3+, 1.16.1+"
+      vulnerable="1.9.5-1.17.2">
+</item>
+
+<item name="Excessive memory usage in HTTP/2 with zero length headers"
+      severity="low"
+      cve="2019-9516"
+      good="1.17.3+, 1.16.1+"
+      vulnerable="1.9.5-1.17.2">
+</item>
+
 <item name="Excessive memory usage in HTTP/2"
       severity="low"
       advisory="http://mailman.nginx.org/pipermail/nginx-announce/2018/000220.html"
