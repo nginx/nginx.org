@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="79">
+        rev="80">
 
 <section id="summary">
 
@@ -330,7 +330,8 @@ it was considered <link id="fail_timeout">unavailable</link>.
 Default value is zero, i.e. slow start is disabled.
 <note>
 The parameter cannot be used along with the
-<link id="hash"/> and <link id="ip_hash"/> load balancing methods.
+<link id="hash"/>, <link id="ip_hash"/>, and <link id="random"/>
+load balancing methods.
 </note>
 </tag-desc>
 

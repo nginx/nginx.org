@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_upstream_module"
         link="/ru/docs/http/ngx_http_upstream_module.html"
         lang="ru"
-        rev="79">
+        rev="80">
 
 <section id="summary">
 
@@ -334,7 +334,8 @@ SRV-записи с наивысшим приоритетом
 Значение по умолчанию равно нулю и означает, что медленный старт выключен.
 <note>
 Параметр нельзя использовать совместно с
-методами балансировки нагрузки <link id="hash"/> и <link id="ip_hash"/>.
+методами балансировки нагрузки
+<link id="hash"/>, <link id="ip_hash"/> и <link id="random"/>.
 </note>
 </tag-desc>
 

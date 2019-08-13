@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_upstream_module"
         link="/ru/docs/stream/ngx_stream_upstream_module.html"
         lang="ru"
-        rev="35">
+        rev="36">
 
 <section id="summary">
 
@@ -306,7 +306,7 @@ SRV-записи с наивысшим приоритетом
 Значение по умолчанию равно нулю и означает, что медленный старт выключен.
 <note>
 Параметр нельзя использовать совместно с
-методом балансировки нагрузки <link id="hash"/>.
+методами балансировки нагрузки <link id="hash"/> и <link id="random"/>.
 </note>
 </tag-desc>
 
