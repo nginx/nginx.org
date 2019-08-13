@@ -844,6 +844,26 @@ false
 </example>
 </tag-desc>
 
+<tag-name id="string_trimend"><literal>String.prototype.trimEnd()</literal></tag-name>
+<tag-desc>
+Удаляет пробелы в конце строки.
+(<link doc="changes.xml" id="njs0.3.4">0.3.4</link>).
+<example>
+>> '   abc  '.trimEnd()
+'   abc'
+</example>
+</tag-desc>
+
+<tag-name id="string_trimstart"><literal>String.prototype.trimStart()</literal></tag-name>
+<tag-desc>
+Удаляет пробелы в начале строки.
+(<link doc="changes.xml" id="njs0.3.4">0.3.4</link>).
+<example>
+>> '   abc  '.trimStart()
+'abc  '
+</example>
+</tag-desc>
+
 <tag-name id="encodeuri"><literal>encodeURI(<value>URI</value>)</literal></tag-name>
 <tag-desc>
 Кодирует URI путём замены определённых символов

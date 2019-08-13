@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="29">
+        rev="30">
 
 <section id="summary">
 
@@ -857,6 +857,26 @@ Removes whitespaces from both ends of a string.
 </example>
 </tag-desc>
 
+<tag-name id="string_trimend"><literal>String.prototype.trimEnd()</literal></tag-name>
+<tag-desc>
+Removes whitespaces from the end of a string
+(<link doc="changes.xml" id="njs0.3.4">0.3.4</link>).
+<example>
+>> '   abc  '.trimEnd()
+'   abc'
+</example>
+</tag-desc>
+
+<tag-name id="string_trimstart"><literal>String.prototype.trimStart()</literal></tag-name>
+<tag-desc>
+Removes whitespaces from the beginning of a string
+(<link doc="changes.xml" id="njs0.3.4">0.3.4</link>).
+<example>
+>> '   abc  '.trimStart()
+'abc  '
+</example>
+</tag-desc>
+
 <tag-name id="encodeuri"><literal>encodeURI(<value>URI</value>)</literal></tag-name>
 <tag-desc>
 Encodes a URI by replacing each instance of certain characters
@@ -1213,6 +1233,20 @@ by default is <literal>w</literal>
 >> var fs = require('fs')
 undefined
 >> var file = fs.writeFileSync('hello.txt', 'Hello world')
+undefined
+</example>
+</tag-desc>
+
+<tag-name id="renamesync"><literal>renameSync(<value>oldPath</value>,
+<value>newPath</value>)</literal></tag-name>
+<tag-desc>
+Synchronously changes the name or location of a file from
+<literal>oldPath</literal> to <literal>newPath</literal>
+(<link doc="changes.xml" id="njs0.3.4">0.3.4</link>).
+<example>
+>> var fs = require('fs')
+undefined
+>> var file = fs.renameSync('hello.txt', 'HelloWorld.txt')
 undefined
 </example>
 </tag-desc>

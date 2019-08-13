@@ -9,7 +9,7 @@
 <article name="Compatibility"
         link="/en/docs/njs/compatibility.html"
         lang="en"
-        rev="17"
+        rev="18"
         toc="no">
 
 <section>
@@ -214,6 +214,14 @@ ES8:
 </listitem>
 
 <listitem>
+ES9:
+<link doc="reference.xml" id="string_trimend"><literal>trimEnd</literal></link>
+(<link doc="changes.xml" id="njs0.3.4">0.3.4</link>),
+<link doc="reference.xml" id="string_trimstart"><literal>trimStart</literal></link>
+(<link doc="changes.xml" id="njs0.3.4">0.3.4</link>)
+</listitem>
+
+<listitem>
 non-standard:
 <link doc="reference.xml" id="string_bytesfrom"><literal>bytesFrom</literal></link> (0.2.3),
 <link doc="reference.xml" id="string_frombytes"><literal>fromBytes</literal></link>,
@@ -231,8 +239,10 @@ non-standard:
 <listitem>
 ES5.1:
 <literal>create</literal> (support without properties list),
-<literal>defineProperties</literal> (support without accessor descriptors),
-<literal>defineProperty</literal> (support without accessor descriptors),
+<literal>defineProperties</literal> (accessor descriptors support
+since <link doc="changes.xml" id="njs0.3.3">0.3.3</link>),
+<literal>defineProperty</literal> (accessor descriptors support
+since <link doc="changes.xml" id="njs0.3.3">0.3.3</link>),
 <literal>freeze</literal>,
 <literal>getOwnPropertyDescriptor</literal>,
 <literal>getOwnPropertyDescriptors</literal>
@@ -488,7 +498,9 @@ functions (0.2.0)
 <literal>File system</literal> methods:
 <link doc="reference.xml" id="appendfilesync"><literal>fs.appendFileSync</literal></link>,
 <link doc="reference.xml" id="readfilesync"><literal>fs.readFileSync</literal></link>,
-<link doc="reference.xml" id="writefilesync"><literal>fs.writeFileSync</literal></link>
+<link doc="reference.xml" id="writefilesync"><literal>fs.writeFileSync</literal></link>,
+<link doc="reference.xml" id="renamesync"><literal>fs.renameSync</literal></link>
+(<link doc="changes.xml" id="njs0.3.4">0.3.4</link>)
 </listitem>
 
 <listitem>
