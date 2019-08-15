@@ -12,6 +12,38 @@
         rev="22"
         toc="no">
 
+<section id="njs0.3.5" name="Changes with 0.3.5">
+
+<para>
+Release Date:
+15 August 2019
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Bugfix:
+fixed module importing using <literal>require()</literal>.
+The bug was introduced in <link id="0.3.4"/>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>[[SetPrototypeOf]]</literal>.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+
 <section id="njs0.3.4" name="Changes with 0.3.4">
 
 <para>
