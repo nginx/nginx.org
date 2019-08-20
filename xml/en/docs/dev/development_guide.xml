@@ -660,14 +660,14 @@ if (n >= 0) {
 }
 </programlisting>
 The arguments to <literal>ngx_regex_exec()</literal> are the compiled regular
-expression <literal>re</literal>, the string to match <literal>s</literal>,
+expression <literal>re</literal>, the string to match <literal>input</literal>,
 an optional array of integers to hold any <literal>captures</literal> that are
 found, and the array's <literal>size</literal>.
 The size of the <literal>captures</literal> array must be a multiple of three,
 as required by the
 <link url="http://www.pcre.org/original/doc/html/pcreapi.html">PCRE API</link>.
 In the example, the size is calculated from the total number of captures plus
-<literal>1</literal>one for the matched string itself.
+one for the matched string itself.
 </para>
 
 <para>
@@ -1288,7 +1288,7 @@ There are two generic key-creation functions:
 <literal>ngx_hash_key(data, len)</literal> and
 <literal>ngx_hash_key_lc(data, len)</literal>.
 The latter converts a string to all lowercase characters, so the passed string
-must be writeable.
+must be writable.
 If that is not true, pass the <literal>NGX_HASH_READONLY_KEY</literal> flag
 to the function, initializing the key array (see below).
 </para>
@@ -2615,7 +2615,7 @@ point later within the current event loop iteration.
 Posting events is a good practice for simplifying code and escaping stack
 overflows.
 Posted events are held in a post queue.
-The <literal>ngx_post_event(ev, q)</literal> mscro posts the event
+The <literal>ngx_post_event(ev, q)</literal> macro posts the event
 <literal>ev</literal> to the post queue <literal>q</literal>.
 The <literal>ngx_delete_posted_event(ev)</literal> macro deletes the event
 <literal>ev</literal> from the queue it's currently posted in.
@@ -3811,7 +3811,7 @@ Each HTTP client connection runs through the following stages:
 <listitem>
 <literal>ngx_event_accept()</literal> accepts a client TCP connection.
 This handler is called in response to a read notification on a listen socket.
-A new <literal>ngx_connecton_t</literal> object is created at this stage
+A new <literal>ngx_connection_t</literal> object is created at this stage
 to wrap the newly accepted client socket.
 Each nginx listener provides a handler to pass the new connection object to.
 For HTTP connections it's <literal>ngx_http_init_connection(c)</literal>.
