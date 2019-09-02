@@ -101,21 +101,21 @@ All API requests include
 a supported API <link id="api_version">version</link> in the URI.
 Examples of API requests with this configuration:
 <example>
-http://127.0.0.1/api/4/
-http://127.0.0.1/api/4/nginx
-http://127.0.0.1/api/4/connections
-http://127.0.0.1/api/4/http/requests
-http://127.0.0.1/api/4/http/server_zones/server_backend
-http://127.0.0.1/api/4/http/caches/cache_backend
-http://127.0.0.1/api/4/http/upstreams/backend
-http://127.0.0.1/api/4/http/upstreams/backend/servers/
-http://127.0.0.1/api/4/http/upstreams/backend/servers/1
-http://127.0.0.1/api/4/http/keyvals/one?key=arg1
-http://127.0.0.1/api/4/stream/
-http://127.0.0.1/api/4/stream/server_zones/server_backend
-http://127.0.0.1/api/4/stream/upstreams/
-http://127.0.0.1/api/4/stream/upstreams/backend
-http://127.0.0.1/api/4/stream/upstreams/backend/servers/1
+http://127.0.0.1/api/5/
+http://127.0.0.1/api/5/nginx
+http://127.0.0.1/api/5/connections
+http://127.0.0.1/api/5/http/requests
+http://127.0.0.1/api/5/http/server_zones/server_backend
+http://127.0.0.1/api/5/http/caches/cache_backend
+http://127.0.0.1/api/5/http/upstreams/backend
+http://127.0.0.1/api/5/http/upstreams/backend/servers/
+http://127.0.0.1/api/5/http/upstreams/backend/servers/1
+http://127.0.0.1/api/5/http/keyvals/one?key=arg1
+http://127.0.0.1/api/5/stream/
+http://127.0.0.1/api/5/stream/server_zones/server_backend
+http://127.0.0.1/api/5/stream/upstreams/
+http://127.0.0.1/api/5/stream/upstreams/backend
+http://127.0.0.1/api/5/stream/upstreams/backend/servers/1
 </example>
 </para>
 
@@ -146,14 +146,14 @@ By default, the API is read-only.
 All API requests should contain a supported API version in the URI.
 If the request URI equals the location prefix,
 the list of supported API versions is returned.
-The current API version is “<literal>4</literal>”.
+The current API version is “<literal>5</literal>”.
 </para>
 
 <para>
 The optional “<literal>fields</literal>” argument in the request line
 specifies which fields of the requested objects will be output:
 <example>
-http://127.0.0.1/api/4/nginx?fields=version,build
+http://127.0.0.1/api/5/nginx?fields=version,build
 </example>
 </para>
 
@@ -164,6 +164,8 @@ http://127.0.0.1/api/4/nginx?fields=version,build
 <syntax><value>zone</value></syntax>
 <default/>
 <context>server</context>
+<context>location</context>
+<context>if in location</context>
 <appeared-in>1.13.12</appeared-in>
 
 <para>
@@ -175,6 +177,18 @@ server status information in the specified <value>zone</value>.
 Several servers may share the same zone.
 </para>
 
+<para id="status_zone_location">
+Starting from 1.17.0, status information can be collected
+per <link doc="ngx_http_core_module.xml" id="location"/>.
+The special value <literal>off</literal> disables statistics collection
+in nested location blocks.
+Note that the statistics is collected
+in the context of a location where processing ends.
+It may be different from the original location, if an
+<link doc="ngx_http_core_module.xml" id="internal">internal
+redirect</link> happens during request processing.
+</para>
+
 </directive>
 
 </section>
@@ -183,6 +197,24 @@ Several servers may share the same zone.
 
 <para>
 <list type="bullet">
+
+<listitem>
+The “<literal>expire</literal>” parameter of a
+<link doc="ngx_http_keyval_module.xml">key-value</link> pair can be
+<link id="postHttpKeyvalZoneData">set</link> or
+<link id="patchHttpKeyvalZoneKeyValue">changed</link>
+since <link id="api_version">version</link> 5.
+</listitem>
+
+<listitem>
+The <link id="resolvers_">/resolvers/</link> data
+were added in <link id="api_version">version</link> 5.
+</listitem>
+
+<listitem>
+The <link id="http_location_zones_">/http/location_zones/</link> data
+were added in <link id="api_version">version</link> 5.
+</listitem>
 
 <listitem>
 The <literal>path</literal> and <literal>method</literal> fields of
@@ -324,43 +356,6 @@ Possible responses:
 </listitem>
 </list>
 </tag-desc>
-<tag-name id="ssl" name="/ssl">
-<literal>/ssl</literal>
-</tag-name>
-<tag-desc>
-<para>Supported methods:</para>
-<list type="bullet" compact="yes">
-<listitem id="getSsl">
-<literal>GET</literal> - Return SSL statistics
-<para>Returns SSL statistics.</para>
-<para>
-Request parameters:
-<list type="tag">
-<tag-name><literal>fields</literal>
-(<literal>string</literal>, optional)</tag-name>
-<tag-desc>
-Limits which fields of SSL statistics will be output.</tag-desc>
-</list>
-</para>
-<para>
-Possible responses:
-</para>
-<list type="bullet">
-<listitem>200 - Success, returns <link id="def_nginx_ssl_object">SSL</link></listitem>
-</list>
-</listitem>
-<listitem id="deleteSslStat">
-<literal>DELETE</literal> - Reset SSL statistics
-<para>Resets counters of SSL handshakes and session reuses.</para>
-<para>
-Possible responses:
-</para>
-<list type="bullet">
-<listitem>204 - Success</listitem>
-</list>
-</listitem>
-</list>
-</tag-desc>
 <tag-name id="slabs_" name="/slabs/">
 <literal>/slabs/</literal>
 </tag-name>
@@ -376,14 +371,14 @@ Request parameters:
 <tag-name><literal>fields</literal>
 (<literal>string</literal>, optional)</tag-name>
 <tag-desc>
-Limits which fields of slab zones will be output. If the “<literal>fields</literal>” value is empty, then only zone names are output.</tag-desc>
+Limits which fields of slab zones will be output. If the “<literal>fields</literal>” value is empty, then only zone names will be output.</tag-desc>
 </list>
 </para>
 <para>
 Possible responses:
 </para>
 <list type="bullet">
-<listitem>200 - Success, returns a collection of "<link id="def_nginx_slab_zone">Shared memory zone with slab allocator</link>" objects for all  slabs </listitem>
+<listitem>200 - Success, returns a collection of "<link id="def_nginx_slab_zone">Shared memory zone with slab allocator</link>" objects for all slabs</listitem>
 </list>
 </listitem>
 </list>
@@ -506,14 +501,14 @@ Request parameters:
 <tag-name><literal>fields</literal>
 (<literal>string</literal>, optional)</tag-name>
 <tag-desc>
-Limits which fields of server zones will be output. If the “<literal>fields</literal>” value is empty, then only server zone names are output.</tag-desc>
+Limits which fields of server zones will be output. If the “<literal>fields</literal>” value is empty, then only server zone names will be output.</tag-desc>
 </list>
 </para>
 <para>
 Possible responses:
 </para>
 <list type="bullet">
-<listitem>200 - Success, returns a collection of "<link id="def_nginx_http_server_zone">HTTP Server Zone</link>" objects for all  http server zones </listitem>
+<listitem>200 - Success, returns a collection of "<link id="def_nginx_http_server_zone">HTTP Server Zone</link>" objects for all HTTP server zones</listitem>
 </list>
 </listitem>
 </list>
@@ -565,6 +560,80 @@ Possible responses:
 </listitem>
 </list>
 </tag-desc>
+<tag-name id="http_location_zones_" name="/http/location_zones/">
+<literal>/http/location_zones/</literal>
+</tag-name>
+<tag-desc>
+<para>Supported methods:</para>
+<list type="bullet" compact="yes">
+<listitem id="getHttpLocationZones">
+<literal>GET</literal> - Return status of all HTTP location zones
+<para>Returns status information for each HTTP <link url="https://nginx.org/en/docs/http/ngx_http_api_module.html#status_zone_location">location zone</link>.</para>
+<para>
+Request parameters:
+<list type="tag">
+<tag-name><literal>fields</literal>
+(<literal>string</literal>, optional)</tag-name>
+<tag-desc>
+Limits which fields of location zones will be output. If the “<literal>fields</literal>” value is empty, then only zone names will be output.</tag-desc>
+</list>
+</para>
+<para>
+Possible responses:
+</para>
+<list type="bullet">
+<listitem>200 - Success, returns a collection of "<link id="def_nginx_http_location_zone">HTTP Location Zone</link>" objects for all HTTP location zones</listitem>
+</list>
+</listitem>
+</list>
+</tag-desc>
+<tag-name id="http_location_zones_http_location_zone_name" name="/http/location_zones/{httpLocationZoneName}">
+<literal>/http/location_zones/{httpLocationZoneName}</literal>
+</tag-name>
+<tag-desc>
+Parameters common for all methods:
+<list type="tag">
+<tag-name><literal>httpLocationZoneName</literal>
+(<literal>string</literal>, required)</tag-name>
+<tag-desc>
+The name of an HTTP <link url="https://nginx.org/en/docs/http/ngx_http_api_module.html#status_zone_location">location zone</link>.</tag-desc>
+</list>
+<para>Supported methods:</para>
+<list type="bullet" compact="yes">
+<listitem id="getHttpLocationZone">
+<literal>GET</literal> - Return status of an HTTP location zone
+<para>Returns status of a particular HTTP <link url="https://nginx.org/en/docs/http/ngx_http_api_module.html#status_zone_location">location zone</link>.</para>
+<para>
+Request parameters:
+<list type="tag">
+<tag-name><literal>fields</literal>
+(<literal>string</literal>, optional)</tag-name>
+<tag-desc>
+Limits which fields of the location zone will be output.</tag-desc>
+</list>
+</para>
+<para>
+Possible responses:
+</para>
+<list type="bullet">
+<listitem>200 - Success, returns <link id="def_nginx_http_location_zone">HTTP Location Zone</link></listitem>
+<listitem>404 - Location zone not found (<literal>LocationZoneNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+</list>
+</listitem>
+<listitem id="deleteHttpLocationZoneStat">
+<literal>DELETE</literal> - Reset statistics for a location zone.
+<para>Resets statistics of accepted and discarded requests, responses, received and sent bytes in a particular location zone.</para>
+<para>
+Possible responses:
+</para>
+<list type="bullet">
+<listitem>204 - Success</listitem>
+<listitem>404 - Location zone not found (<literal>LocationZoneNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+</list>
+</listitem>
+</list>
+</tag-desc>
 <tag-name id="http_caches_" name="/http/caches/">
 <literal>/http/caches/</literal>
 </tag-name>
@@ -580,14 +649,14 @@ Request parameters:
 <tag-name><literal>fields</literal>
 (<literal>string</literal>, optional)</tag-name>
 <tag-desc>
-Limits which fields of cache zones will be output. If the “<literal>fields</literal>” value is empty, then only names of cache zones are output.</tag-desc>
+Limits which fields of cache zones will be output. If the “<literal>fields</literal>” value is empty, then only names of cache zones will be output.</tag-desc>
 </list>
 </para>
 <para>
 Possible responses:
 </para>
 <list type="bullet">
-<listitem>200 - Success, returns a collection of "<link id="def_nginx_http_cache">HTTP Cache</link>" objects for all  http caches </listitem>
+<listitem>200 - Success, returns a collection of "<link id="def_nginx_http_cache">HTTP Cache</link>" objects for all HTTP caches</listitem>
 </list>
 </listitem>
 </list>
@@ -654,14 +723,14 @@ Request parameters:
 <tag-name><literal>fields</literal>
 (<literal>string</literal>, optional)</tag-name>
 <tag-desc>
-Limits which fields of upstream server groups will be output. If the “<literal>fields</literal>” value is empty, only names of upstreams are output.</tag-desc>
+Limits which fields of upstream server groups will be output. If the “<literal>fields</literal>” value is empty, only names of upstreams will be output.</tag-desc>
 </list>
 </para>
 <para>
 Possible responses:
 </para>
 <list type="bullet">
-<listitem>200 - Success, returns a collection of "<link id="def_nginx_http_upstream">HTTP Upstream</link>" objects for all  http upstreams </listitem>
+<listitem>200 - Success, returns a collection of "<link id="def_nginx_http_upstream">HTTP Upstream</link>" objects for all HTTP upstreams</listitem>
 </list>
 </listitem>
 </list>
@@ -886,14 +955,14 @@ Request parameters:
 <tag-name><literal>fields</literal>
 (<literal>string</literal>, optional)</tag-name>
 <tag-desc>
-If the “<literal>fields</literal>” value is empty, then only HTTP keyval zone names are output.</tag-desc>
+If the “<literal>fields</literal>” value is empty, then only HTTP keyval zone names will be output.</tag-desc>
 </list>
 </para>
 <para>
 Possible responses:
 </para>
 <list type="bullet">
-<listitem>200 - Success, returns a collection of "<link id="def_nginx_http_keyval_zone">HTTP Keyval Shared Memory Zone</link>" objects for all  http keyvals </listitem>
+<listitem>200 - Success, returns a collection of "<link id="def_nginx_http_keyval_zone">HTTP Keyval Shared Memory Zone</link>" objects for all HTTP keyvals</listitem>
 </list>
 </listitem>
 </list>
@@ -939,9 +1008,9 @@ keyval key not found (<literal>KeyvalKeyNotFound</literal>), returns <link id="d
 Request parameters:
 <list type="tag">
 <tag-name><literal>Key-value</literal>
-(<link id="def_nginx_http_keyval_zone">HTTP Keyval Shared Memory Zone</link>, required)</tag-name>
+(<link id="def_nginx_http_keyval_zone_post_patch">HTTP Keyval Shared Memory Zone</link>, required)</tag-name>
 <tag-desc>
-A key-value pair is specified in the JSON format. Several key-value pairs can be entered if the HTTP keyval shared memory zone is empty.</tag-desc>
+A key-value pair is specified in the JSON format. Several key-value pairs can be entered if the HTTP keyval shared memory zone is empty. Expiration time in milliseconds can be specified for a key-value pair with the <literal>expire</literal> parameter which overrides the <link url="https://nginx.org/en/docs/http/ngx_http_keyval_module.html#keyval_timeout"><literal>timeout</literal></link> parameter of the <link url="https://nginx.org/en/docs/http/ngx_http_keyval_module.html#keyval_zone">keyval_zone</link> directive.</tag-desc>
 </list>
 </para>
 <para>
@@ -949,9 +1018,11 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>201 - Created</listitem>
-<listitem>400 - Key required (<literal>KeyvalFormatError</literal>),
-only one key can be added (<literal>KeyvalFormatError</literal>),
-nested object or list (<literal>KeyvalFormatError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>400 - Invalid JSON (<literal>KeyvalFormatError</literal>),
+invalid key format (<literal>KeyvalFormatError</literal>),
+key required (<literal>KeyvalFormatError</literal>),
+keyval timeout is not enabled (<literal>KeyvalFormatError</literal>),
+only one key can be added (<literal>KeyvalFormatError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>404 - Keyval not found (<literal>KeyvalNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>409 - Key already exists (<literal>KeyvalKeyExists</literal>), returns <link id="def_nginx_error">Error</link></listitem>
@@ -960,12 +1031,12 @@ nested object or list (<literal>KeyvalFormatError</literal>), returns <link id="
 </listitem>
 <listitem id="patchHttpKeyvalZoneKeyValue">
 <literal>PATCH</literal> - Modify a key-value or delete a key
-<para>Changes the value of the selected key in the key-value pair or deletes a key by setting the key value to <literal>null</literal>. If <link url="https://nginx.org/en/docs/stream/ngx_stream_zone_sync_module.html#zone_sync">synchronization</link> of keyval zones in a cluster is enabled, deletes a key only on a target cluster node.</para>
+<para>Changes the value of the selected key in the key-value pair, deletes a key by setting the key value to <literal>null</literal>, changes expiration time of a key-value pair. If <link url="https://nginx.org/en/docs/stream/ngx_stream_zone_sync_module.html#zone_sync">synchronization</link> of keyval zones in a cluster is enabled, deletes a key only on a target cluster node. Expiration time in milliseconds can be specified for a key-value pair with the <literal>expire</literal> parameter which overrides the <link url="https://nginx.org/en/docs/http/ngx_http_keyval_module.html#keyval_timeout"><literal>timeout</literal></link> parameter of the <link url="https://nginx.org/en/docs/http/ngx_http_keyval_module.html#keyval_zone">keyval_zone</link> directive.</para>
 <para>
 Request parameters:
 <list type="tag">
 <tag-name><literal>httpKeyvalZoneKeyValue</literal>
-(<link id="def_nginx_http_keyval_zone">HTTP Keyval Shared Memory Zone</link>, required)</tag-name>
+(<link id="def_nginx_http_keyval_zone_post_patch">HTTP Keyval Shared Memory Zone</link>, required)</tag-name>
 <tag-desc>
 A new value for the key is specified in the JSON format.</tag-desc>
 </list>
@@ -975,9 +1046,10 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>204 - Success</listitem>
-<listitem>400 - Key required (<literal>KeyvalFormatError</literal>),
-only one key can be updated (<literal>KeyvalFormatError</literal>),
-nested object or list (<literal>KeyvalFormatError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>400 - Invalid JSON (<literal>KeyvalFormatError</literal>),
+key required (<literal>KeyvalFormatError</literal>),
+keyval timeout is not enabled (<literal>KeyvalFormatError</literal>),
+only one key can be updated (<literal>KeyvalFormatError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>404 - Keyval not found (<literal>KeyvalNotFound</literal>),
 keyval key not found (<literal>KeyvalKeyNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
@@ -1031,14 +1103,14 @@ Request parameters:
 <tag-name><literal>fields</literal>
 (<literal>string</literal>, optional)</tag-name>
 <tag-desc>
-Limits which fields of server zones will be output. If the “<literal>fields</literal>” value is empty, then only server zone names are output.</tag-desc>
+Limits which fields of server zones will be output. If the “<literal>fields</literal>” value is empty, then only server zone names will be output.</tag-desc>
 </list>
 </para>
 <para>
 Possible responses:
 </para>
 <list type="bullet">
-<listitem>200 - Success, returns a collection of "<link id="def_nginx_stream_server_zone">Stream Server Zone</link>" objects for all  stream server zones </listitem>
+<listitem>200 - Success, returns a collection of "<link id="def_nginx_stream_server_zone">Stream Server Zone</link>" objects for all stream server zones</listitem>
 </list>
 </listitem>
 </list>
@@ -1105,14 +1177,14 @@ Request parameters:
 <tag-name><literal>fields</literal>
 (<literal>string</literal>, optional)</tag-name>
 <tag-desc>
-Limits which fields of upstream server groups will be output. If the “<literal>fields</literal>” value is empty, only names of upstreams are output.</tag-desc>
+Limits which fields of upstream server groups will be output. If the “<literal>fields</literal>” value is empty, only names of upstreams will be output.</tag-desc>
 </list>
 </para>
 <para>
 Possible responses:
 </para>
 <list type="bullet">
-<listitem>200 - Success, returns a collection of "<link id="def_nginx_stream_upstream">Stream Upstream</link>" objects for all  stream upstreams </listitem>
+<listitem>200 - Success, returns a collection of "<link id="def_nginx_stream_upstream">Stream Upstream</link>" objects for all stream upstreams</listitem>
 </list>
 </listitem>
 </list>
@@ -1337,14 +1409,14 @@ Request parameters:
 <tag-name><literal>fields</literal>
 (<literal>string</literal>, optional)</tag-name>
 <tag-desc>
-If the “<literal>fields</literal>” value is empty, then only stream keyval zone names are output.</tag-desc>
+If the “<literal>fields</literal>” value is empty, then only stream keyval zone names will be output.</tag-desc>
 </list>
 </para>
 <para>
 Possible responses:
 </para>
 <list type="bullet">
-<listitem>200 - Success, returns a collection of "<link id="def_nginx_stream_keyval_zone">Stream Keyval Shared Memory Zone</link>" objects for all  stream keyvals </listitem>
+<listitem>200 - Success, returns a collection of "<link id="def_nginx_stream_keyval_zone">Stream Keyval Shared Memory Zone</link>" objects for all stream keyvals</listitem>
 </list>
 </listitem>
 </list>
@@ -1390,9 +1462,9 @@ keyval key not found (<literal>KeyvalKeyNotFound</literal>), returns <link id="d
 Request parameters:
 <list type="tag">
 <tag-name><literal>Key-value</literal>
-(<link id="def_nginx_stream_keyval_zone">Stream Keyval Shared Memory Zone</link>, required)</tag-name>
+(<link id="def_nginx_stream_keyval_zone_post_patch">Stream Keyval Shared Memory Zone</link>, required)</tag-name>
 <tag-desc>
-A key-value pair is specified in the JSON format. Several key-value pairs can be entered if the stream keyval shared memory zone is empty.</tag-desc>
+A key-value pair is specified in the JSON format. Several key-value pairs can be entered if the stream keyval shared memory zone is empty. Expiration time in milliseconds can be specified for a key-value pair with the <literal>expire</literal> parameter which overrides the <link url="https://nginx.org/en/docs/stream/ngx_stream_keyval_module.html#keyval_timeout"><literal>timeout</literal></link> parameter of the <link url="https://nginx.org/en/docs/stream/ngx_stream_keyval_module.html#keyval_zone">keyval_zone</link> directive.</tag-desc>
 </list>
 </para>
 <para>
@@ -1400,9 +1472,11 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>201 - Created</listitem>
-<listitem>400 - Key required (<literal>KeyvalFormatError</literal>),
-only one key can be added (<literal>KeyvalFormatError</literal>),
-nested object or list (<literal>KeyvalFormatError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>400 - Invalid JSON (<literal>KeyvalFormatError</literal>),
+invalid key format (<literal>KeyvalFormatError</literal>),
+key required (<literal>KeyvalFormatError</literal>),
+keyval timeout is not enabled (<literal>KeyvalFormatError</literal>),
+only one key can be added (<literal>KeyvalFormatError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>404 - Keyval not found (<literal>KeyvalNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>409 - Key already exists (<literal>KeyvalKeyExists</literal>), returns <link id="def_nginx_error">Error</link></listitem>
@@ -1411,12 +1485,12 @@ nested object or list (<literal>KeyvalFormatError</literal>), returns <link id="
 </listitem>
 <listitem id="patchStreamKeyvalZoneKeyValue">
 <literal>PATCH</literal> - Modify a key-value or delete a key
-<para>Changes the value of the selected key in the key-value pair or deletes a key by setting the key value to <literal>null</literal>. If <link url="https://nginx.org/en/docs/stream/ngx_stream_zone_sync_module.html#zone_sync">synchronization</link> of keyval zones in a cluster is enabled, deletes a key only on a target cluster node.</para>
+<para>Changes the value of the selected key in the key-value pair, deletes a key by setting the key value to <literal>null</literal>, changes expiration time of a key-value pair. If <link url="https://nginx.org/en/docs/stream/ngx_stream_zone_sync_module.html#zone_sync">synchronization</link> of keyval zones in a cluster is enabled, deletes a key only on a target cluster node. Expiration time is specified in milliseconds with the <literal>expire</literal> parameter which overrides the <link url="https://nginx.org/en/docs/stream/ngx_stream_keyval_module.html#keyval_timeout"><literal>timeout</literal></link> parameter of the <link url="https://nginx.org/en/docs/stream/ngx_stream_keyval_module.html#keyval_zone">keyval_zone</link> directive.</para>
 <para>
 Request parameters:
 <list type="tag">
 <tag-name><literal>streamKeyvalZoneKeyValue</literal>
-(<link id="def_nginx_stream_keyval_zone">Stream Keyval Shared Memory Zone</link>, required)</tag-name>
+(<link id="def_nginx_stream_keyval_zone_post_patch">Stream Keyval Shared Memory Zone</link>, required)</tag-name>
 <tag-desc>
 A new value for the key is specified in the JSON format.</tag-desc>
 </list>
@@ -1426,9 +1500,10 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>204 - Success</listitem>
-<listitem>400 - Key required (<literal>KeyvalFormatError</literal>),
-only one key can be updated (<literal>KeyvalFormatError</literal>),
-nested object or list (<literal>KeyvalFormatError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>400 - Invalid JSON (<literal>KeyvalFormatError</literal>),
+key required (<literal>KeyvalFormatError</literal>),
+keyval timeout is not enabled (<literal>KeyvalFormatError</literal>),
+only one key can be updated (<literal>KeyvalFormatError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>404 - Keyval not found (<literal>KeyvalNotFound</literal>),
 keyval key not found (<literal>KeyvalKeyNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
@@ -1463,6 +1538,117 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>200 - Success, returns <link id="def_nginx_stream_zone_sync">Stream Zone Sync Node</link></listitem>
+</list>
+</listitem>
+</list>
+</tag-desc>
+<tag-name id="resolvers_" name="/resolvers/">
+<literal>/resolvers/</literal>
+</tag-name>
+<tag-desc>
+<para>Supported methods:</para>
+<list type="bullet" compact="yes">
+<listitem id="getResolverZones">
+<literal>GET</literal> - Return status for all resolver zones
+<para>Returns status information for each <link url="https://nginx.org/en/docs/http/ngx_http_core_module.html#resolver_status_zone">resolver zone</link>.</para>
+<para>
+Request parameters:
+<list type="tag">
+<tag-name><literal>fields</literal>
+(<literal>string</literal>, optional)</tag-name>
+<tag-desc>
+Limits which fields of resolvers statistics will be output.</tag-desc>
+</list>
+</para>
+<para>
+Possible responses:
+</para>
+<list type="bullet">
+<listitem>200 - Success, returns a collection of "<link id="def_nginx_resolver_zone">Resolver Zone</link>" objects for all resolvers</listitem>
+</list>
+</listitem>
+</list>
+</tag-desc>
+<tag-name id="resolvers_resolver_zone_name" name="/resolvers/{resolverZoneName}">
+<literal>/resolvers/{resolverZoneName}</literal>
+</tag-name>
+<tag-desc>
+Parameters common for all methods:
+<list type="tag">
+<tag-name><literal>resolverZoneName</literal>
+(<literal>string</literal>, required)</tag-name>
+<tag-desc>
+The name of a resolver zone.</tag-desc>
+</list>
+<para>Supported methods:</para>
+<list type="bullet" compact="yes">
+<listitem id="getResolverZone">
+<literal>GET</literal> - Return statistics of a resolver zone
+<para>Returns statistics stored in a particular resolver <link url="https://nginx.org/en/docs/http/ngx_http_core_module.html#resolver_status_zone">zone</link>.</para>
+<para>
+Request parameters:
+<list type="tag">
+<tag-name><literal>fields</literal>
+(<literal>string</literal>, optional)</tag-name>
+<tag-desc>
+Limits which fields of the resolver zone will be output (requests, responses, or both).</tag-desc>
+</list>
+</para>
+<para>
+Possible responses:
+</para>
+<list type="bullet">
+<listitem>200 - Success, returns <link id="def_nginx_resolver_zone">Resolver Zone</link></listitem>
+<listitem>404 - Resolver zone not found (<literal>ResolverZoneNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+</list>
+</listitem>
+<listitem id="deleteResolverZoneStat">
+<literal>DELETE</literal> - Reset statistics for a resolver zone.
+<para>Resets statistics in a particular resolver zone.</para>
+<para>
+Possible responses:
+</para>
+<list type="bullet">
+<listitem>204 - Success</listitem>
+<listitem>404 - Resolver zone not found (<literal>ResolverZoneNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+</list>
+</listitem>
+</list>
+</tag-desc>
+<tag-name id="ssl" name="/ssl">
+<literal>/ssl</literal>
+</tag-name>
+<tag-desc>
+<para>Supported methods:</para>
+<list type="bullet" compact="yes">
+<listitem id="getSsl">
+<literal>GET</literal> - Return SSL statistics
+<para>Returns SSL statistics.</para>
+<para>
+Request parameters:
+<list type="tag">
+<tag-name><literal>fields</literal>
+(<literal>string</literal>, optional)</tag-name>
+<tag-desc>
+Limits which fields of SSL statistics will be output.</tag-desc>
+</list>
+</para>
+<para>
+Possible responses:
+</para>
+<list type="bullet">
+<listitem>200 - Success, returns <link id="def_nginx_ssl_object">SSL</link></listitem>
+</list>
+</listitem>
+<listitem id="deleteSslStat">
+<literal>DELETE</literal> - Reset SSL statistics
+<para>Resets counters of SSL handshakes and session reuses.</para>
+<para>
+Possible responses:
+</para>
+<list type="bullet">
+<listitem>204 - Success</listitem>
 </list>
 </listitem>
 </list>
@@ -1829,6 +2015,93 @@ The total number of bytes sent to clients.
 <example>
 {
   "processing" : 1,
+  "requests" : 706690,
+  "responses" : {
+    "1xx" : 0,
+    "2xx" : 699482,
+    "3xx" : 4522,
+    "4xx" : 907,
+    "5xx" : 266,
+    "total" : 705177
+  },
+  "discarded" : 1513,
+  "received" : 172711587,
+  "sent" : 19415530115
+}</example>
+</listitem>
+<listitem id="def_nginx_http_location_zone">
+<para>HTTP Location Zone:</para>
+<list type="tag">
+<tag-name>
+<literal>requests</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The total number of client requests received from clients.
+</tag-desc>
+<tag-name>
+<literal>responses</literal></tag-name>
+<tag-desc>
+The total number of responses sent to clients and the number of responses with status codes “<literal>1xx</literal>”, “<literal>2xx</literal>”, “<literal>3xx</literal>”, “<literal>4xx</literal>”, and “<literal>5xx</literal>”.<list type="tag">
+<tag-name>
+<literal>1xx</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The number of responses with “<literal>1xx</literal>” status codes.
+</tag-desc>
+<tag-name>
+<literal>2xx</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The number of responses with “<literal>2xx</literal>” status codes.
+</tag-desc>
+<tag-name>
+<literal>3xx</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The number of responses with “<literal>3xx</literal>” status codes.
+</tag-desc>
+<tag-name>
+<literal>4xx</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The number of responses with “<literal>4xx</literal>” status codes.
+</tag-desc>
+<tag-name>
+<literal>5xx</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The number of responses with “<literal>5xx</literal>” status codes.
+</tag-desc>
+<tag-name>
+<literal>total</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The total number of responses sent to clients.
+</tag-desc>
+</list>
+</tag-desc>
+<tag-name>
+<literal>discarded</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The total number of requests completed without sending a response.
+</tag-desc>
+<tag-name>
+<literal>received</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The total number of bytes received from clients.
+</tag-desc>
+<tag-name>
+<literal>sent</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The total number of bytes sent to clients.
+</tag-desc>
+</list>
+<para>Example:</para>
+<example>
+{
   "requests" : 706690,
   "responses" : {
     "1xx" : 0,
@@ -2489,12 +2762,27 @@ Hostname of the resolved server. The hostname is assigned automatically and cann
 </listitem>
 <listitem id="def_nginx_http_keyval_zone">
 <para>HTTP Keyval Shared Memory Zone:</para>
-Contents of an HTTP keyval shared memory zone.<para>Example:</para>
+Contents of an HTTP keyval shared memory zone
+when using the GET method.<para>Example:</para>
 <example>
 {
   "key1" : "value1",
   "key2" : "value2",
   "key3" : "value3"
+}</example>
+</listitem>
+<listitem id="def_nginx_http_keyval_zone_post_patch">
+<para>HTTP Keyval Shared Memory Zone:</para>
+Contents of an HTTP keyval shared memory zone
+when using the POST or PATCH methods.<para>Example:</para>
+<example>
+{
+  "key1" : "value1",
+  "key2" : "value2",
+  "key3" : {
+    "value" : "value3",
+    "expire" : 30000
+  }
 }</example>
 </listitem>
 <listitem id="def_nginx_stream_server_zone">
@@ -2903,12 +3191,26 @@ Hostname of the resolved server. The hostname is assigned automatically and cann
 </listitem>
 <listitem id="def_nginx_stream_keyval_zone">
 <para>Stream Keyval Shared Memory Zone:</para>
-Contents of a stream keyval shared memory zone.<para>Example:</para>
+Contents of a stream keyval shared memory zone when using the GET method.<para>Example:</para>
 <example>
 {
   "key1" : "value1",
   "key2" : "value2",
   "key3" : "value3"
+}</example>
+</listitem>
+<listitem id="def_nginx_stream_keyval_zone_post_patch">
+<para>Stream Keyval Shared Memory Zone:</para>
+Contents of a stream keyval shared memory zone
+when using the POST or PATCH methods.<para>Example:</para>
+<example>
+{
+  "key1" : "value1",
+  "key2" : "value2",
+  "key3" : {
+    "value" : "value3",
+    "expire" : 30000
+  }
 }</example>
 </listitem>
 <listitem id="def_nginx_stream_zone_sync">
@@ -2994,6 +3296,111 @@ The number of records that need to be sent to the cluster.
 The total number of records stored in the shared memory zone.
 </tag-desc>
 </list>
+</listitem>
+<listitem id="def_nginx_resolver_zone">
+<para>Resolver Zone:</para>
+Statistics of DNS requests and responses per particular
+<link url="https://nginx.org/en/docs/http/ngx_http_core_module.html#resolver_status_zone">resolver zone</link>.<list type="tag">
+<tag-name>
+<literal>requests</literal></tag-name>
+<tag-desc>
+<list type="tag">
+<tag-name>
+<literal>name</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The total number of requests to resolve names to addresses.
+</tag-desc>
+<tag-name>
+<literal>srv</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The total number of requests to resolve SRV records.
+</tag-desc>
+<tag-name>
+<literal>addr</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The total number of requests to resolve addresses to names.
+</tag-desc>
+</list>
+</tag-desc>
+<tag-name>
+<literal>responses</literal></tag-name>
+<tag-desc>
+<list type="tag">
+<tag-name>
+<literal>noerror</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The total number of successful responses.
+</tag-desc>
+<tag-name>
+<literal>formerr</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The total number of FORMERR (<literal>Format error</literal>) responses.
+</tag-desc>
+<tag-name>
+<literal>servfail</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The total number of SERVFAIL (<literal>Server failure</literal>) responses.
+</tag-desc>
+<tag-name>
+<literal>nxdomain</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The total number of NXDOMAIN (<literal>Host not found</literal>) responses.
+</tag-desc>
+<tag-name>
+<literal>notimp</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The total number of NOTIMP (<literal>Unimplemented</literal>) responses.
+</tag-desc>
+<tag-name>
+<literal>refused</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The total number of REFUSED (<literal>Operation refused</literal>) responses.
+</tag-desc>
+<tag-name>
+<literal>timedout</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The total number of timed out requests.
+</tag-desc>
+<tag-name>
+<literal>unknown</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The total number of requests completed with an unknown error.
+</tag-desc>
+</list>
+</tag-desc>
+</list>
+<para>Example:</para>
+<example>
+{
+  "resolver_zone1" : {
+    "requests" : {
+      "name" : 25460,
+      "srv" : 130,
+      "addr" : 2580
+    },
+    "responses" : {
+      "noerror" : 26499,
+      "formerr" : 0,
+      "servfail" : 3,
+      "nxdomain" : 0,
+      "notimp" : 0,
+      "refused" : 0,
+      "timedout" : 243,
+      "unknown" : 478
+    }
+  }
+}</example>
 </listitem>
 <listitem id="def_nginx_error">
 <para>Error:</para>

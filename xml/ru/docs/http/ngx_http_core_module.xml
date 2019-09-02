@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="84">
+        rev="85">
 
 <section id="directives" name="Директивы">
 
@@ -2106,7 +2106,8 @@ open_file_cache_events   on;
 <syntax>
     <value>адрес</value> ...
     [<literal>valid</literal>=<value>время</value>]
-    [<literal>ipv6</literal>=<literal>on</literal>|<literal>off</literal>]</syntax>
+    [<literal>ipv6</literal>=<literal>on</literal>|<literal>off</literal>]
+    [<literal>status_zone</literal>=<value>зона</value>]</syntax>
 <default/>
 <context>http</context>
 <context>server</context>
@@ -2149,6 +2150,16 @@ resolver 127.0.0.1 [::1]:5353 valid=30s;
 Для предотвращения DNS-спуфинга рекомендуется
 использовать DNS-серверы в защищённой доверенной локальной сети.
 </note>
+</para>
+
+<para id="resolver_status_zone">
+Необязательный параметр <literal>status_zone</literal> (1.17.1)
+включает
+<link doc="ngx_http_api_module.xml" id="resolvers_">сбор информации</link>
+о запросах и ответах сервера DNS
+в указанной <value>зоне</value>.
+Параметр доступен как часть
+<commercial_version>коммерческой подписки</commercial_version>.
 </para>
 
 </directive>

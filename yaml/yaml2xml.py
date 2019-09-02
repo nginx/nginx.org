@@ -44,7 +44,7 @@ def node_description(node):
 
 
 def pretty_endpoint(ep):
-    return ep.replace('/',' ').replace('_',' ')
+    return ep.replace('/slabs/','slabs').replace('/resolvers/','resolvers').replace('/http/','HTTP ').replace('/stream/','stream ').replace('s/','s').replace('_',' ')
 
 
 # human-readable html element id based on path

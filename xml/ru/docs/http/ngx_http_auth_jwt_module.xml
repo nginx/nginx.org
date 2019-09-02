@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_auth_jwt_module"
         link="/ru/docs/http/ngx_http_auth_jwt_module.html"
         lang="ru"
-        rev="9">
+        rev="10">
 
 <section id="summary">
 
@@ -138,12 +138,8 @@ auth_jwt "closed site" token=$cookie_auth_token;
 Сопоставление имён начинается с верхнего уровня дерева JSON.
 Для массива переменная хранит список его элементов, разделяемых запятыми.
 <example>
-location / {
-    auth_jwt           "closed site";
-    auth_jwt_key_file  conf/keys.json;
-    auth_jwt_claim_set $email info e-mail;
-    auth_jwt_claim_set $job info "job title";
-}
+auth_jwt_claim_set $email info e-mail;
+auth_jwt_claim_set $job info "job title";
 </example>
 <note>
 До версии 1.13.7 можно было указать лишь одно имя,

@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: '4.0'
+  version: '5.0'
   title: NGINX Plus REST API
   description: NGINX Plus REST
     [API](https://nginx.org/en/docs/http/ngx_http_api_module.html)
@@ -9,23 +9,25 @@ info:
     key-value pairs management for
     [http](https://nginx.org/en/docs/http/ngx_http_keyval_module.html) and
     [stream](https://nginx.org/en/docs/stream/ngx_stream_keyval_module.html).
-basePath: /api/4
+basePath: /api/5
 tags:
   - name: General Info
   - name: Processes
   - name: Connections
-  - name: SSL
   - name: Slabs
+  - name: Resolvers
+  - name: SSL
   - name: HTTP
   - name: HTTP Requests
-  - name: HTTP Caches
   - name: HTTP Server Zones
-  - name: HTTP Upstreams
+  - name: HTTP Location Zones
+  - name: HTTP Caches
   - name: HTTP Keyvals
+  - name: HTTP Upstreams
   - name: Stream
   - name: Stream Server Zones
-  - name: Stream Upstreams
   - name: Stream Keyvals
+  - name: Stream Upstreams
   - name: Stream Zone Sync
   - name: Method GET
   - name: Method POST
@@ -128,36 +130,6 @@ paths:
       responses:
         '204':
           description: Success
-  /ssl:
-    get:
-      tags:
-        - SSL
-        - Method GET
-      summary: Return SSL statistics
-      description: Returns SSL statistics.
-      operationId: getSsl
-      produces:
-        - application/json
-      responses:
-        '200':
-          description: Success
-          schema:
-            $ref: '#/definitions/NginxSSLObject'
-      parameters:
-        - in: query
-          name: fields
-          type: string
-          description: Limits which fields of SSL statistics will be output.
-    delete:
-      tags:
-        - SSL
-        - Method DELETE
-      summary: Reset SSL statistics
-      description: Resets counters of SSL handshakes and session reuses.
-      operationId: deleteSslStat
-      responses:
-        '204':
-          description: Success
   /slabs/:
     get:
       tags:
@@ -175,7 +147,7 @@ paths:
           type: string
           description: Limits which fields of slab zones will be output.
             If the “<literal>fields</literal>” value is empty,
-            then only zone names are output.
+            then only zone names will be output.
       responses:
         '200':
           description: Success
@@ -298,7 +270,7 @@ paths:
           type: string
           description: Limits which fields of server zones will be output.
             If the “<literal>fields</literal>” value is empty,
-            then only server zone names are output.
+            then only server zone names will be output.
       responses:
         '200':
           description: Success
@@ -353,6 +325,79 @@ paths:
           description: Method disabled (*MethodDisabled*)
           schema:
             $ref: '#/definitions/NginxError'
+  /http/location_zones/:
+    get:
+      tags:
+        - HTTP Location Zones
+        - Method GET
+      summary: Return status of all HTTP location zones
+      description: Returns status information for each HTTP
+        [location zone](https://nginx.org/en/docs/http/ngx_http_api_module.html#status_zone_location).
+      operationId: getHttpLocationZones
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: fields
+          type: string
+          description: Limits which fields of location zones will be output.
+            If the “<literal>fields</literal>” value is empty,
+            then only zone names will be output.
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/NginxHTTPLocationZonesMap'
+  '/http/location_zones/{httpLocationZoneName}':
+    parameters:
+      - name: httpLocationZoneName
+        in: path
+        description: The name of an HTTP [location zone](https://nginx.org/en/docs/http/ngx_http_api_module.html#status_zone_location).
+        type: string
+        required: true
+    get:
+      tags:
+        - HTTP Location Zones
+        - Method GET
+      summary: Return status of an HTTP location zone
+      description: Returns status of a particular
+        HTTP [location zone](https://nginx.org/en/docs/http/ngx_http_api_module.html#status_zone_location).
+      operationId: getHttpLocationZone
+      produces:
+        - application/json
+      parameters:
+        - name: fields
+          in: query
+          type: string
+          description: Limits which fields of the location zone will be output.
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/NginxHTTPLocationZone'
+        '404':
+          description: Location zone not found (*LocationZoneNotFound*)
+          schema:
+            $ref: '#/definitions/NginxError'
+    delete:
+      tags:
+        - HTTP Location Zones
+        - Method DELETE
+      summary: Reset statistics for a location zone.
+      description: Resets statistics of accepted and discarded requests, responses,
+        received and sent bytes in a particular location zone.
+      operationId: deleteHttpLocationZoneStat
+      responses:
+        '204':
+          description: Success
+        '404':
+          description: Location zone not found (*LocationZoneNotFound*)
+          schema:
+            $ref: '#/definitions/NginxError'
+        '405':
+          description: Method disabled (*MethodDisabled*)
+          schema:
+            $ref: '#/definitions/NginxError'
   /http/caches/:
     get:
       tags:
@@ -371,7 +416,7 @@ paths:
           type: string
           description: Limits which fields of cache zones will be output.
             If the “<literal>fields</literal>” value is empty,
-            then only names of cache zones are output.
+            then only names of cache zones will be output.
       responses:
         '200':
           description: Success
@@ -442,7 +487,7 @@ paths:
           type: string
           description: Limits which fields of upstream server groups will be output.
             If the “<literal>fields</literal>” value is empty,
-            only names of upstreams are output.
+            only names of upstreams will be output.
       responses:
         '200':
           description: Success
@@ -743,7 +788,7 @@ paths:
           in: query
           type: string
           description: If the “<literal>fields</literal>” value is empty,
-            then only HTTP keyval zone names are output.
+            then only HTTP keyval zone names will be output.
       responses:
         '200':
           description: Success
@@ -800,17 +845,25 @@ paths:
           description: A key-value pair is specified in the JSON format.
             Several key-value pairs can be entered
             if the HTTP keyval shared memory zone is empty.
+            Expiration time in milliseconds can be specified for a key-value pair
+            with the *expire* parameter
+            which overrides the [*timeout*](https://nginx.org/en/docs/http/ngx_http_keyval_module.html#keyval_timeout)
+            parameter of the
+            <a href="https://nginx.org/en/docs/http/ngx_http_keyval_module.html#keyval_zone">keyval_zone</a>
+            directive.
           required: true
           schema:
-            $ref: '#/definitions/NginxHTTPKeyvalZone'
+            $ref: '#/definitions/NginxHTTPKeyvalZonePostPatch'
       responses:
         '201':
           description: Created
         '400':
           description: |
-            Key required (*KeyvalFormatError*),
-            only one key can be added (*KeyvalFormatError*),
-            nested object or list (*KeyvalFormatError*)
+            Invalid JSON (*KeyvalFormatError*),
+            invalid key format (*KeyvalFormatError*),
+            key required (*KeyvalFormatError*),
+            keyval timeout is not enabled (*KeyvalFormatError*),
+            only one key can be added (*KeyvalFormatError*)
           schema:
             $ref: '#/definitions/NginxError'
         '404':
@@ -834,12 +887,19 @@ paths:
         - HTTP Keyvals
         - Method PATCH
       summary: Modify a key-value or delete a key
-      description: Changes the value of the selected key in the key-value pair
-        or deletes a key by setting the key value to <literal>null</literal>.
+      description: Changes the value of the selected key in the key-value pair,
+        deletes a key by setting the key value to <literal>null</literal>,
+        changes expiration time of a key-value pair.
         If
         <a href="https://nginx.org/en/docs/stream/ngx_stream_zone_sync_module.html#zone_sync">synchronization</a>
         of keyval zones in a cluster is enabled,
         deletes a key only on a target cluster node.
+        Expiration time in milliseconds can be specified for a key-value pair
+        with the *expire* parameter
+        which overrides the [*timeout*](https://nginx.org/en/docs/http/ngx_http_keyval_module.html#keyval_timeout)
+        parameter of the
+        <a href="https://nginx.org/en/docs/http/ngx_http_keyval_module.html#keyval_zone">keyval_zone</a>
+        directive.
       operationId: patchHttpKeyvalZoneKeyValue
       produces:
         - application/json
@@ -849,15 +909,16 @@ paths:
           description: A new value for the key is specified in the JSON format.
           required: true
           schema:
-            $ref: '#/definitions/NginxHTTPKeyvalZone'
+            $ref: '#/definitions/NginxHTTPKeyvalZonePostPatch'
       responses:
         '204':
           description: Success
         '400':
           description: |
-            Key required (*KeyvalFormatError*),
-            only one key can be updated (*KeyvalFormatError*),
-            nested object or list (*KeyvalFormatError*)
+            Invalid JSON (*KeyvalFormatError*),
+            key required (*KeyvalFormatError*),
+            keyval timeout is not enabled (*KeyvalFormatError*),
+            only one key can be updated (*KeyvalFormatError*)
           schema:
             $ref: '#/definitions/NginxError'
         '404':
@@ -928,7 +989,7 @@ paths:
           type: string
           description: Limits which fields of server zones will be output.
             If the “<literal>fields</literal>” value is empty,
-            then only server zone names are output.
+            then only server zone names will be output.
       responses:
         '200':
           description: Success
@@ -1002,7 +1063,7 @@ paths:
           type: string
           description: Limits which fields of upstream server groups will be output.
             If the “<literal>fields</literal>” value is empty,
-            only names of upstreams are output.
+            only names of upstreams will be output.
       responses:
         '200':
           description: Success
@@ -1307,7 +1368,7 @@ paths:
           in: query
           type: string
           description: If the “<literal>fields</literal>” value is empty,
-            then only stream keyval zone names are output.
+            then only stream keyval zone names will be output.
       responses:
         '200':
           description: Success
@@ -1364,17 +1425,25 @@ paths:
           description: A key-value pair is specified in the JSON format.
             Several key-value pairs can be entered
             if the stream keyval shared memory zone is empty.
+            Expiration time in milliseconds can be specified for a key-value pair
+            with the *expire* parameter
+            which overrides the [*timeout*](https://nginx.org/en/docs/stream/ngx_stream_keyval_module.html#keyval_timeout)
+            parameter of the
+            <a href="https://nginx.org/en/docs/stream/ngx_stream_keyval_module.html#keyval_zone">keyval_zone</a>
+            directive.
           required: true
           schema:
-            $ref: '#/definitions/NginxStreamKeyvalZone'
+            $ref: '#/definitions/NginxStreamKeyvalZonePostPatch'
       responses:
         '201':
           description: Created
         '400':
           description: |
-            Key required (*KeyvalFormatError*),
-            only one key can be added (*KeyvalFormatError*),
-            nested object or list (*KeyvalFormatError*)
+            Invalid JSON (*KeyvalFormatError*),
+            invalid key format (*KeyvalFormatError*),
+            key required (*KeyvalFormatError*),
+            keyval timeout is not enabled (*KeyvalFormatError*),
+            only one key can be added (*KeyvalFormatError*)
           schema:
             $ref: '#/definitions/NginxError'
         '404':
@@ -1399,12 +1468,19 @@ paths:
         - Stream Keyvals
         - Method PATCH
       summary: Modify a key-value or delete a key
-      description: Changes the value of the selected key in the key-value pair
-        or deletes a key by setting the key value to <literal>null</literal>.
+      description: Changes the value of the selected key in the key-value pair,
+        deletes a key by setting the key value to <literal>null</literal>,
+        changes expiration time of a key-value pair.
         If
         <a href="https://nginx.org/en/docs/stream/ngx_stream_zone_sync_module.html#zone_sync">synchronization</a>
         of keyval zones in a cluster is enabled,
         deletes a key only on a target cluster node.
+        Expiration time is specified in milliseconds
+        with the *expire* parameter
+        which overrides the [*timeout*](https://nginx.org/en/docs/stream/ngx_stream_keyval_module.html#keyval_timeout)
+        parameter of the
+        <a href="https://nginx.org/en/docs/stream/ngx_stream_keyval_module.html#keyval_zone">keyval_zone</a>
+        directive.
       operationId: patchStreamKeyvalZoneKeyValue
       produces:
         - application/json
@@ -1414,15 +1490,16 @@ paths:
           description: A new value for the key is specified in the JSON format.
           required: true
           schema:
-            $ref: '#/definitions/NginxStreamKeyvalZone'
+            $ref: '#/definitions/NginxStreamKeyvalZonePostPatch'
       responses:
         '204':
           description: Success
         '400':
           description: |
-            Key required (*KeyvalFormatError*),
-            only one key can be updated (*KeyvalFormatError*),
-            nested object or list (*KeyvalFormatError*)
+            Invalid JSON (*KeyvalFormatError*),
+            key required (*KeyvalFormatError*),
+            keyval timeout is not enabled (*KeyvalFormatError*),
+            only one key can be updated (*KeyvalFormatError*)
           schema:
             $ref: '#/definitions/NginxError'
         '404':
@@ -1478,6 +1555,108 @@ paths:
           description: Success
           schema:
             $ref: '#/definitions/NginxStreamZoneSync'
+  /resolvers/:
+    get:
+      tags:
+        - Resolvers
+        - Method GET
+      summary: Return status for all resolver zones
+      description: Returns status information for each
+        [resolver zone](https://nginx.org/en/docs/http/ngx_http_core_module.html#resolver_status_zone).
+      operationId: getResolverZones
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/NginxResolverZonesMap'
+      parameters:
+        - in: query
+          name: fields
+          type: string
+          description: Limits which fields of resolvers statistics will be output.
+  '/resolvers/{resolverZoneName}':
+    parameters:
+      - name: resolverZoneName
+        in: path
+        description: The name of a resolver zone.
+        required: true
+        type: string
+    get:
+      tags:
+        - Resolvers
+        - Method GET
+      summary: Return statistics of a resolver zone
+      description: Returns statistics stored in a particular resolver
+        [zone](https://nginx.org/en/docs/http/ngx_http_core_module.html#resolver_status_zone).
+      operationId: getResolverZone
+      produces:
+        - application/json
+      parameters:
+        - name: fields
+          in: query
+          type: string
+          description: Limits which fields of the resolver zone will be output
+            (requests, responses, or both).
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/NginxResolverZone'
+        '404':
+          description: |
+            Resolver zone not found (*ResolverZoneNotFound*)
+          schema:
+            $ref: '#/definitions/NginxError'
+    delete:
+      tags:
+        - Resolvers
+        - Method DELETE
+      summary: Reset statistics for a resolver zone.
+      description: Resets statistics in a particular resolver zone.
+      operationId: deleteResolverZoneStat
+      responses:
+        '204':
+          description: Success
+        '404':
+          description: Resolver zone not found (*ResolverZoneNotFound*)
+          schema:
+            $ref: '#/definitions/NginxError'
+        '405':
+          description: Method disabled (*MethodDisabled*)
+          schema:
+            $ref: '#/definitions/NginxError'
+  /ssl:
+    get:
+      tags:
+        - SSL
+        - Method GET
+      summary: Return SSL statistics
+      description: Returns SSL statistics.
+      operationId: getSsl
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/NginxSSLObject'
+      parameters:
+        - in: query
+          name: fields
+          type: string
+          description: Limits which fields of SSL statistics will be output.
+    delete:
+      tags:
+        - SSL
+        - Method DELETE
+      summary: Reset SSL statistics
+      description: Resets counters of SSL handshakes and session reuses.
+      operationId: deleteSslStat
+      responses:
+        '204':
+          description: Success
 ###
 ###DEFINITIONS
 ###
@@ -1835,6 +2014,100 @@ definitions:
         description: The total number of bytes sent to clients.
     example:
       processing: 1
+      requests: 706690
+      responses:
+        1xx: 0
+        2xx: 699482
+        3xx: 4522
+        4xx: 907
+        5xx: 266
+        total: 705177
+      discarded: 1513
+      received: 172711587
+      sent: 19415530115
+  NginxHTTPLocationZonesMap:
+    title: HTTP Location Zones
+    description: |
+      Status data for all HTTP
+      <a href="https://nginx.org/en/docs/http/ngx_http_api_module.html#status_zone">location zones</a>.
+    type: object
+    additionalProperties:
+      $ref: '#/definitions/NginxHTTPLocationZone'
+    example:
+      site1:
+        requests: 736395
+        responses:
+          1xx: 0
+          2xx: 727290
+          3xx: 4614
+          4xx: 934
+          5xx: 1535
+          total: 734373
+        discarded: 2020
+        received: 180157219
+        sent: 20183175459
+      site2:
+        requests: 185307
+        responses:
+          1xx: 0
+          2xx: 112674
+          3xx: 45383
+          4xx: 2504
+          5xx: 4419
+          total: 164980
+        discarded: 20326
+        received: 51575327
+        sent: 2983241510
+  NginxHTTPLocationZone:
+    title: HTTP Location Zone
+    type: object
+    properties:
+      requests:
+        type: integer
+        description: The total number of client requests received from clients.
+      responses:
+        description: The total number of responses sent to clients and the
+          number of responses with status codes
+          “<code>1xx</code>”, “<code>2xx</code>”, “<code>3xx</code>”,
+          “<code>4xx</code>”, and “<code>5xx</code>”.
+        type: object
+        readOnly: true
+        properties:
+          1xx:
+            type: integer
+            description: The number of responses with “<code>1xx</code>” status codes.
+            readOnly: true
+          2xx:
+            type: integer
+            description: The number of responses with “<code>2xx</code>” status codes.
+            readOnly: true
+          3xx:
+           type: integer
+           description: The number of responses with “<code>3xx</code>” status codes.
+           readOnly: true
+          4xx:
+            type: integer
+            description: The number of responses with “<code>4xx</code>” status codes.
+            readOnly: true
+          5xx:
+            type: integer
+            description: The number of responses with “<code>5xx</code>” status codes.
+            readOnly: true
+          total:
+            type: integer
+            description: The total number of responses sent to clients.
+            readOnly: true
+      discarded:
+        type: integer
+        description: The total number of
+          requests completed without sending a response.
+      received:
+        type: integer
+        description: The total number of bytes received from clients.
+      sent:
+        type: integer
+        description: The total number of bytes sent to clients.
+    example:
       requests: 706690
       responses: 
         1xx: 0
@@ -2602,12 +2875,25 @@ definitions:
   NginxHTTPKeyvalZone:
     title: HTTP Keyval Shared Memory Zone
     description: |
-      Contents of an HTTP keyval shared memory zone.
+      Contents of an HTTP keyval shared memory zone
+      when using the GET method.
     type: object
     example:
       key1: value1
       key2: value2
       key3: value3
+  NginxHTTPKeyvalZonePostPatch:
+    title: HTTP Keyval Shared Memory Zone
+    description: |
+      Contents of an HTTP keyval shared memory zone
+      when using the POST or PATCH methods.
+    type: object
+    example:
+      key1: value1
+      key2: value2
+      key3:
+        value: value3
+        expire: 30000
   NginxStreamServerZonesMap:
     title: Stream Server Zones
     description: |
@@ -3140,12 +3426,24 @@ definitions:
   NginxStreamKeyvalZone:
     title: Stream Keyval Shared Memory Zone
     description: |
-      Contents of a stream keyval shared memory zone.
+      Contents of a stream keyval shared memory zone when using the GET method.
     type: object
     example:
       key1: value1
       key2: value2
       key3: value3
+  NginxStreamKeyvalZonePostPatch:
+    title: Stream Keyval Shared Memory Zone
+    description: |
+      Contents of a stream keyval shared memory zone
+      when using the POST or PATCH methods.
+    type: object
+    example:
+      key1: value1
+      key2: value2
+      key3:
+        value: value3
+        expire: 30000
   NginxStreamZoneSync:
     title: Stream Zone Sync Node
     type: object
@@ -3200,6 +3498,126 @@ definitions:
       records_total:
         type: integer
         description: The total number of records stored in the shared memory zone.
+  NginxResolverZonesMap:
+    title: Resolver Zones
+    description: |
+      Status data for all
+      <a href="https://nginx.org/en/docs/http/ngx_http_core_module.html#resolver_status_zone">resolver zones</a>.
+    type: object
+    additionalProperties:
+      $ref: '#/definitions/NginxResolverZone'
+    example:
+      resolver_zone1:
+        requests:
+          name: 25460
+          srv: 130
+          addr: 2580
+        responses:
+          noerror: 26499
+          formerr: 0
+          servfail: 3
+          nxdomain: 0
+          notimp: 0
+          refused: 0
+          timedout: 243
+          unknown: 478
+      resolver_zone2:
+        requests:
+          name: 325460
+          srv: 1130
+          addr: 12580
+        responses:
+          noerror: 226499
+          formerr: 0
+          servfail: 283
+          nxdomain: 0
+          notimp: 0
+          refused: 0
+          timedout: 743
+          unknown: 1478
+  NginxResolverZone:
+    title: Resolver Zone
+    description: |
+      Statistics of DNS requests and responses per particular
+      <a href="https://nginx.org/en/docs/http/ngx_http_core_module.html#resolver_status_zone">resolver zone</a>.
+    type: object
+    properties:
+      requests:
+        type: object
+        readOnly: true
+        properties:
+          name:
+            type: integer
+            description: The total number of requests
+              to resolve names to addresses.
+            readOnly: true
+          srv:
+            type: integer
+            description: The total number of requests
+             to resolve SRV records.
+            readOnly: true
+          addr:
+           type: integer
+           description: The total number of requests
+             to resolve addresses to names.
+           readOnly: true
+      responses:
+        type: object
+        readOnly: true
+        properties:
+          noerror:
+            type: integer
+            description: The total number of successful responses.
+            readOnly: true
+          formerr:
+            type: integer
+            description: The total number of
+              FORMERR (<literal>Format error</literal>) responses.
+            readOnly: true
+          servfail:
+           type: integer
+           description: The total number of
+             SERVFAIL (<literal>Server failure</literal>) responses.
+           readOnly: true
+          nxdomain:
+           type: integer
+           description: The total number of
+             NXDOMAIN (<literal>Host not found</literal>) responses.
+           readOnly: true
+          notimp:
+           type: integer
+           description: The total number of
+             NOTIMP (<literal>Unimplemented</literal>) responses.
+           readOnly: true
+          refused:
+           type: integer
+           description: The total number of
+             REFUSED (<literal>Operation refused</literal>) responses.
+           readOnly: true
+          timedout:
+           type: integer
+           description: The total number of timed out requests.
+           readOnly: true
+          unknown:
+           type: integer
+           description: The total number of requests
+             completed with an unknown error.
+           readOnly: true
+    example:
+      resolver_zone1:
+        requests:
+          name: 25460
+          srv: 130
+          addr: 2580
+        responses:
+          noerror: 26499
+          formerr: 0
+          servfail: 3
+          nxdomain: 0
+          notimp: 0
+          refused: 0
+          timedout: 243
+          unknown: 478
   NginxError:
     title: Error
     description: |

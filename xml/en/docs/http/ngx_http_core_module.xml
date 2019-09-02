@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="84">
+        rev="85">
 
 <section id="directives" name="Directives">
 
@@ -2108,7 +2108,8 @@ closed normally.
 <syntax>
     <value>address</value> ...
     [<literal>valid</literal>=<value>time</value>]
-    [<literal>ipv6</literal>=<literal>on</literal>|<literal>off</literal>]</syntax>
+    [<literal>ipv6</literal>=<literal>on</literal>|<literal>off</literal>]
+    [<literal>status_zone</literal>=<value>zone</value>]</syntax>
 <default/>
 <context>http</context>
 <context>server</context>
@@ -2149,6 +2150,16 @@ and nginx always cached answers for the duration of 5 minutes.
 To prevent DNS spoofing, it is recommended
 configuring DNS servers in a properly secured trusted local network.
 </note>
+</para>
+
+<para id="resolver_status_zone">
+The optional <literal>status_zone</literal> parameter (1.17.1)
+enables
+<link doc="ngx_http_api_module.xml" id="resolvers_">collection</link>
+of DNS server statistics of requests and responses
+in the specified <value>zone</value>.
+The parameter is available as part of our
+<commercial_version>commercial subscription</commercial_version>.
 </para>
 
 </directive>

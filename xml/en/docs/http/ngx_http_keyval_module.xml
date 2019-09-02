@@ -9,7 +9,7 @@
 <module name="Module ngx_http_keyval_module"
         link="/en/docs/http/ngx_http_keyval_module.html"
         lang="en"
-        rev="4">
+        rev="5">
 
 <section id="summary">
 
@@ -81,6 +81,7 @@ specified by the <literal>zone</literal> parameter.
     <literal>zone</literal>=<value>name</value>:<value>size</value>
     [<literal>state</literal>=<value>file</value>]
     [<literal>timeout</literal>=<value>time</value>]
+    [<literal>type</literal>=<literal>string</literal>|<literal>ip</literal>]
     [<literal>sync</literal>]</syntax>
 <default/>
 <context>http</context>
@@ -101,6 +102,18 @@ and makes it persistent across nginx restarts.
 <para id="keyval_timeout">
 The optional <literal>timeout</literal> parameter (1.15.0) sets
 the time after which key-value pairs are removed from the zone.
+</para>
+
+<para id="keyval_type">
+The optional <literal>type</literal> parameter (1.17.1) specifies
+the type of the key:
+a <literal>string</literal> (default) or <literal>ip</literal>.
+For the <literal>ip</literal> type,
+the key must be the textual representation of an IP address
+specified in CIDR notation.
+In this case,
+an additional index optimized for matching IP addresses and networks is used
+in evaluating a variable.
 </para>
 
 <para id="keyval_sync">

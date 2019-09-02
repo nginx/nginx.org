@@ -101,21 +101,21 @@ All API requests include
 a supported API <link id="api_version">version</link> in the URI.
 Examples of API requests with this configuration:
 <example>
-http://127.0.0.1/api/4/
-http://127.0.0.1/api/4/nginx
-http://127.0.0.1/api/4/connections
-http://127.0.0.1/api/4/http/requests
-http://127.0.0.1/api/4/http/server_zones/server_backend
-http://127.0.0.1/api/4/http/caches/cache_backend
-http://127.0.0.1/api/4/http/upstreams/backend
-http://127.0.0.1/api/4/http/upstreams/backend/servers/
-http://127.0.0.1/api/4/http/upstreams/backend/servers/1
-http://127.0.0.1/api/4/http/keyvals/one?key=arg1
-http://127.0.0.1/api/4/stream/
-http://127.0.0.1/api/4/stream/server_zones/server_backend
-http://127.0.0.1/api/4/stream/upstreams/
-http://127.0.0.1/api/4/stream/upstreams/backend
-http://127.0.0.1/api/4/stream/upstreams/backend/servers/1
+http://127.0.0.1/api/5/
+http://127.0.0.1/api/5/nginx
+http://127.0.0.1/api/5/connections
+http://127.0.0.1/api/5/http/requests
+http://127.0.0.1/api/5/http/server_zones/server_backend
+http://127.0.0.1/api/5/http/caches/cache_backend
+http://127.0.0.1/api/5/http/upstreams/backend
+http://127.0.0.1/api/5/http/upstreams/backend/servers/
+http://127.0.0.1/api/5/http/upstreams/backend/servers/1
+http://127.0.0.1/api/5/http/keyvals/one?key=arg1
+http://127.0.0.1/api/5/stream/
+http://127.0.0.1/api/5/stream/server_zones/server_backend
+http://127.0.0.1/api/5/stream/upstreams/
+http://127.0.0.1/api/5/stream/upstreams/backend
+http://127.0.0.1/api/5/stream/upstreams/backend/servers/1
 </example>
 </para>
 
@@ -146,14 +146,14 @@ By default, the API is read-only.
 All API requests should contain a supported API version in the URI.
 If the request URI equals the location prefix,
 the list of supported API versions is returned.
-The current API version is “<literal>4</literal>”.
+The current API version is “<literal>5</literal>”.
 </para>
 
 <para>
 The optional “<literal>fields</literal>” argument in the request line
 specifies which fields of the requested objects will be output:
 <example>
-http://127.0.0.1/api/4/nginx?fields=version,build
+http://127.0.0.1/api/5/nginx?fields=version,build
 </example>
 </para>
 
@@ -164,6 +164,8 @@ http://127.0.0.1/api/4/nginx?fields=version,build
 <syntax><value>zone</value></syntax>
 <default/>
 <context>server</context>
+<context>location</context>
+<context>if in location</context>
 <appeared-in>1.13.12</appeared-in>
 
 <para>
@@ -175,6 +177,18 @@ server status information in the specified <value>zone</value>.
 Several servers may share the same zone.
 </para>
 
+<para id="status_zone_location">
+Starting from 1.17.0, status information can be collected
+per <link doc="ngx_http_core_module.xml" id="location"/>.
+The special value <literal>off</literal> disables statistics collection
+in nested location blocks.
+Note that the statistics is collected
+in the context of a location where processing ends.
+It may be different from the original location, if an
+<link doc="ngx_http_core_module.xml" id="internal">internal
+redirect</link> happens during request processing.
+</para>
+
 </directive>
 
 </section>
@@ -183,6 +197,24 @@ Several servers may share the same zone.
 
 <para>
 <list type="bullet">
+
+<listitem>
+The “<literal>expire</literal>” parameter of a
+<link doc="ngx_http_keyval_module.xml">key-value</link> pair can be
+<link id="postHttpKeyvalZoneData">set</link> or
+<link id="patchHttpKeyvalZoneKeyValue">changed</link>
+since <link id="api_version">version</link> 5.
+</listitem>
+
+<listitem>
+The <link id="resolvers_">/resolvers/</link> data
+were added in <link id="api_version">version</link> 5.
+</listitem>
+
+<listitem>
+The <link id="http_location_zones_">/http/location_zones/</link> data
+were added in <link id="api_version">version</link> 5.
+</listitem>
 
 <listitem>
 The <literal>path</literal> and <literal>method</literal> fields of
