@@ -22,7 +22,7 @@
         <xsl:if test="@lang = 'he'"> <xsl:attribute name="class"> <xsl:text>ltr</xsl:text> </xsl:attribute> </xsl:if>
         <b>NGINX Conf 2019 is this week!</b><br/>
 	Watch the livestream of NGINX Conf keynotes.<br/>
-        <a href="https://www.nginx.com/nginxconf/2019/#livestream?utm_source=nginxorg&amp;utm_medium=homepagebanner&amp;utm_campaign=nginxconf19">Watch now</a>
+        <a href="https://www.nginx.com/nginxconf/2019/?utm_source=nginxorg&amp;utm_medium=homepagebanner&amp;utm_campaign=nginxconf19">Watch now</a>
     </div>
 
     <div id="main">
