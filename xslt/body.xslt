@@ -20,8 +20,9 @@
 
     <div id="banner">
         <xsl:if test="@lang = 'he'"> <xsl:attribute name="class"> <xsl:text>ltr</xsl:text> </xsl:attribute> </xsl:if>
-        Learn how to configure caching, load balancing, cloud deployments, and other critical NGINX features.<br/>
-        <a href="https://www.nginx.com/resources/library/complete-nginx-cookbook/?utm_source=nginxorg&amp;utm_medium=homepagebanner&amp;utm_campaign=complete_cookbook">Download the Complete NGINX Cookbook</a>
+        <b>NGINX Conf 2019 is this week!</b><br/>
+	Watch the livestream of NGINX Conf keynotes.<br/>
+        <a href="https://www.nginx.com/nginxconf/2019/#livestream?utm_source=nginxorg&amp;utm_medium=homepagebanner&amp;utm_campaign=nginxconf19">Watch now</a>
     </div>
 
     <div id="main">
