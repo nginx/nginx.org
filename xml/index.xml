@@ -7,6 +7,20 @@
 
 <news name="nginx news" link="/" lang="en">
 
+<event date="2019-09-19">
+<para>
+<link url="https://unit.nginx.org/">unit-1.11.0</link>
+version has been
+<link url="https://mailman.nginx.org/pipermail/unit/2019-September/000167.html">released</link>,
+featuring
+<link url="https://unit.nginx.org/configuration/#configuration-static">static
+content support</link>,
+<link url="https://unit.nginx.org/configuration/#configuration-proc-mgmt-isolation">
+application namespace isolation</link>, and support for WebSockets in Java
+Servlet Containers.
+</para>
+</event>
+
 <event date="2019-08-22">
 <para>
 <link url="https://unit.nginx.org/">unit-1.10.0</link>
