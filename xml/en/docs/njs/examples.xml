@@ -9,7 +9,7 @@
 <article name="Examples"
         link="/en/docs/njs/examples.html"
         lang="en"
-        rev="4">
+        rev="5">
 
 <section id="helloword" name="Hello World">
 
@@ -184,7 +184,7 @@ js_set $jwt jwt;
 <path>hs_jwt.js</path>:
 <example>
 function create_hs256_jwt(claims, key, valid) {
-    var header = { "typ" : "JWT", "alg" : "HS256", "exp" : Date.now() + valid };
+    var header = { "typ" : "JWT", "alg" : "HS256", "exp" : Math.floor(Date.now()/1000) + valid };
 
     var s = JSON.stringify(header).toBytes().toString('base64url') + '.'
             + JSON.stringify(claims).toBytes().toString('base64url');
