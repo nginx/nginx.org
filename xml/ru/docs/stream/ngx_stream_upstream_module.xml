@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_upstream_module"
         link="/ru/docs/stream/ngx_stream_upstream_module.html"
         lang="ru"
-        rev="36">
+        rev="37">
 
 <section id="summary">
 
@@ -203,6 +203,10 @@ upstream backend {
 помечает сервер как запасной сервер.
 На него будут передаваться соединения в случае,
 если не работают основные серверы.
+<note>
+Параметр нельзя использовать совместно с
+методами балансировки нагрузки <link id="hash"/> и <link id="random"/>.
+</note>
 </tag-desc>
 
 <tag-name id="down">
