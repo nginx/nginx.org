@@ -9,7 +9,7 @@
 <article name="Examples"
         link="/en/docs/njs/examples.html"
         lang="en"
-        rev="5">
+        rev="6">
 
 <section id="helloword" name="Hello World">
 
@@ -239,7 +239,7 @@ location /api {
 <path>subrequest.js</path>:
 <example>
 function set_keyval(r) {
-    r.subrequest('/api/3/http/keyvals/foo',
+    r.subrequest('/api/5/http/keyvals/foo',
         { method: 'POST',
           body: JSON.stringify({ foo: 789, bar: "ss dd 00" })},
 
@@ -253,7 +253,7 @@ function set_keyval(r) {
 }
 
 function version(r) {
-    r.subrequest('/api/3/nginx', { method: 'GET' }, function(res) {
+    r.subrequest('/api/5/nginx', { method: 'GET' }, function(res) {
         if (res.status != 200) {
             r.return(res.status);
             return;
