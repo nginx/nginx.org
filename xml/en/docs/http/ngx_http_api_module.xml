@@ -1715,12 +1715,12 @@ The ID of the master process that started the <link url="https://nginx.org/en/do
 <example>
 {
   "nginx" : {
-    "version" : "1.15.2",
-    "build" : "nginx-plus-r16",
+    "version" : "1.17.3",
+    "build" : "nginx-plus-r19",
     "address" : "206.251.255.64",
     "generation" : 6,
-    "load_timestamp" : "2018-10-08T09:05:48.776Z",
-    "timestamp" : "2018-10-08T15:23:17.056Z",
+    "load_timestamp" : "2019-10-01T11:15:44.467Z",
+    "timestamp" : "2019-10-01T09:26:07.305Z",
     "pid" : 32212,
     "ppid" : 32210
   }
@@ -2614,8 +2614,8 @@ The total number of requests rejected due to the queue overflow.
           "last_passed" : true
         },
         "downtime" : 0,
-        "downstart" : "2017-07-07T11:09:21.602Z",
-        "selected" : "2017-07-17T15:01:25.000Z"
+        "downstart" : "2019-10-01T11:09:21.602Z",
+        "selected" : "2019-10-01T15:01:25.000Z"
       },
       {
         "id" : 1,
@@ -2646,8 +2646,8 @@ The total number of requests rejected due to the queue overflow.
           "last_passed" : false
         },
         "downtime" : 262925617,
-        "downstart" : "2017-07-07T11:09:21.602Z",
-        "selected" : "2017-07-17T15:01:25.000Z"
+        "downstart" : "2019-10-01T11:09:21.602Z",
+        "selected" : "2019-10-01T15:01:25.000Z"
       }
     ],
     "keepalive" : 0,
@@ -3065,8 +3065,8 @@ The name of the shared memory <link url="https://nginx.org/en/docs/stream/ngx_st
           "last_passed" : true
         },
         "downtime" : 0,
-        "downstart" : "2017-07-07T11:09:21.602Z",
-        "selected" : "2017-07-17T15:01:25.000Z"
+        "downstart" : "2019-10-01T11:09:21.602Z",
+        "selected" : "2019-10-01T15:01:25.000Z"
       },
       {
         "id" : 1,
@@ -3089,8 +3089,8 @@ The name of the shared memory <link url="https://nginx.org/en/docs/stream/ngx_st
           "last_passed" : false
         },
         "downtime" : 262925617,
-        "downstart" : "2017-07-07T11:09:21.602Z",
-        "selected" : "2017-07-17T15:01:25.000Z"
+        "downstart" : "2019-10-01T11:09:21.602Z",
+        "selected" : "2019-10-01T15:01:25.000Z"
       }
     ],
     "zombies" : 0,
