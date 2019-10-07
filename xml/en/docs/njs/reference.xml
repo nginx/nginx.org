@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="30">
+        rev="31">
 
 <section id="summary">
 
@@ -56,6 +56,17 @@ incoming headers object, read-only.
 For example, the <literal>Foo</literal> header
 can be accessed with the syntax <literal>headersIn.foo</literal>
 or <literal>headersIn['Foo']</literal>
+<note>
+For headers that can appear multiple times such as
+<header>Cookie</header> or <header>X-Forwarded-For</header>,
+only the first value will be returned.
+To get all cookies,
+<literal>r.variables.http_cookie</literal>
+should be used.
+To get the <literal>name</literal> cookie,
+<literal>r.variables["cookie_<value>name</value>"]</literal>
+should be used.
+</note>
 </para>
 </tag-desc>
 

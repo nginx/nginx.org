@@ -57,6 +57,17 @@
 Например, доступ к заголовку <literal>Foo</literal>
 можно получить при помощи синтаксиса <literal>headersIn.foo</literal>
 или <literal>headersIn['Foo']</literal>
+<note>
+Если заголовок может быть указан несколько раз, например
+<header>Cookie</header> или <header>X-Forwarded-For</header>,
+будет возвращено только первое значение.
+Чтобы получить все cookie
+необходимо использовать
+<literal>r.variables.http_cookie</literal>.
+Чтобы получить <literal>имя</literal> cookie
+необходимо использовать
+<literal>r.variables["cookie_<value>имя</value>"]</literal>.
+</note>
 </para>
 </tag-desc>
 
