@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_keyval_module"
         link="/en/docs/stream/ngx_stream_keyval_module.html"
         lang="en"
-        rev="5">
+        rev="6">
 
 <section id="summary">
 
@@ -75,6 +75,9 @@ stream {
 Creates a new <value>$variable</value> whose value
 is looked up by the <value>key</value> in the key-value database.
 Strings are matched ignoring the case.
+Matching rules are defined by the
+<link id="keyval_type"><literal>type</literal></link> parameter of the
+<link id="keyval_zone"><literal>keyval_zone</literal></link> directive.
 The database is stored in a shared memory zone
 specified by the <literal>zone</literal> parameter.
 </para>
@@ -111,15 +114,33 @@ the time after which key-value pairs are removed from the zone.
 </para>
 
 <para id="keyval_type">
-The optional <literal>type</literal> parameter (1.17.1) specifies
-the type of the key:
-a <literal>string</literal> (default) or <literal>ip</literal>.
-For the <literal>ip</literal> type,
-the key must be the textual representation of an IP address
-specified in CIDR notation.
-In this case,
-an additional index optimized for matching IP addresses and networks is used
-in evaluating a variable.
+The optional <literal>type</literal> parameter (1.17.1) activates
+an extra index optimized for matching the key of a certain type
+and defines matching rules when evaluating
+a <link id="keyval">keyval</link> <literal>$variable</literal>.
+<note>
+The index is stored in the same shared memory zone
+and thus requires additional storage.
+</note>
+
+<list type="tag">
+
+<tag-name id="keyval_type_string"><literal>type=string</literal></tag-name>
+<tag-desc>
+default, no index is enabled;
+variable lookup is performed using exact match
+of the record key and a search key
+</tag-desc>
+
+<tag-name id="keyval_type_ip"><literal>type=ip</literal></tag-name>
+<tag-desc>
+the search key is the textual representation of IPv4 or IPv6 address
+or CIDR range;
+to match a record key, the search key must belong to a subnet
+specified by a record key or exactly match an IP address
+</tag-desc>
+
+</list>
 </para>
 
 <para id="keyval_sync">
