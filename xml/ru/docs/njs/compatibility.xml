@@ -9,7 +9,7 @@
 <article name="Совместимость"
         link="/ru/docs/njs/compatibility.html"
         lang="ru"
-        rev="18"
+        rev="19"
         toc="no">
 
 <section>
@@ -33,7 +33,9 @@ njs совместим с
 
 <listitem>
 Логические значения, числа, строки, объекты, массивы,
-функции и регулярные выражения
+функции, конструкторы функций
+(<link doc="changes.xml" id="njs0.3.6">0.3.6</link>)
+и регулярные выражения
 </listitem>
 
 <listitem>
@@ -61,7 +63,11 @@ ES5.1 инструкции:
 </listitem>
 
 <listitem>
-ES6 методы и свойства <literal>Math</literal>:
+Свойства <literal>Math</literal>:
+<list type="bullet">
+
+<listitem>
+ES6:
 <literal>E</literal>,
 <literal>LN10</literal>,
 <literal>LN2</literal>,
@@ -69,8 +75,17 @@ ES6 методы и свойства <literal>Math</literal>:
 <literal>LOG2E</literal>,
 <literal>PI</literal>,
 <literal>SQRT1_2</literal>,
-<literal>SQRT2</literal>,
-<literal>__proto__</literal>,
+<literal>SQRT2</literal>
+</listitem>
+</list>
+</listitem>
+
+<listitem>
+Методы <literal>Math</literal>:
+<list type="bullet">
+
+<listitem>
+ES6:
 <literal>abs</literal>,
 <literal>acos</literal>,
 <literal>acosh</literal>,
@@ -107,9 +122,15 @@ ES6 методы и свойства <literal>Math</literal>:
 <literal>tanh</literal>,
 <literal>trunc</literal>
 </listitem>
+</list>
+</listitem>
 
 <listitem>
-ES6 методы и свойства <literal>Number</literal>:
+Свойства <literal>Number</literal>:
+<list type="bullet">
+
+<listitem>
+ES6:
 <literal>EPSILON</literal>,
 <literal>MAX_SAFE_INTEGER</literal>,
 <literal>MAX_VALUE</literal>,
@@ -119,20 +140,42 @@ ES6 методы и свойства <literal>Number</literal>:
 <literal>NaN</literal>,
 <literal>POSITIVE_INFINITY</literal>
 </listitem>
-
-<listitem>
-ES6 методы <literal>Number</literal>:
+</list>
 
 </listitem>
 
 <listitem>
-ES6 методы и свойства <literal>Number</literal>:
+Методы <literal>Number</literal>:
+<list type="bullet">
+
+<listitem>
+ES6:
 <literal>isFinite</literal>,
 <literal>isInteger</literal>,
 <literal>isNaN</literal>,
 <literal>isSafeInteger</literal>,
 <literal>parseFloat</literal>,
 <literal>parseInt</literal>
+</listitem>
+</list>
+
+</listitem>
+
+<listitem>
+Методы экземпляра класса <literal>Number</literal>:
+<list type="bullet">
+
+<listitem>
+ES6:
+<literal>toExponential</literal>
+(<link doc="changes.xml" id="njs0.3.6">0.3.6</link>),
+<literal>toFixed</literal>
+(<link doc="changes.xml" id="njs0.3.6">0.3.6</link>),
+<literal>toPrecision</literal>
+(<link doc="changes.xml" id="njs0.3.6">0.3.6</link>)
+</listitem>
+</list>
+
 </listitem>
 
 

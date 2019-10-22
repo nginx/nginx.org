@@ -58,9 +58,10 @@
 можно получить при помощи синтаксиса <literal>headersIn.foo</literal>
 или <literal>headersIn['Foo']</literal>
 <note>
-Если заголовок может быть указан несколько раз, например
+До версии <link doc="changes.xml" id="njs0.3.6">0.3.6</link>
+если заголовок был указан несколько раз, например
 <header>Cookie</header> или <header>X-Forwarded-For</header>,
-будет возвращено только первое значение.
+то возвращалось только первое значение.
 Чтобы получить все cookie
 необходимо использовать
 <literal>r.variables.http_cookie</literal>.

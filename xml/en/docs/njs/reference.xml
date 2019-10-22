@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="31">
+        rev="32">
 
 <section id="summary">
 
@@ -57,9 +57,10 @@ For example, the <literal>Foo</literal> header
 can be accessed with the syntax <literal>headersIn.foo</literal>
 or <literal>headersIn['Foo']</literal>
 <note>
-For headers that can appear multiple times such as
+Before version <link doc="changes.xml" id="njs0.3.6">0.3.6</link>,
+for headers that could appear multiple times such as
 <header>Cookie</header> or <header>X-Forwarded-For</header>,
-only the first value will be returned.
+only the first value was returned.
 To get all cookies,
 <literal>r.variables.http_cookie</literal>
 should be used.

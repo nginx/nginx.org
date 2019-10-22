@@ -9,8 +9,254 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="22"
+        rev="23"
         toc="no">
+
+<section id="njs0.3.6" name="Changes with 0.3.6">
+
+<para>
+Release Date:
+22 October 2019
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Improvement:
+getting special headers from
+<link doc="reference.xml" id="r_headers_in"><literal>r.headersIn{}</literal></link>.
+</para>
+</listitem>
+
+</list>
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+added new <literal>Function()</literal> support.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added <literal>Number.prototype.toFixed()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added <literal>Number.prototype.toPrecision()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added <literal>Number.prototype.toExponential()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+making <literal>prototype</literal> property of function instances writable.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+limiting recursion depth while compiling.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+moving global functions to the global object.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed prototype mutation for object literals.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed heap-buffer-overflow while parsing regexp literals.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed integer-overflow while parsing exponent of number literals.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>parseFloat()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>Array.prototype</literal> functions
+according to the specification.
+The following functions were fixed:
+<literal>every</literal>,
+<literal>includes</literal>,
+<literal>indexOf</literal>,
+<literal>filter</literal>,
+<literal>find</literal>,
+<literal>findIndex</literal>,
+<literal>forEach</literal>,
+<literal>lastIndexOf</literal>,
+<literal>map</literal>,
+<literal>pop</literal>,
+<literal>push</literal>,
+<literal>reduce</literal>,
+<literal>reduceRight</literal>,
+<literal>shift</literal>,
+<literal>some</literal>,
+<literal>unshift</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed handing of accessor descriptors in <literal>Object.freeze()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<link doc="reference.xml" id="string_replace"><literal>String.prototype.replace()</literal></link>
+when first argument is not a string.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed stack-use-after-scope in <literal>Array.prototype.map()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+<literal>Date.prototype.toUTCString()</literal>
+format was aligned to ES9.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed buffer overflow in
+<literal>Number.prototype.toString(radix)</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<literal>Regexp.prototype.test()</literal>
+for regexps with backreferences.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<literal>Array.prototype.map()</literal>
+for objects with nonexistent values.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<literal>Array.prototype.pop()</literal> and
+<literal>shift()</literal> for sparse objects.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>Date.UTC()</literal> according to the specification.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>Date()</literal> constructor according to the specification.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed type of <literal>Date.prototype</literal>.
+Thanks to Artem S. Povalyukhin.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>Date.prototype.setTime()</literal>.
+Thanks to Artem S. Povalyukhin.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed default number of arguments expected by built-in functions.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>caller</literal> and <literal>arguments</literal>
+properties of a function instance.
+Thanks to Artem S. Povalyukhin.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.3.5" name="Changes with 0.3.5">
 

@@ -9,7 +9,7 @@
 <article name="Compatibility"
         link="/en/docs/njs/compatibility.html"
         lang="en"
-        rev="18"
+        rev="19"
         toc="no">
 
 <section>
@@ -33,7 +33,9 @@ The compliance is still evolving.
 
 <listitem>
 Boolean values, numbers, strings, objects, arrays,
-functions, and regular expressions
+functions, function constructors
+(<link doc="changes.xml" id="njs0.3.6">0.3.6</link>),
+and regular expressions
 </listitem>
 
 <listitem>
@@ -154,6 +156,23 @@ ES6:
 <literal>isSafeInteger</literal>,
 <literal>parseFloat</literal>,
 <literal>parseInt</literal>
+</listitem>
+</list>
+
+</listitem>
+
+<listitem>
+<literal>Number</literal> instance methods:
+<list type="bullet">
+
+<listitem>
+ES6:
+<literal>toExponential</literal>
+(<link doc="changes.xml" id="njs0.3.6">0.3.6</link>),
+<literal>toFixed</literal>
+(<link doc="changes.xml" id="njs0.3.6">0.3.6</link>),
+<literal>toPrecision</literal>
+(<link doc="changes.xml" id="njs0.3.6">0.3.6</link>)
 </listitem>
 </list>
 
