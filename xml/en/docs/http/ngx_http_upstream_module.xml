@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="81">
+        rev="82">
 
 <section id="summary">
 
@@ -658,6 +658,13 @@ SCGI and uwsgi protocols do not have a notion of keepalive connections.
 Sets the maximum number of requests that can be
 served through one keepalive connection.
 After the maximum number of requests is made, the connection is closed.
+</para>
+
+<para>
+Closing connections periodically is necessary to free
+per-connection memory allocations.
+Therefore, using too high maximum number of requests
+could result in excessive memory usage and not recommended.
 </para>
 
 </directive>
