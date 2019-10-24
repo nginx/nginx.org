@@ -10,7 +10,7 @@
 <module name="Module ngx_http_limit_req_module"
         link="/en/docs/http/ngx_http_limit_req_module.html"
         lang="en"
-        rev="11">
+        rev="12">
 
 <section id="summary">
 
@@ -128,7 +128,7 @@ directives on the current level.
 
 <directive name="limit_req_dry_run">
 <syntax><literal>on</literal> | <literal>off</literal></syntax>
-<default>on</default>
+<default>off</default>
 <context>http</context>
 <context>server</context>
 <context>location</context>

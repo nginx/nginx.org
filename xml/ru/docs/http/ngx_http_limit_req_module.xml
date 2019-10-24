@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_limit_req_module"
         link="/ru/docs/http/ngx_http_limit_req_module.html"
         lang="ru"
-        rev="11">
+        rev="12">
 
 <section id="summary">
 
@@ -127,7 +127,7 @@ server {
 
 <directive name="limit_req_dry_run">
 <syntax><literal>on</literal> | <literal>off</literal></syntax>
-<default>on</default>
+<default>off</default>
 <context>http</context>
 <context>server</context>
 <context>location</context>
