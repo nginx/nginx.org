@@ -10,7 +10,7 @@
 <module name="Module ngx_mail_core_module"
         link="/en/docs/mail/ngx_mail_core_module.html"
         lang="en"
-        rev="10">
+        rev="11">
 
 <section id="summary">
 
@@ -283,8 +283,9 @@ parameters <literal>--without-mail_imap_module</literal>,
 
 <directive name="resolver">
 <syntax>
-<value>address</value> ...
-[<literal>valid</literal>=<value>time</value>]</syntax>
+    <value>address</value> ...
+    [<literal>valid</literal>=<value>time</value>]
+    [<literal>status_zone</literal>=<value>zone</value>]</syntax>
 <syntax><literal>off</literal></syntax>
 <default>off</default>
 <context>mail</context>
@@ -319,6 +320,16 @@ resolver 127.0.0.1 [::1]:5353 valid=30s;
 Before version 1.1.9, tuning of caching time was not possible,
 and nginx always cached answers for the duration of 5 minutes.
 </note>
+</para>
+
+<para id="resolver_status_zone">
+The optional <literal>status_zone</literal> parameter (1.17.1)
+enables
+<link doc="../http/ngx_http_api_module.xml" id="resolvers_">collection</link>
+of DNS server statistics of requests and responses
+in the specified <value>zone</value>.
+The parameter is available as part of our
+<commercial_version>commercial subscription</commercial_version>.
 </para>
 
 <para>

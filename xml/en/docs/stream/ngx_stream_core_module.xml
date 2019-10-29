@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_core_module"
         link="/en/docs/stream/ngx_stream_core_module.html"
         lang="en"
-        rev="27">
+        rev="28">
 
 <section id="summary">
 
@@ -320,7 +320,8 @@ the connection is closed.
 <syntax>
     <value>address</value> ...
     [<literal>valid</literal>=<value>time</value>]
-    [<literal>ipv6</literal>=<literal>on</literal>|<literal>off</literal>]</syntax>
+    [<literal>ipv6</literal>=<literal>on</literal>|<literal>off</literal>]
+    [<literal>status_zone</literal>=<value>zone</value>]</syntax>
 <default/>
 <context>stream</context>
 <context>server</context>
@@ -350,6 +351,19 @@ The optional <literal>valid</literal> parameter allows overriding it:
 <example>
 resolver 127.0.0.1 [::1]:5353 valid=30s;
 </example>
+</para>
+
+<para id="resolver_status_zone">
+The optional <literal>status_zone</literal> parameter (1.17.1)
+enables
+<link doc="../http/ngx_http_api_module.xml" id="resolvers_">collection</link>
+of DNS server statistics of requests and responses
+in the specified <value>zone</value>.
+The parameter is available as part of our
+<commercial_version>commercial subscription</commercial_version>.
+</para>
+
+<para>
 <note>
 Before version 1.11.3, this directive was available as part of our
 <commercial_version>commercial subscription</commercial_version>.
