@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_core_module"
         link="/en/docs/stream/ngx_stream_core_module.html"
         lang="en"
-        rev="28">
+        rev="29">
 
 <section id="summary">
 
@@ -333,19 +333,19 @@ into addresses, for example:
 <example>
 resolver 127.0.0.1 [::1]:5353;
 </example>
-An address can be specified as a domain name or IP address,
-and an optional port.
+The address can be specified as a domain name or IP address,
+with an optional port.
 If port is not specified, the port 53 is used.
 Name servers are queried in a round-robin fashion.
 </para>
 
-<para>
+<para id="resolver_ipv6">
 By default, nginx will look up both IPv4 and IPv6 addresses while resolving.
 If looking up of IPv6 addresses is not desired,
 the <literal>ipv6=off</literal> parameter can be specified.
 </para>
 
-<para>
+<para id="resolver_valid">
 By default, nginx caches answers using the TTL value of a response.
 The optional <literal>valid</literal> parameter allows overriding it:
 <example>

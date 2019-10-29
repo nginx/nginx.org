@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_core_module"
         link="/ru/docs/stream/ngx_stream_core_module.html"
         lang="ru"
-        rev="28">
+        rev="29">
 
 <section id="summary">
 
@@ -344,14 +344,14 @@ resolver 127.0.0.1 [::1]:5353;
 Серверы DNS опрашиваются циклически.
 </para>
 
-<para>
+<para id="resolver_ipv6">
 По умолчанию nginx будет искать как IPv4-, так и IPv6-адреса
 при преобразовании имён в адреса.
 Если поиск IPv6-адресов нежелателен,
 можно указать параметр <literal>ipv6=off</literal>.
 </para>
 
-<para>
+<para id="resolver_valid">
 По умолчанию nginx кэширует ответы, используя значение TTL из ответа.
 Необязательный параметр <literal>valid</literal> позволяет это
 переопределить:

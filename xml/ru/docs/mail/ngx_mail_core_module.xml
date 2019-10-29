@@ -10,7 +10,7 @@
 <module name="Модуль ngx_mail_core_module"
         link="/ru/docs/mail/ngx_mail_core_module.html"
         lang="ru"
-        rev="11">
+        rev="12">
 
 <section id="summary">
 
@@ -313,6 +313,9 @@ resolver 127.0.0.1 [::1]:5353;
 Задание DNS-серверов с помощью IPv6-адресов поддерживается
 начиная с версий 1.3.1 и 1.2.2.
 </note>
+</para>
+
+<para id="resolver_valid">
 По умолчанию nginx кэширует ответы, используя значение TTL из ответа.
 Необязательный параметр <literal>valid</literal> позволяет это
 переопределить:
@@ -335,7 +338,7 @@ resolver 127.0.0.1 [::1]:5353 valid=30s;
 <commercial_version>коммерческой подписки</commercial_version>.
 </para>
 
-<para>
+<para id="resolver_off">
 Специальное значение <literal>off</literal> запрещает использование DNS.
 </para>
 
