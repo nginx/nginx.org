@@ -247,14 +247,6 @@ HTTP метод, только чтение
 </para>
 
 <para>
-<note>
-До версии njs <link doc="changes.xml" id="njs0.2.4">0.2.4</link>,
-у объекта stream-сессии были некоторые свойства, которые на данный момент
-<link id="stream_obsolete">удалены</link>.
-</note>
-</para>
-
-<para>
 <list type="tag">
 
 <tag-name id="s_allow"><literal>s.allow()</literal></tag-name>
