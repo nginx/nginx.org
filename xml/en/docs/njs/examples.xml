@@ -9,7 +9,7 @@
 <article name="Examples"
         link="/en/docs/njs/examples.html"
         lang="en"
-        rev="6">
+        rev="7">
 
 <section id="helloword" name="Hello World">
 
@@ -301,6 +301,54 @@ function create_secure_link(r) {
                             .digest('base64url');
 }
 </example>
+</para>
+
+</section>
+
+
+<section id="requests" name="Logging the Number of Requests Per Client">
+
+<para>
+<path>nginx.conf</path>:
+<example>
+js_include js_requests.js;
+
+js_set $num_requests num_requests;
+
+keyval_zone zone=foo:10m;
+
+keyval $remote_addr $foo zone=foo;
+
+log_format bar '$remote_addr [$time_local] $num_requests';
+access_log logs/access.log bar;
+
+server {
+    listen 8000;
+
+    location / {
+        root html;
+    }
+}
+</example>
+</para>
+
+<para>
+<path>js_requests.js</path>:
+<example>
+function num_requests(r)
+{
+    var n = r.variables.foo;
+    n = n ? Number(n) + 1 : 1;
+    r.variables.foo = n;
+    return n;
+}
+</example>
+<note>
+The <link doc="../http/ngx_http_keyval_module.xml" id="keyval"/> and
+<link doc="../http/ngx_http_keyval_module.xml" id="keyval_zone"/> directives
+are available as part of our
+<commercial_version>commercial subscription</commercial_version>.
+</note>
 </para>
 
 </section>
