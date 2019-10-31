@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="88">
+        rev="89">
 
 <section id="directives" name="Директивы">
 
@@ -3123,6 +3123,24 @@ cookie <value>имя</value>
 <tag-name id="var_proxy_protocol_port"><var>$proxy_protocol_port</var></tag-name>
 <tag-desc>
 порт клиента, полученный из заголовка протокола PROXY (1.11.0)
+<para>
+Протокол PROXY должен быть предварительно включён при помощи установки
+параметра <literal>proxy_protocol</literal> в директиве <link id="listen"/>.
+</para>
+</tag-desc>
+
+<tag-name id="var_proxy_protocol_server_addr"><var>$proxy_protocol_server_addr</var></tag-name>
+<tag-desc>
+адрес сервера, полученный из заголовка протокола PROXY (1.17.6)
+<para>
+Протокол PROXY должен быть предварительно включён при помощи установки
+параметра <literal>proxy_protocol</literal> в директиве <link id="listen"/>.
+</para>
+</tag-desc>
+
+<tag-name id="var_proxy_protocol_server_port"><var>$proxy_protocol_server_port</var></tag-name>
+<tag-desc>
+порт сервера, полученный из заголовка протокола PROXY (1.17.6)
 <para>
 Протокол PROXY должен быть предварительно включён при помощи установки
 параметра <literal>proxy_protocol</literal> в директиве <link id="listen"/>.
