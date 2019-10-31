@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_core_module"
         link="/ru/docs/stream/ngx_stream_core_module.html"
         lang="ru"
-        rev="29">
+        rev="30">
 
 <section id="summary">
 
@@ -530,8 +530,7 @@ resolver_timeout 5s;
 
 <tag-name id="var_proxy_protocol_addr"><var>$proxy_protocol_addr</var></tag-name>
 <tag-desc>
-адрес клиента, полученный из заголовка протокола PROXY, либо пустая строка
-(1.11.4)
+адрес клиента, полученный из заголовка протокола PROXY (1.11.4)
 <para>
 Протокол PROXY должен быть предварительно включён при помощи установки
 параметра <literal>proxy_protocol</literal> в директиве <link id="listen"/>.
@@ -540,8 +539,7 @@ resolver_timeout 5s;
 
 <tag-name id="var_proxy_protocol_port"><var>$proxy_protocol_port</var></tag-name>
 <tag-desc>
-порт клиента, полученный из заголовка протокола PROXY, либо пустая строка
-(1.11.4)
+порт клиента, полученный из заголовка протокола PROXY (1.11.4)
 <para>
 Протокол PROXY должен быть предварительно включён при помощи установки
 параметра <literal>proxy_protocol</literal> в директиве <link id="listen"/>.

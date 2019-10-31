@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_core_module"
         link="/en/docs/stream/ngx_stream_core_module.html"
         lang="en"
-        rev="29">
+        rev="30">
 
 <section id="summary">
 
@@ -522,8 +522,7 @@ protocol used to communicate with the client:
 
 <tag-name id="var_proxy_protocol_addr"><var>$proxy_protocol_addr</var></tag-name>
 <tag-desc>
-client address from the PROXY protocol header, or an empty string otherwise
-(1.11.4)
+client address from the PROXY protocol header (1.11.4)
 <para>
 The PROXY protocol must be previously enabled by setting the
 <literal>proxy_protocol</literal> parameter
@@ -533,8 +532,7 @@ in the <link id="listen"/> directive.
 
 <tag-name id="var_proxy_protocol_port"><var>$proxy_protocol_port</var></tag-name>
 <tag-desc>
-client port from the PROXY protocol header, or an empty string otherwise
-(1.11.4)
+client port from the PROXY protocol header (1.11.4)
 <para>
 The PROXY protocol must be previously enabled by setting the
 <literal>proxy_protocol</literal> parameter
