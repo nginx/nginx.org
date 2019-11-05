@@ -9,7 +9,7 @@
 <article name="Download and install"
         link="/en/docs/njs/install.html"
         lang="en"
-        rev="1">
+        rev="2">
 
 <section id="install_package" name="Installing as a Linux package">
 
@@ -43,7 +43,8 @@ with njs sources can be cloned with the following command:
 <example>
 hg clone http://hg.nginx.org/njs
 </example>
-Then the modules should be compiled using the
+Then the modules should be compiled from
+<link doc="../configure.xml">nginx</link> root directory using the
 <literal>--add-module</literal> configuration parameter:
 <example>
 ./configure --add-module=<value>path-to-njs</value>/nginx

@@ -9,7 +9,7 @@
 <article name="Загрузка и установка"
         link="/ru/docs/njs/install.html"
         lang="ru"
-        rev="1">
+        rev="2">
 
 <section id="install_package" name="Установка пакета Linux">
 
@@ -44,7 +44,8 @@ njs
 <example>
 hg clone http://hg.nginx.org/njs
 </example>
-Затем модули необходимо собрать с помощью
+Затем модули необходимо собрать из
+корневого каталога <link doc="../configure.xml">nginx</link> с помощью
 конфигурационного параметра <literal>--add-module</literal>:
 <example>
 ./configure --add-module=<value>path-to-njs</value>/nginx
@@ -60,7 +61,7 @@ hg clone http://hg.nginx.org/njs
 Чтобы собрать только <link doc="cli.xml">утилиту</link> командной строки njs
 необходимо запустить
 команды <literal>./configure</literal> и <literal>make njs</literal>
-из корневого каталога.
+из корневого каталога njs.
 Утилита доступна как <literal>./build/njs</literal>.
 </para>
 
