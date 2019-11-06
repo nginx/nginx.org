@@ -10,7 +10,7 @@
 <module name="Module ngx_http_ssl_module"
         link="/en/docs/http/ngx_http_ssl_module.html"
         lang="en"
-        rev="47">
+        rev="48">
 
 <section id="summary">
 
@@ -823,7 +823,7 @@ embedded variables:
 
 <tag-name id="var_ssl_cipher"><var>$ssl_cipher</var></tag-name>
 <tag-desc>
-returns the string of ciphers used
+returns the name of the cipher used
 for an established SSL connection;
 </tag-desc>
 

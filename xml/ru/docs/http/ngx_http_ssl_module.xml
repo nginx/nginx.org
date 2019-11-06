@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_ssl_module"
         link="/ru/docs/http/ngx_http_ssl_module.html"
         lang="ru"
-        rev="47">
+        rev="48">
 
 <section id="summary">
 
@@ -828,7 +828,7 @@ ssl_stapling_responder http://ocsp.example.com/;
 
 <tag-name id="var_ssl_cipher"><var>$ssl_cipher</var></tag-name>
 <tag-desc>
-возвращает строку используемых шифров для установленного SSL-соединения;
+возвращает название используемого шифра для установленного SSL-соединения;
 </tag-desc>
 
 <tag-name id="var_ssl_ciphers"><var>$ssl_ciphers</var></tag-name>

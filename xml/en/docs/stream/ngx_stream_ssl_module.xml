@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_ssl_module"
         link="/en/docs/stream/ngx_stream_ssl_module.html"
         lang="en"
-        rev="21">
+        rev="22">
 
 <section id="summary">
 
@@ -595,7 +595,7 @@ since 1.11.2.
 
 <tag-name id="var_ssl_cipher"><var>$ssl_cipher</var></tag-name>
 <tag-desc>
-returns the string of ciphers used
+returns the name of the cipher used
 for an established SSL connection;
 </tag-desc>
 
