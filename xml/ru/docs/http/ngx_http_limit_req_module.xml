@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_limit_req_module"
         link="/ru/docs/http/ngx_http_limit_req_module.html"
         lang="ru"
-        rev="12">
+        rev="13">
 
 <section id="summary">
 
@@ -248,6 +248,27 @@ limit_req_zone $binary_remote_addr zone=one:10m rate=1r/s;
 </para>
 
 </directive>
+
+</section>
+
+
+<section id="variables" name="Встроенные переменные">
+
+<para>
+<list type="tag">
+
+<tag-name id="var_limit_req_status"><var>$limit_req_status</var></tag-name>
+<tag-desc>
+хранит результат ограничения скорости поступления запросов (1.17.6):
+<literal>PASSED</literal>,
+<literal>DELAYED</literal>,
+<literal>REJECTED</literal>,
+<literal>DELAYED_DRY_RUN</literal> или
+<literal>REJECTED_DRY_RUN</literal>
+</tag-desc>
+
+</list>
+</para>
 
 </section>
 
