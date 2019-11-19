@@ -9,7 +9,7 @@
 <article name="Compatibility"
         link="/en/docs/njs/compatibility.html"
         lang="en"
-        rev="19"
+        rev="20"
         toc="no">
 
 <section>
@@ -278,6 +278,12 @@ since <link doc="changes.xml" id="njs0.3.3">0.3.3</link>),
 </listitem>
 
 <listitem>
+ES6:
+<literal>assign</literal>
+(<link doc="changes.xml" id="njs0.3.7">0.3.7</link>)
+</listitem>
+
+<listitem>
 ES8:
 <link doc="reference.xml" id="object_entries"><literal>entries</literal></link>
 (<link doc="changes.xml" id="njs0.2.7">0.2.7</link>),
@@ -348,6 +354,8 @@ ES5.1:
 
 <listitem>
 ES6:
+<literal>copyWithin</literal>
+(<link doc="changes.xml" id="njs0.3.7">0.3.7</link>),
 <literal>fill</literal>,
 <literal>find</literal>,
 <literal>findIndex</literal>

@@ -9,7 +9,7 @@
 <article name="Совместимость"
         link="/ru/docs/njs/compatibility.html"
         lang="ru"
-        rev="19"
+        rev="20"
         toc="no">
 
 <section>
@@ -277,6 +277,12 @@ ES5.1:
 <literal>keys</literal>,
 <literal>preventExtensions</literal>,
 <literal>seal</literal>
+</listitem>
+
+<listitem>
+ES6:
+<literal>assign</literal>
+(<link doc="changes.xml" id="njs0.3.7">0.3.7</link>)
 </listitem>
 
 <listitem>

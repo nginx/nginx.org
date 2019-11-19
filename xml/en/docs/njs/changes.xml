@@ -9,8 +9,194 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="24"
+        rev="25"
         toc="no">
+
+<section id="njs0.3.7" name="Changes with njs 0.3.7">
+
+<para>
+Release Date:
+19 November 2019
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Improvement:
+refactored iteration over external objects.
+</para>
+</listitem>
+
+</list>
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+added <literal>Object.assign()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added <literal>Array.prototype.copyWithin()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added support for labels in <literal>console.time()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Change:
+removed <literal>console.help()</literal> from CLI.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+moved constructors and top-level objects to global object.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+arguments validation for configure script.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+refactored JSON methods.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed heap-buffer-overflow in
+<literal>njs_array_reverse_iterator()</literal> function.
+The following functions were affected:
+<literal>Array.prototype.lastIndexOf()</literal>,
+<literal>Array.prototype.reduceRight()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<literal>[[Prototype]]</literal> slot of <literal>NativeErrors</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<literal>NativeError.prototype.message</literal> properties.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+added conversion of
+<literal>this</literal> value to object in
+<literal>Array.prototype functions</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed iterator for
+<literal>Array.prototype.find()</literal> and
+<literal>Array.prototype.findIndex()</literal>
+functions.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<literal>Array.prototype.includes()</literal> and
+<literal>Array.prototype.join()</literal> with
+<literal>undefined</literal> argument.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>constructor</literal> property of
+<literal>Hash</literal> and
+<literal>Hmac</literal>
+objects.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>__proto__</literal> property of getters and setters.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>Date</literal> object string formatting.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed handling of
+<literal>NaN</literal> and <literal>-0</literal> arguments in
+<literal>Math.min()</literal> and
+<literal>Math.max()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>Math.round()</literal>
+according to the specification.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+reimplemented <literal>bound</literal> functions
+according to the specification.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.3.6" name="Changes with njs 0.3.6">
 
