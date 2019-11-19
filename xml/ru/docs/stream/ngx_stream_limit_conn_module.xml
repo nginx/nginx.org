@@ -10,7 +10,7 @@
 <module name="Модуль ngx_stream_limit_conn_module"
         link="/ru/docs/stream/ngx_stream_limit_conn_module.html"
         lang="ru"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -81,6 +81,23 @@ IP-адреса.
 <para>
 Директивы наследуются с предыдущего уровня при условии, что на данном уровне
 не описаны свои директивы <literal>limit_conn</literal>.
+</para>
+
+</directive>
+
+
+<directive name="limit_conn_dry_run">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.17.6</appeared-in>
+
+<para>
+Включает режим пробного запуска.
+В данном режиме число соединений не ограничивается, однако
+в зоне разделяемой памяти текущее число избыточных соединений учитывается
+как обычно.
 </para>
 
 </directive>
