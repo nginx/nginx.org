@@ -10,7 +10,7 @@
 <module name="Module ngx_stream_limit_conn_module"
         link="/en/docs/stream/ngx_stream_limit_conn_module.html"
         lang="en"
-        rev="4">
+        rev="5">
 
 <section id="summary">
 
@@ -151,6 +151,24 @@ If the zone storage is exhausted, the server will close the connection.
 
 </directive>
 
+</section>
+
+
+<section id="variables" name="Embedded Variables">
+
+<para>
+<list type="tag">
+
+<tag-name id="var_limit_conn_status"><var>$limit_conn_status</var></tag-name>
+<tag-desc>
+keeps the result of limiting the number of connections (1.17.6):
+<literal>PASSED</literal>,
+<literal>REJECTED</literal>, or
+<literal>REJECTED_DRY_RUN</literal>
+</tag-desc>
+
+</list>
+</para>
 
 </section>
 

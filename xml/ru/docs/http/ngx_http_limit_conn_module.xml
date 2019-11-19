@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_limit_conn_module"
         link="/ru/docs/http/ngx_http_limit_conn_module.html"
         lang="ru"
-        rev="11">
+        rev="12">
 
 <section id="summary">
 
@@ -222,6 +222,25 @@ limit_conn_zone $binary_remote_addr zone=addr:10m;
 </para>
 
 </directive>
+
+</section>
+
+
+<section id="variables" name="Встроенные переменные">
+
+<para>
+<list type="tag">
+
+<tag-name id="var_limit_conn_status"><var>$limit_conn_status</var></tag-name>
+<tag-desc>
+хранит результат ограничения числа соединений (1.17.6):
+<literal>PASSED</literal>,
+<literal>REJECTED</literal> или
+<literal>REJECTED_DRY_RUN</literal>
+</tag-desc>
+
+</list>
+</para>
 
 </section>
 
