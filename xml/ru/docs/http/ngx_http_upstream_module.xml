@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_upstream_module"
         link="/ru/docs/http/ngx_http_upstream_module.html"
         lang="ru"
-        rev="82">
+        rev="83">
 
 <section id="summary">
 
@@ -886,6 +886,89 @@ server {
 время получения <link id="var_upstream_response_time">всего ответа</link>.
 <note>
 Метод <literal>least_time</literal> доступен как часть
+<commercial_version>коммерческой подписки</commercial_version>.
+</note>
+</para>
+
+</directive>
+
+
+<directive name="resolver">
+<syntax>
+    <value>адрес</value> ...
+    [<literal>valid</literal>=<value>время</value>]
+    [<literal>ipv6</literal>=<literal>on</literal>|<literal>off</literal>]
+    [<literal>status_zone</literal>=<value>зона</value>]</syntax>
+<default/>
+<context>upstream</context>
+<appeared-in>1.17.5</appeared-in>
+
+<para>
+Задаёт серверы DNS, используемые для преобразования имён вышестоящих серверов
+в адреса, например:
+<example>
+resolver 127.0.0.1 [::1]:5353;
+</example>
+Адрес может быть указан в виде доменного имени или IP-адреса,
+и необязательного порта.
+Если порт не указан, используется порт 53.
+Серверы DNS опрашиваются циклически.
+</para>
+
+<para id="resolver_ipv6">
+По умолчанию nginx будет искать как IPv4-, так и IPv6-адреса
+при преобразовании имён в адреса.
+Если поиск IPv6-адресов нежелателен,
+можно указать параметр <literal>ipv6=off</literal>.
+</para>
+
+<para id="resolver_valid">
+По умолчанию nginx кэширует ответы, используя значение TTL из ответа.
+Необязательный параметр <literal>valid</literal> позволяет это
+переопределить:
+<example>
+resolver 127.0.0.1 [::1]:5353 valid=30s;
+</example>
+<note>
+Для предотвращения DNS-спуфинга рекомендуется
+использовать DNS-серверы в защищённой доверенной локальной сети.
+</note>
+</para>
+
+<para id="resolver_status_zone">
+Необязательный параметр <literal>status_zone</literal>
+включает
+<link doc="ngx_http_api_module.xml" id="resolvers_">сбор информации</link>
+о запросах и ответах сервера DNS
+в указанной <value>зоне</value>.
+</para>
+
+<para>
+<note>
+Эта директива доступна как часть
+<commercial_version>коммерческой подписки</commercial_version>.
+</note>
+</para>
+
+</directive>
+
+
+<directive name="resolver_timeout">
+<syntax><value>время</value></syntax>
+<default>30s</default>
+<context>upstream</context>
+<appeared-in>1.17.5</appeared-in>
+
+<para>
+Задаёт таймаут для преобразования имени в адрес, например:
+<example>
+resolver_timeout 5s;
+</example>
+</para>
+
+<para>
+<note>
+Эта директива доступна как часть
 <commercial_version>коммерческой подписки</commercial_version>.
 </note>
 </para>

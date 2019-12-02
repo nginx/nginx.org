@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="82">
+        rev="83">
 
 <section id="summary">
 
@@ -878,6 +878,87 @@ If <literal>least_time=last_byte</literal> is specified, the time to receive the
 <link id="var_upstream_response_time">full response</link> is used.
 <note>
 The <literal>least_time</literal> method is available as a part of our
+<commercial_version>commercial subscription</commercial_version>.
+</note>
+</para>
+
+</directive>
+
+
+<directive name="resolver">
+<syntax>
+    <value>address</value> ...
+    [<literal>valid</literal>=<value>time</value>]
+    [<literal>ipv6</literal>=<literal>on</literal>|<literal>off</literal>]
+    [<literal>status_zone</literal>=<value>zone</value>]</syntax>
+<default/>
+<context>upstream</context>
+<appeared-in>1.17.5</appeared-in>
+
+<para>
+Configures name servers used to resolve names of upstream servers
+into addresses, for example:
+<example>
+resolver 127.0.0.1 [::1]:5353;
+</example>
+The address can be specified as a domain name or IP address,
+with an optional port.
+If port is not specified, the port 53 is used.
+Name servers are queried in a round-robin fashion.
+</para>
+
+<para id="resolver_ipv6">
+By default, nginx will look up both IPv4 and IPv6 addresses while resolving.
+If looking up of IPv6 addresses is not desired,
+the <literal>ipv6=off</literal> parameter can be specified.
+</para>
+
+<para id="resolver_valid">
+By default, nginx caches answers using the TTL value of a response.
+An optional <literal>valid</literal> parameter allows overriding it:
+<example>
+resolver 127.0.0.1 [::1]:5353 valid=30s;
+</example>
+<note>
+To prevent DNS spoofing, it is recommended
+configuring DNS servers in a properly secured trusted local network.
+</note>
+</para>
+
+<para id="resolver_status_zone">
+The optional <literal>status_zone</literal> parameter
+enables
+<link doc="ngx_http_api_module.xml" id="resolvers_">collection</link>
+of DNS server statistics of requests and responses
+in the specified <value>zone</value>.
+</para>
+
+<para>
+<note>
+This directive is available as part of our
+<commercial_version>commercial subscription</commercial_version>.
+</note>
+</para>
+
+</directive>
+
+
+<directive name="resolver_timeout">
+<syntax><value>time</value></syntax>
+<default>30s</default>
+<context>upstream</context>
+<appeared-in>1.17.5</appeared-in>
+
+<para>
+Sets a timeout for name resolution, for example:
+<example>
+resolver_timeout 5s;
+</example>
+</para>
+
+<para>
+<note>
+This directive is available as part of our
 <commercial_version>commercial subscription</commercial_version>.
 </note>
 </para>

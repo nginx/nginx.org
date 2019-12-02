@@ -101,21 +101,21 @@ All API requests include
 a supported API <link id="api_version">version</link> in the URI.
 Examples of API requests with this configuration:
 <example>
-http://127.0.0.1/api/5/
-http://127.0.0.1/api/5/nginx
-http://127.0.0.1/api/5/connections
-http://127.0.0.1/api/5/http/requests
-http://127.0.0.1/api/5/http/server_zones/server_backend
-http://127.0.0.1/api/5/http/caches/cache_backend
-http://127.0.0.1/api/5/http/upstreams/backend
-http://127.0.0.1/api/5/http/upstreams/backend/servers/
-http://127.0.0.1/api/5/http/upstreams/backend/servers/1
-http://127.0.0.1/api/5/http/keyvals/one?key=arg1
-http://127.0.0.1/api/5/stream/
-http://127.0.0.1/api/5/stream/server_zones/server_backend
-http://127.0.0.1/api/5/stream/upstreams/
-http://127.0.0.1/api/5/stream/upstreams/backend
-http://127.0.0.1/api/5/stream/upstreams/backend/servers/1
+http://127.0.0.1/api/6/
+http://127.0.0.1/api/6/nginx
+http://127.0.0.1/api/6/connections
+http://127.0.0.1/api/6/http/requests
+http://127.0.0.1/api/6/http/server_zones/server_backend
+http://127.0.0.1/api/6/http/caches/cache_backend
+http://127.0.0.1/api/6/http/upstreams/backend
+http://127.0.0.1/api/6/http/upstreams/backend/servers/
+http://127.0.0.1/api/6/http/upstreams/backend/servers/1
+http://127.0.0.1/api/6/http/keyvals/one?key=arg1
+http://127.0.0.1/api/6/stream/
+http://127.0.0.1/api/6/stream/server_zones/server_backend
+http://127.0.0.1/api/6/stream/upstreams/
+http://127.0.0.1/api/6/stream/upstreams/backend
+http://127.0.0.1/api/6/stream/upstreams/backend/servers/1
 </example>
 </para>
 
@@ -146,14 +146,14 @@ By default, the API is read-only.
 All API requests should contain a supported API version in the URI.
 If the request URI equals the location prefix,
 the list of supported API versions is returned.
-The current API version is “<literal>5</literal>”.
+The current API version is “<literal>6</literal>”.
 </para>
 
 <para>
 The optional “<literal>fields</literal>” argument in the request line
 specifies which fields of the requested objects will be output:
 <example>
-http://127.0.0.1/api/5/nginx?fields=version,build
+http://127.0.0.1/api/6/nginx?fields=version,build
 </example>
 </para>
 
@@ -197,6 +197,21 @@ redirect</link> happens during request processing.
 
 <para>
 <list type="bullet">
+
+<listitem>
+The <link id="stream_limit_conns_">/stream/limit_conns/</link> data
+were added in <link id="api_version">version</link> 6.
+</listitem>
+
+<listitem>
+The <link id="http_limit_conns_">/http/limit_conns/</link> data
+were added in <link id="api_version">version</link> 6.
+</listitem>
+
+<listitem>
+The <link id="http_limit_reqs_">/http/limit_reqs/</link> data
+were added in <link id="api_version">version</link> 6.
+</listitem>
 
 <listitem>
 The “<literal>expire</literal>” parameter of a
@@ -708,6 +723,154 @@ Possible responses:
 </listitem>
 </list>
 </tag-desc>
+<tag-name id="http_limit_conns_" name="/http/limit_conns/">
+<literal>/http/limit_conns/</literal>
+</tag-name>
+<tag-desc>
+<para>Supported methods:</para>
+<list type="bullet" compact="yes">
+<listitem id="getHttpLimitConnZones">
+<literal>GET</literal> - Return status of all HTTP limit_conn zones
+<para>Returns status information for each HTTP <link url="https://nginx.org/en/docs/http/ngx_http_limit_conn_module.html#limit_conn_zone">limit_conn zone</link>.</para>
+<para>
+Request parameters:
+<list type="tag">
+<tag-name><literal>fields</literal>
+(<literal>string</literal>, optional)</tag-name>
+<tag-desc>
+Limits which fields of limit_conn zones will be output. If the “<literal>fields</literal>” value is empty, then only zone names will be output.</tag-desc>
+</list>
+</para>
+<para>
+Possible responses:
+</para>
+<list type="bullet">
+<listitem>200 - Success, returns a collection of "<link id="def_nginx_http_limit_conn_zone">HTTP Connections Limiting</link>" objects for all HTTP limit conns</listitem>
+</list>
+</listitem>
+</list>
+</tag-desc>
+<tag-name id="http_limit_conns_http_limit_conn_zone_name" name="/http/limit_conns/{httpLimitConnZoneName}">
+<literal>/http/limit_conns/{httpLimitConnZoneName}</literal>
+</tag-name>
+<tag-desc>
+Parameters common for all methods:
+<list type="tag">
+<tag-name><literal>httpLimitConnZoneName</literal>
+(<literal>string</literal>, required)</tag-name>
+<tag-desc>
+The name of a <link url="https://nginx.org/en/docs/http/ngx_http_limit_conn_module.html#limit_conn_zone">limit_conn zone</link>.</tag-desc>
+</list>
+<para>Supported methods:</para>
+<list type="bullet" compact="yes">
+<listitem id="getHttpLimitConnZone">
+<literal>GET</literal> - Return status of an HTTP limit_conn zone
+<para>Returns status of a particular HTTP <link url="https://nginx.org/en/docs/http/ngx_http_limit_conn_module.html#limit_conn_zone">limit_conn zone</link>.</para>
+<para>
+Request parameters:
+<list type="tag">
+<tag-name><literal>fields</literal>
+(<literal>string</literal>, optional)</tag-name>
+<tag-desc>
+Limits which fields of the <link url="https://nginx.org/en/docs/http/ngx_http_limit_conn_module.html#limit_conn_zone">limit_conn zone</link> will be output.</tag-desc>
+</list>
+</para>
+<para>
+Possible responses:
+</para>
+<list type="bullet">
+<listitem>200 - Success, returns <link id="def_nginx_http_limit_conn_zone">HTTP Connections Limiting</link></listitem>
+<listitem>404 - limit_conn not found (<literal>LimitConnNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+</list>
+</listitem>
+<listitem id="deleteHttpLimitConnZoneStat">
+<literal>DELETE</literal> - Reset statistics for an HTTP limit_conn zone
+<para>Resets the connection limiting statistics.</para>
+<para>
+Possible responses:
+</para>
+<list type="bullet">
+<listitem>204 - Success</listitem>
+<listitem>404 - limit_conn not found (<literal>LimitConnNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+</list>
+</listitem>
+</list>
+</tag-desc>
+<tag-name id="http_limit_reqs_" name="/http/limit_reqs/">
+<literal>/http/limit_reqs/</literal>
+</tag-name>
+<tag-desc>
+<para>Supported methods:</para>
+<list type="bullet" compact="yes">
+<listitem id="getHttpLimitReqZones">
+<literal>GET</literal> - Return status of all HTTP limit_req zones
+<para>Returns status information for each HTTP <link url="https://nginx.org/en/docs/http/ngx_http_limit_req_module.html#limit_req_zone">limit_req zone</link>.</para>
+<para>
+Request parameters:
+<list type="tag">
+<tag-name><literal>fields</literal>
+(<literal>string</literal>, optional)</tag-name>
+<tag-desc>
+Limits which fields of limit_req zones will be output. If the “<literal>fields</literal>” value is empty, then only zone names will be output.</tag-desc>
+</list>
+</para>
+<para>
+Possible responses:
+</para>
+<list type="bullet">
+<listitem>200 - Success, returns a collection of "<link id="def_nginx_http_limit_req_zone">HTTP Requests Rate Limiting</link>" objects for all HTTP limit reqs</listitem>
+</list>
+</listitem>
+</list>
+</tag-desc>
+<tag-name id="http_limit_reqs_http_limit_req_zone_name" name="/http/limit_reqs/{httpLimitReqZoneName}">
+<literal>/http/limit_reqs/{httpLimitReqZoneName}</literal>
+</tag-name>
+<tag-desc>
+Parameters common for all methods:
+<list type="tag">
+<tag-name><literal>httpLimitReqZoneName</literal>
+(<literal>string</literal>, required)</tag-name>
+<tag-desc>
+The name of a <link url="https://nginx.org/en/docs/http/ngx_http_limit_req_module.html#limit_req_zone">limit_req zone</link>.</tag-desc>
+</list>
+<para>Supported methods:</para>
+<list type="bullet" compact="yes">
+<listitem id="getHttpLimitReqZone">
+<literal>GET</literal> - Return status of an HTTP limit_req zone
+<para>Returns status of a particular HTTP <link url="https://nginx.org/en/docs/http/ngx_http_limit_req_module.html#limit_req_zone">limit_req zone</link>.</para>
+<para>
+Request parameters:
+<list type="tag">
+<tag-name><literal>fields</literal>
+(<literal>string</literal>, optional)</tag-name>
+<tag-desc>
+Limits which fields of the <link url="https://nginx.org/en/docs/http/ngx_http_limit_req_module.html#limit_req_zone">limit_req zone</link> will be output.</tag-desc>
+</list>
+</para>
+<para>
+Possible responses:
+</para>
+<list type="bullet">
+<listitem>200 - Success, returns <link id="def_nginx_http_limit_req_zone">HTTP Requests Rate Limiting</link></listitem>
+<listitem>404 - limit_req not found (<literal>LimitReqNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+</list>
+</listitem>
+<listitem id="deleteHttpLimitReqZoneStat">
+<literal>DELETE</literal> - Reset statistics for an HTTP limit_req zone
+<para>Resets the requests limiting statistics.</para>
+<para>
+Possible responses:
+</para>
+<list type="bullet">
+<listitem>204 - Success</listitem>
+<listitem>404 - limit_req not found (<literal>LimitReqNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+</list>
+</listitem>
+</list>
+</tag-desc>
 <tag-name id="http_upstreams_" name="/http/upstreams/">
 <literal>/http/upstreams/</literal>
 </tag-name>
@@ -1157,6 +1320,80 @@ Possible responses:
 <list type="bullet">
 <listitem>204 - Success</listitem>
 <listitem>404 - Server zone not found (<literal>ServerZoneNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+</list>
+</listitem>
+</list>
+</tag-desc>
+<tag-name id="stream_limit_conns_" name="/stream/limit_conns/">
+<literal>/stream/limit_conns/</literal>
+</tag-name>
+<tag-desc>
+<para>Supported methods:</para>
+<list type="bullet" compact="yes">
+<listitem id="getStreamLimitConnZones">
+<literal>GET</literal> - Return status of all stream limit_conn zones
+<para>Returns status information for each stream <link url="https://nginx.org/en/docs/stream/ngx_stream_limit_conn_module.html#limit_conn_zone">limit_conn zone</link>.</para>
+<para>
+Request parameters:
+<list type="tag">
+<tag-name><literal>fields</literal>
+(<literal>string</literal>, optional)</tag-name>
+<tag-desc>
+Limits which fields of limit_conn zones will be output. If the “<literal>fields</literal>” value is empty, then only zone names will be output.</tag-desc>
+</list>
+</para>
+<para>
+Possible responses:
+</para>
+<list type="bullet">
+<listitem>200 - Success, returns a collection of "<link id="def_nginx_stream_limit_conn_zone">Stream Connections Limiting</link>" objects for all stream limit conns</listitem>
+</list>
+</listitem>
+</list>
+</tag-desc>
+<tag-name id="stream_limit_conns_stream_limit_conn_zone_name" name="/stream/limit_conns/{streamLimitConnZoneName}">
+<literal>/stream/limit_conns/{streamLimitConnZoneName}</literal>
+</tag-name>
+<tag-desc>
+Parameters common for all methods:
+<list type="tag">
+<tag-name><literal>streamLimitConnZoneName</literal>
+(<literal>string</literal>, required)</tag-name>
+<tag-desc>
+The name of a <link url="https://nginx.org/en/docs/stream/ngx_stream_limit_conn_module.html#limit_conn_zone">limit_conn zone</link>.</tag-desc>
+</list>
+<para>Supported methods:</para>
+<list type="bullet" compact="yes">
+<listitem id="getStreamLimitConnZone">
+<literal>GET</literal> - Return status of an stream limit_conn zone
+<para>Returns status of a particular stream <link url="https://nginx.org/en/docs/stream/ngx_stream_limit_conn_module.html#limit_conn_zone">limit_conn zone</link>.</para>
+<para>
+Request parameters:
+<list type="tag">
+<tag-name><literal>fields</literal>
+(<literal>string</literal>, optional)</tag-name>
+<tag-desc>
+Limits which fields of the <link url="https://nginx.org/en/docs/stream/ngx_stream_limit_conn_module.html#limit_conn_zone">limit_conn zone</link> will be output.</tag-desc>
+</list>
+</para>
+<para>
+Possible responses:
+</para>
+<list type="bullet">
+<listitem>200 - Success, returns <link id="def_nginx_stream_limit_conn_zone">Stream Connections Limiting</link></listitem>
+<listitem>404 - limit_conn not found (<literal>LimitConnNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+</list>
+</listitem>
+<listitem id="deleteStreamLimitConnZoneStat">
+<literal>DELETE</literal> - Reset statistics for a stream limit_conn zone
+<para>Resets the connection limiting statistics.</para>
+<para>
+Possible responses:
+</para>
+<list type="bullet">
+<listitem>204 - Success</listitem>
+<listitem>404 - limit_conn not found (<literal>LimitConnNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
@@ -2340,6 +2577,80 @@ The total number of bytes written to the cache.
   }
 }</example>
 </listitem>
+<listitem id="def_nginx_http_limit_conn_zone">
+<para>HTTP Connections Limiting:</para>
+<list type="tag">
+<tag-name>
+<literal>passed</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The total number of connections that were neither limited nor accounted as limited.
+</tag-desc>
+<tag-name>
+<literal>rejected</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The total number of connections that were rejected.
+</tag-desc>
+<tag-name>
+<literal>rejected_dry_run</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The total number of connections accounted as rejected in the <link url="https://nginx.org/en/docs/http/ngx_http_limit_conn_module.html#limit_conn_dry_run">dry run</link> mode.
+</tag-desc>
+</list>
+<para>Example:</para>
+<example>
+{
+  "passed" : 15,
+  "rejected" : 0,
+  "rejected_dry_run" : 2
+}</example>
+</listitem>
+<listitem id="def_nginx_http_limit_req_zone">
+<para>HTTP Requests Rate Limiting:</para>
+<list type="tag">
+<tag-name>
+<literal>passed</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The total number of requests that were neither limited nor accounted as limited.
+</tag-desc>
+<tag-name>
+<literal>delayed</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The total number of requests that were delayed.
+</tag-desc>
+<tag-name>
+<literal>rejected</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The total number of requests that were rejected.
+</tag-desc>
+<tag-name>
+<literal>delayed_dry_run</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The total number of requests accounted as delayed in the <link url="https://nginx.org/en/docs/http/ngx_http_limit_req_module.html#limit_req_dry_run">dry run</link> mode.
+</tag-desc>
+<tag-name>
+<literal>rejected_dry_run</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The total number of requests accounted as rejected in the <link url="https://nginx.org/en/docs/http/ngx_http_limit_req_module.html#limit_req_dry_run">dry run</link> mode.
+</tag-desc>
+</list>
+<para>Example:</para>
+<example>
+{
+  "passed" : 15,
+  "delayed" : 4,
+  "rejected" : 0,
+  "delayed_dry_run" : 1,
+  "rejected_dry_run" : 2
+}</example>
+</listitem>
 <listitem id="def_nginx_http_upstream">
 <para>HTTP Upstream:</para>
 <list type="tag">
@@ -2865,6 +3176,36 @@ The total number of bytes sent to clients.
     "received" : 4200363,
     "sent" : 20489184
   }
+}</example>
+</listitem>
+<listitem id="def_nginx_stream_limit_conn_zone">
+<para>Stream Connections Limiting:</para>
+<list type="tag">
+<tag-name>
+<literal>passed</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The total number of connections that were neither limited nor accounted as limited.
+</tag-desc>
+<tag-name>
+<literal>rejected</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The total number of connections that were rejected.
+</tag-desc>
+<tag-name>
+<literal>rejected_dry_run</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The total number of connections accounted as rejected in the <link url="https://nginx.org/en/docs/stream/ngx_stream_limit_conn_module.html#limit_conn_dry_run">dry run</link> mode.
+</tag-desc>
+</list>
+<para>Example:</para>
+<example>
+{
+  "passed" : 15,
+  "rejected" : 0,
+  "rejected_dry_run" : 2
 }</example>
 </listitem>
 <listitem id="def_nginx_stream_upstream">

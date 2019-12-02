@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: '5.0'
+  version: '6.0'
   title: NGINX Plus REST API
   description: NGINX Plus REST
     [API](https://nginx.org/en/docs/http/ngx_http_api_module.html)
@@ -9,7 +9,7 @@ info:
     key-value pairs management for
     [http](https://nginx.org/en/docs/http/ngx_http_keyval_module.html) and
     [stream](https://nginx.org/en/docs/stream/ngx_stream_keyval_module.html).
-basePath: /api/5
+basePath: /api/6
 tags:
   - name: General Info
   - name: Processes
@@ -22,10 +22,13 @@ tags:
   - name: HTTP Server Zones
   - name: HTTP Location Zones
   - name: HTTP Caches
+  - name: HTTP Limit Conns
+  - name: HTTP Limit Reqs
   - name: HTTP Keyvals
   - name: HTTP Upstreams
   - name: Stream
   - name: Stream Server Zones
+  - name: Stream Limit Conns
   - name: Stream Keyvals
   - name: Stream Upstreams
   - name: Stream Zone Sync
@@ -464,6 +467,156 @@ paths:
           description: Success
         '404':
           description: Cache not found (*CacheNotFound*)
+          schema:
+            $ref: '#/definitions/NginxError'
+        '405':
+          description: Method disabled (*MethodDisabled*)
+          schema:
+            $ref: '#/definitions/NginxError'
+  /http/limit_conns/:
+    get:
+      tags:
+        - HTTP Limit Conns
+        - Method GET
+      summary: Return status of all HTTP limit_conn zones
+      description: Returns status information for each HTTP
+        [limit_conn zone](https://nginx.org/en/docs/http/ngx_http_limit_conn_module.html#limit_conn_zone).
+      operationId: getHttpLimitConnZones
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: fields
+          type: string
+          description: Limits which fields of limit_conn zones will be output.
+            If the “<literal>fields</literal>” value is empty,
+            then only zone names will be output.
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/NginxHTTPLimitConnZonesMap'
+  '/http/limit_conns/{httpLimitConnZoneName}':
+    parameters:
+      - name: httpLimitConnZoneName
+        in: path
+        description: The name of a
+          [limit_conn zone](https://nginx.org/en/docs/http/ngx_http_limit_conn_module.html#limit_conn_zone).
+        type: string
+        required: true
+    get:
+      tags:
+        - HTTP Limit Conns
+        - Method GET
+      summary: Return status of an HTTP limit_conn zone
+      description: Returns status of a particular HTTP
+        [limit_conn zone](https://nginx.org/en/docs/http/ngx_http_limit_conn_module.html#limit_conn_zone).
+      operationId: getHttpLimitConnZone
+      produces:
+        - application/json
+      parameters:
+        - name: fields
+          in: query
+          type: string
+          description: Limits which fields of the
+            [limit_conn zone](https://nginx.org/en/docs/http/ngx_http_limit_conn_module.html#limit_conn_zone)
+            will be output.
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/NginxHTTPLimitConnZone'
+        '404':
+          description: limit_conn not found (*LimitConnNotFound*)
+          schema:
+            $ref: '#/definitions/NginxError'
+    delete:
+      tags:
+        - HTTP Limit Conns
+        - Method DELETE
+      summary: Reset statistics for an HTTP limit_conn zone
+      description: Resets the connection limiting statistics.
+      operationId: deleteHttpLimitConnZoneStat
+      responses:
+        '204':
+          description: Success
+        '404':
+          description: limit_conn not found (*LimitConnNotFound*)
+          schema:
+            $ref: '#/definitions/NginxError'
+        '405':
+          description: Method disabled (*MethodDisabled*)
+          schema:
+            $ref: '#/definitions/NginxError'
+  /http/limit_reqs/:
+    get:
+      tags:
+        - HTTP Limit Reqs
+        - Method GET
+      summary: Return status of all HTTP limit_req zones
+      description: Returns status information for each HTTP
+        [limit_req zone](https://nginx.org/en/docs/http/ngx_http_limit_req_module.html#limit_req_zone).
+      operationId: getHttpLimitReqZones
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: fields
+          type: string
+          description: Limits which fields of limit_req zones will be output.
+            If the “<literal>fields</literal>” value is empty,
+            then only zone names will be output.
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/NginxHTTPLimitReqZonesMap'
+  '/http/limit_reqs/{httpLimitReqZoneName}':
+    parameters:
+      - name: httpLimitReqZoneName
+        in: path
+        description: The name of a
+          [limit_req zone](https://nginx.org/en/docs/http/ngx_http_limit_req_module.html#limit_req_zone).
+        type: string
+        required: true
+    get:
+      tags:
+        - HTTP Limit Reqs
+        - Method GET
+      summary: Return status of an HTTP limit_req zone
+      description: Returns status of a particular HTTP
+        [limit_req zone](https://nginx.org/en/docs/http/ngx_http_limit_req_module.html#limit_req_zone).
+      operationId: getHttpLimitReqZone
+      produces:
+        - application/json
+      parameters:
+        - name: fields
+          in: query
+          type: string
+          description: Limits which fields of the
+            [limit_req zone](https://nginx.org/en/docs/http/ngx_http_limit_req_module.html#limit_req_zone)
+            will be output.
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/NginxHTTPLimitReqZone'
+        '404':
+          description: limit_req not found (*LimitReqNotFound*)
+          schema:
+            $ref: '#/definitions/NginxError'
+    delete:
+      tags:
+        - HTTP Limit Reqs
+        - Method DELETE
+      summary: Reset statistics for an HTTP limit_req zone
+      description: Resets the requests limiting statistics.
+      operationId: deleteHttpLimitReqZoneStat
+      responses:
+        '204':
+          description: Success
+        '404':
+          description: limit_req not found (*LimitReqNotFound*)
           schema:
             $ref: '#/definitions/NginxError'
         '405':
@@ -1040,6 +1193,81 @@ paths:
         '404':
           description: |
             Server zone not found (*ServerZoneNotFound*)
+          schema:
+            $ref: '#/definitions/NginxError'
+        '405':
+          description: Method disabled (*MethodDisabled*)
+          schema:
+            $ref: '#/definitions/NginxError'
+  /stream/limit_conns/:
+    get:
+      tags:
+        - Stream Limit Conns
+        - Method GET
+      summary: Return status of all stream limit_conn zones
+      description: Returns status information for each stream
+        [limit_conn zone](https://nginx.org/en/docs/stream/ngx_stream_limit_conn_module.html#limit_conn_zone).
+      operationId: getStreamLimitConnZones
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: fields
+          type: string
+          description: Limits which fields of limit_conn zones will be output.
+            If the “<literal>fields</literal>” value is empty,
+            then only zone names will be output.
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/NginxStreamLimitConnZonesMap'
+  '/stream/limit_conns/{streamLimitConnZoneName}':
+    parameters:
+      - name: streamLimitConnZoneName
+        in: path
+        description: The name of a
+          [limit_conn zone](https://nginx.org/en/docs/stream/ngx_stream_limit_conn_module.html#limit_conn_zone).
+        type: string
+        required: true
+    get:
+      tags:
+        - Stream Limit Conns
+        - Method GET
+      summary: Return status of an stream limit_conn zone
+      description: Returns status of a particular stream
+        [limit_conn zone](https://nginx.org/en/docs/stream/ngx_stream_limit_conn_module.html#limit_conn_zone).
+      operationId: getStreamLimitConnZone
+      produces:
+        - application/json
+      parameters:
+        - name: fields
+          in: query
+          type: string
+          description: Limits which fields of the
+            [limit_conn zone](https://nginx.org/en/docs/stream/ngx_stream_limit_conn_module.html#limit_conn_zone)
+            will be output.
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/NginxStreamLimitConnZone'
+        '404':
+          description: limit_conn not found (*LimitConnNotFound*)
+          schema:
+            $ref: '#/definitions/NginxError'
+    delete:
+      tags:
+        - Stream Limit Conns
+        - Method DELETE
+      summary: Reset statistics for a stream limit_conn zone
+      description: Resets the connection limiting statistics.
+      operationId: deleteStreamLimitConnZoneStat
+      responses:
+        '204':
+          description: Success
+        '404':
+          description: limit_conn not found (*LimitConnNotFound*)
           schema:
             $ref: '#/definitions/NginxError'
         '405':
@@ -2324,6 +2552,72 @@ definitions:
         bytes: 5510647548
         responses_written: 200173
         bytes_written: 44992
+  NginxHTTPLimitConnZonesMap:
+    title: HTTP limit_conns
+    description: |
+      Status data for all HTTP
+      <a href="https://nginx.org/en/docs/http/ngx_http_limit_conn_module.html#limit_conn_zone">limit_conn zones</a>.
+    type: object
+    additionalProperties:
+      $ref: '#/definitions/NginxHTTPLimitConnZone'
+  NginxHTTPLimitConnZone:
+    title: HTTP Connections Limiting
+    type: object
+    properties:
+      passed:
+        type: integer
+        description: The total number of connections that were neither limited
+          nor accounted as limited.
+      rejected:
+        type: integer
+        description: The total number of connections that were rejected.
+      rejected_dry_run:
+        type: integer
+        description: The total number of connections accounted as rejected in the
+          <a href="https://nginx.org/en/docs/http/ngx_http_limit_conn_module.html#limit_conn_dry_run">dry run</a>
+          mode.
+    example:
+      passed: 15
+      rejected: 0
+      rejected_dry_run: 2
+  NginxHTTPLimitReqZonesMap:
+    title: HTTP limit_reqs
+    description: |
+      Status data for all HTTP
+      <a href="https://nginx.org/en/docs/http/ngx_http_limit_req_module.html#limit_req_zone">limit_req zones</a>.
+    type: object
+    additionalProperties:
+      $ref: '#/definitions/NginxHTTPLimitReqZone'
+  NginxHTTPLimitReqZone:
+    title: HTTP Requests Rate Limiting
+    type: object
+    properties:
+      passed:
+        type: integer
+        description: The total number of requests that were neither limited
+          nor accounted as limited.
+      delayed:
+        type: integer
+        description: The total number of requests that were delayed.
+      rejected:
+        type: integer
+        description: The total number of requests that were rejected.
+      delayed_dry_run:
+        type: integer
+        description: The total number of requests accounted as delayed in the
+          <a href="https://nginx.org/en/docs/http/ngx_http_limit_req_module.html#limit_req_dry_run">dry run</a>
+          mode.
+      rejected_dry_run:
+        type: integer
+        description: The total number of requests accounted as rejected in the
+          <a href="https://nginx.org/en/docs/http/ngx_http_limit_req_module.html#limit_req_dry_run">dry run</a>
+          mode.
+    example:
+      passed: 15
+      delayed: 4
+      rejected: 0
+      delayed_dry_run: 1
+      rejected_dry_run: 2
   NginxHTTPUpstreamMap:
     title: HTTP Upstreams
     description: |
@@ -2982,6 +3276,34 @@ definitions:
         discarded: 0
         received: 4200363
         sent: 20489184
+  NginxStreamLimitConnZonesMap:
+    title: Stream limit_conns
+    description: |
+      Status data for all stream
+      <a href="https://nginx.org/en/docs/stream/ngx_stream_limit_conn_module.html#limit_conn_zone">limit_conn zones</a>.
+    type: object
+    additionalProperties:
+      $ref: '#/definitions/NginxStreamLimitConnZone'
+  NginxStreamLimitConnZone:
+    title: Stream Connections Limiting
+    type: object
+    properties:
+      passed:
+        type: integer
+        description: The total number of connections that were neither limited
+          nor accounted as limited.
+      rejected:
+        type: integer
+        description: The total number of connections that were rejected.
+      rejected_dry_run:
+        type: integer
+        description: The total number of connections accounted as rejected in the
+          <a href="https://nginx.org/en/docs/stream/ngx_stream_limit_conn_module.html#limit_conn_dry_run">dry run</a>
+          mode.
+    example:
+      passed: 15
+      rejected: 0
+      rejected_dry_run: 2
   NginxStreamUpstreamMap:
     title: Stream Upstreams
     description: Status information of stream upstream server groups.

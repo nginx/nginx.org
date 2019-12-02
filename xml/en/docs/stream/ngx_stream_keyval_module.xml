@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_keyval_module"
         link="/en/docs/stream/ngx_stream_keyval_module.html"
         lang="en"
-        rev="6">
+        rev="7">
 
 <section id="summary">
 
@@ -90,7 +90,7 @@ specified by the <literal>zone</literal> parameter.
     <literal>zone</literal>=<value>name</value>:<value>size</value>
     [<literal>state</literal>=<value>file</value>]
     [<literal>timeout</literal>=<value>time</value>]
-    [<literal>type</literal>=<literal>string</literal>|<literal>ip</literal>]
+    [<literal>type</literal>=<literal>string</literal>|<literal>ip</literal>|<literal>prefix</literal>]
     [<literal>sync</literal>]</syntax>
 <default/>
 <context>stream</context>
@@ -138,6 +138,13 @@ the search key is the textual representation of IPv4 or IPv6 address
 or CIDR range;
 to match a record key, the search key must belong to a subnet
 specified by a record key or exactly match an IP address
+</tag-desc>
+
+<tag-name id="keyval_type_prefix"><literal>type=prefix</literal></tag-name>
+<tag-desc>
+variable lookup is performed using prefix match
+of a record key and a search key (1.17.5);
+to match a record key, the record key must be a prefix of the search key
 </tag-desc>
 
 </list>
