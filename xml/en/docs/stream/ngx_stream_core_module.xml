@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_core_module"
         link="/en/docs/stream/ngx_stream_core_module.html"
         lang="en"
-        rev="31">
+        rev="32">
 
 <section id="summary">
 
@@ -351,6 +351,10 @@ The optional <literal>valid</literal> parameter allows overriding it:
 <example>
 resolver 127.0.0.1 [::1]:5353 valid=30s;
 </example>
+<note>
+To prevent DNS spoofing, it is recommended
+configuring DNS servers in a properly secured trusted local network.
+</note>
 </para>
 
 <para id="resolver_status_zone">

@@ -10,7 +10,7 @@
 <module name="Module ngx_mail_core_module"
         link="/en/docs/mail/ngx_mail_core_module.html"
         lang="en"
-        rev="13">
+        rev="14">
 
 <section id="summary">
 
@@ -333,6 +333,10 @@ resolver 127.0.0.1 [::1]:5353 valid=30s;
 <note>
 Before version 1.1.9, tuning of caching time was not possible,
 and nginx always cached answers for the duration of 5 minutes.
+</note>
+<note>
+To prevent DNS spoofing, it is recommended
+configuring DNS servers in a properly secured trusted local network.
 </note>
 </para>
 

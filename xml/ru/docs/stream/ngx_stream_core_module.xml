@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_core_module"
         link="/ru/docs/stream/ngx_stream_core_module.html"
         lang="ru"
-        rev="31">
+        rev="32">
 
 <section id="summary">
 
@@ -358,6 +358,10 @@ resolver 127.0.0.1 [::1]:5353;
 <example>
 resolver 127.0.0.1 [::1]:5353 valid=30s;
 </example>
+<note>
+Для предотвращения DNS-спуфинга рекомендуется
+использовать DNS-серверы в защищённой доверенной локальной сети.
+</note>
 </para>
 
 <para id="resolver_status_zone">
