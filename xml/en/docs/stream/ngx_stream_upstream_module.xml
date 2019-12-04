@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_upstream_module"
         link="/en/docs/stream/ngx_stream_upstream_module.html"
         lang="en"
-        rev="38">
+        rev="39">
 
 <section id="summary">
 
@@ -235,21 +235,10 @@ without the need of restarting nginx.
 The server group must reside in the <link id="zone">shared memory</link>.
 <para>
 In order for this parameter to work,
-the <link doc="ngx_stream_core_module.xml" id="resolver"/> directive
+the <literal>resolver</literal> directive
 must be specified in the
-<link doc="ngx_stream_core_module.xml" id="stream"/> block.
-Example:
-<example>
-stream {
-    resolver 10.0.0.1;
-
-    upstream u {
-        zone ...;
-        ...
-        server example.com:12345 resolve;
-    }
-}
-</example>
+<link doc="ngx_stream_core_module.xml" id="resolver">stream</link> block
+or in the corresponding <link id="resolver">upstream</link> block.
 </para>
 </tag-desc>
 

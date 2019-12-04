@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_upstream_module"
         link="/ru/docs/stream/ngx_stream_upstream_module.html"
         lang="ru"
-        rev="38">
+        rev="39">
 
 <section id="summary">
 
@@ -235,21 +235,10 @@ upstream backend {
 Группа должна находиться в <link id="zone">зоне разделяемой памяти</link>.
 <para>
 Для работы этого параметра
-директива <link doc="ngx_stream_core_module.xml" id="resolver"/>
+директива <literal>resolver</literal>
 должна быть задана в блоке
-<link doc="ngx_stream_core_module.xml" id="stream"/>.
-Пример:
-<example>
-stream {
-    resolver 10.0.0.1;
-
-    upstream u {
-        zone ...;
-        ...
-        server example.com:12345 resolve;
-    }
-}
-</example>
+<link doc="ngx_stream_core_module.xml" id="resolver">stream</link>
+или в соответствующем блоке <link id="resolver">upstream</link>.
 </para>
 </tag-desc>
 
