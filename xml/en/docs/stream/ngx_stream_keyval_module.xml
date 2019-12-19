@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_keyval_module"
         link="/en/docs/stream/ngx_stream_keyval_module.html"
         lang="en"
-        rev="7">
+        rev="8">
 
 <section id="summary">
 
@@ -74,7 +74,6 @@ stream {
 <para>
 Creates a new <value>$variable</value> whose value
 is looked up by the <value>key</value> in the key-value database.
-Strings are matched ignoring the case.
 Matching rules are defined by the
 <link id="keyval_type"><literal>type</literal></link> parameter of the
 <link id="keyval_zone"><literal>keyval_zone</literal></link> directive.
