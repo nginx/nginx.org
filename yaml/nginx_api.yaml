@@ -1031,6 +1031,10 @@ paths:
           description: Key already exists (*KeyvalKeyExists*)
           schema:
             $ref: '#/definitions/NginxError'
+        '413':
+          description: Request Entity Too Large
+          schema:
+            $ref: '#/definitions/NginxError'
         '415':
           description: JSON error (*JsonError*)
           schema:
@@ -1082,6 +1086,10 @@ paths:
             $ref: '#/definitions/NginxError'
         '405':
           description: Method disabled (*MethodDisabled*)
+          schema:
+            $ref: '#/definitions/NginxError'
+        '413':
+          description: Request Entity Too Large
           schema:
             $ref: '#/definitions/NginxError'
         '415':
@@ -1687,6 +1695,10 @@ paths:
           description: Key already exists (*KeyvalKeyExists*)
           schema:
             $ref: '#/definitions/NginxError'
+        '413':
+          description: Request Entity Too Large
+          schema:
+            $ref: '#/definitions/NginxError'
         '415':
           description: JSON error (*JsonError*)
           schema:
@@ -1738,6 +1750,10 @@ paths:
             $ref: '#/definitions/NginxError'
         '405':
           description: Method disabled (*MethodDisabled*)
+          schema:
+            $ref: '#/definitions/NginxError'
+        '413':
+          description: Request Entity Too Large
           schema:
             $ref: '#/definitions/NginxError'
         '415':

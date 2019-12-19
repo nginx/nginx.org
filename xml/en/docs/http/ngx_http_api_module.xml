@@ -9,7 +9,7 @@
 <module name="Module ngx_http_api_module"
         link="/en/docs/http/ngx_http_api_module.html"
         lang="en"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -28,6 +28,15 @@ The module supersedes the
 <link doc="ngx_http_upstream_conf_module.xml">ngx_http_upstream_conf_module</link>
 modules.
 </note>
+</para>
+
+<para>
+When using the <literal>PATCH</literal> or <literal>POST</literal> methods,
+make sure that the payload does not exceed the
+<link doc="ngx_http_core_module.xml" id="client_body_buffer_size">buffer size</link>
+for reading the client request body, otherwise, the
+<http-status code="413" text="Request Entity Too Large"/>
+error may be returned.
 </para>
 
 <para>
@@ -1189,6 +1198,7 @@ only one key can be added (<literal>KeyvalFormatError</literal>), returns <link 
 <listitem>404 - Keyval not found (<literal>KeyvalNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>409 - Key already exists (<literal>KeyvalKeyExists</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>413 - Request Entity Too Large, returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>415 - JSON error (<literal>JsonError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
@@ -1216,6 +1226,7 @@ only one key can be updated (<literal>KeyvalFormatError</literal>), returns <lin
 <listitem>404 - Keyval not found (<literal>KeyvalNotFound</literal>),
 keyval key not found (<literal>KeyvalKeyNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>413 - Request Entity Too Large, returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>415 - JSON error (<literal>JsonError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
@@ -1717,6 +1728,7 @@ only one key can be added (<literal>KeyvalFormatError</literal>), returns <link 
 <listitem>404 - Keyval not found (<literal>KeyvalNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>409 - Key already exists (<literal>KeyvalKeyExists</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>413 - Request Entity Too Large, returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>415 - JSON error (<literal>JsonError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
@@ -1744,6 +1756,7 @@ only one key can be updated (<literal>KeyvalFormatError</literal>), returns <lin
 <listitem>404 - Keyval not found (<literal>KeyvalNotFound</literal>),
 keyval key not found (<literal>KeyvalKeyNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>413 - Request Entity Too Large, returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>415 - JSON error (<literal>JsonError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
