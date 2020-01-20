@@ -10,7 +10,7 @@
 <module name="Module ngx_http_grpc_module"
         link="/en/docs/http/ngx_http_grpc_module.html"
         lang="en"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -357,6 +357,15 @@ If a domain name resolves to several addresses, all of them will be
 used in a round-robin fashion.
 In addition, an address can be specified as a
 <link doc="ngx_http_upstream_module.xml">server group</link>.
+</para>
+
+<para>
+Parameter value can contain variables (1.17.8).
+In this case, if an address is specified as a domain name,
+the name is searched among the described
+<link doc="ngx_http_upstream_module.xml">server groups</link>,
+and, if not found, is determined using a
+<link doc="ngx_http_core_module.xml" id="resolver"/>.
 </para>
 
 </directive>
