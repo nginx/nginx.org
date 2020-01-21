@@ -9,7 +9,7 @@
 <article name="Examples"
         link="/en/docs/njs/examples.html"
         lang="en"
-        rev="7">
+        rev="8">
 
 <section id="helloword" name="Hello World">
 
@@ -349,6 +349,53 @@ The <link doc="../http/ngx_http_keyval_module.xml" id="keyval"/> and
 are available as part of our
 <commercial_version>commercial subscription</commercial_version>.
 </note>
+</para>
+
+</section>
+
+
+<section id="promisified_subrequest" name="Promisified Subrequest">
+
+<para>
+The example works since
+<link doc="changes.xml" id="njs0.3.8">0.3.8</link>.
+<path>nginx.conf</path>:
+<example>
+js_include promisified_subrequest.js;
+
+location /start {
+    js_content content;
+}
+
+location /auth {
+    proxy_pass http://auth_backend;
+}
+
+location /backend {
+    proxy_pass http://backend;
+}
+</example>
+</para>
+
+<para>
+<path>promisified_subrequest.js</path>:
+<example>
+function content(r) {
+   r.subrequest(r, '/auth')
+   .then(reply => JSON.parse(reply.responseBody))
+   .then(response => {
+       if (!response['token']) {
+           throw new Error("token is not available");
+       }
+       return token;
+   })
+  .then(token => {
+      r.subrequest('/backend', `token=${token}`)
+      .then(reply => r.return(reply.status, reply.responseBody));
+  })
+  .catch(_ => r.return(500));
+}
+</example>
 </para>
 
 </section>
