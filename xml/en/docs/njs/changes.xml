@@ -9,8 +9,189 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="25"
+        rev="26"
         toc="no">
+
+<section id="njs0.3.8" name="Changes with njs 0.3.8">
+
+<para>
+Release Date:
+21 January 2020
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+added <literal>Promise</literal> support
+for <literal>r.subrequest()</literal>.
+If a callback is not provided,
+<literal>r.subrequest()</literal> returns an ordinary
+<literal>Promise</literal> object
+that resolves to a subrequest response object.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Change:
+<literal>r.parent</literal> property handler now returns
+<literal>undefined</literal>
+instead of throwing an exception if a parent object is not available.
+</para>
+</listitem>
+
+</list>
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+added <literal>Promise</literal> support.
+Implemented according to the specification without:
+<literal>Promise.all()</literal>,
+<literal>Promise.allSettled()</literal>,
+<literal>Promise.race()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added initial Typed-arrays support.
+Thanks to Tiago Natel de Moura.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added <literal>ArrayBuffer</literal> support.
+Thanks to Tiago Natel de Moura.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added initial <literal>Symbol</literal> support.
+Thanks to Artem S. Povalyukhin.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added externals support for <literal>JSON.stringify()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added <literal>Object.is()</literal>.
+Thanks to Artem S. Povalyukhin.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added <literal>Object.setPrototypeOf()</literal>.
+Thanks to Artem S. Povalyukhin.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<literal>Object.getPrototypeOf()</literal>
+according to the specification.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<literal>Object.prototype.valueOf()</literal>
+according to the specification.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<literal>JSON.stringify()</literal>
+with unprintable values and replacer function.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed operator <literal>in</literal>
+according to the specification.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<literal>Object.defineProperties()</literal>
+according to the specification.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<literal>Object.create()</literal>
+according to the specification.
+Thanks to Artem S. Povalyukhin.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<literal>Number.prototype.toString(radix)</literal>
+when fast-math is enabled.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>RegExp()</literal> instance properties.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed import segfault.
+Thanks to 洪志道 (Hong Zhi Dao).
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.3.7" name="Changes with njs 0.3.7">
 
