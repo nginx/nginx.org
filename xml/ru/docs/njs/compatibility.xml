@@ -9,7 +9,7 @@
 <article name="Совместимость"
         link="/ru/docs/njs/compatibility.html"
         lang="ru"
-        rev="20"
+        rev="21"
         toc="no">
 
 <section>
@@ -309,8 +309,16 @@ ES5.1:
 <literal>toString</literal>,
 <literal>valueOf</literal>
 </listitem>
-</list>
 
+<listitem>
+ES6:
+<literal>is</literal>
+(<link doc="changes.xml" id="njs0.3.8">0.3.8</link>),
+<literal>setPrototypeOf</literal>
+(<link doc="changes.xml" id="njs0.3.8">0.3.8</link>)
+</listitem>
+
+</list>
 </listitem>
 
 <listitem>
@@ -364,6 +372,95 @@ ES6:
 
 <listitem>
 ES7: <literal>includes</literal>
+</listitem>
+</list>
+
+</listitem>
+
+<listitem>
+Методы <literal>ArrayBuffer</literal>
+(<link doc="changes.xml" id="njs0.3.8">0.3.8</link>):
+<list type="bullet">
+<listitem>
+ES6:
+<literal>isView</literal>
+</listitem>
+</list>
+
+</listitem>
+
+<listitem>
+Методы экземпляра класса <literal>ArrayBuffer</literal>
+(<link doc="changes.xml" id="njs0.3.8">0.3.8</link>):
+<list type="bullet">
+<listitem>
+ES6:
+<literal>slice</literal>
+</listitem>
+</list>
+
+</listitem>
+
+<listitem>
+Конструкторы <literal>Typed-array</literal>
+(<link doc="changes.xml" id="njs0.3.8">0.3.8</link>):
+<list type="bullet">
+<listitem>
+ES6:
+<literal>Uint8Array</literal>,
+<literal>Int8Array</literal>,
+<literal>Uint8ClampedArray</literal>,
+<literal>Uint16Array</literal>,
+<literal>Int16Array</literal>,
+<literal>Uint32Array</literal>,
+<literal>Int32Array</literal>,
+<literal>Float32Array</literal>,
+<literal>Float64Array</literal>
+</listitem>
+</list>
+
+</listitem>
+
+<listitem>
+Методы экземпляра класса <literal>Typed-array</literal>
+(<link doc="changes.xml" id="njs0.3.8">0.3.8</link>):
+<list type="bullet">
+<listitem>
+ES6:
+<literal>set</literal>,
+<literal>slice</literal>,
+<literal>subarray</literal>,
+<literal>copyWithin</literal>,
+<literal>fill</literal>,
+<literal>join</literal>,
+<literal>toString</literal>
+</listitem>
+</list>
+
+</listitem>
+
+<listitem>
+Методы <literal>Promise</literal>
+(<link doc="changes.xml" id="njs0.3.8">0.3.8</link>):
+<list type="bullet">
+<listitem>
+ES6:
+<literal>resolve</literal>,
+<literal>reject</literal>
+</listitem>
+</list>
+
+</listitem>
+
+<listitem>
+Методы экземпляра класса <literal>Promise</literal>
+(<link doc="changes.xml" id="njs0.3.8">0.3.8</link>):
+<list type="bullet">
+<listitem>
+ES6:
+<literal>then</literal>,
+<literal>catch</literal>,
+<literal>finally</literal>
 </listitem>
 </list>
 
@@ -562,6 +659,11 @@ ES6 поддержка стрелочных функций
 
 <listitem>
 <link doc="reference.xml" id="process"><literal>process</literal></link>
+</listitem>
+
+<listitem>
+псевдоним <literal>globalThis</literal>
+(<link doc="changes.xml" id="njs0.3.8">0.3.8</link>)
 </listitem>
 
 </list>
