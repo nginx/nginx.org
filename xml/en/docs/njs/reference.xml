@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="32">
+        rev="33">
 
 <section id="summary">
 
@@ -228,6 +228,13 @@ HTTP method, by default the <literal>GET</literal> method is used
 The completion <literal>callback</literal> receives
 a subrequest response object with methods and properties
 identical to the parent request object.
+</para>
+
+<para>
+Since <link doc="changes.xml" id="njs0.3.8">0.3.8</link>,
+if a <literal>callback</literal> is not provided,
+the <literal>Promise</literal> object
+that resolves to the subrequest response object is returned.
 </para>
 </tag-desc>
 
