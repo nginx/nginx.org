@@ -9,7 +9,7 @@
 <article name="Compatibility"
         link="/en/docs/njs/compatibility.html"
         lang="en"
-        rev="21"
+        rev="22"
         toc="no">
 
 <section>
@@ -406,13 +406,13 @@ ES6:
 <list type="bullet">
 <listitem>
 ES6:
-<literal>Uint8Array</literal>,
 <literal>Int8Array</literal>,
+<literal>Uint8Array</literal>,
 <literal>Uint8ClampedArray</literal>,
-<literal>Uint16Array</literal>,
 <literal>Int16Array</literal>,
-<literal>Uint32Array</literal>,
+<literal>Uint16Array</literal>,
 <literal>Int32Array</literal>,
+<literal>Uint32Array</literal>,
 <literal>Float32Array</literal>,
 <literal>Float64Array</literal>
 </listitem>
@@ -426,12 +426,12 @@ ES6:
 <list type="bullet">
 <listitem>
 ES6:
-<literal>set</literal>,
-<literal>slice</literal>,
-<literal>subarray</literal>,
 <literal>copyWithin</literal>,
 <literal>fill</literal>,
 <literal>join</literal>,
+<literal>set</literal>,
+<literal>slice</literal>,
+<literal>subarray</literal>,
 <literal>toString</literal>
 </listitem>
 </list>
@@ -444,8 +444,8 @@ ES6:
 <list type="bullet">
 <listitem>
 ES6:
-<literal>resolve</literal>,
-<literal>reject</literal>
+<literal>reject</literal>,
+<literal>resolve</literal>
 </listitem>
 </list>
 
@@ -457,9 +457,9 @@ ES6:
 <list type="bullet">
 <listitem>
 ES6:
-<literal>then</literal>,
 <literal>catch</literal>,
-<literal>finally</literal>
+<literal>finally</literal>,
+<literal>then</literal>
 </listitem>
 </list>
 
@@ -474,8 +474,6 @@ ES5.1:
 <literal>apply</literal>,
 <literal>bind</literal>,
 <literal>call</literal>
-
-
 </listitem>
 </list>
 
@@ -622,9 +620,9 @@ functions (0.2.0)
 <literal>File system</literal> methods:
 <link doc="reference.xml" id="appendfilesync"><literal>fs.appendFileSync</literal></link>,
 <link doc="reference.xml" id="readfilesync"><literal>fs.readFileSync</literal></link>,
-<link doc="reference.xml" id="writefilesync"><literal>fs.writeFileSync</literal></link>,
 <link doc="reference.xml" id="renamesync"><literal>fs.renameSync</literal></link>
-(<link doc="changes.xml" id="njs0.3.4">0.3.4</link>)
+(<link doc="changes.xml" id="njs0.3.4">0.3.4</link>),
+<link doc="reference.xml" id="writefilesync"><literal>fs.writeFileSync</literal></link>
 </listitem>
 
 <listitem>
@@ -636,7 +634,8 @@ functions (0.2.0)
 <listitem>
 ES6 modules support:
 default <literal>export</literal> and
-default <literal>import</literal> statements
+default <literal>import</literal>
+statements
 (<link doc="changes.xml" id="njs0.3.0">0.3.0</link>)
 </listitem>
 
@@ -657,12 +656,12 @@ Global objects
 <list type="bullet">
 
 <listitem>
-<link doc="reference.xml" id="process"><literal>process</literal></link>
+<literal>globalThis</literal> alias
+(<link doc="changes.xml" id="njs0.3.8">0.3.8</link>),
 </listitem>
 
 <listitem>
-<literal>globalThis</literal> alias
-(<link doc="changes.xml" id="njs0.3.8">0.3.8</link>)
+<link doc="reference.xml" id="process"><literal>process</literal></link>
 </listitem>
 
 </list>
@@ -675,4 +674,3 @@ Global objects
 </section>
 
 </article>
-

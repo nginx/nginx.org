@@ -178,10 +178,8 @@ ES6:
 
 </listitem>
 
-
 <listitem>
 Методы <literal>String</literal>:
-
 <list type="bullet">
 
 <listitem>
@@ -296,7 +294,6 @@ ES8:
 
 </listitem>
 
-
 <listitem>
 Методы экземпляра класса <literal>Object</literal>:
 <list type="bullet">
@@ -365,6 +362,8 @@ ES5.1:
 
 <listitem>
 ES6:
+<literal>copyWithin</literal>
+(<link doc="changes.xml" id="njs0.3.7">0.3.7</link>),
 <literal>fill</literal>,
 <literal>find</literal>,
 <literal>findIndex</literal>
@@ -407,13 +406,13 @@ ES6:
 <list type="bullet">
 <listitem>
 ES6:
-<literal>Uint8Array</literal>,
 <literal>Int8Array</literal>,
+<literal>Uint8Array</literal>,
 <literal>Uint8ClampedArray</literal>,
-<literal>Uint16Array</literal>,
 <literal>Int16Array</literal>,
-<literal>Uint32Array</literal>,
+<literal>Uint16Array</literal>,
 <literal>Int32Array</literal>,
+<literal>Uint32Array</literal>,
 <literal>Float32Array</literal>,
 <literal>Float64Array</literal>
 </listitem>
@@ -427,12 +426,12 @@ ES6:
 <list type="bullet">
 <listitem>
 ES6:
-<literal>set</literal>,
-<literal>slice</literal>,
-<literal>subarray</literal>,
 <literal>copyWithin</literal>,
 <literal>fill</literal>,
 <literal>join</literal>,
+<literal>set</literal>,
+<literal>slice</literal>,
+<literal>subarray</literal>,
 <literal>toString</literal>
 </listitem>
 </list>
@@ -445,8 +444,8 @@ ES6:
 <list type="bullet">
 <listitem>
 ES6:
-<literal>resolve</literal>,
-<literal>reject</literal>
+<literal>reject</literal>,
+<literal>resolve</literal>
 </listitem>
 </list>
 
@@ -458,9 +457,9 @@ ES6:
 <list type="bullet">
 <listitem>
 ES6:
-<literal>then</literal>,
 <literal>catch</literal>,
-<literal>finally</literal>
+<literal>finally</literal>,
+<literal>then</literal>
 </listitem>
 </list>
 
@@ -622,9 +621,9 @@ ES5.1 глобальные функции:
 Методы <literal>File system</literal>:
 <link doc="reference.xml" id="appendfilesync"><literal>fs.appendFileSync</literal></link>,
 <link doc="reference.xml" id="readfilesync"><literal>fs.readFileSync</literal></link>,
-<link doc="reference.xml" id="writefilesync"><literal>fs.writeFileSync</literal></link>,
 <link doc="reference.xml" id="renamesync"><literal>fs.renameSync</literal></link>
-(<link doc="changes.xml" id="njs0.3.4">0.3.4</link>)
+(<link doc="changes.xml" id="njs0.3.4">0.3.4</link>),
+<link doc="reference.xml" id="writefilesync"><literal>fs.writeFileSync</literal></link>
 </listitem>
 
 <listitem>
@@ -658,12 +657,12 @@ ES6 поддержка стрелочных функций
 <list type="bullet">
 
 <listitem>
-<link doc="reference.xml" id="process"><literal>process</literal></link>
+псевдоним <literal>globalThis</literal>
+(<link doc="changes.xml" id="njs0.3.8">0.3.8</link>),
 </listitem>
 
 <listitem>
-псевдоним <literal>globalThis</literal>
-(<link doc="changes.xml" id="njs0.3.8">0.3.8</link>)
+<link doc="reference.xml" id="process"><literal>process</literal></link>
 </listitem>
 
 </list>
@@ -676,4 +675,3 @@ ES6 поддержка стрелочных функций
 </section>
 
 </article>
-
