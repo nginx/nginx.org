@@ -1011,6 +1011,7 @@ invalid “<literal>max_conns</literal>” (<literal>UpstreamBadMaxConns</litera
 invalid “<literal>max_fails</literal>” (<literal>UpstreamBadMaxFails</literal>),
 invalid “<literal>fail_timeout</literal>” (<literal>UpstreamBadFailTimeout</literal>),
 invalid “<literal>slow_start</literal>” (<literal>UpstreamBadSlowStart</literal>),
+reading request body failed <literal>BodyReadError</literal>),
 route is too long (<literal>UpstreamBadRoute</literal>),
 “<literal>service</literal>” is empty (<literal>UpstreamBadService</literal>),
 no resolver defined to resolve (<literal>UpstreamConfNoResolver</literal>),
@@ -1083,6 +1084,7 @@ invalid “<literal>max_conns</literal>” (<literal>UpstreamBadMaxConns</litera
 invalid “<literal>max_fails</literal>” (<literal>UpstreamBadMaxFails</literal>),
 invalid “<literal>fail_timeout</literal>” (<literal>UpstreamBadFailTimeout</literal>),
 invalid “<literal>slow_start</literal>” (<literal>UpstreamBadSlowStart</literal>),
+reading request body failed <literal>BodyReadError</literal>),
 route is too long (<literal>UpstreamBadRoute</literal>),
 “<literal>service</literal>” is empty (<literal>UpstreamBadService</literal>),
 server “<value>ID</value>” address is immutable (<literal>UpstreamServerImmutable</literal>),
@@ -1194,7 +1196,8 @@ Possible responses:
 invalid key format (<literal>KeyvalFormatError</literal>),
 key required (<literal>KeyvalFormatError</literal>),
 keyval timeout is not enabled (<literal>KeyvalFormatError</literal>),
-only one key can be added (<literal>KeyvalFormatError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+only one key can be added (<literal>KeyvalFormatError</literal>),
+reading request body failed <literal>BodyReadError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>404 - Keyval not found (<literal>KeyvalNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>409 - Key already exists (<literal>KeyvalKeyExists</literal>), returns <link id="def_nginx_error">Error</link></listitem>
@@ -1222,7 +1225,8 @@ Possible responses:
 <listitem>400 - Invalid JSON (<literal>KeyvalFormatError</literal>),
 key required (<literal>KeyvalFormatError</literal>),
 keyval timeout is not enabled (<literal>KeyvalFormatError</literal>),
-only one key can be updated (<literal>KeyvalFormatError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+only one key can be updated (<literal>KeyvalFormatError</literal>),
+reading request body failed <literal>BodyReadError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>404 - Keyval not found (<literal>KeyvalNotFound</literal>),
 keyval key not found (<literal>KeyvalKeyNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
@@ -1545,7 +1549,8 @@ invalid “<literal>slow_start</literal>” (<literal>UpstreamBadSlowStart</lite
 “<literal>service</literal>” is empty (<literal>UpstreamBadService</literal>),
 no resolver defined to resolve (<literal>UpstreamConfNoResolver</literal>),
 upstream “<value>name</value>” has no backup (<literal>UpstreamNoBackup</literal>),
-upstream “<value>name</value>” memory exhausted (<literal>UpstreamOutOfMemory</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+upstream “<value>name</value>” memory exhausted (<literal>UpstreamOutOfMemory</literal>),
+reading request body failed <literal>BodyReadError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>404 - Upstream not found (<literal>UpstreamNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>415 - JSON error (<literal>JsonError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
@@ -1614,6 +1619,7 @@ invalid “<literal>max_conns</literal>” (<literal>UpstreamBadMaxConns</litera
 invalid “<literal>max_fails</literal>” (<literal>UpstreamBadMaxFails</literal>),
 invalid “<literal>fail_timeout</literal>” (<literal>UpstreamBadFailTimeout</literal>),
 invalid “<literal>slow_start</literal>” (<literal>UpstreamBadSlowStart</literal>),
+reading request body failed <literal>BodyReadError</literal>),
 “<literal>service</literal>” is empty (<literal>UpstreamBadService</literal>),
 server “<value>ID</value>” address is immutable (<literal>UpstreamServerImmutable</literal>),
 server “<value>ID</value>” weight is immutable (<literal>UpstreamServerWeightImmutable</literal>),
@@ -1724,7 +1730,8 @@ Possible responses:
 invalid key format (<literal>KeyvalFormatError</literal>),
 key required (<literal>KeyvalFormatError</literal>),
 keyval timeout is not enabled (<literal>KeyvalFormatError</literal>),
-only one key can be added (<literal>KeyvalFormatError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+only one key can be added (<literal>KeyvalFormatError</literal>),
+reading request body failed <literal>BodyReadError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>404 - Keyval not found (<literal>KeyvalNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>409 - Key already exists (<literal>KeyvalKeyExists</literal>), returns <link id="def_nginx_error">Error</link></listitem>
@@ -1752,7 +1759,8 @@ Possible responses:
 <listitem>400 - Invalid JSON (<literal>KeyvalFormatError</literal>),
 key required (<literal>KeyvalFormatError</literal>),
 keyval timeout is not enabled (<literal>KeyvalFormatError</literal>),
-only one key can be updated (<literal>KeyvalFormatError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+only one key can be updated (<literal>KeyvalFormatError</literal>),
+reading request body failed <literal>BodyReadError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>404 - Keyval not found (<literal>KeyvalNotFound</literal>),
 keyval key not found (<literal>KeyvalKeyNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>

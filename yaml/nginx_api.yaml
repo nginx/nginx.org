@@ -776,6 +776,7 @@ paths:
             invalid “*max_fails*” (*UpstreamBadMaxFails*),
             invalid “*fail_timeout*” (*UpstreamBadFailTimeout*),
             invalid “*slow_start*” (*UpstreamBadSlowStart*),
+            reading request body failed *BodyReadError*),
             route is too long (*UpstreamBadRoute*),
             “*service*” is empty (*UpstreamBadService*),
             no resolver defined to resolve (*UpstreamConfNoResolver*),
@@ -873,6 +874,7 @@ paths:
             invalid “*max_fails*” (*UpstreamBadMaxFails*),
             invalid “*fail_timeout*” (*UpstreamBadFailTimeout*),
             invalid “*slow_start*” (*UpstreamBadSlowStart*),
+            reading request body failed *BodyReadError*),
             route is too long (*UpstreamBadRoute*),
             “*service*” is empty (*UpstreamBadService*),
             server “**ID**” address is immutable (*UpstreamServerImmutable*),
@@ -1016,7 +1018,8 @@ paths:
             invalid key format (*KeyvalFormatError*),
             key required (*KeyvalFormatError*),
             keyval timeout is not enabled (*KeyvalFormatError*),
-            only one key can be added (*KeyvalFormatError*)
+            only one key can be added (*KeyvalFormatError*),
+            reading request body failed *BodyReadError*)
           schema:
             $ref: '#/definitions/NginxError'
         '404':
@@ -1075,7 +1078,8 @@ paths:
             Invalid JSON (*KeyvalFormatError*),
             key required (*KeyvalFormatError*),
             keyval timeout is not enabled (*KeyvalFormatError*),
-            only one key can be updated (*KeyvalFormatError*)
+            only one key can be updated (*KeyvalFormatError*),
+            reading request body failed *BodyReadError*)
           schema:
             $ref: '#/definitions/NginxError'
         '404':
@@ -1442,7 +1446,8 @@ paths:
             “*service*” is empty (*UpstreamBadService*),
             no resolver defined to resolve (*UpstreamConfNoResolver*),
             upstream “**name**” has no backup (*UpstreamNoBackup*),
-            upstream “**name**” memory exhausted (*UpstreamOutOfMemory*)
+            upstream “**name**” memory exhausted (*UpstreamOutOfMemory*),
+            reading request body failed *BodyReadError*)
           schema:
             $ref: '#/definitions/NginxError'
         '404':
@@ -1537,6 +1542,7 @@ paths:
             invalid “*max_fails*” (*UpstreamBadMaxFails*),
             invalid “*fail_timeout*” (*UpstreamBadFailTimeout*),
             invalid “*slow_start*” (*UpstreamBadSlowStart*),
+            reading request body failed *BodyReadError*),
             “*service*” is empty (*UpstreamBadService*),
             server “**ID**” address is immutable (*UpstreamServerImmutable*),
             server “**ID**” weight is immutable (*UpstreamServerWeightImmutable*),
@@ -1679,7 +1685,8 @@ paths:
             invalid key format (*KeyvalFormatError*),
             key required (*KeyvalFormatError*),
             keyval timeout is not enabled (*KeyvalFormatError*),
-            only one key can be added (*KeyvalFormatError*)
+            only one key can be added (*KeyvalFormatError*),
+            reading request body failed *BodyReadError*)
           schema:
             $ref: '#/definitions/NginxError'
         '404':
@@ -1739,7 +1746,8 @@ paths:
             Invalid JSON (*KeyvalFormatError*),
             key required (*KeyvalFormatError*),
             keyval timeout is not enabled (*KeyvalFormatError*),
-            only one key can be updated (*KeyvalFormatError*)
+            only one key can be updated (*KeyvalFormatError*),
+            reading request body failed *BodyReadError*)
           schema:
             $ref: '#/definitions/NginxError'
         '404':
