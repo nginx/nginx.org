@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="33">
+        rev="34">
 
 <section id="summary">
 
@@ -1023,7 +1023,7 @@ The Crypto module object is returned by <literal>require('crypto')</literal>.
 Creates and returns a <link id="crypto_hash">Hash</link> object
 that can be used to generate hash digests
 using the given <value>algorithm</value>.
-The algorighm can be
+The algorithm can be
 <literal>md5</literal>,
 <literal>sha1</literal>, and
 <literal>sha256</literal>.
@@ -1034,7 +1034,7 @@ The algorighm can be
 <tag-desc>
 Creates and returns an <link id="crypto_hmac">HMAC</link> object
 that uses the given <value>algorithm</value> and <value>secret key</value>.
-The algorighm can be
+The algorithm can be
 <literal>md5</literal>,
 <literal>sha1</literal>, and
 <literal>sha256</literal>.
