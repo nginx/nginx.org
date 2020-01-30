@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_limit_conn_module"
         link="/ru/docs/http/ngx_http_limit_conn_module.html"
         lang="ru"
-        rev="12">
+        rev="13">
 
 <section id="summary">
 
@@ -195,6 +195,19 @@ limit_conn_zone $binary_remote_addr zone=addr:10m;
 При переполнении зоны в ответ на последующие запросы сервер будет
 возвращать
 <link id="limit_conn_status">ошибку</link>.
+</para>
+
+<para>
+<note>
+Дополнительно, как часть
+<commercial_version>коммерческой подписки</commercial_version>,
+<link doc="ngx_http_api_module.xml" id="http_limit_conns_">информацию о состоянии</link>
+каждой такой зоны разделяемой памяти можно
+<link doc="ngx_http_api_module.xml" id="getHttpLimitConnZone">получить</link> или
+<link doc="ngx_http_api_module.xml" id="deleteHttpLimitConnZoneStat">сбросить</link>
+при помощи <link doc="ngx_http_api_module.xml">API</link>
+начиная с версии 1.17.7.
+</note>
 </para>
 
 </directive>

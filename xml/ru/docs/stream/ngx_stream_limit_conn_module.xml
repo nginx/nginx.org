@@ -10,7 +10,7 @@
 <module name="Модуль ngx_stream_limit_conn_module"
         link="/ru/docs/stream/ngx_stream_limit_conn_module.html"
         lang="ru"
-        rev="5">
+        rev="6">
 
 <section id="summary">
 
@@ -151,6 +151,19 @@ limit_conn_zone $binary_remote_addr zone=addr:10m;
 </para>
 
 </directive>
+
+<para>
+<note>
+Дополнительно, как часть
+<commercial_version>коммерческой подписки</commercial_version>,
+<link doc="../http/ngx_http_api_module.xml" id="stream_limit_conns_">информацию о состоянии</link>
+каждой такой зоны разделяемой памяти можно
+<link doc="../http/ngx_http_api_module.xml" id="getStreamLimitConnZone">получить</link> или
+<link doc="../http/ngx_http_api_module.xml" id="deleteStreamLimitConnZoneStat">сбросить</link>
+при помощи <link doc="../http/ngx_http_api_module.xml">API</link>
+начиная с версии 1.17.7.
+</note>
+</para>
 
 </section>
 

@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_limit_req_module"
         link="/ru/docs/http/ngx_http_limit_req_module.html"
         lang="ru"
-        rev="13">
+        rev="14">
 
 <section id="summary">
 
@@ -244,6 +244,19 @@ limit_req_zone $binary_remote_addr zone=one:10m rate=1r/s;
 <note>
 Параметр <literal>sync</literal> доступен как часть
 <commercial_version>коммерческой подписки</commercial_version>.
+</note>
+</para>
+
+<para>
+<note>
+Дополнительно, как часть
+<commercial_version>коммерческой подписки</commercial_version>,
+<link doc="ngx_http_api_module.xml" id="http_limit_reqs_">информацию о состоянии</link>
+каждой такой зоны разделяемой памяти можно
+<link doc="ngx_http_api_module.xml" id="getHttpLimitReqZone">получить</link> или
+<link doc="ngx_http_api_module.xml" id="deleteHttpLimitReqZoneStat">сбросить</link>
+при помощи <link doc="ngx_http_api_module.xml">API</link>
+начиная с версии 1.17.7.
 </note>
 </para>
 

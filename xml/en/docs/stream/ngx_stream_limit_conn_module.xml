@@ -10,7 +10,7 @@
 <module name="Module ngx_stream_limit_conn_module"
         link="/en/docs/stream/ngx_stream_limit_conn_module.html"
         lang="en"
-        rev="5">
+        rev="6">
 
 <section id="summary">
 
@@ -147,6 +147,19 @@ on 32-bit platforms and 64 bytes on 64-bit platforms.
 One megabyte zone can keep about 32 thousand 32-byte states
 or about 16 thousand 64-byte states.
 If the zone storage is exhausted, the server will close the connection.
+</para>
+
+<para>
+<note>
+Additionally, as part of our
+<commercial_version>commercial subscription</commercial_version>,
+the
+<link doc="../http/ngx_http_api_module.xml" id="stream_limit_conns_">status information</link>
+for each such shared memory zone can be
+<link doc="../http/ngx_http_api_module.xml" id="getStreamLimitConnZone">obtained</link> or
+<link doc="../http/ngx_http_api_module.xml" id="deleteStreamLimitConnZoneStat">reset</link>
+with the <link doc="../http/ngx_http_api_module.xml">API</link> since 1.17.7.
+</note>
 </para>
 
 </directive>

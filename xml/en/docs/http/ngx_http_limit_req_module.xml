@@ -10,7 +10,7 @@
 <module name="Module ngx_http_limit_req_module"
         link="/en/docs/http/ngx_http_limit_req_module.html"
         lang="en"
-        rev="13">
+        rev="14">
 
 <section id="summary">
 
@@ -246,6 +246,19 @@ of the shared memory zone.
 <note>
 The <literal>sync</literal> parameter is available as part of our
 <commercial_version>commercial subscription</commercial_version>.
+</note>
+</para>
+
+<para>
+<note>
+Additionally, as part of our
+<commercial_version>commercial subscription</commercial_version>,
+the
+<link doc="ngx_http_api_module.xml" id="http_limit_reqs_">status information</link>
+for each such shared memory zone can be
+<link doc="ngx_http_api_module.xml" id="getHttpLimitReqZone">obtained</link> or
+<link doc="ngx_http_api_module.xml" id="deleteHttpLimitReqZoneStat">reset</link>
+with the <link doc="ngx_http_api_module.xml">API</link> since 1.17.7.
 </note>
 </para>
 
