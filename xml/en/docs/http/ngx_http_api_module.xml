@@ -284,6 +284,7 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>200 - Success, returns an array of strings</listitem>
+<listitem>404 - Unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 </list>
@@ -311,6 +312,7 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>200 - Success, returns <link id="def_nginx_object">nginx</link></listitem>
+<listitem>404 - Unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 </list>
@@ -329,6 +331,7 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>200 - Success, returns <link id="def_nginx_processes">Processes</link></listitem>
+<listitem>404 - Unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 <listitem id="deleteProcesses">
@@ -339,6 +342,7 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>204 - Success</listitem>
+<listitem>404 - Unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 </list>
@@ -366,6 +370,7 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>200 - Success, returns <link id="def_nginx_connections">Connections</link></listitem>
+<listitem>404 - Unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 <listitem id="deleteConnections">
@@ -376,6 +381,7 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>204 - Success</listitem>
+<listitem>404 - Unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 </list>
@@ -403,6 +409,7 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>200 - Success, returns a collection of "<link id="def_nginx_slab_zone">Shared memory zone with slab allocator</link>" objects for all slabs</listitem>
+<listitem>404 - Unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 </list>
@@ -437,7 +444,8 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>200 - Success, returns <link id="def_nginx_slab_zone">Shared memory zone with slab allocator</link></listitem>
-<listitem>404 - Slab not found (<literal>SlabNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>404 - Slab not found (<literal>SlabNotFound</literal>),
+unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 <listitem id="deleteSlabZoneStats">
@@ -448,7 +456,8 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>204 - Success</listitem>
-<listitem>404 - Slab not found (<literal>SlabNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>404 - Slab not found (<literal>SlabNotFound</literal>),
+unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
@@ -468,6 +477,7 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>200 - Success, returns an array of strings</listitem>
+<listitem>404 - Unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 </list>
@@ -495,6 +505,7 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>200 - Success, returns <link id="def_nginx_http_requests">HTTP Requests</link></listitem>
+<listitem>404 - Unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 <listitem id="deleteHttpRequests">
@@ -505,6 +516,7 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>204 - Success</listitem>
+<listitem>404 - Unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
@@ -533,6 +545,7 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>200 - Success, returns a collection of "<link id="def_nginx_http_server_zone">HTTP Server Zone</link>" objects for all HTTP server zones</listitem>
+<listitem>404 - Unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 </list>
@@ -567,7 +580,8 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>200 - Success, returns <link id="def_nginx_http_server_zone">HTTP Server Zone</link></listitem>
-<listitem>404 - Server zone not found (<literal>ServerZoneNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>404 - Server zone not found (<literal>ServerZoneNotFound</literal>),
+unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 <listitem id="deleteHttpServerZoneStat">
@@ -578,7 +592,8 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>204 - Success</listitem>
-<listitem>404 - Server zone not found (<literal>ServerZoneNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>404 - Server zone not found (<literal>ServerZoneNotFound</literal>),
+unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
@@ -607,6 +622,7 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>200 - Success, returns a collection of "<link id="def_nginx_http_location_zone">HTTP Location Zone</link>" objects for all HTTP location zones</listitem>
+<listitem>404 - Unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 </list>
@@ -641,7 +657,8 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>200 - Success, returns <link id="def_nginx_http_location_zone">HTTP Location Zone</link></listitem>
-<listitem>404 - Location zone not found (<literal>LocationZoneNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>404 - Location zone not found (<literal>LocationZoneNotFound</literal>),
+unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 <listitem id="deleteHttpLocationZoneStat">
@@ -652,7 +669,8 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>204 - Success</listitem>
-<listitem>404 - Location zone not found (<literal>LocationZoneNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>404 - Location zone not found (<literal>LocationZoneNotFound</literal>),
+unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
@@ -681,6 +699,7 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>200 - Success, returns a collection of "<link id="def_nginx_http_cache">HTTP Cache</link>" objects for all HTTP caches</listitem>
+<listitem>404 - Unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 </list>
@@ -715,7 +734,8 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>200 - Success, returns <link id="def_nginx_http_cache">HTTP Cache</link></listitem>
-<listitem>404 - Cache not found (<literal>CacheNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>404 - Cache not found (<literal>CacheNotFound</literal>),
+unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 <listitem id="deleteHttpCacheZoneStat">
@@ -726,7 +746,8 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>204 - Success</listitem>
-<listitem>404 - Cache not found (<literal>CacheNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>404 - Cache not found (<literal>CacheNotFound</literal>),
+unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
@@ -755,6 +776,7 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>200 - Success, returns a collection of "<link id="def_nginx_http_limit_conn_zone">HTTP Connections Limiting</link>" objects for all HTTP limit conns</listitem>
+<listitem>404 - Unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 </list>
@@ -789,7 +811,8 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>200 - Success, returns <link id="def_nginx_http_limit_conn_zone">HTTP Connections Limiting</link></listitem>
-<listitem>404 - limit_conn not found (<literal>LimitConnNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>404 - limit_conn not found (<literal>LimitConnNotFound</literal>),
+unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 <listitem id="deleteHttpLimitConnZoneStat">
@@ -800,7 +823,8 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>204 - Success</listitem>
-<listitem>404 - limit_conn not found (<literal>LimitConnNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>404 - limit_conn not found (<literal>LimitConnNotFound</literal>),
+unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
@@ -829,6 +853,7 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>200 - Success, returns a collection of "<link id="def_nginx_http_limit_req_zone">HTTP Requests Rate Limiting</link>" objects for all HTTP limit reqs</listitem>
+<listitem>404 - Unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 </list>
@@ -863,7 +888,8 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>200 - Success, returns <link id="def_nginx_http_limit_req_zone">HTTP Requests Rate Limiting</link></listitem>
-<listitem>404 - limit_req not found (<literal>LimitReqNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>404 - limit_req not found (<literal>LimitReqNotFound</literal>),
+unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 <listitem id="deleteHttpLimitReqZoneStat">
@@ -874,7 +900,8 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>204 - Success</listitem>
-<listitem>404 - limit_req not found (<literal>LimitReqNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>404 - limit_req not found (<literal>LimitReqNotFound</literal>),
+unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
@@ -903,6 +930,7 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>200 - Success, returns a collection of "<link id="def_nginx_http_upstream">HTTP Upstream</link>" objects for all HTTP upstreams</listitem>
+<listitem>404 - Unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 </list>
@@ -938,7 +966,8 @@ Possible responses:
 <list type="bullet">
 <listitem>200 - Success, returns <link id="def_nginx_http_upstream">HTTP Upstream</link></listitem>
 <listitem>400 - Upstream is static (<literal>UpstreamStatic</literal>), returns <link id="def_nginx_error">Error</link></listitem>
-<listitem>404 - Upstream not found (<literal>UpstreamNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>404 - Unknown version (<literal>UnknownVersion</literal>),
+upstream not found (<literal>UpstreamNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 <listitem id="deleteHttpUpstreamStat">
@@ -950,7 +979,8 @@ Possible responses:
 <list type="bullet">
 <listitem>204 - Success</listitem>
 <listitem>400 - Upstream is static (<literal>UpstreamStatic</literal>), returns <link id="def_nginx_error">Error</link></listitem>
-<listitem>404 - Upstream not found (<literal>UpstreamNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>404 - Unknown version (<literal>UnknownVersion</literal>),
+upstream not found (<literal>UpstreamNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
@@ -978,7 +1008,8 @@ Possible responses:
 <list type="bullet">
 <listitem>200 - Success, returns an array of <link id="def_nginx_http_upstream_conf_server">HTTP Upstream Servers</link></listitem>
 <listitem>400 - Upstream is static (<literal>UpstreamStatic</literal>), returns <link id="def_nginx_error">Error</link></listitem>
-<listitem>404 - Upstream not found (<literal>UpstreamNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>404 - Unknown version (<literal>UnknownVersion</literal>),
+upstream not found (<literal>UpstreamNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 <listitem id="postHttpUpstreamServer">
@@ -1017,7 +1048,8 @@ route is too long (<literal>UpstreamBadRoute</literal>),
 no resolver defined to resolve (<literal>UpstreamConfNoResolver</literal>),
 upstream “<value>name</value>” has no backup (<literal>UpstreamNoBackup</literal>),
 upstream “<value>name</value>” memory exhausted (<literal>UpstreamOutOfMemory</literal>), returns <link id="def_nginx_error">Error</link></listitem>
-<listitem>404 - Upstream not found (<literal>UpstreamNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>404 - Unknown version (<literal>UnknownVersion</literal>),
+upstream not found (<literal>UpstreamNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>415 - JSON error (<literal>JsonError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
@@ -1051,8 +1083,9 @@ Possible responses:
 <listitem>200 - Success, returns <link id="def_nginx_http_upstream_conf_server">HTTP Upstream Server</link></listitem>
 <listitem>400 - Upstream is static (<literal>UpstreamStatic</literal>),
 invalid server ID (<literal>UpstreamBadServerId</literal>), returns <link id="def_nginx_error">Error</link></listitem>
-<listitem>404 - Upstream not found (<literal>UpstreamNotFound</literal>),
-server with ID “<value>id</value>” does not exist (<literal>UpstreamServerNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>404 - Server with ID “<value>id</value>” does not exist (<literal>UpstreamServerNotFound</literal>),
+unknown version (<literal>UnknownVersion</literal>),
+upstream not found (<literal>UpstreamNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 <listitem id="patchHttpUpstreamPeer">
@@ -1090,8 +1123,9 @@ route is too long (<literal>UpstreamBadRoute</literal>),
 server “<value>ID</value>” address is immutable (<literal>UpstreamServerImmutable</literal>),
 server “<literal>ID</literal>” weight is immutable (<literal>UpstreamServerWeightImmutable</literal>),
 upstream “<literal>name</literal>” memory exhausted (<literal>UpstreamOutOfMemory</literal>), returns <link id="def_nginx_error">Error</link></listitem>
-<listitem>404 - Upstream not found (<literal>UpstreamNotFound</literal>),
-server with ID “<value>id</value>” does not exist (<literal>UpstreamServerNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>404 - Server with ID “<value>id</value>” does not exist (<literal>UpstreamServerNotFound</literal>),
+unknown version (<literal>UnknownVersion</literal>),
+upstream not found (<literal>UpstreamNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>415 - JSON error (<literal>JsonError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
@@ -1107,8 +1141,9 @@ Possible responses:
 <listitem>400 - Upstream is static (<literal>UpstreamStatic</literal>),
 invalid server ID (<literal>UpstreamBadServerId</literal>),
 server “<value>id</value>” not removable (<literal>UpstreamServerImmutable</literal>), returns <link id="def_nginx_error">Error</link></listitem>
-<listitem>404 - Upstream not found (<literal>UpstreamNotFound</literal>),
-server with ID “<value>id</value>” does not exist (<literal>UpstreamServerNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>404 - Server with ID “<value>id</value>” does not exist (<literal>UpstreamServerNotFound</literal>),
+unknown version (<literal>UnknownVersion</literal>),
+upstream not found (<literal>UpstreamNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
@@ -1137,6 +1172,7 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>200 - Success, returns a collection of "<link id="def_nginx_http_keyval_zone">HTTP Keyval Shared Memory Zone</link>" objects for all HTTP keyvals</listitem>
+<listitem>404 - Unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 </list>
@@ -1172,7 +1208,8 @@ Possible responses:
 <list type="bullet">
 <listitem>200 - Success, returns <link id="def_nginx_http_keyval_zone">HTTP Keyval Shared Memory Zone</link></listitem>
 <listitem>404 - Keyval not found (<literal>KeyvalNotFound</literal>),
-keyval key not found (<literal>KeyvalKeyNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+keyval key not found (<literal>KeyvalKeyNotFound</literal>),
+unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 <listitem id="postHttpKeyvalZoneData">
@@ -1198,7 +1235,8 @@ key required (<literal>KeyvalFormatError</literal>),
 keyval timeout is not enabled (<literal>KeyvalFormatError</literal>),
 only one key can be added (<literal>KeyvalFormatError</literal>),
 reading request body failed <literal>BodyReadError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
-<listitem>404 - Keyval not found (<literal>KeyvalNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>404 - Keyval not found (<literal>KeyvalNotFound</literal>),
+unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>409 - Key already exists (<literal>KeyvalKeyExists</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>413 - Request Entity Too Large, returns <link id="def_nginx_error">Error</link></listitem>
@@ -1228,7 +1266,8 @@ keyval timeout is not enabled (<literal>KeyvalFormatError</literal>),
 only one key can be updated (<literal>KeyvalFormatError</literal>),
 reading request body failed <literal>BodyReadError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>404 - Keyval not found (<literal>KeyvalNotFound</literal>),
-keyval key not found (<literal>KeyvalKeyNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+keyval key not found (<literal>KeyvalKeyNotFound</literal>),
+unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>413 - Request Entity Too Large, returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>415 - JSON error (<literal>JsonError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
@@ -1242,7 +1281,8 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>204 - Success</listitem>
-<listitem>404 - Keyval not found (<literal>KeyvalNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>404 - Keyval not found (<literal>KeyvalNotFound</literal>),
+unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
@@ -1262,6 +1302,7 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>200 - Success, returns an array of strings</listitem>
+<listitem>404 - Unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 </list>
@@ -1289,6 +1330,7 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>200 - Success, returns a collection of "<link id="def_nginx_stream_server_zone">Stream Server Zone</link>" objects for all stream server zones</listitem>
+<listitem>404 - Unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 </list>
@@ -1323,7 +1365,8 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>200 - Success, returns <link id="def_nginx_stream_server_zone">Stream Server Zone</link></listitem>
-<listitem>404 - Server zone not found (<literal>ServerZoneNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>404 - Server zone not found (<literal>ServerZoneNotFound</literal>),
+unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 <listitem id="deleteStreamServerZoneStat">
@@ -1334,7 +1377,8 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>204 - Success</listitem>
-<listitem>404 - Server zone not found (<literal>ServerZoneNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>404 - Server zone not found (<literal>ServerZoneNotFound</literal>),
+unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
@@ -1363,6 +1407,7 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>200 - Success, returns a collection of "<link id="def_nginx_stream_limit_conn_zone">Stream Connections Limiting</link>" objects for all stream limit conns</listitem>
+<listitem>404 - Unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 </list>
@@ -1397,7 +1442,8 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>200 - Success, returns <link id="def_nginx_stream_limit_conn_zone">Stream Connections Limiting</link></listitem>
-<listitem>404 - limit_conn not found (<literal>LimitConnNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>404 - limit_conn not found (<literal>LimitConnNotFound</literal>),
+unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 <listitem id="deleteStreamLimitConnZoneStat">
@@ -1408,7 +1454,8 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>204 - Success</listitem>
-<listitem>404 - limit_conn not found (<literal>LimitConnNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>404 - limit_conn not found (<literal>LimitConnNotFound</literal>),
+unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
@@ -1437,6 +1484,7 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>200 - Success, returns a collection of "<link id="def_nginx_stream_upstream">Stream Upstream</link>" objects for all stream upstreams</listitem>
+<listitem>404 - Unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 </list>
@@ -1472,7 +1520,8 @@ Possible responses:
 <list type="bullet">
 <listitem>200 - Success, returns <link id="def_nginx_stream_upstream">Stream Upstream</link></listitem>
 <listitem>400 - Upstream is static (<literal>UpstreamStatic</literal>), returns <link id="def_nginx_error">Error</link></listitem>
-<listitem>404 - Upstream not found (<literal>UpstreamNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>404 - Unknown version (<literal>UnknownVersion</literal>),
+upstream not found (<literal>UpstreamNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 <listitem id="deleteStreamUpstreamStat">
@@ -1484,7 +1533,8 @@ Possible responses:
 <list type="bullet">
 <listitem>204 - Success</listitem>
 <listitem>400 - Upstream is static (<literal>UpstreamStatic</literal>), returns <link id="def_nginx_error">Error</link></listitem>
-<listitem>404 - Upstream not found (<literal>UpstreamNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>404 - Unknown version (<literal>UnknownVersion</literal>),
+upstream not found (<literal>UpstreamNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
@@ -1512,7 +1562,8 @@ Possible responses:
 <list type="bullet">
 <listitem>200 - Success, returns an array of <link id="def_nginx_stream_upstream_conf_server">Stream Upstream Servers</link></listitem>
 <listitem>400 - Upstream is static (<literal>UpstreamStatic</literal>), returns <link id="def_nginx_error">Error</link></listitem>
-<listitem>404 - Upstream not found (<literal>UpstreamNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>404 - Unknown version (<literal>UnknownVersion</literal>),
+upstream not found (<literal>UpstreamNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 <listitem id="postStreamUpstreamServer">
@@ -1551,7 +1602,8 @@ no resolver defined to resolve (<literal>UpstreamConfNoResolver</literal>),
 upstream “<value>name</value>” has no backup (<literal>UpstreamNoBackup</literal>),
 upstream “<value>name</value>” memory exhausted (<literal>UpstreamOutOfMemory</literal>),
 reading request body failed <literal>BodyReadError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
-<listitem>404 - Upstream not found (<literal>UpstreamNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>404 - Unknown version (<literal>UnknownVersion</literal>),
+upstream not found (<literal>UpstreamNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>415 - JSON error (<literal>JsonError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
@@ -1585,7 +1637,8 @@ Possible responses:
 <listitem>200 - Success, returns <link id="def_nginx_stream_upstream_conf_server">Stream Upstream Server</link></listitem>
 <listitem>400 - Upstream is static (<literal>UpstreamStatic</literal>),
 invalid server ID (<literal>UpstreamBadServerId</literal>), returns <link id="def_nginx_error">Error</link></listitem>
-<listitem>404 - Upstream not found (<literal>UpstreamNotFound</literal>),
+<listitem>404 - Unknown version (<literal>UnknownVersion</literal>),
+upstream not found (<literal>UpstreamNotFound</literal>),
 server with ID “<value>id</value>” does not exist (<literal>UpstreamServerNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
@@ -1624,8 +1677,9 @@ reading request body failed <literal>BodyReadError</literal>),
 server “<value>ID</value>” address is immutable (<literal>UpstreamServerImmutable</literal>),
 server “<value>ID</value>” weight is immutable (<literal>UpstreamServerWeightImmutable</literal>),
 upstream “<literal>name</literal>” memory exhausted (<literal>UpstreamOutOfMemory</literal>), returns <link id="def_nginx_error">Error</link></listitem>
-<listitem>404 - Upstream not found (<literal>UpstreamNotFound</literal>),
-server with ID “<value>id</value>” does not exist (<literal>UpstreamServerNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>404 - Server with ID “<value>id</value>” does not exist (<literal>UpstreamServerNotFound</literal>),
+unknown version (<literal>UnknownVersion</literal>),
+upstream not found (<literal>UpstreamNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>415 - JSON error (<literal>JsonError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
@@ -1641,8 +1695,9 @@ Possible responses:
 <listitem>400 - Upstream is static (<literal>UpstreamStatic</literal>),
 invalid server ID (<literal>UpstreamBadServerId</literal>),
 server “<value>id</value>” not removable (<literal>UpstreamServerImmutable</literal>), returns <link id="def_nginx_error">Error</link></listitem>
-<listitem>404 - Upstream not found (<literal>UpstreamNotFound</literal>),
-server with ID “<value>id</value>” does not exist (<literal>UpstreamServerNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>404 - Server with ID “<value>id</value>” does not exist (<literal>UpstreamServerNotFound</literal>),
+unknown version (<literal>UnknownVersion</literal>),
+upstream not found (<literal>UpstreamNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
@@ -1671,6 +1726,7 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>200 - Success, returns a collection of "<link id="def_nginx_stream_keyval_zone">Stream Keyval Shared Memory Zone</link>" objects for all stream keyvals</listitem>
+<listitem>404 - Unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 </list>
@@ -1706,7 +1762,8 @@ Possible responses:
 <list type="bullet">
 <listitem>200 - Success, returns <link id="def_nginx_stream_keyval_zone">Stream Keyval Shared Memory Zone</link></listitem>
 <listitem>404 - Keyval not found (<literal>KeyvalNotFound</literal>),
-keyval key not found (<literal>KeyvalKeyNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+keyval key not found (<literal>KeyvalKeyNotFound</literal>),
+unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 <listitem id="postStreamKeyvalZoneData">
@@ -1732,7 +1789,8 @@ key required (<literal>KeyvalFormatError</literal>),
 keyval timeout is not enabled (<literal>KeyvalFormatError</literal>),
 only one key can be added (<literal>KeyvalFormatError</literal>),
 reading request body failed <literal>BodyReadError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
-<listitem>404 - Keyval not found (<literal>KeyvalNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>404 - Keyval not found (<literal>KeyvalNotFound</literal>),
+unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>409 - Key already exists (<literal>KeyvalKeyExists</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>413 - Request Entity Too Large, returns <link id="def_nginx_error">Error</link></listitem>
@@ -1762,7 +1820,8 @@ keyval timeout is not enabled (<literal>KeyvalFormatError</literal>),
 only one key can be updated (<literal>KeyvalFormatError</literal>),
 reading request body failed <literal>BodyReadError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>404 - Keyval not found (<literal>KeyvalNotFound</literal>),
-keyval key not found (<literal>KeyvalKeyNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+keyval key not found (<literal>KeyvalKeyNotFound</literal>),
+unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>413 - Request Entity Too Large, returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>415 - JSON error (<literal>JsonError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
@@ -1776,7 +1835,8 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>204 - Success</listitem>
-<listitem>404 - Keyval not found (<literal>KeyvalNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>404 - Keyval not found (<literal>KeyvalNotFound</literal>),
+unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
@@ -1796,6 +1856,7 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>200 - Success, returns <link id="def_nginx_stream_zone_sync">Stream Zone Sync Node</link></listitem>
+<listitem>404 - Unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 </list>
@@ -1823,6 +1884,7 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>200 - Success, returns a collection of "<link id="def_nginx_resolver_zone">Resolver Zone</link>" objects for all resolvers</listitem>
+<listitem>404 - Unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 </list>
@@ -1857,7 +1919,8 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>200 - Success, returns <link id="def_nginx_resolver_zone">Resolver Zone</link></listitem>
-<listitem>404 - Resolver zone not found (<literal>ResolverZoneNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>404 - Resolver zone not found (<literal>ResolverZoneNotFound</literal>),
+unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 <listitem id="deleteResolverZoneStat">
@@ -1868,7 +1931,8 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>204 - Success</listitem>
-<listitem>404 - Resolver zone not found (<literal>ResolverZoneNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>404 - Resolver zone not found (<literal>ResolverZoneNotFound</literal>),
+unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
@@ -1897,6 +1961,7 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>200 - Success, returns <link id="def_nginx_ssl_object">SSL</link></listitem>
+<listitem>404 - Unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 <listitem id="deleteSslStat">
@@ -1907,6 +1972,7 @@ Possible responses:
 </para>
 <list type="bullet">
 <listitem>204 - Success</listitem>
+<listitem>404 - Unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 </list>

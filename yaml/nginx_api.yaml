@@ -54,6 +54,10 @@ paths:
           description: Success
           schema:
             $ref: '#/definitions/ArrayOfStrings'
+        '404':
+          description: Unknown version (*UnknownVersion*)
+          schema:
+            $ref: '#/definitions/NginxError'
   /nginx:
     get:
       tags:
@@ -75,6 +79,10 @@ paths:
           description: Success
           schema:
             $ref: '#/definitions/NginxObject'
+        '404':
+          description: Unknown version (*UnknownVersion*)
+          schema:
+            $ref: '#/definitions/NginxError'
   /processes:
     get:
       tags:
@@ -91,6 +99,10 @@ paths:
           description: Success
           schema:
             $ref: '#/definitions/NginxProcesses'
+        '404':
+          description: Unknown version (*UnknownVersion*)
+          schema:
+            $ref: '#/definitions/NginxError'
     delete:
       tags:
         - Processes
@@ -102,6 +114,10 @@ paths:
       responses:
         '204':
           description: Success
+        '404':
+          description: Unknown version (*UnknownVersion*)
+          schema:
+            $ref: '#/definitions/NginxError'
   /connections:
     get:
       tags:
@@ -117,6 +133,10 @@ paths:
           description: Success
           schema:
             $ref: '#/definitions/NginxConnections'
+        '404':
+          description: Unknown version (*UnknownVersion*)
+          schema:
+            $ref: '#/definitions/NginxError'
       parameters:
         - in: query
           name: fields
@@ -133,6 +153,10 @@ paths:
       responses:
         '204':
           description: Success
+        '404':
+          description: Unknown version (*UnknownVersion*)
+          schema:
+            $ref: '#/definitions/NginxError'
   /slabs/:
     get:
       tags:
@@ -156,6 +180,10 @@ paths:
           description: Success
           schema:
             $ref: '#/definitions/NginxSlabZoneMap'
+        '404':
+          description: Unknown version (*UnknownVersion*)
+          schema:
+            $ref: '#/definitions/NginxError'
   '/slabs/{slabZoneName}':
     parameters:
       - name: slabZoneName
@@ -184,7 +212,9 @@ paths:
           schema:
             $ref: '#/definitions/NginxSlabZone'
         '404':
-          description: Slab not found (*SlabNotFound*)
+          description: |
+            Slab not found (*SlabNotFound*),
+            unknown version (*UnknownVersion*)
           schema:
             $ref: '#/definitions/NginxError'
     delete:
@@ -199,7 +229,9 @@ paths:
         '204':
           description: Success
         '404':
-          description: Slab not found (*SlabNotFound*)
+          description: |
+            Slab not found (*SlabNotFound*),
+            unknown version (*UnknownVersion*)
           schema:
             $ref: '#/definitions/NginxError'
         '405':
@@ -221,6 +253,10 @@ paths:
           description: Success
           schema:
             $ref: '#/definitions/ArrayOfStrings'
+        '404':
+          description: Unknown version (*UnknownVersion*)
+          schema:
+            $ref: '#/definitions/NginxError'
   /http/requests:
     get:
       tags:
@@ -242,6 +278,10 @@ paths:
           description: Success
           schema:
             $ref: '#/definitions/NginxHTTPRequests'
+        '404':
+          description: Unknown version (*UnknownVersion*)
+          schema:
+            $ref: '#/definitions/NginxError'
     delete:
       tags:
         - HTTP Requests
@@ -252,6 +292,10 @@ paths:
       responses:
         '204':
           description: Success
+        '404':
+          description: Unknown version (*UnknownVersion*)
+          schema:
+            $ref: '#/definitions/NginxError'
         '405':
           description: Method disabled (*MethodDisabled*)
           schema:
@@ -279,6 +323,10 @@ paths:
           description: Success
           schema:
             $ref: '#/definitions/NginxHTTPServerZonesMap'
+        '404':
+          description: Unknown version (*UnknownVersion*)
+          schema:
+            $ref: '#/definitions/NginxError'
   '/http/server_zones/{httpServerZoneName}':
     parameters:
       - name: httpServerZoneName
@@ -306,7 +354,9 @@ paths:
           schema:
             $ref: '#/definitions/NginxHTTPServerZone'
         '404':
-          description: Server zone not found (*ServerZoneNotFound*)
+          description: |
+            Server zone not found (*ServerZoneNotFound*),
+            unknown version (*UnknownVersion*)
           schema:
             $ref: '#/definitions/NginxError'
     delete:
@@ -321,7 +371,9 @@ paths:
         '204':
           description: Success
         '404':
-          description: Server zone not found (*ServerZoneNotFound*)
+          description: |
+            Server zone not found (*ServerZoneNotFound*),
+            unknown version (*UnknownVersion*)
           schema:
             $ref: '#/definitions/NginxError'
         '405':
@@ -351,6 +403,10 @@ paths:
           description: Success
           schema:
             $ref: '#/definitions/NginxHTTPLocationZonesMap'
+        '404':
+          description: Unknown version (*UnknownVersion*)
+          schema:
+            $ref: '#/definitions/NginxError'
   '/http/location_zones/{httpLocationZoneName}':
     parameters:
       - name: httpLocationZoneName
@@ -379,7 +435,9 @@ paths:
           schema:
             $ref: '#/definitions/NginxHTTPLocationZone'
         '404':
-          description: Location zone not found (*LocationZoneNotFound*)
+          description: |
+            Location zone not found (*LocationZoneNotFound*),
+            unknown version (*UnknownVersion*)
           schema:
             $ref: '#/definitions/NginxError'
     delete:
@@ -394,7 +452,9 @@ paths:
         '204':
           description: Success
         '404':
-          description: Location zone not found (*LocationZoneNotFound*)
+          description: |
+            Location zone not found (*LocationZoneNotFound*),
+            unknown version (*UnknownVersion*)
           schema:
             $ref: '#/definitions/NginxError'
         '405':
@@ -425,6 +485,10 @@ paths:
           description: Success
           schema:
             $ref: '#/definitions/NginxHTTPCachesMap'
+        '404':
+          description: Unknown version (*UnknownVersion*)
+          schema:
+            $ref: '#/definitions/NginxError'
   '/http/caches/{httpCacheZoneName}':
     parameters:
       - name: httpCacheZoneName
@@ -452,7 +516,9 @@ paths:
           schema:
             $ref: '#/definitions/NginxHTTPCache'
         '404':
-          description: Cache not found (*CacheNotFound*)
+          description: |
+            Cache not found (*CacheNotFound*),
+            unknown version (*UnknownVersion*)
           schema:
             $ref: '#/definitions/NginxError'
     delete:
@@ -466,7 +532,9 @@ paths:
         '204':
           description: Success
         '404':
-          description: Cache not found (*CacheNotFound*)
+          description: |
+            Cache not found (*CacheNotFound*),
+            unknown version (*UnknownVersion*)
           schema:
             $ref: '#/definitions/NginxError'
         '405':
@@ -496,6 +564,10 @@ paths:
           description: Success
           schema:
             $ref: '#/definitions/NginxHTTPLimitConnZonesMap'
+        '404':
+          description: Unknown version (*UnknownVersion*)
+          schema:
+            $ref: '#/definitions/NginxError'
   '/http/limit_conns/{httpLimitConnZoneName}':
     parameters:
       - name: httpLimitConnZoneName
@@ -527,7 +599,9 @@ paths:
           schema:
             $ref: '#/definitions/NginxHTTPLimitConnZone'
         '404':
-          description: limit_conn not found (*LimitConnNotFound*)
+          description: |
+            limit_conn not found (*LimitConnNotFound*),
+            unknown version (*UnknownVersion*)
           schema:
             $ref: '#/definitions/NginxError'
     delete:
@@ -541,7 +615,9 @@ paths:
         '204':
           description: Success
         '404':
-          description: limit_conn not found (*LimitConnNotFound*)
+          description: |
+            limit_conn not found (*LimitConnNotFound*),
+            unknown version (*UnknownVersion*)
           schema:
             $ref: '#/definitions/NginxError'
         '405':
@@ -571,6 +647,10 @@ paths:
           description: Success
           schema:
             $ref: '#/definitions/NginxHTTPLimitReqZonesMap'
+        '404':
+          description: Unknown version (*UnknownVersion*)
+          schema:
+            $ref: '#/definitions/NginxError'
   '/http/limit_reqs/{httpLimitReqZoneName}':
     parameters:
       - name: httpLimitReqZoneName
@@ -602,7 +682,9 @@ paths:
           schema:
             $ref: '#/definitions/NginxHTTPLimitReqZone'
         '404':
-          description: limit_req not found (*LimitReqNotFound*)
+          description: |
+            limit_req not found (*LimitReqNotFound*),
+            unknown version (*UnknownVersion*)
           schema:
             $ref: '#/definitions/NginxError'
     delete:
@@ -616,7 +698,9 @@ paths:
         '204':
           description: Success
         '404':
-          description: limit_req not found (*LimitReqNotFound*)
+          description: |
+            limit_req not found (*LimitReqNotFound*),
+            unknown version (*UnknownVersion*)
           schema:
             $ref: '#/definitions/NginxError'
         '405':
@@ -646,6 +730,10 @@ paths:
           description: Success
           schema:
             $ref: '#/definitions/NginxHTTPUpstreamMap'
+        '404':
+          description: Unknown version (*UnknownVersion*)
+          schema:
+            $ref: '#/definitions/NginxError'
   '/http/upstreams/{httpUpstreamName}/':
     parameters:
     - name: httpUpstreamName
@@ -678,7 +766,9 @@ paths:
           schema:
             $ref: '#/definitions/NginxError'
         '404':
-          description: Upstream not found (*UpstreamNotFound*)
+          description: |
+            Unknown version (*UnknownVersion*),
+            upstream not found (*UpstreamNotFound*)
           schema:
             $ref: '#/definitions/NginxError'
     delete:
@@ -699,7 +789,9 @@ paths:
           schema:
             $ref: '#/definitions/NginxError'
         '404':
-          description: Upstream not found (*UpstreamNotFound*)
+          description: |
+            Unknown version (*UnknownVersion*),
+            upstream not found (*UpstreamNotFound*)
           schema:
             $ref: '#/definitions/NginxError'
         '405':
@@ -733,7 +825,9 @@ paths:
           schema:
             $ref: '#/definitions/NginxError'
         '404':
-          description: Upstream not found (*UpstreamNotFound*)
+          description: |
+            Unknown version (*UnknownVersion*),
+            upstream not found (*UpstreamNotFound*)
           schema:
             $ref: '#/definitions/NginxError'
     post:
@@ -785,7 +879,9 @@ paths:
           schema:
             $ref: '#/definitions/NginxError'
         '404':
-          description: Upstream not found (*UpstreamNotFound*)
+          description: |
+            Unknown version (*UnknownVersion*),
+            upstream not found (*UpstreamNotFound*)
           schema:
             $ref: '#/definitions/NginxError'
         '405':
@@ -831,8 +927,9 @@ paths:
             $ref: '#/definitions/NginxError'
         '404':
           description: |
-            Upstream not found (*UpstreamNotFound*),
-            server with ID “**id**” does not exist (*UpstreamServerNotFound*)
+            Server with ID “**id**” does not exist (*UpstreamServerNotFound*),
+            unknown version (*UnknownVersion*),
+            upstream not found (*UpstreamNotFound*)
           schema:
             $ref: '#/definitions/NginxError'
     patch:
@@ -884,8 +981,9 @@ paths:
             $ref: '#/definitions/NginxError'
         '404':
           description: |
-            Upstream not found (*UpstreamNotFound*),
-            server with ID “**id**” does not exist (*UpstreamServerNotFound*)
+            Server with ID “**id**” does not exist (*UpstreamServerNotFound*),
+            unknown version (*UnknownVersion*),
+            upstream not found (*UpstreamNotFound*)
           schema:
             $ref: '#/definitions/NginxError'
         '405':
@@ -919,8 +1017,9 @@ paths:
             $ref: '#/definitions/NginxError'
         '404':
           description: |
-            Upstream not found (*UpstreamNotFound*),
-            server with ID “**id**” does not exist (*UpstreamServerNotFound*)
+            Server with ID “**id**” does not exist (*UpstreamServerNotFound*),
+            unknown version (*UnknownVersion*),
+            upstream not found (*UpstreamNotFound*)
           schema:
             $ref: '#/definitions/NginxError'
         '405':
@@ -949,6 +1048,10 @@ paths:
           description: Success
           schema:
             $ref: '#/definitions/NginxHTTPKeyvalZonesMap'
+        '404':
+          description: Unknown version (*UnknownVersion*)
+          schema:
+            $ref: '#/definitions/NginxError'
   '/http/keyvals/{httpKeyvalZoneName}':
     parameters:
       - name: httpKeyvalZoneName
@@ -979,7 +1082,8 @@ paths:
         '404':
           description: |
             Keyval not found (*KeyvalNotFound*),
-            keyval key not found (*KeyvalKeyNotFound*)
+            keyval key not found (*KeyvalKeyNotFound*),
+            unknown version (*UnknownVersion*)
           schema:
             $ref: '#/definitions/NginxError'
     post:
@@ -1023,7 +1127,9 @@ paths:
           schema:
             $ref: '#/definitions/NginxError'
         '404':
-          description: Keyval not found (*KeyvalNotFound*)
+          description: |
+            Keyval not found (*KeyvalNotFound*),
+            unknown version (*UnknownVersion*)
           schema:
             $ref: '#/definitions/NginxError'
         '405':
@@ -1085,7 +1191,8 @@ paths:
         '404':
           description: |
             Keyval not found (*KeyvalNotFound*),
-            keyval key not found (*KeyvalKeyNotFound*)
+            keyval key not found (*KeyvalKeyNotFound*),
+            unknown version (*UnknownVersion*)
           schema:
             $ref: '#/definitions/NginxError'
         '405':
@@ -1116,7 +1223,9 @@ paths:
         '204':
           description: Success
         '404':
-          description: Keyval not found (*KeyvalNotFound*)
+          description: |
+            Keyval not found (*KeyvalNotFound*),
+            unknown version (*UnknownVersion*)
           schema:
             $ref: '#/definitions/NginxError'
         '405':
@@ -1137,6 +1246,10 @@ paths:
           description: Success
           schema:
             $ref: '#/definitions/ArrayOfStrings'
+        '404':
+          description: Unknown version (*UnknownVersion*)
+          schema:
+            $ref: '#/definitions/NginxError'
   /stream/server_zones/:
     get:
       tags:
@@ -1160,6 +1273,10 @@ paths:
           description: Success
           schema:
             $ref: '#/definitions/NginxStreamServerZonesMap'
+        '404':
+          description: Unknown version (*UnknownVersion*)
+          schema:
+            $ref: '#/definitions/NginxError'
   '/stream/server_zones/{streamServerZoneName}':
     parameters:
       - name: streamServerZoneName
@@ -1188,7 +1305,8 @@ paths:
             $ref: '#/definitions/NginxStreamServerZone'
         '404':
           description: |
-            Server zone not found (*ServerZoneNotFound*)
+            Server zone not found (*ServerZoneNotFound*),
+            unknown version (*UnknownVersion*)
           schema:
             $ref: '#/definitions/NginxError'
     delete:
@@ -1204,7 +1322,8 @@ paths:
           description: Success
         '404':
           description: |
-            Server zone not found (*ServerZoneNotFound*)
+            Server zone not found (*ServerZoneNotFound*),
+            unknown version (*UnknownVersion*)
           schema:
             $ref: '#/definitions/NginxError'
         '405':
@@ -1234,6 +1353,10 @@ paths:
           description: Success
           schema:
             $ref: '#/definitions/NginxStreamLimitConnZonesMap'
+        '404':
+          description: Unknown version (*UnknownVersion*)
+          schema:
+            $ref: '#/definitions/NginxError'
   '/stream/limit_conns/{streamLimitConnZoneName}':
     parameters:
       - name: streamLimitConnZoneName
@@ -1265,7 +1388,9 @@ paths:
           schema:
             $ref: '#/definitions/NginxStreamLimitConnZone'
         '404':
-          description: limit_conn not found (*LimitConnNotFound*)
+          description: |
+            limit_conn not found (*LimitConnNotFound*),
+            unknown version (*UnknownVersion*)
           schema:
             $ref: '#/definitions/NginxError'
     delete:
@@ -1279,7 +1404,9 @@ paths:
         '204':
           description: Success
         '404':
-          description: limit_conn not found (*LimitConnNotFound*)
+          description: |
+            limit_conn not found (*LimitConnNotFound*),
+            unknown version (*UnknownVersion*)
           schema:
             $ref: '#/definitions/NginxError'
         '405':
@@ -1309,6 +1436,10 @@ paths:
           description: Success
           schema:
             $ref: '#/definitions/NginxStreamUpstreamMap'
+        '404':
+          description: Unknown version (*UnknownVersion*)
+          schema:
+            $ref: '#/definitions/NginxError'
   '/stream/upstreams/{streamUpstreamName}/':
     parameters:
     - name: streamUpstreamName
@@ -1342,7 +1473,8 @@ paths:
             $ref: '#/definitions/NginxError'
         '404':
           description: |
-            Upstream not found (*UpstreamNotFound*)
+            Unknown version (*UnknownVersion*),
+            upstream not found (*UpstreamNotFound*)
           schema:
             $ref: '#/definitions/NginxError'
     delete:
@@ -1364,7 +1496,8 @@ paths:
             $ref: '#/definitions/NginxError'
         '404':
           description: |
-            Upstream not found (*UpstreamNotFound*)
+            Unknown version (*UnknownVersion*),
+            upstream not found (*UpstreamNotFound*)
           schema:
             $ref: '#/definitions/NginxError'
         '405':
@@ -1399,7 +1532,8 @@ paths:
             $ref: '#/definitions/NginxError'
         '404':
           description: |
-            Upstream not found (*UpstreamNotFound*)
+            Unknown version (*UnknownVersion*),
+            upstream not found (*UpstreamNotFound*)
           schema:
             $ref: '#/definitions/NginxError'
     post:
@@ -1452,7 +1586,8 @@ paths:
             $ref: '#/definitions/NginxError'
         '404':
           description: |
-            Upstream not found (*UpstreamNotFound*)
+            Unknown version (*UnknownVersion*),
+            upstream not found (*UpstreamNotFound*)
           schema:
             $ref: '#/definitions/NginxError'
         '405':
@@ -1498,7 +1633,8 @@ paths:
             $ref: '#/definitions/NginxError'
         '404':
           description: |
-            Upstream not found (*UpstreamNotFound*),
+            Unknown version (*UnknownVersion*),
+            upstream not found (*UpstreamNotFound*),
             server with ID “**id**” does not exist (*UpstreamServerNotFound*)
           schema:
             $ref: '#/definitions/NginxError'
@@ -1551,8 +1687,9 @@ paths:
             $ref: '#/definitions/NginxError'
         '404':
           description: |
-            Upstream not found (*UpstreamNotFound*),
-            server with ID “**id**” does not exist (*UpstreamServerNotFound*)
+            Server with ID “**id**” does not exist (*UpstreamServerNotFound*),
+            unknown version (*UnknownVersion*),
+            upstream not found (*UpstreamNotFound*)
           schema:
             $ref: '#/definitions/NginxError'
         '405':
@@ -1586,8 +1723,9 @@ paths:
             $ref: '#/definitions/NginxError'
         '404':
           description: |
-            Upstream not found (*UpstreamNotFound*),
-            server with ID “**id**” does not exist (*UpstreamServerNotFound*)
+            Server with ID “**id**” does not exist (*UpstreamServerNotFound*),
+            unknown version (*UnknownVersion*),
+            upstream not found (*UpstreamNotFound*)
           schema:
             $ref: '#/definitions/NginxError'
         '405':
@@ -1616,6 +1754,10 @@ paths:
           description: Success
           schema:
             $ref: '#/definitions/NginxStreamKeyvalZonesMap'
+        '404':
+          description: Unknown version (*UnknownVersion*)
+          schema:
+            $ref: '#/definitions/NginxError'
   '/stream/keyvals/{streamKeyvalZoneName}':
     parameters:
       - name: streamKeyvalZoneName
@@ -1646,7 +1788,8 @@ paths:
         '404':
           description: |
             Keyval not found (*KeyvalNotFound*),
-            keyval key not found (*KeyvalKeyNotFound*)
+            keyval key not found (*KeyvalKeyNotFound*),
+            unknown version (*UnknownVersion*)
           schema:
             $ref: '#/definitions/NginxError'
     post:
@@ -1691,7 +1834,8 @@ paths:
             $ref: '#/definitions/NginxError'
         '404':
           description: |
-            Keyval not found (*KeyvalNotFound*)
+            Keyval not found (*KeyvalNotFound*),
+            unknown version (*UnknownVersion*)
           schema:
             $ref: '#/definitions/NginxError'
         '405':
@@ -1753,7 +1897,8 @@ paths:
         '404':
           description: |
             Keyval not found (*KeyvalNotFound*),
-            keyval key not found (*KeyvalKeyNotFound*)
+            keyval key not found (*KeyvalKeyNotFound*),
+            unknown version (*UnknownVersion*)
           schema:
             $ref: '#/definitions/NginxError'
         '405':
@@ -1785,7 +1930,8 @@ paths:
           description: Success
         '404':
           description: |
-            Keyval not found (*KeyvalNotFound*)
+            Keyval not found (*KeyvalNotFound*),
+            unknown version (*UnknownVersion*)
           schema:
             $ref: '#/definitions/NginxError'
         '405':
@@ -1807,6 +1953,10 @@ paths:
           description: Success
           schema:
             $ref: '#/definitions/NginxStreamZoneSync'
+        '404':
+          description: Unknown version (*UnknownVersion*)
+          schema:
+            $ref: '#/definitions/NginxError'
   /resolvers/:
     get:
       tags:
@@ -1823,6 +1973,10 @@ paths:
           description: Success
           schema:
             $ref: '#/definitions/NginxResolverZonesMap'
+        '404':
+          description: Unknown version (*UnknownVersion*)
+          schema:
+            $ref: '#/definitions/NginxError'
       parameters:
         - in: query
           name: fields
@@ -1858,7 +2012,8 @@ paths:
             $ref: '#/definitions/NginxResolverZone'
         '404':
           description: |
-            Resolver zone not found (*ResolverZoneNotFound*)
+            Resolver zone not found (*ResolverZoneNotFound*),
+            unknown version (*UnknownVersion*)
           schema:
             $ref: '#/definitions/NginxError'
     delete:
@@ -1872,7 +2027,9 @@ paths:
         '204':
           description: Success
         '404':
-          description: Resolver zone not found (*ResolverZoneNotFound*)
+          description: |
+            Resolver zone not found (*ResolverZoneNotFound*),
+            unknown version (*UnknownVersion*)
           schema:
             $ref: '#/definitions/NginxError'
         '405':
@@ -1894,6 +2051,10 @@ paths:
           description: Success
           schema:
             $ref: '#/definitions/NginxSSLObject'
+        '404':
+          description: Unknown version (*UnknownVersion*)
+          schema:
+            $ref: '#/definitions/NginxError'
       parameters:
         - in: query
           name: fields
@@ -1909,6 +2070,10 @@ paths:
       responses:
         '204':
           description: Success
+        '404':
+          description: Unknown version (*UnknownVersion*)
+          schema:
+            $ref: '#/definitions/NginxError'
 ###
 ###DEFINITIONS
 ###
