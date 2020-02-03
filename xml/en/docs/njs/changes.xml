@@ -9,7 +9,7 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="26"
+        rev="27"
         toc="no">
 
 <section id="njs0.3.8" name="Changes with njs 0.3.8">
@@ -26,10 +26,11 @@ nginx modules:
 <listitem>
 <para>
 Feature:
-added <literal>Promise</literal> support
-for <literal>r.subrequest()</literal>.
+added <literal>Promise</literal> support for
+<link doc="reference.xml" id="subrequest"><literal>r.subrequest()</literal></link>.
 If a callback is not provided,
-<literal>r.subrequest()</literal> returns an ordinary
+<link doc="reference.xml" id="subrequest"><literal>r.subrequest()</literal></link>
+returns an ordinary
 <literal>Promise</literal> object
 that resolves to a subrequest response object.
 </para>
@@ -38,7 +39,8 @@ that resolves to a subrequest response object.
 <listitem>
 <para>
 Change:
-<literal>r.parent</literal> property handler now returns
+<link doc="reference.xml" id="r_parent"><literal>r.parent()</literal></link>
+property handler now returns
 <literal>undefined</literal>
 instead of throwing an exception if a parent object is not available.
 </para>
@@ -89,7 +91,8 @@ Thanks to Artem S. Povalyukhin.
 <listitem>
 <para>
 Feature:
-added externals support for <literal>JSON.stringify()</literal>.
+added externals support for
+<link doc="reference.xml" id="core_json_stringify"><literal>JSON.stringify()</literal></link>.
 </para>
 </listitem>
 
@@ -106,6 +109,13 @@ Thanks to Artem S. Povalyukhin.
 Feature:
 added <literal>Object.setPrototypeOf()</literal>.
 Thanks to Artem S. Povalyukhin.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+introduced nullish coalescing operator.
 </para>
 </listitem>
 
@@ -131,7 +141,7 @@ according to the specification.
 <para>
 Bugfix:
 fixed
-<literal>JSON.stringify()</literal>
+<link doc="reference.xml" id="core_json_stringify"><literal>JSON.stringify()</literal></link>
 with unprintable values and replacer function.
 </para>
 </listitem>

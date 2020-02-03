@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="34">
+        rev="35">
 
 <section id="summary">
 
@@ -104,7 +104,7 @@ it is considered a named location.
 HTTP method, read-only
 </tag-desc>
 
-<tag-name><literal>r.parent</literal></tag-name>
+<tag-name id="r_parent"><literal>r.parent</literal></tag-name>
 <tag-desc>
 references the parent request object
 </tag-desc>
