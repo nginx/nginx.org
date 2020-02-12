@@ -118,6 +118,10 @@ paths:
           description: Unknown version (*UnknownVersion*)
           schema:
             $ref: '#/definitions/NginxError'
+        '405':
+          description: Method disabled (*MethodDisabled*)
+          schema:
+            $ref: '#/definitions/NginxError'
   /connections:
     get:
       tags:
@@ -155,6 +159,10 @@ paths:
           description: Success
         '404':
           description: Unknown version (*UnknownVersion*)
+          schema:
+            $ref: '#/definitions/NginxError'
+        '405':
+          description: Method disabled (*MethodDisabled*)
           schema:
             $ref: '#/definitions/NginxError'
   /slabs/:
@@ -2072,6 +2080,10 @@ paths:
           description: Success
         '404':
           description: Unknown version (*UnknownVersion*)
+          schema:
+            $ref: '#/definitions/NginxError'
+        '405':
+          description: Method disabled (*MethodDisabled*)
           schema:
             $ref: '#/definitions/NginxError'
 ###

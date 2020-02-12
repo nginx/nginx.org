@@ -343,6 +343,7 @@ Possible responses:
 <list type="bullet">
 <listitem>204 - Success</listitem>
 <listitem>404 - Unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 </list>
@@ -382,6 +383,7 @@ Possible responses:
 <list type="bullet">
 <listitem>204 - Success</listitem>
 <listitem>404 - Unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 </list>
@@ -1973,6 +1975,7 @@ Possible responses:
 <list type="bullet">
 <listitem>204 - Success</listitem>
 <listitem>404 - Unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 </list>
