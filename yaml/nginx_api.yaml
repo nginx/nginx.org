@@ -896,6 +896,10 @@ paths:
           description: Method disabled (*MethodDisabled*)
           schema:
             $ref: '#/definitions/NginxError'
+        '409':
+          description: Entry exists (*EntryExists*)
+          schema:
+            $ref: '#/definitions/NginxError'
         '415':
           description: JSON error (*JsonError*)
           schema:
@@ -1145,7 +1149,9 @@ paths:
           schema:
             $ref: '#/definitions/NginxError'
         '409':
-          description: Key already exists (*KeyvalKeyExists*)
+          description: |
+            Entry exists (*EntryExists*),
+            key already exists (*KeyvalKeyExists*)
           schema:
             $ref: '#/definitions/NginxError'
         '413':
@@ -1602,6 +1608,10 @@ paths:
           description: Method disabled (*MethodDisabled*)
           schema:
             $ref: '#/definitions/NginxError'
+        '409':
+          description: Entry exists (*EntryExists*)
+          schema:
+            $ref: '#/definitions/NginxError'
         '415':
           description: JSON error (*JsonError*)
           schema:
@@ -1851,7 +1861,9 @@ paths:
           schema:
             $ref: '#/definitions/NginxError'
         '409':
-          description: Key already exists (*KeyvalKeyExists*)
+          description: |
+            Entry exists (*EntryExists*),
+            key already exists (*KeyvalKeyExists*)
           schema:
             $ref: '#/definitions/NginxError'
         '413':

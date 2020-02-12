@@ -1053,6 +1053,7 @@ upstream “<value>name</value>” memory exhausted (<literal>UpstreamOutOfMemor
 <listitem>404 - Unknown version (<literal>UnknownVersion</literal>),
 upstream not found (<literal>UpstreamNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>409 - Entry exists (<literal>EntryExists</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>415 - JSON error (<literal>JsonError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
@@ -1240,7 +1241,8 @@ reading request body failed <literal>BodyReadError</literal>), returns <link id=
 <listitem>404 - Keyval not found (<literal>KeyvalNotFound</literal>),
 unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
-<listitem>409 - Key already exists (<literal>KeyvalKeyExists</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>409 - Entry exists (<literal>EntryExists</literal>),
+key already exists (<literal>KeyvalKeyExists</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>413 - Request Entity Too Large, returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>415 - JSON error (<literal>JsonError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
@@ -1607,6 +1609,7 @@ reading request body failed <literal>BodyReadError</literal>), returns <link id=
 <listitem>404 - Unknown version (<literal>UnknownVersion</literal>),
 upstream not found (<literal>UpstreamNotFound</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>409 - Entry exists (<literal>EntryExists</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>415 - JSON error (<literal>JsonError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
@@ -1794,7 +1797,8 @@ reading request body failed <literal>BodyReadError</literal>), returns <link id=
 <listitem>404 - Keyval not found (<literal>KeyvalNotFound</literal>),
 unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
-<listitem>409 - Key already exists (<literal>KeyvalKeyExists</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>409 - Entry exists (<literal>EntryExists</literal>),
+key already exists (<literal>KeyvalKeyExists</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>413 - Request Entity Too Large, returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>415 - JSON error (<literal>JsonError</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
