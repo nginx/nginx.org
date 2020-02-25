@@ -51,6 +51,10 @@ njs совместим с
 </listitem>
 
 <listitem>
+<link doc="node_modules.xml">Использование модулей Node.js в njs</link>
+</listitem>
+
+<listitem>
 <link doc="compatibility.xml"/>
 </listitem>
 
@@ -101,7 +105,7 @@ ngx_stream_js_module</link>
 </list>
 Подробнее о сценариях использования
 см. в <link doc="examples.xml">примерах</link>
-и <link url="https://www.nginx.com/blog/tag/nginscript/">блогпостах</link>.
+и <link url="https://www.nginx.com/blog/tag/nginx-javascript-module/">блогпостах</link>.
 </para>
 
 </section>
@@ -162,7 +166,7 @@ http {
 </listitem>
 
 </list>
- Также доступна отдельная утилита <link doc="cli.xml">командной строки</link>,
+Также доступна отдельная утилита <link doc="cli.xml">командной строки</link>,
 которая может использоваться независимо от nginx для разработки и отладки njs.
 </para>
 
