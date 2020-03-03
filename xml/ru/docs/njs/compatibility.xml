@@ -9,7 +9,7 @@
 <article name="Совместимость"
         link="/ru/docs/njs/compatibility.html"
         lang="ru"
-        rev="22"
+        rev="23"
         toc="no">
 
 <section>
@@ -619,11 +619,24 @@ ES5.1 глобальные функции:
 
 <listitem>
 Методы <literal>File system</literal>:
+<link doc="reference.xml" id="fs_accesssync"><literal>fs.accessSync</literal></link>
+(<link doc="changes.xml" id="njs0.3.9">0.3.9</link>),
 <link doc="reference.xml" id="appendfilesync"><literal>fs.appendFileSync</literal></link>,
 <link doc="reference.xml" id="readfilesync"><literal>fs.readFileSync</literal></link>,
-<link doc="reference.xml" id="renamesync"><literal>fs.renameSync</literal></link>
+<link doc="reference.xml" id="fs_realpathsync"><literal>fs.realpathSync</literal></link>
+(<link doc="changes.xml" id="njs0.3.9">0.3.9</link>),
+<link doc="reference.xml" id="fs_renamesync"><literal>fs.renameSync</literal></link>
 (<link doc="changes.xml" id="njs0.3.4">0.3.4</link>),
+<link doc="reference.xml" id="fs_symlinksync"><literal>fs.symlinkSync</literal></link>
+(<link doc="changes.xml" id="njs0.3.9">0.3.9</link>),
+<link doc="reference.xml" id="fs_unlinksync"><literal>fs.unlinkSync</literal></link>
+(<link doc="changes.xml" id="njs0.3.9">0.3.9</link>),
 <link doc="reference.xml" id="writefilesync"><literal>fs.writeFileSync</literal></link>
+</listitem>
+
+<listitem>
+<literal>fs.promises</literal> API (<link doc="changes.xml" id="njs0.3.9">0.3.9</link>),
+асинхронная версия файловых методов file system.
 </listitem>
 
 <listitem>

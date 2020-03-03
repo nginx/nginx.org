@@ -9,8 +9,177 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="27"
+        rev="28"
         toc="no">
+
+<section id="njs0.3.9" name="Changes with njs 0.3.9">
+
+<para>
+Release Date:
+03 March 2020
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+added detached mode for
+<link doc="reference.xml" id="subrequest"><literal>r.subrequest()</literal></link>.
+Responses to detached subrequests are ignored.
+Unlike ordinary subrequests,
+a detached subrequest can be created inside a variable handler.
+</para>
+</listitem>
+
+</list>
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+added <literal>promises</literal> API for
+<link doc="reference.xml" id="njs_api_fs"><literal>fs</literal></link> module.
+Thanks to Artem S. Povalyukhin.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+extended <link doc="reference.xml" id="njs_api_fs"><literal>fs</literal></link>
+module.
+Added
+<link doc="reference.xml" id="fs_accesssync"><literal>access()</literal></link>,
+<link doc="reference.xml" id="fs_symlinksync"><literal>symlink()</literal></link>,
+<link doc="reference.xml" id="fs_unlinksync"><literal>unlink()</literal></link>,
+<link doc="reference.xml" id="fs_realpathsync"><literal>realpath()</literal></link>,
+and friends.
+Thanks to Artem S. Povalyukhin.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+introduced memory-efficient ordinary arrays.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+lexer refactoring.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed matching of native functions in backtraces.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed callback invocations in
+<link doc="reference.xml" id="njs_api_fs"><literal>fs</literal></link> module.
+Thanks to Artem S. Povalyukhin.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>Object.getOwnPropertySymbols()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed heap-buffer-overflow in
+<literal>njs_json_append_string()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<link doc="reference.xml" id="encodeuri"><literal>encodeURI()</literal></link>
+and
+<link doc="reference.xml" id="decodeuri"><literal>decodeURI()</literal></link>
+according to the specification.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>Number.prototype.toPrecision()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed handling of space argument in
+<link doc="reference.xml" id="core_json_stringify"><literal>JSON.stringify()</literal></link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<link doc="reference.xml" id="core_json_stringify"><literal>JSON.stringify()</literal></link>
+with
+<literal>Number()</literal> and
+<literal>String()</literal>
+objects.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed Unicode Escaping in
+<link doc="reference.xml" id="core_json_stringify"><literal>JSON.stringify()</literal></link>
+according to specification.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed non-native module importing.
+Thanks to 洪志道 (Hong Zhi Dao).
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<literal>njs.dump()</literal> with the
+<literal>Date()</literal>
+instance in a container.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.3.8" name="Changes with njs 0.3.8">
 
@@ -698,7 +867,7 @@ Thanks to 洪志道 (Hong Zhi Dao) and Artem S. Povalyukhin.
 <para>
 Feature:
 added
-<link doc="reference.xml" id="renamesync"><literal>fs.renameSync()</literal></link>.
+<link doc="reference.xml" id="fs_renamesync"><literal>fs.renameSync()</literal></link>.
 </para>
 </listitem>
 

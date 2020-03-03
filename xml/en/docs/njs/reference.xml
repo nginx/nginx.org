@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="35">
+        rev="36">
 
 <section id="summary">
 
@@ -219,6 +219,16 @@ by default the request body of the parent request object is used
 <tag-name><literal>method</literal></tag-name>
 <tag-desc>
 HTTP method, by default the <literal>GET</literal> method is used
+</tag-desc>
+
+<tag-name><literal>detached</literal></tag-name>
+<tag-desc>
+boolean flag (<link doc="changes.xml" id="njs0.3.9">0.3.9</link>),
+if <literal>true</literal>, the created subrequest is a detached subrequest.
+Responses to detached subrequests are ignored.
+Unlike ordinary subrequests, a detached subrequest
+can be created inside a variable handler.
+The detached flag and callback argument are mutually exclusive.
 </tag-desc>
 
 </list>
@@ -1162,8 +1172,48 @@ clearTimeout(t);
 
 <para>
 The File System module provides operations with files.
+</para>
+
+<para>
 The module object is returned by <literal>require('fs')</literal>.
+Since (<link doc="changes.xml" id="njs0.3.9">0.3.9</link>),
+promissified versions of methods described below are available through
+<literal>require('fs').promises</literal> object:
+<example>
+> var fs = require('fs').promises;
+undefined
+> fs.readFile("/file/path").then((data)=>console.log(data))
+&lt;file data&gt;
+</example>
 <list type="tag">
+
+<tag-name id="fs_accesssync"><literal>accessSync(<value>path</value>[,
+<value>mode</value>])</literal></tag-name>
+<tag-desc>
+Synchronously tests permissions for a file or directory
+specified in the <literal>path</literal>
+(<link doc="changes.xml" id="njs0.3.9">0.3.9</link>).
+If the check fails, an error will be returned,
+otherwise, the method will return undefined.
+<list type="tag">
+
+<tag-name><literal>mode</literal></tag-name>
+<tag-desc>
+by default is <link id="access_const"><literal>fs.constants.F_OK</literal></link>.
+The mode argument is an optional integer
+that specifies the accessibility checks to be performed.
+<example>
+try {
+    fs.accessSync('/file/path', fs.constants.R_OK | fs.constants.W_OK);
+    console.log('has access');
+} catch (e) {
+    console.log('no access');)
+}
+</example>
+</tag-desc>
+
+</list>
+</tag-desc>
 
 <tag-name id="appendfilesync"><literal>appendFileSync(<value>filename</value>,
 <value>data</value>[, <value>options</value>])</literal></tag-name>
@@ -1225,6 +1275,18 @@ true
 </example>
 </tag-desc>
 
+<tag-name id="fs_realpathsync"><literal>realpathSync(<value>path</value>[,
+<value>options</value>])</literal></tag-name>
+<tag-desc>
+Synchronously computes the canonical pathname by resolving
+<literal>.</literal>, <literal>..</literal> and symbolic links using
+<link url="http://man7.org/linux/man-pages/man3/realpath.3.html">realpath(3)</link>
+The <literal>options</literal> argument can be a string specifying an encoding,
+or an object with an encoding property specifying the character encoding
+to use for the path passed to the callback
+(<link doc="changes.xml" id="njs0.3.9">0.3.9</link>).
+</tag-desc>
+
 <tag-name id="writefilesync"><literal>writeFileSync(<value>filename</value>,
 <value>data</value>[,
 <value>options</value>])</literal></tag-name>
@@ -1256,7 +1318,7 @@ undefined
 </example>
 </tag-desc>
 
-<tag-name id="renamesync"><literal>renameSync(<value>oldPath</value>,
+<tag-name id="fs_renamesync"><literal>renameSync(<value>oldPath</value>,
 <value>newPath</value>)</literal></tag-name>
 <tag-desc>
 Synchronously changes the name or location of a file from
@@ -1270,8 +1332,60 @@ undefined
 </example>
 </tag-desc>
 
+<tag-name id="fs_symlinksync"><literal>symlinkSync(<value>target</value>,
+<value>path</value>)</literal></tag-name>
+<tag-desc>
+Synchronously creates the link called <literal>path</literal>
+pointing to <literal>target</literal> using
+<link url="http://man7.org/linux/man-pages/man2/symlink.2.html">symlink(2)</link>
+(<link doc="changes.xml" id="njs0.3.9">0.3.9</link>).
+Relative targets are relative to the link’s parent directory.
+</tag-desc>
+
+<tag-name id="fs_unlinksync"><literal>unlinkSync(<value>path</value>)</literal></tag-name>
+<tag-desc>
+Synchronously unlinks a file by <literal>path</literal>
+(<link doc="changes.xml" id="njs0.3.9">0.3.9</link>).
+</tag-desc>
+
 </list>
 </para>
+
+
+<section id="access_const" name="File Access Constants">
+
+<para>
+The <link id="fs_accesssync"><literal>access()</literal></link> method
+can accept the following flags.
+These flags are exported by <literal>fs.constants</literal>:
+
+<list type= "bullet" compact="no">
+
+<listitem>
+<literal>F_OK</literal>&mdash;indicates that the file
+is visible to the calling process,
+used by default if no mode is specified
+</listitem>
+
+<listitem>
+<literal>R_OK</literal>&mdash;indicates that the file can be
+read by the calling process
+</listitem>
+
+<listitem>
+<literal>W_OK</literal>&mdash;indicates that the file can be
+written by the calling process
+</listitem>
+
+<listitem>
+<literal>X_OK</literal>&mdash;indicates that the file can be
+executed by the calling process
+</listitem>
+
+</list>
+</para>
+
+</section>
 
 
 <section id="njs_api_fs_flags" name="File System Flags">
