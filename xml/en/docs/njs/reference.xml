@@ -1287,6 +1287,36 @@ to use for the path passed to the callback
 (<link doc="changes.xml" id="njs0.3.9">0.3.9</link>).
 </tag-desc>
 
+<tag-name id="fs_renamesync"><literal>renameSync(<value>oldPath</value>,
+<value>newPath</value>)</literal></tag-name>
+<tag-desc>
+Synchronously changes the name or location of a file from
+<literal>oldPath</literal> to <literal>newPath</literal>
+(<link doc="changes.xml" id="njs0.3.4">0.3.4</link>).
+<example>
+>> var fs = require('fs')
+undefined
+>> var file = fs.renameSync('hello.txt', 'HelloWorld.txt')
+undefined
+</example>
+</tag-desc>
+
+<tag-name id="fs_symlinksync"><literal>symlinkSync(<value>target</value>,
+<value>path</value>)</literal></tag-name>
+<tag-desc>
+Synchronously creates the link called <literal>path</literal>
+pointing to <literal>target</literal> using
+<link url="http://man7.org/linux/man-pages/man2/symlink.2.html">symlink(2)</link>
+(<link doc="changes.xml" id="njs0.3.9">0.3.9</link>).
+Relative targets are relative to the link’s parent directory.
+</tag-desc>
+
+<tag-name id="fs_unlinksync"><literal>unlinkSync(<value>path</value>)</literal></tag-name>
+<tag-desc>
+Synchronously unlinks a file by <literal>path</literal>
+(<link doc="changes.xml" id="njs0.3.9">0.3.9</link>).
+</tag-desc>
+
 <tag-name id="writefilesync"><literal>writeFileSync(<value>filename</value>,
 <value>data</value>[,
 <value>options</value>])</literal></tag-name>
@@ -1316,36 +1346,6 @@ undefined
 >> var file = fs.writeFileSync('hello.txt', 'Hello world')
 undefined
 </example>
-</tag-desc>
-
-<tag-name id="fs_renamesync"><literal>renameSync(<value>oldPath</value>,
-<value>newPath</value>)</literal></tag-name>
-<tag-desc>
-Synchronously changes the name or location of a file from
-<literal>oldPath</literal> to <literal>newPath</literal>
-(<link doc="changes.xml" id="njs0.3.4">0.3.4</link>).
-<example>
->> var fs = require('fs')
-undefined
->> var file = fs.renameSync('hello.txt', 'HelloWorld.txt')
-undefined
-</example>
-</tag-desc>
-
-<tag-name id="fs_symlinksync"><literal>symlinkSync(<value>target</value>,
-<value>path</value>)</literal></tag-name>
-<tag-desc>
-Synchronously creates the link called <literal>path</literal>
-pointing to <literal>target</literal> using
-<link url="http://man7.org/linux/man-pages/man2/symlink.2.html">symlink(2)</link>
-(<link doc="changes.xml" id="njs0.3.9">0.3.9</link>).
-Relative targets are relative to the link’s parent directory.
-</tag-desc>
-
-<tag-name id="fs_unlinksync"><literal>unlinkSync(<value>path</value>)</literal></tag-name>
-<tag-desc>
-Synchronously unlinks a file by <literal>path</literal>
-(<link doc="changes.xml" id="njs0.3.9">0.3.9</link>).
 </tag-desc>
 
 </list>
