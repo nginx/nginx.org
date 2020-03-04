@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="36">
+        rev="37">
 
 <section id="summary">
 
@@ -1176,8 +1176,8 @@ The File System module provides operations with files.
 
 <para>
 The module object is returned by <literal>require('fs')</literal>.
-Since (<link doc="changes.xml" id="njs0.3.9">0.3.9</link>),
-promissified versions of methods described below are available through
+Since <link doc="changes.xml" id="njs0.3.9">0.3.9</link>,
+promissified versions of file system methods are available through
 <literal>require('fs').promises</literal> object:
 <example>
 > var fs = require('fs').promises;
@@ -1280,7 +1280,7 @@ true
 <tag-desc>
 Synchronously computes the canonical pathname by resolving
 <literal>.</literal>, <literal>..</literal> and symbolic links using
-<link url="http://man7.org/linux/man-pages/man3/realpath.3.html">realpath(3)</link>
+<link url="http://man7.org/linux/man-pages/man3/realpath.3.html">realpath(3)</link>.
 The <literal>options</literal> argument can be a string specifying an encoding,
 or an object with an encoding property specifying the character encoding
 to use for the path passed to the callback
