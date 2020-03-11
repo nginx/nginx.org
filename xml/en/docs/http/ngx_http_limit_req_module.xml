@@ -10,7 +10,7 @@
 <module name="Module ngx_http_limit_req_module"
         link="/en/docs/http/ngx_http_limit_req_module.html"
         lang="en"
-        rev="14">
+        rev="15">
 
 <section id="summary">
 
@@ -228,7 +228,7 @@ or about 8 thousand 128-byte states.
 
 <para>
 If the zone storage is exhausted, the least recently used state is removed.
-Even if after that a new state cannot be created, the request is terminated with
+If even after that a new state cannot be created, the request is terminated with
 an <link id="limit_req_status">error</link>.
 </para>
 
