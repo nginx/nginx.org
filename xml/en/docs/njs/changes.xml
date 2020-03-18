@@ -9,7 +9,7 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="29"
+        rev="30"
         toc="no">
 
 <section id="njs0.3.9" name="Changes with njs 0.3.9">
@@ -208,7 +208,7 @@ that resolves to a subrequest response object.
 <listitem>
 <para>
 Change:
-<link doc="reference.xml" id="r_parent"><literal>r.parent()</literal></link>
+<link doc="reference.xml" id="r_parent"><literal>r.parent</literal></link>
 property handler now returns
 <literal>undefined</literal>
 instead of throwing an exception if a parent object is not available.
