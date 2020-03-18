@@ -9,7 +9,7 @@
 <article name="Development guide"
          link="/en/docs/dev/development_guide.html"
          lang="en"
-         rev="8">
+         rev="9">
 
 <section name="Introduction" id="introduction">
 
@@ -5282,7 +5282,7 @@ sent to the client, but rather stored in memory.
 The flag only affects subrequests which are processed by one of the proxying
 modules.
 After a subrequest is finalized its output is available in
-a <literal>r->upstream->buffer</literal> of type <literal>ngx_buf_t</literal>.
+<literal>r->out</literal> of type <literal>ngx_buf_t</literal>.
 </listitem>
 
 <listitem>
