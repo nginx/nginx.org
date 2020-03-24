@@ -9,7 +9,7 @@
 <article name="Примеры использования"
         link="/ru/docs/njs/examples.html"
         lang="ru"
-        rev="8">
+        rev="9">
 
 <section id="helloword" name="Hello World">
 
@@ -354,14 +354,14 @@ function num_requests(r)
 </section>
 
 
-<section id="promisified_subrequest" name="Подзапрос с promise">
+<section id="subrequests_chaining" name="Построение цепочки подзапросов">
 
 <para>
 Пример работает начиная с версии
 <link doc="changes.xml" id="njs0.3.8">0.3.8</link>.
 <path>nginx.conf</path>:
 <example>
-js_include promisified_subrequest.js;
+js_include subrequests_chaining.js;
 
 location /start {
     js_content content;
@@ -378,16 +378,16 @@ location /backend {
 </para>
 
 <para>
-<path>promisified_subrequest.js</path>:
+<path>subrequests_chaining.js</path>:
 <example>
 function content(r) {
-   r.subrequest(r, '/auth')
+   r.subrequest('/auth')
    .then(reply => JSON.parse(reply.responseBody))
    .then(response => {
        if (!response['token']) {
            throw new Error("token is not available");
        }
-       return token;
+       return reply['token'];
    })
   .then(token => {
       r.subrequest('/backend', `token=${token}`)
