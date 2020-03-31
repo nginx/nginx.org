@@ -9,7 +9,7 @@
 <article name="Examples"
         link="/en/docs/njs/examples.html"
         lang="en"
-        rev="10">
+        rev="11">
 
 <section id="helloword" name="Hello World">
 
@@ -363,6 +363,9 @@ are available as part of our
 <para>
 The example works since
 <link doc="changes.xml" id="njs0.3.8">0.3.8</link>.
+</para>
+
+<para>
 <path>nginx.conf</path>:
 <example>
 js_include subrequests_chaining.js;

@@ -9,7 +9,7 @@
 <article name="Примеры использования"
         link="/ru/docs/njs/examples.html"
         lang="ru"
-        rev="10">
+        rev="11">
 
 <section id="helloword" name="Hello World">
 
@@ -363,6 +363,9 @@ function num_requests(r)
 <para>
 Пример работает начиная с версии
 <link doc="changes.xml" id="njs0.3.8">0.3.8</link>.
+</para>
+
+<para>
 <path>nginx.conf</path>:
 <example>
 js_include subrequests_chaining.js;
