@@ -9,7 +9,7 @@
 <article name="Примеры использования"
         link="/ru/docs/njs/examples.html"
         lang="ru"
-        rev="9">
+        rev="10">
 
 <section id="helloword" name="Hello World">
 
@@ -183,11 +183,15 @@ js_set $jwt jwt;
 <para>
 <path>hs_jwt.js</path>:
 <example>
-function create_hs256_jwt(claims, key, valid) {
-    var header = { "typ" : "JWT", "alg" : "HS256", "exp" : Math.floor(Date.now()/1000) + valid };
+function generate_hs256_jwt(claims, key, valid) {
+    var header = { typ: "JWT",
+                   alg: "HS256",
+                   exp: Math.floor(Date.now()/1000) + valid };
 
-    var s = JSON.stringify(header).toBytes().toString('base64url') + '.'
-            + JSON.stringify(claims).toBytes().toString('base64url');
+    var s = [header, claims].map(JSON.stringify)
+                            .map(v=>v.toBytes())
+                            .map(v=>v.toString('base64url'))
+                            .join('.');
 
     var h = require('crypto').createHmac('sha256', key);
 
@@ -196,14 +200,14 @@ function create_hs256_jwt(claims, key, valid) {
 
 function jwt(r) {
     var claims = {
-        "iss" : "nginx",
-        "sub" : "alice",
-        "foo" : 123,
-        "bar" : "qq",
-        "zyx" : false
+        iss: "nginx",
+        sub: "alice",
+        foo: 123,
+        bar: "qq",
+        zyx: false
     };
 
-    return create_hs256_jwt(claims, 'foo', 600);
+    return generate_hs256_jwt(claims, 'foo', 600);
 }
 </example>
 </para>
