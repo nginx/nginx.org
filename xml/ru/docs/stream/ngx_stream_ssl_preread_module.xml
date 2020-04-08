@@ -131,7 +131,7 @@ server {
 
 <tag-name id="var_ssl_preread_alpn_protocols"><var>$ssl_preread_alpn_protocols</var></tag-name>
 <tag-desc>
-список протоколов, переданный клиентом через ALPN (1.3.10).
+список протоколов, переданный клиентом через ALPN (1.13.10).
 Значения разделяются запятыми.
 </tag-desc>
 
