@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="89">
+        rev="90">
 
 <section id="directives" name="Директивы">
 
@@ -243,6 +243,25 @@ location /images/ {
     root /data/w3;
 }
 </example>
+</para>
+
+</directive>
+
+
+<directive name="auth_delay">
+<syntax><value>время</value></syntax>
+<default>0s</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.17.10</appeared-in>
+
+<para>
+Задерживает обработку неавторизованных запросов с кодом ответа 401
+для предотвращения атак по времени в случае ограничения доступа по
+<link doc="ngx_http_auth_basic_module.xml">паролю</link>, по
+<link doc="ngx_http_auth_request_module.xml">результату подзапроса</link>
+или по <link doc="ngx_http_auth_jwt_module.xml">JWT</link>.
 </para>
 
 </directive>

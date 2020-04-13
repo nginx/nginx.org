@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="89">
+        rev="90">
 
 <section id="directives" name="Directives">
 
@@ -244,6 +244,25 @@ location /images/ {
     root /data/w3;
 }
 </example>
+</para>
+
+</directive>
+
+
+<directive name="auth_delay">
+<syntax><value>time</value></syntax>
+<default>0s</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.17.10</appeared-in>
+
+<para>
+Delays processing of unauthorized requests with 401 response code
+to prevent timing attacks when access is limited by
+<link doc="ngx_http_auth_basic_module.xml">password</link>, by the
+<link doc="ngx_http_auth_request_module.xml">result of subrequest</link>,
+or by <link doc="ngx_http_auth_jwt_module.xml">JWT</link>.
 </para>
 
 </directive>
