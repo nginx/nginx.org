@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="37">
+        rev="38">
 
 <section id="summary">
 
@@ -97,6 +97,7 @@ on the <literal>info</literal> level of logging
 performs an internal redirect to the specified <literal>uri</literal>.
 If the uri starts with the “<literal>@</literal>” prefix,
 it is considered a named location.
+The actual redirect happens after the handler execution is completed.
 </tag-desc>
 
 <tag-name><literal>r.method</literal></tag-name>
