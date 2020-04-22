@@ -9,7 +9,7 @@
 <article name="Загрузка и установка"
         link="/ru/docs/njs/install.html"
         lang="ru"
-        rev="2">
+        rev="3">
 
 <section id="install_package" name="Установка пакета Linux">
 
@@ -30,6 +30,19 @@ njs
 </listitem>
 
 </list>
+</para>
+
+<para>
+После установки пакетов необходимо загрузить динамические модули njs при помощи
+директивы
+<link doc="../ngx_core_module.xml" id="load_module"><literal>load_module</literal></link>:
+<example>
+load_module modules/ngx_http_js_module.so;
+</example>
+или
+<example>
+load_module modules/ngx_stream_js_module.so;
+</example>
 </para>
 
 </section>

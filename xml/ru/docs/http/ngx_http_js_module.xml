@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_js_module"
         link="/ru/docs/http/ngx_http_js_module.html"
         lang="ru"
-        rev="21">
+        rev="22">
 
 <section id="summary">
 
@@ -34,9 +34,6 @@
 Пример работает начиная с версии
 <link doc="../njs/changes.xml" id="njs0.4.0">0.4.0</link>.
 <example>
-load_module modules/ngx_http_js_module.so;
-...
-
 http {
     js_import http.js;
 

@@ -9,7 +9,7 @@
 <article name="Download and install"
         link="/en/docs/njs/install.html"
         lang="en"
-        rev="2">
+        rev="3">
 
 <section id="install_package" name="Installing as a Linux package">
 
@@ -29,6 +29,19 @@ For Linux, njs modules
 </listitem>
 
 </list>
+</para>
+
+<para>
+After package installation, njs dynamic modules need to be loaded with the
+<link doc="../ngx_core_module.xml" id="load_module"><literal>load_module</literal></link>
+directive:
+<example>
+load_module modules/ngx_http_js_module.so;
+</example>
+or
+<example>
+load_module modules/ngx_stream_js_module.so;
+</example>
 </para>
 
 </section>
