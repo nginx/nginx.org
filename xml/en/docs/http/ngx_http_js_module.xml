@@ -9,7 +9,7 @@
 <module name="Module ngx_http_js_module"
         link="/en/docs/http/ngx_http_js_module.html"
         lang="en"
-        rev="19">
+        rev="20">
 
 <section id="summary">
 
@@ -32,22 +32,24 @@ Download and install instructions are available
 <section id="example" name="Example Configuration">
 
 <para>
+The example works since
+<link doc="../njs/changes.xml" id="njs0.4.0">0.4.0</link>.
 <example>
 load_module modules/ngx_http_js_module.so;
 ...
 
 http {
-    js_include http.js;
+    js_import http.js;
 
-    js_set $foo     foo;
-    js_set $summary summary;
+    js_set $foo     http.foo;
+    js_set $summary http.summary;
 
     server {
         listen 8000;
 
         location / {
             add_header X-Foo $foo;
-            js_content baz;
+            js_content http.baz;
         }
 
         location = /summary {
@@ -55,7 +57,7 @@ http {
         }
 
         location = /hello {
-            js_content hello;
+            js_content http.hello;
         }
     }
 }
@@ -110,6 +112,8 @@ function baz(r) {
 function hello(r) {
     r.return(200, "Hello world!");
 }
+
+export default {foo, summary, baz, hello};
 </example>
 </para>
 
@@ -119,13 +123,44 @@ function hello(r) {
 <section id="directives" name="Directives">
 
 <directive name="js_content">
-<syntax><value>function</value></syntax>
+<syntax><value>function</value> | <value>module.function</value></syntax>
 <default/>
 <context>location</context>
 <context>limit_except</context>
 
 <para>
 Sets an njs function as a location content handler.
+Since <link doc="../njs/changes.xml" id="njs0.4.0">0.4.0</link>,
+a module function can be referenced.
+</para>
+
+</directive>
+
+
+<directive name="js_import">
+<syntax><value>module.js</value> |
+<value>export_name from module.js</value></syntax>
+<default/>
+<context>http</context>
+<appeared-in>0.4.0</appeared-in>
+
+<para>
+Imports a module that implements location and variable handlers in njs.
+The <literal>export_name</literal> is used as a namespace
+to access module functions.
+If the <literal>export_name</literal> is not specified,
+the module name will be used as a namespace.
+<example>
+js_import http.js;
+</example>
+Here, the module name <literal>http</literal> is used as a namespace
+while accessing exports.
+If the imported module contains <literal>foo()</literal>,
+<literal>http.foo</literal> is used to refer to it.
+</para>
+
+<para>
+Several <literal>js_import</literal> directives can be specified.
 </para>
 
 </directive>
@@ -137,7 +172,25 @@ Sets an njs function as a location content handler.
 <context>http</context>
 
 <para>
-Specifies a file that implements location and variable handlers in njs.
+Specifies a file that implements location and variable handlers in njs:
+<example>
+nginx.conf:
+js_include http.js;
+location   /version {
+    js_content version;
+}
+
+http.js:
+function version(r) {
+    r.return(200, njs.version);
+}
+</example>
+</para>
+
+<para>
+The directive is deprecated since
+<link doc="../njs/changes.xml" id="njs0.4.0">0.4.0</link>,
+the <link id="js_import"/> directive should be used instead.
 </para>
 
 </directive>
@@ -159,12 +212,15 @@ Sets an additional path for njs modules.
 
 <directive name="js_set">
 <syntax>
-<value>$variable</value> <value>function</value></syntax>
+<value>$variable</value> <value>function</value> |
+<value>module.function</value></syntax>
 <default/>
 <context>http</context>
 
 <para>
 Sets an njs function for the specified variable.
+Since <link doc="../njs/changes.xml" id="njs0.4.0">0.4.0</link>,
+a module function can be referenced.
 </para>
 
 </directive>

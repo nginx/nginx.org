@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_js_module"
         link="/en/docs/stream/ngx_stream_js_module.html"
         lang="en"
-        rev="17">
+        rev="18">
 
 <section id="summary">
 
@@ -31,29 +31,31 @@ Download and install instructions are available
 <section id="example" name="Example Configuration">
 
 <para>
+The example works since
+<link doc="../njs/changes.xml" id="njs0.4.0">0.4.0</link>.
 <example>
 load_module modules/ngx_stream_js_module.so;
 ...
 
 stream {
-    js_include stream.js;
+    js_import stream.js;
 
-    js_set $bar bar;
-    js_set $req_line req_line;
+    js_set $bar stream.bar;
+    js_set $req_line stream.req_line;
 
     server {
         listen 12345;
 
-        js_preread preread;
+        js_preread stream.preread;
         return     $req_line;
     }
 
     server {
         listen 12346;
 
-        js_access  access;
+        js_access  stream.access;
         proxy_pass 127.0.0.1:8000;
-        js_filter  header_inject;
+        js_filter  stream.header_inject;
     }
 }
 
@@ -121,6 +123,8 @@ function access(s) {
 
     s.allow();
 }
+
+export default {bar, preread, req_line, access};
 </example>
 </para>
 
@@ -130,7 +134,7 @@ function access(s) {
 <section id="directives" name="Directives">
 
 <directive name="js_access">
-<syntax><value>function</value></syntax>
+<syntax><value>function</value> | <value>module.function</value></syntax>
 <default/>
 <context>stream</context>
 <context>server</context>
@@ -138,19 +142,52 @@ function access(s) {
 <para>
 Sets an njs function which will be called at the
 <link doc="stream_processing.xml" id="access_phase">access</link> phase.
+Since <link doc="../njs/changes.xml" id="njs0.4.0">0.4.0</link>,
+a module function can be referenced.
 </para>
 
 </directive>
 
 
 <directive name="js_filter">
-<syntax><value>function</value></syntax>
+<syntax><value>function</value> | <value>module.function</value></syntax>
 <default/>
 <context>stream</context>
 <context>server</context>
 
 <para>
 Sets a data filter.
+Since <link doc="../njs/changes.xml" id="njs0.4.0">0.4.0</link>,
+a module function can be referenced.
+</para>
+
+</directive>
+
+
+<directive name="js_import">
+<syntax><value>module.js</value> |
+<value>export_name from module.js</value></syntax>
+<default/>
+<context>stream</context>
+<appeared-in>0.4.0</appeared-in>
+
+<para>
+Imports a module that implements location and variable handlers in njs.
+The <literal>export_name</literal> is used as a namespace
+to access module functions.
+If the <literal>export_name</literal> is not specified,
+the module name will be used as a namespace.
+<example>
+js_import stream.js;
+</example>
+Here, the module name <literal>stream</literal> is used as a namespace
+while accessing exports.
+If the imported module contains <literal>foo()</literal>,
+<literal>stream.foo</literal> is used to refer to it.
+</para>
+
+<para>
+Several <literal>js_import</literal> directives can be specified.
 </para>
 
 </directive>
@@ -162,7 +199,27 @@ Sets a data filter.
 <context>stream</context>
 
 <para>
-Specifies a file that implements server and variable handlers in njs.
+Specifies a file that implements server and variable handlers in njs:
+<example>
+nginx.conf:
+js_include stream.js;
+js_set     $js_addr address;
+server {
+    listen 127.0.0.1:12345;
+    return $js_addr;
+}
+
+stream.js:
+function address(s) {
+    return s.remoteAddress;
+}
+</example>
+</para>
+
+<para>
+The directive is deprecated since
+<link doc="../njs/changes.xml" id="njs0.4.0">0.4.0</link>,
+the <link id="js_import"/> directive should be used instead.
 </para>
 
 </directive>
@@ -183,7 +240,7 @@ Sets an additional path for njs modules.
 
 
 <directive name="js_preread">
-<syntax><value>function</value></syntax>
+<syntax><value>function</value> | <value>module.function</value></syntax>
 <default/>
 <context>stream</context>
 <context>server</context>
@@ -191,6 +248,8 @@ Sets an additional path for njs modules.
 <para>
 Sets an njs function which will be called at the
 <link doc="stream_processing.xml" id="preread_phase">preread</link> phase.
+Since <link doc="../njs/changes.xml" id="njs0.4.0">0.4.0</link>,
+a module function can be referenced.
 </para>
 
 </directive>
@@ -198,12 +257,15 @@ Sets an njs function which will be called at the
 
 <directive name="js_set">
 <syntax>
-<value>$variable</value> <value>function</value></syntax>
+<value>$variable</value> <value>function</value> |
+<value>module.function</value></syntax>
 <default/>
 <context>stream</context>
 
 <para>
 Sets an njs function for the specified variable.
+Since <link doc="../njs/changes.xml" id="njs0.4.0">0.4.0</link>,
+a module function can be referenced.
 </para>
 
 </directive>

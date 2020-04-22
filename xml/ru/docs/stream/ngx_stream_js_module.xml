@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_js_module"
         link="/ru/docs/stream/ngx_stream_js_module.html"
         lang="ru"
-        rev="17">
+        rev="18">
 
 <section id="summary">
 
@@ -31,29 +31,31 @@
 <section id="example" name="Пример конфигурации">
 
 <para>
+Пример работает начиная с версии
+<link doc="../njs/changes.xml" id="njs0.4.0">0.4.0</link>.
 <example>
 load_module modules/ngx_stream_js_module.so;
 ...
 
 stream {
-    js_include stream.js;
+    js_import stream.js;
 
-    js_set $bar bar;
-    js_set $req_line req_line;
+    js_set $bar stream.bar;
+    js_set $req_line stream.req_line;
 
     server {
         listen 12345;
 
-        js_preread preread;
+        js_preread stream.preread;
         return     $req_line;
     }
 
     server {
         listen 12346;
 
-        js_access  access;
+        js_access  stream.access;
         proxy_pass 127.0.0.1:8000;
-        js_filter  header_inject;
+        js_filter  stream.header_inject;
     }
 }
 
@@ -121,6 +123,8 @@ function access(s) {
 
     s.allow();
 }
+
+export default {bar, preread, req_line, access};
 </example>
 </para>
 
@@ -130,7 +134,7 @@ function access(s) {
 <section id="directives" name="Директивы">
 
 <directive name="js_access">
-<syntax><value>функция</value></syntax>
+<syntax><value>функция</value> | <value>модуль.функция</value></syntax>
 <default/>
 <context>stream</context>
 <context>server</context>
@@ -138,19 +142,53 @@ function access(s) {
 <para>
 Задаёт функцию njs, которая будет вызываться в
 <link doc="stream_processing.xml" id="access_phase">access</link>-фазе.
+Начиная с <link doc="../njs/changes.xml" id="njs0.4.0">0.4.0</link>
+можно ссылаться на функцию модуля.
 </para>
 
 </directive>
 
 
 <directive name="js_filter">
-<syntax><value>функция</value></syntax>
+<syntax><value>функция</value> | <value>модуль.функция</value></syntax>
 <default/>
 <context>stream</context>
 <context>server</context>
 
 <para>
 Задаёт фильтр данных.
+Начиная с <link doc="../njs/changes.xml" id="njs0.4.0">0.4.0</link>
+можно ссылаться на функцию модуля.
+</para>
+
+</directive>
+
+
+<directive name="js_import">
+<syntax><value>модуль.js</value> |
+<value>имя_экспорта из модуль.js</value></syntax>
+<default/>
+<context>stream</context>
+<appeared-in>0.4.0</appeared-in>
+
+<para>
+Импортирует модуль, позволяющий задавать обработчики location и переменных
+на njs.
+<literal>Имя_экспорта</literal> является пространством имён
+при доступе к функциям модуля.
+Если <literal>имя_экспорта</literal> не задано,
+то пространством имён будет являться имя модуля.
+<example>
+js_import stream.js;
+</example>
+В примере при доступе к экспорту в качестве
+пространства имён используется имя модуля <literal>stream</literal>.
+Если импортируемый модуль содержит <literal>foo()</literal>,
+то для доступа используется <literal>stream.foo</literal>.
+</para>
+
+<para>
+Директив <literal>js_import</literal> может быть несколько.
 </para>
 
 </directive>
@@ -162,15 +200,34 @@ function access(s) {
 <context>stream</context>
 
 <para>
-Задаёт файл, который позволяет
-задавать обработчики server и переменных на njs.
+Задаёт файл, который позволяет задавать обработчики server и переменных на njs:
+<example>
+nginx.conf:
+js_include stream.js;
+js_set     $js_addr address;
+server {
+    listen 127.0.0.1:12345;
+    return $js_addr;
+}
+
+stream.js:
+function address(s) {
+    return s.remoteAddress;
+}
+</example>
+</para>
+
+<para>
+Директива устарела начиная с
+<link doc="../njs/changes.xml" id="njs0.4.0">0.4.0</link>,
+вместо неё следует использовать директиву <link id="js_import"/>.
 </para>
 
 </directive>
 
 
 <directive name="js_preread">
-<syntax><value>функция</value></syntax>
+<syntax><value>функция</value> | <value>модуль.функция</value></syntax>
 <default/>
 <context>stream</context>
 <context>server</context>
@@ -178,6 +235,8 @@ function access(s) {
 <para>
 Задаёт функцию njs, которая будет вызываться в
 <link doc="stream_processing.xml" id="preread_phase">preread</link>-фазе.
+Начиная с <link doc="../njs/changes.xml" id="njs0.4.0">0.4.0</link>
+можно ссылаться на функцию модуля.
 </para>
 
 </directive>
@@ -199,12 +258,15 @@ function access(s) {
 
 <directive name="js_set">
 <syntax>
-<value>$переменная</value> <value>функция</value></syntax>
+<value>$переменная</value> <value>функция</value> |
+<value>модуль.функция</value></syntax>
 <default/>
 <context>stream</context>
 
 <para>
 Задаёт функцию njs для указанной переменной.
+Начиная с <link doc="../njs/changes.xml" id="njs0.4.0">0.4.0</link>
+можно ссылаться на функцию модуля.
 </para>
 
 </directive>
