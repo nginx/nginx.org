@@ -9,7 +9,16 @@
 <article name="Примеры использования"
         link="/ru/docs/njs/examples.html"
         lang="ru"
-        rev="12">
+        rev="13">
+
+<section id="summary">
+
+<para>
+Примеры работают начиная с версии
+<link doc="../njs/changes.xml" id="njs0.4.0">0.4.0</link>.
+</para>
+
+</section>
 
 <section id="helloword" name="Hello World">
 
@@ -21,26 +30,21 @@ load_module modules/ngx_http_js_module.so;
 events {}
 
 http {
-    js_include hello_world.js;
-
-    server {
-        listen 8000;
-
-        location / {
-            js_content hello;
-        }
-    }
+    js_import http.js;
+    js_content http.hello;
 }
 
 </example>
 </para>
 
 <para>
-<literal>hello_world.js</literal>:
+<literal>http.js</literal>:
 <example>
 function hello(r) {
     r.return(200, "Hello world!");
 }
+
+export default {hello};
 </example>
 </para>
 
@@ -52,18 +56,20 @@ function hello(r) {
 <para>
 <path>nginx.conf</path>:
 <example>
-js_include urldecode.js;
+js_import http.js;
 
-js_set $decoded_foo decoded_foo;
+js_set $decoded_foo http.decoded_foo;
 </example>
 </para>
 
 <para>
-<path>urldecode.js</path>:
+<path>http.js</path>:
 <example>
 function decoded_foo(r) {
     return decodeURIComponent(r.args.foo);
 }
+
+export default {decoded_foo};
 </example>
 </para>
 
@@ -75,9 +81,9 @@ function decoded_foo(r) {
 <para>
 <path>nginx.conf</path>:
 <example>
-js_include urlencode.js;
+js_import http.js;
 
-js_set $encoded_foo encoded_foo;
+js_set $encoded_foo http.encoded_foo;
 ...
 
 location / {
@@ -87,11 +93,13 @@ location / {
 </para>
 
 <para>
-<path>urlencode.js</path>:
+<path>http.js</path>:
 <example>
 function encoded_foo(r) {
     return encodeURIComponent('foo &amp; bar?');
 }
+
+export default {encoded_foo};
 </example>
 </para>
 
@@ -103,10 +111,10 @@ function encoded_foo(r) {
 <para>
 <path>nginx.conf</path>:
 <example>
-js_include redirect.js;
+js_import http.js;
 
 location /redirect {
-    js_content redirect;
+    js_content http.redirect;
 }
 
 location @named {
@@ -116,11 +124,13 @@ location @named {
 </para>
 
 <para>
-<path>redirect.js</path>:
+<path>http.js</path>:
 <example>
 function redirect(r) {
     r.internalRedirect('@named');
 }
+
+export default {redirect};
 </example>
 </para>
 
@@ -132,10 +142,10 @@ function redirect(r) {
 <para>
 <path>nginx.conf</path>:
 <example>
-js_include fastresponse.js;
+js_import http.js;
 
 location /start {
-    js_content content;
+    js_content http.content;
 }
 
 location /foo {
@@ -149,7 +159,7 @@ location /bar {
 </para>
 
 <para>
-<path>fastresponse.js</path>:
+<path>http.js</path>:
 <example>
 function content(r) {
     var n = 0;
@@ -163,6 +173,8 @@ function content(r) {
     r.subrequest('/foo', r.variables.args, done);
     r.subrequest('/bar', r.variables.args, done);
 }
+
+export default {content};
 </example>
 </para>
 
@@ -174,14 +186,14 @@ function content(r) {
 <para>
 <path>nginx.conf</path>:
 <example>
-js_include hs_jwt.js;
+js_import http.js;
 
-js_set $jwt jwt;
+js_set $jwt http.jwt;
 </example>
 </para>
 
 <para>
-<path>hs_jwt.js</path>:
+<path>http.js</path>:
 <example>
 function generate_hs256_jwt(claims, key, valid) {
     var header = { typ: "JWT",  alg: "HS256" };
@@ -208,6 +220,8 @@ function jwt(r) {
 
     return generate_hs256_jwt(claims, 'foo', 600);
 }
+
+export default {jwt};
 </example>
 </para>
 
@@ -219,17 +233,17 @@ function jwt(r) {
 <para>
 <path>nginx.conf</path>:
 <example>
-js_include subrequest.js;
+js_import http.js;
 
 keyval_zone zone=foo:10m;
 ...
 
 location /keyval {
-    js_content set_keyval;
+    js_content http.set_keyval;
 }
 
 location /version {
-    js_content version;
+    js_content http.version;
 }
 
 location /api {
@@ -239,7 +253,7 @@ location /api {
 </para>
 
 <para>
-<path>subrequest.js</path>:
+<path>http.js</path>:
 <example>
 function set_keyval(r) {
     r.subrequest('/api/5/http/keyvals/foo',
@@ -266,6 +280,8 @@ function version(r) {
         r.return(200, json.version);
     });
 }
+
+export default {set_keyval, version};
 </example>
 </para>
 
@@ -277,9 +293,9 @@ function version(r) {
 <para>
 <path>nginx.conf</path>:
 <example>
-js_include hash.js;
+js_import http.js;
 
-js_set $new_foo create_secure_link;
+js_set $new_foo http.create_secure_link;
 ...
 
 location / {
@@ -296,13 +312,15 @@ location @login {
 </para>
 
 <para>
-<path>hash.js</path>:
+<path>http.js</path>:
 <example>
 function create_secure_link(r) {
     return require('crypto').createHash('md5')
                             .update(r.uri).update(" mykey")
                             .digest('base64url');
 }
+
+export default {create_secure_link};
 </example>
 </para>
 
@@ -314,9 +332,9 @@ function create_secure_link(r) {
 <para>
 <path>nginx.conf</path>:
 <example>
-js_include js_requests.js;
+js_import http.js;
 
-js_set $num_requests num_requests;
+js_set $num_requests http.num_requests;
 
 keyval_zone zone=foo:10m;
 
@@ -336,7 +354,7 @@ server {
 </para>
 
 <para>
-<path>js_requests.js</path>:
+<path>http.js</path>:
 <example>
 function num_requests(r)
 {
@@ -345,6 +363,8 @@ function num_requests(r)
     r.variables.foo = n;
     return n;
 }
+
+export default {num_requests};
 </example>
 <note>
 Директивы <link doc="../http/ngx_http_keyval_module.xml" id="keyval"/> и
@@ -360,17 +380,12 @@ function num_requests(r)
 <section id="subrequests_chaining" name="Построение цепочки подзапросов">
 
 <para>
-Пример работает начиная с версии
-<link doc="changes.xml" id="njs0.3.8">0.3.8</link>.
-</para>
-
-<para>
 <path>nginx.conf</path>:
 <example>
-js_include subrequests_chaining.js;
+js_import http.js;
 
 location /start {
-    js_content content;
+    js_content http.content;
 }
 
 location /auth {
@@ -384,7 +399,7 @@ location /backend {
 </para>
 
 <para>
-<path>subrequests_chaining.js</path>:
+<path>http.js</path>:
 <example>
 function content(r) {
    r.subrequest('/auth')
@@ -401,6 +416,8 @@ function content(r) {
   })
   .catch(_ => r.return(500));
 }
+
+export default {content};
 </example>
 </para>
 
