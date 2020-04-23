@@ -9,8 +9,131 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="30"
+        rev="31"
         toc="no">
+
+<section id="njs0.4.0" name="Changes with njs 0.4.0">
+
+<para>
+Release Date:
+23 April 2020
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+added support for multi-value headers in
+<link doc="reference.xml" id="r_headers_out"><literal>r.headersOut{}</literal></link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added <literal>js_import</literal> directive for
+<link doc="../http/ngx_http_js_module.xml" id="js_import">http</link> and
+<link doc="../stream/ngx_stream_js_module.xml" id="js_import">stream</link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+improved iteration over
+<link doc="reference.xml" id="r_headers_out"><literal>r.headersOut{}</literal></link>
+with special headers.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+improved iteration over
+<link doc="reference.xml" id="r_headers_out"><literal>r.headersOut{}</literal></link>
+with duplicates.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Change:
+<link doc="reference.xml" id="r_response_body"><literal>r.responseBody</literal></link>
+property handler now returns
+<literal>undefined</literal>
+instead of throwing an exception if the response body is not available.
+</para>
+</listitem>
+
+</list>
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+added script arguments support in CLI.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+converting externals values to native js objects.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed NULL-pointer dereference
+in <literal>__proto__</literal> property handler.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed handling of no-newline at the end of the script.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>RegExp()</literal> constructor
+with empty pattern and non-empty flags.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed 
+<link doc="reference.xml" id="string_replace"><literal>String.prototype.replace()</literal></link>
+when function returns non-string.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed reading of pseudofiles in
+<link doc="reference.xml" id="njs_api_fs"><literal>fs</literal></link>.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.3.9" name="Changes with njs 0.3.9">
 

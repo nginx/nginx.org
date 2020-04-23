@@ -7,6 +7,18 @@
 
 <news name="nginx news" link="/" lang="en">
 
+<event date="2020-04-23">
+<para>
+<link doc="en/docs/njs/index.xml">njs-0.4.0</link>
+version has been
+<link doc="en/docs/njs/changes.xml" id="njs0.4.0">released</link>,
+featuring
+<link doc="en/docs/http/ngx_http_js_module.xml" id="js_import">js_import</link>
+directive and multi-valued headers support in
+<link doc="en/docs/njs/reference.xml" id="r_headers_out">r.headersOut</link>.
+</para>
+</event>
+
 <event date="2020-04-21">
 <para>
 <link doc="en/download.xml">nginx-1.18.0</link>
