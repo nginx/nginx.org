@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="38">
+        rev="39">
 
 <section id="summary">
 
@@ -75,9 +75,47 @@ should be used.
 <tag-desc>
 outgoing headers object, writable.
 <para>
-For example, the <literal>Foo</literal> header
-can be accessed with the syntax <literal>headersOut.foo</literal>
-or <literal>headersOut['Foo']</literal>
+The <header>Foo</header> response header
+can be accessed with the syntax:
+<literal>headersOut.foo</literal> or <literal>headersOut['Foo']</literal>.
+</para>
+
+<para>
+Field values of multi-value response headers
+(<link doc="changes.xml" id="njs0.4.0">0.4.0</link>)
+can be set with the syntax:
+<example>
+r.headersOut[‘Foo’] = [‘a’, ‘b’]
+</example>
+where the output will be:
+<example>
+Foo: a
+Foo: b
+</example>
+All previous field values of the <header>Foo</header> response header
+will be deleted.
+</para>
+
+<para>
+For standard response headers
+that accept only a single field value such as
+<header>Content-Type</header>,
+only the last element of the array will take effect.
+Duplicate field values in
+<header>Age</header>,
+<header>Content-Encoding</header>,
+<header>Content-Length</header>,
+<header>Content-Type</header>,
+<header>ETag</header>,
+<header>Expires</header>,
+<header>Last-Modified</header>,
+<header>Location</header>,
+<header>Retry-After</header>
+response headers are ignored.
+All other duplicate field values of the response header
+are joined together with comma “<literal>,</literal>”.
+Field values of the <header>Set-Cookie</header> response header
+are always returned as an array.
 </para>
 </tag-desc>
 
