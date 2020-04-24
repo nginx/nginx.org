@@ -9,7 +9,7 @@
 <article name="Примеры использования"
         link="/ru/docs/njs/examples.html"
         lang="ru"
-        rev="13">
+        rev="14">
 
 <section id="summary">
 
@@ -25,8 +25,6 @@
 <para>
 <path>nginx.conf</path>:
 <example>
-load_module modules/ngx_http_js_module.so;
-
 events {}
 
 http {

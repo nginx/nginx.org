@@ -9,7 +9,7 @@
 <article name="Examples"
         link="/en/docs/njs/examples.html"
         lang="en"
-        rev="13">
+        rev="14">
 
 <section id="summary">
 
@@ -26,8 +26,6 @@ The examples work since
 <para>
 <path>nginx.conf</path>:
 <example>
-load_module modules/ngx_http_js_module.so;
-
 events {}
 
 http {
