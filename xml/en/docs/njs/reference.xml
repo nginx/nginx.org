@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="39">
+        rev="40">
 
 <section id="summary">
 
@@ -112,8 +112,8 @@ Duplicate field values in
 <header>Location</header>,
 <header>Retry-After</header>
 response headers are ignored.
-All other duplicate field values of the response header
-are joined together with comma “<literal>,</literal>”.
+Duplicate field values in all other response headers
+are separated by commas.
 Field values of the <header>Set-Cookie</header> response header
 are always returned as an array.
 </para>
