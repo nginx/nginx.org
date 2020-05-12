@@ -10,7 +10,7 @@
 <module name="Module ngx_http_log_module"
         link="/en/docs/http/ngx_http_log_module.html"
         lang="en"
-        rev="19">
+        rev="20">
 
 <section id="summary">
 
@@ -208,6 +208,33 @@ The <literal>escape</literal> parameter (1.11.8) allows setting
 <literal>json</literal> or <literal>default</literal> characters escaping
 in variables, by default, <literal>default</literal> escaping is used.
 The <literal>none</literal> value (1.13.10) disables escaping.
+</para>
+
+<para id="log_format_escape_default">
+For <literal>default</literal> escaping,
+characters “<literal>"</literal>”, “<literal>\</literal>”,
+and other characters with values less than 32 (0.7.0) or above 126 (1.1.6)
+are escaped as “<literal>\xXX</literal>”.
+If the variable value is not found,
+a hyphen (“<literal>-</literal>”) will be logged.
+</para>
+
+<para id="log_format_escape_json">
+For <literal>json</literal> escaping,
+all characters not allowed
+in JSON <link url="https://tools.ietf.org/html/rfc8259#section-7">strings</link>
+will be escaped:
+characters “<literal>"</literal>” and
+“<literal>\</literal>” are escaped as
+“<literal>\"</literal>” and “<literal>\\</literal>”,
+characters with values less than 32 are escaped as
+“<literal>\n</literal>”,
+“<literal>\r</literal>”,
+“<literal>\t</literal>”,
+“<literal>\b</literal>”,
+“<literal>\f</literal>”, or
+“<literal>\u00XX</literal>”.
+
 </para>
 
 <para>

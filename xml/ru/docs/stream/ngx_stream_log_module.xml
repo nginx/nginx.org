@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_log_module"
         link="/ru/docs/stream/ngx_stream_log_module.html"
         lang="ru"
-        rev="6">
+        rev="7">
 
 <section id="summary">
 
@@ -176,6 +176,31 @@ log_format proxy '$remote_addr [$time_local] '
 в переменных, по умолчанию используется <literal>default</literal>.
 Параметр <literal>none</literal> (1.13.10) отключает
 экранирование символов.
+</para>
+
+<para id="log_format_escape_default">
+При использовании <literal>default</literal>
+символы “<literal>"</literal>”, “<literal>\</literal>”,
+a также символы со значениями меньше 32 или больше 126
+экранируются как “<literal>\xXX</literal>”.
+Если значение переменной не найдено,
+то в качестве значения в лог будет записываться дефис (“<literal>-</literal>”).
+</para>
+
+<para id="log_format_escape_json">
+При использовании <literal>json</literal>
+экранируются все символы, недопустимые
+в JSON <link url="https://tools.ietf.org/html/rfc8259#section-7">строках</link>:
+символы “<literal>"</literal>” и
+“<literal>\</literal>” экранируются как
+“<literal>\"</literal>” и “<literal>\\</literal>”,
+символы со значениями меньше 32 экранируются как
+“<literal>\n</literal>”,
+“<literal>\r</literal>”,
+“<literal>\t</literal>”,
+“<literal>\b</literal>”,
+“<literal>\f</literal>” или
+“<literal>\u00XX</literal>”.
 </para>
 
 </directive>
