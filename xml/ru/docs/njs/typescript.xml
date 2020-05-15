@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE article SYSTEM "../../../../dtd/article.dtd">
+
+<article name="Создание кода njs при помощи файлов деклараций TypeScript"
+        link="/en/docs/njs/typescript.html"
+        lang="en"
+        rev="1">
+
+<section>
+
+<para>
+<link url="https://www.typescriptlang.org">TypeScript</link>&mdash;это
+типизированное подмножество JavaScript,
+которое компилируется в обычный JavaScript.
+</para>
+
+<para>
+TypeScript поддерживает файлы деклараций, в которых содержится
+типизированная информация существующих библиотек JavaScript.
+С их помощью программы могут использовать значения в файлах также,
+если бы эти значения были статически типизированными сущностями TypeScript.
+</para>
+
+<para>
+В njs файлы деклараций TypeScript предоставляются для 
+<link doc="reference.xml">API</link> и могут использоваться при:
+<list type="bullet">
+
+<listitem>
+автозаполнении и проверки API в редакторе
+</listitem>
+
+<listitem>
+создании типобезопасного njs-кода.
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+
+<section id="get" name="Компиляция файлов деклараций TypeScript">
+
+<para>
+<example>
+$ hg clone http://hg.nginx.org/njs
+$ cd njs &amp;&amp; ./configure &amp;&amp; make ts
+$ ls build/ts/
+njs_core.d.ts
+njs_shell.d.ts
+ngx_http_js_module.d.ts
+ngx_stream_js_module.d.ts
+</example>
+</para>
+
+</section>
+
+
+<section id="autocomplete" name="Проверка API и автозаполнение">
+
+<para>
+Файлы деклараций <literal>*.d.ts</literal> необходимо поместить в место,
+доступное редактору:
+</para>
+
+<para>
+<literal>test.js</literal>:
+<example>
+/// &lt;reference path="ngx_http_js_module.d.ts" /&gt;
+/**
+ * @param {NginxHTTPRequest} r
+ * */
+function content_handler(r) {
+    r.headersOut['content-type'] = 'text/plain';
+    r.return(200, "Hello");
+}
+</example>
+</para>
+
+</section>
+
+
+<section id="write" name="Создание типобезопасного njs кода">
+
+<para>
+<literal>test.ts</literal>:
+<example>
+/// &lt;reference path="ngx_http_js_module.d.ts" /&gt;
+function content_handler(r: NginxHTTPRequest) {
+    r.headersOut['content-type'] = 'text/plain';
+    r.return(200, "Hello from TypeScript");
+}
+</example>
+Установка TypeScript:
+<example>
+# npm install -g typescript
+</example>
+Компиляция TypeScript:
+<example>
+$ tsc test.ts
+$ cat test.js
+</example>
+Созданный файл <literal>test.js</literal> может использоваться напрямую в njs.
+</para>
+
+</section>
+
+</article>

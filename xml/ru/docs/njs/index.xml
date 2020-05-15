@@ -9,7 +9,7 @@
 <article name="Сценарный язык njs"
         link="/ru/docs/njs/index.html"
         lang="ru"
-        rev="28"
+        rev="29"
         toc="no">
 
 <section id="summary">
@@ -51,10 +51,6 @@ njs совместим с
 </listitem>
 
 <listitem>
-<link doc="node_modules.xml">Использование модулей Node.js в njs</link>
-</listitem>
-
-<listitem>
 <link doc="compatibility.xml"/>
 </listitem>
 
@@ -76,6 +72,20 @@ ngx_http_js_module</link>
 <listitem>
 <link doc="../stream/ngx_stream_js_module.xml">
 ngx_stream_js_module</link>
+</listitem>
+
+</list>
+</para>
+
+<para>
+<list type="bullet">
+
+<listitem>
+<link doc="typescript.xml"/>
+</listitem>
+
+<listitem>
+<link doc="node_modules.xml">Использование модулей Node.js в njs</link>
 </listitem>
 
 </list>

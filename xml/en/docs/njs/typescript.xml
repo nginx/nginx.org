@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE article SYSTEM "../../../../dtd/article.dtd">
+
+<article name="Writing njs code using TypeScript definition files"
+        link="/en/docs/njs/typescript.html"
+        lang="en"
+        rev="1">
+
+<section>
+
+<para>
+<link url="https://www.typescriptlang.org">TypeScript</link> is
+a typed superset of JavaScript
+that compiles to plain JavaScript.
+</para>
+
+<para>
+TypeScript supports definition files that contain
+type information of existing JavaScript libraries.
+This enables other programs to use the values defined in the files
+as if they were statically typed TypeScript entities.
+</para>
+
+<para>
+njs provides TypeScript definition files for its
+<link doc="reference.xml">API</link> which can be used to:
+<list type="bullet">
+
+<listitem>
+Get autocompletion and API check in an editor
+</listitem>
+
+<listitem>
+Write njs type-safe code
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+
+<section id="get" name="Compiling TypeScript definition files">
+
+<para>
+<example>
+$ hg clone http://hg.nginx.org/njs
+$ cd njs &amp;&amp; ./configure &amp;&amp; make ts
+$ ls build/ts/
+njs_core.d.ts
+njs_shell.d.ts
+ngx_http_js_module.d.ts
+ngx_stream_js_module.d.ts
+</example>
+</para>
+
+</section>
+
+
+<section id="autocomplete" name="API checks and autocompletions">
+
+<para>
+Put <literal>*.d.ts</literal> files to a place where you editor can find it.
+</para>
+
+<para>
+<literal>test.js</literal>:
+<example>
+/// &lt;reference path="ngx_http_js_module.d.ts" /&gt;
+/**
+ * @param {NginxHTTPRequest} r
+ * */
+function content_handler(r) {
+    r.headersOut['content-type'] = 'text/plain';
+    r.return(200, "Hello");
+}
+</example>
+</para>
+
+</section>
+
+
+<section id="write" name="Writing njs type-safe code">
+
+<para>
+<literal>test.ts</literal>:
+<example>
+/// &lt;reference path="ngx_http_js_module.d.ts" /&gt;
+function content_handler(r: NginxHTTPRequest) {
+    r.headersOut['content-type'] = 'text/plain';
+    r.return(200, "Hello from TypeScript");
+}
+</example>
+TypeScript installation:
+<example>
+# npm install -g typescript
+</example>
+TypeScript compilation:
+<example>
+$ tsc test.ts
+$ cat test.js
+</example>
+The resulting <literal>test.js</literal> file can be used directly with njs.
+</para>
+
+</section>
+
+
+</article>

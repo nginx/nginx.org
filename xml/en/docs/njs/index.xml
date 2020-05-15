@@ -9,7 +9,7 @@
 <article name="njs scripting language"
         link="/en/docs/njs/index.html"
         lang="en"
-        rev="28"
+        rev="29"
         toc="no">
 
 <section id="summary">
@@ -50,10 +50,6 @@ The compliance is still <link doc="compatibility.xml">evolving</link>.
 </listitem>
 
 <listitem>
-<link doc="node_modules.xml"/>
-</listitem>
-
-<listitem>
 <link doc="compatibility.xml"/>
 </listitem>
 
@@ -75,6 +71,20 @@ ngx_http_js_module</link>
 <listitem>
 <link doc="../stream/ngx_stream_js_module.xml">
 ngx_stream_js_module</link>
+</listitem>
+
+</list>
+</para>
+
+<para>
+<list type="bullet">
+
+<listitem>
+<link doc="typescript.xml"/>
+</listitem>
+
+<listitem>
+<link doc="node_modules.xml"/>
 </listitem>
 
 </list>
