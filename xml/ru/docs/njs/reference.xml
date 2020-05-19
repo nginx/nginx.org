@@ -141,18 +141,18 @@ Foo: b
 версия HTTP, только чтение
 </tag-desc>
 
-<tag-name><literal>r.log(<value>строка</value>)</literal></tag-name>
-<tag-desc>
-записывает <literal>строку</literal> в лог-файл ошибок
-на уровне лога <literal>info</literal>
-</tag-desc>
-
 <tag-name id="r_internal_redirect"><literal>r.internalRedirect(<value>uri</value>)</literal></tag-name>
 <tag-desc>
 осуществляет внутреннее перенаправление на указанный <literal>uri</literal>.
 Если uri начинается с префикса “<literal>@</literal>”,
 то он считается именованным location.
 Перенаправление осуществляется после завершения выполнения обработчика.
+</tag-desc>
+
+<tag-name><literal>r.log(<value>строка</value>)</literal></tag-name>
+<tag-desc>
+записывает <literal>строку</literal> в лог-файл ошибок
+на уровне лога <literal>info</literal>
 </tag-desc>
 
 <tag-name><literal>r.method</literal></tag-name>
@@ -216,26 +216,6 @@ HTTP метод, только чтение
 статус, доступно для записи
 </tag-desc>
 
-<tag-name id="r_variables"><literal>r.variables{}</literal></tag-name>
-<tag-desc>
-объект переменных nginx, доступно для записи
-(начиная с версии <link doc="changes.xml" id="njs0.2.8">0.2.8</link>)
-</tag-desc>
-
-<tag-name><literal>r.warn(<value>строка</value>)</literal></tag-name>
-<tag-desc>
-записывает <literal>строку</literal> в лог-файл ошибок
-на уровне лога <literal>warning</literal>
-</tag-desc>
-
-<tag-name id="r_uri"><literal>r.uri</literal></tag-name>
-<tag-desc>
-текущий <link doc="../http/ngx_http_core_module.xml" id="var_uri">URI</link>
-запроса в
-<link doc="../http/ngx_http_core_module.xml" id="location">нормализованном</link>
-виде, только чтение
-</tag-desc>
-
 <tag-name id="subrequest"><literal>r.subrequest(<value>uri</value>[,
 <value>options</value>[, <value>callback</value>]])</literal></tag-name>
 <tag-desc>
@@ -290,6 +270,26 @@ HTTP метод, только чтение
 то возвращается объект <literal>Promise</literal>,
 который разрешается в объект ответа подзапроса.
 </para>
+</tag-desc>
+
+<tag-name id="r_uri"><literal>r.uri</literal></tag-name>
+<tag-desc>
+текущий <link doc="../http/ngx_http_core_module.xml" id="var_uri">URI</link>
+запроса в
+<link doc="../http/ngx_http_core_module.xml" id="location">нормализованном</link>
+виде, только чтение
+</tag-desc>
+
+<tag-name id="r_variables"><literal>r.variables{}</literal></tag-name>
+<tag-desc>
+объект переменных nginx, доступно для записи
+(начиная с версии <link doc="changes.xml" id="njs0.2.8">0.2.8</link>)
+</tag-desc>
+
+<tag-name><literal>r.warn(<value>строка</value>)</literal></tag-name>
+<tag-desc>
+записывает <literal>строку</literal> в лог-файл ошибок
+на уровне лога <literal>warning</literal>
 </tag-desc>
 
 </list>

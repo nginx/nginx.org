@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="42">
+        rev="43">
 
 <section id="summary">
 
@@ -139,18 +139,18 @@ are separated by commas.
 HTTP version, read-only
 </tag-desc>
 
-<tag-name><literal>r.log(<value>string</value>)</literal></tag-name>
-<tag-desc>
-writes a <literal>string</literal> to the error log
-on the <literal>info</literal> level of logging
-</tag-desc>
-
 <tag-name id="r_internal_redirect"><literal>r.internalRedirect(<value>uri</value>)</literal></tag-name>
 <tag-desc>
 performs an internal redirect to the specified <literal>uri</literal>.
 If the uri starts with the “<literal>@</literal>” prefix,
 it is considered a named location.
 The actual redirect happens after the handler execution is completed.
+</tag-desc>
+
+<tag-name><literal>r.log(<value>string</value>)</literal></tag-name>
+<tag-desc>
+writes a <literal>string</literal> to the error log
+on the <literal>info</literal> level of logging
 </tag-desc>
 
 <tag-name><literal>r.method</literal></tag-name>
@@ -213,26 +213,6 @@ sends the HTTP headers to the client
 <tag-name><literal>r.status</literal></tag-name>
 <tag-desc>
 status, writable
-</tag-desc>
-
-<tag-name id="r_variables"><literal>r.variables{}</literal></tag-name>
-<tag-desc>
-nginx variables object,
-writable (since <link doc="changes.xml" id="njs0.2.8">0.2.8</link>)
-</tag-desc>
-
-<tag-name><literal>r.warn(<value>string</value>)</literal></tag-name>
-<tag-desc>
-writes a <literal>string</literal> to the error log
-on the <literal>warning</literal> level of logging
-</tag-desc>
-
-<tag-name id="r_uri"><literal>r.uri</literal></tag-name>
-<tag-desc>
-current <link doc="../http/ngx_http_core_module.xml" id="var_uri">URI</link>
-in request,
-<link doc="../http/ngx_http_core_module.xml" id="location">normalized</link>,
-read-only
 </tag-desc>
 
 <tag-name id="subrequest"><literal>r.subrequest(<value>uri</value>[,
@@ -300,6 +280,26 @@ if a <literal>callback</literal> is not provided,
 the <literal>Promise</literal> object
 that resolves to the subrequest response object is returned.
 </para>
+</tag-desc>
+
+<tag-name id="r_uri"><literal>r.uri</literal></tag-name>
+<tag-desc>
+current <link doc="../http/ngx_http_core_module.xml" id="var_uri">URI</link>
+in request,
+<link doc="../http/ngx_http_core_module.xml" id="location">normalized</link>,
+read-only
+</tag-desc>
+
+<tag-name id="r_variables"><literal>r.variables{}</literal></tag-name>
+<tag-desc>
+nginx variables object,
+writable (since <link doc="changes.xml" id="njs0.2.8">0.2.8</link>)
+</tag-desc>
+
+<tag-name><literal>r.warn(<value>string</value>)</literal></tag-name>
+<tag-desc>
+writes a <literal>string</literal> to the error log
+on the <literal>warning</literal> level of logging
 </tag-desc>
 
 </list>
