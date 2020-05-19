@@ -94,7 +94,7 @@
 <para>
 Доступ к заголовку ответа <literal>Foo</literal>
 можно получить при помощи синтаксиса:
-<literal>headersOut.foo</literal> или <literal>headersOut['Foo']</literal>
+<literal>headersOut.foo</literal> или <literal>headersOut['Foo']</literal>.
 </para>
 
 <para>
@@ -102,7 +102,7 @@
 (<link doc="changes.xml" id="njs0.4.0">0.4.0</link>)
 можно задать при помощи синтаксиса:
 <example>
-r.headersOut[‘Foo’] = [‘a’, ‘b’]
+r.headersOut['Foo'] = ['a', 'b']
 </example>
 результат:
 <example>
@@ -118,6 +118,8 @@ Foo: b
 поля которых могут принимать только одно значение, например
 <header>Content-Type</header>,
 учитывается только последний элемент массива.
+Значения поля в заголовке ответа <header>Set-Cookie</header>
+всегда возвращаются в виде массива.
 Дубликаты значений поля в заголовках ответа
 <header>Age</header>,
 <header>Content-Encoding</header>,
@@ -131,8 +133,6 @@ Foo: b
 игнорируются.
 Дубликаты значений поля в других заголовках ответов
 разделяются при помощи запятой.
-Значения поля в заголовке ответа <header>Set-Cookie</header>
-всегда возвращаются в виде массива.
 </para>
 </tag-desc>
 

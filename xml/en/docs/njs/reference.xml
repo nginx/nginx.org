@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="41">
+        rev="42">
 
 <section id="summary">
 
@@ -100,7 +100,7 @@ Field values of multi-value response headers
 (<link doc="changes.xml" id="njs0.4.0">0.4.0</link>)
 can be set with the syntax:
 <example>
-r.headersOut[‘Foo’] = [‘a’, ‘b’]
+r.headersOut['Foo'] = ['a', 'b']
 </example>
 where the output will be:
 <example>
@@ -116,6 +116,8 @@ For standard response headers
 that accept only a single field value such as
 <header>Content-Type</header>,
 only the last element of the array will take effect.
+Field values of the <header>Set-Cookie</header> response header
+are always returned as an array.
 Duplicate field values in
 <header>Age</header>,
 <header>Content-Encoding</header>,
@@ -129,8 +131,6 @@ Duplicate field values in
 response headers are ignored.
 Duplicate field values in all other response headers
 are separated by commas.
-Field values of the <header>Set-Cookie</header> response header
-are always returned as an array.
 </para>
 </tag-desc>
 
