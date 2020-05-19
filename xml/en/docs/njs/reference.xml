@@ -168,6 +168,48 @@ references the parent request object
 client address, read-only
 </tag-desc>
 
+<tag-name id="r_raw_headers_in"><literal>r.rawHeadersIn{}</literal></tag-name>
+<tag-desc>
+returns an array of key-value pairs
+exactly as they were received from the client
+(<link doc="changes.xml" id="njs0.4.1">0.4.1</link>).
+<para>
+For example, with the following request headers:
+<example>
+Host: localhost
+Foo:  bar
+foo:  bar2
+</example>
+the output of <literal>r.rawHeadersIn</literal> will be:
+<example>
+[
+    ['Host', 'localhost'],
+    ['Foo', 'bar'],
+    ['foo', 'bar2']
+]
+</example>
+All <literal>foo</literal> headers
+can be collected with the syntax:
+<example>
+r.rawHeadersIn.filter(v=>v[0].toLowerCase() == 'foo').map(v=>v[1])
+</example>
+the output will be:
+<example>
+['bar', 'bar2']
+</example>
+Header field names are not converted to lower case,
+duplicate field values are not merged.
+</para>
+</tag-desc>
+
+<tag-name id="r_raw_headers_out"><literal>r.rawHeadersOut{}</literal></tag-name>
+<tag-desc>
+returns an array of key-value pairs of response headers
+(<link doc="changes.xml" id="njs0.4.1">0.4.1</link>).
+Header field names are not converted to lower case,
+duplicate field values are not merged.
+</tag-desc>
+
 <tag-name id="r_request_body"><literal>r.requestBody</literal></tag-name>
 <tag-desc>
 returns the client request body if it has not been

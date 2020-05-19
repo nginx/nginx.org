@@ -170,6 +170,48 @@ HTTP метод, только чтение
 адрес клиента, только чтение
 </tag-desc>
 
+<tag-name id="r_raw_headers_in"><literal>r.rawHeadersIn{}</literal></tag-name>
+<tag-desc>
+возвращает массив пар ключей и значений
+таким же, каким он был получен от клиента
+(<link doc="changes.xml" id="njs0.4.1">0.4.1</link>).
+<para>
+Например для следующих заголовков запроса:
+<example>
+Host: localhost
+Foo:  bar
+foo:  bar2
+</example>
+результат <literal>r.rawHeadersIn</literal>:
+<example>
+[
+    ['Host', 'localhost'],
+    ['Foo', 'bar'],
+    ['foo', 'bar2']
+]
+</example>
+Значения полей всех заголовков <literal>foo</literal>
+можно получить при помощи синтаксиса:
+<example>
+r.rawHeadersIn.filter(v=>v[0].toLowerCase() == 'foo').map(v=>v[1])
+</example>
+результат:
+<example>
+['bar', 'bar2']
+</example>
+Имена полей заголовков не приводятся к нижнему регистру,
+дубликаты значений поля не объединяются.
+</para>
+</tag-desc>
+
+<tag-name id="r_raw_headers_out"><literal>r.rawHeadersOut{}</literal></tag-name>
+<tag-desc>
+возвращает массив пар ключей и значений заголовков ответа
+(<link doc="changes.xml" id="njs0.4.1">0.4.1</link>).
+Имена полей заголовков не приводятся к нижнему регистру,
+дубликаты значений поля не объединяются.
+</tag-desc>
+
 <tag-name id="r_request_body"><literal>r.requestBody</literal></tag-name>
 <tag-desc>
 возвращает тело запроса клиента, если оно не было
