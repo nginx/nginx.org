@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_keyval_module"
         link="/en/docs/stream/ngx_stream_keyval_module.html"
         lang="en"
-        rev="8">
+        rev="9">
 
 <section id="summary">
 
@@ -45,7 +45,7 @@ http {
 
 stream {
 
-    keyval_zone zone=one:32k state=one.keyval;
+    keyval_zone zone=one:32k state=/var/lib/nginx/state/one.keyval;
     keyval      $ssl_server_name $name zone=one;
 
     server {
@@ -105,6 +105,14 @@ Key-value pairs are managed by the
 The optional <literal>state</literal> parameter specifies a <value>file</value>
 that keeps the current state of the key-value database in the JSON format
 and makes it persistent across nginx restarts.
+</para>
+
+<para>
+Examples:
+<example>
+keyval_zone zone=one:32k state=/var/lib/nginx/state/one.keyval; # path for Linux
+keyval_zone zone=one:32k state=/var/db/nginx/state/one.keyval;  # path for FreeBSD
+</example>
 </para>
 
 <para id="keyval_timeout">
