@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="40">
+        rev="41">
 
 <section id="summary">
 
@@ -53,21 +53,36 @@ finishes sending a response to the client
 <tag-desc>
 incoming headers object, read-only.
 <para>
-For example, the <literal>Foo</literal> header
-can be accessed with the syntax <literal>headersIn.foo</literal>
-or <literal>headersIn['Foo']</literal>
-<note>
-Before version <link doc="changes.xml" id="njs0.3.6">0.3.6</link>,
-for headers that could appear multiple times such as
-<header>Cookie</header> or <header>X-Forwarded-For</header>,
-only the first value was returned.
-To get all cookies,
-<literal>r.variables.http_cookie</literal>
-should be used.
-To get the <literal>name</literal> cookie,
-<literal>r.variables["cookie_<value>name</value>"]</literal>
-should be used.
-</note>
+The <literal>Foo</literal> request header
+can be accessed with the syntax:
+<literal>headersIn.foo</literal> or <literal>headersIn['Foo']</literal>.
+</para>
+
+<para>
+The 
+<header>Authorization</header>,
+<header>Content-Length</header>,
+<header>Content-Range</header>,
+<header>Content-Type</header>,
+<header>ETag</header>,
+<header>Expect</header>,
+<header>From</header>,
+<header>Host</header>,
+<header>If-Match</header>,
+<header>If-Modified-Since</header>,
+<header>If-None-Match</header>,
+<header>If-Range</header>,
+<header>If-Unmodified-Since</header>,
+<header>Max-Forwards</header>,
+<header>Proxy-Authorization</header>,
+<header>Referer</header>,
+<header>Transfer-Encoding</header>, and
+<header>User-Agent</header>
+request headers can have only one field value
+(<link doc="changes.xml" id="njs0.4.1">0.4.1</link>).
+Duplicate field values in <header>Cookie</header> headers
+are separated by semicolon (<literal>;</literal>).
+Duplicate field values in all other request headers are separated by commas.
 </para>
 </tag-desc>
 

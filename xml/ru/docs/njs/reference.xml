@@ -54,21 +54,37 @@
 <tag-desc>
 объект входящих заголовков, только чтение.
 <para>
-Например, доступ к заголовку <literal>Foo</literal>
-можно получить при помощи синтаксиса <literal>headersIn.foo</literal>
-или <literal>headersIn['Foo']</literal>
-<note>
-До версии <link doc="changes.xml" id="njs0.3.6">0.3.6</link>
-если заголовок был указан несколько раз, например
-<header>Cookie</header> или <header>X-Forwarded-For</header>,
-то возвращалось только первое значение.
-Чтобы получить все cookie
-необходимо использовать
-<literal>r.variables.http_cookie</literal>.
-Чтобы получить <literal>имя</literal> cookie
-необходимо использовать
-<literal>r.variables["cookie_<value>имя</value>"]</literal>.
-</note>
+Доступ к заголовку запроса <literal>Foo</literal>
+можно получить при помощи синтаксиса:
+<literal>headersIn.foo</literal> или <literal>headersIn['Foo']</literal>.
+</para>
+
+<para>
+Заголовки запроса
+<header>Authorization</header>,
+<header>Content-Length</header>,
+<header>Content-Range</header>,
+<header>Content-Type</header>,
+<header>ETag</header>,
+<header>Expect</header>,
+<header>From</header>,
+<header>Host</header>,
+<header>If-Match</header>,
+<header>If-Modified-Since</header>,
+<header>If-None-Match</header>,
+<header>If-Range</header>,
+<header>If-Unmodified-Since</header>,
+<header>Max-Forwards</header>,
+<header>Proxy-Authorization</header>,
+<header>Referer</header>,
+<header>Transfer-Encoding</header> и
+<header>User-Agent</header>
+могут иметь только одно значение поля
+(<link doc="changes.xml" id="njs0.4.1">0.4.1</link>).
+Дубликаты значений поля в заголовке запроса <header>Cookie</header>
+разделяются точкой с запятой (<literal>;</literal>).
+Дубликаты значений поля во всех остальных заголовках запроса
+разделяются запятой.
 </para>
 </tag-desc>
 
