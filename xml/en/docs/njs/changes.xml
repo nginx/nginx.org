@@ -9,8 +9,64 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="31"
+        rev="32"
         toc="no">
+
+<section id="njs0.4.1" name="Changes with njs 0.4.1">
+
+<para>
+Release Date:
+19 May 2020
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+added support for multi-value headers in
+<link doc="reference.xml" id="r_headers_in"><literal>r.headersIn{}</literal></link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+introduced <literal>raw headers</literal> API:
+<link doc="reference.xml" id="r_raw_headers_in"><literal>r.rawHeadersIn{}</literal></link>
+and
+<link doc="reference.xml" id="r_raw_headers_out"><literal>r.rawHeadersOut{}</literal></link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added <link doc="typescript.xml">TypeScript</link> API description.
+</para>
+</listitem>
+
+</list>
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>Array.prototype.slice()</literal> for sparse arrays.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.4.0" name="Changes with njs 0.4.0">
 
