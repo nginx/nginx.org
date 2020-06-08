@@ -19,8 +19,8 @@ X:template body (lang) {
 
     <div id="banner">
         X:if "@lang = 'he'" { X:attribute "class" { X:text{ltr} } }
-        Many websites are under additional load due to COVID-19. You can help, and we want to help you.<br/>
-        <a href="https://www.nginx.com/blog/free-resources-for-websites-impacted-by-covid-19/">Get access to free resources at nginx.com</a>
+        Try NGINX Plus for free with our new WAF, NGINX App Protect. Get performance 20x better than ModSec.<br/>
+        <a href="https://www.nginx.com/free-trial-request/?utm_medium=homepagehero&amp;utm_source=nginxorg&amp;utm_campaign=nx_adca&amp;utm_content=plustrial">Start your trial.</a>
     </div>
 
     <div id="main">
