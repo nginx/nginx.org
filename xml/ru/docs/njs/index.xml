@@ -9,7 +9,7 @@
 <article name="Сценарный язык njs"
         link="/ru/docs/njs/index.html"
         lang="ru"
-        rev="29"
+        rev="30"
         toc="no">
 
 <section id="summary">
@@ -56,6 +56,10 @@ njs совместим с
 
 <listitem>
 <link doc="cli.xml"/>
+</listitem>
+
+<listitem>
+<link id="tested_os_and_platforms">Протестированные ОС и платформы</link>
 </listitem>
 
 </list>
@@ -178,6 +182,34 @@ http {
 </list>
 Также доступна отдельная утилита <link doc="cli.xml">командной строки</link>,
 которая может использоваться независимо от nginx для разработки и отладки njs.
+</para>
+
+</section>
+
+
+<section id="tested_os_and_platforms"
+        name="Протестированные ОС и платформы">
+
+<para>
+<list type="bullet">
+
+<listitem>
+FreeBSD / amd64;
+</listitem>
+
+<listitem>
+Linux / x86, amd64, arm64, ppc64el;
+</listitem>
+
+<listitem>
+Solaris 11 / amd64;
+</listitem>
+
+<listitem>
+macOS / x86_64;
+</listitem>
+
+</list>
 </para>
 
 </section>

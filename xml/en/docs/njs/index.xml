@@ -9,7 +9,7 @@
 <article name="njs scripting language"
         link="/en/docs/njs/index.html"
         lang="en"
-        rev="29"
+        rev="30"
         toc="no">
 
 <section id="summary">
@@ -55,6 +55,10 @@ The compliance is still <link doc="compatibility.xml">evolving</link>.
 
 <listitem>
 <link doc="cli.xml"/>
+</listitem>
+
+<listitem>
+<link id="tested_os_and_platforms">Tested OS and platforms</link>
 </listitem>
 
 </list>
@@ -178,6 +182,34 @@ http {
 </list>
 There is also a standalone <link doc="cli.xml">command line</link> utility
 that can be used independently of nginx for njs development and debugging.
+</para>
+
+</section>
+
+
+<section id="tested_os_and_platforms"
+        name="Tested OS and platforms">
+
+<para>
+<list type="bullet">
+
+<listitem>
+FreeBSD / amd64;
+</listitem>
+
+<listitem>
+Linux / x86, amd64, arm64, ppc64el;
+</listitem>
+
+<listitem>
+Solaris 11 / amd64;
+</listitem>
+
+<listitem>
+macOS / x86_64;
+</listitem>
+
+</list>
 </para>
 
 </section>
