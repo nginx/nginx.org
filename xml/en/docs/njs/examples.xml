@@ -9,7 +9,7 @@
 <article name="Examples"
         link="/en/docs/njs/examples.html"
         lang="en"
-        rev="14">
+        rev="15">
 
 <section id="summary">
 
@@ -30,9 +30,15 @@ events {}
 
 http {
     js_import http.js;
-    js_content http.hello;
-}
 
+    server {
+        listen 8000;
+
+        location / {
+            js_content http.hello;
+        }
+    }
+}
 </example>
 </para>
 

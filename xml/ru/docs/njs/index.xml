@@ -9,7 +9,7 @@
 <article name="Сценарный язык njs"
         link="/ru/docs/njs/index.html"
         lang="ru"
-        rev="30"
+        rev="31"
         toc="no">
 
 <section id="summary">
@@ -139,13 +139,15 @@ ngx_stream_js_module</link>
 
 <listitem id="hello_world">
 <para>
-создать файл сценария njs, например <path>hello_world.js</path>.
+создать файл сценария njs, например <path>http.js</path>.
 Описание свойств и методов языка njs
 см. в <link doc="reference.xml">справочнике</link>.
 <example>
 function hello(r) {
     r.return(200, "Hello world!");
 }
+
+export default {hello};
 </example>
 </para>
 </listitem>
@@ -156,25 +158,24 @@ function hello(r) {
 в файле <path>nginx.conf</path> включить
 модуль <link doc="../http/ngx_http_js_module.xml">ngx_http_js_module</link>
 и указать директиву
-<link doc="../http/ngx_http_js_module.xml" id="js_include">js_include</link>
-с файлом сценария <path>hello_world.js</path>:
+<link doc="../http/ngx_http_js_module.xml" id="js_import">js_import</link>
+с файлом сценария <path>http.js</path>:
 <example>
 load_module modules/ngx_http_js_module.so;
 
 events {}
 
 http {
-    js_include hello_world.js;
+    js_import http.js;
 
     server {
         listen 8000;
 
         location / {
-            js_content hello;
+            js_content http.hello;
         }
     }
 }
-
 </example>
 </para>
 </listitem>

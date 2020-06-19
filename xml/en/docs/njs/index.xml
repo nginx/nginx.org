@@ -9,7 +9,7 @@
 <article name="njs scripting language"
         link="/en/docs/njs/index.html"
         lang="en"
-        rev="30"
+        rev="31"
         toc="no">
 
 <section id="summary">
@@ -138,13 +138,15 @@ To use njs in nginx:
 
 <listitem id="hello_world">
 <para>
-create an njs script file, for example, <path>hello_world.js</path>.
+create an njs script file, for example, <path>http.js</path>.
 See <link doc="reference.xml">Reference</link>
 for the list of njs properties and methods.
 <example>
 function hello(r) {
     r.return(200, "Hello world!");
 }
+
+export default {hello};
 </example>
 </para>
 </listitem>
@@ -155,26 +157,25 @@ function hello(r) {
 in the <path>nginx.conf</path> file, enable
 <link doc="../http/ngx_http_js_module.xml">ngx_http_js_module</link> module
 and specify the
-<link doc="../http/ngx_http_js_module.xml" id="js_include">js_include</link>
+<link doc="../http/ngx_http_js_module.xml" id="js_import">js_import</link>
 directive
-with the <path>hello_world.js</path> script file:
+with the <path>http.js</path> script file:
 <example>
 load_module modules/ngx_http_js_module.so;
 
 events {}
 
 http {
-    js_include hello_world.js;
+    js_import http.js;
 
     server {
         listen 8000;
 
         location / {
-            js_content hello;
+            js_content http.hello;
         }
     }
 }
-
 </example>
 </para>
 </listitem>
