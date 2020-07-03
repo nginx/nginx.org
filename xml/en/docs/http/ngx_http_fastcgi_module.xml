@@ -10,7 +10,7 @@
 <module name="Module ngx_http_fastcgi_module"
         link="/en/docs/http/ngx_http_fastcgi_module.html"
         lang="en"
-        rev="51">
+        rev="52">
 
 <section id="summary">
 
@@ -386,6 +386,7 @@ will be cached.
     <literal>keys_zone</literal>=<value>name</value>:<value>size</value>
     [<literal>inactive</literal>=<value>time</value>]
     [<literal>max_size</literal>=<value>size</value>]
+    [<literal>min_free</literal>=<value>size</value>]
     [<literal>manager_files</literal>=<value>number</value>]
     [<literal>manager_sleep</literal>=<value>time</value>]
     [<literal>manager_threshold</literal>=<value>time</value>]
@@ -459,10 +460,14 @@ regardless of their freshness.
 By default, <literal>inactive</literal> is set to 10 minutes.
 </para>
 
-<para>
+<para id="fastcgi_cache_path_max_size">
 The special “cache manager” process monitors the maximum cache size set
-by the <literal>max_size</literal> parameter.
-When this size is exceeded, it removes the least recently used data.
+by the <literal>max_size</literal> parameter,
+and the minimum amount of free space set
+by the <literal>min_free</literal> (1.19.1) parameter
+on the file system with cache.
+When the size is exceeded or there is not enough free space,
+it removes the least recently used data.
 The data is removed in iterations configured by
 <literal>manager_files</literal>,
 <literal>manager_threshold</literal>, and

@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_proxy_module"
         link="/ru/docs/http/ngx_http_proxy_module.html"
         lang="ru"
-        rev="65">
+        rev="66">
 
 <section id="summary">
 
@@ -404,6 +404,7 @@ range-запрос будет передан на проксируемый се�
     <literal>keys_zone</literal>=<value>имя</value>:<value>размер</value>
     [<literal>inactive</literal>=<value>время</value>]
     [<literal>max_size</literal>=<value>размер</value>]
+    [<literal>min_free</literal>=<value>размер</value>]
     [<literal>manager_files</literal>=<value>число</value>]
     [<literal>manager_sleep</literal>=<value>время</value>]
     [<literal>manager_threshold</literal>=<value>время</value>]
@@ -476,10 +477,14 @@ proxy_cache_path /data/nginx/cache levels=1:2 keys_zone=one:10m;
 По умолчанию <literal>inactive</literal> равен 10 минутам.
 </para>
 
-<para>
+<para id="proxy_cache_path_max_size">
 Специальный процесс “cache manager” следит за максимальным размером кэша,
-заданным параметром <literal>max_size</literal>, и при превышении
-его размеров удаляет наименее востребованные данные.
+заданным параметром <literal>max_size</literal>,
+и также за минимальным объёмом свободного места на файловой системе с кэшем,
+заданным параметром <literal>min_free</literal> (1.19.1).
+При превышении максимального размера кэша
+или недостаточном объёме свободного места
+процесс удаляет наименее востребованные данные.
 Удаление данных происходит итерациями, настраиваемыми параметрами (1.11.5)
 <literal>manager_files</literal>,
 <literal>manager_threshold</literal> и
