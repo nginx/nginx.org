@@ -9,8 +9,144 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="32"
+        rev="33"
         toc="no">
+
+<section id="njs0.4.2" name="Changes with njs 0.4.2">
+
+<para>
+Release Date:
+07 July 2020
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+added <literal>RegExp.prototype[Symbol.replace]</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+introduced line level backtrace.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added <literal>%TypedArray%.prototype.sort()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+extended
+<link doc="reference.xml" id="njs_api_fs"><literal>fs</literal></link> module.
+Added
+<link doc="reference.xml" id="fs_mkdirsync"><literal>mkdir()</literal></link>,
+<link doc="reference.xml" id="fs_readdirsync"><literal>readdir()</literal></link>,
+<link doc="reference.xml" id="fs_rmdirsync"><literal>rmdir()</literal></link>,
+and friends.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+parser refactoring.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed TypedScript API description for HTTP headers.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed TypedScript API description for <literal>NjsByteString</literal> type.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<link doc="reference.xml" id="string_repeat"><literal>String.prototype.repeat()</literal></link>
+according to the specification.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<link doc="reference.xml" id="string_replace"><literal>String.prototype.replace()</literal></link>
+according to the specification.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed parsing of flags for regexp literals.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed index generation for global objects in generator.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>%TypedArray%.prototype.copyWithin()</literal>
+with nonzero byte offset.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>Array.prototype.splice()</literal>
+for sparse arrays.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>Array.prototype.reverse()</literal>
+for sparse arrays.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>Array.prototype.sort()</literal>
+for sparse arrays.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.4.1" name="Changes with njs 0.4.1">
 
