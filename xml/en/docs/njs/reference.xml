@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="43">
+        rev="44">
 
 <section id="summary">
 
@@ -1335,6 +1335,52 @@ by default is <literal>a</literal>
 </list>
 </tag-desc>
 
+<tag-name id="fs_mkdirsync"><literal>mkdirSync(<value>path</value>[,
+<value>options</value>])</literal></tag-name>
+<tag-desc>
+Synchronously creates a directory at the specified <literal>path</literal>
+(<link doc="changes.xml" id="njs0.4.2">0.4.2</link>).
+The <literal>options</literal> parameter is expected to be an
+<literal>integer</literal> that specifies
+the <link id="fs_mkdirsync_mode">mode</link>,
+or an object with the following keys:
+<list type="tag">
+
+<tag-name id="fs_mkdirsync_mode"><literal>mode</literal></tag-name>
+<tag-desc>
+mode option, by default is <literal>0o777</literal>.
+</tag-desc>
+
+</list>
+</tag-desc>
+
+<tag-name id="fs_readdirsync"><literal>readdirSync(<value>path</value>[,
+<value>options</value>])</literal></tag-name>
+<tag-desc>
+Synchronously reads the contents of a directory
+at the specified <literal>path</literal>
+(<link doc="changes.xml" id="njs0.4.2">0.4.2</link>).
+The <literal>options</literal> parameter is expected to be
+a string that specifies <link id="fs_readdirsync_encoding">encoding</link>
+or an object with the following keys:
+<list type="tag">
+
+<tag-name id="fs_readdirsync_encoding"><literal>encoding</literal></tag-name>
+<tag-desc>
+encoding, by default is not specified.
+The encoding can be <literal>utf8</literal>.
+</tag-desc>
+
+<tag-name id="fs_readdirsync_withfiletypes"><literal>withFileTypes</literal></tag-name>
+<tag-desc>
+if set to <literal>true</literal>, the files array will contain
+<link id="fs_dirent"><literal>fs.Dirent</literal></link> objects,
+by default is <literal>false</literal>.
+</tag-desc>
+
+</list>
+</tag-desc>
+
 <tag-name id="readfilesync"><literal>readFileSync(<value>filename</value>[,
 <value>options</value>])</literal></tag-name>
 <tag-desc>
@@ -1397,6 +1443,12 @@ undefined
 </example>
 </tag-desc>
 
+<tag-name id="fs_rmdirsync"><literal>rmdirSync(<value>path</value>)</literal></tag-name>
+<tag-desc>
+Synchronously removes a directory at the specified <literal>path</literal>
+(<link doc="changes.xml" id="njs0.4.2">0.4.2</link>).
+</tag-desc>
+
 <tag-name id="fs_symlinksync"><literal>symlinkSync(<value>target</value>,
 <value>path</value>)</literal></tag-name>
 <tag-desc>
@@ -1446,6 +1498,73 @@ undefined
 
 </list>
 </para>
+
+
+<section id="fs_dirent" name="fs.Dirent">
+
+<para>
+<literal>fs.Dirent</literal> is a representation of a directory entry&mdash;
+a file or a subdirectory.
+When
+<link id="fs_readdirsync"><literal>readdirSync()</literal></link>
+is called with the
+<link id="fs_readdirsync_withfiletypes"><literal>withFileTypes</literal></link>
+option,
+the resulting array contains <literal>fs.Dirent</literal> objects.
+
+<list type= "bullet" compact="no">
+
+<listitem>
+<literal>dirent.isBlockDevice()</literal>&mdash;returns
+<literal>true</literal> if the <literal>fs.Dirent</literal> object describes
+a block device.
+</listitem>
+
+<listitem>
+<literal>dirent.isCharacterDevice()</literal>&mdash;returns
+<literal>true</literal> if the <literal>fs.Dirent</literal> object describes
+a character device.
+</listitem>
+
+<listitem>
+<literal>dirent.isDirectory()</literal>&mdash;returns
+<literal>true</literal> if the <literal>fs.Dirent</literal> object describes
+a file system directory.
+</listitem>
+
+<listitem>
+<literal>dirent.isFIFO()</literal>&mdash;returns
+<literal>true</literal> if the <literal>fs.Dirent</literal> object describes
+a first-in-first-out (FIFO) pipe.
+</listitem>
+
+<listitem>
+<literal>dirent.isFile()</literal>&mdash;returns
+<literal>true</literal> if the <literal>fs.Dirent</literal> object describes
+a regular file.
+</listitem>
+
+<listitem>
+<literal>dirent.isSocket()</literal>&mdash;returns
+<literal>true</literal> if the <literal>fs.Dirent</literal> object describes
+a socket.
+</listitem>
+
+<listitem>
+<literal>dirent.isSymbolicLink()</literal>&mdash;returns
+<literal>true</literal> if the <literal>fs.Dirent</literal> object describes
+a symbolic link.
+</listitem>
+
+<listitem>
+<literal>dirent.name</literal>&mdash;
+the name of the file <literal>fs.Dirent</literal> object refers to.
+</listitem>
+
+</list>
+</para>
+
+</section>
 
 
 <section id="access_const" name="File Access Constants">
