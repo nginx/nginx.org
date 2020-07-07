@@ -9,7 +9,7 @@
 <article name="Совместимость"
         link="/ru/docs/njs/compatibility.html"
         lang="ru"
-        rev="23"
+        rev="24"
         toc="no">
 
 <section>
@@ -431,6 +431,7 @@ ES6:
 <literal>join</literal>,
 <literal>set</literal>,
 <literal>slice</literal>,
+<literal>sort</literal> (<link doc="changes.xml" id="njs0.4.2">0.4.2</link>),
 <literal>subarray</literal>,
 <literal>toString</literal>
 </listitem>
@@ -622,11 +623,17 @@ ES5.1 глобальные функции:
 <link doc="reference.xml" id="fs_accesssync"><literal>fs.accessSync</literal></link>
 (<link doc="changes.xml" id="njs0.3.9">0.3.9</link>),
 <link doc="reference.xml" id="appendfilesync"><literal>fs.appendFileSync</literal></link>,
+<link doc="reference.xml" id="fs_mkdirsync"><literal>fs.mkdirSync</literal></link>
+(<link doc="changes.xml" id="njs0.4.2">0.4.2</link>),
+<link doc="reference.xml" id="fs_readdirsync"><literal>fs.readdirSync</literal></link>
+(<link doc="changes.xml" id="njs0.4.2">0.4.2</link>),
 <link doc="reference.xml" id="readfilesync"><literal>fs.readFileSync</literal></link>,
 <link doc="reference.xml" id="fs_realpathsync"><literal>fs.realpathSync</literal></link>
 (<link doc="changes.xml" id="njs0.3.9">0.3.9</link>),
 <link doc="reference.xml" id="fs_renamesync"><literal>fs.renameSync</literal></link>
 (<link doc="changes.xml" id="njs0.3.4">0.3.4</link>),
+<link doc="reference.xml" id="fs_rmdirsync"><literal>fs.rmdirSync</literal></link>
+(<link doc="changes.xml" id="njs0.4.2">0.4.2</link>),
 <link doc="reference.xml" id="fs_symlinksync"><literal>fs.symlinkSync</literal></link>
 (<link doc="changes.xml" id="njs0.3.9">0.3.9</link>),
 <link doc="reference.xml" id="fs_unlinksync"><literal>fs.unlinkSync</literal></link>
