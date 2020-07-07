@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="44">
+        rev="45">
 
 <section id="summary">
 
@@ -1042,6 +1042,25 @@ Decodes an encoded component of a previously encoded URI.
 </example>
 </tag-desc>
 
+</list>
+</para>
+
+</section>
+
+
+<section id="core_typedarray" name="TypedArray">
+
+<para>
+<literal>TypedArray</literal> is a number of different global properties
+whose values are typed array constructors for specific element types.
+<list type="tag">
+
+<tag-name id="array_sort"><literal>TypedArray.prototype.sort()</literal></tag-name>
+<tag-desc>
+sorts the elements of a typed array numerically
+and returns the updated typed array
+(<link doc="changes.xml" id="njs0.4.2">0.4.2</link>).
+</tag-desc>
 </list>
 </para>
 
