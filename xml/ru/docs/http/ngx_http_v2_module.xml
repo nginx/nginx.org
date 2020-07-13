@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_v2_module"
         link="/ru/docs/http/ngx_http_v2_module.html"
         lang="ru"
-        rev="12">
+        rev="13">
 
 <section id="summary">
 
@@ -40,6 +40,12 @@
 <link doc="ngx_http_fastcgi_module.xml" id="fastcgi_request_buffering"/>,
 <link doc="ngx_http_uwsgi_module.xml" id="uwsgi_request_buffering"/> и
 <link doc="ngx_http_scgi_module.xml" id="scgi_request_buffering"/>.
+</para>
+
+<para>
+До версии 1.19.1
+механизм <link doc="ngx_http_core_module.xml" id="lingering_close"/>
+не использовался в управлении закрытием HTTP/2-соединений.
 </para>
 
 </section>

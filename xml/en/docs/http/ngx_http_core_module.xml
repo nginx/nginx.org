@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="90">
+        rev="91">
 
 <section id="directives" name="Directives">
 
@@ -1180,6 +1180,12 @@ The value “<literal>off</literal>” tells nginx to never wait for
 more data and close the connection immediately.
 This behavior breaks the protocol and should not be used under normal
 circumstances.
+</para>
+
+<para>
+To control closing
+<link doc="ngx_http_v2_module.xml">HTTP/2</link> connections,
+the directive must be specified on the <link id="server"/> level (1.19.1).
 </para>
 
 </directive>

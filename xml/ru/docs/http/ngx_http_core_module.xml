@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="90">
+        rev="91">
 
 <section id="directives" name="Директивы">
 
@@ -1173,6 +1173,12 @@ location /flv/ {
 дополнительных данных и сразу же закроет соединение.
 Это поведение нарушает протокол и поэтому не должно использоваться без
 необходимости.
+</para>
+
+<para>
+Для управления закрытием
+<link doc="ngx_http_v2_module.xml">HTTP/2</link>-соединений
+директива должна быть задана на уровне <link id="server"/> (1.19.1).
 </para>
 
 </directive>

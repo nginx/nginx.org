@@ -9,7 +9,7 @@
 <module name="Module ngx_http_v2_module"
         link="/en/docs/http/ngx_http_v2_module.html"
         lang="en"
-        rev="12">
+        rev="13">
 
 <section id="summary">
 
@@ -40,6 +40,12 @@ regardless of
 <link doc="ngx_http_uwsgi_module.xml" id="uwsgi_request_buffering"/>, and
 <link doc="ngx_http_scgi_module.xml" id="scgi_request_buffering"/>
 directive values.
+</para>
+
+<para>
+Before version 1.19.1,
+the <link doc="ngx_http_core_module.xml" id="lingering_close"/> mechanism
+was not used to control closing HTTP/2 connections.
 </para>
 
 </section>
