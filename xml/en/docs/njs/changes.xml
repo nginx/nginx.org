@@ -9,7 +9,7 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="33"
+        rev="34"
         toc="no">
 
 <section id="njs0.4.2" name="Changes with njs 0.4.2">
@@ -82,7 +82,7 @@ fixed TypedScript API description for <literal>NjsByteString</literal> type.
 <para>
 Bugfix:
 fixed
-<link doc="reference.xml" id="string_repeat"><literal>String.prototype.repeat()</literal></link>
+<literal>String.prototype.repeat()</literal>
 according to the specification.
 </para>
 </listitem>
@@ -91,7 +91,7 @@ according to the specification.
 <para>
 Bugfix:
 fixed
-<link doc="reference.xml" id="string_replace"><literal>String.prototype.replace()</literal></link>
+<literal>String.prototype.replace()</literal>
 according to the specification.
 </para>
 </listitem>
@@ -308,7 +308,7 @@ with empty pattern and non-empty flags.
 <para>
 Bugfix:
 fixed 
-<link doc="reference.xml" id="string_replace"><literal>String.prototype.replace()</literal></link>
+<literal>String.prototype.replace()</literal>
 when function returns non-string.
 </para>
 </listitem>
@@ -429,9 +429,9 @@ fixed heap-buffer-overflow in
 <para>
 Bugfix:
 fixed
-<link doc="reference.xml" id="encodeuri"><literal>encodeURI()</literal></link>
+<literal>encodeURI()</literal>
 and
-<link doc="reference.xml" id="decodeuri"><literal>decodeURI()</literal></link>
+<literal>decodeURI()</literal>
 according to the specification.
 </para>
 </listitem>
@@ -447,7 +447,7 @@ fixed <literal>Number.prototype.toPrecision()</literal>.
 <para>
 Bugfix:
 fixed handling of space argument in
-<link doc="reference.xml" id="core_json_stringify"><literal>JSON.stringify()</literal></link>.
+<literal>JSON.stringify()</literal>.
 </para>
 </listitem>
 
@@ -455,7 +455,7 @@ fixed handling of space argument in
 <para>
 Bugfix:
 fixed
-<link doc="reference.xml" id="core_json_stringify"><literal>JSON.stringify()</literal></link>
+<literal>JSON.stringify()</literal>
 with
 <literal>Number()</literal> and
 <literal>String()</literal>
@@ -467,7 +467,7 @@ objects.
 <para>
 Bugfix:
 fixed Unicode Escaping in
-<link doc="reference.xml" id="core_json_stringify"><literal>JSON.stringify()</literal></link>
+<literal>JSON.stringify()</literal>
 according to specification.
 </para>
 </listitem>
@@ -576,7 +576,7 @@ Thanks to Artem S. Povalyukhin.
 <para>
 Feature:
 added externals support for
-<link doc="reference.xml" id="core_json_stringify"><literal>JSON.stringify()</literal></link>.
+<literal>JSON.stringify()</literal>.
 </para>
 </listitem>
 
@@ -625,7 +625,7 @@ according to the specification.
 <para>
 Bugfix:
 fixed
-<link doc="reference.xml" id="core_json_stringify"><literal>JSON.stringify()</literal></link>
+<literal>JSON.stringify()</literal>
 with unprintable values and replacer function.
 </para>
 </listitem>
@@ -1012,7 +1012,7 @@ fixed handing of accessor descriptors in <literal>Object.freeze()</literal>.
 <para>
 Bugfix:
 fixed
-<link doc="reference.xml" id="string_replace"><literal>String.prototype.replace()</literal></link>
+<literal>String.prototype.replace()</literal>
 when first argument is not a string.
 </para>
 </listitem>
@@ -1070,21 +1070,26 @@ fixed
 <listitem>
 <para>
 Bugfix:
-fixed <literal>Date.UTC()</literal> according to the specification.
+fixed
+<literal>Date.UTC()</literal>
+according to the specification.
 </para>
 </listitem>
 
 <listitem>
 <para>
 Bugfix:
-fixed <literal>Date()</literal> constructor according to the specification.
+fixed
+<literal>Date()</literal> constructor
+according to the specification.
 </para>
 </listitem>
 
 <listitem>
 <para>
 Bugfix:
-fixed type of <literal>Date.prototype</literal>.
+fixed type of
+<literal>Date.prototype</literal>.
 Thanks to Artem S. Povalyukhin.
 </para>
 </listitem>
@@ -1092,7 +1097,8 @@ Thanks to Artem S. Povalyukhin.
 <listitem>
 <para>
 Bugfix:
-fixed <literal>Date.prototype.setTime()</literal>.
+fixed
+<literal>Date.prototype.setTime()</literal>.
 Thanks to Artem S. Povalyukhin.
 </para>
 </listitem>
@@ -1107,7 +1113,9 @@ fixed default number of arguments expected by built-in functions.
 <listitem>
 <para>
 Bugfix:
-fixed <literal>caller</literal> and <literal>arguments</literal>
+fixed
+<literal>caller</literal> and
+<literal>arguments</literal>
 properties of a function instance.
 Thanks to Artem S. Povalyukhin.
 </para>
@@ -1141,7 +1149,8 @@ The bug was introduced in <link id="0.3.4"/>.
 <listitem>
 <para>
 Bugfix:
-fixed <literal>[[SetPrototypeOf]]</literal>.
+fixed
+<literal>[[SetPrototypeOf]]</literal>.
 </para>
 </listitem>
 
@@ -1165,7 +1174,9 @@ Core:
 <listitem>
 <para>
 Feature:
-added <literal>Object</literal> shorthand methods and computed property names.
+added
+<literal>Object</literal>
+shorthand methods and computed property names.
 Thanks to 洪志道 (Hong Zhi Dao) and Artem S. Povalyukhin.
 </para>
 </listitem>
@@ -1190,9 +1201,9 @@ added
 <para>
 Feature:
 added
-<link doc="reference.xml" id="string_trimend"><literal>String.prototype.trimEnd()</literal></link>
+<literal>String.prototype.trimEnd()</literal>
 and
-<link doc="reference.xml" id="string_trimstart"><literal>String.prototype.trimStart()</literal></link>.
+<literal>String.prototype.trimStart()</literal>.
 </para>
 </listitem>
 
@@ -1229,7 +1240,7 @@ fixed reading files with zero size in
 <para>
 Bugfix:
 extended the list of space separators in
-<link doc="reference.xml" id="string_trim"><literal>String.prototype.trim()</literal></link>.
+<literal>String.prototype.trim()</literal>.
 </para>
 </listitem>
 
@@ -1237,7 +1248,7 @@ extended the list of space separators in
 <para>
 Bugfix:
 fixed using of uninitialized value in
-<link doc="reference.xml" id="string_padstart"><literal>String.prototype.padStart()</literal></link>.
+<literal>String.prototype.padStart()</literal>.
 </para>
 </listitem>
 
@@ -1245,7 +1256,8 @@ fixed using of uninitialized value in
 <para>
 Bugfix:
 fixed
-<link doc="reference.xml" id="string_replace"><literal>String.prototype.replace()</literal></link> for <literal>$0</literal> and <literal>$&amp;</literal> replacement string.
+<literal>String.prototype.replace()</literal>
+for <literal>$0</literal> and <literal>$&amp;</literal> replacement string.
 </para>
 </listitem>
 
@@ -1253,7 +1265,7 @@ fixed
 <para>
 Bugfix:
 fixed
-<link doc="reference.xml" id="string_replace"><literal>String.prototype.replace()</literal></link> 
+<literal>String.prototype.replace()</literal>
 for byte strings with regex argument.
 </para>
 </listitem>
@@ -1262,7 +1274,7 @@ for byte strings with regex argument.
 <para>
 Bugfix:
 fixed global match in
-<link doc="reference.xml" id="string_replace"><literal>String.prototype.replace()</literal></link>
+<literal>String.prototype.replace()</literal>
 with regexp argument.
 </para>
 </listitem>
@@ -1294,9 +1306,9 @@ fixed UTF-8 character escaping.
 <para>
 Bugfix:
 fixed
-<link doc="reference.xml" id="object_values"><literal>Object.values()</literal></link> 
+<literal>Object.values()</literal>
 and
-<link doc="reference.xml" id="object_entries"><literal>Object.entries()</literal></link> 
+<literal>Object.entries()</literal>
 for shared objects.
 </para>
 </listitem>
@@ -1305,7 +1317,7 @@ for shared objects.
 <para>
 Bugfix:
 fixed uninitialized memory access in
-<link doc="reference.xml" id="string_match"><literal>String.prototype.match()</literal></link>.
+<literal>String.prototype.match()</literal>.
 </para>
 </listitem>
 
@@ -1313,7 +1325,7 @@ fixed uninitialized memory access in
 <para>
 Bugfix:
 fixed
-<link doc="reference.xml" id="string_match"><literal>String.prototype.match()</literal></link>
+<literal>String.prototype.match()</literal>
 for byte strings with regex argument.
 </para>
 </listitem>
@@ -1331,7 +1343,7 @@ with undefined arguments.
 <para>
 Bugfix:
 fixed
-<link doc="reference.xml" id="string_substring"><literal>String.prototype.substring()</literal></link>
+<literal>String.prototype.substring()</literal>
 with empty substring.
 </para>
 </listitem>
@@ -1340,7 +1352,7 @@ with empty substring.
 <para>
 Bugfix:
 fixed invalid memory access in
-<link doc="reference.xml" id="string_substring"><literal>String.prototype.substring()</literal></link>.
+<literal>String.prototype.substring()</literal>.
 </para>
 </listitem>
 
@@ -1348,7 +1360,7 @@ fixed invalid memory access in
 <para>
 Bugfix:
 fixed
-<link doc="reference.xml" id="string_fromcharcode"><literal>String.fromCharCode()</literal></link>
+<literal>String.fromCharCode()</literal>
 for code points more than <literal>65535</literal> and <literal>NaN</literal>.
 </para>
 </listitem>
@@ -1357,23 +1369,27 @@ for code points more than <literal>65535</literal> and <literal>NaN</literal>.
 <para>
 Bugfix:
 fixed
-<link doc="reference.xml" id="string_tolowercase"><literal>String.prototype.toLowerCase()</literal></link>
+<literal>String.prototype.toLowerCase()</literal>
 and
-<link doc="reference.xml" id="string_touppercase"><literal>String.prototype.toUpperCase()</literal></link>.
+<literal>String.prototype.toUpperCase()</literal>.
 </para>
 </listitem>
 
 <listitem>
 <para>
 Bugfix:
-fixed <literal>Error()</literal> constructor with no arguments.
+fixed
+<literal>Error()</literal>
+constructor with no arguments.
 </para>
 </listitem>
 
 <listitem>
 <para>
 Bugfix:
-fixed <literal>in</literal> operator for values with accessor descriptors.
+fixed
+<literal>in</literal>
+operator for values with accessor descriptors.
 </para>
 </listitem>
 
@@ -1495,7 +1511,7 @@ added generic implementation of
 <para>
 Bugfix:
 fixed integer-overflow in
-<link doc="reference.xml" id="string_concat"><literal>String.prototype.concat()</literal></link>.
+<literal>String.prototype.concat()</literal>.
 </para>
 </listitem>
 
@@ -1547,9 +1563,9 @@ fixed processing of invalid surrogate pairs in JSON strings.
 <para>
 Bugfix:
 fixed heap-buffer-overflow in
-<link doc="reference.xml" id="string_touppercase"><literal>toUpperCase()</literal></link>
+<literal>toUpperCase()</literal>
 and
-<link doc="reference.xml" id="string_touppercase"><literal>toLowerCase()</literal></link>.
+<literal>toLowerCase()</literal>.
 </para>
 </listitem>
 
@@ -1572,7 +1588,7 @@ fixed handling zero byte characters inside RegExp pattern strings.
 <para>
 Bugfix:
 fixed
-<link doc="reference.xml" id="string_tobytes"><literal>String.prototype.toBytes()</literal></link>
+<literal>String.prototype.toBytes()</literal>
 for ASCII strings.
 </para>
 </listitem>
@@ -1581,7 +1597,7 @@ for ASCII strings.
 <para>
 Bugfix:
 fixed truth value of JSON numbers in
-<link doc="reference.xml" id="core_json_parse"><literal>JSON.parse()</literal></link>.
+<literal>JSON.parse()</literal>.
 </para>
 </listitem>
 
@@ -1674,14 +1690,18 @@ made all constructor properties configurable.
 <listitem>
 <para>
 Bugfix:
-fixed <literal>Regexp.prototype.exec()</literal> for Unicode-only regexps.
+fixed
+<literal>Regexp.prototype.exec()</literal>
+for Unicode-only regexps.
 </para>
 </listitem>
 
 <listitem>
 <para>
 Bugfix:
-fixed <literal>njs_vm_value_dump()</literal> for empty string values.
+fixed
+<literal>njs_vm_value_dump()</literal>
+for empty string values.
 </para>
 </listitem>
 
@@ -1702,7 +1722,8 @@ fixed walking over prototypes chain during iteration over an object.
 <listitem>
 <para>
 Bugfix:
-fixed overflow in <literal>Array.prototype.concat()</literal>.
+fixed overflow in
+<literal>Array.prototype.concat()</literal>.
 </para>
 </listitem>
 
@@ -1731,7 +1752,9 @@ fixed processing the “*” quantifier for
 <listitem>
 <para>
 Bugfix:
-fixed <literal>Date()</literal> constructor with one argument.
+fixed
+<literal>Date()</literal>
+constructor with one argument.
 </para>
 </listitem>
 
@@ -1792,14 +1815,18 @@ fixed processing the “*” quantifier for
 <listitem>
 <para>
 Bugfix:
-fixed <literal>Array.prototype.slice()</literal> for UTF8-invalid byte strings.
+fixed
+<literal>Array.prototype.slice()</literal>
+for UTF8-invalid byte strings.
 </para>
 </listitem>
 
 <listitem>
 <para>
 Bugfix:
-fixed <literal>String.prototype.split()</literal> for UTF8-invalid byte strings.
+fixed
+<literal>String.prototype.split()</literal>
+for UTF8-invalid byte strings.
 </para>
 </listitem>
 
@@ -1838,7 +1865,8 @@ Thanks to 洪志道 (Hong Zhi Dao) and Artem S. Povalyukhin.
 <listitem>
 <para>
 Feature:
-added <literal>Object.getOwnPropertyNames()</literal>.
+added
+<literal>Object.getOwnPropertyNames()</literal>.
 Thanks to Artem S. Povalyukhin.
 </para>
 </listitem>
@@ -1846,7 +1874,8 @@ Thanks to Artem S. Povalyukhin.
 <listitem>
 <para>
 Feature:
-added <literal>Object.getOwnPropertyDescriptors()</literal>.
+added
+<literal>Object.getOwnPropertyDescriptors()</literal>.
 Thanks to Artem S. Povalyukhin.
 </para>
 </listitem>
@@ -1884,7 +1913,8 @@ fixed editline detection.
 <listitem>
 <para>
 Bugfix:
-fixed <literal>Function.prototype.bind()</literal>.
+fixed
+<literal>Function.prototype.bind()</literal>.
 Thanks to 洪志道 (Hong Zhi Dao).
 </para>
 </listitem>
@@ -2015,7 +2045,8 @@ Thanks to 洪志道 (Hong Zhi Dao).
 <listitem>
 <para>
 Feature:
-added <literal>Object.prototype.propertyIsEnumerable()</literal>.
+added
+<literal>Object.prototype.propertyIsEnumerable()</literal>.
 </para>
 </listitem>
 
@@ -2052,7 +2083,8 @@ fixed setting length of UTF8 string in
 <listitem>
 <para>
 Bugfix:
-fixed <literal>nxt_file_dirname()</literal> for paths with no dir component.
+fixed
+<literal>nxt_file_dirname()</literal> for paths with no dir component.
 </para>
 </listitem>
 
@@ -2130,7 +2162,8 @@ added labels support.
 <listitem>
 <para>
 Feature:
-added <literal>setImmediate()</literal> method.
+added
+<literal>setImmediate()</literal> method.
 </para>
 </listitem>
 
@@ -2144,7 +2177,8 @@ added support for shorthand property names for Object literals.
 <listitem>
 <para>
 Bugfix:
-fixed <literal>Function.prototype.bind()</literal>.
+fixed
+<literal>Function.prototype.bind()</literal>.
 </para>
 </listitem>
 
@@ -2174,7 +2208,7 @@ fixed creation of long UTF8 strings.
 Bugfix:
 fixed
 setting special response headers in
-<link doc="reference.xml" id="string_split"><literal>String.prototype.split()</literal></link>
+<literal>String.prototype.split()</literal>
 for Unicode strings.
 </para>
 </listitem>
@@ -2183,14 +2217,15 @@ for Unicode strings.
 <para>
 Bugfix:
 fixed heap-buffer-overflow in
-<link doc="reference.xml" id="string_split"><literal>String.prototype.split()</literal></link>.
+<literal>String.prototype.split()</literal>.
 </para>
 </listitem>
 
 <listitem>
 <para>
 Bugfix:
-fixed <literal>Array.prototype.fill()</literal>.
+fixed
+<literal>Array.prototype.fill()</literal>.
 Thanks to Artem S. Povalyukhin.
 </para>
 </listitem>
@@ -2254,7 +2289,7 @@ Thanks to Alexander Pyshchev.
 <para>
 Feature:
 added
-<link doc="reference.xml" id="object_entries"><literal>Object.entries()</literal></link>
+<literal>Object.entries()</literal>
 method.
 </para>
 </listitem>
@@ -2263,7 +2298,7 @@ method.
 <para>
 Feature:
 added
-<link doc="reference.xml" id="object_values"><literal>Object.values()</literal></link>
+<literal>Object.values()</literal>
 method.
 </para>
 </listitem>
@@ -2415,14 +2450,16 @@ fixed handling of “this” keyword in various scopes.
 <listitem>
 <para>
 Bugfix:
-fixed handling non-object values in <literal>Object.keys()</literal>.
+fixed handling non-object values in
+<literal>Object.keys()</literal>.
 </para>
 </listitem>
 
 <listitem>
 <para>
 Bugfix:
-fixed parsing of throw statement inside <literal>if</literal> statement.
+fixed parsing of throw statement inside
+<literal>if</literal> statement.
 </para>
 </listitem>
 
@@ -2490,22 +2527,26 @@ fixed counting pending events in stream module.
 <listitem>
 <para>
 Bugfix:
-fixed <literal>s.off()</literal> in stream module.
+fixed
+<literal>s.off()</literal> in stream module.
 </para>
 </listitem>
 
 <listitem>
 <para>
 Bugfix:
-fixed processing of data chunks in <literal>js_filter</literal> in stream module.
+fixed processing of data chunks in
+<literal>js_filter</literal> in stream module.
 </para>
 </listitem>
 
 <listitem>
 <para>
 Bugfix:
-fixed http <literal>status</literal> and
-<literal>contentType</literal> getter in http module.
+fixed http
+<literal>status</literal> and
+<literal>contentType</literal>
+getter in http module.
 </para>
 </listitem>
 
@@ -2540,28 +2581,32 @@ non-integer fractions support.
 <listitem>
 <para>
 Improvement:
-handling non-array values in <literal>Array.prototype.slice()</literal>.
+handling non-array values in
+<literal>Array.prototype.slice()</literal>.
 </para>
 </listitem>
 
 <listitem>
 <para>
 Bugfix:
-fixed <literal>Array.prototype.length</literal> setter
+fixed
+<literal>Array.prototype.length</literal> setter
 </para>
 </listitem>
 
 <listitem>
 <para>
 Bugfix:
-fixed <literal>njs_array_alloc()</literal> for length > 2**31.
+fixed
+<literal>njs_array_alloc()</literal> for length > 2**31.
 </para>
 </listitem>
 
 <listitem>
 <para>
 Bugfix:
-handling int overflow in <literal>njs_array_alloc()</literal> on 32bit archs.
+handling int overflow in
+<literal>njs_array_alloc()</literal> on 32bit archs.
 </para>
 </listitem>
 
@@ -2582,15 +2627,19 @@ fixed delete operator in a loop.
 <listitem>
 <para>
 Bugfix:
-fixed <literal>Object.getOwnPropertyDescriptor()</literal> for complex object
-(inherited from <literal>Array</literal> and <literal>string</literal> values).
+fixed
+<literal>Object.getOwnPropertyDescriptor()</literal>
+for complex object (inherited from
+<literal>Array</literal> and
+<literal>string</literal> values).
 </para>
 </listitem>
 
 <listitem>
 <para>
 Bugfix:
-fixed <literal>Object.prototype.hasOwnProperty()</literal>
+fixed
+<literal>Object.prototype.hasOwnProperty()</literal>
 for non-object properties
 </para>
 </listitem>
@@ -2627,12 +2676,12 @@ stream module handlers refactored.
 
 <para>
 New methods and properties:
-<link doc="reference.xml" id="s_on">s.on()</link>,
-<link doc="reference.xml" id="s_off">s.off()</link>,
-<link doc="reference.xml" id="s_allow">s.allow()</link>,
-<link doc="reference.xml" id="s_done">s.done()</link>,
-<link doc="reference.xml" id="s_decline">s.decline()</link>,
-<link doc="reference.xml" id="s_deny">s.deny()</link>.
+<link doc="reference.xml" id="s_on"><literal>s.on()</literal></link>,
+<link doc="reference.xml" id="s_off"><literal>s.off()</literal></link>,
+<link doc="reference.xml" id="s_allow"><literal>s.allow()</literal></link>,
+<link doc="reference.xml" id="s_done"><literal>s.done()</literal></link>,
+<link doc="reference.xml" id="s_decline"><literal>s.decline()</literal></link>,
+<link doc="reference.xml" id="s_deny"><literal>s.deny()</literal></link>.
 </para>
 
 <para>
@@ -2644,16 +2693,16 @@ Removed properties of the
 <literal>s.DECLINED</literal>,
 <literal>s.ERROR</literal>
 (replaced with
-<link doc="reference.xml" id="s_allow">s.allow()</link>,
-<link doc="reference.xml" id="s_done">s.done()</link>,
-<link doc="reference.xml" id="s_deny">s.deny()</link>).
+<link doc="reference.xml" id="s_allow"><literal>s.allow()</literal></link>,
+<link doc="reference.xml" id="s_done"><literal>s.done()</literal></link>,
+<link doc="reference.xml" id="s_deny"><literal>s.deny()</literal></link>).
 </para>
 
 <para>
 <literal>s.buffer</literal>
 (for reading replaced with data argument of
 the corresponding callback, for writing use
-<link doc="reference.xml" id="s_send">s.send()</link>).
+<link doc="reference.xml" id="s_send"><literal>s.send()</literal></link>).
 </para>
 
 <para>
@@ -2664,7 +2713,7 @@ the corresponding callback, for writing use
 <para>
 <literal>s.eof</literal>
 (replaced with <literal></literal>
-<link doc="reference.xml" id="s_on_callback_last">flags.last</link>).
+<link doc="reference.xml" id="s_on_callback_last"><literal>flags.last</literal></link>).
 </para>
 
 </listitem>
@@ -2679,7 +2728,8 @@ Core:
 <listitem>
 <para>
 Feature:
-added <literal>Function.prototype.length</literal>.
+added
+<literal>Function.prototype.length</literal>.
 </para>
 </listitem>
 
@@ -2715,7 +2765,8 @@ for attempts to change frozen properties.
 <listitem>
 <para>
 Bugfix:
-fixed <literal>Object.defineProperty()</literal> for existing properties.
+fixed
+<literal>Object.defineProperty()</literal> for existing properties.
 </para>
 </listitem>
 
@@ -2743,14 +2794,18 @@ fixed exception handling in arguments of a function.
 <listitem>
 <para>
 Bugfix:
-fixed <literal>Object.prototype.toString</literal> for different value types.
+fixed
+<literal>Object.prototype.toString</literal>
+for different value types.
 </para>
 </listitem>
 
 <listitem>
 <para>
 Bugfix:
-fixed <literal>Object()</literal> constructor for object types arguments.
+fixed
+<literal>Object()</literal>
+constructor for object types arguments.
 </para>
 </listitem>
 
@@ -2764,7 +2819,9 @@ fixed comparison of objects and strings.
 <listitem>
 <para>
 Bugfix:
-fixed <literal>String.slice()</literal> for undefined arguments.
+fixed
+<literal>String.slice()</literal>
+for undefined arguments.
 </para>
 </listitem>
 
@@ -2795,8 +2852,9 @@ nginx modules:
 <listitem>
 <para>
 Bugfix:
-making a subrequest from a <literal>Reply</literal> object caused
-a segmentation fault.
+making a subrequest from a
+<literal>Reply</literal>
+object caused a segmentation fault.
 </para>
 </listitem>
 
@@ -2840,7 +2898,7 @@ correctly parsing floating point numbers.
 <listitem>
 <para>
 Feature:
-<link doc="reference.xml" id="string_bytesfrom">String.bytesFrom()</link> method
+<link doc="reference.xml" id="string_bytesfrom"><literal>String.bytesFrom()</literal></link> method
 (decoding <literal>hex</literal>,
 <literal>base64</literal>,
 <literal>base64url</literal> into a byte string).
@@ -2850,8 +2908,9 @@ Feature:
 <listitem>
 <para>
 Feature:
-<link doc="reference.xml" id="string_padstart">String.padStart()</link> and
-<link doc="reference.xml" id="string_padend">String.padEnd()</link> methods.
+<literal>String.padStart()</literal> and
+<literal>String.padEnd()</literal>
+methods.
 </para>
 </listitem>
 
@@ -2900,14 +2959,16 @@ fixed addition operator applied to an object.
 <listitem>
 <para>
 Bugfix:
-fixed exception handling in <literal>njs_vm_value_to_ext_string()</literal>.
+fixed exception handling in
+<literal>njs_vm_value_to_ext_string()</literal>.
 </para>
 </listitem>
 
 <listitem>
 <para>
 Bugfix:
-fixed <literal>Number()</literal> with boolean, null and undefined arguments.
+fixed
+<literal>Number()</literal> with boolean, null and undefined arguments.
 </para>
 </listitem>
 
@@ -3085,7 +3146,8 @@ Core:
 <listitem>
 <para>
 Bugfix:
-fixed heap-buffer-overflow in <literal>crypto.createHmac()</literal>.
+fixed heap-buffer-overflow in
+<literal>crypto.createHmac()</literal>.
 </para>
 </listitem>
 
@@ -3177,7 +3239,7 @@ public header <literal>cleanup. njscript.h</literal> is renamed to
 <listitem>
 <para>
 Bugfix:
-fixed crypto <literal>update()</literal> method after 
+fixed crypto <literal>update()</literal> method after
 <literal>digest()</literal> is called.
 </para>
 </listitem>

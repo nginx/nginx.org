@@ -9,13 +9,24 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="45">
+        rev="46">
 
 <section id="summary">
 
 <para>
 <link doc="index.xml">njs</link> provides objects, methods and properties
 for extending nginx functionality.
+</para>
+
+<para>
+This reference contains only njs specific properties, methods and modules
+not compliant with ECMAScript.
+Definitions of njs properties and methods compliant with ECMAScript
+can be found in
+<link url="http://www.ecma-international.org/ecma-262/">ECMAScript
+specification</link>.
+List of all njs properties and methods can be found in
+<link doc="compatibility.xml">Compatibility</link>.
 </para>
 
 </section>
@@ -546,33 +557,6 @@ Returns the PID of the current parent process.
 </section>
 
 
-<section id="core_object" name="Object">
-
-<para>
-The <literal>Object</literal> constructor corresponds to a standard JS object.
-<list type="tag">
-
-<tag-name id="object_entries"><literal>Object.entries(<value>object</value>)</literal></tag-name>
-<tag-desc>
-returns an array of all enumerable property
-<literal>[key, value]</literal> pairs
-of the given <literal>object</literal>
-(<link doc="changes.xml" id="njs0.2.7">0.2.7</link>).
-</tag-desc>
-
-<tag-name id="object_values"><literal>Object.values(<value>object</value>)</literal></tag-name>
-<tag-desc>
-returns an array of all enumerable property values
-of the given <literal>object</literal>
-(<link doc="changes.xml" id="njs0.2.7">0.2.7</link>).
-</tag-desc>
-
-</list>
-</para>
-
-</section>
-
-
 <section id="string" name="String">
 
 <para>
@@ -622,7 +606,7 @@ first, it should be converted to a byte string and then to hex:
 <tag-name id="string_bytesfrom"><literal>String.bytesFrom(<value>array</value>
 | <value>string</value>, <value>encoding</value>)</literal></tag-name>
 <tag-desc>
-(njs specific) Creates a byte string either from an array that contains octets,
+Creates a byte string either from an array that contains octets,
 or from an encoded string
 (<link doc="changes.xml" id="njs0.2.3">0.2.3</link>).
 The encoding can be
@@ -638,296 +622,27 @@ The encoding can be
 </example>
 </tag-desc>
 
-<tag-name id="string_fromcharcode"><literal>String.fromCharCode(<value>CharCode1</value>[, ...[,
-<value>CharCodeN</value>]])</literal></tag-name>
-<tag-desc>
-Returns a string from one or more Unicode code points.
-<example>
->> String.fromCharCode(97, 98, 99, 100)
-'abcd'
-</example>
-</tag-desc>
-
-<tag-name id="string_fromcodepoint"><literal>String.fromCodePoint(<value>codePoint1</value>[, ...[,
-<value>codePoint2</value>]])</literal></tag-name>
-<tag-desc>
-Returns a string from one or more Unicode code points.
-<example>
->> String.fromCodePoint(97, 98, 99, 100)
-'abcd'
-</example>
-</tag-desc>
-
-<tag-name id="string_charat"><literal>String.prototype.charAt(<value>index</value>)</literal></tag-name>
-<tag-desc>
-Returns a string representing one Unicode code unit
-at the specified <literal>index</literal>;
-empty string if index is out of range.
-The index can be an integer
-between 0 and 1-less-than the length of the string.
-If no index is provided, the default is <literal>0</literal>,
-so the first character in the string is returned.
-</tag-desc>
-
-<tag-name id="string_codepointat"><literal>String.prototype.CodePointAt(<value>position</value>)</literal></tag-name>
-<tag-desc>
-Returns a number representing the code point value of the character
-at the given <literal>position</literal>;
-<literal>undefined</literal> if there is no element at position.
-<example>
->> 'ABCD'.codePointAt(3);
-68
-</example>
-</tag-desc>
-
-<tag-name id="string_concat"><literal>String.prototype.concat(<value>string1</value>[, ...,
-<value>stringN</value>])</literal></tag-name>
-<tag-desc>
-Returns a string that contains the concatenation of specified
-<literal>strings</literal>.
-<example>
->> "a".concat("b", "c")
-'abc'
-</example>
-</tag-desc>
-
-<tag-name id="string_endswith"><literal>String.prototype.endsWith(<value>searchString</value>[,
-<value>length</value>])</literal></tag-name>
-<tag-desc>
-Returns <literal>true</literal> if a string ends with the characters
-of a specified string, otherwise <literal>false</literal>.
-The optional <literal>length</literal> parameter is the the length of string.
-If omitted, the default value is the length of the string.
-<example>
->> 'abc'.endsWith('abc')
-true
->> 'abca'.endsWith('abc')
-false
-</example>
-</tag-desc>
-
 <tag-name id="string_frombytes"><literal>String.prototype.fromBytes(<value>start</value>[,
 <value>end</value>])</literal></tag-name>
 <tag-desc>
-(njs specific) Returns a new Unicode string from a byte string
+Returns a new Unicode string from a byte string
 where each byte is replaced with a corresponding Unicode code point.
 </tag-desc>
 
 <tag-name id="string_fromutf8"><literal>String.prototype.fromUTF8(<value>start</value>[,
 <value>end</value>])</literal></tag-name>
 <tag-desc>
-(njs specific) Converts a byte string containing a valid UTF8 string
+Converts a byte string containing a valid UTF8 string
 into a Unicode string,
 otherwise <literal>null</literal> is returned.
-</tag-desc>
-
-<tag-name id="string_includes"><literal>String.prototype.includes(<value>searchString</value>[,
-<value>position</value>]))</literal></tag-name>
-<tag-desc>
-Returns <literal>true</literal> if a string is found within another string,
-otherwise <literal>false</literal>.
-The optional <literal>position</literal> parameter is the position
-within the string at which to begin search for <literal>searchString</literal>. 
-Default value is 0.
-<example>
->> 'abc'.includes('bc')
-true
-</example>
-</tag-desc>
-
-<tag-name id="string_indexof"><literal>String.prototype.indexOf(<value>searchString</value>[,
-<value>fromIndex</value>])</literal></tag-name>
-<tag-desc>
-Returns the position of the first occurrence
-of the <literal>searchString</literal>.
-The search is started at <literal>fromIndex</literal>.
-Returns <value>-1</value> if the value is not found.
-The <literal>fromIndex</literal> is an integer,
-default value is 0.
-If <literal>fromIndex</literal> is lower than 0
-or greater than
-<link id="string_length">String.prototype.length</link><value></value>,
-the search starts at index <value>0</value> and
-<value>String.prototype.length</value>.
-<example>
->> 'abcdef'.indexOf('de', 2)
-3
-</example>
-</tag-desc>
-
-<tag-name id="string_lastindexof"><literal>String.prototype.lastIndexOf(<value>searchString</value>[,
-<value>fromIndex</value>])</literal></tag-name>
-<tag-desc>
-Returns the position of the last occurrence
-of the <literal>searchString</literal>,
-searching backwards from <literal>fromIndex</literal>.
-Returns <value>-1</value> if the value is not found.
-If <literal>searchString</literal>  is empty,
-then <literal>fromIndex</literal> is returned.
-<example>
->> "nginx".lastIndexOf("gi")
-1
-</example>
-</tag-desc>
-
-<tag-name id="string_length"><literal>String.prototype.length</literal></tag-name>
-<tag-desc>
-Returns the length of the string.
-<example>
->> 'αβγδ'.length
-4
-</example>
-</tag-desc>
-
-<tag-name id="string_match"><literal>String.prototype.match([<value>regexp</value>])</literal></tag-name>
-<tag-desc>
-Matches a string against a <literal>regexp</literal>.
-<example>
->> 'nginx'.match( /ng/i )
-'ng'
-</example>
-</tag-desc>
-
-<tag-name id="string_padend"><literal>String.prototype.padEnd(<value>length</value>
-[, <value>string</value>])</literal></tag-name>
-<tag-desc>
-Returns a string of a specified <literal>length</literal>
-with the pad <literal>string</literal> applied to the end of the specified
-string (<link doc="changes.xml" id="njs0.2.3">0.2.3</link>).
-<example>
->> '1234'.padEnd(8, 'abcd')
-'1234abcd'
-</example>
-</tag-desc>
-
-<tag-name id="string_padstart"><literal>String.prototype.padStart(<value>length</value>
-[, <value>string</value>])</literal></tag-name>
-<tag-desc>
-Returns a string of a specified <literal>length</literal>
-with the pad <literal>string</literal> applied to the start of the specified
-string (<link doc="changes.xml" id="njs0.2.3">0.2.3</link>).
-<example>
->> '1234'.padStart(8, 'abcd')
-'abcd1234'
-</example>
-</tag-desc>
-
-<tag-name id="string_repeat"><literal>String.prototype.repeat(<value>number</value>)</literal></tag-name>
-<tag-desc>
-Returns a string
-with the specified <literal>number</literal> of copies of the string.
-<example>
->> 'abc'.repeat(3)
-'abcabcabc'
-</example>
-</tag-desc>
-
-<tag-name id="string_replace"><literal>String.prototype.replace([<value>regexp</value>|<value>string</value>[,
-<value>string</value>|<value>function</value>]])</literal></tag-name>
-<tag-desc>
-Returns a new string with matches of a pattern
-(<literal>string</literal> or a <literal>regexp</literal>)
-replaced by a <literal>string</literal> or a <literal>function</literal>.
-<example>
->> 'abcdefgh'.replace('d', 1)
-'abc1efgh'
-</example>
-</tag-desc>
-
-<tag-name id="string_search"><literal>String.prototype.search([<value>regexp</value>])</literal></tag-name>
-<tag-desc>
-Searches for a string using a <literal>regexp</literal>
-<example>
->> 'abcdefgh'.search('def')
-3
-</example>
-</tag-desc>
-
-<tag-name id="string_slice"><literal>String.prototype.slice(<value>start</value>[,
-<value>end</value>])</literal></tag-name>
-<tag-desc>
-Returns a new string containing a part of an
-original string between <literal>start</literal>
-and <literal>end</literal> or
-from <literal>start</literal> to the end of the string.
-<example>
->> 'abcdefghijklmno'.slice(NaN, 5)
-'abcde'
-</example>
-</tag-desc>
-
-<tag-name id="string_split"><literal>String.prototype.split(([<value>string</value>|<value>regexp</value>[,
-<value>limit</value>]]))</literal></tag-name>
-<tag-desc>
-Returns match of a string against a <literal>regexp</literal>.
-The optional <literal>limit</literal> parameter is an integer that specifies
-a limit on the number of splits to be found.
-<example>
->> 'abc'.split('')
-[
- 'a',
- 'b',
- 'c'
-]
-</example>
-</tag-desc>
-
-<tag-name id="string_startswith"><literal>String.prototype.startsWith(<value>searchString</value>[,
-<value>position</value>])</literal></tag-name>
-<tag-desc>
-Returns <literal>true</literal> if a string begins with the characters
-of a specified string, otherwise <literal>false</literal>.
-The optional <literal>position</literal> parameter is the position
-in this string at which to begin search for <literal>searchString</literal>.
-Default value is 0.
-<example>
->> 'abc'.startsWith('abc')
-true
-> 'aabc'.startsWith('abc')
-false
-</example>
-</tag-desc>
-
-<tag-name id="string_substr"><literal>String.prototype.substr(<value>start</value>[,
-<value>length</value>])</literal></tag-name>
-<tag-desc>
-Returns the part of the string of the specified <literal>length</literal>
-from <literal>start</literal>
-or from <literal>start</literal> to the end of the string.
-<example>
->>  'abcdefghijklmno'.substr(3, 5)
-'defgh'
-</example>
-</tag-desc>
-
-<tag-name id="string_substring"><literal>String.prototype.substring(<value>start</value>[,
-<value>end</value>])</literal></tag-name>
-<tag-desc>
-Returns the part of the string between
-<literal>start</literal> and <literal>end</literal> or
-from <literal>start</literal> to the end of the string.
-<example>
->> 'abcdefghijklmno'.substring(3, 5)
-'de'
-</example>
 </tag-desc>
 
 <tag-name id="string_tobytes"><literal>String.prototype.toBytes(start[,
 end])</literal></tag-name>
 <tag-desc>
-(njs specific) Serializes a Unicode string to a byte string.
+Serializes a Unicode string to a byte string.
 Returns <literal>null</literal> if a character larger than 255 is
 found in the string.
-</tag-desc>
-
-<tag-name id="string_tolowercase"><literal>String.prototype.toLowerCase()</literal></tag-name>
-<tag-desc>
-Converts a string to lower case.
-The method supports only simple Unicode folding.
-<example>
->> 'ΑΒΓΔ'.toLowerCase()
-'αβγδ'
-</example>
 </tag-desc>
 
 <tag-name><literal>String.prototype.toString([<value>encoding</value>])</literal></tag-name>
@@ -938,7 +653,7 @@ returns a specified Unicode string or byte string as in ECMAScript.
 </para>
 
 <para>
-(njs specific) If <literal>encoding</literal> is specified,
+If <literal>encoding</literal> is specified,
 encodes a <link id="string_tobytes">byte string</link> to
 <literal>hex</literal>,
 <literal>base64</literal>, or
@@ -950,20 +665,10 @@ encodes a <link id="string_tobytes">byte string</link> to
 </example>
 </tag-desc>
 
-<tag-name id="string_touppercase"><literal>String.prototype.toUpperCase()</literal></tag-name>
-<tag-desc>
-Converts a string to upper case.
-The method supports only simple Unicode folding.
-<example>
->> 'αβγδ'.toUpperCase()
-'ΑΒΓΔ'
-</example>
-</tag-desc>
-
 <tag-name id="string_toutf8"><literal>String.prototype.toUTF8(<value>start</value>[,
 <value>end</value>])</literal></tag-name>
 <tag-desc>
-(njs specific) Serializes a Unicode string
+Serializes a Unicode string
 to a byte string using UTF8 encoding.
 <example>
 >> 'αβγδ'.toUTF8().length
@@ -973,161 +678,7 @@ to a byte string using UTF8 encoding.
 </example>
 </tag-desc>
 
-<tag-name id="string_trim"><literal>String.prototype.trim()</literal></tag-name>
-<tag-desc>
-Removes whitespaces from both ends of a string.
-<example>
->> '   abc  '.trim()
-'abc'
-</example>
-</tag-desc>
-
-<tag-name id="string_trimend"><literal>String.prototype.trimEnd()</literal></tag-name>
-<tag-desc>
-Removes whitespaces from the end of a string
-(<link doc="changes.xml" id="njs0.3.4">0.3.4</link>).
-<example>
->> '   abc  '.trimEnd()
-'   abc'
-</example>
-</tag-desc>
-
-<tag-name id="string_trimstart"><literal>String.prototype.trimStart()</literal></tag-name>
-<tag-desc>
-Removes whitespaces from the beginning of a string
-(<link doc="changes.xml" id="njs0.3.4">0.3.4</link>).
-<example>
->> '   abc  '.trimStart()
-'abc  '
-</example>
-</tag-desc>
-
-<tag-name id="encodeuri"><literal>encodeURI(<value>URI</value>)</literal></tag-name>
-<tag-desc>
-Encodes a URI by replacing each instance of certain characters
-by one, two, three, or four escape sequences
-representing the UTF-8 encoding of the character
-<example>
->> encodeURI('012αβγδ')
-'012%CE%B1%CE%B2%CE%B3%CE%B4'
-</example>
-</tag-desc>
-
-<tag-name id="encodeuricomponent"><literal>encodeURIComponent(<value>encodedURIString</value>)</literal></tag-name>
-<tag-desc>
-Encodes a URI by replacing each instance of certain characters
-by one, two, three, or four escape sequences
-representing the UTF-8 encoding of the character.
-<example>
->> encodeURIComponent('[@?=')
-'%5B%40%3F%3D'
-</example>
-</tag-desc>
-
-<tag-name id="decodeuri"><literal>decodeURI(<value>encodedURI</value>)</literal></tag-name>
-<tag-desc>
-Decodes a previously <link id="encodeuri">encoded</link> URI.
-<example>
->> decodeURI('012%CE%B1%CE%B2%CE%B3%CE%B4')
-'012αβγδ'
-</example>
-</tag-desc>
-
-<tag-name id="decodeuricomponent"><literal>decodeURIComponent(<value>decodedURIString</value>)</literal></tag-name>
-<tag-desc>
-Decodes an encoded component of a previously encoded URI.
-<example>
->> decodeURIComponent('%5B%40%3F%3D')
-'[@?='
-</example>
-</tag-desc>
-
 </list>
-</para>
-
-</section>
-
-
-<section id="core_typedarray" name="TypedArray">
-
-<para>
-<literal>TypedArray</literal> is a number of different global properties
-whose values are typed array constructors for specific element types.
-<list type="tag">
-
-<tag-name id="array_sort"><literal>TypedArray.prototype.sort()</literal></tag-name>
-<tag-desc>
-sorts the elements of a typed array numerically
-and returns the updated typed array
-(<link doc="changes.xml" id="njs0.4.2">0.4.2</link>).
-</tag-desc>
-</list>
-</para>
-
-</section>
-
-
-<section id="core_json" name="JSON">
-
-<para>
-The <literal>JSON</literal> object (ES 5.1) provides functions
-to convert njs values to and from JSON format.
-<list type="tag">
-
-<tag-name id="core_json_parse"><literal>JSON.parse(<value>string</value>[,
-<value>reviver</value>])</literal></tag-name>
-<tag-desc>
-Converts a <literal>string</literal> that represents JSON data
-into an njs object (<literal>{...}</literal>) or
-array (<literal>[...]</literal>).
-The optional <literal>reviver</literal> parameter is a function (key, value)
-that will be called for each (key,value) pair and can transform the value.
-</tag-desc>
-
-<tag-name id="core_json_stringify"><literal>JSON.stringify(<value>value</value>[,
-<value>replacer</value>] [, <value>space</value>])</literal></tag-name>
-<tag-desc>
-Converts an njs object back to JSON.
-The obligatory <literal>value</literal> parameter is generally a JSON
-<literal>object</literal> or <literal>array</literal> that will be converted.
-If the value has a <literal>toJSON()</literal> method,
-it defines how the object will be serialized.
-The optional <literal>replacer</literal> parameter is
-a <literal>function</literal> or <literal>array</literal>
-that transforms results.
-The optional <literal>space</literal> parameter is
-a <literal>string</literal> or <literal>number</literal>.
-If it is a <literal>number</literal>,
-it indicates the number of white spaces placed before a result
-(no more than 10).
-If it is a <literal>string</literal>,
-it is used as a white space (or first 10 characters of it).
-If omitted or is <literal>null</literal>, no white space is used.
-</tag-desc>
-</list>
-</para>
-
-<para>
-<example>
->> var json = JSON.parse('{"a":1, "b":true}')
->> json.a
-1
-
->> JSON.stringify(json)
-'{"a":1,"b":true}'
-
->> JSON.stringify({ x: [10, undefined, function(){}] })
-'{"x":[10,null,null]}'
-
->> JSON.stringify({"a":1, "toJSON": function() {return "xxx"}})
-'"xxx"'
-
-# Example with function replacer
-
->> function replacer(key, value) {return (typeof value === 'string') ? undefined : value}
->>JSON.stringify({a:1, b:"b", c:true}, replacer)
-'{"a":1,"c":true}'
-</example>
 </para>
 
 </section>

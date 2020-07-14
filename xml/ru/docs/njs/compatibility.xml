@@ -9,7 +9,7 @@
 <article name="Совместимость"
         link="/ru/docs/njs/compatibility.html"
         lang="ru"
-        rev="24"
+        rev="25"
         toc="no">
 
 <section>
@@ -21,6 +21,16 @@ njs совместим с
 <link url="http://www.ecma-international.org/ecma-262/6.0/">ECMAScript 6</link>
 и позже.
 Совместимость находится в стадии развития.
+</para>
+
+<para>
+Описания методов и свойств, доступных только в njs
+и не соответствующих стандарту ECMAScript, доступны в
+<link doc="reference.xml">справочнике</link>.
+Описания методов и свойств njs,
+соответствующих стандарту, доступны в
+<link url="http://www.ecma-international.org/ecma-262/">спецификации
+ECMAScript</link>.
 </para>
 
 </section>
@@ -184,12 +194,12 @@ ES6:
 
 <listitem>
 ES5.1:
-<link doc="reference.xml" id="string_fromcharcode"><literal>fromCharCode</literal></link>
+<literal>fromCharCode</literal>
 </listitem>
 
 <listitem>
 ES6:
-<link doc="reference.xml" id="string_fromcodepoint"><literal>fromCodePoint</literal></link>
+<literal>fromCodePoint</literal>
 </listitem>
 </list>
 
@@ -201,48 +211,49 @@ ES6:
 
 <listitem>
 ES5.1:
-<link doc="reference.xml" id="string_charat"><literal>charAt</literal></link>,
-<link doc="reference.xml" id="string_concat"><literal>concat</literal></link>,
-<link doc="reference.xml" id="string_indexof"><literal>indexOf</literal></link>,
-<link doc="reference.xml" id="string_lastindexof"><literal>lastIndexOf</literal></link>,
-<link doc="reference.xml" id="string_match"><literal>match</literal></link>,
-<link doc="reference.xml" id="string_replace"><literal>replace</literal></link>
-<link doc="reference.xml" id="string_search"><literal>search</literal></link>,
-<link doc="reference.xml" id="string_slice"><literal>slice</literal></link>,
-<link doc="reference.xml" id="string_split"><literal>split</literal></link>,
-<link doc="reference.xml" id="string_substr"><literal>substr</literal></link>,
-<link doc="reference.xml" id="string_substring"><literal>substring</literal></link>,
-<link doc="reference.xml" id="string_tolowercase"><literal>toLowerCase</literal></link>,
-<link doc="reference.xml" id="string_trim"><literal>trim</literal></link>,
-<link doc="reference.xml" id="string_touppercase"><literal>toUpperCase</literal></link>
+<literal>charAt</literal>,
+<literal>concat</literal>,
+<literal>indexOf</literal>>,
+<literal>lastIndexOf</literal>,
+<literal>match</literal>,
+<literal>replace</literal>,
+<literal>search</literal>,
+<literal>slice</literal>,
+<literal>split</literal>,
+<literal>substr</literal>,
+<literal>substring</literal>,
+<literal>toLowerCase</literal>,
+<literal>trim</literal>,
+<literal>toUpperCase</literal>
 </listitem>
 
 <listitem>
 ES6:
-<link doc="reference.xml" id="string_codepointat"><literal>codePointAt</literal></link>,
-<link doc="reference.xml" id="string_endswith"><literal>endsWith</literal></link>,
-<link doc="reference.xml" id="string_includes"><literal>includes</literal></link>,
-<link doc="reference.xml" id="string_repeat"><literal>repeat</literal></link>,
-<link doc="reference.xml" id="string_startswith"><literal>startsWith</literal></link>
+<literal>codePointAt</literal>,
+<literal>endsWith</literal>,
+<literal>includes</literal>,
+<literal>repeat</literal>,
+<literal>startsWith</literal>
 </listitem>
 
 <listitem>
 ES8:
-<link doc="reference.xml" id="string_padend"><literal>padEnd</literal></link>,
-<link doc="reference.xml" id="string_padstart"><literal>padStart</literal></link>
+<literal>padEnd</literal>,
+<literal>padStart</literal>
 </listitem>
 
 <listitem>
 ES9:
-<link doc="reference.xml" id="string_trimend"><literal>trimEnd</literal></link>
+<literal>trimEnd</literal>
 (<link doc="changes.xml" id="njs0.3.4">0.3.4</link>),
-<link doc="reference.xml" id="string_trimstart"><literal>trimStart</literal></link>
+<literal>trimStart</literal>
 (<link doc="changes.xml" id="njs0.3.4">0.3.4</link>)
 </listitem>
 
 <listitem>
 нестандартные:
-<link doc="reference.xml" id="string_bytesfrom"><literal>bytesFrom</literal></link> (0.2.3),
+<link doc="reference.xml" id="string_bytesfrom"><literal>bytesFrom</literal></link>
+(<link doc="changes.xml" id="njs0.2.3">0.2.3</link>),
 <link doc="reference.xml" id="string_frombytes"><literal>fromBytes</literal></link>,
 <link doc="reference.xml" id="string_fromutf8"><literal>fromUTF8</literal></link>,
 <link doc="reference.xml" id="string_tobytes"><literal>toBytes</literal></link>,
@@ -285,9 +296,9 @@ ES6:
 
 <listitem>
 ES8:
-<link doc="reference.xml" id="object_entries"><literal>entries</literal></link>
+<literal>entries</literal>
 (<link doc="changes.xml" id="njs0.2.7">0.2.7</link>),
-<link doc="reference.xml" id="object_values"><literal>values</literal></link>
+<literal>values</literal>
 (<link doc="changes.xml" id="njs0.2.7">0.2.7</link>)
 </listitem>
 </list>
@@ -570,15 +581,16 @@ ES5.1:
 
 <listitem>
 ES5.1:
-<link doc="reference.xml" id="core_json_parse"><literal>parse</literal></link>,
-<link doc="reference.xml" id="core_json_stringify"><literal>stringify</literal></link>
+<literal>parse</literal>
+<literal>stringify</literal>
 </listitem>
 </list>
 
 </listitem>
 
 <listitem>
-ES5.1 объект <literal>arguments</literal> (0.2.5)
+ES5.1 объект <literal>arguments</literal>
+(<link doc="changes.xml" id="njs0.2.5">0.2.5</link>)
 </listitem>
 
 <listitem>
@@ -587,11 +599,11 @@ ES6 синтаксис rest параметров (без поддержки де
 </listitem>
 
 <listitem>
-ES5.1 глобальные функции:
-<link doc="reference.xml" id="decodeuri"><literal>decodeURI</literal></link>,
-<link doc="reference.xml" id="decodeuricomponent"><literal>decodeURIComponent</literal></link>,
-<link doc="reference.xml" id="encodeuri"><literal>encodeURI</literal></link>,
-<link doc="reference.xml" id="encodeuricomponent"><literal>encodeURIComponent</literal></link>,
+ES5.1 global functions:
+<literal>decodeURI</literal>,
+<literal>decodeURIComponent</literal>,
+<literal>encodeURI</literal>,
+<literal>encodeURIComponent</literal>,
 <literal>isFinite</literal>,
 <literal>isNaN</literal>,
 <literal>parseFloat</literal>,
@@ -615,7 +627,7 @@ ES5.1 глобальные функции:
 <link doc="reference.xml" id="cleartimeout"><literal>clearTimeout</literal></link>
 и
 <link doc="reference.xml" id="settimeout"><literal>setTimeout</literal></link>
-(0.2.0)
+(<link doc="changes.xml" id="njs0.2.0">0.2.0</link>)
 </listitem>
 
 <listitem>
@@ -647,7 +659,8 @@ ES5.1 глобальные функции:
 </listitem>
 
 <listitem>
-Методы <literal>Crypto</literal> (0.2.0):
+Методы <literal>Crypto</literal>
+(<link doc="changes.xml" id="njs0.2.0">0.2.0</link>):
 <link doc="reference.xml" id="crypto_createhash"><literal>crypto.createHash</literal></link>,
 <link doc="reference.xml" id="crypto_createhmac"><literal>crypto.createHmac</literal></link>
 </listitem>
