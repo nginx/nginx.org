@@ -50,13 +50,13 @@ ECMAScript</link>.
 объект аргументов запроса, только чтение
 </tag-desc>
 
-<tag-name><literal>r.error(<value>строка</value>)</literal></tag-name>
+<tag-name id="r_error"><literal>r.error(<value>строка</value>)</literal></tag-name>
 <tag-desc>
 записывает <literal>строку</literal> в лог-файл ошибок
 на уровне лога <literal>error</literal>
 </tag-desc>
 
-<tag-name><literal>r.finish()</literal></tag-name>
+<tag-name id="r_finish"><literal>r.finish()</literal></tag-name>
 <tag-desc>
 завершает отправку ответа клиенту
 </tag-desc>
@@ -147,7 +147,7 @@ Foo: b
 </para>
 </tag-desc>
 
-<tag-name><literal>r.httpVersion</literal></tag-name>
+<tag-name id="r_http_version"><literal>r.httpVersion</literal></tag-name>
 <tag-desc>
 версия HTTP, только чтение
 </tag-desc>
@@ -160,23 +160,23 @@ Foo: b
 Перенаправление осуществляется после завершения выполнения обработчика.
 </tag-desc>
 
-<tag-name><literal>r.log(<value>строка</value>)</literal></tag-name>
+<tag-name id="r_log"><literal>r.log(<value>строка</value>)</literal></tag-name>
 <tag-desc>
 записывает <literal>строку</literal> в лог-файл ошибок
 на уровне лога <literal>info</literal>
 </tag-desc>
 
-<tag-name><literal>r.method</literal></tag-name>
+<tag-name id="r_method"><literal>r.method</literal></tag-name>
 <tag-desc>
 HTTP метод, только чтение
 </tag-desc>
 
-<tag-name><literal>r.parent</literal></tag-name>
+<tag-name id="r_parent"><literal>r.parent</literal></tag-name>
 <tag-desc>
 ссылается на родительский объект запроса
 </tag-desc>
 
-<tag-name><literal>r.remoteAddress</literal></tag-name>
+<tag-name id="r_remote_address"><literal>r.remoteAddress</literal></tag-name>
 <tag-desc>
 адрес клиента, только чтение
 </tag-desc>
@@ -238,12 +238,12 @@ r.rawHeadersIn.filter(v=>v[0].toLowerCase() == 'foo').map(v=>v[1])
 
 <tag-name id="r_response_body"><literal>r.responseBody</literal></tag-name>
 <tag-desc>
-хранит тело ответа <link id="subrequest">подзапроса</link>, только чтение.
+хранит тело ответа <link id="r_subrequest">подзапроса</link>, только чтение.
 Размер <literal>r.responseBody</literal> ограничивается директивой
 <link doc="../http/ngx_http_core_module.xml" id="subrequest_output_buffer_size"/>.
 </tag-desc>
 
-<tag-name><literal>r.return(код[, строка])</literal></tag-name>
+<tag-name id="r_return"><literal>r.return(код[, строка])</literal></tag-name>
 <tag-desc>
 отправляет
 клиенту полный ответ с указанным <literal>кодом</literal>
@@ -254,22 +254,22 @@ r.rawHeadersIn.filter(v=>v[0].toLowerCase() == 'foo').map(v=>v[1])
 </para>
 </tag-desc>
 
-<tag-name><literal>r.send(<value>строка</value>)</literal></tag-name>
+<tag-name id="r_send"><literal>r.send(<value>строка</value>)</literal></tag-name>
 <tag-desc>
 отправляет часть тела ответа клиенту
 </tag-desc>
 
-<tag-name><literal>r.sendHeader()</literal></tag-name>
+<tag-name id="r_send_header"><literal>r.sendHeader()</literal></tag-name>
 <tag-desc>
 отправляет заголовки HTTP клиенту
 </tag-desc>
 
-<tag-name><literal>r.status</literal></tag-name>
+<tag-name id="r_status"><literal>r.status</literal></tag-name>
 <tag-desc>
 статус, доступно для записи
 </tag-desc>
 
-<tag-name id="subrequest"><literal>r.subrequest(<value>uri</value>[,
+<tag-name id="r_subrequest"><literal>r.subrequest(<value>uri</value>[,
 <value>options</value>[, <value>callback</value>]])</literal></tag-name>
 <tag-desc>
 создаёт подзапрос с заданными <literal>uri</literal> и
@@ -339,7 +339,7 @@ r.rawHeadersIn.filter(v=>v[0].toLowerCase() == 'foo').map(v=>v[1])
 (начиная с версии <link doc="changes.xml" id="njs0.2.8">0.2.8</link>)
 </tag-desc>
 
-<tag-name><literal>r.warn(<value>строка</value>)</literal></tag-name>
+<tag-name id="r_warn"><literal>r.warn(<value>строка</value>)</literal></tag-name>
 <tag-desc>
 записывает <literal>строку</literal> в лог-файл ошибок
 на уровне лога <literal>warning</literal>
@@ -389,13 +389,13 @@ r.rawHeadersIn.filter(v=>v[0].toLowerCase() == 'foo').map(v=>v[1])
 (<link doc="changes.xml" id="njs0.2.4">0.2.4</link>).
 </tag-desc>
 
-<tag-name><literal>s.error(<value>строка</value>)</literal></tag-name>
+<tag-name id="s_error"><literal>s.error(<value>строка</value>)</literal></tag-name>
 <tag-desc>
 записывает отправленную <literal>строку</literal> в лог-файл ошибок
 на уровне лога <literal>error</literal>
 </tag-desc>
 
-<tag-name><literal>s.log(<value>строка</value>)</literal></tag-name>
+<tag-name id="s_log"><literal>s.log(<value>строка</value>)</literal></tag-name>
 <tag-desc>
 записывает отправленную <value>строку</value> в лог-файл ошибок
 на уровне лога <literal>info</literal>
@@ -447,7 +447,7 @@ true, если данные являются последним буфером.
 </para>
 </tag-desc>
 
-<tag-name><literal>s.remoteAddress</literal></tag-name>
+<tag-name id="s_remote_address"><literal>s.remoteAddress</literal></tag-name>
 <tag-desc>
 адрес клиента, только чтение
 </tag-desc>
@@ -486,7 +486,7 @@ true, если буфер должен иметь флаг <literal>flush</liter
 (начиная с версии <link doc="changes.xml" id="njs0.2.8">0.2.8</link>)
 </tag-desc>
 
-<tag-name><literal>s.warn(<value>строка</value>)</literal></tag-name>
+<tag-name id="s_warn"><literal>s.warn(<value>строка</value>)</literal></tag-name>
 <tag-desc>
 записывает отправленную <literal>строку</literal> в лог-файл ошибок
 на уровне лога <literal>warning</literal>
@@ -640,7 +640,7 @@ TypeError: argument must be a byte string
 Возвращает <literal>null</literal>, если в строке найден символ больше, чем 255.
 </tag-desc>
 
-<tag-name><literal>String.prototype.toString([<value>кодировка</value>])</literal></tag-name>
+<tag-name id="string_tostring"><literal>String.prototype.toString([<value>кодировка</value>])</literal></tag-name>
 <tag-desc>
 <para>
 Если кодировка не указана,

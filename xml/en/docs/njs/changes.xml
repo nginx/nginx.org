@@ -9,7 +9,7 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="34"
+        rev="35"
         toc="no">
 
 <section id="njs0.4.2" name="Changes with njs 0.4.2">
@@ -342,7 +342,7 @@ nginx modules:
 <para>
 Feature:
 added detached mode for
-<link doc="reference.xml" id="subrequest"><literal>r.subrequest()</literal></link>.
+<link doc="reference.xml" id="r_subrequest"><literal>r.subrequest()</literal></link>.
 Responses to detached subrequests are ignored.
 Unlike ordinary subrequests,
 a detached subrequest can be created inside a variable handler.
@@ -511,9 +511,9 @@ nginx modules:
 <para>
 Feature:
 added <literal>Promise</literal> support for
-<link doc="reference.xml" id="subrequest"><literal>r.subrequest()</literal></link>.
+<link doc="reference.xml" id="r_subrequest"><literal>r.subrequest()</literal></link>.
 If a callback is not provided,
-<link doc="reference.xml" id="subrequest"><literal>r.subrequest()</literal></link>
+<link doc="reference.xml" id="r_subrequest"><literal>r.subrequest()</literal></link>
 returns an ordinary
 <literal>Promise</literal> object
 that resolves to a subrequest response object.
@@ -1449,7 +1449,7 @@ getting of special response headers in
 <para>
 Improvement:
 working with unknown methods in
-<link doc="reference.xml" id="subrequest"><literal>r.subrequest()</literal></link>.
+<link doc="reference.xml" id="r_subrequest"><literal>r.subrequest()</literal></link>.
 </para>
 </listitem>
 
@@ -1457,7 +1457,7 @@ working with unknown methods in
 <para>
 Improvement:
 added support for null as a second argument of
-<link doc="reference.xml" id="subrequest"><literal>r.subrequest()</literal></link>.
+<link doc="reference.xml" id="r_subrequest"><literal>r.subrequest()</literal></link>.
 </para>
 </listitem>
 
@@ -2132,7 +2132,7 @@ added support for setting nginx variables.
 <para>
 Bugfix:
 fixed
-<link doc="reference.xml" id="subrequest"><literal>r.subrequest()</literal></link>
+<link doc="reference.xml" id="r_subrequest"><literal>r.subrequest()</literal></link>
 for empty body value.
 </para>
 </listitem>

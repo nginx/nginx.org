@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="46">
+        rev="47">
 
 <section id="summary">
 
@@ -40,7 +40,8 @@ List of all njs properties and methods can be found in
 <para>
 The HTTP request object is available only in the
 <link doc="../http/ngx_http_js_module.xml">ngx_http_js_module</link> module.
-All string properties of the object are <link id="string">byte strings</link>.
+All string properties of the object are
+<link id="string">byte strings</link>.
 
 <list type="tag">
 
@@ -49,13 +50,13 @@ All string properties of the object are <link id="string">byte strings</link>.
 request arguments object, read-only
 </tag-desc>
 
-<tag-name><literal>r.error(<value>string</value>)</literal></tag-name>
+<tag-name id="r_error"><literal>r.error(<value>string</value>)</literal></tag-name>
 <tag-desc>
 writes a <literal>string</literal> to the error log
 on the <literal>error</literal> level of logging
 </tag-desc>
 
-<tag-name><literal>r.finish()</literal></tag-name>
+<tag-name id="r_finish"><literal>r.finish()</literal></tag-name>
 <tag-desc>
 finishes sending a response to the client
 </tag-desc>
@@ -145,7 +146,7 @@ are separated by commas.
 </para>
 </tag-desc>
 
-<tag-name><literal>r.httpVersion</literal></tag-name>
+<tag-name id="r_http_version"><literal>r.httpVersion</literal></tag-name>
 <tag-desc>
 HTTP version, read-only
 </tag-desc>
@@ -158,13 +159,13 @@ it is considered a named location.
 The actual redirect happens after the handler execution is completed.
 </tag-desc>
 
-<tag-name><literal>r.log(<value>string</value>)</literal></tag-name>
+<tag-name id="r_log"><literal>r.log(<value>string</value>)</literal></tag-name>
 <tag-desc>
 writes a <literal>string</literal> to the error log
 on the <literal>info</literal> level of logging
 </tag-desc>
 
-<tag-name><literal>r.method</literal></tag-name>
+<tag-name id="r_method"><literal>r.method</literal></tag-name>
 <tag-desc>
 HTTP method, read-only
 </tag-desc>
@@ -174,7 +175,7 @@ HTTP method, read-only
 references the parent request object
 </tag-desc>
 
-<tag-name><literal>r.remoteAddress</literal></tag-name>
+<tag-name id="r_remote_address"><literal>r.remoteAddress</literal></tag-name>
 <tag-desc>
 client address, read-only
 </tag-desc>
@@ -236,13 +237,13 @@ The property is available only in the
 
 <tag-name id="r_response_body"><literal>r.responseBody</literal></tag-name>
 <tag-desc>
-holds the <link id="subrequest">subrequest</link> response body, read-only.
+holds the <link id="r_subrequest">subrequest</link> response body, read-only.
 The size of <literal>r.responseBody</literal> is limited by the
 <link doc="../http/ngx_http_core_module.xml" id="subrequest_output_buffer_size"/>
 directive.
 </tag-desc>
 
-<tag-name><literal>r.return(status[, string])</literal></tag-name>
+<tag-name id="r_return"><literal>r.return(status[, string])</literal></tag-name>
 <tag-desc>
 sends the entire response
 with the specified <literal>status</literal> to the client
@@ -253,7 +254,7 @@ or the response body text (for other codes) as the second argument
 </para>
 </tag-desc>
 
-<tag-name><literal>r.send(<value>string</value>)</literal></tag-name>
+<tag-name id="r_send"><literal>r.send(<value>string</value>)</literal></tag-name>
 <tag-desc>
 sends a part of the response body to the client
 </tag-desc>
@@ -263,12 +264,12 @@ sends a part of the response body to the client
 sends the HTTP headers to the client
 </tag-desc>
 
-<tag-name><literal>r.status</literal></tag-name>
+<tag-name id="r_status"><literal>r.status</literal></tag-name>
 <tag-desc>
 status, writable
 </tag-desc>
 
-<tag-name id="subrequest"><literal>r.subrequest(<value>uri</value>[,
+<tag-name id="r_subrequest"><literal>r.subrequest(<value>uri</value>[,
 <value>options</value>[, <value>callback</value>]])</literal></tag-name>
 <tag-desc>
 creates a subrequest with the given <literal>uri</literal> and
@@ -349,7 +350,7 @@ nginx variables object,
 writable (since <link doc="changes.xml" id="njs0.2.8">0.2.8</link>)
 </tag-desc>
 
-<tag-name><literal>r.warn(<value>string</value>)</literal></tag-name>
+<tag-name id="r_warn"><literal>r.warn(<value>string</value>)</literal></tag-name>
 <tag-desc>
 writes a <literal>string</literal> to the error log
 on the <literal>warning</literal> level of logging
@@ -398,13 +399,13 @@ or finalizes it with the specified numeric code
 (<link doc="changes.xml" id="njs0.2.4">0.2.4</link>).
 </tag-desc>
 
-<tag-name><literal>s.error(<value>string</value>)</literal></tag-name>
+<tag-name id="s_error"><literal>s.error(<value>string</value>)</literal></tag-name>
 <tag-desc>
 writes a sent <literal>string</literal> to the error log
 on the <literal>error</literal> level of logging
 </tag-desc>
 
-<tag-name><literal>s.log(<value>string</value>)</literal></tag-name>
+<tag-name id="s_log"><literal>s.log(<value>string</value>)</literal></tag-name>
 <tag-desc>
 writes a sent <value>string</value> to the error log
 on the <literal>info</literal> level of logging
@@ -454,7 +455,7 @@ a boolean value, true if data is a last buffer.
 </para>
 </tag-desc>
 
-<tag-name><literal>s.remoteAddress</literal></tag-name>
+<tag-name id="s_remote_address"><literal>s.remoteAddress</literal></tag-name>
 <tag-desc>
 client address, read-only
 </tag-desc>
@@ -490,7 +491,7 @@ nginx variables object, writable
 (since <link doc="changes.xml" id="njs0.2.8">0.2.8</link>)
 </tag-desc>
 
-<tag-name><literal>s.warn(<value>string</value>)</literal></tag-name>
+<tag-name id="s_warn"><literal>s.warn(<value>string</value>)</literal></tag-name>
 <tag-desc>
 writes a sent <literal>string</literal> to the error log
 on the <literal>warning</literal> level of logging
@@ -645,7 +646,7 @@ Returns <literal>null</literal> if a character larger than 255 is
 found in the string.
 </tag-desc>
 
-<tag-name><literal>String.prototype.toString([<value>encoding</value>])</literal></tag-name>
+<tag-name id="string_tostring"><literal>String.prototype.toString([<value>encoding</value>])</literal></tag-name>
 <tag-desc>
 <para>
 If no <literal>encoding</literal> is specified,
@@ -881,7 +882,7 @@ try {
 </list>
 </tag-desc>
 
-<tag-name id="appendfilesync"><literal>appendFileSync(<value>filename</value>,
+<tag-name id="fs_appendfilesync"><literal>appendFileSync(<value>filename</value>,
 <value>data</value>[, <value>options</value>])</literal></tag-name>
 <tag-desc>
 Synchronously appends specified <literal>data</literal>
@@ -951,7 +952,7 @@ by default is <literal>false</literal>.
 </list>
 </tag-desc>
 
-<tag-name id="readfilesync"><literal>readFileSync(<value>filename</value>[,
+<tag-name id="fs_readfilesync"><literal>readFileSync(<value>filename</value>[,
 <value>options</value>])</literal></tag-name>
 <tag-desc>
 Synchronously returns the contents of the file
@@ -1035,7 +1036,7 @@ Synchronously unlinks a file by <literal>path</literal>
 (<link doc="changes.xml" id="njs0.3.9">0.3.9</link>).
 </tag-desc>
 
-<tag-name id="writefilesync"><literal>writeFileSync(<value>filename</value>,
+<tag-name id="fs_writefilesync"><literal>writeFileSync(<value>filename</value>,
 <value>data</value>[,
 <value>options</value>])</literal></tag-name>
 <tag-desc>
