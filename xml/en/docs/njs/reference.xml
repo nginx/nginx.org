@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="47">
+        rev="48">
 
 <section id="summary">
 
@@ -259,7 +259,7 @@ or the response body text (for other codes) as the second argument
 sends a part of the response body to the client
 </tag-desc>
 
-<tag-name><literal>r.sendHeader()</literal></tag-name>
+<tag-name id="r_send_header"><literal>r.sendHeader()</literal></tag-name>
 <tag-desc>
 sends the HTTP headers to the client
 </tag-desc>
