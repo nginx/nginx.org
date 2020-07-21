@@ -9,7 +9,7 @@
 <article name="Development guide"
          link="/en/docs/dev/development_guide.html"
          lang="en"
-         rev="9">
+         rev="10">
 
 <section name="Introduction" id="introduction">
 
@@ -6669,7 +6669,7 @@ ngx_utf8_length(u_char *p, size_t n)
             continue;
         }
 
-        if (ngx_utf8_decode(&amp;p, n) > 0x10ffff) {
+        if (ngx_utf8_decode(&amp;p, last - p) > 0x10ffff) {
             /* invalid UTF-8 */
             return n;
         }
