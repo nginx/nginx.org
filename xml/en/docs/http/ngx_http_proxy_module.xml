@@ -10,7 +10,7 @@
 <module name="Module ngx_http_proxy_module"
         link="/en/docs/http/ngx_http_proxy_module.html"
         lang="en"
-        rev="67">
+        rev="68">
 
 <section id="summary">
 
@@ -861,21 +861,15 @@ proxy_cookie_domain ~\.(?P&lt;sl_domain&gt;[-0-9a-z]+\.[a-z]+)$ $sl_domain;
 </para>
 
 <para>
-There could be several <literal>proxy_cookie_domain</literal> directives:
+Several <literal>proxy_cookie_domain</literal> directives
+can be specified on the same level:
 <example>
 proxy_cookie_domain localhost example.org;
 proxy_cookie_domain ~\.([a-z]+\.[a-z]+)$ $1;
 </example>
-</para>
-
-<para>
-The <literal>off</literal> parameter cancels the effect of all
-<literal>proxy_cookie_domain</literal> directives on the current level:
-<example>
-proxy_cookie_domain off;
-proxy_cookie_domain localhost example.org;
-proxy_cookie_domain www.example.org example.org;
-</example>
+The <literal>off</literal> parameter cancels the effect
+of the <literal>proxy_cookie_domain</literal> directives
+inherited from the previous configuration level.
 </para>
 
 </directive>
@@ -927,21 +921,15 @@ proxy_cookie_path ~*^/user/([^/]+) /u/$1;
 </para>
 
 <para>
-There could be several <literal>proxy_cookie_path</literal> directives:
+Several <literal>proxy_cookie_path</literal> directives
+can be specified on the same level:
 <example>
 proxy_cookie_path /one/ /;
 proxy_cookie_path / /two/;
 </example>
-</para>
-
-<para>
-The <literal>off</literal> parameter cancels the effect of all
-<literal>proxy_cookie_path</literal> directives on the current level:
-<example>
-proxy_cookie_path off;
-proxy_cookie_path /two/ /;
-proxy_cookie_path ~*^/user/([^/]+) /u/$1;
-</example>
+The <literal>off</literal> parameter cancels the effect
+of the <literal>proxy_cookie_path</literal> directives
+inherited from the previous configuration level.
 </para>
 
 </directive>
@@ -1657,23 +1645,16 @@ proxy_redirect ~*/user/([^/]+)/(.+)$      http://$1.example.com/$2;
 </para>
 
 <para>
-There could be several <literal>proxy_redirect</literal> directives:
+Several <literal>proxy_redirect</literal> directives
+can be specified on the same level:
 <example>
 proxy_redirect default;
 proxy_redirect http://localhost:8000/  /;
 proxy_redirect http://www.example.com/ /;
 </example>
-</para>
-
-<para>
-The <literal>off</literal> parameter cancels the effect of all
-<literal>proxy_redirect</literal> directives on the current level:
-<example>
-proxy_redirect off;
-proxy_redirect default;
-proxy_redirect http://localhost:8000/  /;
-proxy_redirect http://www.example.com/ /;
-</example>
+The <literal>off</literal> parameter cancels the effect
+of the <literal>proxy_redirect</literal> directives
+inherited from the previous configuration level.
 </para>
 
 <para>
