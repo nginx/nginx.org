@@ -20,8 +20,8 @@
 
     <div id="banner">
         <xsl:if test="@lang = 'he'"> <xsl:attribute name="class"> <xsl:text>ltr</xsl:text> </xsl:attribute> </xsl:if>
-        Add OWASP Top 10 security-as-a service to your app or website in 5 minutes with F5 Essential App Protect.<br/>
-        <a href="https://www.f5.com/products/ways-to-deploy/cloud-services/essential-app-protect-service?utm_medium=nginxorg&amp;utm_source=nginxorg&amp;utm_campaign=amer-sc_ateap">Try for free.</a>
+        Learn how to embed security in your DevOps pipeline, with technical tips and how-tos:<br/>
+        <a href="https://www.nginx.com/resources/library/web-application-security/?utm_medium=nginxorg&amp;utm_source=homepagehero&amp;utm_campaign=ww-nx_sec&amp;utm_content=eb">Free Ebook on Web Application Security.</a>
     </div>
 
     <div id="main">
