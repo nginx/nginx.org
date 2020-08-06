@@ -9,7 +9,7 @@
 <article name="Справочник"
         link="/ru/docs/njs/reference.html"
         lang="ru"
-        rev="1">
+        rev="50">
 
 <section id="summary">
 
@@ -278,7 +278,7 @@ r.rawHeadersIn.filter(v=>v[0].toLowerCase() == 'foo').map(v=>v[1])
 
 <para>
 <link doc="../dev/development_guide.xml.xml" id="http_subrequests">Подзапрос</link>
-использует входящиe заголовки клиентского запроса.
+использует входящие заголовки клиентского запроса.
 Для отправки на проксируемый сервер заголовков, отличных от оригинальных,
 может использоваться директива
 <link doc="../http/ngx_http_proxy_module.xml" id="proxy_set_header"/>.
@@ -306,6 +306,18 @@ r.rawHeadersIn.filter(v=>v[0].toLowerCase() == 'foo').map(v=>v[1])
 <tag-name><literal>method</literal></tag-name>
 <tag-desc>
 метод HTTP, по умолчанию используется метод <literal>GET</literal>
+</tag-desc>
+
+<tag-name><literal>detached</literal></tag-name>
+<tag-desc>
+логический флаг (<link doc="changes.xml" id="njs0.3.9">0.3.9</link>),
+если <literal>true</literal>,
+то создаваемый подзапрос является независимым подзапросом.
+Ответы на независимые подзапросы игнорируются.
+В отличие от обычных подзапросов независимый подзапрос
+можно создать внутри обработчика переменной.
+Флаг <literal>detached</literal> и аргумент <literal>callback</literal>
+являются взаимоисключающими.
 </tag-desc>
 
 </list>
@@ -411,7 +423,8 @@ r.rawHeadersIn.filter(v=>v[0].toLowerCase() == 'foo').map(v=>v[1])
 <tag-name id="s_on"><literal>s.on(<value>событие</value>,
 <value>callback</value>)</literal></tag-name>
 <tag-desc>
-регистрирует <literal>callback</literal> для указанного <literal>события</literal>
+регистрирует <literal>callback</literal>
+для указанного <literal>события</literal>
 (<link doc="changes.xml" id="njs0.2.4">0.2.4</link>).
 
 <para>
@@ -514,7 +527,6 @@ true, если буфер должен иметь флаг <literal>flush</liter
 (<link doc="changes.xml" id="njs0.3.3">0.3.3</link>).
 </para>
 
-
 <para>
 <list type="tag">
 
@@ -553,7 +565,7 @@ true, если буфер должен иметь флаг <literal>flush</liter
 </section>
 
 
-<section id="string" name="Строка">
+<section id="string" name="String">
 
 <para>
 В njs существует два типа строк: строка Unicode (по умолчанию) и
@@ -633,8 +645,8 @@ TypeError: argument must be a byte string
 иначе возвращается <literal>null</literal>.
 </tag-desc>
 
-<tag-name id="string_tobytes"><literal>String.prototype.toBytes(начало[,
-конец])</literal></tag-name>
+<tag-name id="string_tobytes"><literal>String.prototype.toBytes(<value>начало</value>[,
+<value>конец</value>])</literal></tag-name>
 <tag-desc>
 Сериализует строку Unicode в байтовую строку.
 Возвращает <literal>null</literal>, если в строке найден символ больше, чем 255.
@@ -675,6 +687,587 @@ TypeError: argument must be a byte string
 
 </list>
 </para>
+
+</section>
+
+
+<section id="njs_api_timers" name="Timers">
+
+<para>
+<list type="tag">
+
+<tag-name id="cleartimeout"><literal>clearTimeout(<value>timeout</value>)</literal></tag-name>
+<tag-desc>
+Отменяет объект <literal>timeout</literal>,
+созданный <link id="settimeout"><literal>setTimeout()</literal></link>.
+</tag-desc>
+
+<tag-name id="settimeout"><literal>setTimeout(<value>функция</value>,
+<value>миллисекунды</value>[,
+<value>аргумент1</value>,
+<value>аргументN</value>])</literal></tag-name>
+<tag-desc>
+Вызывает <literal>функцию</literal>
+по прошествии указанного количества <literal>миллисекунд</literal>.
+Указанной функции можно передать
+один или более необязательных <literal>аргументов</literal>.
+Возвращает объект <literal>timeout</literal>.
+<example>
+function handler(v)
+{
+    // ...
+}
+
+t = setTimeout(handler, 12);
+
+// ...
+
+clearTimeout(t);
+</example>
+</tag-desc>
+
+</list>
+</para>
+
+</section>
+
+</section>
+
+
+<section id="built-in" name="Встроенные модули">
+
+<section id="crypto" name="Crypto">
+
+<para>
+Модуль Crypto предоставляет поддержку криптографических функций.
+Объект модуля Crypto доступен через <literal>require('crypto')</literal>.
+</para>
+
+<para>
+<list type="tag">
+
+<tag-name id="crypto_createhash"><literal>crypto.createHash(<value>алгоритм</value>)</literal></tag-name>
+<tag-desc>
+Создаёт и возвращает объект <link id="crypto_hash">Hash</link>,
+который может использоваться для создания hash digests
+при помощи указанного <value>алгоритма</value>.
+Алгоритмом может быть
+<literal>md5</literal>,
+<literal>sha1</literal> и
+<literal>sha256</literal>.
+</tag-desc>
+
+<tag-name id="crypto_createhmac"><literal>crypto.createHmac(<value>алгоритм</value>,
+<value>секретный ключ</value>)</literal></tag-name>
+<tag-desc>
+Создаёт и возвращает объект <link id="crypto_hmac">HMAC</link>, который
+использует заданный <value>алгоритм</value> и <value>секретный ключ</value>.
+Алгоритм может быть
+<literal>md5</literal>,
+<literal>sha1</literal> и
+<literal>sha256</literal>.
+</tag-desc>
+
+</list>
+</para>
+
+
+<section id="crypto_hash" name="Hash">
+
+<para>
+<list type="tag">
+
+<tag-name><literal>hash.update(<value>данные</value>)</literal></tag-name>
+<tag-desc>
+Обновляет содержимое хэша с передаваемыми <value>данными</value>.
+</tag-desc>
+
+<tag-name><literal>hash.digest([<value>кодировка</value>])</literal></tag-name>
+<tag-desc>
+Подсчитывает дайджест всех данных, передаваемых при помощи
+<literal>hash.update()</literal>.
+Кодировка может быть
+<literal>hex</literal>,
+<literal>base64</literal> и
+<literal>base64url</literal>.
+Если кодировка не указана, то будет возвращена байтовая строка.
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+<example>
+>> var cr = require('crypto')
+undefined
+
+>> cr.createHash('sha1').update('A').update('B').digest('base64url')
+'BtlFlCqiamG-GMPiK_GbvKjdK10'
+</example>
+</para>
+
+</section>
+
+
+<section id="crypto_hmac" name="HMAC">
+
+<para>
+<list type="tag">
+
+<tag-name><literal>hmac.update(<value>данные</value>)</literal></tag-name>
+<tag-desc>
+Обновляет содержимое HMAC с передаваемыми <value>данными</value>.
+</tag-desc>
+
+<tag-name><literal>hmac.digest([<value>кодировка</value>])</literal></tag-name>
+<tag-desc>
+Подсчитывает HMAC-дайджест всех данных, передаваемых при помощи
+<literal>hmac.update()</literal>.
+Кодировка может быть
+<literal>hex</literal>,
+<literal>base64</literal> и
+<literal>base64url</literal>.
+Если кодировка не указана, то будет возвращена байтовая строка.
+</tag-desc>
+</list>
+</para>
+
+<para>
+<example>
+>> var cr = require('crypto')
+undefined
+
+>> cr.createHmac('sha1', 'secret.key').update('AB').digest('base64url')
+'Oglm93xn23_MkiaEq_e9u8zk374'
+</example>
+</para>
+
+</section>
+
+</section>
+
+
+<section id="njs_api_fs" name="File System">
+
+<para>
+Модуль File System предоставляет набор функций для операций с файлами.
+</para>
+
+<para>
+Объект модуля доступен через <literal>require('fs')</literal>.
+Начиная с версии <link doc="changes.xml" id="njs0.3.9">0.3.9</link>
+доступны промисифицированные версии методов file system через
+объект <literal>require('fs').promises</literal>:
+<example>
+> var fs = require('fs').promises;
+undefined
+> fs.readFile("/file/path").then((data)=>console.log(data))
+&lt;file data&gt;
+</example>
+<list type="tag">
+
+<tag-name id="fs_accesssync"><literal>accessSync(<value>путь</value>[,
+<value>mode</value>])</literal></tag-name>
+<tag-desc>
+Синхронно проверяет разрешения для файла или каталога,
+указанного в <literal>пути</literal>
+(<link doc="changes.xml" id="njs0.3.9">0.3.9</link>).
+Если проверка не удалась, то будет возвращена ошибка,
+в противном случае метод возвратит undefined.
+<list type="tag">
+
+<tag-name><literal>mode</literal></tag-name>
+<tag-desc>
+По умолчанию
+<link id="access_const"><literal>fs.constants.F_OK</literal></link>.
+Является необязательным числом,
+которое задаёт выполнение проверок доступа.
+<example>
+try {
+    fs.accessSync('/file/path', fs.constants.R_OK | fs.constants.W_OK);
+    console.log('has access');
+} catch (e) {
+    console.log('no access');)
+}
+</example>
+</tag-desc>
+
+</list>
+</tag-desc>
+
+<tag-name id="fs_appendfilesync"><literal>appendFileSync(<value>имяФайла</value>,
+<value>данные</value>[, <value>options</value>])</literal></tag-name>
+<tag-desc>
+Синхронно добавляет указанные <literal>данные</literal>
+в файл с указанным <literal>именем</literal>.
+Если файл не существует, то он будет создан.
+Параметр <literal>options</literal> должен быть
+объектом со следующими ключами:
+<list type="tag">
+
+<tag-name><literal>режим</literal></tag-name>
+<tag-desc>
+режим, по умолчанию <literal>0o666</literal>
+</tag-desc>
+
+<tag-name><literal>флаг</literal></tag-name>
+<tag-desc>
+<link id="njs_api_fs_flags">флаг</link> файловой системы,
+по умолчанию <literal>a</literal>
+</tag-desc>
+
+</list>
+</tag-desc>
+
+<tag-name id="fs_mkdirsync"><literal>mkdirSync(<value>путь</value>[,
+<value>options</value>])</literal></tag-name>
+<tag-desc>
+Синхронно создаёт каталог по указанному <literal>пути</literal>
+(<link doc="changes.xml" id="njs0.4.2">0.4.2</link>).
+Параметр <literal>options</literal> должен быть
+<literal>числом</literal>, которое задаёт
+<link id="fs_mkdirsync_mode">режим</link>,
+или объектом с ключами:
+<list type="tag">
+
+<tag-name id="fs_mkdirsync_mode"><literal>режим</literal></tag-name>
+<tag-desc>
+режим, по умолчанию <literal>0o777</literal>.
+</tag-desc>
+
+</list>
+</tag-desc>
+
+<tag-name id="fs_readdirsync"><literal>readdirSync(<value>путь</value>[,
+<value>options</value>])</literal></tag-name>
+<tag-desc>
+Синхронно читает содержимое каталога
+по указанному <literal>пути</literal>
+(<link doc="changes.xml" id="njs0.4.2">0.4.2</link>).
+Параметр <literal>options</literal> должен быть
+строкой, определяющей <link id="fs_readdirsync_encoding">кодировку</link>
+или объектом с ключами:
+<list type="tag">
+
+<tag-name id="fs_readdirsync_encoding"><literal>кодировка</literal></tag-name>
+<tag-desc>
+кодировка, по умолчанию не указана.
+Кодировка может быть <literal>utf8</literal>.
+</tag-desc>
+
+<tag-name id="fs_readdirsync_withfiletypes"><literal>withFileTypes</literal></tag-name>
+<tag-desc>
+если <literal>true</literal>, то массив файлов будет содержать
+объекты <link id="fs_dirent"><literal>fs.Dirent</literal></link>,
+по умолчанию <literal>false</literal>.
+</tag-desc>
+
+</list>
+</tag-desc>
+
+<tag-name id="fs_readfilesync"><literal>readFileSync(<value>имяФайла</value>[,
+<value>options</value>])</literal></tag-name>
+<tag-desc>
+Синхронно возвращает содержимое файла
+с указанным <literal>именем</literal>.
+Параметр <literal>options</literal> хранит
+<literal>строку</literal>, которая задаёт кодировку.
+Если кодировка не указана,
+то будет возвращена <link id="string_tobytes">байтовая строка</link>.
+Если указана кодировка <literal>utf8</literal>,
+то будет возвращена строка Unicode.
+Иначе ожидается, что <literal>options</literal> является
+объектом с ключами:
+<list type="tag">
+
+<tag-name><literal>кодировка</literal></tag-name>
+<tag-desc>
+кодировка, по умолчанию не указана.
+Кодировка может быть <literal>utf8</literal>
+</tag-desc>
+
+<tag-name><literal>флаг</literal></tag-name>
+<tag-desc>
+<link id="njs_api_fs_flags">флаг</link> файловой системы,
+по умолчанию <literal>r</literal>
+</tag-desc>
+
+</list>
+<example>
+>> var fs = require('fs')
+undefined
+>> var file = fs.readFileSync('/file/path.tar.gz')
+undefined
+>> var gzipped = /^\x1f\x8b/.test(file); gzipped
+true
+</example>
+</tag-desc>
+
+<tag-name id="fs_realpathsync"><literal>realpathSync(<value>путь</value>[,
+<value>options</value>])</literal></tag-name>
+<tag-desc>
+Синхронно вычисляет канонический путь при помощи преобразования
+<literal>.</literal>, <literal>..</literal> и символических ссылок используя
+<link url="http://man7.org/linux/man-pages/man3/realpath.3.html">realpath(3)</link>.
+Аргумент <literal>options</literal> может быть строкой, определяющей кодировку,
+или объектом со свойством encoding, определяющим символьную кодировку,
+которая используется для передачи пути обратному вызову
+(<link doc="changes.xml" id="njs0.3.9">0.3.9</link>).
+</tag-desc>
+
+<tag-name id="fs_renamesync"><literal>renameSync(<value>старыйПуть</value>,
+<value>новыйПуть</value>)</literal></tag-name>
+<tag-desc>
+Синхронно меняет имя или местоположение файла.
+(<link doc="changes.xml" id="njs0.3.4">0.3.4</link>).
+<example>
+>> var fs = require('fs')
+undefined
+>> var file = fs.renameSync('hello.txt', 'HelloWorld.txt')
+undefined
+</example>
+</tag-desc>
+
+<tag-name id="fs_rmdirsync"><literal>rmdirSync(<value>путь</value>)</literal></tag-name>
+<tag-desc>
+Синхронно удаляет каталог по указанному <literal>пути</literal>
+(<link doc="changes.xml" id="njs0.4.2">0.4.2</link>).
+</tag-desc>
+
+<tag-name id="fs_symlinksync"><literal>symlinkSync(<value>цель</value>,
+<value>path</value>)</literal></tag-name>
+<tag-desc>
+Синхронно создаёт ссылку с именем <literal>путь</literal>,
+указывающую на <literal>цель</literal> при помощи
+<link url="http://man7.org/linux/man-pages/man2/symlink.2.html">symlink(2)</link>
+(<link doc="changes.xml" id="njs0.3.9">0.3.9</link>).
+Относительные цели считаются относительно корневого каталога ссылки.
+</tag-desc>
+
+<tag-name id="fs_unlinksync"><literal>unlinkSync(<value>путь</value>)</literal></tag-name>
+<tag-desc>
+Синхронно удаляет файл по указанному <literal>пути</literal>
+(<link doc="changes.xml" id="njs0.3.9">0.3.9</link>).
+</tag-desc>
+
+<tag-name id="fs_writefilesync"><literal>writeFileSync(<value>имяФайла</value>,
+<value>данные</value>[,
+<value>options</value>])</literal></tag-name>
+<tag-desc>
+Синхронно записывает <literal>данные</literal> в файл
+с указанным <literal>именем</literal>.
+Если файл не существует, то он будет создан.
+Если файл существует, то он будет заменён.
+Параметр <literal>options</literal> должен быть
+объектом с ключами:
+<list type="tag">
+<tag-name><literal>режим</literal></tag-name>
+<tag-desc>
+режим, по умолчанию <literal>0o666</literal>
+</tag-desc>
+
+<tag-name><literal>флаг</literal></tag-name>
+<tag-desc>
+<link id="njs_api_fs_flags">флаг</link> файловой системы,
+по умолчанию <literal>w</literal>
+</tag-desc>
+
+</list>
+<example>
+>> var fs = require('fs')
+undefined
+>> var file = fs.writeFileSync('hello.txt', 'Hello world')
+undefined
+</example>
+</tag-desc>
+
+</list>
+</para>
+
+
+<section id="fs_dirent" name="fs.Dirent">
+
+<para>
+<literal>fs.Dirent</literal> является представлением записи каталога&mdash;
+файлом или подкаталогом .
+В случае, если
+<link id="fs_readdirsync"><literal>readdirSync()</literal></link>
+вызывается с опцией
+<link id="fs_readdirsync_withfiletypes"><literal>withFileTypes</literal></link>
+получившийся массив содержит объекты <literal>fs.Dirent</literal>.
+
+<list type= "bullet" compact="no">
+
+<listitem>
+<literal>dirent.isBlockDevice()</literal>&mdash;возвращает
+<literal>true</literal>, если объект <literal>fs.Dirent</literal> описывает
+блочное устройство
+</listitem>
+
+<listitem>
+<literal>dirent.isCharacterDevice()</literal>&mdash;возвращает
+<literal>true</literal>, если объект <literal>fs.Dirent</literal> описывает
+символьное устройство.
+</listitem>
+
+<listitem>
+<literal>dirent.isDirectory()</literal>&mdash;возвращает
+<literal>true</literal>, если объект <literal>fs.Dirent</literal> описывает
+каталог файловой системы.
+</listitem>
+
+<listitem>
+<literal>dirent.isFIFO()</literal>&mdash;возвращает
+<literal>true</literal>, если объект <literal>fs.Dirent</literal> описывает
+FIFO-канал.
+</listitem>
+
+<listitem>
+<literal>dirent.isFile()</literal>&mdash;возвращает
+<literal>true</literal>, если объект <literal>fs.Dirent</literal> описывает
+обычный файл.
+</listitem>
+
+<listitem>
+<literal>dirent.isSocket()</literal>&mdash;возвращает
+<literal>true</literal>, если объект <literal>fs.Dirent</literal> описывает
+сокет.
+</listitem>
+
+<listitem>
+<literal>dirent.isSymbolicLink()</literal>&mdash;возвращает
+<literal>true</literal>, если объект <literal>fs.Dirent</literal> описывает
+символическую ссылку.
+</listitem>
+
+<listitem>
+<literal>dirent.name</literal>&mdash;
+имя файла, на которое ссылается объект <literal>fs.Dirent</literal>.
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+
+<section id="access_const" name="Константы доступа к файлу">
+
+<para>
+Метод <link id="fs_accesssync"><literal>access()</literal></link>
+может принимать следующие флаги.
+Флаги экспортируются при помощи <literal>fs.constants</literal>:
+
+<list type= "bullet" compact="no">
+
+<listitem>
+<literal>F_OK</literal>&mdash;указывает, что файл может
+быть видимым для для вызывающего процесса,
+используется по умолчанию, если режим не указан
+</listitem>
+
+<listitem>
+<literal>R_OK</literal>&mdash;указывает, что файл может
+читаться вызывающим процессом
+</listitem>
+
+<listitem>
+<literal>W_OK</literal>&mdash;указывает, что файл может
+записываться вызывающим процессом
+</listitem>
+
+<listitem>
+<literal>X_OK</literal>&mdash;указывает, что файл может
+выполняться вызывающим процессом
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+
+<section id="njs_api_fs_flags" name="Флаги файловой системы">
+
+<para>
+Опция <literal>флаг</literal> может принимать следующие значения:
+
+<list type= "bullet" compact="no">
+
+<listitem>
+<literal>a</literal>&mdash;открытие файла для добавления данных.
+Если файл не существует, то он будет создан
+</listitem>
+
+<listitem>
+<literal>ax</literal>&mdash;то же, что и <literal>a</literal>,
+но завершится неудачей, если файл существует
+</listitem>
+
+<listitem>
+<literal>a+</literal>&mdash;открытие файла для чтения и добавления данных.
+Если файл не существует, то он будет создан
+</listitem>
+
+<listitem>
+<literal>ax+</literal>&mdash;то же, что и <literal>a+</literal>,
+но завершится неудачей, если файл существует
+</listitem>
+
+<listitem>
+<literal>as</literal>&mdash;открытие файла для добавления данных
+в синхронном режиме.
+Если файл не существует, то он будет создан
+</listitem>
+
+<listitem>
+<literal>as+</literal>&mdash;открытие файла для чтения и добавления данных
+в синхронном режиме.
+Если файл не существует, то он будет создан
+</listitem>
+
+<listitem>
+<literal>r</literal>&mdash; открытие файла для чтения.
+Если файл не существует, то возникнет исключение
+</listitem>
+
+<listitem>
+<literal>r+</literal>&mdash;открытие файла для чтения и записи.
+Если файл не существует, то возникнет исключение
+</listitem>
+
+<listitem>
+<literal>rs+</literal>&mdash;открытие файла для чтения и записи
+в синхронном режиме.
+Указывает операционной системе не использовать кэш локальной файловой системы
+</listitem>
+
+<listitem>
+<literal>w</literal>&mdash;открытие файла для записи.
+Если файл не существует, то он будет создан.
+Если файл существует, то он будет заменён.
+</listitem>
+
+<listitem>
+<literal>wx</literal>&mdash;то же, что и <literal>w</literal>,
+но завершится неудачей, если файл существует
+</listitem>
+
+<listitem>
+<literal>w+</literal>&mdash;открытие файла для чтения и записи.
+Если файл не существует, то он будет создан.
+Если файл существует, то он будет заменён.
+</listitem>
+
+<listitem>
+<literal>wx+</literal>&mdash;то же, что и <literal>w+</literal>,
+но завершится неудачей, если файл существует
+</listitem>
+
+</list>
+</para>
+
+</section>
 
 </section>
 
