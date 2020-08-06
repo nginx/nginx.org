@@ -112,6 +112,7 @@ REFS =									\
 		njs/examples						\
 		njs/install						\
 		njs/reference						\
+		njs/node_modules					\
 		njs/typescript						\
 
 TOP =									\
