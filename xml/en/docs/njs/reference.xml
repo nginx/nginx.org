@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="49">
+        rev="50">
 
 <section id="summary">
 
@@ -316,7 +316,8 @@ if <literal>true</literal>, the created subrequest is a detached subrequest.
 Responses to detached subrequests are ignored.
 Unlike ordinary subrequests, a detached subrequest
 can be created inside a variable handler.
-The detached flag and callback argument are mutually exclusive.
+The <literal>detached</literal> flag and callback argument
+are mutually exclusive.
 </tag-desc>
 
 </list>
@@ -346,8 +347,8 @@ read-only
 
 <tag-name id="r_variables"><literal>r.variables{}</literal></tag-name>
 <tag-desc>
-nginx variables object,
-writable (since <link doc="changes.xml" id="njs0.2.8">0.2.8</link>)
+nginx variables object, writable
+(since <link doc="changes.xml" id="njs0.2.8">0.2.8</link>)
 </tag-desc>
 
 <tag-name id="r_warn"><literal>r.warn(<value>string</value>)</literal></tag-name>
@@ -420,7 +421,8 @@ unregisters the callback set by the <link id="s_on">s.on()</link> method
 <tag-name id="s_on"><literal>s.on(<value>event</value>,
 <value>callback</value>)</literal></tag-name>
 <tag-desc>
-registers a <literal>callback</literal> for the specified <literal>event</literal>
+registers a <literal>callback</literal>
+for the specified <literal>event</literal>
 (<link doc="changes.xml" id="njs0.2.4">0.2.4</link>).
 
 <para>
@@ -467,18 +469,20 @@ sends the data to the client
 (<link doc="changes.xml" id="njs0.2.4">0.2.4</link>).
 The <literal>options</literal> is an object used
 to override nginx buffer flags derived from an incoming data chunk buffer.
-The flags can be overriden with the following flags:
+The flags can be overridden with the following flags:
 <para>
 <list type="tag">
 
 <tag-name><literal>last</literal></tag-name>
 <tag-desc>
-boolean, true if the buffer is the last buffer
+boolean,
+true if the buffer is the last buffer
 </tag-desc>
 
 <tag-name><literal>flush</literal></tag-name>
 <tag-desc>
-boolean, true if the buffer should have the <literal>flush</literal> flag
+boolean,
+true if the buffer should have the <literal>flush</literal> flag
 </tag-desc>
 </list>
 </para>
@@ -518,7 +522,6 @@ The <literal>process</literal> object is a global object
 that provides information about the current process
 (<link doc="changes.xml" id="njs0.3.3">0.3.3</link>).
 </para>
-
 
 <para>
 <list type="tag">
@@ -638,8 +641,8 @@ into a Unicode string,
 otherwise <literal>null</literal> is returned.
 </tag-desc>
 
-<tag-name id="string_tobytes"><literal>String.prototype.toBytes(start[,
-end])</literal></tag-name>
+<tag-name id="string_tobytes"><literal>String.prototype.toBytes(<value>start</value>[,
+<value>end</value>])</literal></tag-name>
 <tag-desc>
 Serializes a Unicode string to a byte string.
 Returns <literal>null</literal> if a character larger than 255 is
@@ -688,17 +691,18 @@ to a byte string using UTF8 encoding.
 <section id="njs_api_timers" name="Timers">
 
 <para>
-
 <list type="tag">
 
 <tag-name id="cleartimeout"><literal>clearTimeout(<value>timeout</value>)</literal></tag-name>
 <tag-desc>
 Cancels a <literal>timeout</literal> object
-created by <link id="settimeout">setTimeout()</link>.
+created by <link id="settimeout"><literal>setTimeout()</literal></link>.
 </tag-desc>
 
 <tag-name id="settimeout"><literal>setTimeout(<value>function</value>,
-<value>ms</value>[, <value>arg1</value>, <value>argN</value>])</literal></tag-name>
+<value>milliseconds</value>[,
+<value>argument1</value>,
+<value>argumentN</value>])</literal></tag-name>
 <tag-desc>
 Calls a <literal>function</literal>
 after a specified number of <literal>milliseconds</literal>.
@@ -754,8 +758,8 @@ The algorithm can be
 <tag-name id="crypto_createhmac"><literal>crypto.createHmac(<value>algorithm</value>,
 <value>secret key</value>)</literal></tag-name>
 <tag-desc>
-Creates and returns an <link id="crypto_hmac">HMAC</link> object
-that uses the given <value>algorithm</value> and <value>secret key</value>.
+Creates and returns an <link id="crypto_hmac">HMAC</link> object that uses
+the given <value>algorithm</value> and <value>secret key</value>.
 The algorithm can be
 <literal>md5</literal>,
 <literal>sha1</literal>, and
@@ -1203,12 +1207,13 @@ If the file does not exist, it will be created
 </listitem>
 
 <listitem>
-<literal>ax+</literal>&mdash;the same as  <literal>a+</literal>
+<literal>ax+</literal>&mdash;the same as <literal>a+</literal>
 but fails if the file already exists
 </listitem>
 
 <listitem>
-<literal>as</literal>&mdash;open a file for appending in synchronous mode.
+<literal>as</literal>&mdash;open a file for appending
+in synchronous mode.
 If the file does not exist, it will be created
 </listitem>
 
