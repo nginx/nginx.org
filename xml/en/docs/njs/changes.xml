@@ -9,8 +9,104 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="35"
+        rev="36"
         toc="no">
+
+<section id="njs0.4.3" name="Changes with njs 0.4.3">
+
+<para>
+Release Date:
+11 August 2020
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+added
+<link doc="reference.xml" id="querystring"><literal>Query String</literal></link>
+module.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+improved
+<link doc="reference.xml" id="fs_mkdirsync"><literal>fs.mkdir()</literal></link>
+to support recursive directory creation.
+Thanks to Artem S. Povalyukhin.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+improved
+<link doc="reference.xml" id="fs_rmdirsync"><literal>fs.rmdir()</literal></link>
+to support recursive directory removal.
+Thanks to Artem S. Povalyukhin.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+introduced UTF-8 decoder according to
+<link url="https://encoding.spec.whatwg.org/">WHATWG</link> encoding spec.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added TextEncoder/TextDecoder implementation.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed parsing return statement without semicolon.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>njs_number_to_int32()</literal> for big-endian platforms.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed unit test on big-endian platforms.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed regexp-literals parsing with “<literal>=</literal>” characters.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed pre/post increment/decrement in assignment operations.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.4.2" name="Changes with njs 0.4.2">
 

@@ -9,7 +9,7 @@
 <article name="Совместимость"
         link="/ru/docs/njs/compatibility.html"
         lang="ru"
-        rev="25"
+        rev="26"
         toc="no">
 
 <section>
@@ -39,7 +39,7 @@ ECMAScript</link>.
 <section id="supported" name="Готовая функциональность">
 
 <para>
-<list type="bullet">
+<list type="bullet" compact="no">
 
 <listitem>
 Логические значения, числа, строки, объекты, массивы,
@@ -576,7 +576,7 @@ ES5.1:
 </listitem>
 
 <listitem>
-Методы <link doc="reference.xml" id="core_json"><literal>JSON</literal></link>:
+Методы <literal>JSON</literal>:
 <list type="bullet">
 
 <listitem>
@@ -650,7 +650,7 @@ ES5.1 global functions:
 (<link doc="changes.xml" id="njs0.3.9">0.3.9</link>),
 <link doc="reference.xml" id="fs_unlinksync"><literal>fs.unlinkSync</literal></link>
 (<link doc="changes.xml" id="njs0.3.9">0.3.9</link>),
-<link doc="reference.xml" id="writefilesync"><literal>fs.writeFileSync</literal></link>
+<link doc="reference.xml" id="fs_writefilesync"><literal>fs.writeFileSync</literal></link>
 </listitem>
 
 <listitem>
@@ -663,6 +663,17 @@ ES5.1 global functions:
 (<link doc="changes.xml" id="njs0.2.0">0.2.0</link>):
 <link doc="reference.xml" id="crypto_createhash"><literal>crypto.createHash</literal></link>,
 <link doc="reference.xml" id="crypto_createhmac"><literal>crypto.createHmac</literal></link>
+</listitem>
+
+<listitem id="querysting">
+Методы <literal>Query String</literal>
+(<link doc="changes.xml" id="njs0.4.3">0.4.3</link>):
+<link doc="reference.xml" id="querystring_decode"><literal>querystring.decode</literal></link>,
+<link doc="reference.xml" id="querystring_encode"><literal>querystring.encode</literal></link>,
+<link doc="reference.xml" id="querystring_escape"><literal>querystring.escape</literal></link>,
+<link doc="reference.xml" id="querystring_parse"><literal>querystring.parse</literal></link>,
+<link doc="reference.xml" id="querystring_stringify"><literal>querystring.stringify</literal></link>,
+<link doc="reference.xml" id="querystring_unescape"><literal>querystring.unescape</literal></link>
 </listitem>
 
 <listitem>

@@ -9,7 +9,7 @@
 <article name="Compatibility"
         link="/en/docs/njs/compatibility.html"
         lang="en"
-        rev="25"
+        rev="26"
         toc="no">
 
 <section>
@@ -43,7 +43,7 @@ specification</link>.
 <section id="supported" name="What is currently supported">
 
 <para>
-<list type="bullet">
+<list type="bullet" compact="no">
 
 <listitem>
 Boolean values, numbers, strings, objects, arrays,
@@ -654,7 +654,7 @@ functions
 (<link doc="changes.xml" id="njs0.3.9">0.3.9</link>),
 <link doc="reference.xml" id="fs_unlinksync"><literal>fs.unlinkSync</literal></link>
 (<link doc="changes.xml" id="njs0.3.9">0.3.9</link>),
-<link doc="reference.xml" id="writefilesync"><literal>fs.writeFileSync</literal></link>
+<link doc="reference.xml" id="fs_writefilesync"><literal>fs.writeFileSync</literal></link>
 </listitem>
 
 <listitem>
@@ -667,6 +667,17 @@ asynchronous version of file system methods.
 (<link doc="changes.xml" id="njs0.2.0">0.2.0</link>):
 <link doc="reference.xml" id="crypto_createhash"><literal>crypto.createHash</literal></link>,
 <link doc="reference.xml" id="crypto_createhmac"><literal>crypto.createHmac</literal></link>
+</listitem>
+
+<listitem id="querysting">
+<literal>Query String</literal> methods
+(<link doc="changes.xml" id="njs0.4.3">0.4.3</link>):
+<link doc="reference.xml" id="querystring_decode"><literal>querystring.decode</literal></link>,
+<link doc="reference.xml" id="querystring_encode"><literal>querystring.encode</literal></link>,
+<link doc="reference.xml" id="querystring_escape"><literal>querystring.escape</literal></link>,
+<link doc="reference.xml" id="querystring_parse"><literal>querystring.parse</literal></link>,
+<link doc="reference.xml" id="querystring_stringify"><literal>querystring.stringify</literal></link>,
+<link doc="reference.xml" id="querystring_unescape"><literal>querystring.unescape</literal></link>
 </listitem>
 
 <listitem>
