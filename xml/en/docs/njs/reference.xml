@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="50">
+        rev="51">
 
 <section id="summary">
 
@@ -590,20 +590,6 @@ otherwise, <literal>null</literal> is returned:
 >> '£'.toBytes().toString('hex')
 'a3'  /* a3 is a byte equal to 00A3 ('£') code point  */
 </example>
-Only byte strings can be converted to different encodings.
-For example, a string cannot be encoded to <literal>hex</literal> directly:
-<example>
->> 'αβγδ'.toString('base64')
-TypeError: argument must be a byte string
-    at String.prototype.toString (native)
-    at main (native)
-</example>
-To convert a Unicode string to hex,
-first, it should be converted to a byte string and then to hex:
-<example>
->> 'αβγδ'.toUTF8().toString('base64')
-'zrHOss6zzrQ='
-</example>
 
 <list type="tag">
 
@@ -649,24 +635,24 @@ Returns <literal>null</literal> if a character larger than 255 is
 found in the string.
 </tag-desc>
 
-<tag-name id="string_tostring"><literal>String.prototype.toString([<value>encoding</value>])</literal></tag-name>
+<tag-name id="string_tostring"><literal>String.prototype.toString(<value>encoding</value>)</literal></tag-name>
 <tag-desc>
 <para>
-If no <literal>encoding</literal> is specified,
-returns a specified Unicode string or byte string as in ECMAScript.
-</para>
-
-<para>
-If <literal>encoding</literal> is specified,
-encodes a <link id="string_tobytes">byte string</link> to
+Encodes a string to
 <literal>hex</literal>,
 <literal>base64</literal>, or
-<literal>base64url</literal>.
-</para>
+<literal>base64url</literal>:
+<example>
+>>  'αβγδ'.toString('base64url')
+'zrHOss6zzrQ'
+</example>
+Before version <link doc="changes.xml" id="njs0.4.3">0.4.3</link>,
+only a <link id="string_tobytes">byte string</link> could be encoded:
 <example>
 >>  'αβγδ'.toUTF8().toString('base64url')
 'zrHOss6zzrQ'
 </example>
+</para>
 </tag-desc>
 
 <tag-name id="string_toutf8"><literal>String.prototype.toUTF8(<value>start</value>[,
