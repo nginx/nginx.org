@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="51">
+        rev="52">
 
 <section id="summary">
 
@@ -1251,6 +1251,182 @@ but fails if the file already exists
 </para>
 
 </section>
+
+</section>
+
+
+<section id="querystring" name="Query String">
+
+<para>
+The Query String module provides support
+for parsing and formatting URL query strings
+(<link doc="changes.xml" id="njs0.4.3">0.4.3</link>).
+The Query String module object is returned by
+<literal>require('querystring')</literal>.
+</para>
+
+<para>
+<list type="tag">
+
+<tag-name id="querystring_decode"><literal>querystring.decode()</literal></tag-name>
+<tag-desc>
+is an alias for
+<link id="querystring_parse"><literal>querystring.parse()</literal></link>.
+</tag-desc>
+
+<tag-name id="querystring_encode"><literal>querystring.encode()</literal></tag-name>
+<tag-desc>
+is an alias for
+<link id="querystring_stringify"><literal>querystring.stringify()</literal></link>.
+</tag-desc>
+
+<tag-name id="querystring_escape"><literal>querystring.escape(<value>string</value>)</literal></tag-name>
+<tag-desc>
+<para>
+Performs URL encoding of the given <literal>string</literal>,
+returns an escaped query string.
+The method is used by
+<link id="querystring_stringify"><literal>querystring.stringify()</literal></link>
+and should not be used directly.
+</para>
+</tag-desc>
+
+<tag-name id="querystring_parse"><literal>querystring.parse(<value>string</value>[,
+<value>separator</value>[,
+<value>equal</value>[,
+<value>options</value>]]])</literal></tag-name>
+<tag-desc>
+<para>
+Parses the query string URL and returns an object.
+</para>
+
+<para>
+The <literal>separator</literal> parameter is a substring
+for delimiting key and value pairs in the query string,
+by default is “<literal>&amp;</literal>”.
+</para>
+
+<para>
+The <literal>equal</literal> parameter is a substring
+for delimiting keys and values in the query string,
+by default is “<literal>=</literal>”.
+</para>
+
+<para>
+The <literal>options</literal> parameter is expected to be
+an object with the following keys:
+<list type="tag">
+<tag-name><literal>decodeURIComponent</literal>
+<value>function</value></tag-name>
+<tag-desc>
+Function used
+to decode percent-encoded characters in the query string,
+by default is
+<link id="querystring_unescape"><literal>querystring.unescape()</literal></link>
+</tag-desc>
+
+<tag-name><literal>maxKeys</literal>
+<value>number</value></tag-name>
+<tag-desc>
+the maximum number of keys to parse,
+by default is <literal>1000</literal>.
+The <literal>0</literal> value removes limitations for counting keys.
+</tag-desc>
+
+</list>
+By default, percent-encoded characters within the query string are assumed
+to use the UTF-8 encoding,
+invalid UTF-8 sequences will be replaced with
+the <literal>U+FFFD</literal> replacement character.
+</para>
+
+<para>
+For example, for the following query string
+<example>
+'foo=bar&amp;abc=xyz&amp;abc=123'
+</example>
+the output will be:
+<example>
+{
+  foo: 'bar',
+  abc: ['xyz', '123']
+}
+</example>
+</para>
+
+</tag-desc>
+
+<tag-name id="querystring_stringify"><literal>querystring.stringify(<value>object</value>[,
+<value>separator</value>[,
+<value>equal</value>[,
+<value>options</value>]]])</literal></tag-name>
+<tag-desc>
+<para>
+Serializes an object and returns a URL query string.
+</para>
+
+<para>
+The <literal>separator</literal> parameter is a substring
+for delimiting key and value pairs in the query string,
+by default is “<literal>&amp;</literal>”.
+</para>
+
+<para>
+The <literal>equal</literal> parameter is a substring
+for delimiting keys and values in the query string,
+by default is “<literal>=</literal>”.
+</para>
+
+<para>
+The <literal>options</literal> parameter is expected to be
+an object with the following keys:
+<list type="tag">
+<tag-name><literal>encodeURIComponent</literal>
+<value>function</value></tag-name>
+<tag-desc>
+The function to use when converting
+URL-unsafe characters to percent-encoding in the query string,
+by default is
+<link id="querystring_escape"><literal>querystring.escape()</literal></link>.
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+By default, characters that require percent-encoding within the query string
+are encoded as UTF-8.
+If other encoding is required, then
+<literal>encodeURIComponent</literal> option should be specified.
+</para>
+
+<para>
+For example, for the following command
+<example>
+querystring.stringify({ foo: 'bar', baz: ['qux', 'quux'], 123: '' });
+</example>
+the query string will be:
+<example>
+'foo=bar&amp;baz=qux&amp;baz=quux&amp;123='
+</example>
+</para>
+
+</tag-desc>
+
+<tag-name id="querystring_unescape"><literal>querystring.unescape(<value>string</value>)</literal></tag-name>
+<tag-desc>
+<para>
+Performs decoding of URL percent-encoded characters
+of the <literal>string</literal>,
+returns an unescaped query string.
+The method is used by
+<link id="querystring_parse"><literal>querystring.parse()</literal></link>
+and should not be used directly.
+</para>
+</tag-desc>
+
+</list>
+</para>
 
 </section>
 

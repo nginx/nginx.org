@@ -9,7 +9,7 @@
 <article name="Справочник"
         link="/ru/docs/njs/reference.html"
         lang="ru"
-        rev="51">
+        rev="52">
 
 <section id="summary">
 
@@ -1254,6 +1254,182 @@ FIFO-канал.
 </para>
 
 </section>
+
+</section>
+
+
+<section id="querystring" name="Query String">
+
+<para>
+Модуль Query String предоставляет поддержку
+синтаксического разбора и форматирования строки запроса URL.
+(<link doc="changes.xml" id="njs0.4.3">0.4.3</link>).
+Объект модуля Query String доступен через
+<literal>require('querystring')</literal>.
+</para>
+
+<para>
+<list type="tag">
+
+<tag-name id="querystring_decode"><literal>querystring.decode()</literal></tag-name>
+<tag-desc>
+является псевдонимом для
+<link id="querystring_parse"><literal>querystring.parse()</literal></link>.
+</tag-desc>
+
+<tag-name id="querystring_encode"><literal>querystring.encode()</literal></tag-name>
+<tag-desc>
+является псевдонимом для
+<link id="querystring_stringify"><literal>querystring.stringify()</literal></link>.
+</tag-desc>
+
+<tag-name id="querystring_escape"><literal>querystring.escape(<value>строка</value>)</literal></tag-name>
+<tag-desc>
+<para>
+Кодирует заданную <literal>строку</literal>,
+возвращает экранированную строку.
+Метод используется методом
+<link id="querystring_stringify"><literal>querystring.stringify()</literal></link>
+и не должен использоваться напрямую.
+</para>
+</tag-desc>
+
+<tag-name id="querystring_parse"><literal>querystring.parse(<value>строка</value>[,
+<value>separator</value>[,
+<value>equal</value>[,
+<value>options</value>]]])</literal></tag-name>
+<tag-desc>
+<para>
+Осуществляет синтаксический разбор строки запроса и возвращает объект.
+</para>
+
+<para>
+Параметр <literal>separator</literal> является подстрокой,
+разделяющей в строке запроса пары ключей и значений,
+по умолчанию “<literal>&amp;</literal>”.
+</para>
+
+<para>
+Параметр <literal>equal</literal>  является подстрокой,
+разделяющей в строке запроса ключи и значения,
+по умолчанию “<literal>=</literal>”.
+</para>
+
+<para>
+Параметр <literal>options</literal> должен быть
+объектом со следующими ключами:
+<list type="tag">
+<tag-name><literal>decodeURIComponent</literal>
+<value>функция</value></tag-name>
+<tag-desc>
+Функция, используемая
+при декодировании процентно-кодированных символов в строке запроса,
+по умолчанию
+<link id="querystring_unescape"><literal>querystring.unescape()</literal></link>
+</tag-desc>
+
+<tag-name><literal>maxKeys</literal>
+<value>число</value></tag-name>
+<tag-desc>
+максимальное число ключей для синтаксического разбора,
+по умолчанию <literal>1000</literal>.
+Значение <literal>0</literal> удаляет ограничение на подсчёт ключей.
+</tag-desc>
+
+</list>
+По умолчанию предполагается, что процентно-кодированные символы в строке запроса
+используют кодировку UTF-8,
+неверная последовательность байтов UTF-8 будет заменена на
+<literal>U+FFFD</literal>.
+</para>
+
+<para>
+Пример для строки запроса:
+<example>
+'foo=bar&amp;abc=xyz&amp;abc=123'
+</example>
+результат:
+<example>
+{
+  foo: 'bar',
+  abc: ['xyz', '123']
+}
+</example>
+</para>
+
+</tag-desc>
+
+<tag-name id="querystring_stringify"><literal>querystring.stringify(<value>object</value>[,
+<value>separator</value>[,
+<value>equal</value>[,
+<value>options</value>]]])</literal></tag-name>
+<tag-desc>
+<para>
+Осуществляет синтаксический разбор объекта и возвращает строку запроса.
+</para>
+
+<para>
+Параметр <literal>separator</literal> является подстрокой,
+разделяющей в строке запроса пары ключей и значений,
+по умолчанию “<literal>&amp;</literal>”.
+</para>
+
+<para>
+Параметр <literal>equal</literal> является подстрокой,
+разделяющей в строке запроса ключи и значения,
+по умолчанию “<literal>=</literal>”.
+</para>
+
+<para>
+Параметр <literal>options</literal> должен быть
+объектом со следующими ключами:
+<list type="tag">
+<tag-name><literal>encodeURIComponent</literal>
+<value>функция</value></tag-name>
+<tag-desc>
+Функция, используемая при декодировании
+URL-небезопасных символов в в процентно-кодированные символы в строке запроса,
+по умолчанию
+<link id="querystring_escape"><literal>querystring.escape()</literal></link>.
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+По умолчанию символы, требующие процентной кодировки внутри строки запроса,
+кодируются в UTF-8.
+Если требуется другая кодировка, то
+необходимо указать опцию <literal>encodeURIComponent</literal>.
+</para>
+
+<para>
+Пример:
+<example>
+querystring.stringify({ foo: 'bar', baz: ['qux', 'quux'], 123: '' });
+</example>
+результат:
+<example>
+'foo=bar&amp;baz=qux&amp;baz=quux&amp;123='
+</example>
+</para>
+
+</tag-desc>
+
+<tag-name id="querystring_unescape"><literal>querystring.unescape(<value>строка</value>)</literal></tag-name>
+<tag-desc>
+<para>
+Осуществляет декодирование процентно-кодированных символов URL
+в <literal>строке</literal>,
+возвращает неэкранированную строку запроса.
+Метод используется методом
+<link id="querystring_parse"><literal>querystring.parse()</literal></link>
+и не должен использоваться напрямую.
+</para>
+</tag-desc>
+
+</list>
+</para>
 
 </section>
 
