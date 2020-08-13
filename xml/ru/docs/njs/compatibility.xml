@@ -9,7 +9,7 @@
 <article name="Совместимость"
         link="/ru/docs/njs/compatibility.html"
         lang="ru"
-        rev="26"
+        rev="27"
         toc="no">
 
 <section>
@@ -666,7 +666,8 @@ ES5.1 global functions:
 </listitem>
 
 <listitem id="querysting">
-Методы <literal>Query String</literal>
+Методы
+<link doc="reference.xml" id="querystring"><literal>Query String</literal></link>
 (<link doc="changes.xml" id="njs0.4.3">0.4.3</link>):
 <link doc="reference.xml" id="querystring_decode"><literal>querystring.decode</literal></link>,
 <link doc="reference.xml" id="querystring_encode"><literal>querystring.encode</literal></link>,
@@ -674,6 +675,25 @@ ES5.1 global functions:
 <link doc="reference.xml" id="querystring_parse"><literal>querystring.parse</literal></link>,
 <link doc="reference.xml" id="querystring_stringify"><literal>querystring.stringify</literal></link>,
 <link doc="reference.xml" id="querystring_unescape"><literal>querystring.unescape</literal></link>
+</listitem>
+
+<listitem id="textdecoder">
+Методы
+<link doc="reference.xml" id="textdecoder"><literal>TextDecoder</literal></link>
+(<link doc="changes.xml" id="njs0.4.3">0.4.3</link>):
+<link doc="reference.xml" id="textdecoder_encoding"><literal>encoding</literal></link>,
+<link doc="reference.xml" id="textdecoder_fatal"><literal>fatal</literal></link>,
+<link doc="reference.xml" id="textdecoder_ignorebom"><literal>ignoreBOM</literal></link>,
+<link doc="reference.xml" id="textdecoder_ignorebom"><literal>decode</literal></link>
+</listitem>
+
+<listitem id="textencoder">
+Методы
+<link doc="reference.xml" id="textencoder"><literal>TextEncoder</literal></link>
+(<link doc="changes.xml" id="njs0.4.3">0.4.3</link>):
+<link doc="reference.xml" id="textencoder_encoding"><literal>encoding</literal></link>,
+<link doc="reference.xml" id="textencoder_encode"><literal>encode</literal></link>,
+<link doc="reference.xml" id="textencoder_encodeinto"><literal>encodeInto</literal></link>
 </listitem>
 
 <listitem>

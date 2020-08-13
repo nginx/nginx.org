@@ -9,7 +9,7 @@
 <article name="Справочник"
         link="/ru/docs/njs/reference.html"
         lang="ru"
-        rev="52">
+        rev="53">
 
 <section id="summary">
 
@@ -669,6 +669,155 @@ true, если буфер должен иметь флаг <literal>flush</liter
 >> 'αβγδ'.length
 4
 </example>
+</tag-desc>
+
+</list>
+</para>
+
+</section>
+
+
+<section id="textdecoder" name="Text Decoder">
+
+<para>
+Объект <literal>TextDecoder</literal>
+создаёт поток кодовых точек из потока данных
+(<link doc="changes.xml" id="njs0.4.3">0.4.3</link>).
+</para>
+
+<para>
+<list type="tag">
+
+<tag-name><literal>TextDecoder([[<value>кодировка</value>],
+<value>options</value>])</literal></tag-name>
+<tag-desc>
+Создаёт новый объект <literal>TextDecoder</literal>
+для указанной <literal>кодировки</literal>,
+на данный момент поддерживается только UTF-8.
+Параметр <literal>options</literal> является
+словарём <literal>TextDecoderOption</literal> со свойствами:
+
+<list type="tag">
+
+<tag-name><literal>fatal</literal></tag-name>
+<tag-desc>
+логический флаг, указывающий, что
+<link id="textdecoder_decode"><literal>TextDecoder.decode()</literal></link>
+должен вызывать исключение <value>TypeError</value> в случае, если
+найдена ошибка кодирования, по умолчанию <literal>false</literal>.
+</tag-desc>
+
+</list>
+</tag-desc>
+
+<tag-name id="textdecoder_encoding"><literal>TextDecoder.prototype.encoding</literal></tag-name>
+<tag-desc>
+Возвращает строку с именем кодировки, используемой
+<link id="textdecoder"><literal>TextDecoder()</literal></link>,
+только чтение.
+</tag-desc>
+
+<tag-name id="textdecoder_fatal"><literal>TextDecoder.prototype.fatal</literal></tag-name>
+<tag-desc>
+логический флаг, <literal>true</literal>, если
+генерируется ошибка для невалидных символов,
+только чтение.
+</tag-desc>
+
+<tag-name id="textdecoder_ignorebom"><literal>TextDecoder.prototype.ignoreBOM</literal></tag-name>
+<tag-desc>
+логический флаг, <literal>true</literal>, если
+игнорируется маркер порядка следования байтов,
+только чтение.
+</tag-desc>
+
+<tag-name id="textdecoder_decode"><literal>TextDecoder.prototype.decode(<value>буфер</value>,
+[<value>options</value>])</literal></tag-name>
+<tag-desc>
+Возвращает строку с текстом,
+декодированным из <literal>буфера</literal> при помощи
+<link id="textdecoder"><literal>TextDecoder()</literal></link>.
+Буфером может быть
+<literal>ArrayBuffer</literal>.
+Параметром <literal>options</literal> является
+словарь <literal>TextDecodeOptions</literal> со свойствами:
+
+<list type="tag">
+
+<tag-name><literal>stream</literal></tag-name>
+<tag-desc>
+логический флаг, указывающий, что
+при последующих вызовах <literal>decode()</literal>
+должны последовать дополнительные данные:
+<literal>true</literal>, если данные обрабатываются блоками, и
+<literal>false</literal> для последнего блока
+или если данные не передаются блоками.
+По умолчанию <literal>false</literal>.
+</tag-desc>
+
+</list>
+<example>
+>> (new TextDecoder()).decode(new Uint8Array([206,177,206,178]))
+αβ
+</example>
+</tag-desc>
+
+</list>
+</para>
+
+</section>
+
+
+<section id="textencoder" name="Text Encoder">
+
+<para>
+Объект <literal>TextEncoder</literal>
+создаёт поток данных в кодировке UTF-8
+из потока кодовых точек
+(<link doc="changes.xml" id="njs0.4.3">0.4.3</link>).
+</para>
+
+<para>
+<list type="tag">
+
+<tag-name><literal>TextEncoder()</literal></tag-name>
+<tag-desc>
+Возвращает только что созданный <literal>TextEncoder</literal>,
+который создаёт поток данных в кодировке UTF-8.
+</tag-desc>
+
+<tag-name id="textencoder_encoding"><literal>TextEncoder.prototype.encoding</literal></tag-name>
+<tag-desc>
+Возвращает “<value>utf-8</value>”, только для чтения.
+</tag-desc>
+
+<tag-name id="textencoder_encode"><literal>TextEncoder.prototype.encode(<value>строка</value>)</literal></tag-name>
+<tag-desc>
+Кодирует <literal>строку</literal> в <literal>Uint8Array</literal>,
+содержащий текст в кодировке UTF-8.
+</tag-desc>
+
+<tag-name id="textencoder_encodeinto"><literal>TextEncoder.prototype.encodeInto(<value>строка</value>,
+<value>uint8Array</value>)</literal></tag-name>
+<tag-desc>
+Преобразует <literal>строку</literal> в UTF-8,
+сохраняет результат в целевом <literal>Uint8Array</literal> и
+возвращает объект словаря, отражающий прогресс кодирования, со свойствами:
+
+<list type="tag">
+
+<tag-name><literal>read</literal></tag-name>
+<tag-desc>
+количество блоков кода UTF-16 из исходной строки,
+преобразованных в UTF-8
+</tag-desc>
+
+<tag-name><literal>written</literal></tag-name>
+<tag-desc>
+количество байтов, преобразованных в целевом <literal>Uint8Array</literal>
+</tag-desc>
+
+</list>
 </tag-desc>
 
 </list>

@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="52">
+        rev="53">
 
 <section id="summary">
 
@@ -666,6 +666,155 @@ to a byte string using UTF8 encoding.
 >> 'αβγδ'.length
 4
 </example>
+</tag-desc>
+
+</list>
+</para>
+
+</section>
+
+
+<section id="textdecoder" name="Text Decoder">
+
+<para>
+The <literal>TextDecoder</literal>
+produces a stream of code points
+from a stream of bytes
+(<link doc="changes.xml" id="njs0.4.3">0.4.3</link>).
+</para>
+
+<para>
+<list type="tag">
+
+<tag-name><literal>TextDecoder([[<value>encoding</value>],
+<value>options</value>])</literal></tag-name>
+<tag-desc>
+Creates a new <literal>TextDecoder</literal> object
+for specified <literal>encoding</literal>,
+currently, only UTF-8 is supported.
+The <literal>options</literal> is
+<literal>TextDecoderOptions</literal> dictionary with the property:
+
+<list type="tag">
+
+<tag-name><literal>fatal</literal></tag-name>
+<tag-desc>
+boolean flag indicating if
+<link id="textdecoder_decode"><literal>TextDecoder.decode()</literal></link>
+must throw the <value>TypeError</value> exception when
+a coding error is found, by default is <literal>false</literal>.
+</tag-desc>
+
+</list>
+</tag-desc>
+
+<tag-name id="textdecoder_encoding"><literal>TextDecoder.prototype.encoding</literal></tag-name>
+<tag-desc>
+Returns a string with the name of the encoding used by
+<link id="textdecoder"><literal>TextDecoder()</literal></link>,
+read-only.
+</tag-desc>
+
+<tag-name id="textdecoder_fatal"><literal>TextDecoder.prototype.fatal</literal></tag-name>
+<tag-desc>
+boolean flag, <literal>true</literal> if
+the error mode is fatal,
+read-only.
+</tag-desc>
+
+<tag-name id="textdecoder_ignorebom"><literal>TextDecoder.prototype.ignoreBOM</literal></tag-name>
+<tag-desc>
+boolean flag, <literal>true</literal> if
+the byte order marker is ignored,
+read-only.
+</tag-desc>
+
+<tag-name id="textdecoder_decode"><literal>TextDecoder.prototype.decode(<value>buffer</value>,
+[<value>options</value>])</literal></tag-name>
+<tag-desc>
+Returns a string with the text
+decoded from the <literal>buffer</literal> by
+<link id="textdecoder"><literal>TextDecoder()</literal></link>.
+The buffer can be <literal>ArrayBuffer</literal>.
+The <literal>options</literal> is
+<literal>TextDecodeOptions</literal> dictionary with the property:
+
+<list type="tag">
+
+<tag-name><literal>stream</literal></tag-name>
+<tag-desc>
+boolean flag indicating if
+additional data will follow in subsequent calls to <literal>decode()</literal>:
+<literal>true</literal> if processing the data in chunks, and
+<literal>false</literal> for the final chunk
+or if the data is not chunked.
+By default is <literal>false</literal>.
+</tag-desc>
+
+</list>
+<example>
+>> (new TextDecoder()).decode(new Uint8Array([206,177,206,178]))
+αβ
+</example>
+</tag-desc>
+
+</list>
+</para>
+
+</section>
+
+
+<section id="textencoder" name="Text Encoder">
+
+<para>
+The <literal>TextEncoder</literal> object
+produces a byte stream with UTF-8 encoding
+from a stream of code points
+(<link doc="changes.xml" id="njs0.4.3">0.4.3</link>).
+</para>
+
+<para>
+<list type="tag">
+
+<tag-name><literal>TextEncoder()</literal></tag-name>
+<tag-desc>
+Returns a newly constructed <literal>TextEncoder</literal>
+that will generate a byte stream with UTF-8 encoding.
+</tag-desc>
+
+<tag-name id="textencoder_encoding"><literal>TextEncoder.prototype.encoding</literal></tag-name>
+<tag-desc>
+Returns “<value>utf-8</value>”, read-only.
+</tag-desc>
+
+<tag-name id="textencoder_encode"><literal>TextEncoder.prototype.encode(<value>string</value>)</literal></tag-name>
+<tag-desc>
+Encodes <literal>string</literal> into a <literal>Uint8Array</literal>
+with UTF-8 encoded text.
+</tag-desc>
+
+<tag-name id="textencoder_encodeinto"><literal>TextEncoder.prototype.encodeInto(<value>string</value>,
+<value>uint8Array</value>)</literal></tag-name>
+<tag-desc>
+Encodes a <literal>string</literal> to UTF-8,
+puts the result into destination <literal>Uint8Array</literal>, and
+returns a dictionary object that shows the progress of the encoding.
+The dictionary object contains two members:
+
+<list type="tag">
+
+<tag-name><literal>read</literal></tag-name>
+<tag-desc>
+the number of UTF-16 units of code from the source <literal>string</literal>
+converted to UTF-8
+</tag-desc>
+
+<tag-name><literal>written</literal></tag-name>
+<tag-desc>
+the number of bytes modified in the destination <literal>Uint8Array</literal>
+</tag-desc>
+
+</list>
 </tag-desc>
 
 </list>
