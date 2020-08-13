@@ -9,7 +9,7 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="36"
+        rev="37"
         toc="no">
 
 <section id="njs0.4.3" name="Changes with njs 0.4.3">
@@ -63,7 +63,11 @@ introduced UTF-8 decoder according to
 <listitem>
 <para>
 Feature:
-added TextEncoder/TextDecoder implementation.
+added
+<link doc="reference.xml" id="textdecoder"><literal>TextDecoder()</literal></link>
+and
+<link doc="reference.xml" id="textencoder"><literal>TextEncoder()</literal></link>
+implementation.
 </para>
 </listitem>
 
