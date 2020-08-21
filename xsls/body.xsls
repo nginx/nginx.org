@@ -19,8 +19,8 @@ X:template body (lang) {
 
     <div id="banner">
         X:if "@lang = 'he'" { X:attribute "class" { X:text{ltr} } }
-        Learn how to embed security in your DevOps pipeline, with technical tips and how-tos:<br/>
-        <a href="https://www.nginx.com/resources/library/web-application-security/?utm_medium=nginxorg&amp;utm_source=homepagehero&amp;utm_campaign=ww-nx_sec&amp;utm_content=eb">Free Ebook on Web Application Security.</a>
+        Join us Sept 15-17 at our free virtual event introducing new technologies, demos, and our first ever NGINX For Good Hackathon.<br/>
+        <a href="https://www.nginx.com/events/nginx-sprint-2020/?utm_medium=nginxorg&amp;utm_source=homepagehero">Register for NGINX Sprint.</a>
     </div>
 
     <div id="main">
