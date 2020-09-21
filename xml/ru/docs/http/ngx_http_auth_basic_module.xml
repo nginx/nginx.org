@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_auth_basic_module"
         link="/ru/docs/http/ngx_http_auth_basic_module.html"
         lang="ru"
-        rev="9">
+        rev="10">
 
 <section id="summary">
 
@@ -61,7 +61,7 @@ location / {
 “HTTP Basic Authentication”.
 Заданный параметр используется в качестве <value>realm</value>.
 В значении параметра допустимо использование переменных (1.3.10, 1.2.7).
-Специальное значение <literal>off</literal> позволяет отменить действие
+Специальное значение <literal>off</literal> отменяет действие
 унаследованной с предыдущего уровня конфигурации
 директивы <literal>auth_basic</literal>.
 </para>

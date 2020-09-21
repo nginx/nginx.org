@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_proxy_module"
         link="/ru/docs/http/ngx_http_proxy_module.html"
         lang="ru"
-        rev="66">
+        rev="67">
 
 <section id="summary">
 
@@ -1798,8 +1798,8 @@ proxy_redirect / /;
 Позволяет переопределять или добавлять поля заголовка запроса,
 <link id="proxy_pass_request_headers">передаваемые</link> проксируемому серверу.
 В качестве значения можно использовать текст, переменные и их комбинации.
-Директивы наследуются с предыдущего уровня при условии, что на данном
-уровне не описаны свои директивы <literal>proxy_set_header</literal>.
+Директивы наследуются с предыдущего уровня конфигурации при условии, что
+на данном уровне не описаны свои директивы <literal>proxy_set_header</literal>.
 По умолчанию переопределяются только два поля:
 <example>
 proxy_set_header Host       $proxy_host;

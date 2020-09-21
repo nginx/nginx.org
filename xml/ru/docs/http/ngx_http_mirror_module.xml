@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_mirror_module"
         link="/ru/docs/http/ngx_http_mirror_module.html"
         lang="ru"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -53,7 +53,7 @@ location = /mirror {
 
 <para>
 Задаёт URI, на который будет зеркалироваться исходный запрос.
-На одном уровне может быть задано несколько зеркал.
+На одном уровне конфигурации может быть задано несколько зеркал.
 </para>
 
 </directive>

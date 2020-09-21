@@ -10,7 +10,7 @@
 <module name="Module ngx_stream_limit_conn_module"
         link="/en/docs/stream/ngx_stream_limit_conn_module.html"
         lang="en"
-        rev="6">
+        rev="7">
 
 <section id="summary">
 
@@ -76,10 +76,9 @@ any configured limit will apply.
 </para>
 
 <para>
-The directives are inherited from the previous level if and
-only if there are no
-<literal>limit_conn</literal>
-directives on the current level.
+These directives are inherited from the previous configuration level
+if and only if there are no <literal>limit_conn</literal> directives
+defined on the current level.
 </para>
 
 </directive>

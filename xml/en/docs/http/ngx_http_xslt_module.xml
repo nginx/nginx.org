@@ -10,7 +10,7 @@
 <module name="Module ngx_http_xslt_module"
         link="/en/docs/http/ngx_http_xslt_module.html"
         lang="en"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -114,10 +114,10 @@ the <link id="xslt_string_param"/> directive can be used.
 
 <para>
 There could be several <literal>xslt_param</literal> directives.
-These directives are inherited from the previous level if and
-only if there are no
-<literal>xslt_param</literal> and <link id="xslt_string_param"/>
-directives defined on the current level.
+These directives are inherited from the previous configuration level
+if and only if there are no <literal>xslt_param</literal> and
+<link id="xslt_string_param"/> directives
+defined on the current level.
 </para>
 
 </directive>
@@ -139,10 +139,10 @@ The <value>value</value> can contain variables.
 
 <para>
 There could be several <literal>xslt_string_param</literal> directives.
-These directives are inherited from the previous level if and
-only if there are no
-<link id="xslt_param"/> and <literal>xslt_string_param</literal>
-directives defined on the current level.
+These directives are inherited from the previous configuration level
+if and only if there are no <link id="xslt_param"/> and
+<literal>xslt_string_param</literal> directives
+defined on the current level.
 </para>
 
 </directive>

@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_xslt_module"
         link="/ru/docs/http/ngx_http_xslt_module.html"
         lang="ru"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -114,9 +114,9 @@ location / {
 
 <para>
 Директив <literal>xslt_param</literal> может быть несколько.
-Директивы наследуются с предыдущего уровня при условии, что на данном
-уровне не описаны свои директивы <literal>xslt_param</literal> и
-<link id="xslt_string_param"/>.
+Директивы наследуются с предыдущего уровня конфигурации при условии, что
+на данном уровне не описаны свои директивы <literal>xslt_param</literal>
+и <link id="xslt_string_param"/>.
 </para>
 
 </directive>
@@ -138,9 +138,9 @@ location / {
 
 <para>
 Директив <literal>xslt_string_param</literal> может быть несколько.
-Директивы наследуются с предыдущего уровня при условии, что на данном
-уровне не описаны свои директивы <link id="xslt_param"/> и
-<literal>xslt_string_param</literal>.
+Директивы наследуются с предыдущего уровня конфигурации при условии, что
+на данном уровне не описаны свои директивы <link id="xslt_param"/>
+и <literal>xslt_string_param</literal>.
 </para>
 
 </directive>

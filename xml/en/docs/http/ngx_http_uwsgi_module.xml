@@ -10,7 +10,7 @@
 <module name="Module ngx_http_uwsgi_module"
         link="/en/docs/http/ngx_http_uwsgi_module.html"
         lang="en"
-        rev="44">
+        rev="45">
 
 <section id="summary">
 
@@ -1159,10 +1159,9 @@ Can be used along with the <link id="uwsgi_cache_bypass"/> directive.
 <para>
 Sets a <value>parameter</value> that should be passed to the uwsgi server.
 The <value>value</value> can contain text, variables, and their combination.
-These directives are inherited from the previous level if and
-only if there are no
-<literal>uwsgi_param</literal>
-directives defined on the current level.
+These directives are inherited from the previous configuration level
+if and only if there are no <literal>uwsgi_param</literal> directives
+defined on the current level.
 </para>
 
 <para>

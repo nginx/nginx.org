@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="91">
+        rev="92">
 
 <section id="directives" name="Directives">
 
@@ -729,10 +729,9 @@ The code 308 was not treated as a redirect until version 1.13.0.
 </para>
 
 <para>
-These directives are inherited from the previous level if and
-only if there are no
-<literal>error_page</literal>
-directives defined on the current level.
+These directives are inherited from the previous configuration level
+if and only if there are no <literal>error_page</literal> directives
+defined on the current level.
 </para>
 
 </directive>

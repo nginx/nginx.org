@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_scgi_module"
         link="/ru/docs/http/ngx_http_scgi_module.html"
         lang="ru"
-        rev="40">
+        rev="41">
 
 <section id="summary">
 
@@ -1129,8 +1129,8 @@ scgi_no_cache $http_pragma    $http_authorization;
 <para>
 Задаёт <value>параметр</value>, который будет передаваться SCGI-серверу.
 В качестве значения можно использовать текст, переменные и их комбинации.
-Директивы наследуются с предыдущего уровня при условии, что на данном
-уровне не описаны свои директивы <literal>scgi_param</literal>.
+Директивы наследуются с предыдущего уровня конфигурации при условии, что
+на данном уровне не описаны свои директивы <literal>scgi_param</literal>.
 </para>
 
 <para>

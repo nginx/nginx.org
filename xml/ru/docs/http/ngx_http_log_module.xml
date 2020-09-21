@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_log_module"
         link="/ru/docs/http/ngx_http_log_module.html"
         lang="ru"
-        rev="20">
+        rev="21">
 
 <section id="summary">
 
@@ -65,7 +65,7 @@ access_log /spool/logs/nginx-access.log compression buffer=32k;
 
 <para>
 Задаёт путь, формат и настройки буферизованной записи в лог.
-На одном уровне может использоваться несколько логов.
+На одном уровне конфигурации может использоваться несколько логов.
 Запись в <link doc="../syslog.xml">syslog</link>
 настраивается указанием префикса
 “<literal>syslog:</literal>” в первом параметре.
@@ -158,7 +158,7 @@ access_log /path/to/log.gz combined gzip flush=5m;
 <link doc="ngx_http_core_module.xml" id="root">корневого каталога</link>
 для запроса — если этот каталог не существует, то лог не создаётся.
 Поэтому <link doc="ngx_http_core_module.xml" id="root"/>
-и <literal>access_log</literal> нужно описывать на одном уровне:
+и <literal>access_log</literal> нужно описывать на одном уровне конфигурации:
 <example>
 server {
     root       /spool/vhost/data/$host;

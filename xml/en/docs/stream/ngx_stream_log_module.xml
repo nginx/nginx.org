@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_log_module"
         link="/en/docs/stream/ngx_stream_log_module.html"
         lang="en"
-        rev="7">
+        rev="8">
 
 <section id="summary">
 
@@ -54,7 +54,7 @@ access_log /spool/logs/nginx-access.log basic buffer=32k;
 <para>
 Sets the path, <link id="log_format">format</link>,
 and configuration for a buffered log write.
-Several logs can be specified on the same level.
+Several logs can be specified on the same configuration level.
 Logging to <link doc="../syslog.xml">syslog</link>
 can be configured by specifying
 the “<literal>syslog:</literal>” prefix in the first parameter.

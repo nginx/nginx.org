@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_fastcgi_module"
         link="/ru/docs/http/ngx_http_fastcgi_module.html"
         lang="ru"
-        rev="52">
+        rev="53">
 
 <section id="summary">
 
@@ -1211,8 +1211,8 @@ fastcgi_no_cache $http_pragma    $http_authorization;
 <para>
 Задаёт <value>параметр</value>, который будет передаваться FastCGI-серверу.
 В качестве значения можно использовать текст, переменные и их комбинации.
-Директивы наследуются с предыдущего уровня при условии, что на данном
-уровне не описаны свои директивы <literal>fastcgi_param</literal>.
+Директивы наследуются с предыдущего уровня конфигурации при условии, что
+на данном уровне не описаны свои директивы <literal>fastcgi_param</literal>.
 </para>
 
 <para>

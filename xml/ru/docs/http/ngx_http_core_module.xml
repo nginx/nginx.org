@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="91">
+        rev="92">
 
 <section id="directives" name="Директивы">
 
@@ -725,8 +725,8 @@ error_page 404 =301 http://example.com/notfound.html;
 </para>
 
 <para>
-Директивы наследуются с предыдущего уровня при условии, что на данном уровне
-не описаны свои директивы <literal>error_page</literal>.
+Директивы наследуются с предыдущего уровня конфигурации при условии, что
+на данном уровне не описаны свои директивы <literal>error_page</literal>.
 </para>
 
 </directive>

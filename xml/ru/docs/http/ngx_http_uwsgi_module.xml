@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_uwsgi_module"
         link="/ru/docs/http/ngx_http_uwsgi_module.html"
         lang="ru"
-        rev="44">
+        rev="45">
 
 <section id="summary">
 
@@ -1157,8 +1157,8 @@ uwsgi_no_cache $http_pragma    $http_authorization;
 <para>
 Задаёт <value>параметр</value>, который будет передаваться uwsgi-серверу.
 В качестве значения можно использовать текст, переменные и их комбинации.
-Директивы наследуются с предыдущего уровня при условии, что на данном
-уровне не описаны свои директивы <literal>uwsgi_param</literal>.
+Директивы наследуются с предыдущего уровня конфигурации при условии, что
+на данном уровне не описаны свои директивы <literal>uwsgi_param</literal>.
 </para>
 
 <para>

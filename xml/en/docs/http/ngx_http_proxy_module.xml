@@ -10,7 +10,7 @@
 <module name="Module ngx_http_proxy_module"
         link="/en/docs/http/ngx_http_proxy_module.html"
         lang="en"
-        rev="66">
+        rev="67">
 
 <section id="summary">
 
@@ -1792,10 +1792,9 @@ The <value>value</value> can contain text, variables, and their combination.
 Allows redefining or appending fields to the request header
 <link id="proxy_pass_request_headers">passed</link> to the proxied server.
 The <value>value</value> can contain text, variables, and their combinations.
-These directives are inherited from the previous level if and
-only if there are no
-<literal>proxy_set_header</literal>
-directives defined on the current level.
+These directives are inherited from the previous configuration level
+if and only if there are no <literal>proxy_set_header</literal> directives
+defined on the current level.
 By default, only two fields are redefined:
 <example>
 proxy_set_header Host       $proxy_host;

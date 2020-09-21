@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_grpc_module"
         link="/ru/docs/http/ngx_http_grpc_module.html"
         lang="ru"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -434,8 +434,8 @@ grpc_pass grpcs://127.0.0.1:443;
 Позволяет переопределять или добавлять поля заголовка запроса,
 <link id="proxy_pass_request_headers">передаваемые</link> gRPC-серверу.
 В качестве значения можно использовать текст, переменные и их комбинации.
-Директивы наследуются с предыдущего уровня при условии, что на данном
-уровне не описаны свои директивы <literal>grpc_set_header</literal>.
+Директивы наследуются с предыдущего уровня конфигурации при условии, что
+на данном уровне не описаны свои директивы <literal>grpc_set_header</literal>.
 </para>
 
 <para>

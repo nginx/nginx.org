@@ -10,7 +10,7 @@
 <module name="Module ngx_http_log_module"
         link="/en/docs/http/ngx_http_log_module.html"
         lang="en"
-        rev="20">
+        rev="21">
 
 <section id="summary">
 
@@ -64,7 +64,7 @@ access_log /spool/logs/nginx-access.log compression buffer=32k;
 
 <para>
 Sets the path, format, and configuration for a buffered log write.
-Several logs can be specified on the same level.
+Several logs can be specified on the same configuration level.
 Logging to <link doc="../syslog.xml">syslog</link>
 can be configured by specifying
 the “<literal>syslog:</literal>” prefix in the first parameter.
@@ -160,7 +160,7 @@ is checked, and if it does not exist the log is not
 created.
 It is thus a good idea to specify both
 <link doc="ngx_http_core_module.xml" id="root"/>
-and <literal>access_log</literal> on the same level:
+and <literal>access_log</literal> on the same configuration level:
 <example>
 server {
     root       /spool/vhost/data/$host;

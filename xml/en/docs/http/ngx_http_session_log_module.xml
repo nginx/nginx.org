@@ -9,7 +9,7 @@
 <module name="Module ngx_http_session_log_module"
         link="/en/docs/http/ngx_http_session_log_module.html"
         lang="en"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -60,9 +60,9 @@ request header field:
 
 <para>
 Enables the use of the specified session log.
-The special value <literal>off</literal> cancels all
-<literal>session_log</literal> directives inherited from the previous
-configuration level.
+The special value <literal>off</literal> cancels the effect
+of the <literal>session_log</literal> directives
+inherited from the previous configuration level.
 </para>
 
 </directive>

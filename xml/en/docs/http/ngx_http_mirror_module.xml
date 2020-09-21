@@ -9,7 +9,7 @@
 <module name="Module ngx_http_mirror_module"
         link="/en/docs/http/ngx_http_mirror_module.html"
         lang="en"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -53,7 +53,7 @@ location = /mirror {
 
 <para>
 Sets the URI to which an original request will be mirrored.
-Several mirrors can be specified on the same level.
+Several mirrors can be specified on the same configuration level.
 </para>
 
 </directive>
