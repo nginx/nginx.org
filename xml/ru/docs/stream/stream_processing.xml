@@ -7,7 +7,7 @@
 <article name="Как nginx обрабатывает TCP/UDP-сессии"
          link="/ru/docs/stream/stream_processing.html"
          lang="ru"
-         rev="2">
+         rev="3">
 
 <section>
 
@@ -31,8 +31,10 @@
 </tag-name>
 <tag-desc>
 Предварительная проверка доступа.
-В этой фазе выполняется модуль
-<link doc="ngx_stream_limit_conn_module.xml">ngx_stream_limit_conn_module</link>.
+В этой фазе выполняются модули
+<link doc="ngx_stream_limit_conn_module.xml">ngx_stream_limit_conn_module</link>
+и
+<link doc="ngx_stream_set_module.xml">ngx_stream_set_module</link>.
 </tag-desc>
 
 <tag-name id="access_phase">

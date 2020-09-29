@@ -7,7 +7,7 @@
 <article name="How nginx processes a TCP/UDP session"
          link="/en/docs/stream/stream_processing.html"
          lang="en"
-         rev="2">
+         rev="3">
 
 <section>
 
@@ -31,8 +31,11 @@ module is invoked at this phase.
 </tag-name>
 <tag-desc>
 Preliminary check for access.
-The <link doc="ngx_stream_limit_conn_module.xml">ngx_stream_limit_conn_module</link>
-module is invoked at this phase.
+The
+<link doc="ngx_stream_limit_conn_module.xml">ngx_stream_limit_conn_module</link>
+and
+<link doc="ngx_stream_set_module.xml">ngx_stream_set_module</link>
+modules are invoked at this phase.
 </tag-desc>
 
 <tag-name id="access_phase">
