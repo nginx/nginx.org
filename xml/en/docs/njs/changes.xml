@@ -9,8 +9,193 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="37"
+        rev="38"
         toc="no">
+
+<section id="njs0.4.4" name="Changes with njs 0.4.4">
+
+<para>
+Release Date:
+29 September 2020
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Bugfix:
+fixed location merge.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<link doc="reference.xml" id="r_http_version"><literal>r.httpVersion</literal></link>
+for HTTP/2.
+</para>
+</listitem>
+
+</list>
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+added support for numeric separators (ES12).
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added remaining methods for
+<literal>%TypedArray%.prototype</literal>.
+The following methods were added:
+<literal>every()</literal>,
+<literal>filter()</literal>,
+<literal>find()</literal>,
+<literal>findIndex()</literal>,
+<literal>forEach()</literal>,
+<literal>includes()</literal>,
+<literal>indexOf()</literal>,
+<literal>lastIndexOf()</literal>,
+<literal>map()</literal>,
+<literal>reduce()</literal>,
+<literal>reduceRight()</literal>,
+<literal>reverse()</literal>,
+<literal>some()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added <literal>%TypedArray%</literal> remaining methods.
+The following methods were added:
+<literal>from()</literal>,
+<literal>of()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added <literal>DataView</literal> object.
+</para>
+</listitem>
+<listitem>
+<para>
+Feature:
+added <literal>Buffer</literal> object implementation.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added support for <literal>ArrayBuffer</literal> in
+<link doc="reference.xml" id="textdecoder_decode"><literal>TextDecoder.prototype.decode()</literal></link>
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added support for <literal>Buffer</literal> object in
+<link doc="reference.xml" id="crypto"><literal>crypto</literal></link>
+methods.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added support for <literal>Buffer</literal> object in
+<link doc="reference.xml" id="njs_api_fs"><literal>fs</literal></link>
+methods.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Change:
+<link doc="reference.xml" id="crypto_hash_digest"><literal>Hash.prototype.digest()</literal></link>
+and
+<link doc="reference.xml" id="crypto_hmac_digest"><literal>Hmac.prototype.digest()</literal></link>
+now return a <literal>Buffer</literal> instance instead of a byte string when
+encoding is not provided.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Change:
+<link doc="reference.xml" id="readfilesync"><literal>fs.readFile()</literal></link>
+and friends now return a <literal>Buffer</literal> instance
+instead of a byte string when encoding is not provided.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed function <literal>prototype</literal> property handler while setting.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed function <literal>constructor</literal> property handler while setting.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>String.prototype.indexOf()</literal>
+for byte strings.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>RegExpBuiltinExec()</literal>
+with a global flag and byte strings.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>RegExp.prototype[Symbol.replace]</literal>
+the when replacement value is a function.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<link doc="reference.xml" id="textdecoder_decode"><literal>TextDecoder.prototype.decode()</literal></link>
+with non-zero <literal>TypedArray</literal> offset.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.4.3" name="Changes with njs 0.4.3">
 

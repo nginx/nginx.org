@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="53">
+        rev="54">
 
 <section id="summary">
 
@@ -910,12 +910,12 @@ The algorithm can be
 <para>
 <list type="tag">
 
-<tag-name><literal>hash.update(<value>data</value>)</literal></tag-name>
+<tag-name id="crypto_hash_update"><literal>hash.update(<value>data</value>)</literal></tag-name>
 <tag-desc>
 Updates the hash content with the given <value>data</value>.
 </tag-desc>
 
-<tag-name><literal>hash.digest([<value>encoding</value>])</literal></tag-name>
+<tag-name id="crypto_hash_digest"><literal>hash.digest([<value>encoding</value>])</literal></tag-name>
 <tag-desc>
 Calculates the digest of all of the data passed using
 <literal>hash.update()</literal>.
@@ -947,12 +947,12 @@ undefined
 <para>
 <list type="tag">
 
-<tag-name><literal>hmac.update(<value>data</value>)</literal></tag-name>
+<tag-name id="crypto_hmac_update"><literal>hmac.update(<value>data</value>)</literal></tag-name>
 <tag-desc>
 Updates the HMAC content with the given <value>data</value>.
 </tag-desc>
 
-<tag-name><literal>hmac.digest([<value>encoding</value>])</literal></tag-name>
+<tag-name id="crypto_hmac_digest"><literal>hmac.digest([<value>encoding</value>])</literal></tag-name>
 <tag-desc>
 Calculates the HMAC digest of all of the data passed using
 <literal>hmac.update()</literal>.
