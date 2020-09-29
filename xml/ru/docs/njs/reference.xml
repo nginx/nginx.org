@@ -9,7 +9,7 @@
 <article name="Справочник"
         link="/ru/docs/njs/reference.html"
         lang="ru"
-        rev="53">
+        rev="54">
 
 <section id="summary">
 
@@ -912,12 +912,12 @@ clearTimeout(t);
 <para>
 <list type="tag">
 
-<tag-name><literal>hash.update(<value>данные</value>)</literal></tag-name>
+<tag-name id="crypto_hash_update"><literal>hash.update(<value>данные</value>)</literal></tag-name>
 <tag-desc>
 Обновляет содержимое хэша с передаваемыми <value>данными</value>.
 </tag-desc>
 
-<tag-name><literal>hash.digest([<value>кодировка</value>])</literal></tag-name>
+<tag-name id="crypto_hash_digest"><literal>hash.digest([<value>кодировка</value>])</literal></tag-name>
 <tag-desc>
 Подсчитывает дайджест всех данных, передаваемых при помощи
 <literal>hash.update()</literal>.
@@ -949,12 +949,12 @@ undefined
 <para>
 <list type="tag">
 
-<tag-name><literal>hmac.update(<value>данные</value>)</literal></tag-name>
+<tag-name id="crypto_hmac_update"><literal>hmac.update(<value>данные</value>)</literal></tag-name>
 <tag-desc>
 Обновляет содержимое HMAC с передаваемыми <value>данными</value>.
 </tag-desc>
 
-<tag-name><literal>hmac.digest([<value>кодировка</value>])</literal></tag-name>
+<tag-name id="crypto_hmac_digest"><literal>hmac.digest([<value>кодировка</value>])</literal></tag-name>
 <tag-desc>
 Подсчитывает HMAC-дайджест всех данных, передаваемых при помощи
 <literal>hmac.update()</literal>.
