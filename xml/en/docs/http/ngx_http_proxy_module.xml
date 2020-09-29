@@ -10,7 +10,7 @@
 <module name="Module ngx_http_proxy_module"
         link="/en/docs/http/ngx_http_proxy_module.html"
         lang="en"
-        rev="68">
+        rev="69">
 
 <section id="summary">
 
@@ -869,6 +869,63 @@ proxy_cookie_domain ~\.([a-z]+\.[a-z]+)$ $1;
 </example>
 The <literal>off</literal> parameter cancels the effect
 of the <literal>proxy_cookie_domain</literal> directives
+inherited from the previous configuration level.
+</para>
+
+</directive>
+
+
+<directive name="proxy_cookie_flags">
+<syntax>
+    <literal>off</literal> |
+    <value>cookie</value>
+    [<value>flag</value> ...]</syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.19.3</appeared-in>
+
+<para>
+Sets one or more flags for the cookie.
+The <value>cookie</value> can contain text, variables, and their combinations.
+The
+<literal>secure</literal>,
+<literal>httponly</literal>,
+<literal>samesite=strict</literal>,
+<literal>samesite=lax</literal>,
+<literal>samesite=none</literal>
+parameters add the corresponding flags.
+The
+<literal>nosecure</literal>,
+<literal>nohttponly</literal>,
+<literal>nosamesite</literal>
+parameters remove the corresponding flags.
+</para>
+
+<para>
+The cookie can also be specified using regular expressions.
+In this case, <value>cookie</value> should start from
+the “<literal>~</literal>” symbol.
+</para>
+
+<para>
+Several <literal>proxy_cookie_flags</literal> directives
+can be specified on the same configuration level:
+<example>
+proxy_cookie_flags one httponly;
+proxy_cookie_flags ~ nosecure samesite=strict;
+</example>
+In the example, the <literal>httponly</literal> flag
+is added to the cookie <literal>one</literal>,
+for all other cookies
+the <literal>samesite=strict</literal> flag is added and
+the <literal>secure</literal> flag is deleted.
+</para>
+
+<para>
+The <literal>off</literal> parameter cancels the effect
+of the <literal>proxy_cookie_flags</literal> directives
 inherited from the previous configuration level.
 </para>
 

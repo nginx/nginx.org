@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_proxy_module"
         link="/ru/docs/http/ngx_http_proxy_module.html"
         lang="ru"
-        rev="68">
+        rev="69">
 
 <section id="summary">
 
@@ -872,6 +872,64 @@ proxy_cookie_domain ~\.([a-z]+\.[a-z]+)$ $1;
 Параметр <literal>off</literal> отменяет действие
 унаследованных с предыдущего уровня конфигурации
 директив <literal>proxy_cookie_domain</literal>.
+</para>
+
+</directive>
+
+
+<directive name="proxy_cookie_flags">
+<syntax>
+    <literal>off</literal> |
+    <value>кука</value>
+    [<value>флаг</value> ...]</syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.19.3</appeared-in>
+
+<para>
+Задаёт один или несколько флагов для куки.
+В качестве <value>куки</value>
+можно использовать текст, переменные и их комбинации.
+Параметры
+<literal>secure</literal>,
+<literal>httponly</literal>,
+<literal>samesite=strict</literal>,
+<literal>samesite=lax</literal>,
+<literal>samesite=none</literal>
+добавляют соответствующие флаги.
+Параметры
+<literal>nosecure</literal>,
+<literal>nohttponly</literal>,
+<literal>nosamesite</literal>
+удаляют соответствующие флаги.
+</para>
+
+<para>
+Куки также можно задать при помощи регулярных выражений.
+При этом <value>кука</value> должна начинаться с символа
+“<literal>~</literal>”.
+</para>
+
+<para>
+На одном уровне конфигурации может быть указано
+несколько директив <literal>proxy_cookie_flags</literal>:
+<example>
+proxy_cookie_flags one httponly;
+proxy_cookie_flags ~ nosecure samesite=strict;
+</example>
+В данном примере флаг <literal>httponly</literal>
+добавляется к куке <literal>one</literal>,
+для остальных кук
+добавляется флаг <literal>samesite=strict</literal> и
+удаляется флаг <literal>secure</literal>.
+</para>
+
+<para>
+Параметр <literal>off</literal> отменяет действие всех директив
+<literal>proxy_cookie_flags</literal>
+на данном уровне.
 </para>
 
 </directive>
