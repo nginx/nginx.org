@@ -10,7 +10,7 @@
 <module name="Module ngx_http_userid_module"
         link="/en/docs/http/ngx_http_userid_module.html"
         lang="en"
-        rev="4">
+        rev="5">
 
 <section id="summary">
 
@@ -120,6 +120,29 @@ The parameter <literal>max</literal> will cause the cookie to expire on
 “<literal>31 Dec 2037 23:55:55 GMT</literal>”.
 The parameter <literal>off</literal> will cause the cookie to expire at
 the end of a browser session.
+</para>
+
+</directive>
+
+
+<directive name="userid_flags">
+<syntax>
+    <literal>off</literal> |
+    <value>flag</value> ...</syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.19.3</appeared-in>
+
+<para>
+If the parameter is not <literal>off</literal>,
+defines one or more additional flags for the cookie:
+<literal>secure</literal>,
+<literal>httponly</literal>,
+<literal>samesite=strict</literal>,
+<literal>samesite=lax</literal>,
+<literal>samesite=none</literal>.
 </para>
 
 </directive>

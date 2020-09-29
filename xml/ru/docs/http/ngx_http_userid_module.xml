@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_userid_module"
         link="/ru/docs/http/ngx_http_userid_module.html"
         lang="ru"
-        rev="4">
+        rev="5">
 
 <section id="summary">
 
@@ -119,6 +119,29 @@ userid_p3p     'policyref="/w3c/p3p.xml", CP="CUR ADM OUR NOR STA NID"';
 31 декабря 2037 года 23:55:55 GMT.
 Указание параметра <literal>off</literal> позволяет ограничить время
 действия куки сессией браузера.
+</para>
+
+</directive>
+
+
+<directive name="userid_flags">
+<syntax>
+    <literal>off</literal> |
+    <value>флаг</value> ...</syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.19.3</appeared-in>
+
+<para>
+Если параметр не <literal>off</literal>,
+задаёт один или несколько дополнительных флагов для куки:
+<literal>secure</literal>,
+<literal>httponly</literal>,
+<literal>samesite=strict</literal>,
+<literal>samesite=lax</literal>,
+<literal>samesite=none</literal>.
 </para>
 
 </directive>
