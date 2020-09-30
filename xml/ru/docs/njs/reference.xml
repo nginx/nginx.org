@@ -9,7 +9,7 @@
 <article name="Справочник"
         link="/ru/docs/njs/reference.html"
         lang="ru"
-        rev="54">
+        rev="55">
 
 <section id="summary">
 
@@ -925,7 +925,12 @@ clearTimeout(t);
 <literal>hex</literal>,
 <literal>base64</literal> и
 <literal>base64url</literal>.
-Если кодировка не указана, то будет возвращена байтовая строка.
+Если кодировка не указана, то будет возвращен объект буфера
+(<link doc="changes.xml" id="njs0.4.4">0.4.4</link>).
+<note>
+До версии <link doc="changes.xml" id="njs0.4.4">0.4.4</link>
+вместо объекта буфера возвращалась байтовая строка.
+</note>
 </tag-desc>
 
 </list>
@@ -1035,6 +1040,8 @@ try {
 <tag-desc>
 Синхронно добавляет указанные <literal>данные</literal>
 в файл с указанным <literal>именем</literal>.
+<literal>Данными</literal> могут быть строка
+или объект буфера (<link doc="changes.xml" id="njs0.4.4">0.4.4</link>.
 Если файл не существует, то он будет создан.
 Параметр <literal>options</literal> должен быть
 объектом со следующими ключами:
@@ -1086,8 +1093,9 @@ try {
 
 <tag-name id="fs_readdirsync_encoding"><literal>кодировка</literal></tag-name>
 <tag-desc>
-кодировка, по умолчанию не указана.
-Кодировка может быть <literal>utf8</literal>.
+кодировка, по умолчанию <literal>utf8</literal>.
+Кодировка может быть <literal>utf8</literal> и <literal>буфер</literal>
+(<link doc="changes.xml" id="njs0.4.4">0.4.4</link>).
 </tag-desc>
 
 <tag-name id="fs_readdirsync_withfiletypes"><literal>withFileTypes</literal></tag-name>
@@ -1107,10 +1115,14 @@ try {
 с указанным <literal>именем</literal>.
 Параметр <literal>options</literal> хранит
 <literal>строку</literal>, которая задаёт кодировку.
-Если кодировка не указана,
-то будет возвращена <link id="string_tobytes">байтовая строка</link>.
-Если указана кодировка <literal>utf8</literal>,
-то будет возвращена строка Unicode.
+Если кодировка указана, то будет возвращена строка,
+иначе будет возвращён объект буфера
+(<link doc="changes.xml" id="njs0.4.4">0.4.4</link>).
+<note>
+До версии <link doc="changes.xml" id="njs0.4.4">0.4.4</link>
+возвращалась <link id="string_tobytes">байтовая строка</link>
+в случае, если не была указана кодировка.
+</note>
 Иначе ожидается, что <literal>options</literal> является
 объектом с ключами:
 <list type="tag">
@@ -1118,7 +1130,13 @@ try {
 <tag-name><literal>кодировка</literal></tag-name>
 <tag-desc>
 кодировка, по умолчанию не указана.
-Кодировка может быть <literal>utf8</literal>
+Кодировка может быть <literal>utf8</literal>,
+<literal>hex</literal>
+(<link doc="changes.xml" id="njs0.4.4">0.4.4</link>),
+<literal>base64</literal>
+(<link doc="changes.xml" id="njs0.4.4">0.4.4</link>),
+<literal>base64url</literal>
+(<link doc="changes.xml" id="njs0.4.4">0.4.4</link>).
 </tag-desc>
 
 <tag-name><literal>флаг</literal></tag-name>
@@ -1133,7 +1151,7 @@ try {
 undefined
 >> var file = fs.readFileSync('/file/path.tar.gz')
 undefined
->> var gzipped = /^\x1f\x8b/.test(file); gzipped
+>> var gzipped = file.slice(0,2).toString('hex') === '1f8b'; gzipped
 true
 </example>
 </tag-desc>
@@ -1191,6 +1209,8 @@ undefined
 <tag-desc>
 Синхронно записывает <literal>данные</literal> в файл
 с указанным <literal>именем</literal>.
+<literal>Данными</literal> могут быть строка
+или объект буфера (<link doc="changes.xml" id="njs0.4.4">0.4.4</link>.
 Если файл не существует, то он будет создан.
 Если файл существует, то он будет заменён.
 Параметр <literal>options</literal> должен быть

@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="54">
+        rev="55">
 
 <section id="summary">
 
@@ -923,7 +923,12 @@ The encoding can be
 <literal>hex</literal>,
 <literal>base64</literal>, and
 <literal>base64url</literal>.
-If encoding is not provided, a byte string is returned.
+If encoding is not provided, a Buffer object
+(<link doc="changes.xml" id="njs0.4.4">0.4.4</link>) is returned.
+<note>
+Before version (<link doc="changes.xml" id="njs0.4.4">0.4.4</link>),
+a byte string was returned instead of a Buffer object.
+</note>
 </tag-desc>
 
 </list>
@@ -960,7 +965,12 @@ The encoding can be
 <literal>hex</literal>,
 <literal>base64</literal>, and
 <literal>base64url</literal>.
-If encoding is not provided, a byte string is returned.
+If encoding is not provided, a Buffer object
+(<link doc="changes.xml" id="njs0.4.4">0.4.4</link>) is returned.
+<note>
+Before version <link doc="changes.xml" id="njs0.4.4">0.4.4</link>,
+a byte string was returned instead of a Buffer object.
+</note>
 </tag-desc>
 </list>
 </para>
@@ -1032,6 +1042,8 @@ try {
 <tag-desc>
 Synchronously appends specified <literal>data</literal>
 to a file with provided <literal>filename</literal>.
+The <literal>data</literal> is expected to be a string
+or a Buffer object (<link doc="changes.xml" id="njs0.4.4">0.4.4</link>).
 If the file does not exist, it will be created.
 The <literal>options</literal> parameter is expected to be
 an object with the following keys:
@@ -1083,8 +1095,9 @@ or an object with the following keys:
 
 <tag-name id="fs_readdirsync_encoding"><literal>encoding</literal></tag-name>
 <tag-desc>
-encoding, by default is not specified.
-The encoding can be <literal>utf8</literal>.
+encoding, by default is <literal>utf8</literal>.
+The encoding can be <literal>utf8</literal> and <literal>buffer</literal>
+(<link doc="changes.xml" id="njs0.4.4">0.4.4</link>).
 </tag-desc>
 
 <tag-name id="fs_readdirsync_withfiletypes"><literal>withFileTypes</literal></tag-name>
@@ -1104,8 +1117,14 @@ Synchronously returns the contents of the file
 with provided <literal>filename</literal>.
 The <literal>options</literal> parameter holds
 <literal>string</literal> that specifies encoding.
-If not specified, a <link id="string_tobytes">byte string</link> is returned.
-If <literal>utf8</literal> encoding is specified, a Unicode string is returned.
+If an encoding is specified, a string is returned,
+otherwise, a Buffer object
+(<link doc="changes.xml" id="njs0.4.4">0.4.4</link>) is returned.
+<note>
+Before version <link doc="changes.xml" id="njs0.4.4">0.4.4</link>,
+a <link id="string_tobytes">byte string</link> was returned
+if encoding was not specified.
+</note>
 Otherwise, <literal>options</literal> is expected to be
 an object with the following keys:
 <list type="tag">
@@ -1113,7 +1132,13 @@ an object with the following keys:
 <tag-name><literal>encoding</literal></tag-name>
 <tag-desc>
 encoding, by default is not specified.
-The encoding can be <literal>utf8</literal>
+The encoding can be <literal>utf8</literal>,
+<literal>hex</literal>
+(<link doc="changes.xml" id="njs0.4.4">0.4.4</link>),
+<literal>base64</literal>
+(<link doc="changes.xml" id="njs0.4.4">0.4.4</link>),
+<literal>base64url</literal>
+(<link doc="changes.xml" id="njs0.4.4">0.4.4</link>).
 </tag-desc>
 
 <tag-name><literal>flag</literal></tag-name>
@@ -1128,7 +1153,7 @@ by default is <literal>r</literal>
 undefined
 >> var file = fs.readFileSync('/file/path.tar.gz')
 undefined
->> var gzipped = /^\x1f\x8b/.test(file); gzipped
+>> var gzipped = file.slice(0,2).toString('hex') === '1f8b'; gzipped
 true
 </example>
 </tag-desc>
@@ -1187,6 +1212,8 @@ Synchronously unlinks a file by <literal>path</literal>
 <tag-desc>
 Synchronously writes <literal>data</literal> to a file
 with provided <literal>filename</literal>.
+The <literal>data</literal> is expected to be a string
+or a Buffer object (<link doc="changes.xml" id="njs0.4.4">0.4.4</link>).
 If the file does not exist, it will be created,
 if the file exists, it will be replaced.
 The <literal>options</literal> parameter is expected to be
