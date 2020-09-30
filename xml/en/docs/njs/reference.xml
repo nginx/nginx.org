@@ -603,11 +603,14 @@ The encoding can be
 <literal>hex</literal>,
 <literal>base64</literal>, and
 <literal>base64url</literal>.
+The method is deprecated since
+<link doc="changes.xml" id="njs0.4.4">0.4.4</link>,
+the <literal>Buffer.from</literal> method should be used instead:
 <example>
->> String.bytesFrom([0x62, 0x75, 0x66, 0x66, 0x65, 0x72])
+>> Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72]).toString()
 'buffer'
 
->> String.bytesFrom('YnVmZmVy', 'base64')
+>> Buffer.from('YnVmZmVy', 'base64').toString()
 'buffer'
 </example>
 </tag-desc>

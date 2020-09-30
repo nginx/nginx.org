@@ -607,11 +607,14 @@ true, если буфер должен иметь флаг <literal>flush</liter
 <literal>hex</literal>,
 <literal>base64</literal> и
 <literal>base64url</literal>.
+Метод устарел начиная с
+<link doc="changes.xml" id="njs0.4.4">0.4.4</link>,
+вместо него следует использовать метод <literal>Buffer.from</literal>:
 <example>
->> String.bytesFrom([0x62, 0x75, 0x66, 0x66, 0x65, 0x72])
+>> Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72]).toString()
 'buffer'
 
->> String.bytesFrom('YnVmZmVy', 'base64')
+>> Buffer.from('YnVmZmVy', 'base64').toString()
 'buffer'
 </example>
 </tag-desc>
