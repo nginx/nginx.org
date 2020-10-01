@@ -20,8 +20,8 @@
 
     <div id="banner">
         <xsl:if test="@lang = 'he'"> <xsl:attribute name="class"> <xsl:text>ltr</xsl:text> </xsl:attribute> </xsl:if>
-        Join us Sept 15-17 at our free virtual event introducing new technologies, demos, and our first ever NGINX For Good Hackathon.<br/>
-        <a href="https://www.nginx.com/events/nginx-sprint-2020/?utm_medium=nginxorg&amp;utm_source=homepagehero">Register for NGINX Sprint.</a>
+        Learn how to embed security in your DevOps pipeline.<br/>
+        <a href="https://www.nginx.com/resources/library/web-application-security/?utm_medium=nginxorg&amp;utm_source=homepagehero&amp;utm_campaign=ww-nx_sec&amp;utm_content=eb">Download the Free Ebook on Web Application Security.</a>
     </div>
 
     <div id="main">
