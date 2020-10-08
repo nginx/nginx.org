@@ -872,6 +872,577 @@ clearTimeout(t);
 <section id="built-in" name="Built-in Modules">
 
 
+<section id="buffer" name="Buffer">
+
+<para>
+<list type="tag">
+
+<tag-name id="buffer_alloc"><literal>Buffer.alloc(<value>size</value>[,
+<value>fill</value>[,
+<value>encoding</value>]]))</literal></tag-name>
+<tag-desc>
+<para>
+Allocates a new Buffer of a specified <value>size</value>.
+If <value>fill</value> is not specified, the Buffer will be zero-filled.
+If <value>fill</value> is specified,
+the allocated Buffer will be initialized by calling
+<link id="buf_fill"><literal>buf.fill(fill)</literal></link>.
+If <value>fill</value> and <value>encoding</value> are specified,
+the allocated Buffer will be initialized by calling
+<link id="buf_fill"><literal>buf.fill(fill,
+encoding)</literal></link>.
+</para>
+
+<para>
+The <value>fill</value> parameter may be a
+<value>string</value>,
+<value>Buffer</value>,
+<value>Uint8Array</value>, or
+<value>integer</value>.
+</para>
+</tag-desc>
+
+<tag-name id="buffer_alloc_unsafe"><literal>Buffer.allocUnsafe(<value>size</value>)</literal></tag-name>
+<tag-desc>
+<para>
+The same as
+<link id="buffer_alloc"><literal>Buffer.alloc()</literal></link>,
+with the difference that the memory allocated for the buffer is not initialized,
+the contents of the new buffer is unknown and may contain sensitive data.
+</para>
+</tag-desc>
+
+<tag-name id="buffer_bytelength"><literal>Buffer.byteLength(<value>value</value>[,
+<value>encoding</value>])</literal></tag-name>
+<tag-desc>
+Returns the byte length of a specified value,
+when encoded using <value>encoding</value>.
+The value can be a
+<literal>string</literal>,
+<literal>Buffer</literal>,
+<literal>TypedArray</literal>,
+<literal>DataView</literal>, or
+<literal>ArrayBuffer</literal>.
+If the value is a <value>string</value>,
+the <literal>encoding</literal> parameter is its encoding, can be
+<value>utf-8</value>,
+<value>hex</value>,
+<value>base64</value>,
+<value>base64url</value>;
+by default is <value>utf-8</value>.
+</tag-desc>
+
+<tag-name id="buffer_compare"><literal>Buffer.compare(<value>buffer1</value>,
+<value>buffer2</value>)</literal></tag-name>
+<tag-desc>
+Compares <value>buffer1</value> with <value>buffer2</value>
+when sorting arrays of Buffer instances.
+Returns
+<literal>0</literal> if
+<value>buffer1</value> is the same as <value>buffer2</value>,
+<literal>1</literal> if
+<value>buffer2</value> should come before <value>buffer1</value> when sorted, or
+<literal>-1</literal> if
+<value>buffer2</value> should come after <value>buffer1</value> when sorted.
+</tag-desc>
+
+<tag-name id="buffer_concat"><literal>Buffer.concat(<value>list</value>[,
+<value>totalLength</value>])</literal></tag-name>
+<tag-desc>
+Returns a new Buffer
+which is the result of concatenating all the Buffer instances in the list.
+If there are no items in the list or the total length is 0, 
+a new zero-length Buffer is returned.
+If <value>totalLength</value> is not specified,
+it is calculated from the Buffer instances in list by adding their lengths.
+If <value>totalLength</value> is specified,
+it is coerced to an unsigned integer.
+If the combined length of the Buffers in list exceeds
+<value>totalLength</value>,
+the result is truncated to <value>totalLength</value>.
+</tag-desc>
+
+<tag-name id="buffer_from_array"><literal>Buffer.from(<value>array</value>)</literal></tag-name>
+<tag-desc>
+Allocates a new Buffer using an array of bytes
+in the range <literal>0</literal> – <literal>255</literal>.
+Array entries outside that range will be truncated.
+</tag-desc>
+
+<tag-name id="buffer_from_buffer"><literal>Buffer.from(<value>buffer</value>)</literal></tag-name>
+<tag-desc>
+Copies the passed buffer data onto a new Buffer instance.
+</tag-desc>
+
+<tag-name id="buffer_from_object"><literal>Buffer.from(<value>object</value>[,
+<value>offsetOrEncoding</value>[,
+<value>length</value>]])</literal></tag-name>
+<tag-desc>
+For objects whose <literal>valueOf()</literal> function
+returns a value not strictly equal to object,
+returns
+<literal>Buffer.from(object.valueOf()</literal>,
+<literal>offsetOrEncoding</literal>,
+<literal>length</literal>).
+</tag-desc>
+
+<tag-name id="buffer_from_string"><literal>Buffer.from(<value>string</value>[,
+<value>encoding</value>])</literal></tag-name>
+<tag-desc>
+Creates a new Buffer with a <value>string</value>.
+The <value>encoding</value> parameter identifies the character encoding
+to be used when converting a string into bytes.
+The encoding can be
+<literal>utf-8</literal>,
+<literal>hex</literal>,
+<literal>base64</literal>,
+<literal>base64url</literal>;
+by default is <literal>utf-8</literal>.
+</tag-desc>
+
+<tag-name id="buffer_is_buffer"><literal>Buffer.isBuffer(<value>object</value>)</literal></tag-name>
+<tag-desc>
+A boolean value,
+returns <literal>true</literal> if <value>object</value> is a Buffer.
+</tag-desc>
+
+<tag-name id="buffer_is_encoding"><literal>Buffer.isEncoding(<value>encoding</value>)</literal></tag-name>
+<tag-desc>
+A boolean value,
+returns <literal>true</literal>
+if encoding is the name of a supported character encoding.
+</tag-desc>
+
+<tag-name id="buf_index"><literal>buffer[<value>index</value>]</literal></tag-name>
+<tag-desc>
+The index operator <value>index</value>
+can be used to get and set the octet at position index in
+<literal>buffer</literal>.
+The values refer to individual bytes,
+so the legal value range is between 0 and 255 (decimal).
+</tag-desc>
+
+<tag-name id="buf_buffer"><literal>buf.buffer</literal></tag-name>
+<tag-desc>
+The underlying <literal>ArrayBuffer</literal> object
+based on which this Buffer object is created.
+</tag-desc>
+
+<tag-name id="buf_byte_offset"><literal>buf.byteOffset</literal></tag-name>
+<tag-desc>
+An integer,
+specifying the <literal>byteOffset</literal> of the Buffers
+underlying <literal>ArrayBuffer</literal> object.
+</tag-desc>
+
+<tag-name id="buf_compare"><literal>buf.compare(<value>target</value>[,
+<value>targetStart</value>[,
+<value>targetEnd</value>[,
+<value>sourceStart</value>[,
+<value>sourceEnd</value>]]]])</literal></tag-name>
+<tag-desc>
+Compares buffer with target and returns a number
+indicating whether buffer comes before, after, or is the same
+as target in sort order.
+Comparison is based on the actual sequence of bytes in each Buffer.
+The <literal>targetStart</literal> is an integer specifying the offset
+within target at which to begin comparison,
+by default is 0.
+The <literal>targetEnd</literal> is an integer specifying the offset
+within target at which to end comparison,
+by default is <literal>target.length</literal>.
+The <literal>sourceStart</literal> is an integer specifying the offset
+within buffer at which to begin comparison,
+by default is 0.
+The <literal>sourceEnd</literal> is an integer specifying the offset
+within buffer at which to end comparison (not inclusive),
+by default is <literal>buf.length</literal>.
+</tag-desc>
+
+<tag-name id="buf_copy"><literal>buf.copy(<value>target</value>[,
+<value>targetStart</value>[,
+<value>sourceStart</value>[,
+<value>sourceEnd</value>]]])</literal></tag-name>
+<tag-desc>
+Copies data from a region of buffer to a region in target,
+even if the target memory region overlaps with buffer.
+The <literal>target</literal> parameter is a
+<value>Buffer</value> or <value>Uint8Array</value> to copy into.
+
+<para>
+The <literal>targetStart</literal> is an integer specifying the offset
+within target at which to begin writing,
+by default is 0.
+The <literal>sourceStart</literal> is an integer specifying the offset
+within buffer from which to begin copying,
+by default is 0.
+The <literal>sourceEnd</literal> is an integer specifying the offset
+within buffer at which to stop copying (not inclusive)
+by default is <value>buf.length</value>.
+</para>
+</tag-desc>
+
+<tag-name id="buf_equals"><literal>buf.equals(<value>otherBuffer</value>)</literal></tag-name>
+<tag-desc>
+A boolean value,
+returns <literal>true</literal> if both Buffer and <value>otherBuffer</value>
+have exactly the same bytes.
+</tag-desc>
+
+<tag-name id="buf_fill"><literal>buf.fill(<value>value</value>[,
+<value>offset</value>[,
+<value>end</value>]][,
+<value>encoding</value>])</literal></tag-name>
+<tag-desc>
+Fills the Buffer with the specified <value>value</value>.
+If the <value>offset</value> and <value>end</value> are not specified,
+the entire Buffer will be filled.
+The <value>value</value> is coerced to <value>uint32</value> if it is not a
+<literal>string</literal>,
+<literal>Buffer</literal>, or
+<literal>integer</literal>.
+If the resulting integer is greater than 255,
+the Buffer will be filled with <value>value</value> and 255.
+</tag-desc>
+
+<tag-name id="buf_includes"><literal>buf.includes(<value>value</value>[,
+<value>byteOffset</value>][,
+<value>encoding</value>])</literal></tag-name>
+<tag-desc>
+Equivalent to
+<link id="buf_indexof"><literal>buf.indexOf()</literal></link>
+<literal>!== -1</literal>,
+returns <literal>true</literal> if the <value>value</value> was found
+in Buffer.
+</tag-desc>
+
+<tag-name id="buf_indexof"><literal>buf.indexOf(<value>value</value>[,
+<value>byteOffset</value>][,
+<value>encoding</value>])</literal></tag-name>
+<tag-desc>
+Returns an integer which is the index of the first occurrence of
+<value>value</value> in Buffer, or <value>-1</value>
+if Buffer does not contain value.
+The <value>value</value> can be a
+<literal>string</literal> with specified <value>encoding</value>
+(by default <value>utf-8</value>),
+<literal>Buffer</literal>,
+<literal>Unit8Array</literal>,
+or a number between 0 and 255.
+</tag-desc>
+
+<tag-name id="buf_lastindexof"><literal>buf.lastIndexOf(<value>value</value>[,
+<value>byteOffset</value>][,
+<value>encoding</value>])</literal></tag-name>
+<tag-desc>
+The same as
+<link id="buf_indexof"><literal>buf.indexOf()</literal></link>,
+except the last occurrence of the <value>value</value> is found
+instead of the first occurrence.
+The <value>value</value> can be a string, Buffer, or
+integer between 1 and 255.
+If the <value>value</value> is an empty string or empty Buffer,
+<literal>byteOffset</literal> will be returned.
+</tag-desc>
+
+<tag-name id="buf_length"><literal>buf.length</literal></tag-name>
+<tag-desc>
+Returns the number of bytes in Buffer.
+</tag-desc>
+
+<tag-name id="buf_readintbe"><literal>buf.readIntBE(<value>offset</value>,
+<value>byteLength</value>)</literal></tag-name>
+<tag-desc>
+Reads the <value>byteLength</value> from <literal>buf</literal>
+at the specified <value>offset</value>
+and interprets the result as a big-endian,
+two's complement signed value supporting up to 48 bits of accuracy.
+The <value>byteLength</value> parameter is an integer between 1 and 6
+specifying the number of bytes to read.
+<para>
+The similar methods are also supported:
+<literal>buf.readInt8([offset])</literal>,
+<literal>buf.readInt16BE([offset])</literal>,
+<literal>buf.readInt32BE([offset])</literal>.
+</para>
+</tag-desc>
+
+<tag-name id="buf_readintle"><literal>buf.readIntLE(<value>offset</value>,
+<value>byteLength</value>)</literal></tag-name>
+<tag-desc>
+Reads the <value>byteLength</value> from <literal>buf</literal>
+at the specified <value>offset</value>
+and interprets the result as a little-endian,
+two's complement signed value supporting up to 48 bits of accuracy.
+The <value>byteLength</value> parameter is an integer between 1 and 6
+specifying the number of bytes to read.
+<para>
+The similar methods are also supported:
+<literal>buf.readInt8([offset])</literal>,
+<literal>buf.readInt16LE([offset])</literal>,
+<literal>buf.readInt32LE([offset])</literal>.
+</para>
+</tag-desc>
+
+<tag-name id="buf_readuintbe"><literal>buf.readUIntBE(<value>offset</value>,
+<value>byteLength</value>)</literal></tag-name>
+<tag-desc>
+Reads the <value>byteLength</value> from <literal>buf</literal>
+at the specified <value>offset</value>
+and interprets the result as a big-endian
+integer supporting up to 48 bits of accuracy.
+The <value>byteLength</value> parameter is an integer between 1 and 6
+specifying the number of bytes to read.
+<para>
+The similar methods are also supported:
+<literal>buf.readUInt8([offset])</literal>,
+<literal>buf.readUInt16BE([offset])</literal>,
+<literal>buf.readUInt32BE([offset])</literal>.
+</para>
+</tag-desc>
+
+<tag-name id="buf_readuintle"><literal>buf.readUIntLE(<value>offset</value>,
+<value>byteLength</value>)</literal></tag-name>
+<tag-desc>
+Reads the <value>byteLength</value> from <literal>buf</literal>
+at the specified <value>offset</value>
+and interprets the result as a little-endian
+integer supporting up to 48 bits of accuracy.
+The <value>byteLength</value> parameter is an integer between 1 and 6
+specifying the number of bytes to read.
+<para>
+The similar methods are also supported:
+<literal>buf.readUInt8([offset])</literal>,
+<literal>buf.readUInt16LE([offset])</literal>,
+<literal>buf.readUInt32LE([offset])</literal>.
+</para>
+</tag-desc>
+
+<tag-name id="buf_readdobulebe"><literal>buf.readDoubleBE</literal>([<value>offset</value>])</tag-name>
+<tag-desc>
+Reads a 64-bit, big-endian double from <literal>buf</literal>
+at the specified <value>offset</value>.
+</tag-desc>
+
+<tag-name id="buf_readdobulele"><literal>buf.readDoubleLE</literal>([<value>offset</value>])</tag-name>
+<tag-desc>
+Reads a 64-bit, little-endian double from <literal>buf</literal>
+at the specified <value>offset</value>.
+</tag-desc>
+
+<tag-name id="buf_readfloatbe"><literal>buf.readFloatBE</literal>([<value>offset</value>])</tag-name>
+<tag-desc>
+Reads a 32-bit, big-endian float from <literal>buf</literal>
+at the specified <value>offset</value>.
+</tag-desc>
+
+<tag-name id="buf_readfloatle"><literal>buf.readFloatLE</literal>([<value>offset</value>])</tag-name>
+<tag-desc>
+Reads a 32-bit, little-endian float from <literal>buf</literal>
+at the specified <value>offset</value>.
+</tag-desc>
+
+<tag-name id="buf_subarray"><literal>buf.subarray[<value>start</value>[,
+<value>end</value>]])</literal></tag-name>
+<tag-desc>
+Returns a new <literal>buf</literal>
+that references the same memory as the original,
+but offset and cropped by
+<value>start</value> and <value>end</value>.
+If <value>end</value> is greater than
+<link id="buf_length"><literal>buf.length</literal></link>,
+the same result as that of end equal to
+<link id="buf_length"><literal>buf.length</literal></link>
+is returned.
+</tag-desc>
+
+<tag-name id="buf_slice"><literal>buf.slice[<value>start</value>[,
+<value>end</value>]])</literal></tag-name>
+<tag-desc>
+Returns a new <literal>buf</literal>
+that references the same memory as the original,
+but offset and cropped by the
+<value>start</value> and <value>end</value> values.
+The method is not compatible with the
+<literal>Uint8Array.prototype.slice()</literal>,
+which is a superclass of Buffer.
+To copy the slice, use
+<literal>Uint8Array.prototype.slice()</literal>.
+</tag-desc>
+
+<tag-name id="buf_swap16"><literal>buf.swap16</literal>()</tag-name>
+<tag-desc>
+Interprets <literal>buf</literal> as an array of unsigned 16-bit numbers
+and swaps the byte order in-place.
+Throws an error if
+<link id="buf_length"><literal>buf.length</literal></link>
+is not a multiple of 2.
+</tag-desc>
+
+<tag-name id="buf_swap32"><literal>buf.swap32</literal>()</tag-name>
+<tag-desc>
+Interprets <literal>buf</literal> as an array of unsigned 32-bit numbers
+and swaps the byte order in-place.
+Throws an error if
+<link id="buf_length"><literal>buf.length</literal></link>
+is not a multiple of 4.
+</tag-desc>
+
+<tag-name id="buf_swap64"><literal>buf.swap64</literal>()</tag-name>
+<tag-desc>
+Interprets <literal>buf</literal> as an array of 64-bit numbers
+and swaps byte order in-place.
+Throws an error if
+<link id="buf_length"><literal>buf.length</literal></link>
+is not a multiple of 8.
+</tag-desc>
+
+<tag-name id="buf_tojson"><literal>buf.toJSON</literal>()</tag-name>
+<tag-desc>
+Returns a JSON representation of <literal>buf.</literal>
+<literal>JSON.stringify()</literal>
+implicitly calls this function when stringifying a Buffer instance.
+</tag-desc>
+
+<tag-name id="buf_tostring"><literal>buf.toString([<value>encoding</value>[,
+<value>start</value>[,
+<value>end</value>]]])</literal></tag-name>
+<tag-desc>
+Decodes <literal>buf</literal> to a string
+according to the specified character <value>encoding</value>.
+which can be <value>utf-8</value>,
+<value>hex</value>,
+<value>base64</value>,
+<value>base64url</value>.
+The <value>start</value> and <value>end</value> parameters
+may be passed to decode only a subset of Buffer.
+</tag-desc>
+
+<tag-name id="buf_write"><literal>buf.write(<value>string</value>[,
+<value>offset</value>[,
+<value>length</value>]][,
+<value>encoding</value>])</literal></tag-name>
+<tag-desc>
+Writes a <value>string</value> to <literal>buf</literal>
+at <value>offset</value>
+according to the character <value>encoding</value>.
+The <value>length</value> parameter is the number of bytes to write.
+If Buffer did not contain enough space to fit the entire string,
+only part of string will be written,
+however, partially encoded characters will not be written.
+The <value>encoding</value> can be
+<value>utf-8</value>,
+<value>hex</value>,
+<value>base64</value>,
+<value>base64url</value>.
+</tag-desc>
+
+<tag-name id="buf_writeintbe"><literal>buf.writeIntBE(<value>value</value>,
+<value>offset</value>,
+<value>byteLength</value>)</literal></tag-name>
+<tag-desc>
+Writes <value>byteLength</value> bytes of <value>value</value>
+to <literal>buf</literal>
+at the specified <value>offset</value> as big-endian.
+Supports up to 48 bits of accuracy.
+The <value>byteLength</value> parameter is an integer between 1 and 6
+specifying the number of bytes to read.
+<para>
+The following similar methods are also supported:
+<literal>buf.writeInt8</literal>,
+<literal>buf.writeInt16BE</literal>,
+<literal>buf.writeInt32BE</literal>.
+</para>
+</tag-desc>
+
+<tag-name id="buf_writeintle"><literal>buf.writeIntLE(<value>value</value>,
+<value>offset</value>,
+<value>byteLength</value>)</literal></tag-name>
+<tag-desc>
+Writes <value>byteLength</value> bytes of <value>value</value>
+to <literal>buf</literal>
+at the specified <value>offset</value> as little-endian.
+Supports up to 48 bits of accuracy.
+The <value>byteLength</value> parameter is an integer between 1 and 6
+specifying the number of bytes to read.
+<para>
+The following similar methods are also supported:
+<literal>buf.writeInt8</literal>,
+<literal>buf.writeInt16LE</literal>,
+<literal>buf.writeInt32LE</literal>.
+</para>
+</tag-desc>
+
+<tag-name id="buf_writeuintbe"><literal>buf.writeUIntBE(<value>value</value>,
+<value>offset</value>,
+<value>byteLength</value>)</literal></tag-name>
+<tag-desc>
+Writes <value>byteLength</value> bytes of <value>value</value>
+to <literal>buf</literal>
+at the specified <value>offset</value> as big-endian.
+Supports up to 48 bits of accuracy.
+The <value>byteLength</value> parameter is an integer between 1 and 6
+specifying the number of bytes to read.
+<para>
+The following similar methods are also supported:
+<literal>buf.writeUInt8</literal>,
+<literal>buf.writeUInt16BE</literal>,
+<literal>buf.writeUInt32BE</literal>.
+</para>
+</tag-desc>
+
+<tag-name id="buf_writeuintle"><literal>buf.writeUIntLE(<value>value</value>,
+<value>offset</value>,
+<value>byteLength</value>)</literal></tag-name>
+<tag-desc>
+Writes <value>byteLength</value> bytes of <value>value</value>
+to <literal>buf</literal>
+at the specified <value>offset</value> as little-endian.
+Supports up to 48 bits of accuracy.
+The <value>byteLength</value> parameter is an integer between 1 and 6
+specifying the number of bytes to read.
+<para>
+The following similar methods are also supported:
+<literal>buf.writeUInt8</literal>,
+<literal>buf.writeUInt16LE</literal>,
+<literal>buf.writeUInt32LE</literal>.
+</para>
+</tag-desc>
+
+<tag-name id="buf_writedoublebe"><literal>buf.writeDoubleBE(<value>value</value>,
+[<value>offset</value>])</literal></tag-name>
+<tag-desc>
+Writes the <value>value</value> to <literal>buf</literal>
+at the specified <value>offset</value> as big-endian.
+</tag-desc>
+
+<tag-name id="buf_writedoublele"><literal>buf.writeDoubleLE(<value>value</value>,
+[<value>offset</value>])</literal></tag-name>
+<tag-desc>
+Writes the <value>value</value> to <literal>buf</literal>
+at the specified <value>offset</value> as little-endian.
+</tag-desc>
+
+<tag-name id="buf_writefloatbe"><literal>buf.writeFloatBE(<value>value</value>,
+[<value>offset</value>])</literal></tag-name>
+<tag-desc>
+Writes the <value>value</value> to <literal>buf</literal>
+at the specified <value>offset</value> as big-endian.
+</tag-desc>
+
+<tag-name id="buf_writefloatle"><literal>buf.writeFloatLE(<value>value</value>,
+[<value>offset</value>])</literal></tag-name>
+<tag-desc>
+Writes the <value>value</value> to <literal>buf</literal>
+at the specified <value>offset</value> as little-endian.
+</tag-desc>
+
+</list>
+</para>
+
+</section>
+
+
 <section id="crypto" name="Crypto">
 
 <para>
