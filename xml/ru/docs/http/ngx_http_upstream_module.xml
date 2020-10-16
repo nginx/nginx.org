@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_upstream_module"
         link="/ru/docs/http/ngx_http_upstream_module.html"
         lang="ru"
-        rev="84">
+        rev="85">
 
 <section id="summary">
 
@@ -550,6 +550,12 @@ upstream backend {
 консервативно, чтобы серверы группы по-прежнему могли обрабатывать
 новые входящие соединения.
 </note>
+
+<note>
+При использовании методов балансировки нагрузки, отличных
+от стандартного round-robin, следует активировать их до
+директивы <literal>keepalive</literal>.
+</note>
 </para>
 
 <para>
@@ -631,12 +637,6 @@ server {
 </para>
 
 <para>
-<note>
-При использовании методов балансировки нагрузки, отличных
-от стандартного round-robin, следует активировать их до
-директивы <literal>keepalive</literal>.
-</note>
-
 <note>
 Протоколы SCGI и uwsgi не определяют семантику постоянных соединений.
 </note>

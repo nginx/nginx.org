@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="84">
+        rev="85">
 
 <section id="summary">
 
@@ -543,6 +543,12 @@ that an nginx worker process can open.
 The <value>connections</value> parameter should be set to a number small enough
 to let upstream servers process new incoming connections as well.
 </note>
+
+<note>
+When using load balancing methods other than the default
+round-robin method, it is necessary to activate them before
+the <literal>keepalive</literal> directive.
+</note>
 </para>
 
 <para>
@@ -623,12 +629,6 @@ server {
 </para>
 
 <para>
-<note>
-When using load balancer methods other than the default
-round-robin method, it is necessary to activate them before
-the <literal>keepalive</literal> directive.
-</note>
-
 <note>
 SCGI and uwsgi protocols do not have a notion of keepalive connections.
 </note>
