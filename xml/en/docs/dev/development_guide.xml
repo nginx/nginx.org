@@ -7266,6 +7266,44 @@ failed:
 </section>
 </section>
 
+<section name="Debugging memory issues" id="debug_memory">
+
+<para>
+To debug memory issues such as buffer overruns or use-after-free errors, you
+can use the <link url="https://en.wikipedia.org/wiki/AddressSanitizer">
+AddressSanitizer</link> (ASan) supported by some modern compilers.
+To enable ASan with <literal>gcc</literal> and <literal>clang</literal>,
+use the <literal>-fsanitize=address</literal> compiler and linker option.
+When building nginx, this can be done by adding the option to
+<literal>--with-cc-opt</literal> and <literal>--with-ld-opt</literal>
+parameters of the <literal>configure</literal> script.
+</para>
+
+<para>
+Since most allocations in nginx are made from nginx internal
+<link id="pool">pool</link>, enabling ASan may not always be enough to debug
+memory issues.
+The internal pool allocates a big chunk of memory from the system and cuts
+smaller allocations from it.
+However, this mechanism can be disabled by setting the
+<literal>NGX_DEBUG_PALLOC</literal> macro to <literal>1</literal>.
+In this case, allocations are passed directly to the system allocator giving it
+full control over the buffers boundaries.
+</para>
+
+<para>
+The following configuration line summarizes the information provided above.
+It is recommended while developing third-party modules and testing nginx on
+different platforms.
+</para>
+
+<programlisting>
+auto/configure --with-cc-opt='-fsanitize=address -DNGX_DEBUG_PALLOC=1'
+               --with-ld-opt=-fsanitize=address
+</programlisting>
+
+</section>
+
 <section name="Common Pitfalls" id="common_pitfals">
 
 <section name="Writing a C module" id="module_pitfall">
