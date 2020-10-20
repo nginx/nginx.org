@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="55">
+        rev="56">
 
 <section id="summary">
 
@@ -967,6 +967,17 @@ the result is truncated to <value>totalLength</value>.
 Allocates a new Buffer using an array of bytes
 in the range <literal>0</literal> – <literal>255</literal>.
 Array entries outside that range will be truncated.
+</tag-desc>
+
+<tag-name id="buffer_from_arraybuffer"><literal>Buffer.from(<value>arrayBuffer</value>,
+<value>byteOffset</value>[,
+<value>length</value>]])</literal></tag-name>
+<tag-desc>
+Creates a view of the <value>ArrayBuffer</value>
+without copying the underlying memory.
+The optional <value>byteOffset</value> and <value>length</value> arguments
+specify a memory range within the <value>arrayBuffer</value>
+that will be shared by the Buffer.
 </tag-desc>
 
 <tag-name id="buffer_from_buffer"><literal>Buffer.from(<value>buffer</value>)</literal></tag-name>
