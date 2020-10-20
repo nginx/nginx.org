@@ -9,7 +9,7 @@
 <article name="Совместимость"
         link="/ru/docs/njs/compatibility.html"
         lang="ru"
-        rev="27"
+        rev="28"
         toc="no">
 
 <section>
@@ -438,13 +438,123 @@ ES6:
 <listitem>
 ES6:
 <literal>copyWithin</literal>,
+<literal>every</literal>
+(<link doc="changes.xml" id="njs0.4.4">0.4.4</link>),
 <literal>fill</literal>,
+<literal>filter</literal>
+(<link doc="changes.xml" id="njs0.4.4">0.4.4</link>),
+<literal>find</literal>
+(<link doc="changes.xml" id="njs0.4.4">0.4.4</link>),
+<literal>findIndex</literal>
+(<link doc="changes.xml" id="njs0.4.4">0.4.4</link>),
+<literal>forEach</literal>
+(<link doc="changes.xml" id="njs0.4.4">0.4.4</link>),
+<literal>includes</literal>
+(<link doc="changes.xml" id="njs0.4.4">0.4.4</link>),
+<literal>indexOf</literal>
+(<link doc="changes.xml" id="njs0.4.4">0.4.4</link>),
 <literal>join</literal>,
+<literal>lastIndexOf</literal>
+(<link doc="changes.xml" id="njs0.4.4">0.4.4</link>),
+<literal>map</literal>
+(<link doc="changes.xml" id="njs0.4.4">0.4.4</link>),
+<literal>reduce</literal>
+(<link doc="changes.xml" id="njs0.4.4">0.4.4</link>),
+<literal>reduceRight</literal>
+(<link doc="changes.xml" id="njs0.4.4">0.4.4</link>),
+<literal>reverse</literal>
+(<link doc="changes.xml" id="njs0.4.4">0.4.4</link>),
 <literal>set</literal>,
 <literal>slice</literal>,
-<literal>sort</literal> (<link doc="changes.xml" id="njs0.4.2">0.4.2</link>),
+<literal>some</literal>
+(<link doc="changes.xml" id="njs0.4.4">0.4.4</link>),
+<literal>sort</literal>
+(<link doc="changes.xml" id="njs0.4.2">0.4.2</link>),
 <literal>subarray</literal>,
 <literal>toString</literal>
+</listitem>
+</list>
+
+</listitem>
+
+<listitem>
+Методы <literal>Buffer</literal>
+(<link doc="changes.xml" id="njs0.4.4">0.4.4</link>):
+<list type="bullet">
+<listitem>
+<link doc="reference.xml" id="buffer_alloc"><literal>alloc</literal></link>,
+<link doc="reference.xml" id="buffer_alloc_unsafe"><literal>allocUnsafe</literal></link>,
+<link doc="reference.xml" id="buffer_bytelength"><literal>byteLength</literal></link>,
+<link doc="reference.xml" id="buffer_compare"><literal>compare</literal></link>,
+<link doc="reference.xml" id="buffer_concat"><literal>concat</literal></link>,
+<link doc="reference.xml" id="buffer_from_array"><literal>from</literal></link>,
+<link doc="reference.xml" id="buffer_is_buffer"><literal>isBuffer</literal></link>,
+<link doc="reference.xml" id="buffer_is_encoding"><literal>isEncoding</literal></link>
+</listitem>
+</list>
+
+</listitem>
+
+<listitem>
+Методы экземпляра класса <literal>Buffer</literal>:
+(<link doc="changes.xml" id="njs0.4.4">0.4.4</link>):
+<list type="bullet">
+<listitem>
+<link doc="reference.xml" id="buf_compare"><literal>compare</literal></link>,
+<link doc="reference.xml" id="buf_copy"><literal>copy</literal></link>,
+<link doc="reference.xml" id="buf_equals"><literal>equals</literal></link>,
+<link doc="reference.xml" id="buf_fill"><literal>fill</literal></link>,
+<link doc="reference.xml" id="buf_includes"><literal>includes</literal></link>,
+<link doc="reference.xml" id="buf_indexof"><literal>indexOf</literal></link>,
+<link doc="reference.xml" id="buf_lastindexof"><literal>lastIndexOf</literal></link>,
+<link doc="reference.xml" id="buf_readintbe"><literal>readIntBE</literal></link>,
+<literal>readInt8</literal>,
+<literal>readInt16BE</literal>,
+<literal>readInt32BE</literal>,
+<link doc="reference.xml" id="buf_readintle"><literal>readIntLE</literal></link>,
+<literal>readInt8</literal>,
+<literal>readInt16LE</literal>,
+<literal>readInt32LE</literal>,
+<link doc="reference.xml" id="buf_readuintbe"><literal>readUIntBE</literal></link>,
+<literal>readUInt8</literal>,
+<literal>readUInt16BE</literal>,
+<literal>readUInt32BE</literal>,
+<link doc="reference.xml" id="buf_readuintle"><literal>readUIntLE</literal></link>,
+<literal>readUInt8</literal>,
+<literal>readUInt16LE</literal>,
+<literal>readUInt32LE</literal>,
+<link doc="reference.xml" id="buf_readdobulebe"><literal>readDoubleBE</literal></link>,
+<link doc="reference.xml" id="buf_readdobulele"><literal>readDoubleLE</literal></link>,
+<link doc="reference.xml" id="buf_readfloatbe"><literal>readFloatBE</literal></link>,
+<link doc="reference.xml" id="buf_readfloatle"><literal>readFloatLE</literal></link>,
+<link doc="reference.xml" id="buf_subarray"><literal>subarray</literal></link>,
+<link doc="reference.xml" id="buf_slice"><literal>slice</literal></link>,
+<link doc="reference.xml" id="buf_swap16"><literal>swap16</literal></link>,
+<link doc="reference.xml" id="buf_swap32"><literal>swap32</literal></link>,
+<link doc="reference.xml" id="buf_swap64"><literal>swap64</literal></link>,
+<link doc="reference.xml" id="buf_tojson"><literal>toJSON</literal></link>,
+<link doc="reference.xml" id="buf_tostring"><literal>toString</literal></link>,
+<link doc="reference.xml" id="buf_write"><literal>write</literal></link>,
+<link doc="reference.xml" id="buf_writeintbe"><literal>writeIntBE</literal></link>,
+<literal>writeInt8</literal>,
+<literal>writeInt16BE</literal>,
+<literal>writeInt32BE</literal>,
+<link doc="reference.xml" id="buf_writeintle"><literal>writeIntLE</literal></link>,
+<literal>writeInt8</literal>,
+<literal>writeInt16LE</literal>,
+<literal>writeInt32LE</literal>,
+<link doc="reference.xml" id="buf_writeuintbe"><literal>writeUIntBE</literal></link>,
+<literal>writeUInt8</literal>,
+<literal>writeUInt16BE</literal>,
+<literal>writeUInt32BE</literal>,
+<link doc="reference.xml" id="buf_writeuintle"><literal>writeUIntLE</literal></link>,
+<literal>writeUInt8</literal>,
+<literal>writeUInt16LE</literal>,
+<literal>writeUInt32LE</literal>,
+<link doc="reference.xml" id="buf_writedoublebe"><literal>writeDoubleBE</literal></link>,
+<link doc="reference.xml" id="buf_writedoublele"><literal>writeDoubleLE</literal></link>,
+<link doc="reference.xml" id="buf_writefloatbe"><literal>writeFloatBE</literal></link>,
+<link doc="reference.xml" id="buf_writefloatle"><literal>writeFloatLE</literal></link>
 </listitem>
 </list>
 
@@ -508,6 +618,34 @@ ES5.1:
 <listitem>
 <literal>RegExp</literal>
 ES9 именные группы записи (<link doc="changes.xml" id="njs0.3.2">0.3.2</link>)
+</listitem>
+
+<listitem>
+Методы экземпляра класса <literal>DataView</literal>
+(<link doc="changes.xml" id="njs0.4.4">0.4.4</link>):
+<list type="bullet">
+
+<listitem>
+ES6:
+<literal>getFloat32</literal>,
+<literal>getFloat64</literal>,
+<literal>getInt16</literal>,
+<literal>getInt32</literal>,
+<literal>getInt8</literal>,
+<literal>getUint16</literal>,
+<literal>getUint32</literal>,
+<literal>getUint8</literal>,
+<literal>setFloat32</literal>,
+<literal>setFloat64</literal>,
+<literal>setInt16</literal>,
+<literal>setInt32</literal>,
+<literal>setInt8</literal>,
+<literal>setUint16</literal>,
+<literal>setUint32</literal>,
+<literal>setUint8</literal>
+</listitem>
+
+</list>
 </listitem>
 
 <listitem>
