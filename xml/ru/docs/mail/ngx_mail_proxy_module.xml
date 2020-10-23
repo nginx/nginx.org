@@ -10,7 +10,7 @@
 <module name="Модуль ngx_mail_proxy_module"
         link="/ru/docs/mail/ngx_mail_proxy_module.html"
         lang="ru"
-        rev="3">
+        rev="4">
 
 <section id="directives" name="Директивы">
 
@@ -70,6 +70,27 @@
 <link url="http://www.stalker.com/CommuniGatePro/POP.html#Alerts">ошибку
 аутентификации</link>.
 В этом случае директиву стоит включить.
+</para>
+
+</directive>
+
+
+<directive name="proxy_smtp_auth">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>mail</context>
+<context>server</context>
+<appeared-in>1.19.4</appeared-in>
+
+<para>
+Разрешает или запрещает аутентификацию пользователей на SMTP-бэкенде
+при помощи команды <literal>AUTH</literal>.
+</para>
+
+<para>
+Если также включён <link id="xclient">XCLIENT</link>,
+то команда <literal>XCLIENT</literal> не будет отправлять
+параметр <literal>LOGIN</literal>.
 </para>
 
 </directive>

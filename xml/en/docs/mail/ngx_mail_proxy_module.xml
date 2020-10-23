@@ -10,7 +10,7 @@
 <module name="Module ngx_mail_proxy_module"
         link="/en/docs/mail/ngx_mail_proxy_module.html"
         lang="en"
-        rev="3">
+        rev="4">
 
 <section id="directives" name="Directives">
 
@@ -70,6 +70,27 @@ overflow</link> or other events by periodically outputting the
 <link url="http://www.stalker.com/CommuniGatePro/POP.html#Alerts">authentication
 error</link>.
 The directive should be enabled in this case.
+</para>
+
+</directive>
+
+
+<directive name="proxy_smtp_auth">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>mail</context>
+<context>server</context>
+<appeared-in>1.19.4</appeared-in>
+
+<para>
+Enables or disables user authentication on the SMTP backend
+using the <literal>AUTH</literal> command.
+</para>
+
+<para>
+If <link id="xclient">XCLIENT</link> is also enabled,
+then the <literal>XCLIENT</literal> command will not send
+the <literal>LOGIN</literal> parameter.
 </para>
 
 </directive>
