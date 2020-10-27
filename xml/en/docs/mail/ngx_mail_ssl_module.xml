@@ -10,7 +10,7 @@
 <module name="Module ngx_mail_ssl_module"
         link="/en/docs/mail/ngx_mail_ssl_module.html"
         lang="en"
-        rev="20">
+        rev="21">
 
 <section id="summary">
 
@@ -233,6 +233,43 @@ used to <link id="ssl_verify_client">verify</link> client certificates.
 The list of certificates will be sent to clients.
 If this is not desired, the <link id="ssl_trusted_certificate"/>
 directive can be used.
+</para>
+
+</directive>
+
+
+<directive name="ssl_conf_command">
+<syntax><value>command</value></syntax>
+<default/>
+<context>mail</context>
+<context>server</context>
+<appeared-in>1.19.4</appeared-in>
+
+<para>
+Sets arbitrary OpenSSL configuration
+<link url="https://www.openssl.org/docs/man1.1.1/man3/SSL_CONF_cmd.html">commands</link>.
+<note>
+The directive is supported when using OpenSSL 1.0.2 or higher.
+</note>
+</para>
+
+<para>
+Several <literal>ssl_conf_command</literal> directives
+can be specified on the same level:
+<example>
+ssl_conf_command Options PrioritizeChaCha;
+ssl_conf_command Ciphersuites TLS_CHACHA20_POLY1305_SHA256;
+</example>
+These directives are inherited from the previous configuration level
+if and only if there are no <literal>ssl_conf_command</literal> directives
+defined on the current level.
+</para>
+
+<para>
+<note>
+Note that configuring OpenSSL directly
+might result in unexpected behavior.
+</note>
 </para>
 
 </directive>

@@ -10,7 +10,7 @@
 <module name="Модуль ngx_mail_ssl_module"
         link="/ru/docs/mail/ngx_mail_ssl_module.html"
         lang="ru"
-        rev="20">
+        rev="21">
 
 <section id="summary">
 
@@ -235,6 +235,43 @@ PEM, которые используются для
 Список сертификатов будет отправляться клиентам.
 Если это нежелательно, можно воспользоваться директивой
 <link id="ssl_trusted_certificate"/>.
+</para>
+
+</directive>
+
+
+<directive name="ssl_conf_command">
+<syntax><value>command</value></syntax>
+<default/>
+<context>mail</context>
+<context>server</context>
+<appeared-in>1.19.4</appeared-in>
+
+<para>
+Задаёт произвольные конфигурационные
+<link url="https://www.openssl.org/docs/man1.1.1/man3/SSL_CONF_cmd.html">команды</link>
+OpenSSL.
+<note>
+Директива поддерживается при использовании OpenSSL 1.0.2 и выше.
+</note>
+</para>
+
+<para>
+На одном уровне может быть указано
+несколько директив <literal>ssl_conf_command</literal>:
+<example>
+ssl_conf_command Options PrioritizeChaCha;
+ssl_conf_command Ciphersuites TLS_CHACHA20_POLY1305_SHA256;
+</example>
+Директивы наследуются с предыдущего уровня конфигурации при условии, что
+на данном уровне не описаны свои директивы <literal>ssl_conf_command</literal>.
+</para>
+
+<para>
+<note>
+Следует учитывать, что изменение настроек OpenSSL напрямую
+может привести к неожиданному поведению.
+</note>
 </para>
 
 </directive>
