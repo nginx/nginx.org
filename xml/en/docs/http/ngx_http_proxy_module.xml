@@ -10,7 +10,7 @@
 <module name="Module ngx_http_proxy_module"
         link="/en/docs/http/ngx_http_proxy_module.html"
         lang="en"
-        rev="69">
+        rev="70">
 
 <section id="summary">
 
@@ -1961,6 +1961,42 @@ The ciphers are specified in the format understood by the OpenSSL library.
 <para>
 The full list can be viewed using the
 “<command>openssl ciphers</command>” command.
+</para>
+
+</directive>
+
+
+<directive name="proxy_ssl_conf_command">
+<syntax><value>command</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.19.4</appeared-in>
+
+<para>
+Sets arbitrary OpenSSL configuration
+<link url="https://www.openssl.org/docs/man1.1.1/man3/SSL_CONF_cmd.html">commands</link>
+when establishing a connection with the proxied HTTPS server.
+<note>
+The directive is supported when using OpenSSL 1.0.2 or higher.
+</note>
+</para>
+
+<para>
+Several <literal>proxy_ssl_conf_command</literal> directives
+can be specified on the same level.
+These directives are inherited from the previous configuration level
+if and only if there are
+no <literal>proxy_ssl_conf_command</literal> directives
+defined on the current level.
+</para>
+
+<para>
+<note>
+Note that configuring OpenSSL directly
+might result in unexpected behavior.
+</note>
 </para>
 
 </directive>

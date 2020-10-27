@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_uwsgi_module"
         link="/ru/docs/http/ngx_http_uwsgi_module.html"
         lang="ru"
-        rev="45">
+        rev="46">
 
 <section id="summary">
 
@@ -1427,6 +1427,42 @@ uwsgi-сервер.
 <para>
 Полный список можно посмотреть с помощью команды
 “<command>openssl ciphers</command>”.
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_ssl_conf_command">
+<syntax><value>command</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.19.4</appeared-in>
+
+<para>
+Задаёт произвольные конфигурационные
+<link url="https://www.openssl.org/docs/man1.1.1/man3/SSL_CONF_cmd.html">команды</link>
+OpenSSL
+при установлении соединения с suwsgi-сервером.
+<note>
+Директива поддерживается при использовании OpenSSL 1.0.2 и выше.
+</note>
+</para>
+
+<para>
+На одном уровне может быть указано
+несколько директив <literal>uwsgi_ssl_conf_command</literal>.
+Директивы наследуются с предыдущего уровня конфигурации при условии, что
+на данном уровне не описаны
+свои директивы <literal>uwsgi_ssl_conf_command</literal>.
+</para>
+
+<para>
+<note>
+Следует учитывать, что изменение настроек OpenSSL напрямую
+может привести к неожиданному поведению.
+</note>
 </para>
 
 </directive>
