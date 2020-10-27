@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_ssl_module"
         link="/ru/docs/http/ngx_http_ssl_module.html"
         lang="ru"
-        rev="50">
+        rev="51">
 
 <section id="summary">
 
@@ -604,6 +604,39 @@ http {
 Параметр <literal>TLSv1.3</literal> (1.13.0) работает только
 при использовании OpenSSL 1.1.1, собранной с поддержкой TLSv1.3.
 </note>
+</para>
+
+</directive>
+
+
+<directive name="ssl_reject_handshake">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<appeared-in>1.19.4</appeared-in>
+
+<para>
+Если разрешено, то операции SSL handshake в
+блоке <link doc="ngx_http_core_module.xml" id="server"/> будут отклонены.
+</para>
+
+<para>
+Например в этой конфигурации отклоняются все операции SSL handshake с
+именем сервера, отличным от <literal>example.com</literal>:
+<example>
+server {
+    listen               443 ssl;
+    ssl_reject_handshake on;
+}
+
+server {
+    listen              443 ssl;
+    server_name         example.com;
+    ssl_certificate     example.com.crt;
+    ssl_certificate_key example.com.key;
+}
+</example>
 </para>
 
 </directive>

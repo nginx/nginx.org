@@ -10,7 +10,7 @@
 <module name="Module ngx_http_ssl_module"
         link="/en/docs/http/ngx_http_ssl_module.html"
         lang="en"
-        rev="50">
+        rev="51">
 
 <section id="summary">
 
@@ -600,6 +600,39 @@ The <literal>TLSv1.1</literal> and <literal>TLSv1.2</literal> parameters
 The <literal>TLSv1.3</literal> parameter (1.13.0) works only when
 OpenSSL 1.1.1 built with TLSv1.3 support is used.
 </note>
+</para>
+
+</directive>
+
+
+<directive name="ssl_reject_handshake">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<appeared-in>1.19.4</appeared-in>
+
+<para>
+If enabled, SSL handshakes in
+the <link doc="ngx_http_core_module.xml" id="server"/> block will be rejected.
+</para>
+
+<para>
+For example, in the following configuration, SSL handshakes with
+server names other than <literal>example.com</literal> are rejected:
+<example>
+server {
+    listen               443 ssl;
+    ssl_reject_handshake on;
+}
+
+server {
+    listen              443 ssl;
+    server_name         example.com;
+    ssl_certificate     example.com.crt;
+    ssl_certificate_key example.com.key;
+}
+</example>
 </para>
 
 </directive>
