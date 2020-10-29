@@ -7,7 +7,7 @@
 <article name="nginx: пакеты для Linux"
          link="/ru/linux_packages.html"
          lang="ru"
-         rev="47">
+         rev="48">
 
 <section name="Поддерживаемые дистрибутивы и версии" id="distributions">
 
@@ -60,7 +60,7 @@
 
 <tr>
 <td width="30%">10.x “buster”</td>
-<td>x86_64, i386</td>
+<td>x86_64, i386, aarch64/arm64</td>
 </tr>
 
 </table>
@@ -88,6 +88,11 @@
 
 <tr>
 <td width="30%">20.04 “focal”</td>
+<td>x86_64, aarch64/arm64</td>
+</tr>
+
+<tr>
+<td width="30%">20.10 “groovy”</td>
 <td>x86_64, aarch64/arm64</td>
 </tr>
 
