@@ -8,7 +8,7 @@
 <article name="Command-line parameters"
          link="/en/docs/switches.html"
          lang="en"
-         rev="3">
+         rev="4">
 
 <section>
 
@@ -24,6 +24,13 @@ for command-line parameters.
 <listitem>
 <literal>-c <value>file</value></literal>&mdash;use an alternative
 configuration <value>file</value> instead of a default file.
+</listitem>
+
+<listitem>
+<literal>-e <value>file</value></literal>&mdash;use an alternative
+error log <value>file</value> to store the log
+instead of a default file (1.19.5).
+The special value <literal>stderr</literal> selects the standard error file.
 </listitem>
 
 <listitem>
