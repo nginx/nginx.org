@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_proxy_module"
         link="/ru/docs/http/ngx_http_proxy_module.html"
         lang="ru"
-        rev="70">
+        rev="71">
 
 <section id="summary">
 
@@ -869,6 +869,11 @@ proxy_cookie_domain ~\.(?P&lt;sl_domain&gt;[-0-9a-z]+\.[a-z]+)$ $sl_domain;
 proxy_cookie_domain localhost example.org;
 proxy_cookie_domain ~\.([a-z]+\.[a-z]+)$ $1;
 </example>
+Если к куке могут быть применены несколько директив,
+будет выбрана первая из них.
+</para>
+
+<para>
 Параметр <literal>off</literal> отменяет действие
 унаследованных с предыдущего уровня конфигурации
 директив <literal>proxy_cookie_domain</literal>.
@@ -919,6 +924,8 @@ proxy_cookie_domain ~\.([a-z]+\.[a-z]+)$ $1;
 proxy_cookie_flags one httponly;
 proxy_cookie_flags ~ nosecure samesite=strict;
 </example>
+Если к куке могут быть применены несколько директив,
+будет выбрана первая из них.
 В данном примере флаг <literal>httponly</literal>
 добавляется к куке <literal>one</literal>,
 для остальных кук
@@ -986,6 +993,11 @@ proxy_cookie_path ~*^/user/([^/]+) /u/$1;
 proxy_cookie_path /one/ /;
 proxy_cookie_path / /two/;
 </example>
+Если к куке могут быть применены несколько директив,
+будет выбрана первая из них.
+</para>
+
+<para>
 Параметр <literal>off</literal> отменяет действие
 унаследованных с предыдущего уровня конфигурации
 директив <literal>proxy_cookie_path</literal>.
@@ -1713,6 +1725,12 @@ proxy_redirect default;
 proxy_redirect http://localhost:8000/  /;
 proxy_redirect http://www.example.com/ /;
 </example>
+Если к полям заголовка в ответе проксируемого сервера
+могут быть применены несколько директив,
+будет выбрана первая из них.
+</para>
+
+<para>
 Параметр <literal>off</literal> отменяет действие
 унаследованных с предыдущего уровня конфигурации
 директив <literal>proxy_redirect</literal>.

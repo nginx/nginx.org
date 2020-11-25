@@ -10,7 +10,7 @@
 <module name="Module ngx_http_proxy_module"
         link="/en/docs/http/ngx_http_proxy_module.html"
         lang="en"
-        rev="70">
+        rev="71">
 
 <section id="summary">
 
@@ -867,6 +867,11 @@ can be specified on the same level:
 proxy_cookie_domain localhost example.org;
 proxy_cookie_domain ~\.([a-z]+\.[a-z]+)$ $1;
 </example>
+If several directives can be applied to the cookie,
+the first matching directive will be chosen.
+</para>
+
+<para>
 The <literal>off</literal> parameter cancels the effect
 of the <literal>proxy_cookie_domain</literal> directives
 inherited from the previous configuration level.
@@ -916,6 +921,8 @@ can be specified on the same configuration level:
 proxy_cookie_flags one httponly;
 proxy_cookie_flags ~ nosecure samesite=strict;
 </example>
+If several directives can be applied to the cookie,
+the first matching directive will be chosen.
 In the example, the <literal>httponly</literal> flag
 is added to the cookie <literal>one</literal>,
 for all other cookies
@@ -984,6 +991,11 @@ can be specified on the same level:
 proxy_cookie_path /one/ /;
 proxy_cookie_path / /two/;
 </example>
+If several directives can be applied to the cookie,
+the first matching directive will be chosen.
+</para>
+
+<para>
 The <literal>off</literal> parameter cancels the effect
 of the <literal>proxy_cookie_path</literal> directives
 inherited from the previous configuration level.
@@ -1709,6 +1721,12 @@ proxy_redirect default;
 proxy_redirect http://localhost:8000/  /;
 proxy_redirect http://www.example.com/ /;
 </example>
+If several directives can be applied to
+the header fields of a proxied server response,
+the first matching directive will be chosen.
+</para>
+
+<para>
 The <literal>off</literal> parameter cancels the effect
 of the <literal>proxy_redirect</literal> directives
 inherited from the previous configuration level.
