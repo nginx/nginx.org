@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="56">
+        rev="57">
 
 <section id="summary">
 
@@ -180,6 +180,36 @@ references the parent request object
 client address, read-only
 </tag-desc>
 
+<tag-name id="r_request_body"><literal>r.requestBody</literal></tag-name>
+<tag-desc>
+the property is deprecated since
+<link doc="changes.xml" id="njs0.5.0">0.5.0</link>,
+the <link id="r_request_buffer"><literal>r.requestBuffer</literal></link> or
+<link id="r_request_text"><literal>r.requestText</literal></link> property
+should be used instead.
+</tag-desc>
+
+<tag-name id="r_request_buffer"><literal>r.requestBuffer</literal></tag-name>
+<tag-desc>
+client request body if it has not been written to a temporary file
+(since <link doc="changes.xml" id="njs0.5.0">0.5.0</link>).
+To ensure that the client request body is in memory,
+its size should be limited by
+<link doc="../http/ngx_http_core_module.xml" id="client_max_body_size"/>,
+and a sufficient buffer size should be set using
+<link doc="../http/ngx_http_core_module.xml" id="client_body_buffer_size"/>.
+The property is available only in the
+<link doc="../http/ngx_http_js_module.xml" id="js_content"/> directive.
+</tag-desc>
+
+<tag-name id="r_request_text"><literal>r.requestText</literal></tag-name>
+<tag-desc>
+the same as <link id="r_request_buffer"><literal>r.requestBuffer</literal></link>,
+but returns a <literal>string</literal>.
+Note that
+it may convert bytes invalid in utf8 encoding into the replacement character.
+</tag-desc>
+
 <tag-name id="r_raw_headers_in"><literal>r.rawHeadersIn{}</literal></tag-name>
 <tag-desc>
 returns an array of key-value pairs
@@ -222,31 +252,43 @@ Header field names are not converted to lower case,
 duplicate field values are not merged.
 </tag-desc>
 
-<tag-name id="r_request_body"><literal>r.requestBody</literal></tag-name>
-<tag-desc>
-returns the client request body if it has not been
-written to a temporary file.
-To ensure that the client request body is in memory,
-its size should be limited by
-<link doc="../http/ngx_http_core_module.xml" id="client_max_body_size"/>,
-and a sufficient buffer size should be set using
-<link doc="../http/ngx_http_core_module.xml" id="client_body_buffer_size"/>.
-The property is available only in the
-<link doc="../http/ngx_http_js_module.xml" id="js_content"/> directive.
-</tag-desc>
-
 <tag-name id="r_response_body"><literal>r.responseBody</literal></tag-name>
 <tag-desc>
-holds the <link id="r_subrequest">subrequest</link> response body, read-only.
-The size of <literal>r.responseBody</literal> is limited by the
+the property is deprecated since
+<link doc="changes.xml" id="njs0.5.0">0.5.0</link>,
+the <link id="r_response_buffer"><literal>r.responseBuffer</literal></link>
+or
+the <link id="r_response_text"><literal>r.responseText</literal></link>
+property
+should be used instead.
+</tag-desc>
+
+<tag-name id="r_response_buffer"><literal>r.responseBuffer</literal></tag-name>
+<tag-desc>
+holds the <link id="r_subrequest">subrequest</link> response body,
+read-only
+(since <link doc="changes.xml" id="njs0.5.0">0.5.0</link>).
+The size of <literal>r.responseBuffer</literal> is limited by the
 <link doc="../http/ngx_http_core_module.xml" id="subrequest_output_buffer_size"/>
 directive.
 </tag-desc>
 
-<tag-name id="r_return"><literal>r.return(status[, string])</literal></tag-name>
+<tag-name id="r_response_text"><literal>r.responseText</literal></tag-name>
+<tag-desc>
+the same as <link id="r_response_buffer"><literal>r.responseBuffer</literal></link>
+but returns a string
+(since <link doc="changes.xml" id="njs0.5.0">0.5.0</link>).
+Note that
+it may convert bytes invalid in utf8 encoding into the replacement character.
+</tag-desc>
+
+<tag-name id="r_return"><literal>r.return(status[,
+string | Buffer])</literal></tag-name>
 <tag-desc>
 sends the entire response
-with the specified <literal>status</literal> to the client
+with the specified <literal>status</literal> to the client.
+The response can be a string or Buffer
+(<link doc="changes.xml" id="njs0.5.0">0.5.0</link>).
 <para>
 It is possible to specify either a redirect URL
 (for codes 301, 302, 303, 307, and 308)
@@ -254,9 +296,12 @@ or the response body text (for other codes) as the second argument
 </para>
 </tag-desc>
 
-<tag-name id="r_send"><literal>r.send(<value>string</value>)</literal></tag-name>
+<tag-name id="r_send"><literal>r.send(string
+| Buffer)</literal></tag-name>
 <tag-desc>
-sends a part of the response body to the client
+sends a part of the response body to the client.
+The data sent can be a string or Buffer
+(<link doc="changes.xml" id="njs0.5.0">0.5.0</link>)
 </tag-desc>
 
 <tag-name id="r_send_header"><literal>r.sendHeader()</literal></tag-name>
@@ -345,6 +390,13 @@ in request,
 read-only
 </tag-desc>
 
+<tag-name id="r_raw_variables"><literal>r.rawVariables{}</literal></tag-name>
+<tag-desc>
+nginx <link id="r_variables">variables</link> as Buffers,
+writable
+(since <link doc="changes.xml" id="njs0.5.0">0.5.0</link>)
+</tag-desc>
+
 <tag-name id="r_variables"><literal>r.variables{}</literal></tag-name>
 <tag-desc>
 nginx variables object, writable
@@ -430,12 +482,24 @@ An <literal>event</literal> may be one of the following strings:
 <list type="tag">
 <tag-name><literal>upload</literal></tag-name>
 <tag-desc>
-new data from a client
+new data (string) from a client
 </tag-desc>
 
 <tag-name><literal>download</literal></tag-name>
 <tag-desc>
-new data to a client
+new data (string) to a client
+</tag-desc>
+
+<tag-name><literal>upstream</literal></tag-name>
+<tag-desc>
+new data (Buffer) from a client
+(since <link doc="changes.xml" id="njs0.5.0">0.5.0</link>)
+</tag-desc>
+
+<tag-name><literal>downstream</literal></tag-name>
+<tag-desc>
+new data (Buffer) to a client
+(since <link doc="changes.xml" id="njs0.5.0">0.5.0</link>)
 </tag-desc>
 
 </list>
@@ -444,7 +508,7 @@ new data to a client
 <para>
 The completion callback has the following prototype:
 <literal>callback(data, flags)</literal>, where
-<literal>data</literal> is string,
+<literal>data</literal> is string or Buffer (depending on the event type)
 <literal>flags</literal> is an object
 with the following properties:
 <list type="tag">
@@ -462,11 +526,20 @@ a boolean value, true if data is a last buffer.
 client address, read-only
 </tag-desc>
 
+<tag-name id="s_raw_variables"><literal>s.rawVariables</literal></tag-name>
+<tag-desc>
+nginx <link id="s_variables">variables</link> as Buffers,
+writable
+(since <link doc="changes.xml" id="njs0.5.0">0.5.0</link>)
+</tag-desc>
+
 <tag-name id="s_send"><literal>s.send(<value>data</value>[,
 <value>options</value>])</literal></tag-name>
 <tag-desc>
 sends the data to the client
 (<link doc="changes.xml" id="njs0.2.4">0.2.4</link>).
+The data can be a string or Buffer
+(<link doc="changes.xml" id="njs0.5.0">0.5.0</link>).
 The <literal>options</literal> is an object used
 to override nginx buffer flags derived from an incoming data chunk buffer.
 The flags can be overridden with the following flags:
@@ -501,6 +574,30 @@ writes a sent <literal>string</literal> to the error log
 on the <literal>warning</literal> level of logging
 </tag-desc>
 
+</list>
+</para>
+
+</section>
+
+
+<section id="ngx" name="ngx">
+
+<para>
+The <literal>ngx</literal> global object is available
+since <link doc="changes.xml" id="njs0.5.0">0.5.0</link>.
+<list type="tag">
+
+<tag-name id="ngx_log"><literal>ngx.log</literal>(<value>level</value>,
+<value>message</value>)</tag-name>
+<tag-desc>
+Writes a message to the error log with the specified level of logging.
+The <value>level</value> parameter specifies one of the log levels,
+the <value>message</value> parameter can be a string or Buffer.
+The following log levels can be specified:
+<literal>ngx.INFO</literal>,
+<literal>ngx.WARN</literal>, and
+<literal>ngx.ERR</literal>.
+</tag-desc>
 </list>
 </para>
 

@@ -9,8 +9,282 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="38"
+        rev="39"
         toc="no">
+
+<section id="njs0.5.0" name="Changes with njs 0.5.0">
+
+<para>
+Release Date:
+01 December 2020
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+introduced global
+<link doc="reference.xml" id="ngx"><literal>ngx</literal></link> object.
+</para>
+
+<para>
+The following methods were added:
+<list type="bullet">
+
+<listitem>
+<para>
+<link doc="reference.xml" id="ngx_log"><literal>ngx.log(level,
+message)</literal></link>
+</para>
+</listitem>
+
+</list>
+</para>
+
+<para>
+The following properties were added:
+<list type="bullet">
+
+<listitem>
+<para>
+<literal>ngx.INFO</literal>,
+<literal>ngx.WARN</literal>,
+<literal>ngx.ERR</literal>.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added support for
+<literal>Buffer</literal> object where string is expected.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added Buffer version of existing properties.
+</para>
+
+<para>
+The following properties were added:
+<list type="bullet">
+
+<listitem>
+<para>
+<link doc="reference.xml" id="r_request_buffer"><literal>r.requestBuffer</literal></link>
+(<link doc="reference.xml" id="r_request_body"><literal>r.requestBody</literal></link>),
+<link doc="reference.xml" id="r_response_buffer"><literal>r.responseBuffer</literal></link>
+(<link doc="reference.xml" id="r_response_body"><literal>r.responseBody</literal></link>),
+<link doc="reference.xml" id="r_raw_variables"><literal>r.rawVariables</literal></link>
+(<link doc="reference.xml" id="r_variables"><literal>r.variables</literal></link>),
+<link doc="reference.xml" id="s_raw_variables"><literal>s.rawVariables</literal></link>
+(<link doc="reference.xml" id="s_variables"><literal>s.variables</literal></link>).
+</para>
+</listitem>
+
+</list>
+</para>
+
+<para>
+The following events were added in the stream module:
+<list type="bullet">
+
+<listitem>
+<para>
+<link doc="reference.xml" id="s_on"><literal>upstream</literal></link>
+(upload),
+<link doc="reference.xml" id="s_on"><literal>downstream</literal></link>
+(download).
+</para>
+</listitem>
+
+</list>
+</para>
+
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+added aliases to existing properties.
+</para>
+
+<para>
+The following properties were added:
+<list type="bullet">
+
+<listitem>
+<para>
+<link doc="reference.xml" id="r_request_text"><literal>r.requestText</literal></link>
+(<link doc="reference.xml" id="r_request_body"><literal>r.requestBody</literal></link>),
+<link doc="reference.xml" id="r_response_text"><literal>r.responseText</literal></link>
+(<link doc="reference.xml" id="r_response_body"><literal>r.responseBody</literal></link>).
+</para>
+</listitem>
+
+</list>
+</para>
+
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+throwing an exception in
+<link doc="reference.xml" id="r_internal_redirect"><literal>r.internalRedirect()</literal></link>
+for a subrequest.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed promise
+<link doc="reference.xml" id="r_subrequest"><literal>r.subrequest()</literal></link>
+with
+<link doc="../http/ngx_http_core_module.xml" id="error_page"><literal>error_page</literal></link>
+redirect.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<literal>promise</literal> events handling.
+</para>
+</listitem>
+
+</list>
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+added
+<literal>TypeScript</literal> definitions for built-in modules.
+Thanks to Jakub Jirutka.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+tracking unhandled <literal>promise</literal> rejection.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added initial iterator support.
+Thanks to Artem S. Povalyukhin.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+<literal>TypeScript</literal> definitions are refactored.
+Thanks to Jakub Jirutka.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+added forgotten support for
+<literal>Object.prototype.valueOf()</literal>
+in
+<literal>Buffer.from()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed heap-use-after-free in
+<literal>JSON.parse()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed heap-use-after-free in
+<literal>JSON.stringify()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<literal>JSON.stringify()</literal> for arrays resizable via getters.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed heap-buffer-overflow for
+<literal>RegExp.prototype[Symbol.replace]</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed returned value for
+<literal>Buffer.prototype.write*</literal>
+functions.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<link doc="reference.xml" id="querystring_stringify"><literal>querystring.stringify()</literal></link>.
+Thanks to Artem S. Povalyukhin.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed the catch handler for
+<literal>Promise.prototype.finally()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<link doc="reference.xml" id="querystring_parse"><literal>querystring.parse()</literal></link>.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.4.4" name="Changes with njs 0.4.4">
 
