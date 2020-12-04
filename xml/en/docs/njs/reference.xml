@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="57">
+        rev="58">
 
 <section id="summary">
 
@@ -880,11 +880,6 @@ from a stream of code points
 <tag-desc>
 Returns a newly constructed <literal>TextEncoder</literal>
 that will generate a byte stream with UTF-8 encoding.
-</tag-desc>
-
-<tag-name id="textencoder_encoding"><literal>TextEncoder.prototype.encoding</literal></tag-name>
-<tag-desc>
-Returns “<value>utf-8</value>”, read-only.
 </tag-desc>
 
 <tag-name id="textencoder_encode"><literal>TextEncoder.prototype.encode(<value>string</value>)</literal></tag-name>

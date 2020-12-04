@@ -9,7 +9,7 @@
 <article name="Совместимость"
         link="/ru/docs/njs/compatibility.html"
         lang="ru"
-        rev="28"
+        rev="29"
         toc="no">
 
 <section>
@@ -829,7 +829,6 @@ ES5.1 global functions:
 Методы
 <link doc="reference.xml" id="textencoder"><literal>TextEncoder</literal></link>
 (<link doc="changes.xml" id="njs0.4.3">0.4.3</link>):
-<link doc="reference.xml" id="textencoder_encoding"><literal>encoding</literal></link>,
 <link doc="reference.xml" id="textencoder_encode"><literal>encode</literal></link>,
 <link doc="reference.xml" id="textencoder_encodeinto"><literal>encodeInto</literal></link>
 </listitem>
