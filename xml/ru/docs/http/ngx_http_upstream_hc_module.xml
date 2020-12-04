@@ -201,6 +201,36 @@ http {
 <link doc="ngx_http_upstream_module.xml" id="server">сервера</link>.
 </tag-desc>
 
+<tag-name id="health_check_grpc">
+<literal>type</literal>=<literal>grpc</literal>
+[<literal>grpc_service</literal>=<value>имя</value>]
+[<literal>grpc_status</literal>=<value>код</value>]
+</tag-name>
+<tag-desc>
+активирует периодические
+<link url="https://github.com/grpc/grpc/blob/master/doc/health-checking.md#grpc-health-checking-protocol">проверки
+работоспособности</link> gRPC-сервера
+или службы gRPC, указанной при помощи необязательного
+параметра <literal>grpc_service</literal> (1.19.5).
+Если сервер не поддерживает протокол проверки работоспособности gRPC,
+то можно использовать необязательный параметр <literal>grpc_status</literal>
+для указания
+<link url="https://github.com/grpc/grpc/blob/master/doc/statuscodes.md#status-codes-and-their-use-in-grpc">статуса</link>
+(например
+статус “<literal>12</literal>” / “<literal>UNIMPLEMENTED</literal>”)
+при получении которого сервер признаётся работоспособным:
+<example>
+health_check mandatory type=grpc grpc_status=12;
+</example>
+Параметр <literal>type</literal>=<literal>grpc</literal>
+должен быть указан после остальных параметров директивы,
+<literal>grpc_service</literal> и <literal>grpc_status</literal>
+должны быть указаны после <literal>type</literal>=<literal>grpc</literal>.
+Параметр несовместим с параметрами
+<link id="health_check_uri"><literal>uri</literal></link> и
+<link id="health_check_match"><literal>match</literal></link>.
+</tag-desc>
+
 </list>
 </para>
 

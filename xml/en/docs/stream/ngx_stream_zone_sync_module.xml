@@ -320,6 +320,41 @@ The full list can be viewed using the
 </directive>
 
 
+<directive name="zone_sync_ssl_conf_command">
+<syntax><value>command</value></syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.19.4</appeared-in>
+
+<para>
+Sets arbitrary OpenSSL configuration
+<link url="https://www.openssl.org/docs/man1.1.1/man3/SSL_CONF_cmd.html">commands</link>
+when establishing a connection with another cluster server.
+<note>
+The directive is supported when using OpenSSL 1.0.2 or higher.
+</note>
+</para>
+
+<para>
+Several <literal>zone_sync_ssl_conf_command</literal> directives
+can be specified on the same level.
+These directives are inherited from the previous configuration level
+if and only if there are
+no <literal>zone_sync_ssl_conf_command</literal> directives
+defined on the current level.
+</para>
+
+<para>
+<note>
+Note that configuring OpenSSL directly
+might result in unexpected behavior.
+</note>
+</para>
+
+</directive>
+
+
 <directive name="zone_sync_ssl_crl">
 <syntax><value>file</value></syntax>
 <default/>

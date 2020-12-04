@@ -971,6 +971,7 @@ resolver_timeout 5s;
     [<literal>expires=</literal><value>время</value>]
     [<literal>domain=</literal><value>домен</value>]
     [<literal>httponly</literal>]
+    [<literal>samesite=</literal><literal>strict</literal>|<literal>lax</literal>|<literal>none</literal>]
     [<literal>secure</literal>]
     [<literal>path=</literal><value>путь</value>]</syntax>
 <syntax>
@@ -1056,6 +1057,16 @@ upstream backend {
 <tag-name><literal>httponly</literal></tag-name>
 <tag-desc>
 Добавляет атрибут <literal>HttpOnly</literal> к куке (1.7.11).
+</tag-desc>
+
+<tag-name id="sticky_samesite"><literal>samesite=</literal><literal>strict</literal> |
+<literal>lax</literal> | <literal>none</literal></tag-name>
+<tag-desc>
+Добавляет атрибут <literal>SameSite</literal> к куке
+с одним из следующих значений (1.19.4):
+<literal>Strict</literal>,
+<literal>Lax</literal> или
+<literal>None</literal>.
 </tag-desc>
 
 <tag-name><literal>secure</literal></tag-name>

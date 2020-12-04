@@ -961,6 +961,7 @@ This directive is available as part of our
     [<literal>expires=</literal><value>time</value>]
     [<literal>domain=</literal><value>domain</value>]
     [<literal>httponly</literal>]
+    [<literal>samesite=</literal><literal>strict</literal>|<literal>lax</literal>|<literal>none</literal>]
     [<literal>secure</literal>]
     [<literal>path=</literal><value>path</value>]</syntax>
 <syntax>
@@ -1050,10 +1051,19 @@ Parameter value can contain variables (1.11.5).
 Adds the <literal>HttpOnly</literal> attribute to the cookie (1.7.11).
 </tag-desc>
 
+<tag-name id="sticky_samesite"><literal>samesite=</literal><literal>strict</literal> |
+<literal>lax</literal> | <literal>none</literal></tag-name>
+<tag-desc>
+Adds the <literal>SameSite</literal> attribute to the cookie
+with one of the following values (1.19.4):
+<literal>Strict</literal>,
+<literal>Lax</literal>, or
+<literal>None</literal>.
+</tag-desc>
+
 <tag-name><literal>secure</literal></tag-name>
 <tag-desc>
 Adds the <literal>Secure</literal> attribute to the cookie (1.7.11).
-
 </tag-desc>
 
 <tag-name><literal>path=</literal><value>path</value></tag-name>

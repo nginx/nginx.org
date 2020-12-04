@@ -201,6 +201,36 @@ By default, equals the
 <link doc="ngx_http_upstream_module.xml" id="server"/> port.
 </tag-desc>
 
+<tag-name id="health_check_grpc">
+<literal>type</literal>=<literal>grpc</literal>
+[<literal>grpc_service</literal>=<value>name</value>]
+[<literal>grpc_status</literal>=<value>code</value>]
+</tag-name>
+<tag-desc>
+enables periodic
+<link url="https://github.com/grpc/grpc/blob/master/doc/health-checking.md#grpc-health-checking-protocol">health
+checks</link> of a gRPC server
+or a particular gRPC service specified with the optional
+<literal>grpc_service</literal> parameter (1.19.5).
+If the server does not support the gRPC Health Checking Protocol,
+the optional <literal>grpc_status</literal> parameter can be used
+to specify non-zero gRPC
+<link url="https://github.com/grpc/grpc/blob/master/doc/statuscodes.md#status-codes-and-their-use-in-grpc">status</link>
+(for example,
+status code “<literal>12</literal>” / “<literal>UNIMPLEMENTED</literal>”)
+that will be treated as healthy:
+<example>
+health_check mandatory type=grpc grpc_status=12;
+</example>
+The <literal>type</literal>=<literal>grpc</literal> parameter
+must be specified after all other directive parameters,
+<literal>grpc_service</literal> and <literal>grpc_status</literal>
+must follow <literal>type</literal>=<literal>grpc</literal>.
+The parameter is not compatible with
+<link id="health_check_uri"><literal>uri</literal></link> or
+<link id="health_check_match"><literal>match</literal></link> parameters.
+</tag-desc>
+
 </list>
 </para>
 
