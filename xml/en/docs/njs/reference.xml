@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="58">
+        rev="59">
 
 <section id="summary">
 
@@ -1017,11 +1017,11 @@ The value can be a
 <literal>ArrayBuffer</literal>.
 If the value is a <value>string</value>,
 the <literal>encoding</literal> parameter is its encoding, can be
-<value>utf-8</value>,
+<value>utf8</value>,
 <value>hex</value>,
 <value>base64</value>,
 <value>base64url</value>;
-by default is <value>utf-8</value>.
+by default is <value>utf8</value>.
 </tag-desc>
 
 <tag-name id="buffer_compare"><literal>Buffer.compare(<value>buffer1</value>,
@@ -1096,11 +1096,11 @@ Creates a new Buffer with a <value>string</value>.
 The <value>encoding</value> parameter identifies the character encoding
 to be used when converting a string into bytes.
 The encoding can be
-<literal>utf-8</literal>,
+<literal>utf8</literal>,
 <literal>hex</literal>,
 <literal>base64</literal>,
 <literal>base64url</literal>;
-by default is <literal>utf-8</literal>.
+by default is <literal>utf8</literal>.
 </tag-desc>
 
 <tag-name id="buffer_is_buffer"><literal>Buffer.isBuffer(<value>object</value>)</literal></tag-name>
@@ -1228,7 +1228,7 @@ Returns an integer which is the index of the first occurrence of
 if Buffer does not contain value.
 The <value>value</value> can be a
 <literal>string</literal> with specified <value>encoding</value>
-(by default <value>utf-8</value>),
+(by default <value>utf8</value>),
 <literal>Buffer</literal>,
 <literal>Unit8Array</literal>,
 or a number between 0 and 255.
@@ -1413,7 +1413,7 @@ implicitly calls this function when stringifying a Buffer instance.
 <tag-desc>
 Decodes <literal>buf</literal> to a string
 according to the specified character <value>encoding</value>.
-which can be <value>utf-8</value>,
+which can be <value>utf8</value>,
 <value>hex</value>,
 <value>base64</value>,
 <value>base64url</value>.
@@ -1434,7 +1434,7 @@ If Buffer did not contain enough space to fit the entire string,
 only part of string will be written,
 however, partially encoded characters will not be written.
 The <value>encoding</value> can be
-<value>utf-8</value>,
+<value>utf8</value>,
 <value>hex</value>,
 <value>base64</value>,
 <value>base64url</value>.
