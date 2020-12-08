@@ -7,7 +7,7 @@
 <article name="nginx: пакеты для Linux"
          link="/ru/linux_packages.html"
          lang="ru"
-         rev="51">
+         rev="52">
 
 <section name="Поддерживаемые дистрибутивы и версии" id="distributions">
 
@@ -319,14 +319,14 @@ sudo zypper install curl ca-certificates gpg2
 выполните следующую команду:
 <programlisting>
 sudo zypper addrepo --gpgcheck --type yum --refresh --check \
-    'http://nginx.org/packages/sles/$releasever' nginx-stable
+    'http://nginx.org/packages/sles/$releasever_major' nginx-stable
 </programlisting>
 
 Если предпочтительно использовать пакеты для основной версии nginx,
 выполните следующую команду вместо предыдущей:
 <programlisting>
 sudo zypper addrepo --gpgcheck --type yum --refresh --check \
-    'http://nginx.org/packages/mainline/sles/$releasever' nginx-mainline
+    'http://nginx.org/packages/mainline/sles/$releasever_major' nginx-mainline
 </programlisting>
 
 Теперь нужно импортировать официальный ключ, используемый zypper/rpm

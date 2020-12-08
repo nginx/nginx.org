@@ -7,7 +7,7 @@
 <article name="nginx: Linux packages"
          link="/en/linux_packages.html"
          lang="en"
-         rev="51">
+         rev="52">
 
 <section name="Supported distributions and versions" id="distributions">
 
@@ -322,14 +322,14 @@ To set up the zypper repository for stable nginx packages,
 run the following command:
 <programlisting>
 sudo zypper addrepo --gpgcheck --type yum --refresh --check \
-    'http://nginx.org/packages/sles/$releasever' nginx-stable
+    'http://nginx.org/packages/sles/$releasever_major' nginx-stable
 </programlisting>
 
 If you would like to use mainline nginx packages,
 run the following command instead:
 <programlisting>
 sudo zypper addrepo --gpgcheck --type yum --refresh --check \
-    'http://nginx.org/packages/mainline/sles/$releasever' nginx-mainline
+    'http://nginx.org/packages/mainline/sles/$releasever_major' nginx-mainline
 </programlisting>
 
 Next, import an official nginx signing key so zypper/rpm could verify
