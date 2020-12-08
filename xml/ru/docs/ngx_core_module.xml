@@ -10,7 +10,7 @@
 <module name="Основная функциональность"
         link="/ru/docs/ngx_core_module.html"
         lang="ru"
-        rev="26">
+        rev="27">
 
 <section id="example" name="Пример конфигурации">
 
@@ -434,8 +434,8 @@ load_module modules/ngx_mail_module.so;
 <appeared-in>1.7.11</appeared-in>
 
 <para>
-Задаёт именованные пулы потоков,
-используемые для многопоточной обработки операций чтения и отправки файлов
+Задаёт <value>имя</value> и параметры пула потоков,
+используемого для многопоточной обработки операций чтения и отправки файлов
 <link doc="http/ngx_http_core_module.xml" id="aio">без блокирования</link>
 рабочего процесса.
 </para>
