@@ -9,7 +9,7 @@
 <article name="Примеры использования"
         link="/ru/docs/njs/examples.html"
         lang="ru"
-        rev="16">
+        rev="17">
 
 <section id="summary">
 
@@ -225,6 +225,47 @@ function jwt(r) {
 }
 
 export default {jwt};
+</example>
+</para>
+
+</section>
+
+
+<section id="jwt_field" name="Получение произвольного поля JWT
+                              как значение переменной nginx">
+
+<para>
+<path>nginx.conf</path>:
+<example>
+js_import http.js;
+
+js_set $jwt_payload_sub main.jwt_payload_sub;
+
+server {
+    ...
+
+    location /jwt {
+        return 200 $jwt_payload_sub;
+    }
+}
+</example>
+</para>
+
+<para>
+<path>http.js</path>:
+<example>
+function jwt(data) {
+    var parts = data.split('.').slice(0,2)
+        .map(v=>Buffer.from(v, 'base64url').toString())
+        .map(JSON.parse);
+    return { headers:parts[0], payload: parts[1] };
+}
+
+function jwt_payload_sub(r) {
+    return jwt(r.headersIn.Authorization.slice(7)).payload.sub;
+}
+
+export default {jwt_payload_sub}
 </example>
 </para>
 
