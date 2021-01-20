@@ -56,134 +56,7 @@ export default {hello};
 </section>
 
 
-<section id="urldecode" name="URL Decoding">
-
-<para>
-<path>nginx.conf</path>:
-<example>
-js_import http.js;
-
-js_set $decoded_foo http.decoded_foo;
-</example>
-</para>
-
-<para>
-<path>http.js</path>:
-<example>
-function decoded_foo(r) {
-    return decodeURIComponent(r.args.foo);
-}
-
-export default {decoded_foo};
-</example>
-</para>
-
-</section>
-
-
-<section id="urlencode" name="URL Encoding">
-
-<para>
-<path>nginx.conf</path>:
-<example>
-js_import http.js;
-
-js_set $encoded_foo http.encoded_foo;
-...
-
-location / {
-    proxy_pass http://example.com?foo=$encoded_foo;
-}
-</example>
-</para>
-
-<para>
-<path>http.js</path>:
-<example>
-function encoded_foo(r) {
-    return encodeURIComponent('foo &amp; bar?');
-}
-
-export default {encoded_foo};
-</example>
-</para>
-
-</section>
-
-
-<section id="redirect" name="Internal Redirect">
-
-<para>
-<path>nginx.conf</path>:
-<example>
-js_import http.js;
-
-location /redirect {
-    js_content http.redirect;
-}
-
-location @named {
-    return 200 named;
-}
-</example>
-</para>
-
-<para>
-<path>http.js</path>:
-<example>
-function redirect(r) {
-    r.internalRedirect('@named');
-}
-
-export default {redirect};
-</example>
-</para>
-
-</section>
-
-
-<section id="fast_response" name="Returning Fastest Response from Proxy">
-
-<para>
-<path>nginx.conf</path>:
-<example>
-js_import http.js;
-
-location /start {
-    js_content http.content;
-}
-
-location /foo {
-    proxy_pass http://backend1;
-}
-
-location /bar {
-    proxy_pass http://backend2;
-}
-</example>
-</para>
-
-<para>
-<path>http.js</path>:
-<example>
-function content(r) {
-    var n = 0;
-
-    function done(res) {
-        if (n++ == 0) {
-            r.return(res.status, res.responseBody);
-        }
-    }
-
-    r.subrequest('/foo', r.variables.args, done);
-    r.subrequest('/bar', r.variables.args, done);
-}
-
-export default {content};
-</example>
-</para>
-
-</section>
+<section id="http_auth" name="HTTP Аuthorization">
 
 
 <section id="jwt" name="Creating HS JWT">
@@ -232,6 +105,45 @@ export default {jwt};
 </section>
 
 
+<section id="secure_link" name="Creating secure_link Hash">
+
+<para>
+<path>nginx.conf</path>:
+<example>
+js_import http.js;
+
+js_set $new_foo http.create_secure_link;
+...
+
+location / {
+    secure_link $cookie_foo;
+    secure_link_md5 "$uri mykey";
+    ...
+}
+
+location @login {
+    add_header Set-Cookie "foo=$new_foo; Max-Age=60";
+    return 302 /;
+}
+</example>
+</para>
+
+<para>
+<path>http.js</path>:
+<example>
+function create_secure_link(r) {
+    return require('crypto').createHash('md5')
+                            .update(r.uri).update(" mykey")
+                            .digest('base64url');
+}
+
+export default {create_secure_link};
+</example>
+</para>
+
+</section>
+
+
 <section id="jwt_field" name="Getting Arbitrary Field from JWT
                               as nginx Variable">
 
@@ -271,6 +183,11 @@ export default {jwt_payload_sub}
 </para>
 
 </section>
+
+</section>
+
+
+<section id="http_proxying" name="HTTP Proxying">
 
 
 <section id="subrequest" name="Accessing API from a Subrequest">
@@ -333,25 +250,23 @@ export default {set_keyval, version};
 </section>
 
 
-<section id="secure_link" name="Creating secure_link Hash">
+<section id="fast_response" name="Returning Fastest Response from Proxy">
 
 <para>
 <path>nginx.conf</path>:
 <example>
 js_import http.js;
 
-js_set $new_foo http.create_secure_link;
-...
-
-location / {
-    secure_link $cookie_foo;
-    secure_link_md5 "$uri mykey";
-    ...
+location /start {
+    js_content http.content;
 }
 
-location @login {
-    add_header Set-Cookie "foo=$new_foo; Max-Age=60";
-    return 302 /;
+location /foo {
+    proxy_pass http://backend1;
+}
+
+location /bar {
+    proxy_pass http://backend2;
 }
 </example>
 </para>
@@ -359,13 +274,103 @@ location @login {
 <para>
 <path>http.js</path>:
 <example>
-function create_secure_link(r) {
-    return require('crypto').createHash('md5')
-                            .update(r.uri).update(" mykey")
-                            .digest('base64url');
+function content(r) {
+    var n = 0;
+
+    function done(res) {
+        if (n++ == 0) {
+            r.return(res.status, res.responseBody);
+        }
+    }
+
+    r.subrequest('/foo', r.variables.args, done);
+    r.subrequest('/bar', r.variables.args, done);
 }
 
-export default {create_secure_link};
+export default {content};
+</example>
+</para>
+
+</section>
+
+
+<section id="subrequests_chaining" name="Subrequests Chaining">
+
+<para>
+<path>nginx.conf</path>:
+<example>
+js_import http.js;
+
+location /start {
+    js_content http.content;
+}
+
+location /auth {
+    proxy_pass http://auth_backend;
+}
+
+location /backend {
+    proxy_pass http://backend;
+}
+</example>
+</para>
+
+<para>
+<path>http.js</path>:
+<example>
+function content(r) {
+   r.subrequest('/auth')
+   .then(reply => JSON.parse(reply.responseBody))
+   .then(response => {
+       if (!response['token']) {
+           throw new Error("token is not available");
+       }
+       return reply['token'];
+   })
+  .then(token => {
+      r.subrequest('/backend', `token=${token}`)
+      .then(reply => r.return(reply.status, reply.responseBody));
+  })
+  .catch(_ => r.return(500));
+}
+
+export default {content};
+</example>
+</para>
+
+</section>
+
+</section>
+
+
+<section id="misc" name="Miscellaneous">
+
+
+<section id="redirect" name="Internal Redirect">
+
+<para>
+<path>nginx.conf</path>:
+<example>
+js_import http.js;
+
+location /redirect {
+    js_content http.redirect;
+}
+
+location @named {
+    return 200 named;
+}
+</example>
+</para>
+
+<para>
+<path>http.js</path>:
+<example>
+function redirect(r) {
+    r.internalRedirect('@named');
+}
+
+export default {redirect};
 </example>
 </para>
 
@@ -421,24 +426,43 @@ are available as part of our
 
 </section>
 
-
-<section id="subrequests_chaining" name="Subrequests Chaining">
+<section id="urldecode" name="URL Decoding">
 
 <para>
 <path>nginx.conf</path>:
 <example>
 js_import http.js;
 
-location /start {
-    js_content http.content;
+js_set $decoded_foo http.decoded_foo;
+</example>
+</para>
+
+<para>
+<path>http.js</path>:
+<example>
+function decoded_foo(r) {
+    return decodeURIComponent(r.args.foo);
 }
 
-location /auth {
-    proxy_pass http://auth_backend;
-}
+export default {decoded_foo};
+</example>
+</para>
 
-location /backend {
-    proxy_pass http://backend;
+</section>
+
+
+<section id="urlencode" name="URL Encoding">
+
+<para>
+<path>nginx.conf</path>:
+<example>
+js_import http.js;
+
+js_set $encoded_foo http.encoded_foo;
+...
+
+location / {
+    proxy_pass http://example.com?foo=$encoded_foo;
 }
 </example>
 </para>
@@ -446,25 +470,15 @@ location /backend {
 <para>
 <path>http.js</path>:
 <example>
-function content(r) {
-   r.subrequest('/auth')
-   .then(reply => JSON.parse(reply.responseBody))
-   .then(response => {
-       if (!response['token']) {
-           throw new Error("token is not available");
-       }
-       return reply['token'];
-   })
-  .then(token => {
-      r.subrequest('/backend', `token=${token}`)
-      .then(reply => r.return(reply.status, reply.responseBody));
-  })
-  .catch(_ => r.return(500));
+function encoded_foo(r) {
+    return encodeURIComponent('foo &amp; bar?');
 }
 
-export default {content};
+export default {encoded_foo};
 </example>
 </para>
+
+</section>
 
 </section>
 
