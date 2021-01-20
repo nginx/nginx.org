@@ -10,7 +10,7 @@
 <module name="Module ngx_http_ssl_module"
         link="/en/docs/http/ngx_http_ssl_module.html"
         lang="en"
-        rev="51">
+        rev="52">
 
 <section id="summary">
 
@@ -432,6 +432,15 @@ or <literal>prime256v1</literal> with older versions.
 <note>
 Prior to version 1.11.0,
 the <literal>prime256v1</literal> curve was used by default.
+</note>
+</para>
+
+<para>
+<note>
+When using OpenSSL 1.0.2 or higher,
+this directive sets the list of curves supported by the server.
+Thus, in order for ECDSA certificates to work,
+it is important to include the curves used in the certificates.
 </note>
 </para>
 

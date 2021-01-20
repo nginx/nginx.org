@@ -10,7 +10,7 @@
 <module name="Модуль ngx_mail_ssl_module"
         link="/ru/docs/mail/ngx_mail_ssl_module.html"
         lang="ru"
-        rev="21">
+        rev="22">
 
 <section id="summary">
 
@@ -345,6 +345,15 @@ ssl_ecdh_curve prime256v1:secp384r1;
 <note>
 До версии 1.11.0
 по умолчанию использовалась кривая <literal>prime256v1</literal>.
+</note>
+</para>
+
+<para>
+<note>
+При использовании OpenSSL 1.0.2 и выше
+директива задаёт список кривых, поддерживаемых сервером.
+Поэтому для работы ECDSA-сертификатов
+важно, чтобы список включал кривые, используемые в сертификатах.
 </note>
 </para>
 
