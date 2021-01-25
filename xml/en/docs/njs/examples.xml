@@ -9,7 +9,7 @@
 <article name="Examples"
         link="/en/docs/njs/examples.html"
         lang="en"
-        rev="17">
+        rev="18">
 
 <section id="summary">
 
@@ -422,60 +422,6 @@ The <link doc="../http/ngx_http_keyval_module.xml" id="keyval"/> and
 are available as part of our
 <commercial_version>commercial subscription</commercial_version>.
 </note>
-</para>
-
-</section>
-
-<section id="urldecode" name="URL Decoding">
-
-<para>
-<path>nginx.conf</path>:
-<example>
-js_import http.js;
-
-js_set $decoded_foo http.decoded_foo;
-</example>
-</para>
-
-<para>
-<path>http.js</path>:
-<example>
-function decoded_foo(r) {
-    return decodeURIComponent(r.args.foo);
-}
-
-export default {decoded_foo};
-</example>
-</para>
-
-</section>
-
-
-<section id="urlencode" name="URL Encoding">
-
-<para>
-<path>nginx.conf</path>:
-<example>
-js_import http.js;
-
-js_set $encoded_foo http.encoded_foo;
-...
-
-location / {
-    proxy_pass http://example.com?foo=$encoded_foo;
-}
-</example>
-</para>
-
-<para>
-<path>http.js</path>:
-<example>
-function encoded_foo(r) {
-    return encodeURIComponent('foo &amp; bar?');
-}
-
-export default {encoded_foo};
-</example>
 </para>
 
 </section>

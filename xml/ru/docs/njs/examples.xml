@@ -9,7 +9,7 @@
 <article name="Примеры использования"
         link="/ru/docs/njs/examples.html"
         lang="ru"
-        rev="17">
+        rev="18">
 
 <section id="summary">
 
@@ -19,6 +19,7 @@
 </para>
 
 </section>
+
 
 <section id="helloword" name="Hello World">
 
@@ -375,6 +376,7 @@ export default {redirect};
 
 </section>
 
+
 <section id="requests" name="Запись в лог количества запросов от клиента">
 
 <para>
@@ -420,61 +422,6 @@ export default {num_requests};
 доступны как часть
 <commercial_version>коммерческой подписки</commercial_version>.
 </note>
-</para>
-
-</section>
-
-
-<section id="urldecode" name="Декодирование URL">
-
-<para>
-<path>nginx.conf</path>:
-<example>
-js_import http.js;
-
-js_set $decoded_foo http.decoded_foo;
-</example>
-</para>
-
-<para>
-<path>http.js</path>:
-<example>
-function decoded_foo(r) {
-    return decodeURIComponent(r.args.foo);
-}
-
-export default {decoded_foo};
-</example>
-</para>
-
-</section>
-
-
-<section id="urlencode" name="Кодирование URL">
-
-<para>
-<path>nginx.conf</path>:
-<example>
-js_import http.js;
-
-js_set $encoded_foo http.encoded_foo;
-...
-
-location / {
-    proxy_pass http://example.com?foo=$encoded_foo;
-}
-</example>
-</para>
-
-<para>
-<path>http.js</path>:
-<example>
-function encoded_foo(r) {
-    return encodeURIComponent('foo &amp; bar?');
-}
-
-export default {encoded_foo};
-</example>
 </para>
 
 </section>
