@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="59">
+        rev="60">
 
 <section id="summary">
 
@@ -1118,9 +1118,8 @@ if encoding is the name of a supported character encoding.
 
 <tag-name id="buf_index"><literal>buffer[<value>index</value>]</literal></tag-name>
 <tag-desc>
-The index operator <value>index</value>
-can be used to get and set the octet at position index in
-<literal>buffer</literal>.
+The index operator that can be used to get and set the octet
+at position <literal>index</literal> in <literal>buffer</literal>.
 The values refer to individual bytes,
 so the legal value range is between 0 and 255 (decimal).
 </tag-desc>
@@ -1144,21 +1143,21 @@ underlying <literal>ArrayBuffer</literal> object.
 <value>sourceStart</value>[,
 <value>sourceEnd</value>]]]])</literal></tag-name>
 <tag-desc>
-Compares buffer with target and returns a number
+Compares buffer with <value>target</value> and returns a number
 indicating whether buffer comes before, after, or is the same
-as target in sort order.
+as <value>target</value> in sort order.
 Comparison is based on the actual sequence of bytes in each Buffer.
-The <literal>targetStart</literal> is an integer specifying the offset
-within target at which to begin comparison,
+The <literal>targetStart</literal> is an integer specifying
+the offset within <value>target</value> at which to begin comparison,
 by default is 0.
-The <literal>targetEnd</literal> is an integer specifying the offset
-within target at which to end comparison,
+The <literal>targetEnd</literal> is an integer specifying
+the offset within <value>target</value> at which to end comparison,
 by default is <literal>target.length</literal>.
-The <literal>sourceStart</literal> is an integer specifying the offset
-within buffer at which to begin comparison,
+The <literal>sourceStart</literal> is an integer specifying
+the offset within buffer at which to begin comparison,
 by default is 0.
-The <literal>sourceEnd</literal> is an integer specifying the offset
-within buffer at which to end comparison (not inclusive),
+The <literal>sourceEnd</literal> is an integer specifying
+the offset within buffer at which to end comparison (not inclusive),
 by default is <literal>buf.length</literal>.
 </tag-desc>
 
@@ -1167,20 +1166,20 @@ by default is <literal>buf.length</literal>.
 <value>sourceStart</value>[,
 <value>sourceEnd</value>]]])</literal></tag-name>
 <tag-desc>
-Copies data from a region of buffer to a region in target,
+Copies data from a region of buffer to a region in <value>target</value>,
 even if the target memory region overlaps with buffer.
 The <literal>target</literal> parameter is a
 <value>Buffer</value> or <value>Uint8Array</value> to copy into.
 
 <para>
-The <literal>targetStart</literal> is an integer specifying the offset
-within target at which to begin writing,
+The <literal>targetStart</literal> is an integer specifying
+the offset within target at which to begin writing,
 by default is 0.
-The <literal>sourceStart</literal> is an integer specifying the offset
-within buffer from which to begin copying,
+The <literal>sourceStart</literal> is an integer specifying
+the offset within buffer from which to begin copying,
 by default is 0.
-The <literal>sourceEnd</literal> is an integer specifying the offset
-within buffer at which to stop copying (not inclusive)
+The <literal>sourceEnd</literal> is an integer specifying
+the offset within buffer at which to stop copying (not inclusive)
 by default is <value>buf.length</value>.
 </para>
 </tag-desc>
@@ -1412,7 +1411,7 @@ implicitly calls this function when stringifying a Buffer instance.
 <value>end</value>]]])</literal></tag-name>
 <tag-desc>
 Decodes <literal>buf</literal> to a string
-according to the specified character <value>encoding</value>.
+according to the specified character <value>encoding</value>
 which can be <value>utf8</value>,
 <value>hex</value>,
 <value>base64</value>,
