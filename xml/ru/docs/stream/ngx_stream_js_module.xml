@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_js_module"
         link="/ru/docs/stream/ngx_stream_js_module.html"
         lang="ru"
-        rev="22">
+        rev="23">
 
 <section id="summary">
 
@@ -113,7 +113,7 @@ function header_inject(s) {
 
 function access(s) {
     if (s.remoteAddress.match('^192.*')) {
-        s.abort();
+        s.deny();
         return;
     }
 
