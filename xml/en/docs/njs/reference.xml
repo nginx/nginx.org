@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="60">
+        rev="61">
 
 <section id="summary">
 
@@ -580,12 +580,165 @@ on the <literal>warning</literal> level of logging
 </section>
 
 
+<section id="response" name="Response">
+
+<para>
+The <literal>Response</literal> interface is available since
+<link doc="changes.xml" id="njs0.5.1">0.5.1</link>.
+
+<list type="tag">
+
+<tag-name id="response_arraybuffer"><literal>arrayBuffer()</literal></tag-name>
+<tag-desc>
+Takes a <literal>Response</literal> stream and reads it to completion.
+Returns a <literal>Promise</literal> that resolves with
+an <literal>ArrayBuffer</literal>.
+</tag-desc>
+
+<tag-name id="response_bodyused"><literal>bodyUsed</literal></tag-name>
+<tag-desc>
+A boolean value, <literal>true</literal>
+if the body was read.
+</tag-desc>
+
+<tag-name id="response_headers"><literal>headers</literal></tag-name>
+<tag-desc>
+The <literal>Headers</literal> read-only object associated with the
+<link id="global_response"><literal>Response</literal></link>:
+
+<list type="tag">
+
+<tag-name id="headers_get"><literal>get(<value>name</value>)</literal></tag-name>
+<tag-desc>
+returns a string containing the values of all headers with the specified name
+separated by a comma and a space
+</tag-desc>
+
+<tag-name id="headers_getall"><literal>getAll(<value>name</value>)</literal></tag-name>
+<tag-desc>
+returns an array containing the values of all headers with the specified name
+</tag-desc>
+
+<tag-name id="headers_has"><literal>has(<value>name</value>)</literal></tag-name>
+<tag-desc>
+returns a boolean value
+indicating whether a header with the specified name exists
+</tag-desc>
+
+</list>
+</tag-desc>
+
+<tag-name id="response_json"><literal>json()</literal></tag-name>
+<tag-desc>
+Takes a <literal>Response</literal> stream and reads it to completion.
+Returns a <literal>Promise</literal> that resolves with
+the result of parsing the body text as JSON.
+</tag-desc>
+
+<tag-name id="response_ok"><literal>ok</literal></tag-name>
+<tag-desc>
+A boolean value, <literal>true</literal>
+if the response was successful (status codes between 200–299).
+</tag-desc>
+
+<tag-name id="response_redirect"><literal>redirected</literal></tag-name>
+<tag-desc>
+A boolean value, <literal>true</literal>
+if the response is the result of a redirect.
+</tag-desc>
+
+<tag-name id="response_status"><literal>status</literal></tag-name>
+<tag-desc>
+The status code of the response.
+</tag-desc>
+
+<tag-name id="response_statustext"><literal>statusText</literal></tag-name>
+<tag-desc>
+The status message corresponding to the status code.
+</tag-desc>
+
+<tag-name id="response_text"><literal>text()</literal></tag-name>
+<tag-desc>
+Takes a <literal>Response</literal> stream and reads it to completion.
+Returns a <literal>Promise</literal> that resolves with a string.
+</tag-desc>
+
+<tag-name id="response_type"><literal>type</literal></tag-name>
+<tag-desc>
+The type of the response.
+</tag-desc>
+
+<tag-name id="response_url"><literal>url</literal></tag-name>
+<tag-desc>
+The URL of the response.
+</tag-desc>
+
+</list>
+</para>
+
+</section>
+
+
 <section id="ngx" name="ngx">
 
 <para>
 The <literal>ngx</literal> global object is available
 since <link doc="changes.xml" id="njs0.5.0">0.5.0</link>.
 <list type="tag">
+
+<tag-name id="ngx_fetch"><literal>ngx.fetch(<value>url</value>,
+[<value>options</value>])</literal></tag-name>
+<tag-desc>
+Makes a request to fetch an URL
+(<link doc="changes.xml" id="njs0.5.1">0.5.1</link>),
+returns a <literal>Promise</literal> that resolves with
+the <link id="global_response"><literal>Response</literal></link> object.
+Only the <literal>http://</literal> scheme is supported,
+redirects are not handled.
+<para>
+The <literal>options</literal> parameter is expected to be an object
+with the following keys:
+<list type="tag">
+
+<tag-name id="fetch_body"><literal>body</literal></tag-name>
+<tag-desc>
+request body,
+by default is empty
+</tag-desc>
+
+<tag-name id="fetch_buffer_size"><literal>buffer_size</literal></tag-name>
+<tag-desc>
+the buffer size for reading the response,
+by default is <literal>4096</literal>
+</tag-desc>
+
+<tag-name id="fetch_headers"><literal>headers</literal></tag-name>
+<tag-desc>
+request headers object
+</tag-desc>
+
+<tag-name id="fetch_get"><literal>max_response_body_size</literal></tag-name>
+<tag-desc>
+the maximum size of the response body in bytes,
+by default is <literal>32768</literal>
+</tag-desc>
+
+<tag-name id="fetch_method"><literal>method</literal></tag-name>
+<tag-desc>
+HTTP method,
+by default the <literal>GET</literal> method is used
+</tag-desc>
+
+</list>
+Example:
+<example>
+ngx.fetch('http://nginx.org/')
+.then(reply => reply.text())
+.then(body => r.return(200, body))
+.catch(e => r.return(501, e.message))
+</example>
+</para>
+</tag-desc>
 
 <tag-name id="ngx_log"><literal>ngx.log</literal>(<value>level</value>,
 <value>message</value>)</tag-name>
@@ -598,6 +751,7 @@ The following log levels can be specified:
 <literal>ngx.WARN</literal>, and
 <literal>ngx.ERR</literal>.
 </tag-desc>
+
 </list>
 </para>
 
