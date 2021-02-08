@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_js_module"
         link="/ru/docs/http/ngx_http_js_module.html"
         lang="ru"
-        rev="22">
+        rev="23">
 
 <section id="summary">
 
@@ -128,6 +128,21 @@ export default {foo, summary, baz, hello};
 Задаёт функцию njs в качестве обработчика содержимого location.
 Начиная с версии <link doc="../njs/changes.xml" id="njs0.4.0">0.4.0</link>
 можно ссылаться на функцию модуля.
+</para>
+
+</directive>
+
+
+<directive name="js_header_filter">
+<syntax><value>функция</value> | <value>модуль.функция</value></syntax>
+<default/>
+<context>location</context>
+<context>limit_except</context>
+<appeared-in>0.5.1</appeared-in>
+
+<para>
+Задаёт функцию njs в качестве фильтра заголовка ответа.
+Директива позволяет менять произвольные поля заголовка ответа.
 </para>
 
 </directive>

@@ -9,7 +9,7 @@
 <module name="Module ngx_http_js_module"
         link="/en/docs/http/ngx_http_js_module.html"
         lang="en"
-        rev="22">
+        rev="23">
 
 <section id="summary">
 
@@ -128,6 +128,21 @@ export default {foo, summary, baz, hello};
 Sets an njs function as a location content handler.
 Since <link doc="../njs/changes.xml" id="njs0.4.0">0.4.0</link>,
 a module function can be referenced.
+</para>
+
+</directive>
+
+
+<directive name="js_header_filter">
+<syntax><value>function</value> | <value>module.function</value></syntax>
+<default/>
+<context>location</context>
+<context>limit_except</context>
+<appeared-in>0.5.1</appeared-in>
+
+<para>
+Sets an njs function as a response header filter.
+The directive allows changing arbitrary header fields of a response header.
 </para>
 
 </directive>
