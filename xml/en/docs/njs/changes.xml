@@ -9,8 +9,99 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="39"
+        rev="40"
         toc="no">
+
+<section id="njs0.5.1" name="Changes with njs 0.5.1">
+
+<para>
+Release Date:
+16 February 2021
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+introduced
+<link doc="reference.xml" id="ngx_fetch"><literal>ngx.fetch()</literal></link>
+method implementing Fetch API.
+</para>
+
+<para>
+The following properties and methods of
+<link doc="reference.xml" id="response"><literal>Response</literal></link>
+object are implemented:
+<link doc="reference.xml" id="response_arraybuffer"><literal>arrayBuffer()</literal></link>,
+<link doc="reference.xml" id="response_bodyused"><literal>bodyUsed</literal></link>,
+<link doc="reference.xml" id="response_json"><literal>json()</literal></link>,
+<link doc="reference.xml" id="response_headers"><literal>headers</literal></link>,
+<link doc="reference.xml" id="response_ok"><literal>ok</literal></link>,
+<link doc="reference.xml" id="response_redirect"><literal>redirect</literal></link>,
+<link doc="reference.xml" id="response_status"><literal>status</literal></link>,
+<link doc="reference.xml" id="response_statustext"><literal>statusText</literal></link>,
+<link doc="reference.xml" id="response_text"><literal>text()</literal></link>,
+<link doc="reference.xml" id="response_type"><literal>type</literal></link>,
+<link doc="reference.xml" id="response_url"><literal>url</literal></link>.
+</para>
+
+<para>
+Notable limitations:
+only the <literal>http://</literal> scheme is supported,
+redirects are not handled.
+</para>
+
+<para>
+In collaboration with 洪志道 (Hong Zhi Dao).
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added the
+<link doc="../http/ngx_http_js_module.xml" id="js_header_filter"><literal>js_header_filter</literal></link>
+directive.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed processing buffered data in body filter in
+<link doc="../stream/ngx_stream_js_module.xml">stream</link> module.
+</para>
+</listitem>
+
+</list>
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Bugfix:
+fixed safe mode bypass in <literal>Function</literal> constructor.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>Date.prototype.toISOString()</literal> with invalid date values.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.5.0" name="Changes with njs 0.5.0">
 
