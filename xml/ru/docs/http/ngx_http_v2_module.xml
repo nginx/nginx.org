@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_v2_module"
         link="/ru/docs/http/ngx_http_v2_module.html"
         lang="ru"
-        rev="13">
+        rev="14">
 
 <section id="summary">
 
@@ -127,6 +127,14 @@ server {
 <context>server</context>
 
 <para>
+<note>
+Эта директива устарела начиная с версии 1.19.7.
+Вместо неё следует использовать директиву
+<link doc="ngx_http_core_module.xml" id="keepalive_timeout"/>.
+</note>
+</para>
+
+<para>
 Задаёт таймаут неактивности, после которого соединение закрывается.
 </para>
 
@@ -169,6 +177,14 @@ server {
 <context>server</context>
 
 <para>
+<note>
+Эта директива устарела начиная с версии 1.19.7.
+Вместо неё следует использовать директиву
+<link doc="ngx_http_core_module.xml" id="large_client_header_buffers"/>.
+</note>
+</para>
+
+<para>
 Ограничивает максимальный размер
 заголовка запроса, сжатого при помощи
 <link url="https://tools.ietf.org/html/rfc7541">HPACK</link>.
@@ -188,6 +204,14 @@ server {
 <context>server</context>
 
 <para>
+<note>
+Эта директива устарела начиная с версии 1.19.7.
+Вместо неё следует использовать директиву
+<link doc="ngx_http_core_module.xml" id="large_client_header_buffers"/>.
+</note>
+</para>
+
+<para>
 Ограничивает максимальный размер всего списка заголовков запроса после
 распаковки <link url="https://tools.ietf.org/html/rfc7541">HPACK</link>.
 Ограничение по умолчанию подходит для большинства запросов.
@@ -202,6 +226,14 @@ server {
 <context>http</context>
 <context>server</context>
 <appeared-in>1.11.6</appeared-in>
+
+<para>
+<note>
+Эта директива устарела начиная с версии 1.19.7.
+Вместо неё следует использовать директиву
+<link doc="ngx_http_core_module.xml" id="keepalive_requests"/>.
+</note>
+</para>
 
 <para>
 Задаёт максимальное число запросов (включая
@@ -291,6 +323,14 @@ links</link>,
 <default>30s</default>
 <context>http</context>
 <context>server</context>
+
+<para>
+<note>
+Эта директива устарела начиная с версии 1.19.7.
+Вместо неё следует использовать директиву
+<link doc="ngx_http_core_module.xml" id="client_header_timeout"/>.
+</note>
+</para>
 
 <para>
 Задаёт таймаут в случае, когда от клиента ожидаются ещё данные,

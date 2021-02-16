@@ -9,7 +9,7 @@
 <module name="Module ngx_http_v2_module"
         link="/en/docs/http/ngx_http_v2_module.html"
         lang="en"
-        rev="13">
+        rev="14">
 
 <section id="summary">
 
@@ -127,6 +127,14 @@ HOL blocking</link>.
 <context>server</context>
 
 <para>
+<note>
+This directive is obsolete since version 1.19.7.
+The <link doc="ngx_http_core_module.xml" id="keepalive_timeout"/>
+directive should be used instead.
+</note>
+</para>
+
+<para>
 Sets the timeout of inactivity after which the connection is closed.
 </para>
 
@@ -169,6 +177,14 @@ in a connection.
 <context>server</context>
 
 <para>
+<note>
+This directive is obsolete since version 1.19.7.
+The <link doc="ngx_http_core_module.xml" id="large_client_header_buffers"/>
+directive should be used instead.
+</note>
+</para>
+
+<para>
 Limits the maximum size of
 an <link url="https://tools.ietf.org/html/rfc7541">HPACK</link>-compressed
 request header field.
@@ -188,6 +204,14 @@ For most requests, the default limit should be enough.
 <context>server</context>
 
 <para>
+<note>
+This directive is obsolete since version 1.19.7.
+The <link doc="ngx_http_core_module.xml" id="large_client_header_buffers"/>
+directive should be used instead.
+</note>
+</para>
+
+<para>
 Limits the maximum size of the entire request header list after
 <link url="https://tools.ietf.org/html/rfc7541">HPACK</link> decompression.
 For most requests, the default limit should be enough.
@@ -202,6 +226,14 @@ For most requests, the default limit should be enough.
 <context>http</context>
 <context>server</context>
 <appeared-in>1.11.6</appeared-in>
+
+<para>
+<note>
+This directive is obsolete since version 1.19.7.
+The <link doc="ngx_http_core_module.xml" id="keepalive_requests"/>
+directive should be used instead.
+</note>
+</para>
 
 <para>
 Sets the maximum number of requests (including
@@ -292,6 +324,14 @@ input buffer.
 <default>30s</default>
 <context>http</context>
 <context>server</context>
+
+<para>
+<note>
+This directive is obsolete since version 1.19.7.
+The <link doc="ngx_http_core_module.xml" id="client_header_timeout"/>
+directive should be used instead.
+</note>
+</para>
 
 <para>
 Sets the timeout for expecting more data from the client,
