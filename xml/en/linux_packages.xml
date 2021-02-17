@@ -7,7 +7,7 @@
 <article name="nginx: Linux packages"
          link="/en/linux_packages.html"
          lang="en"
-         rev="54">
+         rev="55">
 
 <section name="Supported distributions and versions" id="distributions">
 
@@ -228,6 +228,13 @@ echo "deb http://nginx.org/packages/mainline/debian `lsb_release -cs` nginx" \
     | sudo tee /etc/apt/sources.list.d/nginx.list
 </programlisting>
 
+Set up repository pinning to prefer our packages over
+distribution-provided ones:
+<programlisting>
+echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 900\n" \
+    | sudo tee /etc/apt/preferences.d/99nginx
+</programlisting>
+
 Next, import an official nginx signing key so apt could verify the packages
 authenticity:
 <programlisting>
@@ -278,6 +285,13 @@ run the following command instead:
 <programlisting>
 echo "deb http://nginx.org/packages/mainline/ubuntu `lsb_release -cs` nginx" \
     | sudo tee /etc/apt/sources.list.d/nginx.list
+</programlisting>
+
+Set up repository pinning to prefer our packages over
+distribution-provided ones:
+<programlisting>
+echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 900\n" \
+    | sudo tee /etc/apt/preferences.d/99nginx
 </programlisting>
 
 Next, import an official nginx signing key so apt could verify the packages

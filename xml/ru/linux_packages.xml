@@ -7,7 +7,7 @@
 <article name="nginx: пакеты для Linux"
          link="/ru/linux_packages.html"
          lang="ru"
-         rev="54">
+         rev="55">
 
 <section name="Поддерживаемые дистрибутивы и версии" id="distributions">
 
@@ -227,6 +227,13 @@ echo "deb http://nginx.org/packages/mainline/debian `lsb_release -cs` nginx" \
     | sudo tee /etc/apt/sources.list.d/nginx.list
 </programlisting>
 
+Для использования пакетов из нашего репозитория вместо распространяемых в дистрибутиве,
+настройте закрепление:
+<programlisting>
+echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 900\n" \
+    | sudo tee /etc/apt/preferences.d/99nginx
+</programlisting>
+
 Теперь нужно импортировать официальный ключ,
 используемый apt для проверки подлинности пакетов:
 <programlisting>
@@ -276,6 +283,13 @@ echo "deb http://nginx.org/packages/ubuntu `lsb_release -cs` nginx" \
 <programlisting>
 echo "deb http://nginx.org/packages/mainline/ubuntu `lsb_release -cs` nginx" \
     | sudo tee /etc/apt/sources.list.d/nginx.list
+</programlisting>
+
+Для использования пакетов из нашего репозитория вместо распространяемых в дистрибутиве,
+настройте закрепление:
+<programlisting>
+echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 900\n" \
+    | sudo tee /etc/apt/preferences.d/99nginx
 </programlisting>
 
 Теперь нужно импортировать официальный ключ, используемый apt для проверки
