@@ -7,7 +7,7 @@
 <article name="nginx: пакеты для Linux"
          link="/ru/linux_packages.html"
          lang="ru"
-         rev="56">
+         rev="57">
 
 <section name="Поддерживаемые дистрибутивы и версии" id="distributions">
 
@@ -235,22 +235,29 @@ echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 
 </programlisting>
 
 Теперь нужно импортировать официальный ключ,
-используемый apt для проверки подлинности пакетов:
+используемый apt для проверки подлинности пакетов.
+Скачайте ключ:
 <programlisting>
-curl -fsSL https://nginx.org/keys/nginx_signing.key | sudo apt-key add -
+curl -o /tmp/nginx_signing.key https://nginx.org/keys/nginx_signing.key
 </programlisting>
 
-Проверьте, верный ли ключ был импортирован:
+Проверьте, верный ли ключ был загружен:
 <programlisting>
-sudo apt-key fingerprint ABF5BD827BD9BF62
+gpg --dry-run --quiet --import --import-options import-show /tmp/nginx_signing.key
 </programlisting>
 
 Вывод команды должен содержать полный отпечаток ключа
-<command>573B FD6B 3D8F BC64 1079 A6AB ABF5 BD82 7BD9 BF62</command>:
+<command>573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62</command>:
 <programlisting>
 pub   rsa2048 2011-08-19 [SC] [expires: 2024-06-14]
-      573B FD6B 3D8F BC64 1079  A6AB ABF5 BD82 7BD9 BF62
 uid   [ unknown] nginx signing key &lt;signing-key@nginx.com&gt;
+      573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62
+uid                      nginx signing key &lt;signing-key@nginx.com&gt;
+</programlisting>
+
+Переместите ключ в каталог доверенных ключей apt (обратите внимание на изменение расширения "asc"):
+<programlisting>
+sudo mv /tmp/nginx_signing.key /etc/apt/trusted.gpg.d/nginx_signing.asc
 </programlisting>
 
 Чтобы установить nginx, выполните следующие команды:
@@ -292,23 +299,35 @@ echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 
     | sudo tee /etc/apt/preferences.d/99nginx
 </programlisting>
 
-Теперь нужно импортировать официальный ключ, используемый apt для проверки
-подлинности пакетов:
+Теперь нужно импортировать официальный ключ,
+используемый apt для проверки подлинности пакетов.
+Скачайте ключ:
 <programlisting>
-curl -fsSL https://nginx.org/keys/nginx_signing.key | sudo apt-key add -
+curl -o /tmp/nginx_signing.key https://nginx.org/keys/nginx_signing.key
 </programlisting>
 
-Проверьте, верный ли ключ был импортирован:
+Проверьте, верный ли ключ был загружен:
 <programlisting>
-sudo apt-key fingerprint ABF5BD827BD9BF62
+gpg --dry-run --quiet --import --import-options import-show /tmp/nginx_signing.key
+</programlisting>
+
+На Ubuntu 16.04, выполните следующую команду вместо предыдущей:
+<programlisting>
+gpg --with-fingerprint /tmp/nginx_signing.key
 </programlisting>
 
 Вывод команды должен содержать полный отпечаток ключа
-<command>573B FD6B 3D8F BC64 1079 A6AB ABF5 BD82 7BD9 BF62</command>:
+<command>573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62</command>:
 <programlisting>
 pub   rsa2048 2011-08-19 [SC] [expires: 2024-06-14]
-      573B FD6B 3D8F BC64 1079  A6AB ABF5 BD82 7BD9 BF62
 uid   [ unknown] nginx signing key &lt;signing-key@nginx.com&gt;
+      573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62
+uid                      nginx signing key &lt;signing-key@nginx.com&gt;
+</programlisting>
+
+Переместите ключ в каталог доверенных ключей apt (обратите внимание на изменение расширения "asc"):
+<programlisting>
+sudo mv /tmp/nginx_signing.key /etc/apt/trusted.gpg.d/nginx_signing.asc
 </programlisting>
 
 Чтобы установить nginx, выполните следующие команды:

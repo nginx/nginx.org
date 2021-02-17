@@ -7,7 +7,7 @@
 <article name="nginx: Linux packages"
          link="/en/linux_packages.html"
          lang="en"
-         rev="56">
+         rev="57">
 
 <section name="Supported distributions and versions" id="distributions">
 
@@ -236,23 +236,29 @@ echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 
 </programlisting>
 
 Next, import an official nginx signing key so apt could verify the packages
-authenticity:
+authenticity.
+Fetch the key:
 <programlisting>
-curl -fsSL https://nginx.org/keys/nginx_signing.key | sudo apt-key add -
+curl -o /tmp/nginx_signing.key https://nginx.org/keys/nginx_signing.key
 </programlisting>
 
-Verify that you now have the proper key:
+Verify that the downloaded file contains the proper key:
 <programlisting>
-sudo apt-key fingerprint ABF5BD827BD9BF62
+gpg --dry-run --quiet --import --import-options import-show /tmp/nginx_signing.key
 </programlisting>
 
 The output should contain the full fingerprint
-<command>573B FD6B 3D8F BC64 1079 A6AB ABF5 BD82 7BD9 BF62</command>
+<command>573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62</command>
 as follows:
 <programlisting>
 pub   rsa2048 2011-08-19 [SC] [expires: 2024-06-14]
-      573B FD6B 3D8F BC64 1079  A6AB ABF5 BD82 7BD9 BF62
-uid   [ unknown] nginx signing key &lt;signing-key@nginx.com&gt;
+      573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62
+uid                      nginx signing key &lt;signing-key@nginx.com&gt;
+</programlisting>
+
+Finally, move the key to apt trusted key storage (note the "asc" file extension change):
+<programlisting>
+sudo mv /tmp/nginx_signing.key /etc/apt/trusted.gpg.d/nginx_signing.asc
 </programlisting>
 
 To install nginx, run the following commands:
@@ -295,23 +301,34 @@ echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 
 </programlisting>
 
 Next, import an official nginx signing key so apt could verify the packages
-authenticity:
+authenticity.
+Fetch the key:
 <programlisting>
-curl -fsSL https://nginx.org/keys/nginx_signing.key | sudo apt-key add -
+curl -o /tmp/nginx_signing.key https://nginx.org/keys/nginx_signing.key
 </programlisting>
 
-Verify that you now have the proper key:
+Verify that the downloaded file contains the proper key:
 <programlisting>
-sudo apt-key fingerprint ABF5BD827BD9BF62
+gpg --dry-run --quiet --import --import-options show-only /tmp/nginx_signing.key
+</programlisting>
+
+Note: on Ubuntu 16.04, use the following command instead:
+<programlisting>
+gpg --with-fingerprint /tmp/nginx_signing.key
 </programlisting>
 
 The output should contain the full fingerprint
-<command>573B FD6B 3D8F BC64 1079 A6AB ABF5 BD82 7BD9 BF62</command>
+<command>573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62</command>
 as follows:
 <programlisting>
 pub   rsa2048 2011-08-19 [SC] [expires: 2024-06-14]
-      573B FD6B 3D8F BC64 1079  A6AB ABF5 BD82 7BD9 BF62
-uid   [ unknown] nginx signing key &lt;signing-key@nginx.com&gt;
+      573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62
+uid                      nginx signing key &lt;signing-key@nginx.com&gt;
+</programlisting>
+
+Finally, move the key to apt trusted key storage (note the "asc" file extension change):
+<programlisting>
+sudo mv /tmp/nginx_signing.key /etc/apt/trusted.gpg.d/nginx_signing.asc
 </programlisting>
 
 To install nginx, run the following commands:
