@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="92">
+        rev="93">
 
 <section id="directives" name="Директивы">
 
@@ -445,10 +445,7 @@ client_body_temp_path /spool/nginx/client_temp 1 2;
 <context>location</context>
 
 <para>
-Задаёт максимально допустимый размер тела запроса клиента,
-указываемый в поле
-<header>Content-Length</header>
-заголовка запроса.
+Задаёт максимально допустимый размер тела запроса клиента.
 Если размер больше заданного, то клиенту возвращается ошибка
 <http-status code="413" text="Request Entity Too Large"/>.
 Следует иметь в виду, что

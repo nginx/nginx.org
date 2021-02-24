@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="92">
+        rev="93">
 
 <section id="directives" name="Directives">
 
@@ -450,10 +450,7 @@ error.
 <context>location</context>
 
 <para>
-Sets the maximum allowed size of the client request body,
-specified in the
-<header>Content-Length</header>
-request header field.
+Sets the maximum allowed size of the client request body.
 If the size in a request exceeds the configured value, the
 <http-status code="413" text="Request Entity Too Large"/>
 error is returned to the client.
