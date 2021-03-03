@@ -7,7 +7,7 @@
 <article name="nginx: пакеты для Linux"
          link="/ru/linux_packages.html"
          lang="ru"
-         rev="55">
+         rev="56">
 
 <section name="Поддерживаемые дистрибутивы и версии" id="distributions">
 
@@ -388,8 +388,9 @@ sudo apk add openssl curl ca-certificates
 Для подключения apk-репозитория для стабильной версии nginx,
 выполните следующую команду:
 <programlisting>
-printf "%s%s%s\n" \
-    "http://nginx.org/packages/alpine/v" \
+printf "%s%s%s%s\n" \
+    "@nginx " \
+    "http://nginx.org/packages/mainline/alpine/v" \
     `egrep -o '^[0-9]+\.[0-9]+' /etc/alpine-release` \
     "/main" \
     | sudo tee -a /etc/apk/repositories
@@ -398,7 +399,8 @@ printf "%s%s%s\n" \
 Если предпочтительно использовать пакеты для основной версии nginx,
 выполните следующую команду вместо предыдущей:
 <programlisting>
-printf "%s%s%s\n" \
+printf "%s%s%s%s\n" \
+    "@nginx " \
     "http://nginx.org/packages/mainline/alpine/v" \
     `egrep -o '^[0-9]+\.[0-9]+' /etc/alpine-release` \
     "/main" \
@@ -449,7 +451,13 @@ sudo mv /tmp/nginx_signing.rsa.pub /etc/apk/keys/
 
 Чтобы установить nginx, выполните следующую команду:
 <programlisting>
-sudo apk add nginx
+sudo apk add nginx@nginx
+</programlisting>
+
+Тэг <literal>@nginx</literal> должен быть указан и при установке пакетов
+с <link url="#dynmodules">динамическими модулями</link>:
+<programlisting>
+sudo apk add nginx-module-image-filter@nginx nginx-module-njs@nginx
 </programlisting>
 </para>
 

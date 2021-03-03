@@ -7,7 +7,7 @@
 <article name="nginx: Linux packages"
          link="/en/linux_packages.html"
          lang="en"
-         rev="55">
+         rev="56">
 
 <section name="Supported distributions and versions" id="distributions">
 
@@ -392,7 +392,8 @@ sudo apk add openssl curl ca-certificates
 To set up the apk repository for stable nginx packages,
 run the following command:
 <programlisting>
-printf "%s%s%s\n" \
+printf "%s%s%s%s\n" \
+    "@nginx " \
     "http://nginx.org/packages/alpine/v" \
     `egrep -o '^[0-9]+\.[0-9]+' /etc/alpine-release` \
     "/main" \
@@ -402,7 +403,8 @@ printf "%s%s%s\n" \
 If you would like to use mainline nginx packages,
 run the following command instead:
 <programlisting>
-printf "%s%s%s\n" \
+printf "%s%s%s%s\n" \
+    "@nginx " \
     "http://nginx.org/packages/mainline/alpine/v" \
     `egrep -o '^[0-9]+\.[0-9]+' /etc/alpine-release` \
     "/main" \
@@ -453,7 +455,13 @@ sudo mv /tmp/nginx_signing.rsa.pub /etc/apk/keys/
 
 To install nginx, run the following command:
 <programlisting>
-sudo apk add nginx
+sudo apk add nginx@nginx
+</programlisting>
+
+The <literal>@nginx</literal> tag should also be specified when installing
+packages with <link url="#dynmodules">dynamic modules</link>:
+<programlisting>
+sudo apk add nginx-module-image-filter@nginx nginx-module-njs@nginx
 </programlisting>
 </para>
 
