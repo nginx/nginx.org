@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="65">
+        rev="66">
 
 <section id="summary">
 
@@ -658,7 +658,7 @@ if the body was read.
 <tag-name id="response_headers"><literal>headers</literal></tag-name>
 <tag-desc>
 The <literal>Headers</literal> read-only object associated with the
-<link id="global_response"><literal>Response</literal></link>:
+<link id="response"><literal>Response</literal></link>:
 
 <list type="tag">
 
@@ -746,7 +746,7 @@ since <link doc="changes.xml" id="njs0.5.0">0.5.0</link>.
 Makes a request to fetch an URL
 (<link doc="changes.xml" id="njs0.5.1">0.5.1</link>),
 returns a <literal>Promise</literal> that resolves with
-the <link id="global_response"><literal>Response</literal></link> object.
+the <link id="response"><literal>Response</literal></link> object.
 Only the <literal>http://</literal> scheme is supported,
 redirects are not handled.
 <para>
