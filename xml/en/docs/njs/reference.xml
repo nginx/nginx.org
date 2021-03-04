@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="61">
+        rev="62">
 
 <section id="summary">
 
@@ -48,6 +48,16 @@ All string properties of the object are
 <tag-name id="r_args"><literal>r.args{}</literal></tag-name>
 <tag-desc>
 request arguments object, read-only
+</tag-desc>
+
+<tag-name id="r_done"><literal>r.done()</literal></tag-name>
+<tag-desc>
+after calling this function,
+next data chunks will be passed to client without calling
+<link doc="../http/ngx_http_js_module.xml" id="js_body_filter"/>
+(<link doc="changes.xml" id="njs0.5.2">0.5.2</link>).
+May be called only from the
+<link doc="../http/ngx_http_js_module.xml" id="js_body_filter"/> function
 </tag-desc>
 
 <tag-name id="r_error"><literal>r.error(<value>string</value>)</literal></tag-name>
@@ -302,6 +312,37 @@ or the response body text (for other codes) as the second argument
 sends a part of the response body to the client.
 The data sent can be a string or Buffer
 (<link doc="changes.xml" id="njs0.5.0">0.5.0</link>)
+</tag-desc>
+
+<tag-name id="r_sendbuffer"><literal>r.sendBuffer(<value>data</value>[,
+<value>options</value>])</literal></tag-name>
+<tag-desc>
+adds data to the chain of data chunks to be forwarded to the next body filter
+(<link doc="changes.xml" id="njs0.5.2">0.5.2</link>).
+The actual forwarding happens later,
+when the all the data chunks of the current chain are processed.
+<para>
+The data can be a string or Buffer.
+The <literal>options</literal> is an object used
+to override nginx buffer flags derived from an incoming data chunk buffer.
+The flags can be overridden with the following flags:
+<list type="tag">
+
+<tag-name><literal>last</literal></tag-name>
+<tag-desc>
+boolean,
+true if the buffer is the last buffer
+</tag-desc>
+
+<tag-name><literal>flush</literal></tag-name>
+<tag-desc>
+boolean,
+true if the buffer should have the <literal>flush</literal> flag
+</tag-desc>
+</list>
+</para>
+The method may be called only from the
+<link doc="../http/ngx_http_js_module.xml" id="js_body_filter"/> function.
 </tag-desc>
 
 <tag-name id="r_send_header"><literal>r.sendHeader()</literal></tag-name>
