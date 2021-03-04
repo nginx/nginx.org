@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="64">
+        rev="65">
 
 <section id="summary">
 
@@ -577,14 +577,18 @@ writable
 <tag-name id="s_send"><literal>s.send(<value>data</value>[,
 <value>options</value>])</literal></tag-name>
 <tag-desc>
-sends the data to the client
+adds data to the chain of data chunks that will be forwarded in
+the forward direction:
+in download callback to a client; in upload to an upstream server
 (<link doc="changes.xml" id="njs0.2.4">0.2.4</link>).
+The actual forwarding happens later,
+when the all the data chunks of the current chain are processed.
+<para>
 The data can be a string or Buffer
 (<link doc="changes.xml" id="njs0.5.0">0.5.0</link>).
 The <literal>options</literal> is an object used
 to override nginx buffer flags derived from an incoming data chunk buffer.
 The flags can be overridden with the following flags:
-<para>
 <list type="tag">
 
 <tag-name><literal>last</literal></tag-name>
