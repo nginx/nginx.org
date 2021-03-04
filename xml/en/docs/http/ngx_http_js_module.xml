@@ -9,7 +9,7 @@
 <module name="Module ngx_http_js_module"
         link="/en/docs/http/ngx_http_js_module.html"
         lang="en"
-        rev="23">
+        rev="24">
 
 <section id="summary">
 
@@ -117,6 +117,70 @@ export default {foo, summary, baz, hello};
 
 
 <section id="directives" name="Directives">
+
+<directive name="js_body_filter">
+<syntax><value>function</value> | <value>module.function</value>
+[<value>buffer_type</value>=<value>string</value> | <value>buffer</value>]</syntax>
+<default/>
+<context>location</context>
+<context>limit_except</context>
+<appeared-in>0.5.2</appeared-in>
+
+<para>
+Sets an njs function as a response body filter.
+The filter function is called for each data chunk of a response body
+with the following arguments:
+
+<list type="tag">
+<tag-name><literal>data</literal></tag-name>
+<tag-desc>
+the incoming data chunk,
+may be a string or Buffer
+depending on the <literal>buffer_type</literal> value,
+by default is a string.
+</tag-desc>
+
+<tag-name><literal>flags</literal></tag-name>
+<tag-desc>
+an object with the following properties:
+<list type="tag">
+<tag-name><literal>last</literal></tag-name>
+<tag-desc>
+a boolean value, true if data is a last buffer.
+</tag-desc>
+
+</list>
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+The filter function can pass its own modified version
+of the input data chunk to the next body filter by calling
+<link doc="../njs/reference.xml" id="r_sendbuffer"><literal>r.sendBuffer()</literal></link>.
+For example, to transform all the lowercase letters in the response body:
+<example>
+function filter(data, flags) {
+    r.sendBuffer(data.toLowerCase(), flags);
+}
+</example>
+To stop filtering (following data chunks will be passed to client
+without calling <literal>js_body_filter</literal>),
+<link doc="../njs/reference.xml" id="r_done"><literal>r.done()</literal></link>
+can be used.
+</para>
+
+<para>
+If the filter function changes the length of the response body, then
+it is required to clear out the <header>Content-Length</header> response header
+(if any) in
+<link id="js_header_filter"><literal>js_header_filter</literal></link>
+to enforce chunked transfer encoding.
+</para>
+
+</directive>
+
 
 <directive name="js_content">
 <syntax><value>function</value> | <value>module.function</value></syntax>

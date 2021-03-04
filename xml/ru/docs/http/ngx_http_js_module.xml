@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_js_module"
         link="/ru/docs/http/ngx_http_js_module.html"
         lang="ru"
-        rev="23">
+        rev="24">
 
 <section id="summary">
 
@@ -117,6 +117,70 @@ export default {foo, summary, baz, hello};
 
 
 <section id="directives" name="Директивы">
+
+<directive name="js_body_filter">
+<syntax><value>функция</value> | <value>модуль.функция</value>
+[<value>buffer_type</value>=<value>строка</value> | <value>буфер</value>]</syntax>
+<default/>
+<context>location</context>
+<context>limit_except</context>
+<appeared-in>0.5.2</appeared-in>
+
+<para>
+Задаёт функцию njs в качестве фильтра тела ответа.
+Функция фильтра вызывается для каждого блока данных тела ответа
+со следующими аргументами:
+
+<list type="tag">
+<tag-name><literal>data</literal></tag-name>
+<tag-desc>
+входящий блок данных
+может быть строкой или буфером
+в зависимости от значения <literal>buffer_type</literal>,
+по умолчанию является строкой.
+</tag-desc>
+
+<tag-name><literal>flags</literal></tag-name>
+<tag-desc>
+объект со следующими свойствами:
+<list type="tag">
+<tag-name><literal>last</literal></tag-name>
+<tag-desc>
+логическое значение, true, если данные являются последним буфером.
+</tag-desc>
+
+</list>
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+Функция фильтра может передавать свою модифицированную версию
+входящего блока данных следующему фильтру тела ответа при помощи вызова
+<link doc="../njs/reference.xml" id="r_sendbuffer"><literal>r.sendBuffer()</literal></link>.
+Пример преобразования букв в нижний регистр в теле ответа:
+<example>
+function filter(data, flags) {
+    r.sendBuffer(data.toLowerCase(), flags);
+}
+</example>
+Для отмены фильтра (блоки данных будут передаваться клиенту
+без вызова <literal>js_body_filter</literal>),
+можно использовать
+<link doc="../njs/reference.xml" id="r_done"><literal>r.done()</literal></link>.
+</para>
+
+<para>
+Если функция фильтра изменяет длину тела ответа, то
+необходимо очистить заголовок ответа <header>Content-Length</header>
+(если присутствует) в
+<link id="js_header_filter"><literal>js_header_filter</literal></link>,
+чтобы применить поблочное кодирование.
+</para>
+
+</directive>
+
 
 <directive name="js_content">
 <syntax><value>функция</value> | <value>модуль.функция</value></syntax>
