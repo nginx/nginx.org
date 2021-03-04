@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="62">
+        rev="63">
 
 <section id="summary">
 
@@ -601,6 +601,15 @@ true if the buffer should have the <literal>flush</literal> flag
 </list>
 </para>
 The method can be called multiple times per callback invocation.
+</tag-desc>
+
+<tag-name id="s_status"><literal>s.status</literal></tag-name>
+<tag-desc>
+session status code, an alias to the
+<link doc="../stream/ngx_stream_core_module.xml" id="var_status"><literal>$status</literal></link>
+variable,
+read only
+(since <link doc="changes.xml" id="njs0.5.2">0.5.2</link>)
 </tag-desc>
 
 <tag-name id="s_variables"><literal>s.variables{}</literal></tag-name>
