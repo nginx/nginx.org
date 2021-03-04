@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="63">
+        rev="64">
 
 <section id="summary">
 
@@ -814,6 +814,50 @@ The following log levels can be specified:
 
 
 <section id="core_global" name="Global">
+
+
+<section id="njs" name="njs">
+
+<para>
+The <literal>njs</literal> object is a global object
+that represents the current VM instance
+(since <link doc="changes.xml" id="njs0.2.0">0.2.0</link>).
+</para>
+
+<para>
+<list type="tag">
+
+<tag-name id="njs_version"><literal>njs.version</literal></tag-name>
+<tag-desc>
+Returns a string with the current version of njs
+(for example, “0.5.2”).
+</tag-desc>
+
+<tag-name id="njs_dump"><literal>njs.dump(<value>value</value>)</literal></tag-name>
+<tag-desc>
+Returns the pretty-print string representation for a value.
+</tag-desc>
+
+<tag-name id="njs_on"><literal>njs.on</literal></tag-name>
+<tag-desc>
+Registers a callback for the specified VM event
+(since <link doc="changes.xml" id="njs0.5.2">0.5.2</link>).
+An event may be one of the following strings:
+<list type="tag">
+
+<tag-name><literal>exit</literal></tag-name>
+<tag-desc>
+is called before the VM is destroyed.
+The callback is called without arguments.
+</tag-desc>
+
+</list>
+</tag-desc>
+
+</list>
+</para>
+
+</section>
 
 
 <section id="process" name="Process">
