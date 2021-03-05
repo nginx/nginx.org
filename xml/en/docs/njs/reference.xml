@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="66">
+        rev="67">
 
 <section id="summary">
 
@@ -470,27 +470,61 @@ All string properties of the object are <link id="string">byte strings</link>.
 
 <tag-name id="s_allow"><literal>s.allow()</literal></tag-name>
 <tag-desc>
-successfully finalizes the phase handler
+an alias to
+<link id="s_done"><literal>s.done(0)</literal></link>
 (<link doc="changes.xml" id="njs0.2.4">0.2.4</link>)
 </tag-desc>
 
 <tag-name id="s_decline"><literal>s.decline()</literal></tag-name>
 <tag-desc>
-finalizes the phase handler and passes control to the next handler
+an alias to
+<link id="s_done"><literal>s.done(-5)</literal></link>
 (<link doc="changes.xml" id="njs0.2.4">0.2.4</link>)
 </tag-desc>
 
 <tag-name id="s_deny"><literal>s.deny()</literal></tag-name>
 <tag-desc>
-finalizes the phase handler with the access error code
+an alias to
+<link id="s_done"><literal>s.done(403)</literal></link>
 (<link doc="changes.xml" id="njs0.2.4">0.2.4</link>)
 </tag-desc>
 
-<tag-name id="s_done"><literal>s.done</literal>(<value>[code]</value>)</tag-name>
+<tag-name id="s_done"><literal>s.done([<value>code</value>]</literal>)</tag-name>
 <tag-desc>
-successfully finalizes the current phase handler
-or finalizes it with the specified numeric code
+sets an exit <literal>code</literal> for the current
+<link doc="../stream/stream_processing.xml">phase</link> handler
+to a code value, by default <literal>0</literal>.
+The actual finalization happens when the js handler is completed
+and all pending events, for example, from
+<link id="ngx_fetch"><literal>ngx.fetch</literal></link> or
+<link id="settimeout"><literal>setTimeout()</literal></link>,
+are processed
 (<link doc="changes.xml" id="njs0.2.4">0.2.4</link>).
+<para>
+Possible code values:
+<list type="bullet">
+
+<listitem>
+<literal>0</literal>&mdash;
+successful finalization, passing control to the next phase
+</listitem>
+
+<listitem>
+<literal>-5</literal>&mdash;
+undecided, passing control to the next handler of the current phase (if any)
+</listitem>
+
+<listitem>
+<literal>403</literal>&mdash;
+access is forbidden
+</listitem>
+
+</list>
+</para>
+May be called only from a phase handler function:
+<link doc="../stream/ngx_stream_js_module.xml" id="js_access"><literal>js_access</literal></link>
+or
+<link doc="../stream/ngx_stream_js_module.xml" id="js_preread"><literal>js_preread</literal></link>.
 </tag-desc>
 
 <tag-name id="s_error"><literal>s.error(<value>string</value>)</literal></tag-name>
