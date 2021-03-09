@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_proxy_module"
         link="/ru/docs/http/ngx_http_proxy_module.html"
         lang="ru"
-        rev="71">
+        rev="72">
 
 <section id="summary">
 
@@ -897,6 +897,8 @@ proxy_cookie_domain ~\.([a-z]+\.[a-z]+)$ $1;
 Задаёт один или несколько флагов для куки.
 В качестве <value>куки</value>
 можно использовать текст, переменные и их комбинации.
+В качестве <value>флага</value>
+можно использовать текст, переменные и их комбинации (1.19.8).
 Параметры
 <literal>secure</literal>,
 <literal>httponly</literal>,

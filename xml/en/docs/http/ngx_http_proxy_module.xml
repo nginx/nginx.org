@@ -10,7 +10,7 @@
 <module name="Module ngx_http_proxy_module"
         link="/en/docs/http/ngx_http_proxy_module.html"
         lang="en"
-        rev="71">
+        rev="72">
 
 <section id="summary">
 
@@ -894,6 +894,8 @@ inherited from the previous configuration level.
 <para>
 Sets one or more flags for the cookie.
 The <value>cookie</value> can contain text, variables, and their combinations.
+The <value>flag</value>
+can contain text, variables, and their combinations (1.19.8).
 The
 <literal>secure</literal>,
 <literal>httponly</literal>,
