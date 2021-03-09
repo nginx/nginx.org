@@ -9,8 +9,86 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="40"
+        rev="41"
         toc="no">
+
+<section id="njs0.5.2" name="Changes with njs 0.5.2">
+
+<para>
+Release Date:
+09 March 2021
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+added the
+<link doc="../http/ngx_http_js_module.xml" id="js_body_filter"><literal>js_body_filter</literal></link>
+directive.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+introduced the
+<link doc="reference.xml" id="s_status"><literal>s.status</literal></link>
+property for
+<link doc="reference.xml" id="stream">Stream Session</link>
+object.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added
+<link doc="reference.xml" id="njs_on"><literal>njs.on</literal></link>
+(<literal>exit</literal>) callback support.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed property descriptor reuse for not extensible objects.
+Thanks to Artem S. Povalyukhin.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>Object.freeze()</literal> and friends
+according to the specification.
+Thanks to Artem S. Povalyukhin.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>Function()</literal> in CLI mode.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed for-in iteration of typed array values.
+Thanks to Artem S. Povalyukhin.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.5.1" name="Changes with njs 0.5.1">
 
