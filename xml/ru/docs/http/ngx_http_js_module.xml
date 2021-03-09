@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_js_module"
         link="/ru/docs/http/ngx_http_js_module.html"
         lang="ru"
-        rev="24">
+        rev="25">
 
 <section id="summary">
 
@@ -132,6 +132,11 @@ export default {foo, summary, baz, hello};
 со следующими аргументами:
 
 <list type="tag">
+<tag-name><literal>r</literal></tag-name>
+<tag-desc>
+объект <link doc="../njs/reference.xml" id="http">HTTP request</link>
+</tag-desc>
+
 <tag-name><literal>data</literal></tag-name>
 <tag-desc>
 входящий блок данных
@@ -161,7 +166,7 @@ export default {foo, summary, baz, hello};
 <link doc="../njs/reference.xml" id="r_sendbuffer"><literal>r.sendBuffer()</literal></link>.
 Пример преобразования букв в нижний регистр в теле ответа:
 <example>
-function filter(data, flags) {
+function filter(r, data, flags) {
     r.sendBuffer(data.toLowerCase(), flags);
 }
 </example>

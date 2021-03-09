@@ -9,7 +9,7 @@
 <module name="Module ngx_http_js_module"
         link="/en/docs/http/ngx_http_js_module.html"
         lang="en"
-        rev="24">
+        rev="25">
 
 <section id="summary">
 
@@ -132,6 +132,11 @@ The filter function is called for each data chunk of a response body
 with the following arguments:
 
 <list type="tag">
+<tag-name><literal>r</literal></tag-name>
+<tag-desc>
+the <link doc="../njs/reference.xml" id="http">HTTP request</link> object
+</tag-desc>
+
 <tag-name><literal>data</literal></tag-name>
 <tag-desc>
 the incoming data chunk,
@@ -161,7 +166,7 @@ of the input data chunk to the next body filter by calling
 <link doc="../njs/reference.xml" id="r_sendbuffer"><literal>r.sendBuffer()</literal></link>.
 For example, to transform all the lowercase letters in the response body:
 <example>
-function filter(data, flags) {
+function filter(r, data, flags) {
     r.sendBuffer(data.toLowerCase(), flags);
 }
 </example>
