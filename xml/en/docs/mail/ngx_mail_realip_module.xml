@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Module ngx_mail_realip_module"
+        link="/en/docs/mail/ngx_mail_realip_module.html"
+        lang="en"
+        rev="1">
+
+<section id="summary">
+
+<para>
+The <literal>ngx_mail_realip_module</literal> module is used
+to change the client address and port
+to the ones sent in the PROXY protocol header (1.19.8).
+The PROXY protocol must be previously enabled by setting the
+<link doc="ngx_mail_core_module.xml" id="proxy_protocol"/> parameter
+in the <literal>listen</literal> directive.
+</para>
+
+</section>
+
+
+<section id="example" name="Example Configuration">
+
+<para>
+<example>
+listen 110 proxy_protocol;
+
+set_real_ip_from  192.168.1.0/24;
+set_real_ip_from  192.168.2.1;
+set_real_ip_from  2001:0db8::/32;
+</example>
+</para>
+
+</section>
+
+
+<section id="directives" name="Directives">
+
+<directive name="set_real_ip_from">
+<syntax>
+    <value>address</value> |
+    <value>CIDR</value> |
+    <literal>unix:</literal></syntax>
+<default/>
+<context>mail</context>
+<context>server</context>
+
+<para>
+Defines trusted addresses that are known to send correct
+replacement addresses.
+If the special value <literal>unix:</literal> is specified,
+all UNIX-domain sockets will be trusted.
+</para>
+
+</directive>
+
+</section>
+
+</module>
