@@ -10,7 +10,7 @@
 <module name="Module ngx_mail_proxy_module"
         link="/en/docs/mail/ngx_mail_proxy_module.html"
         lang="en"
-        rev="4">
+        rev="5">
 
 <section id="directives" name="Directives">
 
@@ -70,6 +70,22 @@ overflow</link> or other events by periodically outputting the
 <link url="http://www.stalker.com/CommuniGatePro/POP.html#Alerts">authentication
 error</link>.
 The directive should be enabled in this case.
+</para>
+
+</directive>
+
+
+<directive name="proxy_protocol">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>mail</context>
+<context>server</context>
+<appeared-in>1.19.8</appeared-in>
+
+<para>
+Enables the
+<link url="http://www.haproxy.org/download/1.5/doc/proxy-protocol.txt">PROXY
+protocol</link> for connections to a backend.
 </para>
 
 </directive>

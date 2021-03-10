@@ -10,7 +10,7 @@
 <module name="Модуль ngx_mail_proxy_module"
         link="/ru/docs/mail/ngx_mail_proxy_module.html"
         lang="ru"
-        rev="4">
+        rev="5">
 
 <section id="directives" name="Директивы">
 
@@ -70,6 +70,22 @@
 <link url="http://www.stalker.com/CommuniGatePro/POP.html#Alerts">ошибку
 аутентификации</link>.
 В этом случае директиву стоит включить.
+</para>
+
+</directive>
+
+
+<directive name="proxy_protocol">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>mail</context>
+<context>server</context>
+<appeared-in>1.19.8</appeared-in>
+
+<para>
+Включает
+<link url="http://www.haproxy.org/download/1.5/doc/proxy-protocol.txt">протокол
+PROXY</link> для соединений с бэкендом.
 </para>
 
 </directive>
