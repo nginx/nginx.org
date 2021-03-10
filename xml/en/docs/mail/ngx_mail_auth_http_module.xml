@@ -10,7 +10,7 @@
 <module name="Module ngx_mail_auth_http_module"
         link="/en/docs/mail/ngx_mail_auth_http_module.html"
         lang="en"
-        rev="9">
+        rev="10">
 
 <section id="directives" name="Directives">
 
@@ -238,6 +238,17 @@ Auth-SSL-Issuer: /CN=example.com
 Auth-SSL-Serial: C07AD56B846B5BFF
 Auth-SSL-Fingerprint: 29d6a80a123d13355ed16b4b04605e29cb55a5ad
 </example>
+</para>
+
+<para id="proxy_protocol">
+When the
+<link doc="ngx_mail_core_module.xml" id="proxy_protocol">PROXY protocol</link>
+is used,
+its details are passed in the following request headers:
+<header>Proxy-Protocol-Addr</header>,
+<header>Proxy-Protocol-Port</header>,
+<header>Proxy-Protocol-Server-Addr</header>, and
+<header>Proxy-Protocol-Server-Port</header> (1.19.8).
 </para>
 
 </section>

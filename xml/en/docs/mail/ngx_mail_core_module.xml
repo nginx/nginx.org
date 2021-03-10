@@ -10,7 +10,7 @@
 <module name="Module ngx_mail_core_module"
         link="/en/docs/mail/ngx_mail_core_module.html"
         lang="en"
-        rev="14">
+        rev="15">
 
 <section id="summary">
 
@@ -78,6 +78,7 @@ mail {
 <syntax>
     <value>address</value>:<value>port</value>
     [<literal>ssl</literal>]
+    [<literal>proxy_protocol</literal>]
     [<literal>backlog</literal>=<value>number</value>]
     [<literal>rcvbuf</literal>=<value>size</value>]
     [<literal>sndbuf</literal>=<value>size</value>]
@@ -119,6 +120,15 @@ Different servers must listen on different
 <para>
 The <literal>ssl</literal> parameter allows specifying that all
 connections accepted on this port should work in SSL mode.
+</para>
+
+<para id="proxy_protocol">
+The <literal>proxy_protocol</literal> parameter (1.19.8)
+allows specifying that all connections accepted on this port should use the
+<link url="http://www.haproxy.org/download/1.5/doc/proxy-protocol.txt">PROXY
+protocol</link>.
+Obtained information is passed to the
+<link doc="ngx_mail_auth_http_module.xml" id="proxy_protocol">authentication server</link>.
 </para>
 
 <para>
