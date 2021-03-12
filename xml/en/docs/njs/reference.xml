@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="67">
+        rev="68">
 
 <section id="summary">
 
@@ -496,7 +496,7 @@ sets an exit <literal>code</literal> for the current
 to a code value, by default <literal>0</literal>.
 The actual finalization happens when the js handler is completed
 and all pending events, for example, from
-<link id="ngx_fetch"><literal>ngx.fetch</literal></link> or
+<link id="ngx_fetch"><literal>ngx.fetch()</literal></link> or
 <link id="settimeout"><literal>setTimeout()</literal></link>,
 are processed
 (<link doc="changes.xml" id="njs0.2.4">0.2.4</link>).
@@ -876,7 +876,8 @@ Returns a string with the current version of njs
 Returns the pretty-print string representation for a value.
 </tag-desc>
 
-<tag-name id="njs_on"><literal>njs.on</literal></tag-name>
+<tag-name id="njs_on"><literal>njs.on(<value>event</value>,
+<value>callback</value>)</literal></tag-name>
 <tag-desc>
 Registers a callback for the specified VM event
 (since <link doc="changes.xml" id="njs0.5.2">0.5.2</link>).
