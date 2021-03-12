@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_js_module"
         link="/ru/docs/stream/ngx_stream_js_module.html"
         lang="ru"
-        rev="23">
+        rev="24">
 
 <section id="summary">
 
@@ -179,7 +179,7 @@ js_import stream.js;
 </example>
 В примере при доступе к экспорту в качестве
 пространства имён используется имя модуля <literal>stream</literal>.
-Если импортируемый модуль содержит <literal>foo()</literal>,
+Если импортируемый модуль экспортирует <literal>foo()</literal>,
 то для доступа используется <literal>stream.foo</literal>.
 </para>
 

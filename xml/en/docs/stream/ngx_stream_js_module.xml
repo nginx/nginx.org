@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_js_module"
         link="/en/docs/stream/ngx_stream_js_module.html"
         lang="en"
-        rev="23">
+        rev="24">
 
 <section id="summary">
 
@@ -178,7 +178,7 @@ js_import stream.js;
 </example>
 Here, the module name <literal>stream</literal> is used as a namespace
 while accessing exports.
-If the imported module contains <literal>foo()</literal>,
+If the imported module exports <literal>foo()</literal>,
 <literal>stream.foo</literal> is used to refer to it.
 </para>
 

@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_js_module"
         link="/ru/docs/http/ngx_http_js_module.html"
         lang="ru"
-        rev="25">
+        rev="26">
 
 <section id="summary">
 
@@ -236,7 +236,7 @@ js_import http.js;
 </example>
 В примере при доступе к экспорту в качестве
 пространства имён используется имя модуля <literal>http</literal>.
-Если импортируемый модуль содержит <literal>foo()</literal>,
+Если импортируемый модуль экспортирует <literal>foo()</literal>,
 то для доступа используется <literal>http.foo</literal>.
 </para>
 

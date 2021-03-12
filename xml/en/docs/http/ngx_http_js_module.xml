@@ -9,7 +9,7 @@
 <module name="Module ngx_http_js_module"
         link="/en/docs/http/ngx_http_js_module.html"
         lang="en"
-        rev="25">
+        rev="26">
 
 <section id="summary">
 
@@ -235,7 +235,7 @@ js_import http.js;
 </example>
 Here, the module name <literal>http</literal> is used as a namespace
 while accessing exports.
-If the imported module contains <literal>foo()</literal>,
+If the imported module exports <literal>foo()</literal>,
 <literal>http.foo</literal> is used to refer to it.
 </para>
 
