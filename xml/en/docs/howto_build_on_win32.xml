@@ -9,7 +9,7 @@
 <article name="Building nginx on the Win32 platform with Visual C"
          link="/en/docs/howto_build_on_win32.html"
          lang="en"
-         rev="21">
+         rev="22">
 
 <section name="Prerequisites">
 
@@ -24,7 +24,8 @@ Microsoft Visual C compiler. <registered>Microsoft Visual Studio</registered>
 </listitem>
 
 <listitem>
-<link url="http://www.mingw.org/wiki/MSYS">MSYS</link>.
+<link url="https://sourceforge.net/projects/mingw/files/MSYS/">MSYS</link> or
+<link url="https://www.msys2.org">MSYS2</link>.
 </listitem>
 
 <listitem>
