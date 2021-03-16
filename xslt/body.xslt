@@ -20,9 +20,9 @@
 
     <div id="banner">
         <xsl:if test="@lang = 'he'"> <xsl:attribute name="class"> <xsl:text>ltr</xsl:text> </xsl:attribute> </xsl:if>
-        Get sample configurations for the most popular NGINX deployments
-        in the
-        <a href="https://www.nginx.com/resources/library/complete-nginx-cookbook/?utm_medium=nginxorg&amp;utm_source=homepagehero&amp;utm_campaign=ww-nx_mad&amp;utm_content=eb">new NGINX Cookbook, updated for 2021.</a>
+        Learn how NGINX Instance Manager can help you track, configure and
+        monitor NGINX OSS instances.<br/>
+        <a href="https://www.nginx.com/blog/introducing-nginx-instance-manager?utm_medium=nginxorg&amp;utm_source=homepagehero&amp;utm_campaign=ww-nx_mad&amp;utm_content=bg-banner">NGINX Instance Manager Capabilities.</a>
     </div>
 
     <div id="main">
