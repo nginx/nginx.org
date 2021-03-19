@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="71">
+        rev="72">
 
 <section id="summary">
 
@@ -457,7 +457,11 @@ writable
 <tag-name id="r_variables"><literal>r.variables{}</literal></tag-name>
 <tag-desc>
 nginx variables object, writable
-(since <link doc="changes.xml" id="njs0.2.8">0.2.8</link>)
+(since <link doc="changes.xml" id="njs0.2.8">0.2.8</link>).
+A variable can be writable only
+if it is referenced in nginx configuration file.
+Even so, some embedded variables still cannot be assigned a value (for example,
+<link doc="../http/ngx_http_core_module.xml" id="var_http_"><literal>$http_</literal></link>).
 </tag-desc>
 
 <tag-name id="r_warn"><literal>r.warn(<value>string</value>)</literal></tag-name>
@@ -669,7 +673,10 @@ read only
 <tag-name id="s_variables"><literal>s.variables{}</literal></tag-name>
 <tag-desc>
 nginx variables object, writable
-(since <link doc="changes.xml" id="njs0.2.8">0.2.8</link>)
+(since <link doc="changes.xml" id="njs0.2.8">0.2.8</link>).
+A variable can be writable only
+if it is referenced in nginx configuration file.
+Even so, some embedded variables still cannot be assigned a value.
 </tag-desc>
 
 <tag-name id="s_warn"><literal>s.warn(<value>string</value>)</literal></tag-name>
