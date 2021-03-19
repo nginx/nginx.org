@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="70">
+        rev="71">
 
 <section id="summary">
 
@@ -233,7 +233,7 @@ The property is available only in the
 the same as <link id="r_request_buffer"><literal>r.requestBuffer</literal></link>,
 but returns a <literal>string</literal>.
 Note that
-it may convert bytes invalid in utf8 encoding into the replacement character.
+it may convert bytes invalid in UTF-8 encoding into the replacement character.
 </tag-desc>
 
 <tag-name id="r_raw_headers_in"><literal>r.rawHeadersIn{}</literal></tag-name>
@@ -305,7 +305,7 @@ the same as <link id="r_response_buffer"><literal>r.responseBuffer</literal></li
 but returns a string
 (since <link doc="changes.xml" id="njs0.5.0">0.5.0</link>).
 Note that
-it may convert bytes invalid in utf8 encoding into the replacement character.
+it may convert bytes invalid in UTF-8 encoding into the replacement character.
 </tag-desc>
 
 <tag-name id="r_return"><literal>r.return(status[,
@@ -973,10 +973,10 @@ Byte strings contain a sequence of bytes
 and are used to serialize Unicode strings
 to external data and deserialize from external sources.
 For example, the <link id="string_toutf8">toUTF8()</link> method serializes
-a Unicode string to a byte string using UTF8 encoding:
+a Unicode string to a byte string using UTF-8 encoding:
 <example>
 >> '£'.toUTF8().toString('hex')
-'c2a3'  /* C2 A3 is the UTF8 representation of 00A3 ('£') code point */
+'c2a3'  /* C2 A3 is the UTF-8 representation of 00A3 ('£') code point */
 </example>
 The <link id="string_tobytes">toBytes()</link> method serializes
 a Unicode string with code points up to 255 into a byte string,
@@ -1020,7 +1020,7 @@ where each byte is replaced with a corresponding Unicode code point.
 <tag-name id="string_fromutf8"><literal>String.prototype.fromUTF8(<value>start</value>[,
 <value>end</value>])</literal></tag-name>
 <tag-desc>
-Converts a byte string containing a valid UTF8 string
+Converts a byte string containing a valid UTF-8 string
 into a Unicode string,
 otherwise <literal>null</literal> is returned.
 </tag-desc>
@@ -1057,7 +1057,7 @@ only a <link id="string_tobytes">byte string</link> could be encoded:
 <value>end</value>])</literal></tag-name>
 <tag-desc>
 Serializes a Unicode string
-to a byte string using UTF8 encoding.
+to a byte string using UTF-8 encoding.
 <example>
 >> 'αβγδ'.toUTF8().length
 8
