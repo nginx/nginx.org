@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="69">
+        rev="70">
 
 <section id="summary">
 
@@ -864,10 +864,7 @@ The following log levels can be specified:
 </section>
 
 
-<section id="core" name="Core">
-
-
-<section id="core_global" name="Global">
+<section id="builtin_objects" name="built-in objects">
 
 
 <section id="njs" name="njs">
@@ -915,7 +912,7 @@ The callback is called without arguments.
 </section>
 
 
-<section id="process" name="Process">
+<section id="process" name="process">
 
 <para>
 The <literal>process</literal> object is a global object
@@ -955,8 +952,6 @@ Returns the PID of the current parent process.
 
 </list>
 </para>
-
-</section>
 
 </section>
 
@@ -1075,6 +1070,11 @@ to a byte string using UTF8 encoding.
 </para>
 
 </section>
+
+</section>
+
+
+<section id="webapi" name="web API">
 
 
 <section id="textdecoder" name="Text Decoder">
@@ -1220,8 +1220,10 @@ the number of bytes modified in the destination <literal>Uint8Array</literal>
 
 </section>
 
+</section>
 
-<section id="njs_api_timers" name="Timers">
+
+<section id="njs_api_timers" name="timers">
 
 <para>
 <list type="tag">
@@ -1261,10 +1263,8 @@ clearTimeout(t);
 
 </section>
 
-</section>
 
-
-<section id="built-in" name="Built-in Modules">
+<section id="builtin_modules" name="built-in modules">
 
 
 <section id="buffer" name="Buffer">
