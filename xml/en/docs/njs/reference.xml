@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="68">
+        rev="69">
 
 <section id="summary">
 
@@ -163,10 +163,26 @@ HTTP version, read-only
 
 <tag-name id="r_internal_redirect"><literal>r.internalRedirect(<value>uri</value>)</literal></tag-name>
 <tag-desc>
-performs an internal redirect to the specified <literal>uri</literal>.
+performs an
+<link doc="../dev/development_guide.xml" id="http_request_redirection">internal
+redirect</link>
+to the specified <literal>uri</literal>.
 If the uri starts with the “<literal>@</literal>” prefix,
 it is considered a named location.
+Redirected requests become internal and can access the
+<link doc="../http/ngx_http_core_module.xml" id="internal">internal</link>
+locations.
 The actual redirect happens after the handler execution is completed.
+<para>
+<note>
+After redirect,
+a new njs VM is started in the target location,
+the VM in the original location is stopped.
+Values of nginx variables are kept
+and can be used to pass information to the target location.
+</note>
+</para>
+
 </tag-desc>
 
 <tag-name id="r_log"><literal>r.log(<value>string</value>)</literal></tag-name>
