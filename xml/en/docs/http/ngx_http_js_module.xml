@@ -9,7 +9,7 @@
 <module name="Module ngx_http_js_module"
         link="/en/docs/http/ngx_http_js_module.html"
         lang="en"
-        rev="26">
+        rev="27">
 
 <section id="summary">
 
@@ -298,9 +298,25 @@ Sets an additional path for njs modules.
 <context>http</context>
 
 <para>
-Sets an njs function for the specified variable.
+Sets an njs <literal>function</literal>
+for the specified <literal>variable</literal>.
 Since <link doc="../njs/changes.xml" id="njs0.4.0">0.4.0</link>,
 a module function can be referenced.
+</para>
+
+<para>
+The function is called when
+the variable is referenced for the first time for a given request.
+The exact moment depends on a
+<link doc="../dev/development_guide.xml" id="http_phases">phase</link>
+at which the variable is referenced.
+This can be used to perform some logic
+not related to variable evaluation.
+For example, if the variable is referenced only in the
+<link doc="ngx_http_log_module.xml" id="log_format"/> directive,
+its handler will not be executed until the log phase.
+This handler can be used to do some cleanup
+right before the request is freed.
 </para>
 
 </directive>
