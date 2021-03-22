@@ -10,7 +10,7 @@
 <module name="Модуль ngx_mail_core_module"
         link="/ru/docs/mail/ngx_mail_core_module.html"
         lang="ru"
-        rev="15">
+        rev="16">
 
 <section id="summary">
 
@@ -27,7 +27,7 @@
 
 <para>
 <example>
-worker_processes 1;
+worker_processes auto;
 
 error_log /var/log/nginx/error.log info;
 
