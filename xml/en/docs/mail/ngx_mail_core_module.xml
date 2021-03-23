@@ -10,7 +10,7 @@
 <module name="Module ngx_mail_core_module"
         link="/en/docs/mail/ngx_mail_core_module.html"
         lang="en"
-        rev="16">
+        rev="17">
 
 <section id="summary">
 
@@ -128,7 +128,9 @@ allows specifying that all connections accepted on this port should use the
 <link url="http://www.haproxy.org/download/1.5/doc/proxy-protocol.txt">PROXY
 protocol</link>.
 Obtained information is passed to the
-<link doc="ngx_mail_auth_http_module.xml" id="proxy_protocol">authentication server</link>.
+<link doc="ngx_mail_auth_http_module.xml" id="proxy_protocol">authentication server</link>
+and can be used to
+<link doc="ngx_mail_realip_module.xml">change the client address</link>.
 </para>
 
 <para>
