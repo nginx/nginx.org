@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_js_module"
         link="/ru/docs/http/ngx_http_js_module.html"
         lang="ru"
-        rev="27">
+        rev="28">
 
 <section id="summary">
 
@@ -318,6 +318,25 @@ function version(r) {
 то её обработчик не будет выполняться до фазы записи в лог.
 Этот обработчик также может использоваться для выполнения процедур
 непосредственно перед освобождением запроса.
+</para>
+
+</directive>
+
+
+<directive name="js_var">
+<syntax><value>$переменная</value> [<value>значение</value>]</syntax>
+<default/>
+<context>http</context>
+<appeared-in>0.5.3</appeared-in>
+
+<para>
+Объявляет
+<link doc="../njs/reference.xml" id="r_variables">перезаписываемую</link>
+переменную.
+В качестве значения можно использовать текст, переменные и их комбинации.
+Переменная не перезаписывается после перенаправления,
+в отличие от переменных, созданных при помощи
+директивы <link doc="ngx_http_rewrite_module.xml" id="set"/>.
 </para>
 
 </directive>

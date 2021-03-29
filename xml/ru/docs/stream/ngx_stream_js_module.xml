@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_js_module"
         link="/ru/docs/stream/ngx_stream_js_module.html"
         lang="ru"
-        rev="25">
+        rev="26">
 
 <section id="summary">
 
@@ -279,6 +279,25 @@ function address(s) {
 то её обработчик не будет выполняться до фазы записи в лог.
 Этот обработчик также может использоваться для выполнения процедур
 непосредственно перед освобождением запроса.
+</para>
+
+</directive>
+
+
+<directive name="js_var">
+<syntax><value>$переменная</value> [<value>значение</value>]</syntax>
+<default/>
+<context>stream</context>
+<appeared-in>0.5.3</appeared-in>
+
+<para>
+Объявляет
+<link doc="../njs/reference.xml" id="r_variables">перезаписываемую</link>
+переменную.
+В качестве значения можно использовать текст, переменные и их комбинации.
+Переменная не перезаписывается после перенаправления,
+в отличие от переменных, созданных при помощи
+директивы <link doc="ngx_stream_set_module.xml" id="set"/>.
 </para>
 
 </directive>
