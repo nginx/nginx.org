@@ -9,7 +9,7 @@
 <module name="Module ngx_http_auth_jwt_module"
         link="/en/docs/http/ngx_http_auth_jwt_module.html"
         lang="en"
-        rev="10">
+        rev="11">
 
 <section id="summary">
 
@@ -204,6 +204,7 @@ Allows retrieving a
 <link url="https://tools.ietf.org/html/rfc7517#section-5">JSON Web Key Set</link>
 file from a subrequest for validating JWT signature and
 sets the URI where the subrequest will be sent to.
+Parameter value can contain variables.
 To avoid validation overhead,
 it is recommended to cache the key file:
 <example>

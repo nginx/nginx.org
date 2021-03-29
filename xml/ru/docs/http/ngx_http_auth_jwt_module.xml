@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_auth_jwt_module"
         link="/ru/docs/http/ngx_http_auth_jwt_module.html"
         lang="ru"
-        rev="10">
+        rev="11">
 
 <section id="summary">
 
@@ -202,6 +202,7 @@ auth_jwt_claim_set $job info "job title";
 <link url="https://tools.ietf.org/html/rfc7517#section-5">JSON Web Key Set</link>
 из подзапроса для проверки подписи JWT и
 задаёт URI, на который будет отправлен подзапрос.
+В значении параметра допустимо использование переменных.
 Для предотвращения дополнительных затрат на проверку
 файл рекомендутеся кэшировать.
 <example>
