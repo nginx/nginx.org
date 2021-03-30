@@ -14,6 +14,17 @@ mainline version has been released.
 </para>
 </event>
 
+<event date="2021-03-30">
+<para>
+<link doc="en/docs/njs/index.xml">njs-0.5.3</link>
+version has been
+<link doc="en/docs/njs/changes.xml" id="njs0.5.3">released</link>,
+featuring the <literal>js_var</literal> directive for
+<link doc="en/docs/http/ngx_http_js_module.xml" id="js_var">http</link> and
+<link doc="en/docs/stream/ngx_stream_js_module.xml" id="js_var">stream</link>.
+</para>
+</event>
+
 <event date="2021-03-25">
 <para>
 <link url="https://unit.nginx.org/">unit-1.23.0</link> version has been

@@ -9,8 +9,34 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="41"
+        rev="42"
         toc="no">
+
+<section id="njs0.5.3" name="Changes with njs 0.5.3">
+
+<para>
+Release Date:
+30 March 2021
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+added the <literal>js_var</literal> directive for
+<link doc="../http/ngx_http_js_module.xml" id="js_var">http</link> and
+<link doc="../stream/ngx_stream_js_module.xml" id="js_var">stream</link>.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.5.2" name="Changes with njs 0.5.2">
 
