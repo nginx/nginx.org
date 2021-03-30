@@ -9,7 +9,7 @@
 <article name="Building nginx on the Win32 platform with Visual C"
          link="/en/docs/howto_build_on_win32.html"
          lang="en"
-         rev="22">
+         rev="23">
 
 <section name="Prerequisites">
 
@@ -82,7 +82,7 @@ mkdir objs/lib
 cd objs/lib
 tar -xzf ../../pcre-8.44.tar.gz
 tar -xzf ../../zlib-1.2.11.tar.gz
-tar -xzf ../../openssl-1.1.1j.tar.gz
+tar -xzf ../../openssl-1.1.1k.tar.gz
 </programlisting>
 </listitem>
 
@@ -106,7 +106,7 @@ auto/configure \
     --with-cc-opt=-DFD_SETSIZE=1024 \
     --with-pcre=objs/lib/pcre-8.44 \
     --with-zlib=objs/lib/zlib-1.2.11 \
-    --with-openssl=objs/lib/openssl-1.1.1j \
+    --with-openssl=objs/lib/openssl-1.1.1k \
     --with-openssl-opt=no-asm \
     --with-http_ssl_module
 </programlisting>
