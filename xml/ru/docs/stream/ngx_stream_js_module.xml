@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_js_module"
         link="/ru/docs/stream/ngx_stream_js_module.html"
         lang="ru"
-        rev="26">
+        rev="27">
 
 <section id="summary">
 
@@ -295,9 +295,6 @@ function address(s) {
 <link doc="../njs/reference.xml" id="r_variables">перезаписываемую</link>
 переменную.
 В качестве значения можно использовать текст, переменные и их комбинации.
-Переменная не перезаписывается после перенаправления,
-в отличие от переменных, созданных при помощи
-директивы <link doc="ngx_stream_set_module.xml" id="set"/>.
 </para>
 
 </directive>
