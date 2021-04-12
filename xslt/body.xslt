@@ -20,9 +20,9 @@
 
     <div id="banner">
         <xsl:if test="@lang = 'he'"> <xsl:attribute name="class"> <xsl:text>ltr</xsl:text> </xsl:attribute> </xsl:if>
-        Learn how NGINX Instance Manager can help you track, configure and
-        monitor NGINX OSS instances.<br/>
-        <a href="https://www.nginx.com/blog/introducing-nginx-instance-manager?utm_medium=nginxorg&amp;utm_source=homepagehero&amp;utm_campaign=ww-nx_mad&amp;utm_content=bg-banner">NGINX Instance Manager Capabilities.</a>
+        Join NGINX engineers and for a livestream on NJS:
+        <a href="https://www.youtube.com/watch?v=0CVhq4AUU7M">Extending NGINX with Custom Code</a><br/>
+        April 28 at 9:30pm IST/4:30pm CET/12:30pm ET/7:30am PT
     </div>
 
     <div id="main">
