@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="95">
+        rev="96">
 
 <section id="directives" name="Директивы">
 
@@ -3069,6 +3069,11 @@ location /download/ {
 <tag-name id="var_connection_requests"><var>$connection_requests</var></tag-name>
 <tag-desc>
 текущее число запросов в соединении (1.3.8, 1.2.5)
+</tag-desc>
+
+<tag-name id="var_connection_time"><var>$connection_time</var></tag-name>
+<tag-desc>
+время соединения в секундах с точностью до миллисекунд (1.19.10)
 </tag-desc>
 
 <tag-name id="var_content_length"><var>$content_length</var></tag-name>
