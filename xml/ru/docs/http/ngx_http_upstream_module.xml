@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_upstream_module"
         link="/ru/docs/http/ngx_http_upstream_module.html"
         lang="ru"
-        rev="86">
+        rev="87">
 
 <section id="summary">
 
@@ -647,7 +647,7 @@ server {
 
 <directive name="keepalive_requests">
 <syntax><value>число</value></syntax>
-<default>100</default>
+<default>1000</default>
 <context>upstream</context>
 <appeared-in>1.15.3</appeared-in>
 
@@ -663,6 +663,12 @@ server {
 памяти, выделенной под конкретные соединения.
 Поэтому использование слишком большого максимального числа запросов
 может приводить к чрезмерному потреблению памяти и не рекомендуется.
+</para>
+
+<para>
+<note>
+До версии 1.19.10 по умолчанию использовалось значение 100.
+</note>
 </para>
 
 </directive>
