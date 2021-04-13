@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="85">
+        rev="86">
 
 <section id="summary">
 
@@ -654,6 +654,22 @@ Closing connections periodically is necessary to free
 per-connection memory allocations.
 Therefore, using too high maximum number of requests
 could result in excessive memory usage and not recommended.
+</para>
+
+</directive>
+
+
+<directive name="keepalive_time">
+<syntax><value>time</value></syntax>
+<default>1h</default>
+<context>upstream</context>
+<appeared-in>1.19.10</appeared-in>
+
+<para>
+Limits the maximum time during which
+requests can be processed through one keepalive connection.
+After this time is reached, the connection is closed
+following the subsequent request processing.
 </para>
 
 </directive>

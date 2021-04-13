@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_upstream_module"
         link="/ru/docs/http/ngx_http_upstream_module.html"
         lang="ru"
-        rev="85">
+        rev="86">
 
 <section id="summary">
 
@@ -663,6 +663,22 @@ server {
 памяти, выделенной под конкретные соединения.
 Поэтому использование слишком большого максимального числа запросов
 может приводить к чрезмерному потреблению памяти и не рекомендуется.
+</para>
+
+</directive>
+
+
+<directive name="keepalive_time">
+<syntax><value>время</value></syntax>
+<default>1h</default>
+<context>upstream</context>
+<appeared-in>1.19.10</appeared-in>
+
+<para>
+Ограничивает максимальное время, в течение которого
+могут обрабатываться запросы в рамках постоянного соединения.
+По достижении заданного времени соединение закрывается
+после обработки очередного запроса.
 </para>
 
 </directive>
