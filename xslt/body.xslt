@@ -22,7 +22,7 @@
         <xsl:if test="@lang = 'he'"> <xsl:attribute name="class"> <xsl:text>ltr</xsl:text> </xsl:attribute> </xsl:if>
         Join NGINX engineers for a livestream on NJS:
         <a href="https://www.youtube.com/watch?v=0CVhq4AUU7M">Extending NGINX with Custom Code</a><br/>
-        April 28 at 9:30pm IST/4:30pm CET/12:30pm ET/7:30am PT
+        April 28 at 7:30am PDT, 10:30am EDT, 8:00pm IST, 4:30pm CET
     </div>
 
     <div id="main">
