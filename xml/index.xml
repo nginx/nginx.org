@@ -7,6 +7,47 @@
 
 <news name="nginx news" link="/" lang="en">
 
+<event date="2021-04-20">
+<para>
+<link doc="en/download.xml">nginx-1.20.0</link>
+stable version has been released,
+incorporating new features and bug fixes from the 1.19.x mainline branch &mdash;
+including
+<link doc="en/docs/http/ngx_http_ssl_module.xml" id="ssl_ocsp">OCSP
+validation</link> of client SSL certificates,
+the
+<link doc="en/docs/http/ngx_http_ssl_module.xml" id="ssl_reject_handshake">ssl_reject_handshake</link>
+and
+<link doc="en/docs/http/ngx_http_ssl_module.xml" id="ssl_conf_command">ssl_conf_command</link>
+directives,
+simplified and improved handling of HTTP/2 connections with the
+<link doc="en/docs/http/ngx_http_core_module.xml" id="lingering_close">lingering_close</link>,
+<link doc="en/docs/http/ngx_http_core_module.xml" id="keepalive_timeout">keepalive_timeout</link>,
+and
+<link doc="en/docs/http/ngx_http_core_module.xml" id="keepalive_requests">keepalive_requests</link>
+directives,
+the
+<link doc="en/docs/http/ngx_http_core_module.xml" id="keepalive_time">keepalive_time</link>
+directive,
+stricter handling of upstream server responses,
+<link doc="en/docs/http/ngx_http_proxy_module.xml" id="proxy_cookie_flags">cookie
+flags</link> handling,
+cache clearing based on the
+<link doc="en/docs/http/ngx_http_proxy_module.xml" id="proxy_cache_path_max_size">minimum
+amount of free space</link>,
+PROXY protocol support
+<link doc="en/docs/mail/ngx_mail_core_module.xml" id="proxy_protocol">from
+clients</link> and
+<link doc="en/docs/mail/ngx_mail_proxy_module.xml" id="proxy_protocol">to
+backend servers</link> in the mail proxy,
+<link doc="en/docs/mail/ngx_mail_proxy_module.xml" id="proxy_smtp_auth">proxying
+SMTP authentication</link>,
+the <link doc="en/docs/stream/ngx_stream_set_module.xml">set</link> directive
+in the stream module,
+and more.
+</para>
+</event>
+
 <event date="2021-04-13">
 <para>
 <link doc="en/download.xml">nginx-1.19.10</link>
