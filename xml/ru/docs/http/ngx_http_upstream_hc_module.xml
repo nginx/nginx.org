@@ -172,14 +172,22 @@ http {
 </tag-desc>
 
 <tag-name id="health_check_mandatory">
-<literal>mandatory</literal>
+<literal>mandatory</literal> [<literal>persistent</literal>]
 </tag-name>
 <tag-desc>
+<para>
 устанавливает исходное состояние “checking” для сервера
 до завершения первой проверки работоспособности (1.11.7).
 На серверы в состоянии “checking” клиентские запросы передаваться не будут.
 Если параметр не указан,
 то исходно сервер будет считаться работоспособным.
+</para>
+
+<para id="health_check_persistent">
+Параметр <literal>persistent</literal> (1.19.7)
+устанавливает исходное состояние “up” для сервера после перезагрузки nginx
+в случае, если до перезагрузки сервер считался работоспособным.
+</para>
 </tag-desc>
 
 <tag-name id="health_check_match">
