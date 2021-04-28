@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_proxy_module"
         link="/ru/docs/http/ngx_http_proxy_module.html"
         lang="ru"
-        rev="72">
+        rev="73">
 
 <section id="summary">
 
@@ -1940,6 +1940,10 @@ proxy_set_header Accept-Encoding "";
 для аутентификации на проксируемом HTTPS-сервере.
 </para>
 
+<para>
+Начиная с версии 1.21.0 в имени файла можно использовать переменные.
+</para>
+
 </directive>
 
 
@@ -1961,6 +1965,10 @@ proxy_set_header Accept-Encoding "";
 <literal>engine</literal>:<value>имя</value>:<value>id</value> (1.7.9),
 которое загружает ключ с указанным <value>id</value>
 из OpenSSL engine с заданным <value>именем</value>.
+</para>
+
+<para>
+Начиная с версии 1.21.0 в имени файла можно использовать переменные.
 </para>
 
 </directive>

@@ -10,7 +10,7 @@
 <module name="Module ngx_http_grpc_module"
         link="/en/docs/http/ngx_http_grpc_module.html"
         lang="en"
-        rev="5">
+        rev="6">
 
 <section id="summary">
 
@@ -480,6 +480,10 @@ Specifies a <value>file</value> with the certificate in the PEM format
 used for authentication to a gRPC SSL server.
 </para>
 
+<para>
+Since version 1.21.0, variables can be used in the <value>file</value> name.
+</para>
+
 </directive>
 
 
@@ -501,6 +505,10 @@ The value
 can be specified instead of the <value>file</value>,
 which loads a secret key with a specified <value>id</value>
 from the OpenSSL engine <value>name</value>.
+</para>
+
+<para>
+Since version 1.21.0, variables can be used in the <value>file</value> name.
 </para>
 
 </directive>

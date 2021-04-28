@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_grpc_module"
         link="/ru/docs/http/ngx_http_grpc_module.html"
         lang="ru"
-        rev="5">
+        rev="6">
 
 <section id="summary">
 
@@ -480,6 +480,10 @@ grpc_set_header Accept-Encoding "";
 для аутентификации на gRPC SSL-сервере.
 </para>
 
+<para>
+Начиная с версии 1.21.0 в имени файла можно использовать переменные.
+</para>
+
 </directive>
 
 
@@ -500,6 +504,10 @@ grpc_set_header Accept-Encoding "";
 <literal>engine</literal>:<value>имя</value>:<value>id</value>,
 которое загружает ключ с указанным <value>id</value>
 из OpenSSL engine с заданным <value>именем</value>.
+</para>
+
+<para>
+Начиная с версии 1.21.0 в имени файла можно использовать переменные.
 </para>
 
 </directive>
