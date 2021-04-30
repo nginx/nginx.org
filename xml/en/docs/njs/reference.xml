@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="73">
+        rev="74">
 
 <section id="summary">
 
@@ -180,6 +180,11 @@ a new njs VM is started in the target location,
 the VM in the original location is stopped.
 Values of nginx variables are kept
 and can be used to pass information to the target location.
+Since <link doc="changes.xml" id="njs0.5.3">0.5.3</link>,
+the variable declared with the <literal>js_var</literal> directive for
+<link doc="../http/ngx_http_js_module.xml" id="js_var">http</link> or
+<link doc="../stream/ngx_stream_js_module.xml" id="js_var">stream</link>
+can be used.
 </note>
 </para>
 
