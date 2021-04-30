@@ -20,9 +20,9 @@
 
     <div id="banner">
         <xsl:if test="@lang = 'he'"> <xsl:attribute name="class"> <xsl:text>ltr</xsl:text> </xsl:attribute> </xsl:if>
-        Join NGINX engineers for a livestream on NJS:
+        In case you missed the Apr 28 livestream with NGINX engineers on NJS,<br/>
+        you can watch it here:
         <a href="https://www.youtube.com/watch?v=0CVhq4AUU7M">Extending NGINX with Custom Code</a><br/>
-        April 28 at 7:30am PDT, 10:30am EDT, 8:00pm IST, 4:30pm CET
     </div>
 
     <div id="main">
