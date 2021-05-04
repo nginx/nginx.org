@@ -10,7 +10,7 @@
 <module name="Module ngx_http_ssl_module"
         link="/en/docs/http/ngx_http_ssl_module.html"
         lang="en"
-        rev="52">
+        rev="53">
 
 <section id="summary">
 
@@ -631,7 +631,7 @@ For example, in the following configuration, SSL handshakes with
 server names other than <literal>example.com</literal> are rejected:
 <example>
 server {
-    listen               443 ssl;
+    listen               443 ssl default_server;
     ssl_reject_handshake on;
 }
 

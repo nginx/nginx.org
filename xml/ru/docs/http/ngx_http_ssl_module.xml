@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_ssl_module"
         link="/ru/docs/http/ngx_http_ssl_module.html"
         lang="ru"
-        rev="52">
+        rev="53">
 
 <section id="summary">
 
@@ -636,7 +636,7 @@ http {
 именем сервера, отличным от <literal>example.com</literal>:
 <example>
 server {
-    listen               443 ssl;
+    listen               443 ssl default_server;
     ssl_reject_handshake on;
 }
 
