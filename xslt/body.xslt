@@ -20,9 +20,8 @@
 
     <div id="banner">
         <xsl:if test="@lang = 'he'"> <xsl:attribute name="class"> <xsl:text>ltr</xsl:text> </xsl:attribute> </xsl:if>
-        In case you missed the Apr 28 livestream with NGINX engineers on NJS,<br/>
-        you can watch it here:
-        <a href="https://www.youtube.com/watch?v=0CVhq4AUU7M">Extending NGINX with Custom Code</a><br/>
+        NGINX Service Mesh 1.0 is now available, for free.<br/>
+        <a href="https://www.nginx.com/blog/how-to-choose-a-service-mesh/?utm_medium=nginxorg&amp;utm_source=homepagehero&amp;utm_campaign=ww-nx_pgkub">Learn more.</a><br/>
     </div>
 
     <div id="main">
