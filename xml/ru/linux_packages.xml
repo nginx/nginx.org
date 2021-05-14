@@ -7,7 +7,7 @@
 <article name="nginx: пакеты для Linux"
          link="/ru/linux_packages.html"
          lang="ru"
-         rev="59">
+         rev="60">
 
 <section name="Поддерживаемые дистрибутивы и версии" id="distributions">
 
@@ -83,6 +83,11 @@
 
 <tr>
 <td width="30%">20.10 “groovy”</td>
+<td>x86_64, aarch64/arm64</td>
+</tr>
+
+<tr>
+<td width="30%">21.04 “hirsute”</td>
 <td>x86_64, aarch64/arm64</td>
 </tr>
 
