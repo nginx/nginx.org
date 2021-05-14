@@ -7,7 +7,7 @@
 <article name="nginx: Linux packages"
          link="/en/linux_packages.html"
          lang="en"
-         rev="58">
+         rev="59">
 
 <section name="Supported distributions and versions" id="distributions">
 
@@ -140,6 +140,24 @@ versions:
 
 <tr>
 <td width="30%">3.13</td>
+<td>x86_64, aarch64/arm64</td>
+</tr>
+
+</table>
+</para>
+
+<para>
+<link id="Amazon-Linux">Amazon Linux</link>
+
+<table note="yes">
+
+<tr>
+<td width="30%">Version</td>
+<td>Supported platforms</td>
+</tr>
+
+<tr>
+<td width="30%">2 (LTS)</td>
 <td>x86_64, aarch64/arm64</td>
 </tr>
 
@@ -484,6 +502,54 @@ sudo apk add nginx-module-image-filter@nginx nginx-module-njs@nginx
 
 </section>
 
+<section name="Amazon Linux" id="Amazon-Linux">
+
+<para>
+Install the prerequisites:
+<programlisting>
+sudo yum install yum-utils
+</programlisting>
+
+To set up the yum repository, create the file named
+<path>/etc/yum.repos.d/nginx.repo</path>
+with the following contents:
+
+<programlisting>
+[nginx-stable]
+name=nginx stable repo
+baseurl=http://nginx.org/packages/amzn2/$releasever/$basearch/
+gpgcheck=1
+enabled=1
+gpgkey=https://nginx.org/keys/nginx_signing.key
+module_hotfixes=true
+
+[nginx-mainline]
+name=nginx mainline repo
+baseurl=http://nginx.org/packages/mainline/amzn2/$releasever/$basearch/
+gpgcheck=1
+enabled=0
+gpgkey=https://nginx.org/keys/nginx_signing.key
+module_hotfixes=true
+</programlisting>
+
+By default, the repository for stable nginx packages is used.
+If you would like to use mainline nginx packages, run the following command:
+<programlisting>
+sudo yum-config-manager --enable nginx-mainline
+</programlisting>
+
+To install nginx, run the following command:
+<programlisting>
+sudo yum install nginx
+</programlisting>
+
+When prompted to accept the GPG key, verify that the fingerprint matches
+<command>573B FD6B 3D8F BC64 1079 A6AB ABF5 BD82 7BD9 BF62</command>,
+and if so, accept it.
+</para>
+
+</section>
+
 </section>
 
 
@@ -500,7 +566,7 @@ mainline version, while <literal>stable-*</literal> branches contain latest
 sources for stable releases.
 To build binary packages, run <command>make</command> in
 <path>debian/</path> directory on Debian/Ubuntu, or in
-<path>rpm/SPECS/</path> on RHEL/CentOS/SLES, or in
+<path>rpm/SPECS/</path> on RHEL/CentOS/SLES/Amazon Linux, or in
 <path>alpine/</path> on Alpine.
 </para>
 

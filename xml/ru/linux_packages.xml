@@ -7,7 +7,7 @@
 <article name="nginx: пакеты для Linux"
          link="/ru/linux_packages.html"
          lang="ru"
-         rev="58">
+         rev="59">
 
 <section name="Поддерживаемые дистрибутивы и версии" id="distributions">
 
@@ -138,6 +138,24 @@
 
 <tr>
 <td width="30%">3.13</td>
+<td>x86_64, aarch64/arm64</td>
+</tr>
+
+</table>
+</para>
+
+<para>
+<link id="Amazon-Linux">Amazon Linux</link>
+
+<table note="yes">
+
+<tr>
+<td width="30%">Версия</td>
+<td>Поддерживаемые платформы</td>
+</tr>
+
+<tr>
+<td width="30%">2 (LTS)</td>
 <td>x86_64, aarch64/arm64</td>
 </tr>
 
@@ -482,6 +500,55 @@ sudo apk add nginx-module-image-filter@nginx nginx-module-njs@nginx
 
 </section>
 
+<section name="Amazon Linux" id="Amazon-Linux">
+
+<para>
+Установите пакеты, необходимые для подключения yum-репозитория:
+<programlisting>
+sudo yum install yum-utils
+</programlisting>
+
+Для подключения yum-репозитория создайте файл с именем
+<path>/etc/yum.repos.d/nginx.repo</path>
+со следующим содержимым:
+
+<programlisting>
+[nginx-stable]
+name=nginx stable repo
+baseurl=http://nginx.org/packages/amzn2/$releasever/$basearch/
+gpgcheck=1
+enabled=1
+gpgkey=https://nginx.org/keys/nginx_signing.key
+module_hotfixes=true
+
+[nginx-mainline]
+name=nginx mainline repo
+baseurl=http://nginx.org/packages/mainline/amzn2/$releasever/$basearch/
+gpgcheck=1
+enabled=0
+gpgkey=https://nginx.org/keys/nginx_signing.key
+module_hotfixes=true
+</programlisting>
+
+По умолчанию используется репозиторий для стабильной версии nginx.
+Если предпочтительно использовать пакеты для основной версии nginx,
+выполните следующую команду:
+<programlisting>
+sudo yum-config-manager --enable nginx-mainline
+</programlisting>
+
+Чтобы установить nginx, выполните следующую команду:
+<programlisting>
+sudo yum install nginx
+</programlisting>
+
+При запросе подтверждения GPG-ключа проверьте, что отпечаток ключа совпадает
+с <command>573B FD6B 3D8F BC64 1079 A6AB ABF5 BD82 7BD9 BF62</command>, и,
+если это так, подтвердите его.
+</para>
+
+</section>
+
 </section>
 
 
@@ -498,7 +565,7 @@ mainline-версии, в то время как ветки <literal>stable-*</l
 исходные коды пакетов для стабильных релизов.
 Для сборки бинарных пакетов запустите <command>make</command> в каталоге
 <path>debian/</path> для Debian/Ubuntu, или в каталоге
-<path>rpm/SPECS/</path> для RHEL/CentOS/SLES, или в каталоге
+<path>rpm/SPECS/</path> для RHEL/CentOS/SLES/Amazon Linux, или в каталоге
 <path>alpine/</path> для Alpine.
 </para>
 
