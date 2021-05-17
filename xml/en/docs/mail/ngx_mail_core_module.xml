@@ -10,7 +10,7 @@
 <module name="Module ngx_mail_core_module"
         link="/en/docs/mail/ngx_mail_core_module.html"
         lang="en"
-        rev="17">
+        rev="18">
 
 <section id="summary">
 
@@ -240,6 +240,20 @@ and set the probes count (<c-def>TCP_KEEPCNT</c-def>) to 10 probes.
 <para>
 Provides the configuration file context in which the mail server directives
 are specified.
+</para>
+
+</directive>
+
+
+<directive name="max_errors">
+<syntax><value>number</value></syntax>
+<default>5</default>
+<context>mail</context>
+<context>server</context>
+<appeared-in>1.21.0</appeared-in>
+
+<para>
+Sets the number of protocol errors after which the connection is closed.
 </para>
 
 </directive>

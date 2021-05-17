@@ -10,7 +10,7 @@
 <module name="Модуль ngx_mail_core_module"
         link="/ru/docs/mail/ngx_mail_core_module.html"
         lang="ru"
-        rev="17">
+        rev="18">
 
 <section id="summary">
 
@@ -244,6 +244,20 @@ FreeBSD 9.0-STABLE)
 <para>
 Предоставляет контекст конфигурационного файла, в котором указываются
 директивы почтового сервера.
+</para>
+
+</directive>
+
+
+<directive name="max_errors">
+<syntax><value>число</value></syntax>
+<default>5</default>
+<context>mail</context>
+<context>server</context>
+<appeared-in>1.21.0</appeared-in>
+
+<para>
+Задаёт число ошибок протокола, по достижении которого соединение закрывается.
 </para>
 
 </directive>
