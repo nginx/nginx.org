@@ -8,7 +8,7 @@
 <article name="Building nginx from Sources"
          link="/en/docs/configure.html"
          lang="en"
-         rev="17">
+         rev="18">
 
 <section>
 
@@ -686,6 +686,15 @@ load balancing method.
 </tag-desc>
 
 <tag-name>
+<literal>--without-http_upstream_random_module</literal>
+</tag-name>
+<tag-desc>
+disables building a module that implements the
+<link doc="http/ngx_http_upstream_module.xml" id="random"/>
+load balancing method.
+</tag-desc>
+
+<tag-name>
 <literal>--without-http_upstream_keepalive_module</literal>
 </tag-name>
 <tag-desc>
@@ -1014,6 +1023,15 @@ and then closes the connection.
 </tag-desc>
 
 <tag-name>
+<literal>--without-stream_set_module</literal>
+</tag-name>
+<tag-desc>
+disables building the
+<link doc="stream/ngx_stream_set_module.xml">ngx_stream_set_module</link>
+module that sets a value for a variable.
+</tag-desc>
+
+<tag-name>
 <literal>--without-stream_upstream_hash_module</literal>
 </tag-name>
 <tag-desc>
@@ -1028,6 +1046,15 @@ load balancing method.
 <tag-desc>
 disables building a module that implements the
 <link doc="stream/ngx_stream_upstream_module.xml" id="least_conn"/>
+load balancing method.
+</tag-desc>
+
+<tag-name>
+<literal>--without-stream_upstream_random_module</literal>
+</tag-name>
+<tag-desc>
+disables building a module that implements the
+<link doc="stream/ngx_stream_upstream_module.xml" id="random"/>
 load balancing method.
 </tag-desc>
 

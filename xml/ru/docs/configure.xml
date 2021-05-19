@@ -8,7 +8,7 @@
 <article name="Сборка nginx из исходных файлов"
          link="/ru/docs/configure.html"
          lang="ru"
-         rev="17">
+         rev="18">
 
 <section>
 
@@ -677,6 +677,14 @@ HTTP-сервера.
 </tag-desc>
 
 <tag-name>
+<literal>--without-http_upstream_random_module</literal>
+</tag-name>
+<tag-desc>
+запрещает сборку модуля, реализующего метод балансировки нагрузки
+<link doc="http/ngx_http_upstream_module.xml" id="random"/>.
+</tag-desc>
+
+<tag-name>
 <literal>--without-http_upstream_keepalive_module</literal>
 </tag-name>
 <tag-desc>
@@ -998,6 +1006,15 @@ HTTP-сервера.
 </tag-desc>
 
 <tag-name>
+<literal>--without-stream_set_module</literal>
+</tag-name>
+<tag-desc>
+запрещает сборку модуля
+<link doc="stream/ngx_stream_set_module.xml">ngx_stream_set_module</link>,
+позволяющего устанавливать значение переменной.
+</tag-desc>
+
+<tag-name>
 <literal>--without-stream_upstream_hash_module</literal>
 </tag-name>
 <tag-desc>
@@ -1011,6 +1028,14 @@ HTTP-сервера.
 <tag-desc>
 запрещает сборку модуля, реализующего метод балансировки нагрузки
 <link doc="stream/ngx_stream_upstream_module.xml" id="least_conn"/>.
+</tag-desc>
+
+<tag-name>
+<literal>--without-stream_upstream_random_module</literal>
+</tag-name>
+<tag-desc>
+запрещает сборку модуля, реализующего метод балансировки нагрузки
+<link doc="stream/ngx_stream_upstream_module.xml" id="random"/>.
 </tag-desc>
 
 <tag-name>
