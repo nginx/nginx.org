@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="96">
+        rev="97">
 
 <section id="directives" name="Directives">
 
@@ -1489,9 +1489,11 @@ will <c-func>bind</c-func> only to <literal>*:</literal><value>port</value>.
 It should be noted that the <c-func>getsockname</c-func> system call will be
 made in this case to determine the address that accepted the connection.
 If the <literal>setfib</literal>,
+<literal>fastopen</literal>,
 <literal>backlog</literal>, <literal>rcvbuf</literal>,
 <literal>sndbuf</literal>, <literal>accept_filter</literal>,
 <literal>deferred</literal>, <literal>ipv6only</literal>,
+<literal>reuseport</literal>,
 or <literal>so_keepalive</literal> parameters
 are used then for a given
 <value>address</value>:<value>port</value> pair

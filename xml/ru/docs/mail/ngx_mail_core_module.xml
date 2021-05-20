@@ -10,7 +10,7 @@
 <module name="Модуль ngx_mail_core_module"
         link="/ru/docs/mail/ngx_mail_core_module.html"
         lang="ru"
-        rev="18">
+        rev="19">
 
 <section id="summary">
 
@@ -180,7 +180,9 @@ FreeBSD, DragonFly BSD и macOS, и 511 для других платформ.
 <c-func>bind</c-func> только на <literal>*:</literal><value>порт</value>.
 Необходимо заметить, что в этом случае для определения адреса, на который
 пришло соединение, делается системный вызов <c-func>getsockname</c-func>.
-Если же используются параметры <literal>ipv6only</literal>
+Если же используются параметры <literal>backlog</literal>,
+<literal>rcvbuf</literal>, <literal>sndbuf</literal>,
+<literal>ipv6only</literal>
 или <literal>so_keepalive</literal>,
 то для данной пары
 <value>адрес</value>:<value>порт</value> всегда делается

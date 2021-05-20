@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="96">
+        rev="97">
 
 <section id="directives" name="Директивы">
 
@@ -1483,9 +1483,11 @@ FreeBSD, DragonFly BSD и macOS, и 511 для других платформ.
 Необходимо заметить, что в этом случае для определения адреса, на который
 пришло соединение, делается системный вызов <c-func>getsockname</c-func>.
 Если же используются параметры <literal>setfib</literal>,
+<literal>fastopen</literal>,
 <literal>backlog</literal>, <literal>rcvbuf</literal>,
 <literal>sndbuf</literal>, <literal>accept_filter</literal>,
-<literal>deferred</literal>, <literal>ipv6only</literal>
+<literal>deferred</literal>, <literal>ipv6only</literal>,
+<literal>reuseport</literal>
 или <literal>so_keepalive</literal>,
 то для данной пары
 <value>адрес</value>:<value>порт</value> всегда делается

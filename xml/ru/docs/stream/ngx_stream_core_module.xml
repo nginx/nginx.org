@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_core_module"
         link="/ru/docs/stream/ngx_stream_core_module.html"
         lang="ru"
-        rev="32">
+        rev="33">
 
 <section id="summary">
 
@@ -195,7 +195,9 @@ FreeBSD, DragonFly BSD и macOS,
 <c-func>bind</c-func> только на <literal>*:</literal><value>порт</value>.
 Необходимо заметить, что в этом случае для определения адреса, на которой
 пришло соединение, делается системный вызов <c-func>getsockname</c-func>.
-Если же используются параметры <literal>ipv6only</literal>
+Если же используются параметры <literal>backlog</literal>,
+<literal>rcvbuf</literal>, <literal>sndbuf</literal>,
+<literal>ipv6only</literal>, <literal>reuseport</literal>
 или <literal>so_keepalive</literal>,
 то для данной пары
 <value>адрес</value>:<value>порт</value> всегда делается
