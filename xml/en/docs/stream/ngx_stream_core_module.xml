@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_core_module"
         link="/en/docs/stream/ngx_stream_core_module.html"
         lang="en"
-        rev="33">
+        rev="34">
 
 <section id="summary">
 
@@ -82,6 +82,7 @@ stream {
     [<literal>ssl</literal>]
     [<literal>udp</literal>]
     [<literal>proxy_protocol</literal>]
+    [<literal>fastopen</literal>=<value>number</value>]
     [<literal>backlog</literal>=<value>number</value>]
     [<literal>rcvbuf</literal>=<value>size</value>]
     [<literal>sndbuf</literal>=<value>size</value>]
@@ -151,6 +152,24 @@ The PROXY protocol version 2 is supported since version 1.13.11.
 The <literal>listen</literal> directive
 can have several additional parameters specific to socket-related system calls.
 <list type="tag">
+
+<tag-name>
+<literal>fastopen</literal>=<value>number</value>
+</tag-name>
+<tag-desc>
+enables
+“<link url="http://en.wikipedia.org/wiki/TCP_Fast_Open">TCP Fast Open</link>”
+for the listening socket (1.21.0) and
+<link url="https://tools.ietf.org/html/rfc7413#section-5.1">limits</link>
+the maximum length for the queue of connections that have not yet completed
+the three-way handshake.
+<note>
+Do not enable this feature unless the server can handle
+receiving the
+<link url="https://tools.ietf.org/html/rfc7413#section-6.1">
+same SYN packet with data</link> more than once.
+</note>
+</tag-desc>
 
 <tag-name>
 <literal>backlog</literal>=<value>number</value>

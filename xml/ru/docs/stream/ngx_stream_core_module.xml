@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_core_module"
         link="/ru/docs/stream/ngx_stream_core_module.html"
         lang="ru"
-        rev="33">
+        rev="34">
 
 <section id="summary">
 
@@ -82,6 +82,7 @@ stream {
     [<literal>ssl</literal>]
     [<literal>udp</literal>]
     [<literal>proxy_protocol</literal>]
+    [<literal>fastopen</literal>=<value>число</value>]
     [<literal>backlog</literal>=<value>число</value>]
     [<literal>rcvbuf</literal>=<value>размер</value>]
     [<literal>sndbuf</literal>=<value>размер</value>]
@@ -152,6 +153,24 @@ PROXY</link>.
 дополнительных параметров, специфичных для связанных с сокетами
 системных вызовов.
 <list type="tag">
+
+<tag-name>
+<literal>fastopen</literal>=<value>число</value>
+</tag-name>
+<tag-desc>
+включает
+“<link url="http://en.wikipedia.org/wiki/TCP_Fast_Open">TCP Fast Open</link>”
+для слушающего сокета (1.21.0) и
+<link url="https://tools.ietf.org/html/rfc7413#section-5.1">ограничивает</link>
+максимальную длину очереди соединений, которые ещё не завершили процесс
+three-way handshake.
+<note>
+Не включайте “TCP Fast Open”, не убедившись, что сервер может адекватно
+обрабатывать многократное получение
+<link url="https://tools.ietf.org/html/rfc7413#section-6.1">
+одного и того же SYN-пакета с данными</link>.
+</note>
+</tag-desc>
 
 <tag-name>
 <literal>backlog</literal>=<value>число</value>
