@@ -26,6 +26,7 @@ Patches are signed using one of the
 
 <item name="1-byte memory overwrite in resolver"
       severity="medium"
+      advisory="http://mailman.nginx.org/pipermail/nginx-announce/2021/000300.html"
       cve="2021-23017"
       good="1.21.0+, 1.20.1+"
       vulnerable="0.6.18-1.20.0">
