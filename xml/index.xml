@@ -7,6 +7,18 @@
 
 <news name="nginx news" link="/" lang="en">
 
+<event date="2021-05-25">
+<para>
+<link doc="en/download.xml">nginx-1.20.1</link>
+stable and
+<link doc="en/download.xml">nginx-1.21.0</link>
+mainline versions have been released,
+with a fix for the
+<link doc="en/security_advisories.xml">1-byte memory overwrite</link>
+vulnerability in resolver (CVE-2021-23017).
+</para>
+</event>
+
 <event date="2021-04-20">
 <para>
 <link doc="en/download.xml">nginx-1.20.0</link>

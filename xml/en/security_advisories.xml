@@ -24,6 +24,14 @@ Patches are signed using one of the
 
 <security>
 
+<item name="1-byte memory overwrite in resolver"
+      severity="medium"
+      cve="2021-23017"
+      good="1.21.0+, 1.20.1+"
+      vulnerable="0.6.18-1.20.0">
+<patch name="patch.2021.resolver.txt" />
+</item>
+
 <item name="Excessive CPU usage in HTTP/2 with small window updates"
       severity="medium"
       advisory="http://mailman.nginx.org/pipermail/nginx-announce/2019/000249.html"

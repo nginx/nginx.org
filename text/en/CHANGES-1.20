@@ -1,4 +1,13 @@
 
+Changes with nginx 1.20.1                                        25 May 2021
+
+    *) Security: 1-byte memory overwrite might occur during DNS server
+       response processing if the "resolver" directive was used, allowing an
+       attacker who is able to forge UDP packets from the DNS server to
+       cause worker process crash or, potentially, arbitrary code execution
+       (CVE-2021-23017).
+
+
 Changes with nginx 1.20.0                                        20 Apr 2021
 
     *) 1.20.x stable branch.
