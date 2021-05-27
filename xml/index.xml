@@ -7,6 +7,16 @@
 
 <news name="nginx news" link="/" lang="en">
 
+<event date="2021-05-27">
+<para>
+<link url="https://unit.nginx.org/">unit-1.24.0</link> version has been
+<link url="https://mailman.nginx.org/pipermail/unit/2021-May/000264.html">released</link>,
+featuring SSL/TLS configuration commands; static file chrooting with symlink
+and mount resolution control; static file filtering by MIME type; other
+features and a couple of bugfixes.
+</para>
+</event>
+
 <event date="2021-05-25">
 <para>
 <link doc="en/download.xml">nginx-1.20.1</link>
