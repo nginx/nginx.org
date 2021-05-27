@@ -7,7 +7,7 @@
 <article name="nginx: пакеты для Linux"
          link="/ru/linux_packages.html"
          lang="ru"
-         rev="60">
+         rev="61">
 
 <section name="Поддерживаемые дистрибутивы и версии" id="distributions">
 
@@ -64,11 +64,6 @@
 <tr>
 <td width="30%">Версия</td>
 <td>Поддерживаемые платформы</td>
-</tr>
-
-<tr>
-<td width="30%">16.04 “xenial”</td>
-<td>x86_64, i386, ppc64el, aarch64/arm64</td>
 </tr>
 
 <tr>
@@ -332,11 +327,6 @@ curl -o /tmp/nginx_signing.key https://nginx.org/keys/nginx_signing.key
 Проверьте, верный ли ключ был загружен:
 <programlisting>
 gpg --dry-run --quiet --import --import-options import-show /tmp/nginx_signing.key
-</programlisting>
-
-На Ubuntu 16.04, выполните следующую команду вместо предыдущей:
-<programlisting>
-gpg --with-fingerprint /tmp/nginx_signing.key
 </programlisting>
 
 Вывод команды должен содержать полный отпечаток ключа

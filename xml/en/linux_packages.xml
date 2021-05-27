@@ -7,7 +7,7 @@
 <article name="nginx: Linux packages"
          link="/en/linux_packages.html"
          lang="en"
-         rev="60">
+         rev="61">
 
 <section name="Supported distributions and versions" id="distributions">
 
@@ -65,11 +65,6 @@ versions:
 <tr>
 <td width="30%">Version</td>
 <td>Supported Platforms</td>
-</tr>
-
-<tr>
-<td width="30%">16.04 “xenial”</td>
-<td>x86_64, i386, ppc64el, aarch64/arm64</td>
 </tr>
 
 <tr>
@@ -333,11 +328,6 @@ curl -o /tmp/nginx_signing.key https://nginx.org/keys/nginx_signing.key
 Verify that the downloaded file contains the proper key:
 <programlisting>
 gpg --dry-run --quiet --import --import-options show-only /tmp/nginx_signing.key
-</programlisting>
-
-Note: on Ubuntu 16.04, use the following command instead:
-<programlisting>
-gpg --with-fingerprint /tmp/nginx_signing.key
 </programlisting>
 
 The output should contain the full fingerprint
