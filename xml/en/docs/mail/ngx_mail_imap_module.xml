@@ -10,7 +10,7 @@
 <module name="Module ngx_mail_imap_module"
         link="/en/docs/mail/ngx_mail_imap_module.html"
         lang="en"
-        rev="5">
+        rev="6">
 
 <section id="directives" name="Directives">
 
@@ -25,14 +25,14 @@ Sets permitted methods of authentication for IMAP clients.
 Supported methods are:
 <list type="tag">
 
-<tag-name><literal>login</literal></tag-name>
-<tag-desc>
-<link url="https://tools.ietf.org/html/draft-murchison-sasl-login-00">AUTH=LOGIN</link>
-</tag-desc>
-
 <tag-name><literal>plain</literal></tag-name>
 <tag-desc>
 <link url="https://tools.ietf.org/html/rfc4616">AUTH=PLAIN</link>
+</tag-desc>
+
+<tag-name><literal>login</literal></tag-name>
+<tag-desc>
+<link url="https://tools.ietf.org/html/draft-murchison-sasl-login-00">AUTH=LOGIN</link>
 </tag-desc>
 
 <tag-name><literal>cram-md5</literal></tag-name>

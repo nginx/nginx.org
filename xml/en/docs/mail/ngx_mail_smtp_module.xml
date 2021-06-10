@@ -10,13 +10,13 @@
 <module name="Module ngx_mail_smtp_module"
         link="/en/docs/mail/ngx_mail_smtp_module.html"
         lang="en"
-        rev="6">
+        rev="7">
 
 <section id="directives" name="Directives">
 
 <directive name="smtp_auth">
 <syntax><value>method</value> ...</syntax>
-<default>login plain</default>
+<default>plain login</default>
 <context>mail</context>
 <context>server</context>
 
@@ -27,14 +27,14 @@ for SMTP clients.
 Supported methods are:
 <list type="tag">
 
-<tag-name><literal>login</literal></tag-name>
-<tag-desc>
-<link url="https://tools.ietf.org/html/draft-murchison-sasl-login-00">AUTH LOGIN</link>
-</tag-desc>
-
 <tag-name><literal>plain</literal></tag-name>
 <tag-desc>
 <link url="https://tools.ietf.org/html/rfc4616">AUTH PLAIN</link>
+</tag-desc>
+
+<tag-name><literal>login</literal></tag-name>
+<tag-desc>
+<link url="https://tools.ietf.org/html/draft-murchison-sasl-login-00">AUTH LOGIN</link>
 </tag-desc>
 
 <tag-name><literal>cram-md5</literal></tag-name>

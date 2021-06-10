@@ -10,13 +10,13 @@
 <module name="Модуль ngx_mail_smtp_module"
         link="/ru/docs/mail/ngx_mail_smtp_module.html"
         lang="ru"
-        rev="6">
+        rev="7">
 
 <section id="directives" name="Директивы">
 
 <directive name="smtp_auth">
 <syntax><value>метод</value> ...</syntax>
-<default>login plain</default>
+<default>plain login</default>
 <context>mail</context>
 <context>server</context>
 
@@ -27,14 +27,14 @@ SMTP-клиентов.
 Поддерживаемые методы:
 <list type="tag">
 
-<tag-name><literal>login</literal></tag-name>
-<tag-desc>
-<link url="https://tools.ietf.org/html/draft-murchison-sasl-login-00">AUTH LOGIN</link>
-</tag-desc>
-
 <tag-name><literal>plain</literal></tag-name>
 <tag-desc>
 <link url="https://tools.ietf.org/html/rfc4616">AUTH PLAIN</link>
+</tag-desc>
+
+<tag-name><literal>login</literal></tag-name>
+<tag-desc>
+<link url="https://tools.ietf.org/html/draft-murchison-sasl-login-00">AUTH LOGIN</link>
 </tag-desc>
 
 <tag-name><literal>cram-md5</literal></tag-name>
