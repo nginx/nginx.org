@@ -10,7 +10,7 @@
 <module name="Module ngx_mail_imap_module"
         link="/en/docs/mail/ngx_mail_imap_module.html"
         lang="en"
-        rev="6">
+        rev="7">
 
 <section id="directives" name="Directives">
 
@@ -27,6 +27,7 @@ Supported methods are:
 
 <tag-name><literal>plain</literal></tag-name>
 <tag-desc>
+<link url="https://tools.ietf.org/html/rfc3501">LOGIN</link>,
 <link url="https://tools.ietf.org/html/rfc4616">AUTH=PLAIN</link>
 </tag-desc>
 
@@ -47,6 +48,16 @@ In order for this method to work, the password must be stored unencrypted.
 </tag-desc>
 
 </list>
+</para>
+
+<para>
+Plain text authentication methods
+(the <literal>LOGIN</literal> command, <literal>AUTH=PLAIN</literal>,
+and <literal>AUTH=LOGIN</literal>) are always enabled,
+though if the <literal>plain</literal> and <literal>login</literal> methods
+are not specified,
+<literal>AUTH=PLAIN</literal> and <literal>AUTH=LOGIN</literal>
+will not be automatically included in <link id="imap_capabilities"/>.
 </para>
 
 </directive>

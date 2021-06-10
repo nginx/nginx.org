@@ -10,7 +10,7 @@
 <module name="Module ngx_mail_smtp_module"
         link="/en/docs/mail/ngx_mail_smtp_module.html"
         lang="en"
-        rev="7">
+        rev="8">
 
 <section id="directives" name="Directives">
 
@@ -54,6 +54,16 @@ Authentication is not required.
 </tag-desc>
 
 </list>
+</para>
+
+<para>
+Plain text authentication methods
+(<literal>AUTH PLAIN</literal> and <literal>AUTH LOGIN</literal>)
+are always enabled,
+though if the <literal>plain</literal> and <literal>login</literal> methods
+are not specified,
+<literal>AUTH PLAIN</literal> and <literal>AUTH LOGIN</literal>
+will not be automatically included in <link id="smtp_capabilities"/>.
 </para>
 
 </directive>

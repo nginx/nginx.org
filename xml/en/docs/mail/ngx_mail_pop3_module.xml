@@ -10,7 +10,7 @@
 <module name="Module ngx_mail_pop3_module"
         link="/en/docs/mail/ngx_mail_pop3_module.html"
         lang="en"
-        rev="4">
+        rev="5">
 
 <section id="directives" name="Directives">
 
@@ -29,8 +29,7 @@ Supported methods are:
 <tag-desc>
 <link url="https://tools.ietf.org/html/rfc1939">USER/PASS</link>,
 <link url="https://tools.ietf.org/html/rfc4616">AUTH PLAIN</link>,
-<link url="https://tools.ietf.org/html/draft-murchison-sasl-login-00">AUTH LOGIN</link>.
-It is not possible to disable these methods.
+<link url="https://tools.ietf.org/html/draft-murchison-sasl-login-00">AUTH LOGIN</link>
 </tag-desc>
 
 <tag-name><literal>apop</literal></tag-name>
@@ -51,6 +50,15 @@ In order for this method to work, the password must be stored unencrypted.
 </tag-desc>
 
 </list>
+</para>
+
+<para>
+Plain text authentication methods
+(<literal>USER/PASS</literal>, <literal>AUTH PLAIN</literal>,
+and <literal>AUTH LOGIN</literal>) are always enabled,
+though if the <literal>plain</literal> method is not specified,
+<literal>AUTH PLAIN</literal> and <literal>AUTH LOGIN</literal>
+will not be automatically included in <link id="pop3_capabilities"/>.
 </para>
 
 </directive>

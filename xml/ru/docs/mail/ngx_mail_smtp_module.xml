@@ -10,7 +10,7 @@
 <module name="Модуль ngx_mail_smtp_module"
         link="/ru/docs/mail/ngx_mail_smtp_module.html"
         lang="ru"
-        rev="7">
+        rev="8">
 
 <section id="directives" name="Директивы">
 
@@ -54,6 +54,16 @@ SMTP-клиентов.
 </tag-desc>
 
 </list>
+</para>
+
+<para>
+Методы аутентификации с передачей пароля открытым текстом
+(<literal>AUTH PLAIN</literal> и <literal>AUTH LOGIN</literal>)
+включены всегда,
+однако если методы <literal>plain</literal> и <literal>login</literal>
+не указаны, то
+<literal>AUTH PLAIN</literal> и <literal>AUTH LOGIN</literal>
+не будут автоматически добавляться в <link id="smtp_capabilities"/>.
 </para>
 
 </directive>

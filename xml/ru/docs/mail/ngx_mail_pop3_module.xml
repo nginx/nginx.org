@@ -10,7 +10,7 @@
 <module name="Модуль ngx_mail_pop3_module"
         link="/ru/docs/mail/ngx_mail_pop3_module.html"
         lang="ru"
-        rev="4">
+        rev="5">
 
 <section id="directives" name="Директивы">
 
@@ -29,8 +29,7 @@
 <tag-desc>
 <link url="https://tools.ietf.org/html/rfc1939">USER/PASS</link>,
 <link url="https://tools.ietf.org/html/rfc4616">AUTH PLAIN</link>,
-<link url="https://tools.ietf.org/html/draft-murchison-sasl-login-00">AUTH LOGIN</link>.
-Данные методы отключить нельзя.
+<link url="https://tools.ietf.org/html/draft-murchison-sasl-login-00">AUTH LOGIN</link>
 </tag-desc>
 
 <tag-name><literal>apop</literal></tag-name>
@@ -51,6 +50,15 @@
 </tag-desc>
 
 </list>
+</para>
+
+<para>
+Методы аутентификации с передачей пароля открытым текстом
+(<literal>USER/PASS</literal>, <literal>AUTH PLAIN</literal>
+и <literal>AUTH LOGIN</literal>) включены всегда,
+однако если метод <literal>plain</literal> не указан, то
+<literal>AUTH PLAIN</literal> и <literal>AUTH LOGIN</literal>
+не будут автоматически добавляться в <link id="pop3_capabilities"/>.
 </para>
 
 </directive>

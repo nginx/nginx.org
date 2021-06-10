@@ -10,7 +10,7 @@
 <module name="Модуль ngx_mail_imap_module"
         link="/ru/docs/mail/ngx_mail_imap_module.html"
         lang="ru"
-        rev="6">
+        rev="7">
 
 <section id="directives" name="Директивы">
 
@@ -27,6 +27,7 @@
 
 <tag-name><literal>plain</literal></tag-name>
 <tag-desc>
+<link url="https://tools.ietf.org/html/rfc3501">LOGIN</link>,
 <link url="https://tools.ietf.org/html/rfc4616">AUTH=PLAIN</link>
 </tag-desc>
 
@@ -47,6 +48,16 @@
 </tag-desc>
 
 </list>
+</para>
+
+<para>
+Методы аутентификации с передачей пароля открытым текстом
+(команда <literal>LOGIN</literal>, <literal>AUTH=PLAIN</literal>
+и <literal>AUTH=LOGIN</literal>) включены всегда,
+однако если методы <literal>plain</literal> и <literal>login</literal>
+не указаны, то
+<literal>AUTH=PLAIN</literal> и <literal>AUTH=LOGIN</literal>
+не будут автоматически добавляться в <link id="imap_capabilities"/>.
 </para>
 
 </directive>
