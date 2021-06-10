@@ -10,7 +10,7 @@
 <module name="ngx_http_upstream_module模块"
         link="/cn/docs/http/ngx_http_upstream_module.html"
         lang="cn"
-        translator="Weibin Yao"        
+        translator="Weibin Yao"
         rev="1">
 
 <section id="summary">
@@ -275,7 +275,7 @@ server {
 <para>
 对于FastCGI的服务器，需要设置
 <link doc="ngx_http_fastcgi_module.xml" id="fastcgi_keep_conn"/>
-指令来让连接keepalive工作： 
+指令来让连接keepalive工作：
 <example>
 upstream fastcgi_backend {
     server 127.0.0.1:9000;

@@ -292,7 +292,7 @@ server {
 </para>
 
 <para>
-如果定义了大量名字，或者定义了非常长的名字，那可能需要在<i>http</i>配置块中使用<link doc="ngx_http_core_module.xml" id="server_names_hash_max_size"/>和<link doc="ngx_http_core_module.xml" id="server_names_hash_bucket_size"/>指令进行调整。<link doc="ngx_http_core_module.xml" id="server_names_hash_bucket_size"/>的默认值可能是32，或者是64，或者是其他值，取决于CPU的缓存行的长度。如果这个值是32，那么定义“<literal>too.long.server.name.example.org</literal>”作为虚拟主机名就会失败，而nginx显示下面错误信息： 
+如果定义了大量名字，或者定义了非常长的名字，那可能需要在<i>http</i>配置块中使用<link doc="ngx_http_core_module.xml" id="server_names_hash_max_size"/>和<link doc="ngx_http_core_module.xml" id="server_names_hash_bucket_size"/>指令进行调整。<link doc="ngx_http_core_module.xml" id="server_names_hash_bucket_size"/>的默认值可能是32，或者是64，或者是其他值，取决于CPU的缓存行的长度。如果这个值是32，那么定义“<literal>too.long.server.name.example.org</literal>”作为虚拟主机名就会失败，而nginx显示下面错误信息：
 <programlisting>
 could not build the server_names_hash,
 you should increase server_names_hash_bucket_size: 32

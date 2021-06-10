@@ -81,7 +81,7 @@ can be accessed with the syntax:
 </para>
 
 <para>
-The 
+The
 <header>Authorization</header>,
 <header>Content-Length</header>,
 <header>Content-Range</header>,
@@ -1374,7 +1374,7 @@ Returns
 <tag-desc>
 Returns a new Buffer
 which is the result of concatenating all the Buffer instances in the list.
-If there are no items in the list or the total length is 0, 
+If there are no items in the list or the total length is 0,
 a new zero-length Buffer is returned.
 If <value>totalLength</value> is not specified,
 it is calculated from the Buffer instances in list by adding their lengths.

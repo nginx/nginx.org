@@ -188,8 +188,8 @@ Auth-Wait: 3
 GET /auth HTTP/1.0
 Host: localhost
 Auth-Method: none
-Auth-User: 
-Auth-Pass: 
+Auth-User:
+Auth-Pass:
 Auth-Protocol: smtp
 Auth-Login-Attempt: 1
 Client-IP: 192.0.2.42

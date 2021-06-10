@@ -193,7 +193,7 @@ server {
 </para>
 
 <para>
-אם ברצונכם לעבד בקשות בלי שורת כותר &ldquo;Host&rdquo; 
+אם ברצונכם לעבד בקשות בלי שורת כותר &ldquo;Host&rdquo;
 בבלוק שרת שאינו ברירת המחדל, עליכם לציין שם ריק:
 
 <programlisting>
@@ -330,7 +330,7 @@ server {
 ו <literal>server_names_hash_bucket_size</literal> ברמת ה <i>http</i>.
 ערך ברירת המחדל של <literal>server_names_hash_bucket_size</literal>
 יכול להיות שווה ל 32, ל 64, או לערך אחר, בהתאם לגודל קו המטמון של המעבד שלכם.
-אם ברירת המחדל היא 32 ותגדירו 
+אם ברירת המחדל היא 32 ותגדירו
 &ldquo;too.long.server.name.example.org&rdquo; בתור שם שרת,
 אזי nginx ייכשל בעלייה ויציג את הודעת השגיאה הבאה:
 

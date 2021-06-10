@@ -10,7 +10,7 @@
 <para>
 nginx [נהגה: engine x] הוא שרת HTTP ופרוקסי הפוך, כמו גם  שרת פרוקסי לדואר,
 שנכתב על ידי <link url="http://sysoev.ru/en/">Igor Sysoev</link>.
- הוא נמצא בשימוש כבר יותר מחמש שנים באתרים רוסיים עמוסים במיוחד, כגון 
+ הוא נמצא בשימוש כבר יותר מחמש שנים באתרים רוסיים עמוסים במיוחד, כגון
 <link url="http://www.rambler.ru">Rambler</link>
 (ו <link url="http://ramblermedia.com">RamblerMedia.com</link>).
 לפי חברת Netcraft, השרת nginx הגיש או נתן שירות ל
@@ -213,11 +213,11 @@ File AIO (במערכות FreeBSD 4.3 ומעלה ולינוקס 2.6.22 ומעלה
 </listitem>
 
 <listitem>
-תמיכה ב Accept-filters (במערכות FreeBSD 4.1 ומעלה) ו TCP_DEFER_ACCEPT (במערכות לינוקס 2.4 ומעלה) 
+תמיכה ב Accept-filters (במערכות FreeBSD 4.1 ומעלה) ו TCP_DEFER_ACCEPT (במערכות לינוקס 2.4 ומעלה)
 </listitem>
 
 <listitem>
-10,000 חיבורי HTTP לא פעילים במצב keep-alive תופסים נפח זיכרון העומד על בערך 
+10,000 חיבורי HTTP לא פעילים במצב keep-alive תופסים נפח זיכרון העומד על בערך
 12.5M;
 </listitem>
 

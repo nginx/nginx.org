@@ -1185,9 +1185,9 @@ location ^~ /images/ {
     [ configuration D ]
 }
 
-location ~* \.(gif|jpg|jpeg)$ { 
-    [ configuration E ] 
-} 
+location ~* \.(gif|jpg|jpeg)$ {
+    [ configuration E ]
+}
 </example>
 请求“<literal>/</literal>”匹配配置A，
 请求“<literal>/index.html</literal>”匹配配置B，
@@ -2469,7 +2469,7 @@ HTTP方法，通常为“<literal>GET</literal>”或者“<literal>POST</litera
 <tag-name id="var_request_time"><var>$request_time</var></tag-name>
 <tag-desc>
 请求处理的时间，单位为秒，精度是毫秒(1.3.9, 1.2.6)；请求处理时间从由客户端接收到第一个字节开始计算。
-</tag-desc> 
+</tag-desc>
 
 <tag-name id="var_request_uri"><var>$request_uri</var></tag-name>
 <tag-desc>

@@ -1061,7 +1061,7 @@ with empty pattern and non-empty flags.
 <listitem>
 <para>
 Bugfix:
-fixed 
+fixed
 <literal>String.prototype.replace()</literal>
 when function returns non-string.
 </para>
@@ -1985,7 +1985,7 @@ added UTF8 validation for string literals.
 <listitem>
 <para>
 Bugfix:
-fixed reading files with zero size in 
+fixed reading files with zero size in
 <link doc="reference.xml" id="readfilesync"><literal>fs.readFileSync()</literal></link>.
 </para>
 </listitem>
