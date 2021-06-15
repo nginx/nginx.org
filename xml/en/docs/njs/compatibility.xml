@@ -9,7 +9,7 @@
 <article name="Compatibility"
         link="/en/docs/njs/compatibility.html"
         lang="en"
-        rev="29"
+        rev="30"
         toc="no">
 
 <section>
@@ -74,6 +74,12 @@ ES5.1 statements:
 <literal>var</literal>,
 <literal>while</literal>,
 labeled statements (<link doc="changes.xml" id="njs0.2.8">0.2.8</link>)
+</listitem>
+
+<listitem>
+ES6 statements:
+<literal>let</literal> (<link doc="changes.xml" id="njs0.6.0">0.6.0</link>),
+<literal>const</literal> (<link doc="changes.xml" id="njs0.6.0">0.6.0</link>)
 </listitem>
 
 <listitem>
