@@ -9,7 +9,7 @@
 <article name="Compatibility"
         link="/en/docs/njs/compatibility.html"
         lang="en"
-        rev="30"
+        rev="31"
         toc="no">
 
 <section>
@@ -612,14 +612,48 @@ ES5.1:
 </listitem>
 
 <listitem>
-<literal>RegExp</literal> instance methods:
+<literal>RegExp</literal> prototype accessor properties:
 <list type="bullet">
+
+<listitem>
+<literal>flags</literal> (<link doc="changes.xml" id="njs0.6.0">0.6.0</link>),
+<literal>global</literal>,
+<literal>ignoreCase</literal>,
+<literal>multiline</literal>,
+<literal>source</literal>,
+<literal>sticky</literal> (<link doc="changes.xml" id="njs0.6.0">0.6.0</link>)
+</listitem>
+</list>
+
+</listitem>
+
+<listitem>
+<literal>RegExp</literal> prototype methods:
+<list type="bullet">
+
+<listitem>
+<literal>[@@replace]</literal>
+(<link doc="changes.xml" id="njs0.4.2">0.4.2</link>),
+<literal>[@@split]</literal>
+(<link doc="changes.xml" id="njs0.6.0">0.6.0</link>)
+</listitem>
 
 <listitem>
 ES5.1:
 <literal>exec</literal>,
 <literal>test</literal>,
 <literal>toString</literal>
+</listitem>
+</list>
+
+</listitem>
+
+<listitem>
+<literal>RegExp</literal> instance properties:
+<list type="bullet">
+
+<listitem>
+<literal>lastIndex</literal>
 </listitem>
 </list>
 
