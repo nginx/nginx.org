@@ -9,7 +9,7 @@
 <article name="Совместимость"
         link="/ru/docs/njs/compatibility.html"
         lang="ru"
-        rev="31"
+        rev="32"
         toc="no">
 
 <section>
@@ -178,7 +178,7 @@ ES6:
 </listitem>
 
 <listitem>
-Методы экземпляра класса <literal>Number</literal>:
+Методы прототипа <literal>Number</literal>:
 <list type="bullet">
 
 <listitem>
@@ -212,7 +212,7 @@ ES6:
 </listitem>
 
 <listitem>
-Методы экземпляра класса <literal>String</literal>:
+Методы прототипа <literal>String</literal>:
 <list type="bullet">
 
 <listitem>
@@ -312,7 +312,7 @@ ES8:
 </listitem>
 
 <listitem>
-Методы экземпляра класса <literal>Object</literal>:
+Методы прототипа <literal>Object</literal>:
 <list type="bullet">
 <listitem>
 ES5.1:
@@ -352,7 +352,7 @@ ES6:
 </listitem>
 
 <listitem>
-Методы экземпляра класса <literal>Array</literal>:
+Методы прототипа <literal>Array</literal>:
 <list type="bullet">
 <listitem>
 ES5.1:
@@ -406,7 +406,7 @@ ES6:
 </listitem>
 
 <listitem>
-Методы экземпляра класса <literal>ArrayBuffer</literal>
+Методы прототипа <literal>ArrayBuffer</literal>
 (<link doc="changes.xml" id="njs0.3.8">0.3.8</link>):
 <list type="bullet">
 <listitem>
@@ -438,7 +438,7 @@ ES6:
 </listitem>
 
 <listitem>
-Методы экземпляра класса <literal>Typed-array</literal>
+Методы прототипа <literal>Typed-array</literal>
 (<link doc="changes.xml" id="njs0.3.8">0.3.8</link>):
 <list type="bullet">
 <listitem>
@@ -502,7 +502,7 @@ ES6:
 </listitem>
 
 <listitem>
-Методы экземпляра класса <literal>Buffer</literal>:
+Методы прототипа <literal>Buffer</literal>:
 (<link doc="changes.xml" id="njs0.4.4">0.4.4</link>):
 <list type="bullet">
 <listitem>
@@ -580,7 +580,7 @@ ES6:
 </listitem>
 
 <listitem>
-Методы экземпляра класса <literal>Promise</literal>
+Методы прототипа <literal>Promise</literal>
 (<link doc="changes.xml" id="njs0.3.8">0.3.8</link>):
 <list type="bullet">
 <listitem>
@@ -594,7 +594,7 @@ ES6:
 </listitem>
 
 <listitem>
-Методы экземпляра класса <literal>Function</literal>:
+Методы прототипа <literal>Function</literal>:
 <list type="bullet">
 
 <listitem>
@@ -661,7 +661,7 @@ ES9 именные группы записи (<link doc="changes.xml" id="njs0.3
 </listitem>
 
 <listitem>
-Методы экземпляра класса <literal>DataView</literal>
+Методы прототипа <literal>DataView</literal>
 (<link doc="changes.xml" id="njs0.4.4">0.4.4</link>):
 <list type="bullet">
 
@@ -703,7 +703,7 @@ ES5.1:
 </listitem>
 
 <listitem>
-Методы экземпляра класса <literal>Date</literal>:
+Методы прототипа <literal>Date</literal>:
 <list type="bullet">
 
 <listitem>

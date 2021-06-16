@@ -9,7 +9,7 @@
 <article name="Compatibility"
         link="/en/docs/njs/compatibility.html"
         lang="en"
-        rev="31"
+        rev="32"
         toc="no">
 
 <section>
@@ -182,7 +182,7 @@ ES6:
 </listitem>
 
 <listitem>
-<literal>Number</literal> instance methods:
+<literal>Number</literal> prototype methods:
 <list type="bullet">
 
 <listitem>
@@ -216,7 +216,7 @@ ES6:
 </listitem>
 
 <listitem>
-<literal>String</literal> instance methods:
+<literal>String</literal> prototype methods:
 <list type="bullet">
 
 <listitem>
@@ -316,7 +316,7 @@ ES8:
 </listitem>
 
 <listitem>
-<literal>Object</literal> instance methods:
+<literal>Object</literal> prototype methods:
 <list type="bullet">
 <listitem>
 ES5.1:
@@ -356,7 +356,7 @@ ES6:
 </listitem>
 
 <listitem>
-<literal>Array</literal> instance methods:
+<literal>Array</literal> prototype methods:
 <list type="bullet">
 <listitem>
 ES5.1:
@@ -410,7 +410,7 @@ ES6:
 </listitem>
 
 <listitem>
-<literal>ArrayBuffer</literal> instance methods
+<literal>ArrayBuffer</literal> prototype methods
 (<link doc="changes.xml" id="njs0.3.8">0.3.8</link>):
 <list type="bullet">
 <listitem>
@@ -442,7 +442,7 @@ ES6:
 </listitem>
 
 <listitem>
-<literal>Typed-array</literal> instance methods
+<literal>Typed-array</literal> prototype methods
 (<link doc="changes.xml" id="njs0.3.8">0.3.8</link>):
 <list type="bullet">
 <listitem>
@@ -506,7 +506,7 @@ ES6:
 </listitem>
 
 <listitem>
-<literal>Buffer</literal> instance methods:
+<literal>Buffer</literal> prototype methods:
 (<link doc="changes.xml" id="njs0.4.4">0.4.4</link>):
 <list type="bullet">
 <listitem>
@@ -584,7 +584,7 @@ ES6:
 </listitem>
 
 <listitem>
-<literal>Promise</literal> instance methods
+<literal>Promise</literal> prototype methods
 (<link doc="changes.xml" id="njs0.3.8">0.3.8</link>):
 <list type="bullet">
 <listitem>
@@ -598,7 +598,7 @@ ES6:
 </listitem>
 
 <listitem>
-<literal>Function</literal> instance methods:
+<literal>Function</literal> prototype methods:
 <list type="bullet">
 
 <listitem>
@@ -665,7 +665,7 @@ ES9 named capture groups (<link doc="changes.xml" id="njs0.3.2">0.3.2</link>)
 </listitem>
 
 <listitem>
-<literal>DataView</literal> instance methods
+<literal>DataView</literal> prototype methods
 (<link doc="changes.xml" id="njs0.4.4">0.4.4</link>):
 <list type="bullet">
 
@@ -707,7 +707,7 @@ ES5.1:
 </listitem>
 
 <listitem>
-<literal>Date</literal> instance methods:
+<literal>Date</literal> prototype methods:
 <list type="bullet">
 
 <listitem>
