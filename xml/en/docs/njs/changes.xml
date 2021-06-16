@@ -9,8 +9,88 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="42"
+        rev="43"
         toc="no">
+
+<section id="njs0.6.0" name="Changes with njs 0.6.0">
+
+<para>
+Release Date:
+15 June 2021
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+added
+<literal>let</literal> and
+<literal>const</literal> declaration support.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added <literal>RegExp.prototype[Symbol.split]</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added sticky flag support for RegExp.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed heap-buffer-overflow in
+<literal>String.prototype.lastIndexOf()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<literal>RegExp.prototype.test()</literal>
+according to the specification.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<literal>String.prototype.split()</literal>
+according to the specification.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed use-of-uninitialized-value while tracking rejected promises.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>njs.dump()</literal> for objects with circular references.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.5.3" name="Changes with njs 0.5.3">
 
