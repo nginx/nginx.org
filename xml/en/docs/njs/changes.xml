@@ -9,8 +9,40 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="44"
+        rev="45"
         toc="no">
+
+<section id="njs0.6.1" name="Changes with njs 0.6.1">
+
+<para>
+Release Date:
+29 June 2021
+</para>
+
+<para>
+<list type="bullet">
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>RegExpBuiltinExec()</literal> with UTF-8 only regexps.
+The bug was introduced in <link id="njs0.4.2">0.4.2</link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed parsing of export default declaration with non-assignment expressions.
+Thanks to Artem S. Povalyukhin.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.6.0" name="Changes with njs 0.6.0">
 
