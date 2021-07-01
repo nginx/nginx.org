@@ -9,7 +9,7 @@
 <article name="Debugging nginx with DTrace pid provider"
 	link="/en/docs/nginx_dtrace_pid_provider.html"
 	lang="en"
-	rev="3"
+	rev="4"
 	toc="no">
 
 <section>
@@ -74,7 +74,7 @@ pid$target::*ngx_http_process_request:entry
 
 <para>
 It should be noted that in the example above DTrace requires some knowledge
-about the <literal>ngx_http_process_request</literal> structure.
+about the <literal>ngx_http_request_t</literal> structure.
 Unfortunately while it is possible to use a specific <literal>#include</literal>
 directive in the DTrace script and then pass it to a C preprocessor
 (with the <literal>-C</literal> flag), that doesn’t really work.
@@ -115,7 +115,7 @@ frequently changed.
 </para>
 
 <para>
-Then there’s the <literal>ngx_http_process_request_t</literal> structure that
+Then there’s the <literal>ngx_http_request_t</literal> structure that
 contains a lot of pointers to other structures.
 Because these pointers are really irrelevant to this script, and because they
 have the same size, it is possible to just replace them with void pointers.
