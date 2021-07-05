@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_js_module"
         link="/ru/docs/stream/ngx_stream_js_module.html"
         lang="ru"
-        rev="27">
+        rev="28">
 
 <section id="summary">
 
@@ -279,6 +279,19 @@ function address(s) {
 то её обработчик не будет выполняться до фазы записи в лог.
 Этот обработчик также может использоваться для выполнения процедур
 непосредственно перед освобождением запроса.
+</para>
+
+<para>
+<note>
+Так как обработчик <literal>js_set</literal>
+должен сразу возвращать результат,
+то поддерживаются только синхронные вызовы.
+Таким образом, асинхронные вызовы, например
+<link doc="../njs/reference.xml" id="ngx_fetch">ngx.fetch()</link>
+или
+<link doc="../njs/reference.xml" id="settimeout">setTimeout()</link>,
+не поддерживаются.
+</note>
 </para>
 
 </directive>
