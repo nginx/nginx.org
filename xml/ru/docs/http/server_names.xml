@@ -8,7 +8,7 @@
 <article name="Имена сервера"
          link="/ru/docs/http/server_names.html"
          lang="ru"
-         rev="3"
+         rev="4"
          author="Игорь Сысоев"
          editor="Brian Mercer">
 
@@ -337,6 +337,93 @@ server {
     ...
 }
 </programlisting>
+</para>
+
+</section>
+
+
+<section id="virtual_server_selection"
+        name="Выбор виртуального сервера">
+
+<para>
+Сначала соединение создаётся в контесте сервера по умолчанию.
+Затем имя сервера может быть определено
+на следующих стадиях обработки запроса,
+каждая из которых участвует в выборе конфигурации:
+
+<list type="bullet">
+
+<listitem>
+<para>
+предварительно во время операции SSL handshake согласно
+<link doc="configuring_https_servers.xml" id="sni">SNI</link>
+</para>
+</listitem>
+
+<listitem>
+<para>
+после обработки строки запроса
+</para>
+</listitem>
+
+<listitem>
+<para>
+после обработки поля <literal>Host</literal> заголовка запроса
+</para>
+</listitem>
+
+<listitem>
+<para>
+если после обработки строки запроса или
+поля <literal>Host</literal> заголовка запроса имя сервера не было выбрано,
+то nginx будет использовать пустое имя в качестве имени сервера.
+</para>
+</listitem>
+
+</list>
+
+На каждой из этих стадий могут применяться различные конфигурации сервера.
+Таким образом, некоторые директивы следует указывать с осторожностью:
+<list type="bullet">
+
+<listitem>
+в случае использования
+директивы <link doc="ngx_http_ssl_module.xml" id="ssl_protocols"/>
+список протоколов задаётся библиотекой OpenSSL
+перед применением конфигурации сервера согласно имени,
+запрашиваемого через SNI.
+Таким образом, протоколы должны быть заданы только для сервера по умолчанию;
+</listitem>
+
+<listitem>
+директивы
+<link doc="ngx_http_core_module.xml" id="client_header_buffer_size"/>
+и
+<link doc="ngx_http_core_module.xml" id="merge_slashes"/>
+задействуются перед чтением строки запроса,
+таким образом они используют конфигурацию сервера по умолчанию или
+конфигурацию сервера, выбранного через SNI;
+</listitem>
+
+<listitem>
+в случае использования директив
+<link doc="ngx_http_core_module.xml" id="ignore_invalid_headers"/>,
+<link doc="ngx_http_core_module.xml" id="large_client_header_buffers"/>
+и
+<link doc="ngx_http_core_module.xml" id="underscores_in_headers"/>,
+которые участвуют в обработке полей заголовка запроса,
+выбор сервера дополнительно зависит от того,
+была ли обновлена конфигурация сервера
+согласно строке запроса или полю заголовка <literal>Host</literal>;
+</listitem>
+
+<listitem>
+ошибочный ответ будет обработан с помощью
+директивы <link doc="ngx_http_core_module.xml" id="error_page"/>
+в том сервере, который в настоящий момент выполняет запрос.
+</listitem>
+
+</list>
 </para>
 
 </section>

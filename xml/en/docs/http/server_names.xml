@@ -8,7 +8,7 @@
 <article name="Server names"
          link="/en/docs/http/server_names.html"
          lang="en"
-         rev="3"
+         rev="4"
          author="Igor Sysoev"
          editor="Brian Mercer">
 
@@ -332,6 +332,93 @@ server {
     ...
 }
 </programlisting>
+</para>
+
+</section>
+
+
+<section id="virtual_server_selection"
+        name="Virtual server selection">
+
+<para>
+First, a connection is created in a default server context.
+Then, the server name can be determined
+in the following request processing stages,
+each involved in server configuration selection:
+
+<list type="bullet">
+
+<listitem>
+<para>
+during SSL handshake, in advance, according to
+<link doc="configuring_https_servers.xml" id="sni">SNI</link>
+</para>
+</listitem>
+
+<listitem>
+<para>
+after processing the request line
+</para>
+</listitem>
+
+<listitem>
+<para>
+after processing the <literal>Host</literal> header field
+</para>
+</listitem>
+
+<listitem>
+<para>
+if the server name was not determined after processing the request line or
+from the <literal>Host</literal> header field,
+nginx will use the empty name as the server name.
+</para>
+</listitem>
+
+</list>
+
+At each of these stages, different server configurations can be applied.
+As such, certain directives should be specified with caution:
+<list type="bullet">
+
+<listitem>
+in case of the
+<link doc="ngx_http_ssl_module.xml" id="ssl_protocols"/> directive,
+the protocol list is set by the OpenSSL library before
+the server configuration could be applied according to the name
+requested through SNI,
+thus, protocols should be specified only for a default server;
+</listitem>
+
+<listitem>
+the
+<link doc="ngx_http_core_module.xml" id="client_header_buffer_size"/>
+and
+<link doc="ngx_http_core_module.xml" id="merge_slashes"/> directives
+are involved before reading the request line,
+thus, such directives use a default server configuration or
+the server configuration chosen by SNI;
+</listitem>
+
+<listitem>
+in case of the
+<link doc="ngx_http_core_module.xml" id="ignore_invalid_headers"/>,
+<link doc="ngx_http_core_module.xml" id="large_client_header_buffers"/>,
+and
+<link doc="ngx_http_core_module.xml" id="underscores_in_headers"/> directives
+involved in processing request header fields,
+it additionally depends
+whether the server configuration was updated
+according to the request line or the <literal>Host</literal> header field;
+</listitem>
+
+<listitem>
+an error response will be handled with
+the <link doc="ngx_http_core_module.xml" id="error_page"/> directive
+in the server that currently fulfills the request.
+</listitem>
+
+</list>
 </para>
 
 </section>
