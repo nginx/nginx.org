@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="98">
+        rev="99">
 
 <section id="directives" name="Directives">
 
@@ -422,6 +422,14 @@ this buffer then larger buffers, configured by the
 are allocated.
 </para>
 
+<para>
+If the directive is specified on the <link id="server"/> level,
+the value from the default server can be used.
+Details are provided in the
+“<link doc="server_names.xml" id="virtual_server_selection">Virtual
+server selection</link>” section.
+</para>
+
 </directive>
 
 
@@ -821,9 +829,10 @@ directive).
 
 <para>
 If the directive is specified on the <link id="server"/> level,
-its value is only used if a server is a default one.
-The value specified also applies to all virtual servers
-listening on the same address and port.
+the value from the default server can be used.
+Details are provided in the
+“<link doc="server_names.xml" id="virtual_server_selection">Virtual
+server selection</link>” section.
 </para>
 
 </directive>
@@ -1022,6 +1031,14 @@ Buffers are allocated only on demand.
 By default, the buffer size is equal to 8K bytes.
 If after the end of request processing a connection is transitioned
 into the keep-alive state, these buffers are released.
+</para>
+
+<para>
+If the directive is specified on the <link id="server"/> level,
+the value from the default server can be used.
+Details are provided in the
+“<link doc="server_names.xml" id="virtual_server_selection">Virtual
+server selection</link>” section.
 </para>
 
 </directive>
@@ -1814,9 +1831,10 @@ the compression off.
 
 <para>
 If the directive is specified on the <link id="server"/> level,
-its value is only used if a server is a default one.
-The value specified also applies to all virtual servers
-listening on the same address and port.
+the value from the default server can be used.
+Details are provided in the
+“<link doc="server_names.xml" id="virtual_server_selection">Virtual
+server selection</link>” section.
 </para>
 
 </directive>
@@ -2985,9 +3003,10 @@ marked as invalid and become subject to the
 
 <para>
 If the directive is specified on the <link id="server"/> level,
-its value is only used if a server is a default one.
-The value specified also applies to all virtual servers
-listening on the same address and port.
+the value from the default server can be used.
+Details are provided in the
+“<link doc="server_names.xml" id="virtual_server_selection">Virtual
+server selection</link>” section.
 </para>
 
 </directive>
