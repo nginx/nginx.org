@@ -20,8 +20,9 @@
 
     <div id="banner">
         <xsl:if test="@lang = 'he'"> <xsl:attribute name="class"> <xsl:text>ltr</xsl:text> </xsl:attribute> </xsl:if>
-        NGINX Service Mesh 1.0 is now available, for free.<br/>
-        <a href="https://www.nginx.com/blog/how-to-choose-a-service-mesh/?utm_medium=nginxorg&amp;utm_source=homepagehero&amp;utm_campaign=ww-nx_pgkub">Learn more.</a><br/>
+        Join us Aug. 23-25 for our free virtual event,
+        <a href="https://www.nginx.com/events/nginx-sprint-2021/?utm_medium=nginxorg&amp;utm_source=nginxdb&amp;utm_campaign=ww-nx_mad">NGINX Sprint</a>,<br/>
+        featuring keynotes, practical demos, and hands-on training sessions.
     </div>
 
     <div id="main">
