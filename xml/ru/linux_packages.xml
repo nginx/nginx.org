@@ -7,12 +7,13 @@
 <article name="nginx: пакеты для Linux"
          link="/ru/linux_packages.html"
          lang="ru"
-         rev="64">
+         rev="65">
 
 <section name="Поддерживаемые дистрибутивы и версии" id="distributions">
 
 <para>
-Пакеты nginx доступны для следующих дистрибутивов Linux и их версий:
+Пакеты nginx доступны для следующих дистрибутивов Linux и их
+версий:
 </para>
 
 <para>
@@ -88,6 +89,7 @@
 <link id="SLES">SLES</link>
 
 <table note="yes">
+
 <tr>
 <td width="30%">Версия</td>
 <td>Поддерживаемые платформы</td>
@@ -223,40 +225,22 @@ sudo yum install nginx
 <para>
 Установите пакеты, необходимые для подключения apt-репозитория:
 <programlisting>
-sudo apt install curl gnupg2 ca-certificates lsb-release
+sudo apt install curl gnupg2 ca-certificates lsb-release debian-archive-keyring
 </programlisting>
+</para>
 
-Для подключения apt-репозитория для стабильной версии nginx,
-выполните следующую команду:
-<programlisting>
-echo "deb http://nginx.org/packages/debian `lsb_release -cs` nginx" \
-    | sudo tee /etc/apt/sources.list.d/nginx.list
-</programlisting>
-
-Если предпочтительно использовать пакеты для основной версии nginx,
-выполните следующую команду вместо предыдущей:
-<programlisting>
-echo "deb http://nginx.org/packages/mainline/debian `lsb_release -cs` nginx" \
-    | sudo tee /etc/apt/sources.list.d/nginx.list
-</programlisting>
-
-Для использования пакетов из нашего репозитория вместо распространяемых в дистрибутиве,
-настройте закрепление:
-<programlisting>
-echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 900\n" \
-    | sudo tee /etc/apt/preferences.d/99nginx
-</programlisting>
-
+<para>
 Теперь нужно импортировать официальный ключ,
 используемый apt для проверки подлинности пакетов.
 Скачайте ключ:
 <programlisting>
-curl -o /tmp/nginx_signing.key https://nginx.org/keys/nginx_signing.key
+curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor \
+    | sudo tee /usr/share/keyrings/nginx-archive-keyring.gpg >/dev/null
 </programlisting>
 
 Проверьте, верный ли ключ был загружен:
 <programlisting>
-gpg --dry-run --quiet --import --import-options import-show /tmp/nginx_signing.key
+gpg --dry-run --quiet --import --import-options import-show /usr/share/keyrings/nginx-archive-keyring.gpg
 </programlisting>
 
 Вывод команды должен содержать полный отпечаток ключа
@@ -267,12 +251,37 @@ uid   [ unknown] nginx signing key &lt;signing-key@nginx.com&gt;
       573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62
 uid                      nginx signing key &lt;signing-key@nginx.com&gt;
 </programlisting>
+Если отпечаток отличается от вышеуказанного, удалите файл ключа.
+</para>
 
-Переместите ключ в каталог доверенных ключей apt (обратите внимание на изменение расширения "asc"):
+<para>
+Для подключения apt-репозитория для стабильной версии nginx,
+выполните следующую команду:
 <programlisting>
-sudo mv /tmp/nginx_signing.key /etc/apt/trusted.gpg.d/nginx_signing.asc
+echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] \
+http://nginx.org/packages/debian `lsb_release -cs` nginx" \
+    | sudo tee /etc/apt/sources.list.d/nginx.list
 </programlisting>
 
+Если предпочтительно использовать пакеты для основной версии nginx,
+выполните следующую команду вместо предыдущей:
+<programlisting>
+echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] \
+http://nginx.org/packages/mainline/debian `lsb_release -cs` nginx" \
+    | sudo tee /etc/apt/sources.list.d/nginx.list
+</programlisting>
+</para>
+
+<para>
+Для использования пакетов из нашего репозитория вместо
+распространяемых в дистрибутиве, настройте закрепление:
+<programlisting>
+echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 900\n" \
+    | sudo tee /etc/apt/preferences.d/99nginx
+</programlisting>
+</para>
+
+<para>
 Чтобы установить nginx, выполните следующие команды:
 <programlisting>
 sudo apt update
@@ -288,40 +297,22 @@ sudo apt install nginx
 <para>
 Установите пакеты, необходимые для подключения apt-репозитория:
 <programlisting>
-sudo apt install curl gnupg2 ca-certificates lsb-release
+sudo apt install curl gnupg2 ca-certificates lsb-release ubuntu-archive-keyring
 </programlisting>
+</para>
 
-Для подключения apt-репозитория для стабильной версии nginx,
-выполните следующую команду:
-<programlisting>
-echo "deb http://nginx.org/packages/ubuntu `lsb_release -cs` nginx" \
-    | sudo tee /etc/apt/sources.list.d/nginx.list
-</programlisting>
-
-Если предпочтительно использовать пакеты для основной версии nginx,
-выполните следующую команду вместо предыдущей:
-<programlisting>
-echo "deb http://nginx.org/packages/mainline/ubuntu `lsb_release -cs` nginx" \
-    | sudo tee /etc/apt/sources.list.d/nginx.list
-</programlisting>
-
-Для использования пакетов из нашего репозитория вместо распространяемых в дистрибутиве,
-настройте закрепление:
-<programlisting>
-echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 900\n" \
-    | sudo tee /etc/apt/preferences.d/99nginx
-</programlisting>
-
+<para>
 Теперь нужно импортировать официальный ключ,
 используемый apt для проверки подлинности пакетов.
 Скачайте ключ:
 <programlisting>
-curl -o /tmp/nginx_signing.key https://nginx.org/keys/nginx_signing.key
+curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor \
+    | sudo tee /usr/share/keyrings/nginx-archive-keyring.gpg >/dev/null
 </programlisting>
 
 Проверьте, верный ли ключ был загружен:
 <programlisting>
-gpg --dry-run --quiet --import --import-options import-show /tmp/nginx_signing.key
+gpg --dry-run --quiet --import --import-options import-show /usr/share/keyrings/nginx-archive-keyring.gpg
 </programlisting>
 
 Вывод команды должен содержать полный отпечаток ключа
@@ -332,12 +323,37 @@ uid   [ unknown] nginx signing key &lt;signing-key@nginx.com&gt;
       573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62
 uid                      nginx signing key &lt;signing-key@nginx.com&gt;
 </programlisting>
+Если отпечаток отличается от вышеуказанного, удалите файл ключа.
+</para>
 
-Переместите ключ в каталог доверенных ключей apt (обратите внимание на изменение расширения "asc"):
+<para>
+Для подключения apt-репозитория для стабильной версии nginx,
+выполните следующую команду:
 <programlisting>
-sudo mv /tmp/nginx_signing.key /etc/apt/trusted.gpg.d/nginx_signing.asc
+echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] \
+http://nginx.org/packages/ubuntu `lsb_release -cs` nginx" \
+    | sudo tee /etc/apt/sources.list.d/nginx.list
 </programlisting>
 
+Если предпочтительно использовать пакеты для основной версии nginx,
+выполните следующую команду вместо предыдущей:
+<programlisting>
+echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] \
+http://nginx.org/packages/mainline/ubuntu `lsb_release -cs` nginx" \
+    | sudo tee /etc/apt/sources.list.d/nginx.list
+</programlisting>
+</para>
+
+<para>
+Для использования пакетов из нашего репозитория вместо
+распространяемых в дистрибутиве, настройте закрепление:
+<programlisting>
+echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 900\n" \
+    | sudo tee /etc/apt/preferences.d/99nginx
+</programlisting>
+</para>
+
+<para>
 Чтобы установить nginx, выполните следующие команды:
 <programlisting>
 sudo apt update
@@ -489,6 +505,7 @@ sudo apk add nginx-module-image-filter@nginx nginx-module-njs@nginx
 </para>
 
 </section>
+
 
 <section name="Amazon Linux" id="Amazon-Linux">
 

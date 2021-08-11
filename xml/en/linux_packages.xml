@@ -7,7 +7,7 @@
 <article name="nginx: Linux packages"
          link="/en/linux_packages.html"
          lang="en"
-         rev="64">
+         rev="65">
 
 <section name="Supported distributions and versions" id="distributions">
 
@@ -201,7 +201,8 @@ module_hotfixes=true
 </programlisting>
 
 By default, the repository for stable nginx packages is used.
-If you would like to use mainline nginx packages, run the following command:
+If you would like to use mainline nginx packages,
+run the following command:
 <programlisting>
 sudo yum-config-manager --enable nginx-mainline
 </programlisting>
@@ -224,40 +225,22 @@ and if so, accept it.
 <para>
 Install the prerequisites:
 <programlisting>
-sudo apt install curl gnupg2 ca-certificates lsb-release
+sudo apt install curl gnupg2 ca-certificates lsb-release debian-archive-keyring
 </programlisting>
+</para>
 
-To set up the apt repository for stable nginx packages,
-run the following command:
-<programlisting>
-echo "deb http://nginx.org/packages/debian `lsb_release -cs` nginx" \
-    | sudo tee /etc/apt/sources.list.d/nginx.list
-</programlisting>
-
-If you would like to use mainline nginx packages,
-run the following command instead:
-<programlisting>
-echo "deb http://nginx.org/packages/mainline/debian `lsb_release -cs` nginx" \
-    | sudo tee /etc/apt/sources.list.d/nginx.list
-</programlisting>
-
-Set up repository pinning to prefer our packages over
-distribution-provided ones:
-<programlisting>
-echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 900\n" \
-    | sudo tee /etc/apt/preferences.d/99nginx
-</programlisting>
-
-Next, import an official nginx signing key so apt could verify the packages
+<para>
+Import an official nginx signing key so apt could verify the packages
 authenticity.
 Fetch the key:
 <programlisting>
-curl -o /tmp/nginx_signing.key https://nginx.org/keys/nginx_signing.key
+curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor \
+    | sudo tee /usr/share/keyrings/nginx-archive-keyring.gpg >/dev/null
 </programlisting>
 
 Verify that the downloaded file contains the proper key:
 <programlisting>
-gpg --dry-run --quiet --import --import-options import-show /tmp/nginx_signing.key
+gpg --dry-run --quiet --import --import-options import-show /usr/share/keyrings/nginx-archive-keyring.gpg
 </programlisting>
 
 The output should contain the full fingerprint
@@ -268,12 +251,37 @@ pub   rsa2048 2011-08-19 [SC] [expires: 2024-06-14]
       573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62
 uid                      nginx signing key &lt;signing-key@nginx.com&gt;
 </programlisting>
+If the fingerprint is different, remove the file.
+</para>
 
-Finally, move the key to apt trusted key storage (note the "asc" file extension change):
+<para>
+To set up the apt repository for stable nginx packages,
+run the following command:
 <programlisting>
-sudo mv /tmp/nginx_signing.key /etc/apt/trusted.gpg.d/nginx_signing.asc
+echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] \
+http://nginx.org/packages/debian `lsb_release -cs` nginx" \
+    | sudo tee /etc/apt/sources.list.d/nginx.list
 </programlisting>
 
+If you would like to use mainline nginx packages,
+run the following command instead:
+<programlisting>
+echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] \
+http://nginx.org/packages/mainline/debian `lsb_release -cs` nginx" \
+    | sudo tee /etc/apt/sources.list.d/nginx.list
+</programlisting>
+</para>
+
+<para>
+Set up repository pinning to prefer our packages over
+distribution-provided ones:
+<programlisting>
+echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 900\n" \
+    | sudo tee /etc/apt/preferences.d/99nginx
+</programlisting>
+</para>
+
+<para>
 To install nginx, run the following commands:
 <programlisting>
 sudo apt update
@@ -289,40 +297,22 @@ sudo apt install nginx
 <para>
 Install the prerequisites:
 <programlisting>
-sudo apt install curl gnupg2 ca-certificates lsb-release
+sudo apt install curl gnupg2 ca-certificates lsb-release ubuntu-keyring
 </programlisting>
+</para>
 
-To set up the apt repository for stable nginx packages,
-run the following command:
-<programlisting>
-echo "deb http://nginx.org/packages/ubuntu `lsb_release -cs` nginx" \
-    | sudo tee /etc/apt/sources.list.d/nginx.list
-</programlisting>
-
-If you would like to use mainline nginx packages,
-run the following command instead:
-<programlisting>
-echo "deb http://nginx.org/packages/mainline/ubuntu `lsb_release -cs` nginx" \
-    | sudo tee /etc/apt/sources.list.d/nginx.list
-</programlisting>
-
-Set up repository pinning to prefer our packages over
-distribution-provided ones:
-<programlisting>
-echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 900\n" \
-    | sudo tee /etc/apt/preferences.d/99nginx
-</programlisting>
-
-Next, import an official nginx signing key so apt could verify the packages
+<para>
+Import an official nginx signing key so apt could verify the packages
 authenticity.
 Fetch the key:
 <programlisting>
-curl -o /tmp/nginx_signing.key https://nginx.org/keys/nginx_signing.key
+curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor \
+    | sudo tee /usr/share/keyrings/nginx-archive-keyring.gpg >/dev/null
 </programlisting>
 
 Verify that the downloaded file contains the proper key:
 <programlisting>
-gpg --dry-run --quiet --import --import-options show-only /tmp/nginx_signing.key
+gpg --dry-run --quiet --import --import-options import-show /usr/share/keyrings/nginx-archive-keyring.gpg
 </programlisting>
 
 The output should contain the full fingerprint
@@ -333,12 +323,37 @@ pub   rsa2048 2011-08-19 [SC] [expires: 2024-06-14]
       573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62
 uid                      nginx signing key &lt;signing-key@nginx.com&gt;
 </programlisting>
+If the fingerprint is different, remove the file.
+</para>
 
-Finally, move the key to apt trusted key storage (note the "asc" file extension change):
+<para>
+To set up the apt repository for stable nginx packages,
+run the following command:
 <programlisting>
-sudo mv /tmp/nginx_signing.key /etc/apt/trusted.gpg.d/nginx_signing.asc
+echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] \
+http://nginx.org/packages/ubuntu `lsb_release -cs` nginx" \
+    | sudo tee /etc/apt/sources.list.d/nginx.list
 </programlisting>
 
+If you would like to use mainline nginx packages,
+run the following command instead:
+<programlisting>
+echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] \
+http://nginx.org/packages/mainline/ubuntu `lsb_release -cs` nginx" \
+    | sudo tee /etc/apt/sources.list.d/nginx.list
+</programlisting>
+</para>
+
+<para>
+Set up repository pinning to prefer our packages over
+distribution-provided ones:
+<programlisting>
+echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 900\n" \
+    | sudo tee /etc/apt/preferences.d/99nginx
+</programlisting>
+</para>
+
+<para>
 To install nginx, run the following commands:
 <programlisting>
 sudo apt update
@@ -492,6 +507,7 @@ sudo apk add nginx-module-image-filter@nginx nginx-module-njs@nginx
 
 </section>
 
+
 <section name="Amazon Linux" id="Amazon-Linux">
 
 <para>
@@ -523,7 +539,8 @@ module_hotfixes=true
 </programlisting>
 
 By default, the repository for stable nginx packages is used.
-If you would like to use mainline nginx packages, run the following command:
+If you would like to use mainline nginx packages,
+run the following command:
 <programlisting>
 sudo yum-config-manager --enable nginx-mainline
 </programlisting>
@@ -562,7 +579,8 @@ To build binary packages, run <command>make</command> in
 
 <para>
 Packaging sources are distributed under the same
-<link url="../LICENSE">2-clause BSD-like license</link> used by nginx.
+<link url="../LICENSE">2-clause BSD-like license</link>
+used by nginx.
 </para>
 
 </section>
