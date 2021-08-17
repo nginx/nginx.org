@@ -7,7 +7,7 @@
 <article name="nginx: пакеты для Linux"
          link="/ru/linux_packages.html"
          lang="ru"
-         rev="65">
+         rev="66">
 
 <section name="Поддерживаемые дистрибутивы и версии" id="distributions">
 
@@ -52,6 +52,11 @@
 <tr>
 <td width="30%">10.x “buster”</td>
 <td>x86_64, i386, aarch64/arm64</td>
+</tr>
+
+<tr>
+<td width="30%">11.x “bullseye”</td>
+<td>x86_64, aarch64/arm64</td>
 </tr>
 
 </table>
