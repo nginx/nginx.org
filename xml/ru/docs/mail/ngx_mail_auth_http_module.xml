@@ -10,7 +10,7 @@
 <module name="Модуль ngx_mail_auth_http_module"
         link="/ru/docs/mail/ngx_mail_auth_http_module.html"
         lang="ru"
-        rev="10">
+        rev="11">
 
 <section id="directives" name="Директивы">
 
@@ -219,6 +219,9 @@ Auth-SMTP-To: RCPT TO: &lt;postmaster@mail.example.com&gt;
 Если директива <link id="auth_http_pass_client_cert"/> включена,
 сам сертификат передаётся в заголовке
 <header>Auth-SSL-Cert</header>.
+Протокол и шифр установленного соединения
+передаются в заголовках <header>Auth-SSL-Protocol</header>
+и <header>Auth-SSL-Cipher</header> (1.21.2).
 Запрос будет выглядеть так:
 <example>
 GET /auth HTTP/1.0
@@ -230,6 +233,8 @@ Auth-Protocol: imap
 Auth-Login-Attempt: 1
 Client-IP: 192.0.2.42
 Auth-SSL: on
+Auth-SSL-Protocol: TLSv1.3
+Auth-SSL-Cipher: TLS_AES_256_GCM_SHA384
 Auth-SSL-Verify: SUCCESS
 Auth-SSL-Subject: /CN=example.com
 Auth-SSL-Issuer: /CN=example.com

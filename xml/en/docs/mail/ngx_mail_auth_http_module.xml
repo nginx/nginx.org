@@ -10,7 +10,7 @@
 <module name="Module ngx_mail_auth_http_module"
         link="/en/docs/mail/ngx_mail_auth_http_module.html"
         lang="en"
-        rev="10">
+        rev="11">
 
 <section id="directives" name="Directives">
 
@@ -221,6 +221,9 @@ its details are passed in the following request headers:
 If <link id="auth_http_pass_client_cert"/> is enabled,
 the certificate itself is passed in the
 <header>Auth-SSL-Cert</header> header.
+The protocol and cipher of the established connection
+are passed in the <header>Auth-SSL-Protocol</header>
+and <header>Auth-SSL-Cipher</header> headers (1.21.2).
 The request will look as follows:
 <example>
 GET /auth HTTP/1.0
@@ -232,6 +235,8 @@ Auth-Protocol: imap
 Auth-Login-Attempt: 1
 Client-IP: 192.0.2.42
 Auth-SSL: on
+Auth-SSL-Protocol: TLSv1.3
+Auth-SSL-Cipher: TLS_AES_256_GCM_SHA384
 Auth-SSL-Verify: SUCCESS
 Auth-SSL-Subject: /CN=example.com
 Auth-SSL-Issuer: /CN=example.com
