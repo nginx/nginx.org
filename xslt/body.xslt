@@ -20,8 +20,8 @@
 
     <div id="banner">
         <xsl:if test="@lang = 'he'"> <xsl:attribute name="class"> <xsl:text>ltr</xsl:text> </xsl:attribute> </xsl:if>
-        NGINX Sprint is on Aug 23-25 this year, virtual and free.<br/>
-        <a href="https://www.nginx.com/events/nginx-sprint-2021/?utm_medium=nginxorg&amp;utm_source=nginxdb&amp;utm_campaign=ww-nx_mad">Register here.</a>
+        The 2021 NGINX Annual Community Survey is now open.<br/>
+        <a href="https://survey.f5.com/v1/sites/nginx/SurveyResponse?at=1I0025DXE6KKG8JCV1KHEZ8U6WNP8QI5ONSB">Share your opinion and feedback on NGINX</a>
     </div>
 
     <div id="main">
