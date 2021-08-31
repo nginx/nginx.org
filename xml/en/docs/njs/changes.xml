@@ -9,8 +9,96 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="45"
+        rev="46"
         toc="no">
+
+<section id="njs0.6.2" name="Changes with njs 0.6.2">
+
+<para>
+Release Date:
+31 August 2021
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Bugfix:
+fixed CPU hog when
+<literal>js_filter</literal> is registered in both directions.
+</para>
+</listitem>
+
+</list>
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+introduced <literal>AggregateError</literal> implementation.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added remaining <literal>Promise</literal> constructor methods.
+The following methods were added:
+<literal>Promise.all()</literal> ,
+<literal>Promise.allSettled()</literal> ,
+<literal>Promise.any()</literal> ,
+<literal>Promise.race()</literal> .
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+removed recursion from code generator.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed rest parameter parsing without binding identifier.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed resolve/reject callback for
+<literal> Promise.prototype.finally()</literal> .
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal> %TypedArray%.prototype.join()</literal>
+with detached buffer.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed memory leak in interactive shell.
+</para>
+</listitem>
+</list>
+
+</para>
+
+</section>
+
 
 <section id="njs0.6.1" name="Changes with njs 0.6.1">
 

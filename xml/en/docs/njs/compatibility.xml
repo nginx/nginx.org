@@ -9,7 +9,7 @@
 <article name="Compatibility"
         link="/en/docs/njs/compatibility.html"
         lang="en"
-        rev="32"
+        rev="33"
         toc="no">
 
 <section>
@@ -576,8 +576,15 @@ ES6:
 <list type="bullet">
 <listitem>
 ES6:
+<literal>any()</literal>
+(<link doc="changes.xml" id="njs0.6.2">0.6.2</link>),
+<literal> all()</literal>
+(<link doc="changes.xml" id="njs0.6.2">0.6.2</link>),
+<literal> allSettled()</literal>
+(<link doc="changes.xml" id="njs0.6.2">0.6.2</link>),
 <literal>reject</literal>,
-<literal>resolve</literal>
+<literal>resolve</literal>,
+<literal>race()</literal> (<link doc="changes.xml" id="njs0.6.2">0.6.2</link>)
 </listitem>
 </list>
 
