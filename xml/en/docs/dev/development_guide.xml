@@ -5688,6 +5688,195 @@ the next part of request body is available.
 </section>
 
 
+<section name="Request body filters" id="http_request_body_filters">
+
+<para>
+After a request body part is read, it's passed to the request
+body filter chain by calling the first body filter handler stored in
+the <literal>ngx_http_top_request_body_filter</literal> variable.
+It's assumed that every body handler calls the next handler in the chain until
+the final handler <literal>ngx_http_request_body_save_filter(r, cl)</literal>
+is called.
+This handler collects the buffers in
+<literal>r->request_body->bufs</literal>
+and writes them to a file if necessary.
+The last request body buffer has nonzero <literal>last_buf</literal> flag.
+</para>
+
+<para>
+If a filter is planning to delay data buffers, it should set the flag
+<literal>r->request_body->filter_need_buffering</literal> to
+<literal>1</literal> when called for the first time.
+</para>
+
+<para>
+Following is an example of a simple request body filter that delays request
+body by one second.
+</para>
+
+<programlisting>
+#include &lt;ngx_config.h&gt;
+#include &lt;ngx_core.h&gt;
+#include &lt;ngx_http.h&gt;
+
+
+#define NGX_HTTP_DELAY_BODY  1000
+
+
+typedef struct {
+    ngx_event_t   event;
+    ngx_chain_t  *out;
+} ngx_http_delay_body_ctx_t;
+
+
+static ngx_int_t ngx_http_delay_body_filter(ngx_http_request_t *r,
+    ngx_chain_t *in);
+static void ngx_http_delay_body_cleanup(void *data);
+static void ngx_http_delay_body_event_handler(ngx_event_t *ev);
+static ngx_int_t ngx_http_delay_body_init(ngx_conf_t *cf);
+
+
+static ngx_http_module_t  ngx_http_delay_body_module_ctx = {
+    NULL,                          /* preconfiguration */
+    ngx_http_delay_body_init,      /* postconfiguration */
+
+    NULL,                          /* create main configuration */
+    NULL,                          /* init main configuration */
+
+    NULL,                          /* create server configuration */
+    NULL,                          /* merge server configuration */
+
+    NULL,                          /* create location configuration */
+    NULL                           /* merge location configuration */
+};
+
+
+ngx_module_t  ngx_http_delay_body_filter_module = {
+    NGX_MODULE_V1,
+    &amp;ngx_http_delay_body_module_ctx, /* module context */
+    NULL,                          /* module directives */
+    NGX_HTTP_MODULE,               /* module type */
+    NULL,                          /* init master */
+    NULL,                          /* init module */
+    NULL,                          /* init process */
+    NULL,                          /* init thread */
+    NULL,                          /* exit thread */
+    NULL,                          /* exit process */
+    NULL,                          /* exit master */
+    NGX_MODULE_V1_PADDING
+};
+
+
+static ngx_http_request_body_filter_pt   ngx_http_next_request_body_filter;
+
+
+static ngx_int_t
+ngx_http_delay_body_filter(ngx_http_request_t *r, ngx_chain_t *in)
+{
+    ngx_int_t                   rc;
+    ngx_chain_t                *cl, *ln;
+    ngx_http_cleanup_t         *cln;
+    ngx_http_delay_body_ctx_t  *ctx;
+
+    ngx_log_debug0(NGX_LOG_DEBUG_HTTP, r->connection->log, 0,
+                   "delay request body filter");
+
+    ctx = ngx_http_get_module_ctx(r, ngx_http_delay_body_filter_module);
+
+    if (ctx == NULL) {
+        ctx = ngx_pcalloc(r->pool, sizeof(ngx_http_delay_body_ctx_t));
+        if (ctx == NULL) {
+            return NGX_HTTP_INTERNAL_SERVER_ERROR;
+        }
+
+        ngx_http_set_ctx(r, ctx, ngx_http_delay_body_filter_module);
+
+        r->request_body->filter_need_buffering = 1;
+    }
+
+    if (ngx_chain_add_copy(r->pool, &amp;ctx->out, in) != NGX_OK) {
+        return NGX_HTTP_INTERNAL_SERVER_ERROR;
+    }
+
+    if (!ctx->event.timedout) {
+        if (!ctx->event.timer_set) {
+
+            /* cleanup to remove the timer in case of abnormal termination */
+
+            cln = ngx_http_cleanup_add(r, 0);
+            if (cln == NULL) {
+                return NGX_HTTP_INTERNAL_SERVER_ERROR;
+            }
+
+            cln->handler = ngx_http_delay_body_cleanup;
+            cln->data = ctx;
+
+            /* add timer */
+
+            ctx->event.handler = ngx_http_delay_body_event_handler;
+            ctx->event.data = r;
+            ctx->event.log = r->connection->log;
+
+            ngx_add_timer(&amp;ctx->event, NGX_HTTP_DELAY_BODY);
+        }
+
+        return ngx_http_next_request_body_filter(r, NULL);
+    }
+
+    rc = ngx_http_next_request_body_filter(r, ctx->out);
+
+    for (cl = ctx->out; cl; /* void */) {
+        ln = cl;
+        cl = cl->next;
+        ngx_free_chain(r->pool, ln);
+    }
+
+    ctx->out = NULL;
+
+    return rc;
+}
+
+
+static void
+ngx_http_delay_body_cleanup(void *data)
+{
+    ngx_http_delay_body_ctx_t *ctx = data;
+
+    if (ctx->event.timer_set) {
+        ngx_del_timer(&amp;ctx->event);
+    }
+}
+
+
+static void
+ngx_http_delay_body_event_handler(ngx_event_t *ev)
+{
+    ngx_connection_t    *c;
+    ngx_http_request_t  *r;
+
+    r = ev->data;
+    c = r->connection;
+
+    ngx_log_debug0(NGX_LOG_DEBUG_HTTP, c->log, 0,
+                   "delay request body event");
+
+    ngx_post_event(c->read, &amp;ngx_posted_events);
+}
+
+
+static ngx_int_t
+ngx_http_delay_body_init(ngx_conf_t *cf)
+{
+    ngx_http_next_request_body_filter = ngx_http_top_request_body_filter;
+    ngx_http_top_request_body_filter = ngx_http_delay_body_filter;
+
+    return NGX_OK;
+}
+</programlisting>
+
+</section>
+
+
 <section name="Response" id="http_response">
 
 <para>
@@ -5931,7 +6120,7 @@ ngx_http_bar_content_handler(ngx_http_request_t *r)
 </section>
 
 
-<section name="Body filters" id="http_body_filters">
+<section name="Response body filters" id="http_response_body_filters">
 
 <para>
 The function <literal>ngx_http_output_filter(r, cl)</literal> invokes the
