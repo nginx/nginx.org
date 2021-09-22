@@ -110,21 +110,21 @@ All API requests include
 a supported API <link id="api_version">version</link> in the URI.
 Examples of API requests with this configuration:
 <example>
-http://127.0.0.1/api/6/
-http://127.0.0.1/api/6/nginx
-http://127.0.0.1/api/6/connections
-http://127.0.0.1/api/6/http/requests
-http://127.0.0.1/api/6/http/server_zones/server_backend
-http://127.0.0.1/api/6/http/caches/cache_backend
-http://127.0.0.1/api/6/http/upstreams/backend
-http://127.0.0.1/api/6/http/upstreams/backend/servers/
-http://127.0.0.1/api/6/http/upstreams/backend/servers/1
-http://127.0.0.1/api/6/http/keyvals/one?key=arg1
-http://127.0.0.1/api/6/stream/
-http://127.0.0.1/api/6/stream/server_zones/server_backend
-http://127.0.0.1/api/6/stream/upstreams/
-http://127.0.0.1/api/6/stream/upstreams/backend
-http://127.0.0.1/api/6/stream/upstreams/backend/servers/1
+http://127.0.0.1/api/7/
+http://127.0.0.1/api/7/nginx
+http://127.0.0.1/api/7/connections
+http://127.0.0.1/api/7/http/requests
+http://127.0.0.1/api/7/http/server_zones/server_backend
+http://127.0.0.1/api/7/http/caches/cache_backend
+http://127.0.0.1/api/7/http/upstreams/backend
+http://127.0.0.1/api/7/http/upstreams/backend/servers/
+http://127.0.0.1/api/7/http/upstreams/backend/servers/1
+http://127.0.0.1/api/7/http/keyvals/one?key=arg1
+http://127.0.0.1/api/7/stream/
+http://127.0.0.1/api/7/stream/server_zones/server_backend
+http://127.0.0.1/api/7/stream/upstreams/
+http://127.0.0.1/api/7/stream/upstreams/backend
+http://127.0.0.1/api/7/stream/upstreams/backend/servers/1
 </example>
 </para>
 
@@ -155,14 +155,14 @@ By default, the API is read-only.
 All API requests should contain a supported API version in the URI.
 If the request URI equals the location prefix,
 the list of supported API versions is returned.
-The current API version is “<literal>6</literal>”.
+The current API version is “<literal>7</literal>”.
 </para>
 
 <para>
 The optional “<literal>fields</literal>” argument in the request line
 specifies which fields of the requested objects will be output:
 <example>
-http://127.0.0.1/api/6/nginx?fields=version,build
+http://127.0.0.1/api/7/nginx?fields=version,build
 </example>
 </para>
 
@@ -206,6 +206,15 @@ redirect</link> happens during request processing.
 
 <para>
 <list type="bullet">
+
+<listitem>
+The <literal>codes</literal> data
+in <literal>responses</literal> for each HTTP
+<link id="def_nginx_http_upstream">upstream</link>,
+<link id="def_nginx_http_server_zone">server zone</link>, and
+<link id="def_nginx_http_location_zone">location zone</link>
+were added in <link id="api_version">version</link> 7.
+</listitem>
 
 <listitem>
 The <link id="stream_limit_conns_">/stream/limit_conns/</link> data
@@ -2284,7 +2293,7 @@ The total number of client requests received from clients.
 <tag-name>
 <literal>responses</literal></tag-name>
 <tag-desc>
-The total number of responses sent to clients and the number of responses with status codes “<literal>1xx</literal>”, “<literal>2xx</literal>”, “<literal>3xx</literal>”, “<literal>4xx</literal>”, and “<literal>5xx</literal>”.<list type="tag">
+The total number of responses sent to clients, the number of responses with status codes “<literal>1xx</literal>”, “<literal>2xx</literal>”, “<literal>3xx</literal>”, “<literal>4xx</literal>”, and “<literal>5xx</literal>”, and the number of responses per each status code.<list type="tag">
 <tag-name>
 <literal>1xx</literal> (<literal>integer</literal>)
 </tag-name>
@@ -2314,6 +2323,18 @@ The number of responses with “<literal>4xx</literal>” status codes.
 </tag-name>
 <tag-desc>
 The number of responses with “<literal>5xx</literal>” status codes.
+</tag-desc>
+<tag-name>
+<literal>codes</literal></tag-name>
+<tag-desc>
+The number of responses per each status code.<list type="tag">
+<tag-name>
+<literal>codeNumber</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The number of responses with this particular status code.
+</tag-desc>
+</list>
 </tag-desc>
 <tag-name>
 <literal>total</literal> (<literal>integer</literal>)
@@ -2353,6 +2374,12 @@ The total number of bytes sent to clients.
     "3xx" : 4522,
     "4xx" : 907,
     "5xx" : 266,
+    "codes" : {
+      "200" : 699482,
+      "301" : 4522,
+      "404" : 907,
+      "503" : 266
+    },
     "total" : 705177
   },
   "discarded" : 1513,
@@ -2372,7 +2399,7 @@ The total number of client requests received from clients.
 <tag-name>
 <literal>responses</literal></tag-name>
 <tag-desc>
-The total number of responses sent to clients and the number of responses with status codes “<literal>1xx</literal>”, “<literal>2xx</literal>”, “<literal>3xx</literal>”, “<literal>4xx</literal>”, and “<literal>5xx</literal>”.<list type="tag">
+The total number of responses sent to clients, the number of responses with status codes “<literal>1xx</literal>”, “<literal>2xx</literal>”, “<literal>3xx</literal>”, “<literal>4xx</literal>”, and “<literal>5xx</literal>”, and the number of responses per each status code.<list type="tag">
 <tag-name>
 <literal>1xx</literal> (<literal>integer</literal>)
 </tag-name>
@@ -2402,6 +2429,18 @@ The number of responses with “<literal>4xx</literal>” status codes.
 </tag-name>
 <tag-desc>
 The number of responses with “<literal>5xx</literal>” status codes.
+</tag-desc>
+<tag-name>
+<literal>codes</literal></tag-name>
+<tag-desc>
+The number of responses per each status code.<list type="tag">
+<tag-name>
+<literal>codeNumber</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The number of responses with this particular status code.
+</tag-desc>
+</list>
 </tag-desc>
 <tag-name>
 <literal>total</literal> (<literal>integer</literal>)
@@ -2440,6 +2479,12 @@ The total number of bytes sent to clients.
     "3xx" : 4522,
     "4xx" : 907,
     "5xx" : 266,
+    "codes" : {
+      "200" : 112674,
+      "301" : 4522,
+      "404" : 2504,
+      "503" : 266
+    },
     "total" : 705177
   },
   "discarded" : 1513,
@@ -2847,6 +2892,18 @@ The number of responses with “<literal>4xx</literal>” status codes.
 The number of responses with “<literal>5xx</literal>” status codes.
 </tag-desc>
 <tag-name>
+<literal>codes</literal></tag-name>
+<tag-desc>
+The number of responses per each status code.<list type="tag">
+<tag-name>
+<literal>codeNumber</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The number of responses with this particular status code.
+</tag-desc>
+</list>
+</tag-desc>
+<tag-name>
 <literal>total</literal> (<literal>integer</literal>)
 </tag-name>
 <tag-desc>
@@ -3006,6 +3063,11 @@ The total number of requests rejected due to the queue overflow.
           "3xx" : 0,
           "4xx" : 915,
           "5xx" : 6,
+          "codes" : {
+            "200" : 666310,
+            "404" : 915,
+            "503" : 6
+          },
           "total" : 667231
         },
         "sent" : 251946292,
@@ -3038,6 +3100,8 @@ The total number of requests rejected due to the queue overflow.
           "3xx" : 0,
           "4xx" : 0,
           "5xx" : 0,
+          "codes" : {
+          },
           "total" : 0
         },
         "sent" : 0,

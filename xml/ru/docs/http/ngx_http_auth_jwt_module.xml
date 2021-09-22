@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_auth_jwt_module"
         link="/ru/docs/http/ngx_http_auth_jwt_module.html"
         lang="ru"
-        rev="11">
+        rev="12">
 
 <section id="summary">
 
@@ -18,11 +18,10 @@
 предоставляет возможность авторизации клиента с проверкой предоставляемого
 <link url="https://tools.ietf.org/html/rfc7519">JSON Web Token</link> (JWT)
 при помощи указанных ключей.
-JWT claims могут быть зашифрованы в структуре
-<link url="https://tools.ietf.org/html/rfc7515">JSON Web Signature</link> (JWS)
-или
+Модуль поддерживает
+<link url="https://tools.ietf.org/html/rfc7515">JSON Web Signature</link> (JWS),
 <link url="https://tools.ietf.org/html/rfc7516">JSON Web Encryption</link> (JWE)
-(1.19.7).
+(1.19.7) и Nested JWT (1.21.0).
 Модуль может использоваться для настройки аутентификации
 <link url="http://openid.net/specs/openid-connect-core-1_0.html">OpenID Connect</link>.
 </para>
@@ -98,7 +97,7 @@ A128GCM, A192GCM, A256GCM
 </para>
 
 <para>
-Алгоритмы JWE для управления ключом (1.19.7):
+Алгоритмы JWE для управления ключом (1.19.9):
 <list type="bullet">
 
 <listitem>
@@ -112,6 +111,10 @@ A128GCMKW, A192GCMKW, A256GCMKW
 <listitem>
 dir&mdash;прямое использование симметричного ключа
 в качестве ключа шифрования содержимого
+</listitem>
+
+<listitem>
+RSA-OAEP, RSA-OAEP-256, RSA-OAEP-384, RSA-OAEP-512 (1.21.0)
 </listitem>
 
 </list>
@@ -241,6 +244,18 @@ auth_jwt_claim_set $job info "job title";
 В значении параметра допустимо использование переменных.
 </para>
 
+<para>
+На одном уровне может быть указано
+несколько директив <literal>auth_jwt_key_file</literal> (1.21.1):
+<example>
+auth_jwt_key_file conf/keys.json;
+auth_jwt_key_file conf/key.jwk;
+</example>
+Если хотя бы один из указанных ключей не может быть загружен или обработан,
+nginx вернёт ошибку
+<http-status code="500" text="Internal Server Error"/>.
+</para>
+
 </directive>
 
 
@@ -279,6 +294,15 @@ server {
     }
 }
 </example>
+На одном уровне может быть указано
+несколько директив <literal>auth_jwt_key_request</literal> (1.21.1):
+<example>
+auth_jwt_key_request /jwks_uri;
+auth_jwt_key_request /jwks2_uri;
+</example>
+Если хотя бы один из указанных ключей не может быть загружен или обработан,
+nginx вернёт ошибку
+<http-status code="500" text="Internal Server Error"/>.
 </para>
 
 </directive>
@@ -302,8 +326,11 @@ server {
 
 </directive>
 
+
 <directive name="auth_jwt_type">
-<syntax><value>signed</value> | <value>encrypted</value></syntax>
+<syntax><value>signed</value> |
+        <value>encrypted</value> |
+        <value>nested</value></syntax>
 <default>signed</default>
 <context>http</context>
 <context>server</context>
@@ -313,8 +340,37 @@ server {
 
 <para>
 Задаёт ожидаемый тип JSON Web Token:
-JWS (<literal>signed</literal>) или
-JWE (<literal>encrypted</literal>).
+JWS (<literal>signed</literal>),
+JWE (<literal>encrypted</literal>)
+или подписанный и затем зашифрованный
+Nested JWT (<literal>nested</literal>) (1.21.0).
+</para>
+
+</directive>
+
+
+<directive name="auth_jwt_require">
+<syntax><value>значение</value> ...</syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<context>limit_except</context>
+<appeared-in>1.21.2</appeared-in>
+
+<para>
+Задаёт дополнительные условия для проверки JWT.
+В качестве значения можно использовать текст, переменные и их комбинации.
+Для успешной аутентификации необходимо, чтобы
+значение всех строковых параметров было непустое или не равно “0”.
+<example>
+map $jwt_claim_iss $valid_jwt_iss {
+    "good" 1;
+}
+...
+
+auth_jwt_require $valid_jwt_iss;
+</example>
 </para>
 
 </directive>
@@ -353,6 +409,15 @@ JWE (<literal>encrypted</literal>).
 доступны только после дешифрования, которое происходит в
 <link doc="../dev/development_guide.xml" id="http_phases">Access</link>-фазе.
 </para>
+</tag-desc>
+
+<tag-name id="var_jwt_payload"><var>$jwt_payload</var></tag-name>
+<tag-desc>
+возвращает расшифрованную полезную нагрузку (payload) верхнего уровня
+для <literal>вложенных</literal>
+или <literal>зашифрованных</literal> токенов (1.21.2).
+Для вложенных токенов возвращает внутренний JWS токен.
+Для зашифрованных токенов возвращает JSON с claims.
 </tag-desc>
 
 </list>

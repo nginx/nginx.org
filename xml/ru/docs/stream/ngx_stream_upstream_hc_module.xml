@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_upstream_hc_module"
         link="/ru/docs/stream/ngx_stream_upstream_hc_module.html"
         lang="ru"
-        rev="5">
+        rev="6">
 
 <section id="summary">
 
@@ -154,14 +154,22 @@ server {
 </tag-desc>
 
 <tag-name id="health_check_mandatory">
-<literal>mandatory</literal>
+<literal>mandatory</literal> [<literal>persistent</literal>]
 </tag-name>
 <tag-desc>
+<para>
 устанавливает исходное состояние “checking” для сервера
 до завершения первой проверки работоспособности (1.11.7).
 На серверы в состоянии “checking” клиентские соединения передаваться не будут.
 Если параметр не указан,
 то исходно сервер будет считаться работоспособным.
+</para>
+
+<para id="health_check_persistent">
+Параметр <literal>persistent</literal> (1.21.1)
+устанавливает исходное состояние “up” для сервера после перезагрузки nginx
+в случае, если до перезагрузки сервер считался работоспособным.
+</para>
 </tag-desc>
 
 <tag-name id="health_check_match">

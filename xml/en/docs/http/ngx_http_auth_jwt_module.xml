@@ -9,7 +9,7 @@
 <module name="Module ngx_http_auth_jwt_module"
         link="/en/docs/http/ngx_http_auth_jwt_module.html"
         lang="en"
-        rev="11">
+        rev="12">
 
 <section id="summary">
 
@@ -18,11 +18,10 @@ The <literal>ngx_http_auth_jwt_module</literal> module (1.11.3)
 implements client authorization by validating the provided
 <link url="https://tools.ietf.org/html/rfc7519">JSON Web Token</link> (JWT)
 using the specified keys.
-JWT claims can be encoded in a
-<link url="https://tools.ietf.org/html/rfc7515">JSON Web Signature</link> (JWS)
-or
+The module supports
+<link url="https://tools.ietf.org/html/rfc7515">JSON Web Signature</link> (JWS),
 <link url="https://tools.ietf.org/html/rfc7516">JSON Web Encryption</link> (JWE)
-(1.19.7) structure.
+(1.19.7), and Nested JWT (1.21.0).
 The module can be used for
 <link url="http://openid.net/specs/openid-connect-core-1_0.html">OpenID Connect</link>
 authentication.
@@ -112,6 +111,10 @@ A128GCMKW, A192GCMKW, A256GCMKW
 
 <listitem>
 dir&mdash;direct use of a shared symmetric key as the content encryption key
+</listitem>
+
+<listitem>
+RSA-OAEP, RSA-OAEP-256, RSA-OAEP-384, RSA-OAEP-512 (1.21.0)
 </listitem>
 
 </list>
@@ -241,6 +244,18 @@ format for validating JWT signature.
 Parameter value can contain variables.
 </para>
 
+<para>
+Several <literal>auth_jwt_key_file</literal> directives
+can be specified on the same level (1.21.1):
+<example>
+auth_jwt_key_file conf/keys.json;
+auth_jwt_key_file conf/key.jwk;
+</example>
+If at least one of the specified keys cannot be loaded or processed,
+nginx will return the
+<http-status code="500" text="Internal Server Error"/> error.
+</para>
+
 </directive>
 
 
@@ -279,6 +294,15 @@ server {
     }
 }
 </example>
+Several <literal>auth_jwt_key_request</literal> directives
+can be specified on the same level (1.21.1):
+<example>
+auth_jwt_key_request /jwks_uri;
+auth_jwt_key_request /jwks2_uri;
+</example>
+If at least one of the specified keys cannot be loaded or processed,
+nginx will return the
+<http-status code="500" text="Internal Server Error"/> error.
 </para>
 
 </directive>
@@ -305,7 +329,9 @@ JWT claims.
 
 
 <directive name="auth_jwt_type">
-<syntax><value>signed</value> | <value>encrypted</value></syntax>
+<syntax><value>signed</value> |
+        <value>encrypted</value> |
+        <value>nested</value></syntax>
 <default>signed</default>
 <context>http</context>
 <context>server</context>
@@ -315,8 +341,37 @@ JWT claims.
 
 <para>
 Specifies which type of JSON Web Token to expect:
-JWS (<literal>signed</literal>) or
-JWE (<literal>encrypted</literal>).
+JWS (<literal>signed</literal>),
+JWE (<literal>encrypted</literal>),
+or signed and then encrypted
+Nested JWT (<literal>nested</literal>) (1.21.0).
+</para>
+
+</directive>
+
+
+<directive name="auth_jwt_require">
+<syntax><value>value</value> ...</syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<context>limit_except</context>
+<appeared-in>1.21.2</appeared-in>
+
+<para>
+Defines additional conditions for JWT validation.
+The value can contain text, variables, and their combination.
+The authentication will succeed only
+if all the values are not empty and are not equal to “0”.
+<example>
+map $jwt_claim_iss $valid_jwt_iss {
+    "good" 1;
+}
+...
+
+auth_jwt_require $valid_jwt_iss;
+</example>
 </para>
 
 </directive>
@@ -355,6 +410,15 @@ Variable values for tokens encrypted with JWE
 are available only after decryption which occurs during the
 <link doc="../dev/development_guide.xml" id="http_phases">Access</link> phase.
 </para>
+</tag-desc>
+
+<tag-name id="var_jwt_payload"><var>$jwt_payload</var></tag-name>
+<tag-desc>
+returns the decrypted top-level payload
+of <literal>nested</literal>
+or <literal>encrypted</literal> tokens (1.21.2).
+For nested tokens returns the enclosed JWS token.
+For encrypted tokens returns JSON with claims.
 </tag-desc>
 
 </list>

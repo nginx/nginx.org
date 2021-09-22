@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_upstream_hc_module"
         link="/en/docs/stream/ngx_stream_upstream_hc_module.html"
         lang="en"
-        rev="5">
+        rev="6">
 
 <section id="summary">
 
@@ -154,14 +154,23 @@ by default, 1.
 </tag-desc>
 
 <tag-name id="health_check_mandatory">
-<literal>mandatory</literal>
+<literal>mandatory</literal> [<literal>persistent</literal>]
 </tag-name>
 <tag-desc>
+<para>
 sets the initial “checking” state for a server
 until the first health check is completed (1.11.7).
 Client connections are not passed to servers in the “checking” state.
 If the parameter is not specified,
 the server will be initially considered healthy.
+</para>
+
+<para id="health_check_persistent">
+The <literal>persistent</literal> parameter (1.21.1)
+sets the initial “up” state for a server after reload
+if the server was considered healthy before reload.
+</para>
+
 </tag-desc>
 
 <tag-name id="health_check_match">

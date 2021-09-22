@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: '6.0'
+  version: '7.0'
   title: NGINX Plus REST API
   description: NGINX Plus REST
     [API](https://nginx.org/en/docs/http/ngx_http_api_module.html)
@@ -9,7 +9,7 @@ info:
     key-value pairs management for
     [http](https://nginx.org/en/docs/http/ngx_http_keyval_module.html) and
     [stream](https://nginx.org/en/docs/stream/ngx_stream_keyval_module.html).
-basePath: /api/6
+basePath: /api/7
 tags:
   - name: General Info
   - name: Processes
@@ -2384,6 +2384,11 @@ definitions:
           3xx: 4614
           4xx: 934
           5xx: 1535
+          codes:
+            200: 727270
+            301: 4614
+            404: 930
+            503: 1535
           total: 734373
         discarded: 2020
         received: 180157219
@@ -2397,6 +2402,11 @@ definitions:
           3xx: 45383
           4xx: 2504
           5xx: 4419
+          codes:
+            200: 112674
+            301: 45383
+            404: 2504
+            503: 4419
           total: 164980
         discarded: 20326
         received: 51575327
@@ -2413,10 +2423,11 @@ definitions:
         type: integer
         description: The total number of client requests received from clients.
       responses:
-        description: The total number of responses sent to clients and the
+        description: The total number of responses sent to clients, the
           number of responses with status codes
           “<code>1xx</code>”, “<code>2xx</code>”, “<code>3xx</code>”,
-          “<code>4xx</code>”, and “<code>5xx</code>”.
+          “<code>4xx</code>”, and “<code>5xx</code>”, and
+          the number of responses per each status code.
         type: object
         readOnly: true
         properties:
@@ -2440,6 +2451,15 @@ definitions:
             type: integer
             description: The number of responses with “<code>5xx</code>” status codes.
             readOnly: true
+          codes:
+            type: object
+            description: The number of responses per each status code.
+            readOnly: true
+            properties:
+              codeNumber:
+                type: integer
+                description: The number of responses with this particular status code.
+                readOnly: true
           total:
             type: integer
             description: The total number of responses sent to clients.
@@ -2463,6 +2483,11 @@ definitions:
         3xx: 4522
         4xx: 907
         5xx: 266
+        codes:
+          200: 699482
+          301: 4522
+          404: 907
+          503: 266
         total: 705177
       discarded: 1513
       received: 172711587
@@ -2484,6 +2509,11 @@ definitions:
           3xx: 4614
           4xx: 934
           5xx: 1535
+          codes:
+            200: 727290
+            301: 4614
+            404: 934
+            503: 1535
           total: 734373
         discarded: 2020
         received: 180157219
@@ -2496,6 +2526,11 @@ definitions:
           3xx: 45383
           4xx: 2504
           5xx: 4419
+          codes:
+            200: 112674
+            301: 45383
+            404: 2504
+            503: 4419
           total: 164980
         discarded: 20326
         received: 51575327
@@ -2508,10 +2543,11 @@ definitions:
         type: integer
         description: The total number of client requests received from clients.
       responses:
-        description: The total number of responses sent to clients and the
+        description: The total number of responses sent to clients, the
           number of responses with status codes
           “<code>1xx</code>”, “<code>2xx</code>”, “<code>3xx</code>”,
-          “<code>4xx</code>”, and “<code>5xx</code>”.
+          “<code>4xx</code>”, and “<code>5xx</code>”, and
+          the number of responses per each status code.
         type: object
         readOnly: true
         properties:
@@ -2535,6 +2571,15 @@ definitions:
             type: integer
             description: The number of responses with “<code>5xx</code>” status codes.
             readOnly: true
+          codes:
+            type: object
+            description: The number of responses per each status code.
+            readOnly: true
+            properties:
+              codeNumber:
+                type: integer
+                description: The number of responses with this particular status code.
+                readOnly: true
           total:
             type: integer
             description: The total number of responses sent to clients.
@@ -2557,6 +2602,11 @@ definitions:
         3xx: 4522
         4xx: 907
         5xx: 266
+        codes:
+          200: 112674
+          301: 4522
+          404: 2504
+          503: 266
         total: 705177
       discarded: 1513
       received: 172711587
@@ -2860,6 +2910,10 @@ definitions:
               3xx: 0
               4xx: 915
               5xx: 6
+              codes:
+                200: 666310
+                404: 915
+                503: 6
               total: 667231
             sent: 251946292
             received: 19222475454
@@ -2887,6 +2941,7 @@ definitions:
               3xx: 0
               4xx: 0
               5xx: 0
+              codes: {}
               total: 0
             sent: 0
             received: 0
@@ -2921,6 +2976,10 @@ definitions:
               3xx: 0
               4xx: 915
               5xx: 6
+              codes:
+                200: 666310
+                404: 915
+                503: 6
               total: 667231
             sent: 251946292
             received: 19222475454
@@ -2948,6 +3007,7 @@ definitions:
               3xx: 0
               4xx: 0
               5xx: 0
+              codes: {}
               total: 0
             sent: 0
             received: 0
@@ -3021,6 +3081,10 @@ definitions:
               3xx: 0
               4xx: 915
               5xx: 6
+              codes:
+                200: 666310
+                404: 915
+                503: 6
               total: 667231
             sent: 251946292
             received: 19222475454
@@ -3049,6 +3113,7 @@ definitions:
               3xx: 0
               4xx: 0
               5xx: 0
+              codes: {}
               total: 0
             sent: 0
             received: 0
@@ -3157,6 +3222,15 @@ definitions:
             type: integer
             description: The number of responses with “<code>5xx</code>” status codes.
             readOnly: true
+          codes:
+            type: object
+            description: The number of responses per each status code.
+            readOnly: true
+            properties:
+              codeNumber:
+                type: integer
+                description: The number of responses with this particular status code.
+                readOnly: true
           total:
             type: integer
             description: The total number of responses obtained from this server.
