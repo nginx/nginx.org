@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_ssl_module"
         link="/ru/docs/http/ngx_http_ssl_module.html"
         lang="ru"
-        rev="53">
+        rev="54">
 
 <section id="summary">
 
@@ -612,7 +612,7 @@ http {
 </note>
 <note>
 Параметр <literal>TLSv1.3</literal> (1.13.0) работает только
-при использовании OpenSSL 1.1.1, собранной с поддержкой TLSv1.3.
+при использовании OpenSSL 1.1.1 и выше.
 </note>
 </para>
 

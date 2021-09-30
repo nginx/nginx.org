@@ -10,7 +10,7 @@
 <module name="Module ngx_http_ssl_module"
         link="/en/docs/http/ngx_http_ssl_module.html"
         lang="en"
-        rev="53">
+        rev="54">
 
 <section id="summary">
 
@@ -607,7 +607,7 @@ The <literal>TLSv1.1</literal> and <literal>TLSv1.2</literal> parameters
 </note>
 <note>
 The <literal>TLSv1.3</literal> parameter (1.13.0) works only when
-OpenSSL 1.1.1 built with TLSv1.3 support is used.
+OpenSSL 1.1.1 or higher is used.
 </note>
 </para>
 

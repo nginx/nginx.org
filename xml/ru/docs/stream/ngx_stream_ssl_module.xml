@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_ssl_module"
         link="/ru/docs/stream/ngx_stream_ssl_module.html"
         lang="ru"
-        rev="24">
+        rev="25">
 
 <section id="summary">
 
@@ -429,7 +429,7 @@ stream {
 </note>
 <note>
 Параметр <literal>TLSv1.3</literal> (1.13.0) работает только
-при использовании OpenSSL 1.1.1, собранной с поддержкой TLSv1.3.
+при использовании OpenSSL 1.1.1 и выше.
 </note>
 </para>
 

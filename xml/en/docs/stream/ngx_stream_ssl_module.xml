@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_ssl_module"
         link="/en/docs/stream/ngx_stream_ssl_module.html"
         lang="en"
-        rev="24">
+        rev="25">
 
 <section id="summary">
 
@@ -427,7 +427,7 @@ only when OpenSSL 1.0.1 or higher is used.
 </note>
 <note>
 The <literal>TLSv1.3</literal> parameter (1.13.0) works only when
-OpenSSL 1.1.1 built with TLSv1.3 support is used.
+OpenSSL 1.1.1 or higher is used.
 </note>
 </para>
 
