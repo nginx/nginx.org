@@ -20,8 +20,8 @@
 
     <div id="banner">
         <xsl:if test="@lang = 'he'"> <xsl:attribute name="class"> <xsl:text>ltr</xsl:text> </xsl:attribute> </xsl:if>
-        The 2021 NGINX Annual Community Survey is now open.<br/>
-        <a href="https://survey.f5.com/v1/sites/nginx/SurveyResponse?at=1I0025DXE6KKG8JCV1KHEZ8U6WNP8QI5ONSB">Share your opinion and feedback on NGINX</a>
+        Learn 97 site reliability tips and best practices in this new O'Reilly ebook.<br/>
+        <a href="https://www.nginx.com/resources/library/97-things-every-sre-should-know?utm_medium=homepagehero&amp;utm_source=nginxorg&amp;utm_campaign=ww-nx_ssap&amp;utm_content=eb">Download for free at nginx.com</a>
     </div>
 
     <div id="main">
