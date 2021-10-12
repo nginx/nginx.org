@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_proxy_module"
         link="/en/docs/stream/ngx_stream_proxy_module.html"
         lang="en"
-        rev="27">
+        rev="28">
 
 <section id="summary">
 
@@ -154,6 +154,23 @@ map $slow $rate {
 
 proxy_download_rate $rate;
 </example>
+</para>
+
+</directive>
+
+
+<directive name="proxy_half_close">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.21.4</appeared-in>
+
+<para>
+Enables or disables closing
+each direction of a TCP connection independently (“TCP half-close”).
+If enabled, proxying over TCP will be kept
+until both sides close the connection.
 </para>
 
 </directive>
