@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="76">
+        rev="77">
 
 <section id="summary">
 
@@ -371,6 +371,22 @@ The method may be called only from the
 sends the HTTP headers to the client
 </tag-desc>
 
+<tag-name id="r_set_return_value"><literal>r.setReturnValue()</literal></tag-name>
+<tag-desc>
+sets the return value of the
+<link doc="../http/ngx_http_js_module.xml" id="js_set"/> handler
+(<link doc="changes.xml" id="njs0.7.0">0.7.0</link>).
+Unlike an ordinary return statement,
+this method should be used when the handler is JS async function.
+For example:
+<example>
+async function js_set(r) {
+    const digest = await crypto.subtle.digest('SHA-256', r.headersIn.host);
+    r.setReturnValue(digest);
+}
+</example>
+</tag-desc>
+
 <tag-name id="r_status"><literal>r.status</literal></tag-name>
 <tag-desc>
 status, writable
@@ -689,6 +705,22 @@ session status code, an alias to the
 variable,
 read only
 (since <link doc="changes.xml" id="njs0.5.2">0.5.2</link>)
+</tag-desc>
+
+<tag-name id="s_set_return_value"><literal>s.setReturnValue()</literal></tag-name>
+<tag-desc>
+sets the return value of the
+<link doc="../stream/ngx_stream_js_module.xml" id="js_set"/> handler
+(<link doc="changes.xml" id="njs0.7.0">0.7.0</link>).
+Unlike an ordinary return statement,
+this method should be used when the handler is JS async function.
+For example:
+<example>
+async function js_set(r) {
+    const digest = await crypto.subtle.digest('SHA-256', r.headersIn.host);
+    r.setReturnValue(digest);
+}
+</example>
 </tag-desc>
 
 <tag-name id="s_variables"><literal>s.variables{}</literal></tag-name>
