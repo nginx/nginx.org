@@ -9,7 +9,7 @@
 <article name="Совместимость"
         link="/ru/docs/njs/compatibility.html"
         lang="ru"
-        rev="33"
+        rev="34"
         toc="no">
 
 <section>
@@ -75,7 +75,9 @@ ES5.1 инструкции:
 <listitem>
 ES6 инструкции:
 <literal>let</literal> (<link doc="changes.xml" id="njs0.6.0">0.6.0</link>),
-<literal>const</literal> (<link doc="changes.xml" id="njs0.6.0">0.6.0</link>)
+<literal>const</literal> (<link doc="changes.xml" id="njs0.6.0">0.6.0</link>),
+<literal>async</literal> (<link doc="changes.xml" id="njs0.7.0">0.7.0</link>),
+<literal>await</literal> (<link doc="changes.xml" id="njs0.7.0">0.7.0</link>)
 </listitem>
 
 <listitem>
