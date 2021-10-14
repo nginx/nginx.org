@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_js_module"
         link="/ru/docs/http/ngx_http_js_module.html"
         lang="ru"
-        rev="29">
+        rev="30">
 
 <section id="summary">
 
@@ -197,6 +197,83 @@ function filter(r, data, flags) {
 Задаёт функцию njs в качестве обработчика содержимого location.
 Начиная с версии <link doc="../njs/changes.xml" id="njs0.4.0">0.4.0</link>
 можно ссылаться на функцию модуля.
+</para>
+
+</directive>
+
+
+<directive name="js_fetch_ciphers">
+<syntax><value>шифры</value></syntax>
+<default>HIGH:!aNULL:!MD5</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>0.7.0</appeared-in>
+
+<para>
+Описывает разрешённые шифры для HTTPS-запросов
+при помощи <link doc="../njs/reference.xml" id="ngx_fetch">Fetch API</link>.
+Шифры задаются в формате, поддерживаемом библиотекой OpenSSL.
+</para>
+
+<para>
+Полный список можно посмотреть с помощью команды
+“<command>openssl ciphers</command>”.
+</para>
+
+</directive>
+
+
+<directive name="js_fetch_protocols">
+<syntax>
+    [<literal>TLSv1</literal>]
+    [<literal>TLSv1.1</literal>]
+    [<literal>TLSv1.2</literal>]
+    [<literal>TLSv1.3</literal>]</syntax>
+<default>TLSv1 TLSv1.1 TLSv1.2</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>0.7.0</appeared-in>
+
+<para>
+Разрешает указанные протоколы для HTTPS-запросов
+при помощи <link doc="../njs/reference.xml" id="ngx_fetch">Fetch API</link>.
+</para>
+
+</directive>
+
+
+<directive name="js_fetch_trusted_certificate">
+<syntax><value>файл</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>0.7.0</appeared-in>
+
+<para>
+Задаёт <value>файл</value> с доверенными сертификатами CA в формате PEM,
+используемыми при
+<link doc="../njs/reference.xml" id="fetch_verify">проверке</link>
+HTTPS-сертификата
+при помощи <link doc="../njs/reference.xml" id="ngx_fetch">Fetch API</link>.
+</para>
+
+</directive>
+
+
+<directive name="js_fetch_verify_depth">
+<syntax><value>число</value></syntax>
+<default>100</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>0.7.0</appeared-in>
+
+<para>
+Устанавливает глубину проверки в цепочке HTTPS-сертификатов
+при помощи <link doc="../njs/reference.xml" id="ngx_fetch">Fetch API</link>.
 </para>
 
 </directive>

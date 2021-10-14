@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_js_module"
         link="/en/docs/stream/ngx_stream_js_module.html"
         lang="en"
-        rev="28">
+        rev="29">
 
 <section id="summary">
 
@@ -140,6 +140,79 @@ Sets an njs function which will be called at the
 <link doc="stream_processing.xml" id="access_phase">access</link> phase.
 Since <link doc="../njs/changes.xml" id="njs0.4.0">0.4.0</link>,
 a module function can be referenced.
+</para>
+
+</directive>
+
+
+<directive name="js_fetch_ciphers">
+<syntax><value>ciphers</value></syntax>
+<default>HIGH:!aNULL:!MD5</default>
+<context>stream</context>
+<context>server</context>
+<appeared-in>0.7.0</appeared-in>
+
+<para>
+Specifies the enabled ciphers for HTTPS connections
+with <link doc="../njs/reference.xml" id="ngx_fetch">Fetch API</link>.
+The ciphers are specified in the format understood by the OpenSSL library.
+</para>
+
+<para>
+The full list can be viewed using the
+“<command>openssl ciphers</command>” command.
+</para>
+
+</directive>
+
+
+<directive name="js_fetch_protocols">
+<syntax>
+    [<literal>TLSv1</literal>]
+    [<literal>TLSv1.1</literal>]
+    [<literal>TLSv1.2</literal>]
+    [<literal>TLSv1.3</literal>]</syntax>
+<default>TLSv1 TLSv1.1 TLSv1.2</default>
+<context>stream</context>
+<context>server</context>
+<appeared-in>0.7.0</appeared-in>
+
+<para>
+Enables the specified protocols for HTTPS connections
+with <link doc="../njs/reference.xml" id="ngx_fetch">Fetch API</link>.
+</para>
+
+</directive>
+
+
+<directive name="js_fetch_trusted_certificate">
+<syntax><value>file</value></syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+<appeared-in>0.7.0</appeared-in>
+
+<para>
+Specifies a <value>file</value> with trusted CA certificates in the PEM format
+used to
+<link doc="../njs/reference.xml" id="fetch_verify">verify</link>
+the HTTPS certificate
+with <link doc="../njs/reference.xml" id="ngx_fetch">Fetch API</link>.
+</para>
+
+</directive>
+
+
+<directive name="js_fetch_verify_depth">
+<syntax><value>number</value></syntax>
+<default>100</default>
+<context>stream</context>
+<context>server</context>
+<appeared-in>0.7.0</appeared-in>
+
+<para>
+Sets the verification depth in the HTTPS server certificates chain
+with <link doc="../njs/reference.xml" id="ngx_fetch">Fetch API</link>.
 </para>
 
 </directive>
