@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="74">
+        rev="75">
 
 <section id="summary">
 
@@ -825,7 +825,8 @@ Makes a request to fetch an URL
 (<link doc="changes.xml" id="njs0.5.1">0.5.1</link>),
 returns a <literal>Promise</literal> that resolves with
 the <link id="response"><literal>Response</literal></link> object.
-Only the <literal>http://</literal> scheme is supported,
+Since <link doc="changes.xml" id="njs0.7.0">0.7.0</link>,
+the <literal>https://</literal> scheme is supported,
 redirects are not handled.
 <para>
 The <literal>options</literal> parameter is expected to be an object
