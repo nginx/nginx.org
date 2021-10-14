@@ -9,7 +9,7 @@
 <article name="Примеры использования"
         link="/ru/docs/njs/examples.html"
         lang="ru"
-        rev="18">
+        rev="19">
 
 <section id="summary">
 
@@ -113,12 +113,12 @@ export default {jwt};
 js_import http.js;
 
 js_set $new_foo http.create_secure_link;
-...
+#...
 
 location / {
     secure_link $cookie_foo;
     secure_link_md5 "$uri mykey";
-    ...
+    #...
 }
 
 location @login {
@@ -152,10 +152,10 @@ export default {create_secure_link};
 <example>
 js_import http.js;
 
-js_set $jwt_payload_sub main.jwt_payload_sub;
+js_set $jwt_payload_sub http.jwt_payload_sub;
 
 server {
-    ...
+    #...
 
     location /jwt {
         return 200 $jwt_payload_sub;
@@ -178,7 +178,7 @@ function jwt_payload_sub(r) {
     return jwt(r.headersIn.Authorization.slice(7)).payload.sub;
 }
 
-export default {jwt_payload_sub}
+export default {jwt_payload_sub};
 </example>
 </para>
 
@@ -198,7 +198,7 @@ export default {jwt_payload_sub}
 js_import http.js;
 
 keyval_zone zone=foo:10m;
-...
+#...
 
 location /keyval {
     js_content http.set_keyval;
@@ -218,7 +218,7 @@ location /api {
 <path>http.js</path>:
 <example>
 function set_keyval(r) {
-    r.subrequest('/api/5/http/keyvals/foo',
+    r.subrequest('/api/7/http/keyvals/foo',
         { method: 'POST',
           body: JSON.stringify({ foo: 789, bar: "ss dd 00" })},
 
@@ -232,7 +232,7 @@ function set_keyval(r) {
 }
 
 function version(r) {
-    r.subrequest('/api/5/nginx', { method: 'GET' }, function(res) {
+    r.subrequest('/api/7/nginx', { method: 'GET' }, function(res) {
         if (res.status != 200) {
             r.return(res.status);
             return;
@@ -245,6 +245,13 @@ function version(r) {
 
 export default {set_keyval, version};
 </example>
+<note>
+Директивы <link doc="../http/ngx_http_keyval_module.xml" id="keyval"/>,
+<link doc="../http/ngx_http_keyval_module.xml" id="keyval_zone"/>
+и <link doc="../http/ngx_http_api_module.xml" id="api"/>
+доступны как часть
+<commercial_version>коммерческой подписки</commercial_version>.
+</note>
 </para>
 
 </section>
