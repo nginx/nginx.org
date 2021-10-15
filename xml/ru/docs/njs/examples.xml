@@ -9,7 +9,7 @@
 <article name="Примеры использования"
         link="/ru/docs/njs/examples.html"
         lang="ru"
-        rev="19">
+        rev="20">
 
 <section id="summary">
 
@@ -148,6 +148,11 @@ export default {create_secure_link};
                               как значение переменной nginx">
 
 <para>
+В данном примере из JWT payload извлекается поле <literal>sub</literal>.
+JWT-токен извлекается из заголовка <header>Authorization</header>.
+</para>
+
+<para>
 <path>nginx.conf</path>:
 <example>
 js_import http.js;
@@ -176,6 +181,8 @@ function jwt(data) {
 
 function jwt_payload_sub(r) {
     return jwt(r.headersIn.Authorization.slice(7)).payload.sub;
+    // в случае, если токен передаётся как аргумент "myjwt"
+    // return jwt(r.args.myjwt).payload.sub;
 }
 
 export default {jwt_payload_sub};

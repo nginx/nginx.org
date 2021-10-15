@@ -9,7 +9,7 @@
 <article name="Examples"
         link="/en/docs/njs/examples.html"
         lang="en"
-        rev="19">
+        rev="20">
 
 <section id="summary">
 
@@ -148,6 +148,12 @@ export default {create_secure_link};
                               as nginx Variable">
 
 <para>
+In the following example, the <literal>sub</literal> field
+is extracted from JWT payload.
+The JWT token is taken from the <header>Authorization</header> header.
+</para>
+
+<para>
 <path>nginx.conf</path>:
 <example>
 js_import http.js;
@@ -176,6 +182,8 @@ function jwt(data) {
 
 function jwt_payload_sub(r) {
     return jwt(r.headersIn.Authorization.slice(7)).payload.sub;
+    // when the token is provided as the "myjwt" argument
+    // return jwt(r.args.myjwt).payload.sub;
 }
 
 export default {jwt_payload_sub};
