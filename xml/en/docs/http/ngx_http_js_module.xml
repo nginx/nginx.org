@@ -9,7 +9,7 @@
 <module name="Module ngx_http_js_module"
         link="/en/docs/http/ngx_http_js_module.html"
         lang="en"
-        rev="30">
+        rev="31">
 
 <section id="summary">
 
@@ -39,6 +39,7 @@ http {
 
     js_set $foo     http.foo;
     js_set $summary http.summary;
+    js_set $hash    http.hash;
 
     server {
         listen 8000;
@@ -54,6 +55,18 @@ http {
 
         location = /hello {
             js_content http.hello;
+        }
+
+        # since 0.7.0
+        location = /fetch {
+            js_content                   http.fetch;
+            js_fetch_trusted_certificate /path/to/ISRG_Root_X1.pem;
+        }
+
+        # since 0.7.0
+        location = /crypto {
+            add_header Hash $hash;
+            return     200;
         }
     }
 }
@@ -109,7 +122,21 @@ function hello(r) {
     r.return(200, "Hello world!");
 }
 
-export default {foo, summary, baz, hello};
+// since 0.7.0
+async function fetch(r) {
+    let results = await Promise.all([ngx.fetch('http://nginx.org/'),
+                                     ngx.fetch('http://nginx.org/en/')]);
+
+    r.return(200, JSON.stringify(results, undefined, 4));
+}
+
+// since 0.7.0
+async function hash(r) {
+    let hash = await crypto.subtle.digest('SHA-512', r.headersIn.host);
+    r.setReturnValue(Buffer.from(hash).toString('hex'));
+}
+
+export default {foo, summary, baz, hello, fetch, hash};
 </example>
 </para>
 
