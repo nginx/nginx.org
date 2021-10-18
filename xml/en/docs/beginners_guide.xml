@@ -341,7 +341,7 @@ Note that the <literal>root</literal> directive is placed in the
 <literal>server</literal> context.
 Such <literal>root</literal> directive is used when the
 <literal>location</literal> block selected for serving a request does not
-include own <literal>root</literal> directive.
+include its own <literal>root</literal> directive.
 </para>
 
 <para>
