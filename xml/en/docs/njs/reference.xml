@@ -935,6 +935,1207 @@ The following log levels can be specified:
 <section id="builtin_objects" name="built-in objects">
 
 
+<section id="builtin_crypto" name="crypto">
+
+<para>
+The <literal>crypto</literal> object is a global object
+that allows using cryptographic functionality
+(since <link doc="changes.xml" id="njs0.7.0">0.7.0</link>).
+</para>
+
+<para>
+<list type="tag">
+
+<tag-name id="crypto_get_random_values"><literal>сrypto.getRandomValues</literal>(<link id="crypto_get_random_values_array"><literal>typedArray</literal></link>)</tag-name>
+<tag-desc>
+Gets cryptographically strong random values.
+Returns the same array passed as <literal>typedArray</literal>
+but with its contents replaced with the newly generated random numbers.
+Possible values:
+
+<list type="tag">
+<tag-name id="crypto_get_random_values_array"><literal>typedArray</literal></tag-name>
+<tag-desc>
+can be
+<literal>Int8Array</literal>,
+<literal>Int16Array</literal>,
+<literal>Uint16Array</literal>,
+<literal>Int32Array</literal>, or
+<literal>Uint32Array</literal>
+</tag-desc>
+</list>
+
+</tag-desc>
+
+<tag-name id="crypto_subtle_encrypt"><literal>сrypto.subtle.encrypt</literal>(<link id="crypto_encrypt_alg"><literal>algorithm</literal></link>,
+<link id="crypto_encrypt_key"><literal>key</literal></link>,
+<link id="crypto_encrypt_data"><literal>data</literal></link>)</tag-name>
+<tag-desc>
+Encrypts <link id="crypto_encrypt_data"><literal>data</literal></link>
+using the provided
+<link id="crypto_encrypt_algorithm"><literal>algorithm</literal></link> and
+<link id="crypto_encrypt_key"><literal>key</literal></link>.
+Returns a <literal>Promise</literal> that fulfills with
+an <literal>ArrayBuffer</literal> containing the ciphertext.
+Possible values:
+
+<list type="tag">
+<tag-name id="crypto_encrypt_alg"><literal>algorithm</literal></tag-name>
+<tag-desc>
+an object that specifies
+the algorithm to be used and any extra parameters if required:
+
+<list type="bullet">
+<listitem id="rsa_oaep_params">
+for <literal>RSA-OAEP</literal>,
+pass the object with the following keys:
+
+<list type="bullet">
+
+<listitem>
+<literal>name</literal> is a string,
+should be set to <literal>RSA-OAEP</literal>:
+<para>
+<example>
+crypto.subtle.encrypt({name: "RSA-OAEP"}, key, data)
+</example>
+</para>
+</listitem>
+</list>
+
+</listitem>
+
+<listitem id="aes_ctr_params">
+for <literal>AES-CTR</literal>,
+pass the object with the following keys:
+
+<list type="bullet">
+
+<listitem>
+<literal>name</literal> is a string,
+should be set to <literal>AES-CTR</literal>
+</listitem>
+
+<listitem>
+<literal>counter</literal> is an
+<literal>ArrayBuffer</literal>,
+<literal>TypedArray</literal>, or
+<literal>DataView</literal> —
+the initial value of the counter block,
+must be 16 bytes long (the AES block size).
+The rightmost length bits of this block are used for the counter,
+and the rest is used for the nonce.
+For example, if length is set to 64,
+then the first half of counter is the nonce
+and the second half is used for the counter
+</listitem>
+
+<listitem>
+<literal>length</literal> is the number of bits in the counter block
+that are used for the actual counter.
+The counter must be big enough that it doesn't wrap.
+</listitem>
+</list>
+
+</listitem>
+
+<listitem id="aes_cbc_params">
+for <literal>AES-CBC</literal>, pass the object with the following keys:
+
+<list type="bullet">
+
+<listitem>
+<literal>name</literal> is a string,
+should be set to <literal>AES-CBC</literal>
+</listitem>
+
+<listitem>
+<literal>iv</literal> or the initialization vector, is an
+<literal>ArrayBuffer</literal>,
+<literal>TypedArray</literal>, or
+<literal>DataView</literal>,
+must be 16 bytes, unpredictable,
+and preferably cryptographically random.
+However, it need not be secret,
+for example, it may be transmitted unencrypted along with the ciphertext.
+</listitem>
+</list>
+
+</listitem>
+
+<listitem id="aes_gcm_params">
+for <literal>AES-GCM</literal>, pass the object with the following keys:
+
+<list type="bullet">
+
+<listitem>
+<literal>name</literal> is a string,
+should be set to <literal>AES-GCM</literal>
+</listitem>
+
+<listitem>
+<literal>iv</literal> or the initialization vector, is an
+<literal>ArrayBuffer</literal>,
+<literal>TypedArray</literal>, or
+<literal>DataView</literal>,
+must be 16 bytes,
+and must be unique for every encryption operation carried out with a given key
+</listitem>
+
+<listitem>
+<literal>additionalData</literal> (optional) is an
+<literal>ArrayBuffer</literal>,
+<literal>TypedArray</literal>, or
+<literal>DataView</literal>
+that contains additional data that
+will not be encrypted but will be authenticated along with the encrypted data.
+If <literal>additionalData</literal> is specified,
+then the same data must be specified in the corresponding call to
+<literal>decrypt()</literal>:
+if the data given to the <literal>decrypt()</literal> call
+does not match the original data,
+the decryption will throw an exception.
+The bit length of <literal>additionalData</literal> 
+must be smaller than <literal>2^64 - 1</literal>.
+</listitem>
+
+<listitem>
+<literal>tagLength</literal> (optional, default is <literal>128</literal>) -
+a <literal>number</literal> that determines the size in bits
+of the authentication tag generated in the encryption operation
+and used for authentication in the corresponding decryption
+Possible values:
+<literal>32</literal>,
+<literal>64</literal>,
+<literal>96</literal>,
+<literal>104</literal>,
+<literal>112</literal>,
+<literal>120</literal>, or
+<literal>128</literal>.
+The AES-GCM specification recommends that it should be
+<literal>96</literal>,
+<literal>104</literal>,
+<literal>112</literal>,
+<literal>120</literal>, or
+<literal>128</literal>,
+although
+<literal>32</literal> or
+<literal>64</literal>
+bits may be acceptable in some applications.
+</listitem>
+</list>
+
+</listitem>
+</list>
+
+</tag-desc>
+
+<tag-name id="crypto_encrypt_key"><literal>key</literal></tag-name>
+<tag-desc>
+a <literal>CryptoKey</literal> that contains
+the key to be used for encryption
+</tag-desc>
+
+<tag-name id="crypto_encrypt_data"><literal>data</literal></tag-name>
+<tag-desc>
+an
+<literal>ArrayBuffer</literal>,
+<literal>TypedArray</literal>, or
+<literal>DataView</literal>
+that contains
+the data to be encrypted (also known as the plaintext)
+</tag-desc>
+</list>
+
+</tag-desc>
+
+<tag-name id="crypto_subtle_decrypt"><literal>сrypto.subtle.decrypt</literal>(<link id="crypto_decrypt_alg"><literal>algorithm</literal></link>,
+<link id="crypto_decrypt_key"><literal>key</literal></link>,
+<link id="crypto_decrypt_data"><literal>data</literal></link>)</tag-name>
+<tag-desc>
+Decrypts encrypted data.
+Returns a <literal>Promise</literal> with the decrypted data.
+Possible values:
+
+<list type="tag">
+
+<tag-name id="crypto_decrypt_alg"><literal>algorithm</literal></tag-name>
+<tag-desc>
+an object
+that specifies the algorithm to be used, and any extra parameters as required.
+The values given for the extra parameters must match
+those passed into the corresponding <literal>encrypt()</literal> call.
+
+<list type="bullet">
+<listitem>
+for <literal>RSA-OAEP</literal>,
+pass the object with the following keys:
+
+<list type="bullet">
+
+<listitem>
+<literal>name</literal> is a string,
+should be set to <literal>RSA-OAEP</literal>:
+<para>
+<example>
+crypto.subtle.encrypt({name: "RSA-OAEP"}, key, data)
+</example>
+</para>
+</listitem>
+</list>
+</listitem>
+
+<listitem>
+for <literal>AES-CTR</literal>,
+pass the object with the following keys:
+
+<list type="bullet">
+
+<listitem>
+<literal>name</literal> is a string,
+should be set to <literal>AES-CTR</literal>
+</listitem>
+
+<listitem>
+<literal>counter</literal> is an
+<literal>ArrayBuffer</literal>,
+<literal>TypedArray</literal>, or
+<literal>DataView</literal> —
+the initial value of the counter block,
+must be 16 bytes long (the AES block size).
+The rightmost length bits of this block are used for the counter,
+and the rest is used for the nonce.
+For example, if length is set to 64,
+then the first half of counter is the nonce
+and the second half is used for the counter.
+</listitem>
+
+<listitem>
+<literal>length</literal> is the number of bits in the counter block
+that are used for the actual counter.
+The counter must be big enough that it doesn't wrap.
+</listitem>
+</list>
+
+</listitem>
+
+<listitem>
+for <literal>AES-CBC</literal>, pass the object with the following keys:
+
+<list type="bullet">
+
+<listitem>
+<literal>name</literal> is a string,
+should be set to <literal>AES-CBC</literal>
+</listitem>
+
+<listitem>
+<literal>iv</literal> or the initialization vector, is an
+<literal>ArrayBuffer</literal>,
+<literal>TypedArray</literal>, or
+<literal>DataView</literal>,
+must be 16 bytes, unpredictable,
+and preferably cryptographically random.
+However, it need not be secret
+(for example, it may be transmitted unencrypted along with the ciphertext).
+</listitem>
+</list>
+
+</listitem>
+
+<listitem>
+for <literal>AES-GCM</literal>, pass the object with the following keys:
+
+<list type="bullet">
+
+<listitem>
+<literal>name</literal> is a string,
+should be set to <literal>AES-GCM</literal>
+</listitem>
+
+<listitem>
+<literal>iv</literal> or the initialization vector, is an
+<literal>ArrayBuffer</literal>,
+<literal>TypedArray</literal>, or
+<literal>DataView</literal>,
+must be 16 bytes,
+and must be unique for every encryption operation carried out with a given key
+</listitem>
+
+<listitem>
+<literal>additionalData</literal> (optional) is an
+<literal>ArrayBuffer</literal>,
+<literal>TypedArray</literal>, or
+<literal>DataView</literal>
+that contains additional data that
+will not be encrypted but will be authenticated along with the encrypted data.
+If <literal>additionalData</literal> is specified,
+then the same data must be specified in the corresponding call to
+<literal>decrypt()</literal>:
+if the data given to the <literal>decrypt()</literal> call
+does not match the original data,
+the decryption will throw an exception.
+The bit length of <literal>additionalData</literal> 
+must be smaller than <literal>2^64 - 1</literal>.
+</listitem>
+
+<listitem>
+<literal>tagLength</literal> (optional, default is <literal>128</literal>) -
+a <literal>number</literal> that determines the size in bits
+of the authentication tag generated in the encryption operation
+and used for authentication in the corresponding decryption.
+Possible values:
+<literal>32</literal>,
+<literal>64</literal>,
+<literal>96</literal>,
+<literal>104</literal>,
+<literal>112</literal>,
+<literal>120</literal>, or
+<literal>128</literal>.
+The AES-GCM specification recommends that it should be
+<literal>96</literal>,
+<literal>104</literal>,
+<literal>112</literal>,
+<literal>120</literal>, or
+<literal>128</literal>,
+although
+<literal>32</literal> or
+<literal>64</literal>
+bits may be acceptable in some applications.
+</listitem>
+</list>
+
+</listitem>
+</list>
+
+</tag-desc>
+
+<tag-name id="crypto_decrypt_key"><literal>key</literal></tag-name>
+<tag-desc>
+a <literal>CryptoKey</literal>
+that contains the key to be used for decryption.
+If <literal>RSA-OAEP</literal> is used, this is the
+<literal>privateKey</literal> property of the
+<literal>CryptoKeyPair</literal> object.
+</tag-desc>
+
+<tag-name id="crypto_decrypt_data"><literal>data</literal></tag-name>
+<tag-desc>
+an
+<literal>ArrayBuffer</literal>,
+<literal>TypedArray</literal>, or
+<literal>DataView</literal>
+that contains the data to be decrypted (also known as ciphertext)
+</tag-desc>
+</list>
+
+</tag-desc>
+
+<tag-name id="crypto_subtle_derive_bits"><literal>сrypto.subtle.deriveBits</literal>(<link id="crypto_derive_bits_alg"><literal>algorithm</literal></link>,
+<link id="crypto_derive_bits_basekey"><literal>baseKey</literal></link>,
+<link id="crypto_derive_bits_length"><literal>length</literal></link>)</tag-name>
+<tag-desc>
+Derives an array of bits from a base key.
+Returns a <literal>Promise</literal>
+which will be fulfilled with an
+<literal>ArrayBuffer</literal> that contains the derived bits.
+Possible values:
+
+<list type="tag">
+<tag-name id="crypto_derive_bits_alg"><literal>algorithm</literal></tag-name>
+<tag-desc>
+is an object that defines the derivation algorithm to use:
+
+<list type="bullet">
+<listitem id="hkdf_params">
+for <literal>HKDF</literal>,
+pass the object with the following keys:
+
+<list type="bullet">
+
+<listitem>
+<literal>name</literal> is a string,
+should be set to <literal>HKDF</literal>
+</listitem>
+
+<listitem>
+<literal>hash</literal> is a string with the digest algorithm to use:
+<literal>SHA-1</literal>,
+<literal>SHA-256</literal>,
+<literal>SHA-384</literal>, or
+<literal>SHA-512</literal>
+</listitem>
+
+<listitem>
+<literal>salt</literal> is an
+<literal>ArrayBuffer</literal>,
+<literal>TypedArray</literal>, or
+<literal>DataView</literal>
+that represents random or pseudo-random value
+with the same length as the output of the <literal>digest</literal> function.
+Unlike the input key material passed into <literal>deriveKey()</literal>,
+salt does not need to be kept secret.
+</listitem>
+
+<listitem>
+<literal>info</literal> is an
+<literal>ArrayBuffer</literal>,
+<literal>TypedArray</literal>, or
+<literal>DataView</literal>
+that represents application-specific contextual information
+used to bind the derived key to an application or context,
+and enables deriving different keys for different contexts
+while using the same input key material.
+This property is required but may be an empty buffer.
+</listitem>
+</list>
+
+</listitem>
+
+<listitem id="pbkdf2_params">
+for <literal>PBKDF2</literal>,
+pass the object with the following keys:
+
+<list type="bullet">
+
+<listitem>
+<literal>name</literal> is a string,
+should be set to <literal>PBKDF2</literal>
+</listitem>
+
+<listitem>
+<literal>hash</literal> is a string with the digest algorithm to use:
+<literal>SHA-1</literal>,
+<literal>SHA-256</literal>,
+<literal>SHA-384</literal>, or
+<literal>SHA-512</literal>
+</listitem>
+
+<listitem>
+<literal>salt</literal> is an
+<literal>ArrayBuffer</literal>,
+<literal>TypedArray</literal>, or
+<literal>DataView</literal>
+that represents random or pseudo-random value
+of at least <literal>16</literal> bytes.
+Unlike the input key material passed into <literal>deriveKey()</literal>,
+salt does not need to be kept secret.
+</listitem>
+
+<listitem>
+<literal>iterations</literal> is a <literal>number</literal>
+that represents the number of times the hash function will be executed
+in <literal>deriveKey()</literal>
+</listitem>
+</list>
+
+</listitem>
+</list>
+
+</tag-desc>
+
+<tag-name id="crypto_derive_bits_basekey"><literal>baseKey</literal></tag-name>
+<tag-desc>
+is a <literal>CryptoKey</literal>
+that represents the input to the derivation algorithm
+- the initial key material for the derivation function:
+for example, for <literal>PBKDF2</literal> it might be a password,
+imported as a <literal>CryptoKey</literal> using
+<link id="crypto_subtle_import_key"><literal>сrypto.subtle.importKey()</literal></link>
+</tag-desc>
+
+<tag-name id="crypto_derive_bits_length"><literal>length</literal></tag-name>
+<tag-desc>
+is a number representing the number of bits to derive.
+For browsers compatibility,
+the number should be a multiple of <literal>8</literal>
+</tag-desc>
+</list>
+
+</tag-desc>
+
+<tag-name id="crypto_subtle_derive_key"><literal>сrypto.subtle.deriveKey</literal>(<link id="crypto_derive_key_alg"><literal>algorithm</literal></link>,
+<link id="crypto_derive_key_basekey"><literal>baseKey</literal></link>,
+<link id="crypto_derive_key_derivedkeyalg"><literal>derivedKeyAlgorithm</literal></link>,
+<link id="crypto_derive_key_extractable"><literal>extractable</literal></link>,
+<link id="crypto_derive_key_keyusages"><literal>keyUsages</literal></link>)</tag-name>
+<tag-desc>
+Derives a secret key from a master key.
+Possible values:
+
+<list type="tag">
+<tag-name id="crypto_derive_key_alg"><literal>algorithm</literal></tag-name>
+<tag-desc>
+is an object that defines the derivation algorithm to use:
+
+<list type="bullet">
+<listitem>
+for <literal>HKDF</literal>,
+pass the object with the following keys:
+
+<list type="bullet">
+
+<listitem>
+<literal>name</literal> is a string,
+should be set to <literal>HKDF</literal>
+</listitem>
+
+<listitem>
+<literal>hash</literal> is a string with the digest algorithm to use:
+<literal>SHA-1</literal>,
+<literal>SHA-256</literal>,
+<literal>SHA-384</literal>, or
+<literal>SHA-512</literal>
+</listitem>
+
+<listitem>
+<literal>salt</literal> is an
+<literal>ArrayBuffer</literal>,
+<literal>TypedArray</literal>, or
+<literal>DataView</literal>
+that represents random or pseudo-random value
+with the same length as the output of the <literal>digest</literal> function.
+Unlike the input key material passed into <literal>deriveKey()</literal>,
+salt does not need to be kept secret.
+</listitem>
+
+<listitem>
+<literal>info</literal> is an
+<literal>ArrayBuffer</literal>,
+<literal>TypedArray</literal>, or
+<literal>DataView</literal>
+that represents application-specific contextual information
+used to bind the derived key to an application or context,
+and enables deriving different keys for different contexts
+while using the same input key material.
+This property is required but may be an empty buffer.
+</listitem>
+</list>
+
+</listitem>
+
+<listitem>
+for <literal>PBKDF2</literal>,
+pass the object with the following keys:
+
+<list type="bullet">
+
+<listitem>
+<literal>name</literal> is a string,
+should be set to <literal>PBKDF2</literal>
+</listitem>
+
+<listitem>
+<literal>hash</literal> is a string with the digest algorithm to use:
+<literal>SHA-1</literal>,
+<literal>SHA-256</literal>,
+<literal>SHA-384</literal>, or
+<literal>SHA-512</literal>
+</listitem>
+
+<listitem>
+<literal>salt</literal> is an
+<literal>ArrayBuffer</literal>,
+<literal>TypedArray</literal>, or
+<literal>DataView</literal>
+that represents random or pseudo-random value
+of at least <literal>16</literal> bytes.
+Unlike the input key material passed into <literal>deriveKey()</literal>,
+salt does not need to be kept secret.
+</listitem>
+
+<listitem>
+<literal>iterations</literal> is a <literal>number</literal>
+that represents the number of times the hash function will be executed
+in <literal>deriveKey()</literal>
+</listitem>
+</list>
+
+</listitem>
+</list>
+
+</tag-desc>
+
+<tag-name id="crypto_derive_key_basekey"><literal>baseKey</literal></tag-name>
+<tag-desc>
+is a <literal>CryptoKey</literal>
+that represents the input to the derivation algorithm
+- the initial key material for the derivation function:
+for example, for <literal>PBKDF2</literal> it might be a password,
+imported as a <literal>CryptoKey</literal> using
+<link id="crypto_sublte_import_key"><literal>сrypto.subtle.importKey()</literal></link>.
+</tag-desc>
+
+<tag-name id="crypto_derive_key_derivedkeyalg"><literal>derivedKeyAlgorithm</literal></tag-name>
+<tag-desc>
+is an object
+that defines the algorithm the derived key will be used for:
+
+<list type="bullet">
+<listitem>
+for <literal>HMAC</literal>,
+pass the object with the following keys:
+
+<list type="bullet">
+
+<listitem>
+<literal>name</literal> is a string,
+should be set to <literal>HMAC</literal>
+</listitem>
+
+<listitem>
+<literal>hash</literal> is a string with the name of the digest function to use:
+<literal>SHA-1</literal>,
+<literal>SHA-256</literal>,
+<literal>SHA-384</literal>, or
+<literal>SHA-512</literal>
+</listitem>
+
+<listitem>
+<literal>length</literal> (optional) is a <literal>number</literal>
+that represents the length in bits of the key.
+If not specified, the length of the key is equal to
+the block size of the chozen hash function
+</listitem>
+</list>
+
+</listitem>
+
+<listitem>
+for
+<literal>AES-CTR</literal>,
+<literal>AES-CBC</literal>, or
+<literal>AES-GCM</literal>,
+pass the object with the following keys:
+
+<list type="bullet">
+
+<listitem>
+<literal>name</literal> is a string,
+should be set to
+<literal>AES-CTR</literal>,
+<literal>AES-CBC</literal>, or
+<literal>AES-GCM</literal>,
+depending on the algorithm used
+</listitem>
+
+<listitem>
+<literal>length</literal> is a <literal>number</literal> that represents
+the length in bits of the key to generate:
+<literal>128</literal>,
+<literal>192</literal>, or
+<literal>256</literal>
+</listitem>
+</list>
+
+</listitem>
+</list>
+
+</tag-desc>
+
+<tag-name id="crypto_derive_key_extractable"><literal>extractable</literal></tag-name>
+<tag-desc>
+is a boolean value
+that indicates whether it will be possible to export the key
+</tag-desc>
+
+<tag-name id="crypto_derive_key_keyusages"><literal>keyUsages</literal></tag-name>
+<tag-desc>
+is an <literal>Array</literal>
+that indicates what can be done with the derived key.
+The key usages must be allowed by the algorithm
+set in <literal>derivedKeyAlgorithm</literal>.
+Possible values:
+<list type="tag">
+
+<tag-name><literal>encrypt</literal></tag-name>
+<tag-desc>
+key for encrypting messages
+</tag-desc>
+
+<tag-name><literal>decrypt</literal></tag-name>
+<tag-desc>
+key for decrypting messages
+</tag-desc>
+
+<tag-name><literal>sign</literal></tag-name>
+<tag-desc>
+key for signing messages
+</tag-desc>
+
+<tag-name><literal>verify</literal></tag-name>
+<tag-desc>
+key for verifying signatures
+</tag-desc>
+
+<tag-name><literal>deriveKey</literal></tag-name>
+<tag-desc>
+key for deriving a new key
+</tag-desc>
+
+<tag-name><literal>deriveBits</literal></tag-name>
+<tag-desc>
+key for deriving bits
+</tag-desc>
+
+<tag-name><literal>wrapKey</literal></tag-name>
+<tag-desc>
+key for wrapping a key
+</tag-desc>
+
+<tag-name><literal>unwrapKey</literal></tag-name>
+<tag-desc>
+key for unwrapping a key
+</tag-desc>
+</list>
+
+</tag-desc>
+</list>
+
+</tag-desc>
+
+<tag-name id="crypto_subtle_digest"><literal>сrypto.subtle.digest</literal>(<link id="crypto_digest_alg"><literal>algorithm</literal></link>,
+<link id="crypto_digest_data"><literal>data</literal></link>)</tag-name>
+<tag-desc>
+Generates a digest of the given data.
+Takes as its arguments an identifier for the digest algorithm to use
+and the data to digest.
+Returns a <literal>Promise</literal> which will be fulfilled with the digest.
+Possible values:
+
+<list type="tag">
+<tag-name id="crypto_digest_alg"><literal>algorithm</literal></tag-name>
+<tag-desc>
+is a string that defines the hash function to use:
+<literal>SHA-1</literal> (not for cryptographic applications),
+<literal>SHA-256</literal>,
+<literal>SHA-384</literal>, or
+<literal>SHA-512</literal>
+</tag-desc>
+
+<tag-name id="crypto_digest_data"><literal>data</literal></tag-name>
+<tag-desc>
+is an
+<literal>ArrayBuffer</literal>,
+<literal>TypedArray</literal>, or
+<literal>DataView</literal>
+that contains the data to be digested
+</tag-desc>
+</list>
+
+</tag-desc>
+
+<tag-name id="crypto_subtle_import_key"><literal>сrypto.subtle.importKey</literal>(<link id="crypto_import_key_format"><literal>format</literal></link>,
+<link id="crypto_import_key_keydata"><literal>keyData</literal></link>,
+<link id="crypto_import_key_alg"><literal>algorithm</literal></link>,
+<link id="crypto_import_key_extractable"><literal>extractable</literal></link>,
+<link id="crypto_import_key_keyusages"><literal>keyUsages</literal></link>)</tag-name>
+<tag-desc>
+Imports a key: takes as input a key in an external, portable format
+and gives a <literal>CryptoKey</literal> object.
+Returns a <literal>Promise</literal> that fulfills with the imported key
+as a <literal>CryptoKey</literal> object.
+Possible values:
+<list type="tag">
+
+<tag-name id="crypto_import_key_format"><literal>format</literal></tag-name>
+<tag-desc>
+a string that describes the data format of the key to import,
+can be the following:
+<list type="tag">
+
+<tag-name><literal>raw</literal></tag-name>
+<tag-desc>
+the raw data format
+</tag-desc>
+
+<tag-name><literal>pkcs8</literal></tag-name>
+<tag-desc>
+the
+<link url="https://datatracker.ietf.org/doc/html/rfc5208">PKCS #8</link>
+format
+</tag-desc>
+
+<tag-name><literal>spki</literal></tag-name>
+<tag-desc>
+the
+<link url=" https://datatracker.ietf.org/doc/html/rfc5280#section-4.1">SubjectPublicKeyInfo</link>
+format
+</tag-desc>
+
+</list>
+
+</tag-desc>
+
+<tag-name id="crypto_import_key_keydata"><literal>keyData</literal></tag-name>
+<tag-desc>
+the
+<literal>ArrayBuffer</literal>,
+<literal>TypedArray</literal>, or
+<literal>DataView</literal>
+object that contains the key in the given format
+</tag-desc>
+
+<tag-name id="crypto_import_key_alg"><literal>algorithm</literal></tag-name>
+<tag-desc>
+a dictionary object that defines the type of key to import
+and provides extra algorithm-specific parameters:
+
+<list type="bullet">
+<listitem>
+for
+<literal>RSASSA-PKCS1-v1_5</literal>,
+<literal>RSA-PSS</literal>, or
+<literal>RSA-OAEP</literal>,
+pass the object with the following keys:
+
+<list type="bullet">
+<listitem>
+<literal>name</literal> is a string, should be set to
+<literal>RSASSA-PKCS1-v1_5</literal>,
+<literal>RSA-PSS</literal>, or
+<literal>RSA-OAEP</literal>,
+depending on the used algorithm
+</listitem>
+
+<listitem>
+<literal>hash</literal> is a string that represents
+the name of the <literal>digest</literal> function to use, can be
+<literal>SHA-256</literal>,
+<literal>SHA-384</literal>, or
+<literal>SHA-512</literal>
+</listitem>
+</list>
+
+</listitem>
+
+<listitem>
+for
+<literal>ECDSA</literal>,
+pass the object with the following keys:
+
+<list type="bullet">
+<listitem>
+<literal>name</literal> is a string, should be set to <literal>ECDSA</literal>
+</listitem>
+
+<listitem>
+<literal>namedCurve</literal> is a string that represents
+the name of the elliptic curve to use, may be
+<literal>P-256</literal>,
+<literal>P-384</literal>, or
+<literal>P-521</literal>
+</listitem>
+
+</list>
+</listitem>
+
+<listitem>
+for
+<literal>HMAC</literal>,
+pass the object with the following keys:
+
+<list type="bullet">
+<listitem>
+<literal>name</literal> is a string, should be set to <literal>HMAC</literal>
+</listitem>
+
+
+<listitem>
+<literal>hash</literal> is a string that represents
+the name of the <literal>digest</literal> function to use, can be
+<literal>SHA-256</literal>,
+<literal>SHA-384</literal>, or
+<literal>SHA-512</literal>
+</listitem>
+
+<listitem>
+<literal>length</literal> (optional) is a number that represents
+the length in bits of the key.
+If omitted, the length of the key is equal to the length of the digest
+generated by the chosen digest function.
+</listitem>
+</list>
+
+</listitem>
+
+<listitem>
+for
+<literal>AES-CTR</literal>,
+<literal>AES-CBC</literal>, or
+<literal>AES-GCM</literal>,
+pass the string identifying the algorithm or an object
+of the form <literal>{ "name": "ALGORITHM" }</literal>,
+where <literal>ALGORITHM</literal> is the name of the algorithm
+</listitem>
+
+<listitem>
+for
+<literal>PBKDF2</literal>,
+pass the <literal>PBKDF2</literal> string
+</listitem>
+
+<listitem>
+for
+<literal>HKDF</literal>,
+pass the <literal>HKDF</literal> string
+</listitem>
+
+</list>
+</tag-desc>
+
+<tag-name id="crypto_import_key_extractable"><literal>extractable</literal></tag-name>
+<tag-desc>
+boolean value that indicates if it is possible to export the key
+</tag-desc>
+
+<tag-name id="crypto_import_key_keyusages"><literal>keyUsages</literal></tag-name>
+<tag-desc>
+an <literal>array</literal> that indicates possible actions with the key:
+<list type="tag">
+
+<tag-name><literal>encrypt</literal></tag-name>
+<tag-desc>
+key for encrypting messages
+</tag-desc>
+
+<tag-name><literal>decrypt</literal></tag-name>
+<tag-desc>
+key for decrypting messages
+</tag-desc>
+
+<tag-name><literal>sign</literal></tag-name>
+<tag-desc>
+key for signing messages
+</tag-desc>
+
+<tag-name><literal>verify</literal></tag-name>
+<tag-desc>
+key for verifying signatures
+</tag-desc>
+
+<tag-name><literal>deriveKey</literal></tag-name>
+<tag-desc>
+key for deriving a new key
+</tag-desc>
+
+<tag-name><literal>deriveBits</literal></tag-name>
+<tag-desc>
+key for deriving bits
+</tag-desc>
+
+<tag-name><literal>wrapKey</literal></tag-name>
+<tag-desc>
+key for wrapping a key
+</tag-desc>
+
+<tag-name><literal>unwrapKey</literal></tag-name>
+<tag-desc>
+key for unwrapping a key
+</tag-desc>
+</list>
+
+</tag-desc>
+</list>
+
+</tag-desc>
+
+<tag-name id="crypto_subtle_sign"><literal>сrypto.subtle.sign</literal>(<link id="crypto_sign_alg"><literal>algorithm</literal></link>,
+<link id="crypto_sign_key"><literal>key</literal></link>,
+<link id="crypto_sign_data"><literal>data</literal></link>)</tag-name>
+<tag-desc>
+Returns <literal>signature</literal> as a <literal>Promise</literal>
+that fulfills with an <literal>ArrayBuffer</literal> containing the signature.
+Possible values:
+
+<list type="tag">
+<tag-name id="crypto_sign_alg"><literal>algorithm</literal></tag-name>
+<tag-desc>
+is a string or object that specifies the signature algorithm to use
+and its parameters:
+
+<list type="bullet">
+
+<listitem>
+for <literal>RSASSA-PKCS1-v1_5</literal>,
+pass the string identifying the algorithm or an object
+of the form <literal>{ "name": "ALGORITHM" }</literal>
+</listitem>
+
+<listitem>
+for <literal>RSA-PSS</literal>,
+pass the object with the following keys:
+<list type="bullet">
+
+<listitem>
+<literal>name</literal> is a string, should be set to
+<literal>RSA-PSS</literal>
+</listitem>
+
+<listitem>
+<literal>saltLength</literal> is a long <literal>integer</literal>
+that represents the length of the random salt to use, in bytes
+</listitem>
+
+</list>
+</listitem>
+
+<listitem>
+for <literal>ECDSA</literal>,
+pass the object with the following keys:
+<list type="bullet">
+
+<listitem>
+<literal>name</literal> is a string, should be set to
+<literal>ECDSA</literal>
+</listitem>
+
+<listitem>
+<literal>hash</literal> is an identifier for the digest algorithm to use,
+can be
+<literal>SHA-256</literal>,
+<literal>SHA-384</literal>, or
+<literal>SHA-512</literal>
+</listitem>
+
+</list>
+</listitem>
+
+<listitem>
+for  <literal>HMAC</literal>,
+pass the string identifying the algorithm or an object
+of the form <literal>{ "name": "ALGORITHM" }</literal>
+</listitem>
+</list>
+
+</tag-desc>
+
+<tag-name id="crypto_sign_key"><literal>key</literal></tag-name>
+<tag-desc>
+is a <literal>CryptoKey</literal> object that the key to be used for signing.
+If algorithm identifies a public-key cryptosystem, this is the private key. 
+</tag-desc>
+
+<tag-name id="crypto_sign_data"><literal>data</literal></tag-name>
+<tag-desc>
+is an
+<literal>ArrayBuffer</literal>,
+<literal>TypedArray</literal>, or
+<literal>DataView</literal>
+object that contains the data to be signed
+</tag-desc>
+</list>
+
+</tag-desc>
+
+
+<tag-name id="crypto_subtle_verify"><literal>сrypto.subtle.verify</literal>(<link id="crypto_verify_alg"><literal>algorithm</literal></link>,
+<link id="crypto_verify_key"><literal>key</literal></link>,
+<link id="crypto_verify_signature"><literal>signature</literal></link>,
+<link id="crypto_verify_data"><literal>data</literal></link>)</tag-name>
+<tag-desc>
+Verifies a digital signature,
+returns a <literal>Promise</literal> that fulfills with a boolean value:
+<literal>true</literal> if the signature is valid,
+otherwise <literal>false</literal>.
+Possible values:
+
+<list type="tag">
+<tag-name id="crypto_verify_alg"><literal>algorithm</literal></tag-name>
+<tag-desc>
+is a string or object that specifies the algorithm to use
+and its parameters:
+
+<list type="bullet">
+
+<listitem>
+for <literal>RSASSA-PKCS1-v1_5</literal>,
+pass the string identifying the algorithm or an object
+of the form <literal>{ "name": "ALGORITHM" }</literal>
+</listitem>
+
+<listitem>
+for <literal>RSA-PSS</literal>,
+pass the object with the following keys:
+<list type="bullet">
+
+<listitem>
+<literal>name</literal> is a string, should be set to
+<literal>RSA-PSS</literal>
+</listitem>
+
+<listitem>
+<literal>saltLength</literal> is a long <literal>integer</literal>
+that represents the length of the random salt to use, in bytes
+</listitem>
+
+</list>
+</listitem>
+
+<listitem>
+for <literal>ECDSA</literal>,
+pass the object with the following keys:
+<list type="bullet">
+
+<listitem>
+<literal>name</literal> is a string, should be set to
+<literal>ECDSA</literal>
+</listitem>
+
+<listitem>
+<literal>hash</literal> is an identifier for the digest algorithm to use,
+can be
+<literal>SHA-256</literal>,
+<literal>SHA-384</literal>, or
+<literal>SHA-512</literal>
+</listitem>
+
+</list>
+</listitem>
+
+<listitem>
+for  <literal>HMAC</literal>,
+pass the string identifying the algorithm or an object
+of the form <literal>{ "name": "ALGORITHM" }</literal>
+</listitem>
+</list>
+
+</tag-desc>
+
+<tag-name id="crypto_verify_key"><literal>key</literal></tag-name>
+<tag-desc>
+is a <literal>CryptoKey</literal> object that the key to be used for verifying.
+It is the secret key for a symmetric algorithm
+and the public key for a public-key system. 
+</tag-desc>
+
+<tag-name id="crypto_verify_signature"><literal>signature</literal></tag-name>
+<tag-desc>
+is an
+<literal>ArrayBuffer</literal>,
+<literal>TypedArray</literal>, or
+<literal>DataView</literal>
+that contains the signature to verify
+</tag-desc>
+
+<tag-name id="crypto_verify_data"><literal>data</literal></tag-name>
+<tag-desc>
+is an
+<literal>ArrayBuffer</literal>,
+<literal>TypedArray</literal>, or
+<literal>DataView</literal>
+object that contains the data whose signature is to be verified
+</tag-desc>
+</list>
+
+</tag-desc>
+
+</list>
+</para>
+
+</section>
+
+
 <section id="njs" name="njs">
 
 <para>
@@ -949,7 +2150,7 @@ that represents the current VM instance
 <tag-name id="njs_version"><literal>njs.version</literal></tag-name>
 <tag-desc>
 Returns a string with the current version of njs
-(for example, “0.5.2”).
+(for example, “0.7.0”).
 </tag-desc>
 
 <tag-name id="njs_dump"><literal>njs.dump(<value>value</value>)</literal></tag-name>
@@ -1919,6 +3120,11 @@ at the specified <value>offset</value> as little-endian.
 <section id="crypto" name="Crypto">
 
 <para>
+<note>
+Since <link doc="changes.xml" id="njs0.7.0">0.7.0</link>,
+extended crypto API is available as a global
+<link id="builtin_crypto">crypto</link> object.
+</note>
 The Crypto module provides cryptographic functionality support.
 The Crypto module object is returned by <literal>require('crypto')</literal>.
 </para>
