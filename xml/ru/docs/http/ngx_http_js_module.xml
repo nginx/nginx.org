@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_js_module"
         link="/ru/docs/http/ngx_http_js_module.html"
         lang="ru"
-        rev="31">
+        rev="32">
 
 <section id="summary">
 
@@ -40,6 +40,8 @@ http {
     js_set $foo     http.foo;
     js_set $summary http.summary;
     js_set $hash    http.hash;
+
+    resolver 10.0.0.1;
 
     server {
         listen 8000;
@@ -124,8 +126,8 @@ function hello(r) {
 
 // начиная с версии 0.7.0
 async function fetch(r) {
-    let results = await Promise.all([ngx.fetch('http://nginx.org/'),
-                                     ngx.fetch('http://nginx.org/en/')]);
+    let results = await Promise.all([ngx.fetch('https://nginx.org/'),
+                                     ngx.fetch('https://nginx.org/en/')]);
 
     r.return(200, JSON.stringify(results, undefined, 4));
 }
