@@ -9,8 +9,92 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="46"
+        rev="47"
         toc="no">
+
+<section id="njs0.7.0" name="Changes with njs 0.7.0">
+
+<para>
+Release Date:
+19 October 2021
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+Added
+<link doc="../http/ngx_http_js_module.xml" id="js_fetch_protocols">HTTPS</link>
+support for
+<link doc="reference.xml" id="ngx_fetch">Fetch API</link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+Added
+<literal>setReturnValue()</literal> method for
+<link doc="reference.xml" id="r_set_return_value">http</link> and
+<link doc="reference.xml" id="s_set_return_value">stream</link>.
+</para>
+</listitem>
+
+</list>
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+introduced <literal>Async/Await</literal> implementation.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added
+<link doc="reference.xml" id="builtin_crypto">WebCrypto API</link>
+implementation.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed copying of closures for declared functions.
+The bug was introduced in
+<link id="njs0.6.0">0.6.0</link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed unhandled <literal>promise</literal> rejection in handle events.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed Response.headers getter in Fetch API.
+</para>
+</listitem>
+
+</list>
+
+</para>
+
+</section>
+
 
 <section id="njs0.6.2" name="Changes with njs 0.6.2">
 
