@@ -7,7 +7,7 @@
 <article name="nginx: Linux packages"
          link="/en/linux_packages.html"
          lang="en"
-         rev="66">
+         rev="67">
 
 <section name="Supported distributions and versions" id="distributions">
 
@@ -84,6 +84,11 @@ versions:
 
 <tr>
 <td width="30%">21.04 “hirsute”</td>
+<td>x86_64, aarch64/arm64</td>
+</tr>
+
+<tr>
+<td width="30%">21.10 “impish”</td>
 <td>x86_64, aarch64/arm64</td>
 </tr>
 
