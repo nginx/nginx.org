@@ -9,7 +9,7 @@
 <module name="Module ngx_http_js_module"
         link="/en/docs/http/ngx_http_js_module.html"
         lang="en"
-        rev="32">
+        rev="33">
 
 <section id="summary">
 
@@ -213,6 +213,19 @@ it is required to clear out the <header>Content-Length</header> response header
 to enforce chunked transfer encoding.
 </para>
 
+<para>
+<note>
+As the <literal>js_body_filter</literal> handler
+returns its result immediately, it supports
+only synchronous operations.
+Thus, asynchronous operations such as
+<link doc="../njs/reference.xml" id="r_subrequest">r.subrequest()</link>
+or
+<link doc="../njs/reference.xml" id="settimeout">setTimeout()</link>
+are not supported.
+</note>
+</para>
+
 </directive>
 
 
@@ -319,6 +332,19 @@ with <link doc="../njs/reference.xml" id="ngx_fetch">Fetch API</link>.
 <para>
 Sets an njs function as a response header filter.
 The directive allows changing arbitrary header fields of a response header.
+</para>
+
+<para>
+<note>
+As the <literal>js_header_filter</literal> handler
+returns its result immediately, it supports
+only synchronous operations.
+Thus, asynchronous operations such as
+<link doc="../njs/reference.xml" id="r_subrequest">r.subrequest()</link>
+or
+<link doc="../njs/reference.xml" id="settimeout">setTimeout()</link>
+are not supported.
+</note>
 </para>
 
 </directive>
@@ -430,8 +456,8 @@ right before the request is freed.
 <note>
 As the <literal>js_set</literal> handler
 returns its result immediately, it supports
-only synchronous callbacks.
-Thus, asynchronous callbacks such as
+only synchronous operations.
+Thus, asynchronous operations such as
 <link doc="../njs/reference.xml" id="r_subrequest">r.subrequest()</link>
 or
 <link doc="../njs/reference.xml" id="settimeout">setTimeout()</link>

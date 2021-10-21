@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_js_module"
         link="/ru/docs/http/ngx_http_js_module.html"
         lang="ru"
-        rev="32">
+        rev="33">
 
 <section id="summary">
 
@@ -213,6 +213,19 @@ function filter(r, data, flags) {
 чтобы применить поблочное кодирование.
 </para>
 
+<para>
+<note>
+Так как обработчик <literal>js_body_filter</literal>
+должен сразу возвращать результат,
+то поддерживаются только синхронные операции,
+Таким образом, асинхронные операции, например
+<link doc="../njs/reference.xml" id="r_subrequest">r.subrequest()</link>
+или
+<link doc="../njs/reference.xml" id="settimeout">setTimeout()</link>,
+не поддерживаются.
+</note>
+</para>
+
 </directive>
 
 
@@ -318,6 +331,19 @@ HTTPS-сертификата
 <para>
 Задаёт функцию njs в качестве фильтра заголовка ответа.
 Директива позволяет менять произвольные поля заголовка ответа.
+</para>
+
+<para>
+<note>
+Так как обработчик <literal>js_header_filter</literal>
+должен сразу возвращать результат,
+то поддерживаются только синхронные операции,
+Таким образом, асинхронные операции, например
+<link doc="../njs/reference.xml" id="r_subrequest">r.subrequest()</link>
+или
+<link doc="../njs/reference.xml" id="settimeout">setTimeout()</link>,
+не поддерживаются.
+</note>
 </para>
 
 </directive>
@@ -430,8 +456,8 @@ function version(r) {
 <note>
 Так как обработчик <literal>js_set</literal>
 должен сразу возвращать результат,
-то поддерживаются только синхронные вызовы,
-Таким образом, асинхронные вызовы, например
+то поддерживаются только синхронные операции,
+Таким образом, асинхронные операции, например
 <link doc="../njs/reference.xml" id="r_subrequest">r.subrequest()</link>
 или
 <link doc="../njs/reference.xml" id="settimeout">setTimeout()</link>,
