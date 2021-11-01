@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_ssl_module"
         link="/ru/docs/stream/ngx_stream_ssl_module.html"
         lang="ru"
-        rev="26">
+        rev="27">
 
 <section id="summary">
 
@@ -78,6 +78,36 @@ stream {
 
 
 <section id="directives" name="Директивы">
+
+<directive name="ssl_alpn">
+<syntax><value>протокол</value> ...</syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.21.4</appeared-in>
+
+<para>
+Задаёт список поддерживаемых
+протоколов
+<link url="https://datatracker.ietf.org/doc/html/rfc7301">ALPN</link>.
+Один из протоколов должен быть
+<link id="var_ssl_alpn_protocol">согласован</link>, если клиент использует ALPN:
+<example>
+map $ssl_alpn_protocol $proxy {
+    h2                 127.0.0.1:8001;
+    http/1.1           127.0.0.1:8002;
+}
+
+server {
+    listen      12346;
+    proxy_pass  $proxy;
+    ssl_alpn    h2 http/1.1;
+}
+</example>
+</para>
+
+</directive>
+
 
 <directive name="ssl_certificate">
 <syntax><value>файл</value></syntax>
