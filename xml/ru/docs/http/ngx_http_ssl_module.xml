@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_ssl_module"
         link="/ru/docs/http/ngx_http_ssl_module.html"
         lang="ru"
-        rev="54">
+        rev="55">
 
 <section id="summary">
 
@@ -992,6 +992,12 @@ ssl_stapling_responder http://ocsp.example.com/;
 Модуль <literal>ngx_http_ssl_module</literal> поддерживает
 встроенные переменные:
 <list type="tag">
+
+<tag-name id="var_ssl_alpn_protocol"><var>$ssl_alpn_protocol</var></tag-name>
+<tag-desc>
+возвращает протокол, выбранный при помощи ALPN во время операции SSL handshake,
+либо пустую строку (1.21.4);
+</tag-desc>
 
 <tag-name id="var_ssl_cipher"><var>$ssl_cipher</var></tag-name>
 <tag-desc>
