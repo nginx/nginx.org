@@ -1095,7 +1095,7 @@ then the same data must be specified in the corresponding call to
 if the data given to the <literal>decrypt()</literal> call
 does not match the original data,
 the decryption will throw an exception.
-The bit length of <literal>additionalData</literal> 
+The bit length of <literal>additionalData</literal>
 must be smaller than <literal>2^64 - 1</literal>.
 </listitem>
 
@@ -1275,7 +1275,7 @@ then the same data must be specified in the corresponding call to
 if the data given to the <literal>decrypt()</literal> call
 does not match the original data,
 the decryption will throw an exception.
-The bit length of <literal>additionalData</literal> 
+The bit length of <literal>additionalData</literal>
 must be smaller than <literal>2^64 - 1</literal>.
 </listitem>
 
@@ -2013,7 +2013,7 @@ of the form <literal>{ "name": "ALGORITHM" }</literal>
 <tag-name id="crypto_sign_key"><literal>key</literal></tag-name>
 <tag-desc>
 is a <literal>CryptoKey</literal> object that the key to be used for signing.
-If algorithm identifies a public-key cryptosystem, this is the private key. 
+If algorithm identifies a public-key cryptosystem, this is the private key.
 </tag-desc>
 
 <tag-name id="crypto_sign_data"><literal>data</literal></tag-name>
@@ -2106,7 +2106,7 @@ of the form <literal>{ "name": "ALGORITHM" }</literal>
 <tag-desc>
 is a <literal>CryptoKey</literal> object that the key to be used for verifying.
 It is the secret key for a symmetric algorithm
-and the public key for a public-key system. 
+and the public key for a public-key system.
 </tag-desc>
 
 <tag-name id="crypto_verify_signature"><literal>signature</literal></tag-name>
