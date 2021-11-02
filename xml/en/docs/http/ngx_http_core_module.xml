@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="97">
+        rev="98">
 
 <section id="directives" name="Directives">
 
@@ -2399,15 +2399,18 @@ Before version 1.7.11, pre-loading could be enabled with
 <directive name="sendfile_max_chunk">
 
 <syntax><value>size</value></syntax>
-<default>0</default>
+<default>2m</default>
 <context>http</context>
 <context>server</context>
 <context>location</context>
 
 <para>
-When set to a non-zero value, limits the amount of data that can be
+Limits the amount of data that can be
 transferred in a single <c-func>sendfile</c-func> call.
 Without the limit, one fast connection may seize the worker process entirely.
+<note>
+Prior to version 1.21.4, by default there was no limit.
+</note>
 </para>
 
 </directive>

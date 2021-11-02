@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="97">
+        rev="98">
 
 <section id="directives" name="Директивы">
 
@@ -2400,16 +2400,19 @@ location /video/ {
 <directive name="sendfile_max_chunk">
 
 <syntax><value>размер</value></syntax>
-<default>0</default>
+<default>2m</default>
 <context>http</context>
 <context>server</context>
 <context>location</context>
 
 <para>
-При установке в ненулевое значение ограничивает объём данных,
+Ограничивает объём данных,
 который может передан за один вызов <c-func>sendfile</c-func>.
 Без этого ограничения одно быстрое соединение может целиком
 захватить рабочий процесс.
+<note>
+До версии 1.21.4 по умолчанию ограничения не было.
+</note>
 </para>
 
 </directive>
