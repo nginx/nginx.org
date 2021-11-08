@@ -9,7 +9,7 @@
 <module name="Module ngx_http_v2_module"
         link="/en/docs/http/ngx_http_v2_module.html"
         lang="en"
-        rev="14">
+        rev="15">
 
 <section id="summary">
 
@@ -64,10 +64,8 @@ server {
 </example>
 Note that accepting HTTP/2 connections over TLS requires
 the “Application-Layer Protocol Negotiation” (ALPN) TLS extension
-support, which is available only since
+support, which is available since
 <link url="http://www.openssl.org">OpenSSL</link> version 1.0.2.
-Using the “Next Protocol Negotiation” (NPN) TLS extension for this purpose
-(available since OpenSSL version 1.0.1) is not guaranteed to work.
 </para>
 
 <para>

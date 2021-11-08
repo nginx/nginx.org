@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_v2_module"
         link="/ru/docs/http/ngx_http_v2_module.html"
         lang="ru"
-        rev="14">
+        rev="15">
 
 <section id="summary">
 
@@ -64,10 +64,8 @@ server {
 </example>
 Чтобы принимать HTTP/2-соединения по TLS, необходимо
 наличие поддержки расширения “Application-Layer Protocol Negotiation” (ALPN)
-протокола TLS, появившейся лишь в
+протокола TLS, появившейся в
 <link url="http://www.openssl.org">OpenSSL</link> версии 1.0.2.
-Работа расширения “Next Protocol Negotiation” (NPN) протокола TLS
-(поддерживаемого начиная с OpenSSL версии 1.0.1) в данном случае не гарантируется.
 </para>
 
 <para>
