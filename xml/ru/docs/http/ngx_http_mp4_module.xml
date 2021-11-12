@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_mp4_module"
         link="/ru/docs/http/ngx_http_mp4_module.html"
         lang="ru"
-        rev="7">
+        rev="8">
 
 <section id="summary">
 
@@ -21,7 +21,7 @@
 </para>
 
 <para>
-Псевдо-стриминг работает в паре с совместимым Flash-плеером.
+Псевдо-стриминг работает в паре с совместимым медиаплеером.
 Плеер посылает серверу HTTP-запрос с указанием точки времени старта
 в аргументе
 <literal>start</literal>
@@ -58,7 +58,7 @@ nginx’у достаточно начать отправлять в ответ 
 Это требует дополнительного процессорного
 времени, памяти и дискового ввода/вывода, поэтому лучше
 заранее <link
-url="http://flowplayer.org/plugins/streaming/pseudostreaming.html#prepare">
+url="https://github.com/flowplayer/flowplayer/wiki/7.1.1-video-file-correction">
 подготовить исходный файл для псевдо-стриминга</link>,
 нежели делать это для каждого запроса.
 </para>
