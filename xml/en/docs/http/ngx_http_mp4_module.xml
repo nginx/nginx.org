@@ -9,7 +9,7 @@
 <module name="Module ngx_http_mp4_module"
         link="/en/docs/http/ngx_http_mp4_module.html"
         lang="en"
-        rev="8">
+        rev="9">
 
 <section id="summary">
 
@@ -80,6 +80,18 @@ For a matching request with a non-zero
 argument, nginx will read the metadata from the file, prepare the
 stream with the requested time range, and send it to the client.
 This has the same overhead as described above.
+</para>
+
+<para id="keyframe">
+If the <literal>start</literal> argument points to
+a non-key video frame,
+the beginning of such video will be broken.
+To fix this issue, the video
+<link id="mp4_start_key_frame">can</link> be prepended with
+the key frame before <literal>start</literal> point
+and with all intermediate frames between them.
+These frames will be hidden from playback
+using an edit list (1.21.4).
 </para>
 
 <para>
@@ -227,6 +239,26 @@ will be rate limited.
 This directive is available as part of our
 <commercial_version>commercial subscription</commercial_version>.
 </note>
+</para>
+
+</directive>
+
+
+<directive name="mp4_start_key_frame">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.21.4</appeared-in>
+
+<para>
+Forces output video to always start with a key video frame.
+If the <literal>start</literal> argument does not point to a key frame,
+initial frames are hidden using an mp4 edit list.
+Edit lists are supported by major players and browsers such as
+Chrome, Safari, QuickTime and ffmpeg,
+partially supported by Firefox.
 </para>
 
 </directive>

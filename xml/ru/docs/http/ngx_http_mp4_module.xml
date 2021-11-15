@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_mp4_module"
         link="/ru/docs/http/ngx_http_mp4_module.html"
         lang="ru"
-        rev="8">
+        rev="9">
 
 <section id="summary">
 
@@ -80,6 +80,18 @@ http://example.com/elephants_dream.mp4?start=238.88&amp;end=555.55
 nginx считывает из файла метаданные, готовит поток с запрошенным
 диапазоном и отправляет его клиенту.
 Это тоже требует дополнительных ресурсов, как указано выше.
+</para>
+
+<para id="keyframe">
+Если аргумент <literal>start</literal> указывает на
+видеокадр, не являющийся ключевым,
+то начало такого видео может воспроизводиться с ошибками.
+В этом случае к запрашиваемому видео
+<link id="mp4_start_key_frame">могут</link> быть добавлены
+ближайший к точке <literal>start</literal> ключевой кадр
+и все промежуточные кадры между ними.
+При воспроизведении эти кадры будут скрыты
+при помощи edit-листа (1.21.4).
 </para>
 
 <para>
@@ -224,6 +236,26 @@ MP4-файла.
 Директива доступна как часть
 <commercial_version>коммерческой подписки</commercial_version>.
 </note>
+</para>
+
+</directive>
+
+
+<directive name="mp4_start_key_frame">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.21.4</appeared-in>
+
+<para>
+Включает режим, в котором видео всегда начинается с ключевого видеокадра.
+Если аргумент <literal>start</literal> не указывает на ключевой кадр,
+то первоначальные кадры будут скрыты при помощи mp4 edit-листа.
+Edit-листы поддерживаются большинством плееров и браузеров
+включая Chrome, Safari, QuickTime и ffmpeg,
+частично поддерживаются в Firefox.
 </para>
 
 </directive>
