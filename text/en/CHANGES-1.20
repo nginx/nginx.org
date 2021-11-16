@@ -1,4 +1,27 @@
 
+Changes with nginx 1.20.2                                        16 Nov 2021
+
+    *) Feature: OpenSSL 3.0 compatibility.
+
+    *) Bugfix: SSL variables might be empty when used in logs; the bug had
+       appeared in 1.19.5.
+
+    *) Bugfix: keepalive connections with gRPC backends might not be closed
+       after receiving a GOAWAY frame.
+
+    *) Bugfix: backend SSL connections in the stream module might hang after
+       an SSL handshake.
+
+    *) Bugfix: SSL connections with gRPC backends might hang if select,
+       poll, or /dev/poll methods were used.
+
+    *) Bugfix: in the $content_length variable when using chunked transfer
+       encoding.
+
+    *) Bugfix: requests might hang when using HTTP/2 and the "aio_write"
+       directive.
+
+
 Changes with nginx 1.20.1                                        25 May 2021
 
     *) Security: 1-byte memory overwrite might occur during DNS server
