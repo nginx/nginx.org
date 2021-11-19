@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="77">
+        rev="78">
 
 <section id="summary">
 
@@ -371,7 +371,7 @@ The method may be called only from the
 sends the HTTP headers to the client
 </tag-desc>
 
-<tag-name id="r_set_return_value"><literal>r.setReturnValue()</literal></tag-name>
+<tag-name id="r_set_return_value"><literal>r.setReturnValue(<value>value</value>)</literal></tag-name>
 <tag-desc>
 sets the return value of the
 <link doc="../http/ngx_http_js_module.xml" id="js_set"/> handler
@@ -707,7 +707,7 @@ read only
 (since <link doc="changes.xml" id="njs0.5.2">0.5.2</link>)
 </tag-desc>
 
-<tag-name id="s_set_return_value"><literal>s.setReturnValue()</literal></tag-name>
+<tag-name id="s_set_return_value"><literal>s.setReturnValue(<value>value</value>)</literal></tag-name>
 <tag-desc>
 sets the return value of the
 <link doc="../stream/ngx_stream_js_module.xml" id="js_set"/> handler
