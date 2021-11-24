@@ -111,7 +111,6 @@ REFS =									\
 		njs/index						\
 		njs/cli							\
 		njs/compatibility					\
-		njs/examples						\
 		njs/install						\
 		njs/node_modules					\
 		njs/typescript						\

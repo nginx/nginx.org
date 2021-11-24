@@ -9,7 +9,7 @@
 <article name="Сценарный язык njs"
         link="/ru/docs/njs/index.html"
         lang="ru"
-        rev="31"
+        rev="32"
         toc="no">
 
 <section id="summary">
@@ -47,7 +47,7 @@ njs совместим с
 </listitem>
 
 <listitem>
-<link doc="examples.xml"/>
+<link url="https://github.com/nginx/njs-examples/">Примеры использования</link>
 </listitem>
 
 <listitem>
@@ -118,7 +118,7 @@ ngx_stream_js_module</link>
 
 </list>
 Подробнее о сценариях использования
-см. в <link doc="examples.xml">примерах</link>
+см. в <link url="https://github.com/nginx/njs-examples/">примерах</link>
 и <link url="https://www.nginx.com/blog/tag/nginx-javascript-module/">блогпостах</link>.
 </para>
 

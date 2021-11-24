@@ -18,7 +18,7 @@ The <literal>ngx_http_keyval_module</literal> module (1.13.3) creates variables
 with values taken from key-value pairs managed by the
 <link doc="ngx_http_api_module.xml" id="http_keyvals_">API</link>
 or a variable (1.15.10) that can also be set with
-<link doc="../njs/examples.xml" id="requests">njs</link>.
+<link url="https://github.com/nginx/njs-examples/#logging-the-number-of-requests-per-client-http-logging-num-requests">njs</link>.
 </para>
 
 <para>

@@ -128,7 +128,6 @@ REFS =									\
 		njs/changes						\
 		njs/cli							\
 		njs/compatibility					\
-		njs/examples						\
 		njs/install						\
 		njs/reference						\
 		njs/node_modules					\
