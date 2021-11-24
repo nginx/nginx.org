@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_ssl_module"
         link="/ru/docs/http/ngx_http_ssl_module.html"
         lang="ru"
-        rev="55">
+        rev="56">
 
 <section id="summary">
 
@@ -1114,6 +1114,21 @@ AES128-SHA:AES256-SHA:0x00ff
 <note>
 До версии 1.11.7 результат “<literal>FAILED</literal>”
 не содержал строку <value>reason</value>.
+</note>
+</tag-desc>
+
+<tag-name id="var_ssl_curve"><var>$ssl_curve</var></tag-name>
+<tag-desc>
+возвращает согласованную кривую, использованную для
+обмена ключами во время операции SSL handshake (1.21.5).
+Известные кривые указаны по имени, неизвестные указаны в шестнадцатеричном виде,
+например:
+<example>
+prime256v1
+</example>
+<note>
+Переменная поддерживается при использовании OpenSSL версии 3.0 и выше.
+При использовании более старых версий значением переменной будет пустая строка.
 </note>
 </tag-desc>
 

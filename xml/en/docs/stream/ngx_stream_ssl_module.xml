@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_ssl_module"
         link="/en/docs/stream/ngx_stream_ssl_module.html"
         lang="en"
-        rev="27">
+        rev="28">
 
 <section id="summary">
 
@@ -756,6 +756,21 @@ returns the start date of the client certificate (1.11.8);
 returns the result of client certificate verification (1.11.8):
 “<literal>SUCCESS</literal>”, “<literal>FAILED:</literal><value>reason</value>”,
 and “<literal>NONE</literal>” if a certificate was not present;
+</tag-desc>
+
+<tag-name id="var_ssl_curve"><var>$ssl_curve</var></tag-name>
+<tag-desc>
+returns the negotiated curve used for
+SSL handshake key exchange process (1.21.5).
+Known curves are listed by names, unknown are shown in hexadecimal,
+for example:
+<example>
+prime256v1
+</example>
+<note>
+The variable is supported only when using OpenSSL version 3.0 or higher.
+With older versions, the variable value will be an empty string.
+</note>
 </tag-desc>
 
 <tag-name id="var_ssl_curves"><var>$ssl_curves</var></tag-name>
