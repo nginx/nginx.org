@@ -9,14 +9,16 @@
 <module name="Module ngx_stream_keyval_module"
         link="/en/docs/stream/ngx_stream_keyval_module.html"
         lang="en"
-        rev="9">
+        rev="10">
 
 <section id="summary">
 
 <para>
 The <literal>ngx_stream_keyval_module</literal> module (1.13.7) creates variables
 with values taken from key-value pairs managed by the
-<link doc="../http/ngx_http_api_module.xml" id="stream_keyvals_">API</link>.
+<link doc="../http/ngx_http_api_module.xml" id="stream_keyvals_">API</link>
+or a variable that can also be set with
+<link url="https://github.com/nginx/njs-examples/">njs</link>.
 </para>
 
 <para>
