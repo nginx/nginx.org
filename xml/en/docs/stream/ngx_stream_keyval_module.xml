@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_keyval_module"
         link="/en/docs/stream/ngx_stream_keyval_module.html"
         lang="en"
-        rev="10">
+        rev="11">
 
 <section id="summary">
 
@@ -107,6 +107,7 @@ Key-value pairs are managed by the
 The optional <literal>state</literal> parameter specifies a <value>file</value>
 that keeps the current state of the key-value database in the JSON format
 and makes it persistent across nginx restarts.
+Changing the file content directly should be avoided.
 </para>
 
 <para>
