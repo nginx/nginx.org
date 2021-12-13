@@ -20,8 +20,10 @@
 
     <div id="banner">
         <xsl:if test="@lang = 'he'"> <xsl:attribute name="class"> <xsl:text>ltr</xsl:text> </xsl:attribute> </xsl:if>
-        Learn 97 site reliability tips and best practices in this new O'Reilly ebook.<br/>
-        <a href="https://www.nginx.com/resources/library/97-things-every-sre-should-know?utm_medium=homepagehero&amp;utm_source=nginxorg&amp;utm_campaign=ww-nx_ssap&amp;utm_content=eb">Download for free at nginx.com</a>
+        Got a few minutes to help shape the future of
+        <a href="https://www.nginx.org/">www.nginx.org</a>?<br/>
+        Answer <a href="https://forms.office.com/r/6nVQvzwVTZ">these
+        five questions</a>!
     </div>
 
     <div id="main">
