@@ -7,7 +7,7 @@
 <article name="nginx: Linux packages"
          link="/en/linux_packages.html"
          lang="en"
-         rev="68">
+         rev="69">
 
 <section name="Supported distributions and versions" id="distributions">
 
@@ -33,7 +33,7 @@ versions:
 
 <tr>
 <td width="30%">8.x</td>
-<td>x86_64, aarch64/arm64</td>
+<td>x86_64, aarch64/arm64, s390x</td>
 </tr>
 
 </table>
@@ -79,7 +79,7 @@ versions:
 
 <tr>
 <td width="30%">20.04 “focal”</td>
-<td>x86_64, aarch64/arm64</td>
+<td>x86_64, aarch64/arm64, s390x</td>
 </tr>
 
 <tr>
