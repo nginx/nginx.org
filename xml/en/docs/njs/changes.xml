@@ -9,8 +9,129 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="47"
+        rev="48"
         toc="no">
+
+<section id="njs0.7.1" name="Changes with njs 0.7.1">
+
+<para>
+Release Date:
+28 December 2021
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Change:
+the <link doc="../http/ngx_http_js_module.xml" id="js_include"/> directive
+deprecated since <link id="njs0.4.0">0.4.0</link> was removed.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Change:
+PCRE/PCRE2-specific code was moved to the modules.
+This ensures that njs uses the same RegExp library as nginx.
+</para>
+</listitem>
+
+</list>
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<literal>decodeURI()</literal> and
+<literal>decodeURIComponent()</literal>
+with invalid byte strings.
+The bug was introduced in
+<link id="njs0.4.3">0.4.3</link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed heap-use-after-free in <literal>await</literal> frame.
+The bug was introduced in
+<link id="njs0.7.0">0.7.0</link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed WebCrypto <literal>sign()</literal> and
+<literal>verify()</literal> methods with OpenSSL 3.0.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed exception throwing when RegExp match fails.
+The bug was introduced in
+<link id="njs0.1.15">0.1.15</link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed catching of exception thrown in <literal>try</literal> block
+of <literal>async</literal> function.
+The bug was introduced in
+<link id="njs0.7.0">0.7.0</link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed execution of <literal>async</literal> function in synchronous context.
+The bug was introduced in
+<link id="njs0.7.0">0.7.0</link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed function redeclaration in CLI when interactive mode is on.
+The bug was introduced in
+<link id="njs0.6.2">0.6.2</link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>typeof</literal> operator with
+<literal>DataView</literal> object.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix: eliminated information leak in <literal>Buffer.from()</literal>.
+</para>
+</listitem>
+
+</list>
+
+</para>
+
+</section>
+
 
 <section id="njs0.7.0" name="Changes with njs 0.7.0">
 
