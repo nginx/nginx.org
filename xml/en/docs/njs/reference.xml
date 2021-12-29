@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="78">
+        rev="79">
 
 <section id="summary">
 
@@ -3316,6 +3316,26 @@ by default is <literal>a</literal>
 </list>
 </tag-desc>
 
+<tag-name id="fs_lstatsync"><literal>lstatSync(<value>path</value>[,
+<value>options</value>])</literal></tag-name>
+<tag-desc>
+Synchronously retrieves
+the <link id="fs_stats"><literal>fs.Stats</literal></link> object
+for the symbolic link referred to by <literal>path</literal>
+(<link doc="changes.xml" id="njs0.7.1">0.7.1</link>).
+The <literal>options</literal> parameter is expected to be
+an object with the following keys:
+<list type="tag">
+<tag-name><literal>throwIfNoEntry</literal></tag-name>
+<tag-desc>
+a boolean value which indicates
+whether an exception is thrown if no file system entry exists,
+rather than returning <literal>undefined</literal>,
+by default is <literal>false</literal>.
+</tag-desc>
+</list>
+</tag-desc>
+
 <tag-name id="fs_mkdirsync"><literal>mkdirSync(<value>path</value>[,
 <value>options</value>])</literal></tag-name>
 <tag-desc>
@@ -3443,6 +3463,29 @@ Synchronously removes a directory at the specified <literal>path</literal>
 (<link doc="changes.xml" id="njs0.4.2">0.4.2</link>).
 </tag-desc>
 
+<tag-name id="fs_statsync"><literal>statSync(<value>path</value>,[
+<value>options</value>])</literal></tag-name>
+<tag-desc>
+Synchronously retrieves
+the <link id="fs_stats"><literal>fs.Stats</literal></link> object
+for the specified <literal>path</literal>
+(<link doc="changes.xml" id="njs0.7.1">0.7.1</link>).
+The <literal>path</literal> can be a
+<literal>string</literal> or
+<literal>buffer</literal>.
+The <literal>options</literal> parameter is expected to be
+an object with the following keys:
+<list type="tag">
+<tag-name><literal>throwIfNoEntry</literal></tag-name>
+<tag-desc>
+a boolean value which indicates whether
+an exception is thrown if no file system entry exists
+rather than returning <literal>undefined</literal>,
+by default is <literal>true</literal>.
+</tag-desc>
+</list>
+</tag-desc>
+
 <tag-name id="fs_symlinksync"><literal>symlinkSync(<value>target</value>,
 <value>path</value>)</literal></tag-name>
 <tag-desc>
@@ -3555,6 +3598,152 @@ a symbolic link.
 <listitem>
 <literal>dirent.name</literal>&mdash;
 the name of the file <literal>fs.Dirent</literal> object refers to.
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+
+<section id="fs_stats" name="fs.Stats">
+
+<para>
+The <literal>fs.Stats</literal> object provides information about a file.
+The object is returned from
+<link id="fs_statsync">fs.statSync()</link> and
+<link id="fs_lstatsync">fs.lstatSync()</link>.
+
+<list type= "bullet" compact="no">
+
+<listitem>
+<literal>stats.isBlockDevice()</literal>&mdash;returns
+<literal>true</literal> if the <literal>fs.Stats</literal> object describes
+a block device.
+</listitem>
+
+<listitem>
+<literal>stats.isDirectory()</literal>&mdash;returns
+<literal>true</literal> if the <literal>fs.Stats</literal> object describes
+a file system directory.
+</listitem>
+
+<listitem>
+<literal>stats.isFIFO()</literal>&mdash;returns
+<literal>true</literal> if the <literal>fs.Stats</literal> object describes
+a first-in-first-out (FIFO) pipe.
+</listitem>
+
+<listitem>
+<literal>stats.isFile()</literal>&mdash;returns
+<literal>true</literal> if the <literal>fs.Stats</literal> object describes
+a regular file.
+</listitem>
+
+<listitem>
+<literal>stats.isSocket()</literal>&mdash;returns
+<literal>true</literal> if the <literal>fs.Stats</literal> object describes
+a socket.
+</listitem>
+
+<listitem>
+<literal>stats.isSymbolicLink()</literal>&mdash;returns
+<literal>true</literal> if the <literal>fs.Stats</literal> object describes
+a symbolic link.
+</listitem>
+
+<listitem>
+<literal>stats.dev</literal>&mdash;
+the numeric identifier of the device containing the file.
+</listitem>
+
+<listitem>
+<literal>stats.ino</literal>&mdash;
+the file system specific <literal>Inode</literal> number for the file.
+</listitem>
+
+<listitem>
+<literal>stats.mode</literal>&mdash;
+a bit-field describing the file type and mode.
+</listitem>
+
+<listitem>
+<literal>stats.nlink</literal>&mdash;
+the number of hard-links that exist for the file.
+</listitem>
+
+<listitem>
+<literal>stats.uid</literal>&mdash;
+the numeric user identifier of the user that owns the file (POSIX).
+</listitem>
+
+<listitem>
+<literal>stats.gid</literal>&mdash;
+the numeric group identifier of the group that owns the file (POSIX).
+</listitem>
+
+<listitem>
+<literal>stats.rdev</literal>&mdash;
+the numeric device identifier if the file represents a device.
+</listitem>
+
+<listitem>
+<literal>stats.size</literal>&mdash;
+the size of the file in bytes.
+</listitem>
+
+<listitem>
+<literal>stats.blksize</literal>&mdash;
+the file system block size for i/o operations.
+</listitem>
+
+<listitem>
+<literal>stats.blocks</literal>&mdash;
+the number of blocks allocated for this file.
+</listitem>
+
+<listitem>
+<literal>stats.atimeMs</literal>&mdash;
+the timestamp indicating the last time this file was accessed expressed
+in milliseconds since the POSIX Epoch.
+</listitem>
+
+<listitem>
+<literal>stats.mtimeMs</literal>&mdash;
+the timestamp indicating the last time this file was modified expressed
+in milliseconds since the POSIX Epoch.
+</listitem>
+
+<listitem>
+<literal>stats.ctimeMs</literal>&mdash;
+the timestamp indicating the last time this file was changed expressed
+in milliseconds since the POSIX Epoch.
+</listitem>
+
+<listitem>
+<literal>stats.birthtimeMs</literal>&mdash;
+the timestamp indicating the creation time of this file expressed
+in milliseconds since the POSIX Epoch.
+</listitem>
+
+<listitem>
+<literal>stats.atime</literal>&mdash;
+the timestamp indicating the last time this file was accessed.
+</listitem>
+
+<listitem>
+<literal>stats.mtime</literal>&mdash;
+the timestamp indicating the last time this file was modified.
+</listitem>
+
+<listitem>
+<literal>stats.ctime</literal>&mdash;
+the timestamp indicating the last time this file was changed.
+</listitem>
+
+<listitem>
+<literal>stats.birthtime</literal>&mdash;
+the timestamp indicating the creation time of this file.
 </listitem>
 
 </list>
