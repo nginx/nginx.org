@@ -9,7 +9,7 @@
 <article name="Development guide"
          link="/en/docs/dev/development_guide.html"
          lang="en"
-         rev="10">
+         rev="11">
 
 <section name="Introduction" id="introduction">
 
@@ -623,7 +623,7 @@ rc.pattern = value;
 rc.pool = cf->pool;
 rc.err.len = NGX_MAX_CONF_ERRSTR;
 rc.err.data = errstr;
-/* rc.options are passed as is to pcre_compile() */
+/* rc.options can be set to NGX_REGEX_CASELESS */
 
 if (ngx_regex_compile(&amp;rc) != NGX_OK) {
     ngx_conf_log_error(NGX_LOG_EMERG, cf, 0, "%V", &amp;rc.err);
