@@ -8,7 +8,7 @@
 <article name="Сборка nginx из исходных файлов"
          link="/ru/docs/configure.html"
          lang="ru"
-         rev="18">
+         rev="19">
 
 <section>
 
@@ -1184,8 +1184,8 @@ HTTP-сервера.
 </tag-name>
 <tag-desc>
 задаёт путь к исходным текстам библиотеки PCRE.
-Дистрибутив библиотеки (версию
-4.4&mdash;8.43) нужно взять на сайте <link url="http://www.pcre.org">PCRE</link>
+Дистрибутив библиотеки
+нужно взять на сайте <link url="http://www.pcre.org">PCRE</link>
 и распаковать.
 Всё остальное сделают <command>./configure</command> nginx’а и
 <command>make</command>.
@@ -1209,6 +1209,14 @@ HTTP-сервера.
 собирает библиотеку PCRE с
 поддержкой JIT-компиляции (1.1.12, директива
 <link doc="ngx_core_module.xml" id="pcre_jit"/>).
+</tag-desc>
+
+<tag-name>
+<literal>--without-pcre2</literal>
+</tag-name>
+<tag-desc>
+запрещает использование библиотеки PCRE2
+вместо исходной библиотеки PCRE (1.21.5).
 </tag-desc>
 
 </list>
@@ -1311,7 +1319,7 @@ HTTP-сервера.
     --conf-path=/usr/local/nginx/nginx.conf
     --pid-path=/usr/local/nginx/nginx.pid
     --with-http_ssl_module
-    --with-pcre=../pcre-8.44
+    --with-pcre=../pcre2-10.39
     --with-zlib=../zlib-1.2.11
 </programlisting>
 </para>
