@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_js_module"
         link="/en/docs/stream/ngx_stream_js_module.html"
         lang="en"
-        rev="29">
+        rev="30">
 
 <section id="summary">
 
@@ -286,9 +286,11 @@ function address(s) {
 </para>
 
 <para>
-The directive is deprecated since
-<link doc="../njs/changes.xml" id="njs0.4.0">0.4.0</link>,
-the <link id="js_import"/> directive should be used instead.
+The directive was made obsolete in version
+<link doc="../njs/changes.xml" id="njs0.4.0">0.4.0</link>
+and was removed in version
+<link doc="../njs/changes.xml" id="njs0.7.1">0.7.1</link>.
+The <link id="js_import"/> directive should be used instead.
 </para>
 
 </directive>

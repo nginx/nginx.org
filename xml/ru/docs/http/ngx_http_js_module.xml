@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_js_module"
         link="/ru/docs/http/ngx_http_js_module.html"
         lang="ru"
-        rev="33">
+        rev="34">
 
 <section id="summary">
 
@@ -401,9 +401,11 @@ function version(r) {
 </para>
 
 <para>
-Директива устарела начиная с
-<link doc="../njs/changes.xml" id="njs0.4.0">0.4.0</link>,
-вместо неё следует использовать директиву <link id="js_import"/>.
+Директива устарела в версии
+<link doc="../njs/changes.xml" id="njs0.4.0">0.4.0</link>
+и была удалена в версии
+<link doc="../njs/changes.xml" id="njs0.7.1">0.7.1</link>.
+Вместо неё следует использовать директиву <link id="js_import"/>.
 </para>
 
 </directive>
