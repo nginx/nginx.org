@@ -257,7 +257,6 @@ gpg --dry-run --quiet --import --import-options import-show /usr/share/keyrings/
 <command>573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62</command>:
 <programlisting>
 pub   rsa2048 2011-08-19 [SC] [expires: 2024-06-14]
-uid   [ unknown] nginx signing key &lt;signing-key@nginx.com&gt;
       573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62
 uid                      nginx signing key &lt;signing-key@nginx.com&gt;
 </programlisting>
@@ -307,7 +306,7 @@ sudo apt install nginx
 <para>
 Установите пакеты, необходимые для подключения apt-репозитория:
 <programlisting>
-sudo apt install curl gnupg2 ca-certificates lsb-release ubuntu-archive-keyring
+sudo apt install curl gnupg2 ca-certificates lsb-release ubuntu-keyring
 </programlisting>
 </para>
 
@@ -329,7 +328,6 @@ gpg --dry-run --quiet --import --import-options import-show /usr/share/keyrings/
 <command>573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62</command>:
 <programlisting>
 pub   rsa2048 2011-08-19 [SC] [expires: 2024-06-14]
-uid   [ unknown] nginx signing key &lt;signing-key@nginx.com&gt;
       573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62
 uid                      nginx signing key &lt;signing-key@nginx.com&gt;
 </programlisting>
@@ -409,7 +407,7 @@ gpg --with-fingerprint /tmp/nginx_signing.key
 </programlisting>
 
 Вывод команды должен содержать полный отпечаток ключа
-<command>573B FD6B 3D8F BC64 1079 A6AB ABF5 BD82 7BD9 BF62</command>:
+<command>573B FD6B 3D8F BC64 1079  A6AB ABF5 BD82 7BD9 BF62</command>:
 <programlisting>
 pub  2048R/7BD9BF62 2011-08-19 [expires: 2024-06-14]
       Key fingerprint = 573B FD6B 3D8F BC64 1079  A6AB ABF5 BD82 7BD9 BF62
@@ -443,7 +441,7 @@ sudo apk add openssl curl ca-certificates
 <programlisting>
 printf "%s%s%s%s\n" \
     "@nginx " \
-    "http://nginx.org/packages/mainline/alpine/v" \
+    "http://nginx.org/packages/alpine/v" \
     `egrep -o '^[0-9]+\.[0-9]+' /etc/alpine-release` \
     "/main" \
     | sudo tee -a /etc/apk/repositories
