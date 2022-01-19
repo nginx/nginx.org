@@ -20,10 +20,8 @@
 
     <div id="banner">
         <xsl:if test="@lang = 'he'"> <xsl:attribute name="class"> <xsl:text>ltr</xsl:text> </xsl:attribute> </xsl:if>
-        Got a few minutes to help shape the future of
-        <a href="https://www.nginx.org/">www.nginx.org</a>?<br/>
-        Answer <a href="https://forms.office.com/r/6nVQvzwVTZ">these
-        five questions</a>!
+        Congratulations, Igor, on your retirement!<br/>
+        <a href="https://www.nginx.com/blog/do-svidaniya-igor-thank-you-for-nginx">Read our tribute</a> to the legend.
     </div>
 
     <div id="main">
