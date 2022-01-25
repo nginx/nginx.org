@@ -9,8 +9,104 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="48"
+        rev="49"
         toc="no">
+
+<section id="njs0.7.2" name="Changes with njs 0.7.2">
+
+<para>
+Release Date:
+25 January 2022
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<literal>Array.prototype.join()</literal>
+when array is changed while iterating.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<literal>Array.prototype.slice()</literal>
+when array is changed while iterating.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<literal>Array.prototype.concat()</literal>
+when array is changed while iterating.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<literal>Array.prototype.reverse()</literal>
+when array is changed while iterating.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<literal>Buffer.concat()</literal>
+with subarrays.
+Thanks to Sylvain Etienne.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+type confusion bug while resolving promises.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<literal>Function.prototype.apply()</literal>
+with large array arguments.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed recursive <literal>async</literal> function calls.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed function redeclaration.
+The bug was introduced in
+<link id="njs0.7.0">0.7.0</link>.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.7.1" name="Changes with njs 0.7.1">
 
