@@ -276,7 +276,7 @@ upstream backend {
 </tag-name>
 <tag-desc>
 включает преобразование
-<link url="https://tools.ietf.org/html/rfc2782">SRV</link>-записей
+<link url="https://datatracker.ietf.org/doc/html/rfc2782">SRV</link>-записей
 DNS и задаёт <value>имя</value> сервиса (1.9.13).
 Для работы параметра необходимо указать
 параметр <link id="resolve"/> для сервера
@@ -284,7 +284,7 @@ DNS и задаёт <value>имя</value> сервиса (1.9.13).
 <para>
 Если имя сервиса не содержит точку (“<literal>.</literal>”), то
 имя составляется в соответствии с
-<link url="https://tools.ietf.org/html/rfc2782">RFC</link>
+<link url="https://datatracker.ietf.org/doc/html/rfc2782">RFC</link>
 и в префикс службы добавляется протокол TCP.
 Например, для получения
 SRV-записи <literal>_http._tcp.backend.example.com</literal>

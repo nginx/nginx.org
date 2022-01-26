@@ -572,7 +572,7 @@ AES256 (для 80-байтных ключей, 1.11.8), либо AES128 (для 
 
 <para>
 Разрешает или запрещает возобновление сессий при помощи
-<link url="https://tools.ietf.org/html/rfc5077">TLS session tickets</link>.
+<link url="https://datatracker.ietf.org/doc/html/rfc5077">TLS session tickets</link>.
 </para>
 
 </directive>
@@ -717,7 +717,7 @@ AES128-SHA:AES256-SHA:0x00ff
 <tag-desc>
 возвращает строку “issuer DN” клиентского сертификата
 для установленного SSL-соединения согласно
-<link url="https://tools.ietf.org/html/rfc2253">RFC 2253</link> (1.11.8);
+<link url="https://datatracker.ietf.org/doc/html/rfc2253">RFC 2253</link> (1.11.8);
 </tag-desc>
 
 <tag-name id="var_ssl_client_raw_cert"><var>$ssl_client_raw_cert</var>
@@ -731,7 +731,7 @@ AES128-SHA:AES256-SHA:0x00ff
 <tag-desc>
 возвращает строку “subject DN” клиентского сертификата
 для установленного SSL-соединения согласно
-<link url="https://tools.ietf.org/html/rfc2253">RFC 2253</link> (1.11.8);
+<link url="https://datatracker.ietf.org/doc/html/rfc2253">RFC 2253</link> (1.11.8);
 </tag-desc>
 
 <tag-name id="var_ssl_client_serial"><var>$ssl_client_serial</var></tag-name>

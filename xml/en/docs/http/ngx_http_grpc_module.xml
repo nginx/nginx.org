@@ -248,7 +248,7 @@ server, passing a request to it, or reading the response header;</tag-desc>
 
 <tag-name id="non_idempotent"><literal>non_idempotent</literal></tag-name>
 <tag-desc>normally, requests with a
-<link url="https://tools.ietf.org/html/rfc7231#section-4.2.2">non-idempotent</link>
+<link url="https://datatracker.ietf.org/doc/html/rfc7231#section-4.2.2">non-idempotent</link>
 method
 (<literal>POST</literal>, <literal>LOCK</literal>, <literal>PATCH</literal>)
 are not passed to the next server

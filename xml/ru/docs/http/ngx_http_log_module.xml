@@ -221,7 +221,7 @@ a также символы со значениями меньше 32 (0.7.0) и
 <para id="log_format_escape_json">
 При использовании <literal>json</literal>
 экранируются все символы, недопустимые
-в JSON <link url="https://tools.ietf.org/html/rfc8259#section-7">строках</link>:
+в JSON <link url="https://datatracker.ietf.org/doc/html/rfc8259#section-7">строках</link>:
 символы “<literal>"</literal>” и
 “<literal>\</literal>” экранируются как
 “<literal>\"</literal>” и “<literal>\\</literal>”,

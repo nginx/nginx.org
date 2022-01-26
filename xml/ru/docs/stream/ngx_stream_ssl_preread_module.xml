@@ -16,12 +16,12 @@
 <para>
 Модуль <literal>ngx_stream_ssl_preread_module</literal> (1.11.5) позволяет
 извлекать информацию из сообщения
-<link url="https://tools.ietf.org/html/rfc5246#section-7.4.1.2">ClientHello</link>
+<link url="https://datatracker.ietf.org/doc/html/rfc5246#section-7.4.1.2">ClientHello</link>
 без терминирования SSL/TLS,
 например имя сервера, запрошенное через
-<link url="https://tools.ietf.org/html/rfc6066#section-3">SNI</link>
+<link url="https://datatracker.ietf.org/doc/html/rfc6066#section-3">SNI</link>
 или протоколы, указанные в
-<link url="https://tools.ietf.org/html/rfc7301">ALPN</link>.
+<link url="https://datatracker.ietf.org/doc/html/rfc7301">ALPN</link>.
 По умолчанию этот модуль не собирается, его сборку необходимо
 разрешить с помощью конфигурационного параметра
 <literal>--with-stream_ssl_preread_module</literal>.

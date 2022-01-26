@@ -161,13 +161,13 @@ PROXY</link>.
 включает
 “<link url="http://en.wikipedia.org/wiki/TCP_Fast_Open">TCP Fast Open</link>”
 для слушающего сокета (1.21.0) и
-<link url="https://tools.ietf.org/html/rfc7413#section-5.1">ограничивает</link>
+<link url="https://datatracker.ietf.org/doc/html/rfc7413#section-5.1">ограничивает</link>
 максимальную длину очереди соединений, которые ещё не завершили процесс
 three-way handshake.
 <note>
 Не включайте “TCP Fast Open”, не убедившись, что сервер может адекватно
 обрабатывать многократное получение
-<link url="https://tools.ietf.org/html/rfc7413#section-6.1">
+<link url="https://datatracker.ietf.org/doc/html/rfc7413#section-6.1">
 одного и того же SYN-пакета с данными</link>.
 </note>
 </tag-desc>

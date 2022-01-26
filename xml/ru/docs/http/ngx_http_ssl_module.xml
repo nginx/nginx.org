@@ -383,10 +383,10 @@ ssl_conf_command Ciphersuites TLS_CHACHA20_POLY1305_SHA256;
 
 <para>
 Разрешает или запрещает TLS 1.3
-<link url="https://tools.ietf.org/html/rfc8446#section-2.3">early data</link>.
+<link url="https://datatracker.ietf.org/doc/html/rfc8446#section-2.3">early data</link>.
 <note>
 Запросы, отправленные внутри early data, могут быть подвержены
-<link url="https://tools.ietf.org/html/rfc8470">атакам повторного воспроизведения</link> (replay).
+<link url="https://datatracker.ietf.org/doc/html/rfc8470">атакам повторного воспроизведения</link> (replay).
 Для защиты от подобных атак на уровне приложения
 необходимо использовать
 переменную <link id="var_ssl_early_data">$ssl_early_data</link>.
@@ -523,7 +523,7 @@ resolver          192.0.2.1;
 
 <para>
 Переопределяет URL OCSP responder’а, указанный в расширении сертификата
-“<link url="https://tools.ietf.org/html/rfc5280#section-4.2.2.1">Authority
+“<link url="https://datatracker.ietf.org/doc/html/rfc5280#section-4.2.2.1">Authority
 Information Access</link>”
 для <link id="ssl_ocsp">проверки</link> клиентских сертификатов.
 </para>
@@ -760,7 +760,7 @@ AES256 (для 80-байтных ключей, 1.11.8), либо AES128 (для 
 
 <para>
 Разрешает или запрещает возобновление сессий при помощи
-<link url="https://tools.ietf.org/html/rfc5077">TLS session tickets</link>.
+<link url="https://datatracker.ietf.org/doc/html/rfc5077">TLS session tickets</link>.
 </para>
 
 </directive>
@@ -789,7 +789,7 @@ AES256 (для 80-байтных ключей, 1.11.8), либо AES128 (для 
 
 <para>
 Разрешает или запрещает
-<link url="https://tools.ietf.org/html/rfc6066#section-8">прикрепление
+<link url="https://datatracker.ietf.org/doc/html/rfc6066#section-8">прикрепление
 OCSP-ответов</link> сервером.
 Пример:
 <example>
@@ -846,7 +846,7 @@ resolver 192.0.2.1;
 
 <para>
 Переопределяет URL OCSP responder’а, указанный в расширении сертификата
-“<link url="https://tools.ietf.org/html/rfc5280#section-4.2.2.1">Authority
+“<link url="https://datatracker.ietf.org/doc/html/rfc5280#section-4.2.2.1">Authority
 Information Access</link>”.
 </para>
 
@@ -1049,7 +1049,7 @@ AES128-SHA:AES256-SHA:0x00ff
 <tag-desc>
 возвращает строку “issuer DN” клиентского сертификата
 для установленного SSL-соединения согласно
-<link url="https://tools.ietf.org/html/rfc2253">RFC 2253</link> (1.11.6);
+<link url="https://datatracker.ietf.org/doc/html/rfc2253">RFC 2253</link> (1.11.6);
 </tag-desc>
 
 <tag-name id="var_ssl_client_i_dn_legacy"><var>$ssl_client_i_dn_legacy</var></tag-name>
@@ -1072,7 +1072,7 @@ AES128-SHA:AES256-SHA:0x00ff
 <tag-desc>
 возвращает строку “subject DN” клиентского сертификата
 для установленного SSL-соединения согласно
-<link url="https://tools.ietf.org/html/rfc2253">RFC 2253</link> (1.11.6);
+<link url="https://datatracker.ietf.org/doc/html/rfc2253">RFC 2253</link> (1.11.6);
 </tag-desc>
 
 <tag-name id="var_ssl_client_s_dn_legacy"><var>$ssl_client_s_dn_legacy</var></tag-name>

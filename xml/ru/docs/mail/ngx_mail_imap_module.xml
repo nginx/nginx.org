@@ -27,24 +27,24 @@
 
 <tag-name><literal>plain</literal></tag-name>
 <tag-desc>
-<link url="https://tools.ietf.org/html/rfc3501">LOGIN</link>,
-<link url="https://tools.ietf.org/html/rfc4616">AUTH=PLAIN</link>
+<link url="https://datatracker.ietf.org/doc/html/rfc3501">LOGIN</link>,
+<link url="https://datatracker.ietf.org/doc/html/rfc4616">AUTH=PLAIN</link>
 </tag-desc>
 
 <tag-name><literal>login</literal></tag-name>
 <tag-desc>
-<link url="https://tools.ietf.org/html/draft-murchison-sasl-login-00">AUTH=LOGIN</link>
+<link url="https://datatracker.ietf.org/doc/html/draft-murchison-sasl-login-00">AUTH=LOGIN</link>
 </tag-desc>
 
 <tag-name><literal>cram-md5</literal></tag-name>
 <tag-desc>
-<link url="https://tools.ietf.org/html/rfc2195">AUTH=CRAM-MD5</link>.
+<link url="https://datatracker.ietf.org/doc/html/rfc2195">AUTH=CRAM-MD5</link>.
 Для работы этого метода пароль должен храниться в незашифрованном виде.
 </tag-desc>
 
 <tag-name><literal>external</literal></tag-name>
 <tag-desc>
-<link url="https://tools.ietf.org/html/rfc4422">AUTH=EXTERNAL</link> (1.11.6).
+<link url="https://datatracker.ietf.org/doc/html/rfc4422">AUTH=EXTERNAL</link> (1.11.6).
 </tag-desc>
 
 </list>
@@ -71,14 +71,14 @@
 
 <para>
 Позволяет указать список расширений
-<link url="https://tools.ietf.org/html/rfc3501">протокола IMAP</link>,
+<link url="https://datatracker.ietf.org/doc/html/rfc3501">протокола IMAP</link>,
 выдаваемый клиенту по команде
 <literal>CAPABILITY</literal>.
 В зависимости от значения директивы
 <link doc="ngx_mail_ssl_module.xml" id="starttls"/>
 к этому списку автоматически добавляются
 методы аутентификации, указанные в директиве <link id="imap_auth"/>, и
-<link url="https://tools.ietf.org/html/rfc2595">STARTTLS</link>.
+<link url="https://datatracker.ietf.org/doc/html/rfc2595">STARTTLS</link>.
 </para>
 
 <para>

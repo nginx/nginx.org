@@ -222,7 +222,7 @@ a hyphen (“<literal>-</literal>”) will be logged.
 <para id="log_format_escape_json">
 For <literal>json</literal> escaping,
 all characters not allowed
-in JSON <link url="https://tools.ietf.org/html/rfc8259#section-7">strings</link>
+in JSON <link url="https://datatracker.ietf.org/doc/html/rfc8259#section-7">strings</link>
 will be escaped:
 characters “<literal>"</literal>” and
 “<literal>\</literal>” are escaped as

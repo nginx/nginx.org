@@ -15,7 +15,7 @@
 
 <para>
 The <literal>ngx_http_v2_module</literal> module (1.9.5) provides
-support for <link url="https://tools.ietf.org/html/rfc7540">HTTP/2</link>
+support for <link url="https://datatracker.ietf.org/doc/html/rfc7540">HTTP/2</link>
 and supersedes the
 <link doc="ngx_http_spdy_module.xml">ngx_http_spdy_module</link> module.
 </para>
@@ -74,7 +74,7 @@ Also note that if the
 is set to the value “<literal>on</literal>”,
 the <link doc="ngx_http_ssl_module.xml" id="ssl_ciphers">ciphers</link>
 should be configured to comply with
-<link url="https://tools.ietf.org/html/rfc7540#appendix-A">RFC 7540, Appendix A</link>
+<link url="https://datatracker.ietf.org/doc/html/rfc7540#appendix-A">RFC 7540, Appendix A</link>
 black list and supported by clients.
 </para>
 
@@ -184,7 +184,7 @@ directive should be used instead.
 
 <para>
 Limits the maximum size of
-an <link url="https://tools.ietf.org/html/rfc7541">HPACK</link>-compressed
+an <link url="https://datatracker.ietf.org/doc/html/rfc7541">HPACK</link>-compressed
 request header field.
 The limit applies equally to both name and value.
 Note that if Huffman encoding is applied,
@@ -211,7 +211,7 @@ directive should be used instead.
 
 <para>
 Limits the maximum size of the entire request header list after
-<link url="https://tools.ietf.org/html/rfc7541">HPACK</link> decompression.
+<link url="https://datatracker.ietf.org/doc/html/rfc7541">HPACK</link> decompression.
 For most requests, the default limit should be enough.
 </para>
 
@@ -261,7 +261,7 @@ could result in excessive memory usage and not recommended.
 
 <para>
 Pre-emptively sends
-(<link url="https://tools.ietf.org/html/rfc7540#section-8.2">pushes</link>)
+(<link url="https://datatracker.ietf.org/doc/html/rfc7540#section-8.2">pushes</link>)
 a request to the specified <value>uri</value>
 along with the response to the original request.
 Only relative URIs with absolute path will be processed,
@@ -296,7 +296,7 @@ Enables automatic conversion of
 <link url="https://www.w3.org/TR/preload/#server-push-http-2">preload
 links</link>
 specified in the <header>Link</header> response header fields into
-<link url="https://tools.ietf.org/html/rfc7540#section-8.2">push</link>
+<link url="https://datatracker.ietf.org/doc/html/rfc7540#section-8.2">push</link>
 requests.
 </para>
 

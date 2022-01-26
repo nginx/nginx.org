@@ -274,14 +274,14 @@ sets the server route name.
 </tag-name>
 <tag-desc>
 enables resolving of DNS
-<link url="https://tools.ietf.org/html/rfc2782">SRV</link>
+<link url="https://datatracker.ietf.org/doc/html/rfc2782">SRV</link>
 records and sets the service <value>name</value> (1.9.13).
 In order for this parameter to work, it is necessary to specify
 the <link id="resolve"/> parameter for the server
 and specify a hostname without a port number.
 <para>
 If the service name does not contain a dot (“<literal>.</literal>”), then
-the <link url="https://tools.ietf.org/html/rfc2782">RFC</link>-compliant name
+the <link url="https://datatracker.ietf.org/doc/html/rfc2782">RFC</link>-compliant name
 is constructed
 and the TCP protocol is added to the service prefix.
 For example, to look up the

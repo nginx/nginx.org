@@ -667,7 +667,7 @@ SCGI-сервера для обработки запроса.
 
 <listitem>
 Расширение
-“<link url="https://tools.ietf.org/html/rfc5861#section-3">stale-while-revalidate</link>”
+“<link url="https://datatracker.ietf.org/doc/html/rfc5861#section-3">stale-while-revalidate</link>”
 поля заголовка <header>Cache-Control</header> разрешает
 использовать устаревший закэшированный ответ,
 если на данный момент он уже обновляется.
@@ -675,7 +675,7 @@ SCGI-сервера для обработки запроса.
 
 <listitem>
 Расширение
-“<link url="https://tools.ietf.org/html/rfc5861#section-4">stale-if-error</link>”
+“<link url="https://datatracker.ietf.org/doc/html/rfc5861#section-4">stale-if-error</link>”
 поля заголовка <header>Cache-Control</header> разрешает
 использовать устаревший закэшированный ответ в случае ошибки.
 </listitem>
@@ -1017,7 +1017,7 @@ SCGI-сервера, и ответ не вмещается целиком в б�
 
 <tag-name id="non_idempotent"><literal>non_idempotent</literal></tag-name>
 <tag-desc>обычно запросы с
-<link url="https://tools.ietf.org/html/rfc7231#section-4.2.2">неидемпотентным</link>
+<link url="https://datatracker.ietf.org/doc/html/rfc7231#section-4.2.2">неидемпотентным</link>
 методом
 (<literal>POST</literal>, <literal>LOCK</literal>, <literal>PATCH</literal>)
 не передаются на другой сервер,
@@ -1135,7 +1135,7 @@ scgi_no_cache $http_pragma    $http_authorization;
 
 <para>
 Стандартные
-<link url="https://tools.ietf.org/html/rfc3875#section-4.1">переменные
+<link url="https://datatracker.ietf.org/doc/html/rfc3875#section-4.1">переменные
 окружения CGI</link>
 должны передаваться как заголовки SCGI, см. файл <path>scgi_params</path>
 из дистрибутива:

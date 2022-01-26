@@ -22,30 +22,30 @@
 
 <para>
 Sets permitted methods of
-<link url="https://tools.ietf.org/html/rfc2554">SASL authentication</link>
+<link url="https://datatracker.ietf.org/doc/html/rfc2554">SASL authentication</link>
 for SMTP clients.
 Supported methods are:
 <list type="tag">
 
 <tag-name><literal>plain</literal></tag-name>
 <tag-desc>
-<link url="https://tools.ietf.org/html/rfc4616">AUTH PLAIN</link>
+<link url="https://datatracker.ietf.org/doc/html/rfc4616">AUTH PLAIN</link>
 </tag-desc>
 
 <tag-name><literal>login</literal></tag-name>
 <tag-desc>
-<link url="https://tools.ietf.org/html/draft-murchison-sasl-login-00">AUTH LOGIN</link>
+<link url="https://datatracker.ietf.org/doc/html/draft-murchison-sasl-login-00">AUTH LOGIN</link>
 </tag-desc>
 
 <tag-name><literal>cram-md5</literal></tag-name>
 <tag-desc>
-<link url="https://tools.ietf.org/html/rfc2195">AUTH CRAM-MD5</link>.
+<link url="https://datatracker.ietf.org/doc/html/rfc2195">AUTH CRAM-MD5</link>.
 In order for this method to work, the password must be stored unencrypted.
 </tag-desc>
 
 <tag-name><literal>external</literal></tag-name>
 <tag-desc>
-<link url="https://tools.ietf.org/html/rfc4422">AUTH EXTERNAL</link> (1.11.6).
+<link url="https://datatracker.ietf.org/doc/html/rfc4422">AUTH EXTERNAL</link> (1.11.6).
 </tag-desc>
 
 <tag-name><literal>none</literal></tag-name>
@@ -80,7 +80,7 @@ Sets the SMTP protocol extensions list
 that is passed to the client in response to the
 <literal>EHLO</literal> command.
 The authentication methods specified in the <link id="smtp_auth"/> directive and
-<link url="https://tools.ietf.org/html/rfc3207">STARTTLS</link>
+<link url="https://datatracker.ietf.org/doc/html/rfc3207">STARTTLS</link>
 are automatically added to this list depending on the
 <link doc="ngx_mail_ssl_module.xml" id="starttls"/> directive value.
 </para>

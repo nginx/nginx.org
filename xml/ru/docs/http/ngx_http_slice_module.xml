@@ -94,7 +94,7 @@ location / {
 <tag-name id="var_slice_range"><var>$slice_range</var></tag-name>
 <tag-desc>
 текущий диапазон фрагмента в формате
-<link url="https://tools.ietf.org/html/rfc7233#section-2.1">HTTP
+<link url="https://datatracker.ietf.org/doc/html/rfc7233#section-2.1">HTTP
 byte range</link>,
 например <literal>bytes=0-1048575</literal>.
 </tag-desc>

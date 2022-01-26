@@ -16,11 +16,11 @@
 <para>
 The <literal>ngx_http_auth_jwt_module</literal> module (1.11.3)
 implements client authorization by validating the provided
-<link url="https://tools.ietf.org/html/rfc7519">JSON Web Token</link> (JWT)
+<link url="https://datatracker.ietf.org/doc/html/rfc7519">JSON Web Token</link> (JWT)
 using the specified keys.
 The module supports
-<link url="https://tools.ietf.org/html/rfc7515">JSON Web Signature</link> (JWS),
-<link url="https://tools.ietf.org/html/rfc7516">JSON Web Encryption</link> (JWE)
+<link url="https://datatracker.ietf.org/doc/html/rfc7515">JSON Web Signature</link> (JWS),
+<link url="https://datatracker.ietf.org/doc/html/rfc7516">JSON Web Encryption</link> (JWE)
 (1.19.7), and Nested JWT (1.21.0).
 The module can be used for
 <link url="http://openid.net/specs/openid-connect-core-1_0.html">OpenID Connect</link>
@@ -161,7 +161,7 @@ The optional <literal>token</literal> parameter specifies a variable
 that contains JSON Web Token.
 By default, JWT is passed in the <header>Authorization</header> header
 as a
-<link url="https://tools.ietf.org/html/rfc6750">Bearer Token</link>.
+<link url="https://datatracker.ietf.org/doc/html/rfc6750">Bearer Token</link>.
 JWT may be also passed as a cookie or a part of a query string:
 <example>
 auth_jwt "closed site" token=$cookie_auth_token;
@@ -239,7 +239,7 @@ and the result was undefined for arrays.
 
 <para>
 Specifies a <value>file</value> in
-<link url="https://tools.ietf.org/html/rfc7517#section-5">JSON Web Key Set</link>
+<link url="https://datatracker.ietf.org/doc/html/rfc7517#section-5">JSON Web Key Set</link>
 format for validating JWT signature.
 Parameter value can contain variables.
 </para>
@@ -270,7 +270,7 @@ nginx will return the
 
 <para>
 Allows retrieving a
-<link url="https://tools.ietf.org/html/rfc7517#section-5">JSON Web Key Set</link>
+<link url="https://datatracker.ietf.org/doc/html/rfc7517#section-5">JSON Web Key Set</link>
 file from a subrequest for validating JWT signature and
 sets the URI where the subrequest will be sent to.
 Parameter value can contain variables.
@@ -319,9 +319,9 @@ nginx will return the
 <para>
 Sets the maximum allowable leeway to compensate
 clock skew when verifying the
-<link url="https://tools.ietf.org/html/rfc7519#section-4.1.4">exp</link>
+<link url="https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.4">exp</link>
 and
-<link url="https://tools.ietf.org/html/rfc7519#section-4.1.5">nbf</link>
+<link url="https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.5">nbf</link>
 JWT claims.
 </para>
 
@@ -391,13 +391,13 @@ supports embedded variables:
 <tag-name id="var_jwt_header_"><var>$jwt_header_</var><value>name</value></tag-name>
 <tag-desc>
 returns the value of a specified
-<link url="https://tools.ietf.org/html/rfc7515#section-4">JOSE header</link>
+<link url="https://datatracker.ietf.org/doc/html/rfc7515#section-4">JOSE header</link>
 </tag-desc>
 
 <tag-name id="var_jwt_claim_"><var>$jwt_claim_</var><value>name</value></tag-name>
 <tag-desc>
 returns the value of a specified
-<link url="https://tools.ietf.org/html/rfc7519#section-4">JWT claim</link>
+<link url="https://datatracker.ietf.org/doc/html/rfc7519#section-4">JWT claim</link>
 
 <para>
 For nested claims and claims including a dot (“.”),
