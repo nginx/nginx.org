@@ -351,7 +351,7 @@ HTTPS-сертификата
 
 <directive name="js_import">
 <syntax><value>модуль.js</value> |
-<value>имя_экспорта из модуль.js</value></syntax>
+<value>имя_экспорта from модуль.js</value></syntax>
 <default/>
 <context>http</context>
 <appeared-in>0.4.0</appeared-in>
