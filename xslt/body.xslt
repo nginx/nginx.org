@@ -20,8 +20,8 @@
 
     <div id="banner">
         <xsl:if test="@lang = 'he'"> <xsl:attribute name="class"> <xsl:text>ltr</xsl:text> </xsl:attribute> </xsl:if>
-        Congratulations, Igor, on your retirement!<br/>
-        <a href="https://www.nginx.com/blog/do-svidaniya-igor-thank-you-for-nginx">Read our tribute</a> to the legend.
+        Registration is now open for the free Microservices March Kubernetes event.<br/>
+        <a href="https://www.nginx.com/c/microservices-march-2022-kubernetes-networking/">Click here</a> to enroll.
     </div>
 
     <div id="main">
