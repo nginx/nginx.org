@@ -228,6 +228,25 @@ auth_jwt_claim_set $job info "job title";
 
 </directive>
 
+<directive name="auth_jwt_key_cache">
+<syntax><value> время</value></syntax>
+<default>0</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.21.4</appeared-in>
+
+<para>
+Разрешает или запрещает кэширование ключей,
+полученных из <link id="auth_jwt_key_file">файла</link> или из
+<link id="auth_jwt_key_request">подзапроса</link>,
+и задаёт время их кэширования.
+Кэширование ключей, полученных из переменных, не поддерживается.
+По умолчанию кэширование ключей выключено.
+</para>
+
+</directive>
+
 
 <directive name="auth_jwt_key_file">
 <syntax><value>файл</value></syntax>

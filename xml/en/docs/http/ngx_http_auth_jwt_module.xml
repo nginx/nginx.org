@@ -229,6 +229,26 @@ and the result was undefined for arrays.
 </directive>
 
 
+<directive name="auth_jwt_key_cache">
+<syntax><value>time</value></syntax>
+<default>0</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.21.4</appeared-in>
+
+<para>
+Enables or disables caching of keys
+obtained from a <link id="auth_jwt_key_file">file</link>
+or from a <link id="auth_jwt_key_request">subrequest</link>,
+and sets caching time for them.
+Caching of keys obtained from variables is not supported.
+By default, caching of keys is disabled.
+</para>
+
+</directive>
+
+
 <directive name="auth_jwt_key_file">
 <syntax><value>file</value></syntax>
 <default/>
