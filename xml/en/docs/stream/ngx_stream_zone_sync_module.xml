@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_zone_sync_module"
         link="/en/docs/stream/ngx_stream_zone_sync_module.html"
         lang="en"
-        rev="5">
+        rev="6">
 
 <section id="summary">
 
@@ -321,7 +321,7 @@ The full list can be viewed using the
 
 
 <directive name="zone_sync_ssl_conf_command">
-<syntax><value>command</value></syntax>
+<syntax><value>command</value> ...</syntax>
 <default/>
 <context>stream</context>
 <context>server</context>

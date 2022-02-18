@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_ssl_module"
         link="/ru/docs/http/ngx_http_ssl_module.html"
         lang="ru"
-        rev="56">
+        rev="57">
 
 <section id="summary">
 
@@ -300,7 +300,7 @@ PEM, которые используются для
 
 
 <directive name="ssl_conf_command">
-<syntax><value>command</value></syntax>
+<syntax><value>command</value> ...</syntax>
 <default/>
 <context>http</context>
 <context>server</context>
