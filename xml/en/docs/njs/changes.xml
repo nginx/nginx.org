@@ -9,8 +9,71 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="49"
+        rev="50"
         toc="no">
+
+<section id="njs0.7.3" name="Changes with njs 0.7.3">
+
+<para>
+Release Date:
+12 April 2022
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+added support of module resolution callback.
+This feature allows the host environment to control
+how imported modules are loaded.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed backtraces while traversing imported user modules.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<literal>Array.prototype.concat()</literal>
+when <literal>this</literal> is a slow array.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed frame allocation from an awaited frame.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed allocation of large array literals.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed interpreter when <literal>toString</literal> conversion fails.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.7.2" name="Changes with njs 0.7.2">
 
