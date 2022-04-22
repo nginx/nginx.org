@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="79">
+        rev="80">
 
 <section id="summary">
 
@@ -904,10 +904,10 @@ by default is <literal>true</literal>
 </list>
 Example:
 <example>
-ngx.fetch('http://nginx.org/')
-.then(reply => reply.text())
-.then(body => r.return(200, body))
-.catch(e => r.return(501, e.message))
+let reply = await ngx.fetch('http://nginx.org/');
+let body = await reply.text();
+
+r.return(200, body);
 </example>
 </para>
 </tag-desc>
