@@ -7,7 +7,7 @@
 <article name="nginx: пакеты для Linux"
          link="/ru/linux_packages.html"
          lang="ru"
-         rev="70">
+         rev="71">
 
 <section name="Поддерживаемые дистрибутивы и версии" id="distributions">
 
@@ -84,6 +84,11 @@
 
 <tr>
 <td width="30%">21.10 “impish”</td>
+<td>x86_64, aarch64/arm64</td>
+</tr>
+
+<tr>
+<td width="30%">22.04 “jammy”</td>
 <td>x86_64, aarch64/arm64</td>
 </tr>
 
