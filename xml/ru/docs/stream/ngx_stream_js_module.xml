@@ -148,9 +148,8 @@ export default {bar, preread, req_line, header_inject, access};
 <directive name="js_fetch_ciphers">
 <syntax><value>шифры</value></syntax>
 <default>HIGH:!aNULL:!MD5</default>
-<context>http</context>
+<context>stream</context>
 <context>server</context>
-<context>location</context>
 <appeared-in>0.7.0</appeared-in>
 
 <para>
@@ -174,9 +173,8 @@ export default {bar, preread, req_line, header_inject, access};
     [<literal>TLSv1.2</literal>]
     [<literal>TLSv1.3</literal>]</syntax>
 <default>TLSv1 TLSv1.1 TLSv1.2</default>
-<context>http</context>
+<context>stream</context>
 <context>server</context>
-<context>location</context>
 <appeared-in>0.7.0</appeared-in>
 
 <para>
@@ -190,9 +188,8 @@ export default {bar, preread, req_line, header_inject, access};
 <directive name="js_fetch_trusted_certificate">
 <syntax><value>файл</value></syntax>
 <default/>
-<context>http</context>
+<context>stream</context>
 <context>server</context>
-<context>location</context>
 <appeared-in>0.7.0</appeared-in>
 
 <para>
@@ -209,9 +206,8 @@ HTTPS-сертификата
 <directive name="js_fetch_verify_depth">
 <syntax><value>число</value></syntax>
 <default>100</default>
-<context>http</context>
+<context>stream</context>
 <context>server</context>
-<context>location</context>
 <appeared-in>0.7.0</appeared-in>
 
 <para>
