@@ -917,7 +917,7 @@ HTTP-сервера.
 </tag-name>
 <tag-desc>
 разрешает сборку модуля
-<link doc="http/ngx_stream_realip_module.xml">ngx_stream_realip_module</link>,
+<link doc="stream/ngx_stream_realip_module.xml">ngx_stream_realip_module</link>,
 позволяющего менять адрес клиента на переданный в заголовке протокола PROXY.
 По умолчанию модуль не собирается.
 </tag-desc>

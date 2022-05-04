@@ -933,7 +933,7 @@ The OpenSSL library is required to build and run this module.
 </tag-name>
 <tag-desc>
 enables building the
-<link doc="http/ngx_stream_realip_module.xml">ngx_stream_realip_module</link>
+<link doc="stream/ngx_stream_realip_module.xml">ngx_stream_realip_module</link>
 module that changes the client address to the address
 sent in the PROXY protocol header.
 This module is not built by default.
