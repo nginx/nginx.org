@@ -9,7 +9,7 @@
 <module name="Module ngx_http_js_module"
         link="/en/docs/http/ngx_http_js_module.html"
         lang="en"
-        rev="34">
+        rev="35">
 
 <section id="summary">
 
@@ -244,6 +244,22 @@ a module function can be referenced.
 </directive>
 
 
+<directive name="js_fetch_buffer_size">
+<syntax><value>size</value></syntax>
+<default>16k</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>0.7.4</appeared-in>
+
+<para>
+Sets the <value>size</value> of the buffer used for reading and writing
+with <link doc="../njs/reference.xml" id="ngx_fetch">Fetch API</link>.
+</para>
+
+</directive>
+
+
 <directive name="js_fetch_ciphers">
 <syntax><value>ciphers</value></syntax>
 <default>HIGH:!aNULL:!MD5</default>
@@ -262,6 +278,22 @@ OpenSSL library.
 <para>
 The full list can be viewed using the
 “<command>openssl ciphers</command>” command.
+</para>
+
+</directive>
+
+
+<directive name="js_fetch_max_response_buffer_size">
+<syntax><value>size</value></syntax>
+<default>1m</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>0.7.4</appeared-in>
+
+<para>
+Sets the maximum <value>size</value> of the response received
+with <link doc="../njs/reference.xml" id="ngx_fetch">Fetch API</link>.
 </para>
 
 </directive>
@@ -287,6 +319,25 @@ with <link doc="../njs/reference.xml" id="ngx_fetch">Fetch API</link>.
 </directive>
 
 
+<directive name="js_fetch_timeout">
+<syntax><value>time</value></syntax>
+<default>60s</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>0.7.4</appeared-in>
+
+<para>
+Defines a timeout for reading and writing
+for <link doc="../njs/reference.xml" id="ngx_fetch">Fetch API</link>.
+The timeout is set only between two successive read/write operations,
+not for the whole response.
+If no data is transmitted within this time, the connection is closed.
+</para>
+
+</directive>
+
+
 <directive name="js_fetch_trusted_certificate">
 <syntax><value>file</value></syntax>
 <default/>
@@ -300,6 +351,22 @@ Specifies a <value>file</value> with trusted CA certificates in the PEM format
 used to
 <link doc="../njs/reference.xml" id="fetch_verify">verify</link>
 the HTTPS certificate
+with <link doc="../njs/reference.xml" id="ngx_fetch">Fetch API</link>.
+</para>
+
+</directive>
+
+
+<directive name="js_fetch_verify">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>on</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>0.7.4</appeared-in>
+
+<para>
+Enables or disables verification of the HTTPS server certificate
 with <link doc="../njs/reference.xml" id="ngx_fetch">Fetch API</link>.
 </para>
 

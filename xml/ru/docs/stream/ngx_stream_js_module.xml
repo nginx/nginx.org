@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_js_module"
         link="/ru/docs/stream/ngx_stream_js_module.html"
         lang="ru"
-        rev="30">
+        rev="31">
 
 <section id="summary">
 
@@ -145,6 +145,22 @@ export default {bar, preread, req_line, header_inject, access};
 </directive>
 
 
+<directive name="js_fetch_buffer_size">
+<syntax><value>размер</value></syntax>
+<default>16k</default>
+<context>stream</context>
+<context>server</context>
+<appeared-in>0.7.4</appeared-in>
+
+<para>
+Задаёт <value>размер</value> буфера, который будет использоваться
+для чтения и записи для
+<link doc="../njs/reference.xml" id="ngx_fetch">Fetch API</link>.
+</para>
+
+</directive>
+
+
 <directive name="js_fetch_ciphers">
 <syntax><value>шифры</value></syntax>
 <default>HIGH:!aNULL:!MD5</default>
@@ -161,6 +177,21 @@ export default {bar, preread, req_line, header_inject, access};
 <para>
 Полный список можно посмотреть с помощью команды
 “<command>openssl ciphers</command>”.
+</para>
+
+</directive>
+
+
+<directive name="js_fetch_max_response_buffer_size">
+<syntax><value>размер</value></syntax>
+<default>1m</default>
+<context>stream</context>
+<context>server</context>
+<appeared-in>0.7.4</appeared-in>
+
+<para>
+Задаёт максимальный <value>размер</value> ответа, полученного
+при помощи <link doc="../njs/reference.xml" id="ngx_fetch">Fetch API</link>.
 </para>
 
 </directive>
@@ -185,6 +216,24 @@ export default {bar, preread, req_line, header_inject, access};
 </directive>
 
 
+<directive name="js_fetch_timeout">
+<syntax><value>время</value></syntax>
+<default>60s</default>
+<context>stream</context>
+<context>server</context>
+<appeared-in>0.7.4</appeared-in>
+
+<para>
+Задаёт таймаут при чтении и записи
+при помощи <link doc="../njs/reference.xml" id="ngx_fetch">Fetch API</link>.
+Таймаут устанавливается не на всю передачу ответа,
+а только между двумя операциями чтения.
+Если по истечении этого времени данные не передавались, соединение закрывается.
+</para>
+
+</directive>
+
+
 <directive name="js_fetch_trusted_certificate">
 <syntax><value>файл</value></syntax>
 <default/>
@@ -197,6 +246,21 @@ export default {bar, preread, req_line, header_inject, access};
 используемыми при
 <link doc="../njs/reference.xml" id="fetch_verify">проверке</link>
 HTTPS-сертификата
+при помощи <link doc="../njs/reference.xml" id="ngx_fetch">Fetch API</link>.
+</para>
+
+</directive>
+
+
+<directive name="js_fetch_verify">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>on</default>
+<context>stream</context>
+<context>server</context>
+<appeared-in>0.7.4</appeared-in>
+
+<para>
+Разрешает или запрещает проверку сертификата HTTPS-сервера
 при помощи <link doc="../njs/reference.xml" id="ngx_fetch">Fetch API</link>.
 </para>
 
