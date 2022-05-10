@@ -19,9 +19,6 @@
     <body>
 
     <div id="banner">
-        <xsl:if test="@lang = 'he'"> <xsl:attribute name="class"> <xsl:text>ltr</xsl:text> </xsl:attribute> </xsl:if>
-        Registration is now open for the free Microservices March Kubernetes event.<br/>
-        <a href="https://www.nginx.com/c/microservices-march-2022-kubernetes-networking/">Click here</a> to enroll.
     </div>
 
     <div id="main">

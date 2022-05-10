@@ -1,0 +1,34 @@
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+X:stylesheet {
+
+X:var BANNER = "'/banner/banner.html'";
+
+X:template banner_link () {
+    X:if "substring-after($DIRNAME, '/')" {
+        !{ concat($ROOT, $BANNER) }
+    } else {
+        !{ substring-after($BANNER, '/') }
+    }
+}
+
+X:template banner () {
+
+    <script>
+        window.addEventListener("load", function(e) \{
+            fetch("!banner_link ()")
+                .then((response) => response.text())
+                .then((resp) => \{
+                    document.getElementById("banner").innerHTML = resp;
+                \})
+                .catch((error) => \{
+                    console.warn(error);
+                \});
+        \});
+    </script>
+
+}
+
+}

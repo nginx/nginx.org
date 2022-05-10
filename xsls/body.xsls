@@ -18,9 +18,6 @@ X:template body (lang) {
     <body>
 
     <div id="banner">
-        X:if "@lang = 'he'" { X:attribute "class" { X:text{ltr} } }
-        Registration is now open for the free Microservices March Kubernetes event.<br/>
-        <a href="https://www.nginx.com/c/microservices-march-2022-kubernetes-networking/">Click here</a> to enroll.
     </div>
 
     <div id="main">
