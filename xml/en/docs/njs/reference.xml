@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="80">
+        rev="81">
 
 <section id="summary">
 
@@ -2150,7 +2150,14 @@ that represents the current VM instance
 <tag-name id="njs_version"><literal>njs.version</literal></tag-name>
 <tag-desc>
 Returns a string with the current version of njs
-(for example, “0.7.0”).
+(for example, “0.7.4”).
+</tag-desc>
+
+<tag-name id="njs_version_number"><literal>njs.version_number</literal></tag-name>
+<tag-desc>
+Returns a number with the current version of njs.
+For example, “0.7.4” is returned as <literal>0x000704</literal>
+(since <link doc="changes.xml" id="njs0.7.4">0.7.4</link>).
 </tag-desc>
 
 <tag-name id="njs_dump"><literal>njs.dump(<value>value</value>)</literal></tag-name>
