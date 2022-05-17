@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="81">
+        rev="82">
 
 <section id="summary">
 
@@ -185,6 +185,13 @@ the variable declared with the <literal>js_var</literal> directive for
 <link doc="../http/ngx_http_js_module.xml" id="js_var">http</link> or
 <link doc="../stream/ngx_stream_js_module.xml" id="js_var">stream</link>
 can be used.
+</note>
+</para>
+
+<para>
+<note>
+Since <link doc="changes.xml" id="njs0.7.4">0.7.4</link>,
+the method accepts escaped URIs.
 </note>
 </para>
 
