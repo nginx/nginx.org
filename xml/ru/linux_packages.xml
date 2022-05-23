@@ -7,7 +7,7 @@
 <article name="nginx: пакеты для Linux"
          link="/ru/linux_packages.html"
          lang="ru"
-         rev="71">
+         rev="72">
 
 <section name="Поддерживаемые дистрибутивы и версии" id="distributions">
 
@@ -34,6 +34,11 @@
 <tr>
 <td width="30%">8.x</td>
 <td>x86_64, aarch64/arm64, s390x</td>
+</tr>
+
+<tr>
+<td width="30%">9.x</td>
+<td>x86_64, aarch64/arm64</td>
 </tr>
 
 </table>
