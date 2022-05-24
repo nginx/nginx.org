@@ -9,6 +9,20 @@
 
 <event date="2022-05-24">
 <para>
+<link doc="en/docs/njs/index.xml">njs-0.7.4</link>
+version has been
+<link doc="en/docs/njs/changes.xml" id="njs0.7.4">released</link>,
+featuring extended directives for
+<link doc="en/docs/njs/reference.xml" id="ngx_fetch">Fetch</link> API:
+<link doc="en/docs/http/ngx_http_js_module.xml" id="js_fetch_timeout"/>,
+<link doc="en/docs/http/ngx_http_js_module.xml" id="js_fetch_verify"/>,
+<link doc="en/docs/http/ngx_http_js_module.xml" id="js_fetch_buffer_size"/>,
+<link doc="en/docs/http/ngx_http_js_module.xml" id="js_fetch_max_response_buffer_size"/>.
+</para>
+</event>
+
+<event date="2022-05-24">
+<para>
 <link doc="en/download.xml">nginx-1.22.0</link>
 stable version has been released,
 incorporating new features and bug fixes from the 1.21.x mainline branch &mdash;

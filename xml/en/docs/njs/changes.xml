@@ -9,8 +9,179 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="50"
+        rev="51"
         toc="no">
+
+<section id="njs0.7.4" name="Changes with njs 0.7.4">
+
+<para>
+Release Date:
+24 May 2022
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+added extended directives for configuring
+<link doc="reference.xml" id="ngx_fetch">Fetch API</link>.
+The following directives were added for
+<link doc="../http/ngx_http_js_module.xml">http</link> and
+<link doc="../stream/ngx_stream_js_module.xml">stream</link>:
+<list type="bullet">
+
+<listitem>
+<para>
+<link doc="../http/ngx_http_js_module.xml" id="js_fetch_timeout"/>,
+</para>
+</listitem>
+
+<listitem>
+<para>
+<link doc="../http/ngx_http_js_module.xml" id="js_fetch_verify"/>,
+</para>
+</listitem>
+
+<listitem>
+<para>
+<link doc="../http/ngx_http_js_module.xml" id="js_fetch_buffer_size"/>,
+</para>
+</listitem>
+
+<listitem>
+<para>
+<link doc="../http/ngx_http_js_module.xml" id="js_fetch_max_response_buffer_size"/>.
+</para>
+</listitem>
+
+</list>
+
+</para>
+</listitem>
+
+<listitem>
+<para>
+Change:
+<link doc="reference.xml" id="r_internal_redirect"><literal>r.internalRedirect()</literal></link> now accepts escaped URIs.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<link doc="reference.xml" id="response">Response</link> parsing
+with more than 8 headers in
+<link doc="reference.xml" id="ngx_fetch">Fetch API</link>.
+</para>
+</listitem>
+
+</list>
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+added
+<link doc="reference.xml" id="njs_version_number"><literal>njs.version_number</literal></link> property.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added compatibility with BoringSSL for
+<link doc="reference.xml" id="builtin_crypto">WebCrypto API</link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<literal>Array.prototype.sort()</literal>
+when arr size is changed in a comparator.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<literal>Array.prototype.slice()</literal>
+with slow <literal>this</literal> argument.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed aggregation methods of <literal>Promise</literal> ctor
+with array-like object.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>String.prototype.lastIndexOf()</literal>
+with unicode string as <literal>this</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<literal>JSON.parse()</literal>
+when <literal>reviver</literal> function is provided.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<literal>Object.defineProperty()</literal>
+when a recursive descriptor is provided.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>Array.prototype.fill()</literal> for typed-arrays.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+making function expression binding immutable according to the specs.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed redefinition of special props in
+<literal>Object.defineProperty()</literal>.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+
 
 <section id="njs0.7.3" name="Changes with njs 0.7.3">
 
