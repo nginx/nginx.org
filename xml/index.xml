@@ -7,6 +7,29 @@
 
 <news name="nginx news" link="/" lang="en">
 
+<event date="2021-05-24">
+<para>
+<link doc="en/download.xml">nginx-1.22.0</link>
+stable version has been released,
+incorporating new features and bug fixes from the 1.21.x mainline branch &mdash;
+including
+hardening against potential requests smuggling
+and cross-protocol attacks,
+<link doc="en/docs/stream/ngx_stream_ssl_module.xml" id="ssl_alpn">ALPN
+support</link> in the stream module,
+better distribution of connections among worker processes on Linux,
+support for the PCRE2 library,
+support for OpenSSL 3.0 and <c-func>SSL_sendfile</c-func>,
+improved
+<link doc="en/docs/http/ngx_http_core_module.xml" id="sendfile">sendfile</link>
+handling on FreeBSD,
+the
+<link doc="en/docs/http/ngx_http_mp4_module.xml" id="mp4_start_key_frame">
+mp4_start_key_frame</link> directive,
+and more.
+</para>
+</event>
+
 <event date="2022-04-12">
 <para>
 <link doc="en/docs/njs/index.xml">njs-0.7.3</link>
