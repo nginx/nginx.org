@@ -7,7 +7,7 @@
 <article name="nginx: Linux packages"
          link="/en/linux_packages.html"
          lang="en"
-         rev="74">
+         rev="75">
 
 <section name="Supported distributions and versions" id="distributions">
 
@@ -28,7 +28,7 @@ versions:
 
 <tr>
 <td width="30%">7.4+</td>
-<td>x86_64, ppc64le, aarch64/arm64</td>
+<td>x86_64, aarch64/arm64</td>
 </tr>
 
 <tr>
@@ -38,7 +38,7 @@ versions:
 
 <tr>
 <td width="30%">9.x</td>
-<td>x86_64, aarch64/arm64</td>
+<td>x86_64, aarch64/arm64, s390x</td>
 </tr>
 
 </table>
