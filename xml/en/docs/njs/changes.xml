@@ -9,8 +9,130 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="51"
+        rev="52"
         toc="no">
+
+<section id="njs0.7.5" name="Changes with njs 0.7.5">
+
+<para>
+Release Date:
+21 June 2022
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Change:
+adapting to changes in nginx header structures.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<link doc="reference.xml" id="r_headers_out"><literal>r.headersOut{}</literal></link>
+special getters when value is absent.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Change:
+returning undefined value instead of an empty string for
+<literal>Content-Type</literal> when the header is absent.
+</para>
+</listitem>
+
+</list>
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Bugfix:
+fixed catching of the exception thrown from an awaited function.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed function value initialization.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed interpreter when await fails.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed typed-array constructor when source array is changed while iterating.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:fixed
+<literal>String.prototype.replace()</literal>
+with byte strings.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed template literal from producing byte-strings.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed array iterator with sparse arrays.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed memory free while converting a flat array to a slow array.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+properly handling <literal>NJS_DECLINE</literal> in 
+<literal>promise</literal> native functions.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed working with an array-like object in
+<literal>Promise.all()</literal>
+and friends.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.7.4" name="Changes with njs 0.7.4">
 
@@ -585,10 +707,10 @@ introduced <literal>AggregateError</literal> implementation.
 Feature:
 added remaining <literal>Promise</literal> constructor methods.
 The following methods were added:
-<literal>Promise.all()</literal> ,
-<literal>Promise.allSettled()</literal> ,
-<literal>Promise.any()</literal> ,
-<literal>Promise.race()</literal> .
+<literal>Promise.all()</literal>,
+<literal>Promise.allSettled()</literal>,
+<literal>Promise.any()</literal>,
+<literal>Promise.race()</literal>.
 </para>
 </listitem>
 
