@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_uwsgi_module"
         link="/ru/docs/http/ngx_http_uwsgi_module.html"
         lang="ru"
-        rev="48">
+        rev="49">
 
 <section id="summary">
 
@@ -1441,7 +1441,7 @@ uwsgi-сервер.
 
 
 <directive name="uwsgi_ssl_conf_command">
-<syntax><value>command</value> ...</syntax>
+<syntax><value>имя</value> <value>значение</value></syntax>
 <default/>
 <context>http</context>
 <context>server</context>

@@ -10,7 +10,7 @@
 <module name="Module ngx_http_grpc_module"
         link="/en/docs/http/ngx_http_grpc_module.html"
         lang="en"
-        rev="7">
+        rev="8">
 
 <section id="summary">
 
@@ -535,7 +535,7 @@ The full list can be viewed using the
 
 
 <directive name="grpc_ssl_conf_command">
-<syntax><value>command</value> ...</syntax>
+<syntax><value>name</value> <value>value</value></syntax>
 <default/>
 <context>http</context>
 <context>server</context>

@@ -10,7 +10,7 @@
 <module name="Module ngx_mail_ssl_module"
         link="/en/docs/mail/ngx_mail_ssl_module.html"
         lang="en"
-        rev="24">
+        rev="25">
 
 <section id="summary">
 
@@ -239,7 +239,7 @@ directive can be used.
 
 
 <directive name="ssl_conf_command">
-<syntax><value>command</value> ...</syntax>
+<syntax><value>name</value> <value>value</value></syntax>
 <default/>
 <context>mail</context>
 <context>server</context>

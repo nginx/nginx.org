@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_proxy_module"
         link="/ru/docs/http/ngx_http_proxy_module.html"
         lang="ru"
-        rev="74">
+        rev="75">
 
 <section id="summary">
 
@@ -1996,7 +1996,7 @@ proxy_set_header Accept-Encoding "";
 
 
 <directive name="proxy_ssl_conf_command">
-<syntax><value>command</value> ...</syntax>
+<syntax><value>имя</value> <value>значение</value></syntax>
 <default/>
 <context>http</context>
 <context>server</context>
