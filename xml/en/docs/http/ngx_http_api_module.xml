@@ -110,21 +110,21 @@ All API requests include
 a supported API <link id="api_version">version</link> in the URI.
 Examples of API requests with this configuration:
 <example>
-http://127.0.0.1/api/7/
-http://127.0.0.1/api/7/nginx
-http://127.0.0.1/api/7/connections
-http://127.0.0.1/api/7/http/requests
-http://127.0.0.1/api/7/http/server_zones/server_backend
-http://127.0.0.1/api/7/http/caches/cache_backend
-http://127.0.0.1/api/7/http/upstreams/backend
-http://127.0.0.1/api/7/http/upstreams/backend/servers/
-http://127.0.0.1/api/7/http/upstreams/backend/servers/1
-http://127.0.0.1/api/7/http/keyvals/one?key=arg1
-http://127.0.0.1/api/7/stream/
-http://127.0.0.1/api/7/stream/server_zones/server_backend
-http://127.0.0.1/api/7/stream/upstreams/
-http://127.0.0.1/api/7/stream/upstreams/backend
-http://127.0.0.1/api/7/stream/upstreams/backend/servers/1
+http://127.0.0.1/api/8/
+http://127.0.0.1/api/8/nginx
+http://127.0.0.1/api/8/connections
+http://127.0.0.1/api/8/http/requests
+http://127.0.0.1/api/8/http/server_zones/server_backend
+http://127.0.0.1/api/8/http/caches/cache_backend
+http://127.0.0.1/api/8/http/upstreams/backend
+http://127.0.0.1/api/8/http/upstreams/backend/servers/
+http://127.0.0.1/api/8/http/upstreams/backend/servers/1
+http://127.0.0.1/api/8/http/keyvals/one?key=arg1
+http://127.0.0.1/api/8/stream/
+http://127.0.0.1/api/8/stream/server_zones/server_backend
+http://127.0.0.1/api/8/stream/upstreams/
+http://127.0.0.1/api/8/stream/upstreams/backend
+http://127.0.0.1/api/8/stream/upstreams/backend/servers/1
 </example>
 </para>
 
@@ -155,14 +155,14 @@ By default, the API is read-only.
 All API requests should contain a supported API version in the URI.
 If the request URI equals the location prefix,
 the list of supported API versions is returned.
-The current API version is “<literal>7</literal>”.
+The current API version is “<literal>8</literal>”.
 </para>
 
 <para>
 The optional “<literal>fields</literal>” argument in the request line
 specifies which fields of the requested objects will be output:
 <example>
-http://127.0.0.1/api/7/nginx?fields=version,build
+http://127.0.0.1/api/8/nginx?fields=version,build
 </example>
 </para>
 
@@ -206,6 +206,17 @@ redirect</link> happens during request processing.
 
 <para>
 <list type="bullet">
+
+<listitem>
+The <literal>ssl</literal> data
+for each HTTP
+<link id="def_nginx_http_upstream">upstream</link>,
+<link id="def_nginx_http_server_zone">server zone</link>,
+and stream
+<link id="def_nginx_stream_upstream">upstream</link>,
+<link id="def_nginx_stream_server_zone">server zone</link>,
+were added in <link id="api_version">version</link> 8.
+</listitem>
 
 <listitem>
 The <literal>codes</literal> data
@@ -597,7 +608,7 @@ unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx
 </listitem>
 <listitem id="deleteHttpServerZoneStat">
 <literal>DELETE</literal> - Reset statistics for an HTTP server zone
-<para>Resets statistics of accepted and discarded requests, responses, received and sent bytes in a particular HTTP server zone.</para>
+<para>Resets statistics of accepted and discarded requests, responses, received and sent bytes, counters of SSL handshakes and session reuses in a particular HTTP server zone.</para>
 <para>
 Possible responses:
 </para>
@@ -1384,7 +1395,7 @@ unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx
 </listitem>
 <listitem id="deleteStreamServerZoneStat">
 <literal>DELETE</literal> - Reset statistics for a stream server zone
-<para>Resets statistics of accepted and discarded connections, sessions, received and sent bytes in a particular stream server zone.</para>
+<para>Resets statistics of accepted and discarded connections, sessions, received and sent bytes, counters of SSL handshakes and session reuses in a particular stream server zone.</para>
 <para>
 Possible responses:
 </para>
@@ -2055,12 +2066,12 @@ The ID of the master process that started the <link url="https://nginx.org/en/do
 <example>
 {
   "nginx" : {
-    "version" : "1.17.3",
-    "build" : "nginx-plus-r19",
+    "version" : "1.21.6",
+    "build" : "nginx-plus-r27",
     "address" : "206.251.255.64",
     "generation" : 6,
-    "load_timestamp" : "2019-10-01T11:15:44.467Z",
-    "timestamp" : "2019-10-01T09:26:07.305Z",
+    "load_timestamp" : "2022-06-28T11:15:44.467Z",
+    "timestamp" : "2022-06-28T09:26:07.305Z",
     "pid" : 32212,
     "ppid" : 32210
   }
@@ -2362,6 +2373,30 @@ The total number of bytes received from clients.
 <tag-desc>
 The total number of bytes sent to clients.
 </tag-desc>
+<tag-name>
+<literal>ssl</literal></tag-name>
+<tag-desc>
+<list type="tag">
+<tag-name>
+<literal>handshakes</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The total number of successful SSL handshakes.
+</tag-desc>
+<tag-name>
+<literal>handshakes_failed</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The total number of failed SSL handshakes.
+</tag-desc>
+<tag-name>
+<literal>session_reuses</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The total number of session reuses during SSL handshake.
+</tag-desc>
+</list>
+</tag-desc>
 </list>
 <para>Example:</para>
 <example>
@@ -2384,7 +2419,12 @@ The total number of bytes sent to clients.
   },
   "discarded" : 1513,
   "received" : 172711587,
-  "sent" : 19415530115
+  "sent" : 19415530115,
+  "ssl" : {
+    "handshakes" : 104303,
+    "handshakes_failed" : 1421,
+    "session_reuses" : 54645
+  }
 }</example>
 </listitem>
 <listitem id="def_nginx_http_location_zone">
@@ -2846,6 +2886,30 @@ Current state, which may be one of “<literal>up</literal>”, “<literal>drai
 The current number of active connections.
 </tag-desc>
 <tag-name>
+<literal>ssl</literal></tag-name>
+<tag-desc>
+<list type="tag">
+<tag-name>
+<literal>handshakes</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The total number of successful SSL handshakes.
+</tag-desc>
+<tag-name>
+<literal>handshakes_failed</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The total number of failed SSL handshakes.
+</tag-desc>
+<tag-name>
+<literal>session_reuses</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The total number of session reuses during SSL handshake.
+</tag-desc>
+</list>
+</tag-desc>
+<tag-name>
 <literal>max_conns</literal> (<literal>integer</literal>)
 </tag-name>
 <tag-desc>
@@ -3053,6 +3117,11 @@ The total number of requests rejected due to the queue overflow.
         "weight" : 5,
         "state" : "up",
         "active" : 0,
+        "ssl" : {
+          "handshakes" : 620311,
+          "handshakes_failed" : 3432,
+          "session_reuses" : 36442
+        },
         "max_conns" : 20,
         "requests" : 667231,
         "header_time" : 20,
@@ -3081,8 +3150,8 @@ The total number of requests rejected due to the queue overflow.
           "last_passed" : true
         },
         "downtime" : 0,
-        "downstart" : "2019-10-01T11:09:21.602Z",
-        "selected" : "2019-10-01T15:01:25.000Z"
+        "downstart" : "2022-06-28T11:09:21.602Z",
+        "selected" : "2022-06-28T15:01:25.000Z"
       },
       {
         "id" : 1,
@@ -3115,8 +3184,8 @@ The total number of requests rejected due to the queue overflow.
           "last_passed" : false
         },
         "downtime" : 262925617,
-        "downstart" : "2019-10-01T11:09:21.602Z",
-        "selected" : "2019-10-01T15:01:25.000Z"
+        "downstart" : "2022-06-28T11:09:21.602Z",
+        "selected" : "2022-06-28T15:01:25.000Z"
       }
     ],
     "keepalive" : 0,
@@ -3317,6 +3386,30 @@ The total number of bytes received from clients.
 <tag-desc>
 The total number of bytes sent to clients.
 </tag-desc>
+<tag-name>
+<literal>ssl</literal></tag-name>
+<tag-desc>
+<list type="tag">
+<tag-name>
+<literal>handshakes</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The total number of successful SSL handshakes.
+</tag-desc>
+<tag-name>
+<literal>handshakes_failed</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The total number of failed SSL handshakes.
+</tag-desc>
+<tag-name>
+<literal>session_reuses</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The total number of session reuses during SSL handshake.
+</tag-desc>
+</list>
+</tag-desc>
 </list>
 <para>Example:</para>
 <example>
@@ -3332,7 +3425,12 @@ The total number of bytes sent to clients.
     },
     "discarded" : 0,
     "received" : 4200363,
-    "sent" : 20489184
+    "sent" : 20489184,
+    "ssl" : {
+      "handshakes" : 76455,
+      "handshakes_failed" : 432,
+      "session_reuses" : 28770
+    }
   }
 }</example>
 </listitem>
@@ -3420,6 +3518,30 @@ Current state, which may be one of “<literal>up</literal>”, “<literal>down
 </tag-name>
 <tag-desc>
 The current number of connections.
+</tag-desc>
+<tag-name>
+<literal>ssl</literal></tag-name>
+<tag-desc>
+<list type="tag">
+<tag-name>
+<literal>handshakes</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The total number of successful SSL handshakes.
+</tag-desc>
+<tag-name>
+<literal>handshakes_failed</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The total number of failed SSL handshakes.
+</tag-desc>
+<tag-name>
+<literal>session_reuses</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The total number of session reuses during SSL handshake.
+</tag-desc>
+</list>
 </tag-desc>
 <tag-name>
 <literal>max_conns</literal> (<literal>integer</literal>)
@@ -3551,6 +3673,11 @@ The name of the shared memory <link url="https://nginx.org/en/docs/stream/ngx_st
         "weight" : 5,
         "state" : "up",
         "active" : 0,
+        "ssl" : {
+          "handshakes" : 200,
+          "handshakes_failed" : 4,
+          "session_reuses" : 189
+        },
         "max_conns" : 50,
         "connections" : 667231,
         "sent" : 251946292,
@@ -3564,8 +3691,8 @@ The name of the shared memory <link url="https://nginx.org/en/docs/stream/ngx_st
           "last_passed" : true
         },
         "downtime" : 0,
-        "downstart" : "2019-10-01T11:09:21.602Z",
-        "selected" : "2019-10-01T15:01:25.000Z"
+        "downstart" : "2022-06-28T11:09:21.602Z",
+        "selected" : "2022-06-28T15:01:25.000Z"
       },
       {
         "id" : 1,
@@ -3588,8 +3715,8 @@ The name of the shared memory <link url="https://nginx.org/en/docs/stream/ngx_st
           "last_passed" : false
         },
         "downtime" : 262925617,
-        "downstart" : "2019-10-01T11:09:21.602Z",
-        "selected" : "2019-10-01T15:01:25.000Z"
+        "downstart" : "2022-06-28T11:09:21.602Z",
+        "selected" : "2022-06-28T15:01:25.000Z"
       }
     ],
     "zombies" : 0,

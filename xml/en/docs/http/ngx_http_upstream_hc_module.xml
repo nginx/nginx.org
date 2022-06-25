@@ -240,6 +240,16 @@ The parameter is not compatible with
 <link id="health_check_match"><literal>match</literal></link> parameters.
 </tag-desc>
 
+<tag-name id="health_check_keepalive_time">
+<literal>keepalive_time</literal>=<value>time</value>
+</tag-name>
+<tag-desc>
+enables <link doc="ngx_http_upstream_module.xml" id="keepalive">keepalive</link>
+connections for health checks and specifies the time during which
+requests can be processed through one keepalive connection (1.21.7).
+By default keepalive connections are disabled.
+</tag-desc>
+
 </list>
 </para>
 

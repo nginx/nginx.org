@@ -239,6 +239,16 @@ health_check mandatory type=grpc grpc_status=12;
 <link id="health_check_match"><literal>match</literal></link>.
 </tag-desc>
 
+<tag-name id="health_check_keepalive_time">
+<literal>keepalive_time</literal>=<value>время</value>
+</tag-name>
+<tag-desc>
+включает <link doc="ngx_http_upstream_module.xml" id="keepalive">keepalive</link>
+соединения в проверках работоспособности и задаёт время, в течение которого
+могут обрабатываться запросы в рамках keepalive соединения (1.21.7).
+По умолчанию keepalive соединения выключены.
+</tag-desc>
+
 </list>
 </para>
 

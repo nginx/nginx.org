@@ -371,7 +371,11 @@ Nested JWT (<literal>nested</literal>) (1.21.0).
 
 
 <directive name="auth_jwt_require">
-<syntax><value>value</value> ...</syntax>
+<syntax>
+    <value>$value</value> ...
+    [<literal>error</literal>=<literal>401</literal> |
+                              <literal>403</literal>]
+</syntax>
 <default/>
 <context>http</context>
 <context>server</context>
@@ -380,8 +384,9 @@ Nested JWT (<literal>nested</literal>) (1.21.0).
 <appeared-in>1.21.2</appeared-in>
 
 <para>
-Defines additional conditions for JWT validation.
-The value can contain text, variables, and their combination.
+Specifies additional checks for JWT validation.
+The value can contain text, variables, and their combination,
+and must start with a variable (1.21.7).
 The authentication will succeed only
 if all the values are not empty and are not equal to “0”.
 <example>
@@ -392,6 +397,13 @@ map $jwt_claim_iss $valid_jwt_iss {
 
 auth_jwt_require $valid_jwt_iss;
 </example>
+</para>
+
+<para>
+If any of the checks fails,
+the <literal>401</literal> error code is returned.
+The optional <literal>error</literal> parameter (1.21.7)
+allows redefining the error code to <literal>403</literal>.
 </para>
 
 </directive>
