@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="83">
+        rev="84">
 
 <section id="summary">
 
@@ -2590,6 +2590,58 @@ clearTimeout(t);
 
 </list>
 </para>
+
+<section id="njs_global_functions" name="Global functions">
+
+<para>
+<list type="tag">
+
+<tag-name id="atob"><literal>atob(<value>encodedData</value>)</literal></tag-name>
+<tag-desc>
+Decodes a string of data which has been encoded
+using <literal>Base64</literal> encoding.
+The <literal>encodedData</literal> parameter is a binary string
+that contains Base64-encoded data.
+Returns a string that contains decoded data from <literal>encodedData</literal>.
+<para>
+The similar <link id="btoa"><literal>btoa()</literal></link> method
+can be used to encode and transmit data
+which may otherwise cause communication problems,
+then transmit it and use the <literal>atob()</literal> method
+to decode the data again.
+For example, you can encode, transmit, and decode control characters
+such as ASCII values <literal>0</literal> through <literal>31</literal>.
+<example>
+const encodedData = btoa("text to encode"); // encode a string
+const decodedData = atob(encodedData); // decode the string
+</example>
+</para>
+</tag-desc>
+
+<tag-name id="btoa"><literal>btoa(<value>stringToEncode</value>)</literal></tag-name>
+<tag-desc>
+Creates a Base64-encoded ASCII string from a binary string.
+The <literal>stringToEncode</literal> parameter is a binary string to encode.
+Returns an ASCII string containing the Base64 representation of
+<literal>stringToEncode</literal>.
+<para>
+The method can be used to encode data
+which may otherwise cause communication problems, transmit it,
+then use the <link id="atob"><literal>atob()</literal></link> method
+to decode the data again.
+For example, you can encode control characters
+such as ASCII values <literal>0</literal> through <literal>31</literal>.
+<example>
+const encodedData = btoa("text to encode"); // encode a string
+const decodedData = atob(encodedData); // decode the string
+</example>
+</para>
+</tag-desc>
+
+</list>
+</para>
+
+</section>
 
 </section>
 
