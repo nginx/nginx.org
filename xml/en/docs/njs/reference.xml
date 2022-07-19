@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="82">
+        rev="83">
 
 <section id="summary">
 
@@ -47,7 +47,54 @@ All string properties of the object are
 
 <tag-name id="r_args"><literal>r.args{}</literal></tag-name>
 <tag-desc>
-request arguments object, read-only
+request arguments object, read-only.
+<para>
+The query string is returned as an object.
+Since <link doc="changes.xml" id="njs0.7.6">0.7.6</link>,
+duplicate keys are returned as an array,
+keys are case-sensitive, both keys and values are percent-decoded.
+</para>
+
+<para>
+For example, the query string
+<example>
+'a=1&amp;b=%32&amp;A=3&amp;b=4&amp;B=two%20words'
+</example>
+is converted to <literal>r.args</literal> as:
+<example>
+{a: "1", b: ["2", "4"], A: "3", B: "two words"}
+</example>
+More advanced parsing scenarios can be achieved with the
+<link id="querystring">Query String</link> module
+and with the
+<link doc="../http/ngx_http_core_module.xml" id="var_args"><literal>$args</literal></link>
+variable, for example:
+
+<example>
+import qs from 'querystring';
+
+function args(r) {
+    return qs.parse(r.variables.args);
+}
+</example>
+The argument object
+is evaluated at the first access to <literal>r.args</literal>.
+If only a single argument is needed, for example <literal>foo</literal>,
+<link doc="../varindex.xml">nginx variables</link> can be used:
+<example>
+r.variables.arg_foo
+</example>
+Here, <link id="r_variables">nginx variables object</link>
+returns the first value for a given key,
+case-insensitive, without percent-decoding.
+</para>
+
+<para>
+To convert <literal>r.args</literal> back to a string,
+the Query String
+<link id="querystring_stringify"><literal>stringify</literal></link>
+method can be used.
+</para>
 </tag-desc>
 
 <tag-name id="r_done"><literal>r.done()</literal></tag-name>
