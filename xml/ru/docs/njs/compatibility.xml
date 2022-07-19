@@ -9,7 +9,7 @@
 <article name="Совместимость"
         link="/ru/docs/njs/compatibility.html"
         lang="ru"
-        rev="34"
+        rev="35"
         toc="no">
 
 <section>
@@ -768,8 +768,21 @@ ES5.1:
 
 <listitem>
 ES5.1:
-<literal>parse</literal>
+<literal>parse</literal>,
 <literal>stringify</literal>
+</listitem>
+</list>
+
+</listitem>
+
+<listitem>
+Методы <literal>Symbol</literal>
+(<link doc="changes.xml" id="njs0.7.6">0.7.6</link>):
+<list type="bullet">
+
+<listitem>
+<literal>for</literal>,
+<literal>keyfor</literal>
 </listitem>
 </list>
 
@@ -795,6 +808,12 @@ ES5.1 global functions:
 <literal>isNaN</literal>,
 <literal>parseFloat</literal>,
 <literal>parseInt</literal>
+</listitem>
+
+<listitem>
+Global functions:
+<literal>atob</literal>,
+<literal>btoa</literal>
 </listitem>
 
 <listitem>

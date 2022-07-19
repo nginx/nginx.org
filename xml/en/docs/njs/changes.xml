@@ -9,8 +9,100 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="52"
+        rev="53"
         toc="no">
+
+<section id="njs0.7.6" name="Changes with njs 0.7.6">
+
+<para>
+Release Date:
+19 July 2022
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+improved
+<link doc="reference.xml" id="r_args"><literal>r.args{}</literal></link> object.
+Added support for multiple arguments with the same key.
+Added case sensitivity for keys.
+Keys and values are percent-decoded now.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<link doc="reference.xml" id="r_headers_out"><literal>r.headersOut{}</literal></link>
+setter for special headers.
+</para>
+</listitem>
+
+</list>
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+added <literal>Symbol.for()</literal> and <literal>Symbol.keyfor()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added
+<link doc="reference.xml" id="atob"><literal>atob()</literal></link>
+and
+<link doc="reference.xml" id="btoa"><literal>btoa()</literal></link>
+from
+<link url="https://html.spec.whatwg.org">WHATWG</link> spec.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed large non-decimal literals.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed Unicode argument trimming in <literal>parseInt()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>break</literal> instruction
+in <literal>try-catch</literal> block.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>async</literal> function declaration in CLI.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.7.5" name="Changes with njs 0.7.5">
 
@@ -254,7 +346,7 @@ with array-like object.
 <para>
 Bugfix:
 fixed <literal>String.prototype.lastIndexOf()</literal>
-with unicode string as <literal>this</literal>.
+with Unicode string as <literal>this</literal>.
 </para>
 </listitem>
 
