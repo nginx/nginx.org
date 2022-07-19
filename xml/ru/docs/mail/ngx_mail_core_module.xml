@@ -10,7 +10,7 @@
 <module name="Модуль ngx_mail_core_module"
         link="/ru/docs/mail/ngx_mail_core_module.html"
         lang="ru"
-        rev="19">
+        rev="20">
 
 <section id="summary">
 
@@ -316,6 +316,7 @@ FreeBSD 9.0-STABLE)
 <syntax>
     <value>адрес</value> ...
     [<literal>valid</literal>=<value>time</value>]
+    [<literal>ipv4</literal>=<literal>on</literal>|<literal>off</literal>]
     [<literal>ipv6</literal>=<literal>on</literal>|<literal>off</literal>]
     [<literal>status_zone</literal>=<value>зона</value>]</syntax>
 <syntax><literal>off</literal></syntax>
@@ -348,8 +349,9 @@ resolver 127.0.0.1 [::1]:5353;
 <para id="resolver_ipv6">
 По умолчанию nginx будет искать как IPv4-, так и IPv6-адреса
 при преобразовании имён в адреса.
-Если поиск IPv6-адресов нежелателен,
-можно указать параметр <literal>ipv6=off</literal>.
+Если поиск IPv4- или IPv6-адресов нежелателен,
+можно указать параметр <literal>ipv4=off</literal> (1.23.1) или
+<literal>ipv6=off</literal>.
 <note>
 Преобразование имён в IPv6-адреса поддерживается
 начиная с версии 1.5.8.

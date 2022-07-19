@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="99">
+        rev="100">
 
 <section id="directives" name="Directives">
 
@@ -2180,6 +2180,7 @@ closed normally.
 <syntax>
     <value>address</value> ...
     [<literal>valid</literal>=<value>time</value>]
+    [<literal>ipv4</literal>=<literal>on</literal>|<literal>off</literal>]
     [<literal>ipv6</literal>=<literal>on</literal>|<literal>off</literal>]
     [<literal>status_zone</literal>=<value>zone</value>]</syntax>
 <default/>
@@ -2206,7 +2207,8 @@ starting from versions 1.3.1 and 1.2.2.
 
 <para id="resolver_ipv6">
 By default, nginx will look up both IPv4 and IPv6 addresses while resolving.
-If looking up of IPv6 addresses is not desired,
+If looking up of IPv4 or IPv6 addresses is not desired,
+the <literal>ipv4=off</literal> (1.23.1) or
 the <literal>ipv6=off</literal> parameter can be specified.
 <note>
 Resolving of names into IPv6 addresses is supported
