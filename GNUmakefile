@@ -47,7 +47,6 @@ COMMON_DEPS =								\
 		xslt/body.xslt						\
 		xslt/menu.xslt						\
 		xslt/banner.xslt					\
-		xslt/ga.xslt						\
 		xslt/content.xslt					\
 
 ARTICLE_DEPS =								\

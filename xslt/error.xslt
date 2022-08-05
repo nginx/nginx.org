@@ -27,14 +27,13 @@
 <xsl:include href="style.xslt"/>
 <xsl:include href="body.xslt"/>
 <xsl:include href="menu.xslt"/>
-<xsl:include href="ga.xslt"/>
 <xsl:include href="content.xslt"/>
 
 
 <xsl:template match="/error">
     <html><head><title> <xsl:value-of select="@name"/> </title>
 
-    <xsl:call-template name="style"><xsl:with-param select="@lang" name="lang"/></xsl:call-template><xsl:call-template name="ga"/></head>
+    <xsl:call-template name="style"><xsl:with-param select="@lang" name="lang"/></xsl:call-template></head>
 
     <xsl:call-template name="body"><xsl:with-param select="@lang" name="lang"/></xsl:call-template></html>
 </xsl:template>
