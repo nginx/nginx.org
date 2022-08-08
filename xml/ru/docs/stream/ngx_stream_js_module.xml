@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_js_module"
         link="/ru/docs/stream/ngx_stream_js_module.html"
         lang="ru"
-        rev="31">
+        rev="32">
 
 <section id="summary">
 
@@ -140,6 +140,49 @@ export default {bar, preread, req_line, header_inject, access};
 <link doc="stream_processing.xml" id="access_phase">access</link>-фазе.
 Начиная с <link doc="../njs/changes.xml" id="njs0.4.0">0.4.0</link>
 можно ссылаться на функцию модуля.
+</para>
+
+<para>
+Функция вызывается однократно при первом достижении сессией
+<link doc="stream_processing.xml" id="access_phase">access</link>-фазы.
+Функция вызывается со следующими аргументами:
+
+<list type="tag">
+<tag-name><literal>s</literal></tag-name>
+<tag-desc>
+объект <link doc="../njs/reference.xml" id="stream">stream-сессии</link>
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+В этой фазе может происходить инициализация,
+также при помощи метода
+<link doc="../njs/reference.xml" id="s_on"><literal>s.on()</literal></link>
+может регистрироваться вызов
+для каждого входящего блока данных пока не будет вызван один из методов:
+<link doc="../njs/reference.xml" id="s_done"><literal>s.done()</literal></link>
+<link doc="../njs/reference.xml" id="s_decline"><literal>s.decline()</literal></link>,
+<link doc="../njs/reference.xml" id="s_allow"><literal>s.allow()</literal></link>.
+При вызове любого из этих методов обработка сессии
+переходит на <link doc="stream_processing.xml">следующую фазу</link>
+и все текущие вызовы
+<link doc="../njs/reference.xml" id="s_on"><literal>s.on()</literal></link>
+сбрасываются.
+</para>
+
+<para>
+<note>
+Так как обработчик <literal>js_access</literal>
+должен сразу возвращать результат,
+то поддерживаются только синхронные операции.
+Таким образом, асинхронные операции, например
+<link doc="../njs/reference.xml" id="ngx_fetch"><literal>ngx.fetch()</literal></link>
+или
+<link doc="../njs/reference.xml" id="settimeout"><literal>setTimeout()</literal></link>,
+не поддерживаются.
+</note>
 </para>
 
 </directive>
@@ -292,6 +335,43 @@ HTTPS-сертификата
 Задаёт фильтр данных.
 Начиная с <link doc="../njs/changes.xml" id="njs0.4.0">0.4.0</link>
 можно ссылаться на функцию модуля.
+Функция фильтра вызывается однократно при первом достижении сессией
+<link doc="stream_processing.xml" id="content_phase">content</link>-фазы.
+</para>
+
+<para>
+Функция фильтра вызывается со следующими аргументами:
+<list type="tag">
+<tag-name><literal>s</literal></tag-name>
+<tag-desc>
+объект <link doc="../njs/reference.xml" id="stream">stream-сессии</link>
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+В этой фазе может происходить инициализация,
+также при помощи метода
+<link doc="../njs/reference.xml" id="s_on"><literal>s.on()</literal></link>
+может регистрироваться вызов
+для каждого входящего блока данных.
+Для отмены регистрации вызова и отмены фильтра
+можно использовать метод
+<link doc="../njs/reference.xml" id="s_off"><literal>s.off()</literal></link>.
+</para>
+
+<para>
+<note>
+Так как обработчик <literal>js_filter</literal>
+должен сразу возвращать результат,
+то поддерживаются только синхронные операции.
+Таким образом, асинхронные операции, например
+<link doc="../njs/reference.xml" id="ngx_fetch"><literal>ngx.fetch()</literal></link>
+или
+<link doc="../njs/reference.xml" id="settimeout"><literal>setTimeout()</literal></link>,
+не поддерживаются.
+</note>
 </para>
 
 </directive>
@@ -374,6 +454,55 @@ function address(s) {
 можно ссылаться на функцию модуля.
 </para>
 
+<para>
+Функция вызывается однократно при первом достижении сессией
+<link doc="stream_processing.xml" id="preread_phase">preread</link>-фазы.
+Функция вызывается со следующими аргументами:
+
+<list type="tag">
+<tag-name><literal>s</literal></tag-name>
+<tag-desc>
+объект <link doc="../njs/reference.xml" id="stream">stream-сессии</link>
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+В этой фазе может происходить инициализация,
+также при помощи метода
+<link doc="../njs/reference.xml" id="s_on"><literal>s.on()</literal></link>
+может регистрироваться вызов
+для каждого входящего блока данных пока не будет вызван один из методов:
+<link doc="../njs/reference.xml" id="s_done"><literal>s.done()</literal></link>
+<link doc="../njs/reference.xml" id="s_decline"><literal>s.decline()</literal></link>,
+<link doc="../njs/reference.xml" id="s_allow"><literal>s.allow()</literal></link>.
+При вызове любого из этих методов обработка сессии
+переходит на <link doc="stream_processing.xml">следующую фазу</link>
+и все текущие вызовы
+<link doc="../njs/reference.xml" id="s_on"><literal>s.on()</literal></link>
+сбрасываются.
+</para>
+
+<para>
+<note>
+Так как обработчик <literal>js_preread</literal>
+должен сразу возвращать результат,
+то поддерживаются только синхронные операции.
+Таким образом, асинхронные операции, например
+<link doc="../njs/reference.xml" id="ngx_fetch"><literal>ngx.fetch()</literal></link>
+или
+<link doc="../njs/reference.xml" id="settimeout"><literal>setTimeout()</literal></link>,
+не поддерживаются.
+Тем не менее асинхронные операции поддерживаются в вызовах
+<link doc="../njs/reference.xml" id="s_on"><literal>s.on()</literal></link>
+в
+<link doc="stream_processing.xml" id="preread_phase">preread</link>-фазе.
+Подробнее см.
+<link url="https://github.com/nginx/njs-examples#authorizing-connections-using-ngx-fetch-as-auth-request-stream-auth-request">пример</link>.
+</note>
+</para>
+
 </directive>
 
 
@@ -424,11 +553,11 @@ function address(s) {
 <note>
 Так как обработчик <literal>js_set</literal>
 должен сразу возвращать результат,
-то поддерживаются только синхронные вызовы.
-Таким образом, асинхронные вызовы, например
-<link doc="../njs/reference.xml" id="ngx_fetch">ngx.fetch()</link>
+то поддерживаются только синхронные операции.
+Таким образом, асинхронные операции, например
+<link doc="../njs/reference.xml" id="ngx_fetch"><literal>ngx.fetch()</literal></link>
 или
-<link doc="../njs/reference.xml" id="settimeout">setTimeout()</link>,
+<link doc="../njs/reference.xml" id="settimeout"><literal>setTimeout()</literal></link>,
 не поддерживаются.
 </note>
 </para>

@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_js_module"
         link="/en/docs/stream/ngx_stream_js_module.html"
         lang="en"
-        rev="31">
+        rev="32">
 
 <section id="summary">
 
@@ -140,6 +140,50 @@ Sets an njs function which will be called at the
 <link doc="stream_processing.xml" id="access_phase">access</link> phase.
 Since <link doc="../njs/changes.xml" id="njs0.4.0">0.4.0</link>,
 a module function can be referenced.
+</para>
+
+<para>
+The function is called once at the moment when the stream session reaches
+the <link doc="stream_processing.xml" id="access_phase">access</link> phase
+for the first time.
+The function is called with the following arguments:
+
+<list type="tag">
+<tag-name><literal>s</literal></tag-name>
+<tag-desc>
+the <link doc="../njs/reference.xml" id="stream">Stream Session</link> object
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+At this phase, it is possible to perform initialization
+or register a callback with
+the <link doc="../njs/reference.xml" id="s_on"><literal>s.on()</literal></link>
+method
+for each incoming data chunk until one of the following methods are called:
+<link doc="../njs/reference.xml" id="s_allow"><literal>s.allow()</literal></link>,
+<link doc="../njs/reference.xml" id="s_decline"><literal>s.decline()</literal></link>,
+<link doc="../njs/reference.xml" id="s_done"><literal>s.done()</literal></link>.
+As soon as one of these methods is called, the stream session processing
+switches to the <link doc="stream_processing.xml">next phase</link>
+and all current
+<link doc="../njs/reference.xml" id="s_on"><literal>s.on()</literal></link>
+callbacks are dropped.
+</para>
+
+<para>
+<note>
+As the <literal>js_access</literal> handler
+returns its result immediately, it supports
+only synchronous callbacks.
+Thus, asynchronous callbacks such as
+<link doc="../njs/reference.xml" id="ngx_fetch"><literal>ngx.fetch()</literal></link>
+or
+<link doc="../njs/reference.xml" id="settimeout"><literal>setTimeout()</literal></link>
+are not supported.
+</note>
 </para>
 
 </directive>
@@ -291,6 +335,42 @@ with <link doc="../njs/reference.xml" id="ngx_fetch">Fetch API</link>.
 Sets a data filter.
 Since <link doc="../njs/changes.xml" id="njs0.4.0">0.4.0</link>,
 a module function can be referenced.
+The filter function is called once at the moment when the stream session reaches
+the <link doc="stream_processing.xml" id="content_phase">content</link> phase.
+</para>
+
+<para>
+The filter function is called with the following arguments:
+<list type="tag">
+<tag-name><literal>s</literal></tag-name>
+<tag-desc>
+the <link doc="../njs/reference.xml" id="stream">Stream Session</link> object
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+At this phase, it is possible to perform initialization
+or register a callback with
+the <link doc="../njs/reference.xml" id="s_on"><literal>s.on()</literal></link>
+method for each incoming data chunk.
+The
+<link doc="../njs/reference.xml" id="s_off"><literal>s.off()</literal></link>
+method may be used to unregister a callback and stop filtering.
+</para>
+
+<para>
+<note>
+As the <literal>js_filter</literal> handler
+returns its result immediately, it supports
+only synchronous operations.
+Thus, asynchronous operations such as
+<link doc="../njs/reference.xml" id="ngx_fetch"><literal>ngx.fetch()</literal></link>
+or
+<link doc="../njs/reference.xml" id="settimeout"><literal>setTimeout()</literal></link>
+are not supported.
+</note>
 </para>
 
 </directive>
@@ -384,6 +464,58 @@ Sets an njs function which will be called at the
 <link doc="stream_processing.xml" id="preread_phase">preread</link> phase.
 Since <link doc="../njs/changes.xml" id="njs0.4.0">0.4.0</link>,
 a module function can be referenced.
+</para>
+
+<para>
+The function is called once
+at the moment when the stream session reaches the
+<link doc="stream_processing.xml" id="preread_phase">preread</link> phase
+for the first time.
+The function is called with the following arguments:
+
+<list type="tag">
+<tag-name><literal>s</literal></tag-name>
+<tag-desc>
+the <link doc="../njs/reference.xml" id="stream">Stream Session</link> object
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+At this phase, it is possible to perform initialization
+or register a callback with
+the <link doc="../njs/reference.xml" id="s_on"><literal>s.on()</literal></link>
+method
+for each incoming data chunk until one of the following methods are called:
+<link doc="../njs/reference.xml" id="s_allow"><literal>s.allow()</literal></link>,
+<link doc="../njs/reference.xml" id="s_decline"><literal>s.decline()</literal></link>,
+<link doc="../njs/reference.xml" id="s_done"><literal>s.done()</literal></link>.
+When one of these methods is called,
+the stream session switches to the
+<link doc="stream_processing.xml">next phase</link>
+and all current
+<link doc="../njs/reference.xml" id="s_on"><literal>s.on()</literal></link>
+callbacks are dropped.
+</para>
+
+<para>
+<note>
+As the <literal>js_preread</literal> handler
+returns its result immediately, it supports
+only synchronous callbacks.
+Thus, asynchronous callbacks such as
+<link doc="../njs/reference.xml" id="ngx_fetch"><literal>ngx.fetch()</literal></link>
+or
+<link doc="../njs/reference.xml" id="settimeout"><literal>setTimeout()</literal></link>
+are not supported.
+Nevertheless, asynchronous operations are supported in
+<link doc="../njs/reference.xml" id="s_on"><literal>s.on()</literal></link>
+callbacks in the
+<link doc="stream_processing.xml" id="preread_phase">preread</link> phase.
+See
+<link url="https://github.com/nginx/njs-examples#authorizing-connections-using-ngx-fetch-as-auth-request-stream-auth-request">this example</link> for more information.
+</note>
 </para>
 
 </directive>
