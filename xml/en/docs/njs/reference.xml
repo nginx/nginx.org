@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="84">
+        rev="85">
 
 <section id="summary">
 
@@ -111,6 +111,14 @@ May be called only from the
 <tag-desc>
 writes a <literal>string</literal> to the error log
 on the <literal>error</literal> level of logging
+<para>
+<note>
+As nginx has a
+<link doc="../dev/development_guide.xml" id="logging">hardcoded</link>
+maximum line length limit,
+only first 2048 bytes of the string can be logged.
+</note>
+</para>
 </tag-desc>
 
 <tag-name id="r_finish"><literal>r.finish()</literal></tag-name>
@@ -248,6 +256,14 @@ the method accepts escaped URIs.
 <tag-desc>
 writes a <literal>string</literal> to the error log
 on the <literal>info</literal> level of logging
+<para>
+<note>
+As nginx has a
+<link doc="../dev/development_guide.xml" id="logging">hardcoded</link>
+maximum line length limit,
+only first 2048 bytes of the string can be logged.
+</note>
+</para>
 </tag-desc>
 
 <tag-name id="r_method"><literal>r.method</literal></tag-name>
@@ -559,6 +575,14 @@ Even so, some embedded variables still cannot be assigned a value (for example,
 <tag-desc>
 writes a <literal>string</literal> to the error log
 on the <literal>warning</literal> level of logging
+<para>
+<note>
+As nginx has a
+<link doc="../dev/development_guide.xml" id="logging">hardcoded</link>
+maximum line length limit,
+only first 2048 bytes of the string can be logged.
+</note>
+</para>
 </tag-desc>
 
 </list>
@@ -642,6 +666,14 @@ or
 <tag-desc>
 writes a sent <literal>string</literal> to the error log
 on the <literal>error</literal> level of logging
+<para>
+<note>
+As nginx has a
+<link doc="../dev/development_guide.xml" id="logging">hardcoded</link>
+maximum line length limit,
+only first 2048 bytes of the string can be logged.
+</note>
+</para>
 </tag-desc>
 
 <tag-name id="s_log"><literal>s.log(<value>string</value>)</literal></tag-name>
@@ -654,6 +686,14 @@ on the <literal>info</literal> level of logging
 <tag-desc>
 unregisters the callback set by the <link id="s_on">s.on()</link> method
 (<link doc="changes.xml" id="njs0.2.4">0.2.4</link>)
+<para>
+<note>
+As nginx has a
+<link doc="../dev/development_guide.xml" id="logging">hardcoded</link>
+maximum line length limit,
+only first 2048 bytes of the string can be logged.
+</note>
+</para>
 </tag-desc>
 
 <tag-name id="s_on"><literal>s.on(<value>event</value>,
@@ -790,6 +830,14 @@ Even so, some embedded variables still cannot be assigned a value.
 <tag-desc>
 writes a sent <literal>string</literal> to the error log
 on the <literal>warning</literal> level of logging
+<para>
+<note>
+As nginx has a
+<link doc="../dev/development_guide.xml" id="logging">hardcoded</link>
+maximum line length limit,
+only first 2048 bytes of the string can be logged.
+</note>
+</para>
 </tag-desc>
 
 </list>
@@ -976,6 +1024,14 @@ The following log levels can be specified:
 <literal>ngx.INFO</literal>,
 <literal>ngx.WARN</literal>, and
 <literal>ngx.ERR</literal>.
+<para>
+<note>
+As nginx has a
+<link doc="../dev/development_guide.xml" id="logging">hardcoded</link>
+maximum line length limit,
+only first 2048 bytes of the string can be logged.
+</note>
+</para>
 </tag-desc>
 
 </list>
