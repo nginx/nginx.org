@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_js_module"
         link="/ru/docs/http/ngx_http_js_module.html"
         lang="ru"
-        rev="35">
+        rev="36">
 
 <section id="summary">
 
@@ -152,6 +152,7 @@ export default {foo, summary, baz, hello, fetch, hash};
 [<value>buffer_type</value>=<value>строка</value> | <value>буфер</value>]</syntax>
 <default/>
 <context>location</context>
+<context>if in location</context>
 <context>limit_except</context>
 <appeared-in>0.5.2</appeared-in>
 
@@ -226,6 +227,14 @@ function filter(r, data, flags) {
 </note>
 </para>
 
+<para>
+<note>
+Директива может быть указана внутри
+блока <link doc="../http/ngx_http_rewrite_module.xml" id="if">if</link>
+начиная с <link doc="../njs/changes.xml" id="njs0.7.7">0.7.7</link>.
+</note>
+</para>
+
 </directive>
 
 
@@ -233,12 +242,21 @@ function filter(r, data, flags) {
 <syntax><value>функция</value> | <value>модуль.функция</value></syntax>
 <default/>
 <context>location</context>
+<context>if in location</context>
 <context>limit_except</context>
 
 <para>
 Задаёт функцию njs в качестве обработчика содержимого location.
 Начиная с версии <link doc="../njs/changes.xml" id="njs0.4.0">0.4.0</link>
 можно ссылаться на функцию модуля.
+</para>
+
+<para>
+<note>
+Директива может быть указана внутри
+блока <link doc="../http/ngx_http_rewrite_module.xml" id="if">if</link>
+начиная с <link doc="../njs/changes.xml" id="njs0.7.7">0.7.7</link>.
+</note>
 </para>
 
 </directive>
@@ -393,6 +411,7 @@ HTTPS-сертификата
 <syntax><value>функция</value> | <value>модуль.функция</value></syntax>
 <default/>
 <context>location</context>
+<context>if in location</context>
 <context>limit_except</context>
 <appeared-in>0.5.1</appeared-in>
 
@@ -414,6 +433,14 @@ HTTPS-сертификата
 </note>
 </para>
 
+<para>
+<note>
+Директива может быть указана внутри
+блока <link doc="../http/ngx_http_rewrite_module.xml" id="if">if</link>
+начиная с <link doc="../njs/changes.xml" id="njs0.7.7">0.7.7</link>.
+</note>
+</para>
+
 </directive>
 
 
@@ -422,6 +449,8 @@ HTTPS-сертификата
 <value>имя_экспорта from модуль.js</value></syntax>
 <default/>
 <context>http</context>
+<context>server</context>
+<context>location</context>
 <appeared-in>0.4.0</appeared-in>
 
 <para>
@@ -442,6 +471,14 @@ js_import http.js;
 
 <para>
 Директив <literal>js_import</literal> может быть несколько.
+</para>
+
+<para>
+<note>
+Директива может быть указана
+на уровне <literal>server</literal> и <literal>location</literal>
+начиная с <link doc="../njs/changes.xml" id="njs0.7.7">0.7.7</link>.
+</note>
 </para>
 
 </directive>
@@ -484,10 +521,20 @@ function version(r) {
 <value>путь</value></syntax>
 <default/>
 <context>http</context>
+<context>server</context>
+<context>location</context>
 <appeared-in>0.3.0</appeared-in>
 
 <para>
 Задаёт дополнительный путь для модулей njs.
+</para>
+
+<para>
+<note>
+Директива может быть указана
+на уровне <literal>server</literal> и <literal>location</literal>
+начиная с <link doc="../njs/changes.xml" id="njs0.7.7">0.7.7</link>.
+</note>
 </para>
 
 </directive>
@@ -499,6 +546,8 @@ function version(r) {
 <value>модуль.функция</value></syntax>
 <default/>
 <context>http</context>
+<context>server</context>
+<context>location</context>
 
 <para>
 Задаёт <literal>функцию</literal> njs
@@ -535,6 +584,14 @@ function version(r) {
 </note>
 </para>
 
+<para>
+<note>
+Директива может быть указана
+на уровне <literal>server</literal> и <literal>location</literal>
+начиная с <link doc="../njs/changes.xml" id="njs0.7.7">0.7.7</link>.
+</note>
+</para>
+
 </directive>
 
 
@@ -542,6 +599,8 @@ function version(r) {
 <syntax><value>$переменная</value> [<value>значение</value>]</syntax>
 <default/>
 <context>http</context>
+<context>server</context>
+<context>location</context>
 <appeared-in>0.5.3</appeared-in>
 
 <para>
@@ -552,6 +611,14 @@ function version(r) {
 Переменная не перезаписывается после перенаправления,
 в отличие от переменных, созданных при помощи
 директивы <link doc="ngx_http_rewrite_module.xml" id="set"/>.
+</para>
+
+<para>
+<note>
+Директива может быть указана
+на уровне <literal>server</literal> и <literal>location</literal>
+начиная с <link doc="../njs/changes.xml" id="njs0.7.7">0.7.7</link>.
+</note>
 </para>
 
 </directive>
