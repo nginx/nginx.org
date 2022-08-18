@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="85">
+        rev="86">
 
 <section id="summary">
 
@@ -680,12 +680,6 @@ only first 2048 bytes of the string can be logged.
 <tag-desc>
 writes a sent <value>string</value> to the error log
 on the <literal>info</literal> level of logging
-</tag-desc>
-
-<tag-name id="s_off"><literal>s.off(<value>eventName</value>)</literal></tag-name>
-<tag-desc>
-unregisters the callback set by the <link id="s_on">s.on()</link> method
-(<link doc="changes.xml" id="njs0.2.4">0.2.4</link>)
 <para>
 <note>
 As nginx has a
@@ -694,6 +688,12 @@ maximum line length limit,
 only first 2048 bytes of the string can be logged.
 </note>
 </para>
+</tag-desc>
+
+<tag-name id="s_off"><literal>s.off(<value>eventName</value>)</literal></tag-name>
+<tag-desc>
+unregisters the callback set by the <link id="s_on">s.on()</link> method
+(<link doc="changes.xml" id="njs0.2.4">0.2.4</link>)
 </tag-desc>
 
 <tag-name id="s_on"><literal>s.on(<value>event</value>,
