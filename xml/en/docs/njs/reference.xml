@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="86">
+        rev="87">
 
 <section id="summary">
 
@@ -2399,30 +2399,44 @@ the <literal>Buffer.from</literal> method should be used instead:
 <tag-name id="string_frombytes"><literal>String.prototype.fromBytes(<value>start</value>[,
 <value>end</value>])</literal></tag-name>
 <tag-desc>
-Returns a new Unicode string from a byte string
-where each byte is replaced with a corresponding Unicode code point.
+the property is deprecated since
+<link doc="changes.xml" id="njs0.7.7">0.7.7</link>.
+Before <link doc="changes.xml" id="njs0.7.7">0.7.7</link>,
+returned a new Unicode string from a byte string
+where each byte was replaced with a corresponding Unicode code point.
 </tag-desc>
 
 <tag-name id="string_fromutf8"><literal>String.prototype.fromUTF8(<value>start</value>[,
 <value>end</value>])</literal></tag-name>
 <tag-desc>
-Converts a byte string containing a valid UTF-8 string
+the property is deprecated since
+<link doc="changes.xml" id="njs0.7.7">0.7.7</link>,
+the <link id="textedeoder"><literal>TextDecoder</literal></link> method
+should be used instead.
+Before <link doc="changes.xml" id="njs0.7.7">0.7.7</link>,
+converted a byte string containing a valid UTF-8 string
 into a Unicode string,
-otherwise <literal>null</literal> is returned.
+otherwise <literal>null</literal> was returned.
 </tag-desc>
 
 <tag-name id="string_tobytes"><literal>String.prototype.toBytes(<value>start</value>[,
 <value>end</value>])</literal></tag-name>
 <tag-desc>
-Serializes a Unicode string to a byte string.
-Returns <literal>null</literal> if a character larger than 255 is
+the property is deprecated since
+<link doc="changes.xml" id="njs0.7.7">0.7.7</link>.
+Before <link doc="changes.xml" id="njs0.7.7">0.7.7</link>,
+serialized a Unicode string to a byte string,
+returned <literal>null</literal> if a character larger than 255 was
 found in the string.
 </tag-desc>
 
 <tag-name id="string_tostring"><literal>String.prototype.toString(<value>encoding</value>)</literal></tag-name>
 <tag-desc>
 <para>
-Encodes a string to
+the property is deprecated since
+<link doc="changes.xml" id="njs0.7.7">0.7.7</link>.
+Before <link doc="changes.xml" id="njs0.7.7">0.7.7</link>,
+encoded a string to
 <literal>hex</literal>,
 <literal>base64</literal>, or
 <literal>base64url</literal>:
@@ -2442,8 +2456,13 @@ only a <link id="string_tobytes">byte string</link> could be encoded:
 <tag-name id="string_toutf8"><literal>String.prototype.toUTF8(<value>start</value>[,
 <value>end</value>])</literal></tag-name>
 <tag-desc>
-Serializes a Unicode string
-to a byte string using UTF-8 encoding.
+the property is deprecated since
+<link doc="changes.xml" id="njs0.7.7">0.7.7</link>,
+the <link id="textencoder"><literal>TextEncoder</literal></link> method
+should be used instead.
+Before <link doc="changes.xml" id="njs0.7.7">0.7.7</link>,
+serialized a Unicode string
+to a byte string using UTF-8 encoding:
 <example>
 >> 'αβγδ'.toUTF8().length
 8
