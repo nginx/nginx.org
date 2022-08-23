@@ -7,7 +7,7 @@
 <article name="Как nginx обрабатывает TCP/UDP-сессии"
          link="/ru/docs/stream/stream_processing.html"
          lang="ru"
-         rev="3">
+         rev="4">
 
 <section>
 
@@ -42,8 +42,13 @@
 </tag-name>
 <tag-desc>
 Ограничение доступа для клиента перед обработкой данных.
-В этой фазе выполняется модуль
-<link doc="ngx_stream_access_module.xml">ngx_stream_access_module</link>.
+В этой фазе
+выполняется модуль
+<link doc="ngx_stream_access_module.xml">ngx_stream_access_module</link>,
+при использовании <link doc="../njs/index.xml">njs</link>
+выполняется
+директива <link doc="ngx_stream_js_module.xml" id="js_access"/>.
+
 </tag-desc>
 
 <tag-name id="ssl_phase">
@@ -65,7 +70,10 @@
 предварительного чтения</link> для анализа,
 например модулем
 <link doc="ngx_stream_ssl_preread_module.xml">ngx_stream_ssl_preread_module</link>,
-перед их обработкой
+перед их обработкой.
+При использовании <link doc="../njs/index.xml">njs</link>
+в этой фазе выполняется
+директива <link doc="ngx_stream_js_module.xml" id="js_preread"/>.
 </tag-desc>
 
 <tag-name id="content_phase">
@@ -77,6 +85,9 @@
 <link doc="ngx_stream_upstream_module.xml">группу серверов</link>
 или <link doc="ngx_stream_return_module.xml">отправка</link> клиенту
 заданного значения.
+При использовании <link doc="../njs/index.xml">njs</link>
+в этой фазе выполняется
+директива <link doc="ngx_stream_js_module.xml" id="js_filter"/>.
 </tag-desc>
 
 <tag-name id="log_phase">

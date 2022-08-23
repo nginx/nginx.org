@@ -7,7 +7,7 @@
 <article name="How nginx processes a TCP/UDP session"
          link="/en/docs/stream/stream_processing.html"
          lang="en"
-         rev="3">
+         rev="4">
 
 <section>
 
@@ -43,8 +43,12 @@ modules are invoked at this phase.
 </tag-name>
 <tag-desc>
 Client access limitation before actual data processing.
-The <link doc="ngx_stream_access_module.xml">ngx_stream_access_module</link>
-module is invoked at this phase.
+At this phase,
+the <link doc="ngx_stream_access_module.xml">ngx_stream_access_module</link>
+module is invoked,
+for <link doc="../njs/index.xml">njs</link>,
+the <link doc="ngx_stream_js_module.xml" id="js_access"/> directive
+is invoked.
 </tag-desc>
 
 <tag-name id="ssl_phase">
@@ -65,6 +69,9 @@ Reading initial bytes of data into the
 to allow modules such as
 <link doc="ngx_stream_ssl_preread_module.xml">ngx_stream_ssl_preread_module</link>
 analyze the data before its processing.
+For <link doc="../njs/index.xml">njs</link>,
+the <link doc="ngx_stream_js_module.xml" id="js_preread"/> directive
+is invoked at this phase.
 </tag-desc>
 
 <tag-name id="content_phase">
@@ -76,6 +83,9 @@ Mandatory phase where data is actually processed, usually
 <link doc="ngx_stream_upstream_module.xml">upstream</link> servers,
 or a specified value
 is <link doc="ngx_stream_return_module.xml">returned</link> to a client.
+For <link doc="../njs/index.xml">njs</link>,
+the <link doc="ngx_stream_js_module.xml" id="js_filter"/> directive
+is invoked at this phase.
 </tag-desc>
 
 <tag-name id="log_phase">
