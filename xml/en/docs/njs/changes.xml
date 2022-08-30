@@ -9,8 +9,142 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="53"
+        rev="54"
         toc="no">
+
+<section id="njs0.7.7" name="Changes with njs 0.7.7">
+
+<para>
+Release Date:
+30 August 2022
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+the number of nginx configuration contexts where
+js directives can be specified is extended.
+
+<list type="bullet">
+
+<listitem id="contexts">
+<para>
+HTTP:
+the <link doc="../http/ngx_http_js_module.xml" id="js_import"/>,
+<link doc="../http/ngx_http_js_module.xml" id="js_path"/>,
+<link doc="../http/ngx_http_js_module.xml" id="js_set"/>, and
+<link doc="../http/ngx_http_js_module.xml" id="js_var"/> directives
+are allowed in
+<literal>server</literal> and <literal>location</literal> contexts.
+The <link doc="../http/ngx_http_js_module.xml" id="js_content"/>,
+<link doc="../http/ngx_http_js_module.xml" id="js_body_filter"/> and
+<link doc="../http/ngx_http_js_module.xml" id="js_header_filter"/>
+are allowed in
+<link doc="../http/ngx_http_rewrite_module.xml" id="if"/> context.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Stream:
+the <link doc="../http/ngx_http_js_module.xml" id="js_import"/>,
+<link doc="../http/ngx_http_js_module.xml" id="js_path"/>,
+<link doc="../http/ngx_http_js_module.xml" id="js_set"/>, and
+<link doc="../http/ngx_http_js_module.xml" id="js_var"/>
+are allowed in
+<literal>server</literal> context.
+</para>
+</listitem>
+
+</list>
+
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added
+<link doc="reference.xml" id="r_internal"><literal>r.internal</literal></link>
+property.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed reading response body in
+<link doc="reference.xml" id="ngx_fetch">Fetch API</link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<link doc="../stream/ngx_stream_js_module.xml" id="js_fetch_timeout"/>
+in <link doc="../stream/ngx_stream_js_module.xml">stream</link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed socket leak with <literal>0</literal> fetch timeout.
+</para>
+</listitem>
+
+</list>
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+extended
+<link doc="reference.xml" id="njs_api_fs"><literal>fs</literal></link> module.
+Added
+<link doc="reference.xml" id="fs_opensync"><literal>fs.openSync()</literal></link>,
+<link doc="reference.xml" id="fs_promises_open"><literal>fs.promises.open()</literal></link>,
+<link doc="reference.xml" id="fs_fstatsync"><literal>fs.fstatSync()</literal></link>,
+<link doc="reference.xml" id="fs_readsync"><literal>fs.readSync()</literal></link>,
+<link doc="reference.xml" id="fs_writesync_buf"><literal>fs.writeSync()</literal></link>.
+</para>
+
+<para>
+The following properties of
+<link doc="reference.xml" id="fs_filehandle"><literal>FileHandle</literal></link>
+are implemented:
+<literal>fd</literal>,
+<literal>read()</literal>,
+<literal>stat()</literal>,
+<literal>write()</literal>,
+<literal>close()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>parseInt()</literal>,
+<literal>parseFloat()</literal>,
+<literal>Symbol.for()</literal>
+with no arguments.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.7.6" name="Changes with njs 0.7.6">
 
