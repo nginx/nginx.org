@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="87">
+        rev="88">
 
 <section id="summary">
 
@@ -3462,9 +3462,9 @@ otherwise, the method will return undefined.
 
 <tag-name><literal>mode</literal></tag-name>
 <tag-desc>
-by default is <link id="access_const"><literal>fs.constants.F_OK</literal></link>.
-The mode argument is an optional integer
-that specifies the accessibility checks to be performed.
+an optional integer
+that specifies the accessibility checks to be performed,
+by default is <link id="access_const"><literal>fs.constants.F_OK</literal></link>
 <example>
 try {
     fs.accessSync('/file/path', fs.constants.R_OK | fs.constants.W_OK);
@@ -3504,6 +3504,15 @@ by default is <literal>a</literal>
 </list>
 </tag-desc>
 
+<tag-name id="fs_fstatsync"><literal>fstatSync(<value>fd</value>)</literal></tag-name>
+<tag-desc>
+Retrieves the <link id="fs_stats"><literal>fs.Stats</literal></link> object
+for the file descriptor
+(<link doc="changes.xml" id="njs0.7.7">0.7.7</link>).
+The <literal>fd</literal> parameter is an integer
+representing the file descriptor used by the method.
+</tag-desc>
+
 <tag-name id="fs_lstatsync"><literal>lstatSync(<value>path</value>[,
 <value>options</value>])</literal></tag-name>
 <tag-desc>
@@ -3541,6 +3550,97 @@ mode option, by default is <literal>0o777</literal>.
 </tag-desc>
 
 </list>
+</tag-desc>
+
+<tag-name id="fs_opensync"><literal>openSync(<value>path</value>[,
+<value>flags</value>[, <value>mode</value>]])</literal></tag-name>
+<tag-desc>
+Returns an integer
+representing the file descriptor for the opened file <literal>path</literal>
+(<link doc="changes.xml" id="njs0.7.7">0.7.7</link>).
+<list type="tag">
+
+<tag-name><literal>flags</literal></tag-name>
+<tag-desc>
+file system <link id="njs_api_fs_flags">flag</link>,
+by default is <literal>r</literal>
+</tag-desc>
+
+<tag-name><literal>mode</literal></tag-name>
+<tag-desc>
+mode option, by default is <literal>0o666</literal>
+</tag-desc>
+
+</list>
+</tag-desc>
+
+<tag-name id="fs_promises_open"><literal>promises.open(<value>path</value>[,
+<value>flags</value>[, <value>mode</value>]])</literal></tag-name>
+<tag-desc>
+Returns a <link id="fs_filehandle"><literal>FileHandle</literal></link> object
+representing the opened file <literal>path</literal>
+(<link doc="changes.xml" id="njs0.7.7">0.7.7</link>).
+<list type="tag">
+
+<tag-name><literal>flags</literal></tag-name>
+<tag-desc>
+file system <link id="njs_api_fs_flags">flag</link>,
+by default is <literal>r</literal>
+</tag-desc>
+
+<tag-name><literal>mode</literal></tag-name>
+<tag-desc>
+mode option, by default is <literal>0o666</literal>
+</tag-desc>
+
+</list>
+</tag-desc>
+
+<tag-name id="fs_readsync"><literal>readSync(<value>fd</value>,
+<value>buffer</value>, <value>offset</value>[,
+<value>length</value>[, <value>position</value>]])</literal></tag-name>
+<tag-desc>
+Reads the content of a file path using file descriptor <literal>fd</literal>,
+returns the number of bytes read
+(<link doc="changes.xml" id="njs0.7.7">0.7.7</link>).
+
+<list type="tag">
+
+<tag-name><literal>buffer</literal></tag-name>
+<tag-desc>
+the <literal>buffer</literal> value can be a
+<literal>Buffer</literal>,
+<literal>TypedArray</literal>, or
+<literal>DataView</literal>
+</tag-desc>
+
+<tag-name><literal>offset</literal></tag-name>
+<tag-desc>
+is an <literal>integer</literal> representing
+the position in buffer to write the data to
+</tag-desc>
+
+<tag-name><literal>length</literal></tag-name>
+<tag-desc>
+is an <literal>integer</literal> representing
+the number of bytes to read
+</tag-desc>
+
+<tag-name><literal>position</literal></tag-name>
+<tag-desc>
+specifies where to begin reading from in the file,
+the value can be
+<literal>integer</literal> or
+<literal>null</literal>,
+by default is <literal>null</literal>.
+If <literal>position</literal> is <literal>null</literal>,
+data will be read from the current file position,
+and the file position will be updated.
+If position is an <literal>integer</literal>,
+the file position will be unchanged
+</tag-desc>
+</list>
+
 </tag-desc>
 
 <tag-name id="fs_readdirsync"><literal>readdirSync(<value>path</value>[,
@@ -3684,6 +3784,95 @@ pointing to <literal>target</literal> using
 Relative targets are relative to the link’s parent directory.
 </tag-desc>
 
+<tag-name id="fs_writesync_buf"><literal>writeSync(<value>fd</value>,
+<value>buffer</value>, <value>offset</value>[,
+<value>length</value>[, <value>position</value>]])</literal></tag-name>
+<tag-desc>
+Writes a buffer to a file using file descriptor,
+returns the <literal>number</literal> of bytes written
+(<link doc="changes.xml" id="njs0.7.7">0.7.7</link>).
+
+<list type="tag">
+
+<tag-name><literal>fd</literal></tag-name>
+<tag-desc>
+an <literal>integer</literal> representing the file descriptor
+</tag-desc>
+
+<tag-name><literal>buffer</literal></tag-name>
+<tag-desc>
+the <literal>buffer</literal> value can be a
+<literal>Buffer</literal>,
+<literal>TypedArray</literal>, or
+<literal>DataView</literal>
+</tag-desc>
+
+<tag-name><literal>offset</literal></tag-name>
+<tag-desc>
+is an <literal>integer</literal> that determines
+the part of the buffer to be written,
+by default <literal>0</literal>
+</tag-desc>
+
+<tag-name><literal>length</literal></tag-name>
+<tag-desc>
+is an <literal>integer</literal> specifying the number of bytes to write,
+by default is an offset of
+<link id="buffer_bytelength">Buffer.byteLength</link>
+</tag-desc>
+
+<tag-name><literal>position</literal></tag-name>
+<tag-desc>
+refers to the offset from the beginning of the file
+where this data should be written,
+can be an
+<literal>integer</literal> or
+<literal>null</literal>,
+by default is <literal>null</literal>.
+See also
+<link url="https://man7.org/linux/man-pages/man2/write.2.html">pwrite(2)</link>.
+</tag-desc>
+</list>
+
+</tag-desc>
+
+<tag-name id="fs_writesync_str"><literal>writeSync(<value>fd</value>,
+<value>string</value>[,
+<value>position</value>[,
+<value>encoding</value>]])</literal></tag-name>
+<tag-desc>
+Writes a <literal>string</literal> to a file
+using file descriptor <literal>fd</literal>,
+returns the <literal>number</literal> of bytes written
+(<link doc="changes.xml" id="njs0.7.7">0.7.7</link>).
+
+<list type="tag">
+
+<tag-name><literal>fd</literal></tag-name>
+<tag-desc>
+is an <literal>integer</literal> representing a file descriptor
+</tag-desc>
+
+<tag-name><literal>position</literal></tag-name>
+<tag-desc>
+refers to the offset from the beginning of the file
+where this data should be written,
+can be an
+<literal>integer</literal> or
+<literal>null</literal>, by default is <literal>null</literal>.
+See also
+<link url="https://man7.org/linux/man-pages/man2/write.2.html">pwrite(2)</link>
+</tag-desc>
+
+<tag-name><literal>encoding</literal></tag-name>
+<tag-desc>
+is a <literal>string</literal>,
+by default is <literal>utf8</literal>
+</tag-desc>
+</list>
+
+</tag-desc>
+
 <tag-name id="fs_unlinksync"><literal>unlinkSync(<value>path</value>)</literal></tag-name>
 <tag-desc>
 Synchronously unlinks a file by <literal>path</literal>
@@ -3787,6 +3976,241 @@ a symbolic link.
 <literal>dirent.name</literal>&mdash;
 the name of the file <literal>fs.Dirent</literal> object refers to.
 </listitem>
+
+</list>
+</para>
+
+</section>
+
+
+<section id="fs_filehandle" name="fs.FileHandle">
+
+<para>
+The <literal>FileHandle</literal> object is an object wrapper
+for a numeric file descriptor
+(<link doc="changes.xml" id="njs0.7.7">0.7.7</link>).
+Instances of the <literal>FileHandle</literal> object are created by the
+<link id="fs_promises_open"><literal>fs.promises.open()</literal></link> method.
+If a <literal>FileHandle</literal> is not closed using the
+<link id="filehandle_close"><literal>filehandle.close()</literal></link> method,
+it will try to automatically close the file descriptor,
+helping to prevent memory leaks.
+Please do not rely on this behavior because it can be unreliable.
+Instead, always explicitly close a <literal>FileHandle</literal>.
+</para>
+
+<para>
+<list type="tag">
+
+<tag-name id="filehandle_close"><literal>filehandle.close()</literal></tag-name>
+<tag-desc>
+Closes the file handle after waiting for any pending operation on the handle
+to complete.
+Returns a <literal>promise</literal>, fulfills with undefined upon success.
+</tag-desc>
+
+<tag-name id="filehandle_fd"><literal>filehandle.fd</literal></tag-name>
+<tag-desc>
+The numeric file descriptor
+managed by the <literal>FileHandle</literal> object.
+</tag-desc>
+
+<tag-name id="filehandle_read"><literal>filehandle.read(<value>buffer</value>,
+<value>offset</value>[,
+<value>length</value>[,
+<value>position</value>]])</literal></tag-name>
+<tag-desc>
+Reads data from the file and stores that in the given buffer.
+
+<list type="tag">
+
+<tag-name><literal>buffer</literal></tag-name>
+<tag-desc>
+a buffer that will be filled with the file data read,
+the value can be a
+<literal>Buffer</literal>,
+<literal>TypedArray</literal>, or
+<literal>DataView</literal>
+</tag-desc>
+
+<tag-name><literal>offset</literal></tag-name>
+<tag-desc>
+is an <literal>integer</literal>
+representing the location in the buffer at which to start filling
+</tag-desc>
+
+<tag-name><literal>length</literal></tag-name>
+<tag-desc>
+is an <literal>integer</literal>
+representing the number of bytes to read
+</tag-desc>
+
+<tag-name><literal>position</literal></tag-name>
+<tag-desc>
+the location where to begin reading data from the file,
+the value can be
+<literal>integer</literal>,
+<literal>null</literal>.
+If <literal>null</literal>, data will be read from the current file position
+and the position will be updated.
+If position is an <literal>integer</literal>,
+the current file position will remain unchanged.
+</tag-desc>
+</list>
+
+Returns a <literal>Promise</literal> which fulfills upon success
+with an object with two properties:
+<list type="tag">
+
+<tag-name><literal>bytesRead</literal></tag-name>
+<tag-desc>
+is an <literal>integer</literal> representing the number of bytes read
+</tag-desc>
+
+<tag-name><literal>buffer</literal></tag-name>
+<tag-desc>
+is a reference to the passed argument in buffer, can be
+<literal>Buffer</literal>,
+<literal>TypedArray</literal>, or
+<literal>DataView</literal>
+</tag-desc>
+</list>
+
+</tag-desc>
+
+<tag-name id="filehandle_stat"><literal>filehandle.stat()</literal></tag-name>
+<tag-desc>
+Fulfills with an
+<link id="fs_stats">fs.Stats</link> for the file,
+returns a <literal>promise</literal>.
+</tag-desc>
+
+<tag-name id="filehandle_write_buf"><literal>filehandle.write(<value>buffer</value>,
+<value>offset</value>[,
+<value>length</value>[,
+<value>position</value>]])</literal></tag-name>
+<tag-desc>
+Writes a buffer to the file.
+
+<list type="tag">
+
+<tag-name><literal>buffer</literal></tag-name>
+<tag-desc>
+the <literal>buffer</literal> value can be a
+<literal>Buffer</literal>,
+<literal>TypedArray</literal>, or
+<literal>DataView</literal>
+</tag-desc>
+
+<tag-name><literal>offset</literal></tag-name>
+<tag-desc>
+is an <literal>integer</literal> representing
+the start position from within buffer where the data to write begins
+</tag-desc>
+
+<tag-name><literal>length</literal></tag-name>
+<tag-desc>
+is an <literal>integer</literal> representing
+the number of bytes from buffer to write, by default
+is an offset of
+<link id="buffer_bytelength">Buffer.byteLength</link>
+</tag-desc>
+
+<tag-name><literal>position</literal></tag-name>
+<tag-desc>
+the offset from the beginning of the file
+where the data from buffer should be written,
+can be an
+<literal>integer</literal> or
+<literal>null</literal>,
+by default is <literal>null</literal>.
+If <literal>position</literal> is not a <literal>number</literal>,
+the data will be written at the current position.
+See the POSIX
+<link url="https://man7.org/linux/man-pages/man2/write.2.html">pwrite(2)</link>
+documentation for details.
+</tag-desc>
+</list>
+Returns a <literal>Promise</literal> which is resolved with an object
+containing two properties:
+<list type="tag">
+
+<tag-name><literal>bytesWritten</literal></tag-name>
+<tag-desc>
+is an <literal>integer</literal> representing the number of bytes written
+</tag-desc>
+
+<tag-name><literal>buffer</literal></tag-name>
+<tag-desc>
+a reference to the buffer written, can be a
+<literal>Buffer</literal>,
+<literal>TypedArray</literal>, or
+<literal>DataView</literal>
+</tag-desc>
+</list>
+<para>
+<note>
+It is unsafe to use <literal>filehandle.write()</literal> multiple times
+on the same file without waiting for the promise to be resolved or rejected.
+</note>
+</para>
+
+</tag-desc>
+
+<tag-name id="filehandle_write_str"><literal>filehandle.write(<value>string</value>[,
+<value>position</value>[,
+<value>encoding</value>]])</literal></tag-name>
+<tag-desc>
+Writes a <literal>string</literal> to the file.
+
+<list type="tag">
+
+<tag-name><literal>position</literal></tag-name>
+<tag-desc>
+the offset from the beginning of the file
+where the data from buffer should be written,
+can be an
+<literal>integer</literal> or
+<literal>null</literal>,
+by default is <literal>null</literal>.
+If <literal>position</literal> is not a <literal>number</literal>,
+the data will be written at the current position.
+See the POSIX
+<link url="https://man7.org/linux/man-pages/man2/write.2.html">pwrite(2)</link>
+documentation for details.
+</tag-desc>
+
+<tag-name><literal>encoding</literal></tag-name>
+<tag-desc>
+the expected encoding of the string, by default <literal>utf8</literal>
+</tag-desc>
+
+</list>
+Returns a <literal>Promise</literal> which is resolved with an object
+containing two properties:
+<list type="tag">
+
+<tag-name><literal>bytesWritten</literal></tag-name>
+<tag-desc>
+is an <literal>integer</literal> representing the number of bytes written
+</tag-desc>
+
+<tag-name><literal>buffer</literal></tag-name>
+<tag-desc>
+a reference to the buffer written, can be a
+<literal>Buffer</literal>,
+<literal>TypedArray</literal>, or
+<literal>DataView</literal>
+</tag-desc>
+</list>
+<para>
+<note>
+It is unsafe to use <literal>filehandle.write()</literal> multiple times
+on the same file without waiting for the promise to be resolved or rejected.
+</note>
+</para>
+
+</tag-desc>
 
 </list>
 </para>
