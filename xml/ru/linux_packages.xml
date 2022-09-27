@@ -7,7 +7,7 @@
 <article name="nginx: пакеты для Linux"
          link="/ru/linux_packages.html"
          lang="ru"
-         rev="78">
+         rev="79">
 
 <section name="Поддерживаемые дистрибутивы и версии" id="distributions">
 
@@ -17,7 +17,7 @@
 </para>
 
 <para>
-<link id="RHEL-CentOS">RHEL/CentOS</link>
+<link id="RHEL">RHEL и производные</link>
 
 <table note="yes">
 
@@ -175,7 +175,12 @@
 После этого можно будет установить и обновлять nginx из этого репозитория.
 </para>
 
-<section name="RHEL/CentOS" id="RHEL-CentOS">
+<section name="RHEL и производные" id="RHEL">
+
+<para>
+Эта секция применима к Red Hat Enterprise Linux и его производным, таким как
+CentOS, Oracle Linux, Rocky Linux, AlmaLinux.
+</para>
 
 <para>
 Установите пакеты, необходимые для подключения yum-репозитория:
@@ -575,7 +580,7 @@ mainline-версии, в то время как ветки <literal>stable-*</l
 исходные коды пакетов для стабильных релизов.
 Для сборки бинарных пакетов запустите <command>make</command> в каталоге
 <path>debian/</path> для Debian/Ubuntu, или в каталоге
-<path>rpm/SPECS/</path> для RHEL/CentOS/SLES/Amazon Linux, или в каталоге
+<path>rpm/SPECS/</path> для RHEL и производных, SLES, и Amazon Linux, или в каталоге
 <path>alpine/</path> для Alpine.
 </para>
 

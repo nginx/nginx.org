@@ -7,7 +7,7 @@
 <article name="nginx: Linux packages"
          link="/en/linux_packages.html"
          lang="en"
-         rev="78">
+         rev="79">
 
 <section name="Supported distributions and versions" id="distributions">
 
@@ -17,7 +17,7 @@ versions:
 </para>
 
 <para>
-<link id="RHEL-CentOS">RHEL/CentOS</link>
+<link id="RHEL">RHEL and derivatives</link>
 
 <table note="yes">
 
@@ -175,7 +175,12 @@ set up the nginx packages repository.
 Afterward, you can install and update nginx from the repository.
 </para>
 
-<section name="RHEL/CentOS" id="RHEL-CentOS">
+<section name="RHEL and derivatives" id="RHEL">
+
+<para>
+This section applies to Red Hat Enterprise Linux and its derivatives such as
+CentOS, Oracle Linux, Rocky Linux, AlmaLinux.
+</para>
 
 <para>
 Install the prerequisites:
@@ -578,7 +583,7 @@ mainline version, while <literal>stable-*</literal> branches contain latest
 sources for stable releases.
 To build binary packages, run <command>make</command> in
 <path>debian/</path> directory on Debian/Ubuntu, or in
-<path>rpm/SPECS/</path> on RHEL/CentOS/SLES/Amazon Linux, or in
+<path>rpm/SPECS/</path> on RHEL and derivatives, SLES, and Amazon Linux, or in
 <path>alpine/</path> on Alpine.
 </para>
 
