@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="89">
+        rev="90">
 
 <section id="summary">
 
@@ -170,6 +170,26 @@ outgoing headers object, writable.
 The <header>Foo</header> response header
 can be accessed with the syntax:
 <literal>headersOut.foo</literal> or <literal>headersOut['Foo']</literal>.
+</para>
+
+<para>
+Outgoing headers should be set before a response header is sent to a client,
+otherwise header update will be ignored.
+This means that <literal>r.headersOut{}</literal> is effectively writable in:
+
+<list type="bullet">
+
+<listitem>
+the <link doc="../http/ngx_http_js_module.xml" id="js_content"/> handler before
+<link id="r_send_header"><literal>r.sendHeader()</literal></link> or
+<link id="r_return"><literal>r.return()</literal></link> are called
+</listitem>
+
+<listitem>
+the <link doc="../http/ngx_http_js_module.xml" id="js_header_filter"/> handler
+</listitem>
+
+</list>
 </para>
 
 <para>
