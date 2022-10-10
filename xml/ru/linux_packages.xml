@@ -7,7 +7,7 @@
 <article name="nginx: пакеты для Linux"
          link="/ru/linux_packages.html"
          lang="ru"
-         rev="79">
+         rev="80">
 
 <section name="Поддерживаемые дистрибутивы и версии" id="distributions">
 
@@ -250,7 +250,7 @@ curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor \
 
 Проверьте, верный ли ключ был загружен:
 <programlisting>
-gpg --dry-run --quiet --import --import-options import-show /usr/share/keyrings/nginx-archive-keyring.gpg
+gpg --dry-run --quiet --no-keyring --import --import-options import-show /usr/share/keyrings/nginx-archive-keyring.gpg
 </programlisting>
 
 Вывод команды должен содержать полный отпечаток ключа
@@ -321,7 +321,7 @@ curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor \
 
 Проверьте, верный ли ключ был загружен:
 <programlisting>
-gpg --dry-run --quiet --import --import-options import-show /usr/share/keyrings/nginx-archive-keyring.gpg
+gpg --dry-run --quiet --no-keyring --import --import-options import-show /usr/share/keyrings/nginx-archive-keyring.gpg
 </programlisting>
 
 Вывод команды должен содержать полный отпечаток ключа

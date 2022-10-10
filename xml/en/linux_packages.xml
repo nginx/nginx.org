@@ -7,7 +7,7 @@
 <article name="nginx: Linux packages"
          link="/en/linux_packages.html"
          lang="en"
-         rev="79">
+         rev="80">
 
 <section name="Supported distributions and versions" id="distributions">
 
@@ -250,7 +250,7 @@ curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor \
 
 Verify that the downloaded file contains the proper key:
 <programlisting>
-gpg --dry-run --quiet --import --import-options import-show /usr/share/keyrings/nginx-archive-keyring.gpg
+gpg --dry-run --quiet --no-keyring --import --import-options import-show /usr/share/keyrings/nginx-archive-keyring.gpg
 </programlisting>
 
 The output should contain the full fingerprint
@@ -322,7 +322,7 @@ curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor \
 
 Verify that the downloaded file contains the proper key:
 <programlisting>
-gpg --dry-run --quiet --import --import-options import-show /usr/share/keyrings/nginx-archive-keyring.gpg
+gpg --dry-run --quiet --no-keyring --import --import-options import-show /usr/share/keyrings/nginx-archive-keyring.gpg
 </programlisting>
 
 The output should contain the full fingerprint
