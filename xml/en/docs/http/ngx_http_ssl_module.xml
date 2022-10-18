@@ -10,7 +10,7 @@
 <module name="Module ngx_http_ssl_module"
         link="/en/docs/http/ngx_http_ssl_module.html"
         lang="en"
-        rev="58">
+        rev="59">
 
 <section id="summary">
 
@@ -690,6 +690,10 @@ The cache size is specified in bytes; one megabyte can store
 about 4000 sessions.
 Each shared cache should have an arbitrary name.
 A cache with the same name can be used in several virtual servers.
+It is also used to automatically generate, store, and
+periodically rotate TLS session ticket keys (1.23.2)
+unless configured explicitly
+using the <link id="ssl_session_ticket_key"/> directive.
 </tag-desc>
 
 </list>
