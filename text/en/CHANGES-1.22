@@ -1,4 +1,12 @@
 
+Changes with nginx 1.22.1                                        19 Oct 2022
+
+    *) Security: processing of a specially crafted mp4 file by the
+       ngx_http_mp4_module might cause a worker process crash, worker
+       process memory disclosure, or might have potential other impact
+       (CVE-2022-41741, CVE-2022-41742).
+
+
 Changes with nginx 1.22.0                                        24 May 2022
 
     *) 1.22.x stable branch.
