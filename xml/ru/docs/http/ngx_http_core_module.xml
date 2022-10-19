@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="100">
+        rev="101">
 
 <section id="directives" name="Директивы">
 
@@ -3215,6 +3215,110 @@ cookie <value>имя</value>
 <tag-name id="var_proxy_protocol_server_port"><var>$proxy_protocol_server_port</var></tag-name>
 <tag-desc>
 порт сервера, полученный из заголовка протокола PROXY (1.17.6)
+<para>
+Протокол PROXY должен быть предварительно включён при помощи установки
+параметра <literal>proxy_protocol</literal> в директиве <link id="listen"/>.
+</para>
+</tag-desc>
+
+<tag-name id="var_proxy_protocol_tlv_"><var>$proxy_protocol_tlv_</var><value>имя</value></tag-name>
+<tag-desc>
+TLV, полученный из заголовка протокола PROXY (1.23.2).
+<literal>Имя</literal> может быть именем типа TLV или его числовым значением.
+В последнем случае значение задаётся в шестнадцатеричном виде
+и должно начинаться с <literal>0x</literal>:
+
+<example>
+$proxy_protocol_tlv_alpn
+$proxy_protocol_tlv_0x01
+</example>
+SSL TLV могут также быть доступны как по имени типа TLV,
+так и по его числовому значению,
+оба должны начинаться с <literal>ssl_</literal>:
+<example>
+$proxy_protocol_tlv_ssl_version
+$proxy_protocol_tlv_ssl_0x21
+</example>
+
+<para>
+Поддерживаются следующие имена типов TLV:
+<list type="bullet">
+
+<listitem>
+<literal>alpn</literal> (<literal>0x01</literal>)&mdash;
+протокол более высокого уровня, используемый поверх соединения
+</listitem>
+
+<listitem>
+<literal>authority</literal> (<literal>0x02</literal>)&mdash;
+значение имени хоста, передаваемое клиентом
+</listitem>
+
+<listitem>
+<literal>unique_id</literal> (<literal>0x05</literal>)&mdash;
+уникальный идентификатор соединения
+</listitem>
+
+<listitem>
+<literal>netns</literal> (<literal>0x30</literal>)&mdash;
+имя пространства имён
+</listitem>
+
+<listitem>
+<literal>ssl</literal> (<literal>0x20</literal>)&mdash;
+структура SSL TLV в бинарном виде
+</listitem>
+
+</list>
+</para>
+
+<para>
+Поддерживаются следующие имена типов SSL TLV:
+<list type="bullet">
+
+<listitem>
+<literal>ssl_version</literal> (<literal>0x21</literal>)&mdash;
+версия SSL, используемая в клиентском соединении
+</listitem>
+
+<listitem>
+<literal>ssl_cn</literal> (<literal>0x22</literal>)&mdash;
+Common Name сертификата
+</listitem>
+
+<listitem>
+<literal>ssl_cipher</literal> (<literal>0x23</literal>)&mdash;
+имя используемого шифра
+</listitem>
+
+<listitem>
+<literal>ssl_sig_alg</literal> (<literal>0x24</literal>)&mdash;
+алгоритм, используемый для подписи сертификата
+</listitem>
+
+<listitem>
+<literal>ssl_key_alg</literal> (<literal>0x25</literal>)&mdash;
+алгоритм публичного ключа
+</listitem>
+
+</list>
+</para>
+
+<para>
+Также поддерживается следующее специальное имя типа SSL TLV:
+<list type="bullet">
+
+<listitem>
+<literal>ssl_verify</literal>&mdash;
+результат проверки клиентского сертификата:
+<literal>0</literal>, если клиент предоставил сертификат
+и он был успешно верифицирован,
+либо ненулевое значение
+</listitem>
+
+</list>
+</para>
+
 <para>
 Протокол PROXY должен быть предварительно включён при помощи установки
 параметра <literal>proxy_protocol</literal> в директиве <link id="listen"/>.
