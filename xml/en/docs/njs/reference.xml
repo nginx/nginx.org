@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="90">
+        rev="91">
 
 <section id="summary">
 
@@ -817,6 +817,20 @@ true if the buffer should have the <literal>flush</literal> flag
 </list>
 </para>
 The method can be called multiple times per callback invocation.
+</tag-desc>
+
+<tag-name id="s_send_downstream"><literal>s.sendDownstream()</literal></tag-name>
+<tag-desc>
+is identical to <link id="s_send">s.send()</link>,
+except for it always sends data to a client
+(since <link doc="changes.xml" id="njs0.7.8">0.7.8</link>).
+</tag-desc>
+
+<tag-name id="s_send_upstream"><literal>s.sendUpstream()</literal></tag-name>
+<tag-desc>
+is identical to <link id="s_send">s.send()</link>,
+except for it always sends data from a client
+(since <link doc="changes.xml" id="njs0.7.8">0.7.8</link>).
 </tag-desc>
 
 <tag-name id="s_status"><literal>s.status</literal></tag-name>
