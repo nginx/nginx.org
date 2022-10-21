@@ -9,7 +9,7 @@
 <module name="Module ngx_http_js_module"
         link="/en/docs/http/ngx_http_js_module.html"
         lang="en"
-        rev="36">
+        rev="37">
 
 <section id="summary">
 
@@ -534,6 +534,35 @@ The directive can be specified on the
 <literal>server</literal> and <literal>location</literal> level
 since <link doc="../njs/changes.xml" id="njs0.7.7">0.7.7</link>.
 </note>
+</para>
+
+</directive>
+
+
+<directive name="js_preload_object">
+<syntax><value>name.json</value> |
+<value>name</value> from <value>file.json</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>0.7.8</appeared-in>
+
+<para>
+Preloads an immutable object at configure time.
+The <literal>name</literal> is used a name of the global variable
+though which the object is available in njs code.
+If the <literal>name</literal> is not specified,
+the file name will be used instead.
+<example>
+js_preload_object map.json;
+</example>
+Here, the <literal>map</literal> is used as a name
+while accessing the preloaded object.
+</para>
+
+<para>
+Several <literal>js_preload_object</literal> directives can be specified.
 </para>
 
 </directive>

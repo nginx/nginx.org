@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_js_module"
         link="/ru/docs/stream/ngx_stream_js_module.html"
         lang="ru"
-        rev="33">
+        rev="34">
 
 <section id="summary">
 
@@ -445,6 +445,34 @@ function address(s) {
 и была удалена в версии
 <link doc="../njs/changes.xml" id="njs0.7.1">0.7.1</link>.
 Вместо неё следует использовать директиву <link id="js_import"/>.
+</para>
+
+</directive>
+
+
+<directive name="js_preload_object">
+<syntax><value>имя.json</value> |
+<value>имя</value> from <value>файл.json</value></syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+<appeared-in>0.7.8</appeared-in>
+
+<para>
+Предварительно загружает неизменяемый объект во время конфигурации.
+<literal>Имя</literal> используется в качестве имени глобальной переменной,
+через которую объект доступен в коде njs.
+Если <literal>имя</literal> не указано,
+то будет использоваться имя файла.
+<example>
+js_preload_object map.json;
+</example>
+В примере <literal>map</literal> используется в качестве имени
+во время доступа к предварительно загруженному объекту.
+</para>
+
+<para>
+Директив <literal>js_preload_object</literal> может быть несколько.
 </para>
 
 </directive>
