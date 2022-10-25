@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="91">
+        rev="92">
 
 <section id="summary">
 
@@ -2314,6 +2314,20 @@ For example, “0.7.4” is returned as <literal>0x000704</literal>
 <tag-name id="njs_dump"><literal>njs.dump(<value>value</value>)</literal></tag-name>
 <tag-desc>
 Returns the pretty-print string representation for a value.
+</tag-desc>
+
+<tag-name id="njs_memory_stats"><literal>njs.memoryStats</literal></tag-name>
+<tag-desc>
+Object containing memory statistics for current VM instance
+(since <link doc="changes.xml" id="njs0.7.8">0.7.8</link>).
+<list type="tag">
+
+<tag-name><literal>size</literal></tag-name>
+<tag-desc>
+amount of memory in bytes njs memory pool claimed from the operating system.
+</tag-desc>
+
+</list>
 </tag-desc>
 
 <tag-name id="njs_on"><literal>njs.on(<value>event</value>,
