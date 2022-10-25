@@ -9,8 +9,180 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="54"
+        rev="55"
         toc="no">
+
+<section id="njs0.7.8" name="Changes with njs 0.7.8">
+
+<para>
+Release Date:
+25 October 2022
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+added
+<link doc="../http/ngx_http_js_module.xml" id="js_preload_object"/> directive.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added <literal>ngx.conf_prefix</literal> property.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added
+<link doc="reference.xml" id="s_send_upstream"><literal>s.sendUpstream()</literal></link>
+and
+<link doc="reference.xml" id="s_send_downstream"><literal>s.sendDownstream()</literal></link>
+in
+<link doc="../stream/ngx_stream_js_module.xml">stream</link> module.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added support for <literal>HEAD</literal> method in
+<link doc="reference.xml" id="ngx_fetch">Fetch API</link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+improved <literal>async</literal> callback support for
+<link doc="reference.xml" id="s_send"><literal>s.send()</literal></link>
+in
+<link doc="../stream/ngx_stream_js_module.xml">stream</link> module.
+</para>
+</listitem>
+
+</list>
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+added <literal>name</literal> instance property for a function object.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added
+<link doc="reference.xml" id="njs_memory_stats"><literal>njs.memoryStats</literal></link>
+object.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<literal>String.prototype.trimEnd()</literal>
+with unicode string.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>Object.freeze()</literal> with fast arrays.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>Object.defineProperty()</literal> with fast arrays.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>async</literal> token as a property name of an object.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed property set instruction when key modifies base binding.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed complex assignments.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed handling of unhandled promise rejection.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed process.env
+when duplicate environ variables are present.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed double declaration detection in modules.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed bound function calls according to the spec.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed break label for <literal>if</literal> statement.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed labeled empty statements.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.7.7" name="Changes with njs 0.7.7">
 
