@@ -9,7 +9,7 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="56"
+        rev="57"
         toc="no">
 
 <section id="njs0.7.9" name="Changes with njs 0.7.9">
@@ -124,7 +124,9 @@ added
 <listitem>
 <para>
 Feature:
-added <literal>ngx.conf_prefix</literal> property.
+added
+<link doc="reference.xml" id="ngx_conf_prefix"><literal>ngx.conf_prefix</literal></link><literal></literal>
+property.
 </para>
 </listitem>
 

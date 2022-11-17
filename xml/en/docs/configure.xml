@@ -8,7 +8,7 @@
 <article name="Building nginx from Sources"
          link="/en/docs/configure.html"
          lang="en"
-         rev="19">
+         rev="20">
 
 <section>
 
@@ -39,7 +39,7 @@ prints a help message.
 <para>
 <list type="tag">
 
-<tag-name>
+<tag-name id="prefix">
 <literal>--prefix=<value>path</value></literal>
 </tag-name>
 <tag-desc>

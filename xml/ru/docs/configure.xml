@@ -8,7 +8,7 @@
 <article name="Сборка nginx из исходных файлов"
          link="/ru/docs/configure.html"
          lang="ru"
-         rev="19">
+         rev="20">
 
 <section>
 
@@ -39,7 +39,7 @@
 <para>
 <list type="tag">
 
-<tag-name>
+<tag-name id="prefix">
 <literal>--prefix=<value>путь</value></literal>
 </tag-name>
 <tag-desc>

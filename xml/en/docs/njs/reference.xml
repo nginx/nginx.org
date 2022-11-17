@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="92">
+        rev="93">
 
 <section id="summary">
 
@@ -992,6 +992,14 @@ The URL of the response.
 The <literal>ngx</literal> global object is available
 since <link doc="changes.xml" id="njs0.5.0">0.5.0</link>.
 <list type="tag">
+
+<tag-name id="ngx_conf_prefix"><literal>ngx.conf_prefix</literal></tag-name>
+<tag-desc>
+a string containing the file path to
+<link doc="../configure.xml" id="prefix">nginx configuration prefix</link>&mdash;
+the directory where nginx is currently looking for configuration
+(<link doc="changes.xml" id="njs0.7.8">0.7.8</link>)
+</tag-desc>
 
 <tag-name id="ngx_fetch"><literal>ngx.fetch(<value>url</value>,
 [<value>options</value>])</literal></tag-name>
