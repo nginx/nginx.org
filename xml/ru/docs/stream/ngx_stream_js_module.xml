@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_js_module"
         link="/ru/docs/stream/ngx_stream_js_module.html"
         lang="ru"
-        rev="34">
+        rev="35">
 
 <section id="summary">
 
@@ -170,19 +170,6 @@ export default {bar, preread, req_line, header_inject, access};
 и все текущие вызовы
 <link doc="../njs/reference.xml" id="s_on"><literal>s.on()</literal></link>
 сбрасываются.
-</para>
-
-<para>
-<note>
-Так как обработчик <literal>js_access</literal>
-должен сразу возвращать результат,
-то поддерживаются только синхронные операции.
-Таким образом, асинхронные операции, например
-<link doc="../njs/reference.xml" id="ngx_fetch"><literal>ngx.fetch()</literal></link>
-или
-<link doc="../njs/reference.xml" id="settimeout"><literal>setTimeout()</literal></link>,
-не поддерживаются.
-</note>
 </para>
 
 </directive>
