@@ -9,8 +9,98 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="55"
+        rev="56"
         toc="no">
+
+<section id="njs0.7.9" name="Changes with njs 0.7.9">
+
+<para>
+Release Date:
+17 November 2022
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<link doc="reference.xml" id="ngx_fetch"><literal>Fetch</literal></link>
+Response prototype reinitialization.
+When at least one <literal>js_import</literal> directive was declared in both
+<link doc="../http/ngx_http_js_module.xml" id="js_import">HTTP</link>
+and
+<link doc="../stream/ngx_stream_js_module.xml" id="js_import">Stream</link>,
+<link doc="reference.xml" id="ngx_fetch"><literal>ngx.fetch()</literal></link>
+returned inapproriate response in Stream.
+The bug was introduced in <link id="njs0.7.7">0.7.7</link>.
+</para>
+</listitem>
+
+</list>
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>String.prototype.replace(re)</literal>
+if <literal>re.exec()</literal> returns non-flat array.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>Array.prototype.fill()</literal>
+when <literal>start</literal> object changes <literal>this</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed description for
+<link doc="reference.xml" id="fs_mkdirsync"><literal>fs.mkdir()</literal></link>
+and
+<link doc="reference.xml" id="fs_rmdirsync"><literal>fs.rmdir()</literal></link>
+methods.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>%TypedArray%.prototype.set(s)</literal>
+when <literal>s</literal> element changes <literal>this</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>Array.prototype.splice(s,d)</literal>
+when <literal>d</literal> resizes <literal>this</literal> during eval.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>for-in</literal> loop with left and right hand side expressions.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.7.8" name="Changes with njs 0.7.8">
 
@@ -1130,14 +1220,14 @@ fixed rest parameter parsing without binding identifier.
 <para>
 Bugfix:
 fixed resolve/reject callback for
-<literal> Promise.prototype.finally()</literal> .
+<literal>Promise.prototype.finally()</literal> .
 </para>
 </listitem>
 
 <listitem>
 <para>
 Bugfix:
-fixed <literal> %TypedArray%.prototype.join()</literal>
+fixed <literal>%TypedArray%.prototype.join()</literal>
 with detached buffer.
 </para>
 </listitem>
@@ -1367,7 +1457,7 @@ fixed <literal>Function()</literal> in CLI mode.
 <listitem>
 <para>
 Bugfix:
-fixed for-in iteration of typed array values.
+fixed <literal>for-in</literal> iteration of typed array values.
 Thanks to Artem S. Povalyukhin.
 </para>
 </listitem>
@@ -4350,7 +4440,7 @@ fixed comparison of Byte and UTF8 strings.
 <listitem>
 <para>
 Bugfix:
-fixed type of iteration variable in for-in with array values.
+fixed type of iteration variable in <literal>for-in</literal> with array values.
 </para>
 </listitem>
 
@@ -4459,7 +4549,7 @@ fixed equality operator for various value types.
 <listitem>
 <para>
 Bugfix:
-fixed handling of “this” keyword in various scopes.
+fixed handling of <literal>this</literal> keyword in various scopes.
 </para>
 </listitem>
 
