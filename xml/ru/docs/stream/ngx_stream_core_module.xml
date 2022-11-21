@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_core_module"
         link="/ru/docs/stream/ngx_stream_core_module.html"
         lang="ru"
-        rev="36">
+        rev="37">
 
 <section id="summary">
 
@@ -141,7 +141,7 @@ listen 12345-12399;
 Параметр <literal>proxy_protocol</literal> (1.11.4)
 указывает на то, что все соединения, принимаемые на данном порту,
 должны использовать
-<link url="http://www.haproxy.org/download/1.5/doc/proxy-protocol.txt">протокол
+<link url="http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt">протокол
 PROXY</link>.
 <note>
 Протокол PROXY версии 2 поддерживается начиная с версии 1.13.11.

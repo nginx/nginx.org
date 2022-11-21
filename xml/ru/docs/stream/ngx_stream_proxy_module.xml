@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_proxy_module"
         link="/ru/docs/stream/ngx_stream_proxy_module.html"
         lang="ru"
-        rev="30">
+        rev="31">
 
 <section id="summary">
 
@@ -276,7 +276,7 @@ proxy_pass $upstream;
 
 <para>
 Включает
-<link url="http://www.haproxy.org/download/1.5/doc/proxy-protocol.txt">протокол
+<link url="http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt">протокол
 PROXY</link> для соединений с проксируемым сервером.
 </para>
 

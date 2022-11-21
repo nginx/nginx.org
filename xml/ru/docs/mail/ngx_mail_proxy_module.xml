@@ -10,7 +10,7 @@
 <module name="Модуль ngx_mail_proxy_module"
         link="/ru/docs/mail/ngx_mail_proxy_module.html"
         lang="ru"
-        rev="5">
+        rev="6">
 
 <section id="directives" name="Директивы">
 
@@ -84,7 +84,7 @@
 
 <para>
 Включает
-<link url="http://www.haproxy.org/download/1.5/doc/proxy-protocol.txt">протокол
+<link url="http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt">протокол
 PROXY</link> для соединений с бэкендом.
 </para>
 
