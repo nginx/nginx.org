@@ -543,6 +543,7 @@ The <literal>least_time</literal> method is available as a part of our
 <syntax>
     <value>address</value> ...
     [<literal>valid</literal>=<value>time</value>]
+    [<literal>ipv4</literal>=<literal>on</literal>|<literal>off</literal>]
     [<literal>ipv6</literal>=<literal>on</literal>|<literal>off</literal>]
     [<literal>status_zone</literal>=<value>zone</value>]</syntax>
 <default/>
@@ -563,7 +564,8 @@ Name servers are queried in a round-robin fashion.
 
 <para id="resolver_ipv6">
 By default, nginx will look up both IPv4 and IPv6 addresses while resolving.
-If looking up of IPv6 addresses is not desired,
+If looking up of IPv4 or IPv6 addresses is not desired,
+the <literal>ipv4=off</literal> (1.23.1) or
 the <literal>ipv6=off</literal> parameter can be specified.
 </para>
 

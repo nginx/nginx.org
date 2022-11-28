@@ -900,6 +900,7 @@ The <literal>least_time</literal> method is available as a part of our
 <syntax>
     <value>address</value> ...
     [<literal>valid</literal>=<value>time</value>]
+    [<literal>ipv4</literal>=<literal>on</literal>|<literal>off</literal>]
     [<literal>ipv6</literal>=<literal>on</literal>|<literal>off</literal>]
     [<literal>status_zone</literal>=<value>zone</value>]</syntax>
 <default/>
@@ -920,7 +921,8 @@ Name servers are queried in a round-robin fashion.
 
 <para id="resolver_ipv6">
 By default, nginx will look up both IPv4 and IPv6 addresses while resolving.
-If looking up of IPv6 addresses is not desired,
+If looking up of IPv4 or IPv6 addresses is not desired,
+the <literal>ipv4=off</literal> (1.23.1) or
 the <literal>ipv6=off</literal> parameter can be specified.
 </para>
 
@@ -983,7 +985,7 @@ This directive is available as part of our
     [<literal>expires=</literal><value>time</value>]
     [<literal>domain=</literal><value>domain</value>]
     [<literal>httponly</literal>]
-    [<literal>samesite=</literal><literal>strict</literal>|<literal>lax</literal>|<literal>none</literal>]
+    [<literal>samesite=</literal><literal>strict</literal>|<literal>lax</literal>|<literal>none</literal>|<value>$variable</value>]
     [<literal>secure</literal>]
     [<literal>path=</literal><value>path</value>]</syntax>
 <syntax>
@@ -1081,13 +1083,22 @@ Adds the <literal>HttpOnly</literal> attribute to the cookie (1.7.11).
 </tag-desc>
 
 <tag-name id="sticky_samesite"><literal>samesite=</literal><literal>strict</literal> |
-<literal>lax</literal> | <literal>none</literal></tag-name>
+<literal>lax</literal> | <literal>none</literal> | <value>$variable</value></tag-name>
 <tag-desc>
-Adds the <literal>SameSite</literal> attribute to the cookie
-with one of the following values (1.19.4):
+Adds the <literal>SameSite</literal> (1.19.4) attribute to the cookie
+with one of the following values:
+<literal>Strict</literal>,
+<literal>Lax</literal>,
+<literal>None</literal>, or
+using variables (1.23.3).
+In the latter case, if the variable value is empty,
+the <literal>SameSite</literal> attribute will not be added to the cookie,
+if the value is resolved to
 <literal>Strict</literal>,
 <literal>Lax</literal>, or
-<literal>None</literal>.
+<literal>None</literal>,
+the the corresponding value will be assigned,
+otherwise the <literal>Strict</literal> value will be assigned.
 </tag-desc>
 
 <tag-name><literal>secure</literal></tag-name>

@@ -2204,10 +2204,57 @@ definitions:
       session_reuses:
         type: integer
         description: The total number of session reuses during SSL handshake.
+      no_common_protocol:
+        type: integer
+        description: The number of SSL handshakes failed
+          because of no common protocol.
+      no_common_cipher:
+        type: integer
+        description: The number of SSL handshakes failed
+          because of no shared cipher.
+      handshake_timeout:
+        type: integer
+        description: The number of SSL handshakes failed
+          because of a timeout.
+      peer_rejected_cert:
+        type: integer
+        description: The number of failed SSL handshakes
+          when nginx presented the certificate to the client
+          but it was rejected with a corresponding alert message.
+      verify_failures:
+        type: object
+        description: SSL certificate verification errors
+        properties:
+          no_cert:
+            type: integer
+            description: A client did not provide the required certificate.
+          expired_cert:
+            type: integer
+            description: An expired or not yet valid certificate
+              was presented by a client.
+          revoked_cert:
+            type: integer
+            description: A revoked certificate was presented by a client.
+          hostname_mismatch:
+            type: integer
+            description: Server's certificate doesn't match the hostname.
+          other:
+            type: integer
+            description: Other SSL certificate verification errors.
     example:
       handshakes: 79572
       handshakes_failed: 21025
       session_reuses: 15762
+      no_common_protocol: 4
+      no_common_cipher: 2
+      handshake_timeout: 0
+      peer_rejected_cert: 0
+      verify_failures:
+        no_cert: 0
+        expired_cert: 2
+        revoked_cert: 1
+        hostname_mismatch: 2
+        other: 1
   NginxSlabZoneMap:
     title: Slab Zones
     description: |
@@ -2284,6 +2331,7 @@ definitions:
   NginxSlabZone:
     title: Shared memory zone with slab allocator
     description: |
+      Shared memory zone with slab allocator
     type: object
     properties:
       pages:
@@ -2399,6 +2447,16 @@ definitions:
           handshakes: 65432
           handshakes_failed: 421
           session_reuses: 4645
+          no_common_protocol: 4
+          no_common_cipher: 2
+          handshake_timeout: 0
+          peer_rejected_cert: 0
+          verify_failures:
+            no_cert: 0
+            expired_cert: 2
+            revoked_cert: 1
+            hostname_mismatch: 2
+            other: 1
       site2:
         processing: 1
         requests: 185307
@@ -2421,6 +2479,16 @@ definitions:
           handshakes: 104303
           handshakes_failed: 1421
           session_reuses: 54645
+          no_common_protocol: 4
+          no_common_cipher: 2
+          handshake_timeout: 0
+          peer_rejected_cert: 0
+          verify_failures:
+            no_cert: 0
+            expired_cert: 2
+            revoked_cert: 1
+            hostname_mismatch: 2
+            other: 1
   NginxHTTPServerZone:
     title: HTTP Server Zone
     type: object
@@ -2500,6 +2568,40 @@ definitions:
             type: integer
             description: The total number of session reuses during SSL handshake.
             readOnly: true
+          no_common_protocol:
+            type: integer
+            description: The number of SSL handshakes failed
+              because of no common protocol.
+          no_common_cipher:
+            type: integer
+            description: The number of SSL handshakes failed
+              because of no shared cipher.
+          handshake_timeout:
+            type: integer
+            description: The number of SSL handshakes failed
+              because of a timeout.
+          peer_rejected_cert:
+            type: integer
+            description: The number of failed SSL handshakes
+              when nginx presented the certificate to the client
+              but it was rejected with a corresponding alert message.
+          verify_failures:
+            type: object
+            description: SSL certificate verification errors
+            properties:
+              no_cert:
+                type: integer
+                description: A client did not provide the required certificate.
+              expired_cert:
+                type: integer
+                description: An expired or not yet valid certificate
+                  was presented by a client.
+              revoked_cert:
+                type: integer
+                description: A revoked certificate was presented by a client.
+              other:
+                type: integer
+                description: Other SSL certificate verification errors.
     example:
       processing: 1
       requests: 706690
@@ -2522,6 +2624,15 @@ definitions:
         handshakes: 104303
         handshakes_failed: 1421
         session_reuses: 54645
+        no_common_protocol: 4
+        no_common_cipher: 2
+        handshake_timeout: 0
+        peer_rejected_cert: 0
+        verify_failures:
+          no_cert: 0
+          expired_cert: 2
+          revoked_cert: 1
+          other: 1
   NginxHTTPLocationZonesMap:
     title: HTTP Location Zones
     description: |
@@ -2935,6 +3046,14 @@ definitions:
               handshakes: 620311
               handshakes_failed: 3432
               session_reuses: 36442
+              no_common_protocol: 4
+              handshake_timeout: 0
+              peer_rejected_cert: 0
+              verify_failures:
+                expired_cert: 2
+                revoked_cert: 1
+                hostname_mismatch: 2
+                other: 1
             requests: 667231
             header_time: 20
             response_time: 36
@@ -3005,6 +3124,14 @@ definitions:
               handshakes: 620311
               handshakes_failed: 3432
               session_reuses: 36442
+              no_common_protocol: 4
+              handshake_timeout: 0
+              peer_rejected_cert: 0
+              verify_failures:
+                expired_cert: 2
+                revoked_cert: 1
+                hostname_mismatch: 2
+                other: 1
             requests: 667231
             header_time: 20
             response_time: 36
@@ -3113,6 +3240,14 @@ definitions:
               handshakes: 620311
               handshakes_failed: 3432
               session_reuses: 36442
+              no_common_protocol: 4
+              handshake_timeout: 0
+              peer_rejected_cert: 0
+              verify_failures:
+                expired_cert: 2
+                revoked_cert: 1
+                hostname_mismatch: 2
+                other: 1
             max_conns: 20
             requests: 667231
             header_time: 20
@@ -3247,6 +3382,36 @@ definitions:
             type: integer
             description: The total number of session reuses during SSL handshake.
             readOnly: true
+          no_common_protocol:
+            type: integer
+            description: The number of SSL handshakes failed
+              because of no common protocol.
+          handshake_timeout:
+            type: integer
+            description: The number of SSL handshakes failed
+              because of a timeout.
+          peer_rejected_cert:
+            type: integer
+            description: The number of failed SSL handshakes
+              when nginx presented the certificate to the upstream server
+              but it was rejected with a corresponding alert message.
+          verify_failures:
+            type: object
+            description: SSL certificate verification errors
+            properties:
+              expired_cert:
+                type: integer
+                description: An expired or not yet valid certificate
+                  was presented by an upstream server.
+              revoked_cert:
+                type: integer
+                description: A revoked certificate was presented by an upstream server.
+              hostname_mismatch:
+                type: integer
+                description: Server's certificate doesn't match the hostname.
+              other:
+                type: integer
+                description: Other SSL certificate verification errors.
       max_conns:
         type: integer
         description: The
@@ -3558,6 +3723,15 @@ definitions:
           handshakes: 76455
           handshakes_failed: 432
           session_reuses: 28770
+          no_common_protocol: 4
+          no_common_cipher: 2
+          handshake_timeout: 0
+          peer_rejected_cert: 0
+          verify_failures:
+            no_cert: 0
+            expired_cert: 2
+            revoked_cert: 1
+            other: 1
       dns:
         processing: 1
         connections: 155569
@@ -3573,6 +3747,15 @@ definitions:
           handshakes: 2040
           handshakes_failed: 23
           session_reuses: 65
+          no_common_protocol: 4
+          no_common_cipher: 2
+          handshake_timeout: 0
+          peer_rejected_cert: 0
+          verify_failures:
+            no_cert: 0
+            expired_cert: 2
+            revoked_cert: 1
+            other: 1
   NginxStreamServerZone:
     title: Stream Server Zone
     type: object
@@ -3634,6 +3817,40 @@ definitions:
             type: integer
             description: The total number of session reuses during SSL handshake.
             readOnly: true
+          no_common_protocol:
+            type: integer
+            description: The number of SSL handshakes failed
+              because of no common protocol.
+          no_common_cipher:
+            type: integer
+            description: The number of SSL handshakes failed
+              because of no shared cipher.
+          handshake_timeout:
+            type: integer
+            description: The number of SSL handshakes failed
+              because of a timeout.
+          peer_rejected_cert:
+            type: integer
+            description: The number of failed SSL handshakes
+              when nginx presented the certificate to the client
+              but it was rejected with a corresponding alert message.
+          verify_failures:
+            type: object
+            description: SSL certificate verification errors
+            properties:
+              no_cert:
+                type: integer
+                description: A client did not provide the required certificate.
+              expired_cert:
+                type: integer
+                description: An expired or not yet valid certificate
+                  was presented by a client.
+              revoked_cert:
+                type: integer
+                description: A revoked certificate was presented by a client.
+              other:
+                type: integer
+                description: Other SSL certificate verification errors.
     example:
       dns:
         processing: 1
@@ -3650,6 +3867,15 @@ definitions:
           handshakes: 76455
           handshakes_failed: 432
           session_reuses: 28770
+          no_common_protocol: 4
+          no_common_cipher: 2
+          handshake_timeout: 0
+          peer_rejected_cert: 0
+          verify_failures:
+            no_cert: 0
+            expired_cert: 2
+            revoked_cert: 1
+            other: 1
   NginxStreamLimitConnZonesMap:
     title: Stream limit_conns
     description: |
@@ -3698,6 +3924,14 @@ definitions:
               handshakes: 1045
               handshakes_failed: 89
               session_reuses: 321
+              no_common_protocol: 4
+              handshake_timeout: 0
+              peer_rejected_cert: 0
+              verify_failures:
+                expired_cert: 2
+                revoked_cert: 1
+                hostname_mismatch: 2
+                other: 1
             max_conns: 30
             connecions: 1231
             sent: 251946292
@@ -3748,6 +3982,14 @@ definitions:
               handshakes: 5268
               handshakes_failed: 121
               session_reuses: 854
+              no_common_protocol: 4
+              handshake_timeout: 0
+              peer_rejected_cert: 0
+              verify_failures:
+                expired_cert: 2
+                revoked_cert: 1
+                hostname_mismatch: 2
+                other: 1
             max_conns: 30
             connections: 667231
             sent: 251946292
@@ -3814,6 +4056,14 @@ definitions:
               handshakes: 200
               handshakes_failed: 4
               session_reuses: 189
+              no_common_protocol: 4
+              handshake_timeout: 0
+              peer_rejected_cert: 0
+              verify_failures:
+                expired_cert: 2
+                revoked_cert: 1
+                hostname_mismatch: 2
+                other: 1
             max_conns: 50
             connections: 667231
             sent: 251946292
@@ -3925,6 +4175,36 @@ definitions:
             type: integer
             description: The total number of session reuses during SSL handshake.
             readOnly: true
+          no_common_protocol:
+            type: integer
+            description: The number of SSL handshakes failed
+              because of no common protocol.
+          handshake_timeout:
+            type: integer
+            description: The number of SSL handshakes failed
+              because of a timeout.
+          peer_rejected_cert:
+            type: integer
+            description: The number of failed SSL handshakes
+              when nginx presented the certificate to the upstream server
+              but it was rejected with a corresponding alert message.
+          verify_failures:
+            type: object
+            description: SSL certificate verification errors
+            properties:
+              expired_cert:
+                type: integer
+                description: An expired or not yet valid certificate
+                  was presented by an upstream server.
+              revoked_cert:
+                type: integer
+                description: A revoked certificate was presented by an upstream server.
+              hostname_mismatch:
+                type: integer
+                description: Server's certificate doesn't match the hostname.
+              other:
+                type: integer
+                description: Other SSL certificate verification errors.
       max_conns:
         type: integer
         description: The

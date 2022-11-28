@@ -72,6 +72,7 @@ REFS =									\
 		http/ngx_http_mp4_module				\
 		http/ngx_http_perl_module				\
 		http/ngx_http_proxy_module				\
+		http/ngx_http_proxy_protocol_vendor_module		\
 		http/ngx_http_random_index_module			\
 		http/ngx_http_realip_module				\
 		http/ngx_http_referer_module				\
@@ -112,6 +113,7 @@ REFS =									\
 		stream/ngx_stream_log_module				\
 		stream/ngx_stream_map_module				\
 		stream/ngx_stream_proxy_module				\
+		stream/ngx_stream_proxy_protocol_vendor_module		\
 		stream/ngx_stream_realip_module				\
 		stream/ngx_stream_return_module				\
 		stream/ngx_stream_set_module				\

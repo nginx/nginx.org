@@ -2151,18 +2151,89 @@ The total number of failed SSL handshakes.
 <tag-desc>
 The total number of session reuses during SSL handshake.
 </tag-desc>
+<tag-name>
+<literal>no_common_protocol</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The number of SSL handshakes failed because of no common protocol.
+</tag-desc>
+<tag-name>
+<literal>no_common_cipher</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The number of SSL handshakes failed because of no shared cipher.
+</tag-desc>
+<tag-name>
+<literal>handshake_timeout</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The number of SSL handshakes failed because of a timeout.
+</tag-desc>
+<tag-name>
+<literal>peer_rejected_cert</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The number of failed SSL handshakes when nginx presented the certificate to the client but it was rejected with a corresponding alert message.
+</tag-desc>
+<tag-name>
+<literal>verify_failures</literal></tag-name>
+<tag-desc>
+SSL certificate verification errors<list type="tag">
+<tag-name>
+<literal>no_cert</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+A client did not provide the required certificate.
+</tag-desc>
+<tag-name>
+<literal>expired_cert</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+An expired or not yet valid certificate was presented by a client.
+</tag-desc>
+<tag-name>
+<literal>revoked_cert</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+A revoked certificate was presented by a client.
+</tag-desc>
+<tag-name>
+<literal>hostname_mismatch</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+Server's certificate doesn't match the hostname.
+</tag-desc>
+<tag-name>
+<literal>other</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+Other SSL certificate verification errors.
+</tag-desc>
+</list>
+</tag-desc>
 </list>
 <para>Example:</para>
 <example>
 {
   "handshakes" : 79572,
   "handshakes_failed" : 21025,
-  "session_reuses" : 15762
+  "session_reuses" : 15762,
+  "no_common_protocol" : 4,
+  "no_common_cipher" : 2,
+  "handshake_timeout" : 0,
+  "peer_rejected_cert" : 0,
+  "verify_failures" : {
+    "no_cert" : 0,
+    "expired_cert" : 2,
+    "revoked_cert" : 1,
+    "hostname_mismatch" : 2,
+    "other" : 1
+  }
 }</example>
 </listitem>
 <listitem id="def_nginx_slab_zone">
 <para>Shared memory zone with slab allocator:</para>
-<list type="tag">
+Shared memory zone with slab allocator<list type="tag">
 <tag-name>
 <literal>pages</literal></tag-name>
 <tag-desc>
@@ -2395,6 +2466,60 @@ The total number of failed SSL handshakes.
 <tag-desc>
 The total number of session reuses during SSL handshake.
 </tag-desc>
+<tag-name>
+<literal>no_common_protocol</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The number of SSL handshakes failed because of no common protocol.
+</tag-desc>
+<tag-name>
+<literal>no_common_cipher</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The number of SSL handshakes failed because of no shared cipher.
+</tag-desc>
+<tag-name>
+<literal>handshake_timeout</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The number of SSL handshakes failed because of a timeout.
+</tag-desc>
+<tag-name>
+<literal>peer_rejected_cert</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The number of failed SSL handshakes when nginx presented the certificate to the client but it was rejected with a corresponding alert message.
+</tag-desc>
+<tag-name>
+<literal>verify_failures</literal></tag-name>
+<tag-desc>
+SSL certificate verification errors<list type="tag">
+<tag-name>
+<literal>no_cert</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+A client did not provide the required certificate.
+</tag-desc>
+<tag-name>
+<literal>expired_cert</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+An expired or not yet valid certificate was presented by a client.
+</tag-desc>
+<tag-name>
+<literal>revoked_cert</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+A revoked certificate was presented by a client.
+</tag-desc>
+<tag-name>
+<literal>other</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+Other SSL certificate verification errors.
+</tag-desc>
+</list>
+</tag-desc>
 </list>
 </tag-desc>
 </list>
@@ -2423,7 +2548,17 @@ The total number of session reuses during SSL handshake.
   "ssl" : {
     "handshakes" : 104303,
     "handshakes_failed" : 1421,
-    "session_reuses" : 54645
+    "session_reuses" : 54645,
+    "no_common_protocol" : 4,
+    "no_common_cipher" : 2,
+    "handshake_timeout" : 0,
+    "peer_rejected_cert" : 0,
+    "verify_failures" : {
+      "no_cert" : 0,
+      "expired_cert" : 2,
+      "revoked_cert" : 1,
+      "other" : 1
+    }
   }
 }</example>
 </listitem>
@@ -2907,6 +3042,54 @@ The total number of failed SSL handshakes.
 <tag-desc>
 The total number of session reuses during SSL handshake.
 </tag-desc>
+<tag-name>
+<literal>no_common_protocol</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The number of SSL handshakes failed because of no common protocol.
+</tag-desc>
+<tag-name>
+<literal>handshake_timeout</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The number of SSL handshakes failed because of a timeout.
+</tag-desc>
+<tag-name>
+<literal>peer_rejected_cert</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The number of failed SSL handshakes when nginx presented the certificate to the upstream server but it was rejected with a corresponding alert message.
+</tag-desc>
+<tag-name>
+<literal>verify_failures</literal></tag-name>
+<tag-desc>
+SSL certificate verification errors<list type="tag">
+<tag-name>
+<literal>expired_cert</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+An expired or not yet valid certificate was presented by an upstream server.
+</tag-desc>
+<tag-name>
+<literal>revoked_cert</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+A revoked certificate was presented by an upstream server.
+</tag-desc>
+<tag-name>
+<literal>hostname_mismatch</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+Server's certificate doesn't match the hostname.
+</tag-desc>
+<tag-name>
+<literal>other</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+Other SSL certificate verification errors.
+</tag-desc>
+</list>
+</tag-desc>
 </list>
 </tag-desc>
 <tag-name>
@@ -3120,7 +3303,16 @@ The total number of requests rejected due to the queue overflow.
         "ssl" : {
           "handshakes" : 620311,
           "handshakes_failed" : 3432,
-          "session_reuses" : 36442
+          "session_reuses" : 36442,
+          "no_common_protocol" : 4,
+          "handshake_timeout" : 0,
+          "peer_rejected_cert" : 0,
+          "verify_failures" : {
+            "expired_cert" : 2,
+            "revoked_cert" : 1,
+            "hostname_mismatch" : 2,
+            "other" : 1
+          }
         },
         "max_conns" : 20,
         "requests" : 667231,
@@ -3408,6 +3600,60 @@ The total number of failed SSL handshakes.
 <tag-desc>
 The total number of session reuses during SSL handshake.
 </tag-desc>
+<tag-name>
+<literal>no_common_protocol</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The number of SSL handshakes failed because of no common protocol.
+</tag-desc>
+<tag-name>
+<literal>no_common_cipher</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The number of SSL handshakes failed because of no shared cipher.
+</tag-desc>
+<tag-name>
+<literal>handshake_timeout</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The number of SSL handshakes failed because of a timeout.
+</tag-desc>
+<tag-name>
+<literal>peer_rejected_cert</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The number of failed SSL handshakes when nginx presented the certificate to the client but it was rejected with a corresponding alert message.
+</tag-desc>
+<tag-name>
+<literal>verify_failures</literal></tag-name>
+<tag-desc>
+SSL certificate verification errors<list type="tag">
+<tag-name>
+<literal>no_cert</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+A client did not provide the required certificate.
+</tag-desc>
+<tag-name>
+<literal>expired_cert</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+An expired or not yet valid certificate was presented by a client.
+</tag-desc>
+<tag-name>
+<literal>revoked_cert</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+A revoked certificate was presented by a client.
+</tag-desc>
+<tag-name>
+<literal>other</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+Other SSL certificate verification errors.
+</tag-desc>
+</list>
+</tag-desc>
 </list>
 </tag-desc>
 </list>
@@ -3429,7 +3675,17 @@ The total number of session reuses during SSL handshake.
     "ssl" : {
       "handshakes" : 76455,
       "handshakes_failed" : 432,
-      "session_reuses" : 28770
+      "session_reuses" : 28770,
+      "no_common_protocol" : 4,
+      "no_common_cipher" : 2,
+      "handshake_timeout" : 0,
+      "peer_rejected_cert" : 0,
+      "verify_failures" : {
+        "no_cert" : 0,
+        "expired_cert" : 2,
+        "revoked_cert" : 1,
+        "other" : 1
+      }
     }
   }
 }</example>
@@ -3540,6 +3796,54 @@ The total number of failed SSL handshakes.
 </tag-name>
 <tag-desc>
 The total number of session reuses during SSL handshake.
+</tag-desc>
+<tag-name>
+<literal>no_common_protocol</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The number of SSL handshakes failed because of no common protocol.
+</tag-desc>
+<tag-name>
+<literal>handshake_timeout</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The number of SSL handshakes failed because of a timeout.
+</tag-desc>
+<tag-name>
+<literal>peer_rejected_cert</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The number of failed SSL handshakes when nginx presented the certificate to the upstream server but it was rejected with a corresponding alert message.
+</tag-desc>
+<tag-name>
+<literal>verify_failures</literal></tag-name>
+<tag-desc>
+SSL certificate verification errors<list type="tag">
+<tag-name>
+<literal>expired_cert</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+An expired or not yet valid certificate was presented by an upstream server.
+</tag-desc>
+<tag-name>
+<literal>revoked_cert</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+A revoked certificate was presented by an upstream server.
+</tag-desc>
+<tag-name>
+<literal>hostname_mismatch</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+Server's certificate doesn't match the hostname.
+</tag-desc>
+<tag-name>
+<literal>other</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+Other SSL certificate verification errors.
+</tag-desc>
+</list>
 </tag-desc>
 </list>
 </tag-desc>
@@ -3676,7 +3980,16 @@ The name of the shared memory <link url="https://nginx.org/en/docs/stream/ngx_st
         "ssl" : {
           "handshakes" : 200,
           "handshakes_failed" : 4,
-          "session_reuses" : 189
+          "session_reuses" : 189,
+          "no_common_protocol" : 4,
+          "handshake_timeout" : 0,
+          "peer_rejected_cert" : 0,
+          "verify_failures" : {
+            "expired_cert" : 2,
+            "revoked_cert" : 1,
+            "hostname_mismatch" : 2,
+            "other" : 1
+          }
         },
         "max_conns" : 50,
         "connections" : 667231,

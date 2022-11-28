@@ -908,6 +908,7 @@ server {
 <syntax>
     <value>адрес</value> ...
     [<literal>valid</literal>=<value>время</value>]
+    [<literal>ipv4</literal>=<literal>on</literal>|<literal>off</literal>]
     [<literal>ipv6</literal>=<literal>on</literal>|<literal>off</literal>]
     [<literal>status_zone</literal>=<value>зона</value>]</syntax>
 <default/>
@@ -929,8 +930,9 @@ resolver 127.0.0.1 [::1]:5353;
 <para id="resolver_ipv6">
 По умолчанию nginx будет искать как IPv4-, так и IPv6-адреса
 при преобразовании имён в адреса.
-Если поиск IPv6-адресов нежелателен,
-можно указать параметр <literal>ipv6=off</literal>.
+Если поиск IPv4- или IPv6-адресов нежелателен,
+можно указать параметр <literal>ipv4=off</literal> (1.23.1) или
+<literal>ipv6=off</literal>.
 </para>
 
 <para id="resolver_valid">
@@ -993,11 +995,11 @@ resolver_timeout 5s;
     [<literal>expires=</literal><value>время</value>]
     [<literal>domain=</literal><value>домен</value>]
     [<literal>httponly</literal>]
-    [<literal>samesite=</literal><literal>strict</literal>|<literal>lax</literal>|<literal>none</literal>]
+    [<literal>samesite=</literal><literal>strict</literal>|<literal>lax</literal>|<literal>none</literal>|<value>$переменная</value>]
     [<literal>secure</literal>]
     [<literal>path=</literal><value>путь</value>]</syntax>
 <syntax>
-    <literal>route</literal> <value>переменная</value> ...</syntax>
+    <literal>route</literal> <value>$переменная</value> ...</syntax>
 <syntax>
     <literal>learn</literal>
     <literal>create=</literal><value>$переменная</value>
@@ -1089,13 +1091,22 @@ upstream backend {
 </tag-desc>
 
 <tag-name id="sticky_samesite"><literal>samesite=</literal><literal>strict</literal> |
-<literal>lax</literal> | <literal>none</literal></tag-name>
+<literal>lax</literal> | <literal>none</literal> | <literal>$переменная</literal></tag-name>
 <tag-desc>
-Добавляет атрибут <literal>SameSite</literal> к куке
-с одним из следующих значений (1.19.4):
+Добавляет атрибут <literal>SameSite</literal> (1.19.4) к куке
+с одним из следующих значений:
+<literal>Strict</literal>,
+<literal>Lax</literal>,
+<literal>None</literal> или
+при помощи переменных (1.23.3).
+В последнем случае если переменная имеет пустое значение,
+то атрибут <literal>SameSite</literal> не будет добавлен к куке,
+если значение переменной равно
 <literal>Strict</literal>,
 <literal>Lax</literal> или
-<literal>None</literal>.
+<literal>None</literal>,
+то атрибуту будет назначено соответствующее значение,
+иначе атрибуту будет назначено значение <literal>Strict</literal>.
 </tag-desc>
 
 <tag-name><literal>secure</literal></tag-name>
