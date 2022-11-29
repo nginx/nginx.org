@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Module ngx_http_proxy_protocol_vendor_module"
+        link="/en/docs/http/ngx_http_proxy_protocol_vendor_module.html"
+        lang="en"
+        rev="1">
+
+<section id="summary">
+
+<para>
+The <literal>ngx_http_proxy_protocol_vendor_module</literal> module (1.23.3)
+allows obtaining additional information about a connection in
+cloud platforms from application-specific TLVs of the
+<link url="http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt">PROXY
+protocol</link>
+header.
+</para>
+
+<para>
+Supported cloud platforms:
+<list type="bullet">
+
+<listitem>
+Amazon Web Services
+</listitem>
+
+<listitem>
+Google Cloud Platform
+</listitem>
+
+<listitem>
+Microsoft Azure
+</listitem>
+
+</list>
+</para>
+
+<para>
+The PROXY protocol must be previously enabled by setting the
+<literal>proxy_protocol</literal> parameter
+in the <link doc="ngx_http_core_module.xml" id="listen"/> directive.
+</para>
+
+<para>
+<note>
+This module is available as part of our
+<commercial_version>commercial subscription</commercial_version>.
+</note>
+</para>
+
+</section>
+
+
+<section id="example" name="Example Configuration">
+
+<para>
+<example>
+proxy_set_header X-Conn-ID $proxy_protocol_tlv_gcp_conn_id;
+
+server {
+    listen 80   proxy_protocol;
+    listen 443  ssl proxy_protocol;
+    ...
+}
+</example>
+</para>
+
+</section>
+
+
+<section id="variables" name="Embedded Variables">
+
+<para>
+<list type="tag">
+
+<tag-name id="var_proxy_protocol_tlv_aws_vpce_id"><var>$proxy_protocol_tlv_aws_vpce_id</var></tag-name>
+<tag-desc>
+TLV value from the PROXY Protocol header representing the
+<link url="https://docs.aws.amazon.com/elasticloadbalancing/latest/network/load-balancer-target-groups.html#proxy-protocol">ID
+of AWS VPC endpoint</link>
+</tag-desc>
+
+<tag-name id="var_proxy_protocol_tlv_azure_pel_id"><var>$proxy_protocol_tlv_azure_pel_id</var></tag-name>
+<tag-desc>
+TLV value from the PROXY Protocol header representing the
+<link url="https://learn.microsoft.com/en-us/azure/private-link/private-link-service-overview#getting-connection-information-using-tcp-proxy-v2">LinkID
+of Azure private endpoint</link>
+</tag-desc>
+
+<tag-name id="var_proxy_protocol_tlv_gcp_conn_id"><var>$proxy_protocol_tlv_gcp_conn_id</var></tag-name>
+<tag-desc>
+TLV value from the PROXY Protocol header representing
+<link url="https://cloud.google.com/vpc/docs/configure-private-service-connect-producer#proxy-protocol">Google Cloud PSC
+connection ID</link>
+</tag-desc>
+
+</list>
+</para>
+
+</section>
+
+</module>

@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Модуль ngx_stream_proxy_protocol_vendor_module"
+        link="/ru/docs/stream/ngx_stream_proxy_protocol_vendor_module.html"
+        lang="ru"
+        rev="1">
+
+<section id="summary">
+
+<para>
+Модуль <literal>ngx_stream_proxy_protocol_vendor_module</literal> (1.23.3)
+позволяет получать дополнительную информацию о соединении из
+облачных платформ при помощи TLV, полученных из
+заголовка
+<link url="http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt">протокола
+PROXY</link>.
+</para>
+
+<para>
+Поддерживаемые облачные платформы:
+<list type="bullet">
+
+<listitem>
+Amazon Web Services
+</listitem>
+
+<listitem>
+Google Cloud Platform
+</listitem>
+
+<listitem>
+Microsoft Azure
+</listitem>
+
+</list>
+</para>
+
+<para>
+Протокол PROXY должен быть предварительно включён при помощи установки
+параметра <literal>proxy_protocol</literal> в директиве
+<link doc="ngx_stream_core_module.xml" id="listen"/>.
+</para>
+
+<para>
+<note>
+Модуль доступен как часть
+<commercial_version>коммерческой подписки</commercial_version>
+</note>
+</para>
+
+</section>
+
+
+<section id="example" name="Пример конфигурации">
+
+<para>
+<example>
+server {
+    listen 12345 proxy_protocol;
+    return $proxy_protocol_tlv_gcp_conn_id;
+}
+</example>
+</para>
+
+</section>
+
+
+<section id="variables" name="Встроенные переменные">
+
+<para>
+<list type="tag">
+
+<tag-name id="var_proxy_protocol_tlv_aws_vpce_id"><var>$proxy_protocol_tlv_aws_vpce_id</var></tag-name>
+<tag-desc>
+значение TLV, полученное из заголовка протокола PROXY, содержащее
+<link url="https://docs.aws.amazon.com/elasticloadbalancing/latest/network/load-balancer-target-groups.html#proxy-protocol">ID
+конечной точки VPC AWS</link>
+</tag-desc>
+
+<tag-name id="var_proxy_protocol_tlv_azure_pel_id"><var>$proxy_protocol_tlv_azure_pel_id</var></tag-name>
+<tag-desc>
+значение TLV, полученное из заголовка протокола PROXY, содержащее
+<link url="https://learn.microsoft.com/en-us/azure/private-link/private-link-service-overview#getting-connection-information-using-tcp-proxy-v2">LinkID
+частной конечной точки Azure</link>
+</tag-desc>
+
+<tag-name id="var_proxy_protocol_tlv_gcp_conn_id"><var>$proxy_protocol_tlv_gcp_conn_id</var></tag-name>
+<tag-desc>
+значение TLV, полученное из заголовка протокола PROXY, содержащее
+<link url="https://cloud.google.com/vpc/docs/configure-private-service-connect-producer#proxy-protocol">ID соединения
+Google Cloud PSC</link>
+</tag-desc>
+
+</list>
+</para>
+
+</section>
+
+</module>
