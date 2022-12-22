@@ -10,7 +10,7 @@
 <module name="Module ngx_mail_ssl_module"
         link="/en/docs/mail/ngx_mail_ssl_module.html"
         lang="en"
-        rev="25">
+        rev="26">
 
 <section id="summary">
 
@@ -483,6 +483,10 @@ about 4000 sessions.
 Each shared cache should have an arbitrary name.
 A cache with the same name can be used in several
 servers.
+It is also used to automatically generate, store, and
+periodically rotate TLS session ticket keys (1.23.2)
+unless configured explicitly
+using the <link id="ssl_session_ticket_key"/> directive.
 </tag-desc>
 
 </list>
