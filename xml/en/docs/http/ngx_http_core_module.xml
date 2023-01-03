@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="102">
+        rev="103">
 
 <section id="directives" name="Directives">
 
@@ -792,8 +792,7 @@ request header field:
 
 <tag-name><literal>off</literal></tag-name>
 <tag-desc>
-the
-<header>If-Modified-Since</header> request header field is ignored (0.7.34);
+the response is always considered modified (0.7.34);
 </tag-desc>
 
 <tag-name><literal>exact</literal></tag-name>

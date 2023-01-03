@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="102">
+        rev="103">
 
 <section id="directives" name="Директивы">
 
@@ -787,8 +787,7 @@ error_page 404 =301 http://example.com/notfound.html;
 
 <tag-name><literal>off</literal></tag-name>
 <tag-desc>
-не проверять поле
-<header>If-Modified-Since</header> заголовка запроса (0.7.34);
+ответ всегда считается изменившимся (0.7.34);
 </tag-desc>
 
 <tag-name><literal>exact</literal></tag-name>
