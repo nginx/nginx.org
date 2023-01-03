@@ -802,7 +802,7 @@ exact match;
 
 <tag-name><literal>before</literal></tag-name>
 <tag-desc>
-modification time of a response is
+modification time of the response is
 less than or equal to the time in the <header>If-Modified-Since</header>
 request header field.
 </tag-desc>
