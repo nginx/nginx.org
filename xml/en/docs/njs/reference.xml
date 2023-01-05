@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="93">
+        rev="94">
 
 <section id="summary">
 
@@ -260,7 +260,7 @@ The actual redirect happens after the handler execution is completed.
 After redirect,
 a new njs VM is started in the target location,
 the VM in the original location is stopped.
-Values of nginx variables are kept
+Values of <link doc="../varindex.xml">nginx variables</link> are kept
 and can be used to pass information to the target location.
 Since <link doc="changes.xml" id="njs0.5.3">0.5.3</link>,
 the variable declared with the <literal>js_var</literal> directive for
@@ -574,7 +574,7 @@ writable
 
 <tag-name id="r_variables"><literal>r.variables{}</literal></tag-name>
 <tag-desc>
-nginx variables object, writable
+<link doc="../varindex.xml">nginx variables</link> object, writable
 (since <link doc="changes.xml" id="njs0.2.8">0.2.8</link>).
 
 <para>
@@ -860,7 +860,7 @@ async function js_set(r) {
 
 <tag-name id="s_variables"><literal>s.variables{}</literal></tag-name>
 <tag-desc>
-nginx variables object, writable
+<link doc="../varindex.xml">nginx variables</link> object, writable
 (since <link doc="changes.xml" id="njs0.2.8">0.2.8</link>).
 A variable can be writable only
 if it is referenced in nginx configuration file.
