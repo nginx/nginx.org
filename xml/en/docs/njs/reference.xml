@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="94">
+        rev="95">
 
 <section id="summary">
 
@@ -576,6 +576,30 @@ writable
 <tag-desc>
 <link doc="../varindex.xml">nginx variables</link> object, writable
 (since <link doc="changes.xml" id="njs0.2.8">0.2.8</link>).
+
+<para>
+For example, to get the <literal>$foo</literal> variable,
+one of the following syntax can be used:
+<example>
+r.variables['foo']
+r.variables.foo
+</example>
+nginx treats variables referenced in <literal>nginx.conf</literal>
+and unreferenced variables differently.
+When a variable is referenced, it may be cacheable,
+but when it is unreferenced it is always uncacheable.
+For example, when the
+<link doc="../http/ngx_http_core_module.xml" id="var_request_id">$request_id</link>
+variable is only accessed from njs,
+it has a new value every time it is evaluated.
+But, when the
+<link doc="../http/ngx_http_core_module.xml" id="var_request_id">$request_id</link>
+is referenced, for example:
+<example>
+proxy_set_header X-Request-Id $request_id;
+</example>
+the <literal>r.variables.request_id</literal> returns the same value every time.
+</para>
 
 <para>
 A variable is writable if:
