@@ -9,7 +9,7 @@
 <article name="njs scripting language"
         link="/en/docs/njs/index.html"
         lang="en"
-        rev="32"
+        rev="33"
         toc="no">
 
 <section id="summary">
@@ -47,6 +47,10 @@ The compliance is still <link doc="compatibility.xml">evolving</link>.
 
 <listitem>
 <link url="https://github.com/nginx/njs-examples/">Examples</link>
+</listitem>
+
+<listitem>
+<link doc="security.xml"/>
 </listitem>
 
 <listitem>

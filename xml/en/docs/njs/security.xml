@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE article SYSTEM "../../../../dtd/article.dtd">
+
+<article name="Security"
+        link="/en/docs/njs/security.html"
+        lang="en"
+        rev="1"
+        toc="no">
+
+<section>
+
+<para>
+All njs security issues should be reported to
+<literal>security-alert@nginx.org</literal>.
+</para>
+
+<para>
+Patches are signed using one of the
+<link doc="../../pgp_keys.xml">PGP public keys</link>.
+</para>
+
+</section>
+
+
+<section id="considerations" name="Special considerations">
+
+<para>
+njs does not evaluate dynamic code
+and especially the code received from the network in any way.
+The only way to evaluate that code using njs
+is to configure the
+<link doc="../http/ngx_http_js_module.xml" id="js_import">js_import</link>
+directive in nginx.
+JavaScript code is loaded once during nginx start.
+</para>
+
+<para>
+In nginx/njs threat model, JavaScript code is considered a trusted source
+in the same way as <literal>nginx.conf</literal> and sites certificates.
+What this means in practice:
+
+<list type="bullet">
+
+<listitem>
+memory disclosure and other security issues
+triggered by JavaScript code modification
+are not considered security issues, but as ordinary bugs
+</listitem>
+
+<listitem>
+measures should be taking for protecting JavaScript code used by njs
+</listitem>
+
+<listitem>
+if no <link doc="../http/ngx_http_js_module.xml" id="js_import">js_import</link>
+directives are present in <literal>nginx.conf</literal>,
+nginx is safe from JavaScript-related vulnerabilities
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+
+</article>

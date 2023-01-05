@@ -132,6 +132,7 @@ REFS =									\
 		njs/compatibility					\
 		njs/install						\
 		njs/reference						\
+		njs/security						\
 		njs/node_modules					\
 		njs/typescript						\
 
