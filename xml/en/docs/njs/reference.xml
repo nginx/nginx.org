@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="96">
+        rev="97">
 
 <section id="summary">
 
@@ -911,11 +911,164 @@ only first 2048 bytes of the string can be logged.
 </section>
 
 
+<section id="headers" name="Headers">
+
+<para>
+The <literal>Headers</literal> interface of the
+<link id="ngx_fetch"><literal>Fetch API</literal></link>
+is available since <link doc="changes.xml" id="njs0.5.1">0.5.1</link>.
+</para>
+
+<para>
+A new <literal>Headers</literal> object can be created using
+the <literal>Headers()</literal> constructor
+(since <link doc="changes.xml" id="njs0.7.10">0.7.10</link>)
+with the following properties and methods:
+
+<list type="tag">
+
+<tag-name id="headers_append"><literal>append()</literal></tag-name>
+<tag-desc>
+Appends a new value into an existing header in the
+<literal>Headers</literal> object,
+or adds the header if it does not already exist
+(since <link doc="changes.xml" id="njs0.7.10">0.7.10</link>).
+</tag-desc>
+
+<tag-name id="headers_delete"><literal>delete()</literal></tag-name>
+<tag-desc>
+Deletes a header from the <literal>Headers</literal> object
+(since <link doc="changes.xml" id="njs0.7.10">0.7.10</link>).
+</tag-desc>
+
+<tag-name id="headers_get"><literal>get()</literal></tag-name>
+<tag-desc>
+Returns a string containing the values of all headers with the specified name
+separated by a comma and a space.
+</tag-desc>
+
+<tag-name id="response_headers_getall"><literal>getAll(<value>name</value>)</literal></tag-name>
+<tag-desc>
+Returns an array containing the values of all headers with the specified name.
+</tag-desc>
+
+<tag-name id="headers_foreach"><literal>forEach()</literal></tag-name>
+<tag-desc>
+Executes a provided function once for each key/value pair
+in the <literal>Headers</literal> object
+(since <link doc="changes.xml" id="njs0.7.10">0.7.10</link>).
+</tag-desc>
+
+<tag-name id="headers_has"><literal>has()</literal></tag-name>
+<tag-desc>
+Returns a boolean value
+indicating whether a header with the specified name exists.
+</tag-desc>
+
+<tag-name id="headers_set"><literal>set()</literal></tag-name>
+<tag-desc>
+Sets a new value for an existing header inside
+the <literal>Headers</literal> object,
+or adds the header if it does not already exist
+(since <link doc="changes.xml" id="njs0.7.10">0.7.10</link>).
+</tag-desc>
+
+</list>
+</para>
+
+</section>
+
+
+<section id="request" name="Request">
+
+<para>
+The <literal>Request</literal> interface of the
+<link id="ngx_fetch"><literal>Fetch API</literal></link>
+is available since <link doc="changes.xml" id="njs0.7.10">0.7.10</link>.
+</para>
+
+<para>
+A new <literal>Request</literal> object can be created using
+the <literal>Request()</literal> constructor
+with the following properties and methods:
+
+<list type="tag">
+
+<tag-name id="request_arraybuffer"><literal>arrayBuffer()</literal></tag-name>
+<tag-desc>
+Returns a <literal>Promise</literal> that resolves with
+an <literal>ArrayBuffer</literal>.
+</tag-desc>
+
+<tag-name id="request_bodyused"><literal>bodyUsed</literal></tag-name>
+<tag-desc>
+A boolean value, <literal>true</literal>
+if the body was used in the request.
+</tag-desc>
+
+<tag-name id="request_cache"><literal>cache</literal></tag-name>
+<tag-desc>
+Contains the cache mode of the request.
+</tag-desc>
+
+<tag-name id="request_credentials"><literal>credentials</literal></tag-name>
+<tag-desc>
+Contains the credentials of the request,
+by default is <literal>same-origin</literal>.
+</tag-desc>
+
+<tag-name id="request_headers"><literal>headers</literal></tag-name>
+<tag-desc>
+The <link id="headers"><literal>Headers</literal></link> read-only object
+associated with the
+<link id="request"><literal>Request</literal></link>.
+</tag-desc>
+
+<tag-name id="request_json"><literal>json()</literal></tag-name>
+<tag-desc>
+Returns a <literal>Promise</literal> that resolves with
+the result of parsing the request body as JSON.
+</tag-desc>
+
+<tag-name id="request_method"><literal>method</literal></tag-name>
+<tag-desc>
+Contains the request method.
+</tag-desc>
+
+<tag-name id="request_mode"><literal>mode</literal></tag-name>
+<tag-desc>
+Contains the mode of the request.
+</tag-desc>
+
+<tag-name id="request_text"><literal>text()</literal></tag-name>
+<tag-desc>
+Returns a <literal>Promise</literal> that resolves with a
+string representation of the request body.
+</tag-desc>
+
+<tag-name id="request_url"><literal>url</literal></tag-name>
+<tag-desc>
+Contains the URL of the request.
+</tag-desc>
+
+</list>
+</para>
+
+</section>
+
+
 <section id="response" name="Response">
 
 <para>
 The <literal>Response</literal> interface is available since
 <link doc="changes.xml" id="njs0.5.1">0.5.1</link>.
+</para>
+
+<para>
+A new <literal>Response</literal> object can be created using
+the <literal>Response()</literal> constructor
+(since <link doc="changes.xml" id="njs0.7.10">0.7.10</link>)
+with the following properties and methods:
 
 <list type="tag">
 
@@ -934,29 +1087,9 @@ if the body was read.
 
 <tag-name id="response_headers"><literal>headers</literal></tag-name>
 <tag-desc>
-The <literal>Headers</literal> read-only object associated with the
-<link id="response"><literal>Response</literal></link>:
-
-<list type="tag">
-
-<tag-name id="headers_get"><literal>get(<value>name</value>)</literal></tag-name>
-<tag-desc>
-returns a string containing the values of all headers with the specified name
-separated by a comma and a space
-</tag-desc>
-
-<tag-name id="headers_getall"><literal>getAll(<value>name</value>)</literal></tag-name>
-<tag-desc>
-returns an array containing the values of all headers with the specified name
-</tag-desc>
-
-<tag-name id="headers_has"><literal>has(<value>name</value>)</literal></tag-name>
-<tag-desc>
-returns a boolean value
-indicating whether a header with the specified name exists
-</tag-desc>
-
-</list>
+The <link id="headers"><literal>Headers</literal></link> read-only object
+associated with the
+<link id="response"><literal>Response</literal></link>.
 </tag-desc>
 
 <tag-name id="response_json"><literal>json()</literal></tag-name>
@@ -1025,12 +1158,14 @@ the directory where nginx is currently looking for configuration
 (<link doc="changes.xml" id="njs0.7.8">0.7.8</link>)
 </tag-desc>
 
-<tag-name id="ngx_fetch"><literal>ngx.fetch(<value>url</value>,
+<tag-name id="ngx_fetch"><literal>ngx.fetch(<value>resource</value>,
 [<value>options</value>])</literal></tag-name>
 <tag-desc>
-Makes a request to fetch an URL
-(<link doc="changes.xml" id="njs0.5.1">0.5.1</link>),
-returns a <literal>Promise</literal> that resolves with
+Makes a request to fetch a <value>resource</value>
+(<link doc="changes.xml" id="njs0.5.1">0.5.1</link>), which can be an
+URL or the <link id="request"><literal>Request</literal></link> object
+(<link doc="changes.xml" id="njs0.7.10">0.7.10</link>).
+Returns a <literal>Promise</literal> that resolves with
 the <link id="response"><literal>Response</literal></link> object.
 Since <link doc="changes.xml" id="njs0.7.0">0.7.0</link>,
 the <literal>https://</literal> scheme is supported,
@@ -1054,7 +1189,7 @@ by default is <literal>4096</literal>
 
 <tag-name id="fetch_headers"><literal>headers</literal></tag-name>
 <tag-desc>
-request headers object
+request <link id="headers">headers</link> object
 </tag-desc>
 
 <tag-name id="fetch_get"><literal>max_response_body_size</literal></tag-name>
