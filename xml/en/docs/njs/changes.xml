@@ -9,8 +9,125 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="57"
+        rev="58"
         toc="no">
+
+<section id="njs0.7.10" name="Changes with njs 0.7.10">
+
+<para>
+Release Date:
+07 February 2023
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+added
+<link doc="reference.xml" id="request"><literal>Request</literal></link>,
+<link doc="reference.xml" id="response"><literal>Response</literal></link>,
+and
+<link doc="reference.xml" id="headers"><literal>Headers</literal></link>
+ctors in
+<link doc="reference.xml" id="ngx_fetch">Fetch API</link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed nginx logger callback for calls in the master process.
+</para>
+</listitem>
+
+</list>
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+added signal support in CLI.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added
+<link doc="reference.xml" id="xml"><literal>xml</literal></link>
+module for working with XML documents.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+extended support for symmetric and asymmetric keys in WebCrypto.
+Most notably <literal>JWK</literal> format for
+<link doc="reference.xml" id="crypto_subtle_import_key"><literal>importKey()</literal></link>
+was added.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+extended support for symmetric and asymmetric keys in
+<link doc="reference.xml" id="builtin_crypto">WebCrypto API</link>.
+Most notably <literal>JWK</literal> format for
+<link doc="reference.xml" id="crypto_subtle_import_key"><literal>importKey()</literal></link>
+was added.
+<link doc="reference.xml" id="crypto_subtle_generate_key"><literal>generateKey()</literal></link>
+and
+<link doc="reference.xml" id="crypto_subtle_export_key"><literal>exportKey()</literal></link>
+were also implemented.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added
+<literal>String.prototype.replaceAll()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>for(expr1;</literal> conditional syntax error handling.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+<literal>Object.values()</literal>
+and
+<literal>Object.entries()</literal>
+with external objects.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>RegExp.prototype[@@replace]()</literal>.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.7.9" name="Changes with njs 0.7.9">
 

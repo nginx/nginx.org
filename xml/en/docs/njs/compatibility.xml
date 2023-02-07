@@ -9,7 +9,7 @@
 <article name="Compatibility"
         link="/en/docs/njs/compatibility.html"
         lang="en"
-        rev="35"
+        rev="36"
         toc="no">
 
 <section>
@@ -260,6 +260,12 @@ ES9:
 (<link doc="changes.xml" id="njs0.3.4">0.3.4</link>),
 <literal>trimStart</literal>
 (<link doc="changes.xml" id="njs0.3.4">0.3.4</link>)
+</listitem>
+
+<listitem>
+ES12:
+<literal>replaceAll</literal>
+(<link doc="changes.xml" id="njs0.7.10">0.7.10</link>)
 </listitem>
 
 <listitem>
@@ -903,6 +909,18 @@ methods
 (<link doc="changes.xml" id="njs0.4.3">0.4.3</link>):
 <link doc="reference.xml" id="textencoder_encode"><literal>encode</literal></link>,
 <link doc="reference.xml" id="textencoder_encodeinto"><literal>encodeInto</literal></link>
+</listitem>
+
+<listitem id="xml">
+<link doc="reference.xml" id="xml"><literal>XML</literal></link>
+methods
+(<link doc="changes.xml" id="njs0.7.10">0.7.10</link>):
+<link doc="reference.xml" id="xml_parse"><literal>parse()</literal></link>,
+<link doc="reference.xml" id="xml_c14n"><literal>xml.c14n()</literal></link>,
+<link doc="reference.xml" id="xml_exclusiveC14n"><literal>xml.exclusiveC14n()</literal></link>,
+<link doc="reference.xml" id="xml_doc"><literal>XMLDoc</literal></link>,
+<link doc="reference.xml" id="xml_node"><literal>XMLNode</literal></link>,
+<link doc="reference.xml" id="xml_xmlattr"><literal>XMLAttr</literal></link>
 </listitem>
 
 <listitem>
