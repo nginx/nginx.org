@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="98">
+        rev="99">
 
 <section id="summary">
 
@@ -947,7 +947,7 @@ Returns a string containing the values of all headers with the specified name
 separated by a comma and a space.
 </tag-desc>
 
-<tag-name id="response_headers_getall"><literal>getAll(<value>name</value>)</literal></tag-name>
+<tag-name id="headers_getall"><literal>getAll(<value>name</value>)</literal></tag-name>
 <tag-desc>
 Returns an array containing the values of all headers with the specified name.
 </tag-desc>
