@@ -8,7 +8,7 @@
 <article name="A debugging log"
          link="/en/docs/debugging_log.html"
          lang="en"
-         rev="5">
+         rev="6">
 
 
 <section>
@@ -121,6 +121,13 @@ end
 
 set $buf = (ngx_log_memory_buf_t *) $log->wdata
 dump binary memory debug_log.txt $buf->start $buf->end
+</example>
+Or using an <command>lldb</command> script as follows:
+<example>
+expr ngx_log_t *$log = ngx_cycle->log
+expr while ($log->writer != ngx_log_memory_writer) { $log = $log->next; }
+expr ngx_log_memory_buf_t *$buf = (ngx_log_memory_buf_t *) $log->wdata
+memory read --force --outfile debug_log.txt --binary $buf->start $buf->end
 </example>
 </para>
 
