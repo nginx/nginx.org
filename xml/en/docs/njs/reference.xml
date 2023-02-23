@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="99">
+        rev="100">
 
 <section id="summary">
 
@@ -5115,7 +5115,7 @@ and should not be used directly.
 
 <para>
 The XML module allows working with XML documents
-(<link doc="changes.xml" id="njs0.7.10">0.7.10</link>).
+(since <link doc="changes.xml" id="njs0.7.10">0.7.10</link>).
 The XML module object is returned by
 <literal>require('xml')</literal>.
 </para>
@@ -5152,14 +5152,19 @@ console.log(c14n) /* '&lt;note&gt;&lt;from&gt;Jani&lt;/from&gt;&lt;/note&gt;' */
 Parses a string or Buffer for an XML document,
 returns an
 <link id="xml_doc"><literal>XMLDoc</literal></link> wrapper object
- around XML structure.
+representing the parsed XML document.
 </tag-desc>
 
-<tag-name id="xml_c14n"><literal>xml.c14n(<value>root_node</value>[,
-<value>excluding_node</value>]])</literal></tag-name>
+<tag-name id="xml_c14n"><literal>c14n(<value>root_node</value>[,
+<value>excluding_node</value>])</literal></tag-name>
 <tag-desc>
 Canonicalizes <literal>root_node</literal> and its children according to
 <link url="https://www.w3.org/TR/xml-c14n">Canonical XML Version 1.1</link>.
+The <literal>root_node</literal> can be
+<link id="xml_node"><literal>XMLNode</literal></link> or
+<link id="xml_doc"><literal>XMLDoc</literal></link> wrapper object
+around XML structure.
+Returns Buffer object that contains canonicalized output.
 
 <para>
 <list type="tag">
@@ -5174,17 +5179,25 @@ allows omitting from the output a part of the document
 
 </tag-desc>
 
-<tag-name id="xml_exclusiveC14n"><literal>xml.exclusiveC14n(<value>root_node</value>[,
+<tag-name id="xml_exclusivec14n"><literal>exclusiveC14n(<value>root_node</value>[,
 <value>excluding_node</value>[,
 <value>withComments</value>
 [,<value>prefix_list</value>]]])</literal></tag-name>
 <tag-desc>
-Canonicalizes <literal>root_node</literal>  and its children according to
+Canonicalizes <literal>root_node</literal> and its children according to
 <link url="https://www.w3.org/TR/xml-exc-c14n/">Exclusive XML
 Canonicalization Version 1.0</link>.
 
 <para>
 <list type="tag">
+
+<tag-name><literal>root_node</literal></tag-name>
+<tag-desc>
+is
+<link id="xml_node"><literal>XMLNode</literal></link> or
+<link id="xml_doc"><literal>XMLDoc</literal></link> wrapper object
+around XML structure
+</tag-desc>
 
 <tag-name><literal>excluding_node</literal></tag-name>
 <tag-desc>
@@ -5198,6 +5211,7 @@ a boolean value, <literal>false</literal> by default.
 If <literal>true</literal>, canonicalization corresponds to
 <link url="http://www.w3.org/2001/10/xml-exc-c14n#WithComments">Exclusive XML
 Canonicalization Version 1.0</link>.
+Returns Buffer object that contains canonicalized output.
 </tag-desc>
 
 <tag-name><literal>prefix_list</literal></tag-name>
@@ -5211,22 +5225,37 @@ for namespaces that should also be included into the output
 
 </tag-desc>
 
+<tag-name id="xml_serialize"><literal>serialize()</literal></tag-name>
+<tag-desc>
+The same as
+<link id="xml_c14n"><literal>xml.c14n()</literal></link>
+(since <link doc="changes.xml" id="njs0.7.11">0.7.11</link>).
+</tag-desc>
+
+<tag-name id="xml_serialize_tostring"><literal>serializeToString()</literal></tag-name>
+<tag-desc>
+The same as
+<link id="xml_c14n"><literal>xml.c14n()</literal></link>
+except it returns the result as a <literal>string</literal>
+(since <link doc="changes.xml" id="njs0.7.11">0.7.11</link>).
+</tag-desc>
+
 <tag-name id="xml_doc"><literal>XMLDoc</literal></tag-name>
 <tag-desc>
-An XMLDoc wrapper object around XML structure.
+An XMLDoc wrapper object around XML structure,
+the root node of the document.
 
 <para>
 <list type="tag">
 
-<tag-name id="xml_doc_root"><literal>$root</literal></tag-name>
+<tag-name id="xml_doc_root"><literal>doc.$root</literal></tag-name>
 <tag-desc>
-the root tag as
-<link id="xml_node"><literal>XMLNode</literal></link> wrapper object
+the document's root by its name or undefined
 </tag-desc>
 
-<tag-name id="xml_doc_xxx"><literal>doc.<value>xxx</value></literal></tag-name>
+<tag-name id="xml_doc_xxx"><literal>doc.<value>abc</value></literal></tag-name>
 <tag-desc>
-the first root tag named <value>xxx</value> as
+the first root tag named <value>abc</value> as
 <link id="xml_node"><literal>XMLNode</literal></link> wrapper object
 </tag-desc>
 
@@ -5241,56 +5270,136 @@ An XMLNode wrapper object around XML tag node.
 <para>
 <list type="tag">
 
-<tag-name id="xml_node_tag"><literal>node.$tag$<value>xxx</value></literal></tag-name>
+<tag-name id="node_abc"><literal>node.<value>abc</value></literal></tag-name>
 <tag-desc>
-the first child tag named <value>xxx</value> as
-<link id="xml_node"><literal>XMLNode</literal></link> wrapper object
+the same as
+<link id="node_tag"><literal>node.$tag$<value>abc</value></literal></link>
 </tag-desc>
 
-<tag-name><literal>node.<value>xxx</value></literal></tag-name>
+<tag-name id="node_attr"><literal>node.$attr$<value>abc</value></literal></tag-name>
 <tag-desc>
-a shorthand syntax for
-<link id="xml_node_tag"><literal>node.$tag$<value>xxx</value></literal></link>
+the node's attribute value of <value>abc</value>,
+writable
+since <link doc="changes.xml" id="njs0.7.11">0.7.11</link>
 </tag-desc>
 
-<tag-name><literal>node.$tags$<value>xxx</value></literal></tag-name>
+<tag-name id="node_attr_value"><literal>node.$attr$<value>abc</value></literal>=<value>xyz</value></tag-name>
 <tag-desc>
-an array of all children tags named <value>xxx</value>
+the same as
+<link id="node_setattribute"><literal>node.setAttribute('<value>abc</value>',
+<value>xyz</value>)</literal></link>
+(since <link doc="changes.xml" id="njs0.7.11">0.7.11</link>)
 </tag-desc>
 
-<tag-name><literal>node.$tags</literal></tag-name>
-<tag-desc>
-an array of all children tags
-</tag-desc>
-
-<tag-name><literal>node.$attr$<value>xxx</value></literal></tag-name>
-<tag-desc>
-an attribute value of <value>xxx</value>
-</tag-desc>
-
-<tag-name><literal>node.$attrs</literal></tag-name>
+<tag-name id="node_attrs"><literal>node.$attrs</literal></tag-name>
 <tag-desc>
 an <link id="xml_xmlattr"><literal>XMLAttr</literal></link> wrapper object
+for all attributes of the node
 </tag-desc>
 
-<tag-name><literal>node.$name</literal></tag-name>
+<tag-name id="node_name"><literal>node.$name</literal></tag-name>
 <tag-desc>
-the tag name of the node
+the name of the node
 </tag-desc>
 
-<tag-name><literal>node.$ns</literal></tag-name>
+<tag-name id="node_ns"><literal>node.$ns</literal></tag-name>
 <tag-desc>
 the namespace of the node
 </tag-desc>
 
-<tag-name><literal>node.$parent</literal></tag-name>
+<tag-name id="node_parent"><literal>node.$parent</literal></tag-name>
 <tag-desc>
-the parent of the node
+the parent node of the current node
 </tag-desc>
 
-<tag-name><literal>node.$text</literal></tag-name>
+<tag-name id="node_tag"><literal>node.$tag$<value>abc</value></literal></tag-name>
 <tag-desc>
-the node's content
+the first child tag of the node named <value>abc</value>,
+writable
+since <link doc="changes.xml" id="njs0.7.11">0.7.11</link>
+</tag-desc>
+
+<tag-name id="node_tags"><literal>node.$tags</literal></tag-name>
+<tag-desc>
+an array of all children tags
+</tag-desc>
+
+<tag-name id="node_tags_"><literal>node.$tags = [node1, node2, ...]</literal></tag-name>
+<tag-desc>
+the same as
+<link id="node_removechildren"><literal>node.removeChildren</literal>()</link>;
+<link id="node_addchild"><literal>node.addChild(<value>node1</value>)</literal></link>;
+<link id="node_addchild"><literal>node.addChild(<value>node2</value>)</literal></link>
+(since <link doc="changes.xml" id="njs0.7.11">0.7.11</link>).
+</tag-desc>
+
+<tag-name id="node_tags_abc"><literal>node.$tags$<value>abc</value></literal></tag-name>
+<tag-desc>
+all children tags named <value>abc</value> of the node,
+writable
+since <link doc="changes.xml" id="njs0.7.11">0.7.11</link>
+</tag-desc>
+
+<tag-name id="node_text"><literal>node.$text</literal></tag-name>
+<tag-desc>
+the content of the node,
+writable
+since <link doc="changes.xml" id="njs0.7.11">0.7.11</link>
+</tag-desc>
+
+<tag-name id="node_text_abc"><literal>node.$text = 'abc' </literal></tag-name>
+<tag-desc>
+the same as
+<link id="node_settext"><literal>node.setText('abc')</literal></link>
+(since <link doc="changes.xml" id="njs0.7.11">0.7.11</link>)
+</tag-desc>
+
+<tag-name id="node_addchild"><literal>node.addChild(<value>nd</value>)</literal></tag-name>
+<tag-desc>
+adds XMLNode as a child to node
+(since <link doc="changes.xml" id="njs0.7.11">0.7.11</link>).
+<literal>nd</literal> is recursively copied before adding to the node
+</tag-desc>
+
+<tag-name id="node_removeallattr"><literal>node.removeAllAttributes()</literal></tag-name>
+<tag-desc>
+removes all attributes of the node
+(since <link doc="changes.xml" id="njs0.7.11">0.7.11</link>)
+</tag-desc>
+
+<tag-name id="node_removeattr"><literal>node.removeAttribute(<value>attr_name</value>)</literal></tag-name>
+<tag-desc>
+removes the attribute named <literal>attr_name</literal>
+(since <link doc="changes.xml" id="njs0.7.11">0.7.11</link>)
+</tag-desc>
+
+<tag-name id="node_removechildren"><literal>node.removeChildren(<value>tag_name</value>)</literal></tag-name>
+<tag-desc>
+removes all the children tags named <literal>tag_name</literal>
+(since <link doc="changes.xml" id="njs0.7.11">0.7.11</link>).
+If <literal>tag_name</literal> is absent, all children tags are removed
+</tag-desc>
+
+<tag-name id="node_removetext"><literal>node.removeText()</literal></tag-name>
+<tag-desc>
+removes the node's text value
+(<link doc="changes.xml" id="njs0.7.11">0.7.11</link>)
+</tag-desc>
+
+<tag-name id="node_setattr"><literal>node.setAttribute(<value>attr_name</value>,
+<value>value</value>)</literal></tag-name>
+<tag-desc>
+sets a value for an <literal>attr_name</literal>
+(since <link doc="changes.xml" id="njs0.7.11">0.7.11</link>).
+When the value is <literal>null</literal>,
+the attribute named <literal>attr_name</literal> is deleted
+</tag-desc>
+
+<tag-name id="node_settext"><literal>node.setText(<value>value</value>)</literal></tag-name>
+<tag-desc>
+sets a text value for the node
+(since <link doc="changes.xml" id="njs0.7.11">0.7.11</link>).
+When the value is <literal>null</literal>, the text of the node is deleted.
 </tag-desc>
 
 </list>
@@ -5305,9 +5414,9 @@ An XMLAttrs wrapper object around XML node attributes.
 <para>
 <list type="tag">
 
-<tag-name id="xmlattr_x"><literal>attr.<value>xxx</value></literal></tag-name>
+<tag-name id="xmlattr_x"><literal>attr.<value>abc</value></literal></tag-name>
 <tag-desc>
-a value of the <value>xxx</value> attribute
+the attribute value of <value>abc</value>
 </tag-desc>
 
 </list>
