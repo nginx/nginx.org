@@ -7,6 +7,17 @@
 
 <news name="nginx news" link="/" lang="en">
 
+<event date="2023-03-09">
+<para>
+<link doc="en/docs/njs/index.xml">njs-0.7.11</link>
+version has been
+<link doc="en/docs/njs/changes.xml" id="njs0.7.11">released</link>,
+featuring
+<link doc="en/docs/njs/reference.xml" id="xml_node">XMLNode</link> API
+to modify XML documents.
+</para>
+</event>
+
 <event date="2023-02-28">
 <para>
 <link url="https://unit.nginx.org/">unit-1.29.1</link> bugfix version has been

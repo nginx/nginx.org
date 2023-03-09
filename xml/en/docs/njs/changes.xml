@@ -9,8 +9,116 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="58"
+        rev="59"
         toc="no">
+
+<section id="njs0.7.11" name="Changes with njs 0.7.11">
+
+<para>
+Release Date:
+09 March 2023
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Bugfix:
+added missed linking with
+<link url="https://gitlab.gnome.org/GNOME/libxml2">libxml2</link>
+for the dynamic module.
+The bug was introduced in <link id="njs0.7.10">0.7.10</link>.
+</para>
+</listitem>
+
+</list>
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+added
+<link doc="reference.xml" id="xml_node">XMLNode API</link>
+to modify XML documents.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Change:
+removed <literal>XML_PARSE_DTDVALID</literal> during parsing of an XML document
+due to security implications.
+The issue was introduced in <link id="njs0.7.10">0.7.10</link>.
+When <literal>XML_PARSE_DTDVALID</literal> is enabled,
+<link url="https://gitlab.gnome.org/GNOME/libxml2">libxml2</link>
+parses and executes external entities present inside an XML document.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed the detection of <literal>await</literal> in arguments.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>Error()</literal> instance dumping
+when “<literal>name</literal>” prop is not primitive.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed array instance with a <literal>getter</literal> property dumping.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>njs_object_property()</literal> with 
+<literal>NJS_WHITEOUT</literal> properties.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>func</literal> instance dumping
+with “<literal>name</literal>” as getter.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed attaching of a stack to an error object.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>String.prototype.replace()</literal> with replacement
+containing “<literal>$'</literal>”, “<literal>$`</literal>”.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.7.10" name="Changes with njs 0.7.10">
 
