@@ -10,7 +10,7 @@
 <module name="Module ngx_http_proxy_module"
         link="/en/docs/http/ngx_http_proxy_module.html"
         lang="en"
-        rev="75">
+        rev="76">
 
 <section id="summary">
 
@@ -2096,7 +2096,7 @@ Passphrases are tried in turn when loading the key.
     [<literal>TLSv1.1</literal>]
     [<literal>TLSv1.2</literal>]
     [<literal>TLSv1.3</literal>]</syntax>
-<default>TLSv1 TLSv1.1 TLSv1.2</default>
+<default>TLSv1 TLSv1.1 TLSv1.2 TLSv1.3</default>
 <context>http</context>
 <context>server</context>
 <context>location</context>
@@ -2104,6 +2104,13 @@ Passphrases are tried in turn when loading the key.
 
 <para>
 Enables the specified protocols for requests to a proxied HTTPS server.
+</para>
+
+<para>
+<note>
+The <literal>TLSv1.3</literal> parameter is used by default
+since 1.23.4.
+</note>
 </para>
 
 </directive>

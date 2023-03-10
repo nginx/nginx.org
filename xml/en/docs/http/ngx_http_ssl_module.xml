@@ -10,7 +10,7 @@
 <module name="Module ngx_http_ssl_module"
         link="/en/docs/http/ngx_http_ssl_module.html"
         lang="en"
-        rev="59">
+        rev="60">
 
 <section id="summary">
 
@@ -76,7 +76,7 @@ http {
         listen              443 ssl;
         <emphasis>keepalive_timeout   70;</emphasis>
 
-        ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
+        ssl_protocols       TLSv1 TLSv1.1 TLSv1.2 TLSv1.3;
         ssl_ciphers         AES128-SHA:AES256-SHA:RC4-SHA:DES-CBC3-SHA:RC4-MD5;
         ssl_certificate     /usr/local/nginx/conf/cert.pem;
         ssl_certificate_key /usr/local/nginx/conf/cert.key;
@@ -595,7 +595,7 @@ ciphers when using the SSLv3 and TLS protocols.
     [<literal>TLSv1.1</literal>]
     [<literal>TLSv1.2</literal>]
     [<literal>TLSv1.3</literal>]</syntax>
-<default>TLSv1 TLSv1.1 TLSv1.2</default>
+<default>TLSv1 TLSv1.1 TLSv1.2 TLSv1.3</default>
 <context>http</context>
 <context>server</context>
 
@@ -608,6 +608,10 @@ The <literal>TLSv1.1</literal> and <literal>TLSv1.2</literal> parameters
 <note>
 The <literal>TLSv1.3</literal> parameter (1.13.0) works only when
 OpenSSL 1.1.1 or higher is used.
+</note>
+<note>
+The <literal>TLSv1.3</literal> parameter is used by default
+since 1.23.4.
 </note>
 </para>
 

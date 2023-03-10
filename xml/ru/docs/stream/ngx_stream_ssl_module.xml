@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_ssl_module"
         link="/ru/docs/stream/ngx_stream_ssl_module.html"
         lang="ru"
-        rev="31">
+        rev="32">
 
 <section id="summary">
 
@@ -62,7 +62,7 @@ stream {
     server {
         listen              12345 ssl;
 
-        ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
+        ssl_protocols       TLSv1 TLSv1.1 TLSv1.2 TLSv1.3;
         ssl_ciphers         AES128-SHA:AES256-SHA:RC4-SHA:DES-CBC3-SHA:RC4-MD5;
         ssl_certificate     /usr/local/nginx/conf/cert.pem;
         ssl_certificate_key /usr/local/nginx/conf/cert.key;
@@ -447,7 +447,7 @@ stream {
     [<literal>TLSv1.1</literal>]
     [<literal>TLSv1.2</literal>]
     [<literal>TLSv1.3</literal>]</syntax>
-<default>TLSv1 TLSv1.1 TLSv1.2</default>
+<default>TLSv1 TLSv1.1 TLSv1.2 TLSv1.3</default>
 <context>stream</context>
 <context>server</context>
 
@@ -460,6 +460,10 @@ stream {
 <note>
 Параметр <literal>TLSv1.3</literal> (1.13.0) работает только
 при использовании OpenSSL 1.1.1 и выше.
+</note>
+<note>
+Параметр <literal>TLSv1.3</literal> используется по умолчанию
+начиная с 1.23.4.
 </note>
 </para>
 
