@@ -7,7 +7,7 @@
 <article name="nginx: Linux packages"
          link="/en/linux_packages.html"
          lang="en"
-         rev="82">
+         rev="83">
 
 <section name="Supported distributions and versions" id="distributions">
 
@@ -163,6 +163,11 @@ versions:
 
 <tr>
 <td width="30%">2 (LTS)</td>
+<td>x86_64, aarch64/arm64</td>
+</tr>
+
+<tr>
+<td width="30%">2023</td>
 <td>x86_64, aarch64/arm64</td>
 </tr>
 
@@ -531,7 +536,7 @@ Install the prerequisites:
 sudo yum install yum-utils
 </programlisting>
 
-To set up the yum repository, create the file named
+To set up the yum repository for Amazon Linux 2, create the file named
 <path>/etc/yum.repos.d/nginx.repo</path>
 with the following contents:
 
@@ -547,6 +552,28 @@ module_hotfixes=true
 [nginx-mainline]
 name=nginx mainline repo
 baseurl=http://nginx.org/packages/mainline/amzn2/$releasever/$basearch/
+gpgcheck=1
+enabled=0
+gpgkey=https://nginx.org/keys/nginx_signing.key
+module_hotfixes=true
+</programlisting>
+
+To set up the yum repository for Amazon Linux 2023, create the file named
+<path>/etc/yum.repos.d/nginx.repo</path>
+with the following contents:
+
+<programlisting>
+[nginx-stable]
+name=nginx stable repo
+baseurl=http://nginx.org/packages/amzn/2023/$basearch/
+gpgcheck=1
+enabled=1
+gpgkey=https://nginx.org/keys/nginx_signing.key
+module_hotfixes=true
+
+[nginx-mainline]
+name=nginx mainline repo
+baseurl=http://nginx.org/packages/mainline/amzn/2023/$basearch/
 gpgcheck=1
 enabled=0
 gpgkey=https://nginx.org/keys/nginx_signing.key
