@@ -7,7 +7,7 @@
 <article name="nginx: пакеты для Linux"
          link="/ru/linux_packages.html"
          lang="ru"
-         rev="83">
+         rev="84">
 
 <section name="Поддерживаемые дистрибутивы и версии" id="distributions">
 
@@ -545,6 +545,7 @@ gpgcheck=1
 enabled=1
 gpgkey=https://nginx.org/keys/nginx_signing.key
 module_hotfixes=true
+priority=9
 
 [nginx-mainline]
 name=nginx mainline repo
@@ -553,6 +554,7 @@ gpgcheck=1
 enabled=0
 gpgkey=https://nginx.org/keys/nginx_signing.key
 module_hotfixes=true
+priority=9
 </programlisting>
 
 Для подключения yum-репозитория для Amazon Linux 2023 создайте файл с именем
@@ -567,6 +569,7 @@ gpgcheck=1
 enabled=1
 gpgkey=https://nginx.org/keys/nginx_signing.key
 module_hotfixes=true
+priority=9
 
 [nginx-mainline]
 name=nginx mainline repo
@@ -575,6 +578,7 @@ gpgcheck=1
 enabled=0
 gpgkey=https://nginx.org/keys/nginx_signing.key
 module_hotfixes=true
+priority=9
 </programlisting>
 
 По умолчанию используется репозиторий для стабильной версии nginx.

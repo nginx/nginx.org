@@ -7,7 +7,7 @@
 <article name="nginx: Linux packages"
          link="/en/linux_packages.html"
          lang="en"
-         rev="83">
+         rev="84">
 
 <section name="Supported distributions and versions" id="distributions">
 
@@ -548,6 +548,7 @@ gpgcheck=1
 enabled=1
 gpgkey=https://nginx.org/keys/nginx_signing.key
 module_hotfixes=true
+priority=9
 
 [nginx-mainline]
 name=nginx mainline repo
@@ -556,6 +557,7 @@ gpgcheck=1
 enabled=0
 gpgkey=https://nginx.org/keys/nginx_signing.key
 module_hotfixes=true
+priority=9
 </programlisting>
 
 To set up the yum repository for Amazon Linux 2023, create the file named
@@ -570,6 +572,7 @@ gpgcheck=1
 enabled=1
 gpgkey=https://nginx.org/keys/nginx_signing.key
 module_hotfixes=true
+priority=9
 
 [nginx-mainline]
 name=nginx mainline repo
@@ -578,6 +581,7 @@ gpgcheck=1
 enabled=0
 gpgkey=https://nginx.org/keys/nginx_signing.key
 module_hotfixes=true
+priority=9
 </programlisting>
 
 By default, the repository for stable nginx packages is used.
