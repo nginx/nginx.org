@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="100">
+        rev="101">
 
 <section id="summary">
 
@@ -2347,6 +2347,7 @@ depending on the used algorithm
 <listitem>
 <literal>hash</literal> is a string that represents
 the name of the <literal>digest</literal> function to use, can be
+<literal>SHA-1</literal>,
 <literal>SHA-256</literal>,
 <literal>SHA-384</literal>, or
 <literal>SHA-512</literal>
