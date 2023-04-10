@@ -9,8 +9,74 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="59"
+        rev="60"
         toc="no">
+
+<section id="njs0.7.12" name="Changes with njs 0.7.12">
+
+<para>
+Release Date:
+10 April 2023
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>Headers()</literal> constructor in
+<link doc="reference.xml" id="ngx_fetch">Fetch API</link>.
+</para>
+</listitem>
+
+</list>
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+added
+<link doc="reference.xml" id="crypto_hash_copy"><literal>Hash.copy()</literal></link>
+method in
+<link doc="reference.xml" id="crypto">crypto</link> module.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added
+<link doc="reference.xml" id="zlib">zlib</link>
+module.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+added support for
+<literal>export {name as default}</literal> statement.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>Number</literal> constructor according to the spec.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.7.11" name="Changes with njs 0.7.11">
 

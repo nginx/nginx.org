@@ -9,7 +9,7 @@
 <article name="Compatibility"
         link="/en/docs/njs/compatibility.html"
         lang="en"
-        rev="37"
+        rev="38"
         toc="no">
 
 <section>
@@ -933,6 +933,16 @@ methods
 <link doc="reference.xml" id="xml_parse"><literal>parse</literal></link>,
 <link doc="reference.xml" id="xml_c14n"><literal>xml.c14n</literal></link>,
 <link doc="reference.xml" id="xml_exclusiveC14n"><literal>xml.exclusiveC14n</literal></link>
+</listitem>
+
+<listitem id="zlib">
+<link doc="reference.xml" id="zlib"><literal>zlib</literal></link>
+methods
+(<link doc="changes.xml" id="njs0.7.12">0.7.12</link>):
+<link doc="reference.xml" id="zlib_deflaterawsync"><literal>deflateRawSync</literal></link>,
+<link doc="reference.xml" id="zlib_deflatesync"><literal>deflateSync</literal></link>,
+<link doc="reference.xml" id="zlib_inflaterawsync"><literal>inflateRawSync</literal></link>
+<link doc="reference.xml" id="zlib_inflatesync"><literal>inflateSync</literal></link>
 </listitem>
 
 <listitem>
