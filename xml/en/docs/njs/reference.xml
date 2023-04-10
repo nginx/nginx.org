@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="101">
+        rev="102">
 
 <section id="summary">
 
@@ -5427,6 +5427,144 @@ the attribute value of <value>abc</value>
 
 </list>
 </para>
+
+</section>
+
+
+<section id="zlib" name="zlib">
+
+<para>
+The zlib module provides compression functionality using the
+“deflate” and “inflate” algorithms
+(since <link doc="changes.xml" id="njs0.7.12">0.7.12</link>).
+The zlib module object is returned by
+<literal>require('zlib')</literal>.
+</para>
+
+<para>
+<list type="tag">
+
+<tag-name id="zlib_deflaterawsync"><literal>deflateRawSync(<value>string</value> |
+<value>Buffer</value>[,
+<value>options</value>])</literal></tag-name>
+<tag-desc>
+Compresses data using the “deflate” algorithm provided as a string or Buffer
+and does not append a zlib header.
+The buffer value can be a
+<literal>Buffer</literal>,
+<literal>TypedArray</literal>, or
+<literal>DataView</literal>.
+<literal>Options</literal> is an optional object that contains
+<link id="zlib_options"/>.
+Returns Buffer instance that contains the compressed data.
+</tag-desc>
+
+<tag-name id="zlib_deflatesync"><literal>deflateSync(<value>string</value> |
+<value>Buffer</value>[,
+<value>options</value>])</literal></tag-name>
+<tag-desc>
+Compresses data using the “deflate” algorithm provided as a string or Buffer.
+The Buffer value can be a
+<literal>Buffer</literal>,
+<literal>TypedArray</literal>, or
+<literal>DataView</literal>.
+<literal>Options</literal> is an optional object that contains
+<link id="zlib_options"/>.
+Returns Buffer instance that contains the compressed data.
+</tag-desc>
+
+<tag-name id="zlib_inflaterawsync"><literal>inflateRawSync(<value>string</value> |
+<value>Buffer</value>)</literal></tag-name>
+<tag-desc>
+Decompresses a raw stream by using the “deflate” algorithm.
+Returns Buffer instance that contains the decompressed data.
+</tag-desc>
+
+<tag-name id="zlib_inflatesync"><literal>inflateSync(<value>string</value> |
+<value>Buffer</value>)</literal></tag-name>
+<tag-desc>
+Decompresses a stream by using the “deflate” algorithm.
+Returns Buffer instance that contains the decompressed data.
+</tag-desc>
+
+</list>
+</para>
+
+
+<section id="zlib_options" name="zlib options">
+
+<para>
+<list type= "bullet" compact="no">
+
+<listitem>
+<literal>chunkSize</literal>&mdash;is an integer,
+by default is <literal>1024</literal>
+</listitem>
+
+<listitem>
+<literal>dictionary</literal>&mdash;is a
+<literal>Buffer</literal>,
+<literal>TypedArray</literal>, or
+<literal>DataView</literal>.
+by default is empty
+</listitem>
+
+<listitem>
+<literal>level</literal>&mdash;is an integer, compression only,
+see <link id="zlib_compression_levels"/>
+</listitem>
+
+<listitem>
+<literal>memLevel</literal>&mdash;is an integer
+from <literal>1</literal> to <literal>9</literal>, compression only
+</listitem>
+
+<listitem>
+<literal>strategy</literal>&mdash;is an integer, compression only,
+see <link id="zlib_compression_strategy"/>
+</listitem>
+
+<listitem>
+<literal>windowBits</literal>&mdash;is an integer
+from <literal>-15</literal> to <literal>-9</literal>
+for raw data,
+from <literal>9</literal> to <literal>15</literal>
+for an ordinary stream
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+<section id="zlib_compression_levels" name="zlib compression levels">
+
+<para>
+<table>
+<tr><td>Name</td><td>Description</td></tr>
+<tr><td><literal>zlib.constants.Z_NO_COMPRESSION</literal></td><td>no compression</td></tr>
+<tr><td><literal>zlib.constants.Z_BEST_SPEED</literal></td><td>fastest, produces the least compression</td></tr>
+<tr><td><literal>zlib.constants.Z_DEFAULT_COMPRESSION</literal></td><td>trade-off between speed and compression</td></tr>
+<tr><td><literal>zlib.constants.Z_BEST_COMPRESSION</literal></td><td>slowest, produces the most compression</td></tr>
+</table>
+</para>
+
+</section>
+
+<section id="zlib_compression_strategy" name="zlib compression strategy">
+
+<para>
+<table>
+<tr><td>Name</td><td>Description</td></tr>
+<tr><td><literal>zlib.constants.Z_FILTERED</literal></td><td>Filtered strategy: for the data produced by a filter or predictor</td></tr>
+<tr><td><literal>zlib.constants.Z_HUFFMAN_ONLY</literal></td><td>Huffman-only strategy: only Huffman encoding, no string matching</td></tr>
+<tr><td><literal>zlib.constants.Z_RLE</literal></td><td>Run Length Encoding strategy: limit match distances to one, better compression of PNG image data</td></tr>
+<tr><td><literal>zlib.constants.Z_FIXED</literal></td><td>Fixed table strategy: prevents the use of dynamic Huffman codes, a simpler decoder for special applications</td></tr>
+<tr><td><literal>zlib.constants.Z_DEFAULT_STRATEGY</literal></td><td>Default strategy, suitable for general purpose compression</td></tr>
+</table>
+</para>
+
+</section>
 
 </section>
 
