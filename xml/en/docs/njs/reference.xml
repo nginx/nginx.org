@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="102">
+        rev="103">
 
 <section id="summary">
 
@@ -3821,6 +3821,12 @@ If encoding is not provided, a Buffer object
 Before version (<link doc="changes.xml" id="njs0.4.4">0.4.4</link>),
 a byte string was returned instead of a Buffer object.
 </note>
+</tag-desc>
+
+<tag-name id="crypto_hash_copy"><literal>hash.copy()</literal></tag-name>
+<tag-desc>
+Makes a copy of the current state of the hash
+(since <link doc="changes.xml" id="njs0.7.12">0.7.12</link>).
 </tag-desc>
 
 </list>
