@@ -7,6 +7,27 @@
 
 <news name="nginx news" link="/" lang="en">
 
+<event date="2023-04-11">
+<para>
+<link doc="en/download.xml">nginx-1.24.0</link>
+stable version has been released,
+incorporating new features and bug fixes from the 1.23.x mainline branch &mdash;
+including
+improved handling of multiple header lines with identical names,
+memory usage optimization in configurations with SSL proxying,
+better sanity checking of the
+<link doc="en/docs/http/ngx_http_core_module.xml" id="listen"/> directive
+protocol parameters,
+<link doc="en/docs/http/ngx_http_ssl_module.xml" id="ssl_protocols">TLSv1.3
+protocol</link> enabled by default,
+automatic rotation of TLS session tickets encryption keys
+when using shared memory in the
+<link doc="en/docs/http/ngx_http_ssl_module.xml" id="ssl_session_cache"/>
+directive,
+and more.
+</para>
+</event>
+
 <event date="2023-04-10">
 <para>
 <link doc="en/docs/njs/index.xml">njs-0.7.12</link>
