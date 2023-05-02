@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Module ngx_stream_mqtt_preread_module"
+        link="/en/docs/http/ngx_stream_mqtt_preread_module.html"
+        lang="en"
+        rev="1">
+
+<section id="summary">
+
+<para>
+The <literal>ngx_stream_mqtt_preread_module</literal> module (1.23.4) allows
+extracting information from the CONNECT message
+of the Message Queuing Telemetry Transport protocol (MQTT) versions
+<link url="https://docs.oasis-open.org/mqtt/mqtt/v3.1.1/mqtt-v3.1.1.html">3.1.1</link>
+and
+<link url="https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html">5.0</link>,
+for example, a username or a client ID.
+</para>
+
+<para>
+<note>
+This module is available as part of our
+<commercial_version>commercial subscription</commercial_version>.
+</note>
+</para>
+
+</section>
+
+
+<section id="example" name="Example Configuration">
+
+<para>
+<example>
+mqtt_preread on;
+return       $mqtt_preread_clientid;
+</example>
+</para>
+
+</section>
+
+
+<section id="directives" name="Directives">
+
+<directive name="mqtt_preread">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Enables extracting information from the MQTT CONNECT message at
+the <link doc="stream_processing.xml" id="preread_phase">preread</link> phase.
+</para>
+
+</directive>
+
+</section>
+
+
+<section id="variables" name="Embedded Variables">
+
+<para>
+<list type="tag">
+
+<tag-name id="var_mqtt_preread_clientid"><var>$mqtt_preread_clientid</var></tag-name>
+<tag-desc>
+the <literal>clientid</literal> value from the CONNECT message
+</tag-desc>
+
+<tag-name id="var_mqtt_preread_username"><var>$mqtt_preread_username</var></tag-name>
+<tag-desc>
+the <literal>username</literal> value from the CONNECT message
+</tag-desc>
+
+</list>
+</para>
+
+</section>
+
+</module>

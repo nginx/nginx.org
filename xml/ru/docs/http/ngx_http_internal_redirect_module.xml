@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Модуль ngx_http_internal_redirect_module"
+        link="/ru/docs/http/ngx_http_internal_redirect_module.html"
+        lang="ru"
+        rev="1">
+
+<section id="summary">
+
+<para>
+Модуль <literal>ngx_http_internal_redirect_module</literal> (1.23.4) позволяет
+осуществлять внутреннее перенаправление.
+В отличие от
+<link doc="ngx_http_rewrite_module.xml">изменения URI</link>,
+перенаправление происходит после проверок ограничений
+<link doc="ngx_http_limit_req_module.xml">скорости обработки запросов</link>,
+<link doc="ngx_http_limit_conn_module.xml">числа соединений</link>
+и <link doc="ngx_http_access_module.xml">доступа</link>.
+</para>
+
+<para>
+<note>
+Модуль доступен как часть
+<commercial_version>коммерческой подписки</commercial_version>
+</note>
+</para>
+
+</section>
+
+
+<section id="example" name="Пример конфигурации">
+
+<para>
+<example>
+limit_req_zone $jwt_claim_sub zone=jwt_sub:10m rate=1r/s;
+
+server {
+    location / {
+        auth_jwt          "realm";
+        auth_jwt_key_file key.jwk;
+
+        internal_redirect @rate_limited;
+    }
+
+    location @rate_limited {
+        internal;
+
+        limit_req  zone=jwt_sub burst=10;
+        proxy_pass http://backend;
+    }
+}
+</example>
+В примере
+<link doc="ngx_http_limit_req_module.xml">скорость обработки запросов</link>
+ограничивается по
+<link url="https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.2">идентификатору
+клиента</link>.
+Конфигурация без <link id="internal_redirect">internal_redirect</link>
+может быть подвержена DoS-атакам при помощи неподписанных JWT, так как проверка
+<link doc="ngx_http_limit_req_module.xml" id="limit_req">limit_req</link>
+выполняется
+<link doc="../dev/development_guide.xml" id="http_phases">перед</link>
+проверкой
+<link doc="ngx_http_auth_jwt_module.xml" id="auth_jwt">auth_jwt</link>.
+Использование <link id="internal_redirect">internal_redirect</link>
+позволяет изменить порядок этих проверок.
+</para>
+
+</section>
+
+
+<section id="directives" name="Директивы">
+
+<directive name="internal_redirect">
+<syntax><value>uri</value></syntax>
+<default/>
+<context>server</context>
+<context>location</context>
+
+<para>
+Задаёт URI для внутреннего перенаправления запроса.
+Вместо URI также можно использовать
+<link doc="ngx_http_core_module.xml" id="location_named">именованный location</link>.
+В значении <value>uri</value> можно использовать переменные.
+Если значение <value>uri</value> пустое,
+то перенаправление не осуществляется.
+</para>
+
+</directive>
+
+</section>
+
+</module>

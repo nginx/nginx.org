@@ -1,0 +1,353 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Module ngx_http_v3_module"
+        link="/en/docs/http/ngx_http_v3_module.html"
+        lang="en"
+        rev="1">
+
+<section id="summary">
+
+<para>
+The <literal>ngx_http_v3_module</literal> module (1.23.4) provides
+experimental support for
+<link url="https://datatracker.ietf.org/doc/html/rfc9114">HTTP/3</link>.
+</para>
+
+<para>
+This module is not built by default, it should be enabled with the
+<link doc="../configure.xml"><literal>--with-http_v3_module</literal></link>
+configuration parameter.
+<note>
+An SSL library that provides QUIC support
+such as
+<link url="https://boringssl.googlesource.com/boringssl">BoringSSL</link>,
+<link url="https://www.libressl.org">LibreSSL</link>, or
+<link url="https://github.com/quictls/openssl">QuicTLS</link>
+is recommended to build and run this module.
+Otherwise,
+when using the <link url="https://openssl.org">OpenSSL</link> library,
+OpenSSL compatibility layer will be used that does not support
+<link doc="ngx_http_ssl_module.xml" id="ssl_early_data">early data</link>.
+</note>
+</para>
+
+
+<para>
+<note>
+The module is available as
+<literal>nginx-quic</literal> in
+<link doc="../quic.xml" id="linux">prebult Linux packages</link>.
+The module is also available as part of our
+<commercial_version>commercial subscription</commercial_version>
+in a separate <literal>nginx-plus-http3</literal> package.
+</note>
+</para>
+
+</section>
+
+
+<section id="issues" name="Known Issues">
+
+<para>
+The module is experimental, caveat emptor applies.
+</para>
+
+</section>
+
+
+<section id="example" name="Example Configuration">
+
+<para>
+<example>
+http {
+    log_format quic '$remote_addr - $remote_user [$time_local] '
+                    '"$request" $status $body_bytes_sent '
+                    '"$http_referer" "$http_user_agent" "$http3"';
+
+    access_log logs/access.log quic;
+
+    server {
+        # for better compatibility it's recommended
+        # to use the same port for http/3 and https
+        listen 8443 quic reuseport;
+        listen 8443 ssl;
+
+        ssl_certificate     certs/example.com.crt;
+        ssl_certificate_key certs/example.com.key;
+
+        location / {
+            # used to advertise the availability of HTTP/3
+            add_header Alt-Svc 'h3=":8443"; ma=86400';
+        }
+    }
+}
+</example>
+Note that accepting HTTP/3 connections over TLS requires
+the TLSv1.3 protocol support, which is available since
+<link url="http://www.openssl.org">OpenSSL</link> version 1.1.1.
+</para>
+
+</section>
+
+
+<section id="directives" name="Directives">
+
+<directive name="http3">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>on</default>
+<context>http</context>
+<context>server</context>
+
+<para>
+Enables
+<link url="https://datatracker.ietf.org/doc/html/rfc9114">HTTP/3</link>
+protocol negotiation.
+</para>
+
+</directive>
+
+
+ <directive name="http3_hq">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+
+<para>
+Enables HTTP/0.9 protocol negotiation
+used in
+<link url="https://github.com/marten-seemann/quic-interop-runner">QUIC
+interoperability tests</link>.
+</para>
+
+</directive>
+
+
+<directive name="http3_max_concurrent_pushes">
+<syntax><value>number</value></syntax>
+<default>10</default>
+<context>http</context>
+<context>server</context>
+
+<para>
+Limits the maximum number of concurrent
+<link id="http3_push">push</link> requests in a connection.
+</para>
+
+</directive>
+
+
+<directive name="http3_max_concurrent_streams">
+<syntax><value>number</value></syntax>
+<default>128</default>
+<context>http</context>
+<context>server</context>
+
+<para>
+Sets the maximum number of concurrent HTTP/3 request streams
+in a connection.
+</para>
+
+</directive>
+
+
+<directive name="http3_push">
+<syntax><value>uri</value> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Pre-emptively sends
+(<link url="https://datatracker.ietf.org/doc/html/rfc9114#name-server-push">pushes</link>)
+a request to the specified <value>uri</value>
+along with the response to the original request.
+Only relative URIs with absolute path will be processed,
+for example:
+<example>
+http3_push /static/css/main.css;
+</example>
+The <value>uri</value> value can contain variables.
+</para>
+
+<para>
+Several <literal>http3_push</literal> directives
+can be specified on the same configuration level.
+The <literal>off</literal> parameter cancels the effect
+of the <literal>http3_push</literal> directives
+inherited from the previous configuration level.
+</para>
+
+</directive>
+
+
+<directive name="http3_push_preload">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Enables automatic conversion of
+<link url="https://www.w3.org/TR/preload/#server-push-http-3">preload
+links</link>
+specified in the <header>Link</header> response header fields into
+<link url="https://datatracker.ietf.org/doc/html/rfc9114#name-server-push">push</link>
+requests.
+</para>
+
+</directive>
+
+
+<directive name="http3_stream_buffer_size">
+<syntax><value>size</value></syntax>
+<default>64k</default>
+<context>http</context>
+<context>server</context>
+
+<para>
+Sets the size of the buffer used for reading and writing of the
+QUIC streams.
+</para>
+
+</directive>
+
+
+<directive name="quic_active_connection_id_limit">
+<syntax><value>number</value></syntax>
+<default>2</default>
+<context>http</context>
+<context>server</context>
+
+<para>
+Sets the
+QUIC <literal>active_connection_id_limit</literal> transport parameter value.
+This is the maximum number of client connection IDs
+which can be stored on the server.
+</para>
+
+</directive>
+
+
+<directive name="quic_bpf">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>main</context>
+
+<para>
+Enables routing of QUIC packets using
+<link url="https://ebpf.io/">eBPF</link>.
+When enabled, this allows supporting QUIC connection migration.
+</para>
+
+<para>
+<note>
+The directive is only supported on Linux 5.7+.
+</note>
+</para>
+
+</directive>
+
+
+<directive name="quic_gso">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+
+<para>
+Enables sending in optimized batch mode
+using segmentation offloading.
+</para>
+
+<para>
+<note>
+Optimized sending is supported only on Linux
+featuring <literal>UDP_SEGMENT</literal>.
+</note>
+</para>
+
+</directive>
+
+
+<directive name="quic_host_key">
+<syntax><value>file</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+
+<para>
+Sets a <value>file</value> with the secret key used to encrypt
+stateless reset and address validation tokens.
+By default, a random key is generated on each reload.
+Tokens generated with old keys are not accepted.
+</para>
+
+</directive>
+
+
+<directive name="quic_mtu">
+<syntax><value>size</value></syntax>
+<default>65527</default>
+<context>http</context>
+<context>server</context>
+
+<para>
+Sets the
+QUIC <literal>max_udp_payload_size</literal> transport parameter value.
+This is the maximum UDP payload possible to receive.
+</para>
+
+</directive>
+
+
+<directive name="quic_retry">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+
+<para>
+Enables the
+<link url="https://datatracker.ietf.org/doc/html/rfc9000#name-address-validation">QUIC
+Address Validation</link> feature.
+This includes sending a new token in a <literal>Retry</literal> packet
+or a <literal>NEW_TOKEN</literal> frame
+and
+validating a token received in the <literal>Initial</literal> packet.
+</para>
+
+</directive>
+
+</section>
+
+
+<section id="variables" name="Embedded Variables">
+
+<para>
+The <literal>ngx_http_v3_module</literal> module
+supports the following embedded variables:
+<list type="tag" compact="no">
+
+<tag-name id="var_http3"><var>$http3</var></tag-name>
+<tag-desc>
+negotiated protocol identifier:
+“<literal>h3</literal>” for HTTP/3 connections,
+“<literal>hq</literal>” for hq connections,
+or an empty string otherwise.
+</tag-desc>
+
+</list>
+</para>
+
+</section>
+
+</module>

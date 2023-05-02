@@ -208,6 +208,11 @@ redirect</link> happens during request processing.
 <list type="bullet">
 
 <listitem>
+Detailed failure counters were added to SSL statistics
+in <link id="api_version">version</link> 8 (1.23.2).
+</listitem>
+
+<listitem>
 The <literal>ssl</literal> data
 for each HTTP
 <link id="def_nginx_http_upstream">upstream</link>,
@@ -215,7 +220,7 @@ for each HTTP
 and stream
 <link id="def_nginx_stream_upstream">upstream</link>,
 <link id="def_nginx_stream_server_zone">server zone</link>,
-were added in <link id="api_version">version</link> 8.
+were added in <link id="api_version">version</link> 8 (1.21.6).
 </listitem>
 
 <listitem>

@@ -1,0 +1,415 @@
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE article SYSTEM "../../../dtd/article.dtd">
+
+<article name="Support for QUIC and HTTP/3"
+         link="/en/docs/quic.html"
+         lang="en"
+         rev="1">
+
+<section>
+
+<para>
+<link url="https://datatracker.ietf.org/doc/html/rfc9000">QUIC</link>
+and
+<link url="https://datatracker.ietf.org/doc/html/rfc9114">HTTP/3</link>
+protocols are supported since 1.23.4 and are available
+as a separate <literal>nginx-quic</literal>
+<link id="linux">prebult Linux package</link>
+or as part of our
+<commercial_version>commercial subscription</commercial_version>
+in a separate <literal>nginx-plus-http3</literal> package.
+</para>
+
+<para>
+<note>
+The QUIC and HTTP/3 support is experimental, caveat emptor applies.
+</note>
+</para>
+
+</section>
+
+
+<section id="linux" name="Installation on Linux">
+
+<para>
+For Linux, <literal>nginx-quic</literal> packages
+from nginx.org can be used.
+The packages
+are available for the following Linux distributions and
+versions:
+<list type="bullet">
+
+<listitem>
+<link id="rhel">RHEL 9 and derivatives</link>: amd64, arm64
+</listitem>
+
+<listitem>
+<link id="rhel">Ubuntu 22.04</link>: amd64, arm64
+</listitem>
+
+</list>
+</para>
+
+<para>
+The <literal>nginx-quic</literal> packages are dynamically linked with the
+<link url="https://github.com/quictls/openssl">QuicTLS</link> library.
+It will be installed as a runtime dependency
+alongside system-wide OpenSSL packages.
+QuicTLS differs from operating system-provided OpenSSL package in the following:
+<list type="bullet">
+
+<listitem>
+does not follow system-wide crypto policies
+</listitem>
+
+<listitem>
+does not have distribution-specific patches applied
+</listitem>
+
+<listitem>
+uses configuration from <literal>/etc/pki/quictls</literal> (RHEL9)
+or <literal>/etc/quictls</literal> (Ubuntu 22.04)
+</listitem>
+
+</list>
+</para>
+
+<para>
+The <literal>nginx-quic</literal> packages
+cannot be installed alongside nginx or nginx-plus packages.
+</para>
+
+<para>
+Please back up your configuration files
+before installing <literal>nginx-quic</literal>:
+<programlisting>
+sudo cp -a /etc/nginx /etc/nginx-quic-backup
+</programlisting>
+</para>
+
+
+<section name="RHEL" id="rhel">
+
+<para>
+The <literal>nginx-quic</literal> package and be installed on
+Red Hat Enterprise Linux and its derivatives such as
+CentOS, Oracle Linux, Rocky Linux, AlmaLinux.
+</para>
+
+<para>
+Install the prerequisites:
+<programlisting>
+sudo dnf install yum-utils
+</programlisting>
+
+To set up the yum repository, create the file named
+<path>/etc/yum.repos.d/nginx-quic.repo </path>
+with the following contents:
+
+<programlisting>
+[nginx-quic]
+name=nginx-quic repo
+baseurl=https://packages.nginx.org/nginx-quic/rhel/9/$basearch/
+gpgcheck=1
+enabled=1
+gpgkey=https://nginx.org/keys/nginx_signing.key
+</programlisting>
+
+To install nginx-quic, run the following commands:
+<programlisting>
+sudo dnf install nginx-quic
+</programlisting>
+
+When prompted to accept the GPG key, verify that the fingerprint matches
+<command>573B FD6B 3D8F BC64 1079 A6AB ABF5 BD82 7BD9 BF62</command>,
+and if so, accept it.
+</para>
+
+</section>
+
+
+<section name="Ubuntu" id="ubuntu">
+
+<para>
+Install the prerequisites:
+<programlisting>
+sudo apt update &amp;&amp; sudo apt install curl gnupg2 ca-certificates lsb-release ubuntu-keyring
+</programlisting>
+</para>
+
+<para>
+Import an official nginx signing key so apt could verify the packages
+authenticity.
+Fetch the key:
+<programlisting>
+curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor \
+    | sudo tee /usr/share/keyrings/nginx-archive-keyring.gpg >/dev/null
+</programlisting>
+
+To set up the apt repository for nginx-quic packages, run the following command:
+<programlisting>
+echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] \
+            https://packages.nginx.org/nginx-quic/ubuntu `lsb_release -cs` nginx-quic" \
+            | sudo tee /etc/apt/sources.list.d/nginx-quic.list
+</programlisting>
+</para>
+
+<para>
+To install nginx-quic, run the following commands:
+<programlisting>
+sudo apt update
+sudo apt install nginx-quic
+</programlisting>
+</para>
+
+</section>
+
+</section>
+
+
+<section id="building" name="Building from sources">
+
+<para>
+The build is configured using the <command>configure</command> command.
+Please refer to <link doc="configure.xml"/> for details.
+</para>
+
+<para>
+When configuring nginx, it is possible to enable QUIC and HTTP/3
+using the following configuration options:
+
+<list type="tag">
+
+<tag-name>
+<literal>--with-http_v3_module</literal><br/>
+</tag-name>
+<tag-desc>
+enables QUIC and HTTP/3.
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+An SSL library that provides QUIC support is recommended to build nginx, such as
+<link url="https://boringssl.googlesource.com/boringssl">BoringSSL</link>,
+<link url="https://www.libressl.org">LibreSSL</link>, or
+<link url="https://github.com/quictls/openssl">QuicTLS</link>.
+Otherwise, the <link url="https://openssl.org">OpenSSL</link>
+compatibility layer will be used that does not support
+<link doc="http/ngx_http_ssl_module.xml" id="ssl_early_data">early data</link>.
+</para>
+
+<para>
+Use the following command to configure nginx with
+<link url="https://boringssl.googlesource.com/boringssl">BoringSSL</link>:
+<programlisting>
+./auto/configure --with-debug --with-http_v3_module         \
+                 --with-cc-opt="-I../boringssl/include"     \
+                 --with-ld-opt="-L../boringssl/build/ssl    \
+                                -L../boringssl/build/crypto"
+</programlisting>
+</para>
+
+<para>
+Alternatively, nginx can be configured with
+<link url="https://github.com/quictls/openssl">QuicTLS</link>:
+<programlisting>
+./auto/configure --with-debug --with-http_v3_module         \
+                 --with-cc-opt="-I../quictls/build/include" \
+                 --with-ld-opt="-L../quictls/build/lib"
+</programlisting>
+</para>
+
+<para>
+Alternatively, nginx can be configured with a modern version of
+<link url="https://www.libressl.org">LibreSSL</link>:
+<programlisting>
+./auto/configure --with-debug --with-http_v3_module          \
+                 --with-cc-opt="-I../libressl/build/include" \
+                 --with-ld-opt="-L../libressl/build/lib"
+</programlisting>
+</para>
+
+<para>
+After configuration,
+nginx is compiled and installed using <command>make</command>.
+</para>
+
+</section>
+
+
+<section id="configuration" name="Configuration">
+
+<para>
+The <link doc="http/ngx_http_core_module.xml" id="listen"/> directive in
+<link doc="http/ngx_http_core_module.xml">ngx_http_core_module</link>
+module got a new parameter
+<link doc="http/ngx_http_core_module.xml" id="quic">quic</link>
+which enables HTTP/3 over QUIC on the specified port.
+</para>
+
+<para>
+Along with the <literal>quic</literal> parameter
+it is also possible to specify the
+<link doc="http/ngx_http_core_module.xml" id="reuseport">reuseport</link>
+parameter to make it work properly with multiple workers.
+</para>
+
+<para>
+To <link doc="http/ngx_http_v3_module.xml" id="quic_retry">enable</link>
+address validation:
+<programlisting>
+quic_retry on;
+</programlisting>
+
+To <link doc="http/ngx_http_ssl_module.xml" id="ssl_early_data">enable</link>
+0-RTT:
+<programlisting>
+ssl_early_data on;
+</programlisting>
+
+To <link doc="http/ngx_http_v3_module.xml" id="quic_gso">enable</link>
+GSO (Generic Segmentation Offloading):
+<programlisting>
+quic_gso on;
+</programlisting>
+
+To <link doc="http/ngx_http_v3_module.xml" id="quic_mtu">limit</link>
+maximum UDP payload size on receive path:
+<programlisting>
+quic_mtu &lt;size&gt;;
+</programlisting>
+
+To <link doc="http/ngx_http_v3_module.xml" id="quic_host_key">set</link>
+host key for various tokens:
+<programlisting>
+quic_host_key &lt;filename&gt;;
+</programlisting>
+
+</para>
+
+<para>
+QUIC requires TLSv1.3 protocol version which is enabled by default
+in the <link doc="http/ngx_http_ssl_module.xml" id="ssl_protocols"/> directive.
+</para>
+
+<para>
+By default,
+<link url="http://vger.kernel.org/lpc_net2018_talks/willemdebruijn-lpc2018-udpgso-paper-DRAFT-1.pdf">GSO Linux-specific optimization</link>
+is disabled.
+Enable it in case a corresponding network interface is configured
+to support GSO.
+</para>
+
+</section>
+
+
+<section id="example" name="Example Configuration">
+
+<para>
+<example>
+http {
+    log_format quic '$remote_addr - $remote_user [$time_local] '
+                    '"$request" $status $body_bytes_sent '
+                    '"$http_referer" "$http_user_agent" "$http3"';
+
+    access_log logs/access.log quic;
+
+    server {
+        # for better compatibility it's recommended
+        # to use the same port for quic and https
+        listen 8443 quic reuseport;
+        listen 8443 ssl;
+
+        ssl_certificate     certs/example.com.crt;
+        ssl_certificate_key certs/example.com.key;
+
+        location / {
+            # required for browsers to direct them into quic port
+            add_header Alt-Svc 'h3=":8443"; ma=86400';
+        }
+    }
+}
+</example>
+</para>
+
+</section>
+
+
+<section id="directives" name="Directives">
+
+<para>
+For the list of directives, please refer to
+<link doc="http/ngx_http_v3_module.xml">ngx_http_v3_module</link>
+module documentation.
+</para>
+
+</section>
+
+
+<section id="troubleshooting " name="Troubleshooting">
+
+<para>
+Tips that may help to identify problems:
+<list type="bullet">
+
+<listitem>
+Ensure nginx is built with the proper SSL library that supports QUIC.
+</listitem>
+
+<listitem>
+Ensure nginx is using the proper SSL library in runtime
+(the <literal>nginx -V</literal> shows what it is currently used).
+</listitem>
+
+<listitem>
+Ensure a client is actually sending requests over QUIC
+(see the <link id="clients">Clients</link> section
+for information about browsers and cache).
+We recommend starting with a simple console client such as
+<link url="https://nghttp2.org/ngtcp2">ngtcp2</link>
+to ensure the server is configured properly before trying
+with real browsers that may be quite picky with certificates.
+</listitem>
+
+<listitem>
+Build nginx with <link doc="debugging_log.xml">debug support</link>
+and check the debug log.
+It should contain all details about the connection and why it failed.
+All related messages contain the “<literal>quic</literal>” prefix
+and can be easily filtered out.
+</listitem>
+
+<listitem>
+For a deeper investigation, please enable additional debugging in
+<literal>src/event/quic/ngx_event_quic_connection.h</literal>:
+
+<para>
+<example>
+#define NGX_QUIC_DEBUG_PACKETS
+#define NGX_QUIC_DEBUG_FRAMES
+#define NGX_QUIC_DEBUG_ALLOC
+#define NGX_QUIC_DEBUG_CRYPTO
+</example>
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+
+<section id="contributing" name="Contributing">
+
+<para>
+Please refer to <link doc="contributing_changes.xml"/>.
+</para>
+
+</section>
+
+</article>

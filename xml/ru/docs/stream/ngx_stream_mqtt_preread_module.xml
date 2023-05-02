@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Модуль ngx_stream_mqtt_preread_module"
+        link="/ru/docs/http/ngx_stream_mqtt_preread_module.html"
+        lang="ru"
+        rev="1">
+
+<section id="summary">
+
+<para>
+Модуль <literal>ngx_stream_mqtt_preread_module</literal> (1.23.4) позволяет
+извлекать информацию из сообщения CONNECT
+протокола Message Queuing Telemetry Transport (MQTT)
+версий
+<link url="https://docs.oasis-open.org/mqtt/mqtt/v3.1.1/mqtt-v3.1.1.html">3.1.1</link>
+и
+<link url="https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html">5.0</link>,
+например имя пользователя или ID клиента.
+</para>
+
+<para>
+<note>
+Модуль доступен как часть
+<commercial_version>коммерческой подписки</commercial_version>.
+</note>
+</para>
+
+</section>
+
+
+<section id="example" name="Пример конфигурации">
+
+<para>
+<example>
+mqtt_preread on;
+return       $mqtt_preread_clientid;
+</example>
+</para>
+
+</section>
+
+
+<section id="directives" name="Директивы">
+
+<directive name="mqtt_preread">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Разрешает извлечение информации из сообщения СONNECT во время фазы
+<link doc="stream_processing.xml" id="preread_phase">предварительного чтения</link>.
+</para>
+
+</directive>
+
+</section>
+
+
+<section id="variables" name="Встроенные переменные">
+
+<para>
+<list type="tag">
+
+<tag-name id="var_mqtt_preread_clientid"><var>$mqtt_preread_clientid</var></tag-name>
+<tag-desc>
+значение <literal>clientid</literal> из СONNECT-сообщения
+</tag-desc>
+
+<tag-name id="var_mqtt_preread_username"><var>$mqtt_preread_username</var></tag-name>
+<tag-desc>
+значение <literal>username</literal> из СONNECT-сообщения
+</tag-desc>
+
+</list>
+</para>
+
+</section>
+
+</module>

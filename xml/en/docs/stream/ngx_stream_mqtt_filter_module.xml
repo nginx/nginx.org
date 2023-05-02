@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Module ngx_stream_mqtt_filter_module"
+        link="/en/docs/http/ngx_stream_mqtt_filter_module.html"
+        lang="en"
+        rev="1">
+
+<section id="summary">
+
+<para>
+The <literal>ngx_stream_mqtt_filter_module</literal> module (1.23.4) provides
+support for Message Queuing Telemetry Transport protocol (MQTT) versions
+<link url="https://docs.oasis-open.org/mqtt/mqtt/v3.1.1/mqtt-v3.1.1.html">3.1.1</link>
+and
+<link url="https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html">5.0</link>.
+</para>
+
+<para>
+<note>
+This module is available as part of our
+<commercial_version>commercial subscription</commercial_version>.
+</note>
+</para>
+
+</section>
+
+
+<section id="example" name="Example Configuration">
+
+<para>
+<example>
+listen            127.0.0.1:18883;
+proxy_pass        backend;
+proxy_buffer_size 16k;
+
+mqtt             on;
+mqtt_set_connect clientid "$client";
+mqtt_set_connect username "$name";
+</example>
+</para>
+
+</section>
+
+
+<section id="directives" name="Directives">
+
+<directive name="mqtt">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Enables the MQTT protocol for the given virtual server.
+</para>
+
+</directive>
+
+<directive name="mqtt_rewrite_buffer_size">
+<syntax><value>size</value></syntax>
+<default>4k|8k</default>
+<context>server</context>
+
+<para>
+Sets the <value>size</value> of the buffer
+used for writing a modified message.
+By default, the buffer size is equal to one memory page.
+This is either 4K or 8K, depending on a platform.
+It can be made smaller, however.
+</para>
+
+</directive>
+
+<directive name="mqtt_set_connect">
+<syntax><literal>field</literal> <value>value</value></syntax>
+<default/>
+<context>server</context>
+
+<para>
+Sets the message <literal>field</literal>
+to the given <literal>value</literal> for CONNECT message.
+The following fields are supported:
+<literal>clientid</literal>,
+<literal>username</literal>, and
+<literal>password</literal>.
+The value can contain text, variables, and their combination.
+</para>
+
+<para>
+Several <literal>mqtt_set_connect</literal> directives
+can be specified on the same level:
+<example>
+mqtt_set_connect clientid "$client";
+mqtt_set_connect username "$name";
+</example>
+</para>
+
+</directive>
+
+</section>
+
+</module>

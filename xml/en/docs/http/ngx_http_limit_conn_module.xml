@@ -77,7 +77,8 @@ server {
 </example>
 allow only one connection per an IP address at a time.
 <note>
-In HTTP/2 and SPDY, each concurrent request is considered a separate connection.
+In HTTP/2 and HTTP/3,
+each concurrent request is considered a separate connection.
 </note>
 </para>
 

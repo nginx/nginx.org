@@ -855,6 +855,7 @@ Internal requests are the following:
 requests redirected by the
 <link id="error_page"/>,
 <link doc="ngx_http_index_module.xml" id="index"/>,
+<link doc="ngx_http_internal_redirect_module.xml" id="internal_redirect"/>,
 <link doc="ngx_http_random_index_module.xml" id="random_index"/>, and
 <link id="try_files"/> directives;
 </listitem>
@@ -1270,7 +1271,9 @@ The “wait-read-ignore” cycle is repeated, but no longer than specified by th
     <value>address</value>[:<value>port</value>]
     [<literal>default_server</literal>]
     [<literal>ssl</literal>]
-    [<literal>http2</literal> | <literal>spdy</literal>]
+    [<literal>http2</literal> |
+     <literal>quic</literal> |
+     <literal>spdy</literal>]
     [<literal>proxy_protocol</literal>]
     [<literal>setfib</literal>=<value>number</value>]
     [<literal>fastopen</literal>=<value>number</value>]
@@ -1287,7 +1290,9 @@ The “wait-read-ignore” cycle is repeated, but no longer than specified by th
     <value>port</value>
     [<literal>default_server</literal>]
     [<literal>ssl</literal>]
-    [<literal>http2</literal> | <literal>spdy</literal>]
+    [<literal>http2</literal> |
+     <literal>quic</literal> |
+     <literal>spdy</literal>]
     [<literal>proxy_protocol</literal>]
     [<literal>setfib</literal>=<value>number</value>]
     [<literal>fastopen</literal>=<value>number</value>]
@@ -1304,7 +1309,9 @@ The “wait-read-ignore” cycle is repeated, but no longer than specified by th
     <literal>unix:</literal><value>path</value>
     [<literal>default_server</literal>]
     [<literal>ssl</literal>]
-    [<literal>http2</literal> | <literal>spdy</literal>]
+    [<literal>http2</literal> |
+     <literal>quic</literal> |
+     <literal>spdy</literal>]
     [<literal>proxy_protocol</literal>]
     [<literal>backlog</literal>=<value>number</value>]
     [<literal>rcvbuf</literal>=<value>size</value>]
@@ -1380,6 +1387,11 @@ The <literal>http2</literal> parameter (1.9.5) configures the port to accept
 Normally, for this to work the <literal>ssl</literal> parameter should be
 specified as well, but nginx can also be configured to accept HTTP/2
 connections without SSL.
+</para>
+
+<para id="quic">
+The <literal>quic</literal> parameter (1.23.4) configures the port to accept
+<link doc="ngx_http_v3_module.xml">QUIC</link> connections.
 </para>
 
 <para>
@@ -1706,7 +1718,7 @@ the “<literal>/images/1.gif</literal>” request will match configuration D, a
 the “<literal>/documents/1.jpg</literal>” request will match configuration E.
 </para>
 
-<para>
+<para id="location_named">
 The “<literal>@</literal>” prefix defines a named location.
 Such a location is not used for a regular request processing, but instead
 used for request redirection.
@@ -3490,8 +3502,9 @@ port of the server which accepted a request
 request protocol, usually
 “<literal>HTTP/1.0</literal>”,
 “<literal>HTTP/1.1</literal>”,
+“<link doc="ngx_http_v2_module.xml">HTTP/2.0</link>”,
 or
-“<link doc="ngx_http_v2_module.xml">HTTP/2.0</link>”
+“<link doc="ngx_http_v3_module.xml">HTTP/3.0</link>”
 </tag-desc>
 
 <tag-name id="var_status"><var>$status</var></tag-name>

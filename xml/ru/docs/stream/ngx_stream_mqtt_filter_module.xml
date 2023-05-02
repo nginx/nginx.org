@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Модуль ngx_stream_mqtt_filter_module"
+        link="/ru/docs/http/ngx_stream_mqtt_filter_module.html"
+        lang="ru"
+        rev="1">
+
+<section id="summary">
+
+<para>
+Модуль <literal>ngx_stream_mqtt_filter_module</literal> (1.23.4) обеспечивает
+поддержку протокола Message Queuing Telemetry Transport (MQTT)
+версий
+<link url="https://docs.oasis-open.org/mqtt/mqtt/v3.1.1/mqtt-v3.1.1.html">3.1.1</link>
+и
+<link url="https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html">5.0</link>.
+</para>
+
+<para>
+<note>
+Модуль доступен как часть
+<commercial_version>коммерческой подписки</commercial_version>.
+</note>
+</para>
+
+</section>
+
+
+<section id="example" name="Пример конфигурации">
+
+<para>
+<example>
+listen            127.0.0.1:18883;
+proxy_pass        backend;
+proxy_buffer_size 16k;
+
+mqtt             on;
+mqtt_set_connect clientid "$client";
+mqtt_set_connect username "$name";
+</example>
+</para>
+
+</section>
+
+
+<section id="directives" name="Директивы">
+
+<directive name="mqtt">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Включает протокол MQTT для данного виртуального сервера.
+</para>
+
+</directive>
+
+<directive name="mqtt_rewrite_buffer_size">
+<syntax><value>размер</value></syntax>
+<default>4k|8k</default>
+<context>server</context>
+
+<para>
+Задаёт <value>размер</value> буфера,
+в который будет записываться модифицированное сообщение.
+По умолчанию размер одного буфера равен размеру страницы памяти.
+В зависимости от платформы это или 4K, или 8K,
+однако его можно сделать меньше.
+</para>
+
+</directive>
+
+<directive name="mqtt_set_connect">
+<syntax><literal>поле</literal> <value>значение</value></syntax>
+<default/>
+<context>server</context>
+
+<para>
+Устанавливает <literal>поле</literal>
+в заданное <literal>значение</literal> для сообщения CONNECT.
+Поддерживаются следующие поля:
+<literal>clientid</literal>,
+<literal>username</literal> и
+<literal>password</literal>.
+В качестве значения можно использовать текст, переменные и их комбинации.
+</para>
+
+<para>
+На одном уровне может быть указано
+несколько директив <literal>mqtt_set_connect</literal>:
+<example>
+mqtt_set_connect clientid "$client";
+mqtt_set_connect username "$name";
+</example>
+</para>
+
+</directive>
+
+</section>
+
+</module>

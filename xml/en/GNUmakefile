@@ -24,6 +24,7 @@ DOCS =									\
 		contributing_changes					\
 		beginners_guide						\
 		configure						\
+		quic							\
 
 FAQ =									\
 		welcome_nginx_facebook					\
@@ -61,6 +62,7 @@ REFS =									\
 		http/ngx_http_hls_module				\
 		http/ngx_http_image_filter_module			\
 		http/ngx_http_index_module				\
+		http/ngx_http_internal_redirect_module			\
 		http/ngx_http_js_module					\
 		http/ngx_http_keyval_module				\
 		http/ngx_http_limit_conn_module				\
@@ -94,6 +96,7 @@ REFS =									\
 		http/ngx_http_userid_module				\
 		http/ngx_http_uwsgi_module				\
 		http/ngx_http_v2_module					\
+		http/ngx_http_v3_module					\
 		http/ngx_http_xslt_module				\
 		mail/ngx_mail_auth_http_module				\
 		mail/ngx_mail_core_module				\
@@ -112,6 +115,8 @@ REFS =									\
 		stream/ngx_stream_limit_conn_module			\
 		stream/ngx_stream_log_module				\
 		stream/ngx_stream_map_module				\
+		stream/ngx_stream_mqtt_filter_module			\
+		stream/ngx_stream_mqtt_preread_module			\
 		stream/ngx_stream_proxy_module				\
 		stream/ngx_stream_proxy_protocol_vendor_module		\
 		stream/ngx_stream_realip_module				\
@@ -125,6 +130,7 @@ REFS =									\
 		stream/ngx_stream_zone_sync_module			\
 		stream/stream_processing				\
 		ngx_google_perftools_module				\
+		ngx_otel_module						\
 		dev/development_guide					\
 		njs/index						\
 		njs/changes						\

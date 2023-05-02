@@ -280,7 +280,7 @@ paths:
         - in: query
           name: fields
           type: string
-          description: Limits which fields of client HTTP requests statistics 
+          description: Limits which fields of client HTTP requests statistics
             will be output.
       responses:
         '200':
@@ -3573,7 +3573,7 @@ definitions:
       server:
         type: string
         description: Same as the
-          <a href="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#address">address</a>
+          <a href="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#server">address</a>
           parameter of the HTTP upstream server.
           When adding a server, it is possible to specify it as a domain name.
           In this case, changes of the IP addresses

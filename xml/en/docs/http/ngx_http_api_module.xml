@@ -208,6 +208,11 @@ redirect</link> happens during request processing.
 <list type="bullet">
 
 <listitem>
+Detailed failure counters were added to SSL statistics
+in <link id="api_version">version</link> 8 (1.23.2).
+</listitem>
+
+<listitem>
 The <literal>ssl</literal> data
 for each HTTP
 <link id="def_nginx_http_upstream">upstream</link>,
@@ -215,7 +220,7 @@ for each HTTP
 and stream
 <link id="def_nginx_stream_upstream">upstream</link>,
 <link id="def_nginx_stream_server_zone">server zone</link>,
-were added in <link id="api_version">version</link> 8.
+were added in <link id="api_version">version</link> 8 (1.21.6).
 </listitem>
 
 <listitem>
@@ -3400,7 +3405,7 @@ The ID of the HTTP upstream server. The ID is assigned automatically and cannot 
 <literal>server</literal> (<literal>string</literal>)
 </tag-name>
 <tag-desc>
-Same as the <link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#address">address</link> parameter of the HTTP upstream server. When adding a server, it is possible to specify it as a domain name. In this case, changes of the IP addresses that correspond to a domain name will be monitored and automatically applied to the upstream configuration without the need of restarting nginx. This requires the <link url="https://nginx.org/en/docs/http/ngx_http_core_module.html#resolver">resolver</link> directive in the “<literal>http</literal>” block. See also the <link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#resolve">resolve</link> parameter of the HTTP upstream server.
+Same as the <link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#server">address</link> parameter of the HTTP upstream server. When adding a server, it is possible to specify it as a domain name. In this case, changes of the IP addresses that correspond to a domain name will be monitored and automatically applied to the upstream configuration without the need of restarting nginx. This requires the <link url="https://nginx.org/en/docs/http/ngx_http_core_module.html#resolver">resolver</link> directive in the “<literal>http</literal>” block. See also the <link url="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#resolve">resolve</link> parameter of the HTTP upstream server.
 </tag-desc>
 <tag-name>
 <literal>service</literal> (<literal>string</literal>)

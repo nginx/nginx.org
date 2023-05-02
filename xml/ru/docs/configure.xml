@@ -237,6 +237,25 @@
 </tag-desc>
 
 <tag-name>
+<literal>--with-http_v3_module</literal>
+</tag-name>
+<tag-desc>
+разрешает сборку модуля для работы HTTP-сервера по протоколу
+<link doc="http/ngx_http_v3_module.xml">HTTP/3</link>.
+По умолчанию модуль не собирается.
+Для сборки и работы этого модуля рекомендуется библиотека SSL с поддержкой HTTP/3,
+например
+<link url="https://boringssl.googlesource.com/boringssl">BoringSSL</link>,
+<link url="https://www.libressl.org">LibreSSL</link> или
+<link url="https://github.com/quictls/openssl">QuicTLS</link>.
+Иначе, при использовании библиотеки OpenSSL,
+будет использоваться OpenSSL compatibility layer,
+в котором не поддерживается QUIC
+<link doc="http/ngx_http_ssl_module.xml" id="ssl_early_data">early data</link>.
+
+</tag-desc>
+
+<tag-name>
 <literal>--with-http_realip_module</literal>
 </tag-name>
 <tag-desc>

@@ -1,0 +1,352 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Модуль ngx_http_v3_module"
+        link="/ru/docs/http/ngx_http_v3_module.html"
+        lang="en"
+        rev="1">
+
+<section id="summary">
+
+<para>
+Модуль <literal>ngx_http_v3_module</literal> (1.23.4) обеспечивает
+экспериментальную поддержку
+<link url="https://datatracker.ietf.org/doc/html/rfc9114">HTTP/3</link>.
+</para>
+
+<para>
+По умолчанию этот модуль не собирается, его сборку необходимо
+разрешить с помощью конфигурационного параметра
+<link doc="../configure.xml"><literal>--with-http_v3_module</literal></link>.
+<note>
+Для сборки и работы этого модуля рекомендуется использовать
+библиотеку SSL с поддержкой QUIC, например
+<link url="https://boringssl.googlesource.com/boringssl">BoringSSL</link>,
+<link url="https://www.libressl.org">LibreSSL</link>,
+<link url="https://github.com/quictls/openssl">QuicTLS</link>.
+Иначе,
+при использовании библиотеки <link url="https://openssl.org">OpenSSL</link>,
+будет использоваться OpenSSL compatibility layer,
+в котором не поддерживается
+<link doc="ngx_http_ssl_module.xml" id="ssl_early_data">early data</link>.
+</note>
+</para>
+
+<para>
+<note>
+Модуль доступен в виде
+<link doc="../quic.xml" id="linux">готовых пакетов</link>
+<literal>nginx-quic</literal> для Linux.
+Модуль также доступен как часть
+<commercial_version>коммерческой подписки</commercial_version>
+в виде отдельного пакета <literal>nginx-plus-http3</literal>.
+
+</note>
+</para>
+
+</section>
+
+
+<section id="issues" name="Известные проблемы">
+
+<para>
+Модуль экспериментальный, поэтому возможно всё.
+</para>
+
+</section>
+
+
+<section id="example" name="Пример конфигурации">
+
+<para>
+<example>
+http {
+    log_format quic '$remote_addr - $remote_user [$time_local] '
+                    '"$request" $status $body_bytes_sent '
+                    '"$http_referer" "$http_user_agent" "$http3"';
+
+    access_log logs/access.log quic;
+
+    server {
+        # для лучшей совместимости рекомендуется
+        # использовать одинаковый порт для http/3 и https
+        listen 8443 quic reuseport;
+        listen 8443 ssl;
+
+        ssl_certificate     certs/example.com.crt;
+        ssl_certificate_key certs/example.com.key;
+
+        location / {
+            # используется для объявления о поддержке http/3
+            add_header Alt-Svc 'h3=":8443"; ma=86400';
+        }
+    }
+}
+</example>
+Чтобы принимать HTTP/3-соединения по TLS, необходимо
+наличие поддержки протокола TLSv1.3, появившейся в
+<link url="http://www.openssl.org">OpenSSL</link> версии 1.1.1.
+</para>
+
+</section>
+
+
+<section id="directives" name="Директивы">
+
+<directive name="http3">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>on</default>
+<context>http</context>
+<context>server</context>
+
+<para>
+Разрешает
+согласование протокола
+<link url="https://datatracker.ietf.org/doc/html/rfc9114">HTTP/3</link>.
+</para>
+
+</directive>
+
+
+<directive name="http3_hq">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+
+<para>
+Разрешает согласование протокола HTTP/0.9,
+используемого в
+<link url="https://github.com/marten-seemann/quic-interop-runner">функциональных
+тестах QUIC</link>.
+</para>
+
+</directive>
+
+
+<directive name="http3_max_concurrent_pushes">
+<syntax><value>число</value></syntax>
+<default>10</default>
+<context>http</context>
+<context>server</context>
+
+<para>
+Ограничивает максимальное число параллельных
+<link id="http3_push">push</link>-запросов в соединении.
+</para>
+
+</directive>
+
+
+<directive name="http3_max_concurrent_streams">
+<syntax><value>число</value></syntax>
+<default>128</default>
+<context>http</context>
+<context>server</context>
+
+<para>
+Задаёт максимальное число параллельных HTTP/3-потоков
+в соединении.
+</para>
+
+</directive>
+
+
+<directive name="http3_push">
+<syntax><value>uri</value> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Заблаговременно отправляет
+(<link url="https://datatracker.ietf.org/doc/html/rfc9114#name-server-push">push</link>) запрос
+к заданному <value>uri</value>
+вместе с ответом на оригинальный запрос.
+Будут обработаны только относительные URI с абсолютными путями,
+например:
+<example>
+http3_push /static/css/main.css;
+</example>
+В значении <value>uri</value> допустимо использование переменных.
+</para>
+
+<para>
+На одном уровне конфигурации можно указать несколько
+<literal>http3_push</literal> директив.
+Параметр <literal>off</literal> отменяет действие
+унаследованных с предыдущего уровня конфигурации
+директив <literal>http3_push</literal>.
+</para>
+
+</directive>
+
+
+<directive name="http3_push_preload">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Разрешает автоматическое преобразование
+<link url="https://www.w3.org/TR/preload/#server-push-http-3">preload
+links</link>,
+указанных в полях <header>Link</header> заголовка ответа, в
+<link url="https://datatracker.ietf.org/doc/html/rfc9114#name-server-push">push</link>-запросы.
+</para>
+
+</directive>
+
+
+<directive name="http3_stream_buffer_size">
+<syntax><value>размер</value></syntax>
+<default>64k</default>
+<context>http</context>
+<context>server</context>
+
+<para>
+Задаёт размер буфера, используемого для чтения и записи
+QUIC-потоков.
+</para>
+
+</directive>
+
+
+<directive name="quic_active_connection_id_limit">
+<syntax><value>число</value></syntax>
+<default>2</default>
+<context>http</context>
+<context>server</context>
+
+<para>
+Устанавливает
+значение транспортного параметра QUIC <literal>active_connection_id_limit</literal>.
+Это максимальное значение ID соединений,
+возможное для хранения на сервере.
+</para>
+
+</directive>
+
+
+<directive name="quic_bpf">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>main</context>
+
+<para>
+Разрешает маршрутизацию пакетов QUIC при помощи
+<link url="https://ebpf.io/">eBPF</link>.
+Если маршрутизация включена, то обеспечивается поддержка миграции QUIC-соединений.
+</para>
+
+<para>
+<note>
+Директива поддерживается только на Linux 5.7+.
+</note>
+</para>
+
+</directive>
+
+
+<directive name="quic_gso">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+
+<para>
+Разрешает отправку оптимизированного пакетного режима
+при помощи segmentation offloading.
+</para>
+
+<para>
+<note>
+Оптимизированная отправка поддерживается только на Linux
+с поддержкой <literal>UDP_SEGMENT</literal>.
+</note>
+</para>
+
+</directive>
+
+
+<directive name="quic_host_key">
+<syntax><value>файл</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+
+<para>
+Задаёт <value>файл</value> с секретным ключом, применяемым при шифровании
+stateless reset и address validation токенов.
+По умолчанию создаётся случайный ключ при каждой перезагрузке.
+Токены, созданные при помощи старых ключей, не принимаются.
+</para>
+
+</directive>
+
+
+<directive name="quic_mtu">
+<syntax><value>размер</value></syntax>
+<default>65527</default>
+<context>http</context>
+<context>server</context>
+
+<para>
+Устанавливает
+значение транспортного параметра QUIC <literal>max_udp_payload_size</literal>.
+Это максимально возможное значение для получения UDP payload.
+</para>
+
+</directive>
+
+
+<directive name="quic_retry">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+
+<para>
+Разрешает функциональность
+<link url="https://datatracker.ietf.org/doc/html/rfc9000#name-address-validation">QUIC
+Address Validation</link>,
+в том числе отправку нового токена в <literal>Retry</literal>-пакете
+или <literal>NEW_TOKEN</literal> frame
+и
+валидацию токена, полученного в <literal>Initial</literal>-пакете.
+</para>
+
+</directive>
+
+</section>
+
+
+<section id="variables" name="Встроенные переменные">
+
+<para>
+Модуль <literal>ngx_http_v3_module</literal>
+поддерживает следующие встроенные переменные:
+<list type="tag" compact="no">
+
+<tag-name id="var_http3"><var>$http3</var></tag-name>
+<tag-desc>
+согласованный идентификатор протокола:
+“<literal>h3</literal>” для HTTP/3-соединений,
+“<literal>hq</literal>” для hq-соединений,
+либо пустая строка.
+</tag-desc>
+
+</list>
+</para>
+
+</section>
+
+</module>
