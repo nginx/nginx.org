@@ -94,7 +94,7 @@ sudo cp -a /etc/nginx /etc/nginx-quic-backup
 <section name="RHEL" id="rhel">
 
 <para>
-The <literal>nginx-quic</literal> package and be installed on
+The <literal>nginx-quic</literal> package can be installed on
 Red Hat Enterprise Linux and its derivatives such as
 CentOS, Oracle Linux, Rocky Linux, AlmaLinux.
 </para>
@@ -367,9 +367,7 @@ Ensure nginx is using the proper SSL library in runtime
 </listitem>
 
 <listitem>
-Ensure a client is actually sending requests over QUIC
-(see the <link id="clients">Clients</link> section
-for information about browsers and cache).
+Ensure a client is actually sending requests over QUIC.
 We recommend starting with a simple console client such as
 <link url="https://nghttp2.org/ngtcp2">ngtcp2</link>
 to ensure the server is configured properly before trying
