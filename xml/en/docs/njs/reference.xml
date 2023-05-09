@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="103">
+        rev="104">
 
 <section id="summary">
 
@@ -1161,6 +1161,7 @@ the directory where nginx is currently looking for configuration
 <tag-name id="ngx_fetch"><literal>ngx.fetch(<value>resource</value>,
 [<value>options</value>])</literal></tag-name>
 <tag-desc>
+<para>
 Makes a request to fetch a <value>resource</value>
 (<link doc="changes.xml" id="njs0.5.1">0.5.1</link>), which can be an
 URL or the <link id="request"><literal>Request</literal></link> object
@@ -1170,6 +1171,18 @@ the <link id="response"><literal>Response</literal></link> object.
 Since <link doc="changes.xml" id="njs0.7.0">0.7.0</link>,
 the <literal>https://</literal> scheme is supported,
 redirects are not handled.
+</para>
+
+<para>
+If the URL in the <value>resource</value> is specified as a domain name,
+it is determined using a
+<link doc="../http/ngx_http_core_module.xml" id="resolver"/>.
+If the <literal>https://</literal> scheme is specified, the
+<link doc="../http/ngx_http_js_module.xml" id="js_fetch_trusted_certificate"/>
+directive should be configured
+for the authentication of the <value>resource</value>'s HTTPS server.
+</para>
+
 <para>
 The <literal>options</literal> parameter is expected to be an object
 with the following keys:
