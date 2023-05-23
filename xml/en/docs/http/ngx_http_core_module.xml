@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="103">
+        rev="104">
 
 <section id="directives" name="Directives">
 
@@ -1390,7 +1390,7 @@ connections without SSL.
 </para>
 
 <para id="quic">
-The <literal>quic</literal> parameter (1.23.4) configures the port to accept
+The <literal>quic</literal> parameter (1.25.0) configures the port to accept
 <link doc="ngx_http_v3_module.xml">QUIC</link> connections.
 </para>
 

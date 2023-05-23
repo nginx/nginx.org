@@ -9,19 +9,19 @@
 <module name="Module ngx_http_v3_module"
         link="/en/docs/http/ngx_http_v3_module.html"
         lang="en"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
 <para>
-The <literal>ngx_http_v3_module</literal> module (1.23.4) provides
+The <literal>ngx_http_v3_module</literal> module (1.25.0) provides
 experimental support for
 <link url="https://datatracker.ietf.org/doc/html/rfc9114">HTTP/3</link>.
 </para>
 
 <para>
 This module is not built by default, it should be enabled with the
-<link doc="../configure.xml"><literal>--with-http_v3_module</literal></link>
+<link doc="../configure.xml" id="http_v3_module"><literal>--with-http_v3_module</literal></link>
 configuration parameter.
 <note>
 An SSL library that provides QUIC support
@@ -34,18 +34,6 @@ Otherwise,
 when using the <link url="https://openssl.org">OpenSSL</link> library,
 OpenSSL compatibility layer will be used that does not support
 <link doc="ngx_http_ssl_module.xml" id="ssl_early_data">early data</link>.
-</note>
-</para>
-
-
-<para>
-<note>
-The module is available as
-<literal>nginx-quic</literal> in
-<link doc="../quic.xml" id="linux">prebult Linux packages</link>.
-The module is also available as part of our
-<commercial_version>commercial subscription</commercial_version>
-in a separate <literal>nginx-plus-quic</literal> package.
 </note>
 </para>
 
@@ -129,20 +117,6 @@ interoperability tests</link>.
 </directive>
 
 
-<directive name="http3_max_concurrent_pushes">
-<syntax><value>number</value></syntax>
-<default>10</default>
-<context>http</context>
-<context>server</context>
-
-<para>
-Limits the maximum number of concurrent
-<link id="http3_push">push</link> requests in a connection.
-</para>
-
-</directive>
-
-
 <directive name="http3_max_concurrent_streams">
 <syntax><value>number</value></syntax>
 <default>128</default>
@@ -152,56 +126,6 @@ Limits the maximum number of concurrent
 <para>
 Sets the maximum number of concurrent HTTP/3 request streams
 in a connection.
-</para>
-
-</directive>
-
-
-<directive name="http3_push">
-<syntax><value>uri</value> | <literal>off</literal></syntax>
-<default>off</default>
-<context>http</context>
-<context>server</context>
-<context>location</context>
-
-<para>
-Pre-emptively sends
-(<link url="https://datatracker.ietf.org/doc/html/rfc9114#name-server-push">pushes</link>)
-a request to the specified <value>uri</value>
-along with the response to the original request.
-Only relative URIs with absolute path will be processed,
-for example:
-<example>
-http3_push /static/css/main.css;
-</example>
-The <value>uri</value> value can contain variables.
-</para>
-
-<para>
-Several <literal>http3_push</literal> directives
-can be specified on the same configuration level.
-The <literal>off</literal> parameter cancels the effect
-of the <literal>http3_push</literal> directives
-inherited from the previous configuration level.
-</para>
-
-</directive>
-
-
-<directive name="http3_push_preload">
-<syntax><literal>on</literal> | <literal>off</literal></syntax>
-<default>off</default>
-<context>http</context>
-<context>server</context>
-<context>location</context>
-
-<para>
-Enables automatic conversion of
-<link url="https://www.w3.org/TR/preload/#server-push-http-3">preload
-links</link>
-specified in the <header>Link</header> response header fields into
-<link url="https://datatracker.ietf.org/doc/html/rfc9114#name-server-push">push</link>
-requests.
 </para>
 
 </directive>
@@ -289,21 +213,6 @@ Sets a <value>file</value> with the secret key used to encrypt
 stateless reset and address validation tokens.
 By default, a random key is generated on each reload.
 Tokens generated with old keys are not accepted.
-</para>
-
-</directive>
-
-
-<directive name="quic_mtu">
-<syntax><value>size</value></syntax>
-<default>65527</default>
-<context>http</context>
-<context>server</context>
-
-<para>
-Sets the
-QUIC <literal>max_udp_payload_size</literal> transport parameter value.
-This is the maximum UDP payload possible to receive.
 </para>
 
 </directive>

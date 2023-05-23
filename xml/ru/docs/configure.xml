@@ -8,7 +8,7 @@
 <article name="Сборка nginx из исходных файлов"
          link="/ru/docs/configure.html"
          lang="ru"
-         rev="20">
+         rev="21">
 
 <section>
 
@@ -236,7 +236,7 @@
 По умолчанию модуль не собирается.
 </tag-desc>
 
-<tag-name>
+<tag-name id="http_v3_module">
 <literal>--with-http_v3_module</literal>
 </tag-name>
 <tag-desc>

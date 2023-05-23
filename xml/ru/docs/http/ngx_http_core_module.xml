@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="103">
+        rev="104">
 
 <section id="directives" name="Директивы">
 
@@ -1382,7 +1382,7 @@ HTTP/2-соединений без SSL.
 </para>
 
 <para id="quic">
-Параметр <literal>quic</literal> (1.23.4) позволяет принимать на этом порту
+Параметр <literal>quic</literal> (1.25.0) позволяет принимать на этом порту
 <link doc="ngx_http_v3_module.xml">QUIC</link>-соединения.
 </para>
 

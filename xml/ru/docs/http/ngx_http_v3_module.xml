@@ -9,12 +9,12 @@
 <module name="Модуль ngx_http_v3_module"
         link="/ru/docs/http/ngx_http_v3_module.html"
         lang="en"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
 <para>
-Модуль <literal>ngx_http_v3_module</literal> (1.23.4) обеспечивает
+Модуль <literal>ngx_http_v3_module</literal> (1.25.0) обеспечивает
 экспериментальную поддержку
 <link url="https://datatracker.ietf.org/doc/html/rfc9114">HTTP/3</link>.
 </para>
@@ -22,7 +22,7 @@
 <para>
 По умолчанию этот модуль не собирается, его сборку необходимо
 разрешить с помощью конфигурационного параметра
-<link doc="../configure.xml"><literal>--with-http_v3_module</literal></link>.
+<link doc="../configure.xml" id="http_v3_module"><literal>--with-http_v3_module</literal></link>.
 <note>
 Для сборки и работы этого модуля рекомендуется использовать
 библиотеку SSL с поддержкой QUIC, например
@@ -34,18 +34,6 @@
 будет использоваться OpenSSL compatibility layer,
 в котором не поддерживается
 <link doc="ngx_http_ssl_module.xml" id="ssl_early_data">early data</link>.
-</note>
-</para>
-
-<para>
-<note>
-Модуль доступен в виде
-<link doc="../quic.xml" id="linux">готовых пакетов</link>
-<literal>nginx-quic</literal> для Linux.
-Модуль также доступен как часть
-<commercial_version>коммерческой подписки</commercial_version>
-в виде отдельного пакета <literal>nginx-plus-quic</literal>.
-
 </note>
 </para>
 
@@ -129,20 +117,6 @@ http {
 </directive>
 
 
-<directive name="http3_max_concurrent_pushes">
-<syntax><value>число</value></syntax>
-<default>10</default>
-<context>http</context>
-<context>server</context>
-
-<para>
-Ограничивает максимальное число параллельных
-<link id="http3_push">push</link>-запросов в соединении.
-</para>
-
-</directive>
-
-
 <directive name="http3_max_concurrent_streams">
 <syntax><value>число</value></syntax>
 <default>128</default>
@@ -152,55 +126,6 @@ http {
 <para>
 Задаёт максимальное число параллельных HTTP/3-потоков
 в соединении.
-</para>
-
-</directive>
-
-
-<directive name="http3_push">
-<syntax><value>uri</value> | <literal>off</literal></syntax>
-<default>off</default>
-<context>http</context>
-<context>server</context>
-<context>location</context>
-
-<para>
-Заблаговременно отправляет
-(<link url="https://datatracker.ietf.org/doc/html/rfc9114#name-server-push">push</link>) запрос
-к заданному <value>uri</value>
-вместе с ответом на оригинальный запрос.
-Будут обработаны только относительные URI с абсолютными путями,
-например:
-<example>
-http3_push /static/css/main.css;
-</example>
-В значении <value>uri</value> допустимо использование переменных.
-</para>
-
-<para>
-На одном уровне конфигурации можно указать несколько
-<literal>http3_push</literal> директив.
-Параметр <literal>off</literal> отменяет действие
-унаследованных с предыдущего уровня конфигурации
-директив <literal>http3_push</literal>.
-</para>
-
-</directive>
-
-
-<directive name="http3_push_preload">
-<syntax><literal>on</literal> | <literal>off</literal></syntax>
-<default>off</default>
-<context>http</context>
-<context>server</context>
-<context>location</context>
-
-<para>
-Разрешает автоматическое преобразование
-<link url="https://www.w3.org/TR/preload/#server-push-http-3">preload
-links</link>,
-указанных в полях <header>Link</header> заголовка ответа, в
-<link url="https://datatracker.ietf.org/doc/html/rfc9114#name-server-push">push</link>-запросы.
 </para>
 
 </directive>
@@ -288,21 +213,6 @@ QUIC-потоков.
 stateless reset и address validation токенов.
 По умолчанию создаётся случайный ключ при каждой перезагрузке.
 Токены, созданные при помощи старых ключей, не принимаются.
-</para>
-
-</directive>
-
-
-<directive name="quic_mtu">
-<syntax><value>размер</value></syntax>
-<default>65527</default>
-<context>http</context>
-<context>server</context>
-
-<para>
-Устанавливает
-значение транспортного параметра QUIC <literal>max_udp_payload_size</literal>.
-Это максимально возможное значение для получения UDP payload.
 </para>
 
 </directive>
