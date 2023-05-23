@@ -7,7 +7,7 @@
 <article name="nginx: Linux packages"
          link="/en/linux_packages.html"
          lang="en"
-         rev="85">
+         rev="86">
 
 <section name="Supported distributions and versions" id="distributions">
 
@@ -177,6 +177,12 @@ versions:
 </tr>
 
 </table>
+</para>
+
+<para>
+Packages for RHEL 7 and SLES 12 are built without
+<link doc="docs/http/ngx_http_v3_module.xml">HTTP/3 support</link>
+because OpenSSL used by those doesn't support TLSv1.3.
 </para>
 
 </section>
