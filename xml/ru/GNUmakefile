@@ -19,6 +19,7 @@ DOCS =									\
 		contributing_changes					\
 		beginners_guide						\
 		configure						\
+		quic							\
 
 FAQ =									\
 		sys_errlist						\

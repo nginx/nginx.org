@@ -1,0 +1,254 @@
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE article SYSTEM "../../../dtd/article.dtd">
+
+<article name="Поддержка QUIC и HTTP/3"
+         link="/ru/docs/quic.html"
+         lang="ru"
+         rev="2">
+
+<section>
+
+<para>
+Поддержка протоколов
+<link url="https://datatracker.ietf.org/doc/html/rfc9000">QUIC</link>
+и
+<link url="https://datatracker.ietf.org/doc/html/rfc9114">HTTP/3</link>
+доступна начиная с версии 1.25.0.
+Также, начиная с 1.25.0, поддержка доступна в
+<link doc="../linux_packages.xml">готовых пакетах</link> для Linux.
+</para>
+
+<para>
+<note>
+Поддержка QUIC и HTTP/3 экспериментальная, поэтому возможно всё.
+</note>
+</para>
+
+</section>
+
+
+<section id="building" name="Сборка из исходных файлов">
+
+<para>
+Сборка настраивается командой <command>configure</command>.
+Подробнее см. в статье <link doc="configure.xml"/>.
+</para>
+
+<para>
+Во время сборки nginx можно включить QUIC и HTTP/3
+при помощи конфигурационного параметра
+<link doc="configure.xml" id="http_v3_module"><literal>--with-http_v3_module</literal></link>.
+</para>
+
+<para>
+Для сборки nginx рекомендуется библиотека SSL с поддержкой QUIC, например
+<link url="https://boringssl.googlesource.com/boringssl">BoringSSL</link>,
+<link url="https://www.libressl.org">LibreSSL</link> или
+<link url="https://github.com/quictls/openssl">QuicTLS</link>.
+Иначе, при использовании библиотеки <link url="https://openssl.org">OpenSSL</link>,
+будет использоваться OpenSSL compatibility layer, в котором не поддерживается
+<link doc="http/ngx_http_ssl_module.xml" id="ssl_early_data">early data</link>.
+</para>
+
+<para>
+При конфигурации nginx с
+<link url="https://boringssl.googlesource.com/boringssl">BoringSSL</link>
+используется следующая команда:
+<programlisting>
+./configure
+    --with-debug
+    --with-http_v3_module
+    --with-cc-opt="-I../boringssl/include"
+    --with-ld-opt="-L../boringssl/build/ssl
+                   -L../boringssl/build/crypto"
+</programlisting>
+</para>
+
+<para>
+Кроме того, можно сконфигурировать nginx с
+<link url="https://github.com/quictls/openssl">QuicTLS</link>:
+<programlisting>
+./configure
+    --with-debug
+    --with-http_v3_module
+    --with-cc-opt="-I../quictls/build/include"
+    --with-ld-opt="-L../quictls/build/lib"
+</programlisting>
+</para>
+
+<para>
+Кроме того, можно сконфигурировать nginx с современной версией
+<link url="https://www.libressl.org">LibreSSL</link>:
+<programlisting>
+./configure
+    --with-debug
+    --with-http_v3_module
+    --with-cc-opt="-I../libressl/build/include"
+    --with-ld-opt="-L../libressl/build/lib"
+</programlisting>
+</para>
+
+<para>
+После конфигурации
+nginx компилируется и устанавливается с помощью
+<command>make</command>.
+</para>
+
+</section>
+
+
+<section id="configuration" name="Конфигурация">
+
+<para>
+В директиве <link doc="http/ngx_http_core_module.xml" id="listen"/>
+модуля <link doc="http/ngx_http_core_module.xml">ngx_http_core_module</link>
+появился новый параметр
+<link doc="http/ngx_http_core_module.xml" id="quic">quic</link>,
+который позволяет принимать на указанном порту QUIC-соединения.
+</para>
+
+<para>
+Вместе с параметром <literal>quic</literal>
+можно также указать параметр
+<link doc="http/ngx_http_core_module.xml" id="reuseport">reuseport</link>
+для правильной работы с несколькими рабочими процессами.
+</para>
+
+<para>
+Список директив см. в модуле
+<link doc="http/ngx_http_v3_module.xml">ngx_http_v3_module</link>.
+</para>
+
+<para>
+Чтобы <link doc="http/ngx_http_v3_module.xml" id="quic_retry">разрешить</link>
+проверку адреса:
+<programlisting>
+quic_retry on;
+</programlisting>
+
+Чтобы <link doc="http/ngx_http_ssl_module.xml" id="ssl_early_data">разрешить</link>
+0-RTT:
+<programlisting>
+ssl_early_data on;
+</programlisting>
+
+Чтобы <link doc="http/ngx_http_v3_module.xml" id="quic_gso">разрешить</link>
+GSO (Generic Segmentation Offloading):
+<programlisting>
+quic_gso on;
+</programlisting>
+
+Чтобы <link doc="http/ngx_http_v3_module.xml" id="quic_host_key">установить</link>
+host-ключ для различных токенов:
+<programlisting>
+quic_host_key &lt;filename&gt;;
+</programlisting>
+</para>
+
+<para>
+Для работы QUIC требуется версия протокла TLSv1.3, которая включена по умолчанию
+в директиве <link doc="http/ngx_http_ssl_module.xml" id="ssl_protocols"/>.
+</para>
+
+<para>
+По умолчанию
+<link url="http://vger.kernel.org/lpc_net2018_talks/willemdebruijn-lpc2018-udpgso-paper-DRAFT-1.pdf">GSO Linux-specific optimization</link>
+выключена.
+Включите, если настроен соответствующий сетевой интерфейс,
+поддерживающий GSO.
+</para>
+
+</section>
+
+
+<section id="example" name="Пример конфигурации">
+
+<para>
+<example>
+http {
+    log_format quic '$remote_addr - $remote_user [$time_local] '
+                    '"$request" $status $body_bytes_sent '
+                    '"$http_referer" "$http_user_agent" "$http3"';
+
+    access_log logs/access.log quic;
+
+    server {
+        # для лучшей совместимости рекомендуется
+        # использовать один порт для quic и https
+        listen 8443 quic reuseport;
+        listen 8443 ssl;
+
+        ssl_certificate     certs/example.com.crt;
+        ssl_certificate_key certs/example.com.key;
+
+        location / {
+            # для перенаправления браузеров в quic-порт
+            add_header Alt-Svc 'h3=":8443"; ma=86400';
+        }
+    }
+}
+</example>
+</para>
+
+</section>
+
+
+<section id="troubleshooting " name="Устранение неполадок">
+
+<para>
+Приблизительные шаги при обнаружении проблемы:
+<list type="bullet">
+
+<listitem>
+Убедитесь, что nginx собран с правильной SSL-библиотекой.
+</listitem>
+
+<listitem>
+Убедитесь, что nginx использует правильную SSL-библиотеку в runtime
+(<literal>nginx -V</literal> покажет что именно используется в данный момент).
+</listitem>
+
+<listitem>
+Убедитесь, что клиент действительно присылает запросы через QUIC.
+Рекомендуется начать с простого консольного клиента, например
+<link url="https://nghttp2.org/ngtcp2">ngtcp2</link>,
+чтобы убедиться, что сервер настроен правильно, и затем попробовать
+в браузерах, так как браузеры могут быть требовательны к сертификатам.
+</listitem>
+
+<listitem>
+Соберите nginx с поддержкой <link doc="debugging_log.xml">отладочного лога</link>
+и проверьте отладочный лог.
+В нём должны содержаться все детали соединения и причины ошибок.
+Соответствующие сообщения начинаются с префикса “<literal>quic</literal>”
+и могут быть по нему отфильтрованы.
+</listitem>
+
+<listitem>
+Для детального исследования можно включить дополнительную отладку
+при помощи следующих макросов:
+<literal>NGX_QUIC_DEBUG_PACKETS</literal>,
+<literal>NGX_QUIC_DEBUG_FRAMES</literal>,
+<literal>NGX_QUIC_DEBUG_ALLOC</literal>,
+<literal>NGX_QUIC_DEBUG_CRYPTO</literal>.
+
+<para>
+<programlisting>
+./configure
+    --with-http_v3_module
+    --with-debug
+    --with-cc-opt="-DNGX_QUIC_DEBUG_PACKETS -DNGX_QUIC_DEBUG_CRYPTO"
+</programlisting>
+</para>
+
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+</article>

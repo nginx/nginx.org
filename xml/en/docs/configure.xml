@@ -8,7 +8,7 @@
 <article name="Building nginx from Sources"
          link="/en/docs/configure.html"
          lang="en"
-         rev="20">
+         rev="21">
 
 <section>
 
@@ -238,7 +238,7 @@ enables building a module that provides support for
 This module is not built by default.
 </tag-desc>
 
-<tag-name>
+<tag-name id="http_v3_module">
 <literal>--with-http_v3_module</literal>
 </tag-name>
 <tag-desc>
