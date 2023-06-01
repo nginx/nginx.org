@@ -9,7 +9,7 @@
 <article name="Совместимость"
         link="/ru/docs/njs/compatibility.html"
         lang="ru"
-        rev="35"
+        rev="39"
         toc="no">
 
 <section>
@@ -259,14 +259,11 @@ ES9:
 </listitem>
 
 <listitem>
-нестандартные:
-<link doc="reference.xml" id="string_bytesfrom"><literal>bytesFrom</literal></link>
-(<link doc="changes.xml" id="njs0.2.3">0.2.3</link>),
-<link doc="reference.xml" id="string_frombytes"><literal>fromBytes</literal></link>,
-<link doc="reference.xml" id="string_fromutf8"><literal>fromUTF8</literal></link>,
-<link doc="reference.xml" id="string_tobytes"><literal>toBytes</literal></link>,
-<link doc="reference.xml" id="string_toutf8"><literal>toUTF8</literal></link>
+ES12:
+<literal>replaceAll</literal>
+(<link doc="changes.xml" id="njs0.7.10">0.7.10</link>)
 </listitem>
+
 </list>
 
 </listitem>
@@ -349,6 +346,12 @@ ES5.1:
 ES6:
 <literal>of</literal>
 </listitem>
+
+<listitem>
+ES13:
+<literal>from</literal>
+(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>),
+</listitem>
 </list>
 
 </listitem>
@@ -390,6 +393,16 @@ ES6:
 
 <listitem>
 ES7: <literal>includes</literal>
+</listitem>
+
+<listitem>
+ES13:
+<literal>toReversed</literal>
+(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>),
+<literal>toSorted</literal>
+(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>),
+<literal>toSpliced</literal>
+(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>)
 </listitem>
 </list>
 
@@ -481,6 +494,15 @@ ES6:
 <literal>subarray</literal>,
 <literal>toString</literal>
 </listitem>
+
+<listitem>
+ES13:
+<literal>toReversed</literal>
+(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>)
+<literal>toSorted</literal>
+(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>)
+</listitem>
+
 </list>
 
 </listitem>
@@ -574,15 +596,15 @@ ES6:
 <list type="bullet">
 <listitem>
 ES6:
-<literal>any()</literal>
+<literal>any</literal>
 (<link doc="changes.xml" id="njs0.6.2">0.6.2</link>),
-<literal> all()</literal>
+<literal> all</literal>
 (<link doc="changes.xml" id="njs0.6.2">0.6.2</link>),
-<literal> allSettled()</literal>
+<literal> allSettled</literal>
 (<link doc="changes.xml" id="njs0.6.2">0.6.2</link>),
 <literal>reject</literal>,
 <literal>resolve</literal>,
-<literal>race()</literal> (<link doc="changes.xml" id="njs0.6.2">0.6.2</link>)
+<literal>race</literal> (<link doc="changes.xml" id="njs0.6.2">0.6.2</link>)
 </listitem>
 </list>
 
@@ -811,9 +833,9 @@ ES5.1 global functions:
 </listitem>
 
 <listitem>
-Global functions:
-<literal>atob</literal>,
-<literal>btoa</literal>
+Global functions (<link doc="changes.xml" id="njs0.7.6">0.7.6</link>):
+<link doc="reference.xml" id="atob"><literal>atob</literal></link>,
+<link doc="reference.xml" id="btoa"><literal>btoa</literal></link>
 </listitem>
 
 <listitem>
@@ -841,11 +863,23 @@ Global functions:
 <link doc="reference.xml" id="fs_accesssync"><literal>fs.accessSync</literal></link>
 (<link doc="changes.xml" id="njs0.3.9">0.3.9</link>),
 <link doc="reference.xml" id="appendfilesync"><literal>fs.appendFileSync</literal></link>,
+<link doc="reference.xml" id="fs_filehandle"><literal>fs.FileHandle</literal></link>
+(<link doc="changes.xml" id="njs0.7.7">0.7.7</link>),
+<link doc="reference.xml" id="fs_fstatsync"><literal>fs.fstatSync</literal></link>
+(<link doc="changes.xml" id="njs0.7.7">0.7.7</link>),
+<link doc="reference.xml" id="fs_lstatsync"><literal>fs.lstatSync</literal></link>
+(<link doc="changes.xml" id="njs0.7.7">0.7.1</link>),
 <link doc="reference.xml" id="fs_mkdirsync"><literal>fs.mkdirSync</literal></link>
 (<link doc="changes.xml" id="njs0.4.2">0.4.2</link>),
+<link doc="reference.xml" id="fs_opensync"><literal>fs.openSync</literal></link>
+(<link doc="changes.xml" id="njs0.7.7">0.7.7</link>),
+<link doc="reference.xml" id="fs_promises_open"><literal>fs.promises.open</literal></link>
+(<link doc="changes.xml" id="njs0.7.7">0.7.7</link>),
 <link doc="reference.xml" id="fs_readdirsync"><literal>fs.readdirSync</literal></link>
 (<link doc="changes.xml" id="njs0.4.2">0.4.2</link>),
 <link doc="reference.xml" id="readfilesync"><literal>fs.readFileSync</literal></link>,
+<link doc="reference.xml" id="fs_readsync"><literal>fs.readSync</literal></link>
+(<link doc="changes.xml" id="njs0.7.7">0.7.7</link>),
 <link doc="reference.xml" id="fs_realpathsync"><literal>fs.realpathSync</literal></link>
 (<link doc="changes.xml" id="njs0.3.9">0.3.9</link>),
 <link doc="reference.xml" id="fs_renamesync"><literal>fs.renameSync</literal></link>
@@ -857,6 +891,8 @@ Global functions:
 <link doc="reference.xml" id="fs_unlinksync"><literal>fs.unlinkSync</literal></link>
 (<link doc="changes.xml" id="njs0.3.9">0.3.9</link>),
 <link doc="reference.xml" id="fs_writefilesync"><literal>fs.writeFileSync</literal></link>
+<link doc="reference.xml" id="fs_writesync_buf"><literal>fs.writeSync</literal></link>
+(<link doc="changes.xml" id="njs0.7.7">0.7.7</link>)
 </listitem>
 
 <listitem>
@@ -901,6 +937,25 @@ Global functions:
 <link doc="reference.xml" id="textencoder_encodeinto"><literal>encodeInto</literal></link>
 </listitem>
 
+<listitem id="xml">
+Методы
+<link doc="reference.xml" id="xml"><literal>XML</literal></link>
+(<link doc="changes.xml" id="njs0.7.10">0.7.10</link>):
+<link doc="reference.xml" id="xml_parse"><literal>parse</literal></link>,
+<link doc="reference.xml" id="xml_c14n"><literal>xml.c14n</literal></link>,
+<link doc="reference.xml" id="xml_exclusiveC14n"><literal>xml.exclusiveC14n</literal></link>
+</listitem>
+
+<listitem id="zlib">
+Методы
+<link doc="reference.xml" id="zlib"><literal>zlib</literal></link>
+(<link doc="changes.xml" id="njs0.7.12">0.7.12</link>):
+<link doc="reference.xml" id="zlib_deflaterawsync"><literal>deflateRawSync</literal></link>,
+<link doc="reference.xml" id="zlib_deflatesync"><literal>deflateSync</literal></link>,
+<link doc="reference.xml" id="zlib_inflaterawsync"><literal>inflateRawSync</literal></link>
+<link doc="reference.xml" id="zlib_inflatesync"><literal>inflateSync</literal></link>
+</listitem>
+
 <listitem>
 ES6 поддержка модулей:
 инструкции
@@ -926,17 +981,234 @@ ES6 поддержка стрелочных функций
 <list type="bullet">
 
 <listitem>
+<link doc="reference.xml" id="builtin_crypto"><literal>crypto</literal></link>
+(<link doc="changes.xml" id="njs0.7.0">0.7.0</link>):
+<link doc="reference.xml" id="crypto_get_random_values"><literal>getRandomValues</literal></link>,
+<link doc="reference.xml" id="crypto_subtle_encrypt"><literal>subtle.encrypt</literal></link>,
+<link doc="reference.xml" id="crypto_subtle_decrypt"><literal>subtle.decrypt</literal></link>,
+<link doc="reference.xml" id="crypto_subtle_derive_bits"><literal>subtle.deriveBits</literal></link>,
+<link doc="reference.xml" id="crypto_subtle_derive_key"><literal>subtle.deriveKey</literal></link>,
+<link doc="reference.xml" id="crypto_subtle_digest"><literal>subtle.digest</literal></link>
+<link doc="reference.xml" id="crypto_subtle_export_key"><literal>subtle.exportKey</literal></link>
+(<link doc="changes.xml" id="njs0.7.10">0.7.10</link>),
+<link doc="reference.xml" id="crypto_subtle_generate_key"><literal>subtle.generateKey</literal></link>
+(<link doc="changes.xml" id="njs0.7.10">0.7.10</link>),
+<link doc="reference.xml" id="crypto_subtle_import_key"><literal>subtle.importKey</literal></link>,
+<link doc="reference.xml" id="crypto_subtle_sign"><literal>subtle.sign</literal></link>,
+<link doc="reference.xml" id="crypto_subtle_verify"><literal>subtle.verify</literal></link>
+</listitem>
+
+<listitem>
 псевдоним <literal>globalThis</literal>
 (<link doc="changes.xml" id="njs0.3.8">0.3.8</link>),
 </listitem>
 
 <listitem>
-<link doc="reference.xml" id="process"><literal>process</literal></link>
+<link doc="reference.xml" id="njs"><literal>njs</literal></link>:
+<link doc="reference.xml" id="njs_version"><literal>version</literal></link>,
+<link doc="reference.xml" id="njs_version_number"><literal>version_number</literal></link>
+(<link doc="changes.xml" id="njs0.7.4">0.7.4</link>),
+<link doc="reference.xml" id="njs_dump"><literal>dump</literal></link>,
+<link doc="reference.xml" id="njs_memory_stats"><literal>memoryStats</literal></link>
+(<link doc="changes.xml" id="njs0.7.8">0.7.8</link>),
+<link doc="reference.xml" id="njs_on"><literal>on</literal></link>
+(<link doc="changes.xml" id="njs0.5.2">0.5.2</link>)
+</listitem>
+
+<listitem>
+<link doc="reference.xml" id="process"><literal>process</literal></link>:
+<link doc="reference.xml" id="process_argv"><literal>argv</literal></link>,
+<link doc="reference.xml" id="process_env"><literal>env</literal></link>,
+<link doc="reference.xml" id="process_pid"><literal>pid</literal></link>,
+<link doc="reference.xml" id="process_ppid"><literal>ppid</literal></link>
 </listitem>
 
 </list>
 </listitem>
 
+<listitem>
+Методы объекта nginx:
+<list type="bullet">
+
+<listitem>
+<link doc="reference.xml" id="http"><literal>HTTP Request</literal></link>:
+<link doc="reference.xml" id="r_done"><literal>r.done</literal></link>
+(<link doc="changes.xml" id="njs0.5.2">0.5.2</link>),
+<link doc="reference.xml" id="r_error"><literal>r.error</literal></link>,
+<link doc="reference.xml" id="r_finish"><literal>r.finish</literal></link>,
+<link doc="reference.xml" id="r_internal_redirect"><literal>r.internalRedirect</literal></link>,
+<link doc="reference.xml" id="r_log"><literal>r.log</literal></link>,
+<link doc="reference.xml" id="r_return"><literal>r.return</literal></link>
+(<link doc="changes.xml" id="njs0.5.0">0.5.0</link>),
+<link doc="reference.xml" id="r_send"><literal>r.send</literal></link>
+(<link doc="changes.xml" id="njs0.5.0">0.5.0</link>),
+<link doc="reference.xml" id="r_sendbuffer"><literal>r.sendBuffer</literal></link>
+(<link doc="changes.xml" id="njs0.5.2">0.5.2</link>),
+<link doc="reference.xml" id="r_send_header"><literal>r.sendHeader</literal></link>,
+<link doc="reference.xml" id="r_set_return_value"><literal>r.setReturnValue</literal></link>
+(<link doc="changes.xml" id="njs0.7.0">0.7.0</link>),
+<link doc="reference.xml" id="r_subrequest"><literal>r.subrequest</literal></link>,
+<link doc="reference.xml" id="r_warn"><literal>r.warn</literal></link>
+</listitem>
+
+<listitem>
+<link doc="reference.xml" id="stream"><literal>Stream Session</literal></link>:
+<link doc="reference.xml" id="s_allow"><literal>s.allow</literal></link>
+(<link doc="changes.xml" id="njs0.2.4">0.2.4</link>),
+<link doc="reference.xml" id="s_decline"><literal>s.decline</literal></link>
+(<link doc="changes.xml" id="njs0.2.4">0.2.4</link>),
+<link doc="reference.xml" id="s_deny"><literal>s.deny</literal></link>
+(<link doc="changes.xml" id="njs0.2.4">0.2.4</link>),
+<link doc="reference.xml" id="s_done"><literal>s.done</literal></link>
+(<link doc="changes.xml" id="njs0.2.4">0.2.4</link>),
+<link doc="reference.xml" id="s_error"><literal>s.error</literal></link>,
+<link doc="reference.xml" id="s_log"><literal>s.log</literal></link>,
+<link doc="reference.xml" id="s_off"><literal>s.off</literal></link>
+(<link doc="changes.xml" id="njs0.2.4">0.2.4</link>),
+<link doc="reference.xml" id="s_on"><literal>s.on</literal></link>
+(<link doc="changes.xml" id="njs0.2.4">0.2.4</link>),
+<link doc="reference.xml" id="s_send"><literal>s.send</literal></link>
+(<link doc="changes.xml" id="njs0.2.4">0.2.4</link>),
+<link doc="reference.xml" id="s_send_downstream"><literal>s.sendDownstream</literal></link>
+(<link doc="changes.xml" id="njs0.7.8">0.7.8</link>),
+<link doc="reference.xml" id="s_send_upstream"><literal>s.sendUpstream</literal></link>
+(<link doc="changes.xml" id="njs0.7.8">0.7.8</link>),
+<link doc="reference.xml" id="s_set_return_value"><literal>s.setReturnValue</literal></link>
+(<link doc="changes.xml" id="njs0.7.0">0.7.0</link>),
+<link doc="reference.xml" id="s_warn"><literal>s.warn</literal></link>
+</listitem>
+
+<listitem>
+<link doc="reference.xml" id="headers"><literal>Headers</literal></link>
+(<link doc="changes.xml" id="njs0.5.1">0.5.1</link>):
+<link doc="reference.xml" id="headers_append"><literal>append</literal></link>,
+<link doc="reference.xml" id="headers_delete"><literal>delete</literal></link>,
+<link doc="reference.xml" id="headers_get"><literal>get</literal></link>,
+<link doc="reference.xml" id="headers_getall"><literal>getAll</literal></link>,
+<link doc="reference.xml" id="headers_foreach"><literal>forEach</literal></link>,
+<link doc="reference.xml" id="headers_has"><literal>has</literal></link>,
+<link doc="reference.xml" id="headers_set"><literal>set</literal></link>
+</listitem>
+
+<listitem>
+<link doc="reference.xml" id="request"><literal>Request</literal></link>
+(<link doc="changes.xml" id="njs0.7.10">0.7.10</link>):
+<link doc="reference.xml" id="request_arraybuffer"><literal>arrayBuffer</literal></link>,
+<link doc="reference.xml" id="request_headers"><literal>headers</literal></link>,
+<link doc="reference.xml" id="request_json"><literal>json</literal></link>,
+<link doc="reference.xml" id="request_text"><literal>text</literal></link>
+</listitem>
+
+<listitem>
+<link doc="reference.xml" id="response"><literal>Response</literal></link>
+(<link doc="changes.xml" id="njs0.5.1">0.5.1</link>):
+<link doc="reference.xml" id="response_arraybuffer"><literal>arrayBuffer</literal></link>,
+<link doc="reference.xml" id="response_headers"><literal>headers</literal></link>,
+<link doc="reference.xml" id="response_json"><literal>json</literal></link>,
+<link doc="reference.xml" id="response_text"><literal>text</literal></link>
+</listitem>
+
+<listitem>
+<link doc="reference.xml" id="ngx"><literal>ngx</literal></link>
+(<link doc="changes.xml" id="njs0.5.0">0.5.0</link>):
+<link doc="reference.xml" id="ngx_fetch"><literal>fetch</literal></link>
+(<link doc="changes.xml" id="njs0.5.1">0.5.1</link>),
+<link doc="reference.xml" id="ngx_log"><literal>log</literal></link>
+</listitem>
+
+</list>
+</listitem>
+
+<listitem>
+Свойства объекта nginx:
+<list type="bullet">
+
+<listitem>
+<link doc="reference.xml" id="http"><literal>HTTP Request</literal></link>:
+<link doc="reference.xml" id="r_args"><literal>r.args</literal></link>,
+<link doc="reference.xml" id="r_headers_in"><literal>r.headersIn</literal></link>,
+<link doc="reference.xml" id="r_headers_out"><literal>r.headersOut</literal></link>,
+<link doc="reference.xml" id="r_http_version"><literal>r.httpVersion</literal></link>,
+<link doc="reference.xml" id="r_internal"><literal>r.internal</literal></link>,
+<link doc="reference.xml" id="r_method"><literal>r.method</literal></link>,
+<link doc="reference.xml" id="r_parent"><literal>r.parent</literal></link>,
+<link doc="reference.xml" id="r_raw_headers_in"><literal>r.rawHeadersIn</literal></link>
+(<link doc="changes.xml" id="njs0.4.1">0.4.1</link>),
+<link doc="reference.xml" id="r_raw_headers_out"><literal>r.rawHeadersOut</literal></link>
+(<link doc="changes.xml" id="njs0.4.1">0.4.1</link>),
+<link doc="reference.xml" id="r_raw_variables"><literal>r.rawVariables</literal></link>
+(<link doc="changes.xml" id="njs0.5.0">0.5.0</link>),
+<link doc="reference.xml" id="r_remote_address"><literal>r.remoteAddress</literal></link>,
+<link doc="reference.xml" id="r_request_buffer"><literal>r.requestBuffer</literal></link>
+(<link doc="changes.xml" id="njs0.5.0">0.5.0</link>),
+<link doc="reference.xml" id="r_request_text"><literal>r.requestText</literal></link>,
+<link doc="reference.xml" id="r_response_buffer"><literal>r.responseBuffer</literal></link>
+(<link doc="changes.xml" id="njs0.5.0">0.5.0</link>),
+<link doc="reference.xml" id="r_response_text"><literal>r.responseText</literal></link>
+(<link doc="changes.xml" id="njs0.5.0">0.5.0</link>),
+<link doc="reference.xml" id="r_status"><literal>r.status</literal></link>,
+<link doc="reference.xml" id="r_uri"><literal>r.uri</literal></link>,
+<link doc="reference.xml" id="r_variables"><literal>r.variables</literal></link>
+(<link doc="changes.xml" id="njs0.2.8">0.2.8</link>)
+</listitem>
+
+<listitem>
+<link doc="reference.xml" id="stream"><literal>Stream Session</literal></link>:
+<link doc="reference.xml" id="s_remote_address"><literal>s.remoteAddress</literal></link>,
+<link doc="reference.xml" id="s_raw_variables"><literal>s.rawVariables</literal></link>
+(<link doc="changes.xml" id="njs0.5.0">0.5.0</link>),
+<link doc="reference.xml" id="s_status"><literal>s.status</literal></link>
+(<link doc="changes.xml" id="njs0.5.2">0.5.2</link>),
+<link doc="reference.xml" id="s_variables"><literal>s.variables</literal></link>
+(<link doc="changes.xml" id="njs0.2.8">0.2.8</link>)
+</listitem>
+
+<listitem>
+<link doc="reference.xml" id="request"><literal>Request</literal></link>
+(<link doc="changes.xml" id="njs0.7.10">0.7.10</link>):
+<link doc="reference.xml" id="request_bodyused"><literal>bodyUsed</literal></link>,
+<link doc="reference.xml" id="request_cache"><literal>cache</literal></link>,
+<link doc="reference.xml" id="request_credentials"><literal>credentials</literal></link>,
+<link doc="reference.xml" id="request_method"><literal>method</literal></link>,
+<link doc="reference.xml" id="request_mode"><literal>mode</literal></link>,
+<link doc="reference.xml" id="request_url"><literal>url</literal></link>
+</listitem>
+
+<listitem>
+<link doc="reference.xml" id="response"><literal>Response</literal></link>
+(<link doc="changes.xml" id="njs0.5.1">0.5.1</link>):
+<link doc="reference.xml" id="response_bodyused"><literal>bodyUsed</literal></link>,
+<link doc="reference.xml" id="response_ok"><literal>ok</literal></link>,
+<link doc="reference.xml" id="response_redirect"><literal>redirected</literal></link>,
+<link doc="reference.xml" id="response_status"><literal>status</literal></link>,
+<link doc="reference.xml" id="response_statustext"><literal>statusText</literal></link>,
+<link doc="reference.xml" id="response_type"><literal>type</literal></link>,
+<link doc="reference.xml" id="response_url"><literal>url</literal></link>
+</listitem>
+
+<listitem>
+<link doc="reference.xml" id="ngx"><literal>ngx</literal></link>
+(<link doc="changes.xml" id="njs0.5.0">0.5.0</link>):
+<link doc="reference.xml" id="ngx_build"><literal>build</literal></link>
+(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>),
+<link doc="reference.xml" id="ngx_conf_file_path"><literal>conf_file_path</literal></link>
+(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>),
+<link doc="reference.xml" id="ngx_conf_prefix"><literal>conf_prefix</literal></link>
+(<link doc="changes.xml" id="njs0.7.8">0.7.8</link>),
+<link doc="reference.xml" id="ngx_error_log_path"><literal>error_log_path</literal></link>
+(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>),
+<link doc="reference.xml" id="ngx_prefix"><literal>prefix</literal></link>
+(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>),
+<link doc="reference.xml" id="ngx_version"><literal>version</literal></link>
+(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>),
+<link doc="reference.xml" id="ngx_version_number"><literal>version_number</literal></link>
+(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>),
+<link doc="reference.xml" id="ngx_worker_id"><literal>worker_id</literal></link>
+(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>)
+</listitem>
+
+</list>
+</listitem>
 
 </list>
 </para>

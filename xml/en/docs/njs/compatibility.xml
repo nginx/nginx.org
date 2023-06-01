@@ -9,7 +9,7 @@
 <article name="Compatibility"
         link="/en/docs/njs/compatibility.html"
         lang="en"
-        rev="38"
+        rev="39"
         toc="no">
 
 <section>
@@ -31,10 +31,6 @@ Definitions of njs properties and methods
 compliant with ECMAScript can be found in
 <link url="http://www.ecma-international.org/ecma-262/">ECMAScript
 specification</link>.
-</para>
-
-<para>
-
 </para>
 
 </section>
@@ -268,16 +264,6 @@ ES12:
 (<link doc="changes.xml" id="njs0.7.10">0.7.10</link>)
 </listitem>
 
-<listitem>
-non-standard:
-<link doc="reference.xml" id="string_bytesfrom"><literal>bytesFrom</literal></link>
-(<link doc="changes.xml" id="njs0.2.3">0.2.3</link>),
-<link doc="reference.xml" id="string_frombytes"><literal>fromBytes</literal></link>,
-<link doc="reference.xml" id="string_fromutf8"><literal>fromUTF8</literal></link>,
-<link doc="reference.xml" id="string_tobytes"><literal>toBytes</literal></link>,
-<link doc="reference.xml" id="string_tostring"><literal>toString</literal></link>,
-<link doc="reference.xml" id="string_toutf8"><literal>toUTF8</literal></link>
-</listitem>
 </list>
 
 </listitem>
@@ -360,6 +346,12 @@ ES5.1:
 ES6:
 <literal>of</literal>
 </listitem>
+
+<listitem>
+ES13:
+<literal>from</literal>
+(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>),
+</listitem>
 </list>
 
 </listitem>
@@ -401,6 +393,16 @@ ES6:
 
 <listitem>
 ES7: <literal>includes</literal>
+</listitem>
+
+<listitem>
+ES13:
+<literal>toReversed</literal>
+(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>),
+<literal>toSorted</literal>
+(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>),
+<literal>toSpliced</literal>
+(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>)
 </listitem>
 </list>
 
@@ -492,6 +494,15 @@ ES6:
 <literal>subarray</literal>,
 <literal>toString</literal>
 </listitem>
+
+<listitem>
+ES13:
+<literal>toReversed</literal>
+(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>)
+<literal>toSorted</literal>
+(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>)
+</listitem>
+
 </list>
 
 </listitem>
@@ -1009,7 +1020,7 @@ Global objects
 <link doc="reference.xml" id="process_argv"><literal>argv</literal></link>,
 <link doc="reference.xml" id="process_env"><literal>env</literal></link>,
 <link doc="reference.xml" id="process_pid"><literal>pid</literal></link>,
-<link doc="reference.xml" id="process_ppid"><literal>ppid</literal></link>,
+<link doc="reference.xml" id="process_ppid"><literal>ppid</literal></link>
 </listitem>
 
 </list>
@@ -1128,12 +1139,9 @@ nginx object properties:
 <link doc="reference.xml" id="r_raw_variables"><literal>r.rawVariables</literal></link>
 (<link doc="changes.xml" id="njs0.5.0">0.5.0</link>),
 <link doc="reference.xml" id="r_remote_address"><literal>r.remoteAddress</literal></link>,
-<link doc="reference.xml" id="r_request_body"><literal>r.requestBody</literal></link>,
 <link doc="reference.xml" id="r_request_buffer"><literal>r.requestBuffer</literal></link>
 (<link doc="changes.xml" id="njs0.5.0">0.5.0</link>),
 <link doc="reference.xml" id="r_request_text"><literal>r.requestText</literal></link>,
-<link doc="reference.xml" id="r_response_body"><literal>r.responseBody</literal></link>
-(<link doc="changes.xml" id="njs0.5.0">0.5.0</link>),
 <link doc="reference.xml" id="r_response_buffer"><literal>r.responseBuffer</literal></link>
 (<link doc="changes.xml" id="njs0.5.0">0.5.0</link>),
 <link doc="reference.xml" id="r_response_text"><literal>r.responseText</literal></link>
@@ -1181,8 +1189,22 @@ nginx object properties:
 <listitem>
 <link doc="reference.xml" id="ngx"><literal>ngx</literal></link>
 (<link doc="changes.xml" id="njs0.5.0">0.5.0</link>):
+<link doc="reference.xml" id="ngx_build"><literal>build</literal></link>
+(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>),
+<link doc="reference.xml" id="ngx_conf_file_path"><literal>conf_file_path</literal></link>
+(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>),
 <link doc="reference.xml" id="ngx_conf_prefix"><literal>conf_prefix</literal></link>
-(<link doc="changes.xml" id="njs0.7.8">0.7.8</link>)
+(<link doc="changes.xml" id="njs0.7.8">0.7.8</link>),
+<link doc="reference.xml" id="ngx_error_log_path"><literal>error_log_path</literal></link>
+(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>),
+<link doc="reference.xml" id="ngx_prefix"><literal>prefix</literal></link>
+(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>),
+<link doc="reference.xml" id="ngx_version"><literal>version</literal></link>
+(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>),
+<link doc="reference.xml" id="ngx_version_number"><literal>version_number</literal></link>
+(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>),
+<link doc="reference.xml" id="ngx_worker_id"><literal>worker_id</literal></link>
+(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>)
 </listitem>
 
 </list>
