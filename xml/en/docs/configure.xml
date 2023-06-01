@@ -8,7 +8,7 @@
 <article name="Building nginx from Sources"
          link="/en/docs/configure.html"
          lang="en"
-         rev="21">
+         rev="22">
 
 <section>
 
@@ -68,7 +68,7 @@ defines a directory where nginx dynamic modules will be installed.
 By default the <path><value>prefix</value>/modules</path> directory is used.
 </tag-desc>
 
-<tag-name>
+<tag-name id="conf_path">
 <literal>--conf-path=<value>path</value></literal>
 </tag-name>
 <tag-desc>

@@ -8,7 +8,7 @@
 <article name="Сборка nginx из исходных файлов"
          link="/ru/docs/configure.html"
          lang="ru"
-         rev="21">
+         rev="22">
 
 <section>
 
@@ -68,7 +68,7 @@
 По умолчанию используется каталог <path><value>префикс</value>/modules</path>.
 </tag-desc>
 
-<tag-name>
+<tag-name id="conf_path">
 <literal>--conf-path=<value>путь</value></literal>
 </tag-name>
 <tag-desc>

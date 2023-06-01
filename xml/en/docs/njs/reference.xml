@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="106">
+        rev="107">
 
 <section id="summary">
 
@@ -1152,12 +1152,35 @@ The <literal>ngx</literal> global object is available
 since <link doc="changes.xml" id="njs0.5.0">0.5.0</link>.
 <list type="tag">
 
+<tag-name id="ngx_build"><literal>ngx.build</literal></tag-name>
+<tag-desc>
+a string containing an optional nginx build name, corresponds to the
+<link doc="../configure.xml" id="build"><literal>--build=name</literal></link>
+argument
+of the <link doc="../configure.xml">configure</link> script,
+by default is <literal>""</literal>
+(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>)
+</tag-desc>
+
+<tag-name id="ngx_conf_file_path"><literal>ngx.conf_file_path</literal></tag-name>
+<tag-desc>
+a string containing the file path to current nginx configuration file
+(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>)
+</tag-desc>
+
 <tag-name id="ngx_conf_prefix"><literal>ngx.conf_prefix</literal></tag-name>
 <tag-desc>
 a string containing the file path to
-<link doc="../configure.xml" id="prefix">nginx configuration prefix</link>&mdash;
+<link doc="../configure.xml" id="conf_path">nginx configuration prefix</link>&mdash;
 the directory where nginx is currently looking for configuration
 (<link doc="changes.xml" id="njs0.7.8">0.7.8</link>)
+</tag-desc>
+
+<tag-name id="ngx_error_log_path"><literal>ngx.error_log_path</literal></tag-name>
+<tag-desc>
+a string containing the file path to the current
+<link doc="../ngx_core_module.xml" id="error_log">error log</link> file
+(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>)
 </tag-desc>
 
 <tag-name id="ngx_fetch"><literal>ngx.fetch(<value>resource</value>,
@@ -1240,7 +1263,7 @@ r.return(200, body);
 <tag-name id="ngx_log"><literal>ngx.log</literal>(<value>level</value>,
 <value>message</value>)</tag-name>
 <tag-desc>
-Writes a message to the error log with the specified level of logging.
+writes a message to the error log with the specified level of logging.
 The <value>level</value> parameter specifies one of the log levels,
 the <value>message</value> parameter can be a string or Buffer.
 The following log levels can be specified:
@@ -1255,6 +1278,36 @@ maximum line length limit,
 only first 2048 bytes of the string can be logged.
 </note>
 </para>
+</tag-desc>
+
+<tag-name id="ngx_prefix"><literal>ngx.prefix</literal></tag-name>
+<tag-desc>
+a string containing the file path to
+<link doc="../configure.xml" id="prefix">nginx prefix</link>&mdash;
+a directory that keeps server files
+(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>)
+</tag-desc>
+
+<tag-name id="ngx_version"><literal>ngx.version</literal></tag-name>
+<tag-desc>
+a string containing nginx version,
+for example: <literal>1.25.0</literal>
+(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>)
+</tag-desc>
+
+<tag-name id="ngx_version_number"><literal>ngx.version_number</literal></tag-name>
+<tag-desc>
+a number containing nginx version,
+for example: <literal>1025000</literal>
+(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>)
+</tag-desc>
+
+<tag-name id="ngx_worker_id"><literal>ngx.worker_id</literal></tag-name>
+<tag-desc>
+a number that corresponds to nginx internal worker id,
+the value is between <literal>0</literal> and the value specified in the
+<link doc="../ngx_core_module.xml" id="worker_processes"/> directive
+(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>)
 </tag-desc>
 
 </list>
