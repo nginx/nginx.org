@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="104">
+        rev="105">
 
 <section id="summary">
 
@@ -310,9 +310,10 @@ client address, read-only
 
 <tag-name id="r_request_body"><literal>r.requestBody</literal></tag-name>
 <tag-desc>
-the property is deprecated since
-<link doc="changes.xml" id="njs0.5.0">0.5.0</link>,
-the <link id="r_request_buffer"><literal>r.requestBuffer</literal></link> or
+the property was made obsolete in
+<link doc="changes.xml" id="njs0.5.0">0.5.0</link>
+and was removed in <link doc="changes.xml" id="njs0.8.0">0.8.0</link>.
+The <link id="r_request_buffer"><literal>r.requestBuffer</literal></link> or
 <link id="r_request_text"><literal>r.requestText</literal></link> property
 should be used instead.
 </tag-desc>
@@ -382,9 +383,10 @@ duplicate field values are not merged.
 
 <tag-name id="r_response_body"><literal>r.responseBody</literal></tag-name>
 <tag-desc>
-the property is deprecated since
-<link doc="changes.xml" id="njs0.5.0">0.5.0</link>,
-the <link id="r_response_buffer"><literal>r.responseBuffer</literal></link>
+the property was made obsolete in
+<link doc="changes.xml" id="njs0.5.0">0.5.0</link>
+and was removed in <link doc="changes.xml" id="njs0.8.0">0.8.0</link>.
+The <link id="r_response_buffer"><literal>r.responseBuffer</literal></link>
 or
 the <link id="r_response_text"><literal>r.responseText</literal></link>
 property
