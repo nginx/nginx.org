@@ -9,7 +9,7 @@
 <article name="Сценарный язык njs"
         link="/ru/docs/njs/index.html"
         lang="ru"
-        rev="32"
+        rev="34"
         toc="no">
 
 <section id="summary">
@@ -22,8 +22,7 @@ njs совместим с
 (строгий режим) c некоторыми расширениями
 <link url="http://www.ecma-international.org/ecma-262/6.0/">ECMAScript 6</link>
 и позже.
-Совместимость находится в стадии
-<link doc="compatibility.xml">развития</link>.
+Совместимость находится в стадии <link doc="compatibility.xml">развития</link>.
 </para>
 
 </section>
@@ -51,11 +50,19 @@ njs совместим с
 </listitem>
 
 <listitem>
+<link doc="security.xml"/>
+</listitem>
+
+<listitem>
 <link doc="compatibility.xml"/>
 </listitem>
 
 <listitem>
 <link doc="cli.xml"/>
+</listitem>
+
+<listitem>
+<link doc="preload_objects.xml"/>
 </listitem>
 
 <listitem>

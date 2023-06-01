@@ -120,6 +120,7 @@ REFS =									\
 		njs/compatibility					\
 		njs/install						\
 		njs/node_modules					\
+		njs/preload_objects					\
 		njs/typescript						\
 
 TOP =									\

@@ -137,6 +137,7 @@ REFS =									\
 		njs/cli							\
 		njs/compatibility					\
 		njs/install						\
+		njs/preload_objects					\
 		njs/reference						\
 		njs/security						\
 		njs/node_modules					\

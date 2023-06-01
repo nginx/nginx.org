@@ -9,7 +9,7 @@
 <article name="njs scripting language"
         link="/en/docs/njs/index.html"
         lang="en"
-        rev="33"
+        rev="34"
         toc="no">
 
 <section id="summary">
@@ -59,6 +59,10 @@ The compliance is still <link doc="compatibility.xml">evolving</link>.
 
 <listitem>
 <link doc="cli.xml"/>
+</listitem>
+
+<listitem>
+<link doc="preload_objects.xml"/>
 </listitem>
 
 <listitem>

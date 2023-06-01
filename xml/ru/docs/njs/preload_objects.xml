@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE article SYSTEM "../../../../dtd/article.dtd">
+
+<article name="Предзагруженные объекты"
+        link="/ru/docs/njs/preload_objects.html"
+        lang="ru"
+        rev="1"
+        toc="no">
+
+<section id="summary">
+
+<para>
+Для каждого входящего запроса в njs создаётся отдельная виртуальная машина.
+Это позволяет прогнозировать предсказуемое поглощение памяти
+или осуществить изоляцию запросов.
+</para>
+
+<para>
+Однако у такого подхода есть недостатки.
+Поскольку все запросы являются изолированными, то
+если обработчику запроса необходимо получить доступ к данным,
+ему нужно сначала их прочитать самому.
+Это неэффективно, особенно если объём данных большой.
+</para>
+
+<para>
+Это ограничение можно обойти
+при помощи разделяемого предзагруженного объекта.
+Такие объекты создаются неизменяемыми и не имеют цепочки прототипов:
+у них нет возможности
+изменить значения или добавить/удалить свойства в объектах/массивах.
+</para>
+
+</section>
+
+
+<section id="working_with_preload_objects"
+       name="Работа с предзагруженными объектами">
+
+<para>
+Примеры работы с предзагруженными объектами в njs:
+
+<list type="bullet">
+
+<listitem>
+доступ к свойствам по имени:
+<programlisting>
+preloaded_object.prop_name
+preloaded_object[prop_name]
+</programlisting>
+</listitem>
+
+<listitem>
+перечисление свойств:
+<programlisting>
+for (i in preloaded_object_name) {
+    ...
+}
+</programlisting>
+</listitem>
+
+<listitem>
+применение встроенных методов, не изменяющих состояние,
+при помощи <literal>call()</literal>:
+<programlisting>
+Array.prototype.filter.call(preloaded_object_name, ...)
+</programlisting>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+</article>

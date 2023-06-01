@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE article SYSTEM "../../../../dtd/article.dtd">
+
+<article name="Understanding preloaded objects"
+        link="/en/docs/njs/preload_objects.html"
+        lang="en"
+        rev="1"
+        toc="no">
+
+<section id="summary">
+
+<para>
+For each incoming request njs creates a separate virtual machine.
+This brings a lot of benefits such as predictable memory consumption
+or requests isolation.
+</para>
+
+<para>
+However, it also has its own downsides.
+Since all requests are isolated,
+if a request handler needs to access some data,
+it has to read it by itself.
+This is not efficient especially when the amount of data is large.
+</para>
+
+<para>
+To address this limitation,
+a preloaded shared object was introduced.
+Such objects are created immutable and do not have prototype chains:
+their values cannot be changed, properties cannot be added or removed.
+</para>
+
+</section>
+
+
+<section id="working_with_preload_objects"
+       name="Working with preload objects">
+
+<para>
+Here are some examples of how to work with a preload object in njs:
+
+<list type="bullet">
+
+<listitem>
+access properties by name:
+<programlisting>
+preloaded_object.prop_name
+preloaded_object[prop_name]
+</programlisting>
+</listitem>
+
+<listitem>
+enumerate properties:
+<programlisting>
+for (i in preloaded_object_name) {
+    ...
+}
+</programlisting>
+</listitem>
+
+<listitem>
+apply non-modifying built-in methods using <literal>call()</literal>:
+<programlisting>
+Array.prototype.filter.call(preloaded_object_name, ...)
+</programlisting>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+</article>
