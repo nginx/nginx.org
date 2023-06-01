@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="105">
+        rev="106">
 
 <section id="summary">
 
@@ -2811,13 +2811,25 @@ Returns the PID of the current parent process.
 <section id="string" name="String">
 
 <para>
-There are two types of strings in njs: a Unicode string (default) and
-a byte string.
+By default all strings in njs are Unicode strings.
+They correspond to ECMAScript strings that contain Unicode characters.
+Before <link doc="changes.xml" id="njs0.8.0">0.8.0</link>,
+byte strings were also supported.
 </para>
 
+<section id="byte_string" name="Byte strings">
+
 <para>
-A Unicode string corresponds to an ECMAScript string
-which contains Unicode characters.
+<note>
+Since <link doc="changes.xml" id="njs0.8.0">0.8.0</link>,
+the support for byte strings and byte string methods were removed.
+When working with byte sequence,
+the <link id="buffer">Buffer</link> object
+and <literal>Buffer</literal> properties, such as
+<link id="r_request_buffer"><literal>r.requestBuffer</literal></link>,
+<link id="r_raw_variables"><literal>r.rawVariables</literal></link>,
+should be used.
+</note>
 </para>
 
 <para>
@@ -2843,16 +2855,10 @@ otherwise, <literal>null</literal> is returned:
 <tag-name id="string_bytesfrom"><literal>String.bytesFrom(<value>array</value>
 | <value>string</value>, <value>encoding</value>)</literal></tag-name>
 <tag-desc>
-Creates a byte string either from an array that contains octets,
-or from an encoded string
-(<link doc="changes.xml" id="njs0.2.3">0.2.3</link>).
-The encoding can be
-<literal>hex</literal>,
-<literal>base64</literal>, and
-<literal>base64url</literal>.
-The method is deprecated since
-<link doc="changes.xml" id="njs0.4.4">0.4.4</link>,
-the <literal>Buffer.from</literal> method should be used instead:
+The method was made obsolete in
+<link doc="changes.xml" id="njs0.4.4">0.4.4</link>
+and was removed in <link doc="changes.xml" id="njs0.8.0">0.8.0</link>.
+The <literal>Buffer.from</literal> method should be used instead:
 <example>
 >> Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72]).toString()
 'buffer'
@@ -2860,13 +2866,22 @@ the <literal>Buffer.from</literal> method should be used instead:
 >> Buffer.from('YnVmZmVy', 'base64').toString()
 'buffer'
 </example>
+Before <link doc="changes.xml" id="njs0.4.4">0.4.4</link>,
+created a byte string either from an array that contained octets,
+or from an encoded string
+(<link doc="changes.xml" id="njs0.2.3">0.2.3</link>),
+the encoding could be
+<literal>hex</literal>,
+<literal>base64</literal>, and
+<literal>base64url</literal>.
 </tag-desc>
 
 <tag-name id="string_frombytes"><literal>String.prototype.fromBytes(<value>start</value>[,
 <value>end</value>])</literal></tag-name>
 <tag-desc>
-the property is deprecated since
-<link doc="changes.xml" id="njs0.7.7">0.7.7</link>.
+the property was made obsolete in
+<link doc="changes.xml" id="njs0.7.7">0.7.7</link>
+and was removed in <link doc="changes.xml" id="njs0.8.0">0.8.0</link>.
 Before <link doc="changes.xml" id="njs0.7.7">0.7.7</link>,
 returned a new Unicode string from a byte string
 where each byte was replaced with a corresponding Unicode code point.
@@ -2875,9 +2890,10 @@ where each byte was replaced with a corresponding Unicode code point.
 <tag-name id="string_fromutf8"><literal>String.prototype.fromUTF8(<value>start</value>[,
 <value>end</value>])</literal></tag-name>
 <tag-desc>
-the property is deprecated since
-<link doc="changes.xml" id="njs0.7.7">0.7.7</link>,
-the <link id="textedeoder"><literal>TextDecoder</literal></link> method
+the property was made obsolete in
+<link doc="changes.xml" id="njs0.7.7">0.7.7</link>
+and was removed in <link doc="changes.xml" id="njs0.8.0">0.8.0</link>.
+The <link id="textedeoder"><literal>TextDecoder</literal></link> method
 should be used instead.
 Before <link doc="changes.xml" id="njs0.7.7">0.7.7</link>,
 converted a byte string containing a valid UTF-8 string
@@ -2888,8 +2904,9 @@ otherwise <literal>null</literal> was returned.
 <tag-name id="string_tobytes"><literal>String.prototype.toBytes(<value>start</value>[,
 <value>end</value>])</literal></tag-name>
 <tag-desc>
-the property is deprecated since
-<link doc="changes.xml" id="njs0.7.7">0.7.7</link>.
+the property was made obsolete in
+<link doc="changes.xml" id="njs0.7.7">0.7.7</link>
+and was removed in <link doc="changes.xml" id="njs0.8.0">0.8.0</link>.
 Before <link doc="changes.xml" id="njs0.7.7">0.7.7</link>,
 serialized a Unicode string to a byte string,
 returned <literal>null</literal> if a character larger than 255 was
@@ -2899,8 +2916,9 @@ found in the string.
 <tag-name id="string_tostring"><literal>String.prototype.toString(<value>encoding</value>)</literal></tag-name>
 <tag-desc>
 <para>
-the property is deprecated since
-<link doc="changes.xml" id="njs0.7.7">0.7.7</link>.
+the property was made obsolete in
+<link doc="changes.xml" id="njs0.7.7">0.7.7</link>
+and was removed in <link doc="changes.xml" id="njs0.8.0">0.8.0</link>.
 Before <link doc="changes.xml" id="njs0.7.7">0.7.7</link>,
 encoded a string to
 <literal>hex</literal>,
@@ -2922,9 +2940,10 @@ only a <link id="string_tobytes">byte string</link> could be encoded:
 <tag-name id="string_toutf8"><literal>String.prototype.toUTF8(<value>start</value>[,
 <value>end</value>])</literal></tag-name>
 <tag-desc>
-the property is deprecated since
-<link doc="changes.xml" id="njs0.7.7">0.7.7</link>,
-the <link id="textencoder"><literal>TextEncoder</literal></link> method
+the property was made obsolete in
+<link doc="changes.xml" id="njs0.7.7">0.7.7</link>
+and was removed in <link doc="changes.xml" id="njs0.8.0">0.8.0</link>.
+The <link id="textencoder"><literal>TextEncoder</literal></link> method
 should be used instead.
 Before <link doc="changes.xml" id="njs0.7.7">0.7.7</link>,
 serialized a Unicode string
@@ -2939,6 +2958,8 @@ to a byte string using UTF-8 encoding:
 
 </list>
 </para>
+
+</section>
 
 </section>
 
