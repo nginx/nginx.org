@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="107">
+        rev="108">
 
 <section id="summary">
 
@@ -1518,7 +1518,7 @@ bits may be acceptable in some applications.
 
 <tag-name id="crypto_encrypt_key"><literal>key</literal></tag-name>
 <tag-desc>
-a <literal>CryptoKey</literal> that contains
+a <link id="cryptokey"><literal>CryptoKey</literal></link> that contains
 the key to be used for encryption
 </tag-desc>
 
@@ -1698,7 +1698,7 @@ bits may be acceptable in some applications.
 
 <tag-name id="crypto_decrypt_key"><literal>key</literal></tag-name>
 <tag-desc>
-a <literal>CryptoKey</literal>
+a <link id="cryptokey"><literal>CryptoKey</literal></link>
 that contains the key to be used for decryption.
 If <literal>RSA-OAEP</literal> is used, this is the
 <literal>privateKey</literal> property of the
@@ -1822,11 +1822,11 @@ in <literal>deriveKey()</literal>
 
 <tag-name id="crypto_derive_bits_basekey"><literal>baseKey</literal></tag-name>
 <tag-desc>
-is a <literal>CryptoKey</literal>
+is a <link id="cryptokey"><literal>CryptoKey</literal></link>
 that represents the input to the derivation algorithm
 - the initial key material for the derivation function:
 for example, for <literal>PBKDF2</literal> it might be a password,
-imported as a <literal>CryptoKey</literal> using
+imported as a <link id="cryptokey"><literal>CryptoKey</literal></link> using
 <link id="crypto_subtle_import_key"><literal>сrypto.subtle.importKey()</literal></link>
 </tag-desc>
 
@@ -1944,11 +1944,11 @@ in <literal>deriveKey()</literal>
 
 <tag-name id="crypto_derive_key_basekey"><literal>baseKey</literal></tag-name>
 <tag-desc>
-is a <literal>CryptoKey</literal>
+is a <link id="cryptokey"><literal>CryptoKey</literal></link>
 that represents the input to the derivation algorithm
 - the initial key material for the derivation function:
 for example, for <literal>PBKDF2</literal> it might be a password,
-imported as a <literal>CryptoKey</literal> using
+imported as a <link id="cryptokey"><literal>CryptoKey</literal></link> using
 <link id="crypto_subtle_import_key"><literal>сrypto.subtle.importKey()</literal></link>.
 </tag-desc>
 
@@ -2114,7 +2114,8 @@ that contains the data to be digested
 <tag-name id="crypto_subtle_export_key"><literal>сrypto.subtle.exportKey</literal>(<link id="crypto_export_key_format"><literal>format</literal></link>,
 <link id="crypto_export_key_keydata"><literal>key</literal></link>)</tag-name>
 <tag-desc>
-Exports a key: takes a key as a <literal>CryptoKey</literal> object
+Exports a key: takes a key as
+a <link id="cryptokey"><literal>CryptoKey</literal></link> object
 and returns the key in an external, portable format
 (since <link doc="changes.xml" id="njs0.7.10">0.7.10</link>).
 If the <literal>format</literal> was <literal>jwk</literal>,
@@ -2162,7 +2163,8 @@ the
 
 <tag-name id="crypto_export_key_keydata"><literal>key</literal></tag-name>
 <tag-desc>
-the <literal>CryptoKey</literal> that contains the key to be exported
+the <link id="cryptokey"><literal>CryptoKey</literal></link>
+that contains the key to be exported
 </tag-desc>
 </list>
 
@@ -2176,7 +2178,9 @@ Generates a new key for symmetric algorithms
 or key pair for public-key algorithms
 (since <link doc="changes.xml" id="njs0.7.10">0.7.10</link>).
 Returns a <literal>Promise</literal> that fulfills with the generated key
-as a <literal>CryptoKey</literal> or <literal>CryptoKeyPair</literal> object.
+as
+a <link id="cryptokey"><literal>CryptoKey</literal></link>
+or <literal>CryptoKeyPair</literal> object.
 Possible values:
 <list type="tag">
 
@@ -2339,9 +2343,9 @@ key for unwrapping a key
 <link id="crypto_import_key_keyusages"><literal>keyUsages</literal></link>)</tag-name>
 <tag-desc>
 Imports a key: takes as input a key in an external, portable format
-and gives a <literal>CryptoKey</literal> object.
+and gives a <link id="cryptokey"><literal>CryptoKey</literal></link> object.
 Returns a <literal>Promise</literal> that fulfills with the imported key
-as a <literal>CryptoKey</literal> object.
+as a <link id="cryptokey"><literal>CryptoKey</literal></link> object.
 Possible values:
 <list type="tag">
 
@@ -2627,7 +2631,8 @@ of the form <literal>{ "name": "ALGORITHM" }</literal>
 
 <tag-name id="crypto_sign_key"><literal>key</literal></tag-name>
 <tag-desc>
-is a <literal>CryptoKey</literal> object that the key to be used for signing.
+is a <link id="cryptokey"><literal>CryptoKey</literal></link> object
+that the key to be used for signing.
 If algorithm identifies a public-key cryptosystem, this is the private key.
 </tag-desc>
 
@@ -2719,7 +2724,8 @@ of the form <literal>{ "name": "ALGORITHM" }</literal>
 
 <tag-name id="crypto_verify_key"><literal>key</literal></tag-name>
 <tag-desc>
-is a <literal>CryptoKey</literal> object that the key to be used for verifying.
+is a <link id="cryptokey"><literal>CryptoKey</literal></link> object
+that the key to be used for verifying.
 It is the secret key for a symmetric algorithm
 and the public key for a public-key system.
 </tag-desc>
@@ -2743,6 +2749,107 @@ object that contains the data whose signature is to be verified
 </tag-desc>
 </list>
 
+</tag-desc>
+
+</list>
+</para>
+
+</section>
+
+
+<section id="cryptokey" name="CryptoKey">
+
+<para>
+The <literal>CryptoKey</literal> object
+represents a cryptographic <literal>key</literal> obtained
+from one of the <literal>SubtleCrypto</literal> methods:
+<link id="crypto_subtle_generate_key"><literal>сrypto.subtle.generateKey()</literal></link>,
+<link id="crypto_subtle_derive_key"><literal>сrypto.subtle.deriveKey()</literal></link>,
+<link id="crypto_subtle_import_key"><literal>сrypto.subtle.importKey()</literal></link>.
+</para>
+
+<para>
+<list type="tag">
+
+<tag-name id="cryptokey_alg"><literal>CryptoKey.algorithm</literal></tag-name>
+<tag-desc>
+returns an object describing the algorithm for which this key can be used
+and any associated extra parameters
+(since <link doc="changes.xml" id="njs0.8.0">0.8.0</link>),
+read-only
+</tag-desc>
+
+<tag-name id="cryptokey_extractable"><literal>CryptoKey.extractable</literal></tag-name>
+<tag-desc>
+a boolean value, <literal>true</literal> if the key can be exported
+(since <link doc="changes.xml" id="njs0.8.0">0.8.0</link>),
+read-only
+</tag-desc>
+
+<tag-name id="cryptokey_type"><literal>CryptoKey.type</literal></tag-name>
+<tag-desc>
+a string value that indicates which kind of key is represented by the object,
+read-only.
+Possible values:
+<list type="tag">
+
+<tag-name><literal>secret</literal></tag-name>
+<tag-desc>
+This key is a secret key for use with a symmetric algorithm.
+</tag-desc>
+
+<tag-name><literal>private</literal></tag-name>
+<tag-desc>
+This key is the private half of an asymmetric algorithm's CryptoKeyPair.
+</tag-desc>
+
+<tag-name><literal>public</literal></tag-name>
+<tag-desc>
+This key is the public half of an asymmetric algorithm's CryptoKeyPair.
+</tag-desc>
+
+</list>
+</tag-desc>
+
+<tag-name id="cryptokey_usages"><literal>CryptoKey.usages</literal></tag-name>
+<tag-desc>
+An array of strings indicating what this key can be used for
+(since <link doc="changes.xml" id="njs0.8.0">0.8.0</link>),
+read-only.
+Possible array values:
+<list type="tag">
+
+<tag-name><literal>encrypt</literal></tag-name>
+<tag-desc>
+key for encrypting messages
+</tag-desc>
+
+<tag-name><literal>decrypt</literal></tag-name>
+<tag-desc>
+key for decrypting messages
+</tag-desc>
+
+<tag-name><literal>sign</literal></tag-name>
+<tag-desc>
+key for signing messages
+</tag-desc>
+
+<tag-name><literal>verify</literal></tag-name>
+<tag-desc>
+key for verifying signatures
+</tag-desc>
+
+<tag-name><literal>deriveKey</literal></tag-name>
+<tag-desc>
+key for deriving a new key
+</tag-desc>
+
+<tag-name><literal>deriveBits</literal></tag-name>
+<tag-desc>
+key for deriving bits
+</tag-desc>
+
+</list>
 </tag-desc>
 
 </list>
