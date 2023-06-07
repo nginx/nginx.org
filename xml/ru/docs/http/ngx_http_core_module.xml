@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="104">
+        rev="105">
 
 <section id="directives" name="Директивы">
 
@@ -1266,8 +1266,7 @@ location /flv/ {
     [<literal>default_server</literal>]
     [<literal>ssl</literal>]
     [<literal>http2</literal> |
-     <literal>quic</literal> |
-     <literal>spdy</literal>]
+     <literal>quic</literal>]
     [<literal>proxy_protocol</literal>]
     [<literal>setfib</literal>=<value>число</value>]
     [<literal>fastopen</literal>=<value>число</value>]
@@ -1285,8 +1284,7 @@ location /flv/ {
     [<literal>default_server</literal>]
     [<literal>ssl</literal>]
     [<literal>http2</literal> |
-     <literal>quic</literal> |
-     <literal>spdy</literal>]
+     <literal>quic</literal>]
     [<literal>proxy_protocol</literal>]
     [<literal>setfib</literal>=<value>число</value>]
     [<literal>fastopen</literal>=<value>число</value>]
@@ -1304,8 +1302,7 @@ location /flv/ {
     [<literal>default_server</literal>]
     [<literal>ssl</literal>]
     [<literal>http2</literal> |
-     <literal>quic</literal> |
-     <literal>spdy</literal>]
+     <literal>quic</literal>]
     [<literal>proxy_protocol</literal>]
     [<literal>backlog</literal>=<value>число</value>]
     [<literal>rcvbuf</literal>=<value>размер</value>]
@@ -1384,14 +1381,6 @@ HTTP/2-соединений без SSL.
 <para id="quic">
 Параметр <literal>quic</literal> (1.25.0) позволяет принимать на этом порту
 <link doc="ngx_http_v3_module.xml">QUIC</link>-соединения.
-</para>
-
-<para>
-Параметр <literal>spdy</literal> (1.3.15-1.9.4) позволяет принимать на этом порту
-<link doc="ngx_http_spdy_module.xml">SPDY</link>-соединения.
-Обычно, чтобы это работало, следует также указать параметр
-<literal>ssl</literal>, однако nginx можно также настроить и на приём
-SPDY-соединений без SSL.
 </para>
 
 <para>
