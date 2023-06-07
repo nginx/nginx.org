@@ -8,7 +8,7 @@
 <article name="nginx"
          link="/en/"
          lang="en"
-         rev="155">
+         rev="156">
 
 
 <section>
@@ -100,7 +100,11 @@ TLS SNI support</link>;
 
 <listitem>
 Support for <link doc="docs/http/ngx_http_v2_module.xml">HTTP/2</link>
-with weighted and dependency-based prioritization.
+with weighted and dependency-based prioritization;
+</listitem>
+
+<listitem>
+Support for <link doc="docs/http/ngx_http_v3_module.xml">HTTP/3</link>.
 </listitem>
 
 </list>
