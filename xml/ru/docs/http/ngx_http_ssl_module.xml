@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_ssl_module"
         link="/ru/docs/http/ngx_http_ssl_module.html"
         lang="ru"
-        rev="60">
+        rev="61">
 
 <section id="summary">
 
@@ -100,7 +100,8 @@ http {
 <context>server</context>
 
 <para>
-Эта директива устарела в версии 1.15.0.
+Эта директива устарела в версии 1.15.0
+и была удалена в версии 1.25.1.
 Вместо неё следует
 использовать параметр <literal>ssl</literal>
 директивы <link doc="ngx_http_core_module.xml" id="listen"/>.

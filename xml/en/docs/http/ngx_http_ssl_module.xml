@@ -10,7 +10,7 @@
 <module name="Module ngx_http_ssl_module"
         link="/en/docs/http/ngx_http_ssl_module.html"
         lang="en"
-        rev="60">
+        rev="61">
 
 <section id="summary">
 
@@ -100,7 +100,8 @@ http {
 <context>server</context>
 
 <para>
-This directive was made obsolete in version 1.15.0.
+This directive was made obsolete in version 1.15.0
+and was removed in version 1.25.1.
 The <literal>ssl</literal> parameter
 of the <link doc="ngx_http_core_module.xml" id="listen"/> directive
 should be used instead.
