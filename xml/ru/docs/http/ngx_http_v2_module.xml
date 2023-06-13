@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_v2_module"
         link="/ru/docs/http/ngx_http_v2_module.html"
         lang="ru"
-        rev="15">
+        rev="16">
 
 <section id="summary">
 
@@ -55,7 +55,9 @@
 <para>
 <example>
 server {
-    listen 443 ssl http2;
+    listen 443 ssl;
+
+    http2 on;
 
     ssl_certificate server.crt;
     ssl_certificate_key server.key;
@@ -81,6 +83,22 @@ server {
 
 
 <section id="directives" name="Директивы">
+
+<directive name="http2">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<appeared-in>1.25.1</appeared-in>
+
+<para>
+Разрешает
+протокол
+<link url="https://datatracker.ietf.org/doc/html/rfc9113">HTTP/2</link>.
+</para>
+
+</directive>
+
 
 <directive name="http2_body_preread_size">
 <syntax><value>размер</value></syntax>

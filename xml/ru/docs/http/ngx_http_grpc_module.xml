@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_grpc_module"
         link="/ru/docs/http/ngx_http_grpc_module.html"
         lang="ru"
-        rev="9">
+        rev="10">
 
 <section id="summary">
 
@@ -29,7 +29,9 @@ gRPC-серверу (1.13.10).
 <para>
 <example>
 server {
-    listen 9000 http2;
+    listen 9000;
+
+    http2 on;
 
     location / {
         grpc_pass 127.0.0.1:9000;
