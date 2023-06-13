@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_v2_module"
         link="/ru/docs/http/ngx_http_v2_module.html"
         lang="ru"
-        rev="17">
+        rev="18">
 
 <section id="summary">
 
@@ -75,7 +75,7 @@ server {
 установлена в значение “<literal>on</literal>”,
 <link doc="ngx_http_ssl_module.xml" id="ssl_ciphers">шифры</link>
 должны быть настроены таким образом, чтобы соответствовать чёрному списку
-<link url="https://datatracker.ietf.org/doc/html/rfc7540#appendix-A">RFC 7540, Appendix A</link>,
+<link url="https://datatracker.ietf.org/doc/html/rfc9113#appendix-A">RFC 9113, Appendix A</link>,
 а также поддерживаться клиентами.
 </para>
 
@@ -290,7 +290,7 @@ server {
 
 <para>
 Заблаговременно отправляет
-(<link url="https://datatracker.ietf.org/doc/html/rfc7540#section-8.2">push</link>) запрос
+(<link url="https://datatracker.ietf.org/doc/html/rfc9113#section-8.4">push</link>) запрос
 к заданному <value>uri</value>
 вместе с ответом на оригинальный запрос.
 Будут обработаны только относительные URI с абсолютными путями,
@@ -331,7 +331,7 @@ http2_push /static/css/main.css;
 <link url="https://www.w3.org/TR/preload/#server-push-http-2">preload
 links</link>,
 указанных в полях <header>Link</header> заголовка ответа, в
-<link url="https://datatracker.ietf.org/doc/html/rfc7540#section-8.2">push</link>-запросы.
+<link url="https://datatracker.ietf.org/doc/html/rfc9113#section-8.4">push</link>-запросы.
 </para>
 
 </directive>

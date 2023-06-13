@@ -9,7 +9,7 @@
 <module name="Module ngx_http_v2_module"
         link="/en/docs/http/ngx_http_v2_module.html"
         lang="en"
-        rev="17">
+        rev="18">
 
 <section id="summary">
 
@@ -75,7 +75,7 @@ Also note that if the
 is set to the value “<literal>on</literal>”,
 the <link doc="ngx_http_ssl_module.xml" id="ssl_ciphers">ciphers</link>
 should be configured to comply with
-<link url="https://datatracker.ietf.org/doc/html/rfc7540#appendix-A">RFC 7540, Appendix A</link>
+<link url="https://datatracker.ietf.org/doc/html/rfc9113#appendix-A">RFC 9113, Appendix A</link>
 black list and supported by clients.
 </para>
 
@@ -290,7 +290,7 @@ This directive is obsolete since version 1.25.1.
 
 <para>
 Pre-emptively sends
-(<link url="https://datatracker.ietf.org/doc/html/rfc7540#section-8.2">pushes</link>)
+(<link url="https://datatracker.ietf.org/doc/html/rfc9113#section-8.4">pushes</link>)
 a request to the specified <value>uri</value>
 along with the response to the original request.
 Only relative URIs with absolute path will be processed,
@@ -331,7 +331,7 @@ Enables automatic conversion of
 <link url="https://www.w3.org/TR/preload/#server-push-http-2">preload
 links</link>
 specified in the <header>Link</header> response header fields into
-<link url="https://datatracker.ietf.org/doc/html/rfc7540#section-8.2">push</link>
+<link url="https://datatracker.ietf.org/doc/html/rfc9113#section-8.4">push</link>
 requests.
 </para>
 
