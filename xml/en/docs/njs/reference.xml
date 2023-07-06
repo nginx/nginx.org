@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="108">
+        rev="109">
 
 <section id="summary">
 
@@ -1702,7 +1702,7 @@ a <link id="cryptokey"><literal>CryptoKey</literal></link>
 that contains the key to be used for decryption.
 If <literal>RSA-OAEP</literal> is used, this is the
 <literal>privateKey</literal> property of the
-<literal>CryptoKeyPair</literal> object.
+<link id="cryptokeypair"><literal>CryptoKeyPair</literal></link> object.
 </tag-desc>
 
 <tag-name id="crypto_decrypt_data"><literal>data</literal></tag-name>
@@ -2180,7 +2180,7 @@ or key pair for public-key algorithms
 Returns a <literal>Promise</literal> that fulfills with the generated key
 as
 a <link id="cryptokey"><literal>CryptoKey</literal></link>
-or <literal>CryptoKeyPair</literal> object.
+or <link id="cryptokeypair"><literal>CryptoKeyPair</literal></link> object.
 Possible values:
 <list type="tag">
 
@@ -2800,12 +2800,14 @@ This key is a secret key for use with a symmetric algorithm.
 
 <tag-name><literal>private</literal></tag-name>
 <tag-desc>
-This key is the private half of an asymmetric algorithm's CryptoKeyPair.
+This key is the private half of an asymmetric algorithm's
+<link id="cryptokeypair"><literal>CryptoKeyPair</literal></link>
 </tag-desc>
 
 <tag-name><literal>public</literal></tag-name>
 <tag-desc>
-This key is the public half of an asymmetric algorithm's CryptoKeyPair.
+This key is the public half of an asymmetric algorithm's
+<link id="cryptokeypair"><literal>CryptoKeyPair</literal></link>.
 </tag-desc>
 
 </list>
@@ -2850,6 +2852,35 @@ key for deriving bits
 </tag-desc>
 
 </list>
+</tag-desc>
+
+</list>
+</para>
+
+</section>
+
+
+<section id="cryptokeypair" name="CryptoKeyPair">
+
+<para>
+The <literal>CryptoKeyPair</literal> is a dictionary object
+of the <link id="builtin_crypto">WebCrypto API</link>
+that represents an asymmetric key pair.
+</para>
+
+<para>
+<list type="tag">
+
+<tag-name id="cryptokeypair_privatekey"><literal>CryptoKeyPair.privateKey</literal></tag-name>
+<tag-desc>
+A <link id="cryptokey"><literal>CryptoKey</literal></link> object
+representing the private key.
+</tag-desc>
+
+<tag-name id="cryptokeypair_publickey"><literal>CryptoKeyPair.publicKey</literal></tag-name>
+<tag-desc>
+A <link id="cryptokey"><literal>CryptoKey</literal></link> object
+representing the public key.
 </tag-desc>
 
 </list>
