@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="110">
+        rev="111">
 
 <section id="summary">
 
@@ -36,6 +36,43 @@ List of all njs properties and methods can be found in
 
 
 <section id="http" name="HTTP Request">
+
+<para>
+<table width="100%">
+<tr><td><link id="r_args"><literal>r.args{}</literal></link></td></tr>
+<tr><td><link id="r_done"><literal>r.done()</literal></link></td></tr>
+<tr><td><link id="r_error"><literal>r.error()</literal></link></td></tr>
+<tr><td><link id="r_finish"><literal>r.finish()</literal></link></td></tr>
+<tr><td><link id="r_headers_in"><literal>r.headersIn{}</literal></link></td></tr>
+<tr><td><link id="r_headers_out"><literal>r.headersOut{}</literal></link></td></tr>
+<tr><td><link id="r_http_version"><literal>r.httpVersion</literal></link></td></tr>
+<tr><td><link id="r_internal"><literal>r.internal</literal></link></td></tr>
+<tr><td><link id="r_internal_redirect"><literal>r.internalRedirect()</literal></link></td></tr>
+<tr><td><link id="r_log"><literal>r.log()</literal></link></td></tr>
+<tr><td><link id="r_method"><literal>r.method</literal></link></td></tr>
+<tr><td><link id="r_parent"><literal>r.parent</literal></link></td></tr>
+<tr><td><link id="r_remote_address"><literal>r.remoteAddress</literal></link></td></tr>
+<tr><td><link id="r_request_body"><literal>r.requestBody</literal></link></td></tr>
+<tr><td><link id="r_request_buffer"><literal>r.requestBuffer</literal></link></td></tr>
+<tr><td><link id="r_request_text"><literal>r.requestText</literal></link></td></tr>
+<tr><td><link id="r_raw_headers_in"><literal>r.rawHeadersIn{}</literal></link></td></tr>
+<tr><td><link id="r_raw_headers_out"><literal>r.rawHeadersOut{}</literal></link></td></tr>
+<tr><td><link id="r_response_body"><literal>r.responseBody</literal></link></td></tr>
+<tr><td><link id="r_response_buffer"><literal>r.responseBuffer</literal></link></td></tr>
+<tr><td><link id="r_response_text"><literal>r.responseText</literal></link></td></tr>
+<tr><td><link id="r_return"><literal>r.return()</literal></link></td></tr>
+<tr><td><link id="r_send"><literal>r.send()</literal></link></td></tr>
+<tr><td><link id="r_sendbuffer"><literal>r.sendBuffer()</literal></link></td></tr>
+<tr><td><link id="r_send_header"><literal>r.sendHeader()</literal></link></td></tr>
+<tr><td><link id="r_set_return_value"><literal>r.setReturnValue()</literal></link></td></tr>
+<tr><td><link id="r_status"><literal>r.status</literal></link></td></tr>
+<tr><td><link id="r_subrequest"><literal>r.subrequest()</literal></link></td></tr>
+<tr><td><link id="r_uri"><literal>r.uri</literal></link></td></tr>
+<tr><td><link id="r_raw_variables"><literal>r.rawVariables{}</literal></link></td></tr>
+<tr><td><link id="r_variables"><literal>r.variables{}</literal></link></td></tr>
+<tr><td><link id="r_warn"><literal>r.warn()</literal></link></td></tr>
+</table>
+</para>
 
 <para>
 The HTTP request object is available only in the
@@ -647,6 +684,28 @@ only first 2048 bytes of the string can be logged.
 <section id="stream" name="Stream Session">
 
 <para>
+<table width="100%">
+<tr><td><link id="s_allow"><literal>s.allow()</literal></link></td></tr>
+<tr><td><link id="s_decline"><literal>s.decline()</literal></link></td></tr>
+<tr><td><link id="s_deny"><literal>s.deny()</literal></link></td></tr>
+<tr><td><link id="s_done"><literal>s.done()</literal></link></td></tr>
+<tr><td><link id="s_error"><literal>s.error()</literal></link></td></tr>
+<tr><td><link id="s_log"><literal>s.log()</literal></link></td></tr>
+<tr><td><link id="s_off"><literal>s.off()</literal></link></td></tr>
+<tr><td><link id="s_on"><literal>s.on()</literal></link></td></tr>
+<tr><td><link id="s_remote_address"><literal>s.remoteAddress</literal></link></td></tr>
+<tr><td><link id="s_raw_variables"><literal>s.rawVariables{}</literal></link></td></tr>
+<tr><td><link id="s_send"><literal>s.send()</literal></link></td></tr>
+<tr><td><link id="s_send_downstream"><literal>s.sendDownstream()</literal></link></td></tr>
+<tr><td><link id="s_send_upstream"><literal>s.sendUpstream()</literal></link></td></tr>
+<tr><td><link id="s_status"><literal>s.status</literal></link></td></tr>
+<tr><td><link id="s_set_return_value"><literal>s.setReturnValue()</literal></link></td></tr>
+<tr><td><link id="s_variables"><literal>s.variables{}</literal></link></td></tr>
+<tr><td><link id="s_warn"><literal>s.warn()</literal></link></td></tr>
+</table>
+</para>
+
+<para>
 The stream session object is available only in the
 <link doc="../stream/ngx_stream_js_module.xml">ngx_stream_js_module</link>
 module.
@@ -916,6 +975,19 @@ only first 2048 bytes of the string can be logged.
 <section id="headers" name="Headers">
 
 <para>
+<table width="100%">
+<tr><td><link id="headers_constructor"><literal>Headers()</literal></link></td></tr>
+<tr><td><link id="headers_append"><literal>Headers.append()</literal></link></td></tr>
+<tr><td><link id="headers_delete"><literal>Headers.delete()</literal></link></td></tr>
+<tr><td><link id="headers_get"><literal>Headers.get()</literal></link></td></tr>
+<tr><td><link id="headers_getall"><literal>Headers.getAll()</literal></link></td></tr>
+<tr><td><link id="headers_foreach"><literal>Headers.forEach()</literal></link></td></tr>
+<tr><td><link id="headers_has"><literal>Headers.has()</literal></link></td></tr>
+<tr><td><link id="headers_set"><literal>Headers.set()</literal></link></td></tr>
+</table>
+</para>
+
+<para>
 The <literal>Headers</literal> interface of the
 <link id="ngx_fetch"><literal>Fetch API</literal></link>
 is available since <link doc="changes.xml" id="njs0.5.1">0.5.1</link>.
@@ -1007,6 +1079,22 @@ or adds the header if it does not already exist
 
 
 <section id="request" name="Request">
+
+<para>
+<table width="100%">
+<tr><td><link id="request_constructor"><literal>Request()</literal></link></td></tr>
+<tr><td><link id="request_arraybuffer"><literal>Request.arrayBuffer()</literal></link></td></tr>
+<tr><td><link id="request_bodyused"><literal>Request.bodyUsed</literal></link></td></tr>
+<tr><td><link id="request_cache"><literal>Request.cache</literal></link></td></tr>
+<tr><td><link id="request_credentials"><literal>Request.credentials</literal></link></td></tr>
+<tr><td><link id="request_headers"><literal>Request.headers</literal></link></td></tr>
+<tr><td><link id="request_json"><literal>Request.json()</literal></link></td></tr>
+<tr><td><link id="request_method"><literal>Request.method</literal></link></td></tr>
+<tr><td><link id="request_mode"><literal>Request.mode</literal></link></td></tr>
+<tr><td><link id="request_text"><literal>Request.text()</literal></link></td></tr>
+<tr><td><link id="request_url"><literal>Request.url</literal></link></td></tr>
+</table>
+</para>
 
 <para>
 The <literal>Request</literal> interface of the
@@ -1130,6 +1218,23 @@ Contains the URL of the request.
 
 
 <section id="response" name="Response">
+
+<para>
+<table width="100%">
+<tr><td><link id="response_constructor"><literal>Response()</literal></link></td></tr>
+<tr><td><link id="response_arraybuffer"><literal>Response.arrayBuffer()</literal></link></td></tr>
+<tr><td><link id="response_bodyused"><literal>Response.bodyUsed</literal></link></td></tr>
+<tr><td><link id="response_headers"><literal>Response.headers</literal></link></td></tr>
+<tr><td><link id="response_json"><literal>Response.json()</literal></link></td></tr>
+<tr><td><link id="response_ok"><literal>Response.ok</literal></link></td></tr>
+<tr><td><link id="response_redirect"><literal>Response.redirected</literal></link></td></tr>
+<tr><td><link id="response_status"><literal>Response.status</literal></link></td></tr>
+<tr><td><link id="response_statustext"><literal>Response.statusText</literal></link></td></tr>
+<tr><td><link id="response_text"><literal>Response.text()</literal></link></td></tr>
+<tr><td><link id="response_type"><literal>Response.type</literal></link></td></tr>
+<tr><td><link id="response_url"><literal>Response.url</literal></link></td></tr>
+</table>
+</para>
 
 <para>
 The <literal>Response</literal> interface is available since
@@ -1259,6 +1364,21 @@ The URL of the response.
 
 
 <section id="ngx" name="ngx">
+
+<para>
+<table width="100%">
+<tr><td><link id="ngx_build"><literal>ngx.build</literal></link></td></tr>
+<tr><td><link id="ngx_conf_file_path"><literal>ngx.conf_file_path</literal></link></td></tr>
+<tr><td><link id="ngx_conf_prefix"><literal>ngx.conf_prefix</literal></link></td></tr>
+<tr><td><link id="ngx_error_log_path"><literal>ngx.error_log_path</literal></link></td></tr>
+<tr><td><link id="ngx_fetch"><literal>ngx.fetch()</literal></link></td></tr>
+<tr><td><link id="ngx_log"><literal>ngx.log()</literal></link></td></tr>
+<tr><td><link id="ngx_prefix"><literal>ngx.prefix</literal></link></td></tr>
+<tr><td><link id="ngx_version"><literal>ngx.version</literal></link></td></tr>
+<tr><td><link id="ngx_version_number"><literal>ngx.version_number</literal></link></td></tr>
+<tr><td><link id="ngx_worker_id"><literal>ngx.worker_id</literal></link></td></tr>
+</table>
+</para>
 
 <para>
 The <literal>ngx</literal> global object is available
@@ -1435,6 +1555,22 @@ the value is between <literal>0</literal> and the value specified in the
 
 
 <section id="builtin_crypto" name="crypto">
+
+<para>
+<table width="100%">
+<tr><td><link id="crypto_get_random_values"><literal>сrypto.getRandomValues()</literal></link></td></tr>
+<tr><td><link id="crypto_subtle_encrypt"><literal>сrypto.subtle.encrypt()</literal></link></td></tr>
+<tr><td><link id="crypto_subtle_decrypt"><literal>сrypto.subtle.decrypt()</literal></link></td></tr>
+<tr><td><link id="crypto_subtle_derive_bits"><literal>сrypto.subtle.deriveBits()</literal></link></td></tr>
+<tr><td><link id="crypto_subtle_derive_key"><literal>сrypto.subtle.deriveKey()</literal></link></td></tr>
+<tr><td><link id="crypto_subtle_digest"><literal>сrypto.subtle.digest()</literal></link></td></tr>
+<tr><td><link id="crypto_subtle_export_key"><literal>сrypto.subtle.exportKey()</literal></link></td></tr>
+<tr><td><link id="crypto_subtle_generate_key"><literal>сrypto.subtle.generateKey()</literal></link></td></tr>
+<tr><td><link id="crypto_subtle_import_key"><literal>сrypto.subtle.importKey()</literal></link></td></tr>
+<tr><td><link id="crypto_subtle_sign"><literal>сrypto.subtle.sign()</literal></link></td></tr>
+<tr><td><link id="crypto_subtle_verify"><literal>сrypto.subtle.verify()</literal></link></td></tr>
+</table>
+</para>
 
 <para>
 The <literal>crypto</literal> object is a global object
@@ -2873,6 +3009,15 @@ object that contains the data whose signature is to be verified
 <section id="cryptokey" name="CryptoKey">
 
 <para>
+<table width="100%">
+<tr><td><link id="cryptokey_alg"><literal>CryptoKey.algorithm</literal></link></td></tr>
+<tr><td><link id="cryptokey_extractable"><literal>CryptoKey.extractable</literal></link></td></tr>
+<tr><td><link id="cryptokey_type"><literal>CryptoKey.type</literal></link></td></tr>
+<tr><td><link id="cryptokey_usages"><literal>CryptoKey.usages</literal></link></td></tr>
+</table>
+</para>
+
+<para>
 The <literal>CryptoKey</literal> object
 represents a cryptographic <literal>key</literal> obtained
 from one of the <literal>SubtleCrypto</literal> methods:
@@ -2976,6 +3121,13 @@ key for deriving bits
 <section id="cryptokeypair" name="CryptoKeyPair">
 
 <para>
+<table width="100%">
+<tr><td><link id="cryptokeypair_privatekey"><literal>CryptoKeyPair.privateKey</literal></link></td></tr>
+<tr><td><link id="cryptokeypair_publickey"><literal>CryptoKeyPair.publicKey</literal></link></td></tr>
+</table>
+</para>
+
+<para>
 The <literal>CryptoKeyPair</literal> is a dictionary object
 of the <link id="builtin_crypto">WebCrypto API</link>
 that represents an asymmetric key pair.
@@ -3003,6 +3155,16 @@ representing the public key.
 
 
 <section id="njs" name="njs">
+
+<para>
+<table width="100%">
+<tr><td><link id="njs_version"><literal>njs.version</literal></link></td></tr>
+<tr><td><link id="njs_version_number"><literal>njs.version_number</literal></link></td></tr>
+<tr><td><link id="njs_dump"><literal>njs.dump()</literal></link></td></tr>
+<tr><td><link id="njs_memory_stats"><literal>njs.memoryStats</literal></link></td></tr>
+<tr><td><link id="njs_on"><literal>njs.on()</literal></link></td></tr>
+</table>
+</para>
 
 <para>
 The <literal>njs</literal> object is a global object
@@ -3069,6 +3231,15 @@ The callback is called without arguments.
 
 
 <section id="process" name="process">
+
+<para>
+<table width="100%">
+<tr><td><link id="process_argv"><literal>process.argv</literal></link></td></tr>
+<tr><td><link id="process_env"><literal>process.env</literal></link></td></tr>
+<tr><td><link id="process_pid"><literal>process.pid</literal></link></td></tr>
+<tr><td><link id="process_ppid"><literal>process.ppid</literal></link></td></tr>
+</table>
+</para>
 
 <para>
 The <literal>process</literal> object is a global object
@@ -3276,6 +3447,16 @@ to a byte string using UTF-8 encoding:
 <section id="textdecoder" name="Text Decoder">
 
 <para>
+<table width="100%">
+<tr><td><link id="textdecoder_constructor"><literal>TextDecoder()</literal></link></td></tr>
+<tr><td><link id="textdecoder_encoding"><literal>TextDecoder.prototype.encoding</literal></link></td></tr>
+<tr><td><link id="textdecoder_fatal"><literal>TextDecoder.prototype.fatal</literal></link></td></tr>
+<tr><td><link id="textdecoder_ignorebom"><literal>TextDecoder.prototype.ignoreBOM</literal></link></td></tr>
+<tr><td><link id="textdecoder_decode"><literal>TextDecoder.prototype.decode()</literal></link></td></tr>
+</table>
+</para>
+
+<para>
 The <literal>TextDecoder</literal>
 produces a stream of code points
 from a stream of bytes
@@ -3285,7 +3466,7 @@ from a stream of bytes
 <para>
 <list type="tag">
 
-<tag-name><literal>TextDecoder([[<value>encoding</value>],
+<tag-name id="textdecoder_constructor"><literal>TextDecoder([[<value>encoding</value>],
 <value>options</value>])</literal></tag-name>
 <tag-desc>
 Creates a new <literal>TextDecoder</literal> object
@@ -3366,6 +3547,14 @@ By default is <literal>false</literal>.
 <section id="textencoder" name="Text Encoder">
 
 <para>
+<table width="100%">
+<tr><td><link id="textencoder_constructor"><literal>TextEncoder()</literal></link></td></tr>
+<tr><td><link id="textencoder_encode"><literal>TextEncoder.prototype.encode()</literal></link></td></tr>
+<tr><td><link id="textencoder_encodeinto"><literal>TextEncoder.prototype.encodeInto()</literal></link></td></tr>
+</table>
+</para>
+
+<para>
 The <literal>TextEncoder</literal> object
 produces a byte stream with UTF-8 encoding
 from a stream of code points
@@ -3375,7 +3564,7 @@ from a stream of code points
 <para>
 <list type="tag">
 
-<tag-name><literal>TextEncoder()</literal></tag-name>
+<tag-name id="textencoder_constructor"><literal>TextEncoder()</literal></tag-name>
 <tag-desc>
 Returns a newly constructed <literal>TextEncoder</literal>
 that will generate a byte stream with UTF-8 encoding.
@@ -3422,6 +3611,13 @@ the number of bytes modified in the destination <literal>Uint8Array</literal>
 <section id="njs_api_timers" name="timers">
 
 <para>
+<table width="100%">
+<tr><td><link id="cleartimeout"><literal>clearTimeout()</literal></link></td></tr>
+<tr><td><link id="settimeout"><literal>setTimeout()</literal></link></td></tr>
+</table>
+</para>
+
+<para>
 <list type="tag">
 
 <tag-name id="cleartimeout"><literal>clearTimeout(<value>timeout</value>)</literal></tag-name>
@@ -3458,6 +3654,13 @@ clearTimeout(t);
 </para>
 
 <section id="njs_global_functions" name="Global functions">
+
+<para>
+<table width="100%">
+<tr><td><link id="atob"><literal>atob()</literal></link></td></tr>
+<tr><td><link id="btoa"><literal>btoa()</literal></link></td></tr>
+</table>
+</para>
 
 <para>
 <list type="tag">
@@ -3516,6 +3719,58 @@ const decodedData = atob(encodedData); // decode the string
 
 
 <section id="buffer" name="Buffer">
+
+<para>
+<table width="100%">
+<tr><td><link id="buffer_alloc"><literal>Buffer.alloc()</literal></link></td></tr>
+<tr><td><link id="buffer_alloc_unsafe"><literal>Buffer.allocUnsafe()</literal></link></td></tr>
+<tr><td><link id="buffer_bytelength"><literal>Buffer.byteLength()</literal></link></td></tr>
+<tr><td><link id="buffer_compare"><literal>Buffer.compare()</literal></link></td></tr>
+<tr><td><link id="buffer_concat"><literal>Buffer.concat()</literal></link></td></tr>
+<tr><td><link id="buffer_from_array"><literal>Buffer.from(array)</literal></link></td></tr>
+<tr><td><link id="buffer_from_arraybuffer"><literal>Buffer.from(arrayBuffer)</literal></link></td></tr>
+<tr><td><link id="buffer_from_buffer"><literal>Buffer.from(buffer)</literal></link></td></tr>
+<tr><td><link id="buffer_from_object"><literal>Buffer.from(object)</literal></link></td></tr>
+<tr><td><link id="buffer_from_string"><literal>Buffer.from(string)</literal></link></td></tr>
+<tr><td><link id="buffer_is_buffer"><literal>Buffer.isBuffer()</literal></link></td></tr>
+<tr><td><link id="buffer_is_encoding"><literal>Buffer.isEncoding()</literal></link></td></tr>
+<tr><td><link id="buf_index"><literal>buffer[]</literal></link></td></tr>
+<tr><td><link id="buf_buffer"><literal>buf.buffer</literal></link></td></tr>
+<tr><td><link id="buf_byte_offset"><literal>buf.byteOffset</literal></link></td></tr>
+<tr><td><link id="buf_compare"><literal>buf.compare()</literal></link></td></tr>
+<tr><td><link id="buf_copy"><literal>buf.copy()</literal></link></td></tr>
+<tr><td><link id="buf_equals"><literal>buf.equals()</literal></link></td></tr>
+<tr><td><link id="buf_fill"><literal>buf.fill()</literal></link></td></tr>
+<tr><td><link id="buf_includes"><literal>buf.includes()</literal></link></td></tr>
+<tr><td><link id="buf_indexof"><literal>buf.indexOf()</literal></link></td></tr>
+<tr><td><link id="buf_lastindexof"><literal>buf.lastIndexOf()</literal></link></td></tr>
+<tr><td><link id="buf_length"><literal>buf.length</literal></link></td></tr>
+<tr><td><link id="buf_readintbe"><literal>buf.readIntBE()</literal></link></td></tr>
+<tr><td><link id="buf_readintle"><literal>buf.readIntLE()</literal></link></td></tr>
+<tr><td><link id="buf_readuintbe"><literal>buf.readUIntBE()</literal></link></td></tr>
+<tr><td><link id="buf_readuintle"><literal>buf.readUIntLE()</literal></link></td></tr>
+<tr><td><link id="buf_readdobulebe"><literal>buf.readDoubleBE</literal></link></td></tr>
+<tr><td><link id="buf_readdobulele"><literal>buf.readDoubleLE()</literal></link></td></tr>
+<tr><td><link id="buf_readfloatbe"><literal>buf.readFloatBE()</literal></link></td></tr>
+<tr><td><link id="buf_readfloatle"><literal>buf.readFloatLE()</literal></link></td></tr>
+<tr><td><link id="buf_subarray"><literal>buf.subarray()</literal></link></td></tr>
+<tr><td><link id="buf_slice"><literal>buf.slice()</literal></link></td></tr>
+<tr><td><link id="buf_swap16"><literal>buf.swap16()</literal></link></td></tr>
+<tr><td><link id="buf_swap32"><literal>buf.swap32()</literal></link></td></tr>
+<tr><td><link id="buf_swap64"><literal>buf.swap64()</literal></link></td></tr>
+<tr><td><link id="buf_tojson"><literal>buf.toJSON()</literal></link></td></tr>
+<tr><td><link id="buf_tostring"><literal>buf.toString()</literal></link></td></tr>
+<tr><td><link id="buf_write"><literal>buf.write()</literal></link></td></tr>
+<tr><td><link id="buf_writeintbe"><literal>buf.writeIntBE()</literal></link></td></tr>
+<tr><td><link id="buf_writeintle"><literal>buf.writeIntLE()</literal></link></td></tr>
+<tr><td><link id="buf_writeuintbe"><literal>buf.writeUIntBE()</literal></link></td></tr>
+<tr><td><link id="buf_writeuintle"><literal>buf.writeUIntLE()</literal></link></td></tr>
+<tr><td><link id="buf_writedoublebe"><literal>buf.writeDoubleBE()</literal></link></td></tr>
+<tr><td><link id="buf_writedoublele"><literal>buf.writeDoubleLE()</literal></link></td></tr>
+<tr><td><link id="buf_writefloatbe"><literal>buf.writeFloatBE()</literal></link></td></tr>
+<tr><td><link id="buf_writefloatle"><literal>buf.writeFloatLE()</literal></link></td></tr>
+</table>
+</para>
 
 <para>
 <list type="tag">
@@ -3895,7 +4150,7 @@ Reads a 32-bit, little-endian float from <literal>buf</literal>
 at the specified <value>offset</value>.
 </tag-desc>
 
-<tag-name id="buf_subarray"><literal>buf.subarray[<value>start</value>[,
+<tag-name id="buf_subarray"><literal>buf.subarray([<value>start</value>[,
 <value>end</value>]])</literal></tag-name>
 <tag-desc>
 Returns a new <literal>buf</literal>
@@ -3909,7 +4164,7 @@ the same result as that of end equal to
 is returned.
 </tag-desc>
 
-<tag-name id="buf_slice"><literal>buf.slice[<value>start</value>[,
+<tag-name id="buf_slice"><literal>buf.slice([<value>start</value>[,
 <value>end</value>]])</literal></tag-name>
 <tag-desc>
 Returns a new <literal>buf</literal>
@@ -4099,6 +4354,13 @@ at the specified <value>offset</value> as little-endian.
 <section id="crypto" name="Crypto">
 
 <para>
+<table width="100%">
+<tr><td><link id="crypto_createhash"><literal>crypto.createHash()</literal></link></td></tr>
+<tr><td><link id="crypto_createhmac"><literal>crypto.createHmac()</literal></link></td></tr>
+</table>
+</para>
+
+<para>
 <note>
 Since <link doc="changes.xml" id="njs0.7.0">0.7.0</link>,
 extended crypto API is available as a global
@@ -4138,6 +4400,13 @@ The algorithm can be
 
 
 <section id="crypto_hash" name="Hash">
+
+<para>
+<table width="100%">
+<tr><td><link id="crypto_hash_update"><literal>hash.update()</literal></link></td></tr>
+<tr><td><link id="crypto_hash_digest"><literal>hash.digest()</literal></link></td></tr>
+</table>
+</para>
 
 <para>
 <list type="tag">
@@ -4188,6 +4457,13 @@ undefined
 <section id="crypto_hmac" name="HMAC">
 
 <para>
+<table width="100%">
+<tr><td><link id="crypto_hmac_update"><literal>hmac.update()</literal></link></td></tr>
+<tr><td><link id="crypto_hmac_digest"><literal>hmac.digest()</literal></link></td></tr>
+</table>
+</para>
+
+<para>
 <list type="tag">
 
 <tag-name id="crypto_hmac_update"><literal>hmac.update(<value>data</value>)</literal></tag-name>
@@ -4229,6 +4505,30 @@ undefined
 
 
 <section id="njs_api_fs" name="File System">
+
+<para>
+<table width="100%">
+<tr><td><link id="fs_accesssync"><literal>fs.accessSync()</literal></link></td></tr>
+<tr><td><link id="fs_appendfilesync"><literal>fs.appendFileSync()</literal></link></td></tr>
+<tr><td><link id="fs_fstatsync"><literal>fs.fstatSync()</literal></link></td></tr>
+<tr><td><link id="fs_lstatsync"><literal>fs.lstatSync()</literal></link></td></tr>
+<tr><td><link id="fs_mkdirsync"><literal>fs.mkdirSync()</literal></link></td></tr>
+<tr><td><link id="fs_opensync"><literal>fs.openSync()</literal></link></td></tr>
+<tr><td><link id="fs_promises_open"><literal>fs.promises.open()</literal></link></td></tr>
+<tr><td><link id="fs_readsync"><literal>fs.readSync()</literal></link></td></tr>
+<tr><td><link id="fs_readdirsync"><literal>fs.readdirSync()</literal></link></td></tr>
+<tr><td><link id="fs_readfilesync"><literal>fs.readFileSync()</literal></link></td></tr>
+<tr><td><link id="fs_realpathsync"><literal>fs.realpathSync()</literal></link></td></tr>
+<tr><td><link id="fs_renamesync"><literal>fs.renameSync()</literal></link></td></tr>
+<tr><td><link id="fs_rmdirsync"><literal>fs.rmdirSync()</literal></link></td></tr>
+<tr><td><link id="fs_statsync"><literal>fs.statSync()</literal></link></td></tr>
+<tr><td><link id="fs_symlinksync"><literal>fs.symlinkSync()</literal></link></td></tr>
+<tr><td><link id="fs_writesync_buf"><literal>fs.writeSync()</literal></link></td></tr>
+<tr><td><link id="fs_writesync_str"><literal>fs.writeSync()</literal></link></td></tr>
+<tr><td><link id="fs_unlinksync"><literal>fs.unlinkSync()</literal></link></td></tr>
+<tr><td><link id="fs_writefilesync"><literal>fs.writeFileSync()</literal></link></td></tr>
+</table>
+</para>
 
 <para>
 The File System module provides operations with files.
@@ -4783,6 +5083,17 @@ the name of the file <literal>fs.Dirent</literal> object refers to.
 <section id="fs_filehandle" name="fs.FileHandle">
 
 <para>
+<table width="100%">
+<tr><td><link id="filehandle_close"><literal>filehandle.close()</literal></link></td></tr>
+<tr><td><link id="filehandle_fd"><literal>filehandle.fd</literal></link></td></tr>
+<tr><td><link id="filehandle_read"><literal>filehandle.read()</literal></link></td></tr>
+<tr><td><link id="filehandle_stat"><literal>filehandle.stat()</literal></link></td></tr>
+<tr><td><link id="filehandle_write_buf"><literal>filehandle.write(<value>buf</value>)</literal></link></td></tr>
+<tr><td><link id="filehandle_write_str"><literal>filehandle.write(<value>str</value>)</literal></link></td></tr>
+</table>
+</para>
+
+<para>
 The <literal>FileHandle</literal> object is an object wrapper
 for a numeric file descriptor
 (<link doc="changes.xml" id="njs0.7.7">0.7.7</link>).
@@ -5285,6 +5596,17 @@ but fails if the file already exists
 <section id="querystring" name="Query String">
 
 <para>
+<table width="100%">
+<tr><td><link id="querystring_decode"><literal>querystring.decode()</literal></link></td></tr>
+<tr><td><link id="querystring_encode"><literal>querystring.encode()</literal></link></td></tr>
+<tr><td><link id="querystring_escape"><literal>querystring.escape()</literal></link></td></tr>
+<tr><td><link id="querystring_parse"><literal>querystring.parse()</literal></link></td></tr>
+<tr><td><link id="querystring_stringify"><literal>querystring.stringify()</literal></link></td></tr>
+<tr><td><link id="querystring_unescape"><literal>querystring.unescape()</literal></link></td></tr>
+</table>
+</para>
+
+<para>
 The Query String module provides support
 for parsing and formatting URL query strings
 (<link doc="changes.xml" id="njs0.4.3">0.4.3</link>).
@@ -5459,6 +5781,19 @@ and should not be used directly.
 
 
 <section id="xml" name="XML">
+
+<para>
+<table width="100%">
+<tr><td><link id="xml_parse"><literal>xml.parse()</literal></link></td></tr>
+<tr><td><link id="xml_c14n"><literal>xml.c14n()</literal></link></td></tr>
+<tr><td><link id="xml_exclusivec14n"><literal>xml.exclusiveC14n()</literal></link></td></tr>
+<tr><td><link id="xml_serialize"><literal>xml.serialize()</literal></link></td></tr>
+<tr><td><link id="xml_serialize_tostring"><literal>xml.serializeToString()</literal></link></td></tr>
+<tr><td><link id="xml_doc"><literal>XMLDoc</literal></link></td></tr>
+<tr><td><link id="xml_node"><literal>XMLNode</literal></link></td></tr>
+<tr><td><link id="xml_xmlattr"><literal>XMLAttr</literal></link></td></tr>
+</table>
+</para>
 
 <para>
 The XML module allows working with XML documents
@@ -5778,6 +6113,15 @@ the attribute value of <value>abc</value>
 
 
 <section id="zlib" name="zlib">
+
+<para>
+<table width="100%">
+<tr><td><link id="zlib_deflaterawsync"><literal>zlib.deflateRawSync()</literal></link></td></tr>
+<tr><td><link id="zlib_deflatesync"><literal>zlib.deflateSync()</literal></link></td></tr>
+<tr><td><link id="zlib_inflaterawsync"><literal>zlib.inflateRawSync()</literal></link></td></tr>
+<tr><td><link id="zlib_inflatesync"><literal>zlib.inflateSync()</literal></link></td></tr>
+</table>
+</para>
 
 <para>
 The zlib module provides compression functionality using the
