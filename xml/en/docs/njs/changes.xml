@@ -9,8 +9,225 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="60"
+        rev="61"
         toc="no">
+
+<section id="njs0.8.0" name="Changes with njs 0.8.0">
+
+<para>
+Release Date:
+06 July 2023
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Change:
+removed special treatment of forbidden headers in
+<link doc="reference.xml" id="ngx_fetch">Fetch API</link>
+introduced in <link id="njs0.7.10">0.7.10</link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Change:
+removed deprecated since <link id="njs0.5.0">0.5.0</link>
+<link doc="reference.xml" id="r_request_body"><literal>r.requestBody()</literal></link>
+and
+<link doc="reference.xml" id="r_response_body"><literal>r.responseBody()</literal></link>
+in
+<link doc="../http/ngx_http_js_module.xml"><literal>http</literal></link>
+module.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Change:
+throwing an exception in
+<link doc="reference.xml" id="r_internal_redirect"><literal>r.internalRedirect()</literal></link>
+while filtering in
+<link doc="../http/ngx_http_js_module.xml"><literal>http</literal></link>
+module.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+introduced global nginx properties:
+<link doc="reference.xml" id="ngx_build"><literal>ngx.build</literal></link>,
+<link doc="reference.xml" id="ngx_conf_file_path"><literal>ngx.conf_file_path</literal></link>,
+<link doc="reference.xml" id="ngx_error_log_path"><literal>ngx.error_log_path</literal></link>,
+<link doc="reference.xml" id="ngx_prefix"><literal>ngx.prefix</literal></link>,
+<link doc="reference.xml" id="ngx_version"><literal>ngx.version</literal></link>,
+<link doc="reference.xml" id="ngx_version_number"><literal>ngx.version_number</literal></link>,
+and
+<link doc="reference.xml" id="ngx_worker_id"><literal>ngx.worker_id</literal></link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+introduced the <literal>js_shared_dict_zone</literal> directive for
+<link doc="../http/ngx_http_js_module.xml" id="js_shared_dict_zone">http</link>
+and
+<link doc="../stream/ngx_stream_js_module.xml" id="js_shared_dict_zone">stream</link>
+that allows declaring a dictionary shared between worker processes.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+added compile-time options to disable njs modules.
+For example, to disable libxslt-related code:
+<example>
+NJS_LIBXSLT=NO ./configure  .. --add-module=/path/to/njs/module
+</example>
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<link doc="reference.xml" id="r_status"><literal>r.status</literal></link>
+setter when filtering in
+<link doc="../http/ngx_http_js_module.xml"><literal>http</literal></link>
+module.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed setting of Location header in
+<link doc="../http/ngx_http_js_module.xml"><literal>http</literal></link>
+module.
+</para>
+</listitem>
+
+</list>
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Change:
+native methods are provided with <literal>retval</literal> argument.
+This change breaks compatibility with C extension for njs
+requiring the modification of the code.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Change:
+non-compliant deprecated String methods were removed.
+The following methods were removed:
+<link doc="reference.xml" id="string_bytesfrom"><literal>String.bytesFrom()</literal></link>,
+<link doc="reference.xml" id="string_frombytes"><literal>String.prototype.fromBytes()</literal></link>,
+<link doc="reference.xml" id="string_fromutf8"><literal>String.prototype.fromUTF8()</literal></link>,
+<link doc="reference.xml" id="string_tobytes"><literal>String.prototype.toBytes()</literal></link>,
+<link doc="reference.xml" id="string_toutf8"><literal>String.prototype.toUTF8()</literal></link>,
+<link doc="reference.xml" id="string_toutf8"><literal>String.prototype.toString(<value>encoding</value>)</literal></link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Change:
+removed support for building with GNU readline.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added ES13-compliant <literal>Array</literal> methods:
+<literal>Array.from()</literal>,
+<literal>Array.prototype.toSorted()</literal>,
+<literal>Array.prototype.toSpliced()</literal>,
+<literal>Array.prototype.toReversed()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added ES13-compliant <literal>TypedArray</literal> methods:
+<literal>%TypedArray%.prototype.toSorted()</literal>,
+<literal>%TypedArray%.prototype.toSpliced()</literal>,
+<literal>%TypedArray%.prototype.toReversed()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added
+<link doc="reference.xml" id="cryptokey"><literal>CryptoKey</literal></link>
+properties in
+<link doc="reference.xml" id="builtin_crypto">WebCrypto API</link>.
+The following properties were added:
+<link doc="reference.xml" id="cryptokey_alg"><literal>algorithm</literal></link>,
+<link doc="reference.xml" id="cryptokey_extractable"><literal>extractable</literal></link>,
+<link doc="reference.xml" id="cryptokey_type"><literal>type</literal></link>,
+<link doc="reference.xml" id="cryptokey_usages"><literal>usages</literal></link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>retval</literal> of
+<link doc="reference.xml" id="crypto_get_random_values"><literal>сrypto.getRandomValues()</literal></link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed evaluation of computed property names with function expressions.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed implicit name for a function expression declared in arrays.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed parsing of <literal>for-in</literal> loops.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<literal>Date.parse()</literal> with ISO-8601 format and UTC time offset.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.7.12" name="Changes with njs 0.7.12">
 
