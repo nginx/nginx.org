@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="109">
+        rev="110">
 
 <section id="summary">
 
@@ -922,9 +922,34 @@ is available since <link doc="changes.xml" id="njs0.5.1">0.5.1</link>.
 </para>
 
 <para>
-A new <literal>Headers</literal> object can be created using
-the <literal>Headers()</literal> constructor
-(since <link doc="changes.xml" id="njs0.7.10">0.7.10</link>)
+A new <literal>Headers</literal> object can be created using the
+<link id="headers_constructor"><literal>Headers()</literal></link> constructor:
+(since <link doc="changes.xml" id="njs0.7.10">0.7.10</link>):
+
+<list type="tag">
+
+<tag-name id="headers_constructor"><literal>Headers([<value>init</value>])</literal></tag-name>
+<tag-desc>
+
+<list type="tag">
+
+<tag-name><literal>init</literal></tag-name>
+<tag-desc>
+An object containing HTTP headers for
+prepopulating the <literal>Headers</literal> object,
+can be a <literal>string</literal>,
+an <literal>array</literal> of name-value pairs,
+or an existing <literal>Headers</literal> object.
+</tag-desc>
+
+</list>
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+A new <literal>Headers</literal> object can be created
 with the following properties and methods:
 
 <list type="tag">
@@ -990,8 +1015,53 @@ is available since <link doc="changes.xml" id="njs0.7.10">0.7.10</link>.
 </para>
 
 <para>
-A new <literal>Request</literal> object can be created using
-the <literal>Request()</literal> constructor
+A new <literal>Request</literal> object can be created using the
+<link id="request_constructor"><literal>Request()</literal></link> constructor:
+
+<list type="tag">
+
+<tag-name id="request_constructor"><literal>Request[<value>resource</value>[,
+<value>options</value>]])</literal></tag-name>
+<tag-desc>
+
+Creates a <literal>Request</literal> object to fetch
+that can be passed later to
+<link id="ngx_fetch"><literal>ngx.fetch()</literal></link>.
+The <literal>resource</literal> can be a URL
+or an existing <literal>Request</literal> object.
+The <literal>options</literal> is an optional argument
+that is expected to be an object with the following keys:
+
+<list type="tag">
+
+<tag-name><literal>body</literal></tag-name>
+<tag-desc>
+The request body, by default is empty.
+</tag-desc>
+
+<tag-name><literal>headers</literal></tag-name>
+<tag-desc>
+The response headers object&mdash;
+the object containing HTTP headers for
+prepopulating the <link id="headers"><literal>Headers</literal></link> object,
+can be a <literal>string</literal>,
+an <literal>array</literal> of name-value pairs,
+or an existing <link id="headers"><literal>Headers</literal></link> object.
+</tag-desc>
+
+<tag-name><literal>method</literal></tag-name>
+<tag-desc>
+The HTTP method, by default the GET method is used.
+</tag-desc>
+
+</list>
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+A new <literal>Request</literal> object can be created
 with the following properties and methods:
 
 <list type="tag">
@@ -1067,9 +1137,52 @@ The <literal>Response</literal> interface is available since
 </para>
 
 <para>
-A new <literal>Response</literal> object can be created using
-the <literal>Response()</literal> constructor
-(since <link doc="changes.xml" id="njs0.7.10">0.7.10</link>)
+A new <literal>Response</literal> object can be created using the
+<link id="response_constructor"><literal>Response()</literal></link> constructor
+(since <link doc="changes.xml" id="njs0.7.10">0.7.10</link>):
+
+<list type="tag">
+
+<tag-name id="response_constructor"><literal>Response[<value>body</value>[,
+<value>options</value>]])</literal></tag-name>
+<tag-desc>
+Creates a <literal>Response</literal> object.
+The <literal>body</literal> is an optional argument,
+can be a <literal>string</literal> or a <literal>buffer</literal>,
+by default is <literal>null</literal>.
+The <literal>options</literal> is an optional argument
+that is expected to be an object with the following keys:
+
+<list type="tag">
+
+<tag-name><literal>headers</literal></tag-name>
+<tag-desc>
+The response headers object&mdash;
+the object containing HTTP headers for
+prepopulating the <link id="headers"><literal>Headers</literal></link> object,
+can be a <literal>string</literal>,
+an <literal>array</literal> of name-value pairs,
+or an existing <link id="headers"><literal>Headers</literal></link> object.
+</tag-desc>
+
+<tag-name><literal>status</literal></tag-name>
+<tag-desc>
+The status code of the response.
+</tag-desc>
+
+<tag-name><literal>statusText</literal></tag-name>
+<tag-desc>
+The status message corresponding to the status code.
+</tag-desc>
+
+</list>
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+A new <literal>Response()</literal> object can be created
 with the following properties and methods:
 
 <list type="tag">
