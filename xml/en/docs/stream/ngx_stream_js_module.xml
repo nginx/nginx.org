@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_js_module"
         link="/en/docs/stream/ngx_stream_js_module.html"
         lang="en"
-        rev="35">
+        rev="36">
 
 <section id="summary">
 
@@ -603,6 +603,75 @@ The directive can be specified on the
 <literal>server</literal> level
 since <link doc="../njs/changes.xml" id="njs0.7.7">0.7.7</link>.
 </note>
+</para>
+
+</directive>
+
+
+<directive name="js_shared_dict_zone">
+<syntax>
+    <literal>zone</literal>=<value>name</value>:<value>size</value>
+    [<literal>timeout</literal>=<value>time</value>]
+    [<literal>type</literal>=<literal>string</literal>|<literal>number</literal>]
+    [<literal>evict</literal>]</syntax>
+<default/>
+<context>stream</context>
+<appeared-in>0.8.0</appeared-in>
+
+<para>
+Sets the <value>name</value> and <value>size</value> of the shared memory zone
+that keeps the key-value dictionary
+shared between worker processes.
+</para>
+
+<para>
+By default the shared dictionary uses a string as a key and a value.
+The optional <literal>type</literal> parameter
+allows redefining the value type to number.
+</para>
+
+<para>
+The optional <literal>timeout</literal> parameter sets
+the time after which all shared dictionary entries are removed from the zone.
+</para>
+
+<para>
+The optional <literal>evict</literal> parameter removes the oldest
+key-value pair when the zone storage is exhausted.
+</para>
+
+<para>
+Examples:
+<example>
+example.conf:
+    # Creates a 1Mb dictionary with string values,
+    # removes key-value pairs after 60 seconds of inactivity:
+    js_shared_dict_zone zone=foo:1M timeout=60s;
+
+    # Creates a 512Kb dictionary with string values,
+    # forcibly removes oldest key-value pairs when the zone is exhausted:
+    js_shared_dict_zone zone=bar:512K timeout=30s evict;
+
+    # Creates a 32Kb permanent dictionary with number values:
+    js_shared_dict_zone zone=num:32k type=number;
+
+example.js:
+    function get(r) {
+        r.return(200, ngx.shared.foo.get(r.args.key));
+    }
+
+    function set(r) {
+        r.return(200, ngx.shared.foo.set(r.args.key, r.args.value));
+    }
+
+    function delete(r) {
+        r.return(200, ngx.shared.bar.delete(r.args.key));
+    }
+
+    function increment(r) {
+        r.return(200, ngx.shared.num.incr(r.args.key, 2));
+    }
+</example>
 </para>
 
 </directive>
