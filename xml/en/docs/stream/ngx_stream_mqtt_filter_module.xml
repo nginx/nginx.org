@@ -62,10 +62,35 @@ Enables the MQTT protocol for the given virtual server.
 
 </directive>
 
+
+<directive name="mqtt_buffers">
+<syntax><value>number</value> <value>size</value></syntax>
+<default>100 1k</default>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.25.1</appeared-in>
+
+<para>
+Sets the <value>number</value> and <value>size</value> of the buffers
+used for handling MQTT messages,
+for a single connection.
+</para>
+
+</directive>
+
+
 <directive name="mqtt_rewrite_buffer_size">
 <syntax><value>size</value></syntax>
 <default>4k|8k</default>
 <context>server</context>
+
+<para>
+<note>
+This directive is obsolete since version 1.25.1.
+The <link id="mqtt_buffers"/>
+directive should be used instead.
+</note>
+</para>
 
 <para>
 Sets the <value>size</value> of the buffer
@@ -76,6 +101,7 @@ It can be made smaller, however.
 </para>
 
 </directive>
+
 
 <directive name="mqtt_set_connect">
 <syntax><literal>field</literal> <value>value</value></syntax>

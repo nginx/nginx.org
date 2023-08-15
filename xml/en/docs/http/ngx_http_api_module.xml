@@ -110,21 +110,22 @@ All API requests include
 a supported API <link id="api_version">version</link> in the URI.
 Examples of API requests with this configuration:
 <example>
-http://127.0.0.1/api/8/
-http://127.0.0.1/api/8/nginx
-http://127.0.0.1/api/8/connections
-http://127.0.0.1/api/8/http/requests
-http://127.0.0.1/api/8/http/server_zones/server_backend
-http://127.0.0.1/api/8/http/caches/cache_backend
-http://127.0.0.1/api/8/http/upstreams/backend
-http://127.0.0.1/api/8/http/upstreams/backend/servers/
-http://127.0.0.1/api/8/http/upstreams/backend/servers/1
-http://127.0.0.1/api/8/http/keyvals/one?key=arg1
-http://127.0.0.1/api/8/stream/
-http://127.0.0.1/api/8/stream/server_zones/server_backend
-http://127.0.0.1/api/8/stream/upstreams/
-http://127.0.0.1/api/8/stream/upstreams/backend
-http://127.0.0.1/api/8/stream/upstreams/backend/servers/1
+http://127.0.0.1/api/9/
+http://127.0.0.1/api/9/nginx
+http://127.0.0.1/api/9/connections
+http://127.0.0.1/api/9/workers
+http://127.0.0.1/api/9/http/requests
+http://127.0.0.1/api/9/http/server_zones/server_backend
+http://127.0.0.1/api/9/http/caches/cache_backend
+http://127.0.0.1/api/9/http/upstreams/backend
+http://127.0.0.1/api/9/http/upstreams/backend/servers/
+http://127.0.0.1/api/9/http/upstreams/backend/servers/1
+http://127.0.0.1/api/9/http/keyvals/one?key=arg1
+http://127.0.0.1/api/9/stream/
+http://127.0.0.1/api/9/stream/server_zones/server_backend
+http://127.0.0.1/api/9/stream/upstreams/
+http://127.0.0.1/api/9/stream/upstreams/backend
+http://127.0.0.1/api/9/stream/upstreams/backend/servers/1
 </example>
 </para>
 
@@ -155,14 +156,14 @@ By default, the API is read-only.
 All API requests should contain a supported API version in the URI.
 If the request URI equals the location prefix,
 the list of supported API versions is returned.
-The current API version is “<literal>8</literal>”.
+The current API version is “<literal>9</literal>”.
 </para>
 
 <para>
 The optional “<literal>fields</literal>” argument in the request line
 specifies which fields of the requested objects will be output:
 <example>
-http://127.0.0.1/api/8/nginx?fields=version,build
+http://127.0.0.1/api/9/nginx?fields=version,build
 </example>
 </para>
 
@@ -206,6 +207,11 @@ redirect</link> happens during request processing.
 
 <para>
 <list type="bullet">
+
+<listitem>
+The <link id="workers_">/workers/</link> data
+were added in <link id="api_version">version</link> 9.
+</listitem>
 
 <listitem>
 Detailed failure counters were added to SSL statistics
@@ -2004,6 +2010,99 @@ Possible responses:
 <list type="bullet">
 <listitem>204 - Success</listitem>
 <listitem>404 - Unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+</list>
+</listitem>
+</list>
+</tag-desc>
+<tag-name id="workers_" name="/workers/">
+<literal>/workers/</literal>
+</tag-name>
+<tag-desc>
+<para>Supported methods:</para>
+<list type="bullet" compact="yes">
+<listitem id="getWorkers">
+<literal>GET</literal> - Return statistics for all worker processes
+<para>Returns statistics for all worker processes such as accepted, dropped, active, idle connections, total and current requests.</para>
+<para>
+Request parameters:
+<list type="tag">
+<tag-name><literal>fields</literal>
+(<literal>string</literal>, optional)</tag-name>
+<tag-desc>
+Limits which fields of worker process statistics will be output.</tag-desc>
+</list>
+</para>
+<para>
+Possible responses:
+</para>
+<list type="bullet">
+<listitem>200 - Success, returns a collection of "<link id="def_nginx_worker">Worker process</link>" objects for all workers</listitem>
+<listitem>404 - Worker not found (<literal>WorkerNotFound</literal>),
+unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+</list>
+</listitem>
+<listitem id="deleteWorkersStat">
+<literal>DELETE</literal> - Reset statistics for all worker processes.
+<para>Resets statistics for all worker processes such as
+accepted, dropped, active, idle connections, total and current requests.</para>
+<para>
+Possible responses:
+</para>
+<list type="bullet">
+<listitem>204 - Success</listitem>
+<listitem>404 - Worker not found (<literal>WorkerNotFound</literal>),
+unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+<listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+</list>
+</listitem>
+</list>
+</tag-desc>
+<tag-name id="workers_worker_id" name="/workers/{workerId}">
+<literal>/workers/{workerId}</literal>
+</tag-name>
+<tag-desc>
+Parameters common for all methods:
+<list type="tag">
+<tag-name><literal>workerId</literal>
+(<literal>string</literal>, required)</tag-name>
+<tag-desc>
+The ID of the worker process.</tag-desc>
+</list>
+<para>Supported methods:</para>
+<list type="bullet" compact="yes">
+<listitem id="getWorker">
+<literal>GET</literal> - Return status of a worker process
+<para>Returns status of a particular worker process.</para>
+<para>
+Request parameters:
+<list type="tag">
+<tag-name><literal>fields</literal>
+(<literal>string</literal>, optional)</tag-name>
+<tag-desc>
+Limits which fields of worker process statistics will be output.</tag-desc>
+</list>
+</para>
+<para>
+Possible responses:
+</para>
+<list type="bullet">
+<listitem>200 - Success, returns <link id="def_nginx_worker">Worker process</link></listitem>
+<listitem>404 - Worker not found (<literal>WorkerNotFound</literal>),
+unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+</list>
+</listitem>
+<listitem id="deleteWorkerStat">
+<literal>DELETE</literal> - Reset statistics for a worker process.
+<para>Resets statistics of accepted, dropped, active, idle connections,
+as well as total and current requests.</para>
+<para>
+Possible responses:
+</para>
+<list type="bullet">
+<listitem>204 - Success</listitem>
+<listitem>404 - Worker not found (<literal>WorkerNotFound</literal>),
+unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
@@ -4342,6 +4441,100 @@ The total number of requests completed with an unknown error.
       "refused" : 0,
       "timedout" : 243,
       "unknown" : 478
+    }
+  }
+}</example>
+</listitem>
+<listitem id="def_nginx_worker">
+<para>Worker process:</para>
+Statistics per each worker process.<list type="tag">
+<tag-name>
+<literal>id</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The ID of the worker process.
+</tag-desc>
+<tag-name>
+<literal>pid</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The PID identifier of the worker process used by the operating system.
+</tag-desc>
+<tag-name>
+<literal>connections</literal></tag-name>
+<tag-desc>
+The number of accepted, dropped, active, and idle connections
+per worker process.<list type="tag">
+<tag-name>
+<literal>accepted</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The total number of client connections
+accepted by the worker process.
+</tag-desc>
+<tag-name>
+<literal>dropped</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The total number of client connections
+dropped by the worker process.
+</tag-desc>
+<tag-name>
+<literal>active</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The current number of active client connections
+that are currently being handled by the worker process.
+</tag-desc>
+<tag-name>
+<literal>idle</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The number of idle client connections
+that are currently being handled by the worker process.
+</tag-desc>
+</list>
+</tag-desc>
+<tag-name>
+<literal>http</literal></tag-name>
+<tag-desc>
+<list type="tag">
+<tag-name>
+<literal>requests</literal></tag-name>
+<tag-desc>
+The total number of client requests handled by the worker process.<list type="tag">
+<tag-name>
+<literal>total</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The total number of client requests received by the worker process.
+</tag-desc>
+<tag-name>
+<literal>current</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The current number of client requests that are currently being processed by the worker process.
+</tag-desc>
+</list>
+</tag-desc>
+</list>
+</tag-desc>
+</list>
+<para>Example:</para>
+<example>
+{
+  "id" : 0,
+  "pid" : 32212,
+  "connections" : {
+    "accepted" : 1,
+    "dropped" : 0,
+    "active" : 1,
+    "idle" : 0
+  },
+  "http" : {
+    "requests" : {
+      "total" : 15,
+      "current" : 1
     }
   }
 }</example>

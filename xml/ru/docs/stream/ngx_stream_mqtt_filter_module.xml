@@ -63,10 +63,35 @@ mqtt_set_connect username "$name";
 
 </directive>
 
+
+<directive name="mqtt_buffers">
+<syntax><value>число</value> <value>размер</value></syntax>
+<default>100 1k</default>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.25.1</appeared-in>
+
+<para>
+Задаёт <value>число</value> и <value>размер</value> буферов,
+необходимых для обработки MQTT-сообщений,
+для одного соединения.
+</para>
+
+</directive>
+
+
 <directive name="mqtt_rewrite_buffer_size">
 <syntax><value>размер</value></syntax>
 <default>4k|8k</default>
 <context>server</context>
+
+<para>
+<note>
+Эта директива устарела начиная с версии 1.25.1.
+Вместо неё следует использовать директиву
+<link id="mqtt_buffers"/>.
+</note>
+</para>
 
 <para>
 Задаёт <value>размер</value> буфера,
@@ -77,6 +102,7 @@ mqtt_set_connect username "$name";
 </para>
 
 </directive>
+
 
 <directive name="mqtt_set_connect">
 <syntax><literal>поле</literal> <value>значение</value></syntax>

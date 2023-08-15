@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: '8.0'
+  version: '9.0'
   title: NGINX Plus REST API
   description: NGINX Plus REST
     [API](https://nginx.org/en/docs/http/ngx_http_api_module.html)
@@ -9,11 +9,12 @@ info:
     key-value pairs management for
     [http](https://nginx.org/en/docs/http/ngx_http_keyval_module.html) and
     [stream](https://nginx.org/en/docs/stream/ngx_stream_keyval_module.html).
-basePath: /api/8
+basePath: /api/9
 tags:
   - name: General Info
   - name: Processes
   - name: Connections
+  - name: Workers
   - name: Slabs
   - name: Resolvers
   - name: SSL
@@ -2095,6 +2096,112 @@ paths:
           description: Success
         '404':
           description: Unknown version (*UnknownVersion*)
+          schema:
+            $ref: '#/definitions/NginxError'
+        '405':
+          description: Method disabled (*MethodDisabled*)
+          schema:
+            $ref: '#/definitions/NginxError'
+  /workers/:
+    get:
+      tags:
+        - Workers
+        - Method GET
+      summary:  Return statistics for all worker processes
+      description: Returns statistics for all worker processes such as accepted, dropped, active, idle connections, total and current requests.
+      operationId: getWorkers
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: fields
+          type: string
+          description: Limits which fields of worker process statistics will be output.
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/NginxWorkersMap'
+        '404':
+          description: |
+            Worker not found (*WorkerNotFound*),
+            unknown version (*UnknownVersion*)
+          schema:
+            $ref: '#/definitions/NginxError'
+    delete:
+      tags:
+        - Workers
+        - Method DELETE
+      summary: Reset statistics for all worker processes.
+      description: |
+        Resets statistics for all worker processes such as
+        accepted, dropped, active, idle connections, total and current requests.
+      operationId: deleteWorkersStat
+      produces:
+        - application/json
+      responses:
+        '204':
+          description: Success
+        '404':
+          description: |
+            Worker not found (*WorkerNotFound*),
+            unknown version (*UnknownVersion*)
+          schema:
+            $ref: '#/definitions/NginxError'
+        '405':
+          description: Method disabled (*MethodDisabled*)
+          schema:
+            $ref: '#/definitions/NginxError'
+  '/workers/{workerId}':
+    parameters:
+      - name: workerId
+        in: path
+        description: The ID of the worker process.
+        required: true
+        type: string
+    get:
+      tags:
+        - Workers
+        - Method GET
+      summary: Return status of a worker process
+      description: Returns status of a particular worker process.
+      operationId: getWorker
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: fields
+          type: string
+          description: Limits which fields of worker process statistics will be output.
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/NginxWorker'
+        '404':
+          description: |
+            Worker not found (*WorkerNotFound*),
+            unknown version (*UnknownVersion*)
+          schema:
+            $ref: '#/definitions/NginxError'
+    delete:
+      tags:
+        - Workers
+        - Method DELETE
+      summary: Reset statistics for a worker process.
+      description: |
+        Resets statistics of accepted, dropped, active, idle connections,
+        as well as total and current requests.
+      operationId: deleteWorkerStat
+      produces:
+        - application/json
+      responses:
+        '204':
+          description: Success
+        '404':
+          description: |
+            Worker not found (*WorkerNotFound*),
+            unknown version (*UnknownVersion*)
           schema:
             $ref: '#/definitions/NginxError'
         '405':
@@ -4622,6 +4729,97 @@ definitions:
           refused: 0
           timedout: 243
           unknown: 478
+  NginxWorker:
+    title: Worker process
+    description: |
+      Statistics per each worker process.
+    properties:
+      id:
+        type: integer
+        description: The ID of the worker process.
+      pid:
+        type: integer
+        description: The PID identifier of the worker process used by the operating system.
+      connections:
+        type: object
+        description: |
+          The number of accepted, dropped, active, and idle connections
+          per worker process.
+        properties:
+          accepted:
+            type: integer
+            description: |
+              The total number of client connections
+              accepted by the worker process.
+          dropped:
+            type: integer
+            description: |
+              The total number of client connections
+              dropped by the worker process.
+          active:
+            type: integer
+            description: |
+              The current number of active client connections
+              that are currently being handled by the worker process.
+          idle:
+            type: integer
+            description: |
+              The number of idle client connections
+              that are currently being handled by the worker process.
+      http:
+        type: object
+        properties:
+          requests:
+            type: object
+            description: The total number of client requests handled by the worker process.
+            properties:
+              total:
+                type: integer
+                description: The total number of client requests received by the worker process.
+              current:
+                type: integer
+                description: The current number of client requests that are currently being processed by the worker process.
+    example:
+      id: 0
+      pid: 32212
+      connections:
+        accepted: 1
+        dropped: 0
+        active: 1
+        idle: 0
+      http:
+        requests:
+          total: 15
+          current: 1
+  NginxWorkersMap:
+    title: Worker processes
+    description: nginx worker processes object.
+    type: object
+    additionalProperties:
+      $ref: '#/definitions/NginxWorker'
+    example:
+      - id: 0
+        pid: 32212
+        connections:
+          accepted: 1
+          dropped: 0
+          active: 1
+          idle: 0
+        http:
+          requests:
+            total: 19
+            current: 1
+      - id: 1
+        pid: 32214
+        connections:
+          accepted: 1
+          dropped: 0
+          active: 1
+          idle: 0
+        http:
+          requests:
+            total: 15
+            current: 0
   NginxError:
     title: Error
     description: |
