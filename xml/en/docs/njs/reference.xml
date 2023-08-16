@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="113">
+        rev="114">
 
 <section id="summary">
 
@@ -202,7 +202,26 @@ Duplicate field values in all other request headers are separated by commas.
 
 <tag-name id="r_headers_out"><literal>r.headersOut{}</literal></tag-name>
 <tag-desc>
-outgoing headers object, writable.
+outgoing headers object for the main request, writable.
+
+<para>
+If <literal>r.headersOut{}</literal> is the response object of
+a <link id="r_subrequest">subrequest</link>, it represents response headers.
+In this case, field values in
+<header>Accept-Ranges</header>,
+<header>Connection</header>,
+<header>Content-Disposition</header>,
+<header>Content-Encoding</header>,
+<header>Content-Length</header>,
+<header>Content-Range</header>,
+<header>Date</header>,
+<header>Keep-Alive</header>,
+<header>Server</header>,
+<header>Transfer-Encoding</header>,
+<header>X-Accel-*</header>
+response headers may be omitted.
+</para>
+
 <para>
 The <header>Foo</header> response header
 can be accessed with the syntax:
