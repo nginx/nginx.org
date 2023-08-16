@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_js_module"
         link="/ru/docs/http/ngx_http_js_module.html"
         lang="ru"
-        rev="38">
+        rev="39">
 
 <section id="summary">
 
@@ -550,7 +550,9 @@ function version(r) {
 <appeared-in>0.7.8</appeared-in>
 
 <para>
-Предварительно загружает неизменяемый объект во время конфигурации.
+Предварительно загружает
+<link doc="../njs/preload_objects.xml">неизменяемый объект</link>
+во время конфигурации.
 <literal>Имя</literal> используется в качестве имени глобальной переменной,
 через которую объект доступен в коде njs.
 Если <literal>имя</literal> не указано,
