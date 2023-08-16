@@ -9,7 +9,7 @@
 <article name="Compatibility"
         link="/en/docs/njs/compatibility.html"
         lang="en"
-        rev="39"
+        rev="40"
         toc="no">
 
 <section>
@@ -1116,6 +1116,23 @@ nginx object methods:
 <link doc="reference.xml" id="ngx_log"><literal>log</literal></link>
 </listitem>
 
+<listitem>
+<link doc="reference.xml" id="ngx_shared"><literal>ngx.shared</literal></link>
+(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>):
+<link doc="reference.xml" id="dict_add"><literal>add</literal></link>,
+<link doc="reference.xml" id="dict_clear"><literal>clear</literal></link>,
+<link doc="reference.xml" id="dict_delete"><literal>delete</literal></link>,
+<link doc="reference.xml" id="dict_incr"><literal>incr</literal></link>,
+<link doc="reference.xml" id="dict_freespace"><literal>freeSpace</literal></link>,
+<link doc="reference.xml" id="dict_get"><literal>get</literal></link>,
+<link doc="reference.xml" id="dict_has"><literal>has</literal></link>,
+<link doc="reference.xml" id="dict_keys"><literal>keys</literal></link>,
+<link doc="reference.xml" id="dict_pop"><literal>pop</literal></link>,
+<link doc="reference.xml" id="dict_replace"><literal>replace</literal></link>,
+<link doc="reference.xml" id="dict_set"><literal>set</literal></link>,
+<link doc="reference.xml" id="dict_size"><literal>size</literal></link>
+</listitem>
+
 </list>
 </listitem>
 
@@ -1205,6 +1222,14 @@ nginx object properties:
 (<link doc="changes.xml" id="njs0.8.0">0.8.0</link>),
 <link doc="reference.xml" id="ngx_worker_id"><literal>worker_id</literal></link>
 (<link doc="changes.xml" id="njs0.8.0">0.8.0</link>)
+</listitem>
+
+<listitem>
+<link doc="reference.xml" id="ngx_shared"><literal>ngx.shared</literal></link>
+(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>):
+<link doc="reference.xml" id="dict_capacity"><literal>capacity</literal></link>,
+<link doc="reference.xml" id="dict_name"><literal>name</literal></link>,
+<link doc="reference.xml" id="dict_name"><literal>type</literal></link>
 </listitem>
 
 </list>

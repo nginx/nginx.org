@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_js_module"
         link="/ru/docs/http/ngx_http_js_module.html"
         lang="ru"
-        rev="40">
+        rev="41">
 
 <section id="summary">
 
@@ -638,7 +638,8 @@ js_preload_object map.json;
 
 <para>
 Задаёт <value>имя</value> и <value>размер</value> зоны разделяемой памяти,
-в которой хранится словарь ключей и значений,
+в которой хранится
+<link doc="../njs/reference.xml" id="dict">словарь</link> ключей и значений,
 разделяемый между рабочими процессами.
 </para>
 

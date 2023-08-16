@@ -9,7 +9,7 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="62"
+        rev="63"
         toc="no">
 
 <section id="njs0.8.0" name="Changes with njs 0.8.0">
@@ -59,7 +59,8 @@ module.
 <listitem>
 <para>
 Feature:
-introduced global nginx properties:
+introduced more global
+<link doc="reference.xml" id="ngx"><literal>nginx</literal></link> properties:
 <link doc="reference.xml" id="ngx_build"><literal>ngx.build</literal></link>,
 <link doc="reference.xml" id="ngx_conf_file_path"><literal>ngx.conf_file_path</literal></link>,
 <link doc="reference.xml" id="ngx_error_log_path"><literal>ngx.error_log_path</literal></link>,
@@ -79,6 +80,15 @@ introduced the <literal>js_shared_dict_zone</literal> directive for
 and
 <link doc="../stream/ngx_stream_js_module.xml" id="js_shared_dict_zone">stream</link>
 that allows declaring a dictionary shared between worker processes.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+introduced global
+<link doc="reference.xml" id="ngx_shared"><literal>nginx.shared</literal></link>
+methods and properties for working with shared dictionaries.
 </para>
 </listitem>
 
