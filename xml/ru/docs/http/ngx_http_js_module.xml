@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_js_module"
         link="/ru/docs/http/ngx_http_js_module.html"
         lang="ru"
-        rev="39">
+        rev="40">
 
 <section id="summary">
 
@@ -682,7 +682,7 @@ example.js:
         r.return(200, ngx.shared.foo.set(r.args.key, r.args.value));
     }
 
-    function delete(r) {
+    function del(r) {
         r.return(200, ngx.shared.bar.delete(r.args.key));
     }
 
