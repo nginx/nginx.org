@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="112">
+        rev="113">
 
 <section id="summary">
 
@@ -595,6 +595,22 @@ the <literal>Promise</literal> object
 that resolves to the <link id="http">subrequest response object</link>
 is returned.
 </para>
+
+<para>
+For example, to view all response headers in the subrequest:
+<example>
+async function handler(r) [
+    let reply = await r.subrequest('/path');
+
+    for (var h in reply.headersOut) {
+        r.log(`${h}: ${reply.headersOut[h]}`);
+    }
+
+    r.return(200);
+}
+</example>
+</para>
+
 </tag-desc>
 
 <tag-name id="r_uri"><literal>r.uri</literal></tag-name>
