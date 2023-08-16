@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="111">
+        rev="112">
 
 <section id="summary">
 
@@ -584,7 +584,7 @@ are mutually exclusive.
 
 <para>
 The completion <literal>callback</literal> receives
-a subrequest response object with methods and properties
+a <link id="http">subrequest response object</link> with methods and properties
 identical to the parent request object.
 </para>
 
@@ -592,7 +592,8 @@ identical to the parent request object.
 Since <link doc="changes.xml" id="njs0.3.8">0.3.8</link>,
 if a <literal>callback</literal> is not provided,
 the <literal>Promise</literal> object
-that resolves to the subrequest response object is returned.
+that resolves to the <link id="http">subrequest response object</link>
+is returned.
 </para>
 </tag-desc>
 
