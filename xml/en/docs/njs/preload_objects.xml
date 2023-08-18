@@ -9,7 +9,7 @@
 <article name="Understanding preloaded objects"
         link="/en/docs/njs/preload_objects.html"
         lang="en"
-        rev="1"
+        rev="2"
         toc="no">
 
 <section id="summary">
@@ -18,11 +18,7 @@
 For each incoming request njs creates a separate virtual machine.
 This brings a lot of benefits such as predictable memory consumption
 or requests isolation.
-</para>
-
-<para>
-However, it also has its own downsides.
-Since all requests are isolated,
+However, as all requests are isolated,
 if a request handler needs to access some data,
 it has to read it by itself.
 This is not efficient especially when the amount of data is large.
