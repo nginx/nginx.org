@@ -5601,7 +5601,7 @@ ngx_http_foo_init(ngx_http_request_t *r)
     }
 
     b->last = ngx_sprintf(b->pos, "%O", len);
-    b->last_buf = (r == r->main) ? 1: 0;
+    b->last_buf = (r == r->main) ? 1 : 0;
     b->last_in_chain = 1;
 
     r->headers_out.status = NGX_HTTP_OK;
@@ -6102,7 +6102,7 @@ ngx_http_bar_content_handler(ngx_http_request_t *r)
         return NGX_ERROR;
     }
 
-    b->last_buf = (r == r->main) ? 1: 0;
+    b->last_buf = (r == r->main) ? 1 : 0;
     b->last_in_chain = 1;
 
     b->memory = 1;
