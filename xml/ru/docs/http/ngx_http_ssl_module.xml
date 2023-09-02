@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_ssl_module"
         link="/ru/docs/http/ngx_http_ssl_module.html"
         lang="ru"
-        rev="61">
+        rev="62">
 
 <section id="summary">
 
@@ -607,6 +607,17 @@ http {
 
 <para>
 Разрешает указанные протоколы.
+</para>
+
+<para>
+Если директива указана на уровне <link id="server"/>, то может
+использоваться значение из сервера по умолчанию.
+Подробнее см. в разделе
+“<link doc="server_names.xml" id="virtual_server_selection">Выбор
+виртуального сервера</link>”.
+</para>
+
+<para>
 <note>
 Параметры <literal>TLSv1.1</literal> и <literal>TLSv1.2</literal>
 (1.1.13, 1.0.12) работают только при использовании OpenSSL 1.0.1 и выше.
