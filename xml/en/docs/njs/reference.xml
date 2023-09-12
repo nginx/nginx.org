@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="115">
+        rev="116">
 
 <section id="summary">
 
@@ -1599,10 +1599,11 @@ since <link doc="changes.xml" id="njs0.8.0">0.8.0</link>.
 <tr><td><link id="dict_capacity"><literal>ngx.shared.SharedDict.capacity</literal></link></td></tr>
 <tr><td><link id="dict_clear"><literal>ngx.shared.SharedDict.clear()</literal></link></td></tr>
 <tr><td><link id="dict_delete"><literal>ngx.shared.SharedDict.delete()</literal></link></td></tr>
-<tr><td><link id="dict_incr"><literal>ngx.shared.SharedDict.incr()</literal></link></td></tr>
 <tr><td><link id="dict_freespace"><literal>ngx.shared.SharedDict.freeSpace()</literal></link></td></tr>
 <tr><td><link id="dict_get"><literal>ngx.shared.SharedDict.get()</literal></link></td></tr>
 <tr><td><link id="dict_has"><literal>ngx.shared.SharedDict.has()</literal></link></td></tr>
+<tr><td><link id="dict_incr"><literal>ngx.shared.SharedDict.incr()</literal></link></td></tr>
+<tr><td><link id="dict_items"><literal>ngx.shared.SharedDict.items()</literal></link></td></tr>
 <tr><td><link id="dict_keys"><literal>ngx.shared.SharedDict.keys()</literal></link></td></tr>
 <tr><td><link id="dict_name"><literal>ngx.shared.SharedDict.name</literal></link></td></tr>
 <tr><td><link id="dict_pop"><literal>ngx.shared.SharedDict.pop()</literal></link></td></tr>
@@ -1669,6 +1670,27 @@ from the <literal>SharedDict</literal> dictionary,
 <literal>false</literal> otherwise.
 </tag-desc>
 
+<tag-name id="dict_freespace"><literal>ngx.shared.SharedDict.freeSpace()</literal></tag-name>
+<tag-desc>
+Returns the free page size in bytes.
+If the size is zero, the <literal>SharedDict</literal> dictionary
+will still accept new values if there is space in the occupied pages.
+</tag-desc>
+
+<tag-name id="dict_get"><literal>ngx.shared.SharedDict.get(<value>key</value>)</literal></tag-name>
+<tag-desc>
+Retrieves the item by its <literal>key</literal>,
+returns the value associated with the <literal>key</literal>
+or <literal>undefined</literal> if there is none.
+</tag-desc>
+
+<tag-name id="dict_has"><literal>ngx.shared.SharedDict.has(<value>key</value>)</literal></tag-name>
+<tag-desc>
+Searches for an item by its <literal>key</literal>,
+returns <literal>true</literal> if such item exists or
+<literal>false</literal> otherwise.
+</tag-desc>
+
 <tag-name id="dict_incr"><literal>ngx.shared.SharedDict.incr(<value>key</value>,<value>delta</value>[,<value>init</value>])</literal></tag-name>
 <tag-desc>
 Increments the integer value associated with the <literal>key</literal>
@@ -1694,25 +1716,14 @@ or
 </note>
 </tag-desc>
 
-<tag-name id="dict_freespace"><literal>ngx.shared.SharedDict.freeSpace()</literal></tag-name>
+<tag-name id="dict_items"><literal>ngx.shared.SharedDict.items([<value>maxCount</value>])</literal></tag-name>
 <tag-desc>
-Returns the free page size in bytes.
-If the size is zero, the <literal>SharedDict</literal> dictionary
-will still accept new values if there is space in the occupied pages.
-</tag-desc>
+Returns an array of the <literal>SharedDict</literal> dictionary
+key-value items (since <link doc="changes.xml" id="njs0.8.1">0.8.1</link>).
+The <literal>maxCount</literal> parameter
+sets maximum number of items to retrieve,
+by default is <literal>1024</literal>.
 
-<tag-name id="dict_get"><literal>ngx.shared.SharedDict.get(<value>key</value>)</literal></tag-name>
-<tag-desc>
-Retrieves the item by its <literal>key</literal>,
-returns the value associated with the <literal>key</literal>
-or <literal>undefined</literal> if there is none.
-</tag-desc>
-
-<tag-name id="dict_has"><literal>ngx.shared.SharedDict.has(<value>key</value>)</literal></tag-name>
-<tag-desc>
-Searches for an item by its <literal>key</literal>,
-returns <literal>true</literal> if such item exists or
-<literal>false</literal> otherwise.
 </tag-desc>
 
 <tag-name id="dict_keys"><literal>ngx.shared.SharedDict.keys([<value>maxCount</value>])</literal></tag-name>
@@ -1721,7 +1732,6 @@ Returns an array of the <literal>SharedDict</literal> dictionary keys.
 The <literal>maxCount</literal> parameter
 sets maximum number of keys to retrieve,
 by default is <literal>1024</literal>.
-
 </tag-desc>
 
 <tag-name id="dict_name"><literal>ngx.shared.SharedDict.name</literal></tag-name>
