@@ -9,8 +9,83 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="63"
+        rev="64"
         toc="no">
+
+<section id="njs0.8.1" name="Changes with njs 0.8.1">
+
+<para>
+Release Date:
+12 September 2023
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+introduced the <literal>js_periodic</literal> directive for
+<link doc="../http/ngx_http_js_module.xml" id="js_periodic">http</link>
+and
+<link doc="../stream/ngx_stream_js_module.xml" id="js_periodic">stream</link>
+that allows specifying a JS handler to run at regular intervals.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+implemented
+<link doc="reference.xml" id="dict_items"><literal>items()</literal></link>
+method of a
+<link doc="reference.xml" id="ngx_shared">shared dictionary</link>.
+The method returns all the non-expired key-value pairs.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<link doc="reference.xml" id="dict_size"><literal>size()</literal></link>
+and
+<link doc="reference.xml" id="dict_keys"><literal>keys()</literal></link>
+methods of a
+<link doc="reference.xml" id="ngx_shared">shared dictionary</link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed erroneous exception in
+<link doc="reference.xml" id="r_internal_redirect"><literal>r.internalRedirect()</literal></link>
+introduced in <link id="njs0.8.0">0.8.0</link>.
+</para>
+</listitem>
+
+</list>
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Bugfix:
+fixed incorrect order of keys in
+<literal>Object.getOwnPropertyNames()</literal>.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.8.0" name="Changes with njs 0.8.0">
 

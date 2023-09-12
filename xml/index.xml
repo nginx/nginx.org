@@ -7,6 +7,18 @@
 
 <news name="nginx news" link="/" lang="en">
 
+<event date="2023-09-12">
+<para>
+<link doc="en/docs/njs/index.xml">njs-0.8.1</link>
+version has been
+<link doc="en/docs/njs/changes.xml" id="njs0.8.1">released</link>,
+featuring the <literal>js_periodic</literal> directive for
+<link doc="en/docs/http/ngx_http_js_module.xml" id="js_periodic">http</link>
+and
+<link doc="en/docs/stream/ngx_stream_js_module.xml" id="js_periodic">stream</link>.
+</para>
+</event>
+
 <event date="2023-08-31">
 <para>
 <link url="https://unit.nginx.org/">unit-1.31.0</link> version has been
