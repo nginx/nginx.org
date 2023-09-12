@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_js_module"
         link="/ru/docs/stream/ngx_stream_js_module.html"
         lang="ru"
-        rev="39">
+        rev="40">
 
 <section id="summary">
 
@@ -550,6 +550,80 @@ js_preload_object map.json;
 на уровне <literal>server</literal>
 начиная с <link doc="../njs/changes.xml" id="njs0.7.7">0.7.7</link>.
 </note>
+</para>
+
+</directive>
+
+
+<directive name="js_periodic">
+<syntax><value>функция</value> |
+        <value>модуль.функция</value>
+        [<literal>interval</literal>=<value>время</value>]
+        [<literal>jitter</literal>=<value>число</value>]
+        [<literal>worker_affinity</literal>=<value>маска</value>]</syntax>
+<default/>
+<context>server</context>
+<appeared-in>0.8.1</appeared-in>
+
+<para>
+Задаёт периодичность запуска обработчика содержимого.
+В качестве первого аргумента обработчик получает объект сессии,
+также у обработчика есть доступ к глобальным объектам таким как
+<link doc="../njs/reference.xml" id="ngx">ngx</link>.
+</para>
+
+<para>
+Необязательный параметр <literal>interval</literal>
+задаёт интервал между двумя последовательными запусками,
+по умолчанию 5 секунд.
+</para>
+
+<para>
+Необязательный параметр <literal>jitter</literal>
+задаёт время, в пределах которого
+случайным образом задерживается каждый запуск,
+по умолчанию задержки нет.
+</para>
+
+<para>
+По умолчанию <literal>js_handler</literal> выполняется для рабочего процесса 0.
+Необязательный параметр <literal>worker_affinity</literal>
+позволяет указать рабочий процесс,
+для которого будет выполняться обработчик содержимого location.
+Рабочие процессы задаются битовой маской разрешённых к использованию рабочих
+процессов.
+Маска <literal>all</literal> позволяет обработчику выполняться
+для всех рабочих процессов.
+</para>
+
+<para>
+Пример:
+<example>
+example.conf:
+
+location @periodics {
+    # интервал выполнения 1 минута для рабочего процесса 0
+    js_periodic main.handler interval=60s;
+
+    # интервал выполнения 1 минута для всех рабочих процессов
+    js_periodic main.handler interval=60s worker_affinity=all;
+
+    # интервал выполнения 1 минута для рабочих процессов 1 и 3
+    js_periodic main.handler interval=60s worker_affinity=0101;
+
+    resolver 10.0.0.1;
+    js_fetch_trusted_certificate /path/to/ISRG_Root_X1.pem;
+}
+
+example.js:
+
+async function handler(s) {
+    let reply = async ngx.fetch('https://nginx.org/en/docs/njs/');
+    let body = async reply.text();
+
+    ngx.log(ngx.INFO, body);
+}
+</example>
 </para>
 
 </directive>

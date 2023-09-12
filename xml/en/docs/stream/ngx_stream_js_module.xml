@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_js_module"
         link="/en/docs/stream/ngx_stream_js_module.html"
         lang="en"
-        rev="39">
+        rev="41">
 
 <section id="summary">
 
@@ -458,6 +458,78 @@ since <link doc="../njs/changes.xml" id="njs0.7.7">0.7.7</link>.
 </directive>
 
 
+<directive name="js_periodic">
+<syntax><value>function</value> |
+        <value>module.function</value>
+        [<literal>interval</literal>=<value>time</value>]
+        [<literal>jitter</literal>=<value>number</value>]
+        [<literal>worker_affinity</literal>=<value>mask</value>]</syntax>
+<default/>
+<context>server</context>
+<appeared-in>0.8.1</appeared-in>
+
+<para>
+Specifies a content handler to run at regular interval.
+The handler receives a session object as its first argument,
+it also has access to global objects such as
+<link doc="../njs/reference.xml" id="ngx">ngx</link>.
+</para>
+
+<para>
+The optional <literal>interval</literal> parameter
+sets the interval between two consecutive runs,
+by default, 5 seconds.
+</para>
+
+<para>
+The optional <literal>jitter</literal> parameter sets the time within which
+the location content handler will be randomly delayed,
+by default, there is no delay.
+</para>
+
+<para>
+By default, the <literal>js_handler</literal> is executed on worker process 0.
+The optional <literal>worker_affinity</literal> parameter
+allows specifying particular worker processes
+where the location content handler should be executed.
+Each worker process set is represented by a bitmask of allowed worker processes.
+The <literal>all</literal> mask allows the handler to be executed
+in all worker processes.
+</para>
+
+<para>
+Example:
+<example>
+example.conf:
+
+location @periodics {
+    # to be run at 1 minute intervals in worker process 0
+    js_periodic main.handler interval=60s;
+
+    # to be run at 1 minute intervals in all worker processes
+    js_periodic main.handler interval=60s worker_affinity=all;
+
+    # to be run at 1 minute intervals in worker processes 1 and 3
+    js_periodic main.handler interval=60s worker_affinity=0101;
+
+    resolver 10.0.0.1;
+    js_fetch_trusted_certificate /path/to/ISRG_Root_X1.pem;
+}
+
+example.js:
+
+async function handler(s) {
+    let reply = async ngx.fetch('https://nginx.org/en/docs/njs/');
+    let body = async reply.text();
+
+    ngx.log(ngx.INFO, body);
+}
+</example>
+</para>
+
+</directive>
+
+
 <directive name="js_preload_object">
 <syntax><value>name.json</value> |
 <value>name</value> from <value>file.json</value></syntax>
@@ -644,7 +716,7 @@ key-value pair when the zone storage is exhausted.
 </para>
 
 <para>
-Examples:
+Example:
 <example>
 example.conf:
     # Creates a 1Mb dictionary with string values,
