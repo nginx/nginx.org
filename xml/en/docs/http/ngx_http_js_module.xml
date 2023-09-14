@@ -9,7 +9,7 @@
 <module name="Module ngx_http_js_module"
         link="/en/docs/http/ngx_http_js_module.html"
         lang="en"
-        rev="42">
+        rev="43">
 
 <section id="summary">
 
@@ -602,8 +602,8 @@ location @periodics {
 example.js:
 
 async function handler(s) {
-    let reply = async ngx.fetch('https://nginx.org/en/docs/njs/');
-    let body = async reply.text();
+    let reply = await ngx.fetch('https://nginx.org/en/docs/njs/');
+    let body = await reply.text();
 
     ngx.log(ngx.INFO, body);
 }
