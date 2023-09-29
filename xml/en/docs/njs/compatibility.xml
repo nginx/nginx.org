@@ -9,7 +9,7 @@
 <article name="Compatibility"
         link="/en/docs/njs/compatibility.html"
         lang="en"
-        rev="41"
+        rev="42"
         toc="no">
 
 <section>
@@ -1180,6 +1180,14 @@ nginx object properties:
 <link doc="reference.xml" id="s_variables"><literal>s.variables</literal></link>
 (<link doc="changes.xml" id="njs0.2.8">0.2.8</link>)
 </listitem>
+
+<listitem>
+<link doc="reference.xml" id="periodic_session"><literal>Periodic Session</literal></link>
+(<link doc="changes.xml" id="njs0.8.1">0.8.1</link>):
+<link doc="reference.xml" id="periodic_session_raw_variables"><literal>PeriodicSession.rawVariables</literal></link>,
+<link doc="reference.xml" id="periodic_session_variables"><literal>PeriodicSession.variables</literal></link>
+</listitem>
+
 
 <listitem>
 <link doc="reference.xml" id="request"><literal>Request</literal></link>

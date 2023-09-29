@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_js_module"
         link="/en/docs/stream/ngx_stream_js_module.html"
         lang="en"
-        rev="42">
+        rev="43">
 
 <section id="summary">
 
@@ -470,7 +470,9 @@ since <link doc="../njs/changes.xml" id="njs0.7.7">0.7.7</link>.
 
 <para>
 Specifies a content handler to run at regular interval.
-The handler receives a session object as its first argument,
+The handler receives a
+<link doc="../njs/reference.xml" id="periodic_session">session object</link>
+as its first argument,
 it also has access to global objects such as
 <link doc="../njs/reference.xml" id="ngx">ngx</link>.
 </para>

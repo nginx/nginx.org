@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="116">
+        rev="117">
 
 <section id="summary">
 
@@ -1000,6 +1000,44 @@ maximum line length limit,
 only first 2048 bytes of the string can be logged.
 </note>
 </para>
+</tag-desc>
+
+</list>
+</para>
+
+</section>
+
+
+<section id="periodic_session" name="Periodic Session">
+
+<para>
+<table width="100%">
+<tr><td><link id="periodic_session_raw_variables"><literal>PeriodicSession.rawVariables{}</literal></link></td></tr>
+<tr><td><link id="periodic_session_variables"><literal>PeriodicSession.variables{}</literal></link></td></tr>
+</table>
+</para>
+
+<para>
+The <literal>Periodic Session</literal> object is provided as the first argument
+for the <literal>js_periodic</literal> handler for
+<link doc="../http/ngx_http_js_module.xml" id="js_periodic">http</link>
+and
+<link doc="../stream/ngx_stream_js_module.xml" id="js_periodic">stream</link>
+(since <link doc="changes.xml" id="njs0.8.1">0.8.1</link>).
+</para>
+
+<para>
+<list type="tag">
+
+<tag-name id="periodic_session_raw_variables"><literal>PeriodicSession.rawVariables{}</literal></tag-name>
+<tag-desc>
+nginx <link id="periodic_session_variables">variables</link> as Buffers,
+writable.
+</tag-desc>
+
+<tag-name id="periodic_session_variables"><literal>PeriodicSession.variables{}</literal></tag-name>
+<tag-desc>
+<link doc="../varindex.xml">nginx variables</link> object, writable.
 </tag-desc>
 
 </list>

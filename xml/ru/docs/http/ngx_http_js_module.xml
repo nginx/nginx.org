@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_js_module"
         link="/ru/docs/http/ngx_http_js_module.html"
         lang="ru"
-        rev="43">
+        rev="44">
 
 <section id="summary">
 
@@ -554,7 +554,8 @@ function version(r) {
 
 <para>
 Задаёт периодичность запуска обработчика содержимого.
-В качестве первого аргумента обработчик получает объект сессии,
+В качестве первого аргумента обработчик получает
+<link doc="../njs/reference.xml" id="periodic_session">объект сессии</link>,
 также у обработчика есть доступ к глобальным объектам таким как
 <link doc="../njs/reference.xml" id="ngx">ngx</link>.
 </para>
