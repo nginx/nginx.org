@@ -9,7 +9,7 @@
 <article name="Совместимость"
         link="/ru/docs/njs/compatibility.html"
         lang="ru"
-        rev="42"
+        rev="43"
         toc="no">
 
 <section>
@@ -979,6 +979,17 @@ ES6 поддержка стрелочных функций
 Глобальные объекты
 (<link doc="changes.xml" id="njs0.3.3">0.3.3</link>):
 <list type="bullet">
+
+<listitem>
+<link doc="reference.xml" id="console"><literal>console</literal></link>
+(<link doc="changes.xml" id="njs0.8.2">0.8.2</link>):
+<link doc="reference.xml" id="console_error"><literal>error</literal></link>,
+<link doc="reference.xml" id="console_info"><literal>info</literal></link>,
+<link doc="reference.xml" id="console_log"><literal>log</literal></link>,
+<link doc="reference.xml" id="console_time"><literal>time</literal></link>,
+<link doc="reference.xml" id="console_time_end"><literal>timeEnd</literal></link>,
+<link doc="reference.xml" id="console_warn"><literal>warn</literal></link>
+</listitem>
 
 <listitem>
 <link doc="reference.xml" id="builtin_crypto"><literal>crypto</literal></link>

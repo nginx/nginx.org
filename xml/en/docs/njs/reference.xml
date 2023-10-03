@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="117">
+        rev="118">
 
 <section id="summary">
 
@@ -1838,6 +1838,72 @@ or
 
 
 <section id="builtin_objects" name="built-in objects">
+
+
+<section id="console" name="console">
+
+<para>
+<table width="100%">
+<tr><td><link id="console_error"><literal>console.error()</literal></link></td></tr>
+<tr><td><link id="console_info"><literal>console.info()</literal></link></td></tr>
+<tr><td><link id="console_log"><literal>console.log()</literal></link></td></tr>
+<tr><td><link id="console_time"><literal>console.time()</literal></link></td></tr>
+<tr><td><link id="console_time_end"><literal>console.timeEnd()</literal></link></td></tr>
+<tr><td><link id="console_warn"><literal>console.warn()</literal></link></td></tr>
+</table>
+</para>
+
+<para>
+The <literal>console</literal> object is available
+in nginx since <link doc="changes.xml" id="njs0.8.2">0.8.2</link>,
+in CLI since <link doc="changes.xml" id="njs0.2.6">0.2.6</link>.
+<list type="tag">
+
+<tag-name id="console_error"><literal>console.error(<value>msg</value>[, <value>msg2</value> ...])</literal></tag-name>
+<tag-desc>
+Outputs one or more error messages.
+The message may be a string or an object.
+</tag-desc>
+
+<tag-name id="console_info"><literal>console.info(<value>msg</value>[, <value>msg2</value> ...])</literal></tag-name>
+<tag-desc>
+Outputs one or more info messages.
+The message may be a string or an object.
+</tag-desc>
+
+<tag-name id="console_log"><literal>console.log(<value>msg</value>[, <value>msg2</value> ...])</literal></tag-name>
+<tag-desc>
+Outputs one or more log messages.
+The message may be a string or an object.
+</tag-desc>
+
+<tag-name id="console_time"><literal>console.time(<value>label</value>)</literal></tag-name>
+<tag-desc>
+Starts a timer that can track how long an operation takes.
+The <literal>label</literal> parameter allows naming different timers.
+If <link id="console_time_end"><literal>console.timeEnd()</literal></link>
+with the same name is called,
+the time that elapsed since the timer was started will be output,
+in milliseconds.
+</tag-desc>
+
+<tag-name id="console_time_end"><literal>console.timeEnd(<value>label</value>)</literal></tag-name>
+<tag-desc>
+Stops a timer previously started by
+<link id="console_time"><literal>console.time()</literal></link>
+The <literal>label</literal> parameter allows naming different timers.
+</tag-desc>
+
+<tag-name id="console_warn"><literal>console.warn(<value>msg</value>[, <value>msg2</value> ...])</literal></tag-name>
+<tag-desc>
+Outputs one or more warning messages.
+The message may be a string or an object.
+</tag-desc>
+
+</list>
+</para>
+
+</section>
 
 
 <section id="builtin_crypto" name="crypto">

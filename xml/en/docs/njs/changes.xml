@@ -9,7 +9,7 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="64"
+        rev="65"
         toc="no">
 
 <section id="njs0.8.1" name="Changes with njs 0.8.1">
@@ -5087,8 +5087,10 @@ making global object mutable.
 <listitem>
 <para>
 Feature:
-<literal>console.time()</literal> and
-<literal>console.timeEnd()</literal> methods.
+<link doc="reference.xml" id="console_time"><literal>console.time()</literal></link>
+and
+<link doc="reference.xml" id="console_time_end"><literal>console.timeEnd()</literal></link>
+methods.
 </para>
 </listitem>
 
