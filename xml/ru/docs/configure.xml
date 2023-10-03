@@ -8,7 +8,7 @@
 <article name="Сборка nginx из исходных файлов"
          link="/ru/docs/configure.html"
          lang="ru"
-         rev="22">
+         rev="23">
 
 <section>
 
@@ -1250,7 +1250,7 @@ HTTP-сервера.
 <tag-desc>
 задаёт путь к исходным текстам библиотеки zlib.
 Дистрибутив библиотеки (версию
-1.1.3&mdash;1.2.11) нужно взять на сайте
+1.1.3&mdash;1.3) нужно взять на сайте
 <link url="http://zlib.net">zlib</link> и распаковать.
 Всё остальное сделают <command>./configure</command> nginx’а и
 <command>make</command>.
@@ -1339,7 +1339,7 @@ HTTP-сервера.
     --pid-path=/usr/local/nginx/nginx.pid
     --with-http_ssl_module
     --with-pcre=../pcre2-10.39
-    --with-zlib=../zlib-1.2.11
+    --with-zlib=../zlib-1.3
 </programlisting>
 </para>
 
