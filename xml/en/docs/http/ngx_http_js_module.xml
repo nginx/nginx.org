@@ -9,7 +9,7 @@
 <module name="Module ngx_http_js_module"
         link="/en/docs/http/ngx_http_js_module.html"
         lang="en"
-        rev="44">
+        rev="45">
 
 <section id="summary">
 
@@ -547,8 +547,6 @@ since <link doc="../njs/changes.xml" id="njs0.7.7">0.7.7</link>.
         [<literal>worker_affinity</literal>=<value>mask</value>]</syntax>
 <default/>
 <context>location</context>
-<context>if in location</context>
-<context>limit_except</context>
 <appeared-in>0.8.1</appeared-in>
 
 <para>

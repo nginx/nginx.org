@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_js_module"
         link="/ru/docs/http/ngx_http_js_module.html"
         lang="ru"
-        rev="44">
+        rev="45">
 
 <section id="summary">
 
@@ -548,8 +548,6 @@ function version(r) {
         [<literal>worker_affinity</literal>=<value>маска</value>]</syntax>
 <default/>
 <context>location</context>
-<context>if in location</context>
-<context>limit_except</context>
 <appeared-in>0.8.1</appeared-in>
 
 <para>
