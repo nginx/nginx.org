@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="118">
+        rev="119">
 
 <section id="summary">
 
@@ -4867,18 +4867,28 @@ undefined
 <tr><td><link id="fs_mkdirsync"><literal>fs.mkdirSync()</literal></link></td></tr>
 <tr><td><link id="fs_opensync"><literal>fs.openSync()</literal></link></td></tr>
 <tr><td><link id="fs_promises_open"><literal>fs.promises.open()</literal></link></td></tr>
-<tr><td><link id="fs_readsync"><literal>fs.readSync()</literal></link></td></tr>
 <tr><td><link id="fs_readdirsync"><literal>fs.readdirSync()</literal></link></td></tr>
 <tr><td><link id="fs_readfilesync"><literal>fs.readFileSync()</literal></link></td></tr>
+<tr><td><link id="fs_readsync"><literal>fs.readSync()</literal></link></td></tr>
 <tr><td><link id="fs_realpathsync"><literal>fs.realpathSync()</literal></link></td></tr>
 <tr><td><link id="fs_renamesync"><literal>fs.renameSync()</literal></link></td></tr>
 <tr><td><link id="fs_rmdirsync"><literal>fs.rmdirSync()</literal></link></td></tr>
 <tr><td><link id="fs_statsync"><literal>fs.statSync()</literal></link></td></tr>
 <tr><td><link id="fs_symlinksync"><literal>fs.symlinkSync()</literal></link></td></tr>
-<tr><td><link id="fs_writesync_buf"><literal>fs.writeSync()</literal></link></td></tr>
-<tr><td><link id="fs_writesync_str"><literal>fs.writeSync()</literal></link></td></tr>
 <tr><td><link id="fs_unlinksync"><literal>fs.unlinkSync()</literal></link></td></tr>
 <tr><td><link id="fs_writefilesync"><literal>fs.writeFileSync()</literal></link></td></tr>
+<tr><td><link id="fs_writesync_buf"><literal>fs.writeSync()</literal></link></td></tr>
+<tr><td><link id="fs_writesync_str"><literal>fs.writeSync()</literal></link></td></tr>
+</table>
+</para>
+
+<para>
+<table width="100%">
+<tr><td><link id="fs_dirent"><literal>fs.Dirent</literal></link></td></tr>
+<tr><td><link id="fs_filehandle"><literal>fs.FileHandle</literal></link></td></tr>
+<tr><td><link id="fs_stats"><literal>fs.Stats</literal></link></td></tr>
+<tr><td><link id="access_const"><literal>File Access Constants</literal></link></td></tr>
+<tr><td><link id="njs_api_fs_flags"><literal>File System Flags</literal></link></td></tr>
 </table>
 </para>
 
@@ -5045,53 +5055,6 @@ mode option, by default is <literal>0o666</literal>
 </list>
 </tag-desc>
 
-<tag-name id="fs_readsync"><literal>readSync(<value>fd</value>,
-<value>buffer</value>, <value>offset</value>[,
-<value>length</value>[, <value>position</value>]])</literal></tag-name>
-<tag-desc>
-Reads the content of a file path using file descriptor <literal>fd</literal>,
-returns the number of bytes read
-(<link doc="changes.xml" id="njs0.7.7">0.7.7</link>).
-
-<list type="tag">
-
-<tag-name><literal>buffer</literal></tag-name>
-<tag-desc>
-the <literal>buffer</literal> value can be a
-<literal>Buffer</literal>,
-<literal>TypedArray</literal>, or
-<literal>DataView</literal>
-</tag-desc>
-
-<tag-name><literal>offset</literal></tag-name>
-<tag-desc>
-is an <literal>integer</literal> representing
-the position in buffer to write the data to
-</tag-desc>
-
-<tag-name><literal>length</literal></tag-name>
-<tag-desc>
-is an <literal>integer</literal> representing
-the number of bytes to read
-</tag-desc>
-
-<tag-name><literal>position</literal></tag-name>
-<tag-desc>
-specifies where to begin reading from in the file,
-the value can be
-<literal>integer</literal> or
-<literal>null</literal>,
-by default is <literal>null</literal>.
-If <literal>position</literal> is <literal>null</literal>,
-data will be read from the current file position,
-and the file position will be updated.
-If position is an <literal>integer</literal>,
-the file position will be unchanged
-</tag-desc>
-</list>
-
-</tag-desc>
-
 <tag-name id="fs_readdirsync"><literal>readdirSync(<value>path</value>[,
 <value>options</value>])</literal></tag-name>
 <tag-desc>
@@ -5168,6 +5131,53 @@ true
 </example>
 </tag-desc>
 
+<tag-name id="fs_readsync"><literal>readSync(<value>fd</value>,
+<value>buffer</value>, <value>offset</value>[,
+<value>length</value>[, <value>position</value>]])</literal></tag-name>
+<tag-desc>
+Reads the content of a file path using file descriptor <literal>fd</literal>,
+returns the number of bytes read
+(<link doc="changes.xml" id="njs0.7.7">0.7.7</link>).
+
+<list type="tag">
+
+<tag-name><literal>buffer</literal></tag-name>
+<tag-desc>
+the <literal>buffer</literal> value can be a
+<literal>Buffer</literal>,
+<literal>TypedArray</literal>, or
+<literal>DataView</literal>
+</tag-desc>
+
+<tag-name><literal>offset</literal></tag-name>
+<tag-desc>
+is an <literal>integer</literal> representing
+the position in buffer to write the data to
+</tag-desc>
+
+<tag-name><literal>length</literal></tag-name>
+<tag-desc>
+is an <literal>integer</literal> representing
+the number of bytes to read
+</tag-desc>
+
+<tag-name><literal>position</literal></tag-name>
+<tag-desc>
+specifies where to begin reading from in the file,
+the value can be
+<literal>integer</literal> or
+<literal>null</literal>,
+by default is <literal>null</literal>.
+If <literal>position</literal> is <literal>null</literal>,
+data will be read from the current file position,
+and the file position will be updated.
+If position is an <literal>integer</literal>,
+the file position will be unchanged
+</tag-desc>
+</list>
+
+</tag-desc>
+
 <tag-name id="fs_realpathsync"><literal>realpathSync(<value>path</value>[,
 <value>options</value>])</literal></tag-name>
 <tag-desc>
@@ -5231,6 +5241,45 @@ pointing to <literal>target</literal> using
 <link url="http://man7.org/linux/man-pages/man2/symlink.2.html">symlink(2)</link>
 (<link doc="changes.xml" id="njs0.3.9">0.3.9</link>).
 Relative targets are relative to the link’s parent directory.
+</tag-desc>
+
+<tag-name id="fs_unlinksync"><literal>unlinkSync(<value>path</value>)</literal></tag-name>
+<tag-desc>
+Synchronously unlinks a file by <literal>path</literal>
+(<link doc="changes.xml" id="njs0.3.9">0.3.9</link>).
+</tag-desc>
+
+<tag-name id="fs_writefilesync"><literal>writeFileSync(<value>filename</value>,
+<value>data</value>[,
+<value>options</value>])</literal></tag-name>
+<tag-desc>
+Synchronously writes <literal>data</literal> to a file
+with provided <literal>filename</literal>.
+The <literal>data</literal> is expected to be a string
+or a Buffer object (<link doc="changes.xml" id="njs0.4.4">0.4.4</link>).
+If the file does not exist, it will be created,
+if the file exists, it will be replaced.
+The <literal>options</literal> parameter is expected to be
+an object with the following keys:
+<list type="tag">
+<tag-name><literal>mode</literal></tag-name>
+<tag-desc>
+mode option, by default is <literal>0o666</literal>
+</tag-desc>
+
+<tag-name><literal>flag</literal></tag-name>
+<tag-desc>
+file system <link id="njs_api_fs_flags">flag</link>,
+by default is <literal>w</literal>
+</tag-desc>
+
+</list>
+<example>
+>> var fs = require('fs')
+undefined
+>> var file = fs.writeFileSync('hello.txt', 'Hello world')
+undefined
+</example>
 </tag-desc>
 
 <tag-name id="fs_writesync_buf"><literal>writeSync(<value>fd</value>,
@@ -5320,45 +5369,6 @@ by default is <literal>utf8</literal>
 </tag-desc>
 </list>
 
-</tag-desc>
-
-<tag-name id="fs_unlinksync"><literal>unlinkSync(<value>path</value>)</literal></tag-name>
-<tag-desc>
-Synchronously unlinks a file by <literal>path</literal>
-(<link doc="changes.xml" id="njs0.3.9">0.3.9</link>).
-</tag-desc>
-
-<tag-name id="fs_writefilesync"><literal>writeFileSync(<value>filename</value>,
-<value>data</value>[,
-<value>options</value>])</literal></tag-name>
-<tag-desc>
-Synchronously writes <literal>data</literal> to a file
-with provided <literal>filename</literal>.
-The <literal>data</literal> is expected to be a string
-or a Buffer object (<link doc="changes.xml" id="njs0.4.4">0.4.4</link>).
-If the file does not exist, it will be created,
-if the file exists, it will be replaced.
-The <literal>options</literal> parameter is expected to be
-an object with the following keys:
-<list type="tag">
-<tag-name><literal>mode</literal></tag-name>
-<tag-desc>
-mode option, by default is <literal>0o666</literal>
-</tag-desc>
-
-<tag-name><literal>flag</literal></tag-name>
-<tag-desc>
-file system <link id="njs_api_fs_flags">flag</link>,
-by default is <literal>w</literal>
-</tag-desc>
-
-</list>
-<example>
->> var fs = require('fs')
-undefined
->> var file = fs.writeFileSync('hello.txt', 'Hello world')
-undefined
-</example>
 </tag-desc>
 
 </list>
