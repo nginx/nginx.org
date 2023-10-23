@@ -9,7 +9,7 @@
 <article name="Compatibility"
         link="/en/docs/njs/compatibility.html"
         lang="en"
-        rev="43"
+        rev="44"
         toc="no">
 
 <section>
@@ -863,6 +863,9 @@ functions
 <link doc="reference.xml" id="fs_accesssync"><literal>fs.accessSync</literal></link>
 (<link doc="changes.xml" id="njs0.3.9">0.3.9</link>),
 <link doc="reference.xml" id="appendfilesync"><literal>fs.appendFileSync</literal></link>,
+<link doc="reference.xml" id="fs_closesync"><literal>fs.closeSync</literal></link>,
+<link doc="reference.xml" id="fs_existssync"><literal>fs.existsSync</literal></link>
+(<link doc="changes.xml" id="njs0.8.2">0.8.2</link>),
 <link doc="reference.xml" id="fs_filehandle"><literal>fs.FileHandle</literal></link>
 (<link doc="changes.xml" id="njs0.7.7">0.7.7</link>),
 <link doc="reference.xml" id="fs_fstatsync"><literal>fs.fstatSync</literal></link>

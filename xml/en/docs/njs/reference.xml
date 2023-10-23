@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="119">
+        rev="120">
 
 <section id="summary">
 
@@ -4862,6 +4862,8 @@ undefined
 <table width="100%">
 <tr><td><link id="fs_accesssync"><literal>fs.accessSync()</literal></link></td></tr>
 <tr><td><link id="fs_appendfilesync"><literal>fs.appendFileSync()</literal></link></td></tr>
+<tr><td><link id="fs_closesync"><literal>fs.closeSync()</literal></link></td></tr>
+<tr><td><link id="fs_existssync"><literal>fs.existsSync()</literal></link></td></tr>
 <tr><td><link id="fs_fstatsync"><literal>fs.fstatSync()</literal></link></td></tr>
 <tr><td><link id="fs_lstatsync"><literal>fs.lstatSync()</literal></link></td></tr>
 <tr><td><link id="fs_mkdirsync"><literal>fs.mkdirSync()</literal></link></td></tr>
@@ -4961,6 +4963,20 @@ by default is <literal>a</literal>
 </tag-desc>
 
 </list>
+</tag-desc>
+
+<tag-name id="fs_closesync"><literal>closeSync(<value>fd</value>)</literal></tag-name>
+<tag-desc>
+Closes the <literal>fd</literal> file descriptor represented by an integer
+used by the method.
+Returns <literal>undefined</literal>.
+</tag-desc>
+
+<tag-name id="fs_existssync"><literal>existsSync(<value>path</value>)</literal></tag-name>
+<tag-desc>
+Boolean value, returns
+<literal>true</literal> if the specified <value>path</value> exists.
+(<link doc="changes.xml" id="njs0.8.2">0.8.2</link>)
 </tag-desc>
 
 <tag-name id="fs_fstatsync"><literal>fstatSync(<value>fd</value>)</literal></tag-name>
