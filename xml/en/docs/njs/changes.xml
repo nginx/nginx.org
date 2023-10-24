@@ -9,8 +9,103 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="65"
+        rev="66"
         toc="no">
+
+<section id="njs0.8.2" name="Changes with njs 0.8.2">
+
+<para>
+Release Date:
+24 October 2023
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+introduced
+<link doc="reference.xml" id="console">console</link> object.
+The following methods were introduced:
+<link doc="reference.xml" id="console_error"><literal>error()</literal></link>,
+<link doc="reference.xml" id="console_info"><literal>info()</literal></link>,
+<link doc="reference.xml" id="console_log"><literal>log()</literal></link>,
+<link doc="reference.xml" id="console_time"><literal>time()</literal></link>,
+<link doc="reference.xml" id="console_time_end"><literal>timeEnd()</literal></link>,
+<link doc="reference.xml" id="console_warn"><literal>warn()</literal></link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<literal>HEAD</literal> response handling with large Content-Length in
+<link doc="reference.xml" id="ngx_fetch">Fetch API</link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<link doc="reference.xml" id="dict_items"><literal>items()</literal></link>
+method for a shared dictionary.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<link doc="reference.xml" id="dict_delete"><literal>delete()</literal></link>
+method for a shared dictionary.
+</para>
+</listitem>
+
+</list>
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+extended
+<link doc="reference.xml" id="njs_api_fs"><literal>fs</literal></link> module.
+Added
+<link doc="reference.xml" id="fs_existssync"><literal>fs.existsSync()</literal></link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<link doc="reference.xml" id="xml"><literal>xml</literal></link> module.
+Broken XML exception handling in
+<link doc="reference.xml" id="xml_parse"><literal>xml.parse()</literal></link>
+method was fixed.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<literal>Regexp.prototype.exec()</literal> with global regexp and Unicode input.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.8.1" name="Changes with njs 0.8.1">
 
