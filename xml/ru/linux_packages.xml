@@ -7,7 +7,7 @@
 <article name="nginx: пакеты для Linux"
          link="/ru/linux_packages.html"
          lang="ru"
-         rev="90">
+         rev="91">
 
 <section name="Поддерживаемые дистрибутивы и версии" id="distributions">
 
@@ -650,6 +650,11 @@ nginx-module-image-filter
 nginx-module-njs
 nginx-module-perl
 nginx-module-xslt
+</programlisting>
+В дополнение к этому, начиная с версии 1.25.3 следующий модуль поставляется
+в виде отдельного пакета:
+<programlisting>
+nginx-module-otel
 </programlisting>
 </para>
 

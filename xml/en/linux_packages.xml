@@ -7,7 +7,7 @@
 <article name="nginx: Linux packages"
          link="/en/linux_packages.html"
          lang="en"
-         rev="90">
+         rev="91">
 
 <section name="Supported distributions and versions" id="distributions">
 
@@ -653,6 +653,11 @@ nginx-module-image-filter
 nginx-module-njs
 nginx-module-perl
 nginx-module-xslt
+</programlisting>
+Additionally, since version 1.25.3, the following module is shipped as a
+separate package:
+<programlisting>
+nginx-module-otel
 </programlisting>
 </para>
 
