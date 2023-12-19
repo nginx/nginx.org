@@ -130,6 +130,7 @@ REFS =									\
 		stream/ngx_stream_zone_sync_module			\
 		stream/stream_processing				\
 		ngx_google_perftools_module				\
+		ngx_mgmt_module						\
 		ngx_otel_module						\
 		dev/development_guide					\
 		njs/index						\

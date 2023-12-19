@@ -1349,6 +1349,25 @@ as for the variables that start with the
 Only the header fields from the response of the last server are saved.
 </tag-desc>
 
+<tag-name id="var_upstream_last_server_name"><var>$upstream_last_server_name</var></tag-name>
+<tag-desc>
+keeps the name of last selected upstream server (1.25.3);
+allows passing it
+<link doc="ngx_http_proxy_module.xml" id="proxy_ssl_server_name">through SNI</link>:
+<example>
+proxy_ssl_server_name on;
+proxy_ssl_name        $upstream_last_server_name;
+</example>
+
+<para>
+<note>
+This variable is available as part of our
+<commercial_version>commercial subscription</commercial_version>.
+</note>
+</para>
+
+</tag-desc>
+
 <tag-name id="var_upstream_queue_time"><var>$upstream_queue_time</var></tag-name>
 <tag-desc>
 keeps time the request spent in the upstream <link id="queue">queue</link>

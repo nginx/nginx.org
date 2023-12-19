@@ -1360,6 +1360,25 @@ upstream backend {
 последнего сервера.
 </tag-desc>
 
+<tag-name id="var_upstream_last_server_name"><var>$upstream_last_server_name</var></tag-name>
+<tag-desc>
+хранит имя последнего выбранного сервера группы (1.25.3);
+позволяет передать его
+<link doc="ngx_http_proxy_module.xml" id="proxy_ssl_server_name">через SNI</link>:
+<example>
+proxy_ssl_server_name on;
+proxy_ssl_name        $upstream_last_server_name;
+</example>
+
+<para>
+<note>
+Эта переменная доступна как часть
+<commercial_version>коммерческой подписки</commercial_version>.
+</note>
+</para>
+
+</tag-desc>
+
 <tag-name id="var_upstream_queue_time"><var>$upstream_queue_time</var></tag-name>
 <tag-desc>
 хранит время, проведённое запросом в <link id="queue">очереди</link>
