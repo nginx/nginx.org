@@ -8,7 +8,7 @@
 <article name="nginx documentation"
          link="/en/docs/"
          lang="en"
-         rev="49"
+         rev="50"
          toc="no">
 
 
@@ -680,6 +680,12 @@ ngx_google_perftools_module</link>
 <link doc="ngx_mgmt_module.xml">
 ngx_mgmt_module</link>
 </listitem>
+
+</list>
+</para>
+
+<para>
+<list type="bullet">
 
 <listitem>
 <link doc="ngx_otel_module.xml">

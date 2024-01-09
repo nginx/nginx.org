@@ -8,7 +8,7 @@
 <article name="nginx: документация"
          link="/ru/docs/"
          lang="ru"
-         rev="49"
+         rev="50"
          toc="no">
 
 
@@ -687,9 +687,15 @@ ngx_google_perftools_module</link>
 ngx_mgmt_module</link> [en]
 </listitem>
 
+</list>
+</para>
+
+<para>
+<list type="bullet">
+
 <listitem>
 <link doc="ngx_otel_module.xml">
-ngx_otel_module [en]</link>
+ngx_otel_module</link> [en]
 </listitem>
 
 </list>
