@@ -9,7 +9,7 @@
 <module name="Module ngx_mgmt_module"
         link="/en/docs/ngx_mgmt_module.html"
         lang="en"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
@@ -391,8 +391,8 @@ Specifies a <value>file</value> that keeps the ID of nginx instance.
 <para>
 Examples:
 <example>
-state /var/lib/nginx/nginx.id; # path for Linux
-state /var/db/nginx/nginx.id;  # path for FreeBSD
+uuid_file /var/lib/nginx/nginx.id; # path for Linux
+uuid_file /var/db/nginx/nginx.id;  # path for FreeBSD
 </example>
 </para>
 
