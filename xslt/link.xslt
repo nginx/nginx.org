@@ -50,7 +50,11 @@
         <a href="{substring-before(@doc, '.xml')}.html#{@id}"><xsl:value-of select="@id"/></a>
         <xsl:if test="count(../link[@id = current()/@id]) > 1">
             <xsl:text> (</xsl:text>
-            <xsl:value-of select="substring-before(substring-after(@doc, '/'), '.xml')"/>
+            <xsl:choose><xsl:when test="contains(@doc, '/')">
+                <xsl:value-of select="substring-before(substring-after(@doc, '/'), '.xml')"/>
+            </xsl:when><xsl:otherwise>
+                <xsl:value-of select="substring-before(@doc, '.xml')"/>
+            </xsl:otherwise></xsl:choose>
             <xsl:text>)</xsl:text>
         </xsl:if>
         <br/>
@@ -62,7 +66,11 @@
         <a href="{substring-before(@doc, '.xml')}.html#{@id}"><xsl:apply-templates/></a>
         <xsl:if test="count(../link[@id = current()/@id and @doc != current()/@doc]) > 0">
             <xsl:text> (</xsl:text>
-            <xsl:value-of select="substring-before(substring-after(@doc, '/'), '.xml')"/>
+            <xsl:choose><xsl:when test="contains(@doc, '/')">
+                <xsl:value-of select="substring-before(substring-after(@doc, '/'), '.xml')"/>
+            </xsl:when><xsl:otherwise>
+                <xsl:value-of select="substring-before(@doc, '.xml')"/>
+            </xsl:otherwise></xsl:choose>
             <xsl:text>)</xsl:text>
         </xsl:if>
         <br/>
