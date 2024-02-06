@@ -9,7 +9,7 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="66"
+        rev="67"
         toc="no">
 
 <section id="njs0.8.2" name="Changes with njs 0.8.2">
@@ -2967,9 +2967,9 @@ added support for multi-value headers in
 <para>
 Feature:
 introduced <literal>raw headers</literal> API:
-<link doc="reference.xml" id="r_raw_headers_in"><literal>r.rawHeadersIn{}</literal></link>
+<link doc="reference.xml" id="r_raw_headers_in"><literal>r.rawHeadersIn[]</literal></link>
 and
-<link doc="reference.xml" id="r_raw_headers_out"><literal>r.rawHeadersOut{}</literal></link>.
+<link doc="reference.xml" id="r_raw_headers_out"><literal>r.rawHeadersOut[]</literal></link>.
 </para>
 </listitem>
 

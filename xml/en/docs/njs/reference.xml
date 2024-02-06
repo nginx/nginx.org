@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="120">
+        rev="121">
 
 <section id="summary">
 
@@ -55,8 +55,8 @@ List of all njs properties and methods can be found in
 <tr><td><link id="r_request_body"><literal>r.requestBody</literal></link></td></tr>
 <tr><td><link id="r_request_buffer"><literal>r.requestBuffer</literal></link></td></tr>
 <tr><td><link id="r_request_text"><literal>r.requestText</literal></link></td></tr>
-<tr><td><link id="r_raw_headers_in"><literal>r.rawHeadersIn{}</literal></link></td></tr>
-<tr><td><link id="r_raw_headers_out"><literal>r.rawHeadersOut{}</literal></link></td></tr>
+<tr><td><link id="r_raw_headers_in"><literal>r.rawHeadersIn[]</literal></link></td></tr>
+<tr><td><link id="r_raw_headers_out"><literal>r.rawHeadersOut[]</literal></link></td></tr>
 <tr><td><link id="r_response_body"><literal>r.responseBody</literal></link></td></tr>
 <tr><td><link id="r_response_buffer"><literal>r.responseBuffer</literal></link></td></tr>
 <tr><td><link id="r_response_text"><literal>r.responseText</literal></link></td></tr>
@@ -395,7 +395,7 @@ Note that
 it may convert bytes invalid in UTF-8 encoding into the replacement character.
 </tag-desc>
 
-<tag-name id="r_raw_headers_in"><literal>r.rawHeadersIn{}</literal></tag-name>
+<tag-name id="r_raw_headers_in"><literal>r.rawHeadersIn[]</literal></tag-name>
 <tag-desc>
 returns an array of key-value pairs
 exactly as they were received from the client
@@ -429,7 +429,7 @@ duplicate field values are not merged.
 </para>
 </tag-desc>
 
-<tag-name id="r_raw_headers_out"><literal>r.rawHeadersOut{}</literal></tag-name>
+<tag-name id="r_raw_headers_out"><literal>r.rawHeadersOut[]</literal></tag-name>
 <tag-desc>
 returns an array of key-value pairs of response headers
 (<link doc="changes.xml" id="njs0.4.1">0.4.1</link>).
