@@ -9,8 +9,117 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="67"
+        rev="68"
         toc="no">
+
+<section id="njs0.8.3" name="Changes with njs 0.8.3">
+
+<para>
+Release Date:
+07 February 2024
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<link doc="reference.xml" id="headers_set"><literal>Headers.set()</literal></link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<link doc="../http/ngx_http_js_module.xml" id="js_set"/>
+with <literal>Buffer</literal> values.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<link doc="reference.xml" id="dict_clear"><literal>clear()</literal></link>
+method of a shared dictionary when a timeout is not specified.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<link doc="../http/ngx_http_stub_status_module.xml">stub_status</link>
+statistics when
+<link doc="../http/ngx_http_js_module.xml" id="js_periodic">js_periodic</link>
+is enabled.
+</para>
+</listitem>
+
+</list>
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Bugfix:
+fixed building with
+<link url="https://gitlab.gnome.org/GNOME/libxml2">libxml2</link> 2.12
+and later.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>Date</literal> constructor for overflows
+and with <literal>NaN</literal> values.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed underflow in
+<link doc="reference.xml" id="querystring_parse"><literal>querystring.parse()</literal></link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed potential buffer overread in
+<literal>String.prototype.match()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed parsing of <literal>for-in</literal> loops.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed parsing of
+hexadecimal, octal, and binary literals with no digits.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.8.2" name="Changes with njs 0.8.2">
 
