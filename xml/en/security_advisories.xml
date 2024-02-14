@@ -24,6 +24,20 @@ Patches are signed using one of the
 
 <security>
 
+<item name="NULL pointer dereference in HTTP/3"
+      severity="major"
+      cve="2024-24989"
+      good="1.25.4+"
+      vulnerable="1.25.3">
+</item>
+
+<item name="Use-after-free in HTTP/3"
+      severity="major"
+      cve="2024-24990"
+      good="1.25.4+"
+      vulnerable="1.25.0-1.25.3">
+</item>
+
 <item name="Memory corruption in the ngx_http_mp4_module"
       severity="medium"
       advisory="http://mailman.nginx.org/pipermail/nginx-announce/2022/RBRRON6PYBJJM2XIAPQBFBVLR4Q6IHRA.html"

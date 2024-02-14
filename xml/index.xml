@@ -7,6 +7,16 @@
 
 <news name="nginx news" link="/" lang="en">
 
+<event date="2024-02-14">
+<para>
+<link doc="en/download.xml">nginx-1.25.4</link>
+mainline version has been released,
+with fixes for
+<link doc="en/security_advisories.xml">vulnerabilities in HTTP/3</link>
+(CVE-2024-24989, CVE-2024-24990).
+</para>
+</event>
+
 <event date="2024-02-07">
 <para>
 <link doc="en/docs/njs/index.xml">njs-0.8.3</link>
