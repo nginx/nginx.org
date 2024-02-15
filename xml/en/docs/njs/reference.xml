@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="121">
+        rev="122">
 
 <section id="summary">
 
@@ -618,10 +618,10 @@ is returned.
 <para>
 For example, to view all response headers in the subrequest:
 <example>
-async function handler(r) [
-    let reply = await r.subrequest('/path');
+async function handler(r) {
+    const reply = await r.subrequest('/path');
 
-    for (var h in reply.headersOut) {
+    for (const h in reply.headersOut) {
         r.log(`${h}: ${reply.headersOut[h]}`);
     }
 
