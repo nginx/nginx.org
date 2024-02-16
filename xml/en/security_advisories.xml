@@ -26,6 +26,7 @@ Patches are signed using one of the
 
 <item name="NULL pointer dereference in HTTP/3"
       severity="major"
+      advisory="http://mailman.nginx.org/pipermail/nginx-announce/2024/NW6MNW34VZ6HDIHH5YFBIJYZJN7FGNAV.html"
       cve="2024-24989"
       good="1.25.4+"
       vulnerable="1.25.3">
@@ -33,6 +34,7 @@ Patches are signed using one of the
 
 <item name="Use-after-free in HTTP/3"
       severity="major"
+      advisory="http://mailman.nginx.org/pipermail/nginx-announce/2024/NW6MNW34VZ6HDIHH5YFBIJYZJN7FGNAV.html"
       cve="2024-24990"
       good="1.25.4+"
       vulnerable="1.25.0-1.25.3">
