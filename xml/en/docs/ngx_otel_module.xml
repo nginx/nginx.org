@@ -9,14 +9,12 @@
 <module name="Module ngx_otel_module"
         link="/en/docs/ngx_otel_module.html"
         lang="en"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
 <para>
-The <literal>ngx_otel_module</literal> module (1.23.4) is a
-<link url="https://github.com/nginxinc/nginx-otel">third-party module</link>
-that provides
+The <literal>ngx_otel_module</literal> module (1.23.4) provides
 <link url="https://opentelemetry.io">OpenTelemetry</link>
 distributed tracing support.
 The module supports
@@ -25,11 +23,20 @@ context propagation and OTLP/gRPC export protocol.
 </para>
 
 <para>
+The source code of the module is available
+<link url="https://github.com/nginxinc/nginx-otel">here</link>.
 Download and install instructions are available
 <link url="https://github.com/nginxinc/nginx-otel/blob/main/README.md">here</link>.
-The module is also available as a prebuilt
-<literal>nginx-module-otel</literal> dynamic module
-<link doc="../linux_packages.xml" id="dynmodules">package</link> (1.25.3).
+</para>
+
+<para>
+The module is also available in a prebuilt
+<literal>nginx-module-otel</literal>
+<link doc="../linux_packages.xml" id="dynmodules">package</link>
+since 1.25.3
+and in <literal>nginx-plus-module-otel</literal> package
+as part of our
+<commercial_version>commercial subscription</commercial_version>.
 </para>
 
 </section>
