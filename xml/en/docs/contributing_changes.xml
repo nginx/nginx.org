@@ -9,7 +9,7 @@
 <article name="Contributing Changes"
          link="/en/docs/contributing_changes.html"
          lang="en"
-         rev="4">
+         rev="5">
 
 <section id="getting_sources" name="Getting Sources">
 
@@ -123,6 +123,17 @@ The preferred and convenient method of submitting changesets
 is with the
 <link url="https://www.mercurial-scm.org/wiki/PatchbombExtension">patchbomb</link>
 extension.
+</para>
+
+</section>
+
+
+<section id="website" name="Website">
+
+<para>
+<link url="https://www.github.com/nginx/nginx.org">GitHub</link> is used
+to store the sources for this website. Documentation changes should be
+submitted as a pull request.
 </para>
 
 </section>
