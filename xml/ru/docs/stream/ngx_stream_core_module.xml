@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_core_module"
         link="/ru/docs/stream/ngx_stream_core_module.html"
         lang="ru"
-        rev="37">
+        rev="38">
 
 <section id="summary">
 
@@ -79,6 +79,7 @@ stream {
 <directive name="listen">
 <syntax>
     <value>адрес</value>:<value>порт</value>
+    [<literal>default_server</literal>]
     [<literal>ssl</literal>]
     [<literal>udp</literal>]
     [<literal>proxy_protocol</literal>]
@@ -125,6 +126,15 @@ listen 12345-12399;
 </para>
 
 <para>
+Если у директивы есть параметр <literal>default_server</literal>, то сервер,
+в котором описана эта директива, будет сервером по умолчанию для указанной пары
+<value>адрес</value>:<value>порт</value> (1.25.5).
+Если же директив с параметром <literal>default_server</literal> нет, то
+сервером по умолчанию будет первый сервер, в котором описана пара
+<value>адрес</value>:<value>порт</value>.
+</para>
+
+<para>
 Параметр <literal>ssl</literal> указывает на то, что все соединения,
 принимаемые на данном порту, должны работать в режиме SSL.
 </para>
@@ -152,6 +162,9 @@ PROXY</link>.
 В директиве <literal>listen</literal> можно также указать несколько
 дополнительных параметров, специфичных для связанных с сокетами
 системных вызовов.
+Эти параметры можно задать в любой директиве <literal>listen</literal>,
+но только один раз для указанной пары
+<value>адрес</value>:<value>порт</value>.
 <list type="tag">
 
 <tag-name>
@@ -288,8 +301,10 @@ FreeBSD 9.0-STABLE)
 </para>
 
 <para>
-Разные серверы должны слушать на разных парах
+<note>
+До версии 1.25.5 разные серверы должны слушать на разных парах
 <value>адрес</value>:<value>порт</value>.
+</note>
 </para>
 
 </directive>
@@ -434,7 +449,155 @@ resolver_timeout 5s;
 <context>stream</context>
 
 <para>
-Задаёт конфигурацию для сервера.
+Задаёт конфигурацию для виртуального сервера.
+Чёткого разделения виртуальных серверов на IP-based (на основании IP-адреса)
+и name-based (через
+<link url="http://en.wikipedia.org/wiki/Server_Name_Indication">расширение
+Server Name Indication протокола TLS</link> (SNI, RFC 6066)) (1.25.5) нет.
+Вместо этого директивами <link id="listen"/> описываются все
+адреса и порты, на которых нужно принимать соединения для этого сервера,
+а в директиве <link id="server_name"/> указываются все имена серверов.
+</para>
+
+</directive>
+
+
+<directive name="server_name">
+<syntax><value>имя</value> ...</syntax>
+<default>""</default>
+<context>server</context>
+<appeared-in>1.25.5</appeared-in>
+
+<para>
+Задаёт имена виртуального сервера, например:
+<example>
+server {
+    server_name example.com www.example.com;
+}
+</example>
+</para>
+
+<para>
+Первое имя становится основным именем сервера.
+</para>
+
+<para>
+В именах серверов можно использовать звёздочку (“<literal>*</literal>”)
+для замены первой или последней части имени:
+<example>
+server {
+    server_name example.com *.example.com www.example.*;
+}
+</example>
+Такие имена называются именами с маской.
+</para>
+
+<para>
+Два первых вышеприведённых имени можно объединить в одно:
+<example>
+server {
+    server_name .example.com;
+}
+</example>
+</para>
+
+<para>
+В качестве имени сервера можно также использовать регулярное выражение,
+указав перед ним тильду (“<literal>~</literal>”):
+<example>
+server {
+    server_name www.example.com ~^www\d+\.example\.com$;
+}
+</example>
+</para>
+
+<para>
+Регулярное выражение может содержать выделения,
+которые могут затем использоваться в других директивах:
+<example>
+server {
+    server_name ~^(www\.)?(.+)$;
+
+    proxy_pass www.$2:12345;
+}
+</example>
+</para>
+
+<para>
+Именованные выделения в регулярном выражении создают переменные,
+которые могут затем использоваться в других директивах:
+<example>
+server {
+    server_name ~^(www\.)?(?&lt;domain&gt;.+)$;
+
+    proxy_pass www.$domain:12345;
+}
+</example>
+</para>
+
+<para>
+Если параметр директивы установлен в “<var>$hostname</var>”, то
+подставляется имя хоста (hostname) машины.
+</para>
+
+<para>
+При поиске виртуального сервера по имени,
+если имени соответствует несколько из указанных вариантов,
+например, одновременно подходят и имя с маской, и регулярное выражение,
+будет выбран первый подходящий вариант в следующем порядке приоритета:
+<list type="enum">
+
+<listitem>
+точное имя
+</listitem>
+
+<listitem>
+самое длинное имя с маской в начале,
+например “<literal>*.example.com</literal>”
+</listitem>
+
+<listitem>
+самое длинное имя с маской в конце,
+например “<literal>mail.*</literal>”
+</listitem>
+
+<listitem>
+первое подходящее регулярное выражение
+(в порядке следования в конфигурационном файле)
+</listitem>
+
+</list>
+</para>
+
+</directive>
+
+
+<directive name="server_names_hash_bucket_size">
+<syntax><value>размер</value></syntax>
+<default>32|64|128</default>
+<context>stream</context>
+<appeared-in>1.25.5</appeared-in>
+
+<para>
+Задаёт размер корзины в хэш-таблицах имён серверов.
+Значение по умолчанию зависит от размера строки кэша процессора.
+Подробнее настройка хэш-таблиц обсуждается в отдельном
+<link doc="../hash.xml">документе</link>.
+</para>
+
+</directive>
+
+
+<directive name="server_names_hash_max_size">
+<syntax><value>размер</value></syntax>
+<default>512</default>
+<context>stream</context>
+<appeared-in>1.25.5</appeared-in>
+
+<para>
+Задаёт максимальный <value>размер</value> хэш-таблиц имён серверов.
+Подробнее настройка хэш-таблиц обсуждается в отдельном
+<link doc="../hash.xml">документе</link>.
 </para>
 
 </directive>
