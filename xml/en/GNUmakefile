@@ -25,6 +25,7 @@ DOCS =									\
 		beginners_guide						\
 		configure						\
 		quic							\
+		governance						\
 
 FAQ =									\
 		welcome_nginx_facebook					\
@@ -149,6 +150,6 @@ TOP =									\
 		security_advisories					\
 		pgp_keys						\
 		books							\
-		support							\
+		community						\
 		donation						\
 		linux_packages						\
