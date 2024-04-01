@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_core_module"
         link="/en/docs/stream/ngx_stream_core_module.html"
         lang="en"
-        rev="39">
+        rev="40">
 
 <section id="summary">
 
@@ -79,6 +79,7 @@ stream {
 <directive name="listen">
 <syntax>
     <value>address</value>:<value>port</value>
+    [<literal>default_server</literal>]
     [<literal>ssl</literal>]
     [<literal>udp</literal>]
     [<literal>proxy_protocol</literal>]
@@ -129,6 +130,16 @@ listen 12345-12399;
 </para>
 
 <para>
+The <literal>default_server</literal> parameter, if present,
+will cause the server to become the default server for the specified
+<value>address</value>:<value>port</value> pair (1.25.5).
+If none of the directives have the <literal>default_server</literal>
+parameter then the first server with the
+<value>address</value>:<value>port</value> pair will be
+the default server for this pair.
+</para>
+
+<para>
 The <literal>ssl</literal> parameter allows specifying that all
 connections accepted on this port should work in SSL mode.
 </para>
@@ -154,6 +165,9 @@ The PROXY protocol version 2 is supported since version 1.13.11.
 <para>
 The <literal>listen</literal> directive
 can have several additional parameters specific to socket-related system calls.
+These parameters can be specified in any
+<literal>listen</literal> directive, but only once for a given
+<value>address</value>:<value>port</value> pair.
 <list type="tag">
 
 <tag-name>
@@ -321,8 +335,10 @@ and set the probes count (<c-def>TCP_KEEPCNT</c-def>) to 10 probes.
 </para>
 
 <para>
-Different servers must listen on different
+<note>
+Before version 1.25.5, different servers must listen on different
 <value>address</value>:<value>port</value> pairs.
+</note>
 </para>
 
 </directive>
@@ -465,7 +481,156 @@ Before version 1.11.3, this directive was available as part of our
 <context>stream</context>
 
 <para>
-Sets the configuration for a server.
+Sets the configuration for a virtual server.
+There is no clear separation between IP-based (based on the IP address)
+and name-based (based on the
+<link url="http://en.wikipedia.org/wiki/Server_Name_Indication">TLS
+Server Name Indication extension</link> (SNI, RFC 6066)) (1.25.5)
+virtual servers.
+Instead, the <link id="listen"/> directives describe all
+addresses and ports that should accept connections for the server, and the
+<link id="server_name"/> directive lists all server names.
+</para>
+
+</directive>
+
+
+<directive name="server_name">
+<syntax><value>name</value> ...</syntax>
+<default>""</default>
+<context>server</context>
+<appeared-in>1.25.5</appeared-in>
+
+<para>
+Sets names of a virtual server, for example:
+<example>
+server {
+    server_name example.com www.example.com;
+}
+</example>
+</para>
+
+<para>
+The first name becomes the primary server name.
+</para>
+
+<para>
+Server names can include an asterisk (“<literal>*</literal>”)
+replacing the first or last part of a name:
+<example>
+server {
+    server_name example.com *.example.com www.example.*;
+}
+</example>
+Such names are called wildcard names.
+</para>
+
+<para>
+The first two of the names mentioned above can be combined in one:
+<example>
+server {
+    server_name .example.com;
+}
+</example>
+</para>
+
+<para>
+It is also possible to use regular expressions in server names,
+preceding the name with a tilde (“<literal>~</literal>”):
+<example>
+server {
+    server_name www.example.com ~^www\d+\.example\.com$;
+}
+</example>
+</para>
+
+<para>
+Regular expressions can contain captures that can later
+be used in other directives:
+<example>
+server {
+    server_name ~^(www\.)?(.+)$;
+
+    proxy_pass www.$2:12345;
+}
+</example>
+</para>
+
+<para>
+Named captures in regular expressions create variables
+that can later be used in other directives:
+<example>
+server {
+    server_name ~^(www\.)?(?&lt;domain&gt;.+)$;
+
+    proxy_pass www.$domain:12345;
+}
+</example>
+</para>
+
+<para>
+If the directive’s parameter is set to “<var>$hostname</var>”, the
+machine’s hostname is inserted.
+</para>
+
+<para>
+During searching for a virtual server by name,
+if the name matches more than one of the specified variants,
+(e.g. both a wildcard name and regular expression match), the first matching
+variant will be chosen, in the following order of priority:
+<list type="enum">
+
+<listitem>
+the exact name
+</listitem>
+
+<listitem>
+the longest wildcard name starting with an asterisk,
+e.g. “<literal>*.example.com</literal>”
+</listitem>
+
+<listitem>
+the longest wildcard name ending with an asterisk,
+e.g. “<literal>mail.*</literal>”
+</listitem>
+
+<listitem>
+the first matching regular expression
+(in order of appearance in the configuration file)
+</listitem>
+
+</list>
+</para>
+
+</directive>
+
+
+<directive name="server_names_hash_bucket_size">
+<syntax><value>size</value></syntax>
+<default>32|64|128</default>
+<context>stream</context>
+<appeared-in>1.25.5</appeared-in>
+
+<para>
+Sets the bucket size for the server names hash tables.
+The default value depends on the size of the processor’s cache line.
+The details of setting up hash tables are provided in a separate
+<link doc="../hash.xml">document</link>.
+</para>
+
+</directive>
+
+
+<directive name="server_names_hash_max_size">
+<syntax><value>size</value></syntax>
+<default>512</default>
+<context>stream</context>
+<appeared-in>1.25.5</appeared-in>
+
+<para>
+Sets the maximum <value>size</value> of the server names hash tables.
+The details of setting up hash tables are provided in a separate
+<link doc="../hash.xml">document</link>.
 </para>
 
 </directive>
