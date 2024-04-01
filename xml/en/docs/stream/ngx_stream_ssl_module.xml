@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_ssl_module"
         link="/en/docs/stream/ngx_stream_ssl_module.html"
         lang="en"
-        rev="33">
+        rev="34">
 
 <section id="summary">
 
@@ -471,6 +471,39 @@ OpenSSL 1.1.1 or higher is used.
 The <literal>TLSv1.3</literal> parameter is used by default
 since 1.23.4.
 </note>
+</para>
+
+</directive>
+
+
+<directive name="ssl_reject_handshake">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.25.5</appeared-in>
+
+<para>
+If enabled, SSL handshakes in
+the <link doc="ngx_stream_core_module.xml" id="server"/> block will be rejected.
+</para>
+
+<para>
+For example, in the following configuration, SSL handshakes with
+server names other than <literal>example.com</literal> are rejected:
+<example>
+server {
+    listen               443 ssl default_server;
+    ssl_reject_handshake on;
+}
+
+server {
+    listen              443 ssl;
+    server_name         example.com;
+    ssl_certificate     example.com.crt;
+    ssl_certificate_key example.com.key;
+}
+</example>
 </para>
 
 </directive>
