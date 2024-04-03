@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_core_module"
         link="/ru/docs/stream/ngx_stream_core_module.html"
         lang="ru"
-        rev="38">
+        rev="39">
 
 <section id="summary">
 
@@ -82,10 +82,13 @@ stream {
     [<literal>ssl</literal>]
     [<literal>udp</literal>]
     [<literal>proxy_protocol</literal>]
+    [<literal>setfib</literal>=<value>число</value>]
     [<literal>fastopen</literal>=<value>число</value>]
     [<literal>backlog</literal>=<value>число</value>]
     [<literal>rcvbuf</literal>=<value>размер</value>]
     [<literal>sndbuf</literal>=<value>размер</value>]
+    [<literal>accept_filter</literal>=<value>фильтр</value>]
+    [<literal>deferred</literal>]
     [<literal>bind</literal>]
     [<literal>ipv6only</literal>=<literal>on</literal>|<literal>off</literal>]
     [<literal>reuseport</literal>]
@@ -155,6 +158,15 @@ PROXY</link>.
 <list type="tag">
 
 <tag-name>
+<literal>setfib</literal>=<value>число</value>
+</tag-name>
+<tag-desc>
+этот параметр (1.25.5) задаёт таблицу маршрутизации, FIB
+(параметр <c-def>SO_SETFIB</c-def>) для слушающего сокета.
+В настоящий момент это работает только на FreeBSD.
+</tag-desc>
+
+<tag-name>
 <literal>fastopen</literal>=<value>число</value>
 </tag-name>
 <tag-desc>
@@ -201,6 +213,29 @@ FreeBSD, DragonFly BSD и macOS,
 </tag-desc>
 
 <tag-name>
+<literal>accept_filter</literal>=<value>фильтр</value>
+</tag-name>
+<tag-desc>
+задаёт название accept-фильтра
+(параметр <c-def>SO_ACCEPTFILTER</c-def>) для слушающего сокета,
+который включается для фильтрации входящих соединений
+перед передачей их в <c-func>accept</c-func> (1.25.5).
+Работает только на FreeBSD и NetBSD 5.0+.
+Можно использовать два фильтра:
+<link url="http://man.freebsd.org/accf_data">dataready</link>
+и
+<link url="http://man.freebsd.org/accf_http">httpready</link>.
+</tag-desc>
+
+<tag-name>
+<literal>deferred</literal>
+</tag-name>
+<tag-desc>
+указывает использовать отложенный <c-func>accept</c-func>
+(параметр <c-def>TCP_DEFER_ACCEPT</c-def> сокета) на Linux (1.25.5).
+</tag-desc>
+
+<tag-name>
 <literal>bind</literal>
 </tag-name>
 <tag-desc>
@@ -214,11 +249,12 @@ FreeBSD, DragonFly BSD и macOS,
 <c-func>bind</c-func> только на <literal>*:</literal><value>порт</value>.
 Необходимо заметить, что в этом случае для определения адреса, на которой
 пришло соединение, делается системный вызов <c-func>getsockname</c-func>.
-Если же используются параметры
+Если же используются параметры <literal>setfib</literal>,
 <literal>fastopen</literal>,
-<literal>backlog</literal>,
-<literal>rcvbuf</literal>, <literal>sndbuf</literal>,
-<literal>ipv6only</literal>, <literal>reuseport</literal>
+<literal>backlog</literal>, <literal>rcvbuf</literal>,
+<literal>sndbuf</literal>, <literal>accept_filter</literal>,
+<literal>deferred</literal>, <literal>ipv6only</literal>,
+<literal>reuseport</literal>
 или <literal>so_keepalive</literal>,
 то для данной пары
 <value>адрес</value>:<value>порт</value> всегда делается
