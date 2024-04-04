@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_core_module"
         link="/en/docs/stream/ngx_stream_core_module.html"
         lang="en"
-        rev="38">
+        rev="39">
 
 <section id="summary">
 
@@ -83,10 +83,13 @@ stream {
     [<literal>ssl</literal>]
     [<literal>udp</literal>]
     [<literal>proxy_protocol</literal>]
+    [<literal>setfib</literal>=<value>number</value>]
     [<literal>fastopen</literal>=<value>number</value>]
     [<literal>backlog</literal>=<value>number</value>]
     [<literal>rcvbuf</literal>=<value>size</value>]
     [<literal>sndbuf</literal>=<value>size</value>]
+    [<literal>accept_filter</literal>=<value>filter</value>]
+    [<literal>deferred</literal>]
     [<literal>bind</literal>]
     [<literal>ipv6only</literal>=<literal>on</literal>|<literal>off</literal>]
     [<literal>reuseport</literal>]
@@ -168,6 +171,15 @@ These parameters can be specified in any
 <list type="tag">
 
 <tag-name>
+<literal>setfib</literal>=<value>number</value>
+</tag-name>
+<tag-desc>
+this parameter (1.25.5) sets the associated routing table, FIB
+(the <c-def>SO_SETFIB</c-def> option) for the listening socket.
+This currently works only on FreeBSD.
+</tag-desc>
+
+<tag-name>
 <literal>fastopen</literal>=<value>number</value>
 </tag-name>
 <tag-desc>
@@ -214,6 +226,29 @@ sets the send buffer size
 </tag-desc>
 
 <tag-name>
+<literal>accept_filter</literal>=<value>filter</value>
+</tag-name>
+<tag-desc>
+sets the name of accept filter
+(the <c-def>SO_ACCEPTFILTER</c-def> option) for the listening socket
+that filters incoming connections before passing them to
+<c-func>accept</c-func> (1.25.5).
+This works only on FreeBSD and NetBSD 5.0+.
+Possible values are
+<link url="http://man.freebsd.org/accf_data">dataready</link>
+and
+<link url="http://man.freebsd.org/accf_http">httpready</link>.
+</tag-desc>
+
+<tag-name>
+<literal>deferred</literal>
+</tag-name>
+<tag-desc>
+instructs to use a deferred <c-func>accept</c-func>
+(the <c-def>TCP_DEFER_ACCEPT</c-def> socket option) on Linux (1.25.5).
+</tag-desc>
+
+<tag-name>
 <literal>bind</literal>
 </tag-name>
 <tag-desc>
@@ -226,9 +261,12 @@ for the given port (<literal>*:</literal><value>port</value>), nginx will
 <c-func>bind</c-func> only to <literal>*:</literal><value>port</value>.
 It should be noted that the <c-func>getsockname</c-func> system call will be
 made in this case to determine the address that accepted the connection.
-If the <literal>backlog</literal>,
-<literal>rcvbuf</literal>, <literal>sndbuf</literal>,
-<literal>ipv6only</literal>, <literal>reuseport</literal>,
+If the <literal>setfib</literal>,
+<literal>fastopen</literal>,
+<literal>backlog</literal>, <literal>rcvbuf</literal>,
+<literal>sndbuf</literal>, <literal>accept_filter</literal>,
+<literal>deferred</literal>, <literal>ipv6only</literal>,
+<literal>reuseport</literal>,
 or <literal>so_keepalive</literal> parameters
 are used then for a given
 <value>address</value>:<value>port</value> pair
