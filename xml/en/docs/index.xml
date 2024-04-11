@@ -8,7 +8,7 @@
 <article name="nginx documentation"
          link="/en/docs/"
          lang="en"
-         rev="50"
+         rev="51"
          toc="no">
 
 
@@ -608,6 +608,11 @@ ngx_stream_mqtt_preread_module</link>
 <listitem>
 <link doc="stream/ngx_stream_mqtt_filter_module.xml">
 ngx_stream_mqtt_filter_module</link>
+</listitem>
+
+<listitem>
+<link doc="stream/ngx_stream_pass_module.xml">
+ngx_stream_pass_module</link>
 </listitem>
 
 <listitem>

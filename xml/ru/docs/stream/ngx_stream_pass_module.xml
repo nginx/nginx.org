@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Модуль ngx_stream_pass_module"
+        link="/ru/docs/stream/ngx_stream_pass_module.html"
+        lang="ru"
+        rev="1">
+
+<section id="summary">
+
+<para>
+Модуль <literal>ngx_stream_pass_module</literal> (1.25.5) позволяет
+передавать принятое соединение напрямую в любой настроенный слушающий сокет
+в <literal>http</literal>, <literal>stream</literal>, <literal>mail</literal>
+и других подобных модулях.
+</para>
+
+</section>
+
+
+<section id="example" name="Пример конфигурации">
+
+<para>
+<example>
+http {
+    server {
+        listen 8000;
+
+        location / {
+            root html;
+        }
+    }
+}
+
+stream {
+    server {
+        listen 12345 ssl;
+
+        ssl_certificate     domain.crt;
+        ssl_certificate_key domain.key;
+
+        pass 127.0.0.1:8000;
+    }
+}
+</example>
+В примере
+после терминирования SSL в модуле <literal>stream</literal>
+соединение передаётся в модуль <literal>http</literal>.
+</para>
+
+</section>
+
+
+<section id="directives" name="Директивы">
+
+<directive name="pass">
+<syntax><value>адрес</value></syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Задаёт адрес сервера с передаваемым соединением.
+Адрес может быть указан в виде IP-адреса
+и порта:
+<example>
+pass 127.0.0.1:12345;
+</example>
+или в виде пути UNIX-сокета:
+<example>
+pass unix:/tmp/stream.socket;
+</example>
+</para>
+
+<para>
+В адресе также можно использовать переменные:
+<example>
+pass $upstream;
+</example>
+</para>
+
+</directive>
+
+</section>
+
+</module>

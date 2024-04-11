@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Module ngx_stream_pass_module"
+        link="/en/docs/stream/ngx_stream_pass_module.html"
+        lang="en"
+        rev="1">
+
+<section id="summary">
+
+<para>
+The <literal>ngx_stream_pass_module</literal> module (1.25.5) allows
+passing the accepted connection directly to any configured listening socket
+in <literal>http</literal>, <literal>stream</literal>, <literal>mail</literal>,
+and other similar modules.
+</para>
+
+</section>
+
+
+<section id="example" name="Example Configuration">
+
+<para>
+<example>
+http {
+    server {
+        listen 8000;
+
+        location / {
+            root html;
+        }
+    }
+}
+
+stream {
+    server {
+        listen 12345 ssl;
+
+        ssl_certificate     domain.crt;
+        ssl_certificate_key domain.key;
+
+        pass 127.0.0.1:8000;
+    }
+}
+</example>
+In the example,
+after terminating SSL/TLS in the <literal>stream</literal> module
+the connection is passed to the <literal>http</literal> module.
+</para>
+
+</section>
+
+
+<section id="directives" name="Directives">
+
+<directive name="pass">
+<syntax><value>address</value></syntax>
+<default/>
+<context>server</context>
+
+<para>
+Sets server address to pass client connection to.
+The address can be specified as an IP address
+and a port:
+<example>
+pass 127.0.0.1:12345;
+</example>
+or as a UNIX-domain socket path:
+<example>
+pass unix:/tmp/stream.socket;
+</example>
+</para>
+
+<para>
+The address can also be specified using variables:
+<example>
+pass $upstream;
+</example>
+</para>
+
+</directive>
+
+</section>
+
+</module>

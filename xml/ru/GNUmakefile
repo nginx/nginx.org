@@ -104,6 +104,7 @@ REFS =									\
 		stream/ngx_stream_mqtt_filter_module			\
 		stream/ngx_stream_mqtt_preread_module			\
 		stream/ngx_stream_proxy_module				\
+		stream/ngx_stream_pass_module				\
 		stream/ngx_stream_proxy_protocol_vendor_module		\
 		stream/ngx_stream_realip_module				\
 		stream/ngx_stream_return_module				\
