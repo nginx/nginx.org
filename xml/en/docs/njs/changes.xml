@@ -9,8 +9,91 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="68"
+        rev="69"
         toc="no">
+
+<section id="njs0.8.4" name="Changes with njs 0.8.4">
+
+<para>
+Release Date:
+16 April 2024
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+the <literal>Server</literal> header for outgoing header can be set.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+validating URI and args arguments in
+<link doc="reference.xml" id="r_subrequest"><literal>r.subrequest()</literal></link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+checking for duplicate
+<link doc="../http/ngx_http_js_module.xml" id="js_set"/> variables.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<link doc="reference.xml" id="dict_clear"><literal>clear()</literal></link>
+method of a shared dictionary without a timeout
+introduced in <link id="njs0.8.3">0.8.3</link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<link doc="reference.xml" id="r_send"><literal>r.send()</literal></link>
+method of a shared dictionary without a timeout
+with <literal>Buffer</literal> argument.
+</para>
+</listitem>
+
+</list>
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+added <literal>QuickJS</literal> engine support in CLI.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<link doc="reference.xml" id="atob"><literal>atob()</literal></link>
+with non-padded <literal>base64</literal> strings.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.8.3" name="Changes with njs 0.8.3">
 
