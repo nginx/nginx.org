@@ -1,0 +1,214 @@
+
+This code is a replacement for XSLScript, previously available from
+http://pault.com/pault/XSLScript/.  It is not recommended for general
+use, but rather a replacement for what is used by nginx.
+
+Snapshot of the original XSLScript documentation is given below,
+as recovered from:
+
+http://moemesto.ru/link/6865082
+http://moemesto.ru/philonov/page/6865082/download/INODE.RU%20/%20ProgrammaZm%20/%20XSLScript%20-%20%D0%B7%D0%B0%D0%BC%D0%B5%D0%BD%D0%B0%20XSLT
+
+###############################################################################
+
+Since Year 2000
+Version 0.7 
+Check out TerseXML project
+
+XSLScript is for those, who are writing complex XSLT stylesheets.
+
+XSLScript is a terse notation for writing complex XSLT stylesheets.
+XSLScript is part of  Hiawatha web-server, but XSLScript also can be
+used stand-alone.
+
+To execute XSLScript script: 
+
+xsls some.xml some.xsls
+
+The XSLScript script (some.xsls) gets compiled into corresponding XSLT
+stylesheet and then generated XSLT stylesheet is applied to the file
+some.xml (no temporary .xsl file is created, this all happens in the
+memory). The actual XSLT tranformation is performed by SAXON. There is
+1-1 lines mapping between XSLScript script and generated XSLT ( this
+means if some XSLScript construction starts on line 5, the corresponding
+XSLT construction will also start on the same line 5. )
+
+To generate the XSLT stylesheet out of XSLScript script: 
+
+xslsdump some.xsls
+or
+
+xslsdump-indent some.xsls
+if you want a nice looking indentation.
+
+Why XSLScript ? 
+
+XSLT syntax is not for human beings.
+
+One can write complex XSLT code in XSLScript and then generate the 100%
+XSLT stylesheet. Like I do. Occasionaly.
+
+Can I use my XSLT stylesheets with XSLScript? 
+
+You can use xsl:import / xsl:include to include .xsl into .xsls and to
+include .xsls into .xsl.
+
+What if I like writing <xsl:something? 
+
+You can write XSLT instructions in plain XSLT, XSLScript preprocessor
+will not touch them and will pass those constructions as-is.
+
+Top-level elements should be plain XSLScript.
+
+What is XSLScript ? 
+
+XSLScript is just syntax sugar, 1-1 mapping of XSLT. The only exception
+is that XSLScript has 'else' (which is missing in XSLT). In XSLScript
+if-else is translated into appropriate xsl:choose-when-otherwise.
+XSLScript could get more 'non-xslt' semantics if you ask me for
+something you need.
+
+OK, but what is XSLScript ? 
+
+Snippet 1
+
+X:stylesheet {
+
+X:template = "poem" {
+	<html>
+	<head>
+		<title> !{title} </title>
+	</head>
+	<body>
+		!! "title";
+		!! "author";
+		X:apply-templates "stanza";
+		X:apply-templates "date";
+	</body>
+	</html>
+}
+
+X:template = "title"  { <div align="center"><h1> !{.} </h1></div> }
+X:template = "author" { <div align="center"><h2> By <% !{.} %> </h2></div> }
+X:template = "stanza" { <p> !! "line"; </p> }
+
+X:template = "line" {
+    X:if "position() mod 2 = 0" {&#160;&#160;} 
+    !{.} <br/>
+}
+
+X:template = "date" { <p><i> !{.} </i></p> }
+
+}
+
+	
+Snippet 2
+
+X:transform {
+
+X:template max( list ) {
+    X:if "$list" {
+	   X:variable first="count($list[1]/LINE)"
+	   X:variable max-of-rest={ !max( list="$list[position()!=1]" ) }
+
+	   X:if "$first &gt; $max-of-rest"  {
+		!{$first}
+	   } else {
+		!{$max-of-rest}
+	   }
+    } else {
+	   0
+    } 
+}
+ 
+ X:template ="/" {
+  Longest speech is <% X:text; !max( list="//SPEECH" ) X:text; %> lines.   
+ } 
+
+}
+	
+Syntax overview
+
+Rather than drawing the mapping for all of 35 XSLT elements, I'l just
+provide the mapping rules. If this is not enough, please note that
+XSLScript distribution contains more than 10 examples of XSLScript code.
+Those examples are XSLT stylesheets from Michael Kay's XSLT Programming
+Reference (available for download from Wrox website) rewritten in
+XSLScript. This results in XSLScript examples being educational and
+covering almost every XSLT (XSLScript) command.
+
+Rules 
+
+There are top-level XSLScript constructions and instructions. (exactly
+like it is in XSLT). Instructions could be separated from the content
+with <% and %> ( optional ).
+
+Instruction has body and header. Body is separated from header with { }
+'match', 'select', 'test' and 'name' are not written (but also could be
+written in some exotic cases.)
+
+Symbols ', ", {, are special. Use \{ e t.c. if you need those special
+symbols in tne content of your stylesheet.
+
+xsl:apply-templates, !! and xsl:number should end with ";"
+
+Syntax of apply-templates is extremely close to the syntax of
+call-template.
+
+There are few shortcuts:
+You can use !{xpath-expression} for 
+X:value-of select="xpath-expression";
+!! for X:apply-templates
+!foo() for X:call-template name="foo"
+X:var for X:variable
+
+There is 'comma' shortcut. It exists for X:stylesheet (see date.xsls for
+example of XSLT-engine independent java binding). And also it exists for
+X:for-each and X:apply-templates.
+
+X:for-each "//*" , X:sort { 
+
+You can not write X:sort as an element, but you should use 'comma'
+shortcut.
+
+The shortcut for template allows : 
+X:template foo( bar="init", baz={markup} ) = "match" mode="some" {
+Download
+
+Because SAXON (http://users.iclway.co.uk/mhkay/saxon/) is 100% free,
+XSLScript distribution contains everything you need to run XSLScript.
+
+xsls.jar includes not only .class files, but also the source code of
+XSLScript
+
+XSLScript is 100% free.
+
+Contact
+
+Paul Tchistopolskii.  
+http://www.pault.com  
+paul@pault.com  
+
+Changes in version 0.7
+
+(major rewrite)
+
+<% %> are optional.
+Some verbose forms are dropped ( no X:with-param and call-template ever,
+e t.c. )
+Parser is less forgiving and some things become not intuitive.
+\{ \' " required.
+Nice dumping of generated stylesheet.
+1-1 line mapping.
+Based on SAXON / SAX2, but still should work with XT.
+Changes in version 0.51
+
+(small bugfixes)
+
+':' was not allowed in #NAME token. ( Allows xmlns:some= )
+Multiple <!-- comments bugfixed.
+\{ bugfixed and \' allowed. This is actually not obvious, I should
+explain how to use \{ and \' ... some day ...
+Few examples from XSL-list are included.
+
+###############################################################################
