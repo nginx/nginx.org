@@ -4,9 +4,9 @@ TEXT =		text
 BANNER =	banner
 ZIP =		gzip
 NGINX_ORG =	/data/www/nginx.org
-SHELL =		./umasked.sh
+SHELL =		tools/umasked.sh
 
-XSLS ?=		xslscript.pl
+XSLS ?=		tools/xslscript.pl
 RSYNC =		rsync -v -rpc
 CHMOD =		/bin/chmod -R g=u
 
