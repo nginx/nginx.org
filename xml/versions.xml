@@ -10,6 +10,14 @@
 <download tag="mainline" changes="">
 
 <item ver="1.25.5" />
+
+</download>
+
+
+<download tag="stable" changes="1.26">
+
+<item ver="1.26.0" />
+<item ver="1.25.5" />
 <item ver="1.25.4" />
 <item ver="1.25.3" />
 <item ver="1.25.2" />
@@ -19,7 +27,7 @@
 </download>
 
 
-<download tag="stable" changes="1.24">
+<download tag="legacy" changes="1.24">
 
 <item ver="1.24.0" />
 <item ver="1.23.4" />
