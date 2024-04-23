@@ -8,7 +8,7 @@
 <article name="nginx: скачать"
          link="/ru/download.html"
          lang="ru"
-         rev="2">
+         rev="3">
 
 
 <section name="Основная версия">
@@ -35,25 +35,29 @@
 <section name="Исходный код">
 
 <para>
-Репозитории Mercurial, доступные только для чтения:
+Исходный код:
 <list type="bullet">
 
 <listitem>
-код: <literal>http://hg.nginx.org/nginx</literal>
+Репозитории Mercurial, доступные только для чтения:
+<literal>http://hg.nginx.org/nginx</literal>
 </listitem>
 <listitem>
-сайт: <literal>http://hg.nginx.org/nginx.org</literal>
+<link url="http://trac.nginx.org/nginx/browser">Исходный код в Trac</link>
 </listitem>
 
 </list>
 </para>
 
 <para>
-<link url="http://trac.nginx.org/nginx/browser">Исходный код в Trac</link>
+<link url="https://github.com/nginx/nginx.org">вебсайт код</link>
 </para>
 
 </section>
 
+
+<para>
+</para>
 
 <section name="Готовые пакеты">
 

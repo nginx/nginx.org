@@ -8,7 +8,7 @@
 <article name="nginx: download"
          link="/en/download.html"
          lang="en"
-         rev="2">
+         rev="3">
 
 
 <section name="Mainline version">
@@ -35,21 +35,22 @@
 <section name="Source Code">
 
 <para>
-Read-only Mercurial repositories:
+Source code:
 <list type="bullet">
 
 <listitem>
-code: <literal>http://hg.nginx.org/nginx</literal>
+Read-only Mercurial repository: <literal>http://hg.nginx.org/nginx</literal>
 </listitem>
 <listitem>
-site: <literal>http://hg.nginx.org/nginx.org</literal>
+<link url="http://trac.nginx.org/nginx/browser">Trac source browser</link>
 </listitem>
+<listitem>
 
 </list>
 </para>
 
 <para>
-<link url="http://trac.nginx.org/nginx/browser">Trac source browser</link>
+<link url="https://github.com/nginx/nginx.org">Website sources</link>
 </para>
 
 </section>
