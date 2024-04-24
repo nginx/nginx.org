@@ -88,7 +88,7 @@ run `make` from the top-level directory to regenerate the HTML.
 ### Creating new pages
 New pages should be created in the most appropriate location within a language directory,
 typically [xml/en](xml/en/). The [GNUmakefile](xml/en/GNUmakefile) must then be updated to
-reference the new page before to included it in the site generation process.
+reference the new page before it will be included in the site generation process.
 
 After determining the most appropriate location for the page, choose the most appropriate Document
 Type Definition ([DTD](dtd/)) for your content. This will determine the page layout and the XML tags
@@ -105,4 +105,8 @@ Pay attention to existing files before making significant edits.
 The basic rules for XML content are:
 
  * Lines are typically no longer than 70 characters, with an absolute maximum of 80 characters.
+   `<programlisting>` and `<example>` tags are excluded from this requirement.
  * Each new sentence begins on a new line.
+ * A single empty line appears between `<para>` tags and other tags of equal significance.
+ * Two empty lines appear between `<section>` tags.
+ * Do not link to your content from the menu unless you are creating an all-new type of content.
