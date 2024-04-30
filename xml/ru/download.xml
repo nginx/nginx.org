@@ -8,7 +8,7 @@
 <article name="nginx: скачать"
          link="/ru/download.html"
          lang="ru"
-         rev="2">
+         rev="3">
 
 
 <section name="Основная версия">
@@ -41,8 +41,26 @@
 <listitem>
 код: <literal>http://hg.nginx.org/nginx</literal>
 </listitem>
+
 <listitem>
 сайт: <literal>http://hg.nginx.org/nginx.org</literal>
+(зеркало репозитория GitHub)
+</listitem>
+
+</list>
+</para>
+
+<para>
+Репозитории GitHub:
+<list type="bullet">
+
+<listitem>
+код: <link url="https://github.com/nginx/nginx"/>
+(зеркало репозитория Mercurial)
+</listitem>
+
+<listitem>
+сайт: <link url="https://github.com/nginx/nginx.org"/>
 </listitem>
 
 </list>

@@ -8,7 +8,7 @@
 <article name="nginx: download"
          link="/en/download.html"
          lang="en"
-         rev="2">
+         rev="3">
 
 
 <section name="Mainline version">
@@ -41,8 +41,26 @@ Read-only Mercurial repositories:
 <listitem>
 code: <literal>http://hg.nginx.org/nginx</literal>
 </listitem>
+
 <listitem>
-site: <literal>http://hg.nginx.org/nginx.org</literal>
+website: <literal>http://hg.nginx.org/nginx.org</literal>
+(mirror of GitHub repository)
+</listitem>
+
+</list>
+</para>
+
+<para>
+GitHub repositories:
+<list type="bullet">
+
+<listitem>
+code: <link url="https://github.com/nginx/nginx"/>
+(mirror of Mercurial repository)
+</listitem>
+
+<listitem>
+website: <link url="https://github.com/nginx/nginx.org"/>
 </listitem>
 
 </list>
