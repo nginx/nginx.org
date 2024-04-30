@@ -88,7 +88,7 @@ run `make` from the top-level directory to regenerate the HTML.
 ### Creating new pages
 New pages should be created in the most appropriate location within a language directory,
 typically [xml/en](xml/en/). The [GNUmakefile](xml/en/GNUmakefile) must then be updated to
-reference the new page before it will be included in the site generation process.
+reference the new page before it is included in the site generation process.
 
 After determining the most appropriate location for the page, choose the most appropriate Document
 Type Definition ([DTD](dtd/)) for your content. This will determine the page layout and the XML tags
