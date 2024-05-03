@@ -45,9 +45,9 @@ The docker image exposes port 8080 as per the convention for container hosting s
 
 Local development with Docker
 -----------------------------
-Use the [Docker Compose file](docker-compose.yaml) to enable local development with just a
-text editor. Site generation is performed within the Docker container whenever a change is
-made to the local files in the [banner](banner/), [xml](xml/), and [xsls](xsls/) directories.
+Use [Docker Compose](docker-compose.yaml) to enable local development with a text editor (no
+other tools required). Site generation is performed within the Docker container whenever a change
+is made to the local files in the [banner](banner/), [xml](xml/), and [xsls](xsls/) directories.
 
 Start the development container:
 ```

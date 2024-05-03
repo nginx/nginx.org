@@ -1,7 +1,6 @@
 FROM nginx:alpine
 
-RUN apk add perl perl-dev libxml2-utils make
-RUN cpan install -T Parse::RecDescent
+RUN apk add perl perl-parse-recdescent libxml2-utils make
 
 WORKDIR /var/www
 COPY . /var/www
