@@ -1,7 +1,6 @@
 FROM nginx:alpine AS build
 
-RUN apk add netpbm perl perl-dev libxslt libxml2-utils patch make rsync
-RUN cpan install -T Parse::RecDescent
+RUN apk add netpbm perl perl-parse-recdescent libxslt libxml2-utils patch make rsync
 
 COPY . /var/www
 WORKDIR /var/www
