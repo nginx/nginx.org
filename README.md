@@ -33,6 +33,7 @@ Site generation is performed with [make(1)](GNUmakefile) with several targets, n
  * `images` target creates thumbnail icons from [sources](sources/) for the [books page](xml/en/books.xml).
  * `gzip` target creates compressed versions of the HTML and text content which is used by the production website.
 
+
 Docker image
 ------------
 Use the [Dockerfile](Dockerfile) to create a self-container Docker image that approximates the production website.
@@ -41,8 +42,25 @@ docker build --no-cache -t nginx.org:my_build .
 ```
 The docker image exposes port 8080 as per the convention for container hosting services.
 
-Local development
------------------
+
+Local development with Docker
+-----------------------------
+Use [Docker Compose](docker-compose.yaml) to enable local development with a text editor (no
+other tools required). Site generation is performed within the Docker container whenever a change
+is made to the local files in the [banner](banner/), [xml](xml/), and [xsls](xsls/) directories.
+
+Start the development container:
+```
+docker compose up --build --watch
+```
+Test the site by visiting [localhost:8001](http://localhost:8001/).
+
+> **Note:** To keep the site generation time to a minimum, only the core HTML content is produced.
+> Use the main [Dockerfile](Dockerfile) for a complete build.
+
+
+Local development with toolchain
+--------------------------------
 ### Prerequisities
 The static site generator uses a UNIX/Linux toolchain that includes:
  * `make`
@@ -63,21 +81,12 @@ Some **Linux** distros may also require the `perl-dev` or `perl-utils` package.
 With the prerequisites installed, run `make` from the top-level directory. This will create the
 **libxslt** directory with HTML content therein.
 
-### Running with Docker
-1. Build the site
-```
-make
-```
-2. Start a local web server configured to serve the site.
-```
-docker compose up -d
-```
-3. Test the site by visiting [localhost:8001](http://localhost:8001/).
+### Running the website locally
+Adapt the [docker-nginx.conf](docker-nginx.conf) file to suit your local `nginx` installation.
 
 
 Authoring content
 -----------------
-
 ### How pages are constructed
 *TODO*
 
