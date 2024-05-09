@@ -24,7 +24,7 @@ body {
     text-align: left;
     margin: 0 auto;
     min-width: 32em;
-    max-width: 64em;
+    max-width: 66em;
 }
 
 #menu {
@@ -48,7 +48,7 @@ body {
 
 #content {
     margin-right: 13.5em;
-    padding: 0 .2em 0 1.5em;
+    padding: 0 2.5em 0 1.5em;
 }
 
 h1 {
@@ -63,11 +63,24 @@ h1 img {
 }
 
 h2 {
-    text-align: center;
+    font-size: 2rem;
+    line-height: 2.25rem;
+    margin: 1rem 0 .5rem 0;
+    overflow-x: scroll;
+}
+
+h4 {
+    font-size: 1.5rem;
+    margin: 2rem 0 .5rem 0;
+}
+/* Center field override */
+center h4 {
+    text-align: left!important;
 }
 
 p {
     text-align: justify;
+    margin-bottom: 0;
 }
 
 table.news p {
@@ -80,7 +93,7 @@ table.news td {
 
 table.news .date {
     text-align: right;
-    padding-right: 0.5em;
+    padding: 0.75rem 0.5rem 0 0;
     white-space: nowrap;
 }
 
@@ -98,6 +111,7 @@ div.directive {
     margin: 1em 0 1em -1em;
     padding: .7em .7em .7em 1em;
     border-top: 2px solid #DDD;
+    width:100%;
 }
 
 div.directive th {
@@ -117,13 +131,19 @@ div.directive pre {
     margin: 0;
 }
 
+div.directive code {
+    background: none!important;
+    padding: 0!important;
+    border: none;
+}
+
 div.directive p {
     margin: .5em 0 0 .1em;
     font-size: .8em;
 }
 
 a.notrans {
-    color: gray;
+    color: #808080;
     text-decoration:none;
 }
 
@@ -143,7 +163,6 @@ ol {
 }
 
 li {
-    text-align: justify;
     padding: .5em 0 0 1px;
 }
 
@@ -156,7 +175,8 @@ dl {
 }
 
 dt {
-    margin: .5em 0;
+    margin: 1em 0 0 0!important;
+    font-size: 0.9rem;
 }
 
 .compact dt {
@@ -164,18 +184,18 @@ dt {
 }
 
 dd {
-    margin-left: 1.5em;
+    margin: 0.25rem 0 1.5rem 1rem;
     padding-left: 1px;
     text-align: justify;
 }
 
 td.list {
-    background: #F2F2F2;
+    background: #f2f2f2;
 }
 
 blockquote {
-    margin: 1em 0 1em 1em;
-    padding: .5em;
+    margin: 0.5rem 0 0 0;
+    padding: 0;
 }
 
 li blockquote, dd blockquote {
@@ -183,19 +203,48 @@ li blockquote, dd blockquote {
 }
 
 blockquote.note {
+    padding: 0.5rem;
     border: 1px dotted #999;
     line-height: 1.2em;
     text-align: justify;
 }
 
-blockquote.example {
-    line-height: 1em;
-    border-left: 1px solid #BBB;
+pre {
+    border: 0;
+    display: block;
+    margin: 1em 0;
+    padding: 0.6em 1em;
+    overflow-x: auto;
+    line-height: 1.05rem;
 }
 
-blockquote.example pre {
+code,.legacy{
+    font-size: 100%;
+    padding: 3px 7px;
+    overflow-x: scroll;
+    background: #eee;
+}
+
+pre code{
+    background: none;
     padding: 0;
+    border-radius: 0;
+}
+
+blockquote pre {
+    background-color: #f8f8f8!important;
+    color: #222!important;
     margin: 0;
+    border: 1px solid #ddd;
+}
+
+blockquote.terminal pre{
+    background-color: #444!important;
+    color: #fff!important;
+}
+
+blockquote.example {
+    line-height: 1em;
 }
 
 sup {
@@ -332,5 +381,42 @@ sup {
 @media screen and (min-width:750px){
     .side-menu,.hamb-line {
         display: none;
+    }
+}
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+	body {
+		background-color: #1c262d;
+        color:#eee;
+	}
+    h1,h2,h3,h4,h5,h6,p {
+        color: #eee;
+    }
+    a {
+        color: #55A4F1;
+        text-decoration: underline;
+    }
+    a:visited {
+        color: #8b79c0!important;
+    }
+    .nav {
+        background:var(--black);
+    }
+    #menu a {
+        color: #55A4F1;
+    }
+    blockquote pre {
+        color: #ddd!important;
+        background: #0f1b29!important;
+        border: 1px solid #132235;
+    }
+    div.directive {
+        background: #0c1622!important;
+        border-top: 2px solid #203c5e!important;
+    }
+    code {
+        background:#0c1622;
+        color: #ddd!important;
     }
 }
