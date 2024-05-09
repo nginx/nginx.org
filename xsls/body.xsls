@@ -18,20 +18,27 @@ X:template body (lang) {
     <body>
 
     <div id="banner">
+        <div id="banner-content"></div>
     </div>
 
     <div id="main">
     <div id="menu">
+        <input class="side-menu" type="checkbox" id="side-menu"/>
+        <label class="hamb" for="side-menu"><span class="hamb-line"></span></label>
+        <nav class="nav">
         <h1>
             X:if "@lang = 'he'" { X:attribute "align" { X:text{left} } }
             <a href="/">
-                <img src="/nginx.png" alt="nginx" />
+                <img src="/nginx.png" alt="nginx"/>
             </a>
         </h1>
         <div>
-        !! "document(concat($XML, '/menu.xml'))
+        <ul class="mobilemenu">
+            !! "document(concat($XML, '/menu.xml'))
                         /menus/menu[@lang = $lang]/item";
+        </ul>
         </div>
+        </nav>
     </div>
 
     <div id="content">
