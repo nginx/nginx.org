@@ -1,6 +1,7 @@
 
 OUT =		libxslt
 TEXT =		text
+CSS =		css
 BANNER =	banner
 ZIP =		gzip
 NGINX_ORG =	/data/www/nginx.org
@@ -73,11 +74,12 @@ YEARS = 								\
 		2009 2010 2011 2012 2013 2014 2015 2016 2017 2018 2019	\
 		2020 2021 2022 2023
 
-all:		news arx 404 $(LANGS)
+all:		news arx 404 css $(LANGS)
 
 news:		$(OUT)/index.html $(OUT)/index.rss
 arx:		$(foreach year,$(YEARS),$(OUT)/$(year).html)
 404:		$(OUT)/404.html
+css:		$(foreach f,$(wildcard css/*.css),$(OUT)/$(f))
 
 
 DIRIND_DEPS =
@@ -171,6 +173,9 @@ xslt/%.xslt:	xsls/%.xsls
 	mkdir -p $(dir $@)
 	$(call XSLScript, $<, $@)
 
+$(OUT)/css/%.css:      css/%.css
+		mkdir -p $(dir $@)
+		cp $< $@
 
 genapi:
 	$(MAKE) -C yaml
@@ -302,6 +307,7 @@ do_gzip:	$(addsuffix .gz, $(wildcard $(ZIP)/*.html))		\
 		$(addsuffix .gz, $(wildcard $(ZIP)/ru/CHANGES.ru-?.?))	\
 		$(addsuffix .gz, $(wildcard $(ZIP)/ru/CHANGES.ru-?.??))	\
 		$(addsuffix .gz, $(wildcard $(ZIP)/keys/*.key))		\
+		$(addsuffix .gz, $(wildcard $(ZIP)/css/*.css))		\
 
 	find $(ZIP) -type f ! -name '*.gz' -exec test \! -e {}.gz \; -print
 
