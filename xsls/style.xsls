@@ -7,7 +7,21 @@ X:stylesheet {
 
 X:template style (lang) {
 
-    <link rel="stylesheet" href="/css/style_{$lang}.css"></link>
+    <meta name="viewport" content="width=device-width,initial-scale=1"></meta>
+
+    <link>
+    X:attribute "rel" {
+      X:text{stylesheet}
+    }
+    X:attribute "href" {
+      X:if "substring-after($DIRNAME, '/')" {
+          !{ concat($ROOT, '/css/style_', $lang, '.css') }
+      } else {
+          !{ substring-after(concat('/css/style_', $lang, '.css'), '/') }
+      }
+    }
+    !!;
+    </link>
 
 }
 

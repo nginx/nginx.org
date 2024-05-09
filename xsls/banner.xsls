@@ -21,7 +21,7 @@ X:template banner () {
             fetch("!banner_link ()")
                 .then((response) => response.text())
                 .then((resp) => \{
-                    document.getElementById("banner").innerHTML = resp;
+                    document.getElementById("banner-content").innerHTML = resp;
                 \})
                 .catch((error) => \{
                     console.warn(error);

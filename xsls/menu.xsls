@@ -13,6 +13,8 @@ X:template = "menu/item" {
       --     "menu/item[@href = $LINK]", etc.
       -->
 
+    <li>
+
     X:if "@href = $LINK" {
         X:if "$YEAR and @href='/'" {
             <a href="./"> news </a> <br/>
@@ -21,7 +23,6 @@ X:template = "menu/item" {
         }
 
     } else {
-
         <!--
           -- If a menu item has the switchlang attribute, then it will point
           -- to the same document in the specified language.
@@ -66,33 +67,34 @@ X:template = "menu/item" {
 
             X:if "@lang" { X:text { [} !{@lang} X:text {]}}
         }
-
-        <br/>
     }
+    </li>
 }
 
 
 X:template = "menu/item[@year]" {
     X:if "$YEAR or $LINK='/'" {
+        <li>
         X:if "$YEAR=@year" {
-            !{@year} <br/>
+            !{@year}
         } else {
             X:if "@href" { <a href="{@href}"> !{@year} </a> }
-            <br/>
         }
+        </li>
     }
 }
 
 
 X:template = "menu/item[starts-with(@href, 'http://') or starts-with(@href, 'https://')]" {
+    <li>
     <a href="{@href}"> !{ normalize-space(text()) } </a>
     X:if "@lang" { X:text { [} !{@lang} X:text {]}}
-    <br/>
+    </li>
 }
 
 
 X:template = "menu/item[not(@href) and not(@year)]" {
-    !{ normalize-space(text()) } <br/>
+    <li>!{ normalize-space(text()) } <br/></li>
 }
 
 }
