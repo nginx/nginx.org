@@ -10,10 +10,14 @@ services:
           action: rebuild
         - path: ./xsls
           action: rebuild
+        - path: ./css
+          target: /var/www/libxslt/css
+          action: sync
         - path: ./banner
           target: /var/www/banner
           action: sync
+    tmpfs:
+      - /var/www/xslt
     volumes:
-      - ./xslt:/var/www/xslt
-      - ./libxslt:/var/www/libxslt
       - ./docker-nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./xslt/version.xslt:/var/www/xslt/version.xslt

@@ -47,7 +47,8 @@ Local development with Docker
 -----------------------------
 Use [Docker Compose](docker-compose.yaml) to enable local development with a text editor (no
 other tools required). Site generation is performed within the Docker container whenever a change
-is made to the local files in the [banner](banner/), [xml](xml/), and [xsls](xsls/) directories.
+is made to the local files in the [banner](banner/), [css](css/), [xml](xml/), and [xsls](xsls/)
+directories.
 
 Start the development container:
 ```
