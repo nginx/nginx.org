@@ -349,9 +349,9 @@ JWT claims.
 
 
 <directive name="auth_jwt_type">
-<syntax><value>signed</value> |
-        <value>encrypted</value> |
-        <value>nested</value></syntax>
+<syntax><literal>signed</literal> |
+        <literal>encrypted</literal> |
+        <literal>nested</literal></syntax>
 <default>signed</default>
 <context>http</context>
 <context>server</context>
