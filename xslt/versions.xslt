@@ -17,7 +17,7 @@
 </xsl:template>
 
 <xsl:template match="commercial_version">
-    <a href="http://nginx.com/products/">
+    <a href="https://www.f5.com/products">
     <xsl:apply-templates/>
     </a>
 </xsl:template>
