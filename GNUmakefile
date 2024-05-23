@@ -179,11 +179,6 @@ genapi:
 images:									\
 		binary/books/complete_nginx_cookbook_2019.jpg		\
 		binary/books/deploying_nginx_as_api_gateway.jpg		\
-		binary/books/high_performance_caching.jpg		\
-		binary/books/loadbalancing_cloud.jpg			\
-		binary/books/f5_to_nginx_migration.jpg			\
-		binary/books/cisco_ace_to_nginx.jpg			\
-		binary/books/modsec3_and_nginx.jpg			\
 		binary/books/nginx_cookbook.jpg				\
 		binary/books/nginx_http_server_3rd_ed.jpg		\
 		binary/books/nginx_troubleshooting.jpg			\
@@ -209,31 +204,6 @@ binary/books/complete_nginx_cookbook_2019.jpg:				\
 
 binary/books/deploying_nginx_as_api_gateway.jpg:			\
 		sources/ebk-Deploying-NGINX-Plus-as-API-Gateway-150x185.jpg
-	mkdir -p $(dir $@)
-	$(call JPEGNORM, $<, $@)
-
-binary/books/high_performance_caching.jpg:				\
-		sources/ebk-High-Performance-Caching-150x185.jpg
-	mkdir -p $(dir $@)
-	$(call JPEGNORM, $<, $@)
-
-binary/books/loadbalancing_cloud.jpg:					\
-		sources/ebk-ORM-Load-Balancing-in-the-Cloud-150x185.jpg
-	mkdir -p $(dir $@)
-	$(call JPEGNORM, $<, $@)
-
-binary/books/f5_to_nginx_migration.jpg:				\
-		sources/ebk-F5-BIG-IP-to-NGINX-Plus-150x185.jpg
-	mkdir -p $(dir $@)
-	$(call JPEGNORM, $<, $@)
-
-binary/books/cisco_ace_to_nginx.jpg:					\
-		sources/ebk-Cisco-ACE-to-NGINX-150x185.jpg
-	mkdir -p $(dir $@)
-	$(call JPEGNORM, $<, $@)
-
-binary/books/modsec3_and_nginx.jpg:					\
-		sources/ebk-ModSecurity-3.0-and-NGINX-150x185.jpg
 	mkdir -p $(dir $@)
 	$(call JPEGNORM, $<, $@)
 
