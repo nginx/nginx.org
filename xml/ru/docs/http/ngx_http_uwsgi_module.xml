@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_uwsgi_module"
         link="/ru/docs/http/ngx_http_uwsgi_module.html"
         lang="ru"
-        rev="50">
+        rev="51">
 
 <section id="summary">
 
@@ -929,6 +929,7 @@ nginx не передаёт клиенту поля заголовка <header>S
 суммарная скорость будет вдвое выше заданного ограничения.
 Ограничение работает только в случае, если включена
 <link id="uwsgi_buffering">буферизация</link> ответов uwsgi-сервера.
+В значении параметра можно использовать переменные (1.27.0).
 </para>
 
 </directive>
