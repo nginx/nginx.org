@@ -9,7 +9,7 @@
 <article name="Download and install"
         link="/en/docs/njs/install.html"
         lang="en"
-        rev="3">
+        rev="4">
 
 <section id="install_package" name="Installing as a Linux package">
 
@@ -50,11 +50,11 @@ load_module modules/ngx_stream_js_module.so;
 <section id="install_sources" name="Building from the sources">
 
 <para>
-The <link url="http://hg.nginx.org/njs">repository</link>
+The <link url="https://github.com/nginx/njs">repository</link>
 with njs sources can be cloned with the following command:
-(requires <link url="https://www.mercurial-scm.org">Mercurial</link> client):
+(requires <link url="https://git-scm.com/">Git</link> client):
 <example>
-hg clone http://hg.nginx.org/njs
+git clone https://github.com/nginx/njs
 </example>
 Then the modules should be compiled from
 <link doc="../configure.xml">nginx</link> root directory using the

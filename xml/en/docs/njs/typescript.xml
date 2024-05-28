@@ -49,7 +49,7 @@ Write njs type-safe code
 
 <para>
 <example>
-$ hg clone http://hg.nginx.org/njs
+$ git clone https://github.com/nginx/njs
 $ cd njs &amp;&amp; ./configure &amp;&amp; make ts
 $ ls build/ts/
 njs_core.d.ts
