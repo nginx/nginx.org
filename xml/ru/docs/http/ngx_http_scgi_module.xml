@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_scgi_module"
         link="/ru/docs/http/ngx_http_scgi_module.html"
         lang="ru"
-        rev="41">
+        rev="42">
 
 <section id="summary">
 
@@ -930,6 +930,7 @@ nginx не передаёт клиенту поля заголовка <header>S
 суммарная скорость будет вдвое выше заданного ограничения.
 Ограничение работает только в случае, если включена
 <link id="scgi_buffering">буферизация</link> ответов SCGI-сервера.
+В значении параметра можно использовать переменные (1.27.0).
 </para>
 
 </directive>

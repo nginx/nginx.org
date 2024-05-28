@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_proxy_module"
         link="/ru/docs/http/ngx_http_proxy_module.html"
         lang="ru"
-        rev="76">
+        rev="77">
 
 <section id="summary">
 
@@ -1211,6 +1211,7 @@ NTLM</link> рекомендуется версия 1.1.
 суммарная скорость будет вдвое выше заданного ограничения.
 Ограничение работает только в случае, если включена
 <link id="proxy_buffering">буферизация</link> ответов проксируемого сервера.
+В значении параметра можно использовать переменные (1.27.0).
 </para>
 
 </directive>

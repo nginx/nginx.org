@@ -10,7 +10,7 @@
 <module name="Module ngx_http_proxy_module"
         link="/en/docs/http/ngx_http_proxy_module.html"
         lang="en"
-        rev="76">
+        rev="77">
 
 <section id="summary">
 
@@ -1210,6 +1210,7 @@ the overall rate will be twice as much as the specified limit.
 The limitation works only if
 <link id="proxy_buffering">buffering</link> of responses from the proxied
 server is enabled.
+Parameter value can contain variables (1.27.0).
 </para>
 
 </directive>
