@@ -7,6 +7,18 @@
 
 <news name="nginx news" link="/" lang="en">
 
+<event date="2021-05-29">
+<para>
+<link doc="en/download.xml">nginx-1.26.1</link>
+stable and
+<link doc="en/download.xml">nginx-1.27.0</link>
+mainline versions have been released,
+with fixes for
+<link doc="en/security_advisories.xml">vulnerabilities in HTTP/3</link>
+(CVE-2024-32760, CVE-2024-31079, CVE-2024-35200, CVE-2024-34161).
+</para>
+</event>
+
 <event date="2024-04-23">
 <para>
 <link doc="en/download.xml">nginx-1.26.0</link>

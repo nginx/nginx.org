@@ -24,6 +24,34 @@ Patches are signed using one of the
 
 <security>
 
+<item name="Buffer overwrite in HTTP/3"
+      severity="medium"
+      cve="2024-32760"
+      good="1.27.0+, 1.26.1+"
+      vulnerable="1.25.0-1.25.5, 1.26.0">
+</item>
+
+<item name="Stack overflow and use-after-free in HTTP/3"
+      severity="medium"
+      cve="2024-31079"
+      good="1.27.0+, 1.26.1+"
+      vulnerable="1.25.0-1.25.5, 1.26.0">
+</item>
+
+<item name="NULL pointer dereference in HTTP/3"
+      severity="medium"
+      cve="2024-35200"
+      good="1.27.0+, 1.26.1+"
+      vulnerable="1.25.0-1.25.5, 1.26.0">
+</item>
+
+<item name="Memory disclosure in HTTP/3"
+      severity="medium"
+      cve="2024-34161"
+      good="1.27.0+, 1.26.1+"
+      vulnerable="1.25.0-1.25.5, 1.26.0">
+</item>
+
 <item name="NULL pointer dereference in HTTP/3"
       severity="major"
       advisory="http://mailman.nginx.org/pipermail/nginx-announce/2024/NW6MNW34VZ6HDIHH5YFBIJYZJN7FGNAV.html"
