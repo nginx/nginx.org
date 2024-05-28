@@ -9,7 +9,7 @@
 <article name="Загрузка и установка"
         link="/ru/docs/njs/install.html"
         lang="ru"
-        rev="3">
+        rev="4">
 
 <section id="install_package" name="Установка пакета Linux">
 
@@ -51,11 +51,11 @@ load_module modules/ngx_stream_js_module.so;
 <section id="install_sources" name="Установка из исходных файлов">
 
 <para>
-<link url="http://hg.nginx.org/njs">Репозиторий</link>
+<link url="https://github.com/nginx/njs">Репозиторий</link>
 с исходным кодом njs можно клонировать следующей командой:
-(необходим клиент <link url="https://www.mercurial-scm.org">Mercurial</link>):
+(необходим клиент <link url="https://git-scm.com/">Git</link>):
 <example>
-hg clone http://hg.nginx.org/njs
+git clone https://github.com/nginx/njs
 </example>
 Затем модули необходимо собрать из
 корневого каталога <link doc="../configure.xml">nginx</link> с помощью
