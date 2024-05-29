@@ -42,7 +42,7 @@
         </xsl:if>
         <a>
         <xsl:attribute name="href">
-            <xsl:text>http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-</xsl:text> <xsl:value-of select="@cve"/>
+            <xsl:text>https://www.cve.org/CVERecord?id=CVE-</xsl:text> <xsl:value-of select="@cve"/>
         </xsl:attribute>
         <xsl:text>CVE-</xsl:text> <xsl:value-of select="@cve"/>
         </a>
