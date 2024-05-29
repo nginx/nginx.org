@@ -54,7 +54,7 @@ Patches are signed using one of the
 
 <item name="NULL pointer dereference in HTTP/3"
       severity="major"
-      advisory="http://mailman.nginx.org/pipermail/nginx-announce/2024/NW6MNW34VZ6HDIHH5YFBIJYZJN7FGNAV.html"
+      advisory="https://mailman.nginx.org/pipermail/nginx-announce/2024/NW6MNW34VZ6HDIHH5YFBIJYZJN7FGNAV.html"
       cve="2024-24989"
       good="1.25.4+"
       vulnerable="1.25.3">
@@ -62,7 +62,7 @@ Patches are signed using one of the
 
 <item name="Use-after-free in HTTP/3"
       severity="major"
-      advisory="http://mailman.nginx.org/pipermail/nginx-announce/2024/NW6MNW34VZ6HDIHH5YFBIJYZJN7FGNAV.html"
+      advisory="https://mailman.nginx.org/pipermail/nginx-announce/2024/NW6MNW34VZ6HDIHH5YFBIJYZJN7FGNAV.html"
       cve="2024-24990"
       good="1.25.4+"
       vulnerable="1.25.0-1.25.3">
@@ -70,7 +70,7 @@ Patches are signed using one of the
 
 <item name="Memory corruption in the ngx_http_mp4_module"
       severity="medium"
-      advisory="http://mailman.nginx.org/pipermail/nginx-announce/2022/RBRRON6PYBJJM2XIAPQBFBVLR4Q6IHRA.html"
+      advisory="https://mailman.nginx.org/pipermail/nginx-announce/2022/RBRRON6PYBJJM2XIAPQBFBVLR4Q6IHRA.html"
       cve="2022-41741"
       good="1.23.2+, 1.22.1+"
       vulnerable="1.1.3-1.23.1, 1.0.7-1.0.15">
@@ -79,7 +79,7 @@ Patches are signed using one of the
 
 <item name="Memory disclosure in the ngx_http_mp4_module"
       severity="medium"
-      advisory="http://mailman.nginx.org/pipermail/nginx-announce/2022/RBRRON6PYBJJM2XIAPQBFBVLR4Q6IHRA.html"
+      advisory="https://mailman.nginx.org/pipermail/nginx-announce/2022/RBRRON6PYBJJM2XIAPQBFBVLR4Q6IHRA.html"
       cve="2022-41742"
       good="1.23.2+, 1.22.1+"
       vulnerable="1.1.3-1.23.1, 1.0.7-1.0.15">
@@ -88,7 +88,7 @@ Patches are signed using one of the
 
 <item name="1-byte memory overwrite in resolver"
       severity="medium"
-      advisory="http://mailman.nginx.org/pipermail/nginx-announce/2021/000300.html"
+      advisory="https://mailman.nginx.org/pipermail/nginx-announce/2021/000300.html"
       cve="2021-23017"
       good="1.21.0+, 1.20.1+"
       vulnerable="0.6.18-1.20.0">
@@ -97,7 +97,7 @@ Patches are signed using one of the
 
 <item name="Excessive CPU usage in HTTP/2 with small window updates"
       severity="medium"
-      advisory="http://mailman.nginx.org/pipermail/nginx-announce/2019/000249.html"
+      advisory="https://mailman.nginx.org/pipermail/nginx-announce/2019/000249.html"
       cve="2019-9511"
       good="1.17.3+, 1.16.1+"
       vulnerable="1.9.5-1.17.2">
@@ -105,7 +105,7 @@ Patches are signed using one of the
 
 <item name="Excessive CPU usage in HTTP/2 with priority changes"
       severity="low"
-      advisory="http://mailman.nginx.org/pipermail/nginx-announce/2019/000249.html"
+      advisory="https://mailman.nginx.org/pipermail/nginx-announce/2019/000249.html"
       cve="2019-9513"
       good="1.17.3+, 1.16.1+"
       vulnerable="1.9.5-1.17.2">
@@ -113,7 +113,7 @@ Patches are signed using one of the
 
 <item name="Excessive memory usage in HTTP/2 with zero length headers"
       severity="low"
-      advisory="http://mailman.nginx.org/pipermail/nginx-announce/2019/000249.html"
+      advisory="https://mailman.nginx.org/pipermail/nginx-announce/2019/000249.html"
       cve="2019-9516"
       good="1.17.3+, 1.16.1+"
       vulnerable="1.9.5-1.17.2">
@@ -121,7 +121,7 @@ Patches are signed using one of the
 
 <item name="Excessive memory usage in HTTP/2"
       severity="low"
-      advisory="http://mailman.nginx.org/pipermail/nginx-announce/2018/000220.html"
+      advisory="https://mailman.nginx.org/pipermail/nginx-announce/2018/000220.html"
       cve="2018-16843"
       good="1.15.6+, 1.14.1+"
       vulnerable="1.9.5-1.15.5">
@@ -129,7 +129,7 @@ Patches are signed using one of the
 
 <item name="Excessive CPU usage in HTTP/2"
       severity="low"
-      advisory="http://mailman.nginx.org/pipermail/nginx-announce/2018/000220.html"
+      advisory="https://mailman.nginx.org/pipermail/nginx-announce/2018/000220.html"
       cve="2018-16844"
       good="1.15.6+, 1.14.1+"
       vulnerable="1.9.5-1.15.5">
@@ -137,7 +137,7 @@ Patches are signed using one of the
 
 <item name="Memory disclosure in the ngx_http_mp4_module"
       severity="medium"
-      advisory="http://mailman.nginx.org/pipermail/nginx-announce/2018/000221.html"
+      advisory="https://mailman.nginx.org/pipermail/nginx-announce/2018/000221.html"
       cve="2018-16845"
       good="1.15.6+, 1.14.1+"
       vulnerable="1.1.3-1.15.5, 1.0.7-1.0.15">
@@ -146,7 +146,7 @@ Patches are signed using one of the
 
 <item name="Integer overflow in the range filter"
       severity="medium"
-      advisory="http://mailman.nginx.org/pipermail/nginx-announce/2017/000200.html"
+      advisory="https://mailman.nginx.org/pipermail/nginx-announce/2017/000200.html"
       cve="2017-7529"
       good="1.13.3+, 1.12.1+"
       vulnerable="0.5.6-1.13.2">
@@ -155,7 +155,7 @@ Patches are signed using one of the
 
 <item name="NULL pointer dereference while writing client request body"
       severity="medium"
-      advisory="http://mailman.nginx.org/pipermail/nginx-announce/2016/000179.html"
+      advisory="https://mailman.nginx.org/pipermail/nginx-announce/2016/000179.html"
       cve="2016-4450"
       good="1.11.1+, 1.10.1+"
       vulnerable="1.3.9-1.11.0">
@@ -165,28 +165,28 @@ Patches are signed using one of the
 
 <item name="Invalid pointer dereference in resolver"
       severity="medium"
-      advisory="http://mailman.nginx.org/pipermail/nginx-announce/2016/000169.html"
+      advisory="https://mailman.nginx.org/pipermail/nginx-announce/2016/000169.html"
       cve="2016-0742"
       good="1.9.10+, 1.8.1+"
       vulnerable="0.6.18-1.9.9" />
 
 <item name="Use-after-free during CNAME response processing in resolver"
       severity="medium"
-      advisory="http://mailman.nginx.org/pipermail/nginx-announce/2016/000169.html"
+      advisory="https://mailman.nginx.org/pipermail/nginx-announce/2016/000169.html"
       cve="2016-0746"
       good="1.9.10+, 1.8.1+"
       vulnerable="0.6.18-1.9.9" />
 
 <item name="Insufficient limits of CNAME resolution in resolver"
       severity="medium"
-      advisory="http://mailman.nginx.org/pipermail/nginx-announce/2016/000169.html"
+      advisory="https://mailman.nginx.org/pipermail/nginx-announce/2016/000169.html"
       cve="2016-0747"
       good="1.9.10+, 1.8.1+"
       vulnerable="0.6.18-1.9.9" />
 
 <item name="SSL session reuse vulnerability"
       severity="medium"
-      advisory="http://mailman.nginx.org/pipermail/nginx-announce/2014/000147.html"
+      advisory="https://mailman.nginx.org/pipermail/nginx-announce/2014/000147.html"
       cve="2014-3616"
       good="1.7.5+, 1.6.2+"
       vulnerable="0.5.6-1.7.4">
@@ -194,7 +194,7 @@ Patches are signed using one of the
 
 <item name="STARTTLS command injection"
       severity="medium"
-      advisory="http://mailman.nginx.org/pipermail/nginx-announce/2014/000144.html"
+      advisory="https://mailman.nginx.org/pipermail/nginx-announce/2014/000144.html"
       cve="2014-3556"
       good="1.7.4+, 1.6.1+"
       vulnerable="1.5.6-1.7.3">
@@ -203,7 +203,7 @@ Patches are signed using one of the
 
 <item name="SPDY heap buffer overflow"
       severity="major"
-      advisory="http://mailman.nginx.org/pipermail/nginx-announce/2014/000135.html"
+      advisory="https://mailman.nginx.org/pipermail/nginx-announce/2014/000135.html"
       cve="2014-0133"
       good="1.5.12+, 1.4.7+"
       vulnerable="1.3.15-1.5.11">
@@ -212,7 +212,7 @@ Patches are signed using one of the
 
 <item name="SPDY memory corruption"
       severity="major"
-      advisory="http://mailman.nginx.org/pipermail/nginx-announce/2014/000132.html"
+      advisory="https://mailman.nginx.org/pipermail/nginx-announce/2014/000132.html"
       cve="2014-0088"
       good="1.5.11+"
       vulnerable="1.5.10">
@@ -221,7 +221,7 @@ Patches are signed using one of the
 
 <item name="Request line parsing vulnerability"
       severity="medium"
-      advisory="http://mailman.nginx.org/pipermail/nginx-announce/2013/000125.html"
+      advisory="https://mailman.nginx.org/pipermail/nginx-announce/2013/000125.html"
       cve="2013-4547"
       good="1.5.7+, 1.4.4+"
       vulnerable="0.8.41-1.5.6">
@@ -230,7 +230,7 @@ Patches are signed using one of the
 
 <item name="Memory disclosure with specially crafted HTTP backend responses"
       severity="medium"
-      advisory="http://mailman.nginx.org/pipermail/nginx-announce/2013/000114.html"
+      advisory="https://mailman.nginx.org/pipermail/nginx-announce/2013/000114.html"
       cve="2013-2070"
       good="1.5.0+, 1.4.1+, 1.2.9+"
       vulnerable="1.1.4-1.2.8, 1.3.9-1.4.0">
@@ -240,7 +240,7 @@ Patches are signed using one of the
 
 <item name="Stack-based buffer overflow with specially crafted request"
       severity="major"
-      advisory="http://mailman.nginx.org/pipermail/nginx-announce/2013/000112.html"
+      advisory="https://mailman.nginx.org/pipermail/nginx-announce/2013/000112.html"
       cve="2013-2028"
       good="1.5.0+, 1.4.1+"
       vulnerable="1.3.9-1.4.0">
@@ -249,14 +249,14 @@ Patches are signed using one of the
 
 <item name="Vulnerabilities with Windows directory aliases"
       severity="medium"
-      advisory="http://mailman.nginx.org/pipermail/nginx-announce/2012/000086.html"
+      advisory="https://mailman.nginx.org/pipermail/nginx-announce/2012/000086.html"
       cve="2011-4963"
       good="1.3.1+, 1.2.1+"
       vulnerable="nginx/Windows 0.7.52-1.3.0" />
 
 <item name="Buffer overflow in the ngx_http_mp4_module"
       severity="major"
-      advisory="http://mailman.nginx.org/pipermail/nginx-announce/2012/000080.html"
+      advisory="https://mailman.nginx.org/pipermail/nginx-announce/2012/000080.html"
       cve="2012-2089"
       good="1.1.19+, 1.0.15+"
       vulnerable="1.1.3-1.1.18, 1.0.7-1.0.14">
@@ -265,7 +265,7 @@ Patches are signed using one of the
 
 <item name="Memory disclosure with specially crafted backend responses"
       severity="major"
-      advisory="http://mailman.nginx.org/pipermail/nginx-announce/2012/000076.html"
+      advisory="https://mailman.nginx.org/pipermail/nginx-announce/2012/000076.html"
       cve="2012-1180"
       good="1.1.17+, 1.0.14+"
       vulnerable="0.1.0-1.1.16">
