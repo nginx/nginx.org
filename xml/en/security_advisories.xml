@@ -26,6 +26,7 @@ Patches are signed using one of the
 
 <item name="Buffer overwrite in HTTP/3"
       severity="medium"
+      advisory="https://mailman.nginx.org/pipermail/nginx-announce/2024/GMY32CSHFH6VFTN76HJNX7WNEX4RLHF6.html"
       cve="2024-32760"
       good="1.27.0+, 1.26.1+"
       vulnerable="1.25.0-1.25.5, 1.26.0">
@@ -33,6 +34,7 @@ Patches are signed using one of the
 
 <item name="Stack overflow and use-after-free in HTTP/3"
       severity="medium"
+      advisory="https://mailman.nginx.org/pipermail/nginx-announce/2024/GMY32CSHFH6VFTN76HJNX7WNEX4RLHF6.html"
       cve="2024-31079"
       good="1.27.0+, 1.26.1+"
       vulnerable="1.25.0-1.25.5, 1.26.0">
@@ -40,6 +42,7 @@ Patches are signed using one of the
 
 <item name="NULL pointer dereference in HTTP/3"
       severity="medium"
+      advisory="https://mailman.nginx.org/pipermail/nginx-announce/2024/GMY32CSHFH6VFTN76HJNX7WNEX4RLHF6.html"
       cve="2024-35200"
       good="1.27.0+, 1.26.1+"
       vulnerable="1.25.0-1.25.5, 1.26.0">
@@ -47,6 +50,7 @@ Patches are signed using one of the
 
 <item name="Memory disclosure in HTTP/3"
       severity="medium"
+      advisory="https://mailman.nginx.org/pipermail/nginx-announce/2024/GMY32CSHFH6VFTN76HJNX7WNEX4RLHF6.html"
       cve="2024-34161"
       good="1.27.0+, 1.26.1+"
       vulnerable="1.25.0-1.25.5, 1.26.0">
