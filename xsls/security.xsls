@@ -41,7 +41,7 @@ X:template = "security/item" {
         }
         <a>
         X:attribute "href" {
-            X:text {http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-} !{@cve}
+            X:text {https://www.cve.org/CVERecord?id=CVE-} !{@cve}
         }
         X:text {CVE-} !{@cve}
         </a>
