@@ -307,6 +307,15 @@ redirect</link>
 to the specified <literal>uri</literal>.
 If the uri starts with the “<literal>@</literal>” prefix,
 it is considered a named location.
+In a new location, all request processing is repeated
+starting from <link doc="../dev/development_guide.xml" id="http_phases">NGX_HTTP_SERVER_REWRITE_PHASE</link>
+for ordinary locations and from <link doc="../dev/development_guide.xml" id="http_phases">NGX_HTTP_REWRITE_PHASE</link>
+for named locations.
+As a result, a redirect to a named location
+does not check <link doc="../http/ngx_http_core_module.xml" id="client_max_body_size"/>
+limit.
+See <link doc="../dev/development_guide.xml" id="http_request_redirection">dev guide</link>
+for more details.
 Redirected requests become internal and can access the
 <link doc="../http/ngx_http_core_module.xml" id="internal">internal</link>
 locations.
