@@ -7,7 +7,7 @@
 <article name="nginx: Linux packages"
          link="/en/linux_packages.html"
          lang="en"
-         rev="96">
+         rev="97">
 
 <section name="Supported distributions and versions" id="distributions">
 
@@ -278,11 +278,11 @@ The output should contain the full fingerprint
 <command>573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62</command>
 as follows:
 <programlisting>
-pub   rsa2048 2011-08-19 [SC] [expires: 2024-06-14]
+pub   rsa2048 2011-08-19 [SC] [expires: 2027-05-24]
       573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62
 uid                      nginx signing key &lt;signing-key@nginx.com&gt;
 </programlisting>
-If the fingerprint is different, remove the file.
+Note that the output can contain other keys used to sign the packages.
 </para>
 
 <para>
@@ -350,11 +350,11 @@ The output should contain the full fingerprint
 <command>573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62</command>
 as follows:
 <programlisting>
-pub   rsa2048 2011-08-19 [SC] [expires: 2024-06-14]
+pub   rsa2048 2011-08-19 [SC] [expires: 2027-05-24]
       573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62
 uid                      nginx signing key &lt;signing-key@nginx.com&gt;
 </programlisting>
-If the fingerprint is different, remove the file.
+Note that the output can contain other keys used to sign the packages.
 </para>
 
 <para>
@@ -433,7 +433,7 @@ The output should contain the full fingerprint
 <command>573B FD6B 3D8F BC64 1079  A6AB ABF5 BD82 7BD9 BF62</command>
 as follows:
 <programlisting>
-pub  2048R/7BD9BF62 2011-08-19 [expires: 2024-06-14]
+pub  2048R/7BD9BF62 2011-08-19 [expires: 2027-05-24]
       Key fingerprint = 573B FD6B 3D8F BC64 1079  A6AB ABF5 BD82 7BD9 BF62
 uid nginx signing key &lt;signing-key@nginx.com&gt;
 </programlisting>

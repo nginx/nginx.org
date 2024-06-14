@@ -7,7 +7,7 @@
 <article name="nginx: пакеты для Linux"
          link="/ru/linux_packages.html"
          lang="ru"
-         rev="96">
+         rev="97">
 
 <section name="Поддерживаемые дистрибутивы и версии" id="distributions">
 
@@ -277,11 +277,11 @@ gpg --dry-run --quiet --no-keyring --import --import-options import-show /usr/sh
 Вывод команды должен содержать полный отпечаток ключа
 <command>573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62</command>:
 <programlisting>
-pub   rsa2048 2011-08-19 [SC] [expires: 2024-06-14]
+pub   rsa2048 2011-08-19 [SC] [expires: 2027-05-24]
       573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62
 uid                      nginx signing key &lt;signing-key@nginx.com&gt;
 </programlisting>
-Если отпечаток отличается от вышеуказанного, удалите файл ключа.
+Вывод команды может содержать и другие ключи, используемые для подписи пакетов.
 </para>
 
 <para>
@@ -348,11 +348,11 @@ gpg --dry-run --quiet --no-keyring --import --import-options import-show /usr/sh
 Вывод команды должен содержать полный отпечаток ключа
 <command>573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62</command>:
 <programlisting>
-pub   rsa2048 2011-08-19 [SC] [expires: 2024-06-14]
+pub   rsa2048 2011-08-19 [SC] [expires: 2027-05-24]
       573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62
 uid                      nginx signing key &lt;signing-key@nginx.com&gt;
 </programlisting>
-Если отпечаток отличается от вышеуказанного, удалите файл ключа.
+Вывод команды может содержать и другие ключи, используемые для подписи пакетов.
 </para>
 
 <para>
@@ -430,7 +430,7 @@ gpg --with-fingerprint /tmp/nginx_signing.key
 Вывод команды должен содержать полный отпечаток ключа
 <command>573B FD6B 3D8F BC64 1079  A6AB ABF5 BD82 7BD9 BF62</command>:
 <programlisting>
-pub  2048R/7BD9BF62 2011-08-19 [expires: 2024-06-14]
+pub  2048R/7BD9BF62 2011-08-19 [expires: 2027-05-24]
       Key fingerprint = 573B FD6B 3D8F BC64 1079  A6AB ABF5 BD82 7BD9 BF62
 uid nginx signing key &lt;signing-key@nginx.com&gt;
 </programlisting>
