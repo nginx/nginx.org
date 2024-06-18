@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_js_module"
         link="/en/docs/stream/ngx_stream_js_module.html"
         lang="en"
-        rev="44">
+        rev="45">
 
 <section id="summary">
 
@@ -709,7 +709,15 @@ allows redefining the value type to number.
 
 <para>
 The optional <literal>timeout</literal> parameter sets
-the time after which all shared dictionary entries are removed from the zone.
+the time in milliseconds
+after which all shared dictionary entries are removed from the zone.
+If some entries require a different removal time, it can be set
+with the <literal>timeout</literal> argument of the
+<link doc="../njs/reference.xml" id="dict_add">add</link>,
+<link doc="../njs/reference.xml" id="dict_incr">incr</link>, and
+<link doc="../njs/reference.xml" id="dict_set">set</link>
+methods
+(<link doc="../njs/changes.xml" id="njs0.8.5">0.8.5</link>).
 </para>
 
 <para>

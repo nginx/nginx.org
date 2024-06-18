@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="122">
+        rev="123">
 
 <section id="summary">
 
@@ -1677,7 +1677,7 @@ has the following properties and methods:
 <list type="tag">
 
 <tag-name id="dict_add"><literal>ngx.shared.SharedDict.add(<value>key</value>,
-<value>value</value>)</literal></tag-name>
+<value>value</value> [,<value>timeout</value>])</literal></tag-name>
 <tag-desc>
 Sets the <literal>value</literal>
 for the specified <literal>key</literal> in the dictionary
@@ -1685,6 +1685,18 @@ only if the key does not exist yet.
 The <literal>key</literal> is a string representing
 the key of the item to add,
 the <literal>value</literal> is the value of the item to add.
+<para>
+The optional <literal>timeout</literal> argument is specified in milliseconds
+and overrides the <literal>timeout</literal> parameter of the
+<literal>js_shared_dict_zone</literal> directive in
+<link doc="../http/ngx_http_js_module.xml" id="js_shared_dict_zone">http</link>
+or
+<link doc="../stream/ngx_stream_js_module.xml" id="js_shared_dict_zone">stream</link>
+(since <link doc="changes.xml" id="njs0.8.5">0.8.5</link>).
+It can be useful when some keys are expected to have unique timeouts.
+</para>
+
+<para>
 Returns <literal>true</literal> if the value has been successfully added
 to  the <literal>SharedDict</literal> dictionary,
 <literal>false</literal> if the key already exists in the dictionary.
@@ -1692,6 +1704,7 @@ Throws <literal>SharedMemoryError</literal> if
 there is not enough free space in the <literal>SharedDict</literal> dictionary.
 Throws <literal>TypeError</literal> if the <literal>value</literal> is
 of a different type than expected by this dictionary.
+</para>
 </tag-desc>
 
 <tag-name id="dict_capacity"><literal>ngx.shared.SharedDict.capacity</literal></tag-name>
@@ -1738,21 +1751,36 @@ returns <literal>true</literal> if such item exists or
 <literal>false</literal> otherwise.
 </tag-desc>
 
-<tag-name id="dict_incr"><literal>ngx.shared.SharedDict.incr(<value>key</value>,<value>delta</value>[,<value>init</value>])</literal></tag-name>
+<tag-name id="dict_incr"><literal>ngx.shared.SharedDict.incr(<value>key</value>,<value>delta</value>[[,<value>init</value>], <value>timeout</value>]))</literal></tag-name>
 <tag-desc>
 Increments the integer value associated with the <literal>key</literal>
 by <literal>delta</literal>.
-If the key does not exist,
-the item will be initialized to <literal>init</literal>.
 The <literal>key</literal> is a string,
 the <literal>delta</literal> is the number
-to increment or decrement the value by,
-the <literal>init</literal> is a number to initialize the item with
-if it does not exist, by default is <literal>0</literal>.
+to increment or decrement the value by.
+If the key does not exist,
+the item will be initialized to an optional <literal>init</literal> argument,
+by default is <literal>0</literal>.
+
+<para>
+The optional <literal>timeout</literal> argument is specified in milliseconds
+and overrides the <literal>timeout</literal> parameter of the
+<literal>js_shared_dict_zone</literal> directive in
+<link doc="../http/ngx_http_js_module.xml" id="js_shared_dict_zone">http</link>
+or
+<link doc="../stream/ngx_stream_js_module.xml" id="js_shared_dict_zone">stream</link>
+(since <link doc="changes.xml" id="njs0.8.5">0.8.5</link>).
+It can be useful when some keys are expected to have unique timeouts.
+</para>
+
+<para>
 Returns the new value.
 Throws <literal>SharedMemoryError</literal> if
 there is not enough free space in the <literal>SharedDict</literal> dictionary.
 Throws <literal>TypeError</literal> if this dictionary does not expect numbers.
+</para>
+
+<para>
 <note>
 This method can be used only if the dictionary type was declared with
 <literal>type=number</literal> parameter of the
@@ -1761,6 +1789,7 @@ This method can be used only if the dictionary type was declared with
 or
 <link doc="../stream/ngx_stream_js_module.xml" id="js_shared_dict_zone">stream</link>.
 </note>
+</para>
 </tag-desc>
 
 <tag-name id="dict_items"><literal>ngx.shared.SharedDict.items([<value>maxCount</value>])</literal></tag-name>
@@ -1814,10 +1843,21 @@ of a different type than expected by this dictionary.
 </tag-desc>
 
 <tag-name id="dict_set"><literal>ngx.shared.SharedDict.set(<value>key</value>,
-<value>value</value>)</literal></tag-name>
+<value>value</value> [,<value>timeout</value>])</literal></tag-name>
 <tag-desc>
 Sets the <literal>value</literal> for the specified <literal>key</literal>,
 returns this <literal>SharedDict</literal> dictionary (for method chaining).
+
+<para>
+The optional <literal>timeout</literal> argument is specified in milliseconds
+and overrides the <literal>timeout</literal> parameter of the
+<literal>js_shared_dict_zone</literal> directive in
+<link doc="../http/ngx_http_js_module.xml" id="js_shared_dict_zone">http</link>
+or
+<link doc="../stream/ngx_stream_js_module.xml" id="js_shared_dict_zone">stream</link>
+(since <link doc="changes.xml" id="njs0.8.5">0.8.5</link>).
+It can be useful when some keys are expected to have unique timeouts.
+</para>
 </tag-desc>
 
 <tag-name id="dict_size"><literal>ngx.shared.SharedDict.size()</literal></tag-name>

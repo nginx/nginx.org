@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_js_module"
         link="/ru/docs/stream/ngx_stream_js_module.html"
         lang="ru"
-        rev="44">
+        rev="45">
 
 <section id="summary">
 
@@ -708,8 +708,15 @@ async function handler(s) {
 </para>
 
 <para>
-Необязательный параметр <literal>timeout</literal> задаёт время,
+Необязательный параметр <literal>timeout</literal> задаёт время в миллисекундах,
 по завершении которого все записи в словаре удаляются из зоны.
+Если для части записей требуется другое время удаления,
+его можно задать при помощи аргумента <literal>timeout</literal>
+методов
+<link doc="../njs/reference.xml" id="dict_add">add</link>,
+<link doc="../njs/reference.xml" id="dict_incr">incr</link> и
+<link doc="../njs/reference.xml" id="dict_set">set</link>
+(<link doc="../njs/changes.xml" id="njs0.8.5">0.8.5</link>).
 </para>
 
 <para>
