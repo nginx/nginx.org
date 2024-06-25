@@ -9,8 +9,173 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="69"
+        rev="70"
         toc="no">
+
+<section id="njs0.8.5" name="Changes with njs 0.8.5">
+
+<para>
+Release Date:
+25 June 2024
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Change:
+<link doc="reference.xml" id="r_variables"><literal>r.variables.var</literal></link>,
+<link doc="reference.xml" id="r_request_text"><literal>r.requestText</literal></link>,
+<link doc="reference.xml" id="r_response_text"><literal>r.responseText</literal></link>,
+<link doc="reference.xml" id="s_variables"><literal>s.variables.var</literal></link>,
+and the
+<literal>data</literal> argument of the
+<link doc="reference.xml" id="njs_on"><literal>s.on()</literal></link> callback
+with <literal>upload</literal> or <literal>download</literal> event types
+will now convert bytes invalid in UTF-8 encoding into the replacement character.
+When working with binary data, use
+<link doc="reference.xml" id="r_raw_variables"><literal>r.rawVariables.var</literal></link>,
+<link doc="reference.xml" id="r_request_buffer"><literal>r.requestBuffer</literal></link>,
+<link doc="reference.xml" id="r_response_buffer"><literal>r.responseBuffer</literal></link>,
+<link doc="reference.xml" id="s_raw_variables"><literal>s.rawVariables.var</literal></link>,
+and the <literal>upstream</literal> or <literal>downstream</literal> event type
+for
+<link doc="reference.xml" id="njs_on"><literal>s.on()</literal></link> instead.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added <literal>timeout</literal> argument for
+<link doc="reference.xml" id="dict_add"><literal>add()</literal></link>,
+<link doc="reference.xml" id="dict_set"><literal>set()</literal></link>, and
+<link doc="reference.xml" id="dict_incr"><literal>incr()</literal></link>
+methods of a shared dictionary.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed checking for duplicate
+<link doc="../http/ngx_http_js_module.xml" id="js_set"><literal>js_set</literal></link>
+variables.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed request <literal>Host</literal> header when the port is non-standard.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed handling of a zero-length request body in
+<link doc="reference.xml" id="ngx_fetch"><literal>ngx.fetch()</literal></link>
+and
+<link doc="reference.xml" id="r_subrequest"><literal>r.subrequest()</literal></link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed heap-buffer-overflow in <literal>Headers.get()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<link doc="reference.xml" id="r_subrequest"><literal>r.subrequest()</literal></link>
+error handling.
+</para>
+</listitem>
+
+</list>
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+added <literal>zlib</literal> module for <literal>QuickJS</literal> engine.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<link doc="reference.xml" id="zlib_inflatesync"><literal>zlib.inflate()</literal></link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>String.prototype.replaceAll()</literal>
+with a zero-length argument.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>retval</literal> handling after an exception in
+<literal>Array.prototype.toSpliced()</literal>,
+<literal>Array.prototype.toReversed()</literal>,
+<literal>Array.prototype.toSorted()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>RegExp.prototype[@@replace]()</literal> with replacements
+containing <literal>$'</literal>, <literal>$`</literal>
+and strings with Unicode characters.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed a one-byte overread in
+<literal>decodeURI()</literal> and
+<literal>decodeURIComponent()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed tracking of argument scope.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed integer overflow in <literal>Date.parse()</literal>.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.8.4" name="Changes with njs 0.8.4">
 
