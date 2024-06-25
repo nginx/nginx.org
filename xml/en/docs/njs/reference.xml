@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="123">
+        rev="124">
 
 <section id="summary">
 
@@ -77,8 +77,8 @@ List of all njs properties and methods can be found in
 <para>
 The HTTP request object is available only in the
 <link doc="../http/ngx_http_js_module.xml">ngx_http_js_module</link> module.
-All string properties of the object are
-<link id="string">byte strings</link>.
+All string properties of the object before <link doc="changes.xml" id="njs0.8.5">0.8.5</link>
+were <link id="string">byte strings</link>.
 
 <list type="tag">
 
@@ -754,7 +754,8 @@ only first 2048 bytes of the string can be logged.
 The stream session object is available only in the
 <link doc="../stream/ngx_stream_js_module.xml">ngx_stream_js_module</link>
 module.
-All string properties of the object are <link id="string">byte strings</link>.
+All string properties of the object before <link doc="changes.xml" id="njs0.8.5">0.8.5</link>
+were <link id="string">byte strings</link>.
 </para>
 
 <para>
