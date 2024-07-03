@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_slice_module"
         link="/ru/docs/http/ngx_http_slice_module.html"
         lang="ru"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -24,6 +24,18 @@
 По умолчанию этот модуль не собирается, его сборку необходимо
 разрешить с помощью конфигурационного параметра
 <literal>--with-http_slice_module</literal>.
+</para>
+
+</section>
+
+
+<section id="issues" name="Известные проблемы">
+
+<para>
+В настоящий момент модуль не работает как ожидается с подзапросами, например
+<link doc="ngx_http_proxy_module.xml" id="proxy_cache_background_update">
+фоновым обновлением кэша</link>.
+В этом случае построение запроса происходит без указания диапазона байт.
 </para>
 
 </section>

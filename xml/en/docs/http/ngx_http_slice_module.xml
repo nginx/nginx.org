@@ -9,7 +9,7 @@
 <module name="Module ngx_http_slice_module"
         link="/en/docs/http/ngx_http_slice_module.html"
         lang="en"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -24,6 +24,18 @@ The filter provides more effective caching of big responses.
 This module is not built by default, it should be enabled with the
 <literal>--with-http_slice_module</literal>
 configuration parameter.
+</para>
+
+</section>
+
+
+<section id="issues" name="Known Issues">
+
+<para>
+Currently, the module does not work as expected in subrequests such as
+<link doc="ngx_http_proxy_module.xml" id="proxy_cache_background_update">
+background cache update</link>.
+In this case, a request is constructed without byte-range support.
 </para>
 
 </section>
@@ -97,7 +109,6 @@ the current slice range in
 <link url="https://datatracker.ietf.org/doc/html/rfc7233#section-2.1">HTTP
 byte range</link> format,
 for example, <literal>bytes=0-1048575</literal>.
-
 </tag-desc>
 
 </list>
