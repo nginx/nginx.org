@@ -18,7 +18,9 @@ X:template body (lang) {
     <body>
 
     <div id="banner">
-        <div id="banner-content"></div>
+        <div id="banner-content">
+        !! "document(concat($XML, '/banner.xml'))";
+        </div>
     </div>
 
     <div id="main">

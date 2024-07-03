@@ -26,7 +26,6 @@ X:include href = "link.xslt";
 X:include href = "style.xslt";
 X:include href = "body.xslt";
 X:include href = "menu.xslt";
-X:include href = "banner.xslt";
 X:include href = "content.xslt";
 X:include href = "books.xslt";
 X:include href = "directive.xslt";
@@ -48,8 +47,6 @@ X:template = "/article | /module" {
     <title> !{@name} </title>
 
     !style (lang="@lang")
-
-    !banner ()
 
     </head>
 
