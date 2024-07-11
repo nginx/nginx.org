@@ -8,9 +8,16 @@
 <article name="nginx for Windows"
          link="/en/docs/windows.html"
          lang="en"
-         rev="5">
+         rev="6">
 
 <section>
+
+<para>
+<note>
+Currently nginx for Windows is available in a beta version
+and can be used only for development and testing purposes.
+</note>
+</para>
 
 <para>
 Version of nginx for Windows uses the native Win32 API (not the Cygwin emulation
