@@ -13,9 +13,6 @@ services:
         - path: ./css
           target: /var/www/libxslt/css
           action: sync
-        - path: ./banner
-          target: /var/www/banner
-          action: sync
     tmpfs:
       - /var/www/xslt
     volumes:

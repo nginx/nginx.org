@@ -27,7 +27,6 @@ X:include href = "link.xslt";
 X:include href = "style.xslt";
 X:include href = "body.xslt";
 X:include href = "menu.xslt";
-X:include href = "banner.xslt";
 X:include href = "content.xslt";
 
 
@@ -40,8 +39,6 @@ X:template = "/news" {
     <title> !{@name} X:if "$YEAR" { X:text{: } !{$YEAR} } </title>
 
     !style (lang="@lang")
-
-    !banner ()
 
     </head>
 
