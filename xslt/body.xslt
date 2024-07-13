@@ -19,10 +19,16 @@
     <body>
 
     <div id="banner">
+        <div id="banner-content">
+        <xsl:apply-templates select="document(concat($XML, '/banner.xml'))"/>
+        </div>
     </div>
 
     <div id="main">
     <div id="menu">
+        <input class="side-menu" type="checkbox" id="side-menu"/>
+        <label class="hamb" for="side-menu"><span class="hamb-line"></span></label>
+        <nav class="nav">
         <h1>
             <xsl:if test="@lang = 'he'"> <xsl:attribute name="align"> <xsl:text>left</xsl:text> </xsl:attribute> </xsl:if>
             <a href="/">
@@ -30,9 +36,12 @@
             </a>
         </h1>
         <div>
-        <xsl:apply-templates select="document(concat($XML, '/menu.xml'))
+        <ul class="mobilemenu">
+            <xsl:apply-templates select="document(concat($XML, '/menu.xml'))
                         /menus/menu[@lang = $lang]/item"/>
+        </ul>
         </div>
+        </nav>
     </div>
 
     <div id="content">
