@@ -152,5 +152,6 @@ TOP =									\
 		pgp_keys						\
 		books							\
 		community						\
+		enterprise						\
 		donation						\
 		linux_packages						\
