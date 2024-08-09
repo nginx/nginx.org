@@ -8,36 +8,49 @@
 <article name="nginx"
          link="/en/"
          lang="en"
-         rev="167">
+         rev="168">
 
 
 <section>
 
 <para>
-nginx [engine x] is an HTTP and reverse proxy server,
-a mail proxy server,
-and a generic TCP/UDP proxy server,
-originally written by <link url="http://sysoev.ru/en/">Igor Sysoev</link>.
-For a long time, it has been running
-on many heavily loaded Russian sites including
-<link url="http://www.yandex.ru">Yandex</link>,
-<link url="http://mail.ru">Mail.Ru</link>,
-<link url="http://vk.com">VK</link>, and
-<link url="http://www.rambler.ru">Rambler</link>.
-Here are some of the success stories:
-<link url="https://blogs.dropbox.com/tech/2017/09/optimizing-web-servers-for-high-throughput-and-low-latency/">Dropbox</link>,
-<link url="https://openconnect.netflix.com/en/software/">Netflix</link>,
-<link url="http://blog.fastmail.fm/2007/01/04/webimappop-frontend-proxies-changed-to-nginx/">FastMail.FM</link>.
+nginx ("<i>engine x</i>") is an HTTP web server, reverse proxy,
+content cache, load balancer,
+TCP/UDP proxy server,
+and mail proxy server.
+Originally written by <link url="http://sysoev.ru/en/">Igor Sysoev</link>,
+the sources and documentation are distributed under a
+<link url="../LICENSE">2-clause BSD-like open source license</link>.
 </para>
 
 <para>
-The sources and documentation are distributed under the
-<link url="../LICENSE">2-clause BSD-like license</link>.
+Known for flexibility and high performance with low resource utilization,
+nginx is:
+
+<list type="bullet">
+<listitem>
+the world's most popular web server
+[<link url="https://news.netcraft.com/archives/category/web-server-survey/">Netcraft</link>];
+</listitem>
+
+<listitem>
+consistently one of the most popular
+<link url="https://hub.docker.com/search?q=nginx">Docker images</link>
+[<link url="https://www.datadoghq.com/docker-adoption/#six">DataDog</link>];
+</listitem>
+
+<listitem>
+powering multiple
+<link url="https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/">Ingress Controllers for Kubernetes</link>,
+including
+<link url="https://github.com/nginxinc/kubernetes-ingress">our own</link>.
+</listitem>
+</list>
 </para>
 
 <para>
-Commercial support is available from
-<link url="https://www.f5.com">F5, Inc.</link>
+Enterprise distributions, commercial support and training are
+<link url="enterprise.html">available from F5, Inc.</link>
 </para>
 
 </section>
