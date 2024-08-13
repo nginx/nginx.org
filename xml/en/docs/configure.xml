@@ -8,7 +8,7 @@
 <article name="Building nginx from Sources"
          link="/en/docs/configure.html"
          lang="en"
-         rev="23">
+         rev="24">
 
 <section>
 
@@ -1269,8 +1269,7 @@ instead of the original PCRE library (1.21.5).
 </tag-name>
 <tag-desc>
 sets the path to the sources of the zlib library.
-The library distribution (version
-1.1.3&mdash;1.3) needs to be downloaded from the
+The library distribution needs to be downloaded from the
 <link url="http://zlib.net">zlib</link> site and extracted.
 The rest is done by nginx’s <command>./configure</command> and
 <command>make</command>.
