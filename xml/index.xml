@@ -7,6 +7,18 @@
 
 <news name="nginx news" link="/" lang="en">
 
+<event date="2024-08-14">
+<para>
+<link doc="en/download.xml">nginx-1.26.2</link>
+stable and
+<link doc="en/download.xml">nginx-1.27.1</link>
+mainline versions have been released,
+with a fix for the
+<link doc="en/security_advisories.xml">buffer overread</link>
+vulnerability in the ngx_http_mp4_module (CVE-2024-7347).
+</para>
+</event>
+
 <event date="2024-06-25">
 <para>
 <link doc="en/docs/njs/index.xml">njs-0.8.5</link>

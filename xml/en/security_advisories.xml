@@ -24,6 +24,14 @@ Patches are signed using one of the
 
 <security>
 
+<item name="Buffer overread in the ngx_http_mp4_module"
+      severity="low"
+      cve="2024-7347"
+      good="1.27.1+, 1.26.2+"
+      vulnerable="1.5.13-1.27.0">
+<patch name="patch.2024.mp4.txt" />
+</item>
+
 <item name="Buffer overwrite in HTTP/3"
       severity="medium"
       advisory="https://mailman.nginx.org/pipermail/nginx-announce/2024/GMY32CSHFH6VFTN76HJNX7WNEX4RLHF6.html"
