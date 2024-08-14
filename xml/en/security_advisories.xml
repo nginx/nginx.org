@@ -26,6 +26,7 @@ Patches are signed using one of the
 
 <item name="Buffer overread in the ngx_http_mp4_module"
       severity="low"
+      advisory="https://mailman.nginx.org/pipermail/nginx-announce/2024/UUOCLLONPR6244YQYU65PO5LB7JDYCWM.html"
       cve="2024-7347"
       good="1.27.1+, 1.26.2+"
       vulnerable="1.5.13-1.27.0">
