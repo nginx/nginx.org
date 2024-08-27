@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_ssl_module"
         link="/ru/docs/stream/ngx_stream_ssl_module.html"
         lang="ru"
-        rev="35">
+        rev="36">
 
 <section id="summary">
 
@@ -382,6 +382,94 @@ ssl_ecdh_curve prime256v1:secp384r1;
 
 <para>
 Задаёт таймаут для завершения операции SSL handshake.
+</para>
+
+</directive>
+
+
+<directive name="ssl_ocsp">
+<syntax><literal>on</literal> |
+        <literal>off</literal> |
+        <literal>leaf</literal></syntax>
+<default>off</default>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.27.2</appeared-in>
+
+<para>
+Включает проверку OCSP для цепочки клиентских сертификатов.
+Параметр <literal>leaf</literal>
+включает проверку только клиентского сертификата.
+</para>
+
+<para>
+Для работы проверки OCSP
+необходимо дополнительно установить значение директивы
+<link id="ssl_verify_client"/> в
+<literal>on</literal> или <literal>optional</literal>.
+</para>
+
+<para>
+Для преобразования имени хоста OCSP responder’а в адрес необходимо
+дополнительно задать директиву
+<link doc="ngx_stream_core_module.xml" id="resolver"/>.
+</para>
+
+<para>
+Пример:
+<example>
+ssl_verify_client on;
+ssl_ocsp          on;
+resolver          192.0.2.1;
+</example>
+</para>
+
+</directive>
+
+
+<directive name="ssl_ocsp_cache">
+<syntax>
+    <literal>off</literal> |
+    [<literal>shared</literal>:<value>имя</value>:<value>размер</value>]</syntax>
+<default>off</default>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.27.2</appeared-in>
+
+<para>
+Задаёт <literal>имя</literal> и <literal>размер</literal> кэша,
+который хранит статус клиентских сертификатов для проверки OCSP-ответов.
+Кэш разделяется между всеми рабочими процессами.
+Кэш с одинаковым названием может использоваться в нескольких
+виртуальных серверах.
+</para>
+
+<para>
+Параметр <literal>off</literal> запрещает использование кэша.
+</para>
+
+</directive>
+
+
+<directive name="ssl_ocsp_responder">
+<syntax><value>url</value></syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.27.2</appeared-in>
+
+<para>
+Переопределяет URL OCSP responder’а, указанный в расширении сертификата
+“<link url="https://datatracker.ietf.org/doc/html/rfc5280#section-4.2.2.1">Authority
+Information Access</link>”
+для <link id="ssl_ocsp">проверки</link> клиентских сертификатов.
+</para>
+
+<para>
+Поддерживаются только “<literal>http://</literal>” OCSP responder’ы:
+<example>
+ssl_ocsp_responder http://ocsp.example.com/;
+</example>
 </para>
 
 </directive>
