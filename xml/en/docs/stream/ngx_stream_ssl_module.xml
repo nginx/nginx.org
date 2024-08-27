@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_ssl_module"
         link="/en/docs/stream/ngx_stream_ssl_module.html"
         lang="en"
-        rev="34">
+        rev="35">
 
 <section id="summary">
 
@@ -241,7 +241,8 @@ The full list can be viewed using the
 
 <para>
 Specifies a <value>file</value> with trusted CA certificates in the PEM format
-used to <link id="ssl_verify_client">verify</link> client certificates.
+used to <link id="ssl_verify_client">verify</link> client certificates and
+OCSP responses if <link id="ssl_stapling"/> is enabled.
 </para>
 
 <para>
@@ -639,6 +640,108 @@ session parameters.
 </directive>
 
 
+<directive name="ssl_stapling">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.27.2</appeared-in>
+
+<para>
+Enables or disables
+<link url="https://datatracker.ietf.org/doc/html/rfc6066#section-8">stapling
+of OCSP responses</link> by the server.
+Example:
+<example>
+ssl_stapling on;
+resolver 192.0.2.1;
+</example>
+</para>
+
+<para>
+For the OCSP stapling to work, the certificate of the server certificate
+issuer should be known.
+If the <link id="ssl_certificate"/> file does
+not contain intermediate certificates,
+the certificate of the server certificate issuer should be
+present in the
+<link id="ssl_trusted_certificate"/> file.
+</para>
+
+<para>
+For a resolution of the OCSP responder hostname,
+the <link doc="ngx_stream_core_module.xml" id="resolver"/> directive
+should also be specified.
+</para>
+
+</directive>
+
+
+<directive name="ssl_stapling_file">
+<syntax><value>file</value></syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.27.2</appeared-in>
+
+<para>
+When set, the stapled OCSP response will be taken from the
+specified <value>file</value> instead of querying
+the OCSP responder specified in the server certificate.
+</para>
+
+<para>
+The file should be in the DER format as produced by the
+“<literal>openssl ocsp</literal>” command.
+</para>
+
+</directive>
+
+
+<directive name="ssl_stapling_responder">
+<syntax><value>url</value></syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.27.2</appeared-in>
+
+<para>
+Overrides the URL of the OCSP responder specified in the
+“<link url="https://datatracker.ietf.org/doc/html/rfc5280#section-4.2.2.1">Authority
+Information Access</link>” certificate extension.
+</para>
+
+<para>
+Only “<literal>http://</literal>” OCSP responders are supported:
+<example>
+ssl_stapling_responder http://ocsp.example.com/;
+</example>
+</para>
+
+</directive>
+
+
+<directive name="ssl_stapling_verify">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.27.2</appeared-in>
+
+<para>
+Enables or disables verification of OCSP responses by the server.
+</para>
+
+<para>
+For verification to work, the certificate of the server certificate
+issuer, the root certificate, and all intermediate certificates
+should be configured as trusted using the
+<link id="ssl_trusted_certificate"/> directive.
+</para>
+
+</directive>
+
+
 <directive name="ssl_trusted_certificate">
 <syntax><value>file</value></syntax>
 <default/>
@@ -648,7 +751,8 @@ session parameters.
 
 <para>
 Specifies a <value>file</value> with trusted CA certificates in the PEM format
-used to <link id="ssl_verify_client">verify</link> client certificates.
+used to <link id="ssl_verify_client">verify</link> client certificates and
+OCSP responses if <link id="ssl_stapling"/> is enabled.
 </para>
 
 <para>
