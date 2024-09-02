@@ -9,7 +9,7 @@
 <article name="Building nginx on the Win32 platform with Visual C"
          link="/en/docs/howto_build_on_win32.html"
          lang="en"
-         rev="27">
+         rev="28">
 
 <section name="Prerequisites">
 
@@ -35,7 +35,7 @@ or <link url="http://strawberryperl.com">Strawberry Perl</link>.
 </listitem>
 
 <listitem>
-<link url="https://www.mercurial-scm.org">Mercurial</link> client.
+<link url="https://cli.github.com/">Git</link> client.
 </listitem>
 
 <listitem>
@@ -52,7 +52,7 @@ and <link url="http://www.openssl.org">OpenSSL</link> libraries sources.
          name="Build steps">
 
 <para>
-Ensure that paths to Perl, Mercurial and MSYS bin directories are added to
+Ensure that paths to Perl, Git and MSYS bin directories are added to
 PATH environment variable before you start build. To set Visual C environment
 run vcvarsall.bat script from Visual C directory.
 </para>
@@ -67,9 +67,9 @@ Start MSYS bash.
 </listitem>
 
 <listitem>
-Check out nginx sources from the hg.nginx.org repository. For example:
+Check out nginx sources from the GitHub repository:
 <programlisting>
-hg clone http://hg.nginx.org/nginx
+git clone https://github.com/nginx/nginx.git
 </programlisting>
 </listitem>
 

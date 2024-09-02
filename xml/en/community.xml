@@ -1,5 +1,4 @@
 <!--
-  Copyright (C) Igor Sysoev
   Copyright (C) Nginx, Inc.
   -->
 
@@ -8,7 +7,7 @@
 <article name="nginx: community"
          link="/en/community.html"
          lang="en"
-         rev="2">
+         rev="3">
 
 <section name="Community and Governance">
 
@@ -19,16 +18,15 @@ As the internet has grown, so have we, from our initial web server to the
 myriad of projects involving JavaScript, Kubernetes, API gateways,
 OpenTelemetry, and WebAssembly.
 NGINX is committed to open source both in ethos and practicality, aiming to
-deliver reliable and cutting-edge technology within a healthy open source
-culture.
+deliver reliable and cutting-edge technology
+within a healthy open source culture.
 Whether NGINX is part of your open source past or a step in your present,
 we welcome you into the future together.
 </para>
 
 <para>
 To learn more about our commitment, please visit
-our <link url="/en/docs/governance.html">Governance</link>
-page.
+our <link doc="docs/governance.xml">Governance</link> page.
 </para>
 
 </section>
@@ -37,8 +35,8 @@ page.
 <section name="Committed to Our Mission">
 
 <para>
-We believe that healthy communities are core to innovation and open source
-sustainability.
+We believe that healthy communities are core to innovation
+and open source sustainability.
 It is our mission to enable the NGINX community to engage with
 and develop solutions based on open and available NGINX technologies.
 Together we can power the future.
@@ -58,14 +56,15 @@ Thanks for joining us.
 <para>
 Per our values, NGINX strives to create an inclusive community for all.
 Please remember our
-<link url="https://github.com/nginxinc/.github/blob/main/CODE_OF_CONDUCT.md">
-Code of Conduct</link> (CoC) when participating in the NGINX community.
+<link url="https://github.com/nginx/nginx/blob/master/CODE_OF_CONDUCT.md">
+Code of Conduct</link>
+(CoC) when participating in the NGINX community.
 </para>
 
 <para>
-If you wish to tell us about a CoC violation, please email us here:
- <link url="mailto://nginx-oss-community@f5.com">nginx-oss-community@f5.com
-</link>
+If you wish to tell us about a CoC violation,
+please email us here:
+<link url="mailto://nginx-oss-community@f5.com">nginx-oss-community@f5.com</link>
 </para>
 
 </section>
@@ -77,6 +76,10 @@ If you wish to tell us about a CoC violation, please email us here:
 Find the NGINX community here:
 
 <list type="bullet">
+
+<listitem>
+<link url="https://github.com/nginx/nginx/discussions">GitHub Discussions</link>
+</listitem>
 
 <listitem>
 <link url="https://community.nginx.org/joinslack">Slack</link>
@@ -164,12 +167,12 @@ archive</link>
 </listitem>
 
 <listitem>
-<link url="http://trac.nginx.org/nginx/browser">
+<link url="https://github.com/nginx/nginx">
 Browse a Source Code</link>
 </listitem>
 
 <listitem>
-<link url="http://trac.nginx.org/nginx/report">
+<link url="https://github.com/nginx/nginx/issues">
 Report a Bug</link>
 </listitem>
 
@@ -187,9 +190,9 @@ Participate</link>
 <section name="Commercial Support">
 
 <para>
-We offer
+F5, Inc. offers
 <link url="https://www.f5.com/support">commercial support</link>
-for nginx and our commercial products.
+for nginx and its commercial products.
 </para>
 
 </section>

@@ -1,0 +1,206 @@
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE article SYSTEM "../../dtd/article.dtd">
+
+<article name="nginx: сообщество"
+         link="/ru/community.html"
+         lang="ru"
+         rev="3">
+
+<section name="Сообщество и управление сообществом">
+
+<para>
+Открытый исходный код является движущей силой технологического мира.
+NGINX с момента основания играет важную роль в этой инициативе.
+С развитием интернета развивались и мы - от веб-сервера до
+множества проектов: JavaScript, Kubernetes, API gateway,
+OpenTelemetry и WebAssembly.
+NGINX привержен принципам и практике открытого исходного кода и стремится
+предоставить надёжные передовые технологии
+в рамках здоровой культуры open source.
+Будь NGINX частью вашего опыта с open source в прошлом или шагом в настоящем -
+мы приглашаем вас двигаться в будущее вместе.
+</para>
+
+<para>
+Подробнее см. на странице
+<link doc="docs/governance.xml">Управление сообществом</link>.
+</para>
+
+</section>
+
+
+<section name="Приверженность миссии">
+
+<para>
+Мы верим, что здоровое сообщество является основой инноваций
+и устойчивости открытого исходного кода.
+Наша миссия — предоставить сообществу NGINX возможность взаимодействовать
+и разрабатывать решения на основе открытых и доступных технологий NGINX. 
+Вместе мы сможем создать будущее.
+</para>
+
+<para>
+Наше сообщество — это ваш путь в открытый мир информации, сотрудничества,
+обсуждений.
+Спасибо, что вы с нами.
+</para>
+
+</section>
+
+
+<section name="Кодекс поведения">
+
+<para>
+NGINX, следуя своим ценностям, стремится создать инклюзивное сообщество для всех.
+Пожалуйста, соблюдайте
+<link url="https://github.com/nginx/nginx/blob/master/CODE_OF_CONDUCT.md">
+Кодекс поведения</link>
+при участии в сообществе NGINX.
+</para>
+
+<para>
+Если вы хотите сообщить о нарушении Кодекса поведения, пожалуйста,
+отправьте сообщение для
+<link url="mailto://nginx-oss-community@f5.com">nginx-oss-community@f5.com</link>
+</para>
+
+</section>
+
+
+<section name="Ресурсы сообщества">
+
+<para>
+Ресурсы сообщества NGINX:
+
+<list type="bullet">
+
+<listitem>
+<link url="https://github.com/nginx/nginx/discussions">GitHub Discussions</link>
+</listitem>
+
+<listitem>
+<link url="https://community.nginx.org/joinslack">Slack</link>
+</listitem>
+
+<listitem>
+<link url="https://twitter.com/nginxorg">Twitter</link>
+</listitem>
+
+<listitem>
+<link url="https://www.youtube.com/nginxinc">YouTube</link>
+</listitem>
+
+</list>
+
+</para>
+
+</section>
+
+
+<section name="Списки рассылок">
+
+<para>
+Можно
+<link url="http://nginx.org/mailman/listinfo">просматривать</link>
+списки рассылок.
+Чтобы написать в список, необходимо вначале
+<link url="http://nginx.org/mailman/listinfo">подписать</link>
+почтовый адрес, который будет использоваться для отправки сообщений.
+</para>
+
+<para>
+<list type="bullet">
+
+<listitem>
+список
+<link url="http://nginx.org/mailman/listinfo/nginx">nginx@nginx.org</link>
+(английский),
+<link url="http://nginx.org/pipermail/nginx/">
+архив</link>,
+<link url="http://dir.gmane.org/gmane.comp.web.nginx.english">
+архив Gmane</link>,
+<link url="http://marc.info/?l=nginx">
+архив MARC</link>
+</listitem>
+
+<listitem>
+список
+<link url="http://nginx.org/mailman/listinfo/nginx-announce">nginx-announce@nginx.org</link>
+(английский),
+<link url="http://nginx.org/pipermail/nginx-announce/">
+архив</link>
+</listitem>
+
+<listitem>
+список
+<link url="http://nginx.org/mailman/listinfo/nginx-ru">nginx-ru@nginx.org</link>
+(русский),
+<link url="http://nginx.org/pipermail/nginx-ru/">
+архив</link>,
+<link url="http://dir.gmane.org/gmane.comp.web.nginx.russian">
+архив Gmane</link>
+</listitem>
+
+<listitem>
+список
+<link url="http://nginx.org/mailman/listinfo/nginx-ru-announce">nginx-ru-announce@nginx.org</link>
+(русский),
+<link url="http://nginx.org/pipermail/nginx-ru-announce/">
+архив</link>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+
+<section name="Разработка">
+
+<para>
+<list type="bullet">
+
+<listitem id="nginx_devel">
+Список рассылки для разработчиков
+<link url="http://nginx.org/mailman/listinfo/nginx-devel">nginx-devel@nginx.org</link>
+(английский),
+<link url="http://nginx.org/pipermail/nginx-devel/">
+архив</link>
+</listitem>
+
+<listitem>
+<link url="https://github.com/nginx/nginx">
+Смотреть исходный код
+</link>
+</listitem>
+
+<listitem>
+<link url="https://github.com/nginx/nginx/issues">
+Сообщить об ошибке
+</link>
+</listitem>
+
+<listitem>
+<link doc="docs/contributing_changes.xml">
+Присоединиться к разработке</link>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+
+<section name="Коммерческая поддержка">
+
+<para>
+<link url="https://www.f5.com/support">Платная техническая поддержка</link>
+для nginx и коммерческих продуктов осуществляется компанией F5, Inc.
+</para>
+
+</section>
+
+</article>
