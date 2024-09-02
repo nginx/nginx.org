@@ -20,6 +20,7 @@ DOCS =									\
 		beginners_guide						\
 		configure						\
 		quic							\
+		governance						\
 
 FAQ =									\
 		sys_errlist						\
@@ -126,5 +127,5 @@ REFS =									\
 
 TOP =									\
 		download						\
-		support							\
+		community						\
 		linux_packages						\
