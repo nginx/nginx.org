@@ -7,6 +7,21 @@
 
 <news name="nginx news" link="/" lang="en">
 
+<event date="2024-09-06">
+<para>
+The <link doc="en/index.xml">nginx</link> project
+has officially
+<link url="https://mailman.nginx.org/pipermail/nginx/2024-September/R7KBUUNTG3B2QAAMPS6M7YDOSVCMOZD7.html">moved</link>
+to
+<link url="https://github.com/nginx/nginx">GitHub</link>.
+Use
+<link url="https://github.com/nginx/nginx/issues">GitHub issues</link>
+instead of <link url="http://trac.nginx.org">trac.nginx.org</link>,
+<link url="https://github.com/nginx/nginx/discussions">GitHub discussions</link>
+instead of nginx mailing list.
+</para>
+</event>
+
 <event date="2024-08-14">
 <para>
 <link doc="en/download.xml">nginx-1.26.2</link>
@@ -44,6 +59,15 @@ mainline versions have been released,
 with fixes for
 <link doc="en/security_advisories.xml">vulnerabilities in HTTP/3</link>
 (CVE-2024-32760, CVE-2024-31079, CVE-2024-35200, CVE-2024-34161).
+</para>
+</event>
+
+<event date="2024-05-13">
+<para>
+The <link doc="en/docs/index.xml">nginx.org</link> website project
+has officially
+<link url="https://mailman.nginx.org/pipermail/nginx/2024-May/XFU2YUN4OU2UFH4OND4NKZI35KL22Q54.html">moved</link>
+to <link url="https://github.com/nginx/nginx.org">GitHub</link>.
 </para>
 </event>
 
