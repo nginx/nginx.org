@@ -128,4 +128,5 @@ REFS =									\
 TOP =									\
 		download						\
 		community						\
+		enterprise						\
 		linux_packages						\
