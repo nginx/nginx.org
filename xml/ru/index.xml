@@ -8,36 +8,52 @@
 <article name="nginx"
          link="/ru/"
          lang="ru"
-         rev="167">
+         rev="168">
 
 
 <section>
 
 <para>
-nginx [engine x]&mdash;это HTTP-сервер и обратный прокси-сервер,
-почтовый прокси-сервер,
-а также TCP/UDP прокси-сервер общего назначения,
-изначально написанный <link url="http://sysoev.ru">Игорем Сысоевым</link>.
-Уже длительное время он обслуживает
-серверы многих высоконагруженных российских сайтов, таких как
-<link url="http://www.yandex.ru">Яндекс</link>,
-<link url="http://mail.ru">Mail.Ru</link>,
-<link url="http://vk.com">ВКонтакте</link> и
-<link url="http://www.rambler.ru">Рамблер</link>.
-Вот некоторые примеры успешного внедрения nginx (тексты на английском языке):
-<link url="https://blogs.dropbox.com/tech/2017/09/optimizing-web-servers-for-high-throughput-and-low-latency/">Dropbox</link>,
-<link url="https://openconnect.netflix.com/en/software/">Netflix</link>,
-<link url="http://blog.fastmail.fm/2007/01/04/webimappop-frontend-proxies-changed-to-nginx/">FastMail.FM</link>.
+nginx ("<i>engine x</i>")&mdash;это HTTP-сервер, обратный прокси сервер
+с поддержкой кеширования и балансировки нагрузки,
+TCP/UDP прокси-сервер,
+а также почтовый прокси-сервер.
+Изначально разработан <link url="http://sysoev.ru">Игорем Сысоевым</link>
+и распространяется под
+<link url="../LICENSE">лицензией BSD из 2 пунктов</link>.
 </para>
 
 <para>
-Исходные тексты и документация распространяются под
-<link url="../LICENSE">BSD-подобной лицензией из 2 пунктов</link>.
+nginx известен своей исключительной гибкостью, высокой производительностью
+и минимальным потреблением ресурсов.
+Он также:
+
+<list type="bullet">
+<listitem>
+самый популярный веб-сервер в мире
+[<link url="https://news.netcraft.com/archives/category/web-server-survey/">Netcraft</link>];
+</listitem>
+
+<listitem>
+один из самых востребованных
+<link url="https://hub.docker.com/search?q=nginx">Docker-образов</link>
+[<link url="https://www.datadoghq.com/docker-adoption/#six">DataDog</link>];
+</listitem>
+
+<listitem>
+активно используется в
+<link url="https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/">Ingress-контроллерах
+для Kubernetes</link>,
+включая
+<link url="https://github.com/nginxinc/kubernetes-ingress">наш собственный</link>.
+</listitem>
+
+</list>
 </para>
 
 <para>
-Коммерческая поддержка осуществляется компанией
-<link url="https://www.f5.com">F5, Inc.</link>
+Корпоративное распространение, коммерческая поддержка и тренинги
+осуществляются компанией <link doc="../ru/enterprise.xml">F5, Inc.</link>
 </para>
 
 </section>
