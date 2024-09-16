@@ -6797,7 +6797,7 @@ The implementation is provided by the round-robin balancing method.
 
 <para>
 The
-<link url="http://hg.nginx.org/nginx-dev-examples">nginx-dev-examples</link>
+<link url="https://github.com/nginx/nginx-dev-examples">nginx-dev-examples</link>
 repository provides nginx module examples.
 
 </para>
@@ -7657,14 +7657,14 @@ requests, but may contain other nginx directives.
 An example of such approach is the
 <link doc="../http/ngx_http_auth_request_module.xml" id="auth_request"/>
 directive implemented in
-<link url="http://hg.nginx.org/nginx/file/tip/src/http/modules/ngx_http_auth_request_module.c">ngx_http_auth_request module</link>.
+<link url="https://github.com/nginx/nginx/blob/master/src/http/modules/ngx_http_auth_request_module.c">ngx_http_auth_request module</link>.
 </para>
 
 <para>
 For the second case, it is possible to use basic HTTP client functionality
 available in nginx.
 For example,
-<link url="http://hg.nginx.org/nginx/file/tip/src/event/ngx_event_openssl_stapling.c">OCSP module</link>
+<link url="https://github.com/nginx/nginx/blob/master/src/event/ngx_event_openssl_stapling.c">OCSP module</link>
 implements simple HTTP client.
 </para>
 
