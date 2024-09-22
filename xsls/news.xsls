@@ -47,19 +47,48 @@ X:template = "/news" {
     </html>
 }
 
+X:template = "years/year[@year]" {
+    X:if "position() = 1" {
+        X:text disable-output-escaping="yes" {
+            &lt;div class="dropdown"&gt;
+            &lt;button class="dropbtn"&gt;news archive ▾&lt;/button&gt;
+            &lt;div class="dropdown-content"&gt;
+        }
+    }
+
+    X:if "position() != last()" {
+        X:if "$YEAR=@year" {
+            <b><a href="{@href}">!{@year}</a></b>
+        } else {
+            <a href="{@href}">!{@year}</a>
+        }
+    }
+
+    X:if "position() = last()" {
+        X:if "$YEAR=@year" {
+            <b><a href="{@href}">!{@year}</a></b>
+        } else {
+            <a href="{@href}">!{@year}</a>
+        }
+        X:text disable-output-escaping="yes" {
+            &lt;/div&gt;&lt;/div&gt;
+        }
+    }
+}
 
 X:template = "event" {
 
     X:var year = { !{substring(../event[position()=1]/@date, 1, 4)} }
     X:var y = { !{substring(@date, 1, 4)} }
 
-    X:if "position() = 1" {
+    <!-- News items start at position 2 so that we skip the dropdown menu -->
+    X:if "position() = 2" {
         X:text disable-output-escaping="yes" {
             &lt;table class="news"&gt;
         }
     }
 
-    X:if "(not($YEAR) and ($year = $y or position() &lt; 11)) or $YEAR=$y" {
+    X:if "(not($YEAR) and ($year = $y or position() &lt; 12)) or $YEAR=$y" {
         <tr>
         <td class="date">
             <a name="{@date}" /> !{@date}

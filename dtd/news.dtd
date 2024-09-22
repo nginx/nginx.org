@@ -3,7 +3,16 @@
   Copyright (C) Nginx, Inc.
   -->
 
-<!ELEMENT  news         (event+) >
+<!ELEMENT  news         (event | years)+ >
+
+<!ELEMENT  years         (year+) >
+
+<!ELEMENT  year         (#PCDATA) >
+<!ATTLIST  year
+           href         CDATA #IMPLIED
+           year         CDATA #IMPLIED
+>
+
 <!ATTLIST  news
            name         CDATA #REQUIRED
            link         CDATA #REQUIRED
