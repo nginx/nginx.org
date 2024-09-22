@@ -1,0 +1,76 @@
+<!--
+  Copyright (C) Igor Sysoev
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE article SYSTEM "../dtd/article.dtd">
+
+<article name="nginx"
+         link="/"
+         lang="en"
+         rev="1">
+
+<section>
+
+<para>
+nginx ("<i>engine x</i>") is an HTTP web server, reverse proxy,
+content cache, load balancer,
+TCP/UDP proxy server,
+and mail proxy server.
+Originally written by <link url="http://sysoev.ru/en/">Igor Sysoev</link>
+and distributed under the
+<link url="../LICENSE">2-clause BSD License</link>.
+Enterprise distributions, commercial support and training are
+<link url="enterprise.html">available from F5, Inc.</link>
+</para>
+
+<para>
+<link url="/en/linux_packages.html">Linux Packages</link>
+•
+<link url="/en/docs/beginners_guide.html">Beginner's Guide</link>
+•
+<link url="https://github.com/nginx/nginx">Code Repository</link>
+</para>
+
+</section>
+
+<section name="Latest News">
+<topnews/>
+<para>
+<link url="/news.html">Older news</link>
+</para>
+</section>
+
+<section name="Other NGINX Projects">
+
+<projects>
+
+<project
+  title="njs"
+  docs="/en/docs/njs/"
+  repo="https://github.com/nginx/njs"
+  logo="img/njs_logo.svg"
+  description="NGINX JavaScript (njs) extends nginx functionality with an ECMAScript-compatible interpreter for HTTP and Stream modules."
+/>
+
+<project
+  title="Unit"
+  docs="https://unit.nginx.org/"
+  repo="https://github.com/nginx/unit"
+  logo="img/unit_robot.svg"
+  description="NGINX Unit is a lightweight application runtime that simplifies the application stack for running web apps and APIs."
+/>
+
+<project
+  title="Ingress"
+  docs="https://docs.nginx.com/nginx-ingress-controller/"
+  repo="https://github.com/nginxinc/kubernetes-ingress"
+  logo="img/ingress_logo.svg"
+  description="NGINX Ingress Controller connects Kubernetes apps and services with rock solid request handling, auth, self-service CRDs, and easy debugging."
+/>
+
+</projects>
+
+</section>
+
+</article>

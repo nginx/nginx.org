@@ -33,7 +33,7 @@ X:include href = "donate.xslt";
 X:include href = "download.xslt";
 X:include href = "security.xslt";
 X:include href = "versions.xslt";
-
+X:include href = "projects.xslt";
 
 X:template = "/article | /module" {
     <html>

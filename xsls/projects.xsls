@@ -1,0 +1,71 @@
+<!--
+  Copyright (C) Igor Sysoev
+  Copyright (C) Nginx, Inc.
+  -->
+
+X:stylesheet {
+
+X:template = "topnews" {
+        X:text disable-output-escaping="yes" {
+            &lt;table class="news"&gt;
+        }
+        !! "document(concat($XML, '/index.xml'))";
+        X:text disable-output-escaping="yes" {
+            &lt;/table&gt;
+        }
+}
+
+X:template = "event" {
+
+    X:var year = { !{substring(../event[position()=1]/@date, 1, 4)} }
+    X:var y = { !{substring(@date, 1, 4)} }
+
+    <!--
+      This expression displays only the top 4 news items.
+      We stop at position 12 because there are non-news items above.
+    -->
+    X:if "position() &lt; 12" {
+        <tr>
+        <td class="date">
+            <a name="{@date}" /> !{@date}
+        </td>
+        <td> !! "para"; </td>
+        </tr>
+    }
+
+    X:if "position() = last()" {
+        X:text disable-output-escaping="yes" {
+            &lt;/table&gt;
+        }
+    }
+}
+
+X:template = "projects" { <div class="projects"> !!; </div> }
+
+X:template = "project" {
+
+    <table>
+
+    <tr>
+    <td width="90px" align="center" valign="bottom">
+    <a href="{@docs}" valign="top">
+    <img src="{@logo}" width="38px" alt="{@title} logo"/>
+    </a>
+    <h5> !{@title} </h5>
+    </td>
+
+    <td valign="bottom">
+    !{@description} <br/>
+    <a href="{@docs}">Docs</a> •
+    <a href="{@repo}">Code</a>
+    </td>
+    </tr>
+
+    <tr>
+    <td colspan="2"><br/></td>
+    </tr>
+
+    </table>
+}
+
+}

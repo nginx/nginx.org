@@ -2,6 +2,7 @@
 OUT =		libxslt
 TEXT =		text
 CSS =		css
+IMG =		img
 ZIP =		gzip
 NGINX_ORG =	/data/www/nginx.org
 SHELL =		tools/umasked.sh
@@ -61,6 +62,7 @@ ARTICLE_DEPS =								\
 		xslt/download.xslt					\
 		xslt/security.xslt					\
 		xslt/versions.xslt					\
+		xslt/projects.xslt					\
 
 NEWS_DEPS =								\
 		$(COMMON_DEPS)						\
@@ -73,9 +75,10 @@ YEARS = 								\
 		2009 2010 2011 2012 2013 2014 2015 2016 2017 2018 2019	\
 		2020 2021 2022 2023 2024
 
-all:		news arx 404 css $(LANGS)
+all:		homepage news arx 404 css $(LANGS)
 
-news:		$(OUT)/index.html $(OUT)/news.html $(OUT)/index.rss
+homepage:	$(OUT)/index.html
+news:		$(OUT)/news.html $(OUT)/index.rss
 arx:		$(foreach year,$(YEARS),$(OUT)/$(year).html)
 404:		$(OUT)/404.html
 css:		$(foreach f,$(wildcard css/*.css),$(OUT)/$(f))
@@ -137,14 +140,9 @@ $(foreach lang, $(LANGS), $(OUT)/$(lang)/docs/dirindex.html): $(DIRIND_DEPS)
 $(foreach lang, $(LANGS), $(OUT)/$(lang)/docs/varindex.html): $(VARIND_DEPS)
 
 $(OUT)/index.html:							\
-		xml/index.xml						\
-		$(NEWS_DEPS)
-	$(call XSLT, xslt/news.xslt, $<, $@)
-
-$(OUT)/news.html:							\
-		xml/index.xml						\
-		$(NEWS_DEPS)
-	$(call XSLT, xslt/news.xslt, $<, $@)
+		xml/homepage.xml					\
+		$(ARTICLE_DEPS)
+	$(call XSLT, xslt/article.xslt, $<, $@)
 
 $(OUT)/index.rss:							\
 		xml/index.xml						\
@@ -152,6 +150,10 @@ $(OUT)/index.rss:							\
 		xslt/rss.xslt
 	$(call XSLT, xslt/rss.xslt, $<, $@)
 
+$(OUT)/news.html:							\
+		xml/index.xml						\
+		$(NEWS_DEPS)
+	$(call XSLT, xslt/news.xslt, $<, $@)
 
 $(foreach year,$(YEARS),$(OUT)/$(year).html):				\
 		xml/index.xml						\
@@ -294,7 +296,7 @@ gzip:	rsync_gzip
 
 rsync_gzip:
 	$(CHMOD) $(OUT) $(TEXT)
-	$(RSYNC) --delete --exclude='*.gz' $(OUT)/ $(TEXT)/ $(ZIP)/
+	$(RSYNC) --delete --exclude='*.gz' $(OUT)/ $(TEXT)/ $(IMG) $(ZIP)/
 
 do_gzip:	$(addsuffix .gz, $(wildcard $(ZIP)/*.html))		\
 		$(addsuffix .gz,					\
@@ -311,6 +313,7 @@ do_gzip:	$(addsuffix .gz, $(wildcard $(ZIP)/*.html))		\
 		$(addsuffix .gz, $(wildcard $(ZIP)/ru/CHANGES.ru-?.??))	\
 		$(addsuffix .gz, $(wildcard $(ZIP)/keys/*.key))		\
 		$(addsuffix .gz, $(wildcard $(ZIP)/css/*.css))		\
+		$(addsuffix .gz, $(wildcard $(ZIP)/img/*.svg))		\
 
 	find $(ZIP) -type f ! -name '*.gz' -exec test \! -e {}.gz \; -print
 
