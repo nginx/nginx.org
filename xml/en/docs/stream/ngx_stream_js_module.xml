@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_js_module"
         link="/en/docs/stream/ngx_stream_js_module.html"
         lang="en"
-        rev="45">
+        rev="46">
 
 <section id="summary">
 
@@ -632,8 +632,9 @@ See
 
 <directive name="js_set">
 <syntax>
-<value>$variable</value> <value>function</value> |
-<value>module.function</value></syntax>
+    <value>$variable</value>
+    <value>function</value> | <value>module.function</value>
+    [<literal>nocache</literal>]</syntax>
 <default/>
 <context>stream</context>
 <context>server</context>
@@ -658,6 +659,17 @@ For example, if the variable is referenced only in the
 its handler will not be executed until the log phase.
 This handler can be used to do some cleanup
 right before the request is freed.
+</para>
+
+<para>
+Since <link doc="../njs/changes.xml" id="njs0.8.6">0.8.6</link>, when
+optional argument <literal>nocache</literal> is provided the handler
+is called every time it is referenced.
+Due to current limitations
+of the <link doc="ngx_stream_rewrite_module.xml">rewrite</link> module,
+when a <literal>nocache</literal> variable is referenced by the
+<link doc="ngx_stream_set_module.xml" id="set">set</link> directive
+its handler should always return a fixed-length value.
 </para>
 
 <para>

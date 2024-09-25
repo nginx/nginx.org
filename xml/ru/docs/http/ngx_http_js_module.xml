@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_js_module"
         link="/ru/docs/http/ngx_http_js_module.html"
         lang="ru"
-        rev="47">
+        rev="48">
 
 <section id="summary">
 
@@ -648,8 +648,9 @@ js_preload_object map.json;
 
 <directive name="js_set">
 <syntax>
-<value>$переменная</value> <value>функция</value> |
-<value>модуль.функция</value></syntax>
+    <value>$переменная</value>
+    <value>функция</value> | <value>модуль.функция</value>
+    [<literal>nocache</literal>]</syntax>
 <default/>
 <context>http</context>
 <context>server</context>
@@ -675,6 +676,16 @@ js_preload_object map.json;
 то её обработчик не будет выполняться до фазы записи в лог.
 Этот обработчик также может использоваться для выполнения процедур
 непосредственно перед освобождением запроса.
+</para>
+
+<para>
+Начиная с <link doc="../njs/changes.xml" id="njs0.8.6">0.8.6</link>,
+если указан необязательный параметр <literal>nocache</literal>, то
+обработчик выполняется каждый раз при обращении к переменной.
+Из-за ограничения модуля  <link doc="ngx_http_rewrite_module.xml">rewrite</link>
+при обращении к <literal>nocache</literal>-переменной при помощи
+директивы <link doc="ngx_http_rewrite_module.xml" id="set">set</link>,
+обработчик должен возвращать значение фиксированной длины.
 </para>
 
 <para>
