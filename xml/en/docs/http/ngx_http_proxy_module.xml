@@ -10,7 +10,7 @@
 <module name="Module ngx_http_proxy_module"
         link="/en/docs/http/ngx_http_proxy_module.html"
         lang="en"
-        rev="77">
+        rev="78">
 
 <section id="summary">
 
@@ -1613,6 +1613,39 @@ location /x-accel-redirect-here/ {
 </example>
 See also the <link id="proxy_set_header"/> and
 <link id="proxy_pass_request_body"/> directives.
+</para>
+
+</directive>
+
+
+<directive name="proxy_pass_trailers">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.27.2</appeared-in>
+
+<para>
+Permits passing trailer fields from a proxied server to a client.
+</para>
+
+<para>
+<note>
+A trailer section in HTTP/1.1 is
+<link url="https://datatracker.ietf.org/doc/html/rfc9110#section-6.5.1">explicitly
+enabled</link>.
+</note>
+<example>
+location / {
+    proxy_http_version 1.1;
+    proxy_set_header Connection "te";
+    proxy_set_header TE "trailers";
+    proxy_pass_trailers on;
+
+    proxy_pass ...
+}
+</example>
 </para>
 
 </directive>
