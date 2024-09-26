@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_proxy_module"
         link="/ru/docs/http/ngx_http_proxy_module.html"
         lang="ru"
-        rev="77">
+        rev="78">
 
 <section id="summary">
 
@@ -1616,6 +1616,40 @@ location /x-accel-redirect-here/ {
 </example>
 См. также директивы <link id="proxy_set_header"/> и
 <link id="proxy_pass_request_body"/>.
+</para>
+
+</directive>
+
+
+<directive name="proxy_pass_trailers">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.27.2</appeared-in>
+
+<para>
+Разрешает передавать от проксируемого сервера клиенту поля заголовка
+в конце ответа.
+</para>
+
+<para>
+<note>
+Использование заголовков в конце ответа HTTP/1.1 включается
+<link url="https://datatracker.ietf.org/doc/html/rfc9110#section-6.5.1">явным
+образом</link>.
+</note>
+<example>
+location / {
+    proxy_http_version 1.1;
+    proxy_set_header Connection "te";
+    proxy_set_header TE "trailers";
+    proxy_pass_trailers on;
+
+    proxy_pass ...
+}
+</example>
 </para>
 
 </directive>
