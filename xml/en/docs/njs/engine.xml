@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE article SYSTEM "../../../../dtd/article.dtd">
+
+<article name="JavaScript Engine"
+        link="/en/docs/njs/engine.html"
+        lang="en"
+        rev="1"
+        toc="no">
+
+<section>
+
+<para>
+Starting from version <link doc="changes.xml" id="njs0.8.6">0.8.6</link>,
+multiple JavaScript engines are supported.
+To specify a particular engine, use the <literal>js_engine</literal> directive
+available for both the
+<link doc="../http/ngx_http_js_module.xml" id="js_engine">http</link>
+and
+<link doc="../stream/ngx_stream_js_module.xml" id="js_engine">stream</link>.
+By default, the njs engine is used.
+</para>
+
+</section>
+
+
+<section id="njs_engine" name="njs engine">
+
+<para>
+njs is an embeddable JavaScript engine
+developed as a part of the njs module.
+See the <link doc="compatibility.xml">Сompatibility</link> section for details.
+</para>
+
+</section>
+
+
+<section id="quickjs_engine" name="QuickJS engine">
+
+<para>
+<link url="https://bellard.org/quickjs/">QuickJS</link> is a lightweight,
+embeddable JavaScript engine that supports
+the <link url="https://tc39.es/ecma262/2023/">ES2023</link> specification,
+including features as modules, asynchronous generators, proxies and BigInt.
+</para>
+
+<para>
+Since version <link doc="changes.xml" id="njs0.8.6">0.8.6</link>,
+a drop-in replacement for
+<link doc="reference.xml">njs/nginx objects</link>
+has been introduced
+to ensure compatibility with the njs engine, with the following exceptions:
+
+<list type="bullet">
+
+<listitem>
+nginx modules API:
+<link doc="reference.xml" id="ngx_fetch"><literal>ngx.fetch()</literal></link>,
+<link doc="reference.xml" id="dict"><literal>ngx.shared.dict</literal></link>.
+</listitem>
+
+<listitem>
+Built-in modules:
+<link doc="reference.xml" id="njs_api_fs"><literal>fs</literal></link>,
+<link doc="reference.xml" id="crypto"><literal>crypto</literal></link>,
+<link doc="reference.xml" id="builtin_crypto"><literal>WebCrypto</literal></link>,
+<link doc="reference.xml" id="xml"><literal>xml</literal></link>.
+</listitem>
+
+<listitem>
+njs-specific API:
+<link doc="reference.xml" id="njs_dump"><literal>njs.dump()</literal></link>,
+<link doc="reference.xml" id="njs_on"><literal>njs.on</literal></link>,
+<literal>console.dump()</literal>.
+</listitem>
+
+<listitem>
+<literal>js_preload_object</literal> directive for
+<link doc="../http/ngx_http_js_module.xml" id="js_preload_object">http</link>
+and
+<link doc="../stream/ngx_stream_js_module.xml" id="js_preload_object">stream</link>.
+</listitem>
+
+</list>
+
+</para>
+
+</section>
+
+</article>

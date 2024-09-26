@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE article SYSTEM "../../../../dtd/article.dtd">
+
+<article name="Движок JavaScript"
+        link="/ru/docs/njs/engine.html"
+        lang="ru"
+        rev="1"
+        toc="no">
+
+<section>
+
+<para>
+Начиная с версии <link doc="../njs/changes.xml" id="njs0.8.6">0.8.6</link>
+поддерживается несколько JS-движков.
+Для выбора движка используется директива <literal>js_engine</literal>
+в
+<link doc="../http/ngx_http_js_module.xml" id="js_engine">http</link>
+и
+<link doc="../stream/ngx_stream_js_module.xml" id="js_engine">stream</link>.
+По умолчанию используется движок njs.
+</para>
+
+</section>
+
+
+<section id="njs_engine" name="Движок njs">
+
+<para>
+njs &mdash; встроенный движок JavaScript,
+разработанный как часть модуля njs.
+Подробнее см. в разделе <link doc="compatibility.xml">Совместимость</link>.
+</para>
+
+</section>
+
+
+<section id="quickjs_engine" name="Движок QuickJS">
+
+<para>
+<link url="https://bellard.org/quickjs/">QuickJS</link> &mdash; компактный
+встроенный движок JavaScript, который поддерживает
+спецификацию <link url="https://tc39.es/ecma262/2023/">ES2023</link>,
+включая модули, асинхронные генераторы, прокси и BigInt.
+</para>
+
+<para>
+Начиная с <link doc="changes.xml" id="njs0.8.6">0.8.6</link>
+доступна
+оперативная замена
+<link doc="reference.xml">njs/nginx objects</link>
+для обеспечения совместимости с движком njs, но с некоторыми исключениями:
+
+<list type="bullet">
+
+<listitem>
+API nginx-модулей:
+<link doc="reference.xml" id="ngx_fetch"><literal>ngx.fetch()</literal></link>,
+<link doc="reference.xml" id="dict"><literal>ngx.shared.dict</literal></link>.
+</listitem>
+
+<listitem>
+встроенные модули:
+<link doc="reference.xml" id="njs_api_fs"><literal>fs</literal></link>,
+<link doc="reference.xml" id="crypto"><literal>crypto</literal></link>,
+<link doc="reference.xml" id="builtin_crypto"><literal>WebCrypto</literal></link>,
+<link doc="reference.xml" id="xml"><literal>xml</literal></link>.
+</listitem>
+
+<listitem>
+API njs:
+<link doc="reference.xml" id="njs_dump"><literal>njs.dump()</literal></link>,
+<link doc="reference.xml" id="njs_on"><literal>njs.on</literal></link>,
+<literal>console.dump()</literal>.
+</listitem>
+
+<listitem>
+директива <literal>js_preload_object</literal> для
+<link doc="../http/ngx_http_js_module.xml" id="js_preload_object">http</link>
+и
+<link doc="../stream/ngx_stream_js_module.xml" id="js_preload_object">stream</link>.
+</listitem>
+
+</list>
+
+</para>
+
+</section>
+
+</article>
