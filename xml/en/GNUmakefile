@@ -139,6 +139,7 @@ REFS =									\
 		njs/changes						\
 		njs/cli							\
 		njs/compatibility					\
+		njs/engine						\
 		njs/install						\
 		njs/preload_objects					\
 		njs/reference						\

@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_js_module"
         link="/ru/docs/http/ngx_http_js_module.html"
         lang="ru"
-        rev="48">
+        rev="49">
 
 <section id="summary">
 
@@ -257,6 +257,25 @@ function filter(r, data, flags) {
 блока <link doc="../http/ngx_http_rewrite_module.xml" id="if">if</link>
 начиная с <link doc="../njs/changes.xml" id="njs0.7.7">0.7.7</link>.
 </note>
+</para>
+
+</directive>
+
+
+<directive name="js_engine">
+<syntax><literal>njs</literal> | <literal>qjs</literal></syntax>
+<default>njs</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>0.8.6</appeared-in>
+
+<para>
+Задаёт <link doc="../njs/engine.xml">движок JavaScript</link>
+для использования в сценариях njs.
+Параметр <literal>njs</literal> задаёт использование движка njs,
+также используемого по умолчанию.
+Параметр <literal>qjs</literal> задаёт использование движка QuickJS.
 </para>
 
 </directive>

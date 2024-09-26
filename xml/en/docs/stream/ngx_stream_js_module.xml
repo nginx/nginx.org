@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_js_module"
         link="/en/docs/stream/ngx_stream_js_module.html"
         lang="en"
-        rev="46">
+        rev="47">
 
 <section id="summary">
 
@@ -171,6 +171,23 @@ switches to the <link doc="stream_processing.xml">next phase</link>
 and all current
 <link doc="../njs/reference.xml" id="s_on"><literal>s.on()</literal></link>
 callbacks are dropped.
+</para>
+
+</directive>
+
+
+<directive name="js_engine">
+<syntax><literal>njs</literal> | <literal>qjs</literal></syntax>
+<default>njs</default>
+<context>stream</context>
+<context>server</context>
+<appeared-in>0.8.6</appeared-in>
+
+<para>
+Sets a <link doc="../njs/engine.xml">JavaScript engine</link>
+to be used for njs scripts.
+The <literal>njs</literal> parameter sets the njs engine, also used by default.
+The <literal>qjs</literal> parameter sets the QuickJS engine.
 </para>
 
 </directive>

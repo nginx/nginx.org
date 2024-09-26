@@ -120,6 +120,7 @@ REFS =									\
 		njs/index						\
 		njs/cli							\
 		njs/compatibility					\
+		njs/engine						\
 		njs/install						\
 		njs/node_modules					\
 		njs/preload_objects					\

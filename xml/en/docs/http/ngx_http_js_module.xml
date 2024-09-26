@@ -9,7 +9,7 @@
 <module name="Module ngx_http_js_module"
         link="/en/docs/http/ngx_http_js_module.html"
         lang="en"
-        rev="48">
+        rev="49">
 
 <section id="summary">
 
@@ -257,6 +257,24 @@ The directive can be specified inside the
 <link doc="../http/ngx_http_rewrite_module.xml" id="if">if</link> block
 since <link doc="../njs/changes.xml" id="njs0.7.7">0.7.7</link>.
 </note>
+</para>
+
+</directive>
+
+
+<directive name="js_engine">
+<syntax><literal>njs</literal> | <literal>qjs</literal></syntax>
+<default>njs</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>0.8.6</appeared-in>
+
+<para>
+Sets a <link doc="../njs/engine.xml">JavaScript engine</link>
+to be used for njs scripts.
+The <literal>njs</literal> parameter sets the njs engine, also used by default.
+The <literal>qjs</literal> parameter sets the QuickJS engine.
 </para>
 
 </directive>
