@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_js_module"
         link="/ru/docs/http/ngx_http_js_module.html"
         lang="ru"
-        rev="49">
+        rev="50">
 
 <section id="summary">
 
@@ -257,6 +257,25 @@ function filter(r, data, flags) {
 блока <link doc="../http/ngx_http_rewrite_module.xml" id="if">if</link>
 начиная с <link doc="../njs/changes.xml" id="njs0.7.7">0.7.7</link>.
 </note>
+</para>
+
+</directive>
+
+
+<directive name="js_context_reuse">
+<syntax><value>число</value></syntax>
+<default>128</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>0.8.6</appeared-in>
+
+<para>
+Задаёт максимальное число контекстов JS для повторного использования
+<link doc="../njs/engine.xml">движке QuickJS</link>.
+Каждый контекст используется для одного запроса.
+Завершённый контекст помещается в пул повторно используемых контекстов.
+Если пул заполнен, контекст уничтожается.
 </para>
 
 </directive>

@@ -9,7 +9,7 @@
 <module name="Module ngx_http_js_module"
         link="/en/docs/http/ngx_http_js_module.html"
         lang="en"
-        rev="49">
+        rev="50">
 
 <section id="summary">
 
@@ -257,6 +257,25 @@ The directive can be specified inside the
 <link doc="../http/ngx_http_rewrite_module.xml" id="if">if</link> block
 since <link doc="../njs/changes.xml" id="njs0.7.7">0.7.7</link>.
 </note>
+</para>
+
+</directive>
+
+
+<directive name="js_context_reuse">
+<syntax><value>number</value></syntax>
+<default>128</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>0.8.6</appeared-in>
+
+<para>
+Sets a maximum number of JS context to be reused for
+<link doc="../njs/engine.xml">QuickJS engine</link>.
+Each context is used for a single request.
+The finished context is put into a pool of reusable contexts.
+If the pool is full, the context is destroyed.
 </para>
 
 </directive>
