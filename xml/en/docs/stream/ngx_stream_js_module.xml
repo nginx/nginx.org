@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_js_module"
         link="/en/docs/stream/ngx_stream_js_module.html"
         lang="en"
-        rev="47">
+        rev="48">
 
 <section id="summary">
 
@@ -171,6 +171,24 @@ switches to the <link doc="stream_processing.xml">next phase</link>
 and all current
 <link doc="../njs/reference.xml" id="s_on"><literal>s.on()</literal></link>
 callbacks are dropped.
+</para>
+
+</directive>
+
+
+<directive name="js_context_reuse">
+<syntax><value>number</value></syntax>
+<default>128</default>
+<context>stream</context>
+<context>server</context>
+<appeared-in>0.8.6</appeared-in>
+
+<para>
+Sets a maximum number of JS context to be reused for
+<link doc="../njs/engine.xml">QuickJS engine</link>.
+Each context is used for a single stream session.
+The finished context is put into a pool of reusable contexts.
+If the pool is full, the context is destroyed.
 </para>
 
 </directive>

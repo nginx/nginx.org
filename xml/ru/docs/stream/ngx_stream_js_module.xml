@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_js_module"
         link="/ru/docs/stream/ngx_stream_js_module.html"
         lang="ru"
-        rev="47">
+        rev="48">
 
 <section id="summary">
 
@@ -170,6 +170,24 @@ export default {bar, preread, req_line, header_inject, access};
 и все текущие вызовы
 <link doc="../njs/reference.xml" id="s_on"><literal>s.on()</literal></link>
 сбрасываются.
+</para>
+
+</directive>
+
+
+<directive name="js_context_reuse">
+<syntax><value>число</value></syntax>
+<default>128</default>
+<context>stream</context>
+<context>server</context>
+<appeared-in>0.8.6</appeared-in>
+
+<para>
+Задаёт максимальное число контекстов JS для повторного использования
+<link doc="../njs/engine.xml">движке QuickJS</link>.
+Каждый контекст используется для одной stream-сессии.
+Завершённый контекст помещается в пул повторно используемых контекстов.
+Если пул заполнен, контекст уничтожается.
 </para>
 
 </directive>
