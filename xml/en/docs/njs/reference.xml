@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="124">
+        rev="125">
 
 <section id="summary">
 
@@ -669,6 +669,15 @@ one of the following syntax can be used:
 r.variables['foo']
 r.variables.foo
 </example>
+Since <link doc="changes.xml" id="njs0.8.6">0.8.6</link>,
+regular expression captures can be accessed using the following syntax:
+<example>
+r.variables['1']
+r.variables[1]
+</example>
+</para>
+
+<para>
 nginx treats variables referenced in <literal>nginx.conf</literal>
 and unreferenced variables differently.
 When a variable is referenced, it may be cacheable,
