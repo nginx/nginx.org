@@ -1,4 +1,24 @@
 
+Changes with nginx 1.27.2                                        02 Oct 2024
+
+    *) Feature: SSL certificates, secret keys, and CRLs are now cached on
+       start or during reconfiguration.
+
+    *) Feature: client certificate validation with OCSP in the stream
+       module.
+
+    *) Feature: OCSP stapling support in the stream module.
+
+    *) Feature: the "proxy_pass_trailers" directive in the
+       ngx_http_proxy_module.
+
+    *) Feature: the "ssl_client_certificate" directive now supports
+       certificates with auxiliary information.
+
+    *) Change: now the "ssl_client_certificate" directive is not required
+       for client SSL certificates verification.
+
+
 Changes with nginx 1.27.1                                        14 Aug 2024
 
     *) Security: processing of a specially crafted mp4 file by the
