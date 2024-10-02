@@ -9,8 +9,142 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="70"
+        rev="71"
         toc="no">
+
+<section id="njs0.8.6" name="Changes with njs 0.8.6">
+
+<para>
+Release Date:
+02 October 2024
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+introduced the <link doc="../njs/engine.xml">QuickJS</link> engine.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added optional <literal>nocache</literal> flag for the
+<literal>js_set</literal> directive for
+<link doc="../http/ngx_http_js_module.xml" id="js_set">http</link>
+and 
+<link doc="../stream/ngx_stream_js_module.xml" id="js_set">stream</link>.
+Thanks to Thomas P.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+exposed
+<link doc="reference.xml" id="r_variables">capture group variables</link>
+in the HTTP module.
+Thanks to Thomas P.
+</para>
+</listitem>
+
+</list>
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+added <literal>Buffer</literal> module for the QuickJS engine.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed handling of empty labelled statement in a function.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>Function</literal> constructor handling when called without
+arguments.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>Buffer.prototype.writeInt8()</literal> and friends.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>Buffer.prototype.writeFloat()</literal> and friends.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>Buffer.prototype.lastIndexOf()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>Buffer.prototype.write()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed maybe-uninitialized warnings in error creation.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>ctx.codepoint</literal> initialization in UTF-8 decoding.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>length</literal> initialization in
+<literal>Array.prototype.pop()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed handling of <literal>encode</literal> arg in
+<literal>fs.readdir()</literal> and
+<literal>fs.realpath()</literal>.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.8.5" name="Changes with njs 0.8.5">
 
