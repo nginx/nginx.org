@@ -71,11 +71,11 @@ LANGS =		en ru
 
 YEARS = 								\
 		2009 2010 2011 2012 2013 2014 2015 2016 2017 2018 2019	\
-		2020 2021 2022 2023
+		2020 2021 2022 2023 2024
 
 all:		news arx 404 css $(LANGS)
 
-news:		$(OUT)/index.html $(OUT)/index.rss
+news:		$(OUT)/index.html $(OUT)/news.html $(OUT)/index.rss
 arx:		$(foreach year,$(YEARS),$(OUT)/$(year).html)
 404:		$(OUT)/404.html
 css:		$(foreach f,$(wildcard css/*.css),$(OUT)/$(f))
@@ -137,6 +137,11 @@ $(foreach lang, $(LANGS), $(OUT)/$(lang)/docs/dirindex.html): $(DIRIND_DEPS)
 $(foreach lang, $(LANGS), $(OUT)/$(lang)/docs/varindex.html): $(VARIND_DEPS)
 
 $(OUT)/index.html:							\
+		xml/index.xml						\
+		$(NEWS_DEPS)
+	$(call XSLT, xslt/news.xslt, $<, $@)
+
+$(OUT)/news.html:							\
 		xml/index.xml						\
 		$(NEWS_DEPS)
 	$(call XSLT, xslt/news.xslt, $<, $@)
