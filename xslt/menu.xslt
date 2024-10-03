@@ -7,7 +7,6 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
 
 <xsl:template match="menu/item">
-
     <!--
       ..  variables are not allowed in a template match predicate,
       ..  therefore, we have to use ugly "if"s instead of elegant
@@ -17,11 +16,7 @@
     <li>
 
     <xsl:choose><xsl:when test="@href = $LINK">
-        <xsl:choose><xsl:when test="$YEAR and @href='/'">
-            <a href="./"> news </a> <br/>
-        </xsl:when><xsl:otherwise>
-            <xsl:value-of select=" normalize-space(text()) "/><br/>
-        </xsl:otherwise></xsl:choose>
+        <xsl:value-of select=" normalize-space(text()) "/><br/>
 
     </xsl:when><xsl:otherwise>
         <!--
@@ -73,19 +68,6 @@
 </xsl:template>
 
 
-<xsl:template match="menu/item[@year]">
-    <xsl:if test="$YEAR or $LINK='/'">
-        <li>
-        <xsl:choose><xsl:when test="$YEAR=@year">
-            <xsl:value-of select="@year"/>
-        </xsl:when><xsl:otherwise>
-            <xsl:if test="@href"> <a href="{@href}"> <xsl:value-of select="@year"/> </a> </xsl:if>
-        </xsl:otherwise></xsl:choose>
-        </li>
-    </xsl:if>
-</xsl:template>
-
-
 <xsl:template match="menu/item[starts-with(@href, 'http://') or starts-with(@href, 'https://')]">
     <li>
     <a href="{@href}"> <xsl:value-of select=" normalize-space(text()) "/> </a>
@@ -94,7 +76,7 @@
 </xsl:template>
 
 
-<xsl:template match="menu/item[not(@href) and not(@year)]">
+<xsl:template match="menu/item[not(@href)]">
     <li><xsl:value-of select=" normalize-space(text()) "/> <br/></li>
 </xsl:template>
 

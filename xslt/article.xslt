@@ -34,7 +34,7 @@
 <xsl:include href="download.xslt"/>
 <xsl:include href="security.xslt"/>
 <xsl:include href="versions.xslt"/>
-
+<xsl:include href="projects.xslt"/>
 
 <xsl:template match="/article | /module">
     <html>
