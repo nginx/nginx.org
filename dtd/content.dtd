@@ -4,7 +4,7 @@
   -->
 
 <!ELEMENT  section      (para | list | book | download | security | note |
-                         programlisting | table | section)* >
+                         programlisting | table | section | topnews | projects)* >
 <!ATTLIST  section
            id           ID #IMPLIED
            name         CDATA #IMPLIED
@@ -86,6 +86,7 @@
            note         CDATA #IMPLIED
            width        CDATA #IMPLIED
            class        CDATA #IMPLIED
+           border       CDATA #IMPLIED
 >
 <!ELEMENT  tr           (td+) >
 <!ELEMENT  td           (#PCDATA | br | literal | b | i | link | list)* >
@@ -119,6 +120,19 @@
            year         CDATA #IMPLIED
 >
 
+<!ELEMENT  projects     (project+) >
+
+<!ELEMENT  project         EMPTY >
+<!ATTLIST  project
+           title        CDATA #REQUIRED
+           docs         CDATA #REQUIRED
+           repo         CDATA #REQUIRED
+           logo         CDATA #REQUIRED
+           description  CDATA #REQUIRED
+>
+
+<!ELEMENT  topnews      EMPTY >
+
 <!ELEMENT  download     EMPTY >
 <!ATTLIST  download
            last         CDATA #REQUIRED
@@ -146,6 +160,7 @@
            name         CDATA #REQUIRED
            versions     CDATA #IMPLIED
 >
+
 
 <!ENTITY   nbsp         "&#160;">
 <!ENTITY   times        "&#215;">
