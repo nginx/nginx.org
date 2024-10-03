@@ -6,7 +6,6 @@
 X:stylesheet {
 
 X:template = "menu/item" {
-
     <!--
       --  variables are not allowed in a template match predicate,
       --  therefore, we have to use ugly "if"s instead of elegant
@@ -16,11 +15,7 @@ X:template = "menu/item" {
     <li>
 
     X:if "@href = $LINK" {
-        X:if "$YEAR and @href='/'" {
-            <a href="./"> news </a> <br/>
-        } else {
-            !{ normalize-space(text()) }<br/>
-        }
+        !{ normalize-space(text()) }<br/>
 
     } else {
         <!--
@@ -72,19 +67,6 @@ X:template = "menu/item" {
 }
 
 
-X:template = "menu/item[@year]" {
-    X:if "$YEAR or $LINK='/'" {
-        <li>
-        X:if "$YEAR=@year" {
-            !{@year}
-        } else {
-            X:if "@href" { <a href="{@href}"> !{@year} </a> }
-        }
-        </li>
-    }
-}
-
-
 X:template = "menu/item[starts-with(@href, 'http://') or starts-with(@href, 'https://')]" {
     <li>
     <a href="{@href}"> !{ normalize-space(text()) } </a>
@@ -93,7 +75,7 @@ X:template = "menu/item[starts-with(@href, 'http://') or starts-with(@href, 'htt
 }
 
 
-X:template = "menu/item[not(@href) and not(@year)]" {
+X:template = "menu/item[not(@href)]" {
     <li>!{ normalize-space(text()) } <br/></li>
 }
 
