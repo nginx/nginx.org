@@ -43,19 +43,48 @@
     <xsl:call-template name="body"><xsl:with-param select="@lang" name="lang"/></xsl:call-template></html>
 </xsl:template>
 
+<xsl:template match="years/year[@year]">
+    <xsl:if test="position() = 1">
+        <xsl:text disable-output-escaping="yes">
+            &lt;div class="dropdown"&gt;
+            &lt;button class="dropbtn"&gt;news archive ▾&lt;/button&gt;
+            &lt;div class="dropdown-content"&gt;
+        </xsl:text>
+    </xsl:if>
+
+    <xsl:if test="position() != last()">
+        <xsl:choose><xsl:when test="$YEAR=@year">
+            <b><a href="{@href}"><xsl:value-of select="@year"/></a></b>
+        </xsl:when><xsl:otherwise>
+            <a href="{@href}"><xsl:value-of select="@year"/></a>
+        </xsl:otherwise></xsl:choose>
+    </xsl:if>
+
+    <xsl:if test="position() = last()">
+        <xsl:choose><xsl:when test="$YEAR=@year">
+            <b><a href="{@href}"><xsl:value-of select="@year"/></a></b>
+        </xsl:when><xsl:otherwise>
+            <a href="{@href}"><xsl:value-of select="@year"/></a>
+        </xsl:otherwise></xsl:choose>
+        <xsl:text disable-output-escaping="yes">
+            &lt;/div&gt;&lt;/div&gt;
+        </xsl:text>
+    </xsl:if>
+</xsl:template>
 
 <xsl:template match="event">
 
     <xsl:variable name="year"> <xsl:value-of select="substring(../event[position()=1]/@date, 1, 4)"/> </xsl:variable>
     <xsl:variable name="y"> <xsl:value-of select="substring(@date, 1, 4)"/> </xsl:variable>
 
-    <xsl:if test="position() = 1">
+    <!-- News items start at position 2 so that we skip the dropdown menu -->
+    <xsl:if test="position() = 2">
         <xsl:text disable-output-escaping="yes">
             &lt;table class="news"&gt;
         </xsl:text>
     </xsl:if>
 
-    <xsl:if test="(not($YEAR) and ($year = $y or position() &lt; 11)) or $YEAR=$y">
+    <xsl:if test="(not($YEAR) and ($year = $y or position() &lt; 12)) or $YEAR=$y">
         <tr>
         <td class="date">
             <a name="{@date}"/> <xsl:value-of select="@date"/>
