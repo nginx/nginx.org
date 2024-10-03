@@ -14,6 +14,8 @@
       ..     "menu/item[@href = $LINK]", etc.
       -->
 
+    <li>
+
     <xsl:choose><xsl:when test="@href = $LINK">
         <xsl:choose><xsl:when test="$YEAR and @href='/'">
             <a href="./"> news </a> <br/>
@@ -22,7 +24,6 @@
         </xsl:otherwise></xsl:choose>
 
     </xsl:when><xsl:otherwise>
-
         <!--
           .. If a menu item has the switchlang attribute, then it will point
           .. to the same document in the specified language.
@@ -67,33 +68,34 @@
 
             <xsl:if test="@lang"> <xsl:text> [</xsl:text> <xsl:value-of select="@lang"/> <xsl:text>]</xsl:text></xsl:if>
         </xsl:otherwise></xsl:choose>
-
-        <br/>
     </xsl:otherwise></xsl:choose>
+    </li>
 </xsl:template>
 
 
 <xsl:template match="menu/item[@year]">
     <xsl:if test="$YEAR or $LINK='/'">
+        <li>
         <xsl:choose><xsl:when test="$YEAR=@year">
-            <xsl:value-of select="@year"/> <br/>
+            <xsl:value-of select="@year"/>
         </xsl:when><xsl:otherwise>
             <xsl:if test="@href"> <a href="{@href}"> <xsl:value-of select="@year"/> </a> </xsl:if>
-            <br/>
         </xsl:otherwise></xsl:choose>
+        </li>
     </xsl:if>
 </xsl:template>
 
 
 <xsl:template match="menu/item[starts-with(@href, 'http://') or starts-with(@href, 'https://')]">
+    <li>
     <a href="{@href}"> <xsl:value-of select=" normalize-space(text()) "/> </a>
     <xsl:if test="@lang"> <xsl:text> [</xsl:text> <xsl:value-of select="@lang"/> <xsl:text>]</xsl:text></xsl:if>
-    <br/>
+    </li>
 </xsl:template>
 
 
 <xsl:template match="menu/item[not(@href) and not(@year)]">
-    <xsl:value-of select=" normalize-space(text()) "/> <br/>
+    <li><xsl:value-of select=" normalize-space(text()) "/> <br/></li>
 </xsl:template>
 
 </xsl:stylesheet>
