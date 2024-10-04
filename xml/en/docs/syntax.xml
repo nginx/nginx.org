@@ -8,28 +8,58 @@
 <article name="Configuration file measurement units"
          link="/en/docs/syntax.html"
          lang="en"
-         rev="3">
+         rev="4">
 
-<section>
+<section id="summary">
 
 <para>
-Sizes can be specified in bytes, kilobytes
-(suffixes <literal>k</literal> and <literal>K</literal>) or megabytes
-(suffixes <literal>m</literal> and <literal>M</literal>), for example,
+nginx supports several measurement units for specifying
+sizes, offsets, and time intervals within configuration files.
+</para>
+
+</section>
+
+
+<section id="size" name="Sizes and offsets">
+
+<para>
+Sizes can be specified in bytes, kilobytes, or megabytes
+using the following suffixes:
+
+<list type="bullet">
+
+<listitem>
+<literal>k</literal> and <literal>K</literal> for kilobytes
+</listitem>
+
+<listitem>
+<literal>m</literal> and <literal>M</literal> for megabytes
+</listitem>
+
+</list>
+</para>
+
+<para>
+For example,
 “<literal>1024</literal>”, “<literal>8k</literal>”, “<literal>1m</literal>”.
 </para>
 
 <para>
-Offsets may be also specified in gigabytes using
+Offsets can be also specified in gigabytes using the
 <literal>g</literal> or <literal>G</literal> suffixes.
 </para>
+
+</section>
+
+
+<section id="time" name="Time intervals">
 
 <para>
 Time intervals can be specified in milliseconds, seconds,
 minutes, hours, days and so on, using the following suffixes:
 <table width="30%">
 <tr><td width="20%">ms</td><td>milliseconds</td></tr>
-<tr><td width="20%">s</td><td>seconds</td></tr>
+<tr><td width="20%">s</td><td>seconds (default)</td></tr>
 <tr><td width="20%">m</td><td>minutes</td></tr>
 <tr><td width="20%">h</td><td>hours</td></tr>
 <tr><td width="20%">d</td><td>days</td></tr>
@@ -45,12 +75,30 @@ by specifying them in the order from the most to the least significant,
 and optionally separated by whitespace.
 For example, “<literal>1h 30m</literal>” specifies the same time
 as “<literal>90m</literal>” or “<literal>5400s</literal>”.
-A value without a suffix means seconds.
-It is recommended to always specify a suffix.
 </para>
 
 <para>
-Some of the time intervals can be specified only with a seconds resolution.
+<list type="bullet">
+
+<listitem>
+<para>
+A value without a suffix means seconds.
+</para>
+</listitem>
+
+<listitem>
+<para>
+It is recommended to always specify a suffix.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Certain time intervals can be specified only with a seconds resolution.
+</para>
+</listitem>
+
+</list>
 </para>
 
 </section>

@@ -8,23 +8,58 @@
 <article name="Единицы измерения в конфигурационном файле"
          link="/ru/docs/syntax.html"
          lang="ru"
-         rev="3">
+         rev="4">
 
-<section>
+<section id="summary">
 
 <para>
-Размеры можно указывать в байтах, килобайтах
-(суффиксы <literal>k</literal> и <literal>K</literal>) или мегабайтах
-(суффиксы <literal>m</literal> и <literal>M</literal>), например,
+nginx поддерживает несколько единиц измерения для указания
+размеров, смещений и временных интервалов в конфигурационных файлах.
+</para>
+
+</section>
+
+
+<section id="size" name="Размеры и смещения">
+
+<para>
+Размеры можно указывать в байтах, килобайтах или мегабайтах
+используя следующие суффиксы:
+
+<list type="bullet">
+
+<listitem>
+<literal>k</literal> и <literal>K</literal> для килобайт
+</listitem>
+
+<listitem>
+<literal>m</literal> и <literal>M</literal> для мегабайт
+</listitem>
+
+</list>
+</para>
+
+<para>
+Например,
 “<literal>1024</literal>”, “<literal>8k</literal>”, “<literal>1m</literal>”.
 </para>
+
+<para>
+Смещения также можно указать в гигабайтах используя
+суффиксы <literal>g</literal> или <literal>G</literal>.
+</para>
+
+</section>
+
+
+<section id="time" name="Интервалы времени">
 
 <para>
 Интервалы времени можно задавать в миллисекундах, секундах,
 минутах, часах, днях и т.д., используя следующие суффиксы:
 <table width="30%">
 <tr><td width="20%">ms</td><td>миллисекунды</td></tr>
-<tr><td width="20%">s</td><td>секунды</td></tr>
+<tr><td width="20%">s</td><td>секунды (по умолчанию)</td></tr>
 <tr><td width="20%">m</td><td>минуты</td></tr>
 <tr><td width="20%">h</td><td>часы</td></tr>
 <tr><td width="20%">d</td><td>дни</td></tr>
@@ -40,12 +75,30 @@
 и по желанию отделяя их пробелами.
 Например, “<literal>1h 30m</literal>” задаёт то же время,
 что и “<literal>90m</literal>” или “<literal>5400s</literal>”.
-Значение без суффикса задаёт секунды.
-Рекомендуется всегда указывать суффикс.
 </para>
 
 <para>
+<list type="bullet">
+
+<listitem>
+<para>
+Значение без суффикса задаёт секунды.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Рекомендуется всегда указывать суффикс.
+</para>
+</listitem>
+
+<listitem>
+<para>
 Некоторые интервалы времени можно задать лишь с точностью до секунд.
+</para>
+</listitem>
+
+</list>
 </para>
 
 </section>
