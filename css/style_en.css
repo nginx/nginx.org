@@ -455,6 +455,12 @@ sup {
         background:#0c1622;
         color: #ddd!important;
     }
+    .lightimage {
+        display: none!important;
+    }
+    .darkimageWrapper, .darkimage {
+        display: block!important;
+    }
     .dropbtn {background-color: #202020;}
     .dropdown-content {
         background-color: #404040;
