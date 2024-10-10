@@ -8,9 +8,16 @@
 <article name="nginx под Windows"
          link="/ru/docs/windows.html"
          lang="ru"
-         rev="5">
+         rev="6">
 
 <section>
+
+<para>
+<note>
+В настоящий момент nginx под Windows доступен в бета-версии
+и может использоваться только для разработки и тестирования.
+</note>
+</para>
 
 <para>
 Версия nginx под Windows использует “родной” Win32 API (не эмуляцию Cygwin).
