@@ -8,7 +8,7 @@
 <article name="nginx for Windows"
          link="/en/docs/windows.html"
          lang="en"
-         rev="5">
+         rev="6">
 
 <section>
 
@@ -122,7 +122,7 @@ actually does any work.
 </listitem>
 
 <listitem>
-The UDP proxy functionality is not supported.
+The UDP (and, inherently, QUIC) functionality is not supported.
 </listitem>
 
 </list>
