@@ -9,7 +9,7 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="71"
+        rev="72"
         toc="no">
 
 <section id="njs0.8.6" name="Changes with njs 0.8.6">
@@ -160,23 +160,65 @@ nginx modules:
 <listitem>
 <para>
 Change:
+bytes invalid in UTF-8 encoding are converted into the replacement character in:
+<list type="bullet">
+
+<listitem>
+<para>
 <link doc="reference.xml" id="r_variables"><literal>r.variables.var</literal></link>,
 <link doc="reference.xml" id="r_request_text"><literal>r.requestText</literal></link>,
 <link doc="reference.xml" id="r_response_text"><literal>r.responseText</literal></link>,
 <link doc="reference.xml" id="s_variables"><literal>s.variables.var</literal></link>,
-and the
+</para>
+</listitem>
+
+<listitem>
+<para>
+the
 <literal>data</literal> argument of the
-<link doc="reference.xml" id="njs_on"><literal>s.on()</literal></link> callback
-with <literal>upload</literal> or <literal>download</literal> event types
-will now convert bytes invalid in UTF-8 encoding into the replacement character.
-When working with binary data, use
+<link doc="reference.xml" id="s_on"><literal>s.on()</literal></link> callback
+with <literal>upload</literal> or <literal>download</literal> event types,
+</para>
+</listitem>
+
+<listitem>
+<para>
+the <literal>data</literal> argument of the
+<link doc="../http/ngx_http_js_module.xml" id="js_body_filter"><literal>js_body_filter</literal></link>
+directive.
+</para>
+</listitem>
+
+</list>
+When working with binary data, use:
+<list type="bullet">
+
+<listitem>
+<para>
 <link doc="reference.xml" id="r_raw_variables"><literal>r.rawVariables.var</literal></link>,
 <link doc="reference.xml" id="r_request_buffer"><literal>r.requestBuffer</literal></link>,
 <link doc="reference.xml" id="r_response_buffer"><literal>r.responseBuffer</literal></link>,
 <link doc="reference.xml" id="s_raw_variables"><literal>s.rawVariables.var</literal></link>,
-and the <literal>upstream</literal> or <literal>downstream</literal> event type
+</para>
+</listitem>
+
+<listitem>
+<para>
+the <literal>upstream</literal> or <literal>downstream</literal> event type
 for
-<link doc="reference.xml" id="njs_on"><literal>s.on()</literal></link> instead.
+<link doc="reference.xml" id="s_on"><literal>s.on()</literal></link>,
+</para>
+</listitem>
+
+<listitem>
+<para>
+<literal>buffer_type</literal>=<value>buffer</value> for
+<link doc="../http/ngx_http_js_module.xml" id="js_body_filter"><literal>js_body_filter</literal></link>.
+</para>
+</listitem>
+
+</list>
+
 </para>
 </listitem>
 
