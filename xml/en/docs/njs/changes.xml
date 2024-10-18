@@ -9,7 +9,7 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="71"
+        rev="72"
         toc="no">
 
 <section id="njs0.8.6" name="Changes with njs 0.8.6">
@@ -164,6 +164,8 @@ Change:
 <link doc="reference.xml" id="r_request_text"><literal>r.requestText</literal></link>,
 <link doc="reference.xml" id="r_response_text"><literal>r.responseText</literal></link>,
 <link doc="reference.xml" id="s_variables"><literal>s.variables.var</literal></link>,
+the <literal>data</literal> argument of the
+<link doc="../http/ngx_http_js_module.xml" id="js_body_filter"><literal>js_body_filter</literal></link>,
 and the
 <literal>data</literal> argument of the
 <link doc="reference.xml" id="njs_on"><literal>s.on()</literal></link> callback
@@ -177,6 +179,8 @@ When working with binary data, use
 and the <literal>upstream</literal> or <literal>downstream</literal> event type
 for
 <link doc="reference.xml" id="njs_on"><literal>s.on()</literal></link> instead.
+Use <literal>buffer_type=buffer</literal> for
+<link doc="../http/ngx_http_js_module.xml" id="js_body_filter"><literal>js_body_filter</literal></link>.
 </para>
 </listitem>
 
