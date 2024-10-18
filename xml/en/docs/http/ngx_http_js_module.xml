@@ -9,7 +9,7 @@
 <module name="Module ngx_http_js_module"
         link="/en/docs/http/ngx_http_js_module.html"
         lang="en"
-        rev="50">
+        rev="51">
 
 <section id="summary">
 
@@ -173,6 +173,11 @@ the incoming data chunk,
 may be a string or Buffer
 depending on the <literal>buffer_type</literal> value,
 by default is a string.
+Since <link doc="../njs/changes.xml" id="njs0.8.5">0.8.5</link>, the
+<literal>data</literal> value is implicitly converted to a valid UTF-8 string
+by default.
+For binary data, the <literal>buffer_type</literal> value
+should be set to <literal>buffer</literal>.
 </tag-desc>
 
 <tag-name><literal>flags</literal></tag-name>

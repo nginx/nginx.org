@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_js_module"
         link="/ru/docs/http/ngx_http_js_module.html"
         lang="ru"
-        rev="50">
+        rev="51">
 
 <section id="summary">
 
@@ -149,7 +149,7 @@ export default {foo, summary, baz, hello, fetch, hash};
 
 <directive name="js_body_filter">
 <syntax><value>функция</value> | <value>модуль.функция</value>
-[<value>buffer_type</value>=<value>строка</value> | <value>буфер</value>]</syntax>
+[<value>buffer_type</value>=<value>string</value> | <value>buffer</value>]</syntax>
 <default/>
 <context>location</context>
 <context>if in location</context>
@@ -173,6 +173,11 @@ export default {foo, summary, baz, hello, fetch, hash};
 может быть строкой или буфером
 в зависимости от значения <literal>buffer_type</literal>,
 по умолчанию является строкой.
+Начиная с <link doc="../njs/changes.xml" id="njs0.8.5">0.8.5</link>,
+по умолчанию
+значение <literal>data</literal> неявно преобразуется в валидную строку UTF-8.
+Для бинарных данных параметр <literal>buffer_type</literal>
+необходимо установить в <literal>buffer</literal>.
 </tag-desc>
 
 <tag-name><literal>flags</literal></tag-name>
