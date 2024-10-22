@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="125">
+        rev="126">
 
 <section id="summary">
 
@@ -4932,6 +4932,7 @@ undefined
 <tr><td><link id="fs_promises_open"><literal>fs.promises.open()</literal></link></td></tr>
 <tr><td><link id="fs_readdirsync"><literal>fs.readdirSync()</literal></link></td></tr>
 <tr><td><link id="fs_readfilesync"><literal>fs.readFileSync()</literal></link></td></tr>
+<tr><td><link id="fs_readlinksync"><literal>fs.readlinkSync()</literal></link></td></tr>
 <tr><td><link id="fs_readsync"><literal>fs.readSync()</literal></link></td></tr>
 <tr><td><link id="fs_realpathsync"><literal>fs.realpathSync()</literal></link></td></tr>
 <tr><td><link id="fs_renamesync"><literal>fs.renameSync()</literal></link></td></tr>
@@ -5206,6 +5207,21 @@ undefined
 >> var gzipped = file.slice(0,2).toString('hex') === '1f8b'; gzipped
 true
 </example>
+</tag-desc>
+
+<tag-name id="fs_readlinksync"><literal>readlinkSync(<value>path</value>[,
+<value>options</value>])</literal></tag-name>
+<tag-desc>
+Synchronously gets the contents of the symbolic link <literal>path</literal>
+using
+<link url="https://man7.org/linux/man-pages/man2/readlink.2.html">readlink(2)</link>
+(<link doc="changes.xml" id="njs0.8.7">0.8.7</link>).
+The <literal>options</literal> argument can be a string specifying an encoding,
+or an object with <literal>encoding</literal> property
+specifying the character encoding to use.
+If the <literal>encoding</literal> is <value>buffer</value>,
+the result is returned as a <literal>Buffer</literal> object,
+otherwise as a string.
 </tag-desc>
 
 <tag-name id="fs_readsync"><literal>readSync(<value>fd</value>,
