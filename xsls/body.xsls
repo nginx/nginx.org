@@ -15,6 +15,9 @@ X:template body (lang) {
         X:if "$lang = 'he'" { X:text {right} } else { X:text {left} }
     }
 
+    <head>
+        <script src="https://mktg.tags.f5.com/basic/prod/utag.sync.js"></script> 
+    </head>
     <body>
 
     <div id="banner">
@@ -126,6 +129,17 @@ X:template body (lang) {
         }
     </div>
     </div>
+    <div id="consent_blackbar" style="position:fixed;top:0px;width:100%;"></div>
+    <script type="text/javascript"> 
+        X:text{
+            (function(a,b,c,d) &#123;  
+                a='//mktg.tags.f5.com/basic/prod/utag.js'; 
+                b=document;c='script';d=b.createElement(c);d.src=a; 
+                d.type='text/java'+c;d.async=true; 
+                a=b.getElementsByTagName(c)[0];a.parentNode.insertBefore(d,a)
+            &#125;)(); 
+        }
+    </script>
     </body>
 
 }
