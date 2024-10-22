@@ -9,8 +9,82 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="72"
+        rev="73"
         toc="no">
+
+<section id="njs0.8.7" name="Changes with njs 0.8.7">
+
+<para>
+Release Date:
+22 October 2024
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Bugfix: eliminated unnecessary VM creation.
+Previously, njs consumed
+memory proportionally to the number of nginx locations.
+The issue was introduced in <link id="njs0.8.6">0.8.6</link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement: added strict syntax validation for
+<link doc="../http/ngx_http_js_module.xml" id="js_body_filter"/>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement: improved error messages for module loading failures.
+</para>
+</listitem>
+
+</list>
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature: implemented
+<link doc="reference.xml" id="fs_readlinksync"><literal>fs.readlinkSync()</literal></link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement: implemented lazy stack symbolization.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix: fixed heap-buffer-overflow in
+<literal>Buffer.prototype.indexOf()</literal>.
+The issue was introduced in <link id="njs0.8.6">0.8.6</link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix: fixed <literal>Buffer.prototype.lastIndexOf()</literal> when `from` is
+provided.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.8.6" name="Changes with njs 0.8.6">
 
