@@ -9,7 +9,7 @@
 <article name="Загрузка и установка"
         link="/ru/docs/njs/install.html"
         lang="ru"
-        rev="4">
+        rev="5">
 
 <section id="install_package" name="Установка пакета Linux">
 
@@ -52,7 +52,7 @@ load_module modules/ngx_stream_js_module.so;
 
 <para>
 <link url="https://github.com/nginx/njs">Репозиторий</link>
-с исходным кодом njs можно клонировать следующей командой:
+с исходным кодом njs можно клонировать следующей командой
 (необходим клиент <link url="https://git-scm.com/">Git</link>):
 <example>
 git clone https://github.com/nginx/njs
@@ -70,12 +70,41 @@ git clone https://github.com/nginx/njs
 </example>
 </para>
 
+<section id="install_quickjs" name="Добавление поддержки QuickJS">
+
 <para>
-Чтобы собрать только <link doc="cli.xml">утилиту</link> командной строки njs
+Убедитесь, что присутствует библиотека QuickJS:
+<example>
+git clone https://github.com/bellard/quickjs
+cd quickjs
+CFLAGS='-fPIC' make libquickjs.a
+</example>
+На этапе компиляции модулей также укажите пути
+include (<literal>-I</literal>) и library (<literal>-L</literal>)
+с помощью
+конфигурационных параметров
+<literal>--with-cc-opt=</literal> и
+<literal>--with-ld-opt=</literal>:
+<example>
+./configure --add-module=<value>path-to-njs</value>/nginx \
+    --with-cc-opt="-I <value>path-to-quickjs</value>" \
+    --with-ld-opt="-L <value>path-to-quickjs</value>"
+</example>
+</para>
+
+</section>
+
+</section>
+
+
+<section id="cli" name="Сборка утилиты командной строки njs">
+
+<para>
+Чтобы собрать только <link doc="cli.xml">утилиту</link> командной строки njs,
 необходимо запустить
 команды <literal>./configure</literal> и <literal>make njs</literal>
 из корневого каталога njs.
-Утилита доступна как <literal>./build/njs</literal>.
+После сборки утилита доступна как <literal>./build/njs</literal>.
 </para>
 
 </section>
