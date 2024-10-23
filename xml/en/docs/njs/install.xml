@@ -9,7 +9,7 @@
 <article name="Download and install"
         link="/en/docs/njs/install.html"
         lang="en"
-        rev="4">
+        rev="5">
 
 <section id="install_package" name="Installing as a Linux package">
 
@@ -51,7 +51,7 @@ load_module modules/ngx_stream_js_module.so;
 
 <para>
 The <link url="https://github.com/nginx/njs">repository</link>
-with njs sources can be cloned with the following command:
+with njs sources can be cloned with the following command
 (requires <link url="https://git-scm.com/">Git</link> client):
 <example>
 git clone https://github.com/nginx/njs
@@ -69,13 +69,42 @@ The modules can also be built as
 </example>
 </para>
 
+<section id="install_quickjs" name="Adding QuickJS engine support">
+
 <para>
-To build only njs command-line <link doc="cli.xml">utility</link>, run
+Make sure you have built the QuickJS library:
+<example>
+git clone https://github.com/bellard/quickjs
+cd quickjs
+CFLAGS='-fPIC' make libquickjs.a
+</example>
+At the module compilation step, also
+specify the include (<literal>-I</literal>) and library (<literal>-L</literal>)
+paths with the
+<literal>--with-cc-opt=</literal> and
+<literal>--with-ld-opt=</literal> configuration parameters:
+<example>
+./configure --add-module=<value>path-to-njs</value>/nginx \
+    --with-cc-opt="-I <value>path-to-quickjs</value>" \
+    --with-ld-opt="-L <value>path-to-quickjs</value>"
+</example>
+</para>
+
+</section>
+
+</section>
+
+
+<section id="cli" name="Building njs command-line utility">
+
+<para>
+To build only the njs command-line <link doc="cli.xml">utility</link>, run
 <literal>./configure</literal> and <literal>make njs</literal> commands
 from njs root directory.
-The utility is available as <literal>./build/njs</literal>.
+After building, the utility is available as <literal>./build/njs</literal>.
 </para>
 
 </section>
 
 </article>
+
