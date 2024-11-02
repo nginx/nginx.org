@@ -1,0 +1,80 @@
+<!DOCTYPE article SYSTEM "../../../../dtd/article.dtd">
+
+<article name="Caching compressed content"
+         link="/en/docs/http/caching-compressed-content.html"
+         lang="en"
+         rev="0">
+
+
+<section>
+
+<para>
+It has often been asked whether nginx is able to cache the
+results of on-the-fly compression. This would not only save
+the hassle of generating <literal>.br</literal> files manually
+or the latency and CPU cycles required for compressing on the
+fly, but also make it possible to benefit from the performance
+improvements offered by
+<link url="https://www.f5.com/company/blog/nginx/improving-nginx-performance-with-kernel-tls">kTLS
+and SSL_sendfile()</link>, which have to be disabled when the
+brotli filter is in use.
+</para>
+
+<para>
+As an example, a minimal configuration for an nginx server that
+caches responses from a FastCGI applications such as PHP would
+normally look something like this:
+<programlisting>
+brotli on;
+
+fastcgi_cache_path /var/cache/nginx levels=1:2
+    keys_zone=WORDPRESS:100m inactive=60m;
+  
+location / {
+    try_files $uri /index.php?$args;
+}    
+
+location ~ \.php$ {
+    try_files $uri =404;
+    fastcgi_pass unix:/run/php-fpm.sock;
+    include fastcgi_params;
+    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    fastcgi_cache WORDPRESS;
+}
+</programlisting>
+This would only cache uncompressed responses, however. To cache
+brotli-compressed responses, we need to set up a dedicated
+caching server using
+<link url="https://nginx.org/en/docs/http/ngx_http_proxy_module.html">ngx_http_proxy_module</link>:
+<programlisting>
+map $http_accept_encoding $encoding {
+    default       "";
+    ~.*br.*       br;
+    ~.*gz.*       gz;
+}
+
+server {
+    …
+    location / {
+        proxy_pass http://unix:/run/nginx.sock;
+        proxy_cache WORDPRESS;
+        proxy_cache_key "$scheme$request_method$host$request_uri $encoding";
+        proxy_set_header Accept-Encoding "$encoding";
+        proxy_set_header Host $host; 
+    }
+}
+
+server {
+    listen unix:/run/nginx.sock;
+    brotli on;
+    …
+    location ~ \.php$ {
+        try_files $uri =404;
+        fastcgi_pass unix:/run/php-fpm.sock;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_param HTTPS on;
+        …
+    }
+}
+</programlisting>
