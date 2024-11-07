@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="126">
+        rev="127">
 
 <section id="summary">
 
@@ -3649,6 +3649,7 @@ The callback is called without arguments.
 <table width="100%">
 <tr><td><link id="process_argv"><literal>process.argv</literal></link></td></tr>
 <tr><td><link id="process_env"><literal>process.env</literal></link></td></tr>
+<tr><td><link id="process_kill"><literal>process.kill()</literal></link></td></tr>
 <tr><td><link id="process_pid"><literal>process.pid</literal></link></td></tr>
 <tr><td><link id="process_ppid"><literal>process.ppid</literal></link></td></tr>
 </table>
@@ -3678,6 +3679,15 @@ from its parent process except the TZ variable.
 Use the <link doc="../ngx_core_module.xml" id="env"/> directive
 to preserve some of the inherited variables.
 </note>
+</tag-desc>
+
+<tag-name id="process_kill"><literal>process.kill(<value>pid</value>,
+<value>number</value> | <value>string</value>)</literal></tag-name>
+<tag-desc>
+Sends the signal to the process identified by <literal>pid</literal>.
+Signal names are numbers or strings such as 'SIGINT' or 'SIGHUP'.
+See <link url="https://man7.org/linux/man-pages/man2/kill.2.html">kill(2)</link>
+for more information.
 </tag-desc>
 
 <tag-name id="process_pid"><literal>process.pid</literal></tag-name>
