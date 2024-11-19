@@ -384,6 +384,31 @@ Specifies a timeout for the SSL handshake to complete.
 </directive>
 
 
+<directive name="ssl_key_log">
+<syntax>path</syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.27.2</appeared-in>
+
+<para>
+Enables logging of client connection SSL keys
+and specifies the path to the key log file.
+Keys are logged in the
+<link url="https://datatracker.ietf.org/doc/html/draft-ietf-tls-keylogfile">SSLKEYLOGFILE</link>
+format compatible with Wireshark.
+</para>
+
+<para>
+<note>
+This directive is available as part of our
+<commercial_version>commercial subscription</commercial_version>.
+</note>
+</para>
+
+</directive>
+
+
 <directive name="ssl_ocsp">
 <syntax><literal>on</literal> |
         <literal>off</literal> |

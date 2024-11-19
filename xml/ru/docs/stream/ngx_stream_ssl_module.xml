@@ -387,6 +387,31 @@ ssl_ecdh_curve prime256v1:secp384r1;
 </directive>
 
 
+<directive name="ssl_key_log">
+<syntax>путь</syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.27.2</appeared-in>
+
+<para>
+Включает логирование SSL-ключей клиентских соединений
+и указывает путь к лог-файлу ключей.
+Ключи записываются в формате
+<link url="https://datatracker.ietf.org/doc/html/draft-ietf-tls-keylogfile">SSLKEYLOGFILE</link>
+совместимом с Wireshark.
+</para>
+
+<para>
+<note>
+Директива доступна как часть
+<commercial_version>коммерческой подписки</commercial_version>.
+</note>
+</para>
+
+</directive>
+
+
 <directive name="ssl_ocsp">
 <syntax><literal>on</literal> |
         <literal>off</literal> |

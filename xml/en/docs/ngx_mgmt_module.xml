@@ -14,17 +14,37 @@
 <section id="summary">
 
 <para>
-The <literal>ngx_mgmt_module</literal> module enables reporting of
-current nginx installation to
-<link url="https://docs.nginx.com/nginx-management-suite/about/">NGINX
-Management Suite Instance Manager</link> (1.25.3).
-By default, nginx sends usage info
-to the Instance Manager located at <literal>nginx-mgmt.local</literal>
-every 30 minutes using the SSL connection.
-The system resolver is used unless
-a <link id="resolver">custom resolver</link> is configured
-and is invoked only once when the
-configuration is <link doc="beginners_guide.xml" id="control">loaded</link>.
+The <literal>ngx_mgmt_module</literal> module enables
+NGINX Plus license verification and usage reporting.
+This is mandatory for each
+<link url="https://docs.nginx.com/nginx/releases/#nginxplusrelease-33-r33"><literal>nginx/1.27.2
+(nginx-plus-r33)</literal></link> instance.
+</para>
+
+<para>
+A JWT license file named <literal>license.jwt</literal>
+should be located at
+<literal>/etc/nginx/</literal> for Linux or
+<literal>/usr/local/etc/nginx/</literal> for FreeBSD
+or at the path specified by the <link id="license_token"/> directive.
+The license file is available from
+<link url="https://my.f5.com">MyF5</link>.
+</para>
+
+<para>
+Usage report is sent to F5 licensing endpoint
+<link id="usage_report">every hour</link> using the
+<link id="ssl_verify">secure</link> connection.
+Optionally, in network-restricted environments
+reporting can be <link id="usage_report">configured</link> to
+<link url="https://docs.nginx.com/nginx-management-suite/about/">F5 NGINX
+Instance Manager</link> from which the report can be sent
+to F5 licensing endpoint.
+</para>
+
+<para>
+By default, if the <link id="enforce_initial_report">initial usage report</link>
+is not received by F5 licensing endpoint, nginx will stop processing traffic.
 </para>
 
 <para>
@@ -42,22 +62,11 @@ This module is available as part of our
 <para>
 <example>
 mgmt {
-    usage_report endpoint=nginx-mgmt.local interval=30m;
-    resolver     DNS_IP;
+    # in case if custom path is required
+    license_token custom/file/path/license.jwt;
 
-    uuid_file /var/lib/nginx/nginx.id;
-
-    ssl_protocols TLSv1.2 TLSv1.3;
-    ssl_ciphers   DEFAULT;
-
-    ssl_certificate     client_cert.pem;
-    ssl_certificate_key client_cert.key;
-
-    # configure server certificate verification
-    # to validate the authenticity of NMS
-    ssl_trusted_certificate  trusted_ca_cert.crt;
-    ssl_verify               on;
-    ssl_verify_depth         2;
+    # in case of reporting to NGINX Instance Manager
+    usage_report endpoint=NIM_FQDN;
 }
 </example>
 </para>
@@ -67,42 +76,55 @@ mgmt {
 
 <section id="directives" name="Directives">
 
-<directive name="connect_timeout">
-<syntax><value>time</value></syntax>
-<default>15s</default>
-<context>mgmt</context>
-
-<para>
-Defines a timeout for establishing a connection with the Instance Manager.
-</para>
-
-</directive>
-
-
 <directive name="mgmt">
 <syntax block="yes"/>
 <default/>
 <context>main</context>
 
 <para>
-Provides the configuration file context
-in which the management server directives are specified.
+Provides the configuration file context in which
+usage reporting and license management directives
+are specified.
 </para>
 
 </directive>
 
 
-<directive name="read_timeout">
-<syntax><value>time</value></syntax>
-<default>60s</default>
+<directive name="enforce_initial_report">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>on</default>
 <context>mgmt</context>
+<appeared-in>1.27.2</appeared-in>
 
 <para>
-Defines a timeout for reading a response from the Instance Manager.
-The timeout is set only between two successive read operations,
-not for the transmission of the whole response.
-If the Instance Manager does not transmit anything within this time,
-the connection is closed.
+Enables or disables the 180-day grace period
+for sending the initial usage report.
+</para>
+
+<para>
+The initial usage report is sent immediately
+upon nginx first start after installation.
+By default, if the initial report is not received by F5 licensing endpoint,
+nginx stops processing traffic until the report is successfully delivered.
+Setting the directive value to <literal>off</literal> enables
+the 180-day grace period during which
+the initial usage report must be received by F5 licensing endpoint.
+</para>
+
+</directive>
+
+
+<directive name="license_token">
+<syntax><value>file</value></syntax>
+<default>license.jwt</default>
+<context>mgmt</context>
+<appeared-in>1.27.2</appeared-in>
+
+<para>
+Specifies a JWT license <value>file</value>.
+By default, the <value>license.jwt</value> file is expected to be at
+<literal>/etc/nginx/</literal> for Linux or at
+<literal>/usr/local/etc/nginx/</literal> for FreeBSD.
 </para>
 
 </directive>
@@ -119,127 +141,12 @@ the connection is closed.
 <context>mgmt</context>
 
 <para>
-Configures name servers used to resolve names of the Instance Manager
-into addresses, for example:
-<example>
-resolver 127.0.0.1 [::1]:5353;
-</example>
-The address can be specified as a domain name or IP address,
-with an optional port.
-If port is not specified, the port 53 is used.
-Name servers are queried in a round-robin fashion.
-</para>
-
-<para id="resolver_ipv6">
-By default, nginx will look up both IPv4 and IPv6 addresses while resolving.
-If looking up of IPv4 or IPv6 addresses is not desired,
-the <literal>ipv4=off</literal> or
-the <literal>ipv6=off</literal> parameter can be specified.
-</para>
-
-<para id="resolver_valid">
-By default, nginx caches answers using the TTL value of a response.
-An optional <literal>valid</literal> parameter allows overriding it:
-<example>
-resolver 127.0.0.1 [::1]:5353 valid=30s;
-</example>
-<note>
-To prevent DNS spoofing, it is recommended
-configuring DNS servers in a properly secured trusted local network.
-</note>
-</para>
-
-<para id="resolver_status_zone">
-The optional <literal>status_zone</literal> parameter
-enables
-<link doc="ngx_http_api_module.xml" id="resolvers_">collection</link>
-of DNS server statistics of requests and responses
-in the specified <value>zone</value>.
-</para>
-
-</directive>
-
-
-<directive name="resolver_timeout">
-<syntax><value>time</value></syntax>
-<default>30s</default>
-<context>mgmt</context>
-
-<para>
-Sets a timeout for name resolution.
-</para>
-
-</directive>
-
-
-<directive name="send_timeout">
-<syntax><value>time</value></syntax>
-<default>60s</default>
-<context>mgmt</context>
-
-<para>
-Sets a timeout for transmitting a request to the Instance Manager.
-The timeout is set only between two successive write operations,
-not for the transmission of the whole request.
-If the Instance Manager does not receive anything within this time,
-the connection is closed.
-</para>
-
-</directive>
-
-
-<directive name="ssl">
-<syntax><literal>on</literal> | <literal>off</literal></syntax>
-<default>on</default>
-<context>mgmt</context>
-
-<para>
-Enables the HTTPS protocol for all
-connections to the Instance Manager.
-</para>
-
-</directive>
-
-
-<directive name="ssl_certificate">
-<syntax><value>file</value></syntax>
-<default/>
-<context>mgmt</context>
-
-<para>
-Specifies a <value>file</value> with the certificate in the PEM format
-used for authentication to the Instance Manager.
-</para>
-
-</directive>
-
-
-<directive name="ssl_certificate_key">
-<syntax><value>file</value></syntax>
-<default/>
-<context>mgmt</context>
-
-<para>
-Specifies a <value>file</value> with the secret key in the PEM format
-used for authentication to the Instance Manager.
-</para>
-
-</directive>
-
-
-<directive name="ssl_ciphers">
-<syntax><value>ciphers</value></syntax>
-<default>DEFAULT</default>
-<context>mgmt</context>
-
-<para>
-Specifies the enabled ciphers for requests to the Instance Manager.
-The ciphers are specified in the format understood by the OpenSSL library.
+Configures name servers used to resolve usage reporting endpoint name.
+By default, the system resolver is used.
 </para>
 
 <para>
-The full list can be viewed using the
-“<command>openssl ciphers</command>” command.
+See <link doc="http/ngx_http_core_module.xml" id="resolver"/> for details.
 </para>
 
 </directive>
@@ -253,71 +160,7 @@ The full list can be viewed using the
 <para>
 Specifies a <value>file</value> with revoked certificates (CRL)
 in the PEM format used to <link id="ssl_verify">verify</link>
-the certificate of the Instance Manager.
-</para>
-
-</directive>
-
-
-<directive name="ssl_name">
-<syntax><value>name</value></syntax>
-<default>ssl_name host</default>
-<context>mgmt</context>
-
-<para>
-Allows overriding the server name used to
-<link id="ssl_verify">verify</link>
-the certificate of the Instance Manager and to be
-<link id="ssl_server_name">passed through SNI</link>
-when establishing a connection with the Instance Manager.
-</para>
-
-</directive>
-
-
-<directive name="ssl_password_file">
-<syntax><value>file</value></syntax>
-<default/>
-<context>mgmt</context>
-
-<para>
-Specifies a <value>file</value> with passphrases for
-<link id="ssl_certificate_key">secret keys</link>
-where each passphrase is specified on a separate line.
-Passphrases are tried in turn when loading the key.
-</para>
-
-</directive>
-
-
-<directive name="ssl_protocols">
-<syntax>
-    [<literal>SSLv2</literal>]
-    [<literal>SSLv3</literal>]
-    [<literal>TLSv1</literal>]
-    [<literal>TLSv1.1</literal>]
-    [<literal>TLSv1.2</literal>]
-    [<literal>TLSv1.3</literal>]</syntax>
-<default>TLSv1 TLSv1.1 TLSv1.2 TLSv1.3</default>
-<context>mgmt</context>
-
-<para>
-Enables the specified protocols for requests to the Instance Manager.
-</para>
-
-</directive>
-
-
-<directive name="ssl_server_name">
-<syntax><literal>on</literal> | <literal>off</literal></syntax>
-<default>off</default>
-<context>mgmt</context>
-
-<para>
-Enables or disables passing of the server name through
-<link url="http://en.wikipedia.org/wiki/Server_Name_Indication">TLS
-Server Name Indication extension</link> (SNI, RFC 6066)
-when establishing a connection with the Instance Manager.
+the certificate of the usage reporting endpoint.
 </para>
 
 </directive>
@@ -325,13 +168,13 @@ when establishing a connection with the Instance Manager.
 
 <directive name="ssl_trusted_certificate">
 <syntax><value>file</value></syntax>
-<default/>
+<default>system CA bundle</default>
 <context>mgmt</context>
 
 <para>
 Specifies a <value>file</value> with trusted CA certificates in the PEM format
 used to <link id="ssl_verify">verify</link>
-the certificate of the Instance Manager.
+the certificate of the usage reporting endpoint.
 </para>
 
 </directive>
@@ -339,23 +182,35 @@ the certificate of the Instance Manager.
 
 <directive name="ssl_verify">
 <syntax><literal>on</literal> | <literal>off</literal></syntax>
-<default>off</default>
+<default>on</default>
 <context>mgmt</context>
 
 <para>
-Enables or disables verification of the Instance Manager certificate.
+Enables or disables verification of the usage reporting endpoint certificate.
+</para>
+
+<para>
+<note>
+Before 1.27.2, the default value was <literal>off</literal>.
+</note>
 </para>
 
 </directive>
 
 
-<directive name="ssl_verify_depth">
-<syntax><value>number</value></syntax>
-<default>1</default>
+<directive name="state_path">
+<syntax><value>path</value></syntax>
+<default/>
 <context>mgmt</context>
+<appeared-in>1.27.2</appeared-in>
 
 <para>
-Sets the verification depth in the Instance Manager certificates chain.
+Defines a directory for storing state files
+(<literal>nginx-mgmt-*</literal>)
+created by the <literal>ngx_mgmt_module</literal> module.
+The default directory
+for Linux is <literal>/var/lib/nginx/state</literal>,
+for FreeBSD is <literal>/var/db/nginx/state</literal>.
 </para>
 
 </directive>
@@ -364,40 +219,19 @@ Sets the verification depth in the Instance Manager certificates chain.
 <directive name="usage_report">
 <syntax> [<literal>endpoint</literal>=<value>address</value>]
          [<literal>interval</literal>=<value>time</value>]</syntax>
-<default/>
+<default>endpoint=product.connect.nginx.com interval=1h</default>
 <context>mgmt</context>
 
 <para>
-Sets the <value>address</value> and <value>port</value> for IP,
-or the <value>path</value> for a UNIX-domain socket on which
-the Instance Manager is installed,
-by default <literal>nginx-mgmt.local</literal>.
-The <literal>interval</literal> sets an interval between reports
-to the Instance Manager, by default 30m.
-</para>
-
-</directive>
-
-
-<directive name="uuid_file">
-<syntax><value>file</value></syntax>
-<default>logs/uuid</default>
-<context>mgmt</context>
-
-<para>
-Specifies a <value>file</value> that keeps the ID of nginx instance.
-</para>
-
-<para>
-Examples:
-<example>
-uuid_file /var/lib/nginx/nginx.id; # path for Linux
-uuid_file /var/db/nginx/nginx.id;  # path for FreeBSD
-</example>
-</para>
-
-<para>
-Changing the file content directly should be avoided.
+Sets the <value>address</value> and <value>port</value>
+of the usage reporting endpoint.
+The <literal>interval</literal> parameter sets an interval between
+two consecutive reports.
+<note>
+Before 1.27.2, the default values were
+<literal>nginx-mgmt.local</literal> and
+<literal>30m</literal>.
+</note>
 </para>
 
 </directive>
