@@ -9,7 +9,7 @@
 <module name="Module ngx_http_api_module"
         link="/en/docs/http/ngx_http_api_module.html"
         lang="en"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -209,6 +209,11 @@ redirect</link> happens during request processing.
 <list type="bullet">
 
 <listitem>
+The <link id="license">/license</link> data
+were added in <link id="api_version">version</link> 9 (1.27.2).
+</listitem>
+
+<listitem>
 The <link id="workers_">/workers/</link> data
 were added in <link id="api_version">version</link> 9.
 </listitem>
@@ -298,6 +303,8 @@ were added in <link id="api_version">version</link> 2.
 </para>
 
 </section>
+
+
 <section id="endpoints" name="Endpoints">
 <para>
 <list type="tag">
@@ -2011,6 +2018,25 @@ Possible responses:
 <listitem>204 - Success</listitem>
 <listitem>404 - Unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 <listitem>405 - Method disabled (<literal>MethodDisabled</literal>), returns <link id="def_nginx_error">Error</link></listitem>
+</list>
+</listitem>
+</list>
+</tag-desc>
+<tag-name id="license" name="/license">
+<literal>/license</literal>
+</tag-name>
+<tag-desc>
+<para>Supported methods:</para>
+<list type="bullet" compact="yes">
+<listitem id="getLicense">
+<literal>GET</literal> - Return license info
+<para></para>
+<para>
+Possible responses:
+</para>
+<list type="bullet">
+<listitem>200 - Success, returns <link id="def_nginx_license_object">License</link></listitem>
+<listitem>404 - Unknown version (<literal>UnknownVersion</literal>), returns <link id="def_nginx_error">Error</link></listitem>
 </list>
 </listitem>
 </list>
@@ -4442,6 +4468,58 @@ The total number of requests completed with an unknown error.
       "timedout" : 243,
       "unknown" : 478
     }
+  }
+}</example>
+</listitem>
+<listitem id="def_nginx_license_object">
+<para>License:</para>
+License and usage reporting status of NGINX Plus instance.<list type="tag">
+<tag-name>
+<literal>eval</literal> (<literal>boolean</literal>)
+</tag-name>
+<tag-desc>
+Indicates whether NGINX Plus license is trial.
+</tag-desc>
+<tag-name>
+<literal>active_till</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The Unix timestamp of license expiration.
+</tag-desc>
+<tag-name>
+<literal>reporting</literal></tag-name>
+<tag-desc>
+<list type="tag">
+<tag-name>
+<literal>healthy</literal> (<literal>boolean</literal>)
+</tag-name>
+<tag-desc>
+Indicates whether the reporting state is still considered healthy despite recent failed attempts.
+</tag-desc>
+<tag-name>
+<literal>fails</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The number of failed reporting attempts, reset each time the usage report is successfully sent.
+</tag-desc>
+<tag-name>
+<literal>grace</literal> (<literal>integer</literal>)
+</tag-name>
+<tag-desc>
+The number of seconds before traffic processing is stopped after unsuccessful report attempt.
+</tag-desc>
+</list>
+</tag-desc>
+</list>
+<para>Example:</para>
+<example>
+{
+  "eval" : false,
+  "active_till" : 1749268757,
+  "reporting" : {
+    "healthy" : true,
+    "fails" : 2,
+    "grace" : 15551961
   }
 }</example>
 </listitem>

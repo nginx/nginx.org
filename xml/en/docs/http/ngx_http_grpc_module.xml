@@ -588,6 +588,32 @@ the certificate of the gRPC SSL server.
 </directive>
 
 
+<directive name="grpc_ssl_key_log">
+<syntax>path</syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.27.2</appeared-in>
+
+<para>
+Enables logging of gRPC SSL server connection SSL keys
+and specifies the path to the key log file.
+Keys are logged in the
+<link url="https://datatracker.ietf.org/doc/html/draft-ietf-tls-keylogfile">SSLKEYLOGFILE</link>
+format compatible with Wireshark.
+</para>
+
+<para>
+<note>
+This directive is available as part of our
+<commercial_version>commercial subscription</commercial_version>.
+</note>
+</para>
+
+</directive>
+
+
 <directive name="grpc_ssl_name">
 <syntax><value>name</value></syntax>
 <default>host from grpc_pass</default>

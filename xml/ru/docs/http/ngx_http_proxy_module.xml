@@ -2083,6 +2083,32 @@ OpenSSL
 </directive>
 
 
+<directive name="proxy_ssl_key_log">
+<syntax>путь</syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.27.2</appeared-in>
+
+<para>
+Включает логирование SSL-ключей соединений с проксируемым HTTPS-сервером
+и указывает путь к лог-файлу ключей.
+Ключи записываются в формате
+<link url="https://datatracker.ietf.org/doc/html/draft-ietf-tls-keylogfile">SSLKEYLOGFILE</link>
+совместимом с Wireshark.
+</para>
+
+<para>
+<note>
+Директива доступна как часть
+<commercial_version>коммерческой подписки</commercial_version>.
+</note>
+</para>
+
+</directive>
+
+
 <directive name="proxy_ssl_name">
 <syntax><value>имя</value></syntax>
 <default>$proxy_host</default>
