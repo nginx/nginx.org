@@ -1,4 +1,31 @@
 
+Changes with nginx 1.27.3                                        26 Nov 2024
+
+    *) Feature: the "server" directive in the "upstream" block supports the
+       "resolve" parameter.
+
+    *) Feature: the "resolver" and "resolver_timeout" directives in the
+       "upstream" block.
+
+    *) Feature: SmarterMail specific mode support for IMAP LOGIN with
+       untagged CAPABILITY response in the mail proxy module.
+
+    *) Change: now TLSv1 and TLSv1.1 protocols are disabled by default.
+
+    *) Change: an IPv6 address in square brackets and no port can be
+       specified in the "proxy_bind", "fastcgi_bind", "grpc_bind",
+       "memcached_bind", "scgi_bind", and "uwsgi_bind" directives, and as
+       client address in ngx_http_realip_module.
+
+    *) Bugfix: in the ngx_http_mp4_module.
+       Thanks to Nils Bars.
+
+    *) Bugfix: the "so_keepalive" parameter of the "listen" directive might
+       be handled incorrectly on DragonFly BSD.
+
+    *) Bugfix: in the "proxy_store" directive.
+
+
 Changes with nginx 1.27.2                                        02 Oct 2024
 
     *) Feature: SSL certificates, secret keys, and CRLs are now cached on
