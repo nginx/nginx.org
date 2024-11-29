@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_upstream_module"
         link="/en/docs/stream/ngx_stream_upstream_module.html"
         lang="en"
-        rev="39">
+        rev="40">
 
 <section id="summary">
 
@@ -548,7 +548,7 @@ The <literal>least_time</literal> method is available as a part of our
     [<literal>status_zone</literal>=<value>zone</value>]</syntax>
 <default/>
 <context>upstream</context>
-<appeared-in>1.17.5</appeared-in>
+<appeared-in>1.27.3</appeared-in>
 
 <para>
 Configures name servers used to resolve names of upstream servers
@@ -582,16 +582,19 @@ configuring DNS servers in a properly secured trusted local network.
 </para>
 
 <para id="resolver_status_zone">
-The optional <literal>status_zone</literal> parameter
+The optional <literal>status_zone</literal> parameter (1.17.5)
 enables
 <link doc="../http/ngx_http_api_module.xml" id="resolvers_">collection</link>
 of DNS server statistics of requests and responses
 in the specified <value>zone</value>.
+The parameter is available as part of our
+<commercial_version>commercial subscription</commercial_version>.
 </para>
 
 <para>
 <note>
-This directive is available as part of our
+Since version 1.17.5 and prior to version 1.27.3,
+this directive was available only as part of our
 <commercial_version>commercial subscription</commercial_version>.
 </note>
 </para>
@@ -603,7 +606,7 @@ This directive is available as part of our
 <syntax><value>time</value></syntax>
 <default>30s</default>
 <context>upstream</context>
-<appeared-in>1.17.5</appeared-in>
+<appeared-in>1.27.3</appeared-in>
 
 <para>
 Sets a timeout for name resolution, for example:
@@ -614,7 +617,8 @@ resolver_timeout 5s;
 
 <para>
 <note>
-This directive is available as part of our
+Since version 1.17.5 and prior to version 1.27.3,
+this directive was available only as part of our
 <commercial_version>commercial subscription</commercial_version>.
 </note>
 </para>
