@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_upstream_module"
         link="/ru/docs/stream/ngx_stream_upstream_module.html"
         lang="ru"
-        rev="39">
+        rev="40">
 
 <section id="summary">
 
@@ -549,7 +549,7 @@ hash $remote_addr;
     [<literal>status_zone</literal>=<value>зона</value>]</syntax>
 <default/>
 <context>upstream</context>
-<appeared-in>1.17.5</appeared-in>
+<appeared-in>1.27.3</appeared-in>
 
 <para>
 Задаёт серверы DNS, используемые для преобразования имён вышестоящих серверов
@@ -585,16 +585,19 @@ resolver 127.0.0.1 [::1]:5353 valid=30s;
 </para>
 
 <para id="resolver_status_zone">
-Необязательный параметр <literal>status_zone</literal>
+Необязательный параметр <literal>status_zone</literal> (1.17.5)
 включает
 <link doc="../http/ngx_http_api_module.xml" id="resolvers_">сбор информации</link>
 о запросах и ответах сервера DNS
 в указанной <value>зоне</value>.
+Параметр доступен как часть
+<commercial_version>коммерческой подписки</commercial_version>.
 </para>
 
 <para>
 <note>
-Эта директива доступна как часть
+Начиная с версии 1.17.5 и до версии 1.27.3
+эта директива была доступна только как часть
 <commercial_version>коммерческой подписки</commercial_version>.
 </note>
 </para>
@@ -606,7 +609,7 @@ resolver 127.0.0.1 [::1]:5353 valid=30s;
 <syntax><value>время</value></syntax>
 <default>30s</default>
 <context>upstream</context>
-<appeared-in>1.17.5</appeared-in>
+<appeared-in>1.27.3</appeared-in>
 
 <para>
 Задаёт таймаут для преобразования имени в адрес, например:
@@ -617,7 +620,8 @@ resolver_timeout 5s;
 
 <para>
 <note>
-Эта директива доступна как часть
+Начиная с версии 1.17.5 и до версии 1.27.3
+эта директива была доступна только как часть
 <commercial_version>коммерческой подписки</commercial_version>.
 </note>
 </para>
