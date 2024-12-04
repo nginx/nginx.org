@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="89">
+        rev="90">
 
 <section id="summary">
 
@@ -235,15 +235,6 @@ load balancing methods.
 marks the server as permanently unavailable.
 </tag-desc>
 
-</list>
-</para>
-
-<para>
-Additionally,
-the following parameters are available as part of our
-<commercial_version>commercial subscription</commercial_version>:
-<list type="tag">
-
 <tag-name id="resolve">
 <literal>resolve</literal>
 </tag-name>
@@ -260,13 +251,13 @@ must be specified in the
 <link doc="ngx_http_core_module.xml" id="resolver">http</link> block
 or in the corresponding <link id="resolver">upstream</link> block.
 </para>
-</tag-desc>
 
-<tag-name id="route">
-<literal>route</literal>=<value>string</value>
-</tag-name>
-<tag-desc>
-sets the server route name.
+<para>
+<note>
+Prior to version 1.27.3, this parameter was available only as part of our
+<commercial_version>commercial subscription</commercial_version>.
+</note>
+</para>
 </tag-desc>
 
 <tag-name id="service">
@@ -310,6 +301,29 @@ If the <link id="backup"/> parameter is specified for the server,
 high-priority SRV records are resolved as backup servers,
 the rest of SRV records are ignored.
 </para>
+
+<para>
+<note>
+Prior to version 1.27.3, this parameter was available only as part of our
+<commercial_version>commercial subscription</commercial_version>.
+</note>
+</para>
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+Additionally,
+the following parameters are available as part of our
+<commercial_version>commercial subscription</commercial_version>:
+<list type="tag">
+
+<tag-name id="route">
+<literal>route</literal>=<value>string</value>
+</tag-name>
+<tag-desc>
+sets the server route name.
 </tag-desc>
 
 <tag-name id="slow_start">
