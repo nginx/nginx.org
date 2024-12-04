@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_upstream_module"
         link="/en/docs/stream/ngx_stream_upstream_module.html"
         lang="en"
-        rev="40">
+        rev="41">
 
 <section id="summary">
 
@@ -215,15 +215,6 @@ The parameter cannot be used along with the
 marks the server as permanently unavailable.
 </tag-desc>
 
-</list>
-</para>
-
-<para>
-Additionally,
-the following parameters are available as part of our
-<commercial_version>commercial subscription</commercial_version>:
-<list type="tag">
-
 <tag-name id="resolve">
 <literal>resolve</literal>
 </tag-name>
@@ -239,6 +230,13 @@ the <literal>resolver</literal> directive
 must be specified in the
 <link doc="ngx_stream_core_module.xml" id="resolver">stream</link> block
 or in the corresponding <link id="resolver">upstream</link> block.
+</para>
+
+<para>
+<note>
+Prior to version 1.27.3, this parameter was available only as part of our
+<commercial_version>commercial subscription</commercial_version>.
+</note>
 </para>
 </tag-desc>
 
@@ -283,7 +281,23 @@ If the <link id="backup"/> parameter is specified for the server,
 high-priority SRV records are resolved as backup servers,
 the rest of SRV records are ignored.
 </para>
+
+<para>
+<note>
+Prior to version 1.27.3, this parameter was available only as part of our
+<commercial_version>commercial subscription</commercial_version>.
+</note>
+</para>
 </tag-desc>
+
+</list>
+</para>
+
+<para>
+Additionally,
+the following parameters are available as part of our
+<commercial_version>commercial subscription</commercial_version>:
+<list type="tag">
 
 <tag-name id="slow_start">
 <literal>slow_start</literal>=<value>time</value>

@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_upstream_module"
         link="/ru/docs/http/ngx_http_upstream_module.html"
         lang="ru"
-        rev="89">
+        rev="90">
 
 <section id="summary">
 
@@ -238,15 +238,6 @@ upstream backend {
 помечает сервер как постоянно недоступный.
 </tag-desc>
 
-</list>
-</para>
-
-<para>
-Кроме того,
-следующие параметры доступны как часть
-<commercial_version>коммерческой подписки</commercial_version>:
-<list type="tag">
-
 <tag-name id="resolve">
 <literal>resolve</literal>
 </tag-name>
@@ -262,13 +253,13 @@ upstream backend {
 <link doc="ngx_http_core_module.xml" id="resolver">http</link>
 или в соответствующем блоке <link id="resolver">upstream</link>.
 </para>
-</tag-desc>
 
-<tag-name id="route">
-<literal>route</literal>=<value>строка</value>
-</tag-name>
-<tag-desc>
-задаёт имя маршрута к серверу.
+<para>
+<note>
+До версии 1.27.3 этот параметр был доступен только как часть
+<commercial_version>коммерческой подписки</commercial_version>.
+</note>
+</para>
 </tag-desc>
 
 <tag-name id="service">
@@ -313,6 +304,29 @@ SRV-записи с наивысшим приоритетом
 высокоприоритетные SRV-записи преобразуются в запасные серверы,
 остальные SRV-записи игнорируются.
 </para>
+
+<para>
+<note>
+До версии 1.27.3 этот параметр был доступен только как часть
+<commercial_version>коммерческой подписки</commercial_version>.
+</note>
+</para>
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+Кроме того,
+следующие параметры доступны как часть
+<commercial_version>коммерческой подписки</commercial_version>:
+<list type="tag">
+
+<tag-name id="route">
+<literal>route</literal>=<value>строка</value>
+</tag-name>
+<tag-desc>
+задаёт имя маршрута к серверу.
 </tag-desc>
 
 <tag-name id="slow_start">
