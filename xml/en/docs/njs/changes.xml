@@ -9,8 +9,98 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="73"
+        rev="74"
         toc="no">
+
+<section id="njs0.8.8" name="Changes with njs 0.8.8">
+
+<para>
+Release Date:
+10 December 2024
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+implemented <link doc="reference.xml" id="ngx_shared">shared dictionary</link>
+for the <link doc="../njs/engine.xml">QuickJS</link> engine.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+<link doc="../http/ngx_http_js_module.xml" id="js_preload_object">js_preload_object</link>
+is refactored.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix: fixed limit rated output.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix: optimized use of SSL contexts for the
+<link doc="../http/ngx_http_js_module.xml" id="js_fetch_trusted_certificate">js_fetch_trusted_certificate</link>
+directive.
+</para>
+</listitem>
+
+</list>
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+implemented <link doc="reference.xml" id="process">process object</link>
+for the <link doc="../njs/engine.xml">QuickJS</link> engine.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+implemented the
+<link doc="reference.xml" id="process_kill">process.kill()</link> method.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix: fixed XML tests with
+<link url="https://gitlab.gnome.org/GNOME/libxml2">libxml2</link> 2.13
+and later.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix: fixed promise resolving when Promise is inherited.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix: fixed absolute scope in cloned VMs.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.8.7" name="Changes with njs 0.8.7">
 
