@@ -243,7 +243,7 @@ blocks fail to provide a match, this block will be used.
 Next, add the second <literal>location</literal> block:
 <programlisting>
 location /images/ {
-    root /data;
+    root /data/images;
 }
 </programlisting>
 It will be a match for requests starting with <literal>/images/</literal>
@@ -261,7 +261,7 @@ server {
     }
 
     location /images/ {
-        root /data;
+        root /data/images;
     }
 }
 </programlisting>
@@ -358,7 +358,7 @@ server {
     }
 
     location /images/ {
-        root /data;
+        root /data/images;
     }
 }
 </programlisting>
