@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_proxy_module"
         link="/ru/docs/http/ngx_http_proxy_module.html"
         lang="ru"
-        rev="78">
+        rev="79">
 
 <section id="summary">
 
@@ -2159,7 +2159,7 @@ OpenSSL
     [<literal>TLSv1.1</literal>]
     [<literal>TLSv1.2</literal>]
     [<literal>TLSv1.3</literal>]</syntax>
-<default>TLSv1 TLSv1.1 TLSv1.2 TLSv1.3</default>
+<default>TLSv1.2 TLSv1.3</default>
 <context>http</context>
 <context>server</context>
 <context>location</context>

@@ -8,7 +8,7 @@
 <article name="Настройка HTTPS-серверов"
          link="/ru/docs/http/configuring_https_servers.html"
          lang="ru"
-         rev="14"
+         rev="15"
          author="Игорь Сысоев"
          editor="Brian Mercer">
 
@@ -30,7 +30,7 @@ server {
     server_name         www.example.com;
     ssl_certificate     <b>www.example.com.crt</b>;
     ssl_certificate_key <b>www.example.com.key</b>;
-    ssl_protocols       TLSv1 TLSv1.1 TLSv1.2 TLSv1.3;
+    ssl_protocols       TLSv1.2 TLSv1.3;
     ssl_ciphers         HIGH:!aNULL:!MD5;
     ...
 }
@@ -58,7 +58,7 @@ server {
 можно ограничить соединения
 использованием только “сильных” версий и шифров SSL/TLS.
 По умолчанию nginx использует
-“<literal>ssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3</literal>” и
+“<literal>ssl_protocols TLSv1.2 TLSv1.3</literal>” и
 “<literal>ssl_ciphers HIGH:!aNULL:!MD5</literal>”,
 поэтому их явная настройка в общем случае не требуется.
 Следует отметить, что значения по умолчанию этих директив несколько раз
@@ -108,7 +108,7 @@ http {
 
         ssl_certificate     www.example.com.crt;
         ssl_certificate_key www.example.com.key;
-        ssl_protocols       TLSv1 TLSv1.1 TLSv1.2 TLSv1.3;
+        ssl_protocols       TLSv1.2 TLSv1.3;
         ssl_ciphers         HIGH:!aNULL:!MD5;
         ...
 </programlisting>
@@ -443,6 +443,13 @@ SNI поддерживается начиная с версии 0.5.23.
 
 <para>
 <list type="bullet">
+
+<listitem>
+Версия 1.27.3 и более поздние: протоколами SSL по умолчанию являются
+TLSv1.2 и TLSv1.3 (если поддерживается библиотекой OpenSSL).
+В противном случае, при использовании OpenSSL 1.0.0 и более старых версий,
+протоколами SSL по умолчанию являются TLSv1 и TLSv1.1.
+</listitem>
 
 <listitem>
 Версия 1.23.4 и более поздние: протоколами SSL по умолчанию являются

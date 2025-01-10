@@ -8,7 +8,7 @@
 <article name="Configuring HTTPS servers"
          link="/en/docs/http/configuring_https_servers.html"
          lang="en"
-         rev="14"
+         rev="15"
          author="Igor Sysoev"
          editor="Brian Mercer">
 
@@ -31,7 +31,7 @@ server {
     server_name         www.example.com;
     ssl_certificate     <b>www.example.com.crt</b>;
     ssl_certificate_key <b>www.example.com.key</b>;
-    ssl_protocols       TLSv1 TLSv1.1 TLSv1.2 TLSv1.3;
+    ssl_protocols       TLSv1.2 TLSv1.3;
     ssl_ciphers         HIGH:!aNULL:!MD5;
     ...
 }
@@ -59,7 +59,7 @@ The directives <link doc="ngx_http_ssl_module.xml" id="ssl_protocols"/> and
 can be used to limit connections
 to include only the strong versions and ciphers of SSL/TLS.
 By default nginx uses
-“<literal>ssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3</literal>”
+“<literal>ssl_protocols TLSv1.2 TLSv1.3</literal>”
 and “<literal>ssl_ciphers HIGH:!aNULL:!MD5</literal>”,
 so configuring them explicitly is generally not needed.
 Note that default values of these directives were
@@ -110,7 +110,7 @@ http {
 
         ssl_certificate     www.example.com.crt;
         ssl_certificate_key www.example.com.key;
-        ssl_protocols       TLSv1 TLSv1.1 TLSv1.2 TLSv1.3;
+        ssl_protocols       TLSv1.2 TLSv1.3;
         ssl_ciphers         HIGH:!aNULL:!MD5;
         ...
 </programlisting>
@@ -444,6 +444,13 @@ The shared SSL session cache has been supported since 0.5.6.
 
 <para>
 <list type="bullet">
+
+<listitem>
+Version 1.27.3 and later: the default SSL protocols are
+TLSv1.2 and TLSv1.3 (if supported by the OpenSSL library).
+Otherwise, when OpenSSL 1.0.0 or older is used,
+the default SSL protocols are TLSv1 and TLSv1.1.
+</listitem>
 
 <listitem>
 Version 1.23.4 and later: the default SSL protocols are TLSv1,
