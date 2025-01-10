@@ -10,7 +10,7 @@
 <module name="Основная функциональность"
         link="/ru/docs/ngx_core_module.html"
         lang="ru"
-        rev="27">
+        rev="28">
 
 <section id="example" name="Пример конфигурации">
 
@@ -419,6 +419,13 @@ load_module modules/ngx_mail_module.so;
 
 <para>
 Задаёт название аппаратного SSL-акселератора.
+</para>
+
+<para>
+<note>
+При тестировании конфигурации библиотека OpenSSL может загрузить
+динамический модуль.
+</note>
 </para>
 
 </directive>
