@@ -9,8 +9,54 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="74"
+        rev="75"
         toc="no">
+
+<section id="njs0.8.9" name="Changes with njs 0.8.9">
+
+<para>
+Release Date:
+14 January 2025
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Bugfix: removed extra VM creation per server.
+Previously, when <literal>js_import</literal> was declared in
+<link doc="../http/ngx_http_js_module.xml" id="js_import">http</link> or
+<link doc="../stream/ngx_stream_js_module.xml" id="js_import">stream</link>
+blocks, an extra copy of the VM instance was created for each server block.
+This was not needed and consumed a lot of memory for configurations with many
+server blocks.
+This issue was introduced in  <link id="njs0.8.6">0.8.6</link> and was
+partially fixed for location blocks only in <link id="njs0.8.7">0.8.7</link>.
+</para>
+</listitem>
+
+</list>
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+implemented <link doc="reference.xml" id="njs_api_fs">fs</link>
+for the <link doc="../njs/engine.xml">QuickJS</link> engine.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.8.8" name="Changes with njs 0.8.8">
 
