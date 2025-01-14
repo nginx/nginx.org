@@ -8,7 +8,7 @@
 <news name="nginx news" link="/news.html" lang="en">
 
 <years>
-<year href="2024.html" year="2025" />
+<year href="2025 .html" year="2025" />
 <year href="2024.html" year="2024" />
 <year href="2023.html" year="2023" />
 <year href="2022.html" year="2022" />
@@ -26,6 +26,17 @@
 <year href="2010.html" year="2010" />
 <year href="2009.html" year="2009" />
 </years>
+
+<event date="2025-01-14">
+<para>
+<link doc="en/docs/njs/index.xml">njs-0.8.9</link>
+version has been
+<link doc="en/docs/njs/changes.xml" id="njs0.8.9">released</link>,
+featuring
+<link doc="en/docs/njs/reference.xml" id="njs_api_fs">fs module</link>
+for the <link doc="en/docs/njs/engine.xml">QuickJS</link> engine.
+</para>
+</event>
 
 <event date="2024-12-10">
 <para>
