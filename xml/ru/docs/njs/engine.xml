@@ -9,7 +9,7 @@
 <article name="Движок JavaScript"
         link="/ru/docs/njs/engine.html"
         lang="ru"
-        rev="1"
+        rev="2"
         toc="no">
 
 <section>
@@ -58,24 +58,16 @@ njs &mdash; встроенный движок JavaScript,
 <list type="bullet">
 
 <listitem>
-API nginx-модулей:
-<link doc="reference.xml" id="ngx_fetch"><literal>ngx.fetch()</literal></link>,
-<link doc="reference.xml" id="dict"><literal>ngx.shared.dict</literal></link>.
-</listitem>
-
-<listitem>
-встроенные модули:
-<link doc="reference.xml" id="njs_api_fs"><literal>fs</literal></link>,
-<link doc="reference.xml" id="crypto"><literal>crypto</literal></link>,
-<link doc="reference.xml" id="builtin_crypto"><literal>WebCrypto</literal></link>,
-<link doc="reference.xml" id="xml"><literal>xml</literal></link>.
-</listitem>
-
-<listitem>
 API njs:
 <link doc="reference.xml" id="njs_dump"><literal>njs.dump()</literal></link>,
-<link doc="reference.xml" id="njs_on"><literal>njs.on</literal></link>,
+<link doc="reference.xml" id="njs_on"><literal>njs.on()</literal></link>,
 <literal>console.dump()</literal>.
+</listitem>
+
+<listitem>
+устаревшее API:
+<literal>require()</literal>,
+вместо необходимо использовать утверждение <literal>import</literal>.
 </listitem>
 
 <listitem>
@@ -83,6 +75,93 @@ API njs:
 <link doc="../http/ngx_http_js_module.xml" id="js_preload_object">http</link>
 и
 <link doc="../stream/ngx_stream_js_module.xml" id="js_preload_object">stream</link>.
+</listitem>
+
+</list>
+
+</para>
+
+<para>
+статус встроенных модулей njs:
+
+<list type="bullet">
+
+<listitem>
+<link doc="reference.xml" id="buffer"><literal>buffer</literal></link>:
+начиная с <link doc="changes.xml" id="njs0.8.6">0.8.6</link>.
+</listitem>
+
+<listitem>
+<link doc="reference.xml" id="crypto"><literal>crypto</literal></link>:
+TBD.
+</listitem>
+
+<listitem>
+<link doc="reference.xml" id="njs_api_fs"><literal>fs</literal></link>:
+начиная с <link doc="changes.xml" id="njs0.8.9">0.8.9</link>.
+</listitem>
+
+<listitem>
+<link doc="reference.xml" id="querystring"><literal>querystring</literal></link>:
+TBD.
+</listitem>
+
+<listitem>
+<link doc="reference.xml" id="builtin_crypto"><literal>WebCrypto</literal></link>:
+TBD.
+</listitem>
+
+<listitem>
+<link doc="reference.xml" id="xml"><literal>xml</literal></link>:
+TBD.
+</listitem>
+
+<listitem>
+<link doc="reference.xml" id="zlib"><literal>zlib</literal></link>:
+начиная с <link doc="changes.xml" id="njs0.8.5">0.8.5</link>.
+</listitem>
+
+</list>
+
+</para>
+
+<para>
+статус встроенных объектов njs:
+
+<list type="bullet">
+
+<listitem>
+<link doc="reference.xml" id="process"><literal>process</literal></link>:
+начиная с <link doc="changes.xml" id="njs0.8.8">0.8.8</link>.
+</listitem>
+
+<listitem>
+<link doc="reference.xml" id="textdecoder"><literal>TextDecoder</literal></link>:
+TBD.
+</listitem>
+
+<listitem>
+<link doc="reference.xml" id="textencoder"><literal>TextEncoder</literal></link>:
+TBD.
+</listitem>
+
+</list>
+
+</para>
+
+<para>
+статус встроенных объектов nginx:
+
+<list type="bullet">
+
+<listitem>
+<link doc="reference.xml" id="ngx_fetch"><literal>ngx.fetch</literal></link>:
+TBD.
+</listitem>
+
+<listitem>
+<link doc="reference.xml" id="ngx_shared"><literal>shared dictionary</literal></link>:
+начиная с <link doc="changes.xml" id="njs0.8.8">0.8.8</link>.
 </listitem>
 
 </list>
