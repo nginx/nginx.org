@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_proxy_module"
         link="/ru/docs/http/ngx_http_proxy_module.html"
         lang="ru"
-        rev="79">
+        rev="80">
 
 <section id="summary">
 
@@ -1975,8 +1975,81 @@ proxy_set_header Accept-Encoding "";
 для аутентификации на проксируемом HTTPS-сервере.
 </para>
 
-<para>
+<para id="proxy_ssl_certificate_variables">
 Начиная с версии 1.21.0 в имени файла можно использовать переменные.
+</para>
+
+</directive>
+
+
+<directive name="proxy_ssl_certificate_cache">
+<syntax><literal>off</literal></syntax>
+<syntax>
+    <literal>max</literal>=<value>N</value>
+    [<literal>inactive</literal>=<value>время</value>]
+    [<literal>valid</literal>=<value>время</value>]</syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.27.4</appeared-in>
+
+<para>
+Задаёт кэш, в котором могут храниться
+<link id="proxy_ssl_certificate">SSL-сертификаты</link> и
+<link id="proxy_ssl_certificate_key">секретные ключи</link>,
+полученные из <link id="proxy_ssl_certificate_key_variables">переменных</link>.
+</para>
+
+<para>
+У директивы есть следующие параметры:
+<list type="tag">
+
+<tag-name id="proxy_ssl_certificate_cache_max">
+<literal>max</literal>
+</tag-name>
+<tag-desc>
+задаёт максимальное число элементов в кэше;
+при переполнении кэша удаляются наименее востребованные элементы (LRU);
+</tag-desc>
+
+<tag-name id="proxy_ssl_certificate_cache_inactive">
+<literal>inactive</literal>
+</tag-name>
+<tag-desc>
+задаёт время, после которого элемент кэша удаляется,
+если к нему не было обращений в течение этого времени;
+по умолчанию 10 секунд;
+</tag-desc>
+
+<tag-name id="proxy_ssl_certificate_cache_valid">
+<literal>valid</literal>
+</tag-name>
+<tag-desc>
+задает время, в течение которого
+элемент кэша считается действительным
+и может быть повторно использован,
+по умолчанию 60 секунд.
+По завершении этого времени сертификат будет обновлён или повторно проверен;
+</tag-desc>
+
+<tag-name id="proxy_ssl_certificate_cache_off">
+<literal>off</literal>
+</tag-name>
+<tag-desc>
+запрещает кэш.
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+Пример:
+<example>
+proxy_ssl_certificate       $proxy_ssl_server_name.crt;
+proxy_ssl_certificate_key   $proxy_ssl_server_name.key;
+proxy_ssl_certificate_cache max=1000 inactive=20s valid=1m;
+</example>
 </para>
 
 </directive>
@@ -2002,7 +2075,7 @@ proxy_set_header Accept-Encoding "";
 из OpenSSL engine с заданным <value>именем</value>.
 </para>
 
-<para>
+<para id="proxy_ssl_certificate_key_variables">
 Начиная с версии 1.21.0 в имени файла можно использовать переменные.
 </para>
 

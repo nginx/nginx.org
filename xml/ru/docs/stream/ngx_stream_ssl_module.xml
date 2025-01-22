@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_ssl_module"
         link="/ru/docs/stream/ngx_stream_ssl_module.html"
         lang="ru"
-        rev="37">
+        rev="38">
 
 <section id="summary">
 
@@ -148,7 +148,7 @@ server {
 </note>
 </para>
 
-<para>
+<para id="ssl_certificate_variables">
 Начиная с версии 1.15.9 в имени файла можно использовать переменные
 при использовании OpenSSL 1.0.2 и выше:
 <example>
@@ -169,6 +169,78 @@ ssl_certificate_key $ssl_server_name.key;
 подобного синтаксиса может быть небезопасно,
 например данные секретного ключа могут попасть в
 <link doc="../ngx_core_module.xml" id="error_log">лог ошибок</link>.
+</para>
+
+</directive>
+
+
+<directive name="ssl_certificate_cache">
+<syntax><literal>off</literal></syntax>
+<syntax>
+    <literal>max</literal>=<value>N</value>
+    [<literal>inactive</literal>=<value>время</value>]
+    [<literal>valid</literal>=<value>время</value>]</syntax>
+<default>off</default>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.27.4</appeared-in>
+
+<para>
+Задаёт кэш, в котором могут храниться
+<link id="ssl_certificate">SSL-сертификаты</link> и
+<link id="ssl_certificate_key">секретные ключи</link>,
+полученные из <link id="ssl_certificate_key_variables">переменных</link>.
+</para>
+
+<para>
+У директивы есть следующие параметры:
+<list type="tag">
+
+<tag-name id="ssl_certificate_cache_max">
+<literal>max</literal>
+</tag-name>
+<tag-desc>
+задаёт максимальное число элементов в кэше;
+при переполнении кэша удаляются наименее востребованные элементы (LRU);
+</tag-desc>
+
+<tag-name id="ssl_certificate_cache_inactive">
+<literal>inactive</literal>
+</tag-name>
+<tag-desc>
+задаёт время, после которого элемент кэша удаляется,
+если к нему не было обращений в течение этого времени;
+по умолчанию 10 секунд;
+</tag-desc>
+
+<tag-name id="ssl_certificate_cache_valid">
+<literal>valid</literal>
+</tag-name>
+<tag-desc>
+задает время, в течение которого
+элемент кэша считается действительным
+и может быть повторно использован,
+по умолчанию 60 секунд.
+По завершении этого времени сертификат будет обновлён или повторно проверен;
+</tag-desc>
+
+<tag-name id="ssl_certificate_cache_off">
+<literal>off</literal>
+</tag-name>
+<tag-desc>
+запрещает кэш.
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+Пример:
+<example>
+ssl_certificate       $ssl_server_name.crt;
+ssl_certificate_key   $ssl_server_name.key;
+ssl_certificate_cache max=1000 inactive=20s valid=1m;
+</example>
 </para>
 
 </directive>
@@ -203,7 +275,7 @@ ssl_certificate_key $ssl_server_name.key;
 <link doc="../ngx_core_module.xml" id="error_log">лог ошибок</link>.
 </para>
 
-<para>
+<para id="ssl_certificate_key_variables">
 Начиная с версии 1.15.9 в имени файла можно использовать переменные
 при использовании OpenSSL 1.0.2 и выше.
 </para>
