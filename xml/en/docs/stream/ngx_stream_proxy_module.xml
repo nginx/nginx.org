@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_proxy_module"
         link="/en/docs/stream/ngx_stream_proxy_module.html"
         lang="en"
-        rev="33">
+        rev="34">
 
 <section id="summary">
 
@@ -403,8 +403,80 @@ Specifies a <value>file</value> with the certificate in the PEM format
 used for authentication to a proxied server.
 </para>
 
-<para>
+<para id="proxy_ssl_certificate_variables">
 Since version 1.21.0, variables can be used in the <value>file</value> name.
+</para>
+
+</directive>
+
+
+<directive name="proxy_ssl_certificate_cache">
+<syntax><literal>off</literal></syntax>
+<syntax>
+    <literal>max</literal>=<value>N</value>
+    [<literal>inactive</literal>=<value>time</value>]
+    [<literal>valid</literal>=<value>time</value>]</syntax>
+<default>off</default>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.27.4</appeared-in>
+
+<para>
+Defines a cache that stores
+<link id="proxy_ssl_certificate">SSL certificates</link> and
+<link id="proxy_ssl_certificate_key">secret keys</link>
+specified with <link id="proxy_ssl_certificate_key_variables">variables</link>.
+</para>
+
+<para>
+The directive has the following parameters:
+<list type="tag">
+
+<tag-name id="proxy_ssl_certificate_cache_max">
+<literal>max</literal>
+</tag-name>
+<tag-desc>
+sets the maximum number of elements in the cache;
+on cache overflow the least recently used (LRU) elements are removed;
+</tag-desc>
+
+<tag-name id="proxy_ssl_certificate_cache_inactive">
+<literal>inactive</literal>
+</tag-name>
+<tag-desc>
+defines a time after which an element is removed from the cache
+if it has not been accessed during this time;
+by default, it is 10 seconds;
+</tag-desc>
+
+<tag-name id="proxy_ssl_certificate_cache_valid">
+<literal>valid</literal>
+</tag-name>
+<tag-desc>
+defines a time during which
+an element in the cache is considered valid
+and can be reused;
+by default, it is 60 seconds.
+Certificates that exceed this time will be reloaded or revalidated;
+</tag-desc>
+
+<tag-name id="proxy_ssl_certificate_cache_off">
+<literal>off</literal>
+</tag-name>
+<tag-desc>
+disables the cache.
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+Example:
+<example>
+proxy_ssl_certificate       $proxy_ssl_server_name.crt;
+proxy_ssl_certificate_key   $proxy_ssl_server_name.key;
+proxy_ssl_certificate_cache max=1000 inactive=20s valid=1m;
+</example>
 </para>
 
 </directive>
@@ -421,7 +493,7 @@ Specifies a <value>file</value> with the secret key in the PEM format
 used for authentication to a proxied server.
 </para>
 
-<para>
+<para id="proxy_ssl_certificate_key_variables">
 Since version 1.21.0, variables can be used in the <value>file</value> name.
 </para>
 

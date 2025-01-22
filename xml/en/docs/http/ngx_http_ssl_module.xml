@@ -10,7 +10,7 @@
 <module name="Module ngx_http_ssl_module"
         link="/en/docs/http/ngx_http_ssl_module.html"
         lang="en"
-        rev="64">
+        rev="65">
 
 <section id="summary">
 
@@ -175,7 +175,7 @@ With older versions, only one certificate chain can be used.
 </note>
 </para>
 
-<para>
+<para id="ssl_certificate_variables">
 Since version 1.15.9, variables can be used in the <value>file</value> name
 when using OpenSSL 1.0.2 or higher:
 <example>
@@ -203,6 +203,78 @@ It should be kept in mind that due to the HTTPS protocol limitations
 for maximum interoperability virtual servers should listen on
 <link doc="configuring_https_servers.xml" id="name_based_https_servers">different
 IP addresses</link>.
+</para>
+
+</directive>
+
+
+<directive name="ssl_certificate_cache">
+<syntax><literal>off</literal></syntax>
+<syntax>
+    <literal>max</literal>=<value>N</value>
+    [<literal>inactive</literal>=<value>time</value>]
+    [<literal>valid</literal>=<value>time</value>]</syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<appeared-in>1.27.4</appeared-in>
+
+<para>
+Defines a cache that stores
+<link id="ssl_certificate">SSL certificates</link> and
+<link id="ssl_certificate_key">secret keys</link>
+specified with <link id="ssl_certificate_key_variables">variables</link>.
+</para>
+
+<para>
+The directive has the following parameters:
+<list type="tag">
+
+<tag-name id="ssl_certificate_cache_max">
+<literal>max</literal>
+</tag-name>
+<tag-desc>
+sets the maximum number of elements in the cache;
+on cache overflow the least recently used (LRU) elements are removed;
+</tag-desc>
+
+<tag-name id="ssl_certificate_cache_inactive">
+<literal>inactive</literal>
+</tag-name>
+<tag-desc>
+defines a time after which an element is removed from the cache
+if it has not been accessed during this time;
+by default, it is 10 seconds;
+</tag-desc>
+
+<tag-name id="ssl_certificate_cache_valid">
+<literal>valid</literal>
+</tag-name>
+<tag-desc>
+defines a time during which
+an element in the cache is considered valid
+and can be reused;
+by default, it is 60 seconds.
+Certificates that exceed this time will be reloaded or revalidated;
+</tag-desc>
+
+<tag-name id="ssl_certificate_cache_off">
+<literal>off</literal>
+</tag-name>
+<tag-desc>
+disables the cache.
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+Example:
+<example>
+ssl_certificate       $ssl_server_name.crt;
+ssl_certificate_key   $ssl_server_name.key;
+ssl_certificate_cache max=1000 inactive=20s valid=1m;
+</example>
 </para>
 
 </directive>
@@ -237,7 +309,7 @@ such as writing secret key data to
 <link doc="../ngx_core_module.xml" id="error_log">error log</link>.
 </para>
 
-<para>
+<para id="ssl_certificate_key_variables">
 Since version 1.15.9, variables can be used in the <value>file</value> name
 when using OpenSSL 1.0.2 or higher.
 </para>
