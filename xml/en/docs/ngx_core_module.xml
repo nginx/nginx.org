@@ -10,7 +10,7 @@
 <module name="Core functionality"
         link="/en/docs/ngx_core_module.html"
         lang="en"
-        rev="28">
+        rev="29">
 
 <section id="example" name="Example Configuration">
 
@@ -427,6 +427,53 @@ Defines the name of the hardware SSL accelerator.
 <note>
 The module may be dynamically loaded by OpenSSL during configuration testing.
 </note>
+</para>
+
+</directive>
+
+
+<directive name="ssl_object_cache_inheritable">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>on</default>
+<context>main</context>
+<appeared-in>1.27.4</appeared-in>
+
+<para>
+If enabled, SSL objects
+(SSL certificates, secret keys, trusted CA certificates, CRL lists)
+will be inherited across configuration reloads.
+</para>
+
+<para>
+SSL objects loaded from a file are inherited
+if the modification time and file index has not been changed
+since the previous configuration load.
+Secret keys specified as
+<literal>engine:name:id</literal> are never inherited.
+Secret keys specified as
+<literal>data:value</literal> are always inherited.
+</para>
+
+<para>
+<note>
+SSL objects loaded from variables cannot be inherited.
+</note>
+</para>
+
+<para>
+Example:
+<example>
+ssl_object_cache_inheritable on;
+
+http {
+    ...
+    server {
+        ...
+        ssl_certificate     example.com.crt;
+        ssl_certificate_key example.com.key;
+    }
+}
+</example>
 </para>
 
 </directive>

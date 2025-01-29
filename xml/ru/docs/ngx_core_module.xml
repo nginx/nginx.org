@@ -10,7 +10,7 @@
 <module name="Основная функциональность"
         link="/ru/docs/ngx_core_module.html"
         lang="ru"
-        rev="28">
+        rev="29">
 
 <section id="example" name="Пример конфигурации">
 
@@ -426,6 +426,54 @@ load_module modules/ngx_mail_module.so;
 При тестировании конфигурации библиотека OpenSSL может загрузить
 динамический модуль.
 </note>
+</para>
+
+</directive>
+
+
+<directive name="ssl_object_cache_inheritable">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>on</default>
+<context>main</context>
+<appeared-in>1.27.4</appeared-in>
+
+<para>
+Если включено, то SSL-объекты
+(SSL-сертификаты, секретные ключи, доверенные сертификаты,
+отозванные сертификаты (CRL)),
+будут наследоваться при перезагрузках конфигурации.
+</para>
+
+<para>
+SSL-объекты, загруженные из файла, наследуются,
+если время изменения и файловый индекс не изменились
+с момента последней перезагрузки конфигурации.
+Секретные ключи, указанные как
+<literal>engine:name:id</literal>, никогда не наследуются.
+Секретные ключи, указанные как
+<literal>data:literal</literal>, всегда наследуются.
+</para>
+
+<para>
+<note>
+SSL-объекты, загруженные из переменных, не могут наследоваться.
+</note>
+</para>
+
+<para>
+Пример:
+<example>
+ssl_object_cache_inheritable on;
+
+http {
+    ...
+    server {
+        ...
+        ssl_certificate     example.com.crt;
+        ssl_certificate_key example.com.key;
+    }
+}
+</example>
 </para>
 
 </directive>
