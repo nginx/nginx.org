@@ -26,6 +26,13 @@ Patches are signed using one of the
 
 <security>
 
+<item name="SSL session reuse vulnerability"
+      severity="medium"
+      cve="2025-23419"
+      good="1.27.4+, 1.26.3+"
+      vulnerable="1.11.4-1.27.3">
+</item>
+
 <item name="Buffer overread in the ngx_http_mp4_module"
       severity="low"
       advisory="https://mailman.nginx.org/pipermail/nginx-announce/2024/UUOCLLONPR6244YQYU65PO5LB7JDYCWM.html"
