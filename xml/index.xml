@@ -27,6 +27,28 @@
 <year href="2009.html" year="2009" />
 </years>
 
+<event date="2025-02-05">
+<para>
+<link doc="en/download.xml">nginx-1.26.3</link>
+stable version has been released,
+with a fix for the
+<link doc="en/security_advisories.xml">SSL session reuse</link>
+vulnerability (CVE-2025-23419).
+</para>
+</event>
+
+<event date="2025-02-05">
+<para>
+<link doc="en/download.xml">nginx-1.27.4</link>
+mainline version has been released, featuring
+<link url="https://blog.nginx.org/blog/optimizing-resource-usage-for-complex-ssl-configurations">optimized
+resource usage for complex SSL configurations</link>,
+and with a fix for the
+<link doc="en/security_advisories.xml">SSL session reuse</link>
+vulnerability (CVE-2025-23419).
+</para>
+</event>
+
 <event date="2025-01-14">
 <para>
 <link doc="en/docs/njs/index.xml">njs-0.8.9</link>

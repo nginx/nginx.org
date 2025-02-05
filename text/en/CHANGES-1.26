@@ -1,4 +1,28 @@
 
+Changes with nginx 1.26.3                                        05 Feb 2025
+
+    *) Security: insufficient check in virtual servers handling with TLSv1.3
+       SNI allowed to reuse SSL sessions in a different virtual server, to
+       bypass client SSL certificates verification (CVE-2025-23419).
+
+    *) Bugfix: in the ngx_http_mp4_module.
+       Thanks to Nils Bars.
+
+    *) Workaround: "gzip filter failed to use preallocated memory" alerts
+       appeared in logs when using zlib-ng.
+
+    *) Bugfix: nginx could not build libatomic library using the library
+       sources if the --with-libatomic=DIR option was used.
+
+    *) Bugfix: nginx now ignores QUIC version negotiation packets from
+       clients.
+
+    *) Bugfix: nginx could not be built on Solaris 10 and earlier with the
+       ngx_http_v3_module.
+
+    *) Bugfixes in HTTP/3.
+
+
 Changes with nginx 1.26.2                                        14 Aug 2024
 
     *) Security: processing of a specially crafted mp4 file by the
