@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="106">
+        rev="107">
 
 <section id="directives" name="Директивы">
 
@@ -924,6 +924,23 @@ location = /404.html {
 все Safari и подобные им браузеры на всех ОС, и keep-alive
 соединения с ними были по умолчанию запрещены.
 </note>
+</para>
+
+</directive>
+
+
+<directive name="keepalive_min_timeout">
+<syntax><value>таймаут</value></syntax>
+<default>0</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.27.4</appeared-in>
+
+<para>
+Задаёт таймаут, в течение которого keep-alive
+соединение с клиентом не будет закрыто на стороне сервера
+для повторного использования или при плавном завершении рабочих процессов.
 </para>
 
 </directive>
