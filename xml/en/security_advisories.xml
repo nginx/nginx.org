@@ -28,6 +28,7 @@ Patches are signed using one of the
 
 <item name="SSL session reuse vulnerability"
       severity="medium"
+      advisory="https://mailman.nginx.org/pipermail/nginx-announce/2025/NYEUJX7NCBCGJGXDFVXNMAAMJDFSE45G.html"
       cve="2025-23419"
       good="1.27.4+, 1.26.3+"
       vulnerable="1.11.4-1.27.3">
