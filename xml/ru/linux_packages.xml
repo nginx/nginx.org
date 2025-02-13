@@ -7,7 +7,7 @@
 <article name="nginx: пакеты для Linux"
          link="/ru/linux_packages.html"
          lang="ru"
-         rev="103">
+         rev="104">
 
 <section name="Поддерживаемые дистрибутивы и версии" id="distributions">
 
@@ -602,11 +602,11 @@ sudo yum install nginx
 
 <para>
 Исходные коды пакетов находятся в соответствующем
-<link url="http://hg.nginx.org/pkg-oss">репозитории</link>.
+<link url="https://github.com/nginx/pkg-oss">репозитории</link>.
 </para>
 
 <para>
-Ветка репозитория <literal>default</literal> содержит исходные коды пакетов для
+Ветка репозитория <literal>master</literal> содержит исходные коды пакетов для
 mainline-версии, в то время как ветки <literal>stable-*</literal> содержат
 исходные коды пакетов для стабильных релизов.
 Для сборки бинарных пакетов запустите <command>make</command> в каталоге
