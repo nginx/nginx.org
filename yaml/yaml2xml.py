@@ -22,29 +22,29 @@ def node_description(node):
         return ""
 
     #
-    t = re.sub('\<code\>', r'<literal>', text)
-    t = re.sub('\</code\>', r'</literal>', t)
+    t = re.sub(r'\<code\>', r'<literal>', text)
+    t = re.sub(r'\</code\>', r'</literal>', t)
 
-    t = re.sub('\<i\>', r'<value>', t)
-    t = re.sub('\</i\>', r'</value>', t)
+    t = re.sub(r'\<i\>', r'<value>', t)
+    t = re.sub(r'\</i\>', r'</value>', t)
 
-    t = re.sub('\<a href=\"(.*?)\"\>(.*?)\</a\>', r'<link url="\1">\2</link>', t)
+    t = re.sub(r'\<a href=\"(.*?)\"\>(.*?)\</a\>', r'<link url="\1">\2</link>', t)
 
     # [desc](url)
-    t = re.sub('\[(.*)\]\((.*?)\)', r'<link url="\2">\1</link>', t)
+    t = re.sub(r'\[(.*)\]\((.*?)\)', r'<link url="\2">\1</link>', t)
 
     # ** foo ** is value
-    t = re.sub('[*?][*?](\w+)[*?][*?]', r'<value>\1</value>', t)
+    t = re.sub(r'[*?][*?](\w+)[*?][*?]', r'<value>\1</value>', t)
 
     # * foo * is literal
-    t = re.sub('[*?](\w+)[*?]', r'<literal>\1</literal>', t)
+    t = re.sub(r'[*?](\w+)[*?]', r'<literal>\1</literal>', t)
 
 
-    return t.encode('utf-8').rstrip()
+    return t.encode('utf-8').rstrip().decode()
 
 
 def pretty_endpoint(ep):
-    return ep.replace('/slabs/','slabs').replace('/resolvers/','resolvers').replace('/http/','HTTP ').replace('/stream/','stream ').replace('s/','s').replace('_',' ')
+    return ep.replace('/slabs/','slabs').replace('/resolvers/','resolvers').replace('/http/','HTTP ').replace('/stream/','stream ').replace('/workers/','workers').replace('s/','s').replace('_',' ')
 
 
 # human-readable html element id based on path
@@ -73,8 +73,8 @@ def multiple(str):
     return str + last
 
 def uncamelcase(name):
-    s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
-    return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower()
+    s1 = re.sub(r'(.)([A-Z][a-z]+)', r'\1_\2', name)
+    return re.sub(r'([a-z0-9])([A-Z])', r'\1_\2', s1).lower()
 
 def make_defid(str):
     return 'def_' + uncamelcase(str)
@@ -395,7 +395,7 @@ def json_simple_type(obj):
 
     elif isinstance(obj,datetime.datetime):
         t = obj.strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3]
-        z = obj.strftime("Z%Z")
+        z = obj.strftime("Z")
         return '"' + t + z + '"'
 
     else:
