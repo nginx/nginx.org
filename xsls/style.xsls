@@ -15,10 +15,9 @@ X:template style (lang) {
     }
     X:attribute "href" {
       X:if "substring-after($DIRNAME, '/')" {
-          !{ concat($ROOT, '/css/style_', $lang, '.css') }
-      } else {
-          !{ substring-after(concat('/css/style_', $lang, '.css'), '/') }
+          !{ concat($ROOT, '/') }
       }
+      !{ concat('css/style_', $lang, '.css') }
     }
     !!;
     </link>
