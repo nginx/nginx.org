@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_ssl_module"
         link="/en/docs/stream/ngx_stream_ssl_module.html"
         lang="en"
-        rev="38">
+        rev="39">
 
 <section id="summary">
 
@@ -17,9 +17,16 @@
 The <literal>ngx_stream_ssl_module</literal> module (1.9.0)
 provides the necessary support for a stream proxy server to work with
 the SSL/TLS protocol.
+</para>
+
+<para>
 This module is not built by default, it should be enabled with the
 <literal>--with-stream_ssl_module</literal>
 configuration parameter.
+<note>
+This module requires the
+<link url="http://www.openssl.org">OpenSSL</link> library.
+</note>
 </para>
 
 </section>
@@ -141,7 +148,9 @@ server {
 }
 </example>
 <note>
-Only OpenSSL 1.0.2 or higher supports separate certificate chains
+Only OpenSSL 1.0.2 or higher supports separate
+<link doc="../http/configuring_https_servers.xml" id="chains">certificate
+chains</link>
 for different certificates.
 With older versions, only one certificate chain can be used.
 </note>
@@ -163,7 +172,8 @@ and this may have a negative impact on performance.
 The value
 <literal>data</literal>:<value>$variable</value>
 can be specified instead of the <value>file</value> (1.15.10),
-which loads a certificate from a variable without using intermediate files.
+which loads a certificate from a variable
+without using intermediate files.
 Note that inappropriate use of this syntax may have its security implications,
 such as writing secret key data to
 <link doc="../ngx_core_module.xml" id="error_log">error log</link>.
@@ -533,7 +543,8 @@ resolver          192.0.2.1;
 Sets <literal>name</literal> and <literal>size</literal> of the cache
 that stores client certificates status for OCSP validation.
 The cache is shared between all worker processes.
-A cache with the same name can be used in several virtual servers.
+A cache with the same name can be used in several
+virtual servers.
 </para>
 
 <para>
@@ -644,8 +655,8 @@ the value from the default server can be used.
 
 <para>
 <note>
-The <literal>TLSv1.1</literal> and <literal>TLSv1.2</literal> parameters work
-only when OpenSSL 1.0.1 or higher is used.
+The <literal>TLSv1.1</literal> and <literal>TLSv1.2</literal> parameters
+work only when OpenSSL 1.0.1 or higher is used.
 </note>
 <note>
 The <literal>TLSv1.3</literal> parameter (1.13.0) works only when

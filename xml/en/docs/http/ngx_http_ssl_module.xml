@@ -35,7 +35,7 @@ This module requires the
 <section id="example" name="Example Configuration">
 
 <para>
-To reduce the processor load it is recommended to
+To reduce the processor load, it is recommended to
 <list type="bullet">
 
 <listitem>
@@ -597,7 +597,8 @@ resolver          192.0.2.1;
 Sets <literal>name</literal> and <literal>size</literal> of the cache
 that stores client certificates status for OCSP validation.
 The cache is shared between all worker processes.
-A cache with the same name can be used in several virtual servers.
+A cache with the same name can be used in several
+virtual servers.
 </para>
 
 <para>
@@ -678,8 +679,8 @@ http {
 <context>server</context>
 
 <para>
-Specifies that server ciphers should be preferred over client
-ciphers when using the SSLv3 and TLS protocols.
+Specifies that server ciphers should be preferred over client ciphers
+when the SSLv3 and TLS protocols are used.
 </para>
 
 </directive>
@@ -803,7 +804,8 @@ a cache shared between all worker processes.
 The cache size is specified in bytes; one megabyte can store
 about 4000 sessions.
 Each shared cache should have an arbitrary name.
-A cache with the same name can be used in several virtual servers.
+A cache with the same name can be used in several
+virtual servers.
 It is also used to automatically generate, store, and
 periodically rotate TLS session ticket keys (1.23.2)
 unless configured explicitly

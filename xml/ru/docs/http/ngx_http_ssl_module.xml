@@ -1146,9 +1146,9 @@ AES128-SHA:AES256-SHA:0x00ff
 
 <tag-name id="var_ssl_client_cert"><var>$ssl_client_cert</var></tag-name>
 <tag-desc>
-возвращает клиентский сертификат
-для установленного SSL-соединения в формате PEM
-перед каждой строкой которого, кроме первой, вставляется символ табуляции;
+возвращает клиентский сертификат в формате PEM
+для установленного SSL-соединения, перед каждой строкой которого, кроме первой,
+вставляется символ табуляции;
 предназначена для использования в директиве
 <link doc="ngx_http_proxy_module.xml" id="proxy_set_header"/>;
 <note>
@@ -1182,8 +1182,8 @@ AES128-SHA:AES256-SHA:0x00ff
 <tag-name id="var_ssl_client_raw_cert"><var>$ssl_client_raw_cert</var>
 </tag-name>
 <tag-desc>
-возвращает клиентский сертификат
-для установленного SSL-соединения в формате PEM;
+возвращает клиентский сертификат в формате PEM
+для установленного SSL-соединения;
 </tag-desc>
 
 <tag-name id="var_ssl_client_s_dn"><var>$ssl_client_s_dn</var></tag-name>
