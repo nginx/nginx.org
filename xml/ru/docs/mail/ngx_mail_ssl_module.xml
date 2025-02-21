@@ -10,7 +10,7 @@
 <module name="Модуль ngx_mail_ssl_module"
         link="/ru/docs/mail/ngx_mail_ssl_module.html"
         lang="ru"
-        rev="29">
+        rev="30">
 
 <section id="summary">
 
@@ -136,7 +136,10 @@ server {
 }
 </example>
 <note>
-Возможность задавать отдельные цепочки сертификатов для разных сертификатов
+Возможность задавать отдельные
+<link doc="../http/configuring_https_servers.xml" id="chains">цепочки
+сертификатов</link>
+для разных сертификатов
 есть только в OpenSSL 1.0.2 и выше.
 Для более старых версий следует указывать только одну цепочку сертификатов.
 </note>
@@ -459,7 +462,7 @@ mail {
 <para>
 Задаёт тип и размеры кэшей для хранения параметров сессий.
 Тип кэша может быть следующим:
-<list type="tag" compact="no">
+<list type="tag">
 
 <tag-name><literal>off</literal></tag-name>
 <tag-desc>

@@ -10,7 +10,7 @@
 <module name="Module ngx_mail_ssl_module"
         link="/en/docs/mail/ngx_mail_ssl_module.html"
         lang="en"
-        rev="29">
+        rev="30">
 
 <section id="summary">
 
@@ -20,12 +20,12 @@ support for a mail proxy server to work with the SSL/TLS protocol.
 </para>
 
 <para>
-This module is not built by default, it should be enabled with
-the <literal>--with-mail_ssl_module</literal>
+This module is not built by default, it should be enabled with the
+<literal>--with-mail_ssl_module</literal>
 configuration parameter.
 <note>
-This module requires the <link url="http://www.openssl.org">OpenSSL</link>
-library.
+This module requires the
+<link url="http://www.openssl.org">OpenSSL</link> library.
 </note>
 </para>
 
@@ -136,7 +136,9 @@ server {
 }
 </example>
 <note>
-Only OpenSSL 1.0.2 or higher supports separate certificate chains
+Only OpenSSL 1.0.2 or higher supports separate
+<link doc="../http/configuring_https_servers.xml" id="chains">certificate
+chains</link>
 for different certificates.
 With older versions, only one certificate chain can be used.
 </note>
@@ -146,7 +148,8 @@ With older versions, only one certificate chain can be used.
 The value
 <literal>data</literal>:<value>certificate</value>
 can be specified instead of the <value>file</value> (1.15.10),
-which loads a certificate without using intermediate files.
+which loads a certificate
+without using intermediate files.
 Note that inappropriate use of this syntax may have its security implications,
 such as writing secret key data to
 <link doc="../ngx_core_module.xml" id="error_log">error log</link>.

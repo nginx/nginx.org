@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_ssl_module"
         link="/ru/docs/stream/ngx_stream_ssl_module.html"
         lang="ru"
-        rev="38">
+        rev="39">
 
 <section id="summary">
 
@@ -17,9 +17,16 @@
 Модуль <literal>ngx_stream_ssl_module</literal> (1.9.0)
 обеспечивает необходимую поддержку для работы
 прокси-сервера по протоколу SSL/TLS.
+</para>
+
+<para>
 По умолчанию этот модуль не собирается, его сборку необходимо
 разрешить с помощью конфигурационного параметра
 <literal>--with-stream_ssl_module</literal>.
+<note>
+Для сборки и работы этого модуля нужна библиотека
+<link url="http://www.openssl.org">OpenSSL</link>.
+</note>
 </para>
 
 </section>
@@ -119,7 +126,7 @@ server {
 Указывает <value>файл</value> с сертификатом в формате PEM
 для данного сервера.
 Если вместе с основным сертификатом нужно указать промежуточные,
-то они должны находиться в этом же файле в следующем порядке — сначала
+то они должны находиться в этом же файле в следующем порядке: сначала
 основной сертификат, а затем промежуточные.
 В этом же файле может находиться секретный ключ в формате PEM.
 </para>
@@ -142,7 +149,10 @@ server {
 }
 </example>
 <note>
-Возможность задавать отдельные цепочки сертификатов для разных сертификатов
+Возможность задавать отдельные
+<link doc="../http/configuring_https_servers.xml" id="chains">цепочки
+сертификатов</link>
+для разных сертификатов
 есть только в OpenSSL 1.0.2 и выше.
 Для более старых версий следует указывать только одну цепочку сертификатов.
 </note>
@@ -410,7 +420,7 @@ ssl_conf_command Ciphersuites TLS_CHACHA20_POLY1305_SHA256;
 <context>server</context>
 
 <para>
-Задаёт <value>кривую</value> для ECDHE-шифров.
+Задаёт кривую для ECDHE-шифров.
 </para>
 
 <para>
@@ -643,7 +653,7 @@ stream {
 
 <para>
 Если директива указана
-на уровне <link doc="ngx_http_core_module.xml" id="server"/>,
+на уровне <link doc="ngx_stream_core_module.xml" id="server"/>,
 то может использоваться значение из сервера по умолчанию.
 </para>
 
@@ -960,7 +970,6 @@ ssl_stapling_responder http://ocsp.example.com/;
 <context>server</context>
 <appeared-in>1.11.8</appeared-in>
 
-
 <para>
 Разрешает проверку клиентских сертификатов.
 Результат проверки доступен через переменную
@@ -1040,9 +1049,9 @@ AES128-SHA:AES256-SHA:0x00ff
 
 <tag-name id="var_ssl_client_cert"><var>$ssl_client_cert</var></tag-name>
 <tag-desc>
-возвращает клиентский сертификат
-для установленного SSL-соединения в формате PEM
-перед каждой строкой которого, кроме первой, вставляется символ табуляции(1.11.8);
+возвращает клиентский сертификат в формате PEM
+для установленного SSL-соединения, перед каждой строкой которого, кроме первой,
+вставляется символ табуляции (1.11.8);
 </tag-desc>
 
 <tag-name id="var_ssl_client_fingerprint"><var>$ssl_client_fingerprint</var></tag-name>
@@ -1061,8 +1070,8 @@ AES128-SHA:AES256-SHA:0x00ff
 <tag-name id="var_ssl_client_raw_cert"><var>$ssl_client_raw_cert</var>
 </tag-name>
 <tag-desc>
-возвращает клиентский сертификат
-для установленного SSL-соединения в формате PEM (1.11.8);
+возвращает клиентский сертификат в формате PEM
+для установленного SSL-соединения (1.11.8);
 </tag-desc>
 
 <tag-name id="var_ssl_client_s_dn"><var>$ssl_client_s_dn</var></tag-name>
