@@ -14,11 +14,10 @@ X:template style (lang) {
       X:text{stylesheet}
     }
     X:attribute "href" {
-      X:if "substring-after($DIRNAME, '/')" {
-          !{ concat($ROOT, '/css/style_', $lang, '.css') }
-      } else {
-          !{ substring-after(concat('/css/style_', $lang, '.css'), '/') }
+      X:if "substring-after($DIRNAME, '/') or $LINK = '404.html'" {
+          !{ concat($ROOT, '/') }
       }
+      !{ concat('css/style_', $lang, '.css') }
     }
     !!;
     </link>
