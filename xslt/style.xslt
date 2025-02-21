@@ -15,11 +15,10 @@
       <xsl:text>stylesheet</xsl:text>
     </xsl:attribute>
     <xsl:attribute name="href">
-      <xsl:choose><xsl:when test="substring-after($DIRNAME, '/')">
-          <xsl:value-of select=" concat($ROOT, '/css/style_', $lang, '.css') "/>
-      </xsl:when><xsl:otherwise>
-          <xsl:value-of select=" substring-after(concat('/css/style_', $lang, '.css'), '/') "/>
-      </xsl:otherwise></xsl:choose>
+      <xsl:if test="substring-after($DIRNAME, '/') or $LINK = '404.html'">
+          <xsl:value-of select=" concat($ROOT, '/') "/>
+      </xsl:if>
+      <xsl:value-of select=" concat('css/style_', $lang, '.css') "/>
     </xsl:attribute>
     <xsl:apply-templates/>
     </link>
