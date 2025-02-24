@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_ssl_module"
         link="/ru/docs/http/ngx_http_ssl_module.html"
         lang="ru"
-        rev="65">
+        rev="66">
 
 <section id="summary">
 
@@ -201,8 +201,10 @@ ssl_certificate_key $ssl_server_name.key;
 </para>
 
 <para>
-Нужно иметь в виду, что из-за ограничения протокола HTTPS
-для максимальной совместимости виртуальные серверы должны слушать на
+Нужно иметь в виду, что из-за ограничения протокола SSL/TLS
+для максимальной совместимости с клиентами, которые не используют
+<link url="http://en.wikipedia.org/wiki/Server_Name_Indication">SNI</link>,
+виртуальные серверы с разными сертификатами должны слушать на
 <link doc="configuring_https_servers.xml" id="name_based_https_servers">разных
 IP-адресах</link>.
 </para>

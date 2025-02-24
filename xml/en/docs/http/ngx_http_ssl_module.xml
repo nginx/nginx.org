@@ -10,7 +10,7 @@
 <module name="Module ngx_http_ssl_module"
         link="/en/docs/http/ngx_http_ssl_module.html"
         lang="en"
-        rev="65">
+        rev="66">
 
 <section id="summary">
 
@@ -199,8 +199,10 @@ such as writing secret key data to
 </para>
 
 <para>
-It should be kept in mind that due to the HTTPS protocol limitations
-for maximum interoperability virtual servers should listen on
+It should be kept in mind that due to the SSL/TLS protocol limitations,
+for maximum interoperability with clients that do not use
+<link url="http://en.wikipedia.org/wiki/Server_Name_Indication">SNI</link>,
+virtual servers with different certificates should listen on
 <link doc="configuring_https_servers.xml" id="name_based_https_servers">different
 IP addresses</link>.
 </para>
