@@ -10,7 +10,7 @@
 <module name="Module ngx_http_proxy_module"
         link="/en/docs/http/ngx_http_proxy_module.html"
         lang="en"
-        rev="80">
+        rev="81">
 
 <section id="summary">
 
@@ -2278,7 +2278,7 @@ when establishing a connection with the proxied HTTPS server.
 Determines whether SSL sessions can be reused when working with
 the proxied server.
 If the errors
-“<literal>SSL3_GET_FINISHED:digest check failed</literal>”
+“<literal>digest check failed</literal>”
 appear in the logs, try disabling session reuse.
 </para>
 

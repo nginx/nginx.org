@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_uwsgi_module"
         link="/ru/docs/http/ngx_http_uwsgi_module.html"
         lang="ru"
-        rev="53">
+        rev="54">
 
 <section id="summary">
 
@@ -1692,7 +1692,7 @@ Server Name Indication протокола TLS</link> (SNI, RFC 6066)
 Определяет, использовать ли повторно SSL-сессии при
 работе с suwsgi-сервером.
 Если в логах появляются ошибки
-“<literal>SSL3_GET_FINISHED:digest check failed</literal>”,
+“<literal>digest check failed</literal>”,
 то можно попробовать выключить
 повторное использование сессий.
 </para>
