@@ -8,7 +8,7 @@
 <article name="Configuring HTTPS servers"
          link="/en/docs/http/configuring_https_servers.html"
          lang="en"
-         rev="17"
+         rev="18"
          author="Igor Sysoev"
          editor="Brian Mercer">
 
@@ -365,7 +365,9 @@ and, therefore, the server will know which certificate it should use
 for the connection.
 SNI is currently
 <link url="http://en.wikipedia.org/wiki/Server_Name_Indication#Support">supported</link>
-by most modern browsers, though may not be used by some old or special clients.
+by most modern browsers
+and is a mandatory-to-implement extension in TLSv1.3,
+though may not be used by some old or special clients.
 <note>
 Only domain names can be passed in SNI,
 however some browsers may erroneously pass an IP address of the server
