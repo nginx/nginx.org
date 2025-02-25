@@ -8,7 +8,7 @@
 <article name="Configuring HTTPS servers"
          link="/en/docs/http/configuring_https_servers.html"
          lang="en"
-         rev="18"
+         rev="19"
          author="Igor Sysoev"
          editor="Brian Mercer">
 
@@ -242,7 +242,8 @@ The <literal>ssl</literal> parameter of the
 was added to solve this issue.
 The use of the
 <link doc="ngx_http_ssl_module.xml" id="ssl"/> directive
-in modern versions is thus discouraged.
+in modern versions is thus discouraged;
+it was removed in 1.25.1.
 </note>
 </para>
 
