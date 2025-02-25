@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_proxy_module"
         link="/ru/docs/http/ngx_http_proxy_module.html"
         lang="ru"
-        rev="80">
+        rev="81">
 
 <section id="summary">
 
@@ -2281,7 +2281,7 @@ Server Name Indication протокола TLS</link> (SNI, RFC 6066)
 Определяет, использовать ли повторно SSL-сессии при
 работе с проксированным сервером.
 Если в логах появляются ошибки
-“<literal>SSL3_GET_FINISHED:digest check failed</literal>”,
+“<literal>digest check failed</literal>”,
 то можно попробовать выключить
 повторное использование сессий.
 </para>

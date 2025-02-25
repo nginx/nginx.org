@@ -10,7 +10,7 @@
 <module name="Module ngx_http_uwsgi_module"
         link="/en/docs/http/ngx_http_uwsgi_module.html"
         lang="en"
-        rev="53">
+        rev="54">
 
 <section id="summary">
 
@@ -1696,7 +1696,7 @@ when establishing a connection with the secured uwsgi server.
 Determines whether SSL sessions can be reused when working with
 a secured uwsgi server.
 If the errors
-“<literal>SSL3_GET_FINISHED:digest check failed</literal>”
+“<literal>digest check failed</literal>”
 appear in the logs, try disabling session reuse.
 </para>
 
