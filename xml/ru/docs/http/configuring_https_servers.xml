@@ -8,7 +8,7 @@
 <article name="Настройка HTTPS-серверов"
          link="/ru/docs/http/configuring_https_servers.html"
          lang="ru"
-         rev="18"
+         rev="19"
          author="Игорь Сысоев"
          editor="Brian Mercer">
 
@@ -240,7 +240,8 @@ SSL можно было включить только для всего серв
 директивы <link doc="ngx_http_core_module.xml" id="listen"/>.
 Поэтому использование
 директивы <link doc="ngx_http_ssl_module.xml" id="ssl"/>
-в современных версиях не рекомендуется.
+в современных версиях не рекомендуется;
+директива упразднена в 1.25.1.
 </note>
 </para>
 
