@@ -10,7 +10,7 @@
 <module name="Module ngx_http_auth_basic_module"
         link="/en/docs/http/ngx_http_auth_basic_module.html"
         lang="en"
-        rev="10">
+        rev="11">
 
 <section id="summary">
 
@@ -96,7 +96,9 @@ The following password types are supported:
 <listitem>
 encrypted with the <c-func>crypt</c-func> function; can be generated using
 the “<command>htpasswd</command>” utility from the Apache HTTP Server
-distribution or the “<command>openssl passwd</command>” command;
+distribution or the “<command>mkpasswd</command>” utility derived from the
+“<command>whois</command>” command, or the “<command>openssl passwd</command>”
+command;
 </listitem>
 
 <listitem>
