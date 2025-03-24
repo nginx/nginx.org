@@ -1,0 +1,25 @@
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'binary/**'
+      - 'css/**'
+      - 'dtd/**'
+      - 'img/**'
+      - 'sources/**'
+      - 'text/**'
+      - 'tools/**'
+      - 'xml/**'
+      - 'xsls/**'
+      - 'xslt/**'
+      - 'yaml/**'
+  
+permissions:
+  contents: read
+  id-token: write
+  
+jobs:
+  build:
+    name: build site
+    uses: nginx/ci-self-hosted/.github/workflows/nginx.org-build.yml@main    
