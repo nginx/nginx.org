@@ -9,12 +9,12 @@
 <module name="Module ngx_otel_module"
         link="/en/docs/ngx_otel_module.html"
         lang="en"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
 <para>
-The <literal>ngx_otel_module</literal> module (1.23.4) provides
+The <literal>ngx_otel_module</literal> module provides
 <link url="https://opentelemetry.io">OpenTelemetry</link>
 distributed tracing support.
 The module supports
@@ -36,7 +36,7 @@ The module is also available in a prebuilt
 since 1.25.3
 and in <literal>nginx-plus-module-otel</literal> package
 as part of our
-<commercial_version>commercial subscription</commercial_version>.
+<commercial_version>commercial subscription</commercial_version> since 1.23.4.
 </para>
 
 </section>
@@ -86,24 +86,39 @@ Specifies OTel data export parameters:
 
 <list type="tag">
 
-<tag-name id="endpoint"><literal>endpoint</literal></tag-name>
+<tag-name id="endpoint"><literal>
+    endpoint [(http|https)://]host:port;</literal></tag-name>
 <tag-desc>
-the address of OTLP/gRPC endpoint that will accept telemetry data.
+OTLP/gRPC endpoint that will accept telemetry data.
+TLS is supported since 0.1.2.
 </tag-desc>
 
-<tag-name id="interval"><literal>interval</literal></tag-name>
+<tag-name id="trusted_certificate"><literal>
+    trusted_certificate path;</literal></tag-name>
+<tag-desc>
+the CA certificates file in PEM format used to verify TLS endpoint
+(since 0.1.2).
+Defaults to OS provided CA bundle.
+</tag-desc>
+
+<tag-name id="header"><literal>header name value;</literal></tag-name>
+<tag-desc>
+a custom HTTP header to add to telemetry export request (since 0.1.2).
+</tag-desc>
+
+<tag-name id="interval"><literal>interval time;</literal></tag-name>
 <tag-desc>
 the maximum interval between two exports,
 by default is <literal>5</literal> seconds.
 </tag-desc>
 
-<tag-name id="batch_size"><literal>batch_size</literal></tag-name>
+<tag-name id="batch_size"><literal>batch_size number;</literal></tag-name>
 <tag-desc>
 the maximum number of spans to be sent in one batch per worker,
 by default is <literal>512</literal>.
 </tag-desc>
 
-<tag-name id="batch_count"><literal>batch_count</literal></tag-name>
+<tag-name id="batch_count"><literal>batch_count number;</literal></tag-name>
 <tag-desc>
 the number of pending batches per worker,
 spans exceeding the limit are dropped,
@@ -114,10 +129,9 @@ by default is <literal>4</literal>.
 Example:
 <example>
 otel_exporter {
-    endpoint    localhost:4317;
-    interval    5s;
-    batch_size  512;
-    batch_count 4;
+    endpoint https://otel-example.nginx.com:4317;
+
+    header X-API-Token "my-token-value";
 }
 </example>
 </para>
@@ -134,6 +148,19 @@ otel_exporter {
 Sets the
 “<link url="https://opentelemetry.io/docs/reference/specification/resource/semantic_conventions/#service"><literal>service.name</literal></link>”
 attribute of the OTel resource.
+</para>
+
+</directive>
+
+
+<directive name="otel_resource_attr">
+<syntax><value>name</value> <value>value</value></syntax>
+<default/>
+<context>http</context>
+<appeared-in>0.1.2</appeared-in>
+
+<para>
+Sets a custom OTel resource attribute.
 </para>
 
 </directive>
