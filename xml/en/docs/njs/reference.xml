@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="127">
+        rev="128">
 
 <section id="summary">
 
@@ -4790,7 +4790,7 @@ extended crypto API is available as a global
 <link id="builtin_crypto">crypto</link> object.
 </note>
 The Crypto module provides cryptographic functionality support.
-The Crypto module object is returned by <literal>require('crypto')</literal>.
+The Crypto module object is imported using <literal>import crypto from 'crypto'</literal>.
 </para>
 
 <para>
@@ -4866,11 +4866,10 @@ Makes a copy of the current state of the hash
 
 <para>
 <example>
->> var cr = require('crypto')
-undefined
+import crypto from 'crypto';
 
->> cr.createHash('sha1').update('A').update('B').digest('base64url')
-'BtlFlCqiamG-GMPiK_GbvKjdK10'
+crypto.createHash('sha1').update('A').update('B').digest('base64url');
+/* BtlFlCqiamG-GMPiK_GbvKjdK10 */
 </example>
 </para>
 
@@ -4914,11 +4913,10 @@ a byte string was returned instead of a Buffer object.
 
 <para>
 <example>
->> var cr = require('crypto')
-undefined
+import crypto from 'crypto';
 
->> cr.createHmac('sha1', 'secret.key').update('AB').digest('base64url')
-'Oglm93xn23_MkiaEq_e9u8zk374'
+crypto.createHmac('sha1', 'secret.key').update('AB').digest('base64url');
+/* Oglm93xn23_MkiaEq_e9u8zk374 */
 </example>
 </para>
 
@@ -4971,15 +4969,16 @@ The File System module provides operations with files.
 </para>
 
 <para>
-The module object is returned by <literal>require('fs')</literal>.
+The module object is imported using <literal>import fs from 'fs'</literal>.
 Since <link doc="changes.xml" id="njs0.3.9">0.3.9</link>,
 promissified versions of file system methods are available through
-<literal>require('fs').promises</literal> object:
+<literal>fs.promises</literal> object after importing with <literal>import fs from 'fs'</literal>:
 <example>
-> var fs = require('fs').promises;
-undefined
-> fs.readFile("/file/path").then((data)=>console.log(data))
-&lt;file data&gt;
+import fs from 'fs';
+
+fs.promises.readFile("/file/path").then((data) => {
+    /* &lt;file data&gt; */
+});
 </example>
 <list type="tag">
 
@@ -5210,12 +5209,10 @@ by default is <literal>r</literal>
 
 </list>
 <example>
->> var fs = require('fs')
-undefined
->> var file = fs.readFileSync('/file/path.tar.gz')
-undefined
->> var gzipped = file.slice(0,2).toString('hex') === '1f8b'; gzipped
-true
+import fs from 'fs';
+
+var file = fs.readFileSync('/file/path.tar.gz');
+console.log(file.slice(0,2).toString('hex')) /* '1f8b' */
 </example>
 </tag-desc>
 
@@ -5300,10 +5297,9 @@ Synchronously changes the name or location of a file from
 <literal>oldPath</literal> to <literal>newPath</literal>
 (<link doc="changes.xml" id="njs0.3.4">0.3.4</link>).
 <example>
->> var fs = require('fs')
-undefined
->> var file = fs.renameSync('hello.txt', 'HelloWorld.txt')
-undefined
+import fs from 'fs';
+
+fs.renameSync('hello.txt', 'HelloWorld.txt');
 </example>
 </tag-desc>
 
@@ -5378,10 +5374,9 @@ by default is <literal>w</literal>
 
 </list>
 <example>
->> var fs = require('fs')
-undefined
->> var file = fs.writeFileSync('hello.txt', 'Hello world')
-undefined
+import fs from 'fs';
+
+fs.writeFileSync('hello.txt', 'Hello world');
 </example>
 </tag-desc>
 
@@ -6075,8 +6070,8 @@ but fails if the file already exists
 The Query String module provides support
 for parsing and formatting URL query strings
 (<link doc="changes.xml" id="njs0.4.3">0.4.3</link>).
-The Query String module object is returned by
-<literal>require('querystring')</literal>.
+The Query String module object is imported using
+<literal>import qs from 'querystring'</literal>.
 </para>
 
 <para>
@@ -6263,14 +6258,15 @@ and should not be used directly.
 <para>
 The XML module allows working with XML documents
 (since <link doc="changes.xml" id="njs0.7.10">0.7.10</link>).
-The XML module object is returned by
-<literal>require('xml')</literal>.
+The XML module object is imported using
+<literal>import xml from 'xml'</literal>.
 </para>
 
 <para>
 Example:
 <example>
-const xml = require("xml");
+import xml from 'xml';
+
 let data = `&lt;note&gt;&lt;to b="bar" a= "foo" &gt;Tove&lt;/to&gt;&lt;from&gt;Jani&lt;/from&gt;&lt;/note&gt;`;
 let doc = xml.parse(data);
 
@@ -6592,8 +6588,8 @@ the attribute value of <value>abc</value>
 The zlib module provides compression functionality using the
 “deflate” and “inflate” algorithms
 (since <link doc="changes.xml" id="njs0.7.12">0.7.12</link>).
-The zlib module object is returned by
-<literal>require('zlib')</literal>.
+The zlib module object is imported using
+<literal>import zlib from 'zlib'</literal>.
 </para>
 
 <para>
