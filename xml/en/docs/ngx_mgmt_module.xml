@@ -32,7 +32,8 @@ The license file is available from
 </para>
 
 <para>
-Usage report is sent to F5 licensing endpoint
+Usage report is sent directly or via <link id="proxy">proxy</link>
+to F5 licensing endpoint
 <link id="usage_report">every hour</link> using the
 <link id="ssl_verify">secure</link> connection.
 Optionally, in network-restricted environments
@@ -125,6 +126,74 @@ Specifies a JWT license <value>file</value>.
 By default, the <value>license.jwt</value> file is expected to be at
 <literal>/etc/nginx/</literal> for Linux or at
 <literal>/usr/local/etc/nginx/</literal> for FreeBSD.
+</para>
+
+</directive>
+
+
+<directive name="proxy">
+<syntax><value>host</value>:<value>port</value></syntax>
+<default/>
+<context>mgmt</context>
+<appeared-in>1.27.4</appeared-in>
+
+<para>
+Sets the HTTP CONNECT proxy
+used for sending the usage report.
+</para>
+
+</directive>
+
+
+<directive name="proxy_username">
+<syntax><value>string</value></syntax>
+<default/>
+<context>mgmt</context>
+<appeared-in>1.27.4</appeared-in>
+
+<para>
+Sets the user name used for authentication on
+the <link id="proxy">proxy</link>.
+</para>
+
+</directive>
+
+
+<directive name="proxy_password">
+<syntax><value>string</value></syntax>
+<default/>
+<context>mgmt</context>
+<appeared-in>1.27.4</appeared-in>
+
+<para>
+Sets the password used for authentication on
+the <link id="proxy">proxy</link>.
+</para>
+
+<para>
+The password is sent unencrypted by default.
+If the proxy supports TLS, the connection to the proxy can be
+protected with the <link doc="stream/ngx_stream_proxy_module.xml">stream</link>
+module:
+<example>
+mgmt {
+    proxy          127.0.0.1:8080;
+    proxy_username &lt;name&gt;;
+    proxy_password &lt;password&gt;;
+}
+
+stream {
+    server {
+        listen 127.0.0.1:8080;
+        
+        proxy_ssl                     on;
+        proxy_ssl_verify              on;
+        proxy_ssl_trusted_certificate &lt;proxy_ca_file&gt;;
+
+        proxy_pass &lt;proxy_host&gt;:&lt;proxy_port&gt;;
+    }
+}
+</example>
 </para>
 
 </directive>

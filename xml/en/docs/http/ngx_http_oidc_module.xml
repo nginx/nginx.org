@@ -1,0 +1,338 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Module ngx_http_oidc_module"
+        link="/en/docs/http/ngx_http_oidc_module.html"
+        lang="en"
+        rev="1">
+
+<section id="summary">
+
+<para>
+The <literal>ngx_http_oidc_module</literal> module (1.27.4)
+implements authentication as a Relying Party in OpenID Connect using the
+<link url="https://openid.net/specs/openid-connect-core-1_0.html#CodeFlowAuth">
+Authorization Code Flow</link>.
+</para>
+
+<para>
+The module expects the OpenID Provider's configuration to be available via
+<link url="https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfig">
+metadata</link> and requires dynamic
+<link doc="ngx_http_core_module.xml" id="resolver">resolver</link>.
+</para>
+
+<para>
+The module can be combined with other access modules
+via the <link doc="ngx_http_core_module.xml" id="satisfy"/> directive.
+Note that the module may still block requests even with
+<literal>satisfy any;</literal>
+as an OpenID Provider might not redirect the user back to nginx.
+</para>
+
+<para>
+<note>
+This module is available as part of our
+<commercial_version>commercial subscription</commercial_version>.
+</note>
+</para>
+
+</section>
+
+
+<section id="example" name="Example Configuration">
+
+<para>
+<example>
+http {
+    resolver 10.0.0.1;
+
+    oidc_provider my_idp {
+        issuer        "https://provider.domain";
+        client_id     "unique_id";
+        client_secret "unique_secret";
+    }
+
+    server {
+        location / {
+            auth_oidc my_idp;
+
+            proxy_set_header username $oidc_claim_sub;
+            proxy_pass       http://backend;
+        }
+    }
+}
+</example>
+The example assumes that the
+“<literal>https://&lt;nginx-host&gt;/oidc_callback</literal>”
+Redirection URI is configured on the OpenID Provider's side.
+The path can be customized with the <link id="redirect_uri"/> directive.
+</para>
+
+</section>
+
+
+<section id="directives" name="Directives">
+
+<directive name="oidc_provider">
+<syntax block="yes"><value>name</value></syntax>
+<default/>
+<context>http</context>
+
+<para>
+Defines an OpenID Provider for use with the <link id="auth_oidc"/> directive.
+</para>
+
+</directive>
+
+
+<directive name="auth_oidc">
+<syntax><value>name</value> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Enables end user authentication with the
+<link id="oidc_provider">specified</link> OpenID Provider.
+</para>
+
+<para>
+The special value <literal>off</literal> cancels the effect
+of the <literal>auth_oidc</literal> directive
+inherited from the previous configuration level.
+</para>
+
+</directive>
+
+
+<directive name="issuer">
+<syntax><value>URL</value></syntax>
+<default/>
+<context>oidc_provider</context>
+
+<para>
+Sets the Issuer Identifier URL of the OpenID Provider;
+required directive.
+The URL must exactly match the value of “<literal>issuer</literal>”
+in the OpenID Provider metadata
+and requires the “<literal>https</literal>” scheme.
+</para>
+
+</directive>
+
+
+<directive name="client_id">
+<syntax><value>string</value></syntax>
+<default/>
+<context>oidc_provider</context>
+
+<para>
+Specifies the client ID of the Relying Party;
+required directive.
+</para>
+
+</directive>
+
+
+<directive name="client_secret">
+<syntax><value>string</value></syntax>
+<default/>
+<context>oidc_provider</context>
+
+<para>
+Specifies a secret value
+used to authenticate the Relying Party with the OpenID Provider.
+</para>
+
+</directive>
+
+
+<directive name="config_url">
+<syntax><value>URL</value></syntax>
+<default>&lt;issuer&gt;/.well-known/openid-configuration</default>
+<context>oidc_provider</context>
+
+<para>
+Sets a custom URL to retrieve the OpenID Provider metadata.
+</para>
+
+</directive>
+
+
+<directive name="cookie_name">
+<syntax><value>name</value></syntax>
+<default>NGX_OIDC_SESSION</default>
+<context>oidc_provider</context>
+
+<para>
+Sets the name of a session cookie.
+</para>
+
+</directive>
+
+
+<directive name="extra_auth_args">
+<syntax><value>string</value></syntax>
+<default/>
+<context>oidc_provider</context>
+
+<para>
+Sets additional query arguments for the
+<link url="https://openid.net/specs/openid-connect-core-1_0.html#AuthRequest">authentication
+request</link> URL.
+<example>
+extra_auth_args "display=page&amp;prompt=login";
+</example>
+</para>
+
+</directive>
+
+
+<directive name="redirect_uri">
+<syntax><value>uri</value></syntax>
+<default>/oidc_callback</default>
+<context>oidc_provider</context>
+
+<para>
+Defines the Redirection URI path for post-authentication redirects
+expected by the module from the OpenID Provider.
+The <value>uri</value> must match the configuration on the Provider's side.
+</para>
+
+</directive>
+
+
+<directive name="scope">
+<syntax><value>scope</value> ...</syntax>
+<default>openid</default>
+<context>oidc_provider</context>
+
+<para>
+Sets requested scopes.
+The <literal>openid</literal> scope is always required by OIDC.
+</para>
+
+</directive>
+
+
+<directive name="session_store">
+<syntax><value>name</value></syntax>
+<default/>
+<context>oidc_provider</context>
+
+<para>
+Specifies a custom
+<link doc="ngx_http_keyval_module.xml" id="keyval_zone">key-value database</link>
+that stores session data.
+By default, an 8-megabyte key-value database named 
+<literal>oidc_default_store_&lt;provider name&gt;</literal>
+is created automatically.
+<note>
+A separate key-value database should be configured for each Provider
+to prevent session reuse across providers.
+</note>
+</para>
+
+</directive>
+
+
+<directive name="session_timeout">
+<syntax><value>time</value></syntax>
+<default>8h</default>
+<context>oidc_provider</context>
+
+<para>
+Sets a timeout after which the session is deleted, unless it was
+<link url="https://openid.net/specs/openid-connect-core-1_0.html#RefreshTokens">refreshed</link>.
+</para>
+
+</directive>
+
+
+<directive name="ssl_crl">
+<syntax><value>file</value></syntax>
+<default/>
+<context>oidc_provider</context>
+
+<para>
+Specifies a <value>file</value> with revoked certificates (CRL)
+in the PEM format used to verify
+the certificates of the OpenID Provider endpoints.
+</para>
+
+</directive>
+
+
+<directive name="ssl_trusted_certificate">
+<syntax><value>file</value></syntax>
+<default>system CA bundle</default>
+<context>oidc_provider</context>
+
+<para>
+Specifies a <value>file</value> with trusted CA certificates in the PEM format
+used to verify
+the certificates of the OpenID Provider endpoints.
+</para>
+
+</directive>
+
+</section>
+
+
+<section id="variables" name="Embedded Variables">
+
+<para>
+The <literal>ngx_http_oidc_module</literal> module supports embedded variables:
+</para>
+
+<para>
+<list type="tag" compact="yes">
+
+<tag-name id="var_oidc_id_token"><var>$oidc_id_token</var></tag-name>
+<tag-desc>
+ID token
+</tag-desc>
+
+<tag-name id="var_oidc_access_token"><var>$oidc_access_token</var></tag-name>
+<tag-desc>
+access token
+</tag-desc>
+
+<tag-name id="var_oidc_claim_"><var>$oidc_claim_</var><value>name</value></tag-name>
+<tag-desc>
+top-level ID token claim
+<para>
+Nested claims can be fetched with the
+<link doc="ngx_http_auth_jwt_module.xml">auth_jwt</link> module:
+<example>
+http {
+    auth_jwt_claim_set $postal_code address postal_code;
+
+    server {
+        location / {
+            auth_oidc my_idp;
+            auth_jwt  off token=$oidc_id_token;
+
+            proxy_set_header x-postal_code $postal_code;
+            proxy_pass       http://backend;
+        }
+    }
+}
+</example>
+</para>
+
+</tag-desc>
+
+</list>
+</para>
+
+</section>
+
+</module>

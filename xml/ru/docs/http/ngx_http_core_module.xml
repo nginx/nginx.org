@@ -2329,9 +2329,12 @@ location /i/ {
 или хотя бы один (<literal>any</literal>) из модулей
 <link doc="ngx_http_access_module.xml">ngx_http_access_module</link>,
 <link doc="ngx_http_auth_basic_module.xml">ngx_http_auth_basic_module</link>,
-<link doc="ngx_http_auth_request_module.xml">ngx_http_auth_request_module</link>
-или
+<link doc="ngx_http_auth_request_module.xml">ngx_http_auth_request_module</link>,
 <link doc="ngx_http_auth_jwt_module.xml">ngx_http_auth_jwt_module</link>
+(1.13.10)
+или
+<link doc="ngx_http_oidc_module.xml">ngx_http_oidc_module</link>
+(1.27.4)
 разрешают доступ.
 </para>
 
