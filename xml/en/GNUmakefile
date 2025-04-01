@@ -73,6 +73,7 @@ REFS =									\
 		http/ngx_http_memcached_module				\
 		http/ngx_http_mirror_module				\
 		http/ngx_http_mp4_module				\
+		http/ngx_http_oidc_module				\
 		http/ngx_http_perl_module				\
 		http/ngx_http_proxy_module				\
 		http/ngx_http_proxy_protocol_vendor_module		\

@@ -2332,8 +2332,11 @@ Allows access if all (<literal>all</literal>) or at least one
 <link doc="ngx_http_access_module.xml">ngx_http_access_module</link>,
 <link doc="ngx_http_auth_basic_module.xml">ngx_http_auth_basic_module</link>,
 <link doc="ngx_http_auth_request_module.xml">ngx_http_auth_request_module</link>,
-or
 <link doc="ngx_http_auth_jwt_module.xml">ngx_http_auth_jwt_module</link>
+(1.13.10),
+or
+<link doc="ngx_http_auth_jwt_module.xml">ngx_http_auth_oidc_module</link>
+(1.27.4)
 modules allow access.
 </para>
 
