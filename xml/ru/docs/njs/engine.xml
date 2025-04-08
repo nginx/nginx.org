@@ -9,7 +9,7 @@
 <article name="Движок JavaScript"
         link="/ru/docs/njs/engine.html"
         lang="ru"
-        rev="2"
+        rev="3"
         toc="no">
 
 <section>
@@ -93,7 +93,7 @@ API njs:
 
 <listitem>
 <link doc="reference.xml" id="crypto"><literal>crypto</literal></link>:
-TBD.
+начиная с <link doc="changes.xml" id="njs0.8.10">0.8.10</link>.
 </listitem>
 
 <listitem>
@@ -103,17 +103,17 @@ TBD.
 
 <listitem>
 <link doc="reference.xml" id="querystring"><literal>querystring</literal></link>:
-TBD.
+начиная с <link doc="changes.xml" id="njs0.8.10">0.8.10</link>.
 </listitem>
 
 <listitem>
 <link doc="reference.xml" id="builtin_crypto"><literal>WebCrypto</literal></link>:
-TBD.
+начиная с <link doc="changes.xml" id="njs0.8.10">0.8.10</link>.
 </listitem>
 
 <listitem>
 <link doc="reference.xml" id="xml"><literal>xml</literal></link>:
-TBD.
+начиная с <link doc="changes.xml" id="njs0.8.10">0.8.10</link>.
 </listitem>
 
 <listitem>
@@ -137,12 +137,12 @@ TBD.
 
 <listitem>
 <link doc="reference.xml" id="textdecoder"><literal>TextDecoder</literal></link>:
-TBD.
+начиная с <link doc="changes.xml" id="njs0.8.10">0.8.10</link>.
 </listitem>
 
 <listitem>
 <link doc="reference.xml" id="textencoder"><literal>TextEncoder</literal></link>:
-TBD.
+начиная с <link doc="changes.xml" id="njs0.8.10">0.8.10</link>.
 </listitem>
 
 </list>
