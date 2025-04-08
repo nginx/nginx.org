@@ -9,8 +9,179 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="75"
+        rev="76"
         toc="no">
+
+<section id="njs0.8.10" name="Changes with njs 0.8.10">
+
+<para>
+Release Date:
+08 April 2025
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+reading <link doc="reference.xml" id="r_request_text"><literal>r.requestText</literal></link>
+or
+<link doc="reference.xml" id="r_request_buffer"><literal>r.requestBuffer</literal></link>
+from a temporary file.
+Previously, an exception was thrown when accessing
+<link doc="reference.xml" id="r_request_text"><literal>r.requestText</literal></link>
+or
+<link doc="reference.xml" id="r_request_buffer"><literal>r.requestBuffer</literal></link>
+if the size of the client request body exceeded 
+<link doc="../http/ngx_http_core_module.xml" id="client_body_buffer_size"><literal>client_body_buffer_size</literal></link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+improved reporting of unhandled promise rejections.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed name corruption in variables and headers processing.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <link doc="reference.xml" id="dict_incr"><literal>incr()</literal></link>
+method of a shared dictionary with an empty init argument for the
+<link doc="engine.xml">QuickJS</link> engine.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+accepting response headers with underscore characters in
+<link doc="reference.xml" id="ngx_fetch">Fetch API</link>.
+</para>
+</listitem>
+
+</list>
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Change:
+fixed
+<link doc="reference.xml" id="xml_serialize_tostring"><literal>serializeToString()</literal></link>.
+Previously, <link doc="reference.xml" id="xml_serialize_tostring"><literal>serializeToString()</literal></link> was
+<link doc="reference.xml" id="xml_exclusivec14n"><literal>exclusiveC14n()</literal></link>
+which returned a string instead of Buffer.
+According to the published documentation, it
+should be <link doc="reference.xml" id="xml_c14n"><literal>c14n()</literal></link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added
+<link doc="reference.xml" id="builtin_crypto"><literal>WebCrypto</literal></link>
+API for the
+<link doc="engine.xml">QuickJS</link> engine.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added <link doc="reference.xml" id="textencoder"><literal>TextEncoder</literal></link>
+and
+<link doc="reference.xml" id="textdecoder"><literal>TextDecoder</literal></link>
+for the
+<link doc="engine.xml">QuickJS</link> engine.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added <link doc="reference.xml" id="querystring"><literal>querystring</literal></link>
+module for the
+<link doc="engine.xml">QuickJS</link> engine.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added <link doc="reference.xml" id="crypto"><literal>crypto</literal></link>
+module for the
+<link doc="engine.xml">QuickJS</link> engine.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added <link doc="reference.xml" id="xml"><literal>xml</literal></link> module
+for the
+<link doc="engine.xml">QuickJS</link> engine.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added support for the <literal>QuickJS-NG</literal> library.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<link doc="reference.xml" id="buffer_concat"><literal>Buffer.concat()</literal></link>
+with a single argument in <link doc="engine.xml">QuickJS</link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+added missed syntax error for <literal>await</literal> in template literal.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed non-NULL terminated strings formatting in exceptions for the
+<link doc="engine.xml">QuickJS</link> engine.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed compatibility with recent change in <link doc="engine.xml">QuickJS</link>
+and <literal>QuickJS-NG</literal>.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.8.9" name="Changes with njs 0.8.9">
 
