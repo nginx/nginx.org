@@ -66,7 +66,7 @@ Prior to version 1.11.3, the default value was <literal>on</literal>.
 <context>events</context>
 
 <para>
-If <link id="accept_mutex"/> is enabled, specifies the maximum time
+If <link id="accept_mutex"/> is enabled, this directive specifies the maximum time
 during which a worker process will try to restart accepting new
 connections if another worker process is currently accepting
 new connections.
