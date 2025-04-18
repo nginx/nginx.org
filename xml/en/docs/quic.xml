@@ -61,8 +61,7 @@ Use the following command to configure nginx with
     --with-debug
     --with-http_v3_module
     --with-cc-opt="-I../boringssl/include"
-    --with-ld-opt="-L../boringssl/build/ssl
-                   -L../boringssl/build/crypto"
+    --with-ld-opt="-L../boringssl/build -lstdc++"
 </programlisting>
 </para>
 
