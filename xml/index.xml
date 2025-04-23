@@ -27,6 +27,39 @@
 <year href="2009.html" year="2009" />
 </years>
 
+<event date="2025-04-23">
+<para>
+<link doc="en/download.xml">nginx-1.28.0</link>
+stable version has been released,
+incorporating new features and bug fixes from the 1.27.x mainline branch &mdash;
+including memory usage and CPU usage
+<link url="https://blog.nginx.org/blog/optimizing-resource-usage-for-complex-ssl-configurations">optimizations</link>
+in complex SSL configurations,
+<link url="https://blog.nginx.org/blog/dynamic-dns-resolution-open-sourced-in-nginx">automatic
+re‑resolution</link>
+of hostnames in upstream groups,
+performance
+<link url="https://blog.nginx.org/blog/congestion-control-enhancements-for-quic">enhancements</link>
+in QUIC,
+<link doc="en/docs/stream/ngx_stream_ssl_module.xml" id="ssl_ocsp">OCSP
+validation</link> of client SSL certificates
+and
+<link doc="en/docs/stream/ngx_stream_ssl_module.xml" id="ssl_stapling">OCSP
+stapling</link> support in the stream module,
+variables support in the
+<link doc="en/docs/http/ngx_http_proxy_module.xml" id="proxy_limit_rate">proxy_limit_rate</link>,
+<link doc="en/docs/http/ngx_http_fastcgi_module.xml" id="fastcgi_limit_rate">fastcgi_limit_rate</link>,
+<link doc="en/docs/http/ngx_http_scgi_module.xml" id="scgi_limit_rate">scgi_limit_rate</link>,
+and
+<link doc="en/docs/http/ngx_http_uwsgi_module.xml" id="uwsgi_limit_rate">uwsgi_limit_rate</link>
+directives,
+the
+<link doc="en/docs/http/ngx_http_proxy_module.xml" id="proxy_pass_trailers">proxy_pass_trailers</link>
+directive,
+and more.
+</para>
+</event>
+
 <event date="2025-04-16">
 <para>
 <link doc="en/download.xml">nginx-1.27.5</link>
