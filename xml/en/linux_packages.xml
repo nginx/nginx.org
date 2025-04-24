@@ -7,7 +7,7 @@
 <article name="nginx: Linux packages"
          link="/en/linux_packages.html"
          lang="en"
-         rev="105">
+         rev="106">
 
 <section name="Supported distributions and versions" id="distributions">
 
@@ -89,6 +89,11 @@ versions:
 
 <tr>
 <td width="30%">24.10 “oracular”</td>
+<td>x86_64, aarch64/arm64</td>
+</tr>
+
+<tr>
+<td width="30%">25.04 “plucky”</td>
 <td>x86_64, aarch64/arm64</td>
 </tr>
 
