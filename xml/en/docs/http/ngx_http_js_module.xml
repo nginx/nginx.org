@@ -9,7 +9,7 @@
 <module name="Module ngx_http_js_module"
         link="/en/docs/http/ngx_http_js_module.html"
         lang="en"
-        rev="51">
+        rev="52">
 
 <section id="summary">
 
@@ -205,18 +205,42 @@ function filter(r, data, flags) {
     r.sendBuffer(data.toLowerCase(), flags);
 }
 </example>
-To stop filtering (following data chunks will be passed to client
-without calling <literal>js_body_filter</literal>),
-<link doc="../njs/reference.xml" id="r_done"><literal>r.done()</literal></link>
-can be used.
 </para>
 
 <para>
-If the filter function changes the length of the response body, then
-it is required to clear out the <header>Content-Length</header> response header
-(if any) in
-<link id="js_header_filter"><literal>js_header_filter</literal></link>
-to enforce chunked transfer encoding.
+If the filter function changes the length of the response body, the
+<header>Content-Length</header> response header (if present) should be cleared
+in <link id="js_header_filter"><literal>js_header_filter</literal></link>
+to enforce chunked transfer encoding:
+<example>
+example.conf:
+ location /foo {
+     # proxy_pass http://localhost:8080;
+
+    js_header_filter main.clear_content_length;
+    js_body_filter   main.filter;
+ }
+
+example.js:
+ function clear_content_length(r) {
+     delete r.headersOut['Content-Length'];
+ }
+</example>
+</para>
+
+<para>
+To stop filtering and pass the data chunks to the client
+without calling <literal>js_body_filter</literal>,
+<link doc="../njs/reference.xml" id="r_done"><literal>r.done()</literal></link>
+can be used.
+For example, to prepend some data to the response body:
+<example>
+function prepend(r, data, flags) {
+    r.sendBuffer("XXX");
+    r.sendBuffer(data, flags);
+    r.done();
+}
+</example>
 </para>
 
 <para>
