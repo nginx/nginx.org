@@ -9,8 +9,82 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="76"
+        rev="77"
         toc="no">
+
+<section id="njs0.9.0" name="Changes with njs 0.9.0">
+
+<para>
+Release Date:
+06 May 2025
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+refactored handling of built-in strings, symbols, and small integers.
+Performance improvements (arewefastyet/benchmarks/v8-v7 benchmark):
+<list type="bullet">
+
+<listitem>
+<para>
+Richards: +57% (631 → 989)
+</para>
+</listitem>
+
+<listitem>
+<para>
+Crypto: +7% (1445 → 1551)
+</para>
+</listitem>
+
+<listitem>
+<para>
+RayTrace: +37% (562 → 772)
+</para>
+</listitem>
+
+<listitem>
+<para>
+NavierStokes: +20% (2062 → 2465)
+</para>
+</listitem>
+
+<listitem>
+<para>
+Overall score: +29% (1014 → 1307)
+</para>
+</listitem>
+
+</list>
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed handling of undefined values of a captured group
+in <literal>RegExp.prototype[Symbol.split]()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>GCC 15</literal> build error with
+<literal>-Wunterminated-string-initialization</literal>.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.8.10" name="Changes with njs 0.8.10">
 
