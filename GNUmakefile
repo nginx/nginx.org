@@ -141,6 +141,7 @@ $(foreach lang, $(LANGS), $(OUT)/$(lang)/docs/varindex.html): $(VARIND_DEPS)
 
 $(OUT)/index.html:							\
 		xml/homepage.xml					\
+		xml/index.xml						\
 		$(ARTICLE_DEPS)
 	$(call XSLT, xslt/article.xslt, $<, $@)
 
