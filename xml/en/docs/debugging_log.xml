@@ -129,6 +129,14 @@ expr while ($log->writer != ngx_log_memory_writer) { $log = $log->next; }
 expr ngx_log_memory_buf_t *$buf = (ngx_log_memory_buf_t *) $log->wdata
 memory read --force --outfile debug_log.txt --binary $buf->start $buf->end
 </example>
+If the line was added in a server block, find a frame that has a request struct and:
+<example>
+set $log = r->connection->log
+
+set $buf = (ngx_log_memory_buf_t *) $log->wdata
+dump binary memory debug_log.txt $buf->start $buf->end
+</example>
+
 </para>
 
 </section>
