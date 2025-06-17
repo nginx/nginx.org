@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="128">
+        rev="129">
 
 <section id="summary">
 
@@ -2478,6 +2478,27 @@ in <literal>deriveKey()</literal>
 </list>
 
 </listitem>
+
+<listitem id="ecdh_params">
+for <literal>ECDH</literal>,
+pass the object with the following keys
+(since <link doc="changes.xml" id="njs0.9.1">0.9.1</link>):
+
+<list type="bullet">
+
+<listitem>
+<literal>name</literal> is a string,
+should be set to <literal>ECDH</literal>
+</listitem>
+
+<listitem>
+<literal>public</literal> is a <link id="cryptokey"><literal>CryptoKey</literal></link>
+that represents the public key of the other party.
+The key must be generated using the same curve as the base key.
+</listitem>
+</list>
+
+</listitem>
 </list>
 
 </tag-desc>
@@ -2596,6 +2617,27 @@ salt does not need to be kept secret.
 <literal>iterations</literal> is a <literal>number</literal>
 that represents the number of times the hash function will be executed
 in <literal>deriveKey()</literal>
+</listitem>
+</list>
+
+</listitem>
+
+<listitem>
+for <literal>ECDH</literal>,
+pass the object with the following keys
+(since <link doc="changes.xml" id="njs0.9.1">0.9.1</link>):
+
+<list type="bullet">
+
+<listitem>
+<literal>name</literal> is a string,
+should be set to <literal>ECDH</literal>
+</listitem>
+
+<listitem>
+<literal>publicKey</literal> is a <link id="cryptokey"><literal>CryptoKey</literal></link>
+that represents the public key of the other party.
+The key must be generated using the same curve as the base key.
 </listitem>
 </list>
 
@@ -2939,6 +2981,28 @@ of the form <literal>{ "name": "ALGORITHM" }</literal>,
 where <literal>ALGORITHM</literal> is the name of the algorithm
 </listitem>
 
+<listitem>
+for
+<literal>ECDH</literal>,
+pass the object with the following keys
+(since <link doc="changes.xml" id="njs0.9.1">0.9.1</link>):
+
+<list type="bullet">
+<listitem>
+<literal>name</literal> is a string, should be set to <literal>ECDH</literal>
+</listitem>
+
+<listitem>
+<literal>namedCurve</literal> is a string that represents
+the name of the elliptic curve to use, may be
+<literal>P-256</literal>,
+<literal>P-384</literal>, or
+<literal>P-521</literal>
+</listitem>
+
+</list>
+</listitem>
+
 </list>
 </tag-desc>
 
@@ -3160,6 +3224,28 @@ pass the <literal>PBKDF2</literal> string
 for
 <literal>HKDF</literal>,
 pass the <literal>HKDF</literal> string
+</listitem>
+
+<listitem>
+for
+<literal>ECDH</literal>,
+pass the object with the following keys
+(since <link doc="changes.xml" id="njs0.9.1">0.9.1</link>):
+
+<list type="bullet">
+<listitem>
+<literal>name</literal> is a string, should be set to <literal>ECDH</literal>
+</listitem>
+
+<listitem>
+<literal>namedCurve</literal> is a string that represents
+the name of the elliptic curve to use, may be
+<literal>P-256</literal>,
+<literal>P-384</literal>, or
+<literal>P-521</literal>
+</listitem>
+
+</list>
 </listitem>
 
 </list>
