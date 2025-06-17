@@ -9,7 +9,7 @@
 <module name="Module ngx_http_js_module"
         link="/en/docs/http/ngx_http_js_module.html"
         lang="en"
-        rev="52">
+        rev="53">
 
 <section id="summary">
 
@@ -782,7 +782,8 @@ since <link doc="../njs/changes.xml" id="njs0.7.7">0.7.7</link>.
     <literal>zone</literal>=<value>name</value>:<value>size</value>
     [<literal>timeout</literal>=<value>time</value>]
     [<literal>type</literal>=<literal>string</literal>|<literal>number</literal>]
-    [<literal>evict</literal>]</syntax>
+    [<literal>evict</literal>]
+    [<literal>state</literal>=<value>file</value>]</syntax>
 <default/>
 <context>http</context>
 <appeared-in>0.8.0</appeared-in>
@@ -819,6 +820,13 @@ key-value pair when the zone storage is exhausted.
 </para>
 
 <para>
+The optional <literal>state</literal> parameter specifies a <value>file</value>
+that keeps the shared dictionary state
+in JSON format and makes it persistent across nginx restarts
+(<link doc="../njs/changes.xml" id="njs0.9.1">0.9.1</link>).
+</para>
+
+<para>
 Example:
 <example>
 example.conf:
@@ -832,6 +840,9 @@ example.conf:
 
     # Creates a 32Kb permanent dictionary with number values:
     js_shared_dict_zone zone=num:32k type=number;
+
+    # Creates a 1Mb dictionary with string values and persistent state:
+    js_shared_dict_zone zone=persistent:1M state=/tmp/dict.json;
 
 example.js:
     function get(r) {
