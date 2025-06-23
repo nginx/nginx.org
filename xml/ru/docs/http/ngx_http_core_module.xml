@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="107">
+        rev="108">
 
 <section id="directives" name="Директивы">
 
@@ -635,6 +635,35 @@ disable_symlinks on from=$document_root;
 и <link doc="ngx_http_dav_module.xml">ngx_http_dav_module</link>
 в настоящий момент игнорируют эту директиву.
 </note>
+</para>
+
+</directive>
+
+
+<directive name="early_hints">
+<syntax><value>строка</value> ...</syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.29.0</appeared-in>
+
+<para>
+Задаёт условия, при которых ответ с кодом
+<http-status code="103" text="Early Hints"/>
+будет передан клиенту.
+Если значение хотя бы одного из строковых параметров непустое и не равно “0”,
+то ответ будет передан:
+<example>
+map $http_sec_fetch_mode $early_hints {
+    navigate $http2$http3;
+}
+
+server {
+    ...
+    early_hints $early_hints;
+}
+</example>
 </para>
 
 </directive>
