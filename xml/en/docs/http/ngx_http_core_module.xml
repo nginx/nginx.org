@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="107">
+        rev="108">
 
 <section id="directives" name="Directives">
 
@@ -640,6 +640,35 @@ The
 and <link doc="ngx_http_dav_module.xml">ngx_http_dav_module</link>
 modules currently ignore this directive.
 </note>
+</para>
+
+</directive>
+
+
+<directive name="early_hints">
+<syntax><value>string</value> ...</syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.29.0</appeared-in>
+
+<para>
+Defines conditions under which
+the <http-status code="103" text="Early Hints"/> response
+will be passed to a client.
+If at least one value of the string parameters is not empty and is not
+equal to “0” then the response will be passed:
+<example>
+map $http_sec_fetch_mode $early_hints {
+    navigate $http2$http3;
+}
+
+server {
+    ...
+    early_hints $early_hints;
+}
+</example>
 </para>
 
 </directive>
