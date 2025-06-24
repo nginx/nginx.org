@@ -661,7 +661,10 @@ map $http_sec_fetch_mode $early_hints {
 
 server {
     ...
-    early_hints $early_hints;
+    location / {
+        early_hints $early_hints;
+        proxy_pass http://example.com;
+    }
 }
 </example>
 </para>
