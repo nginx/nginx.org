@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_core_module"
         link="/ru/docs/stream/ngx_stream_core_module.html"
         lang="ru"
-        rev="40">
+        rev="41">
 
 <section id="summary">
 
@@ -320,8 +320,8 @@ FreeBSD, DragonFly BSD и macOS,
 “TCP keepalive” на уровне сокета посредством параметров
 <c-def>TCP_KEEPIDLE</c-def>, <c-def>TCP_KEEPINTVL</c-def> и
 <c-def>TCP_KEEPCNT</c-def>.
-На таких системах (в настоящий момент это Linux 2.4+, NetBSD 5+ и
-FreeBSD 9.0-STABLE)
+На таких системах
+(в настоящий момент это Linux, NetBSD, Dragonfly, FreeBSD и macOS)
 их можно сконфигурировать с помощью параметров <value>keepidle</value>,
 <value>keepintvl</value> и <value>keepcnt</value>.
 Один или два параметра могут быть опущены, в таком случае для

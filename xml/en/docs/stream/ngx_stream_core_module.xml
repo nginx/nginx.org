@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_core_module"
         link="/en/docs/stream/ngx_stream_core_module.html"
         lang="en"
-        rev="40">
+        rev="41">
 
 <section id="summary">
 
@@ -318,8 +318,9 @@ If it is set to the value “<literal>off</literal>”, the
 Some operating systems support setting of TCP keepalive parameters on
 a per-socket basis using the <c-def>TCP_KEEPIDLE</c-def>,
 <c-def>TCP_KEEPINTVL</c-def>, and <c-def>TCP_KEEPCNT</c-def> socket options.
-On such systems (currently, Linux 2.4+, NetBSD 5+, and
-FreeBSD 9.0-STABLE), they can be configured
+On such systems
+(currently, Linux, NetBSD, Dragonfly, FreeBSD, and macOS),
+they can be configured
 using the <value>keepidle</value>, <value>keepintvl</value>, and
 <value>keepcnt</value> parameters.
 One or two parameters may be omitted, in which case the system default setting
