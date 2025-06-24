@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_uwsgi_module"
         link="/ru/docs/http/ngx_http_uwsgi_module.html"
         lang="ru"
-        rev="54">
+        rev="55">
 
 <section id="summary">
 
@@ -1484,6 +1484,14 @@ uwsgi_ssl_certificate_cache max=1000 inactive=20s valid=1m;
 <literal>engine</literal>:<value>имя</value>:<value>id</value> (1.7.9),
 которое загружает ключ с указанным <value>id</value>
 из OpenSSL engine с заданным <value>именем</value>.
+</para>
+
+<para>
+Вместо <value>файла</value> можно указать значение
+<literal>store</literal>:<value>схема</value>:<value>id</value> (1.29.0),
+которое используется для загрузки ключа с указанным <value>id</value>
+и зарегистрированной провайдером OpenSSL <value>схемой</value> URI, такой как
+<link url="https://datatracker.ietf.org/doc/html/rfc7512"><literal>pkcs11</literal></link>.
 </para>
 
 <para id="uwsgi_ssl_certificate_key_variables">
