@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_ssl_module"
         link="/en/docs/stream/ngx_stream_ssl_module.html"
         lang="en"
-        rev="40">
+        rev="41">
 
 <section id="summary">
 
@@ -281,6 +281,15 @@ The value
 can be specified instead of the <value>file</value>,
 which loads a secret key with a specified <value>id</value>
 from the OpenSSL engine <value>name</value>.
+</para>
+
+<para>
+The value
+<literal>store</literal>:<value>scheme</value>:<value>id</value>
+can be specified instead of the <value>file</value> (1.29.0),
+which is used to load a secret key with a specified <value>id</value>
+and OpenSSL provider registered URI <value>scheme</value>, such as
+<link url="https://datatracker.ietf.org/doc/html/rfc7512"><literal>pkcs11</literal></link>.
 </para>
 
 <para id="ssl_certificate_key_data">
