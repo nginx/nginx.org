@@ -9,7 +9,7 @@
 <article name="JavaScript Engine"
         link="/en/docs/njs/engine.html"
         lang="en"
-        rev="3"
+        rev="4"
         toc="no">
 
 <section>
@@ -156,7 +156,7 @@ nginx built-in objects status:
 
 <listitem>
 <link doc="reference.xml" id="ngx_fetch"><literal>ngx.fetch</literal></link>:
-TBD.
+since <link doc="changes.xml" id="njs0.9.1">0.9.1</link>.
 </listitem>
 
 <listitem>
