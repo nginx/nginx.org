@@ -27,6 +27,22 @@
 <year href="2009.html" year="2009" />
 </years>
 
+<event date="2025-07-10">
+<para>
+<link doc="en/docs/njs/index.xml">njs-0.9.1</link>
+version has been
+<link doc="en/docs/njs/changes.xml" id="njs0.9.1">released</link>,
+featuring
+state file support for shared dictionary in
+<link doc="en/docs/http/ngx_http_js_module.xml" id="js_shared_dict_zone">http</link>
+and
+<link doc="en/docs/stream/ngx_stream_js_module.xml" id="js_shared_dict_zone">stream</link>,
+and
+<link url="https://blog.nginx.org/blog/quickjs-engine-support-for-njs">feature parity</link>
+with njs for the <link doc="en/docs/njs/engine.xml">QuickJS</link> engine.
+</para>
+</event>
+
 <event date="2025-06-24">
 <para>
 <link doc="en/download.xml">nginx-1.29.0</link>

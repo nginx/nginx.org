@@ -9,8 +9,179 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="77"
+        rev="78"
         toc="no">
+
+<section id="njs0.9.1" name="Changes with njs 0.9.1">
+
+<para>
+Release Date:
+10 Jul 2025
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+added <link doc="reference.xml" id="ngx_fetch">Fetch API</link>
+for <link doc="engine.xml">QuickJS</link> engine.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added state file for a
+<link doc="../http/ngx_http_js_module.xml" id="js_shared_dict_zone">shared dictionary</link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed handling of Content-Length header when a body is provided in
+<link doc="reference.xml" id="ngx_fetch">Fetch API</link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <link doc="engine.xml">qjs</link> engine after
+<link url="https://github.com/bellard/quickjs/commit/458c34d">bellard/quickjs@458c34d2</link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed NULL pointer dereference when processing
+<literal>If-Match</literal> and <literal>If-Unmodified-Since</literal> headers.
+</para>
+</listitem>
+
+</list>
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+added ECDH support for
+<link doc="reference.xml" id="builtin_crypto">WebCrypto</link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+reduced memory consumption by the object hash.
+The new hash uses 42% less memory per element.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+reduced memory consumption for concatenation of numbers and strings.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+reduced memory consumption of
+<literal>String.prototype.concat()</literal> with scalar values.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed segfault in <literal>njs_property_query()</literal>.
+The issue was introduced in
+<link url="https://github.com/nginx/njs/commit/b28e50b1">b28e50b1</link>
+(0.9.0).
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed Function constructor template injection.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed GCC compilation with O3 optimization level.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>constant is too large</literal>
+for 'long' warning on MIPS <literal>-mabi=n32</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed compilation with GCC 4.1.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>%TypedArray%.from()</literal> with the buffer is detached
+by the mapper.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>%TypedArray%.prototype.slice()</literal> with overlapping
+buffers.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed handling of detached buffers for typed arrays.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed frame saving for async functions with closures.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed RegExp compilation of patterns with escaped '[' characters.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.9.0" name="Changes with njs 0.9.0">
 
