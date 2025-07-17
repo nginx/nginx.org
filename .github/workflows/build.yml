@@ -24,7 +24,10 @@ jobs:
     uses: nginxinc/docs-actions/.github/workflows/nginx.org-make-aws.yml@nginx.org
     with:
       deployment_env: ${{ github.event_name == 'workflow_dispatch' && inputs.deployment_env || 'staging' }}
-    secrets: inherit
+    secrets:
+      AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+      AWS_ROLE_NAME: ${{ secrets.AWS_ROLE_NAME }}
+      AWS_SECRET_NAME: ${{ secrets.AWS_SECRET_NAME }}
 
     if: |
       (github.event_name == 'push')
