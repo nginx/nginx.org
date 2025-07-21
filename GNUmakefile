@@ -385,8 +385,67 @@ copy_draft:
 	/usr/local/bin/copy_draft.sh $(NGINX_ORG)
 endif
 
+
+#
+# Targets and rules for generating Markdown files from XML using XSLT transformations.
+# Includes module documentation and directory and variable indexes.
+#
+MODULE_MD_XSLT = xslt/module-md.xslt
+XML_MODULE_DIR = xml/en/docs
+MD_OUT_DIR     = libxslt-md/
+MODULE_MD_DEPS = $(MODULE_MD_XSLT) dtd/module.dtd
+
+define MODULE_MD_XSLT_PROC
+	xsltproc --stringparam sourceFileName "$(1)" $(MODULE_MD_XSLT) "$(XML_MODULE_DIR)/$(1)" > "$(MD_OUT_DIR)/module-reference/$(basename $(1)).md"
+endef
+
+XML_MODULE_FILES := $(shell grep -rl 'dtd/module.dtd' "$(XML_MODULE_DIR)" | grep -v 'ngx_http_api_module.xml' | sed 's|^$(XML_MODULE_DIR)/||')
+MD_MODULE_FILES := $(patsubst %.xml,$(MD_OUT_DIR)/module-reference/%.md,$(XML_MODULE_FILES))
+
+
+NGX_API_HEAD_XML = xml/en/docs/http/ngx_http_api_module_head.xml
+
+.PHONY: ngx-api-build
+ngx-api-build:
+	@grep -q '</module>' $(NGX_API_HEAD_XML) || echo '</module>' >> $(NGX_API_HEAD_XML)
+
+$(MD_OUT_DIR)/module-reference/%.md: $(XML_MODULE_DIR)/%.xml $(MODULE_MD_DEPS) ngx-api-build
+	@mkdir -p "$(dir $@)"
+	@echo "Processing $< -> $@"
+	$(call MODULE_MD_XSLT_PROC,$*.xml)
+
+define generate-index-md
+	@mkdir -p "$(dir $3)"
+	@echo "Processing $1 -> $3"
+	xsltproc -o $3 $2 $1
+endef
+
+.PHONY: dirindex-markdown
+DIRINDEX_XML = xml/en/docs/dirindex.xml
+DIRINDEX_MD = $(MD_OUT_DIR)/directives.md
+DIRINDEX_XSLT = xslt/dirindex-md.xslt
+
+dirindex-markdown: $(DIRINDEX_MD)
+
+$(DIRINDEX_MD): $(DIRINDEX_XML) $(DIRINDEX_XSLT)
+	$(call generate-index-md,$(DIRINDEX_XML),$(DIRINDEX_XSLT),$(DIRINDEX_MD))
+
+.PHONY: varindex-markdown
+VARINDEX_XML = xml/en/docs/varindex.xml
+VARINDEX_MD = $(MD_OUT_DIR)/variables.md
+VARINDEX_XSLT = xslt/varindex-md.xslt
+
+varindex-markdown: $(VARINDEX_MD)
+
+$(VARINDEX_MD): $(VARINDEX_XML) $(VARINDEX_XSLT)
+	$(call generate-index-md,$(VARINDEX_XML),$(VARINDEX_XSLT),$(VARINDEX_MD))
+
+.PHONY: module-markdown
+module-markdown: ngx-api-build $(MD_MODULE_FILES) dirindex-markdown varindex-markdown
+	@echo "All module, dirindex, varindex, and API module XML files converted successfully."
+
 clean:
-	rm -rf $(ZIP) $(OUT) xml/*/docs/dirindex.xml dir.map 		\
+	rm -rf $(ZIP) $(OUT) $(MD_OUT_DIR) xml/*/docs/dirindex.xml dir.map 		\
 	xml/*/docs/varindex.xml
 
 .DELETE_ON_ERROR:
