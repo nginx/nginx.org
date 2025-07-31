@@ -1,25 +1,31 @@
+name: Deploy nginx.org
+
 on:
   push:
     branches:
-      - main
-    paths:
-      - 'binary/**'
-      - 'css/**'
-      - 'dtd/**'
-      - 'img/**'
-      - 'sources/**'
-      - 'text/**'
-      - 'tools/**'
-      - 'xml/**'
-      - 'xsls/**'
-      - 'xslt/**'
-      - 'yaml/**'
-  
+      - "**"
+  workflow_dispatch:
+    inputs:
+      deployment_env:
+        type: choice
+        description: Deployment environment
+        options:
+          - staging
+          - prod
+        default: staging
+
 permissions:
   contents: read
   id-token: write
-  
+
+
 jobs:
-  build:
-    name: build site
-    uses: nginx/ci-self-hosted/.github/workflows/nginx.org-build.yml@main    
+  deploy:
+    name: Deploy nginx.org
+    uses: nginxinc/docs-actions/.github/workflows/nginx.org-make-aws.yml@main
+    with:
+      deployment_env: ${{ github.event_name == 'workflow_dispatch' && inputs.deployment_env || 'staging' }}
+    secrets:
+      AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+      AWS_ROLE_NAME: ${{ secrets.AWS_ROLE_NAME }}
+      ALLOWED_USERS: ${{ secrets.ALLOWED_USERS }}
