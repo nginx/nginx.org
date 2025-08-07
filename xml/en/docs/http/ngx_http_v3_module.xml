@@ -21,7 +21,7 @@ experimental support for
 
 <para>
 This module is not built by default, it should be enabled with the
-<link doc="../configure.xml" id="http_v3_module"><literal>--with-http_v3_module</literal></link>
+<literal>--with-http_v3_module</literal>
 configuration parameter.
 <note>
 An SSL library that provides QUIC support
