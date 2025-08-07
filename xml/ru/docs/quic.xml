@@ -7,7 +7,7 @@
 <article name="Поддержка QUIC и HTTP/3"
          link="/ru/docs/quic.html"
          lang="ru"
-         rev="2">
+         rev="3">
 
 <section>
 
@@ -16,15 +16,10 @@
 <link url="https://datatracker.ietf.org/doc/html/rfc9000">QUIC</link>
 и
 <link url="https://datatracker.ietf.org/doc/html/rfc9114">HTTP/3</link>
-доступна начиная с версии 1.25.0.
-Также, начиная с 1.25.0, поддержка доступна в
-<link doc="../linux_packages.xml">готовых пакетах</link> для Linux.
-</para>
-
-<para>
-<note>
-Поддержка QUIC и HTTP/3 экспериментальная, поэтому возможно всё.
-</note>
+доступна начиная с версии 1.25.0, она включена в
+<link doc="../linux_packages.xml">бинарных пакетах</link> для Linux.
+Подробнее см. документацию к модулю
+<link doc="http/ngx_http_v3_module.xml">ngx_http_v3_module</link>.
 </para>
 
 </section>
@@ -38,19 +33,14 @@
 </para>
 
 <para>
-Во время сборки nginx можно включить QUIC и HTTP/3
-при помощи конфигурационного параметра
-<link doc="configure.xml" id="http_v3_module"><literal>--with-http_v3_module</literal></link>.
-</para>
-
-<para>
-Для сборки nginx рекомендуется библиотека SSL с поддержкой QUIC, например
+Для сборки nginx с поддержкой QUIC рекомендуется библиотека
+<link url="https://openssl.org">OpenSSL</link> версии 3.5.1 или выше.
+Иначе будет использоваться OpenSSL compatibility layer без поддержки TLS
+<link doc="http/ngx_http_ssl_module.xml" id="ssl_early_data">early data</link>.
+Также возможно использование предварительно собранной библиотеки
 <link url="https://boringssl.googlesource.com/boringssl">BoringSSL</link>,
 <link url="https://www.libressl.org">LibreSSL</link> или
 <link url="https://github.com/quictls/openssl">QuicTLS</link>.
-Иначе, при использовании библиотеки <link url="https://openssl.org">OpenSSL</link>,
-будет использоваться OpenSSL compatibility layer, в котором не поддерживается
-<link doc="http/ngx_http_ssl_module.xml" id="ssl_early_data">early data</link>.
 </para>
 
 <para>
@@ -79,7 +69,7 @@
 </para>
 
 <para>
-Кроме того, можно сконфигурировать nginx с современной версией
+Кроме того, можно сконфигурировать nginx с
 <link url="https://www.libressl.org">LibreSSL</link>:
 <programlisting>
 ./configure
@@ -99,7 +89,7 @@ nginx компилируется и устанавливается с помощ
 </section>
 
 
-<section id="configuration" name="Конфигурация">
+<section id="configuration" name="Советы по настройке">
 
 <para>
 В директиве <link doc="http/ngx_http_core_module.xml" id="listen"/>
@@ -114,11 +104,6 @@ nginx компилируется и устанавливается с помощ
 можно также указать параметр
 <link doc="http/ngx_http_core_module.xml" id="reuseport">reuseport</link>
 для правильной работы с несколькими рабочими процессами.
-</para>
-
-<para>
-Список директив см. в модуле
-<link doc="http/ngx_http_v3_module.xml">ngx_http_v3_module</link>.
 </para>
 
 <para>
@@ -158,38 +143,6 @@ quic_host_key &lt;filename&gt;;
 выключена.
 Включите, если настроен соответствующий сетевой интерфейс,
 поддерживающий GSO.
-</para>
-
-</section>
-
-
-<section id="example" name="Пример конфигурации">
-
-<para>
-<example>
-http {
-    log_format quic '$remote_addr - $remote_user [$time_local] '
-                    '"$request" $status $body_bytes_sent '
-                    '"$http_referer" "$http_user_agent" "$http3"';
-
-    access_log logs/access.log quic;
-
-    server {
-        # для лучшей совместимости рекомендуется
-        # использовать один порт для quic и https
-        listen 8443 quic reuseport;
-        listen 8443 ssl;
-
-        ssl_certificate     certs/example.com.crt;
-        ssl_certificate_key certs/example.com.key;
-
-        location / {
-            # для перенаправления браузеров в quic-порт
-            add_header Alt-Svc 'h3=":8443"; ma=86400';
-        }
-    }
-}
-</example>
 </para>
 
 </section>
