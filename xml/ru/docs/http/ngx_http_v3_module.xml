@@ -24,16 +24,16 @@
 разрешить с помощью конфигурационного параметра
 <literal>--with-http_v3_module</literal>.
 <note>
-Для сборки и работы этого модуля рекомендуется использовать
-библиотеку SSL с поддержкой QUIC, например
+Для сборки и работы этого модуля нужна библиотека
+<link url="http://www.openssl.org">OpenSSL</link> версии 1.1.1 или выше.
+</note>
+<note>
+Для поддержки 0-RTT нужна библиотека
+<link url="http://www.openssl.org">OpenSSL</link> версии 3.5.1 или выше.
+Также возможно использование библиотек
 <link url="https://boringssl.googlesource.com/boringssl">BoringSSL</link>,
 <link url="https://www.libressl.org">LibreSSL</link>,
 <link url="https://github.com/quictls/openssl">QuicTLS</link>.
-Иначе,
-при использовании библиотеки <link url="https://openssl.org">OpenSSL</link>,
-будет использоваться OpenSSL compatibility layer,
-в котором не поддерживается
-<link doc="ngx_http_ssl_module.xml" id="ssl_early_data">early data</link>.
 </note>
 </para>
 
@@ -44,6 +44,14 @@
 
 <para>
 Модуль экспериментальный, поэтому возможно всё.
+</para>
+
+<para>
+До версии 1.29.1
+поддержка 0-RTT не могла быть разрешена при использовании OpenSSL
+независимо от
+значения директивы
+<link doc="ngx_http_ssl_module.xml" id="ssl_early_data"/>.
 </para>
 
 </section>
@@ -76,9 +84,6 @@ http {
     }
 }
 </example>
-Чтобы принимать HTTP/3-соединения по TLS, необходимо
-наличие поддержки протокола TLSv1.3, появившейся в
-<link url="http://www.openssl.org">OpenSSL</link> версии 1.1.1.
 </para>
 
 </section>

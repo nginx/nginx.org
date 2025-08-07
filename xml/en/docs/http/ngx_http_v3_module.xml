@@ -24,16 +24,19 @@ This module is not built by default, it should be enabled with the
 <literal>--with-http_v3_module</literal>
 configuration parameter.
 <note>
-An SSL library that provides QUIC support
-such as
+This module requires the
+<link url="http://www.openssl.org">OpenSSL</link> library
+version 1.1.1 or higher.
+</note>
+<note>
+0-RTT support requires the
+<link url="http://www.openssl.org">OpenSSL</link> library
+version 3.5.1 or higher.
+Alternatively,
 <link url="https://boringssl.googlesource.com/boringssl">BoringSSL</link>,
 <link url="https://www.libressl.org">LibreSSL</link>, or
 <link url="https://github.com/quictls/openssl">QuicTLS</link>
-is recommended to build and run this module.
-Otherwise,
-when using the <link url="https://openssl.org">OpenSSL</link> library,
-OpenSSL compatibility layer will be used that does not support
-<link doc="ngx_http_ssl_module.xml" id="ssl_early_data">early data</link>.
+libraries can be used to build and run this module.
 </note>
 </para>
 
@@ -44,6 +47,14 @@ OpenSSL compatibility layer will be used that does not support
 
 <para>
 The module is experimental, caveat emptor applies.
+</para>
+
+<para>
+Before version 1.29.1,
+0-RTT support could not be enabled with OpenSSL
+regardless of the
+<link doc="ngx_http_ssl_module.xml" id="ssl_early_data"/>
+directive value.
 </para>
 
 </section>
@@ -76,9 +87,6 @@ http {
     }
 }
 </example>
-Note that accepting HTTP/3 connections over TLS requires
-the TLSv1.3 protocol support, which is available since
-<link url="http://www.openssl.org">OpenSSL</link> version 1.1.1.
 </para>
 
 </section>
