@@ -7,7 +7,7 @@
 <article name="Support for QUIC and HTTP/3"
          link="/en/docs/quic.html"
          lang="en"
-         rev="2">
+         rev="3">
 
 <section>
 
@@ -16,15 +16,11 @@ Support for
 <link url="https://datatracker.ietf.org/doc/html/rfc9000">QUIC</link>
 and
 <link url="https://datatracker.ietf.org/doc/html/rfc9114">HTTP/3</link>
-protocols is available since 1.25.0.
-Also, since 1.25.0, the QUIC and HTTP/3 support is available in
+protocols is available since 1.25.0, it is included in
 Linux <link doc="../linux_packages.xml">binary packages</link>.
-</para>
-
-<para>
-<note>
-The QUIC and HTTP/3 support is experimental, caveat emptor applies.
-</note>
+Please refer to the
+<link doc="http/ngx_http_v3_module.xml">ngx_http_v3_module</link>
+documentation.
 </para>
 
 </section>
@@ -38,19 +34,16 @@ Please refer to <link doc="configure.xml"/> for details.
 </para>
 
 <para>
-When configuring nginx, it is possible to enable QUIC and HTTP/3 using the
-<link doc="configure.xml" id="http_v3_module"><literal>--with-http_v3_module</literal></link>
-configuration parameter.
-</para>
-
-<para>
-An SSL library that provides QUIC support is recommended to build nginx, such as
-<link url="https://boringssl.googlesource.com/boringssl">BoringSSL</link>,
-<link url="https://www.libressl.org">LibreSSL</link>, or
-<link url="https://github.com/quictls/openssl">QuicTLS</link>.
+The <link url="https://openssl.org">OpenSSL</link> library
+version 3.5.1 or higher is recommended to build nginx with QUIC support.
 Otherwise, the <link url="https://openssl.org">OpenSSL</link>
 compatibility layer will be used that does not support
 <link doc="http/ngx_http_ssl_module.xml" id="ssl_early_data">early data</link>.
+Alternatively,
+<link url="https://boringssl.googlesource.com/boringssl">BoringSSL</link>,
+<link url="https://www.libressl.org">LibreSSL</link>, or
+<link url="https://github.com/quictls/openssl">QuicTLS</link>
+prebuilt libraries can be used.
 </para>
 
 <para>
@@ -78,7 +71,7 @@ Alternatively, nginx can be configured with
 </para>
 
 <para>
-Alternatively, nginx can be configured with a modern version of
+Alternatively, nginx can be configured with
 <link url="https://www.libressl.org">LibreSSL</link>:
 <programlisting>
 ./configure
@@ -97,7 +90,7 @@ nginx is compiled and installed using <command>make</command>.
 </section>
 
 
-<section id="configuration" name="Configuration">
+<section id="configuration" name="Configuration tips">
 
 <para>
 The <link doc="http/ngx_http_core_module.xml" id="listen"/> directive in
@@ -112,11 +105,6 @@ Along with the <literal>quic</literal> parameter
 it is also possible to specify the
 <link doc="http/ngx_http_core_module.xml" id="reuseport">reuseport</link>
 parameter to make it work properly with multiple workers.
-</para>
-
-<para>
-For the list of directives, see
-<link doc="http/ngx_http_v3_module.xml">ngx_http_v3_module</link>.
 </para>
 
 <para>
@@ -156,38 +144,6 @@ By default,
 is disabled.
 Enable it in case a corresponding network interface is configured
 to support GSO.
-</para>
-
-</section>
-
-
-<section id="example" name="Example Configuration">
-
-<para>
-<example>
-http {
-    log_format quic '$remote_addr - $remote_user [$time_local] '
-                    '"$request" $status $body_bytes_sent '
-                    '"$http_referer" "$http_user_agent" "$http3"';
-
-    access_log logs/access.log quic;
-
-    server {
-        # for better compatibility it's recommended
-        # to use the same port for quic and https
-        listen 8443 quic reuseport;
-        listen 8443 ssl;
-
-        ssl_certificate     certs/example.com.crt;
-        ssl_certificate_key certs/example.com.key;
-
-        location / {
-            # required for browsers to direct them to quic port
-            add_header Alt-Svc 'h3=":8443"; ma=86400';
-        }
-    }
-}
-</example>
 </para>
 
 </section>
