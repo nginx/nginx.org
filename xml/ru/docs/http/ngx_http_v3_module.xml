@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_v3_module"
         link="/ru/docs/http/ngx_http_v3_module.html"
         lang="ru"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -52,6 +52,10 @@
 независимо от
 значения директивы
 <link doc="ngx_http_ssl_module.xml" id="ssl_early_data"/>.
+</para>
+
+<para>
+Сборка модуля не поддерживается на платформе Win32.
 </para>
 
 </section>
