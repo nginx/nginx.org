@@ -9,7 +9,7 @@
 <module name="Module ngx_http_v3_module"
         link="/en/docs/http/ngx_http_v3_module.html"
         lang="en"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -55,6 +55,10 @@ Before version 1.29.1,
 regardless of the
 <link doc="ngx_http_ssl_module.xml" id="ssl_early_data"/>
 directive value.
+</para>
+
+<para>
+The module cannot be built on the Win32 platform.
 </para>
 
 </section>
