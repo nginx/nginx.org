@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_ssl_module"
         link="/en/docs/stream/ngx_stream_ssl_module.html"
         lang="en"
-        rev="41">
+        rev="42">
 
 <section id="summary">
 
@@ -259,6 +259,26 @@ ssl_certificate       $ssl_server_name.crt;
 ssl_certificate_key   $ssl_server_name.key;
 ssl_certificate_cache max=1000 inactive=20s valid=1m;
 </example>
+</para>
+
+</directive>
+
+
+<directive name="ssl_certificate_compression">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.29.1</appeared-in>
+
+<para>
+Enables TLS 1.3
+<link url="https://datatracker.ietf.org/doc/html/rfc8879">compression</link>
+of server certificates.
+<note>
+The directive is supported when using OpenSSL 3.2 or higher;
+the list of supported compression algorithms is provided by the library.
+</note>
 </para>
 
 </directive>

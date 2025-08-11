@@ -10,7 +10,7 @@
 <module name="Модуль ngx_mail_ssl_module"
         link="/ru/docs/mail/ngx_mail_ssl_module.html"
         lang="ru"
-        rev="31">
+        rev="32">
 
 <section id="summary">
 
@@ -154,6 +154,26 @@ server {
 подобного синтаксиса может быть небезопасно,
 например данные секретного ключа могут попасть в
 <link doc="../ngx_core_module.xml" id="error_log">лог ошибок</link>.
+</para>
+
+</directive>
+
+
+<directive name="ssl_certificate_compression">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>mail</context>
+<context>server</context>
+<appeared-in>1.29.1</appeared-in>
+
+<para>
+Разрешает
+<link url="https://datatracker.ietf.org/doc/html/rfc8879">сжатие</link>
+серверных сертификатов при использовании TLS 1.3.
+<note>
+Директива поддерживается при использовании OpenSSL 3.2 и выше;
+список поддерживаемых алгоритмов сжатия обеспечивается библиотекой.
+</note>
 </para>
 
 </directive>
