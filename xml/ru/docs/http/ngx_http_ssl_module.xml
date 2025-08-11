@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_ssl_module"
         link="/ru/docs/http/ngx_http_ssl_module.html"
         lang="ru"
-        rev="67">
+        rev="68">
 
 <section id="summary">
 
@@ -279,6 +279,26 @@ ssl_certificate       $ssl_server_name.crt;
 ssl_certificate_key   $ssl_server_name.key;
 ssl_certificate_cache max=1000 inactive=20s valid=1m;
 </example>
+</para>
+
+</directive>
+
+
+<directive name="ssl_certificate_compression">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<appeared-in>1.29.1</appeared-in>
+
+<para>
+Разрешает
+<link url="https://datatracker.ietf.org/doc/html/rfc8879">сжатие</link>
+серверных сертификатов при использовании TLS 1.3.
+<note>
+Директива поддерживается при использовании OpenSSL 3.2 и выше;
+список поддерживаемых алгоритмов сжатия обеспечивается библиотекой.
+</note>
 </para>
 
 </directive>
