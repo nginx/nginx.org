@@ -7,7 +7,7 @@
 <article name="nginx: пакеты для Linux"
          link="/ru/linux_packages.html"
          lang="ru"
-         rev="108">
+         rev="109">
 
 <section name="Поддерживаемые дистрибутивы и версии" id="distributions">
 
@@ -644,6 +644,11 @@ nginx-module-xslt
 в виде отдельного пакета:
 <programlisting>
 nginx-module-otel
+</programlisting>
+В дополнение к этому, начиная с версии 1.29.1 следующий модуль поставляется
+в виде отдельного пакета:
+<programlisting>
+nginx-module-acme
 </programlisting>
 </para>
 

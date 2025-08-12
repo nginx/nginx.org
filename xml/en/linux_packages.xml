@@ -7,7 +7,7 @@
 <article name="nginx: Linux packages"
          link="/en/linux_packages.html"
          lang="en"
-         rev="108">
+         rev="109">
 
 <section name="Supported distributions and versions" id="distributions">
 
@@ -647,6 +647,11 @@ Additionally, since version 1.25.3, the following module is shipped as a
 separate package:
 <programlisting>
 nginx-module-otel
+</programlisting>
+Additionally, since version 1.29.1, the following module is shipped as a
+separate package:
+<programlisting>
+nginx-module-acme
 </programlisting>
 </para>
 
