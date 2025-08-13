@@ -1,6 +1,11 @@
 
 Changes with nginx 1.29.1                                        13 Aug 2025
 
+    *) Security: processing of a specially crafted login/password when using
+       the "none" authentication method in the ngx_mail_smtp_module might
+       cause worker process memory disclosure to the authentication server
+       (CVE-2025-53859).
+
     *) Change: now TLSv1.3 certificate compression is disabled by default.
 
     *) Feature: the "ssl_certificate_compression" directive.
