@@ -16,9 +16,8 @@
 <para>
 The <literal>ngx_mgmt_module</literal> module enables
 NGINX Plus license verification and usage reporting.
-This is mandatory for each
-<link url="https://docs.nginx.com/nginx/releases/#nginxplusrelease-33-r33"><literal>nginx/1.27.2
-(nginx-plus-r33)</literal></link> instance.
+This is mandatory for each NGINX Plus instance since 1.27.2 (
+<link url="https://docs.nginx.com/nginx/releases/#r33">NGINX Plus R33</link>).
 </para>
 
 <para>
@@ -46,6 +45,17 @@ to F5 licensing endpoint.
 <para>
 By default, if the <link id="enforce_initial_report">initial usage report</link>
 is not received by F5 licensing endpoint, nginx will stop processing traffic.
+</para>
+
+<para>
+Automatic license renewal is supported since 1.29.0
+(<link url="https://docs.nginx.com/nginx/releases/#r35">NGINX Plus R35</link>)
+for instances that report directly to the F5 licensing endpoint.
+On renewal, NGINX downloads the updated JWT from F5 licensing endpoint
+and applies it without
+configuration <link doc="switches.xml">reload</link>.
+The updated license is stored
+in the <link id="state_path">state_path</link> directory.
 </para>
 
 <para>

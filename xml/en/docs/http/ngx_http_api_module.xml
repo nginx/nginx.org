@@ -209,6 +209,12 @@ redirect</link> happens during request processing.
 <list type="bullet">
 
 <listitem>
+The “<literal>uuid</literal>” field was added
+to the <link id="license">/license</link> data
+in <link id="api_version">version</link> 9 (1.29.0).
+</listitem>
+
+<listitem>
 The <link id="license">/license</link> data
 were added in <link id="api_version">version</link> 9 (1.27.2).
 </listitem>
@@ -303,7 +309,6 @@ were added in <link id="api_version">version</link> 2.
 </para>
 
 </section>
-
 
 <section id="endpoints" name="Endpoints">
 <para>
@@ -4508,6 +4513,12 @@ The number of failed reporting attempts, reset each time the usage report is suc
 <tag-desc>
 The number of seconds before traffic processing is stopped after unsuccessful report attempt.
 </tag-desc>
+<tag-name>
+<literal>uuid</literal> (<literal>string</literal>)
+</tag-name>
+<tag-desc>
+The ID of NGINX Plus instance in the UUID format.
+</tag-desc>
 </list>
 </tag-desc>
 </list>
@@ -4519,7 +4530,8 @@ The number of seconds before traffic processing is stopped after unsuccessful re
   "reporting" : {
     "healthy" : true,
     "fails" : 2,
-    "grace" : 15551961
+    "grace" : 15551961,
+    "uuid" : "13754cba-29fb-53e5-c32e-a6cf57c84b01"
   }
 }</example>
 </listitem>

@@ -44,6 +44,7 @@ REFS =									\
 		http/ngx_http_auth_basic_module				\
 		http/ngx_http_auth_jwt_module				\
 		http/ngx_http_auth_request_module			\
+		http/ngx_http_auth_require_module			\
 		http/ngx_http_autoindex_module				\
 		http/ngx_http_browser_module				\
 		http/ngx_http_charset_module				\
@@ -100,6 +101,7 @@ REFS =									\
 		http/ngx_http_v2_module					\
 		http/ngx_http_v3_module					\
 		http/ngx_http_xslt_module				\
+		http/ngx_http_acme_module				\
 		mail/ngx_mail_auth_http_module				\
 		mail/ngx_mail_core_module				\
 		mail/ngx_mail_imap_module				\
