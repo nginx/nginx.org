@@ -26,6 +26,14 @@ Patches are signed using one of the
 
 <security>
 
+<item name="Buffer overread in the ngx_mail_smtp_module"
+      severity="low"
+      advisory="https://my.f5.com/manage/s/article/K000152786"
+      cve="2025-53859"
+      good="1.29.1+"
+      vulnerable="0.7.22-1.29.0">
+</item>
+
 <item name="SSL session reuse vulnerability"
       severity="medium"
       advisory="https://mailman.nginx.org/pipermail/nginx-announce/2025/NYEUJX7NCBCGJGXDFVXNMAAMJDFSE45G.html"
