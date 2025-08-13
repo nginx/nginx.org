@@ -209,6 +209,12 @@ redirect</link> happens during request processing.
 <list type="bullet">
 
 <listitem>
+The “<literal>uuid</literal>” field was added
+to the <link id="license">/license</link> data
+in <link id="api_version">version</link> 9 (1.29.0).
+</listitem>
+
+<listitem>
 The <link id="license">/license</link> data
 were added in <link id="api_version">version</link> 9 (1.27.2).
 </listitem>

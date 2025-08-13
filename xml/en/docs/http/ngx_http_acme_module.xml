@@ -1,0 +1,317 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Module ngx_http_acme_module"
+        link="/en/docs/http/ngx_http_acme_module.html"
+        lang="en"
+        rev="1">
+
+<section id="summary">
+
+<para>
+The <literal>ngx_http_acme_module</literal> module implements
+the automatic certificate management
+(<link url="https://www.rfc-editor.org/rfc/rfc8555.html">ACMEv2</link>)
+protocol.
+</para>
+
+<para>
+The source code of the module is available
+<link url="https://github.com/nginx/nginx-acme">here</link>.
+Download and install instructions are available
+<link url="https://github.com/nginx/nginx-acme/blob/main/README.md">here</link>.
+</para>
+
+<para>
+The module is also available in a prebuilt
+<literal>nginx-module-acme</literal>
+<link doc="../../linux_packages.xml" id="dynmodules">package</link>
+and in <literal>nginx-plus-module-acme</literal> package
+as part of our
+<commercial_version>commercial subscription</commercial_version> since 1.29.0.
+</para>
+
+</section>
+
+
+<section id="example" name="Example Configuration">
+
+<para>
+<example>
+resolver 127.0.0.1:53;
+
+acme_issuer example {
+    uri         https://acme.example.com/directory;
+    contact     admin@example.test;
+    state_path  /var/cache/nginx/acme-example;
+    accept_terms_of_service;
+}
+
+acme_shared_zone zone=ngx_acme_shared:1M;
+
+server {
+    listen 443 ssl;
+    server_name  .example.test;
+
+    acme_certificate example;
+
+    ssl_certificate       $acme_certificate;
+    ssl_certificate_key   $acme_certificate_key;
+
+    # do not parse the certificate on each request
+    ssl_certificate_cache max=2;
+}
+
+server {
+    # listener on port 80 is required to process ACME HTTP-01 challenges
+    listen 80;
+
+    location / {
+        return 404;
+    }
+}
+</example>
+</para>
+
+</section>
+
+
+<section id="directives" name="Directives">
+
+<directive name="acme_issuer">
+<syntax block="yes"><value>name</value></syntax>
+<default/>
+<context>http</context>
+
+<para>
+Defines an ACME certificate issuer object.
+</para>
+
+</directive>
+
+
+<directive name="uri">
+<syntax><value>uri</value></syntax>
+<default/>
+<context>acme_issuer</context>
+
+<para>
+The
+<link url="https://www.rfc-editor.org/rfc/rfc8555#section-7.1.1">directory URL</link>
+of the ACME server.
+This directive is mandatory.
+</para>
+
+</directive>
+
+
+<directive name="account_key">
+<syntax><value>alg</value>[:<value>size</value>] | <value>file</value></syntax>
+<default/>
+<context>acme_issuer</context>
+
+<para>
+The account's private key used for request authentication.
+</para>
+
+<para>
+Accepted values:
+<list type="bullet">
+
+<listitem>
+<literal>ecdsa</literal>:<value>256</value>/<value>384</value>/<value>521</value>
+for ES256, ES384, or ES512 JSON Web Signature algorithms
+</listitem>
+
+<listitem>
+<literal>rsa</literal>:<value>2048</value>/<value>3072</value>/<value>4096</value>
+for RS256.
+</listitem>
+
+<listitem>
+File path for an existing key, using one of the algorithms above.
+</listitem>
+
+</list>
+</para>
+
+<para>
+The generated account keys are preserved across reloads,
+but will be lost on restart unless <link id="state_path"/> is configured.
+</para>
+
+</directive>
+
+
+<directive name="contact">
+<syntax><value>URL</value></syntax>
+<default/>
+<context>acme_issuer</context>
+
+<para>
+Sets an array of URLs that the ACME server can use
+to contact the client regarding account issues.
+The <literal>mailto:</literal> scheme will be used
+unless specified explicitly.
+</para>
+
+</directive>
+
+
+<directive name="ssl_trusted_certificate">
+<syntax><value>file</value></syntax>
+<default/>
+<context>acme_issuer</context>
+
+<para>
+Specifies a <value>file</value> with trusted CA certificates in the PEM format
+used to <link id="ssl_verify">verify</link> the certificate
+of the ACME server.
+</para>
+
+</directive>
+
+
+<directive name="ssl_verify">
+<syntax>
+    <literal>on</literal> | <literal>off</literal></syntax>
+<default>on</default>
+<context>acme_issuer</context>
+
+<para>
+Enables or disables verification of the ACME server certificate.
+</para>
+
+</directive>
+
+
+<directive name="state_path">
+<syntax><value>path</value></syntax>
+<default/>
+<context>acme_issuer</context>
+
+<para>
+Defines a directory for storing the module data
+that can be persisted across restarts.
+This can improve the load time by skipping some requests on startup,
+and avoid hitting request rate limits on the ACME server.
+</para>
+
+<para>
+The directory contains sensitive content, such as
+the account key, issued certificates, and private keys.
+</para>
+
+</directive>
+
+
+<directive name="accept_terms_of_service">
+<syntax></syntax>
+<default/>
+<context>acme_issuer</context>
+
+<para>
+Agrees to the terms of service under which the ACME server will be used.
+Some servers require accepting the terms of service
+before account registration.
+The terms are usually available on the ACME server's website,
+and the URL will be printed to the error log if necessary.
+</para>
+
+</directive>
+
+
+<directive name="acme_shared_zone">
+<syntax>
+    <literal>zone</literal>=<value>name</value>:<value>size</value></syntax>
+<default>zone=ngx_acme_shared:256k</default>
+<context>http</context>
+
+<para>
+Allows increasing the size of in-memory storage of the module.
+The shared memory zone will be used to store the issued certificates,
+keys and challenge data for all the configured certificate issuers.
+</para>
+
+<para>
+The default zone size is sufficient to hold approximately
+50 ECDSA prime256v1 keys or 35 RSA 2048 keys.
+</para>
+
+</directive>
+
+
+<directive name="acme_certificate">
+<syntax>
+    <value>issuer</value>
+    [<value>identifier</value> ...]
+    [<literal>key</literal>=<value>alg</value>[:<value>size</value>]]</syntax>
+<default/>
+<context>server</context>
+
+<para>
+Defines a certificate with the list of <literal>identifiers</literal>
+requested from issuer <literal>issuer</literal>.
+</para>
+
+<para>
+The explicit list of identifiers can be omitted.
+In this case, the identifiers will be taken from the
+<link doc="ngx_http_core_module.xml" id="server_name"/> directive
+in the same <link doc="ngx_http_core_module.xml" id="server"/> block.
+Not all values accepted in the <literal>server_name</literal>
+are valid certificate identifiers:
+regular expressions and wildcards are not supported.
+</para>
+
+<para>
+The key parameter sets the type of a generated private key.
+Supported key algorithms and sizes:
+<literal>ecdsa:256</literal> (default),
+<literal>ecdsa:384</literal>,
+<literal>ecdsa:521</literal>,
+<literal>rsa:2048</literal>,
+<literal>rsa:3072</literal>,
+<literal>rsa:4096</literal>.
+</para>
+
+</directive>
+
+</section>
+
+
+<section id="variables" name="Embedded Variables">
+
+<para>
+The <literal>ngx_http_acme_module</literal> module supports embedded variables,
+valid in the
+<link doc="ngx_http_core_module.xml" id="server"/> block with the
+<link id="acme_certificate"/> directive:
+</para>
+
+<para>
+<list type="tag" compact="yes">
+
+<tag-name id="var_acme_certificate"><var>$acme_certificate</var></tag-name>
+<tag-desc>
+SSL certificate that can be passed to the
+<link doc="ngx_http_ssl_module.xml" id="ssl_certificate"/>
+</tag-desc>
+
+<tag-name id="var_acme_certificate_key"><var>$acme_certificate_key</var></tag-name>
+<tag-desc>
+SSL certificate private key that can be passed to
+<link doc="ngx_http_ssl_module.xml" id="ssl_certificate_key"/>
+</tag-desc>
+
+</list>
+</para>
+
+</section>
+
+</module>

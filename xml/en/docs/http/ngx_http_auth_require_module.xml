@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Module ngx_http_auth_require_module"
+        link="/en/docs/http/ngx_http_auth_require_module.html"
+        lang="en"
+        rev="1">
+
+<section id="summary">
+
+<para>
+The <literal>ngx_http_auth_require_module</literal> module (1.29.0)
+implements variable-based client authorization.
+It can also use variables
+provided by other access modules such as
+<link doc="ngx_http_auth_request_module.xml">ngx_http_auth_request_module</link>
+or
+<link doc="ngx_http_auth_request_module.xml">ngx_http_auth_oidc_module</link>.
+</para>
+
+<para>
+<note>
+This module is available as part of our
+<commercial_version>commercial subscription</commercial_version>.
+</note>
+</para>
+
+</section>
+
+
+<section id="example" name="Example Configuration">
+
+<para>
+<example>
+http {
+    oidc_provider my_idp {
+        ...
+    }
+
+    map $oidc_claim_role $admin_role {
+        "admin" 1;
+    }
+
+    server {
+        auth_oidc my_idp;
+
+        location /admin {
+            auth_require $admin_role;
+        }
+    }
+}
+</example>
+</para>
+
+</section>
+
+
+<section id="directives" name="Directives">
+
+
+<directive name="auth_require">
+<syntax>
+    <value>$value</value> ...
+    [<literal>error</literal>=<literal>4xx</literal> |
+                              <literal>5xx</literal>]
+</syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<context>limit_except</context>
+
+<para>
+Enables authorization based on the specified variables.
+The access is allowed only if all the variables are not
+empty and are not equal to “0”.
+Otherwise, the module returns <literal>403</literal> code, which can be
+overridden by the <literal>error</literal> parameter.
+Several <literal>auth_require</literal> directives can be used to return
+different error codes.
+</para>
+
+</directive>
+
+</section>
+
+</module>

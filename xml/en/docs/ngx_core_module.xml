@@ -479,6 +479,31 @@ http {
 </directive>
 
 
+<directive name="stall_threshold">
+<syntax><value>time</value></syntax>
+<default>1000ms</default>
+<context>events</context>
+<appeared-in>1.29.0</appeared-in>
+
+<para>
+Allows overriding the default time threshold for the event loop iteration
+before a stall is reported.
+By default, a stall is reported
+when an event loop iteration exceeds <value>1000ms</value>.
+If the <link id="timer_resolution"/> directive is enabled,
+the time threshold will be ignored.
+</para>
+
+<para>
+<note>
+This directive is available as part of our
+<commercial_version>commercial subscription</commercial_version>.
+</note>
+</para>
+
+</directive>
+
+
 <directive name="thread_pool">
 <syntax>
     <value>name</value>

@@ -104,6 +104,10 @@ Enables end user authentication with the
 </para>
 
 <para>
+Parameter value can contain variables (1.29.0).
+</para>
+
+<para>
 The special value <literal>off</literal> cancels the effect
 of the <literal>auth_oidc</literal> directive
 inherited from the previous configuration level.
@@ -206,6 +210,81 @@ expected by the module from the OpenID Provider.
 The <value>uri</value> must match the configuration on the Provider's side.
 </para>
 
+<para>
+Absolute “<literal>https</literal>” URIs are supported since 1.29.0.
+</para>
+
+</directive>
+
+
+<directive name="logout_uri">
+<syntax><value>uri</value></syntax>
+<default/>
+<context>oidc_provider</context>
+<appeared-in>1.29.0</appeared-in>
+
+<para>
+Defines the URI path for initiating session logout.
+Upon session termination, the user is redirected to
+<link url="https://openid.net/specs/openid-connect-rpinitiated-1_0.html#OPMetadata">Provider's
+Logout Endpoint</link>
+or to the <link id="post_logout_uri">post logout page</link>.
+If neither is configured, the built-in post logout page is displayed.
+</para>
+
+</directive>
+
+
+<directive name="post_logout_uri">
+<syntax><value>uri</value></syntax>
+<default/>
+<context>oidc_provider</context>
+<appeared-in>1.29.0</appeared-in>
+
+<para>
+Defines the path or absolute URI
+to redirect the user to after the logout.
+The <value>uri</value> must match the configuration on the Provider's side.
+If the post logout page is served by NGINX,
+the OIDC module shouldn't be enabled for this location:
+<example>
+http {
+    oidc_provider my_idp {
+        ...
+
+        logout_uri      /logout;
+        post_logout_uri /logged_out_page.html;
+    }
+
+    server {
+        auth_oidc my_idp;
+
+        location /logged_out_page.html {
+            auth_oidc off;
+        }
+    }
+}
+</example>
+</para>
+
+</directive>
+
+<directive name="logout_token_hint">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>oidc_provider</context>
+<appeared-in>1.29.0</appeared-in>
+
+<para>
+Adds the
+<link url="https://openid.net/specs/openid-connect-rpinitiated-1_0.html#RPLogout"><literal>id_token_hint</literal></link>
+argument to the
+<link url="https://openid.net/specs/openid-connect-rpinitiated-1_0.html#OPMetadata">Provider's
+Logout Endpoint</link>
+when redirecting user during logout.
+This argument can be required by some OpenID Providers.
+</para>
+
 </directive>
 
 
@@ -283,6 +362,22 @@ the certificates of the OpenID Provider endpoints.
 
 </directive>
 
+
+<directive name="userinfo">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>oidc_provider</context>
+<appeared-in>1.29.0</appeared-in>
+
+<para>
+Enables downloading of the
+<link url="https://openid.net/specs/openid-connect-core-1_0.html#UserInfo">UserInfo</link>
+data and makes UserInfo claims available via the 
+<link id="var_oidc_claim_">$oidc_claim_<literal>name</literal></link> variables.
+</para>
+
+</directive>
+
 </section>
 
 
@@ -307,7 +402,7 @@ access token
 
 <tag-name id="var_oidc_claim_"><var>$oidc_claim_</var><value>name</value></tag-name>
 <tag-desc>
-top-level ID token claim
+top-level ID token or UserInfo claim
 <para>
 Nested claims can be fetched with the
 <link doc="ngx_http_auth_jwt_module.xml">auth_jwt</link> module:
@@ -328,6 +423,11 @@ http {
 </example>
 </para>
 
+</tag-desc>
+
+<tag-name id="var_oidc_userinfo"><var>$oidc_userinfo</var></tag-name>
+<tag-desc>
+UserInfo data in the JSON format (1.29.0)
 </tag-desc>
 
 </list>
