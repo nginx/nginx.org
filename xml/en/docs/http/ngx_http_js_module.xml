@@ -9,7 +9,7 @@
 <module name="Module ngx_http_js_module"
         link="/en/docs/http/ngx_http_js_module.html"
         lang="en"
-        rev="53">
+        rev="54">
 
 <section id="summary">
 
@@ -148,7 +148,7 @@ export default {foo, summary, baz, hello, fetch, hash};
 <section id="directives" name="Directives">
 
 <directive name="js_body_filter">
-<syntax><value>function</value> | <value>module.function</value>
+<syntax><value>module.function</value>
 [<value>buffer_type</value>=<value>string</value> | <value>buffer</value>]</syntax>
 <default/>
 <context>location</context>
@@ -268,7 +268,7 @@ since <link doc="../njs/changes.xml" id="njs0.7.7">0.7.7</link>.
 
 
 <directive name="js_content">
-<syntax><value>function</value> | <value>module.function</value></syntax>
+<syntax><value>module.function</value></syntax>
 <default/>
 <context>location</context>
 <context>if in location</context>
@@ -474,7 +474,7 @@ with <link doc="../njs/reference.xml" id="ngx_fetch">Fetch API</link>.
 
 
 <directive name="js_header_filter">
-<syntax><value>function</value> | <value>module.function</value></syntax>
+<syntax><value>module.function</value></syntax>
 <default/>
 <context>location</context>
 <context>if in location</context>
@@ -606,8 +606,7 @@ since <link doc="../njs/changes.xml" id="njs0.7.7">0.7.7</link>.
 
 
 <directive name="js_periodic">
-<syntax><value>function</value> |
-        <value>module.function</value>
+<syntax><value>module.function</value>
         [<literal>interval</literal>=<value>time</value>]
         [<literal>jitter</literal>=<value>number</value>]
         [<literal>worker_affinity</literal>=<value>mask</value>]</syntax>
@@ -713,7 +712,7 @@ Several <literal>js_preload_object</literal> directives can be specified.
 <directive name="js_set">
 <syntax>
     <value>$variable</value>
-    <value>function</value> | <value>module.function</value>
+    <value>module.function</value>
     [<literal>nocache</literal>]</syntax>
 <default/>
 <context>http</context>
