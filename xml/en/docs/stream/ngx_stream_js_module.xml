@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_js_module"
         link="/en/docs/stream/ngx_stream_js_module.html"
         lang="en"
-        rev="49">
+        rev="50">
 
 <section id="summary">
 
@@ -130,7 +130,7 @@ export default {bar, preread, req_line, header_inject, access};
 <section id="directives" name="Directives">
 
 <directive name="js_access">
-<syntax><value>function</value> | <value>module.function</value></syntax>
+<syntax><value>module.function</value></syntax>
 <default/>
 <context>stream</context>
 <context>server</context>
@@ -348,7 +348,7 @@ with <link doc="../njs/reference.xml" id="ngx_fetch">Fetch API</link>.
 
 
 <directive name="js_filter">
-<syntax><value>function</value> | <value>module.function</value></syntax>
+<syntax><value>module.function</value></syntax>
 <default/>
 <context>stream</context>
 <context>server</context>
@@ -494,8 +494,7 @@ since <link doc="../njs/changes.xml" id="njs0.7.7">0.7.7</link>.
 
 
 <directive name="js_periodic">
-<syntax><value>function</value> |
-        <value>module.function</value>
+<syntax><value>module.function</value>
         [<literal>interval</literal>=<value>time</value>]
         [<literal>jitter</literal>=<value>number</value>]
         [<literal>worker_affinity</literal>=<value>mask</value>]</syntax>
@@ -598,7 +597,7 @@ Several <literal>js_preload_object</literal> directives can be specified.
 
 
 <directive name="js_preread">
-<syntax><value>function</value> | <value>module.function</value></syntax>
+<syntax><value>module.function</value></syntax>
 <default/>
 <context>stream</context>
 <context>server</context>
@@ -668,7 +667,7 @@ See
 <directive name="js_set">
 <syntax>
     <value>$variable</value>
-    <value>function</value> | <value>module.function</value>
+    <value>module.function</value>
     [<literal>nocache</literal>]</syntax>
 <default/>
 <context>stream</context>
