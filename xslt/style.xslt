@@ -15,10 +15,7 @@
       <xsl:text>stylesheet</xsl:text>
     </xsl:attribute>
     <xsl:attribute name="href">
-      <xsl:if test="substring-after($DIRNAME, '/') or $LINK = '404.html'">
-          <xsl:value-of select=" concat($ROOT, '/') "/>
-      </xsl:if>
-      <xsl:value-of select=" concat('css/style_', $lang, '.css') "/>
+      <xsl:value-of select=" concat('/css/style_', $lang, '.css') "/>
     </xsl:attribute>
     <xsl:apply-templates/>
     </link>
