@@ -9,7 +9,7 @@
 <module name="Module ngx_http_js_module"
         link="/en/docs/http/ngx_http_js_module.html"
         lang="en"
-        rev="54">
+        rev="55">
 
 <section id="summary">
 
@@ -468,6 +468,96 @@ with <link doc="../njs/reference.xml" id="ngx_fetch">Fetch API</link>.
 <para>
 Sets the verification depth in the HTTPS server certificates chain
 with <link doc="../njs/reference.xml" id="ngx_fetch">Fetch API</link>.
+</para>
+
+</directive>
+
+
+<directive name="js_fetch_keepalive">
+<syntax><value>connections</value></syntax>
+<default>0</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Activates the cache for connections to destination servers.
+When the value is greater than <literal>0</literal>,
+enables keepalive connections for
+<link doc="../njs/reference.xml" id="ngx_fetch">Fetch API</link>.
+</para>
+
+<para>
+The <value>connections</value> parameter sets the maximum number of idle
+keepalive connections to destination servers that are preserved in the cache
+of each worker process.
+When this number is exceeded, the least recently used connections are closed.
+</para>
+
+<para>
+Example:
+<example>
+location /fetch {
+    js_fetch_keepalive 32;
+    js_fetch_trusted_certificate /path/to/ISRG_Root_X1.pem;
+    js_content main.fetch_handler;
+}
+</example>
+</para>
+
+</directive>
+
+
+<directive name="js_fetch_keepalive_requests">
+<syntax><value>number</value></syntax>
+<default>1000</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Sets the maximum number of requests that can be served through one keepalive
+connection with <link doc="../njs/reference.xml" id="ngx_fetch">Fetch API</link>.
+After the maximum number of requests is made, the connection is closed.
+</para>
+
+<para>
+Closing connections periodically is necessary to free per-connection memory
+allocations.
+Therefore, using too high maximum number of requests could result in
+excessive memory usage and not recommended.
+</para>
+
+</directive>
+
+
+<directive name="js_fetch_keepalive_time">
+<syntax><value>time</value></syntax>
+<default>1h</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Limits the maximum time during which requests can be processed through one
+keepalive connection with <link doc="../njs/reference.xml" id="ngx_fetch">Fetch API</link>.
+After this time is reached, the connection is closed following the subsequent
+request processing.
+</para>
+
+</directive>
+
+
+<directive name="js_fetch_keepalive_timeout">
+<syntax><value>time</value></syntax>
+<default>60s</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Sets a timeout during which an idle keepalive connection to a destination server
+will stay open with <link doc="../njs/reference.xml" id="ngx_fetch">Fetch API</link>.
 </para>
 
 </directive>
