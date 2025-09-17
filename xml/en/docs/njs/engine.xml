@@ -9,7 +9,7 @@
 <article name="JavaScript Engine"
         link="/en/docs/njs/engine.html"
         lang="en"
-        rev="4"
+        rev="5"
         toc="no">
 
 <section>
@@ -60,7 +60,6 @@ to ensure compatibility with the njs engine, with the following exceptions:
 <listitem>
 njs-specific API:
 <link doc="reference.xml" id="njs_dump"><literal>njs.dump()</literal></link>,
-<link doc="reference.xml" id="njs_on"><literal>njs.on()</literal></link>,
 <literal>console.dump()</literal>.
 </listitem>
 
