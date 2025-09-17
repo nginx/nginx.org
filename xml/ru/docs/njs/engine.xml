@@ -9,7 +9,7 @@
 <article name="Движок JavaScript"
         link="/ru/docs/njs/engine.html"
         lang="ru"
-        rev="4"
+        rev="5"
         toc="no">
 
 <section>
@@ -60,7 +60,6 @@ njs &mdash; встроенный движок JavaScript,
 <listitem>
 API njs:
 <link doc="reference.xml" id="njs_dump"><literal>njs.dump()</literal></link>,
-<link doc="reference.xml" id="njs_on"><literal>njs.on()</literal></link>,
 <literal>console.dump()</literal>.
 </listitem>
 
