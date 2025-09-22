@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_js_module"
         link="/ru/docs/http/ngx_http_js_module.html"
         lang="ru"
-        rev="52">
+        rev="53">
 
 <section id="summary">
 
@@ -456,6 +456,7 @@ HTTPS-сертификата
 <context>http</context>
 <context>server</context>
 <context>location</context>
+<appeared-in>0.9.2</appeared-in>
 
 <para>
 Активирует кэш для соединений с серверами назначения.
@@ -491,6 +492,7 @@ location /fetch {
 <context>http</context>
 <context>server</context>
 <context>location</context>
+<appeared-in>0.9.2</appeared-in>
 
 <para>
 Задаёт максимальное количество запросов, которые могут быть обслужены
@@ -515,6 +517,7 @@ location /fetch {
 <context>http</context>
 <context>server</context>
 <context>location</context>
+<appeared-in>0.9.2</appeared-in>
 
 <para>
 Ограничивает максимальное время, в течение которого запросы могут обрабатываться
@@ -532,6 +535,7 @@ location /fetch {
 <context>http</context>
 <context>server</context>
 <context>location</context>
+<appeared-in>0.9.2</appeared-in>
 
 <para>
 Задаёт таймаут, в течение которого неактивное keepalive-соединение

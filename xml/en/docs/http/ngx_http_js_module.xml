@@ -9,7 +9,7 @@
 <module name="Module ngx_http_js_module"
         link="/en/docs/http/ngx_http_js_module.html"
         lang="en"
-        rev="55">
+        rev="56">
 
 <section id="summary">
 
@@ -479,6 +479,7 @@ with <link doc="../njs/reference.xml" id="ngx_fetch">Fetch API</link>.
 <context>http</context>
 <context>server</context>
 <context>location</context>
+<appeared-in>0.9.2</appeared-in>
 
 <para>
 Activates the cache for connections to destination servers.
@@ -514,6 +515,7 @@ location /fetch {
 <context>http</context>
 <context>server</context>
 <context>location</context>
+<appeared-in>0.9.2</appeared-in>
 
 <para>
 Sets the maximum number of requests that can be served through one keepalive
@@ -537,6 +539,7 @@ excessive memory usage and not recommended.
 <context>http</context>
 <context>server</context>
 <context>location</context>
+<appeared-in>0.9.2</appeared-in>
 
 <para>
 Limits the maximum time during which requests can be processed through one
@@ -554,6 +557,7 @@ request processing.
 <context>http</context>
 <context>server</context>
 <context>location</context>
+<appeared-in>0.9.2</appeared-in>
 
 <para>
 Sets a timeout during which an idle keepalive connection to a destination server
