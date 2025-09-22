@@ -27,6 +27,18 @@
 <year href="2009.html" year="2009" />
 </years>
 
+<event date="2025-09-23">
+<para>
+<link doc="en/docs/njs/index.xml">njs-0.9.2</link>
+version has been
+<link doc="en/docs/njs/changes.xml" id="njs0.9.2">released</link>,
+featuring HTTP keepalive support for <link doc="en/docs/njs/reference.xml" id="ngx_fetch">ngx.fetch()</link> API in
+<link doc="en/docs/http/ngx_http_js_module.xml" id="js_fetch_keepalive">http</link>
+and
+<link doc="en/docs/stream/ngx_stream_js_module.xml" id="js_fetch_keepalive">stream</link>.
+</para>
+</event>
+
 <event date="2025-08-13">
 <para>
 <link doc="en/download.xml">nginx-1.29.1</link>
