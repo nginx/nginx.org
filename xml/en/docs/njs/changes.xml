@@ -9,8 +9,109 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="78"
+        rev="79"
         toc="no">
+
+<section id="njs0.9.2" name="Changes with njs 0.9.2">
+
+<para>
+Release Date:
+23 September 2025
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+added HTTP keepalive support for
+<link doc="reference.xml" id="ngx_fetch"><literal>ngx.fetch()</literal></link>
+API.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+added configure time check when
+the <literal>js_import</literal> directive is not specified for
+<link doc="../http/ngx_http_js_module.xml" id="js_import">http</link> or
+<link doc="../stream/ngx_stream_js_module.xml" id="js_import">stream</link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed merging of <literal>js_path</literal> directives for
+<link doc="../http/ngx_http_js_module.xml" id="js_path">http</link> and
+<link doc="../stream/ngx_stream_js_module.xml" id="js_path">stream</link>.
+
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed building when the
+<link doc="../http/ngx_http_ssl_module.xml">ngx_http_ssl_module</link>
+and
+<link doc="../stream/ngx_stream_ssl_module.xml">ngx_stream_ssl_module</link>
+modules are unavailable.
+</para>
+</listitem>
+
+</list>
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Change:
+increased the default stack size to 160k for njs VM.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added <literal>njs.on('exit')</literal> API
+for the <link doc="engine.xml" id="quickjs_engine">qjs</link> engine.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+optimized memory consumption while streaming
+in <link doc="engine.xml" id="quickjs_engine">qjs</link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed building <link doc="engine.xml" id="quickjs_engine">qjs</link> engine with clang 19.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed building with GCC 15 and O3 optimization level.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.9.1" name="Changes with njs 0.9.1">
 
