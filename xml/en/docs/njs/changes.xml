@@ -9,8 +9,43 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="79"
+        rev="80"
         toc="no">
+
+<section id="njs0.9.3" name="Changes with njs 0.9.3">
+
+<para>
+Release Date:
+07 October 2025
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Bugfix:
+fixed heap-use-after-free while module loading.
+</para>
+
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed heap-use-after-free in <literal>js_set</literal> handler used in log phase.
+The issue was introduced in
+<link url="https://github.com/nginx/njs/commit/04f6dfb">04f6dfb</link>
+(<link doc="changes.xml" id="njs0.9.2">0.9.2</link>).
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.9.2" name="Changes with njs 0.9.2">
 
