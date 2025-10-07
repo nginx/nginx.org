@@ -32,9 +32,9 @@
         <h1>
             <xsl:if test="@lang = 'he'"> <xsl:attribute name="align"> <xsl:text>left</xsl:text> </xsl:attribute> </xsl:if>
             <a href="/">
-                <img src="/img/nginx_logo.png" alt="NGINX" class="lightimage" style="display: block; height: auto;"/>
+                <img src="/img/nginx_logo.svg" alt="NGINX" class="lightimage" style="display: block; height: auto;"/>
                 <div class="darkimageWrapper" style="mso-hide: all; display: none">
-                    <img src="/img/nginx_logo_dark.png" alt="NGINX" class="darkimage" style="display: none;"/>
+                    <img src="/img/nginx_logo_dark.svg" alt="NGINX" class="darkimage" style="display: none;"/>
                 </div>
             </a>
         </h1>
