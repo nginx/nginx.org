@@ -5,38 +5,22 @@
 X:stylesheet {
 
 X:template = "topnews" {
-        X:text disable-output-escaping="yes" {
-            &lt;table class="news"&gt;
-        }
-        !! "document(concat($XML, '/index.xml'))";
-        X:text disable-output-escaping="yes" {
-            &lt;/table&gt;
-        }
+    X:text disable-output-escaping="yes" {
+        &lt;table class="news"&gt;
+    }
+    !! "document(concat($XML, '/index.xml'))/news/event[position() &lt;= 4]";
+    X:text disable-output-escaping="yes" {
+        &lt;/table&gt;
+    }
 }
 
 X:template = "event" {
-
-    X:var year = { !{substring(../event[position()=1]/@date, 1, 4)} }
-    X:var y = { !{substring(@date, 1, 4)} }
-
-    <!--
-      This expression displays only the top 4 news items.
-      We stop at position 12 because there are non-news items above.
-    -->
-    X:if "position() &lt; 12" {
-        <tr>
-        <td class="date">
-            <a name="{@date}" /> !{@date}
-        </td>
-        <td> !! "para"; </td>
-        </tr>
-    }
-
-    X:if "position() = last()" {
-        X:text disable-output-escaping="yes" {
-            &lt;/table&gt;
-        }
-    }
+    <tr>
+    <td class="date">
+        <a name="{@date}" /> !{@date}
+    </td>
+    <td> !! "para"; </td>
+    </tr>
 }
 
 X:template = "projects" { <div class="projects"> !!; </div> }
