@@ -9,7 +9,7 @@
 <module name="Module ngx_http_acme_module"
         link="/en/docs/http/ngx_http_acme_module.html"
         lang="en"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
@@ -148,6 +148,42 @@ but will be lost on restart unless <link id="state_path"/> is configured.
 </directive>
 
 
+<directive name="challenge">
+<syntax><value>type</value></syntax>
+<default>http-01</default>
+<context>acme_issuer</context>
+<appeared-in>0.2.0</appeared-in>
+
+<para>
+Specifies the ACME challenge type to be used for the issuer.
+</para>
+
+<para>
+Accepted values:
+<list type="bullet">
+
+<listitem>
+<literal>http-01</literal> (<literal>http</literal>)
+</listitem>
+
+<listitem>
+<literal>tls-alpn-01</literal> (<literal>tls-alpn</literal>)
+</listitem>
+
+</list>
+</para>
+
+<para>
+<note>
+ACME challenges are versioned.
+If an unversioned name is specified,
+the module automatically selects the latest implemented version.
+</note>
+</para>
+
+</directive>
+
+
 <directive name="contact">
 <syntax><value>URL</value></syntax>
 <default/>
@@ -158,6 +194,34 @@ Sets an array of URLs that the ACME server can use
 to contact the client regarding account issues.
 The <literal>mailto:</literal> scheme will be used
 unless specified explicitly.
+</para>
+
+</directive>
+
+
+<directive name="external_account_key">
+<syntax><value>kid</value> <value>file</value></syntax>
+<default/>
+<context>acme_issuer</context>
+<appeared-in>0.2.0</appeared-in>
+
+<para>
+Specifies a key identifier <value>kid</value> and a <value>file</value>
+with the MAC key for
+<link url="https://datatracker.ietf.org/doc/html/rfc8555#section-7.3.4">
+external account authorization</link>.
+</para>
+
+<para>
+The value <literal>data</literal>:<value>key</value> can be specified
+instead of the <value>file</value>, which loads a key directly from
+the configuration without using intermediate files.
+</para>
+
+<para>
+In both cases, the key is expected to be encoded in
+<link url="https://datatracker.ietf.org/doc/html/rfc4648#section-5">
+base64url</link>.
 </para>
 
 </directive>
@@ -191,8 +255,8 @@ Enables or disables verification of the ACME server certificate.
 
 
 <directive name="state_path">
-<syntax><value>path</value></syntax>
-<default/>
+<syntax><value>path</value> | <literal>off</literal></syntax>
+<default>acme_&lt;issuer&gt;</default>
 <context>acme_issuer</context>
 
 <para>
@@ -205,6 +269,17 @@ and avoid hitting request rate limits on the ACME server.
 <para>
 The directory contains sensitive content, such as
 the account key, issued certificates, and private keys.
+</para>
+
+<para>
+The <literal>off</literal> parameter (0.2.0) disables storing the account
+information and issued certificates on disk.
+</para>
+
+<para>
+<note>
+Prior to version 0.2.0, the state directory was not created by default.
+</note>
 </para>
 
 </directive>
