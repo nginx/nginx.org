@@ -30,15 +30,14 @@ X:template = "project" {
     <table>
 
     <tr>
-    <td width="90px" align="center" valign="bottom">
+    <td width="90px" align="center" valign="middle">
     <a href="{@docs}" valign="top">
-    <img src="{@logo}" width="38px" alt="{@title} logo"/>
+    <img src="{@logo}" width="50px" alt="{@title} logo"/>
     </a>
-    <h5> !{@title} </h5>
     </td>
 
     <td valign="bottom">
-    !{@description} <br/>
+    <strong> !{@title} </strong> X:text { } !{@description} <br />
     <a href="{@docs}">Docs</a> •
     <a href="{@repo}">Code</a>
     </td>
