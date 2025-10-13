@@ -7,7 +7,7 @@
 <article name="nginx"
          link="/"
          lang="en"
-         rev="1">
+         rev="2">
 
 <section>
 
@@ -50,35 +50,27 @@ Enterprise distributions, commercial support and training are
 <projects>
 
 <project
-  title="njs"
+  title="NGINX JavaScript"
   docs="/en/docs/njs/"
   repo="https://github.com/nginx/njs"
-  logo="img/njs_logo.svg"
-  description="NGINX JavaScript (njs) extends nginx functionality with an ECMAScript-compatible interpreter for HTTP and Stream modules."
+  logo="img/njs_icon.png"
+  description="(njs) extends nginx functionality with an ECMAScript-compatible interpreter for HTTP and Stream modules."
 />
 
 <project
-  title="Unit"
-  docs="https://unit.nginx.org/"
-  repo="https://github.com/nginx/unit"
-  logo="img/unit_robot.svg"
-  description="NGINX Unit is a lightweight application runtime that simplifies the application stack for running web apps and APIs."
-/>
-
-<project
-  title="Ingress"
+  title="NGINX Ingress Controller"
   docs="https://docs.nginx.com/nginx-ingress-controller/"
   repo="https://github.com/nginxinc/kubernetes-ingress"
-  logo="img/ingress_logo.svg"
-  description="NGINX Ingress Controller connects Kubernetes apps and services with rock solid request handling, auth, self-service CRDs, and easy debugging."
+  logo="img/ingress_icon.png"
+  description=" connects Kubernetes apps and services with rock solid request handling, auth, self-service CRDs, and easy debugging."
 />
 
 <project
-  title="Gateway Fabric"
+  title="NGINX Gateway Fabric"
   docs="https://docs.nginx.com/nginx-gateway-fabric/"
   repo="https://github.com/nginxinc/nginx-gateway-fabric"
-  logo="img/gateway_fabric_logo.svg"
-  description="NGINX Gateway Fabric provides L4 and L7 routing capabilities in Kubernetes, implementing the Gateway API using NGINX as the data plane."
+  logo="img/gateway_fabric_icon.png"
+  description=" provides L4 and L7 routing capabilities in Kubernetes, implementing the Gateway API using NGINX as the data plane."
 />
 
 </projects>
