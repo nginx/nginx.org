@@ -16,7 +16,7 @@
 <para>
 The <literal>ngx_http_acme_module</literal> module implements
 the automatic certificate management
-(<link url="https://www.rfc-editor.org/rfc/rfc8555.html">ACMEv2</link>)
+(<link url="https://datatracker.ietf.org/doc/html/rfc8555">ACMEv2</link>)
 protocol.
 </para>
 
@@ -102,7 +102,7 @@ Defines an ACME certificate issuer object.
 
 <para>
 The
-<link url="https://www.rfc-editor.org/rfc/rfc8555#section-7.1.1">directory URL</link>
+<link url="https://datatracker.ietf.org/doc/html/rfc8555#section-7.1.1">directory URL</link>
 of the ACME server.
 This directive is mandatory.
 </para>
