@@ -31,15 +31,14 @@
     <table>
 
     <tr>
-    <td width="90px" align="center" valign="bottom">
+    <td width="90px" align="center" valign="middle">
     <a href="{@docs}" valign="top">
-    <img src="{@logo}" width="38px" alt="{@title} logo"/>
+    <img src="{@logo}" width="50px" alt="{@title} logo"/>
     </a>
-    <h5> <xsl:value-of select="@title"/> </h5>
     </td>
 
     <td valign="bottom">
-    <xsl:value-of select="@description"/> <br/>
+    <strong> <xsl:value-of select="@title"/> </strong> <xsl:text> </xsl:text> <xsl:value-of select="@description"/> <br/>
     <a href="{@docs}">Docs</a> •
     <a href="{@repo}">Code</a>
     </td>
