@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_geo_module"
         link="/ru/docs/stream/ngx_stream_geo_module.html"
         lang="ru"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
@@ -110,6 +110,11 @@ geo $arg_remote_addr $geo {
 указывает, что адреса задаются в виде диапазонов.
 Этот параметр должен быть первым.
 Для ускорения загрузки гео-базы нужно располагать адреса в порядке возрастания.
+</tag-desc>
+
+<tag-name id="volatile"><literal>volatile</literal></tag-name>
+<tag-desc>
+указывает, что переменная не кэшируется (1.29.3).
 </tag-desc>
 
 </list>
