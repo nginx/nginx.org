@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_memcached_module"
         link="/ru/docs/http/ngx_http_memcached_module.html"
         lang="ru"
-        rev="18">
+        rev="19">
 
 <section id="summary">
 
@@ -86,6 +86,29 @@ memcached_bind $remote_addr transparent;
 наследуют capability <literal>CAP_NET_RAW</literal> из главного процесса.
 Также необходимо настроить таблицу маршрутизации ядра
 для перехвата сетевого трафика с сервера memcached.
+</para>
+
+</directive>
+
+
+<directive name="memcached_bind_dynamic">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.29.3</appeared-in>
+
+<para>
+Если включено, операция <link id="memcached_bind">bind</link> осуществляется
+при каждой попытке соединения.
+</para>
+
+<para>
+<note>
+Директива доступна как часть
+<commercial_version>коммерческой подписки</commercial_version>.
+</note>
 </para>
 
 </directive>
