@@ -10,7 +10,7 @@
 <module name="Module ngx_http_geo_module"
         link="/en/docs/http/ngx_http_geo_module.html"
         lang="en"
-        rev="5">
+        rev="6">
 
 <section id="summary">
 
@@ -137,6 +137,11 @@ non-trusted address sent in <header>X-Forwarded-For</header> will be used.
 indicates that addresses are specified as ranges (0.7.23).
 This parameter should be the first.
 To speed up loading of a geo base, addresses should be put in ascending order.
+</tag-desc>
+
+<tag-name id="volatile"><literal>volatile</literal></tag-name>
+<tag-desc>
+indicates that the variable is not cacheable (1.29.3).
 </tag-desc>
 
 </list>
