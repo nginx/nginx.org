@@ -9,7 +9,7 @@
 <module name="Module ngx_http_js_module"
         link="/en/docs/http/ngx_http_js_module.html"
         lang="en"
-        rev="56">
+        rev="57">
 
 <section id="summary">
 
@@ -468,6 +468,39 @@ with <link doc="../njs/reference.xml" id="ngx_fetch">Fetch API</link>.
 <para>
 Sets the verification depth in the HTTPS server certificates chain
 with <link doc="../njs/reference.xml" id="ngx_fetch">Fetch API</link>.
+</para>
+
+</directive>
+
+
+<directive name="js_fetch_proxy">
+<syntax><value>url</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>0.9.4</appeared-in>
+
+<para>
+Configures a forward proxy URL
+with <link doc="../njs/reference.xml" id="ngx_fetch">Fetch API</link>.
+The <value>url</value> supports the HTTP scheme only
+and can contain optional user credentials
+in the format <literal>http://[user:password@]host:port</literal>
+for Basic authentication.
+Supports both HTTP and HTTPS connections to destination servers.
+If the <value>url</value> is empty, proxy routing is disabled.
+The parameter value can contain variables.
+</para>
+
+<para>
+Example:
+<example>
+location /fetch {
+    js_fetch_proxy http://user:pass@proxy.example.com:3128;
+    js_content main.fetch_handler;
+}
+</example>
 </para>
 
 </directive>
