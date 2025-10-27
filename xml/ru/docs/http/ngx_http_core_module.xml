@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="109">
+        rev="110">
 
 <section id="directives" name="Директивы">
 
@@ -3214,6 +3214,13 @@ cookie <value>имя</value>
 и пустая строка, если их нет
 </tag-desc>
 
+<tag-name id="var_is_request_port"><var>$is_request_port</var></tag-name>
+<tag-desc>
+“<literal>:</literal>”, если значение
+<link id="var_request_port">$request_port</link> непустое,
+либо пустая строка (1.29.3)
+</tag-desc>
+
 <tag-name id="var_limit_rate"><var>$limit_rate</var></tag-name>
 <tag-desc>
 установка этой переменной позволяет ограничивать скорость
@@ -3481,6 +3488,15 @@ scgi_pass_request_body off</link>
 <tag-desc>
 метод запроса, обычно
 “<literal>GET</literal>” или “<literal>POST</literal>”
+</tag-desc>
+
+<tag-name id="var_request_port"><var>$request_port</var></tag-name>
+<tag-desc>
+в порядке приоритета:
+номер порта из компонента
+<link url="https://datatracker.ietf.org/doc/html/rfc9110#section-4.2.1">URI</link>
+authority, или
+номер порта из поля <header>Host</header> заголовка запроса (1.29.3)
 </tag-desc>
 
 <tag-name id="var_request_time"><var>$request_time</var></tag-name>
