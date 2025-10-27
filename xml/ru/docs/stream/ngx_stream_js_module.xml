@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_js_module"
         link="/ru/docs/stream/ngx_stream_js_module.html"
         lang="ru"
-        rev="50">
+        rev="51">
 
 <section id="summary">
 
@@ -343,6 +343,39 @@ HTTPS-сертификата
 <para>
 Устанавливает глубину проверки в цепочке HTTPS-сертификатов
 при помощи <link doc="../njs/reference.xml" id="ngx_fetch">Fetch API</link>.
+</para>
+
+</directive>
+
+
+<directive name="js_fetch_proxy">
+<syntax><value>url</value></syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+<appeared-in>0.9.4</appeared-in>
+
+<para>
+Задаёт URL прямого прокси-сервера
+при помощи <link doc="../njs/reference.xml" id="ngx_fetch">Fetch API</link>.
+<value>url</value> поддерживает только схему HTTP
+и может содержать необязательные учётные данные пользователя
+в формате <literal>http://[user:password@]host:port</literal>
+для базовой аутентификации.
+Поддерживает как HTTP, так и HTTPS соединения с серверами назначения.
+Если <value>url</value> пустой, маршрутизация через прокси отключается.
+Значение параметра может содержать переменные.
+</para>
+
+<para>
+Пример:
+<example>
+server {
+    listen 12345;
+    js_fetch_proxy http://user:pass@proxy.example.com:3128;
+    js_preread main.fetch_handler;
+}
+</example>
 </para>
 
 </directive>
