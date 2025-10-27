@@ -9,8 +9,50 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="80"
+        rev="81"
         toc="no">
+
+<section id="njs0.9.4" name="Changes with njs 0.9.4">
+
+<para>
+Release Date:
+28 October 2025
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+added HTTP forward proxy support for
+<link doc="reference.xml" id="ngx_fetch">ngx.fetch()</link> API.
+</para>
+</listitem>
+
+</list>
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Bugfix:
+fixed <link doc="reference.xml" id="subrequest">r.subrequest()</link>
+to a location with JS handler for QuickJS.
+The bug became visible after
+<link url="https://github.com/bellard/quickjs/commit/42eb2795">bellard/quickjs@42eb2795</link>.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.9.3" name="Changes with njs 0.9.3">
 
