@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="109">
+        rev="110">
 
 <section id="directives" name="Directives">
 
@@ -3219,6 +3219,13 @@ or an empty string otherwise
 or an empty string otherwise
 </tag-desc>
 
+<tag-name id="var_is_request_port"><var>$is_request_port</var></tag-name>
+<tag-desc>
+“<literal>:</literal>” if
+<link id="var_request_port">$request_port</link> is non-empty,
+or an empty string otherwise (1.29.3)
+</tag-desc>
+
 <tag-name id="var_limit_rate"><var>$limit_rate</var></tag-name>
 <tag-desc>
 setting this variable enables response rate limiting;
@@ -3491,6 +3498,15 @@ request length (including request line, header, and request body)
 <tag-desc>
 request method, usually
 “<literal>GET</literal>” or “<literal>POST</literal>”
+</tag-desc>
+
+<tag-name id="var_request_port"><var>$request_port</var></tag-name>
+<tag-desc>
+in this order of precedence:
+port number from the
+<link url="https://datatracker.ietf.org/doc/html/rfc9110#section-4.2.1">URI</link>
+authority component, or
+port number from the <header>Host</header> request header field (1.29.3)
 </tag-desc>
 
 <tag-name id="var_request_time"><var>$request_time</var></tag-name>
