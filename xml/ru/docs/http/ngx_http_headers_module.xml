@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_headers_module"
         link="/ru/docs/http/ngx_http_headers_module.html"
         lang="ru"
-        rev="13">
+        rev="14">
 
 <section id="summary">
 
@@ -60,15 +60,57 @@ add_header Cache-Control private;
 В значении параметра можно использовать переменные.
 </para>
 
-<para>
+<para id="add_header_default_inherit">
 Директив <literal>add_header</literal> может быть несколько.
 Директивы наследуются с предыдущего уровня конфигурации при условии, что
 на данном уровне не описаны свои директивы <literal>add_header</literal>.
+Правила наследования могут быть переопределены при помощи
+директивы <link id="add_header_inherit"/> (1.29.3).
 </para>
 
 <para>
 Если указан параметр <literal>always</literal> (1.7.5),
 то поле заголовка будет добавлено независимо от кода ответа.
+</para>
+
+</directive>
+
+
+<directive name="add_header_inherit">
+<syntax>
+    <literal>on</literal> |
+    <literal>off</literal> |
+    <literal>merge</literal></syntax>
+<default>on</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<context>if in location</context>
+<appeared-in>1.29.3</appeared-in>
+
+<para>
+Позволяет изменять правила наследования значений, указанных в
+директивах <link id="add_header"/>.
+По умолчанию используется
+<link id="add_header_default_inherit">стандартная</link> модель наследования.
+</para>
+
+<para>
+Параметр <literal>merge</literal> включает добавление значений
+с предыдущего уровня к значениям, указанным на текущем уровне.
+</para>
+
+<para>
+Параметр <literal>off</literal> отменяет наследование значений
+с предыдущего уровня конфигурации.
+</para>
+
+<para>
+Сами правила наследования также наследуются стандартным образом.
+Например <literal>add_header_inherit merge;</literal>,
+определённый на верхнем уровне,
+будет рекурсивно наследоваться во всех вложенных уровнях
+до тех пор, пока не будет переопределён.
 </para>
 
 </directive>
@@ -91,15 +133,57 @@ add_header Cache-Control private;
 В значении можно использовать переменные.
 </para>
 
-<para>
+<para id="add_trailer_default_inherit">
 Директив <literal>add_trailer</literal> может быть несколько.
 Директивы наследуются с предыдущего уровня конфигурации при условии, что
 на данном уровне не описаны свои директивы <literal>add_trailer</literal>.
+Правила наследования могут быть переопределены при помощи
+директивы <link id="add_trailer_inherit"/> (1.29.3).
 </para>
 
 <para>
 Если указан параметр <literal>always</literal>,
 то указанное поле будет добавлено независимо от кода ответа.
+</para>
+
+</directive>
+
+
+<directive name="add_trailer_inherit">
+<syntax>
+    <literal>on</literal> |
+    <literal>off</literal> |
+    <literal>merge</literal></syntax>
+<default>on</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<context>if in location</context>
+<appeared-in>1.29.3</appeared-in>
+
+<para>
+Позволяет изменять правила наследования значений, указанных в
+директивах <link id="add_trailer"/>.
+По умолчанию используется
+<link id="add_trailer_default_inherit">стандартная</link> модель наследования.
+</para>
+
+<para>
+Параметр <literal>merge</literal> включает добавление значений
+с предыдущего уровня к значениям, указанным на текущем уровне.
+</para>
+
+<para>
+Параметр <literal>off</literal> отменяет наследование значений
+с предыдущего уровня конфигурации.
+</para>
+
+<para>
+Сами правила наследования также наследуются стандартным образом.
+Например <literal>add_trailer_inherit merge;</literal>,
+определённый на верхнем уровне,
+будет рекурсивно наследоваться во всех вложенных уровнях
+до тех пор, пока не будет переопределён.
 </para>
 
 </directive>
