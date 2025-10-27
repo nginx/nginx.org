@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_ssl_module"
         link="/ru/docs/http/ngx_http_ssl_module.html"
         lang="ru"
-        rev="68">
+        rev="69">
 
 <section id="summary">
 
@@ -1238,6 +1238,13 @@ AES128-SHA:AES256-SHA:0x00ff
 для установленного SSL-соединения;
 </tag-desc>
 
+<tag-name id="var_ssl_client_sigalg"><var>$ssl_client_sigalg</var></tag-name>
+<tag-desc>
+возвращает
+<link url="https://www.iana.org/assignments/tls-parameters/tls-parameters.xhtml#tls-parameters-16">алгоритм подписи</link>
+клиентского сертификата для установленного SSL-соединения (1.29.3).
+</tag-desc>
+
 <tag-name id="var_ssl_client_v_end"><var>$ssl_client_v_end</var></tag-name>
 <tag-desc>
 возвращает дату окончания срока действия клиентского сертификата (1.11.7);
@@ -1325,6 +1332,13 @@ prime256v1
 <tag-desc>
 возвращает “<literal>r</literal>”, если сессия была использована повторно,
 иначе “<literal>.</literal>” (1.5.11).
+</tag-desc>
+
+<tag-name id="var_ssl_sigalg"><var>$ssl_sigalg</var></tag-name>
+<tag-desc>
+возвращает
+<link url="https://www.iana.org/assignments/tls-parameters/tls-parameters.xhtml#tls-parameters-16">алгоритм подписи</link>
+сертификата сервера для установленного SSL-соединения (1.29.3).
 </tag-desc>
 
 </list>
