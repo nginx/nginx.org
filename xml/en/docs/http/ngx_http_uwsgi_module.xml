@@ -10,7 +10,7 @@
 <module name="Module ngx_http_uwsgi_module"
         link="/en/docs/http/ngx_http_uwsgi_module.html"
         lang="en"
-        rev="55">
+        rev="56">
 
 <section id="summary">
 
@@ -74,6 +74,25 @@ the <literal>transparent</literal> parameter is specified, worker processes
 inherit the <literal>CAP_NET_RAW</literal> capability from the master process.
 It is also necessary to configure kernel routing table
 to intercept network traffic from the uwsgi server.
+</para>
+
+</directive>
+
+
+<directive name="uwsgi_bind_dynamic">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.29.3</appeared-in>
+
+<para>
+Enables or disables the usage of a dynamic
+<link id="fastcgi_bind">IP address</link>
+for outgoing connections to an uwsgi server.
+When enabled, the originating IP address is evaluated
+at each connection attempt to an uwsgi server.
 </para>
 
 </directive>
