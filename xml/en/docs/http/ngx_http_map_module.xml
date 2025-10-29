@@ -154,8 +154,9 @@ indicates that the variable is not cacheable (1.11.7).
 
 <para>
 If the source value matches more than one of the specified variants,
-e.g. both a mask and a regular expression match, the first matching
-variant will be chosen, in the following order of priority:
+e.g. both a mask and a regular expression match, the search
+terminates on the first match and the first matching variant will be
+chosen, in the following order of priority:
 <list type="enum">
 
 <listitem>
