@@ -10,7 +10,7 @@
 <module name="Module ngx_http_ssl_module"
         link="/en/docs/http/ngx_http_ssl_module.html"
         lang="en"
-        rev="69">
+        rev="70">
 
 <section id="summary">
 
@@ -501,6 +501,17 @@ should be used.
 </note>
 <example>
 proxy_set_header Early-Data $ssl_early_data;
+</example>
+</para>
+
+<para>
+<note>
+OpenSSL built-in replay protection is disabled,
+because it interferes with session resumption.
+It can be turned back if deemed necessary.
+</note>
+<example>
+ssl_conf_command Options AntiReplay;
 </example>
 </para>
 
