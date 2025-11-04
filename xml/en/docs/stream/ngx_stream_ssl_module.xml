@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_ssl_module"
         link="/en/docs/stream/ngx_stream_ssl_module.html"
         lang="en"
-        rev="43">
+        rev="44">
 
 <section id="summary">
 
@@ -1130,6 +1130,13 @@ for an established SSL connection (1.11.8);
 returns the
 <link url="https://www.iana.org/assignments/tls-parameters/tls-parameters.xhtml#tls-parameters-16">signature algorithm</link>
 for the client certificate for an established SSL connection (1.29.3).
+<note>
+The variable is supported only when using OpenSSL version 3.5 or higher.
+With older versions, the variable value will be an empty string.
+</note>
+<note>
+The variable is available only for new sessions.
+</note>
 </tag-desc>
 
 <tag-name id="var_ssl_client_v_end"><var>$ssl_client_v_end</var></tag-name>
@@ -1214,6 +1221,13 @@ or “<literal>.</literal>” otherwise.
 returns the
 <link url="https://www.iana.org/assignments/tls-parameters/tls-parameters.xhtml#tls-parameters-16">signature algorithm</link>
 for the server certificate for an established SSL connection (1.29.3).
+<note>
+The variable is supported only when using OpenSSL version 3.5 or higher.
+With older versions, the variable value will be an empty string.
+</note>
+<note>
+The variable is available only for new sessions.
+</note>
 </tag-desc>
 
 </list>

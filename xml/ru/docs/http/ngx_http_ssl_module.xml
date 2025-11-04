@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_ssl_module"
         link="/ru/docs/http/ngx_http_ssl_module.html"
         lang="ru"
-        rev="70">
+        rev="71">
 
 <section id="summary">
 
@@ -1255,6 +1255,13 @@ AES128-SHA:AES256-SHA:0x00ff
 возвращает
 <link url="https://www.iana.org/assignments/tls-parameters/tls-parameters.xhtml#tls-parameters-16">алгоритм подписи</link>
 клиентского сертификата для установленного SSL-соединения (1.29.3).
+<note>
+Переменная поддерживается при использовании OpenSSL версии 3.5 и выше.
+При использовании более старых версий значением переменной будет пустая строка.
+</note>
+<note>
+Переменная доступна только для новых сессий.
+</note>
 </tag-desc>
 
 <tag-name id="var_ssl_client_v_end"><var>$ssl_client_v_end</var></tag-name>
@@ -1351,6 +1358,13 @@ prime256v1
 возвращает
 <link url="https://www.iana.org/assignments/tls-parameters/tls-parameters.xhtml#tls-parameters-16">алгоритм подписи</link>
 сертификата сервера для установленного SSL-соединения (1.29.3).
+<note>
+Переменная поддерживается при использовании OpenSSL версии 3.5 и выше.
+При использовании более старых версий значением переменной будет пустая строка.
+</note>
+<note>
+Переменная доступна только для новых сессий.
+</note>
 </tag-desc>
 
 </list>
