@@ -486,21 +486,22 @@ Prior to version 1.11.0, builtin parameters were used by default.
 Enables or disables TLS 1.3
 <link url="https://datatracker.ietf.org/doc/html/rfc8446#section-2.3">early data</link>.
 <note>
+The directive is supported when using OpenSSL 1.1.1 or higher (1.15.4) and
+<link url="https://boringssl.googlesource.com/boringssl/">BoringSSL</link>.
+</note>
+</para>
+
+<para>
+<note>
 Requests sent within early data are subject to
 <link url="https://datatracker.ietf.org/doc/html/rfc8470">replay attacks</link>.
 To protect against such attacks at the application layer,
 the <link id="var_ssl_early_data">$ssl_early_data</link> variable
 should be used.
 </note>
-
 <example>
 proxy_set_header Early-Data $ssl_early_data;
 </example>
-
-<note>
-The directive is supported when using OpenSSL 1.1.1 or higher (1.15.4) and
-<link url="https://boringssl.googlesource.com/boringssl/">BoringSSL</link>.
-</note>
 </para>
 
 </directive>
