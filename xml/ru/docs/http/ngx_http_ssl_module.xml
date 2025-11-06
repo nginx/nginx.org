@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_ssl_module"
         link="/ru/docs/http/ngx_http_ssl_module.html"
         lang="ru"
-        rev="71">
+        rev="72">
 
 <section id="summary">
 
@@ -298,6 +298,11 @@ ssl_certificate_cache max=1000 inactive=20s valid=1m;
 <note>
 Директива поддерживается при использовании OpenSSL 3.2 и выше;
 список поддерживаемых алгоритмов сжатия обеспечивается библиотекой.
+</note>
+<note>
+Директива поддерживается при использовании BoringSSL;
+список поддерживаемых алгоритмов сжатия включает
+<literal>zlib</literal> (1.29.3).
 </note>
 </para>
 
