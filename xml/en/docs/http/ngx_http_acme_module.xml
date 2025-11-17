@@ -9,7 +9,7 @@
 <module name="Module ngx_http_acme_module"
         link="/en/docs/http/ngx_http_acme_module.html"
         lang="en"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -222,6 +222,46 @@ the configuration without using intermediate files.
 In both cases, the key is expected to be encoded in
 <link url="https://datatracker.ietf.org/doc/html/rfc4648#section-5">
 base64url</link>.
+</para>
+
+</directive>
+
+
+<directive name="preferred_chain">
+<syntax><value>name</value></syntax>
+<default />
+<context>acme_issuer</context>
+<appeared-in>0.3.0</appeared-in>
+
+<para>
+Specifies the preferred certificate chain.
+</para>
+
+<para>
+If the ACME server offers multiple certificate chains,
+prefer the chain with the topmost certificate issued from the
+Subject Common Name <value>name</value>.
+If there are no matches, the default chain will be used.
+</para>
+
+</directive>
+
+
+<directive name="profile">
+<syntax><value>name</value> [<literal>require</literal>]</syntax>
+<default />
+<context>acme_issuer</context>
+<appeared-in>0.3.0</appeared-in>
+
+<para>
+Requests the
+<link url="https://datatracker.ietf.org/doc/html/draft-ietf-acme-profiles">
+certificate profile</link> <value>name</value> from the ACME server.
+</para>
+
+<para>
+The <literal>require</literal> parameter will cause certificate renewals
+to fail if the server does not support the specified profile.
 </para>
 
 </directive>
