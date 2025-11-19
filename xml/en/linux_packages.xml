@@ -7,7 +7,7 @@
 <article name="nginx: Linux packages"
          link="/en/linux_packages.html"
          lang="en"
-         rev="111">
+         rev="112">
 
 <section name="Supported distributions and versions" id="distributions">
 
@@ -120,6 +120,11 @@ versions:
 <td>x86_64</td>
 </tr>
 
+<tr>
+<td width="30%">16</td>
+<td>x86_64, aarch64/arm64</td>
+</tr>
+
 </table>
 </para>
 
@@ -131,11 +136,6 @@ versions:
 <tr>
 <td width="30%">Version</td>
 <td>Supported platforms</td>
-</tr>
-
-<tr>
-<td width="30%">3.19</td>
-<td>x86_64, aarch64/arm64</td>
 </tr>
 
 <tr>
