@@ -38,6 +38,50 @@ location / {
 
 <section id="directives" name="Директивы">
 
+<directive name="scgi_allow_upstream">
+<syntax><value>строка</value> ...</syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.29.3</appeared-in>
+
+<para>
+Задаёт условия, при которых доступ к SCGI-серверу
+будет разрешён или <link id="denied">запрещён</link>.
+Если все значения строковых параметров непустые
+и не равны “0”, то доступ разрешён.
+Условия проверяются каждый раз
+перед установлением соединения с SCGI-сервером.
+В значении параметров допустимо использование переменных:
+<example>
+geo $upstream_last_addr $allow {
+    volatile;
+    10.10.0.0/24        1;
+}
+
+server {
+    listen 127.0.0.1:8080;
+
+    location / {
+        scgi_pass           localhost:9000;
+        scgi_allow_upstream $allow;
+        ...
+    }
+}
+</example>
+</para>
+
+<para>
+<note>
+Директива доступна как часть
+<commercial_version>коммерческой подписки</commercial_version>.
+</note>
+</para>
+
+</directive>
+
+
 <directive name="scgi_bind">
 <syntax>
     <value>адрес</value>
@@ -972,6 +1016,7 @@ SCGI-сервера, и ответ не вмещается целиком в б�
 <syntax>
     <literal>error</literal> |
     <literal>timeout</literal> |
+    <literal>denied</literal> |
     <literal>invalid_header</literal> |
     <literal>http_500</literal> |
     <literal>http_503</literal> |
@@ -997,6 +1042,17 @@ SCGI-сервера, и ответ не вмещается целиком в б�
 <tag-name><literal>timeout</literal></tag-name>
 <tag-desc>произошёл таймаут во время соединения с сервером,
 передачи ему запроса или чтения заголовка ответа сервера;</tag-desc>
+
+<tag-name id="denied"><literal>denied</literal></tag-name>
+<tag-desc>сервер <link id="proxy_allow_upstream">отклонил</link>
+соединение (1.29.3);
+<para>
+<note>
+Параметр доступен как часть
+<commercial_version>коммерческой подписки</commercial_version>.
+</note>
+</para>
+</tag-desc>
 
 <tag-name><literal>invalid_header</literal></tag-name>
 <tag-desc>сервер вернул пустой или неверный ответ;</tag-desc>
@@ -1044,7 +1100,8 @@ SCGI-сервера, и ответ не вмещается целиком в б�
 Директива также определяет, что считается
 <link doc="ngx_http_upstream_module.xml" id="max_fails">неудачной
 попыткой</link> работы с сервером.
-Случаи <literal>error</literal>, <literal>timeout</literal> и
+Случаи <literal>error</literal>, <literal>timeout</literal>,
+<literal>denied</literal> и
 <literal>invalid_header</literal>
 всегда считаются неудачными попытками, даже если они не указаны в директиве.
 Случаи <literal>http_500</literal>, <literal>http_503</literal>

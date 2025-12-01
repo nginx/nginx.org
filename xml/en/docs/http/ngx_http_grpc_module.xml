@@ -45,6 +45,51 @@ server {
 
 <section id="directives" name="Directives">
 
+<directive name="grpc_allow_upstream">
+<syntax><value>address</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.29.3</appeared-in>
+
+<para>
+Defines conditions under which access to a gRPC server
+is allowed or <link id="denied">denied</link>.
+If all string parameters are not empty
+and not equal to “0” then the access is allowed.
+The conditions are evaluated each time
+before a connection to a gRPC server is established.
+Parameter values can contain variables:
+<example>
+geo $upstream_last_addr $allow {
+    volatile;
+    10.10.0.0/24        1;
+}
+
+server {
+    listen 127.0.0.1:8080;
+    http2 on;
+
+    location / {
+        grpc_pass           localhost:9000;
+        grpc_allow_upstream $allow;
+        ...
+    }
+}
+</example>
+</para>
+
+<para>
+<note>
+This directive is available as part of our
+<commercial_version>commercial subscription</commercial_version>.
+</note>
+</para>
+
+</directive>
+
+
 <directive name="grpc_bind">
 <syntax>
     <value>address</value>
@@ -196,6 +241,7 @@ with the <link doc="ngx_http_core_module.xml" id="error_page"/> directive.
 <syntax>
     <literal>error</literal> |
     <literal>timeout</literal> |
+    <literal>denied</literal> |
     <literal>invalid_header</literal> |
     <literal>http_500</literal> |
     <literal>http_502</literal> |
@@ -223,6 +269,17 @@ server, passing a request to it, or reading the response header;</tag-desc>
 <tag-name><literal>timeout</literal></tag-name>
 <tag-desc>a timeout has occurred while establishing a connection with the
 server, passing a request to it, or reading the response header;</tag-desc>
+
+<tag-name id="denied"><literal>denied</literal></tag-name>
+<tag-desc>the server <link id="grpc_allow_upstream">denied</link>
+the connection (1.29.3);
+<para>
+<note>
+This parameter is available as part of our
+<commercial_version>commercial subscription</commercial_version>.
+</note>
+</para>
+</tag-desc>
 
 <tag-name><literal>invalid_header</literal></tag-name>
 <tag-desc>a server returned an empty or invalid response;</tag-desc>
@@ -275,7 +332,8 @@ transferring of a response, fixing this is impossible.
 The directive also defines what is considered an
 <link doc="ngx_http_upstream_module.xml" id="max_fails">unsuccessful
 attempt</link> of communication with a server.
-The cases of <literal>error</literal>, <literal>timeout</literal> and
+The cases of <literal>error</literal>, <literal>timeout</literal>,
+<literal>denied</literal> and
 <literal>invalid_header</literal> are always considered unsuccessful attempts,
 even if they are not specified in the directive.
 The cases of <literal>http_500</literal>, <literal>http_502</literal>,
@@ -401,6 +459,39 @@ The timeout is set only between two successive read operations,
 not for the transmission of the whole response.
 If the gRPC server does not transmit anything within this time,
 the connection is closed.
+</para>
+
+</directive>
+
+
+<directive name="grpc_request_dynamic">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.29.3</appeared-in>
+
+<para>
+Enables or disables creation of a separate request instance
+for each gRPC server.
+By default, a single request is used for all gRPC servers.
+If the directive is set to the value “<literal>on</literal>”,
+a separate request instance is created,
+allowing per-server request customization.
+For example, the server-specific <header>Host</header> request header field
+can be set:
+<example>
+proxy_request_dynamic on;
+proxy_set_header      Host $upstream_last_server_name;
+</example>
+</para>
+
+<para>
+<note>
+This directive is available as part of our
+<commercial_version>commercial subscription</commercial_version>.
+</note>
 </para>
 
 </directive>

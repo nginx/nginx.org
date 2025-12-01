@@ -1367,6 +1367,20 @@ as for the variables that start with the
 Only the header fields from the response of the last server are saved.
 </tag-desc>
 
+<tag-name id="var_upstream_last_addr"><var>$upstream_last_addr</var></tag-name>
+<tag-desc>
+keeps the IP address or the path to the UNIX-domain socket
+of the last selected upstream server (1.29.3).
+
+<para>
+<note>
+This variable is available as part of our
+<commercial_version>commercial subscription</commercial_version>.
+</note>
+</para>
+
+</tag-desc>
+
 <tag-name id="var_upstream_last_server_name"><var>$upstream_last_server_name</var></tag-name>
 <tag-desc>
 keeps the name of last selected upstream server (1.25.3);

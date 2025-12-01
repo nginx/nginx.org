@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Module ngx_http_num_map_module"
+        link="/en/docs/http/ngx_http_num_map_module.html"
+        lang="en"
+        rev="1">
+
+<section id="summary">
+
+<para>
+The <literal>ngx_http_num_map_module</literal> module (1.29.3)
+creates variables whose values depend on numeric values
+or numeric value ranges.
+</para>
+
+<para>
+<note>
+This module is available as part of our
+<commercial_version>commercial subscription</commercial_version>.
+</note>
+</para>
+
+</section>
+
+
+<section id="example" name="Example Configuration">
+
+<para>
+<example>
+num_map $remote_port $port_allow {
+    default    0;
+
+    80         1;
+    443        1;
+    &lt;&#61;1023     0;
+    8080-8090  1;
+}
+</example>
+</para>
+
+</section>
+
+
+<section id="directives" name="Directives">
+
+<directive name="num_map">
+<syntax block="yes">
+    [<value>$number</value>]
+    <value>$variable</value></syntax>
+<default/>
+<context>http</context>
+
+<para>
+Describes how the values of the specified variable depend on numeric values
+or numeric value ranges.
+</para>
+
+<para>
+<note>
+Since variables are evaluated only when used, the mere existence
+of even a large number of declared “<literal>num_map</literal>” variables
+does not cause any extra costs for request processing.
+</note>
+</para>
+
+<para>
+Parameters inside the <literal>num_map</literal> block specify a mapping
+between source and resulting values.
+</para>
+
+<para>
+Source values are specified as numbers or as numeric ranges.
+</para>
+
+<para>
+The following special parameters are also supported:
+<list type="tag">
+
+<tag-name><literal>default</literal></tag-name>
+<tag-desc>
+sets the resulting value if the source value matches none
+of the specified variants.
+When <literal>default</literal> is not specified, the default
+resulting value will be an empty string.
+</tag-desc>
+
+<tag-name><literal>include</literal></tag-name>
+<tag-desc>
+includes a file with values.
+There can be several inclusions.
+</tag-desc>
+
+<tag-name id="volatile"><literal>volatile</literal></tag-name>
+<tag-desc>
+indicates that the variable is not cacheable.
+</tag-desc>
+
+</list>
+</para>
+
+</directive>
+
+</section>
+
+</module>
