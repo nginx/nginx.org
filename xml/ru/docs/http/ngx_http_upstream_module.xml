@@ -1378,6 +1378,20 @@ upstream backend {
 последнего сервера.
 </tag-desc>
 
+<tag-name id="var_upstream_last_addr"><var>$upstream_last_addr</var></tag-name>
+<tag-desc>
+хранит IP-адрес или путь к UNIX-сокету
+последнего выбранного сервера группы (1.29.3).
+
+<para>
+<note>
+Эта переменная доступна как часть
+<commercial_version>коммерческой подписки</commercial_version>.
+</note>
+</para>
+
+</tag-desc>
+
 <tag-name id="var_upstream_last_server_name"><var>$upstream_last_server_name</var></tag-name>
 <tag-desc>
 хранит имя последнего выбранного сервера группы (1.25.3);

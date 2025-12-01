@@ -153,6 +153,13 @@ required directive.
 <para>
 Specifies a secret value
 used to authenticate the Relying Party with the OpenID Provider.
+The supported
+<link url="https://openid.net/specs/openid-connect-core-1_0.html#ClientAuthentication">authentication
+methods</link> are
+<literal>client_secret_basic</literal> and
+<literal>client_secret_post</literal> (1.29.3).
+The method is selected based on the OpenID Provider metadata
+with a preference to <literal>client_secret_basic</literal>.
 </para>
 
 </directive>
@@ -194,6 +201,42 @@ request</link> URL.
 <example>
 extra_auth_args "display=page&amp;prompt=login";
 </example>
+</para>
+
+</directive>
+
+
+<directive name="frontchannel_logout_uri">
+<syntax><value>uri</value></syntax>
+<default/>
+<context>oidc_provider</context>
+<appeared-in>1.29.3</appeared-in>
+
+<para>
+Defines the URI path for triggering
+<link url="https://openid.net/specs/openid-connect-frontchannel-1_0.html">front-channel
+logout</link>.
+For the logout request to be associated with a user session,
+it must either include the module session cookie or provide
+both the “<literal>iss</literal>” and “<literal>sid</literal>” arguments.
+It is recommended to configure the OpenID Provider to set the
+“<literal>iss</literal>” and “<literal>sid</literal>” arguments
+when invoking this endpoint.
+</para>
+
+</directive>
+
+
+<directive name="pkce">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default/>
+<context>oidc_provider</context>
+<appeared-in>1.29.3</appeared-in>
+
+<para>
+Explicitly enables or disables PKCE.
+By default, PKCE is automatically enabled
+based on OpenID Provider metadata.
 </para>
 
 </directive>

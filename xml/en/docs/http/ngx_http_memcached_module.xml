@@ -48,6 +48,50 @@ server {
 
 <section id="directives" name="Directives">
 
+<directive name="memcached_allow_upstream">
+<syntax><value>string</value> ...</syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.29.3</appeared-in>
+
+<para>
+Defines conditions under which access to a memcached server
+is allowed or <link id="denied">denied</link>.
+If all string parameters are not empty
+and not equal to “0” then the access is allowed.
+The conditions are evaluated each time
+before a connection to a memcached server is established.
+Parameter values can contain variables:
+<example>
+geo $upstream_last_addr $allow {
+    volatile;
+    10.10.0.0/24        1;
+}
+
+server {
+    listen 127.0.0.1:8080;
+
+    location / {
+        memcached_pass           host:11211;
+        memcached_allow_upstream $allow;
+        ...
+    }
+}
+</example>
+</para>
+
+<para>
+<note>
+This directive is available as part of our
+<commercial_version>commercial subscription</commercial_version>.
+</note>
+</para>
+
+</directive>
+
+
 <directive name="memcached_bind">
 <syntax>
     <value>address</value>
@@ -143,6 +187,7 @@ if the flag is set.
 <syntax>
     <literal>error</literal> |
     <literal>timeout</literal> |
+    <literal>denied</literal> |
     <literal>invalid_response</literal> |
     <literal>not_found</literal> |
     <literal>off</literal>
@@ -163,6 +208,17 @@ server, passing a request to it, or reading the response header;</tag-desc>
 <tag-name><literal>timeout</literal></tag-name>
 <tag-desc>a timeout has occurred while establishing a connection with the
 server, passing a request to it, or reading the response header;</tag-desc>
+
+<tag-name id="denied"><literal>denied</literal></tag-name>
+<tag-desc>the server <link id="memcached_allow_upstream">denied</link>
+the connection (1.29.3);
+<para>
+<note>
+This parameter is available as part of our
+<commercial_version>commercial subscription</commercial_version>.
+</note>
+</para>
+</tag-desc>
 
 <tag-name><literal>invalid_response</literal></tag-name>
 <tag-desc>a server returned an empty or invalid response;</tag-desc>
@@ -187,7 +243,8 @@ transferring of a response, fixing this is impossible.
 The directive also defines what is considered an
 <link doc="ngx_http_upstream_module.xml" id="max_fails">unsuccessful
 attempt</link> of communication with a server.
-The cases of <literal>error</literal>, <literal>timeout</literal> and
+The cases of <literal>error</literal>, <literal>timeout</literal>,
+<literal>denied</literal> and
 <literal>invalid_response</literal> are always considered unsuccessful attempts,
 even if they are not specified in the directive.
 The case of <literal>not_found</literal>

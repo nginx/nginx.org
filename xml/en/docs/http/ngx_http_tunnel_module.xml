@@ -1,0 +1,401 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Module ngx_http_tunnel_module"
+        link="/en/docs/http/ngx_http_tunnel_module.html"
+        lang="en"
+        rev="1">
+
+<section id="summary">
+
+<para>
+The <literal>ngx_http_tunnel_module</literal> (1.29.3) handles
+<link url="https://www.rfc-editor.org/rfc/rfc9110.html#section-9.3.6">CONNECT
+requests</link>
+and establishes an end-to-end virtual connection.
+</para>
+
+<para>
+<note>
+This module is available as part of our
+<commercial_version>commercial subscription</commercial_version>.
+</note>
+</para>
+
+</section>
+
+
+<section id="example" name="Example Configuration">
+
+<para>
+<example>
+http {
+
+    map $request_port $allow_port {
+        443            1;
+    }
+
+    map $host $allow_host {
+        hostnames;
+
+        example.org    1;
+        *.example.org  1;
+    }
+
+    server {
+        listen 8000;
+
+        resolver dns.example.com;
+
+        if ($allow_port != 1) {
+            return 502;
+        }
+
+        if ($allow_host != 1) {
+            return 502;
+        }
+
+        tunnel_pass;
+    }
+}
+</example>
+</para>
+
+</section>
+
+
+<section id="directives" name="Directives">
+
+<directive name="tunnel_allow_upstream">
+<syntax><value>string</value> ...</syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Defines conditions under which access to the backend server
+is allowed or <link id="denied">denied</link>.
+If all string parameters are not empty
+and not equal to “0” then the access is allowed.
+The conditions are evaluated each time
+before a connection to a backend server is established.
+Parameter values can contain variables:
+<example>
+geo $upstream_last_addr $allow {
+    volatile;
+    10.10.0.0/24        1;
+}
+
+server {
+    listen 127.0.0.1:8080;
+
+    tunnel_pass;
+    tunnel_allow_upstream $allow;
+}
+</example>
+</para>
+
+</directive>
+
+
+<directive name="tunnel_bind">
+<syntax>
+    <value>address</value> |
+    <literal>off</literal></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Makes outgoing connections to a backend server originate
+from the specified local IP address with an optional port.
+Parameter value can contain variables.
+The special value <literal>off</literal> cancels the effect
+of the <literal>tunnel_bind</literal> directive
+inherited from the previous configuration level, which allows the
+system to auto-assign the local IP address and port.
+</para>
+
+</directive>
+
+
+<directive name="tunnel_bind_dynamic">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+When enabled, makes the <link id="tunnel_bind"/> operation
+at each connection attempt:
+<example>
+geo $upstream_last_addr $bind_addr {
+    volatile;
+    10.0.0.0/24    10.0.0.1;
+    192.168.0.0/24  192.168.0.1;
+}
+
+tunnel_bind         $bind_addr;
+tunnel_bind_dynamic on;
+</example>
+</para>
+
+</directive>
+
+
+<directive name="tunnel_buffer_size">
+<syntax><value>size</value></syntax>
+<default>16k</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Sets the <value>size</value> of the buffer used for reading data
+from the backend server.
+Also sets the <value>size</value> of the buffer used for reading data
+from the client.
+</para>
+
+</directive>
+
+
+<directive name="tunnel_connect_timeout">
+<syntax><value>time</value></syntax>
+<default>60s</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Defines a timeout for establishing a connection with a backend server.
+It should be noted that this timeout cannot usually exceed 75 seconds.
+</para>
+
+</directive>
+
+
+<directive name="tunnel_next_upstream">
+<syntax>
+    <literal>error</literal> |
+    <literal>timeout</literal> |
+    <literal>denied</literal> |
+    <literal>off</literal>
+    ...</syntax>
+<default>error timeout</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Specifies in which cases a request should be passed to the next server:
+<list type="tag">
+
+<tag-name><literal>error</literal></tag-name>
+<tag-desc>an error occurred while establishing a connection with the
+server or reading data from the server;</tag-desc>
+
+<tag-name><literal>timeout</literal></tag-name>
+<tag-desc>a timeout has occurred while establishing a connection with the
+server, passing a request to it, or reading data from the server;</tag-desc>
+
+<tag-name id="denied"><literal>denied</literal></tag-name>
+<tag-desc>the server <link id="tunnel_allow_upstream">denied</link>
+the connection;</tag-desc>
+
+<tag-name><literal>off</literal></tag-name>
+<tag-desc>disables passing a request to the next server.</tag-desc>
+
+</list>
+</para>
+
+<para>
+One should bear in mind that passing a request to the next server is
+only possible if nothing has been sent to a client yet.
+That is, if an error or timeout occurs in the middle of the
+transferring of a response, fixing this is impossible.
+</para>
+
+<para>
+The directive also defines what is considered an
+<link doc="ngx_http_upstream_module.xml" id="max_fails">unsuccessful
+attempt</link> of communication with a server.
+The cases of <literal>error</literal>, <literal>timeout</literal>,
+and <literal>denied</literal>
+are always considered unsuccessful attempts,
+even if they are not specified in the directive.
+</para>
+
+<para>
+Passing a request to the next server can be limited by
+<link id="tunnel_next_upstream_tries">the number of tries</link>
+and by <link id="tunnel_next_upstream_timeout">time</link>.
+</para>
+
+</directive>
+
+
+<directive name="tunnel_next_upstream_timeout">
+<syntax><value>time</value></syntax>
+<default>0</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Limits the time during which a request can be passed to the
+<link id="tunnel_next_upstream">next server</link>.
+The <literal>0</literal> value turns off this limitation.
+</para>
+
+</directive>
+
+
+<directive name="tunnel_next_upstream_tries">
+<syntax><value>number</value></syntax>
+<default>0</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Limits the number of possible tries for passing a request to the
+<link id="tunnel_next_upstream">next server</link>.
+The <literal>0</literal> value turns off this limitation.
+</para>
+
+</directive>
+
+
+<directive name="tunnel_pass">
+<syntax>[<value>address</value>]</syntax>
+<default/>
+<context>server</context>
+<context>location</context>
+<context>if in location</context>
+
+<para>
+Enables handling of CONNECT requests and sets the address of a backend server.
+By default, the <literal>address</literal> is
+<value>$host:$request_port</value> and is taken from the client request.
+In most cases, <literal>tunnel_pass</literal> does not require
+configuring any arguments.
+</para>
+
+<para>
+The address can be specified as a domain name or IP address,
+and a port:
+<example>
+tunnel_pass localhost:9000;
+</example>
+or as a UNIX-domain socket path:
+<example>
+tunnel_pass unix:/tmp/backend.socket;
+</example>
+</para>
+
+<para>
+If a domain name resolves to several addresses, all of them will be
+used in a round-robin fashion.
+In addition, an address can be specified as a
+<link doc="ngx_http_upstream_module.xml">server group</link>.
+</para>
+
+<para>
+Parameter value can contain variables.
+In this case, if an address is specified as a domain name,
+the name is searched among the described
+<link doc="ngx_http_upstream_module.xml">server groups</link>,
+and, if not found, is determined using a
+<link doc="ngx_http_core_module.xml" id="resolver"/>.
+</para>
+
+</directive>
+
+
+<directive name="tunnel_read_timeout">
+<syntax><value>time</value></syntax>
+<default>60s</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Sets the timeout between two successive read or write operations
+on client or backend server connections. 
+If no data is transmitted within this time, the connection is closed.
+</para>
+
+</directive>
+
+
+<directive name="tunnel_send_lowat">
+<syntax><value>size</value></syntax>
+<default>0</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+If the directive is set to a non-zero value, nginx will try to
+minimize the number
+of send operations on outgoing connections to a backend server by using either
+<c-def>NOTE_LOWAT</c-def> flag of the
+<link doc="../events.xml" id="kqueue"/> method,
+or the <c-def>SO_SNDLOWAT</c-def> socket option,
+with the specified <value>size</value>.
+</para>
+
+<para>
+This directive is ignored on Linux, Solaris, and Windows.
+</para>
+
+</directive>
+
+
+<directive name="tunnel_send_timeout">
+<syntax><value>time</value></syntax>
+<default>60s</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Sets a timeout for transmitting a request to the backend server.
+The timeout is set only between two successive write operations,
+not for the transmission of the whole request.
+If the backend server does not receive anything within this time,
+the connection is closed.
+</para>
+
+</directive>
+
+
+<directive name="tunnel_socket_keepalive">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Configures the “TCP keepalive” behavior
+for outgoing connections to a backend server.
+By default, the operating system’s settings are in effect for the socket.
+If the directive is set to the value “<literal>on</literal>”, the
+<c-def>SO_KEEPALIVE</c-def> socket option is turned on for the socket.
+</para>
+
+</directive>
+
+</section>
+
+</module>

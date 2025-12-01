@@ -74,6 +74,7 @@ REFS =									\
 		http/ngx_http_memcached_module				\
 		http/ngx_http_mirror_module				\
 		http/ngx_http_mp4_module				\
+		http/ngx_http_num_map_module				\
 		http/ngx_http_oidc_module				\
 		http/ngx_http_perl_module				\
 		http/ngx_http_proxy_module				\
@@ -93,6 +94,7 @@ REFS =									\
 		http/ngx_http_status_module				\
 		http/ngx_http_stub_status_module			\
 		http/ngx_http_sub_module				\
+		http/ngx_http_tunnel_module				\
 		http/ngx_http_upstream_module				\
 		http/ngx_http_upstream_conf_module			\
 		http/ngx_http_upstream_hc_module			\
@@ -121,6 +123,7 @@ REFS =									\
 		stream/ngx_stream_map_module				\
 		stream/ngx_stream_mqtt_filter_module			\
 		stream/ngx_stream_mqtt_preread_module			\
+		stream/ngx_stream_num_map_module				\
 		stream/ngx_stream_pass_module				\
 		stream/ngx_stream_proxy_module				\
 		stream/ngx_stream_proxy_protocol_vendor_module		\
