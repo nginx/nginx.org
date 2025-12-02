@@ -1472,6 +1472,32 @@ FastCGI-сервер.
 </directive>
 
 
+<directive name="fastcgi_request_dynamic">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.29.3</appeared-in>
+
+<para>
+Разрешает или запрещает создание отдельного экземпляра запроса
+для каждого FastCGI-сервера.
+По умолчанию для всех FastCGI-серверов используется единый запрос.
+Если разрешено, то для каждого сервера создаётся отдельный экземпляр запроса,
+что позволяет кастомизировать запрос для конкретного сервера.
+</para>
+
+<para>
+<note>  
+Директива доступна как часть
+<commercial_version>коммерческой подписки</commercial_version>.
+</note>
+</para>
+
+</directive>
+
+
 <directive name="fastcgi_send_lowat">
 <syntax><value>размер</value></syntax>
 <default>0</default>
