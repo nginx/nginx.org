@@ -1901,6 +1901,38 @@ proxy_redirect / /;
 </directive>
 
 
+<directive name="proxy_request_dynamic">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.29.3</appeared-in>
+
+<para>
+Разрешает или запрещает создание отдельного экземпляра запроса
+для каждого проксируемого сервера.
+По умолчанию для всех проксируемых серверов используется единый запрос.
+Если разрешено, то для каждого сервера создаётся отдельный экземпляр запроса,
+что позволяет кастомизировать запрос для конкретного сервера.
+Например каждому серверу можно назначить своё значение 
+поля <header>Host</header> в заголовке запроса:
+<example>
+proxy_request_dynamic on;
+proxy_set_header      Host $upstream_last_server_name;
+</example>
+</para>
+
+<para>
+<note>  
+Директива доступна как часть
+<commercial_version>коммерческой подписки</commercial_version>.
+</note>
+</para>
+
+</directive>
+
+
 <directive name="proxy_send_lowat">
 <syntax><value>размер</value></syntax>
 <default>0</default>

@@ -1907,8 +1907,7 @@ HTTP/1.1 is <link id="proxy_http_version">enabled</link> for proxying.
 Enables or disables creation of a separate request instance
 for each proxied server.
 By default, a single request is used for all proxied servers.
-If the directive is set to the value “<literal>on</literal>”,
-a separate request instance is created,
+If enabled, a separate request instance is created,
 allowing per-server request customization.
 For example, the server-specific <header>Host</header> request header field
 can be set:
