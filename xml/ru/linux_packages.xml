@@ -7,7 +7,7 @@
 <article name="nginx: пакеты для Linux"
          link="/ru/linux_packages.html"
          lang="ru"
-         rev="112">
+         rev="113">
 
 <section name="Поддерживаемые дистрибутивы и версии" id="distributions">
 
@@ -210,7 +210,7 @@ sudo yum install yum-utils
 <programlisting>
 [nginx-stable]
 name=nginx stable repo
-baseurl=http://nginx.org/packages/centos/$releasever/$basearch/
+baseurl=https://nginx.org/packages/centos/$releasever/$basearch/
 gpgcheck=1
 enabled=1
 gpgkey=https://nginx.org/keys/nginx_signing.key
@@ -218,7 +218,7 @@ module_hotfixes=true
 
 [nginx-mainline]
 name=nginx mainline repo
-baseurl=http://nginx.org/packages/mainline/centos/$releasever/$basearch/
+baseurl=https://nginx.org/packages/mainline/centos/$releasever/$basearch/
 gpgcheck=1
 enabled=0
 gpgkey=https://nginx.org/keys/nginx_signing.key
@@ -283,7 +283,7 @@ uid                      nginx signing key &lt;signing-key@nginx.com&gt;
 выполните следующую команду:
 <programlisting>
 echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] \
-http://nginx.org/packages/debian `lsb_release -cs` nginx" \
+https://nginx.org/packages/debian `lsb_release -cs` nginx" \
     | sudo tee /etc/apt/sources.list.d/nginx.list
 </programlisting>
 
@@ -291,7 +291,7 @@ http://nginx.org/packages/debian `lsb_release -cs` nginx" \
 выполните следующую команду вместо предыдущей:
 <programlisting>
 echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] \
-http://nginx.org/packages/mainline/debian `lsb_release -cs` nginx" \
+https://nginx.org/packages/mainline/debian `lsb_release -cs` nginx" \
     | sudo tee /etc/apt/sources.list.d/nginx.list
 </programlisting>
 </para>
@@ -354,7 +354,7 @@ uid                      nginx signing key &lt;signing-key@nginx.com&gt;
 выполните следующую команду:
 <programlisting>
 echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] \
-http://nginx.org/packages/ubuntu `lsb_release -cs` nginx" \
+https://nginx.org/packages/ubuntu `lsb_release -cs` nginx" \
     | sudo tee /etc/apt/sources.list.d/nginx.list
 </programlisting>
 
@@ -362,7 +362,7 @@ http://nginx.org/packages/ubuntu `lsb_release -cs` nginx" \
 выполните следующую команду вместо предыдущей:
 <programlisting>
 echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] \
-http://nginx.org/packages/mainline/ubuntu `lsb_release -cs` nginx" \
+https://nginx.org/packages/mainline/ubuntu `lsb_release -cs` nginx" \
     | sudo tee /etc/apt/sources.list.d/nginx.list
 </programlisting>
 </para>
@@ -399,14 +399,14 @@ sudo zypper install curl ca-certificates gpg2
 выполните следующую команду:
 <programlisting>
 sudo zypper addrepo --gpgcheck --type yum --refresh --check \
-    'http://nginx.org/packages/sles/$releasever_major' nginx-stable
+    'https://nginx.org/packages/sles/$releasever_major' nginx-stable
 </programlisting>
 
 Если предпочтительно использовать пакеты для основной версии nginx,
 выполните следующую команду вместо предыдущей:
 <programlisting>
 sudo zypper addrepo --gpgcheck --type yum --refresh --check \
-    'http://nginx.org/packages/mainline/sles/$releasever_major' nginx-mainline
+    'https://nginx.org/packages/mainline/sles/$releasever_major' nginx-mainline
 </programlisting>
 
 Теперь нужно импортировать официальный ключ, используемый zypper/rpm
@@ -456,7 +456,7 @@ sudo apk add openssl curl ca-certificates
 <programlisting>
 printf "%s%s%s%s\n" \
     "@nginx " \
-    "http://nginx.org/packages/alpine/v" \
+    "https://nginx.org/packages/alpine/v" \
     `egrep -o '^[0-9]+\.[0-9]+' /etc/alpine-release` \
     "/main" \
     | sudo tee -a /etc/apk/repositories
@@ -467,7 +467,7 @@ printf "%s%s%s%s\n" \
 <programlisting>
 printf "%s%s%s%s\n" \
     "@nginx " \
-    "http://nginx.org/packages/mainline/alpine/v" \
+    "https://nginx.org/packages/mainline/alpine/v" \
     `egrep -o '^[0-9]+\.[0-9]+' /etc/alpine-release` \
     "/main" \
     | sudo tee -a /etc/apk/repositories
@@ -545,7 +545,7 @@ sudo yum install yum-utils
 <programlisting>
 [nginx-stable]
 name=nginx stable repo
-baseurl=http://nginx.org/packages/amzn2/$releasever/$basearch/
+baseurl=https://nginx.org/packages/amzn2/$releasever/$basearch/
 gpgcheck=1
 enabled=1
 gpgkey=https://nginx.org/keys/nginx_signing.key
@@ -554,7 +554,7 @@ priority=9
 
 [nginx-mainline]
 name=nginx mainline repo
-baseurl=http://nginx.org/packages/mainline/amzn2/$releasever/$basearch/
+baseurl=https://nginx.org/packages/mainline/amzn2/$releasever/$basearch/
 gpgcheck=1
 enabled=0
 gpgkey=https://nginx.org/keys/nginx_signing.key
@@ -569,7 +569,7 @@ priority=9
 <programlisting>
 [nginx-stable]
 name=nginx stable repo
-baseurl=http://nginx.org/packages/amzn/2023/$basearch/
+baseurl=https://nginx.org/packages/amzn/2023/$basearch/
 gpgcheck=1
 enabled=1
 gpgkey=https://nginx.org/keys/nginx_signing.key
@@ -578,7 +578,7 @@ priority=9
 
 [nginx-mainline]
 name=nginx mainline repo
-baseurl=http://nginx.org/packages/mainline/amzn/2023/$basearch/
+baseurl=https://nginx.org/packages/mainline/amzn/2023/$basearch/
 gpgcheck=1
 enabled=0
 gpgkey=https://nginx.org/keys/nginx_signing.key
