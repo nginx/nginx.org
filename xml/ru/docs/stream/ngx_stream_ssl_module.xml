@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_ssl_module"
         link="/ru/docs/stream/ngx_stream_ssl_module.html"
         lang="ru"
-        rev="45">
+        rev="46">
 
 <section id="summary">
 
@@ -493,6 +493,33 @@ ssl_ecdh_curve prime256v1:secp384r1;
 директива задаёт список кривых, поддерживаемых сервером.
 Поэтому для работы ECDSA-сертификатов
 важно, чтобы список включал кривые, используемые в сертификатах.
+</note>
+</para>
+
+</directive>
+
+
+<directive name="ssl_ech_file">
+<syntax><value>file</value></syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.29.4</appeared-in>
+
+<para>
+Задаёт <value>файл</value> с конфигурацией Encrypted ClientHello
+(<literal>ECHConfig</literal>) в формате
+<link url="https://datatracker.ietf.org/doc/draft-farrell-tls-pemesni/">PEM</link>,
+используемой для включения TLS 1.3
+<link url="https://datatracker.ietf.org/doc/html/draft-ietf-tls-esni">ECH</link>
+в shared-режиме.
+</para>
+
+<para>
+<note>
+В настоящее время директива поддерживается только при использовании
+<link url="https://github.com/openssl/openssl/tree/feature/ech">ветки
+разработки ECH</link> OpenSSL.
 </note>
 </para>
 
@@ -1199,6 +1226,30 @@ prime256v1
 </note>
 <note>
 Переменная доступна только для новых сессий.
+</note>
+</tag-desc>
+
+<tag-name id="var_ssl_ech_outer_server_name"><var>$ssl_ech_outer_server_name</var></tag-name>
+<tag-desc>
+возвращает публичное имя сервера, запрошенное через
+<link url="http://en.wikipedia.org/wiki/Server_Name_Indication">SNI</link>
+если TLS 1.3 <link id="ssl_ech_file">ECH</link> был принят,
+иначе “” (1.29.4);
+</tag-desc>
+
+<tag-name id="var_ssl_ech_status"><var>$ssl_ech_status</var></tag-name>
+<tag-desc>
+возвращает результат обработки TLS 1.3 <link id="ssl_ech_file">ECH</link>:
+“<literal>FAILED</literal>”,
+“<literal>BACKEND</literal>”,
+“<literal>GREASE</literal>”,
+“<literal>SUCCESS</literal>” или
+“<literal>NOT_TRIED</literal>” (1.29.4);
+<note>
+В настоящее время переменная поддерживается при использовании
+<link url="https://github.com/openssl/openssl/tree/feature/ech">ветки разработки ECH</link>
+и, таким образом, может измениться.
+В остальных случаях значением переменной будет пустая строка.
 </note>
 </tag-desc>
 
