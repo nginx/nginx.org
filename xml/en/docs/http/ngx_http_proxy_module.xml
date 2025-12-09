@@ -10,7 +10,7 @@
 <module name="Module ngx_http_proxy_module"
         link="/en/docs/http/ngx_http_proxy_module.html"
         lang="en"
-        rev="83">
+        rev="84">
 
 <section id="summary">
 
@@ -1149,7 +1149,9 @@ the <link id="proxy_pass_header"/> directive can be used.
 
 
 <directive name="proxy_http_version">
-<syntax><literal>1.0</literal> | <literal>1.1</literal></syntax>
+<syntax>
+    <literal>1.0</literal> | <literal>1.1</literal> |
+    <literal>2</literal></syntax>
 <default>1.0</default>
 <context>http</context>
 <context>server</context>
@@ -1159,7 +1161,7 @@ the <link id="proxy_pass_header"/> directive can be used.
 <para>
 Sets the HTTP protocol version for proxying.
 By default, version 1.0 is used.
-Version 1.1 is recommended for use with
+Version 1.1 or 2 (1.29.4) is recommended for use with
 <link doc="ngx_http_upstream_module.xml" id="keepalive"/>
 connections and
 <link doc="ngx_http_upstream_module.xml" id="ntlm">NTLM authentication</link>.
@@ -1889,7 +1891,7 @@ if nginx already started sending the request body.
 When HTTP/1.1 chunked transfer encoding is used
 to send the original request body,
 the request body will be buffered regardless of the directive value unless
-HTTP/1.1 is <link id="proxy_http_version">enabled</link> for proxying.
+HTTP/1.1 or HTTP/2 is <link id="proxy_http_version">enabled</link> for proxying.
 </para>
 
 </directive>
@@ -1999,11 +2001,30 @@ The <value>value</value> can contain text, variables, and their combinations.
 These directives are inherited from the previous configuration level
 if and only if there are no <literal>proxy_set_header</literal> directives
 defined on the current level.
-By default, only two fields are redefined:
+</para>
+
+<para>
+By default, the header fields
+<header>Host</header>
+and
+<header>Connection</header>
+from the original request are not passed to the proxied server.
+If HTTP/1.0 or HTTP/1.1 is
+<link id="proxy_http_version">enabled</link> for proxying,
+these fields are redefined:
 <example>
 proxy_set_header Host       $proxy_host;
 proxy_set_header Connection close;
 </example>
+For HTTP/2, the
+<header>:authority</header>
+pseudo-header field with the
+<value>$proxy_host</value>
+value is sent by default,
+unless it is replaced with an explicit <header>Host</header> header field.
+</para>
+
+<para>
 If caching is enabled, the header fields
 <header>If-Modified-Since</header>,
 <header>If-Unmodified-Since</header>,
