@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="90">
+        rev="91">
 
 <section id="summary">
 
@@ -589,7 +589,7 @@ server {
 
 <para>
 For HTTP, the <link doc="ngx_http_proxy_module.xml" id="proxy_http_version"/>
-directive should be set to “<literal>1.1</literal>”
+directive should be set to “<literal>1.1</literal>” or “<literal>2</literal>”
 and the <header>Connection</header> header field should be cleared:
 <example>
 upstream http_backend {
@@ -731,7 +731,7 @@ keeping the authentication context.
 In order for NTLM authentication to work,
 it is necessary to enable keepalive connections to upstream servers.
 The <link doc="ngx_http_proxy_module.xml" id="proxy_http_version"/>
-directive should be set to “<literal>1.1</literal>”
+directive should be set to “<literal>1.1</literal>” or “<literal>2</literal>”
 and the <header>Connection</header> header field should be cleared:
 <example>
 upstream http_backend {

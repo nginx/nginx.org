@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_proxy_module"
         link="/ru/docs/http/ngx_http_proxy_module.html"
         lang="ru"
-        rev="83">
+        rev="84">
 
 <section id="summary">
 
@@ -1151,7 +1151,9 @@ nginx не передаёт клиенту поля заголовка <header>D
 
 
 <directive name="proxy_http_version">
-<syntax><literal>1.0</literal> | <literal>1.1</literal></syntax>
+<syntax>
+    <literal>1.0</literal> | <literal>1.1</literal> |
+    <literal>2</literal></syntax>
 <default>1.0</default>
 <context>http</context>
 <context>server</context>
@@ -1165,7 +1167,7 @@ nginx не передаёт клиенту поля заголовка <header>D
 <link doc="ngx_http_upstream_module.xml" id="keepalive">постоянных
 соединений</link> и
 <link doc="ngx_http_upstream_module.xml" id="ntlm">проверки подлинности
-NTLM</link> рекомендуется версия 1.1.
+NTLM</link> рекомендуется версия 1.1 или 2 (1.29.4).
 </para>
 
 </directive>
@@ -1895,7 +1897,7 @@ proxy_redirect / /;
 и передача данных частями (chunked transfer encoding),
 то тело запроса буферизуется независимо от значения директивы,
 если для проксирования также не
-<link id="proxy_http_version">включён</link> HTTP/1.1.
+<link id="proxy_http_version">включён</link> HTTP/1.1 или HTTP/2.
 </para>
 
 </directive>
@@ -2003,11 +2005,29 @@ proxy_set_header      Host $upstream_last_server_name;
 В качестве значения можно использовать текст, переменные и их комбинации.
 Директивы наследуются с предыдущего уровня конфигурации при условии, что
 на данном уровне не описаны свои директивы <literal>proxy_set_header</literal>.
-По умолчанию переопределяются только два поля:
+</para>
+
+<para>
+По умолчанию поля заголовка
+<header>Host</header>
+и
+<header>Connection</header>
+исходного запроса не передаются на проксируемый сервер.
+Если для проксирования
+<link id="proxy_http_version">включён</link> HTTP/1.0 или HTTP/1.1,
+эти поля переопределяются:
 <example>
 proxy_set_header Host       $proxy_host;
 proxy_set_header Connection close;
 </example>
+Для HTTP/2 по умолчанию передаётся поле псевдо-заголовка
+<header>:authority</header>
+со значением
+<value>$proxy_host</value>,
+при условии что поле заголовка <header>Host</header> не задано явно.
+</para>
+
+<para>
 Если включено кэширование, поля заголовка
 <header>If-Modified-Since</header>,
 <header>If-Unmodified-Since</header>,
