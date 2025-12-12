@@ -9,7 +9,7 @@
 <article name="Security"
         link="/en/docs/njs/security.html"
         lang="en"
-        rev="2"
+        rev="3"
         toc="no">
 
 <section>
@@ -32,8 +32,8 @@ Patches are signed using one of the
 <section id="considerations" name="Special considerations">
 
 <para>
-njs does not evaluate dynamic code
-and especially the code received from the network in any way.
+njs does not evaluate dynamic code,
+especially code received from the network, in any way.
 The only way to evaluate that code using njs
 is to configure the
 <link doc="../http/ngx_http_js_module.xml" id="js_import">js_import</link>
@@ -42,7 +42,7 @@ JavaScript code is loaded once during nginx start.
 </para>
 
 <para>
-In nginx/njs threat model, JavaScript code is considered a trusted source
+In the nginx/njs threat model, JavaScript code is considered a trusted source
 in the same way as <literal>nginx.conf</literal> and sites certificates.
 What this means in practice:
 
@@ -51,11 +51,11 @@ What this means in practice:
 <listitem>
 memory disclosure and other security issues
 triggered by JavaScript code modification
-are not considered security issues, but as ordinary bugs
+are not considered security vulnerabilities, but rather ordinary bugs
 </listitem>
 
 <listitem>
-measures should be taking for protecting JavaScript code used by njs
+measures should be taken for protecting JavaScript code used by njs
 </listitem>
 
 <listitem>
