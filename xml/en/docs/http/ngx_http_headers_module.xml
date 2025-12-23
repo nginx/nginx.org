@@ -74,6 +74,10 @@ If the <literal>always</literal> parameter is specified (1.7.5),
 the header field will be added regardless of the response code.
 </para>
 
+<para>
+The add_header directive will not generate a header if the value provided is an empty string.
+</para>
+
 </directive>
 
 
