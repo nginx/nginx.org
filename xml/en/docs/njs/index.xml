@@ -9,7 +9,7 @@
 <article name="nginx JavaScript module"
         link="/en/docs/njs/index.html"
         lang="en"
-        rev="36"
+        rev="37"
         toc="no">
 
 <section id="summary">
@@ -42,6 +42,10 @@ server-side logic and <link id="usecases">more</link>.
 
 <listitem>
 <link doc="engine.xml"/>
+</listitem>
+
+<listitem>
+<link doc="native_modules.xml"/>
 </listitem>
 
 <listitem>

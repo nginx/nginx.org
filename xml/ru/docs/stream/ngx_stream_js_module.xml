@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_js_module"
         link="/ru/docs/stream/ngx_stream_js_module.html"
         lang="ru"
-        rev="51">
+        rev="52">
 
 <section id="summary">
 
@@ -688,6 +688,64 @@ js_preload_object map.json;
 <link doc="stream_processing.xml" id="preread_phase">preread</link>-фазе.
 Подробнее см.
 <link url="https://github.com/nginx/njs-examples#authorizing-connections-using-ngx-fetch-as-auth-request-stream-auth-request">пример</link>.
+</note>
+</para>
+
+</directive>
+
+
+<directive name="js_load_stream_native_module">
+<syntax><value>путь</value> [<literal>as</literal> <value>имя</value>]</syntax>
+<default/>
+<context>main</context>
+<appeared-in>0.9.5</appeared-in>
+
+<para>
+Загружает <link doc="../njs/native_modules.xml">нативный модуль</link>
+(разделяемую библиотеку) для использования в Stream JavaScript-коде.
+Директива работает только с движком
+<link doc="../njs/engine.xml" id="quickjs_engine">QuickJS</link>
+и недоступна при использовании встроенного движка njs.
+</para>
+
+<para>
+Параметр <value>путь</value>
+задаёт абсолютный путь к файлу разделяемой библиотеки.
+Необязательный параметр <literal>as</literal> <value>имя</value>
+задаёт псевдоним для импорта модуля в JavaScript-коде.
+Если не указан, модуль можно импортировать по имени файла.
+</para>
+
+<para>
+Пример:
+<example>
+js_load_stream_native_module /path/to/mylib.so;
+js_load_stream_native_module /path/to/other.so as myalias;
+
+stream {
+    js_import main.js;
+    # ... остальная конфигурация stream
+}
+</example>
+В JavaScript-коде:
+<example>
+// Импорт по имени файла
+import * as mylib from 'mylib.so';
+
+// Импорт по псевдониму
+import * as myalias from 'myalias';
+
+// Использование экспортируемых функций
+let result = mylib.add(5, 10);
+</example>
+</para>
+
+<para>
+<note>
+В целях безопасности директива может использоваться только
+в контексте <literal>main</literal>.
+Нативные модули работают с полными привилегиями процесса,
+необходимо использовать абсолютные пути и проводить проверку кода.
 </note>
 </para>
 

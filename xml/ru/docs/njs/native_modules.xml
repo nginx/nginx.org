@@ -1,0 +1,293 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE article SYSTEM "../../../../dtd/article.dtd">
+
+<article name="Нативные модули"
+        link="/ru/docs/njs/native_modules.html"
+        lang="ru"
+        rev="1">
+
+<section id="intro" name="Обзор">
+
+<para>
+Нативные модули позволяют загружать разделяемые библиотеки на основе C
+(файлы .so) в NGINX JavaScript для выполнения критичных по производительности
+операций или системных интеграций.
+Данная возможность доступна только с
+<link doc="engine.xml" id="quickjs_engine">движком QuickJS</link>
+и не поддерживается встроенным движком njs.
+Поддержка нативных модулей доступна
+начиная с версии <link doc="changes.xml" id="njs0.9.5">0.9.5</link>.
+</para>
+
+</section>
+
+
+<section id="when_to_use" name="Когда использовать нативные модули">
+
+<para>
+Нативные модули могут использоваться в следующих случаях:
+
+<list type="bullet">
+
+<listitem>
+Критичные по производительности операции, превышающие возможности JavaScript
+</listitem>
+
+<listitem>
+Системные интеграции, требующие использования библиотек на C
+</listitem>
+
+<listitem>
+Задействование существующих кодовых баз на C/C++
+</listitem>
+
+</list>
+</para>
+
+<para>
+Нативные модули следует использовать для низкоуровневых примитивов,
+а не для сложной бизнес-логики, например для
+криптографических операций (хеширование, шифрование),
+сжатия/распаковки данных, разбора бинарных протоколов,
+высокопроизводительных строковых операций или математических вычислений.
+Сложная логика приложения должна оставаться в JavaScript,
+где её легче сопровождать, отлаживать и изменять.
+</para>
+
+<para>
+Ограничения:
+
+<list type="bullet">
+
+<listitem>
+Нативные модули должны быть скомпилированы для той же архитектуры, что и NGINX
+</listitem>
+
+<listitem>
+Нативные модули работают с полными привилегиями процесса
+и требуют тщательной проверки безопасности
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+
+<section id="loading" name="Загрузка нативных модулей в NGINX">
+
+<para>
+Нативные модули загружаются с помощью следующих директив,
+указанных в контексте <literal>main</literal>:
+
+<list type="bullet">
+
+<listitem>
+<link doc="../http/ngx_http_js_module.xml" id="js_load_http_native_module">
+js_load_http_native_module</link> для контекста HTTP
+</listitem>
+
+<listitem>
+<link doc="../stream/ngx_stream_js_module.xml" id="js_load_stream_native_module">
+js_load_stream_native_module</link> для контекста Stream
+</listitem>
+
+</list>
+</para>
+
+<para>
+Пример конфигурации:
+<example>
+js_load_http_native_module /path/to/mylib.so;
+js_load_http_native_module /path/to/other.so as myalias;
+
+http {
+    js_import main.js;
+
+    server {
+        listen 8000;
+        location / {
+            js_content main.handler;
+        }
+    }
+}
+</example>
+</para>
+
+<para>
+После загрузки модуль можно импортировать в JavaScript-коде:
+<example>
+// Импорт по имени файла
+import * as mylib from 'mylib.so';
+
+// Импорт по псевдониму
+import * as myalias from 'myalias';
+
+function handler(r) {
+    let result = mylib.add(5, 10);
+    r.return(200, `Result: ${result}\n`);
+}
+
+export default { handler };
+</example>
+</para>
+
+</section>
+
+
+<section id="building" name="Сборка нативных модулей">
+
+<para>
+Нативные модули должны реализовывать функцию <literal>js_init_module</literal>
+в качестве точки входа.
+Эта функция вызывается QuickJS при загрузке модуля.
+</para>
+
+<para>
+Пример простого нативного модуля,
+экспортирующего две функции:
+<example>
+#include &lt;quickjs.h&gt;
+
+#define countof(x) (sizeof(x) / sizeof((x)[0]))
+
+/* Сложение двух чисел */
+static JSValue
+js_add(JSContext *ctx, JSValueConst this_val, int argc, JSValueConst *argv)
+{
+    int a, b;
+
+    if (argc &lt; 2) {
+        return JS_ThrowTypeError(ctx, "expected 2 arguments");
+    }
+
+    if (JS_ToInt32(ctx, &amp;a, argv[0]) &lt; 0) {
+        return JS_EXCEPTION;
+    }
+
+    if (JS_ToInt32(ctx, &amp;b, argv[1]) &lt; 0) {
+        return JS_EXCEPTION;
+    }
+
+    return JS_NewInt32(ctx, a + b);
+}
+
+/* Переворот строки */
+static JSValue
+js_reverse_string(JSContext *ctx, JSValueConst this_val, int argc,
+    JSValueConst *argv)
+{
+    char        *reversed;
+    size_t       i, len;
+    JSValue      result;
+    const char  *str;
+
+    if (argc &lt; 1) {
+        return JS_ThrowTypeError(ctx, "expected 1 argument");
+    }
+
+    str = JS_ToCStringLen(ctx, &amp;len, argv[0]);
+    if (!str) {
+        return JS_EXCEPTION;
+    }
+
+    reversed = js_malloc(ctx, len + 1);
+    if (!reversed) {
+        JS_FreeCString(ctx, str);
+        return JS_EXCEPTION;
+    }
+
+    for (i = 0; i &lt; len; i++) {
+        reversed[i] = str[len - 1 - i];
+    }
+    reversed[len] = '\0';
+
+    result = JS_NewString(ctx, reversed);
+
+    js_free(ctx, reversed);
+    JS_FreeCString(ctx, str);
+
+    return result;
+}
+
+/* Список функций модуля */
+static const JSCFunctionListEntry js_module_funcs[] = {
+    JS_CFUNC_DEF("add", 2, js_add),
+    JS_CFUNC_DEF("reverseString", 1, js_reverse_string),
+};
+
+/* Инициализация модуля */
+static int
+js_module_init(JSContext *ctx, JSModuleDef *m)
+{
+    return JS_SetModuleExportList(ctx, m, js_module_funcs,
+                                  countof(js_module_funcs));
+}
+
+/* Обязательная точка входа */
+JSModuleDef *
+js_init_module(JSContext *ctx, const char *module_name)
+{
+    JSModuleDef  *m;
+
+    m = JS_NewCModule(ctx, module_name, js_module_init);
+    if (!m) {
+        return NULL;
+    }
+
+    JS_AddModuleExportList(ctx, m, js_module_funcs,
+                           countof(js_module_funcs));
+
+    return m;
+}
+</example>
+</para>
+
+<para>
+Для компиляции нативного модуля:
+<example>
+gcc -fPIC -shared -I/path/to/quickjs -o mymodule.so mymodule.c
+</example>
+где <literal>/path/to/quickjs</literal> — каталог,
+содержащий заголовочные файлы QuickJS.
+</para>
+
+<para>
+<note>
+Для корректного учёта памяти всегда используйте функции выделения памяти QuickJS
+(<literal>js_malloc</literal>, <literal>js_free</literal>)
+вместо функций стандартной библиотеки
+(<literal>malloc</literal>, <literal>free</literal>).
+</note>
+</para>
+
+</section>
+
+
+<section id="resources" name="Дополнительные ресурсы">
+
+<para>
+Для получения дополнительной информации о C API QuickJS:
+
+<list type="bullet">
+
+<listitem>
+<link url="https://bellard.org/quickjs/">Официальный сайт QuickJS</link>
+</listitem>
+
+<listitem>
+Заголовочный файл QuickJS (<literal>quickjs.h</literal>)
+содержит полную документацию по API
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+</article>

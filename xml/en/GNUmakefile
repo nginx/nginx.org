@@ -147,6 +147,7 @@ REFS =									\
 		njs/compatibility					\
 		njs/engine						\
 		njs/install						\
+		njs/native_modules					\
 		njs/preload_objects					\
 		njs/reference						\
 		njs/security						\

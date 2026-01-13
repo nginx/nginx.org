@@ -9,7 +9,7 @@
 <module name="Module ngx_http_js_module"
         link="/en/docs/http/ngx_http_js_module.html"
         lang="en"
-        rev="57">
+        rev="58">
 
 <section id="summary">
 
@@ -703,6 +703,64 @@ The directive was made obsolete in version
 and was removed in version
 <link doc="../njs/changes.xml" id="njs0.7.1">0.7.1</link>.
 The <link id="js_import"/> directive should be used instead.
+</para>
+
+</directive>
+
+
+<directive name="js_load_http_native_module">
+<syntax><value>path</value> [<literal>as</literal> <value>name</value>]</syntax>
+<default/>
+<context>main</context>
+<appeared-in>0.9.5</appeared-in>
+
+<para>
+Loads a <link doc="../njs/native_modules.xml">native module</link>
+(shared library) for use in HTTP JavaScript code.
+The directive is
+<link doc="../njs/engine.xml" id="quickjs_engine">QuickJS</link>-only
+and is not available when using the njs built-in JavaScript engine.
+</para>
+
+<para>
+The <value>path</value> parameter
+specifies the absolute path to the shared library file.
+The optional <literal>as</literal> <value>name</value> parameter
+provides an alias name for importing the module in JavaScript code.
+If not specified, the module can be imported using its filename.
+</para>
+
+<para>
+Example:
+<example>
+js_load_http_native_module /path/to/mylib.so;
+js_load_http_native_module /path/to/other.so as myalias;
+
+http {
+    js_import main.js;
+    # ... rest of http configuration
+}
+</example>
+In JavaScript code:
+<example>
+// Import by filename
+import * as mylib from 'mylib.so';
+
+// Import by alias
+import * as myalias from 'myalias';
+
+// Use exported functions
+let result = mylib.add(5, 10);
+</example>
+</para>
+
+<para>
+<note>
+For security reasons, this directive is only allowed
+in the <literal>main</literal> configuration context.
+Native modules run with full process privileges;
+use absolute paths and ensure proper code review.
+</note>
 </para>
 
 </directive>
