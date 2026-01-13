@@ -9,8 +9,139 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="81"
+        rev="82"
         toc="no">
+
+<section id="njs0.9.5" name="Changes with njs 0.9.5">
+
+<para>
+Release Date:
+13 January 2026
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+added native module support for
+<link doc="engine.xml" id="quickjs_engine">qjs</link> engine
+for
+<link doc="../http/ngx_http_js_module.xml" id="js_load_http_native_module">http</link>
+and
+<link doc="../stream/ngx_stream_js_module.xml" id="js_load_stream_native_module">stream</link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<link doc="../http/ngx_http_js_module.xml" id="js_body_filter">js_body_filter</link>
+with multiple chunks
+for <link doc="engine.xml" id="quickjs_engine">qjs</link> engine.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>buffer_type</literal> inheritance in if blocks for
+<link doc="../http/ngx_http_js_module.xml" id="js_body_filter">js_body_filter</link>.
+Previously, when <literal>js_body_filter</literal> was used inside an if block,
+the data parameter received <literal>Buffer</literal> type
+instead of the expected <literal>String</literal> type.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <link doc="../http/ngx_http_js_module.xml" id="js_body_filter">js_body_filter</link>
+when data is not in memory.
+Previously, when upstream data was delivered from nginx cache,
+<literal>js_body_filter</literal> was not able to process it correctly.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+improved
+<link doc="reference.xml" id="subrequest">r.subrequest()</link> error handling.
+Fixed a problem of a lost write event when the njs handler
+making <literal>r.subrequest()</literal> is called from a lua handler as a
+subrequest.
+</para>
+</listitem>
+
+</list>
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>XMLAttr</literal> object.
+Pointer to <literal>xmlAttr</literal> could become invalid
+when the parent <literal>XMLNode</literal> was modified.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>XMLNode</literal> update.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>ArrayBuffer</literal> with detached buffers.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+added missing detached array checks.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <link doc="reference.xml" id="fs_mkdir">fs.mkdir()</link> and friends.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed path restoration in
+<link doc="reference.xml" id="fs_mkdir">fs.mkdir()</link>
+and friends on error.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed missed allocation check in promise code.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.9.4" name="Changes with njs 0.9.4">
 
