@@ -1,0 +1,293 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE article SYSTEM "../../../../dtd/article.dtd">
+
+<article name="Native modules"
+        link="/en/docs/njs/native_modules.html"
+        lang="en"
+        rev="1">
+
+<section id="intro" name="Overview">
+
+<para>
+Native modules allow loading C-based shared libraries (.so files)
+into NGINX JavaScript for performance-critical operations
+or system-level integrations.
+This feature is available only with the
+<link doc="engine.xml" id="quickjs_engine">QuickJS engine</link>
+and is not supported by the njs native engine.
+Native module support has been available
+since <link doc="changes.xml" id="njs0.9.5">0.9.5</link>.
+</para>
+
+</section>
+
+
+<section id="when_to_use" name="When to use native modules">
+
+<para>
+Native modules are useful in the following scenarios:
+
+<list type="bullet">
+
+<listitem>
+Performance-critical operations that exceed JavaScript capabilities
+</listitem>
+
+<listitem>
+System-level integrations requiring C libraries
+</listitem>
+
+<listitem>
+Leveraging existing C/C++ codebases
+</listitem>
+
+</list>
+</para>
+
+<para>
+Native modules should be used for low-level primitives
+rather than for complex business logic,
+for example, for cryptographic operations (hashing, encryption),
+data compression/decompression, binary protocol parsing,
+high-performance string operations, or mathematical computations.
+Complex application logic should remain in JavaScript
+where it's easier to maintain, debug, and modify.
+</para>
+
+<para>
+Limitations:
+
+<list type="bullet">
+
+<listitem>
+Native modules must be compiled for the same architecture as NGINX
+</listitem>
+
+<listitem>
+Native modules run with full process privileges
+and require careful security review
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+
+<section id="loading" name="Loading native modules in NGINX">
+
+<para>
+Native modules are loaded using these directives
+specified in the <literal>main</literal> context:
+
+<list type="bullet">
+
+<listitem>
+<link doc="../http/ngx_http_js_module.xml" id="js_load_http_native_module">
+js_load_http_native_module</link> for HTTP context
+</listitem>
+
+<listitem>
+<link doc="../stream/ngx_stream_js_module.xml" id="js_load_stream_native_module">
+js_load_stream_native_module</link> for Stream context
+</listitem>
+
+</list>
+</para>
+
+<para>
+Example configuration:
+<example>
+js_load_http_native_module /path/to/mylib.so;
+js_load_http_native_module /path/to/other.so as myalias;
+
+http {
+    js_import main.js;
+
+    server {
+        listen 8000;
+        location / {
+            js_content main.handler;
+        }
+    }
+}
+</example>
+</para>
+
+<para>
+Once loaded, the module can be imported in JavaScript code:
+<example>
+// Import by filename
+import * as mylib from 'mylib.so';
+
+// Import by alias
+import * as myalias from 'myalias';
+
+function handler(r) {
+    let result = mylib.add(5, 10);
+    r.return(200, `Result: ${result}\n`);
+}
+
+export default { handler };
+</example>
+</para>
+
+</section>
+
+
+<section id="building" name="Building native modules">
+
+<para>
+Native modules must implement the <literal>js_init_module</literal>
+function as the entry point.
+This function is called by QuickJS when the module is loaded.
+</para>
+
+<para>
+A complete example of a simple native module
+that exports two functions:
+<example>
+#include &lt;quickjs.h&gt;
+
+#define countof(x) (sizeof(x) / sizeof((x)[0]))
+
+/* Add two numbers */
+static JSValue
+js_add(JSContext *ctx, JSValueConst this_val, int argc, JSValueConst *argv)
+{
+    int a, b;
+
+    if (argc &lt; 2) {
+        return JS_ThrowTypeError(ctx, "expected 2 arguments");
+    }
+
+    if (JS_ToInt32(ctx, &amp;a, argv[0]) &lt; 0) {
+        return JS_EXCEPTION;
+    }
+
+    if (JS_ToInt32(ctx, &amp;b, argv[1]) &lt; 0) {
+        return JS_EXCEPTION;
+    }
+
+    return JS_NewInt32(ctx, a + b);
+}
+
+/* Reverse a string */
+static JSValue
+js_reverse_string(JSContext *ctx, JSValueConst this_val, int argc,
+    JSValueConst *argv)
+{
+    char        *reversed;
+    size_t       i, len;
+    JSValue      result;
+    const char  *str;
+
+    if (argc &lt; 1) {
+        return JS_ThrowTypeError(ctx, "expected 1 argument");
+    }
+
+    str = JS_ToCStringLen(ctx, &amp;len, argv[0]);
+    if (!str) {
+        return JS_EXCEPTION;
+    }
+
+    reversed = js_malloc(ctx, len + 1);
+    if (!reversed) {
+        JS_FreeCString(ctx, str);
+        return JS_EXCEPTION;
+    }
+
+    for (i = 0; i &lt; len; i++) {
+        reversed[i] = str[len - 1 - i];
+    }
+    reversed[len] = '\0';
+
+    result = JS_NewString(ctx, reversed);
+
+    js_free(ctx, reversed);
+    JS_FreeCString(ctx, str);
+
+    return result;
+}
+
+/* Module function list */
+static const JSCFunctionListEntry js_module_funcs[] = {
+    JS_CFUNC_DEF("add", 2, js_add),
+    JS_CFUNC_DEF("reverseString", 1, js_reverse_string),
+};
+
+/* Module initialization */
+static int
+js_module_init(JSContext *ctx, JSModuleDef *m)
+{
+    return JS_SetModuleExportList(ctx, m, js_module_funcs,
+                                  countof(js_module_funcs));
+}
+
+/* Required entry point */
+JSModuleDef *
+js_init_module(JSContext *ctx, const char *module_name)
+{
+    JSModuleDef  *m;
+
+    m = JS_NewCModule(ctx, module_name, js_module_init);
+    if (!m) {
+        return NULL;
+    }
+
+    JS_AddModuleExportList(ctx, m, js_module_funcs,
+                           countof(js_module_funcs));
+
+    return m;
+}
+</example>
+</para>
+
+<para>
+To compile the native module:
+<example>
+gcc -fPIC -shared -I/path/to/quickjs -o mymodule.so mymodule.c
+</example>
+where <literal>/path/to/quickjs</literal> is the directory
+containing the QuickJS header files.
+</para>
+
+<para>
+<note>
+For proper memory tracking, always use QuickJS memory allocation functions
+(<literal>js_malloc</literal>, <literal>js_free</literal>)
+instead of standard library functions
+(<literal>malloc</literal>, <literal>free</literal>).
+</note>
+</para>
+
+</section>
+
+
+<section id="resources" name="Additional resources">
+
+<para>
+For more information about the QuickJS C API:
+
+<list type="bullet">
+
+<listitem>
+<link url="https://bellard.org/quickjs/">QuickJS official website</link>
+</listitem>
+
+<listitem>
+QuickJS header file (<literal>quickjs.h</literal>)
+contains comprehensive API documentation
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+</article>
