@@ -158,7 +158,9 @@ This directive is available as part of our
 <para>
 Sets the <value>size</value> of the buffer used for reading the first part
 of the response received from the proxied server.
-This part usually contains a small response header.
+This part usually contains a small response header;
+the HTTP response headers must fit entirely within this buffer
+or an error response will be returned.
 By default, the buffer size is equal to one memory page.
 This is either 4K or 8K, depending on a platform.
 It can be made smaller, however.
