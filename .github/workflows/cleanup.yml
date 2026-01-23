@@ -1,0 +1,100 @@
+name: nginx.org cleanup non-prod
+
+on:
+  schedule:
+    - cron: "23 3 * * *"
+  workflow_dispatch:
+    inputs:
+      retention_days:
+        description: "Delete non-prod preview deployments older than this many days"
+        required: false
+        default: "30"
+        type: string
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  DEFAULT_RETENTION_DAYS: "30"
+  AWSAccount: ${{ secrets.AWS_ACCOUNT_ID }}
+  AWSRoleName: ${{ secrets.AWS_ROLE_NAME }}
+  AWSS3Bucket: "nginx-org-staging"
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Configure AWS credentials via OIDC (assume role)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{ env.AWSAccount }}:role/${{ env.AWSRoleName }}
+          aws-region: eu-central-1
+
+      - name: Cleanup non-prod previews older than retention window
+        env:
+          RETENTION_DAYS: ${{ inputs.retention_days || env.DEFAULT_RETENTION_DAYS }}
+        run: |
+          set -euo pipefail
+
+          if [[ -z "${RETENTION_DAYS}" ]]; then
+            RETENTION_DAYS="${DEFAULT_RETENTION_DAYS}"
+          fi
+
+          if ! [[ "${RETENTION_DAYS}" =~ ^[0-9]+$ ]]; then
+            echo "::error::retention_days must be a non-negative integer"
+            exit 1
+          fi
+
+          cutoff_epoch=$(date -u -d "${RETENTION_DAYS} days ago" +%s)
+          bucket="${AWSS3Bucket}"
+          safe_repo="${GITHUB_REPOSITORY//\//-}"
+          echo "Retention: ${RETENTION_DAYS} days"
+          echo "Cutoff (epoch): ${cutoff_epoch}"
+          echo "Bucket: ${bucket}"
+
+          deleted=0
+          kept=0
+
+          for env_name in dev; do
+            preview_root="${safe_repo}/staging/"
+            echo "Preview root: ${preview_root}"
+
+            prefixes=$(aws s3api list-objects-v2 \
+              --bucket "${bucket}" \
+              --prefix "${preview_root}" \
+              --delimiter "/" \
+              --query 'CommonPrefixes[].Prefix' \
+              --output text)
+
+            if [[ -z "${prefixes}" ]]; then
+              echo "No preview prefixes found for ${env_name}. Skipping."
+              continue
+            fi
+
+            for prefix in ${prefixes}; do
+              latest=$(aws s3api list-objects-v2 \
+                --bucket "${bucket}" \
+                --prefix "${prefix}" \
+                --query 'max_by(Contents,&LastModified).LastModified' \
+                --output text)
+
+              if [[ "${latest}" == "None" || -z "${latest}" ]]; then
+                echo "Skipping empty prefix: ${prefix}"
+                continue
+              fi
+
+              latest_epoch=$(date -u -d "${latest}" +%s)
+              if (( latest_epoch < cutoff_epoch )); then
+                echo "Deleting ${prefix} (latest object: ${latest})"
+                aws s3 rm "s3://${bucket}/${prefix}" --recursive
+                deleted=$((deleted + 1))
+              else
+                echo "Keeping ${prefix} (latest object: ${latest})"
+                kept=$((kept + 1))
+              fi
+            done
+          done
+
+          echo "Deleted prefixes: ${deleted}"
+          echo "Kept prefixes: ${kept}"
