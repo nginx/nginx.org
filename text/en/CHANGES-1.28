@@ -1,4 +1,15 @@
 
+Changes with nginx 1.28.2                                        04 Feb 2026
+
+    *) Security: an attacker might inject plain text data in the response
+       from an SSL backend (CVE-2026-1642).
+
+    *) Bugfix: use-after-free might occur after switching to the next gRPC
+       or HTTP/2 backend.
+
+    *) Bugfix: fixed warning when compiling with MSVC 2022 x86.
+
+
 Changes with nginx 1.28.1                                        23 Dec 2025
 
     *) Security: processing of a specially crafted login/password when using
