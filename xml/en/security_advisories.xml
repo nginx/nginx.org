@@ -26,6 +26,14 @@ Patches are signed using one of the
 
 <security>
 
+<item name="SSL upstream injection"
+      severity="medium"
+      advisory="https://my.f5.com/manage/s/article/K000159824"
+      cve="2026-1642"
+      good="1.29.5+, 1.28.2+"
+      vulnerable="1.3.0-1.29.4">
+</item>
+
 <item name="Buffer overread in the ngx_mail_smtp_module"
       severity="low"
       advisory="https://my.f5.com/manage/s/article/K000152786"
