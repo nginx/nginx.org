@@ -8,20 +8,49 @@
 <article name="nginx books"
          link="/en/books.html"
          lang="en"
-         rev="10">
+         rev="11">
 
 
 <section>
 
 <book
-    title="The Complete NGINX Cookbook - 2019 Edition"
-    link="https://www.f5.com/go/ebook/complete-nginx-cookbook"
+    title="NGINX Cookbook, 3rd Edition"
+    link="https://www.f5.com/company/blog/nginx/insights-from-the-2024-nginx-cookbook-4-solutions-to-todays-top-application-delivery-problems"
     author="Derek DeJonghe"
-    site="https://www.oreilly.com/people/02bb3-derek-dejonghe"
+    site="https://www.oreilly.com/pub/au/7164"
+    publisher="O'Reilly"
+    lang="English"
+    cover="../books/nginx_cookbook_3rd_ed.jpg"
+    year="2024" />
+
+<book
+    title="NGINX HTTP Server - Fifth Edition"
+    link="https://www.oreilly.com/library/view/nginx-http-server/9781835469873/"
+    author="Gabriel Ouiran, Clément Nedelcu, Martin Fjordvald"
+    publisher="O'Reilly"
+    lang="English"
+    cover="../books/nginx_http_server_5th_ed.jpg"
+    year="2024" />
+
+<book
+    title="NGINX Cookbook, 2nd Edition"
+    link="https://www.oreilly.com/library/view/nginx-cookbook-2nd/9781098126230/"
+    author="Derek DeJonghe"
+    site="https://www.oreilly.com/pub/au/7164"
+    publisher="O'Reilly"
+    lang="English"
+    cover="../books/nginx_cookbook_2nd_ed.jpg"
+    year="2022" />
+
+<book
+    title="NGINX Cookbook - 2019 Edition"
+    link="https://www.oreilly.com/library/view/nginx-cookbook/9781492049098/"
+    author="Derek DeJonghe"
+    site="https://www.oreilly.com/pub/au/7164"
     publisher="O'Reilly"
     lang="English"
     cover="../books/complete_nginx_cookbook_2019.jpg"
-    year="2018" />
+    year="2019" />
 
 <book
     title="Deploying NGINX Plus as an API Gateway"
@@ -34,7 +63,7 @@
 
 <book
     title="Nginx HTTP Server - Fourth Edition"
-    link="https://www.packtpub.com/virtualization-and-cloud/nginx-http-server-fourth-edition"
+    link="https://www.packtpub.com/en-us/product/nginx-http-server-9781788623551"
     author="Martin Fjordvald, Clément Nedelcu"
     site="http://blog.martinfjordvald.com"
     publisher="Packt Publishing"
@@ -45,9 +74,8 @@
 <book
     title="Nginx Cookbook"
     link=
-      "https://www.packtpub.com/networking-and-servers/nginx-cookbook"
+      "https://www.packtpub.com/en-us/product/nginx-cookbook-9781786469779"
     author="Tim Butler"
-    site="https://www.packtpub.com/books/info/authors/tim-butler"
     publisher="Packt Publishing"
     lang="English"
     cover="../books/nginx_cookbook.jpg"
@@ -55,7 +83,7 @@
 
 <book
     title="Nginx Troubleshooting"
-    link="https://www.packtpub.com/networking-and-servers/nginx-troubleshooting"
+    link="https://www.packtpub.com/en-us/product/nginx-troubleshooting-9781785281792"
     author="Alex Kapranoff"
     publisher="Packt Publishing"
     lang="English"
@@ -86,9 +114,8 @@
 
 <book
     title="Mastering NGINX - Second Edition"
-    link="https://www.packtpub.com/networking-and-servers/mastering-nginx-second-edition"
+    link="https://www.packtpub.com/en-us/product/mastering-nginx-9781785283765"
     author="Dimitri Aivaliotis"
-    site="http://www.packtpub.com/authors/profiles/dimitri-aivaliotis"
     publisher="Packt Publishing"
     lang="English"
     cover="../books/mastering_nginx.jpg"
@@ -96,7 +123,7 @@
 
 <book
     title="Nginx HTTP Server - Third Edition"
-    link="https://www.packtpub.com/networking-and-servers/nginx-http-server-third-edition"
+    link="https://www.packtpub.com/en-us/product/nginx-http-server-third-edition-9781785285912"
     author="Clément Nedelcu"
     site="http://cnedelcu.blogspot.com"
     publisher="Packt Publishing"
@@ -117,9 +144,8 @@
 
 <book
     title="Nginx Essentials"
-    link="https://www.packtpub.com/networking-and-servers/nginx-essentials"
+    link="https://www.packtpub.com/en-us/product/nginx-essentials-9781785280672"
     author="Valery Kholodkov"
-    site="https://www.packtpub.com/books/info/authors/valery-kholodkov"
     publisher="Packt Publishing"
     lang="English"
     cover="../books/nginx_essentials.jpg"
