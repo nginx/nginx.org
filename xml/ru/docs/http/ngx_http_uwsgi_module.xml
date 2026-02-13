@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_uwsgi_module"
         link="/ru/docs/http/ngx_http_uwsgi_module.html"
         lang="ru"
-        rev="56">
+        rev="57">
 
 <section id="summary">
 
@@ -1230,7 +1230,7 @@ uwsgi_no_cache $http_pragma    $http_authorization;
 <syntax>
     <value>параметр</value> <value>значение</value>
     [<literal>if_not_empty</literal>]</syntax>
-<default/>
+<default>HTTP_HOST $host$is_request_port$request_port</default>
 <context>http</context>
 <context>server</context>
 <context>location</context>

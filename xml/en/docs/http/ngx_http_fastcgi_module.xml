@@ -10,7 +10,7 @@
 <module name="Module ngx_http_fastcgi_module"
         link="/en/docs/http/ngx_http_fastcgi_module.html"
         lang="en"
-        rev="55">
+        rev="56">
 
 <section id="summary">
 
@@ -1282,7 +1282,7 @@ Can be used along with the <link id="fastcgi_cache_bypass"/> directive.
 <syntax>
     <value>parameter</value> <value>value</value>
     [<literal>if_not_empty</literal>]</syntax>
-<default/>
+<default>HTTP_HOST $host$is_request_port$request_port</default>
 <context>http</context>
 <context>server</context>
 <context>location</context>
