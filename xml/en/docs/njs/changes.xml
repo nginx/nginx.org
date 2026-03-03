@@ -9,8 +9,165 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="82"
+        rev="83"
         toc="no">
+
+<section id="njs0.9.6" name="Changes with njs 0.9.6">
+
+<para>
+Release Date:
+3 March 2026
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Bugfix:
+fixed expire field truncation in
+<link doc="../http/ngx_http_js_module.xml" id="js_shared_dict_zone">shared dict</link>
+state files.
+Millisecond timestamps were silently truncated to 10 digits,
+making restored entries appear expired on restart.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+suppressed slab log_nomem for evict
+<link doc="../http/ngx_http_js_module.xml" id="js_shared_dict_zone">shared dict</link>
+zones.
+When evict is enabled, memory allocation failures are expected
+and handled by evicting old entries.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed stack trace for
+<link doc="reference.xml" id="ngx_fetch">ngx.fetch()</link>
+exceptions
+for <link doc="engine.xml" id="quickjs_engine">qjs</link> engine.
+</para>
+</listitem>
+
+</list>
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+added optional chaining support.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added nullish coalescing assignment operator
+(<literal>??=</literal>).
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added logical assignment operators
+(<literal>||=</literal> and <literal>&amp;&amp;=</literal>).
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+aligned <literal>SyntaxError</literal> reporting with other JS engines.
+Previously, file name was a part of the error message.
+Now it is reported as "stack" property.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+improved <literal>Error.stack</literal> traces.
+Stack traces are now attached in error constructors.
+Performance of <literal>Error.stack</literal> is improved by ~100 times.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed string offset map corruption in scope values hash.
+The issue caused SEGV/SIGBUS crashes for multi-byte UTF-8 string
+constants with more than 32 characters when accessing a character
+at index >= 32 (e.g. via <literal>.replace()</literal> or bracket notation).
+The issue was introduced in
+<link url="https://github.com/nginx/njs/commit/e7caa46d">e7caa46d</link>
+(<link doc="changes.xml" id="njs0.9.5">0.9.5</link>).
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed heap-buffer-overflow in atom hash caused by
+<literal>Symbol()</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed WebCrypto
+<link doc="reference.xml" id="crypto_subtle_import_key">importKey()</link>
+crash with mismatched JWK key type.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed interactive mode detection for piped stdin.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed build on MacOS.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed PTR macro compatibility with newer BFD library.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+auto/cc: use portable <literal>command -v</literal>
+instead of <literal>which</literal>.
+Thanks to Zurab Kvachadze.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.9.5" name="Changes with njs 0.9.5">
 
