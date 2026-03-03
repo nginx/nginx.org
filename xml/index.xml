@@ -28,6 +28,18 @@
 <year href="2009.html" year="2009" />
 </years>
 
+<event date="2026-03-03">
+<para>
+<link doc="en/docs/njs/index.xml">njs-0.9.6</link>
+version has been
+<link doc="en/docs/njs/changes.xml" id="njs0.9.6">released</link>,
+featuring optional chaining,
+nullish coalescing assignment (<literal>??=</literal>),
+and logical assignment operators
+(<literal>||=</literal> and <literal>&amp;&amp;=</literal>).
+</para>
+</event>
+
 <event date="2026-02-04">
 <para>
 <link doc="en/download.xml">nginx-1.28.2</link>
