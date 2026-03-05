@@ -10,7 +10,7 @@
 <module name="Module ngx_http_grpc_module"
         link="/en/docs/http/ngx_http_grpc_module.html"
         lang="en"
-        rev="15">
+        rev="16">
 
 <section id="summary">
 
@@ -164,7 +164,13 @@ This directive is available as part of our
 <para>
 Sets the <value>size</value> of the buffer used for reading the response
 received from the gRPC server.
+The first part of the response usually contains a small header;
+if it exceeds the buffer size, the response is considered
+<link id="invalid_header">invalid</link>.
 The response is passed to the client synchronously, as soon as it is received.
+By default, the buffer size is equal to one memory page.
+This is either 4K or 8K, depending on a platform.
+It can be made smaller, however.
 </para>
 
 </directive>
@@ -304,7 +310,7 @@ This parameter is available as part of our
 </para>
 </tag-desc>
 
-<tag-name><literal>invalid_header</literal></tag-name>
+<tag-name id="invalid_header"><literal>invalid_header</literal></tag-name>
 <tag-desc>a server returned an empty or invalid response;</tag-desc>
 
 <tag-name><literal>http_500</literal></tag-name>
