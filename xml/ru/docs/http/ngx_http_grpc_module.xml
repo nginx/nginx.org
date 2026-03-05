@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_grpc_module"
         link="/ru/docs/http/ngx_http_grpc_module.html"
         lang="ru"
-        rev="15">
+        rev="16">
 
 <section id="summary">
 
@@ -165,7 +165,13 @@ grpc_bind $remote_addr transparent;
 <para>
 Задаёт <value>размер</value> буфера, в который будет читаться ответ,
 получаемый от gRPC-сервера.
+В первой части ответа находится, как правило, небольшой заголовок;
+если его размер больше заданного, то такой ответ считается
+<link id="invalid_header">неверным</link>.
 Ответ синхронно передаётся клиенту сразу же по мере его поступления.
+По умолчанию размер одного буфера равен размеру страницы памяти.
+В зависимости от платформы это или 4K, или 8K,
+однако его можно сделать меньше.
 </para>
 
 </directive>
@@ -303,7 +309,7 @@ nginx не передаёт клиенту поля заголовка <header>D
 </para>
 </tag-desc>
 
-<tag-name><literal>invalid_header</literal></tag-name>
+<tag-name id="invalid_header"><literal>invalid_header</literal></tag-name>
 <tag-desc>сервер вернул пустой или неверный ответ;</tag-desc>
 
 <tag-name><literal>http_500</literal></tag-name>
