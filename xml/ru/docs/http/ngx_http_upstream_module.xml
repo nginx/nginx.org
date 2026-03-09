@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_upstream_module"
         link="/ru/docs/http/ngx_http_upstream_module.html"
         lang="ru"
-        rev="91">
+        rev="92">
 
 <section id="summary">
 
@@ -313,6 +313,39 @@ SRV-записи с наивысшим приоритетом
 </para>
 </tag-desc>
 
+<tag-name id="route">
+<literal>route</literal>=<value>строка</value>
+</tag-name>
+<tag-desc>
+задаёт имя маршрута к серверу.
+<para>
+<note>
+До версии 1.29.6
+этот параметр был доступен только как часть
+<commercial_version>коммерческой подписки</commercial_version>.
+</note>
+</para>
+</tag-desc>
+
+<tag-name id="drain">
+<literal>drain</literal>
+</tag-name>
+<tag-desc>
+переводит сервер в режим “draining” (1.13.6).
+В этом режиме на сервер будут проксироваться только
+<link id="sticky">привязанные</link> к нему запросы.
+<note>
+До версии 1.13.6
+параметр мог быть изменён только при помощи
+модуля <link doc="ngx_http_api_module.xml">API</link>.
+</note>
+<note>
+До версии 1.29.6
+параметр был доступен только как часть
+<commercial_version>коммерческой подписки</commercial_version>.
+</note>
+</tag-desc>
+
 </list>
 </para>
 
@@ -321,13 +354,6 @@ SRV-записи с наивысшим приоритетом
 следующие параметры доступны как часть
 <commercial_version>коммерческой подписки</commercial_version>:
 <list type="tag">
-
-<tag-name id="route">
-<literal>route</literal>=<value>строка</value>
-</tag-name>
-<tag-desc>
-задаёт имя маршрута к серверу.
-</tag-desc>
 
 <tag-name id="slow_start">
 <literal>slow_start</literal>=<value>время</value>
@@ -344,20 +370,6 @@ SRV-записи с наивысшим приоритетом
 Параметр нельзя использовать совместно с
 методами балансировки нагрузки
 <link id="hash"/>, <link id="ip_hash"/> и <link id="random"/>.
-</note>
-</tag-desc>
-
-<tag-name id="drain">
-<literal>drain</literal>
-</tag-name>
-<tag-desc>
-переводит сервер в режим “draining” (1.13.6).
-В этом режиме на сервер будут проксироваться только
-<link id="sticky">привязанные</link> к нему запросы.
-<note>
-До версии 1.13.6
-параметр мог быть изменён только при помощи
-модуля <link doc="ngx_http_api_module.xml">API</link>.
 </note>
 </tag-desc>
 
@@ -1244,6 +1256,8 @@ upstream backend {
 Параметр <literal>sync</literal> (1.13.8) разрешает
 <link doc="../stream/ngx_stream_zone_sync_module.xml" id="zone_sync">синхронизацию</link>
 данной зоны разделяемой памяти.
+Параметр доступен как часть
+<commercial_version>коммерческой подписки</commercial_version>.
 </para>
 
 </tag-desc>
@@ -1252,7 +1266,8 @@ upstream backend {
 
 <para>
 <note>
-Эта директива доступна как часть
+До версии 1.29.6
+эта директива была доступна только как часть
 <commercial_version>коммерческой подписки</commercial_version>.
 </note>
 </para>
