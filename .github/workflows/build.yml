@@ -22,10 +22,19 @@ permissions:
 jobs:
   deploy:
     name: Deploy nginx.org
-    uses: nginxinc/docs-actions/.github/workflows/nginx.org-make-aws.yml@main
+    uses: nginxinc/docs-actions/.github/workflows/nginx.org-make-aws.yml@87da99295dcb424d92efb2f6d783cc02e7c8da43 #v1.0.15
     with:
       deployment_env: ${{ github.event_name == 'workflow_dispatch' && inputs.deployment_env || 'staging' }}
     secrets:
-      AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
-      AWS_ROLE_NAME: ${{ secrets.AWS_ROLE_NAME }}
-      ALLOWED_USERS: ${{ secrets.ALLOWED_USERS }}
+      AZURE_VAULT_CLIENT_ID: ${{ secrets.AZURE_VAULT_CLIENT_ID }}
+      AZURE_VAULT_SUBSCRIPTION_ID: ${{ secrets.AZURE_VAULT_SUBSCRIPTION_ID }}
+      AZURE_VAULT_TENANT_ID: ${{ secrets.AZURE_VAULT_TENANT_ID }}
+      DOCS_VAULTNAME: ${{ secrets.DOCS_VAULTNAME }}
+      
+    if: |
+      (github.event_name == 'push')
+      ||
+        (github.event_name == 'workflow_dispatch' &&
+          (inputs.deployment_env == 'staging' ||  (inputs.deployment_env == 'prod' && github.ref == 'refs/heads/main')
+        )
+      )
