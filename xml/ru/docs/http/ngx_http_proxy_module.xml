@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_proxy_module"
         link="/ru/docs/http/ngx_http_proxy_module.html"
         lang="ru"
-        rev="84">
+        rev="85">
 
 <section id="summary">
 
@@ -1168,6 +1168,10 @@ nginx не передаёт клиенту поля заголовка <header>D
 соединений</link> и
 <link doc="ngx_http_upstream_module.xml" id="ntlm">проверки подлинности
 NTLM</link> рекомендуется версия 1.1 или 2 (1.29.4).
+<note>
+Для версии 2 необходим
+модуль <link doc="ngx_http_v2_module.xml">ngx_http_v2_module</link>.
+</note>
 </para>
 
 </directive>

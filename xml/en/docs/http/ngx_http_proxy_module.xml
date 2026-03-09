@@ -10,7 +10,7 @@
 <module name="Module ngx_http_proxy_module"
         link="/en/docs/http/ngx_http_proxy_module.html"
         lang="en"
-        rev="84">
+        rev="85">
 
 <section id="summary">
 
@@ -1165,6 +1165,10 @@ Version 1.1 or 2 (1.29.4) is recommended for use with
 <link doc="ngx_http_upstream_module.xml" id="keepalive"/>
 connections and
 <link doc="ngx_http_upstream_module.xml" id="ntlm">NTLM authentication</link>.
+<note>
+The version 2 requires the
+<link doc="ngx_http_v2_module.xml">ngx_http_v2_module</link> module.
+</note>
 </para>
 
 </directive>
