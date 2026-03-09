@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="91">
+        rev="92">
 
 <section id="summary">
 
@@ -310,6 +310,39 @@ Prior to version 1.27.3, this parameter was available only as part of our
 </para>
 </tag-desc>
 
+<tag-name id="route">
+<literal>route</literal>=<value>string</value>
+</tag-name>
+<tag-desc>
+sets the server route name.
+<para>
+<note>
+Prior to version 1.29.6,
+this parameter was available only as part of our
+<commercial_version>commercial subscription</commercial_version>.
+</note>
+</para>
+</tag-desc>
+
+<tag-name id="drain">
+<literal>drain</literal>
+</tag-name>
+<tag-desc>
+puts the server into the “draining” mode (1.13.6).
+In this mode, only requests <link id="sticky">bound</link> to the server
+will be proxied to it.
+<note>
+Prior to version 1.13.6,
+the parameter could be changed only with the
+<link doc="ngx_http_api_module.xml">API</link> module.
+</note>
+<note>
+Prior to version 1.29.6,
+the parameter was available only as part of our
+<commercial_version>commercial subscription</commercial_version>.
+</note>
+</tag-desc>
+
 </list>
 </para>
 
@@ -318,13 +351,6 @@ Additionally,
 the following parameters are available as part of our
 <commercial_version>commercial subscription</commercial_version>:
 <list type="tag">
-
-<tag-name id="route">
-<literal>route</literal>=<value>string</value>
-</tag-name>
-<tag-desc>
-sets the server route name.
-</tag-desc>
 
 <tag-name id="slow_start">
 <literal>slow_start</literal>=<value>time</value>
@@ -340,20 +366,6 @@ Default value is zero, i.e. slow start is disabled.
 The parameter cannot be used along with the
 <link id="hash"/>, <link id="ip_hash"/>, and <link id="random"/>
 load balancing methods.
-</note>
-</tag-desc>
-
-<tag-name id="drain">
-<literal>drain</literal>
-</tag-name>
-<tag-desc>
-puts the server into the “draining” mode (1.13.6).
-In this mode, only requests <link id="sticky">bound</link> to the server
-will be proxied to it.
-<note>
-Prior to version 1.13.6,
-the parameter could be changed only with the
-<link doc="ngx_http_api_module.xml">API</link> module.
 </note>
 </tag-desc>
 
@@ -1235,6 +1247,8 @@ right after receiving response headers from the upstream server.
 The <literal>sync</literal> parameter (1.13.8) enables
 <link doc="../stream/ngx_stream_zone_sync_module.xml" id="zone_sync">synchronization</link>
 of the shared memory zone.
+The parameter is available as part of our
+<commercial_version>commercial subscription</commercial_version>.
 </para>
 
 </tag-desc>
@@ -1243,7 +1257,8 @@ of the shared memory zone.
 
 <para>
 <note>
-This directive is available as part of our
+Prior to version 1.29.6,
+this directive was available only as part of our
 <commercial_version>commercial subscription</commercial_version>.
 </note>
 </para>
