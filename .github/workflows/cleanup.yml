@@ -24,6 +24,7 @@ env:
 jobs:
   cleanup:
     runs-on: ubuntu-24.04
+    if: github.repository == 'nginx/nginx.org'
     steps:
       - name: Configure AWS credentials via OIDC (assume role)
         uses: aws-actions/configure-aws-credentials@v4

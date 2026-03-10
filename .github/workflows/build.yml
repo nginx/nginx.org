@@ -31,10 +31,18 @@ jobs:
       AZURE_VAULT_TENANT_ID: ${{ secrets.AZURE_VAULT_TENANT_ID }}
       DOCS_VAULTNAME: ${{ secrets.DOCS_VAULTNAME }}
       
-    if: |
-      (github.event_name == 'push')
-      ||
-        (github.event_name == 'workflow_dispatch' &&
-          (inputs.deployment_env == 'staging' ||  (inputs.deployment_env == 'prod' && github.ref == 'refs/heads/main')
+    if: >-
+      github.repository == 'nginx/nginx.org' &&
+      (
+        github.event_name == 'push' ||
+        (
+          github.event_name == 'workflow_dispatch' &&
+          (
+            inputs.deployment_env == 'staging' ||
+            (
+              inputs.deployment_env == 'prod' &&
+              github.ref == 'refs/heads/main'
+            )
+          )
         )
       )
