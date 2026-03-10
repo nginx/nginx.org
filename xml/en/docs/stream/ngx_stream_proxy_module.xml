@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_proxy_module"
         link="/en/docs/stream/ngx_stream_proxy_module.html"
         lang="en"
-        rev="35">
+        rev="36">
 
 <section id="summary">
 
@@ -387,6 +387,48 @@ If the directive is set to the value “<literal>on</literal>”, the
 
 <para>
 Enables the SSL/TLS protocol for connections to a proxied server.
+</para>
+
+</directive>
+
+
+<directive name="proxy_ssl_alpn">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>on</default>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Enables or disables sending the
+<link url="https://datatracker.ietf.org/doc/html/rfc7301">ALPN</link>
+extension when establishing a connection with the proxied server.
+When enabled and
+<link id="proxy_ssl_alpn_protocols"/> is not set,
+the protocol negotiated on the downstream SSL connection is inherited
+and offered to the upstream.
+If no ALPN was negotiated downstream, no ALPN extension is sent upstream.
+</para>
+
+</directive>
+
+
+<directive name="proxy_ssl_alpn_protocols">
+<syntax><value>protocol</value> ...</syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Specifies the list of protocols to advertise via the
+<link url="https://datatracker.ietf.org/doc/html/rfc7301">ALPN</link>
+extension when establishing a connection with the proxied server.
+For example:
+<example>
+proxy_ssl_alpn_protocols h2 http/1.1;
+</example>
+When set, this list takes precedence over the downstream negotiated protocol.
+If <link id="proxy_ssl_alpn"/> is <literal>off</literal>,
+this directive is ignored.
 </para>
 
 </directive>
