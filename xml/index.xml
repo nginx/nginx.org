@@ -28,6 +28,15 @@
 <year href="2009.html" year="2009" />
 </years>
 
+<event date="2026-03-10">
+<para>
+<link doc="en/download.xml">nginx-1.29.6</link>
+mainline version has been released, featuring
+<link doc="en/docs/http/ngx_http_upstream_module.xml" id="sticky">sticky
+sessions support for upstreams</link>.
+</para>
+</event>
+
 <event date="2026-03-03">
 <para>
 <link doc="en/docs/njs/index.xml">njs-0.9.6</link>
