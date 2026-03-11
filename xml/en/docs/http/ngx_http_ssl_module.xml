@@ -452,7 +452,8 @@ might result in unexpected behavior.
 <para>
 Specifies a <value>file</value> with revoked certificates (CRL)
 in the PEM format used to <link id="ssl_verify_client">verify</link>
-client certificates.
+client certificates. When using intermediate certificates, their CRLs should be
+specified in the same file.
 </para>
 
 </directive>
