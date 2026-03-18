@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="130">
+        rev="131">
 
 <section id="summary">
 
@@ -1783,7 +1783,12 @@ and overrides the <literal>timeout</literal> parameter of the
 or
 <link doc="../stream/ngx_stream_js_module.xml" id="js_shared_dict_zone">stream</link>
 (since <link doc="changes.xml" id="njs0.8.5">0.8.5</link>).
-It can be useful when some keys are expected to have unique timeouts.
+If the <literal>timeout</literal> argument is not specified,
+the existing per-entry TTL is preserved
+(since <link doc="changes.xml" id="njs0.9.7">0.9.7</link>).
+Before version <link doc="changes.xml" id="njs0.9.7">0.9.7</link>,
+omitting <literal>timeout</literal> would reset the entry expiry
+to the directive default.
 </para>
 
 <para>
