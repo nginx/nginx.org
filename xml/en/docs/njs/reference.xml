@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="129">
+        rev="130">
 
 <section id="summary">
 
@@ -1669,6 +1669,7 @@ since <link doc="changes.xml" id="njs0.8.0">0.8.0</link>.
 <tr><td><link id="dict_replace"><literal>ngx.shared.SharedDict.replace()</literal></link></td></tr>
 <tr><td><link id="dict_set"><literal>ngx.shared.SharedDict.set()</literal></link></td></tr>
 <tr><td><link id="dict_size"><literal>ngx.shared.SharedDict.size()</literal></link></td></tr>
+<tr><td><link id="dict_ttl"><literal>ngx.shared.SharedDict.ttl()</literal></link></td></tr>
 <tr><td><link id="dict_type"><literal>ngx.shared.SharedDict.type</literal></link></td></tr>
 </table>
 </para>
@@ -1875,6 +1876,24 @@ It can be useful when some keys are expected to have unique timeouts.
 <tag-name id="dict_size"><literal>ngx.shared.SharedDict.size()</literal></tag-name>
 <tag-desc>
 Returns the number of items for the <literal>SharedDict</literal> dictionary.
+</tag-desc>
+
+<tag-name id="dict_ttl"><literal>ngx.shared.SharedDict.ttl(<value>key</value>)</literal></tag-name>
+<tag-desc>
+Returns the remaining time-to-live in milliseconds
+for the specified <literal>key</literal>,
+or <literal>undefined</literal> if the key does not exist
+or has expired
+(since <link doc="changes.xml" id="njs0.9.7">0.9.7</link>).
+
+<para>
+Throws <literal>TypeError</literal> if the dictionary was declared
+without the <literal>timeout</literal> parameter of the
+<literal>js_shared_dict_zone</literal> directive in
+<link doc="../http/ngx_http_js_module.xml" id="js_shared_dict_zone">http</link>
+or
+<link doc="../stream/ngx_stream_js_module.xml" id="js_shared_dict_zone">stream</link>.
+</para>
 </tag-desc>
 
 <tag-name id="dict_type"><literal>ngx.shared.SharedDict.type</literal></tag-name>
