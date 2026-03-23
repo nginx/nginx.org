@@ -1,4 +1,49 @@
 
+Changes with nginx 1.28.3                                        24 Mar 2026
+
+    *) Security: a buffer overflow might occur while handling a COPY or MOVE
+       request in a location with "alias", allowing an attacker to modify
+       the source or destination path outside of the document root
+       (CVE-2026-27654).
+       Thanks to Calif.io in collaboration with Claude and Anthropic
+       Research.
+
+    *) Security: processing of a specially crafted mp4 file by the
+       ngx_http_mp4_module on 32-bit platforms might cause a worker process
+       crash, or might have potential other impact (CVE-2026-27784).
+       Thanks to Prabhav Srinath (sprabhav7).
+
+    *) Security: processing of a specially crafted mp4 file by the
+       ngx_http_mp4_module might cause a worker process crash, or might have
+       potential other impact (CVE-2026-32647).
+       Thanks to Xint Code and Pavel Kohout (Aisle Research).
+
+    *) Security: a segmentation fault might occur in a worker process if the
+       CRAM-MD5 or APOP authentication methods were used and authentication
+       retry was enabled (CVE-2026-27651).
+       Thanks to Arkadi Vainbrand.
+
+    *) Security: an attacker might use PTR DNS records to inject data in
+       auth_http requests, as well as in the XCLIENT command in the backend
+       SMTP connection (CVE-2026-28753).
+       Thanks to Asim Viladi Oglu Manizada, Colin Warren, Xiao Liu (Yunnan
+       University), Yuan Tan (UC Riverside), and Bird Liu (Lanzhou
+       University).
+
+    *) Security: SSL handshake might succeed despite OCSP rejecting a client
+       certificate in the stream module (CVE-2026-28755).
+       Thanks to Mufeed VH of Winfunc Research.
+
+    *) Change: now nginx limits the size and rate of QUIC stateless reset
+       packets.
+
+    *) Bugfix: receiving a QUIC packet by a wrong worker process could cause
+       the connection to terminate.
+
+    *) Bugfix: in the ngx_http_mp4_module.
+       Thanks to Andrew Lacambra.
+
+
 Changes with nginx 1.28.2                                        04 Feb 2026
 
     *) Security: an attacker might inject plain text data in the response
