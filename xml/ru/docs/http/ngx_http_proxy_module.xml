@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_proxy_module"
         link="/ru/docs/http/ngx_http_proxy_module.html"
         lang="ru"
-        rev="85">
+        rev="86">
 
 <section id="summary">
 
@@ -1156,7 +1156,7 @@ nginx не передаёт клиенту поля заголовка <header>D
 <syntax>
     <literal>1.0</literal> | <literal>1.1</literal> |
     <literal>2</literal></syntax>
-<default>1.0</default>
+<default>1.1</default>
 <context>http</context>
 <context>server</context>
 <context>location</context>
@@ -1164,7 +1164,8 @@ nginx не передаёт клиенту поля заголовка <header>D
 
 <para>
 Задаёт версию протокола HTTP для проксирования.
-По умолчанию используется версия 1.0.
+Начиная с 1.29.7 по умолчанию используется версия 1.1.
+До версии 1.29.7 по умолчанию использовалась версия 1.0.
 Для работы
 <link doc="ngx_http_upstream_module.xml" id="keepalive">постоянных
 соединений</link> и
@@ -1724,16 +1725,15 @@ location /x-accel-redirect-here/ {
 
 <para>
 <note>
-Использование заголовков в конце ответа HTTP/1.1 включается
-<link url="https://datatracker.ietf.org/doc/html/rfc9110#section-6.5.1">явным
-образом</link>.
+Использование заголовков в конце ответа включается
+<link url="https://datatracker.ietf.org/doc/html/rfc9110#section-6.5.1">явным образом</link>:
 </note>
 <example>
 location / {
-    proxy_http_version 1.1;
-    proxy_set_header Connection "te";
-    proxy_set_header TE "trailers";
-    proxy_pass_trailers on;
+    # proxy_http_version  1.1;  # версии до 1.29.7
+    proxy_set_header      Connection "te";
+    proxy_set_header      TE "trailers";
+    proxy_pass_trailers   on;
 
     proxy_pass ...
 }

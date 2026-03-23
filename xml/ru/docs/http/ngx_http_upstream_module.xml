@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_upstream_module"
         link="/ru/docs/http/ngx_http_upstream_module.html"
         lang="ru"
-        rev="92">
+        rev="93">
 
 <section id="summary">
 
@@ -607,10 +607,12 @@ server {
 </para>
 
 <para>
-Для HTTP директиву
+Для HTTP значение директивы
 <link doc="ngx_http_proxy_module.xml" id="proxy_http_version"/>
-следует установить в “<literal>1.1</literal>” или “<literal>2</literal>”,
-а поле заголовка <header>Connection</header> — очистить:
+должно быть “<literal>1.1</literal>” (по умолчанию начиная с 1.29.7)
+или директиву следует установить в значение “<literal>2</literal>”,
+а поле заголовка <header>Connection</header> — очистить.
+Пример для версий до 1.29.7:
 <example>
 upstream http_backend {
     server 127.0.0.1:8080;
@@ -752,9 +754,11 @@ server {
 <para>
 Для работы проверки подлинности NTLM
 необходимо разрешить постоянные соединения с серверами группы.
-Директиву <link doc="ngx_http_proxy_module.xml" id="proxy_http_version"/>
-следует установить в “<literal>1.1</literal>” или “<literal>2</literal>”,
-а поле заголовка <header>Connection</header> — очистить:
+Значение директивы <link doc="ngx_http_proxy_module.xml" id="proxy_http_version"/>
+должно быть “<literal>1.1</literal>” (по умолчанию начиная с 1.29.7)
+или директиву следует установить в значение “<literal>2</literal>”,
+а поле заголовка <header>Connection</header> — очистить.
+Пример для версий до 1.29.7:
 <example>
 upstream http_backend {
     server 127.0.0.1:8080;

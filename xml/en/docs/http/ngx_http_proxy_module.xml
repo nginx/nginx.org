@@ -10,7 +10,7 @@
 <module name="Module ngx_http_proxy_module"
         link="/en/docs/http/ngx_http_proxy_module.html"
         lang="en"
-        rev="85">
+        rev="86">
 
 <section id="summary">
 
@@ -1154,7 +1154,7 @@ the <link id="proxy_pass_header"/> directive can be used.
 <syntax>
     <literal>1.0</literal> | <literal>1.1</literal> |
     <literal>2</literal></syntax>
-<default>1.0</default>
+<default>1.1</default>
 <context>http</context>
 <context>server</context>
 <context>location</context>
@@ -1162,13 +1162,14 @@ the <link id="proxy_pass_header"/> directive can be used.
 
 <para>
 Sets the HTTP protocol version for proxying.
-By default, version 1.0 is used.
+Since 1.29.7, version 1.1 is used by default.
+Before 1.29.7, version 1.0 was used by default.
 Version 1.1 or 2 (1.29.4) is recommended for use with
 <link doc="ngx_http_upstream_module.xml" id="keepalive"/>
 connections and
 <link doc="ngx_http_upstream_module.xml" id="ntlm">NTLM authentication</link>.
 <note>
-The version 2 requires the
+Version 2 requires the
 <link doc="ngx_http_v2_module.xml">ngx_http_v2_module</link> module.
 </note>
 </para>
@@ -1720,16 +1721,15 @@ Permits passing trailer fields from a proxied server to a client.
 
 <para>
 <note>
-A trailer section in HTTP/1.1 is
-<link url="https://datatracker.ietf.org/doc/html/rfc9110#section-6.5.1">explicitly
-enabled</link>.
+A trailer section should be
+<link url="https://datatracker.ietf.org/doc/html/rfc9110#section-6.5.1">explicitly enabled</link>:
 </note>
 <example>
 location / {
-    proxy_http_version 1.1;
-    proxy_set_header Connection "te";
-    proxy_set_header TE "trailers";
-    proxy_pass_trailers on;
+    # proxy_http_version 1.1;  #for versions before 1.29.7
+    proxy_set_header     Connection "te";
+    proxy_set_header     TE "trailers";
+    proxy_pass_trailers  on;
 
     proxy_pass ...
 }
