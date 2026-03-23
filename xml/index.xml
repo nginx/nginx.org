@@ -28,6 +28,24 @@
 <year href="2009.html" year="2009" />
 </years>
 
+<event date="2026-03-24">
+<para>
+<link doc="en/download.xml">nginx-1.28.3</link>
+stable and
+<link doc="en/download.xml">nginx-1.29.7</link>
+mainline versions have been released,
+with fixes for
+<link doc="en/security_advisories.xml">buffer overflow</link>
+vulnerability in the ngx_http_dav_module (CVE-2026-27654),
+<link doc="en/security_advisories.xml">buffer overflow</link>
+vulnerabilities in the ngx_http_mp4_module (CVE-2026-27784, CVE-2026-32647),
+<link doc="en/security_advisories.xml">mail session authentication</link>
+vulnerabilities (CVE-2026-27651, CVE-2026-28753) and
+<link doc="en/security_advisories.xml">OCSP result bypass</link>
+vulnerability in stream (CVE-2026-28755)
+</para>
+</event>
+
 <event date="2026-03-10">
 <para>
 <link doc="en/download.xml">nginx-1.29.6</link>

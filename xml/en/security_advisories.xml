@@ -26,6 +26,54 @@ Patches are signed using one of the
 
 <security>
 
+<item name="Buffer overflow in ngx_http_dav_module"
+      severity="medium"
+      advisory="https://my.f5.com/manage/s/article/K000160382"
+      cve="2026-27654"
+      good="1.29.7+, 1.28.3+"
+      vulnerable="0.5.13-1.29.6">
+</item>
+
+<item name="Buffer overflow in the ngx_http_mp4_module"
+      severity="medium"
+      advisory="https://my.f5.com/manage/s/article/K000160364"
+      cve="2026-27784"
+      good="1.29.7+, 1.28.3+"
+      vulnerable="1.1.19-1.29.6">
+</item>
+
+<item name="Buffer overflow in the ngx_http_mp4_module"
+      severity="medium"
+      advisory="https://my.f5.com/manage/s/article/K000160366"
+      cve="2026-32647"
+      good="1.29.7+, 1.28.3+"
+      vulnerable="1.1.19-1.29.6">
+</item>
+
+<item name="NULL pointer dereference while using CRAM-MD5 or APOP"
+      severity="low"
+      advisory="https://my.f5.com/manage/s/article/K000160383"
+      cve="2026-27651"
+      good="1.29.7+, 1.28.3+"
+      vulnerable="0.5.15-1.29.6">
+</item>
+
+<item name="Injection in auth_http and XCLIENT"
+      severity="medium"
+      advisory="https://my.f5.com/manage/s/article/K000160367"
+      cve="2026-28753"
+      good="1.29.7+, 1.28.3+"
+      vulnerable="0.6.27-1.29.6">
+</item>
+
+<item name="OCSP result bypass in stream"
+      severity="medium"
+      advisory="https://my.f5.com/manage/s/article/K000160368"
+      cve="2026-28755"
+      good="1.29.7+, 1.28.3+"
+      vulnerable="1.27.2-1.29.6">
+</item>
+
 <item name="SSL upstream injection"
       severity="medium"
       advisory="https://my.f5.com/manage/s/article/K000159824"
