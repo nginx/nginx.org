@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_core_module"
         link="/en/docs/stream/ngx_stream_core_module.html"
         lang="en"
-        rev="41">
+        rev="42">
 
 <section id="summary">
 
@@ -83,6 +83,7 @@ stream {
     [<literal>ssl</literal>]
     [<literal>udp</literal>]
     [<literal>proxy_protocol</literal>]
+    [<literal>multipath</literal>]
     [<literal>setfib</literal>=<value>number</value>]
     [<literal>fastopen</literal>=<value>number</value>]
     [<literal>backlog</literal>=<value>number</value>]
@@ -159,6 +160,19 @@ allows specifying that all connections accepted on this port should use the
 protocol</link>.
 <note>
 The PROXY protocol version 2 is supported since version 1.13.11.
+</note>
+</para>
+
+<para id="multipath">
+The <literal>multipath</literal> parameter configures a listening socket
+for working with
+<link url="https://datatracker.ietf.org/doc/html/rfc8684">Multipath TCP</link>
+protocol (1.29.7).
+<note>
+Adding or removing this parameter will also enable
+the <c-def>SO_REUSEPORT</c-def> socket option, which may have
+the same security implications as when using
+the <link id="reuseport">reuseport</link> parameter.
 </note>
 </para>
 

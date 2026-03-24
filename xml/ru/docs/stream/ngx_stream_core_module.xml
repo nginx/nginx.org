@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_core_module"
         link="/ru/docs/stream/ngx_stream_core_module.html"
         lang="ru"
-        rev="41">
+        rev="42">
 
 <section id="summary">
 
@@ -83,6 +83,7 @@ stream {
     [<literal>ssl</literal>]
     [<literal>udp</literal>]
     [<literal>proxy_protocol</literal>]
+    [<literal>multipath</literal>]
     [<literal>setfib</literal>=<value>число</value>]
     [<literal>fastopen</literal>=<value>число</value>]
     [<literal>backlog</literal>=<value>число</value>]
@@ -158,6 +159,19 @@ listen 12345-12399;
 PROXY</link>.
 <note>
 Протокол PROXY версии 2 поддерживается начиная с версии 1.13.11.
+</note>
+</para>
+
+<para id="multipath">
+Параметр <literal>multipath</literal> конфигурирует слушающий сокет
+для работы с протоколом
+<link url="https://datatracker.ietf.org/doc/html/rfc8684">Multipath TCP</link>
+(1.29.7).
+<note>
+Добавление или удаление этого параметра также включает
+параметр сокета <c-def>SO_REUSEPORT</c-def>, что может
+иметь такие же последствия для безопасности, что и при использовании
+параметра <link id="reuseport">reuseport</link>.
 </note>
 </para>
 
