@@ -10,7 +10,7 @@
 <module name="Модуль ngx_mail_core_module"
         link="/ru/docs/mail/ngx_mail_core_module.html"
         lang="ru"
-        rev="22">
+        rev="23">
 
 <section id="summary">
 
@@ -79,6 +79,7 @@ mail {
     <value>адрес</value>:<value>порт</value>
     [<literal>ssl</literal>]
     [<literal>proxy_protocol</literal>]
+    [<literal>multipath</literal>]
     [<literal>backlog</literal>=<value>число</value>]
     [<literal>rcvbuf</literal>=<value>размер</value>]
     [<literal>sndbuf</literal>=<value>размер</value>]
@@ -131,6 +132,19 @@ PROXY</link>.
 <link doc="ngx_mail_auth_http_module.xml" id="proxy_protocol">серверу аутентификации</link>
 и может быть использована для
 <link doc="ngx_mail_realip_module.xml">изменения адреса клиента</link>.
+</para>
+
+<para id="multipath">
+Параметр <literal>multipath</literal> конфигурирует слушающий сокет
+для работы с протоколом
+<link url="https://datatracker.ietf.org/doc/html/rfc8684">Multipath TCP</link>
+(1.29.7).
+<note>
+Добавление или удаление этого параметра также включает
+параметр сокета <c-def>SO_REUSEPORT</c-def>, что может
+иметь такие же последствия для безопасности, что и при использовании
+параметра <link id="reuseport">reuseport</link>.
+</note>
 </para>
 
 <para>

@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="110">
+        rev="111">
 
 <section id="directives" name="Директивы">
 
@@ -1317,6 +1317,7 @@ location /flv/ {
     [<literal>http2</literal> |
      <literal>quic</literal>]
     [<literal>proxy_protocol</literal>]
+    [<literal>multipath</literal>]
     [<literal>setfib</literal>=<value>число</value>]
     [<literal>fastopen</literal>=<value>число</value>]
     [<literal>backlog</literal>=<value>число</value>]
@@ -1335,6 +1336,7 @@ location /flv/ {
     [<literal>http2</literal> |
      <literal>quic</literal>]
     [<literal>proxy_protocol</literal>]
+    [<literal>multipath</literal>]
     [<literal>setfib</literal>=<value>число</value>]
     [<literal>fastopen</literal>=<value>число</value>]
     [<literal>backlog</literal>=<value>число</value>]
@@ -1353,6 +1355,7 @@ location /flv/ {
     [<literal>http2</literal> |
      <literal>quic</literal>]
     [<literal>proxy_protocol</literal>]
+    [<literal>multipath</literal>]
     [<literal>backlog</literal>=<value>число</value>]
     [<literal>rcvbuf</literal>=<value>размер</value>]
     [<literal>sndbuf</literal>=<value>размер</value>]
@@ -1444,6 +1447,19 @@ HTTP/2-соединений без SSL.
 PROXY</link>.
 <note>
 Протокол PROXY версии 2 поддерживается начиная с версии 1.13.11.
+</note>
+</para>
+
+<para id="multipath">
+Параметр <literal>multipath</literal> конфигурирует слушающий сокет
+для работы с протоколом
+<link url="https://datatracker.ietf.org/doc/html/rfc8684">Multipath TCP</link>
+(1.29.7).
+<note>
+Добавление или удаление этого параметра также включает
+параметр сокета <c-def>SO_REUSEPORT</c-def>, что может
+иметь такие же последствия для безопасности, что и при использовании
+параметра <link id="reuseport">reuseport</link>.
 </note>
 </para>
 
