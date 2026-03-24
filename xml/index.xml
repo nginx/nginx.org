@@ -42,7 +42,14 @@ vulnerabilities in the ngx_http_mp4_module (CVE-2026-27784, CVE-2026-32647),
 <link doc="en/security_advisories.xml">mail session authentication</link>
 vulnerabilities (CVE-2026-27651, CVE-2026-28753) and
 <link doc="en/security_advisories.xml">OCSP result bypass</link>
-vulnerability in stream (CVE-2026-28755)
+vulnerability in stream (CVE-2026-28755).
+Additionally, <link doc="en/download.xml">nginx-1.29.7</link>
+mainline version introduces support for
+<link doc="en/docs/http/ngx_http_core_module.xml" id="multipath">Multipath
+TCP</link>
+and upgrades the default HTTP version to
+<link url="https://blog.nginx.org/blog/keep-alive-to-upstreams-is-now-default-in-nginx-1-29-7">HTTP/1.1
+with keep-alive enabled</link>.
 </para>
 </event>
 
