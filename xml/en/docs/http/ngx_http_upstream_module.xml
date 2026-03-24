@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="93">
+        rev="94">
 
 <section id="summary">
 
@@ -547,13 +547,26 @@ servers using the <literal>ip_hash</literal> load balancing method.
 
 
 <directive name="keepalive">
-<syntax><value>connections</value></syntax>
-<default/>
+<syntax><value>connections</value> [<literal>local</literal>]</syntax>
+<default>32 local</default>
 <context>upstream</context>
 <appeared-in>1.1.4</appeared-in>
 
 <para>
-Activates the cache for connections to upstream servers.
+Enables or disables caching of keepalive connections to upstream servers.
+Since 1.29.7, by default the cache for connections is activated
+and these connections are not
+<link id="keepalive_local">shared</link> between different
+<link doc="ngx_http_core_module.xml" id="location">locations</link>.
+</para>
+
+<para id="keepalive_local">
+The <literal>local</literal> parameter (1.29.7) disables sharing of
+cached keepalive connections across different locations
+even if the upstream server address matches.
+If the <literal>local</literal> parameter is not specified,
+any matching cached connection to the same upstream server
+can be reused regardless of a location.
 </para>
 
 <para>
@@ -562,6 +575,11 @@ idle keepalive connections to upstream servers that are preserved in
 the cache of each worker process.
 When this number is exceeded, the least recently used connections
 are closed.
+The zero value disables keepalive connections to upstream servers.
+<note>
+Since 1.29.7, keepalive connections are enabled by default, with a
+default limit of <value>32</value> connections per each worker process.
+</note>
 <note>
 It should be particularly noted that the <literal>keepalive</literal> directive
 does not limit the total number of connections to upstream servers
@@ -571,8 +589,8 @@ to let upstream servers process new incoming connections as well.
 </note>
 
 <note>
-When using load balancing methods other than the default
-round-robin method, it is necessary to activate them before
+Before 1.29.7, when using load balancing methods other than the default
+round-robin method, it was necessary to activate them before
 the <literal>keepalive</literal> directive.
 </note>
 </para>
