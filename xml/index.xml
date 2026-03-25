@@ -47,7 +47,7 @@ Additionally, <link doc="en/download.xml">nginx-1.29.7</link>
 mainline version introduces support for
 <link doc="en/docs/http/ngx_http_core_module.xml" id="multipath">Multipath
 TCP</link>
-and upgrades the default HTTP version to
+and upgrades the default proxy HTTP version to
 <link url="https://blog.nginx.org/blog/keep-alive-to-upstreams-is-now-default-in-nginx-1-29-7">HTTP/1.1
 with keep-alive enabled</link>.
 </para>
