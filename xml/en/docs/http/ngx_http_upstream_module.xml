@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="94">
+        rev="95">
 
 <section id="summary">
 
@@ -635,8 +635,8 @@ server {
 
     location /http/ {
         proxy_pass http://http_backend;
-        proxy_http_version 1.1;
-        proxy_set_header Connection "";
+        # proxy_http_version 1.1; # before version 1.29.7
+        # proxy_set_header Connection ""; # before version 1.29.7
         ...
     }
 }
@@ -779,8 +779,8 @@ server {
 
     location /http/ {
         proxy_pass http://http_backend;
-        proxy_http_version 1.1;
-        proxy_set_header Connection "";
+        # proxy_http_version 1.1; # before version 1.29.7
+        # proxy_set_header Connection ""; # before version 1.29.7
         ...
     }
 }
