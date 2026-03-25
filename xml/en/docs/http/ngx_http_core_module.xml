@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="111">
+        rev="112">
 
 <section id="directives" name="Directives">
 
@@ -1465,9 +1465,8 @@ for working with
 protocol (1.29.7).
 <note>
 Adding or removing this parameter will also enable
-the <c-def>SO_REUSEPORT</c-def> socket option, which may have
-the same security implications as when using
-the <link id="reuseport">reuseport</link> parameter.
+the <c-def>SO_REUSEPORT</c-def> socket option, which may have its security
+<link url="http://man7.org/linux/man-pages/man7/socket.7.html">implications</link>.
 </note>
 </para>
 

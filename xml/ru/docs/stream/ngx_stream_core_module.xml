@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_core_module"
         link="/ru/docs/stream/ngx_stream_core_module.html"
         lang="ru"
-        rev="42">
+        rev="43">
 
 <section id="summary">
 
@@ -169,9 +169,8 @@ PROXY</link>.
 (1.29.7).
 <note>
 Добавление или удаление этого параметра также включает
-параметр сокета <c-def>SO_REUSEPORT</c-def>, что может
-иметь такие же последствия для безопасности, что и при использовании
-параметра <link id="reuseport">reuseport</link>.
+параметр сокета <c-def>SO_REUSEPORT</c-def>, что может быть
+<link url="http://man7.org/linux/man-pages/man7/socket.7.html">небезопасно</link>.
 </note>
 </para>
 
