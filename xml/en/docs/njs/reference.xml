@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="131">
+        rev="132">
 
 <section id="summary">
 
@@ -4901,6 +4901,13 @@ extended crypto API is available as a global
 </note>
 The Crypto module provides cryptographic functionality support.
 The Crypto module object is imported using <literal>import crypto from 'crypto'</literal>.
+<note>
+Since <link doc="changes.xml" id="njs0.9.7">0.9.7</link>,
+the Crypto module requires OpenSSL
+and uses OpenSSL EVP for hashing,
+making any digest algorithm supported by the linked OpenSSL library
+available to JavaScript code.
+</note>
 </para>
 
 <para>
@@ -4913,8 +4920,15 @@ that can be used to generate hash digests
 using the given <value>algorithm</value>.
 The algorithm can be
 <literal>md5</literal>,
-<literal>sha1</literal>, and
-<literal>sha256</literal>.
+<literal>sha1</literal>,
+<literal>sha256</literal>,
+<literal>sha384</literal>,
+<literal>sha512</literal>,
+and any other digest supported by the linked OpenSSL library
+(since <link doc="changes.xml" id="njs0.9.7">0.9.7</link>).
+Before version <link doc="changes.xml" id="njs0.9.7">0.9.7</link>,
+only <literal>md5</literal>, <literal>sha1</literal>,
+and <literal>sha256</literal> were supported.
 </tag-desc>
 
 <tag-name id="crypto_createhmac"><literal>crypto.createHmac(<value>algorithm</value>,
@@ -4924,8 +4938,15 @@ Creates and returns an <link id="crypto_hmac">HMAC</link> object that uses
 the given <value>algorithm</value> and <value>secret key</value>.
 The algorithm can be
 <literal>md5</literal>,
-<literal>sha1</literal>, and
-<literal>sha256</literal>.
+<literal>sha1</literal>,
+<literal>sha256</literal>,
+<literal>sha384</literal>,
+<literal>sha512</literal>,
+and any other digest supported by the linked OpenSSL library
+(since <link doc="changes.xml" id="njs0.9.7">0.9.7</link>).
+Before version <link doc="changes.xml" id="njs0.9.7">0.9.7</link>,
+only <literal>md5</literal>, <literal>sha1</literal>,
+and <literal>sha256</literal> were supported.
 </tag-desc>
 
 </list>
