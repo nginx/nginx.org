@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="133">
+        rev="134">
 
 <section id="summary">
 
@@ -2693,7 +2693,7 @@ should be set to <literal>ECDH</literal>
 </listitem>
 
 <listitem>
-<literal>publicKey</literal> is a <link id="cryptokey"><literal>CryptoKey</literal></link>
+<literal>public</literal> is a <link id="cryptokey"><literal>CryptoKey</literal></link>
 that represents the public key of the other party.
 The key must be generated using the same curve as the base key.
 </listitem>
