@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="112">
+        rev="113">
 
 <section id="directives" name="Директивы">
 
@@ -1317,7 +1317,6 @@ location /flv/ {
     [<literal>http2</literal> |
      <literal>quic</literal>]
     [<literal>proxy_protocol</literal>]
-    [<literal>multipath</literal>]
     [<literal>setfib</literal>=<value>число</value>]
     [<literal>fastopen</literal>=<value>число</value>]
     [<literal>backlog</literal>=<value>число</value>]
@@ -1328,6 +1327,7 @@ location /flv/ {
     [<literal>bind</literal>]
     [<literal>ipv6only</literal>=<literal>on</literal>|<literal>off</literal>]
     [<literal>reuseport</literal>]
+    [<literal>multipath</literal>]
     [<literal>so_keepalive</literal>=<literal>on</literal>|<literal>off</literal>|[<value>keepidle</value>]:[<value>keepintvl</value>]:[<value>keepcnt</value>]]</syntax>
 <syntax>
     <value>порт</value>
@@ -1336,7 +1336,6 @@ location /flv/ {
     [<literal>http2</literal> |
      <literal>quic</literal>]
     [<literal>proxy_protocol</literal>]
-    [<literal>multipath</literal>]
     [<literal>setfib</literal>=<value>число</value>]
     [<literal>fastopen</literal>=<value>число</value>]
     [<literal>backlog</literal>=<value>число</value>]
@@ -1347,6 +1346,7 @@ location /flv/ {
     [<literal>bind</literal>]
     [<literal>ipv6only</literal>=<literal>on</literal>|<literal>off</literal>]
     [<literal>reuseport</literal>]
+    [<literal>multipath</literal>]
     [<literal>so_keepalive</literal>=<literal>on</literal>|<literal>off</literal>|[<value>keepidle</value>]:[<value>keepintvl</value>]:[<value>keepcnt</value>]]</syntax>
 <syntax>
     <literal>unix:</literal><value>путь</value>
@@ -1355,7 +1355,6 @@ location /flv/ {
     [<literal>http2</literal> |
      <literal>quic</literal>]
     [<literal>proxy_protocol</literal>]
-    [<literal>multipath</literal>]
     [<literal>backlog</literal>=<value>число</value>]
     [<literal>rcvbuf</literal>=<value>размер</value>]
     [<literal>sndbuf</literal>=<value>размер</value>]
@@ -1447,18 +1446,6 @@ HTTP/2-соединений без SSL.
 PROXY</link>.
 <note>
 Протокол PROXY версии 2 поддерживается начиная с версии 1.13.11.
-</note>
-</para>
-
-<para id="multipath">
-Параметр <literal>multipath</literal> конфигурирует слушающий сокет
-для работы с протоколом
-<link url="https://datatracker.ietf.org/doc/html/rfc8684">Multipath TCP</link>
-(1.29.7).
-<note>
-Добавление или удаление этого параметра также включает
-параметр сокета <c-def>SO_REUSEPORT</c-def>, что может быть
-<link url="http://man7.org/linux/man-pages/man7/socket.7.html">небезопасно</link>.
 </note>
 </para>
 
@@ -1571,7 +1558,7 @@ FreeBSD, DragonFly BSD и macOS, и 511 для других платформ.
 <literal>backlog</literal>, <literal>rcvbuf</literal>,
 <literal>sndbuf</literal>, <literal>accept_filter</literal>,
 <literal>deferred</literal>, <literal>ipv6only</literal>,
-<literal>reuseport</literal>
+<literal>reuseport</literal>, <literal>multipath</literal>
 или <literal>so_keepalive</literal>,
 то для данной пары
 <value>адрес</value>:<value>порт</value> всегда делается
@@ -1609,6 +1596,21 @@ FreeBSD, DragonFly BSD и macOS, и 511 для других платформ.
 и FreeBSD 12+ (1.15.1).
 <note>
 Ненадлежащее использование параметра может быть
+<link url="http://man7.org/linux/man-pages/man7/socket.7.html">небезопасно</link>.
+</note>
+</tag-desc>
+
+<tag-name id="multipath">
+<literal>multipath</literal>
+</tag-name>
+<tag-desc>
+этот параметр (1.29.7) конфигурирует для слушающего сокета протокол
+<link url="https://datatracker.ietf.org/doc/html/rfc8684">Multipath TCP</link>
+(<c-def>IPPROTO_MPTCP</c-def>).
+В настоящий момент это работает только на Linux 5.6+.
+<note>
+Добавление или удаление этого параметра также включает
+параметр сокета <c-def>SO_REUSEPORT</c-def>, что может быть
 <link url="http://man7.org/linux/man-pages/man7/socket.7.html">небезопасно</link>.
 </note>
 </tag-desc>
