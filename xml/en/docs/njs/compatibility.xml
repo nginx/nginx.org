@@ -9,7 +9,7 @@
 <article name="Compatibility"
         link="/en/docs/njs/compatibility.html"
         lang="en"
-        rev="45"
+        rev="46"
         toc="no">
 
 <section>
@@ -1004,6 +1004,8 @@ Global objects
 <link doc="reference.xml" id="builtin_crypto"><literal>crypto</literal></link>
 (<link doc="changes.xml" id="njs0.7.0">0.7.0</link>):
 <link doc="reference.xml" id="crypto_get_random_values"><literal>getRandomValues</literal></link>,
+<link doc="reference.xml" id="crypto_random_uuid"><literal>randomUUID</literal></link>
+(<link doc="changes.xml" id="njs0.9.7">0.9.7</link>),
 <link doc="reference.xml" id="crypto_subtle_encrypt"><literal>subtle.encrypt</literal></link>,
 <link doc="reference.xml" id="crypto_subtle_decrypt"><literal>subtle.decrypt</literal></link>,
 <link doc="reference.xml" id="crypto_subtle_derive_bits"><literal>subtle.deriveBits</literal></link>,
@@ -1015,7 +1017,11 @@ Global objects
 (<link doc="changes.xml" id="njs0.7.10">0.7.10</link>),
 <link doc="reference.xml" id="crypto_subtle_import_key"><literal>subtle.importKey</literal></link>,
 <link doc="reference.xml" id="crypto_subtle_sign"><literal>subtle.sign</literal></link>,
-<link doc="reference.xml" id="crypto_subtle_verify"><literal>subtle.verify</literal></link>
+<link doc="reference.xml" id="crypto_subtle_verify"><literal>subtle.verify</literal></link>,
+<link doc="reference.xml" id="crypto_subtle_wrap_key"><literal>subtle.wrapKey</literal></link>
+(<link doc="changes.xml" id="njs0.9.7">0.9.7</link>),
+<link doc="reference.xml" id="crypto_subtle_unwrap_key"><literal>subtle.unwrapKey</literal></link>
+(<link doc="changes.xml" id="njs0.9.7">0.9.7</link>)
 </listitem>
 
 <listitem>
