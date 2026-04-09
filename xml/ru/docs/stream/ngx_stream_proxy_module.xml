@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_proxy_module"
         link="/ru/docs/stream/ngx_stream_proxy_module.html"
         lang="ru"
-        rev="37">
+        rev="38">
 
 <section id="summary">
 
@@ -593,6 +593,8 @@ OpenSSL
 Указывает <value>файл</value> с отозванными сертификатами (CRL)
 в формате PEM, используемыми при <link id="proxy_ssl_verify">проверке</link>
 сертификата проксируемого сервера.
+Если используются промежуточные сертификаты,
+их списки CRL должны находиться в этом же файле.
 </para>
 
 </directive>

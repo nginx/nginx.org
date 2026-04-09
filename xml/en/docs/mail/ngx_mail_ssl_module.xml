@@ -10,7 +10,7 @@
 <module name="Module ngx_mail_ssl_module"
         link="/en/docs/mail/ngx_mail_ssl_module.html"
         lang="en"
-        rev="33">
+        rev="34">
 
 <section id="summary">
 
@@ -324,6 +324,8 @@ might result in unexpected behavior.
 Specifies a <value>file</value> with revoked certificates (CRL)
 in the PEM format used to <link id="ssl_verify_client">verify</link>
 client certificates.
+When using intermediate certificates, their CRLs should be
+specified in the same file.
 </para>
 
 </directive>

@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_uwsgi_module"
         link="/ru/docs/http/ngx_http_uwsgi_module.html"
         lang="ru"
-        rev="57">
+        rev="58">
 
 <section id="summary">
 
@@ -1679,6 +1679,8 @@ OpenSSL
 Указывает <value>файл</value> с отозванными сертификатами (CRL)
 в формате PEM, используемыми при <link id="uwsgi_ssl_verify">проверке</link>
 сертификата suwsgi-сервера.
+Если используются промежуточные сертификаты,
+их списки CRL должны находиться в этом же файле.
 </para>
 
 </directive>
