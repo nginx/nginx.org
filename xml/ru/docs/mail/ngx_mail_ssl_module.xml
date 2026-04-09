@@ -10,7 +10,7 @@
 <module name="Модуль ngx_mail_ssl_module"
         link="/ru/docs/mail/ngx_mail_ssl_module.html"
         lang="ru"
-        rev="33">
+        rev="34">
 
 <section id="summary">
 
@@ -325,6 +325,8 @@ ssl_conf_command Ciphersuites TLS_CHACHA20_POLY1305_SHA256;
 Указывает <value>файл</value> с отозванными сертификатами (CRL)
 в формате PEM, используемыми для
 <link id="ssl_verify_client">проверки</link> клиентских сертификатов.
+Если используются промежуточные сертификаты,
+их списки CRL должны находиться в этом же файле.
 </para>
 
 </directive>

@@ -240,6 +240,8 @@ See <link doc="http/ngx_http_core_module.xml" id="resolver"/> for details.
 Specifies a <value>file</value> with revoked certificates (CRL)
 in the PEM format used to <link id="ssl_verify">verify</link>
 the certificate of the usage reporting endpoint.
+When using intermediate certificates, their CRLs should be
+specified in the same file.
 </para>
 
 </directive>

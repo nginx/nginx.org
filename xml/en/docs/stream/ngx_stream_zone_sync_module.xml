@@ -365,6 +365,8 @@ might result in unexpected behavior.
 Specifies a <value>file</value> with revoked certificates (CRL)
 in the PEM format used to <link id="zone_sync_ssl_verify">verify</link>
 the certificate of another cluster server.
+When using intermediate certificates, their CRLs should be
+specified in the same file.
 </para>
 
 </directive>

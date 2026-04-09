@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_grpc_module"
         link="/ru/docs/http/ngx_http_grpc_module.html"
         lang="ru"
-        rev="16">
+        rev="17">
 
 <section id="summary">
 
@@ -782,6 +782,8 @@ OpenSSL
 Указывает <value>файл</value> с отозванными сертификатами (CRL)
 в формате PEM, используемыми при <link id="proxy_ssl_verify">проверке</link>
 сертификата gRPC SSL-сервера.
+Если используются промежуточные сертификаты,
+их списки CRL должны находиться в этом же файле.
 </para>
 
 </directive>
