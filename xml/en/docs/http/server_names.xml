@@ -8,7 +8,7 @@
 <article name="Server names"
          link="/en/docs/http/server_names.html"
          lang="en"
-         rev="4"
+         rev="5"
          author="Igor Sysoev"
          editor="Brian Mercer">
 
@@ -52,27 +52,27 @@ server {
 </para>
 
 <para>
-When searching for a virtual server by name, if name matches more than one of
-the specified variants, e.g. both wildcard name and regular expression match,
-the first matching variant will be chosen, in the following order of precedence:
+The search is performed in the following order of priority
+and terminates on the first matching variant:
 <list type="enum">
 
 <listitem>
-exact name
+the exact name
 </listitem>
 
 <listitem>
-longest wildcard name starting with an asterisk, e.g.
-“<literal>*.example.org</literal>”
+the longest wildcard name starting with an asterisk,
+e.g. “<literal>*.example.org</literal>”
 </listitem>
 
 <listitem>
-longest wildcard name ending with an asterisk, e.g. “<literal>mail.*</literal>”
+the longest wildcard name ending with an asterisk,
+e.g. “<literal>mail.*</literal>”
 </listitem>
 
 <listitem>
-first matching regular expression
-(in order of appearance in a configuration file)
+the first matching regular expression
+(in order of appearance in the configuration file)
 </listitem>
 
 </list>
