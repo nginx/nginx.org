@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_core_module"
         link="/en/docs/stream/ngx_stream_core_module.html"
         lang="en"
-        rev="44">
+        rev="45">
 
 <section id="summary">
 
@@ -591,10 +591,8 @@ machine’s hostname is inserted.
 </para>
 
 <para>
-During searching for a virtual server by name,
-if the name matches more than one of the specified variants,
-(e.g. both a wildcard name and regular expression match), the first matching
-variant will be chosen, in the following order of priority:
+The search is performed in the following order of priority
+and terminates on the first matching variant:
 <list type="enum">
 
 <listitem>
