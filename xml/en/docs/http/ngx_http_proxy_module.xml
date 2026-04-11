@@ -805,6 +805,11 @@ and 1 minute for responses with code 404.
 </para>
 
 <para>
+The <value>time</value> parameter accepts an optional
+<literal>ms</literal> suffix for millisecond precision (e.g. <literal>100ms</literal>).
+</para>
+
+<para>
 If only caching <value>time</value> is specified
 <example>
 proxy_cache_valid 5m;
