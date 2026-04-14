@@ -28,6 +28,27 @@
 <year href="2009.html" year="2009" />
 </years>
 
+<event date="2026-04-14">
+<para>
+<link doc="en/download.xml">nginx-1.30.0</link>
+stable version has been released,
+incorporating new features and bug fixes from the 1.29.x mainline branch &mdash;
+including
+<link url="https://blog.nginx.org/blog/nginx-introduces-support-103-early-hints">
+Early Hints</link>,
+<link url="https://blog.nginx.org/blog/nginx-open-source-1-29-3-and-1-29-4">
+HTTP/2 to backend and Encrypted ClientHello</link>,
+<link doc="en/docs/http/ngx_http_upstream_module.xml" id="sticky">sticky
+sessions support for upstreams</link>,
+<link doc="en/docs/http/ngx_http_core_module.xml" id="multipath">Multipath
+TCP</link> support,
+the default proxy HTTP version set to
+<link url="https://blog.nginx.org/blog/keep-alive-to-upstreams-is-now-default-in-nginx-1-29-7">HTTP/1.1
+with keep-alive enabled</link>,
+and more.
+</para>
+</event>
+
 <event date="2026-04-07">
 <para>
 <link doc="en/download.xml">nginx-1.29.8</link>
