@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="115">
+        rev="116">
 
 <section id="directives" name="Директивы">
 
@@ -667,6 +667,13 @@ server {
     }
 }
 </example>
+</para>
+
+<para>
+<note>
+Ответы с кодом <http-status code="103" text="Early Hints"/>, полученные от
+вышестоящего сервера, передаются клиенту без интерпретации в неизменном виде.
+</note>
 </para>
 
 </directive>
