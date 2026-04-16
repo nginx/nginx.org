@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="115">
+        rev="116">
 
 <section id="directives" name="Directives">
 
@@ -672,6 +672,13 @@ server {
     }
 }
 </example>
+</para>
+
+<para>
+<note>
+<http-status code="103" text="Early Hints"/> responses received from
+an upstream server are passed to a client as is, without interpretation.
+</note>
 </para>
 
 </directive>
