@@ -522,7 +522,9 @@ the <c-def>O_DIRECT</c-def> flag (FreeBSD, Linux),
 the <c-def>F_NOCACHE</c-def> flag (macOS),
 or the <c-func>directio</c-func> function (Solaris),
 when reading files that are larger than or equal to
-the specified <value>size</value>.
+the specified <value>size</value>
+(does not apply to files served from the
+<link doc="ngx_http_proxy_module.xml" id="proxy_cache">proxy cache</link>).
 The directive automatically disables (0.7.15) the use of
 <link id="sendfile"/>
 for a given request.
