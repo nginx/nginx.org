@@ -9,7 +9,7 @@
 <article name="Contributing Changes"
          link="/en/docs/contributing_changes.html"
          lang="en"
-         rev="5">
+         rev="6">
 
 <section id="getting_sources" name="Getting Sources">
 
@@ -49,8 +49,7 @@ address and real name of the author are correct.
 <para>
 The commit message should have a single-line synopsis followed by verbose
 description after an empty line.
-It is desirable that the first line is no longer than 67 symbols,
-and the remaining lines are no longer than 76 symbols.
+Limit the subject and commit message body lines to 72 characters.
 The resulting commit can be obtained using the
 <literal>git show</literal> command:
 <programlisting>
