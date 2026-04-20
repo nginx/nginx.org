@@ -9,8 +9,138 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="83"
+        rev="84"
         toc="no">
+
+<section id="njs0.9.7" name="Changes with njs 0.9.7">
+
+<para>
+Release Date:
+21 April 2026
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+<link url="https://github.com/nginx/njs/commit/98342797">improved</link>
+<link doc="../http/ngx_http_js_module.xml" id="js_shared_dict_zone">shared dict</link>
+eviction strategy.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added
+<link doc="reference.xml" id="dict_ttl">ttl()</link>
+method to
+<link doc="../http/ngx_http_js_module.xml" id="js_shared_dict_zone">shared dictionaries</link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+removed spurious <literal>js vm init</literal> notice log emitted during
+configuration parsing.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+removed
+<link doc="../http/ngx_http_js_module.xml" id="js_shared_dict_zone">shared dict</link>
+expiration from read-locked paths.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed double-free in
+<link doc="../http/ngx_http_js_module.xml" id="js_shared_dict_zone">shared dict</link>
+update with eviction.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed per-entry TTL reset on
+<link doc="reference.xml" id="dict_incr">incr()</link>
+calls.
+</para>
+</listitem>
+
+</list>
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Feature:
+added Ed25519 and X25519 support for
+<link doc="reference.xml" id="builtin_crypto">WebCrypto</link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added
+<link doc="reference.xml" id="crypto_subtle_wrap_key">wrapKey()</link>
+and
+<link doc="reference.xml" id="crypto_subtle_unwrap_key">unwrapKey()</link>
+support for
+<link doc="reference.xml" id="builtin_crypto">WebCrypto</link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added
+<link doc="reference.xml" id="crypto_random_uuid">crypto.randomUUID()</link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+allowed <literal>await</literal> expressions in tagged templates
+and as call arguments.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+switched to OpenSSL EVP for hashing in the built-in
+<link doc="reference.xml" id="crypto">crypto</link>
+module.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed call argument evaluation.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.9.6" name="Changes with njs 0.9.6">
 
