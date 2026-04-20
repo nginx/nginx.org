@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_proxy_module"
         link="/ru/docs/stream/ngx_stream_proxy_module.html"
         lang="ru"
-        rev="37">
+        rev="38">
 
 <section id="summary">
 
@@ -408,6 +408,33 @@ Cессия завершится после отправки всех приня
 
 <para>
 Включает протоколы SSL/TLS для соединений с проксируемым сервером.
+</para>
+
+</directive>
+
+
+<directive name="proxy_ssl_alpn">
+<syntax><value>протокол</value> ...</syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.31.0</appeared-in>
+
+<para>
+Задаёт список протоколов, которые передаются в расширении
+<link url="https://datatracker.ietf.org/doc/html/rfc7301">ALPN</link>
+при установлении соединения с проксируемым сервером.
+Например:
+<example>
+proxy_ssl_alpn h2 http/1.1;
+</example>
+</para>
+
+<para>
+В значении параметра можно использовать переменные:
+<example>
+proxy_ssl_alpn $ssl_alpn_protocol;
+</example>
 </para>
 
 </directive>
