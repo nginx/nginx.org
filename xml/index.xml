@@ -28,6 +28,22 @@
 <year href="2009.html" year="2009" />
 </years>
 
+<event date="2026-04-21">
+<para>
+<link doc="en/docs/njs/index.xml">njs-0.9.7</link>
+version has been
+<link doc="en/docs/njs/changes.xml" id="njs0.9.7">released</link>,
+featuring
+<link doc="en/docs/njs/reference.xml" id="builtin_crypto">WebCrypto</link>
+Ed25519 and X25519 support,
+<link doc="en/docs/njs/reference.xml" id="crypto_subtle_wrap_key">wrapKey()</link>
+and
+<link doc="en/docs/njs/reference.xml" id="crypto_subtle_unwrap_key">unwrapKey()</link>,
+and
+<link doc="en/docs/njs/reference.xml" id="crypto_random_uuid">crypto.randomUUID()</link>.
+</para>
+</event>
+
 <event date="2026-04-14">
 <para>
 <link doc="en/download.xml">nginx-1.30.0</link>

@@ -9,7 +9,7 @@
 <article name="Compatibility"
         link="/en/docs/njs/compatibility.html"
         lang="en"
-        rev="46"
+        rev="47"
         toc="no">
 
 <section>
@@ -1157,7 +1157,9 @@ nginx object methods:
 <link doc="reference.xml" id="dict_pop"><literal>pop</literal></link>,
 <link doc="reference.xml" id="dict_replace"><literal>replace</literal></link>,
 <link doc="reference.xml" id="dict_set"><literal>set</literal></link>,
-<link doc="reference.xml" id="dict_size"><literal>size</literal></link>
+<link doc="reference.xml" id="dict_size"><literal>size</literal></link>,
+<link doc="reference.xml" id="dict_ttl"><literal>ttl</literal></link>
+(<link doc="changes.xml" id="njs0.9.7">0.9.7</link>)
 </listitem>
 
 </list>
