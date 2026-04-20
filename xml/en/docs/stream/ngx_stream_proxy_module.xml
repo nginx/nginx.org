@@ -414,6 +414,33 @@ Enables the SSL/TLS protocol for connections to a proxied server.
 </directive>
 
 
+<directive name="proxy_ssl_alpn">
+<syntax><value>protocol</value> ...</syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+<appeared-in>1.31.0</appeared-in>
+
+<para>
+Specifies the list of protocols to advertise via the
+<link url="https://datatracker.ietf.org/doc/html/rfc7301">ALPN</link>
+extension when establishing a connection with the proxied server.
+For example:
+<example>
+proxy_ssl_alpn h2 http/1.1;
+</example>
+</para>
+
+<para>
+Parameter value can contain variables:
+<example>
+proxy_ssl_alpn $ssl_alpn_protocol;
+</example>
+</para>
+
+</directive>
+
+
 <directive name="proxy_ssl_certificate">
 <syntax><value>file</value></syntax>
 <default/>
