@@ -9,7 +9,7 @@
 <module name="Module ngx_http_acme_module"
         link="/en/docs/http/ngx_http_acme_module.html"
         lang="en"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -178,6 +178,29 @@ Accepted values:
 ACME challenges are versioned.
 If an unversioned name is specified,
 the module automatically selects the latest implemented version.
+</note>
+</para>
+
+</directive>
+
+
+<directive name="common_name_in_csr">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>acme_issuer</context>
+<appeared-in>0.4.0</appeared-in>
+
+<para>
+If enabled, sets the Subject Common Name in the certificate request
+to the first DNS name or the first IP address provided.
+</para>
+
+<para>
+<note>
+Enabling this option may result in rejected certificate requests.
+</note>
+<note>
+Prior to version 0.4.0, the Subject Common Name was always set.
 </note>
 </para>
 
