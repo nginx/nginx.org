@@ -9,8 +9,35 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="84"
+        rev="85"
         toc="no">
+
+<section id="njs0.9.8" name="Changes with njs 0.9.8">
+
+<para>
+Release Date:
+23 April 2026
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Bugfix:
+fixed loading of the built-in <literal>crypto</literal> module.
+The issue was introduced in
+<link url="https://github.com/nginx/njs/commit/3185ce81">3185ce81</link>
+(<link doc="changes.xml" id="njs0.9.7">0.9.7</link>).
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.9.7" name="Changes with njs 0.9.7">
 
