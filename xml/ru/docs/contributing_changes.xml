@@ -9,7 +9,7 @@
 <article name="Внесение изменений"
          link="/ru/docs/contributing_changes.html"
          lang="ru"
-         rev="6">
+         rev="7">
 
 <section id="getting_sources" name="Получение исходного кода">
 
@@ -53,26 +53,27 @@ git clone https://github.com/nginx/nginx.git
 Итоговый набор изменений может быть получен с помощью
 команды <literal>git show</literal>:
 <programlisting>
-commit 8597218f386351d6c6cdced24af6716e19a18fc3
-Author: Filipe Da Silva &lt;username@example.com&gt;
-Date:   Thu May 9 10:54:28 2013 +0200
+commit 067d766f210ee914b750d79d9284cbf8801058f3
+Author: Zoey &lt;username@example.com&gt;
+Date:   Sun Apr 5 11:31:15 2026 +0200
 
-    Mail: removed surplus ngx_close_connection() call.
+    Fix $request_port and $is_request_port in subrequests
 
-    It is already called for a peer connection a few lines above.
+    Closes #1247.
 
-diff --git a/src/mail/ngx_mail_auth_http_module.c b/src/mail/ngx_mail_auth_http_module.c
-index 2e9b9f24d..8094bbc5c 100644
---- a/src/mail/ngx_mail_auth_http_module.c
-+++ b/src/mail/ngx_mail_auth_http_module.c
-@@ -699,7 +699,6 @@ ngx_mail_auth_http_process_headers(ngx_mail_session_t *s,
+diff --git a/src/http/ngx_http_core_module.c b/src/http/ngx_http_core_module.c
+index 0c46106db..53ddf39bb 100644
+--- a/src/http/ngx_http_core_module.c
++++ b/src/http/ngx_http_core_module.c
+@@ -2453,6 +2453,8 @@ ngx_http_subrequest(ngx_http_request_t *r,
+     sr-&gt;method = NGX_HTTP_GET;
+     sr-&gt;http_version = r-&gt;http_version;
 
-                     p = ngx_pnalloc(s->connection->pool, ctx->err.len);
-                     if (p == NULL) {
--                        ngx_close_connection(ctx->peer.connection);
-                         ngx_destroy_pool(ctx->pool);
-                         ngx_mail_session_internal_server_error(s);
-                         return;
++    sr-&gt;port = r-&gt;port;
++
+     sr-&gt;request_line = r-&gt;request_line;
+     sr-&gt;uri = *uri;
+
 </programlisting>
 </para>
 
