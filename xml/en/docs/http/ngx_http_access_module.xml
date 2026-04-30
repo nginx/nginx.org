@@ -10,7 +10,7 @@
 <module name="Module ngx_http_access_module"
         link="/en/docs/http/ngx_http_access_module.html"
         lang="en"
-        rev="4">
+        rev="5">
 
 <section id="summary">
 
@@ -79,6 +79,13 @@ If the special value <literal>unix:</literal> is specified (1.5.1),
 allows access for all UNIX-domain sockets.
 </para>
 
+<para>
+Several <literal>allow</literal> directives can be specified on the same level.
+These directives are inherited from the previous configuration level
+if and only if there are no <literal>allow</literal> and
+<literal>deny</literal> directives defined on the current level.
+</para>
+
 </directive>
 
 
@@ -98,6 +105,13 @@ allows access for all UNIX-domain sockets.
 Denies access for the specified network or address.
 If the special value <literal>unix:</literal> is specified (1.5.1),
 denies access for all UNIX-domain sockets.
+</para>
+
+<para>
+Several <literal>deny</literal> directives can be specified on the same level.
+These directives are inherited from the previous configuration level
+if and only if there are no <literal>allow</literal> and
+<literal>deny</literal> directives defined on the current level.
 </para>
 
 </directive>
