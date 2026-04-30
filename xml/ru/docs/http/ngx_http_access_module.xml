@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_access_module"
         link="/ru/docs/http/ngx_http_access_module.html"
         lang="ru"
-        rev="4">
+        rev="5">
 
 <section id="summary">
 
@@ -78,6 +78,13 @@ location / {
 разрешает доступ для всех UNIX-сокетов.
 </para>
 
+<para>
+На одном уровне может быть указано несколько директив <literal>allow</literal>.
+Директивы наследуются с предыдущего уровня конфигурации при условии, что
+на данном уровне не описаны свои директивы
+<literal>allow</literal> и <literal>deny</literal>.
+</para>
+
 </directive>
 
 
@@ -97,6 +104,13 @@ location / {
 Запрещает доступ для указанной сети или адреса.
 Если указано специальное значение <literal>unix:</literal> (1.5.1),
 запрещает доступ для всех UNIX-сокетов.
+</para>
+
+<para>
+На одном уровне может быть указано несколько директив <literal>deny</literal>.
+Директивы наследуются с предыдущего уровня конфигурации при условии, что
+на данном уровне не описаны свои директивы
+<literal>allow</literal> и <literal>deny</literal>.
 </para>
 
 </directive>
