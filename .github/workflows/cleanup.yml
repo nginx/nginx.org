@@ -17,15 +17,21 @@ permissions:
 
 env:
   DEFAULT_RETENTION_DAYS: "30"
-  AWSAccount: ${{ secrets.AWS_ACCOUNT_ID }}
-  AWSRoleName: ${{ secrets.AWS_ROLE_NAME }}
-  AWSS3Bucket: "nginx-org-staging"
 
 jobs:
   cleanup:
     runs-on: ubuntu-24.04
     if: github.repository == 'nginx/nginx.org'
     steps:
+      - name: Get secrets from Azure
+        uses: nginx/ci-self-hosted/.github/actions/get-from-vault@0fc1fc087a55f75740cebba008010c812b6d0da2
+        with:
+          client-id: ${{secrets.AZURE_VAULT_CLIENT_ID}}
+          tenant-id: ${{secrets.AZURE_VAULT_TENANT_ID}}
+          vault-name: ${{secrets.DOCS_VAULTNAME}}
+          secret-names: "NginxOrgAwsAccountID, NginxOrgAwsRoleName, NginxOrgAwsS3Bucket"
+          env-names: "AWSAccount, AWSRoleName, AWSS3Bucket"
+
       - name: Configure AWS credentials via OIDC (assume role)
         uses: aws-actions/configure-aws-credentials@7474bc4690e29a8392af63c5b98e7449536d5c3a # v4
         with:
