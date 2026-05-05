@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_upstream_module"
         link="/ru/docs/http/ngx_http_upstream_module.html"
         lang="ru"
-        rev="95">
+        rev="96">
 
 <section id="summary">
 
@@ -865,7 +865,8 @@ server {
 
 <para>
 <note>
-Эта директива доступна как часть
+До версии 1.31.0
+эта директива была доступна только как часть
 <commercial_version>коммерческой подписки</commercial_version>.
 </note>
 </para>

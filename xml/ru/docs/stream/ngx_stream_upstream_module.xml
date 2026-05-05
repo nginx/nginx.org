@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_upstream_module"
         link="/ru/docs/stream/ngx_stream_upstream_module.html"
         lang="ru"
-        rev="41">
+        rev="42">
 
 <section id="summary">
 
@@ -472,6 +472,8 @@ hash $remote_addr;
     [<literal>inflight</literal>]</syntax>
 <default/>
 <context>upstream</context>
+<appeared-in>1.7.11</appeared-in>
+
 
 <para>
 Задаёт для группы метод балансировки нагрузки, при котором соединение
@@ -501,7 +503,8 @@ hash $remote_addr;
 
 <para>
 <note>
-Эта директива доступна как часть
+До версии 1.31.0
+эта директива была доступна только как часть
 <commercial_version>коммерческой подписки</commercial_version>.
 </note>
 </para>

@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_upstream_module"
         link="/en/docs/stream/ngx_stream_upstream_module.html"
         lang="en"
-        rev="41">
+        rev="42">
 
 <section id="summary">
 
@@ -470,6 +470,7 @@ weighted round-robin balancing method.
     [<literal>inflight</literal>]</syntax>
 <default/>
 <context>upstream</context>
+<appeared-in>1.7.11</appeared-in>
 
 <para>
 Specifies that a group should use a load balancing method where a connection
@@ -500,7 +501,8 @@ incomplete connections were taken into account by default.
 
 <para>
 <note>
-This directive is available as part of our
+Prior to version 1.31.0,
+this directive was available only as part of our
 <commercial_version>commercial subscription</commercial_version>.
 </note>
 </para>

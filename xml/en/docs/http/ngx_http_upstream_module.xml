@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="95">
+        rev="96">
 
 <section id="summary">
 
@@ -856,7 +856,8 @@ Prior to version 1.11.6, incomplete requests were taken into account by default.
 
 <para>
 <note>
-This directive is available as part of our
+Prior to version 1.31.0,
+this directive was available only as part of our
 <commercial_version>commercial subscription</commercial_version>.
 </note>
 </para>
