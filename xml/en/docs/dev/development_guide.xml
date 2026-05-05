@@ -9,7 +9,7 @@
 <article name="Development guide"
          link="/en/docs/dev/development_guide.html"
          lang="en"
-         rev="12">
+         rev="13">
 
 <section name="Introduction" id="introduction">
 
@@ -5542,6 +5542,7 @@ When the body is completely read, the <literal>post_handler</literal> callback
 is called to continue processing the request.
 If the request body is missing or has already been read, the callback is called
 immediately.
+In unbuffered mode, the callback can be called before the whole body is read.
 The function
 <literal>ngx_http_read_client_request_body(r, post_handler)</literal>
 allocates the <literal>request_body</literal> request field of type
@@ -5675,14 +5676,16 @@ unbuffered mode of reading a request body.
 In this mode, after calling
 <literal>ngx_http_read_client_request_body()</literal>, the
 <literal>bufs</literal> chain might keep only a part of the body.
+The request flag <literal>reading_body</literal> indicates that the request body
+reading is still in progress.
 To read the next part, call the
 <literal>ngx_http_read_unbuffered_request_body(r)</literal> function.
-The return value <literal>NGX_AGAIN</literal> and the request flag
-<literal>reading_body</literal> indicate that more data is available.
-If <literal>bufs</literal> is NULL after calling this function, there is
-nothing to read at the moment.
+The return value <literal>NGX_AGAIN</literal> indicates that more body data
+or buffer space is needed.
+If <literal>bufs</literal> is NULL after calling this function, no body data is
+available at the moment.
 The request callback <literal>read_event_handler</literal> will be called when
-the next part of request body is available.
+more client body data is available.
 </para>
 
 </section>
