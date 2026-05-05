@@ -8,7 +8,7 @@
 <article name="Сборка nginx из исходных файлов"
          link="/ru/docs/configure.html"
          lang="ru"
-         rev="25">
+         rev="26">
 
 <section>
 
@@ -688,6 +688,14 @@ HTTP-сервера.
 </tag-desc>
 
 <tag-name>
+<literal>--without-http_upstream_least_time_module</literal>
+</tag-name>
+<tag-desc>
+запрещает сборку модуля, реализующего метод балансировки нагрузки
+<link doc="http/ngx_http_upstream_module.xml" id="least_time"/>.
+</tag-desc>
+
+<tag-name>
 <literal>--without-http_upstream_random_module</literal>
 </tag-name>
 <tag-desc>
@@ -712,6 +720,15 @@ HTTP-сервера.
 вышестоящих серверов в
 <link doc="http/ngx_http_upstream_module.xml" id="zone">разделяемой
 памяти</link>.
+</tag-desc>
+
+<tag-name>
+<literal>--without-http_upstream_sticky_module</literal>
+</tag-name>
+<tag-desc>
+запрещает сборку модуля, реализующего
+<link doc="http/ngx_http_upstream_module.xml" id="sticky">режим
+привязки сеансов</link> к вышестоящим серверам.
 </tag-desc>
 
 </list>
@@ -1017,6 +1034,15 @@ HTTP-сервера.
 </tag-desc>
 
 <tag-name>
+<literal>--without-stream_pass_module</literal>
+</tag-name>
+<tag-desc>
+запрещает сборку модуля
+<link doc="stream/ngx_stream_pass_module.xml">ngx_stream_pass_module</link>,
+позволяющего передавать принятые соединения на другие слушающие сокеты.
+</tag-desc>
+
+<tag-name>
 <literal>--without-stream_set_module</literal>
 </tag-name>
 <tag-desc>
@@ -1039,6 +1065,14 @@ HTTP-сервера.
 <tag-desc>
 запрещает сборку модуля, реализующего метод балансировки нагрузки
 <link doc="stream/ngx_stream_upstream_module.xml" id="least_conn"/>.
+</tag-desc>
+
+<tag-name>
+<literal>--without-stream_upstream_least_time_module</literal>
+</tag-name>
+<tag-desc>
+запрещает сборку модуля, реализующего метод балансировки нагрузки
+<link doc="stream/ngx_stream_upstream_module.xml" id="least_time"/>.
 </tag-desc>
 
 <tag-name>

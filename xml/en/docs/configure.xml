@@ -8,7 +8,7 @@
 <article name="Building nginx from Sources"
          link="/en/docs/configure.html"
          lang="en"
-         rev="25">
+         rev="26">
 
 <section>
 
@@ -697,6 +697,15 @@ load balancing method.
 </tag-desc>
 
 <tag-name>
+<literal>--without-http_upstream_least_time_module</literal>
+</tag-name>
+<tag-desc>
+disables building a module that implements the
+<link doc="http/ngx_http_upstream_module.xml" id="least_time"/>
+load balancing method.
+</tag-desc>
+
+<tag-name>
 <literal>--without-http_upstream_random_module</literal>
 </tag-name>
 <tag-desc>
@@ -721,6 +730,15 @@ connections</link> to upstream servers.
 disables building a module that makes it possible to store run-time state
 of an upstream group in a shared memory
 <link doc="http/ngx_http_upstream_module.xml" id="zone"/>.
+</tag-desc>
+
+<tag-name>
+<literal>--without-http_upstream_sticky_module</literal>
+</tag-name>
+<tag-desc>
+disables building a module that provides
+<link doc="http/ngx_http_upstream_module.xml" id="sticky">session
+affinity</link> to upstream servers.
 </tag-desc>
 
 </list>
@@ -1034,6 +1052,15 @@ and then closes the connection.
 </tag-desc>
 
 <tag-name>
+<literal>--without-stream_pass_module</literal>
+</tag-name>
+<tag-desc>
+disables building the
+<link doc="stream/ngx_stream_pass_module.xml">ngx_stream_pass_module</link>
+module that passes accepted connections to other listening sockets.
+</tag-desc>
+
+<tag-name>
 <literal>--without-stream_set_module</literal>
 </tag-name>
 <tag-desc>
@@ -1057,6 +1084,15 @@ load balancing method.
 <tag-desc>
 disables building a module that implements the
 <link doc="stream/ngx_stream_upstream_module.xml" id="least_conn"/>
+load balancing method.
+</tag-desc>
+
+<tag-name>
+<literal>--without-stream_upstream_least_time_module</literal>
+</tag-name>
+<tag-desc>
+disables building a module that implements the
+<link doc="stream/ngx_stream_upstream_module.xml" id="least_time"/>
 load balancing method.
 </tag-desc>
 
