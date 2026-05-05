@@ -149,6 +149,56 @@ least_conn</link> directive is used as part of the server group configuration:
 </section>
 
 
+<section id="nginx_load_balancing_with_least_time"
+         name="Least time load balancing">
+
+<para>
+Another load balancing discipline is least-time.
+Least-time selects the server with the lowest average response time
+and the lowest number of active connections, taking into account
+inflight requests.
+</para>
+
+<para>
+With the least-time load balancing, nginx selects the server based on
+which of the following parameters is specified in the
+<link doc="ngx_http_upstream_module.xml" id="least_time">
+least_time</link> directive:
+<list type="bullet" compact="no">
+
+<listitem>
+<literal>header</literal> — time to receive the first byte from the server,
+</listitem>
+
+<listitem>
+<literal>last_byte</literal> — time to receive the full response from the server,
+</listitem>
+
+<listitem>
+<literal>last_byte inflight</literal> — time to receive the full response from
+the server, taking into account incomplete requests.
+</listitem>
+
+</list>
+</para>
+
+<para>
+Least-time load balancing in nginx is activated when the
+<link doc="ngx_http_upstream_module.xml" id="least_time">
+least_time</link> directive is used as part of the server group configuration:
+<programlisting>
+    upstream myapp1 {
+        least_time header;
+        server srv1.example.com;
+        server srv2.example.com;
+        server srv3.example.com;
+    }
+</programlisting>
+</para>
+
+</section>
+
+
 <section id="nginx_load_balancing_with_ip_hash"
          name="Session persistence">
 
