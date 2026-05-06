@@ -9,7 +9,7 @@
 <article name="Compatibility"
         link="/en/docs/njs/compatibility.html"
         lang="en"
-        rev="47"
+        rev="48"
         toc="no">
 
 <section>
@@ -1178,6 +1178,14 @@ nginx object properties:
 <link doc="reference.xml" id="r_internal"><literal>r.internal</literal></link>,
 <link doc="reference.xml" id="r_method"><literal>r.method</literal></link>,
 <link doc="reference.xml" id="r_parent"><literal>r.parent</literal></link>,
+<link doc="reference.xml" id="r_read_request_array_buffer"><literal>r.readRequestArrayBuffer</literal></link>
+(<link doc="changes.xml" id="njs0.9.9">0.9.9</link>),
+<link doc="reference.xml" id="r_read_request_form"><literal>r.readRequestForm</literal></link>
+(<link doc="changes.xml" id="njs0.9.9">0.9.9</link>),
+<link doc="reference.xml" id="r_read_request_json"><literal>r.readRequestJSON</literal></link>
+(<link doc="changes.xml" id="njs0.9.9">0.9.9</link>),
+<link doc="reference.xml" id="r_read_request_text"><literal>r.readRequestText</literal></link>
+(<link doc="changes.xml" id="njs0.9.9">0.9.9</link>),
 <link doc="reference.xml" id="r_raw_headers_in"><literal>r.rawHeadersIn</literal></link>
 (<link doc="changes.xml" id="njs0.4.1">0.4.1</link>),
 <link doc="reference.xml" id="r_raw_headers_out"><literal>r.rawHeadersOut</literal></link>
