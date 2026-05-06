@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="134">
+        rev="135">
 
 <section id="summary">
 
@@ -40,6 +40,7 @@ List of all njs properties and methods can be found in
 <para>
 <table width="100%">
 <tr><td><link id="r_args"><literal>r.args{}</literal></link></td></tr>
+<tr><td><link id="r_decline"><literal>r.decline()</literal></link></td></tr>
 <tr><td><link id="r_done"><literal>r.done()</literal></link></td></tr>
 <tr><td><link id="r_error"><literal>r.error()</literal></link></td></tr>
 <tr><td><link id="r_finish"><literal>r.finish()</literal></link></td></tr>
@@ -51,6 +52,10 @@ List of all njs properties and methods can be found in
 <tr><td><link id="r_log"><literal>r.log()</literal></link></td></tr>
 <tr><td><link id="r_method"><literal>r.method</literal></link></td></tr>
 <tr><td><link id="r_parent"><literal>r.parent</literal></link></td></tr>
+<tr><td><link id="r_read_request_array_buffer"><literal>r.readRequestArrayBuffer()</literal></link></td></tr>
+<tr><td><link id="r_read_request_form"><literal>r.readRequestForm()</literal></link></td></tr>
+<tr><td><link id="r_read_request_json"><literal>r.readRequestJSON()</literal></link></td></tr>
+<tr><td><link id="r_read_request_text"><literal>r.readRequestText()</literal></link></td></tr>
 <tr><td><link id="r_remote_address"><literal>r.remoteAddress</literal></link></td></tr>
 <tr><td><link id="r_request_body"><literal>r.requestBody</literal></link></td></tr>
 <tr><td><link id="r_request_buffer"><literal>r.requestBuffer</literal></link></td></tr>
@@ -133,6 +138,23 @@ the Query String
 <link id="querystring_stringify"><literal>stringify</literal></link>
 method can be used.
 </para>
+</tag-desc>
+
+<tag-name id="r_decline"><literal>r.decline()</literal></tag-name>
+<tag-desc>
+makes the
+<link doc="../http/ngx_http_js_module.xml" id="js_access"/> handler
+express no opinion about access, deferring the decision to other access
+checkers under
+<link doc="../http/ngx_http_core_module.xml" id="satisfy"><literal>satisfy any</literal></link>
+(<link doc="changes.xml" id="njs0.9.9">0.9.9</link>).
+A handler that returns without calling
+<link id="r_decline"><literal>r.decline()</literal></link>
+or
+<link id="r_return"><literal>r.return()</literal></link>
+implicitly grants access.
+May be called only from the
+<link doc="../http/ngx_http_js_module.xml" id="js_access"/> function.
 </tag-desc>
 
 <tag-name id="r_done"><literal>r.done()</literal></tag-name>
@@ -374,6 +396,137 @@ references the parent request object
 client address, read-only
 </tag-desc>
 
+<tag-name id="r_read_request_array_buffer"><literal>r.readRequestArrayBuffer()</literal></tag-name>
+<tag-desc>
+returns a <literal>Promise</literal> that resolves with the client
+request body as an <literal>ArrayBuffer</literal>
+(<link doc="changes.xml" id="njs0.9.9">0.9.9</link>).
+See
+<link id="r_read_request_text"><literal>r.readRequestText()</literal></link>
+for availability, body caching, and concurrency semantics.
+</tag-desc>
+
+<tag-name id="r_read_request_form"><literal>r.readRequestForm(<value>[options]</value>)</literal></tag-name>
+<tag-desc>
+reads the client request body and parses it as an HTML form,
+returning a <literal>Promise</literal> that resolves with a form object
+(<link doc="changes.xml" id="njs0.9.9">0.9.9</link>).
+Supported content types are
+<literal>application/x-www-form-urlencoded</literal>
+and <literal>multipart/form-data</literal>.
+
+<para>
+The form object provides the following methods:
+<list type="tag">
+
+<tag-name><literal>get(<value>name</value>)</literal></tag-name>
+<tag-desc>
+returns the first value for <value>name</value>,
+or <literal>null</literal> if absent.
+</tag-desc>
+
+<tag-name><literal>getAll(<value>name</value>)</literal></tag-name>
+<tag-desc>
+returns an array with all values for <value>name</value>.
+</tag-desc>
+
+<tag-name><literal>has(<value>name</value>)</literal></tag-name>
+<tag-desc>
+returns <literal>true</literal> if at least one entry exists
+for <value>name</value>.
+</tag-desc>
+
+<tag-name><literal>forEach(<value>callback</value>[,
+<value>thisArg</value>])</literal></tag-name>
+<tag-desc>
+invokes <value>callback</value> for each entry with arguments
+<literal>(value, key, form)</literal>.
+</tag-desc>
+
+<tag-name><literal>hasFiles()</literal></tag-name>
+<tag-desc>
+returns <literal>true</literal> if the form contains any file parts.
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+For text fields, values are decoded strings.
+For file parts, the value is an object with the client-supplied
+filename available as the <literal>name</literal> property;
+file contents are not exposed.
+The filename is client-supplied and is not sanitized.
+</para>
+
+<para>
+The optional <value>options</value> object accepts the following
+properties:
+<list type="tag">
+
+<tag-name><literal>maxKeys</literal>
+<value>number</value></tag-name>
+<tag-desc>
+the maximum number of fields to parse,
+by default is <literal>128</literal>.
+Exceeding the limit rejects the returned promise.
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+See
+<link id="r_read_request_text"><literal>r.readRequestText()</literal></link>
+for availability, body caching, and concurrency semantics.
+The parsed form is itself cached on the request:
+a subsequent call returns the same form object and ignores any
+new <value>options</value> argument.
+</para>
+</tag-desc>
+
+<tag-name id="r_read_request_json"><literal>r.readRequestJSON()</literal></tag-name>
+<tag-desc>
+returns a <literal>Promise</literal> that resolves with the client
+request body parsed as JSON
+(<link doc="changes.xml" id="njs0.9.9">0.9.9</link>).
+See
+<link id="r_read_request_text"><literal>r.readRequestText()</literal></link>
+for availability, body caching, and concurrency semantics.
+</tag-desc>
+
+<tag-name id="r_read_request_text"><literal>r.readRequestText()</literal></tag-name>
+<tag-desc>
+returns a <literal>Promise</literal> that resolves with the client
+request body as a string
+(<link doc="changes.xml" id="njs0.9.9">0.9.9</link>).
+The size of the request body is limited by
+<link doc="../http/ngx_http_core_module.xml" id="client_max_body_size"/>.
+The method is available in the
+<link doc="../http/ngx_http_js_module.xml" id="js_access"/>
+and
+<link doc="../http/ngx_http_js_module.xml" id="js_content"/> directives.
+
+<para>
+The body is read once and cached on the request:
+subsequent calls to
+<link id="r_read_request_text"><literal>r.readRequestText()</literal></link>,
+<link id="r_read_request_array_buffer"><literal>r.readRequestArrayBuffer()</literal></link>,
+<link id="r_read_request_json"><literal>r.readRequestJSON()</literal></link>,
+or
+<link id="r_read_request_form"><literal>r.readRequestForm()</literal></link>
+resolve from the cached body without re-reading the wire.
+A second call issued while a previous read is still pending throws
+<literal>"request body is already being read"</literal>.
+</para>
+
+<para>
+Note that
+it may convert bytes invalid in UTF-8 encoding into the replacement
+character.
+</para>
+</tag-desc>
+
 <tag-name id="r_request_body"><literal>r.requestBody</literal></tag-name>
 <tag-desc>
 the property was made obsolete in
@@ -395,6 +548,10 @@ and a sufficient buffer size should be set using
 <link doc="../http/ngx_http_core_module.xml" id="client_body_buffer_size"/>.
 The property is available only in the
 <link doc="../http/ngx_http_js_module.xml" id="js_content"/> directive.
+For asynchronous access, or for use in
+<link doc="../http/ngx_http_js_module.xml" id="js_access"/>, see
+<link id="r_read_request_text"><literal>r.readRequestText()</literal></link>
+and other “<literal>r.readRequest*()</literal>” methods.
 </tag-desc>
 
 <tag-name id="r_request_text"><literal>r.requestText</literal></tag-name>
@@ -403,6 +560,9 @@ the same as <link id="r_request_buffer"><literal>r.requestBuffer</literal></link
 but returns a <literal>string</literal>.
 Note that
 it may convert bytes invalid in UTF-8 encoding into the replacement character.
+For asynchronous access, or for use in
+<link doc="../http/ngx_http_js_module.xml" id="js_access"/>, see
+<link id="r_read_request_text"><literal>r.readRequestText()</literal></link>.
 </tag-desc>
 
 <tag-name id="r_raw_headers_in"><literal>r.rawHeadersIn[]</literal></tag-name>
@@ -485,6 +645,12 @@ sends the entire response
 with the specified <literal>status</literal> to the client.
 The response can be a string or Buffer
 (<link doc="changes.xml" id="njs0.5.0">0.5.0</link>).
+<para>
+May be called from the
+<link doc="../http/ngx_http_js_module.xml" id="js_content"/>
+or, since <link doc="changes.xml" id="njs0.9.9">0.9.9</link>,
+<link doc="../http/ngx_http_js_module.xml" id="js_access"/> handler.
+</para>
 <para>
 It is possible to specify either a redirect URL
 (for codes 301, 302, 303, 307, and 308)

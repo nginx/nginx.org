@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_js_module"
         link="/ru/docs/http/ngx_http_js_module.html"
         lang="ru"
-        rev="55">
+        rev="56">
 
 <section id="summary">
 
@@ -238,6 +238,67 @@ function filter(r, data, flags) {
 блока <link doc="../http/ngx_http_rewrite_module.xml" id="if">if</link>
 начиная с <link doc="../njs/changes.xml" id="njs0.7.7">0.7.7</link>.
 </note>
+</para>
+
+</directive>
+
+
+<directive name="js_access">
+<syntax><value>модуль.функция</value></syntax>
+<default/>
+<context>location</context>
+<context>if in location</context>
+<context>limit_except</context>
+<appeared-in>0.9.9</appeared-in>
+
+<para>
+Задаёт функцию njs в качестве обработчика
+<link doc="../dev/development_guide.xml" id="http_phases">фазы доступа</link>.
+Поддерживаются асинхронные операции, такие как
+<link doc="../njs/reference.xml" id="r_subrequest">r.subrequest()</link>,
+<link doc="../njs/reference.xml" id="ngx_fetch">ngx.fetch()</link>
+и <link doc="../njs/reference.xml" id="settimeout">setTimeout()</link>.
+</para>
+
+<para>
+Обработчик, завершившийся без вызова
+<link doc="../njs/reference.xml" id="r_return"><literal>r.return()</literal></link>
+или
+<link doc="../njs/reference.xml" id="r_decline"><literal>r.decline()</literal></link>,
+разрешает доступ.
+Чтобы запретить доступ или отправить произвольный ответ
+(например, перенаправление), обработчик может вызвать
+<link doc="../njs/reference.xml" id="r_return"><literal>r.return()</literal></link>.
+Чтобы обработчик не выражал мнения о доступе, передавая решение другим
+проверкам доступа при использовании
+<link doc="ngx_http_core_module.xml" id="satisfy"><literal>satisfy any</literal></link>,
+обработчик может вызвать
+<link doc="../njs/reference.xml" id="r_decline"><literal>r.decline()</literal></link>.
+</para>
+
+<para>
+Например:
+<example>
+example.conf:
+ location /protected/ {
+     js_access  main.auth;
+     proxy_pass http://upstream;
+ }
+
+example.js:
+ async function auth(r) {
+     let reply = await ngx.fetch('http://authsvc/check', {
+         headers: {Authorization: r.headersIn.Authorization}
+     });
+
+     if (reply.status != 200) {
+         r.return(401);
+         return;
+     }
+ }
+
+ export default {auth};
+</example>
 </para>
 
 </directive>

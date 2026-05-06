@@ -9,7 +9,7 @@
 <module name="Module ngx_http_js_module"
         link="/en/docs/http/ngx_http_js_module.html"
         lang="en"
-        rev="58">
+        rev="59">
 
 <section id="summary">
 
@@ -262,6 +262,68 @@ The directive can be specified inside the
 <link doc="../http/ngx_http_rewrite_module.xml" id="if">if</link> block
 since <link doc="../njs/changes.xml" id="njs0.7.7">0.7.7</link>.
 </note>
+</para>
+
+</directive>
+
+
+<directive name="js_access">
+<syntax><value>module.function</value></syntax>
+<default/>
+<context>location</context>
+<context>if in location</context>
+<context>limit_except</context>
+<appeared-in>0.9.9</appeared-in>
+
+<para>
+Sets an njs function as a handler in the
+<link doc="../dev/development_guide.xml" id="http_phases">access phase</link>.
+Asynchronous operations such as
+<link doc="../njs/reference.xml" id="r_subrequest">r.subrequest()</link>,
+<link doc="../njs/reference.xml" id="ngx_fetch">ngx.fetch()</link>,
+and <link doc="../njs/reference.xml" id="settimeout">setTimeout()</link>
+are supported.
+</para>
+
+<para>
+A handler that returns without calling
+<link doc="../njs/reference.xml" id="r_return"><literal>r.return()</literal></link>
+or
+<link doc="../njs/reference.xml" id="r_decline"><literal>r.decline()</literal></link>
+grants access.
+To deny access or send a custom response (for example, a redirect),
+the handler may call
+<link doc="../njs/reference.xml" id="r_return"><literal>r.return()</literal></link>.
+To make the handler express no opinion, deferring the decision to other
+access checkers under
+<link doc="ngx_http_core_module.xml" id="satisfy"><literal>satisfy any</literal></link>,
+the handler may call
+<link doc="../njs/reference.xml" id="r_decline"><literal>r.decline()</literal></link>.
+</para>
+
+<para>
+For example:
+<example>
+example.conf:
+ location /protected/ {
+     js_access  main.auth;
+     proxy_pass http://upstream;
+ }
+
+example.js:
+ async function auth(r) {
+     let reply = await ngx.fetch('http://authsvc/check', {
+         headers: {Authorization: r.headersIn.Authorization}
+     });
+
+     if (reply.status != 200) {
+         r.return(401);
+         return;
+     }
+ }
+
+ export default {auth};
+</example>
 </para>
 
 </directive>
