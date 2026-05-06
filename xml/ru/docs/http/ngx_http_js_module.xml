@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_js_module"
         link="/ru/docs/http/ngx_http_js_module.html"
         lang="ru"
-        rev="56">
+        rev="57">
 
 <section id="summary">
 
@@ -148,7 +148,7 @@ export default {foo, summary, baz, hello, fetch, hash};
 <section id="directives" name="Директивы">
 
 <directive name="js_body_filter">
-<syntax><value>функция</value> | <value>модуль.функция</value>
+<syntax><value>модуль.функция</value>
 [<value>buffer_type</value>=<value>string</value> | <value>buffer</value>]</syntax>
 <default/>
 <context>location</context>
@@ -305,7 +305,7 @@ example.js:
 
 
 <directive name="js_content">
-<syntax><value>функция</value> | <value>модуль.функция</value></syntax>
+<syntax><value>модуль.функция</value></syntax>
 <default/>
 <context>location</context>
 <context>if in location</context>
@@ -641,7 +641,7 @@ location /fetch {
 
 
 <directive name="js_header_filter">
-<syntax><value>функция</value> | <value>модуль.функция</value></syntax>
+<syntax><value>модуль.функция</value></syntax>
 <default/>
 <context>location</context>
 <context>if in location</context>
@@ -832,8 +832,7 @@ let result = mylib.add(5, 10);
 
 
 <directive name="js_periodic">
-<syntax><value>функция</value> |
-        <value>модуль.функция</value>
+<syntax><value>модуль.функция</value>
         [<literal>interval</literal>=<value>время</value>]
         [<literal>jitter</literal>=<value>число</value>]
         [<literal>worker_affinity</literal>=<value>маска</value>]</syntax>
@@ -940,7 +939,7 @@ js_preload_object map.json;
 <directive name="js_set">
 <syntax>
     <value>$переменная</value>
-    <value>функция</value> | <value>модуль.функция</value>
+    <value>модуль.функция</value>
     [<literal>nocache</literal>]</syntax>
 <default/>
 <context>http</context>
