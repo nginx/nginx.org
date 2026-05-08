@@ -1,0 +1,413 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Модуль ngx_http_tunnel_module"
+        link="/en/docs/http/ngx_http_tunnel_module.html"
+        lang="ru"
+        rev="1">
+
+<section id="summary">
+
+<para>
+Модуль <literal>ngx_http_tunnel_module</literal> (1.31.0) выполняет
+обработку запросов HTTP/1.1
+<link url="https://datatracker.ietf.org/doc/html/rfc9110#section-9.3.6">CONNECT</link>
+для установки сквозного виртуального соединения с другим сервером.
+</para>
+
+</section>
+
+
+<section id="example" name="Пример конфигурации">
+
+<para>
+<example>
+http {
+
+    map $request_port $allow_port {
+        443            1;
+    }
+
+    map $host $allow_host {
+        hostnames;
+
+        example.org    1;
+        *.example.org  1;
+    }
+
+    server {
+        listen 8000;
+
+        resolver dns.example.com;
+
+        if ($allow_port != 1) {
+            return 502;
+        }
+
+        if ($allow_host != 1) {
+            return 502;
+        }
+
+        tunnel_pass;
+    }
+}
+</example>
+</para>
+
+</section>
+
+
+<section id="directives" name="Директивы">
+
+<directive name="tunnel_allow_upstream">
+<syntax><value>строка</value> ...</syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Задаёт условия, при которых доступ к проксируемому серверу
+будет разрешён или <link id="denied">запрещён</link>.
+Если все значения строковых параметров непустые
+и не равны “0”, то доступ разрешён.
+Условия проверяются каждый раз
+перед установлением соединения с проксируемым сервером.
+В значении параметров допустимо использование переменных:
+<example>
+geo $upstream_last_addr $allow {
+    volatile;
+    10.10.0.0/24        1;
+}
+
+server {
+    listen 127.0.0.1:8080;
+
+    tunnel_pass;
+    tunnel_allow_upstream $allow;
+}
+</example>
+</para>
+
+<para>
+<note>
+Директива доступна как часть
+<commercial_version>коммерческой подписки</commercial_version>.
+</note>
+</para>
+
+</directive>
+
+
+<directive name="tunnel_bind">
+<syntax>
+    <value>адрес</value> |
+    <literal>off</literal></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Задаёт локальный IP-адрес с необязательным портом,
+который будет использоваться в исходящих соединениях с проксируемым сервером.
+В значении параметра допустимо использование переменных.
+Специальное значение <literal>off</literal> отменяет действие
+унаследованной с предыдущего уровня конфигурации
+директивы <literal>tunnel_bind</literal>, позволяя системе
+самостоятельно выбирать локальный IP-адрес и порт.
+</para>
+
+</directive>
+
+
+<directive name="tunnel_bind_dynamic">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Если включено, операция <link id="tunnel_bind">bind</link> осуществляется
+при каждой попытке соединения.
+<example>
+geo $upstream_last_addr $bind_addr {
+    volatile;
+    10.0.0.0/24    10.0.0.1;
+    192.168.0.0/24  192.168.0.1;
+}
+
+tunnel_bind         $bind_addr;
+tunnel_bind_dynamic on;
+</example>
+</para>
+
+<para>
+<note>
+Директива доступна как часть
+<commercial_version>коммерческой подписки</commercial_version>.
+</note>
+</para>
+
+</directive>
+
+
+<directive name="tunnel_buffer_size">
+<syntax><value>размер</value></syntax>
+<default>4k|8k</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Задаёт <value>размер</value> буфера, в который будут читаться данные,
+получаемые от проксируемого сервера.
+Также задаёт <value>размер</value> буфера, в который будут читаться данные,
+получаемые от клиента.
+</para>
+
+</directive>
+
+
+<directive name="tunnel_connect_timeout">
+<syntax><value>время</value></syntax>
+<default>60s</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Задаёт таймаут для установления соединения с проксированным сервером.
+Необходимо иметь в виду, что этот таймаут обычно не может превышать 75 секунд.
+</para>
+
+</directive>
+
+
+<directive name="tunnel_next_upstream">
+<syntax>
+    <literal>error</literal> |
+    <literal>timeout</literal> |
+    <literal>denied</literal> |
+    <literal>off</literal>
+    ...</syntax>
+<default>error timeout</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Определяет, в каких случаях запрос будет передан следующему серверу:
+<list type="tag">
+
+<tag-name><literal>error</literal></tag-name>
+<tag-desc>произошла ошибка соединения с сервером или
+чтения данных от сервера;</tag-desc>
+
+<tag-name><literal>timeout</literal></tag-name>
+<tag-desc>произошёл таймаут во время соединения с сервером,
+передачи ему запроса или чтения заголовка ответа сервера;</tag-desc>
+
+<tag-name id="denied"><literal>denied</literal></tag-name>
+<tag-desc>сервер <link id="tunnel_allow_upstream">отклонил</link>
+соединение;
+<para>
+<note>
+Параметр доступен как часть
+<commercial_version>коммерческой подписки</commercial_version>.
+</note>
+</para>
+</tag-desc>
+
+<tag-name><literal>off</literal></tag-name>
+<tag-desc>запрещает передачу запроса следующему серверу.</tag-desc>
+
+</list>
+</para>
+
+<para>
+Необходимо понимать, что передача запроса следующему серверу возможна
+только при условии, что клиенту ещё ничего не передавалось.
+То есть, если ошибка или таймаут возникли в середине передачи ответа
+клиенту, то исправить это уже невозможно.
+</para>
+
+<para>
+Директива также определяет, что считается
+<link doc="ngx_http_upstream_module.xml" id="max_fails">неудачной
+попыткой</link> работы с сервером.
+Случаи <literal>error</literal>, <literal>timeout</literal> и
+<literal>denied</literal>
+всегда считаются неудачными попытками, даже если они не указаны в директиве.
+</para>
+
+<para>
+Передача запроса следующему серверу может быть ограничена по
+<link id="tunnel_next_upstream_tries">количеству попыток</link>
+и по <link id="tunnel_next_upstream_timeout">времени</link>.
+</para>
+
+</directive>
+
+
+<directive name="tunnel_next_upstream_timeout">
+<syntax><value>время</value></syntax>
+<default>0</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Ограничивает время, в течение которого возможна передача запроса
+<link id="tunnel_next_upstream">следующему серверу</link>.
+Значение <literal>0</literal> отключает это ограничение.
+</para>
+
+</directive>
+
+
+<directive name="tunnel_next_upstream_tries">
+<syntax><value>число</value></syntax>
+<default>0</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Ограничивает число допустимых попыток для передачи запроса
+<link id="tunnel_next_upstream">следующему серверу</link>.
+Значение <literal>0</literal> отключает это ограничение.
+</para>
+
+</directive>
+
+
+<directive name="tunnel_pass">
+<syntax>[<value>адрес</value>]</syntax>
+<default/>
+<context>server</context>
+<context>location</context>
+<context>if в location</context>
+
+<para>
+Разрешает обработку запросов CONNECT и задаёт адрес проксируемого сервера.
+По умолчанию в качестве <literal>адрес</literal>'а используется
+<value>$host:$request_port</value> со значениями из запроса клиента.
+В большинстве случаев указывать параметры для <literal>tunnel_pass</literal>
+не требуется.
+</para>
+
+<para>
+Адрес может быть указан в виде доменного имени или IP-адреса,
+и порта:
+<example>
+tunnel_pass localhost:9000;
+</example>
+или в виде пути UNIX-сокета:
+<example>
+tunnel_pass unix:/tmp/backend.socket;
+</example>
+</para>
+
+<para>
+Если доменному имени соответствует несколько адресов, то все они будут
+использоваться по очереди (round-robin).
+Кроме того, в качестве адреса можно указать
+<link doc="ngx_http_upstream_module.xml">группу серверов</link>.
+</para>
+
+<para>
+В значении параметра можно использовать переменные.
+В этом случае, если адрес указан в виде доменного имени,
+имя ищется среди описанных групп серверов
+и если не найдено, то определяется с помощью
+<link doc="ngx_http_core_module.xml" id="resolver"/>’а.
+</para>
+
+</directive>
+
+
+<directive name="tunnel_read_timeout">
+<syntax><value>время</value></syntax>
+<default>60s</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Задаёт таймаут между двумя идущими подряд операциями чтения или записи
+на клиентском соединении или соединении с проксируемым сервером.
+Если по истечении этого времени данные не передавались,
+соединение закрывается.
+</para>
+
+</directive>
+
+
+<directive name="tunnel_send_lowat">
+<syntax><value>размер</value></syntax>
+<default>0</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+При установке директивы в ненулевое значение nginx будет пытаться минимизировать
+число операций отправки на исходящих соединениях с проксируемым сервером либо
+при помощи флага <c-def>NOTE_LOWAT</c-def> метода
+<link doc="../events.xml" id="kqueue"/>,
+либо при помощи параметра сокета <c-def>SO_SNDLOWAT</c-def>,
+с указанным <value>размером</value>.
+</para>
+
+<para>
+Эта директива игнорируется на Linux, Solaris и Windows.
+</para>
+
+</directive>
+
+
+<directive name="tunnel_send_timeout">
+<syntax><value>время</value></syntax>
+<default>60s</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Задаёт таймаут при передаче запроса проксированному серверу.
+Таймаут устанавливается не на всю передачу запроса,
+а только между двумя операциями записи.
+Если по истечении этого времени проксируемый сервер не примет новых данных,
+соединение закрывается.
+</para>
+
+</directive>
+
+
+<directive name="tunnel_socket_keepalive">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+
+<para>
+Конфигурирует поведение “TCP keepalive”
+для исходящих соединений к проксируемому серверу.
+По умолчанию для сокета действуют настройки операционной системы.
+Если указано значение “<literal>on</literal>”, то
+для сокета включается параметр <c-def>SO_KEEPALIVE</c-def>.
+</para>
+
+</directive>
+
+</section>
+
+</module>
