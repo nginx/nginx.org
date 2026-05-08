@@ -14,17 +14,9 @@
 <section id="summary">
 
 <para>
-The <literal>ngx_http_tunnel_module</literal> (1.29.3) handles
-<link url="https://datatracker.ietf.org/doc/html/rfc9110#section-9.3.6">CONNECT
-requests</link>
-and establishes an end-to-end virtual connection.
-</para>
-
-<para>
-<note>
-This module is available as part of our
-<commercial_version>commercial subscription</commercial_version>.
-</note>
+The <literal>ngx_http_tunnel_module</literal> (1.31.0) handles HTTP/1.1
+<link url="https://datatracker.ietf.org/doc/html/rfc9110#section-9.3.6">CONNECT</link>
+requests and establishes an end-to-end virtual connection.
 </para>
 
 </section>
@@ -101,6 +93,13 @@ server {
 </example>
 </para>
 
+<para>
+<note>
+This directive is available as part of our
+<commercial_version>commercial subscription</commercial_version>.
+</note>
+</para>
+
 </directive>
 
 
@@ -146,6 +145,13 @@ geo $upstream_last_addr $bind_addr {
 tunnel_bind         $bind_addr;
 tunnel_bind_dynamic on;
 </example>
+</para>
+
+<para>
+<note>
+This directive is available as part of our
+<commercial_version>commercial subscription</commercial_version>.
+</note>
 </para>
 
 </directive>
@@ -209,7 +215,14 @@ server, passing a request to it, or reading data from the server;</tag-desc>
 
 <tag-name id="denied"><literal>denied</literal></tag-name>
 <tag-desc>the server <link id="tunnel_allow_upstream">denied</link>
-the connection;</tag-desc>
+the connection;
+<para>
+<note>
+This parameter is available as part of our
+<commercial_version>commercial subscription</commercial_version>.
+</note>
+</para>
+</tag-desc>
 
 <tag-name><literal>off</literal></tag-name>
 <tag-desc>disables passing a request to the next server.</tag-desc>
