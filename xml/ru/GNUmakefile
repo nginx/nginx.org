@@ -78,6 +78,7 @@ REFS =									\
 		http/ngx_http_status_module				\
 		http/ngx_http_stub_status_module			\
 		http/ngx_http_sub_module				\
+		http/ngx_http_tunnel_module				\
 		http/ngx_http_upstream_module				\
 		http/ngx_http_upstream_conf_module			\
 		http/ngx_http_upstream_hc_module			\
