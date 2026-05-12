@@ -9,7 +9,7 @@
 <module name="Module ngx_http_js_module"
         link="/en/docs/http/ngx_http_js_module.html"
         lang="en"
-        rev="59">
+        rev="60">
 
 <section id="summary">
 
@@ -725,6 +725,26 @@ If the imported module exports <literal>foo()</literal>,
 
 <para>
 Several <literal>js_import</literal> directives can be specified.
+</para>
+
+<para>
+When <literal>js_import</literal> is specified inside a
+<link doc="ngx_http_core_module.xml" id="location"/>,
+the imported modules are visible only if no JavaScript code
+has been invoked earlier in the request.
+A single VM is created per request when a
+<link id="js_set"/> variable is first accessed
+or when a <link id="js_content"/>, <link id="js_header_filter"/>,
+<link id="js_body_filter"/>, or <link id="js_access"/> handler
+is first invoked.
+The VM is cloned from the configuration scope active at that moment,
+and all subsequent JavaScript invocations within the request reuse it.
+Thus, if any of the above is referenced before the request is mapped
+to its final location, for example from a server-level
+<link doc="ngx_http_rewrite_module.xml" id="set"/>,
+the VM is bound to the import set of the outer scope, and modules
+imported in the matched <literal>location</literal> will not be visible.
+To avoid this, declare such imports in a common parent scope.
 </para>
 
 <para>
