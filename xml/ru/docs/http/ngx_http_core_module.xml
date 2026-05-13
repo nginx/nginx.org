@@ -679,6 +679,43 @@ server {
 </directive>
 
 
+<directive name="error_log_tag">
+<syntax> <value>имя</value> <value>значение</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.29.8</appeared-in>
+
+<para>
+Задаёт дополнительный контекстный тег для
+<link doc="../ngx_core_module.xml" id="error_log">лог-файла ошибок</link> HTTP в
+текстовом или <link doc="../ngx_core_module.xml" id="error_log_json">JSON</link>
+формате, в дополнение к тегам по умолчанию.
+В качестве <literal>значения</literal>
+можно использовать текст, переменные и их комбинации:
+<example>
+error_log_tag  request_id  $request_id;
+</example>
+</para>
+
+<para>
+На одном уровне конфигурации может быть указано несколько директив
+<literal>error_log_tag</literal>.
+Директивы наследуются с предыдущего уровня конфигурации при условии,
+если на данном уровне не заданы свои директивы <literal>error_log_tag</literal>.
+</para>
+
+<para>
+<note>
+Директива доступна как часть
+<commercial_version>коммерческой подписки</commercial_version>.
+</note>
+</para>
+
+</directive>
+
+
 <directive name="error_page">
 <syntax>
     <value>код</value> ...
@@ -3606,6 +3643,18 @@ authority, или
 <tag-name id="var_time_iso8601"><var>$time_iso8601</var></tag-name>
 <tag-desc>
 локальное время в формате по стандарту ISO 8601 (1.3.12, 1.2.7)
+</tag-desc>
+
+<tag-name id="var_time_iso8601_ms"><var>$time_iso8601_ms</var></tag-name>
+<tag-desc>
+локальное время в формате по стандарту ISO 8601
+с точностью до миллисекунд (1.29.3)
+<para>
+<note>
+Переменная доступна как часть
+<commercial_version>коммерческой подписки</commercial_version>.
+</note>
+</para>
 </tag-desc>
 
 <tag-name id="var_time_local"><var>$time_local</var></tag-name>

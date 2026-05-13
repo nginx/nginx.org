@@ -42,6 +42,18 @@ nginx -g "pid /var/run/nginx.pid; worker_processes `sysctl -n hw.ncpu`;"
 </programlisting>
 </listitem>
 
+<listitem id="l">
+<literal>-l <value>port</value></literal>&mdash;enable
+<link url="https://docs.nginx.com/nginx/admin-guide/basic-functionality/runtime-control#control-api">nginx control REST API</link>
+on a specified <value>port</value> or UNIX-domain socket (1.29.8).
+<para>
+<note>
+This parameter is available as part of our
+<commercial_version>commercial subscription</commercial_version>.
+</note>
+</para>
+</listitem>
+
 <listitem>
 <literal>-p <value>prefix</value></literal>&mdash;set nginx path prefix,
 i.e. a directory that will keep server files

@@ -42,6 +42,18 @@ nginx -g "pid /var/run/nginx.pid; worker_processes `sysctl -n hw.ncpu`;"
 </programlisting>
 </listitem>
 
+<listitem id="l">
+<literal>-l <value>порт</value></literal>&mdash;включение
+<link url="https://docs.nginx.com/nginx/admin-guide/basic-functionality/runtime-control#control-api">REST API управления nginx</link>
+на указанном <value>порту</value> или UNIX-сокете (1.29.8).
+<para>
+<note>
+Параметр доступен как часть
+<commercial_version>коммерческой подписки</commercial_version>.
+</note>
+</para>
+</listitem>
+
 <listitem>
 <literal>-p <value>префикс</value></literal>&mdash;задание префикса пути nginx,
 т.е. каталога, в котором будут находиться файлы сервера

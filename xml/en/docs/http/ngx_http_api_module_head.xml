@@ -209,6 +209,13 @@ redirect</link> happens during request processing.
 <list type="bullet">
 
 <listitem>
+The “<literal>response_time_hist</literal>” data
+for each HTTP
+<link id="def_nginx_http_upstream">upstream</link>
+were added in <link id="api_version">version</link> 9 (1.29.8).
+</listitem>
+
+<listitem>
 The “<literal>uuid</literal>” field was added
 to the <link id="license">/license</link> data
 in <link id="api_version">version</link> 9 (1.29.0).

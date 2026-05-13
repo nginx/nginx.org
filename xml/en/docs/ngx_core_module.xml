@@ -209,7 +209,8 @@ and should not be set directly by the user.
 
 
 <directive name="error_log">
-<syntax><value>file</value> [<value>level</value>]</syntax>
+<syntax><value>file</value> [<value>level</value>]
+[<literal>json</literal>]</syntax>
 <default>logs/error.log error</default>
 <context>main</context>
 <context>http</context>
@@ -258,7 +259,36 @@ For <literal>debug</literal> logging to work, nginx needs to
 be built with <literal>--with-debug</literal>,
 see “<link doc="debugging_log.xml"/>”.
 </note>
+</para>
 
+<para id="error_log_json">
+The <literal>json</literal> parameter (1.29.8)
+enables writing a log in the JSON format,
+with support for
+<link doc="http/ngx_http_core_module.xml" id="error_log_tag">context tags</link>:
+<example>
+{
+  "level": "error",
+  "timestamp": "2026-05-13T10:30:15.042+00:00",
+  "pid": 12345,  "tid": 12345,  "cnum": 3,
+  "msg": "connect() failed",
+  "client": "192.168.1.10",  "server": "example.com",
+  "request": "GET /api HTTP/1.1",
+  "upstream": "http://127.0.0.1:8080/api",
+  "errno": 111,
+  "errtext": "Connection refused"
+}
+</example>
+A log entry cannot exceed 2 KB,
+data beyond this limit is truncated to <literal>“truncated”:1</literal>.
+Debug logging is not supported for JSON. 
+<note>
+This parameter is available as part of our
+<commercial_version>commercial subscription</commercial_version>.
+</note>
+</para>
+
+<para>
 <note>
 The directive can be specified on the
 <literal>stream</literal> level

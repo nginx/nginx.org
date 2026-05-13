@@ -208,7 +208,8 @@ env OPENSSL_ALLOW_PROXY_CERTS=1;
 
 
 <directive name="error_log">
-<syntax><value>файл</value> [<value>уровень</value>]</syntax>
+<syntax><value>файл</value> [<value>уровень</value>]
+[<literal>json</literal>]</syntax>
 <default>logs/error.log error</default>
 <context>main</context>
 <context>http</context>
@@ -256,7 +257,36 @@ env OPENSSL_ALLOW_PROXY_CERTS=1;
 nginx с <literal>--with-debug</literal>,
 см. “<link doc="debugging_log.xml"/>”.
 </note>
+</para>
 
+<para id="error_log_json">
+Параметр <literal>json</literal> (1.29.8)
+включает запись лог-файла ошибок в формате JSON,
+с возможностью использования
+<link doc="http/ngx_http_core_module.xml" id="error_log_tag">контекстных тегов</link>:
+<example>
+{
+  "level": "error",
+  "timestamp": "2026-05-13T10:30:15.042+00:00",
+  "pid": 12345,  "tid": 12345,  "cnum": 3,
+  "msg": "connect() failed",
+  "client": "192.168.1.10",  "server": "example.com",
+  "request": "GET /api HTTP/1.1",
+  "upstream": "http://127.0.0.1:8080/api",
+  "errno": 111,
+  "errtext": "Connection refused"
+}
+</example>
+Размер строки не может превышать 2KB,
+данные сверх этого ограничения сокращаются до <literal>“truncated”:1</literal>.
+Уровень лога <literal>debug</literal> не поддерживается для JSON.
+<note>
+Параметр доступен как часть
+<commercial_version>коммерческой подписки</commercial_version>.
+</note>
+</para>
+
+<para>
 <note>
 Директива может быть указана на
 уровне <literal>stream</literal>

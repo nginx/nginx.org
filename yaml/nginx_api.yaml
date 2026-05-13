@@ -3183,6 +3183,25 @@ definitions:
             requests: 667231
             header_time: 20
             response_time: 36
+            response_time_hist:
+              count: 9817
+              sum: 57625
+              buckets:
+                5: 4428
+                10: 4755
+                25: 350
+                50: 235
+                75: 54
+                100: 47
+                250: 1
+                500: 0
+                750: 0
+                1000: 0
+                2500: 0
+                5000: 0
+                7500: 0
+                10000: 0
+                inf: 0
             responses:
               1xx: 0
               2xx: 666310
@@ -3261,6 +3280,25 @@ definitions:
             requests: 667231
             header_time: 20
             response_time: 36
+            response_time_hist:
+              count: 9817
+              sum: 57625
+              buckets:
+                5: 4428
+                10: 4755
+                25: 350
+                50: 235
+                75: 54
+                100: 47
+                250: 1
+                500: 0
+                750: 0
+                1000: 0
+                2500: 0
+                5000: 0
+                7500: 0
+                10000: 0
+                inf: 0
             responses:
               1xx: 0
               2xx: 666310
@@ -3378,6 +3416,25 @@ definitions:
             requests: 667231
             header_time: 20
             response_time: 36
+            response_time_hist:
+              count: 9817
+              sum: 57625
+              buckets:
+                5: 4428
+                10: 4755
+                25: 350
+                50: 235
+                75: 54
+                100: 47
+                250: 1
+                500: 0
+                750: 0
+                1000: 0
+                2500: 0
+                5000: 0
+                7500: 0
+                10000: 0
+                inf: 0
             responses:
               1xx: 0
               2xx: 666310
@@ -3657,6 +3714,74 @@ definitions:
         description: The average time to get the
           <a href="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#var_upstream_response_time">full response</a>
           from the server.
+      response_time_hist:
+        type: object
+        description: Histogram of upstream response times collected per upstream server.
+        readOnly: true
+        properties:
+          count:
+            type: integer
+            description: Total number of recorded responses.
+            readOnly: true
+          sum:
+            type: integer
+            description: Sum of all recorded upstream response times, in milliseconds.
+            readOnly: true
+          buckets:
+            title: Histogram bucket counters
+            description:  |
+              Histogram bucket counters for upstream response times, in milliseconds.
+              Each bucket name ("5","10","25","50", etc.) is a time limit in milliseconds.
+              Each bucket value is the number of responses within that time bucket.
+              The "inf" bucket counts responses greater than 10000 ms.
+            type: object
+            readOnly: true
+            properties:
+              "5":
+                type: integer
+                description: The total number of responses with response time less than or equal to 5 ms.
+              "10":
+                type: integer
+                description: The total number of responses with response time greater than 5 ms and less than or equal to 10 ms.
+              "25":
+                type: integer
+                description: The total number of responses with response time greater than 10 ms and less than or equal to 25 ms.
+              "50":
+                type: integer
+                description: The total number of responses with response time greater than 25 ms and less than or equal to 50 ms.
+              "75":
+                type: integer
+                description: The total number of responses with response time greater than 50 ms and less than or equal to 75 ms.
+              "100":
+                type: integer
+                description: The total number of responses with response time greater than 75 ms and less than or equal to 100 ms.
+              "250":
+                type: integer
+                description: The total number of responses with response time greater than 100 ms and less than or equal to 250 ms.
+              "500":
+                type: integer
+                description: The total number of responses with response time greater than 250 ms and less than or equal to 500 ms.
+              "750":
+                type: integer
+                description: The total number of responses with response time greater than 500 ms and less than or equal to 750 ms.
+              "1000":
+                type: integer
+                description: The total number of responses with response time greater than 750 ms and less than or equal to 1000 ms.
+              "2500":
+                type: integer
+                description: The total number of responses with response time greater than 1000 ms and less than or equal to 2500 ms.
+              "5000":
+                type: integer
+                description: The total number of responses with response time greater than 2500 ms and less than or equal to 5000 ms.
+              "7500":
+                type: integer
+                description: The total number of responses with response time greater than 5000 ms and less than or equal to 7500 ms.
+              "10000":
+                type: integer
+                description: The total number of responses with response time greater than 7500 ms and less than or equal to 10000 ms.
+              "inf":
+                type: integer
+                description: The total number of observations with response time greater than 10000 ms.
   NginxHTTPUpstreamConfServerMap:
     title: HTTP Upstream Servers
     description: An array of HTTP upstream servers for dynamic configuration.
