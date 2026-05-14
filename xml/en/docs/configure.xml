@@ -8,7 +8,7 @@
 <article name="Building nginx from Sources"
          link="/en/docs/configure.html"
          lang="en"
-         rev="26">
+         rev="27">
 
 <section>
 
@@ -619,6 +619,16 @@ module that passes requests to an SCGI server.
 disables building the
 <link doc="http/ngx_http_grpc_module.xml">ngx_http_grpc_module</link>
 module that passes requests to a gRPC server.
+</tag-desc>
+
+<tag-name>
+<literal>--without-http_tunnel_module</literal>
+</tag-name>
+<tag-desc>
+disables building the
+<link doc="http/ngx_http_tunnel_module.xml">ngx_http_tunnel_module</link>
+module that handles HTTP/1.1 CONNECT requests
+and establishes an end-to-end virtual connection.
 </tag-desc>
 
 <tag-name>

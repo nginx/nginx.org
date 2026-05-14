@@ -8,7 +8,7 @@
 <article name="Сборка nginx из исходных файлов"
          link="/ru/docs/configure.html"
          lang="ru"
-         rev="26">
+         rev="27">
 
 <section>
 
@@ -613,6 +613,16 @@ HTTP-сервера.
 запрещает сборку модуля
 <link doc="http/ngx_http_grpc_module.xml">ngx_http_grpc_module</link>,
 позволяющего передавать запросы gRPC-серверу.
+</tag-desc>
+
+<tag-name>
+<literal>--without-http_tunnel_module</literal>
+</tag-name>
+<tag-desc>
+запрещает сборку модуля
+<link doc="http/ngx_http_tunnel_module.xml">ngx_http_tunnel_module</link>,
+позволяющего обрабатывать запросы HTTP/1.1 CONNECT
+для установки сквозного виртуального соединения с другим сервером.
 </tag-desc>
 
 <tag-name>
