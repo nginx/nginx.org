@@ -9,7 +9,7 @@
 <article name="Security"
         link="/en/docs/njs/security.html"
         lang="en"
-        rev="3"
+        rev="4"
         toc="no">
 
 <section>
@@ -66,6 +66,23 @@ nginx is safe from JavaScript-related vulnerabilities
 
 </list>
 </para>
+
+</section>
+
+
+<section id="advisories" name="Advisories">
+
+<security>
+
+<item name="Heap buffer overflow in js_fetch_proxy"
+      severity="medium"
+      advisory="https://my.f5.com/manage/s/article/K000161307"
+      cve="2026-8711"
+      good="0.9.9+"
+      vulnerable="0.9.4-0.9.8">
+</item>
+
+</security>
 
 </section>
 

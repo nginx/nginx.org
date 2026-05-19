@@ -9,8 +9,122 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="85"
+        rev="86"
         toc="no">
+
+<section id="njs0.9.9" name="Changes with njs 0.9.9">
+
+<para>
+Release Date:
+19 May 2026
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Security:
+a heap buffer overflow might occur in a worker process
+when the
+<link doc="../http/ngx_http_js_module.xml" id="js_fetch_proxy">
+js_fetch_proxy</link>
+directive value contains nginx variables derived from the client request
+(<link doc="../http/ngx_http_core_module.xml" id="var_http_">
+<literal>$http_*</literal></link>,
+<link doc="../http/ngx_http_core_module.xml" id="var_arg_">
+<literal>$arg_*</literal></link>,
+<link doc="../http/ngx_http_core_module.xml" id="var_cookie_">
+<literal>$cookie_*</literal></link>,
+etc.) and the location's JS handler invokes
+<link doc="reference.xml" id="ngx_fetch">ngx.fetch()</link>
+(<link url="https://www.cve.org/CVERecord?id=CVE-2026-8711">CVE-2026-8711</link>).
+The issue was introduced in
+<link url="https://github.com/nginx/njs/commit/dea83189">dea83189</link>
+(<link doc="changes.xml" id="njs0.9.4">0.9.4</link>).
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added
+<link doc="../http/ngx_http_js_module.xml" id="js_access">js_access</link>
+directive.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added
+<link doc="reference.xml" id="r_read_request_text">r.readRequestText()</link>,
+<link doc="reference.xml" id="r_read_request_array_buffer">
+r.readRequestArrayBuffer()</link>,
+and
+<link doc="reference.xml" id="r_read_request_json">r.readRequestJSON()</link>
+async methods that read the request body, available in
+<link doc="../http/ngx_http_js_module.xml" id="js_access">js_access</link>
+and
+<link doc="../http/ngx_http_js_module.xml" id="js_content">js_content</link>
+directives.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added
+<link doc="reference.xml" id="r_read_request_form">r.readRequestForm()</link>
+async method that parses the request body submitted from an HTML form
+(<literal>application/x-www-form-urlencoded</literal> and
+<literal>multipart/form-data</literal>) and returns a structured accessor
+object.
+The method is available in
+<link doc="../http/ngx_http_js_module.xml" id="js_access">js_access</link>
+and
+<link doc="../http/ngx_http_js_module.xml" id="js_content">js_content</link>
+directives.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added
+<link doc="reference.xml" id="r_js_var_names">jsVarNames()</link>
+method.
+The method returns the names of variables declared with
+<link doc="../http/ngx_http_js_module.xml" id="js_var">js_var</link>.
+</para>
+</listitem>
+
+</list>
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Bugfix:
+fixed evaluation order of call arguments with side effects.
+Previously, an earlier argument could observe a later argument's mutation,
+e.g. <literal>f(a, a = 2)</literal> passed <literal>2</literal> as both
+arguments.
+The issue was introduced in
+<link url="https://github.com/nginx/njs/commit/fd5e523f">fd5e523f</link>
+(<link doc="changes.xml" id="njs0.9.7">0.9.7</link>).
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.9.8" name="Changes with njs 0.9.8">
 

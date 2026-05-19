@@ -28,6 +28,28 @@
 <year href="2009.html" year="2009" />
 </years>
 
+<event date="2026-05-19">
+<para>
+<link doc="en/docs/njs/index.xml">njs-0.9.9</link>
+version has been
+<link doc="en/docs/njs/changes.xml" id="njs0.9.9">released</link>,
+with a fix for
+<link doc="en/docs/njs/security.xml" id="advisories">heap buffer overflow</link>
+vulnerability in
+<link doc="en/docs/http/ngx_http_js_module.xml" id="js_fetch_proxy">
+js_fetch_proxy</link>
+(CVE-2026-8711), featuring
+<link doc="en/docs/http/ngx_http_js_module.xml" id="js_access">js_access</link>,
+<link doc="en/docs/njs/reference.xml" id="r_read_request_text">
+r.readRequestText()</link>
+and friends,
+<link doc="en/docs/njs/reference.xml" id="r_read_request_form">
+r.readRequestForm()</link>,
+and
+<link doc="en/docs/njs/reference.xml" id="r_js_var_names">jsVarNames()</link>.
+</para>
+</event>
+
 <event date="2026-05-13">
 <para>
 <link doc="en/download.xml">nginx-1.30.1</link>
