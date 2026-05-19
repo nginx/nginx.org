@@ -9,7 +9,7 @@
 <article name="Compatibility"
         link="/en/docs/njs/compatibility.html"
         lang="en"
-        rev="48"
+        rev="49"
         toc="no">
 
 <section>
@@ -1176,6 +1176,8 @@ nginx object properties:
 <link doc="reference.xml" id="r_headers_out"><literal>r.headersOut</literal></link>,
 <link doc="reference.xml" id="r_http_version"><literal>r.httpVersion</literal></link>,
 <link doc="reference.xml" id="r_internal"><literal>r.internal</literal></link>,
+<link doc="reference.xml" id="r_js_var_names"><literal>r.jsVarNames</literal></link>
+(<link doc="changes.xml" id="njs0.9.9">0.9.9</link>),
 <link doc="reference.xml" id="r_method"><literal>r.method</literal></link>,
 <link doc="reference.xml" id="r_parent"><literal>r.parent</literal></link>,
 <link doc="reference.xml" id="r_read_request_array_buffer"><literal>r.readRequestArrayBuffer</literal></link>
@@ -1208,6 +1210,8 @@ nginx object properties:
 
 <listitem>
 <link doc="reference.xml" id="stream"><literal>Stream Session</literal></link>:
+<link doc="reference.xml" id="s_js_var_names"><literal>s.jsVarNames</literal></link>
+(<link doc="changes.xml" id="njs0.9.9">0.9.9</link>),
 <link doc="reference.xml" id="s_remote_address"><literal>s.remoteAddress</literal></link>,
 <link doc="reference.xml" id="s_raw_variables"><literal>s.rawVariables</literal></link>
 (<link doc="changes.xml" id="njs0.5.0">0.5.0</link>),
