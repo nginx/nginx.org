@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="135">
+        rev="136">
 
 <section id="summary">
 
@@ -49,6 +49,7 @@ List of all njs properties and methods can be found in
 <tr><td><link id="r_http_version"><literal>r.httpVersion</literal></link></td></tr>
 <tr><td><link id="r_internal"><literal>r.internal</literal></link></td></tr>
 <tr><td><link id="r_internal_redirect"><literal>r.internalRedirect()</literal></link></td></tr>
+<tr><td><link id="r_js_var_names"><literal>r.jsVarNames()</literal></link></td></tr>
 <tr><td><link id="r_log"><literal>r.log()</literal></link></td></tr>
 <tr><td><link id="r_method"><literal>r.method</literal></link></td></tr>
 <tr><td><link id="r_parent"><literal>r.parent</literal></link></td></tr>
@@ -823,6 +824,16 @@ writable
 (since <link doc="changes.xml" id="njs0.5.0">0.5.0</link>)
 </tag-desc>
 
+<tag-name id="r_js_var_names"><literal>r.jsVarNames(<value>[prefix]</value>)</literal></tag-name>
+<tag-desc>
+returns a new array of names of nginx variables declared with
+the <link doc="../http/ngx_http_js_module.xml" id="js_var">js_var</link>
+directive
+(since <link doc="changes.xml" id="njs0.9.9">0.9.9</link>).
+The optional <value>prefix</value> argument must be a string.
+If it is specified, only names that start with the prefix are returned.
+</tag-desc>
+
 <tag-name id="r_variables"><literal>r.variables{}</literal></tag-name>
 <tag-desc>
 <link doc="../varindex.xml">nginx variables</link> object, writable
@@ -911,6 +922,7 @@ only first 2048 bytes of the string can be logged.
 <tr><td><link id="s_deny"><literal>s.deny()</literal></link></td></tr>
 <tr><td><link id="s_done"><literal>s.done()</literal></link></td></tr>
 <tr><td><link id="s_error"><literal>s.error()</literal></link></td></tr>
+<tr><td><link id="s_js_var_names"><literal>s.jsVarNames()</literal></link></td></tr>
 <tr><td><link id="s_log"><literal>s.log()</literal></link></td></tr>
 <tr><td><link id="s_off"><literal>s.off()</literal></link></td></tr>
 <tr><td><link id="s_on"><literal>s.on()</literal></link></td></tr>
@@ -1092,6 +1104,16 @@ client address, read-only
 nginx <link id="s_variables">variables</link> as Buffers,
 writable
 (since <link doc="changes.xml" id="njs0.5.0">0.5.0</link>)
+</tag-desc>
+
+<tag-name id="s_js_var_names"><literal>s.jsVarNames(<value>[prefix]</value>)</literal></tag-name>
+<tag-desc>
+returns a new array of names of nginx variables declared with
+the <link doc="../stream/ngx_stream_js_module.xml" id="js_var">js_var</link>
+directive
+(since <link doc="changes.xml" id="njs0.9.9">0.9.9</link>).
+The optional <value>prefix</value> argument must be a string.
+If it is specified, only names that start with the prefix are returned.
 </tag-desc>
 
 <tag-name id="s_send"><literal>s.send(<value>data</value>[,
