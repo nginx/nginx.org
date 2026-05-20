@@ -10,7 +10,7 @@
 <module name="Module ngx_http_proxy_module"
         link="/en/docs/http/ngx_http_proxy_module.html"
         lang="en"
-        rev="87">
+        rev="88">
 
 <section id="summary">
 
@@ -1734,6 +1734,13 @@ location / {
     proxy_pass ...
 }
 </example>
+</para>
+
+<para>
+<note>
+Trailer fields received from
+an upstream server are passed to a client as is, without interpretation.
+</note>
 </para>
 
 </directive>
