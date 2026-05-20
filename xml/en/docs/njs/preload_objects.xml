@@ -9,10 +9,19 @@
 <article name="Understanding preloaded objects"
         link="/en/docs/njs/preload_objects.html"
         lang="en"
-        rev="2"
+        rev="3"
         toc="no">
 
 <section id="summary">
+
+<para>
+<note>
+Preloaded objects are supported only with the
+<link doc="engine.xml" id="njs_engine">njs</link> JavaScript engine
+and are not available with the
+<link doc="engine.xml" id="quickjs_engine">QuickJS</link> engine.
+</note>
+</para>
 
 <para>
 For each incoming request njs creates a separate virtual machine.

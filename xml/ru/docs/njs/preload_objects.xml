@@ -9,10 +9,19 @@
 <article name="Предзагруженные объекты"
         link="/ru/docs/njs/preload_objects.html"
         lang="ru"
-        rev="2"
+        rev="3"
         toc="no">
 
 <section id="summary">
+
+<para>
+<note>
+Предзагруженные объекты поддерживаются только в JavaScript-движке
+<link doc="engine.xml" id="njs_engine">njs</link>
+и недоступны в движке
+<link doc="engine.xml" id="quickjs_engine">QuickJS</link>.
+</note>
+</para>
 
 <para>
 Для каждого входящего запроса в njs создаётся отдельная виртуальная машина.
