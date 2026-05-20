@@ -9,7 +9,7 @@
 <article name="Модуль nginx JavaScript"
         link="/ru/docs/njs/index.html"
         lang="ru"
-        rev="37"
+        rev="38"
         toc="no">
 
 <section id="summary">
@@ -18,6 +18,17 @@
 njs - это модуль nginx, который расширяет возможности сервера nginx с помощью
 сценариев JavaScript, позволяя создавать пользовательскую
 логику на стороне сервера и выполнять <link id="usecases">другие задачи</link>.
+</para>
+
+<para>
+<note>
+Встроенный JavaScript-движок
+<link doc="engine.xml" id="njs_engine">njs</link>
+объявлен устаревшим
+начиная с <link doc="changes.xml" id="njs1.0.0">1.0.0</link>;
+в новых конфигурациях следует использовать движок
+<link doc="engine.xml" id="quickjs_engine">QuickJS</link>.
+</note>
 </para>
 
 </section>
@@ -175,6 +186,9 @@ load_module modules/ngx_http_js_module.so;
 events {}
 
 http {
+    # начиная с 0.9.1
+    js_engine qjs;
+
     js_import http.js;
 
     server {

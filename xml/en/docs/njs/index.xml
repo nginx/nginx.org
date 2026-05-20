@@ -9,7 +9,7 @@
 <article name="nginx JavaScript module"
         link="/en/docs/njs/index.html"
         lang="en"
-        rev="37"
+        rev="38"
         toc="no">
 
 <section id="summary">
@@ -18,6 +18,17 @@
 njs is an nginx module that extends the server's functionality through
 JavaScript scripting, enabling the creation of custom
 server-side logic and <link id="usecases">more</link>.
+</para>
+
+<para>
+<note>
+The built-in
+<link doc="engine.xml" id="njs_engine">njs</link> JavaScript engine
+is deprecated
+since <link doc="changes.xml" id="njs1.0.0">1.0.0</link>;
+new configurations should use the
+<link doc="engine.xml" id="quickjs_engine">QuickJS</link> engine.
+</note>
 </para>
 
 </section>
@@ -176,6 +187,9 @@ load_module modules/ngx_http_js_module.so;
 events {}
 
 http {
+    # since 0.9.1
+    js_engine qjs;
+
     js_import http.js;
 
     server {

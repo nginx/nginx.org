@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_js_module"
         link="/ru/docs/stream/ngx_stream_js_module.html"
         lang="ru"
-        rev="53">
+        rev="54">
 
 <section id="summary">
 
@@ -34,6 +34,9 @@
 <link doc="../njs/changes.xml" id="njs0.4.0">0.4.0</link>.
 <example>
 stream {
+    # начиная с 0.9.1
+    js_engine qjs;
+
     js_import stream.js;
 
     js_set $bar stream.bar;
@@ -206,6 +209,15 @@ export default {bar, preread, req_line, header_inject, access};
 Параметр <literal>njs</literal> задаёт использование движка njs,
 также используемого по умолчанию.
 Параметр <literal>qjs</literal> задаёт использование движка QuickJS.
+</para>
+
+<para>
+<note>
+Движок <literal>njs</literal> объявлен устаревшим
+начиная с <link doc="../njs/changes.xml" id="njs1.0.0">1.0.0</link>;
+в новых конфигурациях следует использовать <literal>qjs</literal>
+(<link doc="../njs/engine.xml" id="quickjs_engine">QuickJS</link>).
+</note>
 </para>
 
 </directive>
