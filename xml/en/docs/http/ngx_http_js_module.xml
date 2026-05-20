@@ -9,7 +9,7 @@
 <module name="Module ngx_http_js_module"
         link="/en/docs/http/ngx_http_js_module.html"
         lang="en"
-        rev="60">
+        rev="61">
 
 <section id="summary">
 
@@ -35,6 +35,9 @@ The example works since
 <link doc="../njs/changes.xml" id="njs0.4.0">0.4.0</link>.
 <example>
 http {
+    # since 0.9.1
+    js_engine qjs;
+
     js_import http.js;
 
     js_set $foo     http.foo;
@@ -385,6 +388,15 @@ Sets a <link doc="../njs/engine.xml">JavaScript engine</link>
 to be used for njs scripts.
 The <literal>njs</literal> parameter sets the njs engine, also used by default.
 The <literal>qjs</literal> parameter sets the QuickJS engine.
+</para>
+
+<para>
+<note>
+The <literal>njs</literal> engine is deprecated
+since <link doc="../njs/changes.xml" id="njs1.0.0">1.0.0</link>;
+new configurations should use the <literal>qjs</literal>
+(<link doc="../njs/engine.xml" id="quickjs_engine">QuickJS</link>) engine.
+</note>
 </para>
 
 </directive>

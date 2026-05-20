@@ -9,7 +9,7 @@
 <article name="Движок JavaScript"
         link="/ru/docs/njs/engine.html"
         lang="ru"
-        rev="5"
+        rev="6"
         toc="no">
 
 <section>
@@ -29,6 +29,15 @@
 
 
 <section id="njs_engine" name="Движок njs">
+
+<para>
+<note>
+Движок njs объявлен устаревшим
+начиная с <link doc="changes.xml" id="njs1.0.0">1.0.0</link>;
+для нового кода следует использовать движок
+<link id="quickjs_engine">QuickJS</link>.
+</note>
+</para>
 
 <para>
 njs &mdash; встроенный движок JavaScript,

@@ -9,10 +9,21 @@
 <article name="Совместимость"
         link="/ru/docs/njs/compatibility.html"
         lang="ru"
-        rev="49"
+        rev="50"
         toc="no">
 
 <section>
+
+<para>
+<note>
+Эта страница описывает только JavaScript-движок
+<link doc="engine.xml" id="njs_engine">njs</link>.
+Движок njs объявлен устаревшим
+начиная с <link doc="changes.xml" id="njs1.0.0">1.0.0</link>;
+для нового кода следует использовать движок
+<link doc="engine.xml" id="quickjs_engine">QuickJS</link>.
+</note>
+</para>
 
 <para>
 njs совместим с

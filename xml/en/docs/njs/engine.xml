@@ -9,7 +9,7 @@
 <article name="JavaScript Engine"
         link="/en/docs/njs/engine.html"
         lang="en"
-        rev="5"
+        rev="6"
         toc="no">
 
 <section>
@@ -29,6 +29,15 @@ By default, the njs engine is used.
 
 
 <section id="njs_engine" name="njs engine">
+
+<para>
+<note>
+The njs engine is deprecated
+since <link doc="changes.xml" id="njs1.0.0">1.0.0</link>;
+new code should use the
+<link id="quickjs_engine">QuickJS</link> engine instead.
+</note>
+</para>
 
 <para>
 njs is an embeddable JavaScript engine
