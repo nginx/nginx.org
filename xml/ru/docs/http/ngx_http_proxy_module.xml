@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_proxy_module"
         link="/ru/docs/http/ngx_http_proxy_module.html"
         lang="ru"
-        rev="87">
+        rev="88">
 
 <section id="summary">
 
@@ -1738,6 +1738,13 @@ location / {
     proxy_pass ...
 }
 </example>
+</para>
+
+<para>
+<note>
+Заголовки в конце ответа, полученные от
+вышестоящего сервера, передаются клиенту как есть, без интерпретации.
+</note>
 </para>
 
 </directive>
