@@ -26,6 +26,14 @@ Patches are signed using one of the
 
 <security>
 
+<item name="Buffer overflow in the ngx_http_rewrite_module"
+      severity="medium"
+      advisory="https://my.f5.com/manage/s/article/K000161377"
+      cve="2026-9256"
+      good="1.31.1+, 1.30.2+"
+      vulnerable="0.1.17-1.31.0">
+</item>
+
 <item name="HTTP/2 request injection in the ngx_http_proxy_module"
       severity="medium"
       advisory="https://my.f5.com/manage/s/article/K000161131"
