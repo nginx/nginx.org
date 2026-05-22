@@ -1,4 +1,13 @@
 
+Changes with nginx 1.30.2                                        22 May 2026
+
+    *) Security: a heap memory buffer overflow might occur in a worker
+       process when using a configuration with overlapping captures in
+       ngx_http_rewrite_module, potentially resulting in arbitrary code
+       execution (CVE-2026-9256).
+       Thanks to Mufeed VH of Winfunc Research.
+
+
 Changes with nginx 1.30.1                                        13 May 2026
 
     *) Security: when using the "proxy_set_body" directive, an attacker

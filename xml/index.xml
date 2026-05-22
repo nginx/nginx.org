@@ -28,6 +28,18 @@
 <year href="2009.html" year="2009" />
 </years>
 
+<event date="2026-05-22">
+<para>
+<link doc="en/download.xml">nginx-1.30.2</link>
+stable and
+<link doc="en/download.xml">nginx-1.31.1</link>
+mainline versions have been released,
+with a fix for
+<link doc="en/security_advisories.xml">buffer overflow</link>
+vulnerability in the ngx_http_rewrite_module (CVE-2026-9256).
+</para>
+</event>
+
 <event date="2026-05-19">
 <para>
 <link doc="en/docs/njs/index.xml">njs-0.9.9</link>
