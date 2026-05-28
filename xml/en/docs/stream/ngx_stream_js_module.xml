@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_js_module"
         link="/en/docs/stream/ngx_stream_js_module.html"
         lang="en"
-        rev="55">
+        rev="56">
 
 <section id="summary">
 
@@ -411,6 +411,19 @@ The <value>connections</value> parameter sets the maximum number of idle
 keepalive connections to destination servers that are preserved in the cache
 of each worker process.
 When this number is exceeded, the least recently used connections are closed.
+</para>
+
+<para>
+In Stream, the cache is maintained separately for each server configuration.
+A value set at the <literal>stream</literal> level is inherited by servers,
+but each server uses its own cache.
+Cached connections are reused for requests with the same protocol, host,
+and port.
+</para>
+
+<para>
+When enabled, keepalive assumes that destination servers send valid HTTP
+responses.
 </para>
 
 <para>

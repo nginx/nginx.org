@@ -9,7 +9,7 @@
 <module name="Module ngx_http_js_module"
         link="/en/docs/http/ngx_http_js_module.html"
         lang="en"
-        rev="61">
+        rev="62">
 
 <section id="summary">
 
@@ -600,6 +600,20 @@ The <value>connections</value> parameter sets the maximum number of idle
 keepalive connections to destination servers that are preserved in the cache
 of each worker process.
 When this number is exceeded, the least recently used connections are closed.
+</para>
+
+<para>
+In HTTP, the cache is maintained separately for each effective location
+configuration. A value set at the <literal>http</literal> or
+<literal>server</literal> level is inherited by locations, but each location
+uses its own cache.
+Cached connections are reused for requests with the same protocol, host,
+and port.
+</para>
+
+<para>
+When enabled, keepalive assumes that destination servers send valid HTTP
+responses.
 </para>
 
 <para>
