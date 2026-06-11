@@ -17,6 +17,19 @@
 <para>
 The <literal>ngx_http_proxy_module</literal> module allows passing
 requests to another server.
+
+Warning: This module assumes that the server it passes requests
+to is trusted.  It is not to be used with untrusted backend
+servers.
+
+Due to a <link url="https://github.com/nginx/nginx/issues/1427">bug</link>
+in NGINX's handling of HTTP 1xx responses, this applies even if
+all X-Accel headers are ignored.  It even applies if there is
+a trusted reverse proxy between NGINX and the backend server.
+
+Once the bug is fixed, a third-party intermediate reverse proxy that strips
+X-Accel headers and ensures that all responses are well-formed will be
+sufficient.
 </para>
 
 </section>
