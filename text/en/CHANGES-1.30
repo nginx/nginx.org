@@ -1,4 +1,22 @@
 
+Changes with nginx 1.30.3                                        17 Jun 2026
+
+    *) Security: a heap memory buffer overflow might occur in a worker
+       process when using a configuration with "ignore_invalid_headers off;"
+       and "large_client_header_buffers" with large configured values when
+       proxying a specially crafted request to HTTP/2 or gRPC backend,
+       allowing an attacker to cause worker process memory corruption or
+       segmentation fault in a worker process (CVE-2026-42055).
+       Thanks to Mufeed VH of Winfunc Research.
+
+    *) Security: a heap memory buffer overread might occur in a worker
+       process while handling a specially sent response with decoding from
+       UTF-8 via the "charset_map" directive, allowing an attacker to cause
+       a limited disclosure of worker proccess memory or segmentation fault
+       in a worker process (CVE-2026-48142).
+       Thanks to Han Yan of Xiaomi and p4p3r of CYBERONE.
+
+
 Changes with nginx 1.30.2                                        22 May 2026
 
     *) Security: a heap memory buffer overflow might occur in a worker
