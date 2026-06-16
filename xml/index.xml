@@ -28,6 +28,25 @@
 <year href="2009.html" year="2009" />
 </years>
 
+<event date="2026-06-17">
+<para>
+<link doc="en/download.xml">nginx-1.30.3</link>
+stable and
+<link doc="en/download.xml">nginx-1.31.2</link>
+mainline versions have been released,
+with fixes for
+<link doc="en/security_advisories.xml">buffer overflow</link>
+vulnerability in the ngx_http_proxy_v2_module
+and ngx_http_grpc_module (CVE-2026-42055), and
+<link doc="en/security_advisories.xml">buffer overread</link>
+vulnerability in the ngx_http_charset_module (CVE-2026-48142).
+Additionally, <link doc="en/download.xml">nginx-1.31.2</link>
+includes a fix for
+<link doc="en/security_advisories.xml">use-after-free</link>
+vulnerability in the ngx_http_v3_module (CVE-2026-42530).
+</para>
+</event>
+
 <event date="2026-05-22">
 <para>
 <link doc="en/download.xml">nginx-1.30.2</link>

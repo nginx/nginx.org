@@ -26,6 +26,30 @@ Patches are signed using one of the
 
 <security>
 
+<item name="Use-after-free in HTTP/3"
+      severity="major"
+      advisory="https://my.f5.com/manage/s/article/K000161616"
+      cve="2026-42530"
+      good="1.31.2+"
+      vulnerable="1.31.0-1.31.1">
+</item>
+
+<item name="Buffer overflow in the ngx_http_proxy_v2_module and ngx_http_grpc_module"
+      severity="medium"
+      advisory="https://my.f5.com/manage/s/article/K000161584"
+      cve="2026-42055"
+      good="1.31.2+, 1.30.3+"
+      vulnerable="1.13.10-1.31.1">
+</item>
+
+<item name="Buffer overread in the ngx_http_charset_module"
+      severity="low"
+      advisory="https://my.f5.com/manage/s/article/K000161585"
+      cve="2026-48142"
+      good="1.31.2+, 1.30.3+"
+      vulnerable="0.3.50-1.31.1">
+</item>
+
 <item name="Buffer overflow in the ngx_http_rewrite_module"
       severity="medium"
       advisory="https://my.f5.com/manage/s/article/K000161377"
