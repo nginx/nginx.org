@@ -9,8 +9,268 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="86"
+        rev="87"
         toc="no">
+
+<section id="njs1.0.0" name="Changes with njs 1.0.0">
+
+<para>
+Release Date:
+23 June 2026
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Improvement:
+aligned HTTP, Stream, and
+<link doc="reference.xml" id="ngx_fetch">Fetch</link>
+exception classes between the njs and QuickJS engines.
+API misuse is now reported as <literal>TypeError</literal>
+and status bounds violations as <literal>RangeError</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+rejected unsafe request targets, methods, and header values in
+<link doc="reference.xml" id="ngx_fetch">ngx.fetch()</link>
+before request serialization.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed a heap use-after-free in
+<link doc="reference.xml" id="r_subrequest">r.subrequest()</link>
+when the client closed the connection before the background
+subrequest completed.
+The issue was introduced in
+<link url="https://github.com/nginx/njs/commit/75d6b61">75d6b61</link>
+(<link doc="changes.xml" id="njs0.9.5">0.9.5</link>).
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed a worker segfault while reading a request header that nginx
+registers without a dedicated slot, such as
+<literal>Proxy-Connection</literal>, via
+<link doc="reference.xml" id="r_headers_in">r.headersIn</link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+excluded unverified-TLS and dynamic-proxy connections from the
+<link doc="reference.xml" id="ngx_fetch">ngx.fetch()</link>
+<link doc="../http/ngx_http_js_module.xml" id="js_fetch_keepalive">
+keepalive</link>
+cache and validated cached connections before reuse.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed Content-Length truncation for very large request bodies and a
+missing CONNECT terminator for proxies configured without credentials in
+<link doc="reference.xml" id="ngx_fetch">ngx.fetch()</link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed leaks of promises, events, and init property values on
+<link doc="reference.xml" id="ngx_fetch">ngx.fetch()</link>
+failure paths in the QuickJS engine.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed missing fetch event cleanup when the resolver failed to start.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed an out-of-bounds read of a short fetch proxy URL.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed request body truncation in
+<link doc="reference.xml" id="r_read_request_json">r.readRequestJSON()</link>
+for bodies containing invalid UTF-8 in the QuickJS engine.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed an out-of-bounds read while loading a shared dictionary state file.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+set a pending exception when <literal>sendHeader()</literal>,
+<literal>send()</literal>, and <literal>finish()</literal> fail in the
+njs HTTP handlers.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed the variable value state after a stream variable storage
+allocation failure.
+</para>
+</listitem>
+
+</list>
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Improvement:
+bounded string-producing chained-buffer growth, so that exceeding the
+maximum string length raises a catchable
+<literal>RangeError("invalid string length")</literal>
+instead of exhausting worker memory.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+aligned built-in exception classes
+(XML, console, TextEncoder, TextDecoder, Buffer, fs.Stats)
+between the njs and QuickJS engines.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed an infinite loop while inflating a zlib stream that requires a
+dictionary in the QuickJS engine.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed an infinite loop in <literal>Buffer.prototype.fill()</literal>
+with a zero-length typed array source.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed a use-after-free in <literal>Array.prototype.sort()</literal>
+when a getter invoked for a hole grows the array.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed type confusion in <literal>Buffer.concat()</literal> when a list
+element getter returns a typed array during validation but not during
+the copy.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed an out-of-bounds access in the variable-length Buffer
+<literal>readInt</literal>/<literal>writeInt</literal> methods with a
+zero byteLength.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed an out-of-bounds read in
+<literal>Buffer.prototype.toString()</literal>
+when start was greater than end.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>Array.prototype.slice()</literal> of large arrays
+returning wrong results in the non-fast keys path.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed the typed array constructor, <literal>slice()</literal>,
+<literal>toReversed()</literal>, and <literal>toSorted()</literal>
+ignoring the source view byte offset in the same-type fast path.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed Buffer allocation length checks for lengths greater than or equal
+to 2^32 on 32-bit platforms.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed the <literal>Buffer.from()</literal> typed-array source offset for
+multi-byte element types in the QuickJS engine.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed Buffer float access alignment.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed an out-of-bounds read in a parser string escape lookahead.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs0.9.9" name="Changes with njs 0.9.9">
 
