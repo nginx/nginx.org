@@ -9,7 +9,7 @@
 <article name="Совместимость"
         link="/ru/docs/njs/compatibility.html"
         lang="ru"
-        rev="50"
+        rev="51"
         toc="no">
 
 <section>
@@ -313,7 +313,11 @@ ES5.1:
 <listitem>
 ES6:
 <literal>assign</literal>
-(<link doc="changes.xml" id="njs0.3.7">0.3.7</link>)
+(<link doc="changes.xml" id="njs0.3.7">0.3.7</link>),
+<literal>is</literal>
+(<link doc="changes.xml" id="njs0.3.8">0.3.8</link>),
+<literal>setPrototypeOf</literal>
+(<link doc="changes.xml" id="njs0.3.8">0.3.8</link>)
 </listitem>
 
 <listitem>
@@ -333,19 +337,11 @@ ES8:
 <listitem>
 ES5.1:
 <literal>hasOwnProperty</literal>,
-<literal>isPrototypeOf</literal>,
+<literal>isPrototypeOf</literal>
 (<link doc="changes.xml" id="njs0.3.0">0.3.0</link>),
 <literal>propertyIsEnumerable</literal>,
 <literal>toString</literal>,
 <literal>valueOf</literal>
-</listitem>
-
-<listitem>
-ES6:
-<literal>is</literal>
-(<link doc="changes.xml" id="njs0.3.8">0.3.8</link>),
-<literal>setPrototypeOf</literal>
-(<link doc="changes.xml" id="njs0.3.8">0.3.8</link>)
 </listitem>
 
 </list>
@@ -361,13 +357,9 @@ ES5.1:
 
 <listitem>
 ES6:
-<literal>of</literal>
-</listitem>
-
-<listitem>
-ES13:
+<literal>of</literal>,
 <literal>from</literal>
-(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>),
+(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>)
 </listitem>
 </list>
 
@@ -413,7 +405,7 @@ ES7: <literal>includes</literal>
 </listitem>
 
 <listitem>
-ES13:
+ES2023:
 <literal>toReversed</literal>
 (<link doc="changes.xml" id="njs0.8.0">0.8.0</link>),
 <literal>toSorted</literal>
@@ -513,9 +505,9 @@ ES6:
 </listitem>
 
 <listitem>
-ES13:
+ES2023:
 <literal>toReversed</literal>
-(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>)
+(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>),
 <literal>toSorted</literal>
 (<link doc="changes.xml" id="njs0.8.0">0.8.0</link>)
 </listitem>
@@ -559,7 +551,6 @@ ES13:
 <literal>readInt16BE</literal>,
 <literal>readInt32BE</literal>,
 <link doc="reference.xml" id="buf_readintle"><literal>readIntLE</literal></link>,
-<literal>readInt8</literal>,
 <literal>readInt16LE</literal>,
 <literal>readInt32LE</literal>,
 <link doc="reference.xml" id="buf_readuintbe"><literal>readUIntBE</literal></link>,
@@ -567,7 +558,6 @@ ES13:
 <literal>readUInt16BE</literal>,
 <literal>readUInt32BE</literal>,
 <link doc="reference.xml" id="buf_readuintle"><literal>readUIntLE</literal></link>,
-<literal>readUInt8</literal>,
 <literal>readUInt16LE</literal>,
 <literal>readUInt32LE</literal>,
 <link doc="reference.xml" id="buf_readdobulebe"><literal>readDoubleBE</literal></link>,
@@ -587,7 +577,6 @@ ES13:
 <literal>writeInt16BE</literal>,
 <literal>writeInt32BE</literal>,
 <link doc="reference.xml" id="buf_writeintle"><literal>writeIntLE</literal></link>,
-<literal>writeInt8</literal>,
 <literal>writeInt16LE</literal>,
 <literal>writeInt32LE</literal>,
 <link doc="reference.xml" id="buf_writeuintbe"><literal>writeUIntBE</literal></link>,
@@ -595,7 +584,6 @@ ES13:
 <literal>writeUInt16BE</literal>,
 <literal>writeUInt32BE</literal>,
 <link doc="reference.xml" id="buf_writeuintle"><literal>writeUIntLE</literal></link>,
-<literal>writeUInt8</literal>,
 <literal>writeUInt16LE</literal>,
 <literal>writeUInt32LE</literal>,
 <link doc="reference.xml" id="buf_writedoublebe"><literal>writeDoubleBE</literal></link>,
@@ -613,15 +601,24 @@ ES13:
 <list type="bullet">
 <listitem>
 ES6:
-<literal>any</literal>
+<literal>all</literal>
 (<link doc="changes.xml" id="njs0.6.2">0.6.2</link>),
-<literal> all</literal>
-(<link doc="changes.xml" id="njs0.6.2">0.6.2</link>),
-<literal> allSettled</literal>
+<literal>race</literal>
 (<link doc="changes.xml" id="njs0.6.2">0.6.2</link>),
 <literal>reject</literal>,
-<literal>resolve</literal>,
-<literal>race</literal> (<link doc="changes.xml" id="njs0.6.2">0.6.2</link>)
+<literal>resolve</literal>
+</listitem>
+
+<listitem>
+ES2020:
+<literal>allSettled</literal>
+(<link doc="changes.xml" id="njs0.6.2">0.6.2</link>)
+</listitem>
+
+<listitem>
+ES2021:
+<literal>any</literal>
+(<link doc="changes.xml" id="njs0.6.2">0.6.2</link>)
 </listitem>
 </list>
 
@@ -821,7 +818,7 @@ ES5.1:
 
 <listitem>
 <literal>for</literal>,
-<literal>keyfor</literal>
+<literal>keyFor</literal>
 </listitem>
 </list>
 
@@ -879,7 +876,7 @@ Global functions (<link doc="changes.xml" id="njs0.7.6">0.7.6</link>):
 Методы <literal>File system</literal>:
 <link doc="reference.xml" id="fs_accesssync"><literal>fs.accessSync</literal></link>
 (<link doc="changes.xml" id="njs0.3.9">0.3.9</link>),
-<link doc="reference.xml" id="appendfilesync"><literal>fs.appendFileSync</literal></link>,
+<link doc="reference.xml" id="fs_appendfilesync"><literal>fs.appendFileSync</literal></link>,
 <link doc="reference.xml" id="fs_closesync"><literal>fs.closeSync</literal></link>,
 <link doc="reference.xml" id="fs_existssync"><literal>fs.existsSync</literal></link>
 (<link doc="changes.xml" id="njs0.8.2">0.8.2</link>),
@@ -888,7 +885,7 @@ Global functions (<link doc="changes.xml" id="njs0.7.6">0.7.6</link>):
 <link doc="reference.xml" id="fs_fstatsync"><literal>fs.fstatSync</literal></link>
 (<link doc="changes.xml" id="njs0.7.7">0.7.7</link>),
 <link doc="reference.xml" id="fs_lstatsync"><literal>fs.lstatSync</literal></link>
-(<link doc="changes.xml" id="njs0.7.7">0.7.1</link>),
+(<link doc="changes.xml" id="njs0.7.1">0.7.1</link>),
 <link doc="reference.xml" id="fs_mkdirsync"><literal>fs.mkdirSync</literal></link>
 (<link doc="changes.xml" id="njs0.4.2">0.4.2</link>),
 <link doc="reference.xml" id="fs_opensync"><literal>fs.openSync</literal></link>
@@ -897,7 +894,7 @@ Global functions (<link doc="changes.xml" id="njs0.7.6">0.7.6</link>):
 (<link doc="changes.xml" id="njs0.7.7">0.7.7</link>),
 <link doc="reference.xml" id="fs_readdirsync"><literal>fs.readdirSync</literal></link>
 (<link doc="changes.xml" id="njs0.4.2">0.4.2</link>),
-<link doc="reference.xml" id="readfilesync"><literal>fs.readFileSync</literal></link>,
+<link doc="reference.xml" id="fs_readfilesync"><literal>fs.readFileSync</literal></link>,
 <link doc="reference.xml" id="fs_readsync"><literal>fs.readSync</literal></link>
 (<link doc="changes.xml" id="njs0.7.7">0.7.7</link>),
 <link doc="reference.xml" id="fs_realpathsync"><literal>fs.realpathSync</literal></link>
@@ -910,7 +907,7 @@ Global functions (<link doc="changes.xml" id="njs0.7.6">0.7.6</link>):
 (<link doc="changes.xml" id="njs0.3.9">0.3.9</link>),
 <link doc="reference.xml" id="fs_unlinksync"><literal>fs.unlinkSync</literal></link>
 (<link doc="changes.xml" id="njs0.3.9">0.3.9</link>),
-<link doc="reference.xml" id="fs_writefilesync"><literal>fs.writeFileSync</literal></link>
+<link doc="reference.xml" id="fs_writefilesync"><literal>fs.writeFileSync</literal></link>,
 <link doc="reference.xml" id="fs_writesync_buf"><literal>fs.writeSync</literal></link>
 (<link doc="changes.xml" id="njs0.7.7">0.7.7</link>)
 </listitem>
@@ -927,7 +924,7 @@ Global functions (<link doc="changes.xml" id="njs0.7.6">0.7.6</link>):
 <link doc="reference.xml" id="crypto_createhmac"><literal>crypto.createHmac</literal></link>
 </listitem>
 
-<listitem id="querysting">
+<listitem id="querystring">
 Методы
 <link doc="reference.xml" id="querystring"><literal>Query String</literal></link>
 (<link doc="changes.xml" id="njs0.4.3">0.4.3</link>):
@@ -946,7 +943,7 @@ Global functions (<link doc="changes.xml" id="njs0.7.6">0.7.6</link>):
 <link doc="reference.xml" id="textdecoder_encoding"><literal>encoding</literal></link>,
 <link doc="reference.xml" id="textdecoder_fatal"><literal>fatal</literal></link>,
 <link doc="reference.xml" id="textdecoder_ignorebom"><literal>ignoreBOM</literal></link>,
-<link doc="reference.xml" id="textdecoder_ignorebom"><literal>decode</literal></link>
+<link doc="reference.xml" id="textdecoder_decode"><literal>decode</literal></link>
 </listitem>
 
 <listitem id="textencoder">
@@ -963,7 +960,7 @@ Global functions (<link doc="changes.xml" id="njs0.7.6">0.7.6</link>):
 (<link doc="changes.xml" id="njs0.7.10">0.7.10</link>):
 <link doc="reference.xml" id="xml_parse"><literal>parse</literal></link>,
 <link doc="reference.xml" id="xml_c14n"><literal>xml.c14n</literal></link>,
-<link doc="reference.xml" id="xml_exclusiveC14n"><literal>xml.exclusiveC14n</literal></link>
+<link doc="reference.xml" id="xml_exclusivec14n"><literal>xml.exclusiveC14n</literal></link>
 </listitem>
 
 <listitem id="zlib">
@@ -972,7 +969,7 @@ Global functions (<link doc="changes.xml" id="njs0.7.6">0.7.6</link>):
 (<link doc="changes.xml" id="njs0.7.12">0.7.12</link>):
 <link doc="reference.xml" id="zlib_deflaterawsync"><literal>deflateRawSync</literal></link>,
 <link doc="reference.xml" id="zlib_deflatesync"><literal>deflateSync</literal></link>,
-<link doc="reference.xml" id="zlib_inflaterawsync"><literal>inflateRawSync</literal></link>
+<link doc="reference.xml" id="zlib_inflaterawsync"><literal>inflateRawSync</literal></link>,
 <link doc="reference.xml" id="zlib_inflatesync"><literal>inflateSync</literal></link>
 </listitem>
 
@@ -1021,7 +1018,7 @@ ES6 поддержка стрелочных функций
 <link doc="reference.xml" id="crypto_subtle_decrypt"><literal>subtle.decrypt</literal></link>,
 <link doc="reference.xml" id="crypto_subtle_derive_bits"><literal>subtle.deriveBits</literal></link>,
 <link doc="reference.xml" id="crypto_subtle_derive_key"><literal>subtle.deriveKey</literal></link>,
-<link doc="reference.xml" id="crypto_subtle_digest"><literal>subtle.digest</literal></link>
+<link doc="reference.xml" id="crypto_subtle_digest"><literal>subtle.digest</literal></link>,
 <link doc="reference.xml" id="crypto_subtle_export_key"><literal>subtle.exportKey</literal></link>
 (<link doc="changes.xml" id="njs0.7.10">0.7.10</link>),
 <link doc="reference.xml" id="crypto_subtle_generate_key"><literal>subtle.generateKey</literal></link>
@@ -1037,7 +1034,7 @@ ES6 поддержка стрелочных функций
 
 <listitem>
 псевдоним <literal>globalThis</literal>
-(<link doc="changes.xml" id="njs0.3.8">0.3.8</link>),
+(<link doc="changes.xml" id="njs0.3.8">0.3.8</link>)
 </listitem>
 
 <listitem>
@@ -1288,7 +1285,7 @@ ES6 поддержка стрелочных функций
 (<link doc="changes.xml" id="njs0.8.0">0.8.0</link>):
 <link doc="reference.xml" id="dict_capacity"><literal>capacity</literal></link>,
 <link doc="reference.xml" id="dict_name"><literal>name</literal></link>,
-<link doc="reference.xml" id="dict_name"><literal>type</literal></link>
+<link doc="reference.xml" id="dict_type"><literal>type</literal></link>
 </listitem>
 
 </list>
