@@ -9,37 +9,36 @@
 <article name="Compatibility"
         link="/en/docs/njs/compatibility.html"
         lang="en"
-        rev="51"
+        rev="52"
         toc="no">
 
 <section>
 
 <para>
-<note>
-This page describes the
-<link doc="engine.xml" id="njs_engine">njs</link> JavaScript engine only.
-The njs engine is deprecated
-since <link doc="changes.xml" id="njs1.0.0">1.0.0</link>;
-new code should use the
-<link doc="engine.xml" id="quickjs_engine">QuickJS</link> engine instead.
-</note>
-</para>
+This page describes the JavaScript surface provided by njs:
+<list type="bullet" compact="no">
 
-<para>
-njs is created in compliance with
-<link url="http://www.ecma-international.org/ecma-262/5.1/">ECMAScript 5.1</link>
-(strict mode) with some
-<link url="http://www.ecma-international.org/ecma-262/6.0/">ECMAScript 6</link>
-and later extensions.
-The compliance is still evolving.
+<listitem>
+the njs and nginx objects, built-in modules, and the
+<literal>Buffer</literal> object, available with both the
+<link doc="engine.xml" id="quickjs_engine">QuickJS</link> and
+<link doc="engine.xml" id="njs_engine">njs</link> engines;
+</listitem>
+
+<listitem>
+the ECMAScript language features implemented by the
+<link doc="engine.xml" id="njs_engine">njs</link> engine.
+</listitem>
+
+</list>
 </para>
 
 <para>
 Definitions of njs specific properties and methods
 not compliant with ECMAScript can be found in
 <link doc="reference.xml">Reference</link>.
-Definitions of njs properties and methods
-compliant with ECMAScript can be found in
+Definitions of standard ECMAScript objects and methods
+can be found in the
 <link url="http://www.ecma-international.org/ecma-262/">ECMAScript
 specification</link>.
 </para>
@@ -47,7 +46,545 @@ specification</link>.
 </section>
 
 
-<section id="supported" name="What is currently supported">
+<section id="common" name="njs and nginx objects, modules, and Buffer">
+
+<para>
+The objects, modules, and methods listed below are available with both the
+<link doc="engine.xml" id="quickjs_engine">QuickJS</link> and
+<link doc="engine.xml" id="njs_engine">njs</link> engines,
+unless noted otherwise.
+</para>
+
+<para>
+<list type="bullet" compact="no">
+
+<listitem>
+<literal>Buffer</literal> methods
+(<link doc="changes.xml" id="njs0.4.4">0.4.4</link>):
+<list type="bullet">
+<listitem>
+<link doc="reference.xml" id="buffer_alloc"><literal>alloc</literal></link>,
+<link doc="reference.xml" id="buffer_alloc_unsafe"><literal>allocUnsafe</literal></link>,
+<link doc="reference.xml" id="buffer_bytelength"><literal>byteLength</literal></link>,
+<link doc="reference.xml" id="buffer_compare"><literal>compare</literal></link>,
+<link doc="reference.xml" id="buffer_concat"><literal>concat</literal></link>,
+<link doc="reference.xml" id="buffer_from_array"><literal>from</literal></link>,
+<link doc="reference.xml" id="buffer_is_buffer"><literal>isBuffer</literal></link>,
+<link doc="reference.xml" id="buffer_is_encoding"><literal>isEncoding</literal></link>
+</listitem>
+</list>
+
+</listitem>
+
+<listitem>
+<literal>Buffer</literal> prototype methods
+(<link doc="changes.xml" id="njs0.4.4">0.4.4</link>):
+<list type="bullet">
+<listitem>
+<link doc="reference.xml" id="buf_compare"><literal>compare</literal></link>,
+<link doc="reference.xml" id="buf_copy"><literal>copy</literal></link>,
+<link doc="reference.xml" id="buf_equals"><literal>equals</literal></link>,
+<link doc="reference.xml" id="buf_fill"><literal>fill</literal></link>,
+<link doc="reference.xml" id="buf_includes"><literal>includes</literal></link>,
+<link doc="reference.xml" id="buf_indexof"><literal>indexOf</literal></link>,
+<link doc="reference.xml" id="buf_lastindexof"><literal>lastIndexOf</literal></link>,
+<link doc="reference.xml" id="buf_readintbe"><literal>readIntBE</literal></link>,
+<literal>readInt8</literal>,
+<literal>readInt16BE</literal>,
+<literal>readInt32BE</literal>,
+<link doc="reference.xml" id="buf_readintle"><literal>readIntLE</literal></link>,
+<literal>readInt16LE</literal>,
+<literal>readInt32LE</literal>,
+<link doc="reference.xml" id="buf_readuintbe"><literal>readUIntBE</literal></link>,
+<literal>readUInt8</literal>,
+<literal>readUInt16BE</literal>,
+<literal>readUInt32BE</literal>,
+<link doc="reference.xml" id="buf_readuintle"><literal>readUIntLE</literal></link>,
+<literal>readUInt16LE</literal>,
+<literal>readUInt32LE</literal>,
+<link doc="reference.xml" id="buf_readdobulebe"><literal>readDoubleBE</literal></link>,
+<link doc="reference.xml" id="buf_readdobulele"><literal>readDoubleLE</literal></link>,
+<link doc="reference.xml" id="buf_readfloatbe"><literal>readFloatBE</literal></link>,
+<link doc="reference.xml" id="buf_readfloatle"><literal>readFloatLE</literal></link>,
+<link doc="reference.xml" id="buf_subarray"><literal>subarray</literal></link>,
+<link doc="reference.xml" id="buf_slice"><literal>slice</literal></link>,
+<link doc="reference.xml" id="buf_swap16"><literal>swap16</literal></link>,
+<link doc="reference.xml" id="buf_swap32"><literal>swap32</literal></link>,
+<link doc="reference.xml" id="buf_swap64"><literal>swap64</literal></link>,
+<link doc="reference.xml" id="buf_tojson"><literal>toJSON</literal></link>,
+<link doc="reference.xml" id="buf_tostring"><literal>toString</literal></link>,
+<link doc="reference.xml" id="buf_write"><literal>write</literal></link>,
+<link doc="reference.xml" id="buf_writeintbe"><literal>writeIntBE</literal></link>,
+<literal>writeInt8</literal>,
+<literal>writeInt16BE</literal>,
+<literal>writeInt32BE</literal>,
+<link doc="reference.xml" id="buf_writeintle"><literal>writeIntLE</literal></link>,
+<literal>writeInt16LE</literal>,
+<literal>writeInt32LE</literal>,
+<link doc="reference.xml" id="buf_writeuintbe"><literal>writeUIntBE</literal></link>,
+<literal>writeUInt8</literal>,
+<literal>writeUInt16BE</literal>,
+<literal>writeUInt32BE</literal>,
+<link doc="reference.xml" id="buf_writeuintle"><literal>writeUIntLE</literal></link>,
+<literal>writeUInt16LE</literal>,
+<literal>writeUInt32LE</literal>,
+<link doc="reference.xml" id="buf_writedoublebe"><literal>writeDoubleBE</literal></link>,
+<link doc="reference.xml" id="buf_writedoublele"><literal>writeDoubleLE</literal></link>,
+<link doc="reference.xml" id="buf_writefloatbe"><literal>writeFloatBE</literal></link>,
+<link doc="reference.xml" id="buf_writefloatle"><literal>writeFloatLE</literal></link>
+</listitem>
+</list>
+
+</listitem>
+
+<listitem>
+<link doc="reference.xml" id="crypto"><literal>Crypto</literal></link> methods
+(<link doc="changes.xml" id="njs0.2.0">0.2.0</link>):
+<link doc="reference.xml" id="crypto_createhash"><literal>crypto.createHash</literal></link>,
+<link doc="reference.xml" id="crypto_createhmac"><literal>crypto.createHmac</literal></link>
+</listitem>
+
+<listitem id="querystring">
+<link doc="reference.xml" id="querystring"><literal>Query String</literal></link>
+methods
+(<link doc="changes.xml" id="njs0.4.3">0.4.3</link>):
+<link doc="reference.xml" id="querystring_decode"><literal>querystring.decode</literal></link>,
+<link doc="reference.xml" id="querystring_encode"><literal>querystring.encode</literal></link>,
+<link doc="reference.xml" id="querystring_escape"><literal>querystring.escape</literal></link>,
+<link doc="reference.xml" id="querystring_parse"><literal>querystring.parse</literal></link>,
+<link doc="reference.xml" id="querystring_stringify"><literal>querystring.stringify</literal></link>,
+<link doc="reference.xml" id="querystring_unescape"><literal>querystring.unescape</literal></link>
+</listitem>
+
+<listitem id="textdecoder">
+<link doc="reference.xml" id="textdecoder"><literal>TextDecoder</literal></link>
+methods
+(<link doc="changes.xml" id="njs0.4.3">0.4.3</link>):
+<link doc="reference.xml" id="textdecoder_encoding"><literal>encoding</literal></link>,
+<link doc="reference.xml" id="textdecoder_fatal"><literal>fatal</literal></link>,
+<link doc="reference.xml" id="textdecoder_ignorebom"><literal>ignoreBOM</literal></link>,
+<link doc="reference.xml" id="textdecoder_decode"><literal>decode</literal></link>
+</listitem>
+
+<listitem id="textencoder">
+<link doc="reference.xml" id="textencoder"><literal>TextEncoder</literal></link>
+methods
+(<link doc="changes.xml" id="njs0.4.3">0.4.3</link>):
+<link doc="reference.xml" id="textencoder_encode"><literal>encode</literal></link>,
+<link doc="reference.xml" id="textencoder_encodeinto"><literal>encodeInto</literal></link>
+</listitem>
+
+<listitem id="xml">
+<link doc="reference.xml" id="xml"><literal>XML</literal></link>
+methods
+(<link doc="changes.xml" id="njs0.7.10">0.7.10</link>):
+<link doc="reference.xml" id="xml_parse"><literal>parse</literal></link>,
+<link doc="reference.xml" id="xml_c14n"><literal>xml.c14n</literal></link>,
+<link doc="reference.xml" id="xml_exclusivec14n"><literal>xml.exclusiveC14n</literal></link>
+</listitem>
+
+<listitem id="zlib">
+<link doc="reference.xml" id="zlib"><literal>zlib</literal></link>
+methods
+(<link doc="changes.xml" id="njs0.7.12">0.7.12</link>):
+<link doc="reference.xml" id="zlib_deflaterawsync"><literal>deflateRawSync</literal></link>,
+<link doc="reference.xml" id="zlib_deflatesync"><literal>deflateSync</literal></link>,
+<link doc="reference.xml" id="zlib_inflaterawsync"><literal>inflateRawSync</literal></link>,
+<link doc="reference.xml" id="zlib_inflatesync"><literal>inflateSync</literal></link>
+</listitem>
+
+<listitem>
+<literal>File system</literal> methods:
+<link doc="reference.xml" id="fs_accesssync"><literal>fs.accessSync</literal></link>
+(<link doc="changes.xml" id="njs0.3.9">0.3.9</link>),
+<link doc="reference.xml" id="fs_appendfilesync"><literal>fs.appendFileSync</literal></link>,
+<link doc="reference.xml" id="fs_closesync"><literal>fs.closeSync</literal></link>,
+<link doc="reference.xml" id="fs_existssync"><literal>fs.existsSync</literal></link>
+(<link doc="changes.xml" id="njs0.8.2">0.8.2</link>),
+<link doc="reference.xml" id="fs_filehandle"><literal>fs.FileHandle</literal></link>
+(<link doc="changes.xml" id="njs0.7.7">0.7.7</link>),
+<link doc="reference.xml" id="fs_fstatsync"><literal>fs.fstatSync</literal></link>
+(<link doc="changes.xml" id="njs0.7.7">0.7.7</link>),
+<link doc="reference.xml" id="fs_lstatsync"><literal>fs.lstatSync</literal></link>
+(<link doc="changes.xml" id="njs0.7.1">0.7.1</link>),
+<link doc="reference.xml" id="fs_mkdirsync"><literal>fs.mkdirSync</literal></link>
+(<link doc="changes.xml" id="njs0.4.2">0.4.2</link>),
+<link doc="reference.xml" id="fs_opensync"><literal>fs.openSync</literal></link>
+(<link doc="changes.xml" id="njs0.7.7">0.7.7</link>),
+<link doc="reference.xml" id="fs_promises_open"><literal>fs.promises.open</literal></link>
+(<link doc="changes.xml" id="njs0.7.7">0.7.7</link>),
+<link doc="reference.xml" id="fs_readdirsync"><literal>fs.readdirSync</literal></link>
+(<link doc="changes.xml" id="njs0.4.2">0.4.2</link>),
+<link doc="reference.xml" id="fs_readfilesync"><literal>fs.readFileSync</literal></link>,
+<link doc="reference.xml" id="fs_readsync"><literal>fs.readSync</literal></link>
+(<link doc="changes.xml" id="njs0.7.7">0.7.7</link>),
+<link doc="reference.xml" id="fs_realpathsync"><literal>fs.realpathSync</literal></link>
+(<link doc="changes.xml" id="njs0.3.9">0.3.9</link>),
+<link doc="reference.xml" id="fs_renamesync"><literal>fs.renameSync</literal></link>
+(<link doc="changes.xml" id="njs0.3.4">0.3.4</link>),
+<link doc="reference.xml" id="fs_rmdirsync"><literal>fs.rmdirSync</literal></link>
+(<link doc="changes.xml" id="njs0.4.2">0.4.2</link>),
+<link doc="reference.xml" id="fs_symlinksync"><literal>fs.symlinkSync</literal></link>
+(<link doc="changes.xml" id="njs0.3.9">0.3.9</link>),
+<link doc="reference.xml" id="fs_unlinksync"><literal>fs.unlinkSync</literal></link>
+(<link doc="changes.xml" id="njs0.3.9">0.3.9</link>),
+<link doc="reference.xml" id="fs_writefilesync"><literal>fs.writeFileSync</literal></link>,
+<link doc="reference.xml" id="fs_writesync_buf"><literal>fs.writeSync</literal></link>
+(<link doc="changes.xml" id="njs0.7.7">0.7.7</link>)
+</listitem>
+
+<listitem>
+<literal>fs.promises</literal> API (<link doc="changes.xml" id="njs0.3.9">0.3.9</link>),
+asynchronous version of file system methods.
+</listitem>
+
+<listitem>
+Global functions:
+<link doc="reference.xml" id="atob"><literal>atob</literal></link>,
+<link doc="reference.xml" id="btoa"><literal>btoa</literal></link>
+(available with the njs engine since
+<link doc="changes.xml" id="njs0.7.6">0.7.6</link>
+and with the QuickJS engine since
+<link doc="changes.xml" id="njs1.0.1">1.0.1</link>)
+</listitem>
+
+<listitem>
+<link doc="reference.xml" id="cleartimeout"><literal>clearTimeout</literal></link>
+and
+<link doc="reference.xml" id="settimeout"><literal>setTimeout</literal></link>
+functions
+(<link doc="changes.xml" id="njs0.2.0">0.2.0</link>)
+</listitem>
+
+<listitem>
+Global objects
+(<link doc="changes.xml" id="njs0.3.3">0.3.3</link>):
+<list type="bullet">
+
+<listitem>
+<link doc="reference.xml" id="console"><literal>console</literal></link>
+(<link doc="changes.xml" id="njs0.8.2">0.8.2</link>):
+<link doc="reference.xml" id="console_error"><literal>error</literal></link>,
+<link doc="reference.xml" id="console_info"><literal>info</literal></link>,
+<link doc="reference.xml" id="console_log"><literal>log</literal></link>,
+<link doc="reference.xml" id="console_time"><literal>time</literal></link>,
+<link doc="reference.xml" id="console_time_end"><literal>timeEnd</literal></link>,
+<link doc="reference.xml" id="console_warn"><literal>warn</literal></link>
+</listitem>
+
+<listitem>
+<link doc="reference.xml" id="builtin_crypto"><literal>crypto</literal></link>
+(<link doc="changes.xml" id="njs0.7.0">0.7.0</link>):
+<link doc="reference.xml" id="crypto_get_random_values"><literal>getRandomValues</literal></link>,
+<link doc="reference.xml" id="crypto_random_uuid"><literal>randomUUID</literal></link>
+(<link doc="changes.xml" id="njs0.9.7">0.9.7</link>),
+<link doc="reference.xml" id="crypto_subtle_encrypt"><literal>subtle.encrypt</literal></link>,
+<link doc="reference.xml" id="crypto_subtle_decrypt"><literal>subtle.decrypt</literal></link>,
+<link doc="reference.xml" id="crypto_subtle_derive_bits"><literal>subtle.deriveBits</literal></link>,
+<link doc="reference.xml" id="crypto_subtle_derive_key"><literal>subtle.deriveKey</literal></link>,
+<link doc="reference.xml" id="crypto_subtle_digest"><literal>subtle.digest</literal></link>,
+<link doc="reference.xml" id="crypto_subtle_export_key"><literal>subtle.exportKey</literal></link>
+(<link doc="changes.xml" id="njs0.7.10">0.7.10</link>),
+<link doc="reference.xml" id="crypto_subtle_generate_key"><literal>subtle.generateKey</literal></link>
+(<link doc="changes.xml" id="njs0.7.10">0.7.10</link>),
+<link doc="reference.xml" id="crypto_subtle_import_key"><literal>subtle.importKey</literal></link>,
+<link doc="reference.xml" id="crypto_subtle_sign"><literal>subtle.sign</literal></link>,
+<link doc="reference.xml" id="crypto_subtle_verify"><literal>subtle.verify</literal></link>,
+<link doc="reference.xml" id="crypto_subtle_wrap_key"><literal>subtle.wrapKey</literal></link>
+(<link doc="changes.xml" id="njs0.9.7">0.9.7</link>),
+<link doc="reference.xml" id="crypto_subtle_unwrap_key"><literal>subtle.unwrapKey</literal></link>
+(<link doc="changes.xml" id="njs0.9.7">0.9.7</link>)
+</listitem>
+
+<listitem>
+<literal>globalThis</literal> alias
+(<link doc="changes.xml" id="njs0.3.8">0.3.8</link>)
+</listitem>
+
+<listitem>
+<link doc="reference.xml" id="njs"><literal>njs</literal></link>:
+<link doc="reference.xml" id="njs_version"><literal>version</literal></link>,
+<link doc="reference.xml" id="njs_version_number"><literal>version_number</literal></link>
+(<link doc="changes.xml" id="njs0.7.4">0.7.4</link>),
+<link doc="reference.xml" id="njs_dump"><literal>dump</literal></link>
+(njs engine only),
+<link doc="reference.xml" id="njs_memory_stats"><literal>memoryStats</literal></link>
+(<link doc="changes.xml" id="njs0.7.8">0.7.8</link>, njs engine only),
+<link doc="reference.xml" id="njs_on"><literal>on</literal></link>
+(<link doc="changes.xml" id="njs0.5.2">0.5.2</link>)
+</listitem>
+
+<listitem>
+<link doc="reference.xml" id="process"><literal>process</literal></link>:
+<link doc="reference.xml" id="process_argv"><literal>argv</literal></link>,
+<link doc="reference.xml" id="process_env"><literal>env</literal></link>,
+<link doc="reference.xml" id="process_pid"><literal>pid</literal></link>,
+<link doc="reference.xml" id="process_ppid"><literal>ppid</literal></link>
+</listitem>
+
+</list>
+</listitem>
+
+<listitem>
+nginx object methods:
+<list type="bullet">
+
+<listitem>
+<link doc="reference.xml" id="http"><literal>HTTP Request</literal></link>:
+<link doc="reference.xml" id="r_done"><literal>r.done</literal></link>
+(<link doc="changes.xml" id="njs0.5.2">0.5.2</link>),
+<link doc="reference.xml" id="r_error"><literal>r.error</literal></link>,
+<link doc="reference.xml" id="r_finish"><literal>r.finish</literal></link>,
+<link doc="reference.xml" id="r_internal_redirect"><literal>r.internalRedirect</literal></link>,
+<link doc="reference.xml" id="r_log"><literal>r.log</literal></link>,
+<link doc="reference.xml" id="r_return"><literal>r.return</literal></link>
+(<link doc="changes.xml" id="njs0.5.0">0.5.0</link>),
+<link doc="reference.xml" id="r_send"><literal>r.send</literal></link>
+(<link doc="changes.xml" id="njs0.5.0">0.5.0</link>),
+<link doc="reference.xml" id="r_sendbuffer"><literal>r.sendBuffer</literal></link>
+(<link doc="changes.xml" id="njs0.5.2">0.5.2</link>),
+<link doc="reference.xml" id="r_send_header"><literal>r.sendHeader</literal></link>,
+<link doc="reference.xml" id="r_set_return_value"><literal>r.setReturnValue</literal></link>
+(<link doc="changes.xml" id="njs0.7.0">0.7.0</link>),
+<link doc="reference.xml" id="r_subrequest"><literal>r.subrequest</literal></link>,
+<link doc="reference.xml" id="r_warn"><literal>r.warn</literal></link>
+</listitem>
+
+<listitem>
+<link doc="reference.xml" id="stream"><literal>Stream Session</literal></link>:
+<link doc="reference.xml" id="s_allow"><literal>s.allow</literal></link>
+(<link doc="changes.xml" id="njs0.2.4">0.2.4</link>),
+<link doc="reference.xml" id="s_decline"><literal>s.decline</literal></link>
+(<link doc="changes.xml" id="njs0.2.4">0.2.4</link>),
+<link doc="reference.xml" id="s_deny"><literal>s.deny</literal></link>
+(<link doc="changes.xml" id="njs0.2.4">0.2.4</link>),
+<link doc="reference.xml" id="s_done"><literal>s.done</literal></link>
+(<link doc="changes.xml" id="njs0.2.4">0.2.4</link>),
+<link doc="reference.xml" id="s_error"><literal>s.error</literal></link>,
+<link doc="reference.xml" id="s_log"><literal>s.log</literal></link>,
+<link doc="reference.xml" id="s_off"><literal>s.off</literal></link>
+(<link doc="changes.xml" id="njs0.2.4">0.2.4</link>),
+<link doc="reference.xml" id="s_on"><literal>s.on</literal></link>
+(<link doc="changes.xml" id="njs0.2.4">0.2.4</link>),
+<link doc="reference.xml" id="s_send"><literal>s.send</literal></link>
+(<link doc="changes.xml" id="njs0.2.4">0.2.4</link>),
+<link doc="reference.xml" id="s_send_downstream"><literal>s.sendDownstream</literal></link>
+(<link doc="changes.xml" id="njs0.7.8">0.7.8</link>),
+<link doc="reference.xml" id="s_send_upstream"><literal>s.sendUpstream</literal></link>
+(<link doc="changes.xml" id="njs0.7.8">0.7.8</link>),
+<link doc="reference.xml" id="s_set_return_value"><literal>s.setReturnValue</literal></link>
+(<link doc="changes.xml" id="njs0.7.0">0.7.0</link>),
+<link doc="reference.xml" id="s_warn"><literal>s.warn</literal></link>
+</listitem>
+
+<listitem>
+<link doc="reference.xml" id="headers"><literal>Headers</literal></link>
+(<link doc="changes.xml" id="njs0.5.1">0.5.1</link>):
+<link doc="reference.xml" id="headers_append"><literal>append</literal></link>,
+<link doc="reference.xml" id="headers_delete"><literal>delete</literal></link>,
+<link doc="reference.xml" id="headers_get"><literal>get</literal></link>,
+<link doc="reference.xml" id="headers_getall"><literal>getAll</literal></link>,
+<link doc="reference.xml" id="headers_foreach"><literal>forEach</literal></link>,
+<link doc="reference.xml" id="headers_has"><literal>has</literal></link>,
+<link doc="reference.xml" id="headers_set"><literal>set</literal></link>
+</listitem>
+
+<listitem>
+<link doc="reference.xml" id="request"><literal>Request</literal></link>
+(<link doc="changes.xml" id="njs0.7.10">0.7.10</link>):
+<link doc="reference.xml" id="request_arraybuffer"><literal>arrayBuffer</literal></link>,
+<link doc="reference.xml" id="request_headers"><literal>headers</literal></link>,
+<link doc="reference.xml" id="request_json"><literal>json</literal></link>,
+<link doc="reference.xml" id="request_text"><literal>text</literal></link>
+</listitem>
+
+<listitem>
+<link doc="reference.xml" id="response"><literal>Response</literal></link>
+(<link doc="changes.xml" id="njs0.5.1">0.5.1</link>):
+<link doc="reference.xml" id="response_arraybuffer"><literal>arrayBuffer</literal></link>,
+<link doc="reference.xml" id="response_headers"><literal>headers</literal></link>,
+<link doc="reference.xml" id="response_json"><literal>json</literal></link>,
+<link doc="reference.xml" id="response_text"><literal>text</literal></link>
+</listitem>
+
+<listitem>
+<link doc="reference.xml" id="ngx"><literal>ngx</literal></link>
+(<link doc="changes.xml" id="njs0.5.0">0.5.0</link>):
+<link doc="reference.xml" id="ngx_fetch"><literal>fetch</literal></link>
+(<link doc="changes.xml" id="njs0.5.1">0.5.1</link>),
+<link doc="reference.xml" id="ngx_log"><literal>log</literal></link>
+</listitem>
+
+<listitem>
+<link doc="reference.xml" id="ngx_shared"><literal>ngx.shared</literal></link>
+(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>):
+<link doc="reference.xml" id="dict_add"><literal>add</literal></link>,
+<link doc="reference.xml" id="dict_clear"><literal>clear</literal></link>,
+<link doc="reference.xml" id="dict_delete"><literal>delete</literal></link>,
+<link doc="reference.xml" id="dict_freespace"><literal>freeSpace</literal></link>,
+<link doc="reference.xml" id="dict_get"><literal>get</literal></link>,
+<link doc="reference.xml" id="dict_has"><literal>has</literal></link>,
+<link doc="reference.xml" id="dict_incr"><literal>incr</literal></link>,
+<link doc="reference.xml" id="dict_items"><literal>items</literal></link>,
+<link doc="reference.xml" id="dict_keys"><literal>keys</literal></link>,
+<link doc="reference.xml" id="dict_pop"><literal>pop</literal></link>,
+<link doc="reference.xml" id="dict_replace"><literal>replace</literal></link>,
+<link doc="reference.xml" id="dict_set"><literal>set</literal></link>,
+<link doc="reference.xml" id="dict_size"><literal>size</literal></link>,
+<link doc="reference.xml" id="dict_ttl"><literal>ttl</literal></link>
+(<link doc="changes.xml" id="njs0.9.7">0.9.7</link>)
+</listitem>
+
+</list>
+</listitem>
+
+<listitem>
+nginx object properties:
+<list type="bullet">
+
+<listitem>
+<link doc="reference.xml" id="http"><literal>HTTP Request</literal></link>:
+<link doc="reference.xml" id="r_args"><literal>r.args</literal></link>,
+<link doc="reference.xml" id="r_headers_in"><literal>r.headersIn</literal></link>,
+<link doc="reference.xml" id="r_headers_out"><literal>r.headersOut</literal></link>,
+<link doc="reference.xml" id="r_http_version"><literal>r.httpVersion</literal></link>,
+<link doc="reference.xml" id="r_internal"><literal>r.internal</literal></link>,
+<link doc="reference.xml" id="r_js_var_names"><literal>r.jsVarNames</literal></link>
+(<link doc="changes.xml" id="njs0.9.9">0.9.9</link>),
+<link doc="reference.xml" id="r_method"><literal>r.method</literal></link>,
+<link doc="reference.xml" id="r_parent"><literal>r.parent</literal></link>,
+<link doc="reference.xml" id="r_read_request_array_buffer"><literal>r.readRequestArrayBuffer</literal></link>
+(<link doc="changes.xml" id="njs0.9.9">0.9.9</link>),
+<link doc="reference.xml" id="r_read_request_form"><literal>r.readRequestForm</literal></link>
+(<link doc="changes.xml" id="njs0.9.9">0.9.9</link>),
+<link doc="reference.xml" id="r_read_request_json"><literal>r.readRequestJSON</literal></link>
+(<link doc="changes.xml" id="njs0.9.9">0.9.9</link>),
+<link doc="reference.xml" id="r_read_request_text"><literal>r.readRequestText</literal></link>
+(<link doc="changes.xml" id="njs0.9.9">0.9.9</link>),
+<link doc="reference.xml" id="r_raw_headers_in"><literal>r.rawHeadersIn</literal></link>
+(<link doc="changes.xml" id="njs0.4.1">0.4.1</link>),
+<link doc="reference.xml" id="r_raw_headers_out"><literal>r.rawHeadersOut</literal></link>
+(<link doc="changes.xml" id="njs0.4.1">0.4.1</link>),
+<link doc="reference.xml" id="r_raw_variables"><literal>r.rawVariables</literal></link>
+(<link doc="changes.xml" id="njs0.5.0">0.5.0</link>),
+<link doc="reference.xml" id="r_remote_address"><literal>r.remoteAddress</literal></link>,
+<link doc="reference.xml" id="r_request_buffer"><literal>r.requestBuffer</literal></link>
+(<link doc="changes.xml" id="njs0.5.0">0.5.0</link>),
+<link doc="reference.xml" id="r_request_text"><literal>r.requestText</literal></link>,
+<link doc="reference.xml" id="r_response_buffer"><literal>r.responseBuffer</literal></link>
+(<link doc="changes.xml" id="njs0.5.0">0.5.0</link>),
+<link doc="reference.xml" id="r_response_text"><literal>r.responseText</literal></link>
+(<link doc="changes.xml" id="njs0.5.0">0.5.0</link>),
+<link doc="reference.xml" id="r_status"><literal>r.status</literal></link>,
+<link doc="reference.xml" id="r_uri"><literal>r.uri</literal></link>,
+<link doc="reference.xml" id="r_variables"><literal>r.variables</literal></link>
+(<link doc="changes.xml" id="njs0.2.8">0.2.8</link>)
+</listitem>
+
+<listitem>
+<link doc="reference.xml" id="stream"><literal>Stream Session</literal></link>:
+<link doc="reference.xml" id="s_js_var_names"><literal>s.jsVarNames</literal></link>
+(<link doc="changes.xml" id="njs0.9.9">0.9.9</link>),
+<link doc="reference.xml" id="s_remote_address"><literal>s.remoteAddress</literal></link>,
+<link doc="reference.xml" id="s_raw_variables"><literal>s.rawVariables</literal></link>
+(<link doc="changes.xml" id="njs0.5.0">0.5.0</link>),
+<link doc="reference.xml" id="s_status"><literal>s.status</literal></link>
+(<link doc="changes.xml" id="njs0.5.2">0.5.2</link>),
+<link doc="reference.xml" id="s_variables"><literal>s.variables</literal></link>
+(<link doc="changes.xml" id="njs0.2.8">0.2.8</link>)
+</listitem>
+
+<listitem>
+<link doc="reference.xml" id="periodic_session"><literal>Periodic Session</literal></link>
+(<link doc="changes.xml" id="njs0.8.1">0.8.1</link>):
+<link doc="reference.xml" id="periodic_session_raw_variables"><literal>PeriodicSession.rawVariables</literal></link>,
+<link doc="reference.xml" id="periodic_session_variables"><literal>PeriodicSession.variables</literal></link>
+</listitem>
+
+
+<listitem>
+<link doc="reference.xml" id="request"><literal>Request</literal></link>
+(<link doc="changes.xml" id="njs0.7.10">0.7.10</link>):
+<link doc="reference.xml" id="request_bodyused"><literal>bodyUsed</literal></link>,
+<link doc="reference.xml" id="request_cache"><literal>cache</literal></link>,
+<link doc="reference.xml" id="request_credentials"><literal>credentials</literal></link>,
+<link doc="reference.xml" id="request_method"><literal>method</literal></link>,
+<link doc="reference.xml" id="request_mode"><literal>mode</literal></link>,
+<link doc="reference.xml" id="request_url"><literal>url</literal></link>
+</listitem>
+
+<listitem>
+<link doc="reference.xml" id="response"><literal>Response</literal></link>
+(<link doc="changes.xml" id="njs0.5.1">0.5.1</link>):
+<link doc="reference.xml" id="response_bodyused"><literal>bodyUsed</literal></link>,
+<link doc="reference.xml" id="response_ok"><literal>ok</literal></link>,
+<link doc="reference.xml" id="response_redirect"><literal>redirected</literal></link>,
+<link doc="reference.xml" id="response_status"><literal>status</literal></link>,
+<link doc="reference.xml" id="response_statustext"><literal>statusText</literal></link>,
+<link doc="reference.xml" id="response_type"><literal>type</literal></link>,
+<link doc="reference.xml" id="response_url"><literal>url</literal></link>
+</listitem>
+
+<listitem>
+<link doc="reference.xml" id="ngx"><literal>ngx</literal></link>
+(<link doc="changes.xml" id="njs0.5.0">0.5.0</link>):
+<link doc="reference.xml" id="ngx_build"><literal>build</literal></link>
+(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>),
+<link doc="reference.xml" id="ngx_conf_file_path"><literal>conf_file_path</literal></link>
+(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>),
+<link doc="reference.xml" id="ngx_conf_prefix"><literal>conf_prefix</literal></link>
+(<link doc="changes.xml" id="njs0.7.8">0.7.8</link>),
+<link doc="reference.xml" id="ngx_error_log_path"><literal>error_log_path</literal></link>
+(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>),
+<link doc="reference.xml" id="ngx_prefix"><literal>prefix</literal></link>
+(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>),
+<link doc="reference.xml" id="ngx_version"><literal>version</literal></link>
+(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>),
+<link doc="reference.xml" id="ngx_version_number"><literal>version_number</literal></link>
+(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>),
+<link doc="reference.xml" id="ngx_worker_id"><literal>worker_id</literal></link>
+(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>)
+</listitem>
+
+<listitem>
+<link doc="reference.xml" id="ngx_shared"><literal>ngx.shared</literal></link>
+(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>):
+<link doc="reference.xml" id="dict_capacity"><literal>capacity</literal></link>,
+<link doc="reference.xml" id="dict_name"><literal>name</literal></link>,
+<link doc="reference.xml" id="dict_type"><literal>type</literal></link>
+</listitem>
+
+</list>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+
+<section id="ecmascript" name="ECMAScript compliance (njs engine)">
+
+<para>
+<note>
+The ECMAScript language features listed below describe the
+<link doc="engine.xml" id="njs_engine">njs</link> engine,
+which is deprecated
+since <link doc="changes.xml" id="njs1.0.0">1.0.0</link>.
+The <link doc="engine.xml" id="quickjs_engine">QuickJS</link>
+engine supports ES2023;
+new code should use the QuickJS engine instead.
+</note>
+</para>
+
+<para>
+The njs engine is implemented in compliance with
+<link url="http://www.ecma-international.org/ecma-262/5.1/">ECMAScript 5.1</link>
+(strict mode) with some
+<link url="http://www.ecma-international.org/ecma-262/6.0/">ECMAScript 6</link>
+and later extensions.
+The compliance is still evolving.
+</para>
 
 <para>
 <list type="bullet" compact="no">
@@ -517,85 +1054,6 @@ ES2023:
 </listitem>
 
 <listitem>
-<literal>Buffer</literal> methods
-(<link doc="changes.xml" id="njs0.4.4">0.4.4</link>):
-<list type="bullet">
-<listitem>
-<link doc="reference.xml" id="buffer_alloc"><literal>alloc</literal></link>,
-<link doc="reference.xml" id="buffer_alloc_unsafe"><literal>allocUnsafe</literal></link>,
-<link doc="reference.xml" id="buffer_bytelength"><literal>byteLength</literal></link>,
-<link doc="reference.xml" id="buffer_compare"><literal>compare</literal></link>,
-<link doc="reference.xml" id="buffer_concat"><literal>concat</literal></link>,
-<link doc="reference.xml" id="buffer_from_array"><literal>from</literal></link>,
-<link doc="reference.xml" id="buffer_is_buffer"><literal>isBuffer</literal></link>,
-<link doc="reference.xml" id="buffer_is_encoding"><literal>isEncoding</literal></link>
-</listitem>
-</list>
-
-</listitem>
-
-<listitem>
-<literal>Buffer</literal> prototype methods
-(<link doc="changes.xml" id="njs0.4.4">0.4.4</link>):
-<list type="bullet">
-<listitem>
-<link doc="reference.xml" id="buf_compare"><literal>compare</literal></link>,
-<link doc="reference.xml" id="buf_copy"><literal>copy</literal></link>,
-<link doc="reference.xml" id="buf_equals"><literal>equals</literal></link>,
-<link doc="reference.xml" id="buf_fill"><literal>fill</literal></link>,
-<link doc="reference.xml" id="buf_includes"><literal>includes</literal></link>,
-<link doc="reference.xml" id="buf_indexof"><literal>indexOf</literal></link>,
-<link doc="reference.xml" id="buf_lastindexof"><literal>lastIndexOf</literal></link>,
-<link doc="reference.xml" id="buf_readintbe"><literal>readIntBE</literal></link>,
-<literal>readInt8</literal>,
-<literal>readInt16BE</literal>,
-<literal>readInt32BE</literal>,
-<link doc="reference.xml" id="buf_readintle"><literal>readIntLE</literal></link>,
-<literal>readInt16LE</literal>,
-<literal>readInt32LE</literal>,
-<link doc="reference.xml" id="buf_readuintbe"><literal>readUIntBE</literal></link>,
-<literal>readUInt8</literal>,
-<literal>readUInt16BE</literal>,
-<literal>readUInt32BE</literal>,
-<link doc="reference.xml" id="buf_readuintle"><literal>readUIntLE</literal></link>,
-<literal>readUInt16LE</literal>,
-<literal>readUInt32LE</literal>,
-<link doc="reference.xml" id="buf_readdobulebe"><literal>readDoubleBE</literal></link>,
-<link doc="reference.xml" id="buf_readdobulele"><literal>readDoubleLE</literal></link>,
-<link doc="reference.xml" id="buf_readfloatbe"><literal>readFloatBE</literal></link>,
-<link doc="reference.xml" id="buf_readfloatle"><literal>readFloatLE</literal></link>,
-<link doc="reference.xml" id="buf_subarray"><literal>subarray</literal></link>,
-<link doc="reference.xml" id="buf_slice"><literal>slice</literal></link>,
-<link doc="reference.xml" id="buf_swap16"><literal>swap16</literal></link>,
-<link doc="reference.xml" id="buf_swap32"><literal>swap32</literal></link>,
-<link doc="reference.xml" id="buf_swap64"><literal>swap64</literal></link>,
-<link doc="reference.xml" id="buf_tojson"><literal>toJSON</literal></link>,
-<link doc="reference.xml" id="buf_tostring"><literal>toString</literal></link>,
-<link doc="reference.xml" id="buf_write"><literal>write</literal></link>,
-<link doc="reference.xml" id="buf_writeintbe"><literal>writeIntBE</literal></link>,
-<literal>writeInt8</literal>,
-<literal>writeInt16BE</literal>,
-<literal>writeInt32BE</literal>,
-<link doc="reference.xml" id="buf_writeintle"><literal>writeIntLE</literal></link>,
-<literal>writeInt16LE</literal>,
-<literal>writeInt32LE</literal>,
-<link doc="reference.xml" id="buf_writeuintbe"><literal>writeUIntBE</literal></link>,
-<literal>writeUInt8</literal>,
-<literal>writeUInt16BE</literal>,
-<literal>writeUInt32BE</literal>,
-<link doc="reference.xml" id="buf_writeuintle"><literal>writeUIntLE</literal></link>,
-<literal>writeUInt16LE</literal>,
-<literal>writeUInt32LE</literal>,
-<link doc="reference.xml" id="buf_writedoublebe"><literal>writeDoubleBE</literal></link>,
-<link doc="reference.xml" id="buf_writedoublele"><literal>writeDoubleLE</literal></link>,
-<link doc="reference.xml" id="buf_writefloatbe"><literal>writeFloatBE</literal></link>,
-<link doc="reference.xml" id="buf_writefloatle"><literal>writeFloatLE</literal></link>
-</listitem>
-</list>
-
-</listitem>
-
-<listitem>
 <literal>Promise</literal> methods
 (<link doc="changes.xml" id="njs0.3.8">0.3.8</link>):
 <list type="bullet">
@@ -847,12 +1305,6 @@ ES5.1 global functions:
 </listitem>
 
 <listitem>
-Global functions (<link doc="changes.xml" id="njs0.7.6">0.7.6</link>):
-<link doc="reference.xml" id="atob"><literal>atob</literal></link>,
-<link doc="reference.xml" id="btoa"><literal>btoa</literal></link>
-</listitem>
-
-<listitem>
 <literal>Error</literal> objects:
 <literal>Error</literal>,
 <literal>EvalError</literal>,
@@ -862,115 +1314,6 @@ Global functions (<link doc="changes.xml" id="njs0.7.6">0.7.6</link>):
 <literal>SyntaxError</literal>,
 <literal>TypeError</literal>,
 <literal>URIError</literal>
-</listitem>
-
-<listitem>
-<link doc="reference.xml" id="cleartimeout"><literal>clearTimeout</literal></link>
-and
-<link doc="reference.xml" id="settimeout"><literal>setTimeout</literal></link>
-functions
-(<link doc="changes.xml" id="njs0.2.0">0.2.0</link>)
-</listitem>
-
-<listitem>
-<literal>File system</literal> methods:
-<link doc="reference.xml" id="fs_accesssync"><literal>fs.accessSync</literal></link>
-(<link doc="changes.xml" id="njs0.3.9">0.3.9</link>),
-<link doc="reference.xml" id="fs_appendfilesync"><literal>fs.appendFileSync</literal></link>,
-<link doc="reference.xml" id="fs_closesync"><literal>fs.closeSync</literal></link>,
-<link doc="reference.xml" id="fs_existssync"><literal>fs.existsSync</literal></link>
-(<link doc="changes.xml" id="njs0.8.2">0.8.2</link>),
-<link doc="reference.xml" id="fs_filehandle"><literal>fs.FileHandle</literal></link>
-(<link doc="changes.xml" id="njs0.7.7">0.7.7</link>),
-<link doc="reference.xml" id="fs_fstatsync"><literal>fs.fstatSync</literal></link>
-(<link doc="changes.xml" id="njs0.7.7">0.7.7</link>),
-<link doc="reference.xml" id="fs_lstatsync"><literal>fs.lstatSync</literal></link>
-(<link doc="changes.xml" id="njs0.7.1">0.7.1</link>),
-<link doc="reference.xml" id="fs_mkdirsync"><literal>fs.mkdirSync</literal></link>
-(<link doc="changes.xml" id="njs0.4.2">0.4.2</link>),
-<link doc="reference.xml" id="fs_opensync"><literal>fs.openSync</literal></link>
-(<link doc="changes.xml" id="njs0.7.7">0.7.7</link>),
-<link doc="reference.xml" id="fs_promises_open"><literal>fs.promises.open</literal></link>
-(<link doc="changes.xml" id="njs0.7.7">0.7.7</link>),
-<link doc="reference.xml" id="fs_readdirsync"><literal>fs.readdirSync</literal></link>
-(<link doc="changes.xml" id="njs0.4.2">0.4.2</link>),
-<link doc="reference.xml" id="fs_readfilesync"><literal>fs.readFileSync</literal></link>,
-<link doc="reference.xml" id="fs_readsync"><literal>fs.readSync</literal></link>
-(<link doc="changes.xml" id="njs0.7.7">0.7.7</link>),
-<link doc="reference.xml" id="fs_realpathsync"><literal>fs.realpathSync</literal></link>
-(<link doc="changes.xml" id="njs0.3.9">0.3.9</link>),
-<link doc="reference.xml" id="fs_renamesync"><literal>fs.renameSync</literal></link>
-(<link doc="changes.xml" id="njs0.3.4">0.3.4</link>),
-<link doc="reference.xml" id="fs_rmdirsync"><literal>fs.rmdirSync</literal></link>
-(<link doc="changes.xml" id="njs0.4.2">0.4.2</link>),
-<link doc="reference.xml" id="fs_symlinksync"><literal>fs.symlinkSync</literal></link>
-(<link doc="changes.xml" id="njs0.3.9">0.3.9</link>),
-<link doc="reference.xml" id="fs_unlinksync"><literal>fs.unlinkSync</literal></link>
-(<link doc="changes.xml" id="njs0.3.9">0.3.9</link>),
-<link doc="reference.xml" id="fs_writefilesync"><literal>fs.writeFileSync</literal></link>,
-<link doc="reference.xml" id="fs_writesync_buf"><literal>fs.writeSync</literal></link>
-(<link doc="changes.xml" id="njs0.7.7">0.7.7</link>)
-</listitem>
-
-<listitem>
-<literal>fs.promises</literal> API (<link doc="changes.xml" id="njs0.3.9">0.3.9</link>),
-asynchronous version of file system methods.
-</listitem>
-
-<listitem>
-<link doc="reference.xml" id="crypto"><literal>Crypto</literal></link> methods
-(<link doc="changes.xml" id="njs0.2.0">0.2.0</link>):
-<link doc="reference.xml" id="crypto_createhash"><literal>crypto.createHash</literal></link>,
-<link doc="reference.xml" id="crypto_createhmac"><literal>crypto.createHmac</literal></link>
-</listitem>
-
-<listitem id="querystring">
-<link doc="reference.xml" id="querystring"><literal>Query String</literal></link>
-methods
-(<link doc="changes.xml" id="njs0.4.3">0.4.3</link>):
-<link doc="reference.xml" id="querystring_decode"><literal>querystring.decode</literal></link>,
-<link doc="reference.xml" id="querystring_encode"><literal>querystring.encode</literal></link>,
-<link doc="reference.xml" id="querystring_escape"><literal>querystring.escape</literal></link>,
-<link doc="reference.xml" id="querystring_parse"><literal>querystring.parse</literal></link>,
-<link doc="reference.xml" id="querystring_stringify"><literal>querystring.stringify</literal></link>,
-<link doc="reference.xml" id="querystring_unescape"><literal>querystring.unescape</literal></link>
-</listitem>
-
-<listitem id="textdecoder">
-<link doc="reference.xml" id="textdecoder"><literal>TextDecoder</literal></link>
-methods
-(<link doc="changes.xml" id="njs0.4.3">0.4.3</link>):
-<link doc="reference.xml" id="textdecoder_encoding"><literal>encoding</literal></link>,
-<link doc="reference.xml" id="textdecoder_fatal"><literal>fatal</literal></link>,
-<link doc="reference.xml" id="textdecoder_ignorebom"><literal>ignoreBOM</literal></link>,
-<link doc="reference.xml" id="textdecoder_decode"><literal>decode</literal></link>
-</listitem>
-
-<listitem id="textencoder">
-<link doc="reference.xml" id="textencoder"><literal>TextEncoder</literal></link>
-methods
-(<link doc="changes.xml" id="njs0.4.3">0.4.3</link>):
-<link doc="reference.xml" id="textencoder_encode"><literal>encode</literal></link>,
-<link doc="reference.xml" id="textencoder_encodeinto"><literal>encodeInto</literal></link>
-</listitem>
-
-<listitem id="xml">
-<link doc="reference.xml" id="xml"><literal>XML</literal></link>
-methods
-(<link doc="changes.xml" id="njs0.7.10">0.7.10</link>):
-<link doc="reference.xml" id="xml_parse"><literal>parse</literal></link>,
-<link doc="reference.xml" id="xml_c14n"><literal>xml.c14n</literal></link>,
-<link doc="reference.xml" id="xml_exclusivec14n"><literal>xml.exclusiveC14n</literal></link>
-</listitem>
-
-<listitem id="zlib">
-<link doc="reference.xml" id="zlib"><literal>zlib</literal></link>
-methods
-(<link doc="changes.xml" id="njs0.7.12">0.7.12</link>):
-<link doc="reference.xml" id="zlib_deflaterawsync"><literal>deflateRawSync</literal></link>,
-<link doc="reference.xml" id="zlib_deflatesync"><literal>deflateSync</literal></link>,
-<link doc="reference.xml" id="zlib_inflaterawsync"><literal>inflateRawSync</literal></link>,
-<link doc="reference.xml" id="zlib_inflatesync"><literal>inflateSync</literal></link>
 </listitem>
 
 <listitem>
@@ -990,306 +1333,6 @@ ES6 arrow functions
 Template literals:
 multiline strings, expression interpolation, nesting templates
 (<link doc="changes.xml" id="njs0.3.2">0.3.2</link>)
-</listitem>
-
-<listitem>
-Global objects
-(<link doc="changes.xml" id="njs0.3.3">0.3.3</link>):
-<list type="bullet">
-
-<listitem>
-<link doc="reference.xml" id="console"><literal>console</literal></link>
-(<link doc="changes.xml" id="njs0.8.2">0.8.2</link>):
-<link doc="reference.xml" id="console_error"><literal>error</literal></link>,
-<link doc="reference.xml" id="console_info"><literal>info</literal></link>,
-<link doc="reference.xml" id="console_log"><literal>log</literal></link>,
-<link doc="reference.xml" id="console_time"><literal>time</literal></link>,
-<link doc="reference.xml" id="console_time_end"><literal>timeEnd</literal></link>,
-<link doc="reference.xml" id="console_warn"><literal>warn</literal></link>
-</listitem>
-
-<listitem>
-<link doc="reference.xml" id="builtin_crypto"><literal>crypto</literal></link>
-(<link doc="changes.xml" id="njs0.7.0">0.7.0</link>):
-<link doc="reference.xml" id="crypto_get_random_values"><literal>getRandomValues</literal></link>,
-<link doc="reference.xml" id="crypto_random_uuid"><literal>randomUUID</literal></link>
-(<link doc="changes.xml" id="njs0.9.7">0.9.7</link>),
-<link doc="reference.xml" id="crypto_subtle_encrypt"><literal>subtle.encrypt</literal></link>,
-<link doc="reference.xml" id="crypto_subtle_decrypt"><literal>subtle.decrypt</literal></link>,
-<link doc="reference.xml" id="crypto_subtle_derive_bits"><literal>subtle.deriveBits</literal></link>,
-<link doc="reference.xml" id="crypto_subtle_derive_key"><literal>subtle.deriveKey</literal></link>,
-<link doc="reference.xml" id="crypto_subtle_digest"><literal>subtle.digest</literal></link>,
-<link doc="reference.xml" id="crypto_subtle_export_key"><literal>subtle.exportKey</literal></link>
-(<link doc="changes.xml" id="njs0.7.10">0.7.10</link>),
-<link doc="reference.xml" id="crypto_subtle_generate_key"><literal>subtle.generateKey</literal></link>
-(<link doc="changes.xml" id="njs0.7.10">0.7.10</link>),
-<link doc="reference.xml" id="crypto_subtle_import_key"><literal>subtle.importKey</literal></link>,
-<link doc="reference.xml" id="crypto_subtle_sign"><literal>subtle.sign</literal></link>,
-<link doc="reference.xml" id="crypto_subtle_verify"><literal>subtle.verify</literal></link>,
-<link doc="reference.xml" id="crypto_subtle_wrap_key"><literal>subtle.wrapKey</literal></link>
-(<link doc="changes.xml" id="njs0.9.7">0.9.7</link>),
-<link doc="reference.xml" id="crypto_subtle_unwrap_key"><literal>subtle.unwrapKey</literal></link>
-(<link doc="changes.xml" id="njs0.9.7">0.9.7</link>)
-</listitem>
-
-<listitem>
-<literal>globalThis</literal> alias
-(<link doc="changes.xml" id="njs0.3.8">0.3.8</link>)
-</listitem>
-
-<listitem>
-<link doc="reference.xml" id="njs"><literal>njs</literal></link>:
-<link doc="reference.xml" id="njs_version"><literal>version</literal></link>,
-<link doc="reference.xml" id="njs_version_number"><literal>version_number</literal></link>
-(<link doc="changes.xml" id="njs0.7.4">0.7.4</link>),
-<link doc="reference.xml" id="njs_dump"><literal>dump</literal></link>,
-<link doc="reference.xml" id="njs_memory_stats"><literal>memoryStats</literal></link>
-(<link doc="changes.xml" id="njs0.7.8">0.7.8</link>),
-<link doc="reference.xml" id="njs_on"><literal>on</literal></link>
-(<link doc="changes.xml" id="njs0.5.2">0.5.2</link>)
-</listitem>
-
-<listitem>
-<link doc="reference.xml" id="process"><literal>process</literal></link>:
-<link doc="reference.xml" id="process_argv"><literal>argv</literal></link>,
-<link doc="reference.xml" id="process_env"><literal>env</literal></link>,
-<link doc="reference.xml" id="process_pid"><literal>pid</literal></link>,
-<link doc="reference.xml" id="process_ppid"><literal>ppid</literal></link>
-</listitem>
-
-</list>
-</listitem>
-
-<listitem>
-nginx object methods:
-<list type="bullet">
-
-<listitem>
-<link doc="reference.xml" id="http"><literal>HTTP Request</literal></link>:
-<link doc="reference.xml" id="r_done"><literal>r.done</literal></link>
-(<link doc="changes.xml" id="njs0.5.2">0.5.2</link>),
-<link doc="reference.xml" id="r_error"><literal>r.error</literal></link>,
-<link doc="reference.xml" id="r_finish"><literal>r.finish</literal></link>,
-<link doc="reference.xml" id="r_internal_redirect"><literal>r.internalRedirect</literal></link>,
-<link doc="reference.xml" id="r_log"><literal>r.log</literal></link>,
-<link doc="reference.xml" id="r_return"><literal>r.return</literal></link>
-(<link doc="changes.xml" id="njs0.5.0">0.5.0</link>),
-<link doc="reference.xml" id="r_send"><literal>r.send</literal></link>
-(<link doc="changes.xml" id="njs0.5.0">0.5.0</link>),
-<link doc="reference.xml" id="r_sendbuffer"><literal>r.sendBuffer</literal></link>
-(<link doc="changes.xml" id="njs0.5.2">0.5.2</link>),
-<link doc="reference.xml" id="r_send_header"><literal>r.sendHeader</literal></link>,
-<link doc="reference.xml" id="r_set_return_value"><literal>r.setReturnValue</literal></link>
-(<link doc="changes.xml" id="njs0.7.0">0.7.0</link>),
-<link doc="reference.xml" id="r_subrequest"><literal>r.subrequest</literal></link>,
-<link doc="reference.xml" id="r_warn"><literal>r.warn</literal></link>
-</listitem>
-
-<listitem>
-<link doc="reference.xml" id="stream"><literal>Stream Session</literal></link>:
-<link doc="reference.xml" id="s_allow"><literal>s.allow</literal></link>
-(<link doc="changes.xml" id="njs0.2.4">0.2.4</link>),
-<link doc="reference.xml" id="s_decline"><literal>s.decline</literal></link>
-(<link doc="changes.xml" id="njs0.2.4">0.2.4</link>),
-<link doc="reference.xml" id="s_deny"><literal>s.deny</literal></link>
-(<link doc="changes.xml" id="njs0.2.4">0.2.4</link>),
-<link doc="reference.xml" id="s_done"><literal>s.done</literal></link>
-(<link doc="changes.xml" id="njs0.2.4">0.2.4</link>),
-<link doc="reference.xml" id="s_error"><literal>s.error</literal></link>,
-<link doc="reference.xml" id="s_log"><literal>s.log</literal></link>,
-<link doc="reference.xml" id="s_off"><literal>s.off</literal></link>
-(<link doc="changes.xml" id="njs0.2.4">0.2.4</link>),
-<link doc="reference.xml" id="s_on"><literal>s.on</literal></link>
-(<link doc="changes.xml" id="njs0.2.4">0.2.4</link>),
-<link doc="reference.xml" id="s_send"><literal>s.send</literal></link>
-(<link doc="changes.xml" id="njs0.2.4">0.2.4</link>),
-<link doc="reference.xml" id="s_send_downstream"><literal>s.sendDownstream</literal></link>
-(<link doc="changes.xml" id="njs0.7.8">0.7.8</link>),
-<link doc="reference.xml" id="s_send_upstream"><literal>s.sendUpstream</literal></link>
-(<link doc="changes.xml" id="njs0.7.8">0.7.8</link>),
-<link doc="reference.xml" id="s_set_return_value"><literal>s.setReturnValue</literal></link>
-(<link doc="changes.xml" id="njs0.7.0">0.7.0</link>),
-<link doc="reference.xml" id="s_warn"><literal>s.warn</literal></link>
-</listitem>
-
-<listitem>
-<link doc="reference.xml" id="headers"><literal>Headers</literal></link>
-(<link doc="changes.xml" id="njs0.5.1">0.5.1</link>):
-<link doc="reference.xml" id="headers_append"><literal>append</literal></link>,
-<link doc="reference.xml" id="headers_delete"><literal>delete</literal></link>,
-<link doc="reference.xml" id="headers_get"><literal>get</literal></link>,
-<link doc="reference.xml" id="headers_getall"><literal>getAll</literal></link>,
-<link doc="reference.xml" id="headers_foreach"><literal>forEach</literal></link>,
-<link doc="reference.xml" id="headers_has"><literal>has</literal></link>,
-<link doc="reference.xml" id="headers_set"><literal>set</literal></link>
-</listitem>
-
-<listitem>
-<link doc="reference.xml" id="request"><literal>Request</literal></link>
-(<link doc="changes.xml" id="njs0.7.10">0.7.10</link>):
-<link doc="reference.xml" id="request_arraybuffer"><literal>arrayBuffer</literal></link>,
-<link doc="reference.xml" id="request_headers"><literal>headers</literal></link>,
-<link doc="reference.xml" id="request_json"><literal>json</literal></link>,
-<link doc="reference.xml" id="request_text"><literal>text</literal></link>
-</listitem>
-
-<listitem>
-<link doc="reference.xml" id="response"><literal>Response</literal></link>
-(<link doc="changes.xml" id="njs0.5.1">0.5.1</link>):
-<link doc="reference.xml" id="response_arraybuffer"><literal>arrayBuffer</literal></link>,
-<link doc="reference.xml" id="response_headers"><literal>headers</literal></link>,
-<link doc="reference.xml" id="response_json"><literal>json</literal></link>,
-<link doc="reference.xml" id="response_text"><literal>text</literal></link>
-</listitem>
-
-<listitem>
-<link doc="reference.xml" id="ngx"><literal>ngx</literal></link>
-(<link doc="changes.xml" id="njs0.5.0">0.5.0</link>):
-<link doc="reference.xml" id="ngx_fetch"><literal>fetch</literal></link>
-(<link doc="changes.xml" id="njs0.5.1">0.5.1</link>),
-<link doc="reference.xml" id="ngx_log"><literal>log</literal></link>
-</listitem>
-
-<listitem>
-<link doc="reference.xml" id="ngx_shared"><literal>ngx.shared</literal></link>
-(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>):
-<link doc="reference.xml" id="dict_add"><literal>add</literal></link>,
-<link doc="reference.xml" id="dict_clear"><literal>clear</literal></link>,
-<link doc="reference.xml" id="dict_delete"><literal>delete</literal></link>,
-<link doc="reference.xml" id="dict_freespace"><literal>freeSpace</literal></link>,
-<link doc="reference.xml" id="dict_get"><literal>get</literal></link>,
-<link doc="reference.xml" id="dict_has"><literal>has</literal></link>,
-<link doc="reference.xml" id="dict_incr"><literal>incr</literal></link>,
-<link doc="reference.xml" id="dict_items"><literal>items</literal></link>,
-<link doc="reference.xml" id="dict_keys"><literal>keys</literal></link>,
-<link doc="reference.xml" id="dict_pop"><literal>pop</literal></link>,
-<link doc="reference.xml" id="dict_replace"><literal>replace</literal></link>,
-<link doc="reference.xml" id="dict_set"><literal>set</literal></link>,
-<link doc="reference.xml" id="dict_size"><literal>size</literal></link>,
-<link doc="reference.xml" id="dict_ttl"><literal>ttl</literal></link>
-(<link doc="changes.xml" id="njs0.9.7">0.9.7</link>)
-</listitem>
-
-</list>
-</listitem>
-
-<listitem>
-nginx object properties:
-<list type="bullet">
-
-<listitem>
-<link doc="reference.xml" id="http"><literal>HTTP Request</literal></link>:
-<link doc="reference.xml" id="r_args"><literal>r.args</literal></link>,
-<link doc="reference.xml" id="r_headers_in"><literal>r.headersIn</literal></link>,
-<link doc="reference.xml" id="r_headers_out"><literal>r.headersOut</literal></link>,
-<link doc="reference.xml" id="r_http_version"><literal>r.httpVersion</literal></link>,
-<link doc="reference.xml" id="r_internal"><literal>r.internal</literal></link>,
-<link doc="reference.xml" id="r_js_var_names"><literal>r.jsVarNames</literal></link>
-(<link doc="changes.xml" id="njs0.9.9">0.9.9</link>),
-<link doc="reference.xml" id="r_method"><literal>r.method</literal></link>,
-<link doc="reference.xml" id="r_parent"><literal>r.parent</literal></link>,
-<link doc="reference.xml" id="r_read_request_array_buffer"><literal>r.readRequestArrayBuffer</literal></link>
-(<link doc="changes.xml" id="njs0.9.9">0.9.9</link>),
-<link doc="reference.xml" id="r_read_request_form"><literal>r.readRequestForm</literal></link>
-(<link doc="changes.xml" id="njs0.9.9">0.9.9</link>),
-<link doc="reference.xml" id="r_read_request_json"><literal>r.readRequestJSON</literal></link>
-(<link doc="changes.xml" id="njs0.9.9">0.9.9</link>),
-<link doc="reference.xml" id="r_read_request_text"><literal>r.readRequestText</literal></link>
-(<link doc="changes.xml" id="njs0.9.9">0.9.9</link>),
-<link doc="reference.xml" id="r_raw_headers_in"><literal>r.rawHeadersIn</literal></link>
-(<link doc="changes.xml" id="njs0.4.1">0.4.1</link>),
-<link doc="reference.xml" id="r_raw_headers_out"><literal>r.rawHeadersOut</literal></link>
-(<link doc="changes.xml" id="njs0.4.1">0.4.1</link>),
-<link doc="reference.xml" id="r_raw_variables"><literal>r.rawVariables</literal></link>
-(<link doc="changes.xml" id="njs0.5.0">0.5.0</link>),
-<link doc="reference.xml" id="r_remote_address"><literal>r.remoteAddress</literal></link>,
-<link doc="reference.xml" id="r_request_buffer"><literal>r.requestBuffer</literal></link>
-(<link doc="changes.xml" id="njs0.5.0">0.5.0</link>),
-<link doc="reference.xml" id="r_request_text"><literal>r.requestText</literal></link>,
-<link doc="reference.xml" id="r_response_buffer"><literal>r.responseBuffer</literal></link>
-(<link doc="changes.xml" id="njs0.5.0">0.5.0</link>),
-<link doc="reference.xml" id="r_response_text"><literal>r.responseText</literal></link>
-(<link doc="changes.xml" id="njs0.5.0">0.5.0</link>),
-<link doc="reference.xml" id="r_status"><literal>r.status</literal></link>,
-<link doc="reference.xml" id="r_uri"><literal>r.uri</literal></link>,
-<link doc="reference.xml" id="r_variables"><literal>r.variables</literal></link>
-(<link doc="changes.xml" id="njs0.2.8">0.2.8</link>)
-</listitem>
-
-<listitem>
-<link doc="reference.xml" id="stream"><literal>Stream Session</literal></link>:
-<link doc="reference.xml" id="s_js_var_names"><literal>s.jsVarNames</literal></link>
-(<link doc="changes.xml" id="njs0.9.9">0.9.9</link>),
-<link doc="reference.xml" id="s_remote_address"><literal>s.remoteAddress</literal></link>,
-<link doc="reference.xml" id="s_raw_variables"><literal>s.rawVariables</literal></link>
-(<link doc="changes.xml" id="njs0.5.0">0.5.0</link>),
-<link doc="reference.xml" id="s_status"><literal>s.status</literal></link>
-(<link doc="changes.xml" id="njs0.5.2">0.5.2</link>),
-<link doc="reference.xml" id="s_variables"><literal>s.variables</literal></link>
-(<link doc="changes.xml" id="njs0.2.8">0.2.8</link>)
-</listitem>
-
-<listitem>
-<link doc="reference.xml" id="periodic_session"><literal>Periodic Session</literal></link>
-(<link doc="changes.xml" id="njs0.8.1">0.8.1</link>):
-<link doc="reference.xml" id="periodic_session_raw_variables"><literal>PeriodicSession.rawVariables</literal></link>,
-<link doc="reference.xml" id="periodic_session_variables"><literal>PeriodicSession.variables</literal></link>
-</listitem>
-
-
-<listitem>
-<link doc="reference.xml" id="request"><literal>Request</literal></link>
-(<link doc="changes.xml" id="njs0.7.10">0.7.10</link>):
-<link doc="reference.xml" id="request_bodyused"><literal>bodyUsed</literal></link>,
-<link doc="reference.xml" id="request_cache"><literal>cache</literal></link>,
-<link doc="reference.xml" id="request_credentials"><literal>credentials</literal></link>,
-<link doc="reference.xml" id="request_method"><literal>method</literal></link>,
-<link doc="reference.xml" id="request_mode"><literal>mode</literal></link>,
-<link doc="reference.xml" id="request_url"><literal>url</literal></link>
-</listitem>
-
-<listitem>
-<link doc="reference.xml" id="response"><literal>Response</literal></link>
-(<link doc="changes.xml" id="njs0.5.1">0.5.1</link>):
-<link doc="reference.xml" id="response_bodyused"><literal>bodyUsed</literal></link>,
-<link doc="reference.xml" id="response_ok"><literal>ok</literal></link>,
-<link doc="reference.xml" id="response_redirect"><literal>redirected</literal></link>,
-<link doc="reference.xml" id="response_status"><literal>status</literal></link>,
-<link doc="reference.xml" id="response_statustext"><literal>statusText</literal></link>,
-<link doc="reference.xml" id="response_type"><literal>type</literal></link>,
-<link doc="reference.xml" id="response_url"><literal>url</literal></link>
-</listitem>
-
-<listitem>
-<link doc="reference.xml" id="ngx"><literal>ngx</literal></link>
-(<link doc="changes.xml" id="njs0.5.0">0.5.0</link>):
-<link doc="reference.xml" id="ngx_build"><literal>build</literal></link>
-(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>),
-<link doc="reference.xml" id="ngx_conf_file_path"><literal>conf_file_path</literal></link>
-(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>),
-<link doc="reference.xml" id="ngx_conf_prefix"><literal>conf_prefix</literal></link>
-(<link doc="changes.xml" id="njs0.7.8">0.7.8</link>),
-<link doc="reference.xml" id="ngx_error_log_path"><literal>error_log_path</literal></link>
-(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>),
-<link doc="reference.xml" id="ngx_prefix"><literal>prefix</literal></link>
-(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>),
-<link doc="reference.xml" id="ngx_version"><literal>version</literal></link>
-(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>),
-<link doc="reference.xml" id="ngx_version_number"><literal>version_number</literal></link>
-(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>),
-<link doc="reference.xml" id="ngx_worker_id"><literal>worker_id</literal></link>
-(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>)
-</listitem>
-
-<listitem>
-<link doc="reference.xml" id="ngx_shared"><literal>ngx.shared</literal></link>
-(<link doc="changes.xml" id="njs0.8.0">0.8.0</link>):
-<link doc="reference.xml" id="dict_capacity"><literal>capacity</literal></link>,
-<link doc="reference.xml" id="dict_name"><literal>name</literal></link>,
-<link doc="reference.xml" id="dict_type"><literal>type</literal></link>
-</listitem>
-
-</list>
 </listitem>
 
 </list>
