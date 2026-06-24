@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="136">
+        rev="137">
 
 <section id="summary">
 
@@ -4845,8 +4845,8 @@ const decodedData = atob(encodedData); // decode the string
 <tr><td><link id="buf_readintle"><literal>buf.readIntLE()</literal></link></td></tr>
 <tr><td><link id="buf_readuintbe"><literal>buf.readUIntBE()</literal></link></td></tr>
 <tr><td><link id="buf_readuintle"><literal>buf.readUIntLE()</literal></link></td></tr>
-<tr><td><link id="buf_readdobulebe"><literal>buf.readDoubleBE</literal></link></td></tr>
-<tr><td><link id="buf_readdobulele"><literal>buf.readDoubleLE()</literal></link></td></tr>
+<tr><td><link id="buf_readdoublebe"><literal>buf.readDoubleBE</literal></link></td></tr>
+<tr><td><link id="buf_readdoublele"><literal>buf.readDoubleLE()</literal></link></td></tr>
 <tr><td><link id="buf_readfloatbe"><literal>buf.readFloatBE()</literal></link></td></tr>
 <tr><td><link id="buf_readfloatle"><literal>buf.readFloatLE()</literal></link></td></tr>
 <tr><td><link id="buf_subarray"><literal>buf.subarray()</literal></link></td></tr>
@@ -5222,13 +5222,13 @@ The similar methods are also supported:
 </para>
 </tag-desc>
 
-<tag-name id="buf_readdobulebe"><literal>buf.readDoubleBE</literal>([<value>offset</value>])</tag-name>
+<tag-name id="buf_readdoublebe"><literal>buf.readDoubleBE</literal>([<value>offset</value>])</tag-name>
 <tag-desc>
 Reads a 64-bit, big-endian double from <literal>buf</literal>
 at the specified <value>offset</value>.
 </tag-desc>
 
-<tag-name id="buf_readdobulele"><literal>buf.readDoubleLE</literal>([<value>offset</value>])</tag-name>
+<tag-name id="buf_readdoublele"><literal>buf.readDoubleLE</literal>([<value>offset</value>])</tag-name>
 <tag-desc>
 Reads a 64-bit, little-endian double from <literal>buf</literal>
 at the specified <value>offset</value>.

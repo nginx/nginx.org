@@ -9,7 +9,7 @@
 <article name="Compatibility"
         link="/en/docs/njs/compatibility.html"
         lang="en"
-        rev="52"
+        rev="53"
         toc="no">
 
 <section>
@@ -102,8 +102,8 @@ unless noted otherwise.
 <link doc="reference.xml" id="buf_readuintle"><literal>readUIntLE</literal></link>,
 <literal>readUInt16LE</literal>,
 <literal>readUInt32LE</literal>,
-<link doc="reference.xml" id="buf_readdobulebe"><literal>readDoubleBE</literal></link>,
-<link doc="reference.xml" id="buf_readdobulele"><literal>readDoubleLE</literal></link>,
+<link doc="reference.xml" id="buf_readdoublebe"><literal>readDoubleBE</literal></link>,
+<link doc="reference.xml" id="buf_readdoublele"><literal>readDoubleLE</literal></link>,
 <link doc="reference.xml" id="buf_readfloatbe"><literal>readFloatBE</literal></link>,
 <link doc="reference.xml" id="buf_readfloatle"><literal>readFloatLE</literal></link>,
 <link doc="reference.xml" id="buf_subarray"><literal>subarray</literal></link>,
