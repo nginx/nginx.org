@@ -7,7 +7,7 @@
 <article name="nginx: Linux packages"
          link="/en/linux_packages.html"
          lang="en"
-         rev="116">
+         rev="117">
 
 <section name="Supported distributions and versions" id="distributions">
 
@@ -93,11 +93,6 @@ versions:
 </tr>
 
 <tr>
-<td width="30%">25.10 “questing”</td>
-<td>x86_64, aarch64/arm64</td>
-</tr>
-
-<tr>
 <td width="30%">26.04 “resolute”</td>
 <td>x86_64, aarch64/arm64</td>
 </tr>
@@ -153,6 +148,11 @@ versions:
 <td>x86_64, aarch64/arm64</td>
 </tr>
 
+<tr>
+<td width="30%">3.24</td>
+<td>x86_64, aarch64/arm64</td>
+</tr>
+
 </table>
 </para>
 
@@ -164,11 +164,6 @@ versions:
 <tr>
 <td width="30%">Version</td>
 <td>Supported platforms</td>
-</tr>
-
-<tr>
-<td width="30%">2 (LTS)</td>
-<td>x86_64, aarch64/arm64</td>
 </tr>
 
 <tr>
