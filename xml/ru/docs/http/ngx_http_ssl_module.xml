@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_ssl_module"
         link="/ru/docs/http/ngx_http_ssl_module.html"
         lang="ru"
-        rev="74">
+        rev="75">
 
 <section id="summary">
 
@@ -1418,6 +1418,27 @@ prime256v1
 сертификата сервера для установленного SSL-соединения (1.29.3).
 <note>
 Переменная поддерживается при использовании OpenSSL версии 3.5 и выше.
+При использовании более старых версий значением переменной будет пустая строка.
+</note>
+<note>
+Переменная доступна только для новых сессий.
+</note>
+</tag-desc>
+
+<tag-name id="var_ssl_sigalgs"><var>$ssl_sigalgs</var></tag-name>
+<tag-desc>
+возвращает список
+<link url="https://www.iana.org/assignments/tls-parameters/tls-parameters.xhtml#tls-parameters-16">алгоритмов подписи</link>,
+поддерживаемых клиентом (1.31.2).
+Известные значения указаны по имени,
+неизвестные указаны в шестнадцатеричном виде,
+например:
+<example>
+0xfe00:rsa_pkcs1_sha256:rsa_pss_rsae_sha256:ecdsa_secp256r1_sha256
+</example>
+<note>
+Переменная полностью поддерживается при использовании OpenSSL версии 4.0 и выше.
+Для версий OpenSSL 1.0.2+ значения всегда указаны в шестнадцатеричном виде.
 При использовании более старых версий значением переменной будет пустая строка.
 </note>
 <note>
