@@ -10,7 +10,7 @@
 <module name="Module ngx_http_xslt_module"
         link="/en/docs/http/ngx_http_xslt_module.html"
         lang="en"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -68,6 +68,28 @@ It is enough to declare just the required character entities, for example:
 <example>
 &lt;!ENTITY nbsp "&amp;#xa0;"&gt;
 </example>
+</para>
+
+</directive>
+
+
+<directive name="xml_external_entities">
+<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<default>off</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.31.3</appeared-in>
+
+<para>
+Enables or disables loading of external entities declared in the
+internal DTD subset of the processed XML.
+Only loading of file-based external entities is supported.
+<note>
+To prevent reading arbitrary local files accessible to the worker
+process, it is recommended to enable external entities only when the
+processed XML is trusted.
+</note>
 </para>
 
 </directive>
