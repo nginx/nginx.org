@@ -26,6 +26,30 @@ Patches are signed using one of the
 
 <security>
 
+<item name="Buffer overflow when using map and regex"
+      severity="major"
+      advisory="https://my.f5.com/manage/s/article/K000162097"
+      cve="2026-42533"
+      good="1.31.3+"
+      vulnerable="0.9.6-1.31.2">
+</item>
+
+<item name="Memory disclosure when using ngx_http_slice_module"
+      severity="medium"
+      advisory="https://my.f5.com/manage/s/article/K000162100"
+      cve="2026-60005"
+      good="1.31.3+"
+      vulnerable="1.15.8-1.31.2">
+</item>
+
+<item name="Use-after-free when using mgx_http_ssi_module"
+      severity="medium"
+      advisory="https://my.f5.com/manage/s/article/K000162098"
+      cve="2026-56434"
+      good="1.31.3+"
+      vulnerable="0.8.11-1.31.2">
+</item>
+
 <item name="Use-after-free in HTTP/3"
       severity="major"
       advisory="https://my.f5.com/manage/s/article/K000161616"

@@ -1,4 +1,24 @@
 
+Changes with nginx 1.30.4                                        15 Jul 2026
+
+    *) Security: heap buffer overflow might occur in a worker process when
+       using the map directive with regex matching if the map variable was
+       included in a string expression after a capture affected by this map;
+       a similar issue might happen when using a non-cacheable variable in a
+       string expression (CVE-2026-42533).
+       Thanks to Mufeed VH of Winfunc Research and Maxim Dounin.
+
+    *) Security: uninitialized memory access might occur when using unnamed
+       regex captures with the "slice" directive or background cache update,
+       which could result in worker process memory disclosure or worker
+       process termination (CVE-2026-60005).
+
+    *) Security: use-after-free might occur when processing a specially
+       crafted proxied backend response with the ngx_http_ssi_filter_module
+       (CVE-2026-56434).
+       Thanks to P4P3R-HAK.
+
+
 Changes with nginx 1.30.3                                        17 Jun 2026
 
     *) Security: a heap memory buffer overflow might occur in a worker
