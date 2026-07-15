@@ -10,7 +10,7 @@
 <module name="Module ngx_http_proxy_module"
         link="/en/docs/http/ngx_http_proxy_module.html"
         lang="en"
-        rev="88">
+        rev="89">
 
 <section id="summary">
 
@@ -2100,6 +2100,48 @@ for outgoing connections to a proxied server.
 By default, the operating system’s settings are in effect for the socket.
 If the directive is set to the value “<literal>on</literal>”, the
 <c-def>SO_KEEPALIVE</c-def> socket option is turned on for the socket.
+</para>
+
+</directive>
+
+
+<directive name="proxy_socket_rcvbuf">
+<syntax><value>size</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.31.3</appeared-in>
+
+<para>
+Sets the receive buffer size
+(the <c-def>SO_RCVBUF</c-def> option)
+for outgoing connections to a proxied server.
+The special value <literal>0</literal> cancels the effect
+of the <literal>proxy_socket_rcvbuf</literal> directive
+inherited from the previous configuration level, which allows
+to keep the operating system’s settings in effect for the socket.
+</para>
+
+</directive>
+
+
+<directive name="proxy_socket_sndbuf">
+<syntax><value>size</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.31.3</appeared-in>
+
+<para>
+Sets the send buffer size
+(the <c-def>SO_SNDBUF</c-def> option)
+for outgoing connections to a proxied server.
+The special value <literal>0</literal> cancels the effect
+of the <literal>proxy_socket_sndbuf</literal> directive
+inherited from the previous configuration level, which allows
+to keep the operating system’s settings in effect for the socket.
 </para>
 
 </directive>

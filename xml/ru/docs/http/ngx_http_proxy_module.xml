@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_proxy_module"
         link="/ru/docs/http/ngx_http_proxy_module.html"
         lang="ru"
-        rev="88">
+        rev="89">
 
 <section id="summary">
 
@@ -2102,6 +2102,48 @@ proxy_set_header Accept-Encoding "";
 По умолчанию для сокета действуют настройки операционной системы.
 Если указано значение “<literal>on</literal>”, то
 для сокета включается параметр <c-def>SO_KEEPALIVE</c-def>.
+</para>
+
+</directive>
+
+
+<directive name="proxy_socket_rcvbuf">
+<syntax><value>size</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.31.3</appeared-in>
+
+<para>
+Задаёт размер буфера приёма
+(параметр <c-def>SO_RCVBUF</c-def>)
+для исходящих соединений к проксируемому серверу.
+Специальное значение <literal>0</literal> отменяет действие
+унаследованной с предыдущего уровня конфигурации
+директивы <literal>proxy_socket_rcvbuf</literal>, позволяя
+использовать настройки операционной системы.
+</para>
+
+</directive>
+
+
+<directive name="proxy_socket_sndbuf">
+<syntax><value>size</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.31.3</appeared-in>
+
+<para>
+Задаёт размер буфера передачи
+(параметр <c-def>SO_SNDBUF</c-def>)
+для исходящих соединений к проксируемому серверу.
+Специальное значение <literal>0</literal> отменяет действие
+унаследованной с предыдущего уровня конфигурации
+директивы <literal>proxy_socket_sndbuf</literal>, позволяя
+использовать настройки операционной системы.
 </para>
 
 </directive>
