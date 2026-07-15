@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_fastcgi_module"
         link="/ru/docs/http/ngx_http_fastcgi_module.html"
         lang="ru"
-        rev="56">
+        rev="57">
 
 <section id="summary">
 
@@ -1555,6 +1555,48 @@ FastCGI-сервер.
 По умолчанию для сокета действуют настройки операционной системы.
 Если указано значение “<literal>on</literal>”, то
 для сокета включается параметр <c-def>SO_KEEPALIVE</c-def>.
+</para>
+
+</directive>
+
+
+<directive name="fastcgi_socket_rcvbuf">
+<syntax><value>size</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.31.3</appeared-in>
+
+<para>
+Задаёт размер буфера приёма
+(параметр <c-def>SO_RCVBUF</c-def>)
+для исходящих соединений к FastCGI-серверу.
+Специальное значение <literal>0</literal> отменяет действие
+унаследованной с предыдущего уровня конфигурации
+директивы <literal>fastcgi_socket_rcvbuf</literal>, позволяя
+использовать настройки операционной системы.
+</para>
+
+</directive>
+
+
+<directive name="fastcgi_socket_sndbuf">
+<syntax><value>size</value></syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.31.3</appeared-in>
+
+<para>
+Задаёт размер буфера передачи
+(параметр <c-def>SO_SNDBUF</c-def>)
+для исходящих соединений к FastCGI-серверу.
+Специальное значение <literal>0</literal> отменяет действие
+унаследованной с предыдущего уровня конфигурации
+директивы <literal>fastcgi_socket_sndbuf</literal>, позволяя
+использовать настройки операционной системы.
 </para>
 
 </directive>
