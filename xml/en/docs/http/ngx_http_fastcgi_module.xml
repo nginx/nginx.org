@@ -1575,7 +1575,7 @@ for outgoing connections to a FastCGI server.
 The special value <literal>0</literal> cancels the effect
 of the <literal>fastcgi_socket_rcvbuf</literal> directive
 inherited from the previous configuration level, which allows
-to keep the operating system’s settings in effect for the socket.
+keeping the operating system’s settings in effect for the socket.
 </para>
 
 </directive>
@@ -1596,7 +1596,7 @@ for outgoing connections to a FastCGI server.
 The special value <literal>0</literal> cancels the effect
 of the <literal>fastcgi_socket_sndbuf</literal> directive
 inherited from the previous configuration level, which allows
-to keep the operating system’s settings in effect for the socket.
+keeping the operating system’s settings in effect for the socket.
 </para>
 
 </directive>
