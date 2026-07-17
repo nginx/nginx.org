@@ -209,6 +209,28 @@ location = /empty {
 </directive>
 
 
+<directive name="image_filter_max_pixels">
+<syntax><value>пикселы</value></syntax>
+<default>20000000</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.31.4</appeared-in>
+
+<para>
+Ограничивает максимальный размер обрабатываемого изображения в пикселах
+(ширину, умноженную на высоту).
+Ограничение распространяется как на исходное изображение,
+так и на результат преобразования.
+При превышении ограничения изображение не обрабатывается
+и сервер вернёт ошибку
+<http-status code="415" text="Unsupported Media Type"/>.
+Специальное значение <literal>0</literal> отключает ограничение.
+</para>
+
+</directive>
+
+
 <directive name="image_filter_sharpen">
 <syntax><value>процент</value></syntax>
 <default>0</default>
