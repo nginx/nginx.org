@@ -131,6 +131,16 @@ be inherited in all nested levels recursively unless redefined later.
 Adds the specified field to the end of a response provided that
 the response code equals 200, 201, 206, 301, 302, 303, 307, or 308.
 Parameter value can contain variables.
+
+Warning: If you use variables in the parameter value, you must ensure
+that they are ones that will never contain carriage return, newline,
+or NUL characters.  Failure to ensure this will result in a severe
+vulnerability known as HTTP response splitting.
+
+$uri and the $arg_* variables can contain newlines and must not be used.
+$http_* and $request_uri will never contain newlines.
+
+NGINX does not prevent you from setting headers that you should not.
 </para>
 
 <para id="add_trailer_default_inherit">
