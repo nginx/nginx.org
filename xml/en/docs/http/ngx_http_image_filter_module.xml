@@ -205,6 +205,27 @@ Parameter value can contain variables.
 </directive>
 
 
+<directive name="image_filter_max_pixels">
+<syntax><value>pixels</value></syntax>
+<default>20000000</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.31.4</appeared-in>
+
+<para>
+Limits the maximum size, in pixels, of an image being processed,
+as the width multiplied by the height.
+This applies both to the source image and to the transformation result.
+When the limit is exceeded, the image is not processed and the server
+returns error
+<http-status code="415" text="Unsupported Media Type"/>.
+The special value <literal>0</literal> disables the limit.
+</para>
+
+</directive>
+
+
 <directive name="image_filter_sharpen">
 <syntax><value>percent</value></syntax>
 <default>0</default>
