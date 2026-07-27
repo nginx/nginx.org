@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_ssl_module"
         link="/en/docs/stream/ngx_stream_ssl_module.html"
         lang="en"
-        rev="48">
+        rev="49">
 
 <section id="summary">
 
@@ -517,9 +517,7 @@ in shared mode.
 
 <para>
 <note>
-The directive is currently supported only when using OpenSSL
-<link url="https://github.com/openssl/openssl/tree/feature/ech">ECH
-feature branch</link>.
+The directive is supported when using OpenSSL 4.0 or higher.
 </note>
 </para>
 
@@ -1245,10 +1243,8 @@ returns the result of TLS 1.3 <link id="ssl_ech_file">ECH</link> processing:
 “<literal>SUCCESS</literal>”, or
 “<literal>NOT_TRIED</literal>” (1.29.4);
 <note>
-The variable is currently supported only when using OpenSSL
-<link url="https://github.com/openssl/openssl/tree/feature/ech">ECH feature branch</link>
-and is therefore subject to change.
-The variable value will otherwise be an empty string.
+The variable is supported only when using OpenSSL version 4.0 or higher.
+With older versions, the variable value will be an empty string.
 </note>
 </tag-desc>
 

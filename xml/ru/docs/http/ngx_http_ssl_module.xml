@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_ssl_module"
         link="/ru/docs/http/ngx_http_ssl_module.html"
         lang="ru"
-        rev="75">
+        rev="76">
 
 <section id="summary">
 
@@ -590,9 +590,7 @@ ssl_ecdh_curve prime256v1:secp384r1;
 
 <para>
 <note>
-В настоящее время директива поддерживается только при использовании
-<link url="https://github.com/openssl/openssl/tree/feature/ech">ветки
-разработки ECH</link> OpenSSL.
+Директива поддерживается при использовании OpenSSL 4.0 и выше.
 </note>
 </para>
 
@@ -1381,10 +1379,8 @@ prime256v1
 “<literal>SUCCESS</literal>” или
 “<literal>NOT_TRIED</literal>” (1.29.4);
 <note>
-В настоящее время переменная поддерживается при использовании
-<link url="https://github.com/openssl/openssl/tree/feature/ech">ветки разработки ECH</link>
-и, таким образом, может измениться.
-В остальных случаях значением переменной будет пустая строка.
+Переменная поддерживается при использовании OpenSSL версии 4.0 и выше.
+При использовании более старых версий значением переменной будет пустая строка.
 </note>
 </tag-desc>
 
