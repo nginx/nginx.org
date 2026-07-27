@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="116">
+        rev="117">
 
 <section id="directives" name="Directives">
 
@@ -1124,6 +1124,19 @@ Buffers are allocated only on demand.
 By default, the buffer size is equal to 8K bytes.
 If after the end of request processing a connection is transitioned
 into the keep-alive state, these buffers are released.
+</para>
+
+<para>
+The limits are similarly applied in HTTP/2 and HTTP/3 connections.
+The size of one buffer
+limits the maximum size of a request header field compressed with
+<link url="https://datatracker.ietf.org/doc/html/rfc7541">HPACK</link>
+and
+<link url="https://datatracker.ietf.org/doc/html/rfc9204">QPACK</link>,
+respectively.
+Note that if Huffman encoding is applied,
+the actual size of decompressed name and value strings may be larger.
+The maximum size of the entire request header is limited after decompression.
 </para>
 
 <para>
