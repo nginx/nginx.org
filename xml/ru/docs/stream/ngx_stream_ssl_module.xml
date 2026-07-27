@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_ssl_module"
         link="/ru/docs/stream/ngx_stream_ssl_module.html"
         lang="ru"
-        rev="48">
+        rev="49">
 
 <section id="summary">
 
@@ -845,6 +845,15 @@ ssl_session_cache builtin:1000 shared:SSL:10m;
 быть более эффективным.
 </para>
 
+<para>
+Если директива указана
+на уровне <link doc="ngx_stream_core_module.xml" id="server"/>,
+то может использоваться значение из сервера по умолчанию.
+Подробнее см. в разделе
+“<link doc="../http/server_names.xml" id="virtual_server_selection">Выбор
+виртуального сервера</link>”.
+</para>
+
 </directive>
 
 
@@ -882,6 +891,15 @@ openssl rand 80 > ticket.key
 AES256 (для 80-байтных ключей, 1.11.8), либо AES128 (для 48-байтных ключей).
 </para>
 
+<para>
+Если директива указана
+на уровне <link doc="ngx_stream_core_module.xml" id="server"/>,
+то может использоваться значение из сервера по умолчанию.
+Подробнее см. в разделе
+“<link doc="../http/server_names.xml" id="virtual_server_selection">Выбор
+виртуального сервера</link>”.
+</para>
+
 </directive>
 
 
@@ -896,6 +914,15 @@ AES256 (для 80-байтных ключей, 1.11.8), либо AES128 (для 
 <link url="https://datatracker.ietf.org/doc/html/rfc5077">TLS session tickets</link>.
 </para>
 
+<para>
+Если директива указана
+на уровне <link doc="ngx_stream_core_module.xml" id="server"/>,
+то может использоваться значение из сервера по умолчанию.
+Подробнее см. в разделе
+“<link doc="../http/server_names.xml" id="virtual_server_selection">Выбор
+виртуального сервера</link>”.
+</para>
+
 </directive>
 
 
@@ -908,6 +935,15 @@ AES256 (для 80-байтных ключей, 1.11.8), либо AES128 (для 
 <para>
 Задаёт время, в течение которого клиент может повторно
 использовать параметры сессии.
+</para>
+
+<para>
+Если директива указана
+на уровне <link doc="ngx_stream_core_module.xml" id="server"/>,
+то может использоваться значение из сервера по умолчанию.
+Подробнее см. в разделе
+“<link doc="../http/server_names.xml" id="virtual_server_selection">Выбор
+виртуального сервера</link>”.
 </para>
 
 </directive>

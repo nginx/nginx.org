@@ -8,7 +8,7 @@
 <article name="Имена сервера"
          link="/ru/docs/http/server_names.html"
          lang="ru"
-         rev="5"
+         rev="6"
          author="Игорь Сысоев"
          editor="Brian Mercer">
 
@@ -386,12 +386,25 @@ server {
 <list type="bullet">
 
 <listitem>
-в случае использования
-директивы <link doc="ngx_http_ssl_module.xml" id="ssl_protocols"/>
-список протоколов задаётся библиотекой OpenSSL
-перед применением конфигурации сервера согласно имени,
-запрашиваемого через SNI.
-Таким образом, протоколы должны быть заданы только для сервера по умолчанию;
+в случае использования директивы
+<link doc="ngx_http_ssl_module.xml" id="ssl_protocols"/>
+список протоколов может применяться из конфигурации виртуального сервера,
+только если это поддерживается нижележащей библиотекой
+(OpenSSL 1.1.1 и выше, BoringSSL, AWS-LC).
+При использовании прочих библиотек список протоколов задаётся
+перед применением конфигурации сервера согласно SNI,
+таким образом, протоколы должны быть заданы только для сервера по умолчанию;
+</listitem>
+
+<listitem>
+в случае использования директив
+<link doc="ngx_http_ssl_module.xml" id="ssl_session_cache"/>,
+<link doc="ngx_http_ssl_module.xml" id="ssl_session_tickets"/>,
+<link doc="ngx_http_ssl_module.xml" id="ssl_session_timeout"/>
+и, следовательно,
+<link doc="ngx_http_ssl_module.xml" id="ssl_early_data"/>
+восстановление сессии всегда производится из контекста сервера по умолчанию,
+таким образом, директивы должны быть заданы только для сервера по умолчанию;
 </listitem>
 
 <listitem>

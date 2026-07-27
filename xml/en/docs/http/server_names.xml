@@ -8,7 +8,7 @@
 <article name="Server names"
          link="/en/docs/http/server_names.html"
          lang="en"
-         rev="5"
+         rev="6"
          author="Igor Sysoev"
          editor="Brian Mercer">
 
@@ -383,11 +383,26 @@ As such, certain directives should be specified with caution:
 
 <listitem>
 in case of the
-<link doc="ngx_http_ssl_module.xml" id="ssl_protocols"/> directive,
-the protocol list is set by the OpenSSL library before
-the server configuration could be applied according to the name
-requested through SNI,
+<link doc="ngx_http_ssl_module.xml" id="ssl_protocols"/>
+directive,
+the protocol list can be applied from a virtual server configuration
+only if supported by the underlying library
+(OpenSSL 1.1.1 or higher, BoringSSL, AWS-LC).
+For the libraries not listed above, the protocol list is set before
+the server configuration could be applied according to SNI,
 thus, protocols should be specified only for a default server;
+</listitem>
+
+<listitem>
+in case of the
+<link doc="ngx_http_ssl_module.xml" id="ssl_session_cache"/>,
+<link doc="ngx_http_ssl_module.xml" id="ssl_session_tickets"/>,
+<link doc="ngx_http_ssl_module.xml" id="ssl_session_timeout"/>,
+and, consequently,
+<link doc="ngx_http_ssl_module.xml" id="ssl_early_data"/>
+directives,
+SSL sessions are always resumed from the default server context,
+thus, the directives should be specified only for a default server;
 </listitem>
 
 <listitem>
