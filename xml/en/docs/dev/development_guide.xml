@@ -9,9 +9,36 @@
 <article name="Development guide"
          link="/en/docs/dev/development_guide.html"
          lang="en"
-         rev="13">
+         rev="14">
 
 <section name="Introduction" id="introduction">
+
+
+<section name="Public and private API" id="public_private_api">
+
+<para>
+nginx does not formally separate its programming interface into public and
+private parts.
+All header files in the nginx source tree can be included by both standard and
+third-party modules.
+The data structure definitions, external data references, macros, and functions
+they declare are available for public use.
+Some of these, however, exist for nginx's own internal convenience, and module
+authors should avoid depending on them.
+The best way to stay within the public part of the API is to follow this
+guide.
+</para>
+
+<para>
+Accessing nginx private data defined in C source files and not exported
+through header files is strongly discouraged, as is copying standard nginx
+functions in order to alter their behavior.
+Such code is fragile: it may become binary incompatible with a later nginx
+version, and security fixes applied to the original functions will not reach
+the copies.
+</para>
+
+</section>
 
 
 <section name="Code layout" id="code_layout">
