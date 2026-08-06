@@ -187,6 +187,28 @@ a certificate will be loaded for each SSL handshake,
 and this may have a negative impact on performance.
 </para>
 
+<para>
+Since <link id="var_ssl_server_name">$ssl_server_name</link>
+is chosen by the client,
+loading certificates with such a file name should be filtered:
+<example>
+map $ssl_server_name $name {
+    hostnames;
+
+    default        www.example.org;
+
+    .example.org   www.example.org;
+    .example.com   www.example.com;
+}
+
+server {
+    listen              443 ssl;
+    ssl_certificate     certs/$name.crt;
+    ssl_certificate_key certs/$name.key;
+}
+</example>
+</para>
+
 <para id="ssl_certificate_data">
 The value
 <literal>data</literal>:<value>$variable</value>
@@ -225,7 +247,7 @@ IP addresses</link>.
 Defines a cache that stores
 <link id="ssl_certificate">SSL certificates</link> and
 <link id="ssl_certificate_key">secret keys</link>
-specified with <link id="ssl_certificate_key_variables">variables</link>.
+specified with <link id="ssl_certificate_variables">variables</link>.
 </para>
 
 <para>
@@ -273,8 +295,6 @@ disables the cache.
 <para>
 Example:
 <example>
-ssl_certificate       $ssl_server_name.crt;
-ssl_certificate_key   $ssl_server_name.key;
 ssl_certificate_cache max=1000 inactive=20s valid=1m;
 </example>
 </para>
