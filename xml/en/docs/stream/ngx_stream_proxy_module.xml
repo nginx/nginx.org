@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_proxy_module"
         link="/en/docs/stream/ngx_stream_proxy_module.html"
         lang="en"
-        rev="39">
+        rev="40">
 
 <section id="summary">
 
@@ -288,7 +288,7 @@ and, if not found, is determined using a
 
 
 <directive name="proxy_protocol">
-<syntax><literal>on</literal> | <literal>off</literal></syntax>
+<syntax><literal>on</literal> | <literal>off</literal> | <literal>v2</literal></syntax>
 <default>off</default>
 <context>stream</context>
 <context>server</context>
@@ -298,6 +298,10 @@ and, if not found, is determined using a
 Enables the
 <link url="http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt">PROXY
 protocol</link> for connections to a proxied server.
+The <literal>on</literal> parameter enables
+version 1 of the PROXY protocol (text format).
+The <literal>v2</literal> parameter (1.31.4) enables
+version 2 of the PROXY protocol (binary format).
 </para>
 
 </directive>
