@@ -10,7 +10,7 @@
 <module name="Module ngx_mail_core_module"
         link="/en/docs/mail/ngx_mail_core_module.html"
         lang="en"
-        rev="25">
+        rev="26">
 
 <section id="summary">
 
@@ -132,6 +132,10 @@ Obtained information is passed to the
 <link doc="ngx_mail_auth_http_module.xml" id="proxy_protocol">authentication server</link>
 and can be used to
 <link doc="ngx_mail_realip_module.xml">change the client address</link>.
+<note>
+The ability to generate PROXY protocol version 2 headers for
+sending them to proxied servers is supported since version 1.31.4.
+</note>
 </para>
 
 <para>

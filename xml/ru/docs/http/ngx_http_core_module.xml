@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="117">
+        rev="118">
 
 <section id="directives" name="Директивы">
 
@@ -1503,7 +1503,10 @@ HTTP/2-соединений без SSL.
 <link url="http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt">протокол
 PROXY</link>.
 <note>
-Протокол PROXY версии 2 поддерживается начиная с версии 1.13.11.
+Приём и обработка заголовков протокола PROXY версии 2
+поддерживается начиная с версии 1.13.11.
+Генерация заголовков протокола PROXY версии 2 для
+их отправки проксируемым серверам доступна начиная с версии 1.31.4.
 </note>
 </para>
 

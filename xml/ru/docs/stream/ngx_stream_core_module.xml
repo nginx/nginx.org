@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_core_module"
         link="/ru/docs/stream/ngx_stream_core_module.html"
         lang="ru"
-        rev="45">
+        rev="46">
 
 <section id="summary">
 
@@ -158,7 +158,11 @@ listen 12345-12399;
 <link url="http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt">протокол
 PROXY</link>.
 <note>
-Протокол PROXY версии 2 поддерживается начиная с версии 1.13.11.
+Приём и обработка заголовков протокола PROXY версии 2
+поддерживается начиная с версии 1.13.11.
+Генерация заголовков протокола PROXY версии 2 для
+их отправки проксируемым серверам доступна начиная с версии 1.31.4,
+полностью для TCP, частично для UDP.
 </note>
 </para>
 
