@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="137">
+        rev="138">
 
 <section id="summary">
 
@@ -389,7 +389,12 @@ HTTP method, read-only
 
 <tag-name id="r_parent"><literal>r.parent</literal></tag-name>
 <tag-desc>
-references the parent request object
+references the parent request object for a subrequest response object
+received through a completion callback or the <literal>Promise</literal>
+returned by <link id="r_subrequest"><literal>r.subrequest()</literal></link>.
+For a request object passed to a JavaScript handler,
+including a subrequest handler,
+<literal>undefined</literal> is returned.
 </tag-desc>
 
 <tag-name id="r_remote_address"><literal>r.remoteAddress</literal></tag-name>
