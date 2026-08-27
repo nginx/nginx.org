@@ -9,7 +9,7 @@
 <article name="Модуль nginx JavaScript"
         link="/ru/docs/njs/index.html"
         lang="ru"
-        rev="40"
+        rev="41"
         toc="no">
 
 <section id="summary">
@@ -45,7 +45,7 @@ njs не является самостоятельной средой выпол
 </section>
 
 
-<section id="links">
+<section id="getting_started" name="Начало работы">
 
 <para>
 <list type="bullet">
@@ -59,50 +59,27 @@ njs не является самостоятельной средой выпол
 </listitem>
 
 <listitem>
-<link doc="changes.xml">Изменения в njs</link> [en]
-</listitem>
-
-<listitem>
-<link doc="reference.xml">Справочник</link> [en]
-</listitem>
-
-<listitem>
-<link doc="engine.xml"/>
-</listitem>
-
-<listitem>
-<link doc="native_modules.xml"/>
-</listitem>
-
-<listitem>
 <link url="https://github.com/nginx/njs-examples/">Примеры использования</link>
-</listitem>
-
-<listitem>
-<link doc="security.xml">Безопасность</link> [en]
-</listitem>
-
-<listitem>
-<link doc="compatibility.xml"/>
 </listitem>
 
 <listitem>
 <link doc="cli.xml"/>
 </listitem>
 
-<listitem>
-<link doc="preload_objects.xml"/>
-</listitem>
-
-<listitem>
-<link id="tested_os_and_platforms">Протестированные ОС и платформы</link>
-</listitem>
-
 </list>
 </para>
 
+</section>
+
+
+<section id="links" name="Справочная информация">
+
 <para>
 <list type="bullet">
+
+<listitem>
+<link doc="reference.xml">Справочник</link> [en]
+</listitem>
 
 <listitem>
 <link doc="../http/ngx_http_js_module.xml">
@@ -114,18 +91,51 @@ ngx_http_js_module</link>
 ngx_stream_js_module</link>
 </listitem>
 
-</list>
-</para>
+<listitem>
+<link doc="engine.xml"/>
+</listitem>
 
-<para>
-<list type="bullet">
+<listitem>
+<link doc="compatibility.xml"/>
+</listitem>
+
+<listitem>
+<link doc="native_modules.xml"/>
+</listitem>
+
+<listitem>
+<link doc="node_modules.xml"/>
+</listitem>
 
 <listitem>
 <link doc="typescript.xml"/>
 </listitem>
 
 <listitem>
-<link doc="node_modules.xml"/>
+<link doc="preload_objects.xml"/>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+
+<section id="project" name="О проекте">
+
+<para>
+<list type="bullet">
+
+<listitem>
+<link doc="changes.xml">Изменения в njs</link> [en]
+</listitem>
+
+<listitem>
+<link doc="security.xml">Безопасность</link> [en]
+</listitem>
+
+<listitem>
+<link id="tested_os_and_platforms">Протестированные ОС и платформы</link>
 </listitem>
 
 </list>

@@ -9,7 +9,7 @@
 <article name="nginx JavaScript module"
         link="/en/docs/njs/index.html"
         lang="en"
-        rev="40"
+        rev="41"
         toc="no">
 
 <section id="summary">
@@ -45,7 +45,7 @@ new configurations should use the
 </section>
 
 
-<section id="links">
+<section id="getting_started" name="Getting started">
 
 <para>
 <list type="bullet">
@@ -59,50 +59,27 @@ new configurations should use the
 </listitem>
 
 <listitem>
-<link doc="changes.xml"/>
-</listitem>
-
-<listitem>
-<link doc="reference.xml"/>
-</listitem>
-
-<listitem>
-<link doc="engine.xml"/>
-</listitem>
-
-<listitem>
-<link doc="native_modules.xml"/>
-</listitem>
-
-<listitem>
 <link url="https://github.com/nginx/njs-examples/">Examples</link>
-</listitem>
-
-<listitem>
-<link doc="security.xml"/>
-</listitem>
-
-<listitem>
-<link doc="compatibility.xml"/>
 </listitem>
 
 <listitem>
 <link doc="cli.xml"/>
 </listitem>
 
-<listitem>
-<link doc="preload_objects.xml"/>
-</listitem>
-
-<listitem>
-<link id="tested_os_and_platforms">Tested OS and platforms</link>
-</listitem>
-
 </list>
 </para>
 
+</section>
+
+
+<section id="links" name="Reference">
+
 <para>
 <list type="bullet">
+
+<listitem>
+<link doc="reference.xml"/>
+</listitem>
 
 <listitem>
 <link doc="../http/ngx_http_js_module.xml">
@@ -114,18 +91,51 @@ ngx_http_js_module</link>
 ngx_stream_js_module</link>
 </listitem>
 
-</list>
-</para>
+<listitem>
+<link doc="engine.xml"/>
+</listitem>
 
-<para>
-<list type="bullet">
+<listitem>
+<link doc="compatibility.xml"/>
+</listitem>
+
+<listitem>
+<link doc="native_modules.xml"/>
+</listitem>
+
+<listitem>
+<link doc="node_modules.xml"/>
+</listitem>
 
 <listitem>
 <link doc="typescript.xml"/>
 </listitem>
 
 <listitem>
-<link doc="node_modules.xml"/>
+<link doc="preload_objects.xml"/>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+
+<section id="project" name="Project">
+
+<para>
+<list type="bullet">
+
+<listitem>
+<link doc="changes.xml"/>
+</listitem>
+
+<listitem>
+<link doc="security.xml"/>
+</listitem>
+
+<listitem>
+<link id="tested_os_and_platforms">Tested OS and platforms</link>
 </listitem>
 
 </list>
