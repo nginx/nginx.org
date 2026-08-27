@@ -9,15 +9,14 @@
 <module name="Модуль ngx_http_js_module"
         link="/ru/docs/http/ngx_http_js_module.html"
         lang="ru"
-        rev="59">
+        rev="63">
 
 <section id="summary">
 
 <para>
 Модуль <literal>ngx_http_js_module</literal> позволяет задавать
-обработчики location и переменных
-на <link doc="../njs/index.xml">njs</link> —
-подмножестве языка JavaScript.
+обработчики location, переменных и фильтров на JavaScript
+с помощью <link doc="../njs/index.xml">njs</link>.
 </para>
 
 <para>
@@ -208,10 +207,6 @@ function filter(r, data, flags) {
     r.sendBuffer(data.toLowerCase(), flags);
 }
 </example>
-Для отмены фильтра (блоки данных будут передаваться клиенту
-без вызова <literal>js_body_filter</literal>),
-можно использовать
-<link doc="../njs/reference.xml" id="r_done"><literal>r.done()</literal></link>.
 </para>
 
 <para>
@@ -219,7 +214,36 @@ function filter(r, data, flags) {
 необходимо очистить заголовок ответа <header>Content-Length</header>
 (если присутствует) в
 <link id="js_header_filter"><literal>js_header_filter</literal></link>,
-чтобы применить поблочное кодирование.
+чтобы применить поблочное кодирование:
+<example>
+example.conf:
+ location /foo {
+     # proxy_pass http://localhost:8080;
+
+    js_header_filter main.clear_content_length;
+    js_body_filter   main.filter;
+ }
+
+example.js:
+ function clear_content_length(r) {
+     delete r.headersOut['Content-Length'];
+ }
+</example>
+</para>
+
+<para>
+Для отмены фильтра (блоки данных будут передаваться клиенту
+без вызова <literal>js_body_filter</literal>),
+можно использовать
+<link doc="../njs/reference.xml" id="r_done"><literal>r.done()</literal></link>.
+Например, чтобы добавить данные в начало тела ответа:
+<example>
+function prepend(r, data, flags) {
+    r.sendBuffer("XXX");
+    r.sendBuffer(data, flags);
+    r.done();
+}
+</example>
 </para>
 
 <para>
@@ -340,7 +364,7 @@ example.js:
 <appeared-in>0.8.6</appeared-in>
 
 <para>
-Задаёт максимальное число контекстов JS для повторного использования
+Задаёт максимальное число контекстов JS для повторного использования в
 <link doc="../njs/engine.xml">движке QuickJS</link>.
 Каждый контекст используется для одного запроса.
 Завершённый контекст помещается в пул повторно используемых контекстов.
@@ -713,8 +737,8 @@ location /fetch {
 <appeared-in>0.4.0</appeared-in>
 
 <para>
-Импортирует модуль, позволяющий задавать обработчики location и переменных
-на njs.
+Импортирует модуль, позволяющий задавать обработчики location, переменных
+и фильтров на njs.
 <literal>Имя_экспорта</literal> является пространством имён
 при доступе к функциям модуля.
 Если <literal>имя_экспорта</literal> не задано,
@@ -730,6 +754,29 @@ js_import http.js;
 
 <para>
 Директив <literal>js_import</literal> может быть несколько.
+</para>
+
+<para>
+Если директива <literal>js_import</literal> указана внутри
+<link doc="ngx_http_core_module.xml" id="location"/>,
+импортированные модули видны только в том случае,
+если ранее при обработке запроса не выполнялся JavaScript-код.
+Для каждого запроса создаётся виртуальная машина (VM):
+или в момент первого обращения к переменной <link id="js_set"/>
+или первого вызова обработчика
+<link id="js_content"/>, <link id="js_header_filter"/>,
+<link id="js_body_filter"/> или <link id="js_access"/>.
+VM клонируется из конфигурации, активной в этот момент,
+и повторно используется во всех последующих вызовах JavaScript в рамках запроса.
+Таким образом, если обращение к любому из перечисленного происходит
+до того, как запрос будет сопоставлен с итоговым location,
+например в директиве
+<link doc="ngx_http_rewrite_module.xml" id="set"/> на уровне server,
+VM будет связана с набором импортов внешней области,
+и модули, импортированные в совпадающий <literal>location</literal>,
+будут недоступны.
+Чтобы избежать этого, такие импорты следует объявлять
+в общей родительской области конфигурации.
 </para>
 
 <para>
@@ -888,7 +935,8 @@ let result = mylib.add(5, 10);
 </para>
 
 <para>
-По умолчанию <literal>js_handler</literal> выполняется для рабочего процесса 0.
+По умолчанию обработчик <literal>js_periodic</literal>
+выполняется для рабочего процесса 0.
 Необязательный параметр <literal>worker_affinity</literal>
 позволяет указать рабочий процесс,
 для которого будет выполняться обработчик содержимого location.
@@ -1033,7 +1081,8 @@ js_preload_object map.json;
     <literal>zone</literal>=<value>имя</value>:<value>размер</value>
     [<literal>timeout</literal>=<value>время</value>]
     [<literal>type</literal>=<literal>строка</literal>|<literal>число</literal>]
-    [<literal>evict</literal>]</syntax>
+    [<literal>evict</literal>]
+    [<literal>state</literal>=<value>файл</value>]</syntax>
 <default/>
 <context>http</context>
 <appeared-in>0.8.0</appeared-in>
@@ -1069,6 +1118,13 @@ js_preload_object map.json;
 </para>
 
 <para>
+Необязательный параметр <literal>state</literal> задаёт <value>файл</value>,
+в котором хранится состояние разделяемого словаря
+в формате JSON, что позволяет сохранять его между перезапусками nginx
+(<link doc="../njs/changes.xml" id="njs0.9.1">0.9.1</link>).
+</para>
+
+<para>
 Пример:
 <example>
 example.conf:
@@ -1082,6 +1138,10 @@ example.conf:
 
     # Создаётся постоянный словарь размером 32Кб с числовыми значениями:
     js_shared_dict_zone zone=num:32k type=number;
+
+    # Создаётся словарь размером 1Мб со строковыми значениями
+    # и постоянным состоянием:
+    js_shared_dict_zone zone=persistent:1M state=/tmp/dict.json;
 
 example.js:
     function get(r) {
