@@ -9,7 +9,7 @@
 <article name="Модуль nginx JavaScript"
         link="/ru/docs/njs/index.html"
         lang="ru"
-        rev="39"
+        rev="40"
         toc="no">
 
 <section id="summary">
@@ -18,6 +18,17 @@
 njs - это модуль nginx, который расширяет возможности сервера nginx с помощью
 сценариев JavaScript, позволяя создавать пользовательскую
 логику на стороне сервера и выполнять <link id="usecases">другие задачи</link>.
+</para>
+
+<para>
+nginx вызывает JavaScript-обработчики в фиксированном наборе
+<link doc="integration.xml">точек интеграции</link>:
+в фазах обработки HTTP-запроса и ответа, фазах stream-сессии,
+при вычислении переменных и по таймеру.
+njs не является самостоятельной средой выполнения приложений:
+стартовый сценарий и собственный цикл событий отсутствуют,
+код JavaScript выполняется исключительно в рамках настроенного обработчика,
+вызванного nginx, по завершении которого управление возвращается nginx.
 </para>
 
 <para>
@@ -41,6 +52,10 @@ njs - это модуль nginx, который расширяет возмож�
 
 <listitem>
 <link doc="install.xml"/>
+</listitem>
+
+<listitem>
+<link doc="integration.xml"/>
 </listitem>
 
 <listitem>

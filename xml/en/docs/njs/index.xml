@@ -9,7 +9,7 @@
 <article name="nginx JavaScript module"
         link="/en/docs/njs/index.html"
         lang="en"
-        rev="39"
+        rev="40"
         toc="no">
 
 <section id="summary">
@@ -18,6 +18,17 @@
 njs is an nginx module that extends the server's functionality through
 JavaScript scripting, enabling the creation of custom
 server-side logic and <link id="usecases">more</link>.
+</para>
+
+<para>
+nginx calls JavaScript handlers at a fixed set of
+<link doc="integration.xml">integration points</link>:
+HTTP request and response processing phases, stream session phases,
+variable evaluation, and periodic timers.
+njs is not a standalone application runtime:
+it has no start-up script and no event loop of its own,
+JavaScript code runs only when nginx invokes a configured handler,
+and control returns to nginx once the handler completes.
 </para>
 
 <para>
@@ -41,6 +52,10 @@ new configurations should use the
 
 <listitem>
 <link doc="install.xml"/>
+</listitem>
+
+<listitem>
+<link doc="integration.xml"/>
 </listitem>
 
 <listitem>
