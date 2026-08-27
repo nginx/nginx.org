@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="138">
+        rev="139">
 
 <section id="summary">
 
@@ -713,15 +713,18 @@ sends the HTTP headers to the client
 sets the return value of the
 <link doc="../http/ngx_http_js_module.xml" id="js_set"/> handler
 (<link doc="changes.xml" id="njs0.7.0">0.7.0</link>).
-Unlike an ordinary return statement,
-this method should be used when the handler is JS async function.
-For example:
+<para>
+The method was made obsolete in
+<link doc="changes.xml" id="njs0.9.5">0.9.5</link>.
+Since this version, an <literal>async</literal> handler
+can return its value with an ordinary return statement:
 <example>
 async function js_set(r) {
     const digest = await crypto.subtle.digest('SHA-256', r.headersIn.host);
-    r.setReturnValue(digest);
+    return Buffer.from(digest).toString('hex');
 }
 </example>
+</para>
 </tag-desc>
 
 <tag-name id="r_status"><literal>r.status</literal></tag-name>
@@ -1182,15 +1185,18 @@ read only
 sets the return value of the
 <link doc="../stream/ngx_stream_js_module.xml" id="js_set"/> handler
 (<link doc="changes.xml" id="njs0.7.0">0.7.0</link>).
-Unlike an ordinary return statement,
-this method should be used when the handler is JS async function.
-For example:
+<para>
+The method was made obsolete in
+<link doc="changes.xml" id="njs0.9.5">0.9.5</link>.
+Since this version, an <literal>async</literal> handler
+can return its value with an ordinary return statement:
 <example>
-async function js_set(r) {
-    const digest = await crypto.subtle.digest('SHA-256', r.headersIn.host);
-    r.setReturnValue(digest);
+async function js_set(s) {
+    const digest = await crypto.subtle.digest('SHA-256', s.remoteAddress);
+    return Buffer.from(digest).toString('hex');
 }
 </example>
+</para>
 </tag-desc>
 
 <tag-name id="s_variables"><literal>s.variables{}</literal></tag-name>

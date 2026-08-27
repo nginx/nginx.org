@@ -9,7 +9,7 @@
 <module name="Module ngx_http_js_module"
         link="/en/docs/http/ngx_http_js_module.html"
         lang="en"
-        rev="63">
+        rev="64">
 
 <section id="summary">
 
@@ -134,10 +134,10 @@ async function fetch(r) {
     r.return(200, JSON.stringify(results, undefined, 4));
 }
 
-// since 0.7.0
+// since 0.9.5
 async function hash(r) {
     let hash = await crypto.subtle.digest('SHA-512', r.headersIn.host);
-    r.setReturnValue(Buffer.from(hash).toString('hex'));
+    return Buffer.from(hash).toString('hex');
 }
 
 export default {foo, summary, baz, hello, fetch, hash};
