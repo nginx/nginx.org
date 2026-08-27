@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_proxy_module"
         link="/en/docs/stream/ngx_stream_proxy_module.html"
         lang="en"
-        rev="40">
+        rev="41">
 
 <section id="summary">
 
@@ -301,7 +301,64 @@ protocol</link> for connections to a proxied server.
 The <literal>on</literal> parameter enables
 version 1 of the PROXY protocol (text format).
 The <literal>v2</literal> parameter (1.31.4) enables
-version 2 of the PROXY protocol (binary format).
+version 2 of the PROXY protocol (binary format),
+which additionally allows sending type-length-value (TLV) vectors
+with the <link id="proxy_protocol_v2_tlv"/> directive.
+</para>
+
+</directive>
+
+
+<directive name="proxy_protocol_v2_tlv">
+<syntax><value>type</value> <value>value</value></syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+
+<para>
+Appends a type-length-value (TLV) vector to the version 2
+<link id="proxy_protocol">PROXY protocol</link> header
+sent to a proxied server.
+The directive can be specified several times
+to send multiple vectors.
+Sending TLV vectors requires the
+<link id="proxy_protocol"><literal>v2</literal></link> parameter;
+with version 1 the configured vectors are ignored.
+</para>
+
+<para>
+These directives are inherited from the previous configuration level
+if and only if there are no
+<literal>proxy_protocol_v2_tlv</literal> directives
+defined on the current level.
+</para>
+
+<para>
+The <value>type</value> is specified as exactly two hexadecimal digits
+after a lowercase <literal>0x</literal> prefix,
+from <literal>0xe0</literal> to <literal>0xff</literal>;
+no other notation is accepted.
+The digits themselves may be in either case.
+The PROXY protocol specification reserves this range for applications:
+<literal>0xe0</literal> &mdash; <literal>0xef</literal> for custom use,
+<literal>0xf0</literal> &mdash; <literal>0xf7</literal> for experimental use,
+and <literal>0xf8</literal> &mdash; <literal>0xff</literal> for future use.
+Each type may be specified only once on a configuration level.
+</para>
+
+<para>
+The <value>value</value> can contain variables
+and is evaluated for each connection.
+An empty value is sent as a vector of zero length.
+</para>
+
+<para>
+Example:
+<example>
+proxy_protocol         v2;
+proxy_protocol_v2_tlv  0xe0  backend.example.com;
+proxy_protocol_v2_tlv  0xe1  $ssl_preread_server_name;
+</example>
 </para>
 
 </directive>
