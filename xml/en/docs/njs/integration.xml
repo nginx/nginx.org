@@ -1,0 +1,401 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE article SYSTEM "../../../../dtd/article.dtd">
+
+<article name="Execution model and integration points"
+        link="/en/docs/njs/integration.html"
+        lang="en"
+        rev="1">
+
+<section id="summary">
+
+<para>
+JavaScript code in <link doc="index.xml">njs</link> never runs on its own.
+nginx calls it at a fixed set of integration points,
+each bound to a handler by a configuration directive.
+There is no start-up script, no background thread,
+and no event loop of its own:
+nginx invokes a handler, the handler runs, and control returns to nginx.
+</para>
+
+<para>
+This article describes when handlers are called
+and how to choose the right one.
+The exact contract of each directive is documented in
+<link doc="../http/ngx_http_js_module.xml">ngx_http_js_module</link>
+and
+<link doc="../stream/ngx_stream_js_module.xml">ngx_stream_js_module</link>.
+</para>
+
+</section>
+
+
+<section id="model" name="Execution model">
+
+<para>
+<list type="enum">
+
+<listitem>
+When the configuration is loaded, the
+<link doc="../http/ngx_http_js_module.xml" id="js_import">js_import</link>
+directive compiles the JavaScript modules.
+Syntax errors are reported at this point,
+before nginx starts serving traffic.
+</listitem>
+
+<listitem>
+When a request or a stream session reaches one of the integration
+points, a JavaScript context is created,
+the imported modules are evaluated in it,
+and the configured handlers are called.
+</listitem>
+
+<listitem>
+When the request or session is finished, the context is destroyed or,
+with the <link doc="engine.xml" id="quickjs_engine">QuickJS</link> engine,
+returned to a pool of reusable contexts.
+Nothing survives it except the data explicitly stored
+in a <link doc="reference.xml" id="ngx_shared">shared dictionary</link>
+or sent elsewhere.
+</listitem>
+
+</list>
+</para>
+
+<para>
+The only integration point not driven by a client request is
+<literal>js_periodic</literal>, which is driven by an nginx timer.
+JavaScript code cannot create an integration point of its own:
+it cannot open a listening socket, spawn a thread,
+or arrange to be called back outside of the handlers
+enabled by the configuration.
+</para>
+
+</section>
+
+
+<section id="http" name="HTTP integration points">
+
+<para>
+Handlers receive the
+<link doc="reference.xml" id="http">HTTP Request</link> object
+as the first argument, except for
+<literal>js_periodic</literal>, which receives a
+<link doc="reference.xml" id="periodic_session">Periodic Session</link>
+object.
+
+<table width="100%">
+
+<tr>
+<td width="27%"><b>Directive</b></td>
+<td width="38%"><b>When it runs</b></td>
+<td width="35%"><b>Asynchronous operations</b></td>
+</tr>
+
+<tr>
+<td><link doc="../http/ngx_http_js_module.xml" id="js_access">
+<literal>js_access</literal></link></td>
+<td>access phase, before the request is passed further</td>
+<td>supported</td>
+</tr>
+
+<tr>
+<td><link doc="../http/ngx_http_js_module.xml" id="js_content">
+<literal>js_content</literal></link></td>
+<td>content phase, instead of an upstream or a static file</td>
+<td>supported</td>
+</tr>
+
+<tr>
+<td><link doc="../http/ngx_http_js_module.xml" id="js_header_filter">
+<literal>js_header_filter</literal></link></td>
+<td>once, when the response header is ready to be sent</td>
+<td>not supported</td>
+</tr>
+
+<tr>
+<td><link doc="../http/ngx_http_js_module.xml" id="js_body_filter">
+<literal>js_body_filter</literal></link></td>
+<td>for every chunk of the response body</td>
+<td>not supported</td>
+</tr>
+
+<tr>
+<td><link doc="../http/ngx_http_js_module.xml" id="js_set">
+<literal>js_set</literal></link></td>
+<td>when the variable is referenced for the first time,
+at whatever phase that happens,
+or on every reference with <literal>nocache</literal></td>
+<td>not supported</td>
+</tr>
+
+<tr>
+<td><link doc="../http/ngx_http_js_module.xml" id="js_periodic">
+<literal>js_periodic</literal></link></td>
+<td>at a regular interval, without a client request</td>
+<td>supported</td>
+</tr>
+
+</table>
+</para>
+
+<para>
+Handlers marked as not supporting asynchronous operations
+must produce their result before returning:
+they cannot wait for a subrequest, a fetch, or a timer.
+Such a handler may still be declared <literal>async</literal>
+as long as everything it awaits settles immediately.
+</para>
+
+<para>
+There is no handler for the rewrite or log phases.
+A <literal>js_set</literal> variable referenced from a directive
+of the corresponding phase is evaluated at that phase,
+which is the usual way to run code at the end of a request.
+</para>
+
+</section>
+
+
+<section id="stream" name="Stream integration points">
+
+<para>
+Handlers receive the
+<link doc="reference.xml" id="stream">Stream Session</link> object
+as the first argument, except for
+<literal>js_periodic</literal>, which receives a
+<link doc="reference.xml" id="periodic_session">Periodic Session</link>
+object.
+
+<table width="100%">
+
+<tr>
+<td width="27%"><b>Directive</b></td>
+<td width="38%"><b>When it runs</b></td>
+<td width="35%"><b>Asynchronous operations</b></td>
+</tr>
+
+<tr>
+<td><link doc="../stream/ngx_stream_js_module.xml" id="js_access">
+<literal>js_access</literal></link></td>
+<td>access phase</td>
+<td>in
+<link doc="reference.xml" id="s_on"><literal>s.on()</literal></link>
+callbacks</td>
+</tr>
+
+<tr>
+<td><link doc="../stream/ngx_stream_js_module.xml" id="js_preread">
+<literal>js_preread</literal></link></td>
+<td>preread phase, before the connection to the upstream is made</td>
+<td>in
+<link doc="reference.xml" id="s_on"><literal>s.on()</literal></link>
+callbacks</td>
+</tr>
+
+<tr>
+<td><link doc="../stream/ngx_stream_js_module.xml" id="js_filter">
+<literal>js_filter</literal></link></td>
+<td>content phase, to register data filters for both directions</td>
+<td>not supported</td>
+</tr>
+
+<tr>
+<td><link doc="../stream/ngx_stream_js_module.xml" id="js_set">
+<literal>js_set</literal></link></td>
+<td>when the variable is referenced for the first time,
+at whatever phase that happens,
+or on every reference with <literal>nocache</literal></td>
+<td>not supported</td>
+</tr>
+
+<tr>
+<td><link doc="../stream/ngx_stream_js_module.xml" id="js_periodic">
+<literal>js_periodic</literal></link></td>
+<td>at a regular interval, without a client session</td>
+<td>supported</td>
+</tr>
+
+</table>
+</para>
+
+<para>
+The <literal>js_access</literal>, <literal>js_preread</literal>,
+and <literal>js_filter</literal> handlers are called once,
+and are expected to register
+<link doc="reference.xml" id="s_on"><literal>s.on()</literal></link>
+callbacks for the data that arrives later.
+The handler itself must return immediately.
+</para>
+
+</section>
+
+
+<section id="choosing" name="Choosing an integration point">
+
+<para>
+<list type="tag">
+
+<tag-name>generate a response instead of proxying it</tag-name>
+<tag-desc>
+<link doc="../http/ngx_http_js_module.xml" id="js_content">
+<literal>js_content</literal></link>
+</tag-desc>
+
+<tag-name>allow or deny a request or a connection,
+possibly after asking an external service</tag-name>
+<tag-desc>
+<link doc="../http/ngx_http_js_module.xml" id="js_access">
+<literal>js_access</literal></link>
+for requests,
+<link doc="../stream/ngx_stream_js_module.xml" id="js_access">
+<literal>js_access</literal></link>
+for connections, or
+<link doc="../stream/ngx_stream_js_module.xml" id="js_preread">
+<literal>js_preread</literal></link>
+when the decision depends on the data sent by the client
+</tag-desc>
+
+<tag-name>compute a value for another nginx directive</tag-name>
+<tag-desc>
+<link doc="../http/ngx_http_js_module.xml" id="js_set">
+<literal>js_set</literal></link>
+binds a handler to a variable,
+which is how a computed value reaches
+<literal>proxy_pass</literal>, <literal>log_format</literal>,
+and other directives that accept variables.
+A handler called earlier can also assign a variable declared with
+<link doc="../http/ngx_http_js_module.xml" id="js_var">
+<literal>js_var</literal></link>
+through
+<link doc="reference.xml" id="r_variables"><literal>r.variables</literal></link>
+</tag-desc>
+
+<tag-name>change the response of an upstream server</tag-name>
+<tag-desc>
+<link doc="../http/ngx_http_js_module.xml" id="js_header_filter">
+<literal>js_header_filter</literal></link>
+for the header,
+<link doc="../http/ngx_http_js_module.xml" id="js_body_filter">
+<literal>js_body_filter</literal></link>
+for the body
+</tag-desc>
+
+<tag-name>rewrite the byte stream of a proxied connection</tag-name>
+<tag-desc>
+<link doc="../stream/ngx_stream_js_module.xml" id="js_filter">
+<literal>js_filter</literal></link>
+</tag-desc>
+
+<tag-name>refresh a cache, poll an API, or report metrics
+without a client request</tag-name>
+<tag-desc>
+<link doc="../http/ngx_http_js_module.xml" id="js_periodic">
+<literal>js_periodic</literal></link>
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+Several handlers may be combined for the same request,
+for example an access check followed by a body filter.
+Each of them is a separate call with its own constraints.
+</para>
+
+</section>
+
+
+<section id="state" name="State and lifetime">
+
+<para>
+Module top-level code is evaluated for each new JavaScript context,
+that is, for each request or stream session that invokes JavaScript.
+With the
+<link doc="engine.xml" id="quickjs_engine">QuickJS</link> engine,
+a context may instead be taken from a pool of reusable contexts,
+see
+<link doc="../http/ngx_http_js_module.xml" id="js_context_reuse">
+js_context_reuse</link>,
+in which case the modules are not evaluated again
+and the changes previously made to the module scope are inherited.
+</para>
+
+<para>
+<note>
+Module-level variables therefore cannot be used to pass data
+between requests or to cache results:
+depending on the engine and on context reuse,
+such data is either lost or inherited from an unrelated request.
+Expensive initialization in the module scope
+is also paid for on every new context.
+</note>
+</para>
+
+<para>
+nginx runs several worker processes
+that do not share memory by default.
+The njs mechanism for sharing state across workers is a
+<link doc="reference.xml" id="ngx_shared">shared dictionary</link>
+specified with the
+<link doc="../http/ngx_http_js_module.xml" id="js_shared_dict_zone">
+js_shared_dict_zone</link>
+directive.
+</para>
+
+<para>
+Asynchronous operations such as
+<link doc="reference.xml" id="ngx_fetch"><literal>ngx.fetch()</literal></link>,
+<link doc="reference.xml" id="r_subrequest">
+<literal>r.subrequest()</literal></link>,
+and
+<link doc="reference.xml" id="settimeout"><literal>setTimeout()</literal></link>
+are driven by the nginx event loop.
+There are no threads: a handler that computes for a long time
+blocks the whole worker process, and with it every other connection
+this worker serves.
+</para>
+
+</section>
+
+
+<section id="outside" name="Using njs outside of nginx">
+
+<para>
+<list type="bullet">
+
+<listitem>
+The <link doc="cli.xml">command-line utility</link>
+runs njs without nginx, which is convenient
+for developing and debugging the parts of a script
+that do not depend on the request.
+</listitem>
+
+<listitem>
+njs is not Node.js.
+It implements the ECMAScript language,
+a set of <link doc="reference.xml">built-in modules</link>,
+and the nginx objects,
+but not the Node.js API and not package resolution.
+Libraries can still be used if they are bundled beforehand, see
+<link doc="node_modules.xml"/>.
+</listitem>
+
+<listitem>
+<link doc="native_modules.xml">Native modules</link>
+extend njs with code written in C.
+The shared library is loaded when the configuration is parsed,
+and the module it registers is then imported
+like any other module.
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+</article>

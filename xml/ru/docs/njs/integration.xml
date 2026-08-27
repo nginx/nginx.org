@@ -1,0 +1,408 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE article SYSTEM "../../../../dtd/article.dtd">
+
+<article name="Модель выполнения и точки интеграции"
+        link="/ru/docs/njs/integration.html"
+        lang="ru"
+        rev="1">
+
+<section id="summary">
+
+<para>
+Код JavaScript в <link doc="index.xml">njs</link> никогда
+не выполняется самостоятельно.
+nginx вызывает его в фиксированном наборе точек интеграции,
+каждая из которых связывается с обработчиком директивой конфигурации.
+Стартовый сценарий, фоновые потоки и собственный цикл событий отсутствуют:
+nginx вызывает обработчик, и по его завершении
+управление возвращается nginx.
+</para>
+
+<para>
+В статье приводятся сведения о вызове обработчиков
+и рекомендации по выбору подходящего.
+Подробное описание поведения директив см. в документации модулей
+<link doc="../http/ngx_http_js_module.xml">ngx_http_js_module</link>
+и
+<link doc="../stream/ngx_stream_js_module.xml">ngx_stream_js_module</link>.
+</para>
+
+</section>
+
+
+<section id="model" name="Модель выполнения">
+
+<para>
+<list type="enum">
+
+<listitem>
+При загрузке конфигурации директива
+<link doc="../http/ngx_http_js_module.xml" id="js_import">js_import</link>
+компилирует модули JavaScript.
+Синтаксические ошибки обнаруживаются на этом этапе,
+до начала обработки трафика nginx.
+</listitem>
+
+<listitem>
+Когда запрос или stream-сессия достигает одной из точек интеграции,
+создаётся контекст JavaScript.
+В нём выполняются импортированные модули,
+после чего вызываются настроенные обработчики.
+</listitem>
+
+<listitem>
+По завершении запроса или сессии контекст уничтожается
+либо, при использовании движка
+<link doc="engine.xml" id="quickjs_engine">QuickJS</link>,
+возвращается в пул повторно используемых контекстов.
+Остаются только данные, явно сохранённые в
+<link doc="reference.xml" id="ngx_shared">разделяемый словарь</link>
+или отправленные наружу.
+</listitem>
+
+</list>
+</para>
+
+<para>
+Единственная точка интеграции, не связанная с клиентским запросом, — это
+<literal>js_periodic</literal>, вызываемая по таймеру nginx.
+Код JavaScript не может создать собственную точку интеграции:
+он не может открыть слушающий сокет, породить поток
+или инициировать свой вызов вне обработчиков,
+заданных в конфигурации.
+</para>
+
+</section>
+
+
+<section id="http" name="Точки интеграции HTTP">
+
+<para>
+Обработчики получают первым аргументом объект
+<link doc="reference.xml" id="http">HTTP Request</link>,
+за исключением <literal>js_periodic</literal>,
+который получает объект
+<link doc="reference.xml" id="periodic_session">Periodic Session</link>.
+
+<table width="100%">
+
+<tr>
+<td width="27%"><b>Директива</b></td>
+<td width="38%"><b>Когда вызывается</b></td>
+<td width="35%"><b>Асинхронные операции</b></td>
+</tr>
+
+<tr>
+<td><link doc="../http/ngx_http_js_module.xml" id="js_access">
+<literal>js_access</literal></link></td>
+<td>на фазе доступа, до дальнейшей обработки запроса</td>
+<td>поддерживаются</td>
+</tr>
+
+<tr>
+<td><link doc="../http/ngx_http_js_module.xml" id="js_content">
+<literal>js_content</literal></link></td>
+<td>на фазе содержимого, вместо проксирования
+или отдачи статического файла</td>
+<td>поддерживаются</td>
+</tr>
+
+<tr>
+<td><link doc="../http/ngx_http_js_module.xml" id="js_header_filter">
+<literal>js_header_filter</literal></link></td>
+<td>один раз, когда заголовок ответа готов к отправке</td>
+<td>не поддерживаются</td>
+</tr>
+
+<tr>
+<td><link doc="../http/ngx_http_js_module.xml" id="js_body_filter">
+<literal>js_body_filter</literal></link></td>
+<td>для каждого блока данных тела ответа</td>
+<td>не поддерживаются</td>
+</tr>
+
+<tr>
+<td><link doc="../http/ngx_http_js_module.xml" id="js_set">
+<literal>js_set</literal></link></td>
+<td>при первом обращении к переменной,
+на той фазе, где это произошло,
+либо при каждом обращении с параметром <literal>nocache</literal></td>
+<td>не поддерживаются</td>
+</tr>
+
+<tr>
+<td><link doc="../http/ngx_http_js_module.xml" id="js_periodic">
+<literal>js_periodic</literal></link></td>
+<td>через заданные промежутки времени, без клиентского запроса</td>
+<td>поддерживаются</td>
+</tr>
+
+</table>
+</para>
+
+<para>
+Обработчики, для которых асинхронные операции не поддерживаются,
+должны получить результат до возврата управления:
+они не могут дождаться подзапроса, запроса наружу или таймера.
+Такой обработчик тем не менее может быть объявлен как
+<literal>async</literal>, если всё, что он ожидает,
+завершается немедленно.
+</para>
+
+<para>
+Обработчиков для фаз перезаписи и логирования нет.
+Переменная <literal>js_set</literal>, на которую ссылается директива
+соответствующей фазы, вычисляется на этой фазе,
+что и является обычным способом выполнить код
+в самом конце обработки запроса.
+</para>
+
+</section>
+
+
+<section id="stream" name="Точки интеграции stream">
+
+<para>
+Обработчики получают первым аргументом объект
+<link doc="reference.xml" id="stream">Stream Session</link>,
+за исключением <literal>js_periodic</literal>,
+который получает объект
+<link doc="reference.xml" id="periodic_session">Periodic Session</link>.
+
+<table width="100%">
+
+<tr>
+<td width="27%"><b>Директива</b></td>
+<td width="38%"><b>Когда вызывается</b></td>
+<td width="35%"><b>Асинхронные операции</b></td>
+</tr>
+
+<tr>
+<td><link doc="../stream/ngx_stream_js_module.xml" id="js_access">
+<literal>js_access</literal></link></td>
+<td>на фазе доступа</td>
+<td>в колбэках
+<link doc="reference.xml" id="s_on"><literal>s.on()</literal></link></td>
+</tr>
+
+<tr>
+<td><link doc="../stream/ngx_stream_js_module.xml" id="js_preread">
+<literal>js_preread</literal></link></td>
+<td>на фазе предварительного чтения,
+до подключения к проксируемому серверу</td>
+<td>в колбэках
+<link doc="reference.xml" id="s_on"><literal>s.on()</literal></link></td>
+</tr>
+
+<tr>
+<td><link doc="../stream/ngx_stream_js_module.xml" id="js_filter">
+<literal>js_filter</literal></link></td>
+<td>на фазе содержимого, для установки фильтров данных
+в обоих направлениях</td>
+<td>не поддерживаются</td>
+</tr>
+
+<tr>
+<td><link doc="../stream/ngx_stream_js_module.xml" id="js_set">
+<literal>js_set</literal></link></td>
+<td>при первом обращении к переменной,
+на той фазе, где это произошло,
+либо при каждом обращении с параметром <literal>nocache</literal></td>
+<td>не поддерживаются</td>
+</tr>
+
+<tr>
+<td><link doc="../stream/ngx_stream_js_module.xml" id="js_periodic">
+<literal>js_periodic</literal></link></td>
+<td>через заданные промежутки времени, без клиентской сессии</td>
+<td>поддерживаются</td>
+</tr>
+
+</table>
+</para>
+
+<para>
+Обработчики <literal>js_access</literal>, <literal>js_preread</literal>
+и <literal>js_filter</literal> вызываются один раз
+и предназначены для установки колбэков
+<link doc="reference.xml" id="s_on"><literal>s.on()</literal></link>
+для данных, которые придут позже.
+Сам обработчик должен вернуть управление сразу.
+</para>
+
+</section>
+
+
+<section id="choosing" name="Выбор точки интеграции">
+
+<para>
+<list type="tag">
+
+<tag-name>сформировать ответ, а не проксировать его</tag-name>
+<tag-desc>
+<link doc="../http/ngx_http_js_module.xml" id="js_content">
+<literal>js_content</literal></link>
+</tag-desc>
+
+<tag-name>разрешить или запретить запрос или соединение,
+возможно, обратившись к внешнему сервису</tag-name>
+<tag-desc>
+<link doc="../http/ngx_http_js_module.xml" id="js_access">
+<literal>js_access</literal></link>
+для запросов,
+<link doc="../stream/ngx_stream_js_module.xml" id="js_access">
+<literal>js_access</literal></link>
+для соединений или
+<link doc="../stream/ngx_stream_js_module.xml" id="js_preread">
+<literal>js_preread</literal></link>,
+если решение зависит от данных, присланных клиентом
+</tag-desc>
+
+<tag-name>вычислить значение для другой директивы nginx</tag-name>
+<tag-desc>
+<link doc="../http/ngx_http_js_module.xml" id="js_set">
+<literal>js_set</literal></link>
+связывает обработчик с переменной,
+и именно так вычисленное значение попадает в
+<literal>proxy_pass</literal>, <literal>log_format</literal>
+и другие директивы, принимающие переменные.
+Вызванный ранее обработчик может также присвоить значение переменной,
+объявленной директивой
+<link doc="../http/ngx_http_js_module.xml" id="js_var">
+<literal>js_var</literal></link>, через
+<link doc="reference.xml" id="r_variables"><literal>r.variables</literal></link>
+</tag-desc>
+
+<tag-name>изменить ответ проксируемого сервера</tag-name>
+<tag-desc>
+<link doc="../http/ngx_http_js_module.xml" id="js_header_filter">
+<literal>js_header_filter</literal></link>
+для заголовка,
+<link doc="../http/ngx_http_js_module.xml" id="js_body_filter">
+<literal>js_body_filter</literal></link>
+для тела
+</tag-desc>
+
+<tag-name>изменить поток байт проксируемого соединения</tag-name>
+<tag-desc>
+<link doc="../stream/ngx_stream_js_module.xml" id="js_filter">
+<literal>js_filter</literal></link>
+</tag-desc>
+
+<tag-name>обновить кэш, опросить API или отправить метрики
+без клиентского запроса</tag-name>
+<tag-desc>
+<link doc="../http/ngx_http_js_module.xml" id="js_periodic">
+<literal>js_periodic</literal></link>
+</tag-desc>
+
+</list>
+</para>
+
+<para>
+Для одного запроса можно использовать несколько обработчиков,
+например проверку доступа и вслед за ней фильтр тела ответа.
+Каждый из них является отдельным вызовом
+со своими ограничениями.
+</para>
+
+</section>
+
+
+<section id="state" name="Состояние и время жизни">
+
+<para>
+Код верхнего уровня модуля выполняется для каждого нового контекста
+JavaScript, то есть для каждого запроса или stream-сессии,
+в которых вызывается JavaScript.
+Для движка
+<link doc="engine.xml" id="quickjs_engine">QuickJS</link>
+контекст вместо этого может быть взят из пула повторно используемых
+контекстов, см.
+<link doc="../http/ngx_http_js_module.xml" id="js_context_reuse">
+js_context_reuse</link>;
+в этом случае модули заново не выполняются,
+а изменения, внесённые в область видимости модуля ранее, наследуются.
+</para>
+
+<para>
+<note>
+Поэтому переменные уровня модуля нельзя использовать
+для передачи данных между запросами или для кэширования результатов:
+в зависимости от движка и от повторного использования контекста
+такие данные либо теряются, либо наследуются от постороннего запроса.
+Дорогая инициализация в области видимости модуля
+также оплачивается для каждого нового контекста.
+</note>
+</para>
+
+<para>
+В nginx рабочие процессы по умолчанию
+не используют совместно память.
+njs предоставляет механизм для соместного использования состояния между рабочими
+процессами —
+<link doc="reference.xml" id="ngx_shared">разделяемый словарь</link>,
+объявляемый директивой
+<link doc="../http/ngx_http_js_module.xml" id="js_shared_dict_zone">
+js_shared_dict_zone</link>.
+</para>
+
+<para>
+Асинхронные операции, такие как
+<link doc="reference.xml" id="ngx_fetch"><literal>ngx.fetch()</literal></link>,
+<link doc="reference.xml" id="r_subrequest">
+<literal>r.subrequest()</literal></link>
+и
+<link doc="reference.xml" id="settimeout">
+<literal>setTimeout()</literal></link>,
+выполняются циклом событий nginx.
+Потоки не используются: обработчик, выполняющий длительные вычисления,
+блокирует весь рабочий процесс, а вместе с ним и любое другое соединение,
+обслуживаемое этим процессом.
+</para>
+
+</section>
+
+
+<section id="outside" name="Использование njs вне nginx">
+
+<para>
+<list type="bullet">
+
+<listitem>
+<link doc="cli.xml">Утилита командной строки</link>
+запускает njs без nginx, что удобно
+для разработки и отладки частей сценария,
+не зависящих от запроса.
+</listitem>
+
+<listitem>
+njs не является Node.js.
+В нём реализованы язык ECMAScript,
+набор <link doc="reference.xml">встроенных модулей</link>
+и объекты nginx,
+но не API Node.js и не разрешение имён пакетов.
+Тем не менее, библиотеки  можно использовать,
+если предварительно собрать их в один файл, см.
+<link doc="node_modules.xml"/>.
+</listitem>
+
+<listitem>
+<link doc="native_modules.xml">Нативные модули</link>
+расширяют njs кодом на C.
+Разделяемая библиотека загружается при разборе конфигурации,
+а зарегистрированный ею модуль затем импортируется,
+как любой другой.
+</listitem>
+
+</list>
+</para>
+
+</section>
+
+</article>
