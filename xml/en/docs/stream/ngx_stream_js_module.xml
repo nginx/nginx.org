@@ -9,14 +9,14 @@
 <module name="Module ngx_stream_js_module"
         link="/en/docs/stream/ngx_stream_js_module.html"
         lang="en"
-        rev="56">
+        rev="57">
 
 <section id="summary">
 
 <para>
 The <literal>ngx_stream_js_module</literal> module is used to implement
-handlers in <link doc="../njs/index.xml">njs</link> —
-a subset of the JavaScript language.
+session and variable handlers in JavaScript
+with <link doc="../njs/index.xml">njs</link>.
 </para>
 
 <para>
@@ -556,7 +556,7 @@ are not supported.
 <appeared-in>0.4.0</appeared-in>
 
 <para>
-Imports a module that implements location and variable handlers in njs.
+Imports a module that implements session and variable handlers in njs.
 The <literal>export_name</literal> is used as a namespace
 to access module functions.
 If the <literal>export_name</literal> is not specified,
@@ -731,7 +731,8 @@ by default, there is no delay.
 </para>
 
 <para>
-By default, the <literal>js_handler</literal> is executed on worker process 0.
+By default, the <literal>js_periodic</literal> handler
+is executed on worker process 0.
 The optional <literal>worker_affinity</literal> parameter
 allows specifying particular worker processes
 where the location content handler should be executed.
@@ -907,7 +908,7 @@ Since <link doc="../njs/changes.xml" id="njs0.8.6">0.8.6</link>, when
 optional argument <literal>nocache</literal> is provided the handler
 is called every time it is referenced.
 Due to current limitations
-of the <link doc="ngx_stream_rewrite_module.xml">rewrite</link> module,
+of the <link doc="ngx_stream_set_module.xml">ngx_stream_set_module</link> module,
 when a <literal>nocache</literal> variable is referenced by the
 <link doc="ngx_stream_set_module.xml" id="set">set</link> directive
 its handler should always return a fixed-length value.

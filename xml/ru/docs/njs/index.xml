@@ -9,7 +9,7 @@
 <article name="Модуль nginx JavaScript"
         link="/ru/docs/njs/index.html"
         lang="ru"
-        rev="38"
+        rev="39"
         toc="no">
 
 <section id="summary">
@@ -160,7 +160,7 @@ ngx_stream_js_module</link>
 <listitem id="hello_world">
 <para>
 создать файл сценария njs, например <path>http.js</path>.
-Описание свойств и методов языка njs
+Описание свойств и методов njs
 см. в <link doc="reference.xml">справочнике</link>.
 <example>
 function hello(r) {

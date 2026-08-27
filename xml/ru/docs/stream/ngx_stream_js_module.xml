@@ -9,14 +9,14 @@
 <module name="Модуль ngx_stream_js_module"
         link="/ru/docs/stream/ngx_stream_js_module.html"
         lang="ru"
-        rev="55">
+        rev="57">
 
 <section id="summary">
 
 <para>
 Модуль <literal>ngx_stream_js_module</literal> позволяет задавать
-обработчики на <link doc="../njs/index.xml">njs</link> —
-подмножестве языка JavaScript.
+обработчики сессий и переменных на JavaScript
+с помощью <link doc="../njs/index.xml">njs</link>.
 </para>
 
 <para>
@@ -560,7 +560,7 @@ server {
 <appeared-in>0.4.0</appeared-in>
 
 <para>
-Импортирует модуль, позволяющий задавать обработчики location и переменных
+Импортирует модуль, позволяющий задавать обработчики сессий и переменных
 на njs.
 <literal>Имя_экспорта</literal> является пространством имён
 при доступе к функциям модуля.
@@ -831,7 +831,8 @@ let result = mylib.add(5, 10);
 </para>
 
 <para>
-По умолчанию <literal>js_handler</literal> выполняется для рабочего процесса 0.
+По умолчанию обработчик <literal>js_periodic</literal>
+выполняется для рабочего процесса 0.
 Необязательный параметр <literal>worker_affinity</literal>
 позволяет указать рабочий процесс,
 для которого будет выполняться обработчик содержимого location.
@@ -909,9 +910,9 @@ async function handler(s) {
 Начиная с <link doc="../njs/changes.xml" id="njs0.8.6">0.8.6</link>,
 если указан необязательный параметр <literal>nocache</literal>, то
 обработчик выполняется каждый раз при обращении к переменной.
-Из-за ограничения модуля  <link doc="ngx_stream_rewrite_module.xml">rewrite</link>
+Из-за ограничения модуля <link doc="ngx_stream_set_module.xml">ngx_stream_set_module</link>
 при обращении к <literal>nocache</literal>-переменной при помощи
-директивы <link doc="ngx_stream_rewrite_module.xml" id="set">set</link>,
+директивы <link doc="ngx_stream_set_module.xml" id="set">set</link>,
 обработчик должен возвращать значение фиксированной длины.
 </para>
 

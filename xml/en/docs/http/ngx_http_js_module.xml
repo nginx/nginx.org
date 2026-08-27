@@ -9,15 +9,14 @@
 <module name="Module ngx_http_js_module"
         link="/en/docs/http/ngx_http_js_module.html"
         lang="en"
-        rev="62">
+        rev="63">
 
 <section id="summary">
 
 <para>
 The <literal>ngx_http_js_module</literal> module is used to implement
-location and variable handlers
-in <link doc="../njs/index.xml">njs</link> —
-a subset of the JavaScript language.
+location, variable, and filter handlers in JavaScript
+with <link doc="../njs/index.xml">njs</link>.
 </para>
 
 <para>
@@ -735,7 +734,8 @@ since <link doc="../njs/changes.xml" id="njs0.7.7">0.7.7</link>.
 <appeared-in>0.4.0</appeared-in>
 
 <para>
-Imports a module that implements location and variable handlers in njs.
+Imports a module that implements location, variable,
+and filter handlers in njs.
 The <literal>export_name</literal> is used as a namespace
 to access module functions.
 If the <literal>export_name</literal> is not specified,
@@ -929,7 +929,8 @@ by default, there is no delay.
 </para>
 
 <para>
-By default, the <literal>js_handler</literal> is executed on worker process 0.
+By default, the <literal>js_periodic</literal> handler
+is executed on worker process 0.
 The optional <literal>worker_affinity</literal> parameter
 allows specifying particular worker processes
 where the location content handler should be executed.
