@@ -10,7 +10,7 @@
 <module name="Module ngx_http_rewrite_module"
         link="/en/docs/http/ngx_http_rewrite_module.html"
         lang="en"
-        rev="9">
+        rev="10">
 
 <section id="summary">
 
@@ -133,7 +133,8 @@ matching of a variable against a regular expression using the
 “<literal>~</literal>” (for case-sensitive matching) and
 “<literal>~*</literal>” (for case-insensitive matching) operators.
 Regular expressions can contain captures that are made available for
-later reuse in the <var>$1</var>..<var>$9</var> variables.
+later reuse in the <var>$1</var>..<var>$9</var> variables
+(see <link doc="../regex_captures.xml"/>).
 Negative operators “<literal>!~</literal>” and “<literal>!~*</literal>”
 are also available.
 If a regular expression includes the “<literal>}</literal>”

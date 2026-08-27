@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="117">
+        rev="118">
 
 <section id="directives" name="Directives">
 
@@ -1777,7 +1777,8 @@ However, comparison is limited to one-byte locales.
 
 <para>
 Regular expressions can contain captures (0.7.40) that can later
-be used in other directives.
+be used in other directives, see
+<link doc="../regex_captures.xml"/>.
 </para>
 
 <para>
@@ -2655,7 +2656,7 @@ server {
 
 <para>
 Regular expressions can contain captures (0.7.40) that can later
-be used in other directives:
+be used in other directives (see <link doc="../regex_captures.xml"/>):
 <example>
 server {
     server_name ~^(www\.)?(.+)$;

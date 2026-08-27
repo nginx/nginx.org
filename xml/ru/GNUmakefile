@@ -4,6 +4,7 @@ DOCS =									\
 		windows							\
 		events							\
 		syntax							\
+		regex_captures						\
 		example							\
 		switches						\
 		control							\

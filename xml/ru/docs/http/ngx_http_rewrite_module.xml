@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_rewrite_module"
         link="/ru/docs/http/ngx_http_rewrite_module.html"
         lang="ru"
-        rev="9">
+        rev="10">
 
 <section id="summary">
 
@@ -131,7 +131,8 @@ if ($slow) {
 соответствие переменной регулярному выражению с учётом
 регистра символов — “<literal>~</literal>” и без него — “<literal>~*</literal>”.
 В регулярных выражениях можно использовать выделения, которые затем
-доступны в виде переменных <var>$1</var>..<var>$9</var>.
+доступны в виде переменных <var>$1</var>..<var>$9</var>
+(см. <link doc="../regex_captures.xml"/>).
 Также можно использовать отрицательные операторы “<literal>!~</literal>”
 и “<literal>!~*</literal>”.
 Если в регулярном выражении встречаются символы “<literal>}</literal>”

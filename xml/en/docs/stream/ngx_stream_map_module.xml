@@ -10,7 +10,7 @@
 <module name="Module ngx_stream_map_module"
         link="/en/docs/stream/ngx_stream_map_module.html"
         lang="en"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -82,6 +82,11 @@ symbols for case-insensitive matching.
 A regular expression can contain named and positional captures
 that can later be used in other directives along with the
 resulting variable.
+The regular expressions are matched when the resulting variable is
+evaluated, and a successful match replaces the positional captures
+“<literal>$1</literal>”...“<literal>$9</literal>”
+set by previously matched regular expressions, see
+<link doc="../regex_captures.xml"/>.
 </para>
 
 <para>
