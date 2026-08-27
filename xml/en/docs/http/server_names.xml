@@ -8,7 +8,7 @@
 <article name="Server names"
          link="/en/docs/http/server_names.html"
          lang="en"
-         rev="6"
+         rev="7"
          author="Igor Sysoev"
          editor="Brian Mercer">
 
@@ -148,36 +148,7 @@ server {
 }
 </programlisting>
 
-The PCRE library supports named captures using the following syntax:
-
-<table note="yes">
-
-<tr>
-<td><literal>?&lt;<value>name</value>&gt;</literal></td>
-<td>Perl 5.10 compatible syntax, supported since PCRE-7.0</td>
-</tr>
-
-<tr>
-<td><literal>?'<value>name</value>'</literal></td>
-<td>Perl 5.10 compatible syntax, supported since PCRE-7.0</td>
-</tr>
-
-<tr>
-<td><literal>?P&lt;<value>name</value>&gt;</literal></td>
-<td>Python compatible syntax, supported since PCRE-4.0</td>
-</tr>
-
-</table>
-
-If nginx fails to start and displays the error message:
-
-<programlisting>
-pcre_compile() failed: unrecognized character after (?&lt; in ...
-</programlisting>
-
-this means that the PCRE library is old and the syntax
-“<literal>?P&lt;<value>name</value>&gt;</literal>” should be tried instead.
-The captures can also be used in digital form:
+The captures can also be used in positional form:
 
 <programlisting>
 server {
@@ -190,7 +161,10 @@ server {
 </programlisting>
 
 However, such usage should be limited to simple cases (like the above),
-since the digital references can easily be overwritten.
+since positional captures are easily overwritten by other regular
+expressions.
+See “<link doc="../regex_captures.xml"/>” for the named capture syntax
+and for details on how long captured values stay available.
 </para>
 
 

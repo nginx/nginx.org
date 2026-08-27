@@ -1,0 +1,147 @@
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE article SYSTEM "../../../dtd/article.dtd">
+
+<article name="Regular expression captures"
+         link="/en/docs/regex_captures.html"
+         lang="en"
+         rev="1">
+
+<section id="summary">
+
+<para>
+Regular expressions used in the
+<link doc="http/ngx_http_core_module.xml" id="location"/>,
+<link doc="http/ngx_http_core_module.xml" id="server_name"/>,
+<link doc="http/ngx_http_rewrite_module.xml" id="if"/>,
+<link doc="http/ngx_http_map_module.xml" id="map"/>,
+and several other directives can contain captures.
+A captured substring is referred to either positionally, as
+“<literal>$1</literal>”...“<literal>$9</literal>”, or by name.
+The two forms differ in how long the captured value stays available.
+</para>
+
+<para>
+Everything described below also applies to the
+<link doc="stream/ngx_stream_core_module.xml" id="server_name"/> and
+<link doc="stream/ngx_stream_map_module.xml" id="map"/>
+directives of the stream module.
+</para>
+
+</section>
+
+
+<section id="positional" name="Positional captures">
+
+<para>
+Positional captures are numbered in the order the capturing groups
+appear in a regular expression:
+
+<programlisting>
+location ~ ^/images/(.*)\.([a-z]+)$ {
+    # for the "/images/cats/tom.jpg" request
+    # $1 is "cats/tom" and $2 is "jpg"
+}
+</programlisting>
+</para>
+
+<para>
+Positional captures are not variables.
+They form a single set of values shared by all these directives
+while a request or a connection is processed.
+A successful match replaces the whole set, and an unsuccessful match
+may clear it.
+The values therefore remain available only until the next match,
+which may happen in an unrelated directive.
+</para>
+
+<para>
+A match may also happen implicitly.
+Since variables are evaluated only when they are used, referring to a
+<link doc="http/ngx_http_map_module.xml" id="map"/> variable
+with regular expressions in source values matches them at that moment,
+and a successful match replaces the positional captures:
+
+<programlisting>
+map $uri $mapped {
+    ~^/(?&lt;first&gt;[^/]+)/  $first;
+}
+
+location ~ ^/images/(.*)$ {
+    set $name   <b>$1</b>;   # "cats/tom.jpg"
+    set $m      $mapped;     # "images"
+    set $name2  <b>$1</b>;   # "images", not "cats/tom.jpg"
+}
+</programlisting>
+</para>
+
+</section>
+
+
+<section id="named" name="Named captures">
+
+<para>
+A capture can be given a name:
+
+<programlisting>
+location ~ ^/images/(?&lt;name&gt;.*)\.(?&lt;ext&gt;[a-z]+)$ {
+    ...
+}
+</programlisting>
+
+Named captures create ordinary nginx variables, in this case
+<literal>$name</literal> and <literal>$ext</literal>.
+Their values are not replaced when another regular expression is matched,
+unless it uses the same capture name.
+This makes named captures the preferred way to pass a captured value
+to a directive other than the one that has performed the match.
+</para>
+
+<para>
+The PCRE library supports named captures using the following syntax:
+
+<table note="yes">
+
+<tr>
+<td><literal>?&lt;<value>name</value>&gt;</literal></td>
+<td>Perl compatible syntax</td>
+</tr>
+
+<tr>
+<td><literal>?'<value>name</value>'</literal></td>
+<td>Perl compatible syntax</td>
+</tr>
+
+<tr>
+<td><literal>?P&lt;<value>name</value>&gt;</literal></td>
+<td>Python compatible syntax</td>
+</tr>
+
+</table>
+</para>
+
+</section>
+
+
+<section id="preserving" name="Preserving a positional capture">
+
+<para>
+If a positional capture is needed later and cannot be replaced with
+a named one, its value should be copied into a variable right after
+the match, using the
+<link doc="http/ngx_http_rewrite_module.xml" id="set"/> directive
+(<link doc="stream/ngx_stream_set_module.xml" id="set"/>
+in the stream module):
+
+<programlisting>
+location ~ ^/images/(.*)$ {
+    set $name $1;
+}
+</programlisting>
+</para>
+
+</section>
+
+</article>

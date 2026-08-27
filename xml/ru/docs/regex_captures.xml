@@ -1,0 +1,152 @@
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE article SYSTEM "../../../dtd/article.dtd">
+
+<article name="Выделения в регулярных выражениях"
+         link="/ru/docs/regex_captures.html"
+         lang="ru"
+         rev="1">
+
+<section id="summary">
+
+<para>
+Регулярные выражения, используемые в директивах
+<link doc="http/ngx_http_core_module.xml" id="location"/>,
+<link doc="http/ngx_http_core_module.xml" id="server_name"/>,
+<link doc="http/ngx_http_rewrite_module.xml" id="if"/>,
+<link doc="http/ngx_http_map_module.xml" id="map"/>
+и ряде других, могут содержать выделения.
+На выделенную подстроку можно сослаться либо по номеру, как
+“<literal>$1</literal>”...“<literal>$9</literal>”, либо по имени.
+Эти две формы отличаются тем, как долго выделенное значение
+остаётся доступным.
+</para>
+
+<para>
+Всё описанное ниже относится также к директивам
+<link doc="stream/ngx_stream_core_module.xml" id="server_name"/> и
+<link doc="stream/ngx_stream_map_module.xml" id="map"/>
+модуля stream.
+</para>
+
+</section>
+
+
+<section id="positional" name="Позиционные выделения">
+
+<para>
+Позиционные выделения нумеруются в порядке следования выделяющих
+скобок в регулярном выражении:
+
+<programlisting>
+location ~ ^/images/(.*)\.([a-z]+)$ {
+    # для запроса "/images/cats/tom.jpg"
+    # $1 равно "cats/tom", а $2 равно "jpg"
+}
+</programlisting>
+</para>
+
+<para>
+Позиционные выделения не являются переменными.
+Они образуют единый набор значений, общий для всех этих директив
+в процессе обработки запроса или соединения.
+Успешное сопоставление заменяет весь набор целиком,
+а неуспешное может его очистить.
+Поэтому значения доступны только до следующего сопоставления,
+которое может произойти в никак не связанной директиве.
+</para>
+
+<para>
+Сопоставление может произойти и неявно.
+Поскольку переменные вычисляются только в момент использования,
+обращение к переменной
+<link doc="http/ngx_http_map_module.xml" id="map"/>,
+в исходных значениях которой заданы регулярные выражения,
+приводит к сопоставлению с ними в этот момент, и успешное сопоставление
+заменяет позиционные выделения:
+
+<programlisting>
+map $uri $mapped {
+    ~^/(?&lt;first&gt;[^/]+)/  $first;
+}
+
+location ~ ^/images/(.*)$ {
+    set $name   <b>$1</b>;   # "cats/tom.jpg"
+    set $m      $mapped;     # "images"
+    set $name2  <b>$1</b>;   # "images", а не "cats/tom.jpg"
+}
+</programlisting>
+</para>
+
+</section>
+
+
+<section id="named" name="Именованные выделения">
+
+<para>
+Выделению можно дать имя:
+
+<programlisting>
+location ~ ^/images/(?&lt;name&gt;.*)\.(?&lt;ext&gt;[a-z]+)$ {
+    ...
+}
+</programlisting>
+
+Именованные выделения создают обычные переменные nginx,
+в данном случае <literal>$name</literal> и <literal>$ext</literal>.
+Их значения не заменяются при сопоставлении других регулярных выражений,
+если только в них не используется то же имя выделения.
+Поэтому именованные выделения предпочтительнее, если выделенное значение
+нужно передать в директиву, отличную от той, в которой было выполнено
+сопоставление.
+</para>
+
+<para>
+Библиотека PCRE поддерживает именованные выделения, используя следующий
+синтаксис:
+
+<table note="yes">
+
+<tr>
+<td><literal>?&lt;<value>name</value>&gt;</literal></td>
+<td>Совместимый с Perl синтаксис</td>
+</tr>
+
+<tr>
+<td><literal>?'<value>name</value>'</literal></td>
+<td>Совместимый с Perl синтаксис</td>
+</tr>
+
+<tr>
+<td><literal>?P&lt;<value>name</value>&gt;</literal></td>
+<td>Python-совместимый синтаксис</td>
+</tr>
+
+</table>
+</para>
+
+</section>
+
+
+<section id="preserving" name="Сохранение позиционного выделения">
+
+<para>
+Если позиционное выделение нужно использовать позднее и его нельзя
+заменить именованным, значение следует скопировать в переменную сразу
+после сопоставления с помощью директивы
+<link doc="http/ngx_http_rewrite_module.xml" id="set"/>
+(<link doc="stream/ngx_stream_set_module.xml" id="set"/>
+в модуле stream):
+
+<programlisting>
+location ~ ^/images/(.*)$ {
+    set $name $1;
+}
+</programlisting>
+</para>
+
+</section>
+
+</article>
