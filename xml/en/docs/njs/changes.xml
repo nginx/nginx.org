@@ -9,8 +9,190 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="87"
+        rev="88"
         toc="no">
+
+<section id="njs1.0.1" name="Changes with njs 1.0.1">
+
+<para>
+Release Date:
+2 September 2026
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Security:
+fixed an access control bypass in
+<link doc="../http/ngx_http_js_module.xml" id="js_access">js_access</link>
+when an asynchronous request body continuation threw an exception
+or produced an unhandled rejection
+(<link url="https://www.cve.org/CVERecord?id=CVE-2026-18329">CVE-2026-18329</link>).
+Previously, nginx could continue processing the request as though the
+js_access check had succeeded.
+The issue was introduced in
+<link doc="changes.xml" id="njs0.9.9">0.9.9</link>.
+Thanks to Ta Duc Thien.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Security:
+fixed a worker process crash when reading
+<link doc="reference.xml" id="response_statustext">Response.statusText</link>
+after an upstream server returned a status line with an empty reason phrase
+(<link url="https://www.cve.org/CVERecord?id=CVE-2026-78222">CVE-2026-78222</link>).
+The issue was introduced in
+<link url="https://github.com/nginx/njs/commit/73c75e41">73c75e41</link>
+(<link doc="changes.xml" id="njs0.5.1">0.5.1</link>).
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed unhandled promise rejection tracking in reused
+<link doc="engine.xml" id="quickjs_engine">QuickJS</link>
+contexts.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed
+<link doc="reference.xml" id="dict_pop">SharedDict.pop()</link>
+returning <literal>undefined</literal> for unexpired entries in
+<link doc="../http/ngx_http_js_module.xml" id="js_shared_dict_zone">
+shared dictionaries</link>
+with a timeout.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed validation and replacement of
+<link doc="reference.xml" id="headers">Fetch Headers</link>
+values.
+This also fixed dangling header names in the QuickJS engine.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed missing validation of
+<link doc="reference.xml" id="r_headers_out">r.headersOut</link>
+names and values, and of redirect targets passed to
+<link doc="reference.xml" id="r_return">r.return()</link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed use-after-free, worker aborts, and leaks caused by cyclic references
+involving
+<link doc="reference.xml" id="ngx_fetch">Fetch</link>,
+HTTP request, and Stream session objects in the QuickJS engine.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed QuickJS context reuse after
+<link doc="reference.xml" id="r_internal_redirect">internal redirects</link>
+and when pending jobs remained after request teardown.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed cleanup of partially initialized JavaScript contexts
+when request setup failed.
+</para>
+</listitem>
+
+</list>
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Security:
+fixed a heap buffer overflow while parsing namespace prefix lists passed to
+<link doc="reference.xml" id="xml_exclusivec14n">xml.exclusiveC14n()</link>
+(<link url="https://www.cve.org/CVERecord?id=CVE-2026-78689">CVE-2026-78689</link>).
+The issue was introduced in
+<link url="https://github.com/nginx/njs/commit/9161a840">9161a840</link>
+(<link doc="changes.xml" id="njs0.7.10">0.7.10</link>).
+Thanks to Vladimir Vulnerability Research Tech Lead @ Cyera, evilgensec.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added
+<link doc="reference.xml" id="btoa">btoa()</link>
+and
+<link doc="reference.xml" id="atob">atob()</link>
+global functions to the QuickJS engine
+and aligned their behavior between both engines.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed a stack buffer overflow when exporting RSA keys larger than 4096 bits
+to JWK in
+<link doc="reference.xml" id="crypto_subtle_export_key">
+crypto.subtle.exportKey()</link>.
+Thanks to Vaibhav Rajput.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed RSA-OAEP
+<link doc="reference.xml" id="crypto_subtle_encrypt">encryption</link>
+and
+<link doc="reference.xml" id="crypto_subtle_decrypt">decryption</link>
+with SHA-256 and SHA-384 digests in WebCrypto.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed compatibility with quickjs-ng 0.16.0 and later.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed empty stack traces for QuickJS errors created by host callbacks.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs1.0.0" name="Changes with njs 1.0.0">
 
