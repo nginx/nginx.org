@@ -9,7 +9,7 @@
 <article name="Security"
         link="/en/docs/njs/security.html"
         lang="en"
-        rev="4"
+        rev="5"
         toc="no">
 
 <section>
@@ -72,6 +72,30 @@ nginx is safe from JavaScript-related vulnerabilities
 <section id="advisories" name="Advisories">
 
 <security>
+
+<item name="Access control bypass in js_access"
+      severity="medium"
+      advisory="https://my.f5.com/manage/s/article/K000162599"
+      cve="2026-18329"
+      good="1.0.1+"
+      vulnerable="0.9.9-1.0.0">
+</item>
+
+<item name="Worker process crash in ngx.fetch()"
+      severity="medium"
+      advisory="https://my.f5.com/manage/s/article/K000162603"
+      cve="2026-78222"
+      good="1.0.1+"
+      vulnerable="0.5.1-1.0.0">
+</item>
+
+<item name="Heap buffer overflow in xml.exclusiveC14n()"
+      severity="major"
+      advisory="https://my.f5.com/manage/s/article/K000162602"
+      cve="2026-78689"
+      good="1.0.1+"
+      vulnerable="0.7.10-1.0.0">
+</item>
 
 <item name="Heap buffer overflow in js_fetch_proxy"
       severity="medium"
