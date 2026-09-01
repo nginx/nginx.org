@@ -122,7 +122,6 @@ The basic rules for XML content are:
  * Apply a version bump to the changed file: increment the number by 1 in the `rev=""` line.
  * The commit log criteria:
    * the log line is no longer than 67 characters,
-   * the style is similar to existing log entries (see https://hg.nginx.org/nginx.org),
-   * the end of a log entry is indicated by a full stop.
+   * the style is similar to existing log entries (see https://hg.nginx.org/nginx.org).
    Example: `Improved GNUMakefile explanation.`
  * Review feedback is implemented into the same patch, do not include a separate patch with the review in the PR. The PRs are added as "Rebase and merge" option.
