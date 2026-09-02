@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="118">
+        rev="119">
 
 <section id="directives" name="Directives">
 
@@ -300,6 +300,58 @@ the whole body or only its part is written to a
 By default, buffer size is equal to two memory pages.
 This is 8K on x86, other 32-bit platforms, and x86-64.
 It is usually 16K on other 64-bit platforms.
+</para>
+
+</directive>
+
+
+<directive name="client_body_early_read">
+<syntax><value>string</value> ...</syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<appeared-in>1.31.5</appeared-in>
+
+<para>
+Enables reading of the client request body immediately after the request
+headers are received,
+using the request body read settings from the <literal>server</literal> block.
+If at least one value of the string parameters is not empty
+and is not equal to “0”, then nginx reads the request body early.
+</para>
+
+<para>
+The directive is incompatible with modules
+that use unbuffered request body processing, such as the
+<link doc="ngx_http_grpc_module.xml">ngx_http_grpc_module</link> module.
+The directive is also incompatible with modules
+which write the request body to a file, such as
+<link doc="ngx_http_dav_module.xml">ngx_http_dav_module</link> module.
+</para>
+
+<para>
+The <link id="client_body_in_file_only"/> directive is ignored
+when the request body is read early.
+</para>
+
+<para>
+Example:
+<example>
+map $http_content_type $is_json {
+    application/json  1;
+}
+
+server {
+    listen 8000;
+
+    client_body_early_read $is_json;
+
+    client_max_body_size    256;
+    client_body_buffer_size 256;
+
+    return 200 $request_body;
+}
+</example>
 </para>
 
 </directive>

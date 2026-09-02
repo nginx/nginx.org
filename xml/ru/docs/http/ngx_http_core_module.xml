@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="118">
+        rev="119">
 
 <section id="directives" name="Директивы">
 
@@ -300,6 +300,58 @@ chunked encoding, несмотря на требования стандарта.
 По умолчанию размер одного буфера равен двум размерам страницы.
 На x86, других 32-битных платформах и x86-64 это 8K.
 На других 64-битных платформах это обычно 16K.
+</para>
+
+</directive>
+
+
+<directive name="client_body_early_read">
+<syntax><value>строка</value> ...</syntax>
+<default/>
+<context>http</context>
+<context>server</context>
+<appeared-in>1.31.5</appeared-in>
+
+<para>
+Включает чтение тела запроса клиента сразу после
+получения заголовков запроса,
+используя настройки чтения тела запроса, заданные в <literal>server</literal>.
+Если хотя бы одно значение строковых параметров не пусто
+и не равно “0”, nginx выполняет раннее чтение тела запроса.
+</para>
+
+<para>
+Директива несовместима с модулями,
+использующими неблокирующую обработку тела запроса, например
+модуль <link doc="ngx_http_grpc_module.xml">ngx_http_grpc_module</link>.
+Директива также несовместима с модулями,
+которые пишут тело запроса в файл, например
+модуль <link doc="ngx_http_dav_module.xml">ngx_http_dav_module</link>.
+</para>
+
+<para>
+Директива <link id="client_body_in_file_only"/> игнорируется
+при раннем чтении тела запроса клиента.
+</para>
+
+<para>
+Пример:
+<example>
+map $http_content_type $is_json {
+    application/json  1;
+}
+
+server {
+    listen 8000;
+
+    client_body_early_read $is_json;
+
+    client_max_body_size    256;
+    client_body_buffer_size 256;
+
+    return 200 $request_body;
+}
+</example>
 </para>
 
 </directive>
