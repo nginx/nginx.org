@@ -8,7 +8,7 @@
 <article name="Building nginx from Sources"
          link="/en/docs/configure.html"
          lang="en"
-         rev="27">
+         rev="28">
 
 <section>
 
@@ -193,6 +193,17 @@ enables or disables building a module that allows the server to work
 with the <c-func>poll</c-func> method.
 This module is built automatically if the platform does not appear
 to support more appropriate methods such as kqueue, epoll, or /dev/poll.
+</tag-desc>
+
+<tag-name>
+<literal>--with-control-api</literal>
+</tag-name>
+<tag-desc>
+enables the use of
+<link url="https://docs.nginx.com/nginx/admin-guide/basic-functionality/runtime-control#control-api">nginx control REST API</link>
+(1.31.5), see also the
+<link doc="switches.xml" id="l"><literal>-l</literal></link>
+command-line parameter.
 </tag-desc>
 
 <tag-name>

@@ -8,7 +8,7 @@
 <article name="Command-line parameters"
          link="/en/docs/switches.html"
          lang="en"
-         rev="4">
+         rev="5">
 
 <section>
 
@@ -43,12 +43,13 @@ nginx -g "pid /var/run/nginx.pid; worker_processes `sysctl -n hw.ncpu`;"
 </listitem>
 
 <listitem id="l">
-<literal>-l <value>port</value></literal>&mdash;enable
+<literal>-l <value>unix:socket</value> | <value>port</value></literal>&mdash;enable
 <link url="https://docs.nginx.com/nginx/admin-guide/basic-functionality/runtime-control#control-api">nginx control REST API</link>
-on a specified <value>port</value> or UNIX-domain socket (1.29.8).
+on a specified UNIX-domain socket or port (1.31.5).
 <para>
 <note>
-This parameter is available as part of our
+Since version 1.29.8 and prior to version 1.31.5,
+this parameter was available as part of our
 <commercial_version>commercial subscription</commercial_version>.
 </note>
 </para>
