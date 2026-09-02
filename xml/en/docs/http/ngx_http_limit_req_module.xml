@@ -238,27 +238,49 @@ it is specified in request per minute (r/m).
 For example, half-request per second is 30r/m.
 </para>
 
-<para id="limit_req_zone_sync">
+<para>
+Additionally,
+the following functionality is available as part of our
+<commercial_version>commercial subscription</commercial_version>:
+
+<list type="bullet">
+
+<listitem id="limit_req_zone_rate">
+<para>
+The <literal>rate</literal> parameter can contain variables (1.31.3).
+The rate is evaluated at runtime for each request.
+Example:
+<example>
+map $uri $rate {
+    default       10r/s;
+    /api/slow     1r/s;
+    /api/fast     100r/s;
+}
+
+limit_req_zone $binary_remote_addr zone=one:10m rate=$rate;
+</example>
+</para>
+</listitem>
+
+<listitem id="limit_req_zone_sync">
+<para>
 The <literal>sync</literal> parameter (1.15.3) enables
 <link doc="../stream/ngx_stream_zone_sync_module.xml" id="zone_sync">synchronization</link>
 of the shared memory zone.
-<note>
-The <literal>sync</literal> parameter is available as part of our
-<commercial_version>commercial subscription</commercial_version>.
-</note>
 </para>
+</listitem>
 
+<listitem>
 <para>
-<note>
-Additionally, as part of our
-<commercial_version>commercial subscription</commercial_version>,
-the
-<link doc="ngx_http_api_module.xml" id="http_limit_reqs_">status information</link>
+The <link doc="ngx_http_api_module.xml" id="http_limit_reqs_">status information</link>
 for each such shared memory zone can be
 <link doc="ngx_http_api_module.xml" id="getHttpLimitReqZone">obtained</link> or
 <link doc="ngx_http_api_module.xml" id="deleteHttpLimitReqZoneStat">reset</link>
 with the <link doc="ngx_http_api_module.xml">API</link> since 1.17.7.
-</note>
+</para>
+</listitem>
+
+</list>
 </para>
 
 </directive>

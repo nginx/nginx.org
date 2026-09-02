@@ -110,22 +110,22 @@ All API requests include
 a supported API <link id="api_version">version</link> in the URI.
 Examples of API requests with this configuration:
 <example>
-http://127.0.0.1/api/9/
-http://127.0.0.1/api/9/nginx
-http://127.0.0.1/api/9/connections
-http://127.0.0.1/api/9/workers
-http://127.0.0.1/api/9/http/requests
-http://127.0.0.1/api/9/http/server_zones/server_backend
-http://127.0.0.1/api/9/http/caches/cache_backend
-http://127.0.0.1/api/9/http/upstreams/backend
-http://127.0.0.1/api/9/http/upstreams/backend/servers/
-http://127.0.0.1/api/9/http/upstreams/backend/servers/1
-http://127.0.0.1/api/9/http/keyvals/one?key=arg1
-http://127.0.0.1/api/9/stream/
-http://127.0.0.1/api/9/stream/server_zones/server_backend
-http://127.0.0.1/api/9/stream/upstreams/
-http://127.0.0.1/api/9/stream/upstreams/backend
-http://127.0.0.1/api/9/stream/upstreams/backend/servers/1
+http://127.0.0.1/api/10/
+http://127.0.0.1/api/10/nginx
+http://127.0.0.1/api/10/connections
+http://127.0.0.1/api/10/workers
+http://127.0.0.1/api/10/http/requests
+http://127.0.0.1/api/10/http/server_zones/server_backend
+http://127.0.0.1/api/10/http/caches/cache_backend
+http://127.0.0.1/api/10/http/upstreams/backend
+http://127.0.0.1/api/10/http/upstreams/backend/servers/
+http://127.0.0.1/api/10/http/upstreams/backend/servers/1
+http://127.0.0.1/api/10/http/keyvals/one?key=arg1
+http://127.0.0.1/api/10/stream/
+http://127.0.0.1/api/10/stream/server_zones/server_backend
+http://127.0.0.1/api/10/stream/upstreams/
+http://127.0.0.1/api/10/stream/upstreams/backend
+http://127.0.0.1/api/10/stream/upstreams/backend/servers/1
 </example>
 </para>
 
@@ -156,14 +156,14 @@ By default, the API is read-only.
 All API requests should contain a supported API version in the URI.
 If the request URI equals the location prefix,
 the list of supported API versions is returned.
-The current API version is “<literal>9</literal>”.
+The current API version is “<literal>10</literal>”.
 </para>
 
 <para>
 The optional “<literal>fields</literal>” argument in the request line
 specifies which fields of the requested objects will be output:
 <example>
-http://127.0.0.1/api/9/nginx?fields=version,build
+http://127.0.0.1/api/10/nginx?fields=version,build
 </example>
 </para>
 
@@ -207,6 +207,16 @@ redirect</link> happens during request processing.
 
 <para>
 <list type="bullet">
+
+<listitem>
+<link doc="../ngx_mgmt_module.xml" id="license_pending_token">Deferred autorenewal</link>
+of JWT license tokens:
+the “<literal>PUT</literal>” method for
+<link id="putLicenseToken">adding</link> a JWT license token,
+and the “<literal>pending_renewal</literal>” field were added
+to the <link id="license">/license</link> data
+in <link id="api_version">version</link> 10.
+</listitem>
 
 <listitem>
 The “<literal>response_time_hist</literal>” data

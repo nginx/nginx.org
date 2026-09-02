@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: '9.0'
+  version: '10.0'
   title: NGINX Plus REST API
   description: NGINX Plus REST
     [API](https://nginx.org/en/docs/http/ngx_http_api_module.html)
@@ -9,7 +9,7 @@ info:
     key-value pairs management for
     [http](https://nginx.org/en/docs/http/ngx_http_keyval_module.html) and
     [stream](https://nginx.org/en/docs/stream/ngx_stream_keyval_module.html).
-basePath: /api/9
+basePath: /api/10
 tags:
   - name: General Info
   - name: Processes
@@ -35,6 +35,7 @@ tags:
   - name: Stream Upstreams
   - name: Stream Zone Sync
   - name: Method GET
+  - name: Method PUT
   - name: Method POST
   - name: Method PATCH
   - name: Method DELETE
@@ -2119,6 +2120,46 @@ paths:
             $ref: '#/definitions/NginxLicenseObject'
         '404':
           description: Unknown version (*UnknownVersion*)
+          schema:
+            $ref: '#/definitions/NginxError'
+    put:
+      tags:
+        - License
+        - Method PUT
+      summary: Apply a license token
+      description: |
+        Accepts a raw JWT license token, validates it,
+        saves to the <a href="https://nginx.org/en/docs/ngx_mgmt_module.html#state_path">active token path</a>, and applies it in-memory.
+        Requires the <a href="https://nginx.org/en/docs/ngx_mgmt_module.html#license_pending_token">license_pending_token</a>
+        directive to be configured.
+      operationId: putLicenseToken
+      consumes:
+        - application/jwt
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: putLicenseToken
+          description: A raw JWT license token string to be validated and applied
+          required: true
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/NginxLicenseTokenObject'
+        '400':
+          description: |
+            Invalid license token (*LicenseFormatError*),
+            Request body is empty (*LicenseFormatError*)
+          schema:
+            $ref: '#/definitions/NginxError'
+        '404':
+          description: Unknown version (*UnknownVersion*)
+          schema:
+            $ref: '#/definitions/NginxError'
+        '409':
+          description: |
+            Renewed license does not match the current one (*LicenseMismatch*)
           schema:
             $ref: '#/definitions/NginxError'
   /workers/:
@@ -4905,6 +4946,10 @@ definitions:
             type: string
             description: The ID of NGINX Plus instance in the UUID format.
             readOnly: true
+      pending_renewal:
+        type: boolean
+        description: Indicates whether a renewed license token has been <a href="https://nginx.org/en/docs/ngx_mgmt_module.html#license_pending_token">saved as pending</a> but not yet applied.
+        readOnly: true
     example:
       eval: false
       active_till: 1749268757
@@ -4913,6 +4958,35 @@ definitions:
         fails: 2
         grace: 15551961
         uuid: 13754cba-29fb-53e5-c32e-a6cf57c84b01
+      pending_renewal: false
+  NginxLicenseTokenObject:
+    title: JWT licence token information
+    description: |
+      Represents the JWT license status and related metadata.
+    type: object
+    properties:
+      id:
+        type: string
+        description: Unique identifier of the license.
+        example: abc123
+      type:
+        type: string
+        description: Type of license.
+        example: commercial
+      status:
+        type: string
+        description: Current status of the license.
+        example: active
+      expires:
+        type: string
+        format: date-time
+        description: Date and time at which the license expires, in ISO 8601 format.
+        example: "2025-12-31T23:59:59Z"
+    example:
+      id: abc123
+      type: commercial
+      status: active
+      expires: "2025-12-31T23:59:59Z"
   NginxWorker:
     title: Worker process
     description: |
