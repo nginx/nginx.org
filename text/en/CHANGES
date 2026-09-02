@@ -1,4 +1,29 @@
 
+Changes with nginx 1.31.5                                        02 Sep 2026
+
+    *) Feature: control API.
+
+    *) Feature: predicate locations.
+
+    *) Feature: the ngx_http_json_module.
+
+    *) Feature: the "client_body_early_read" directive.
+
+    *) Bugfix: use-after-free might occur in a worker process if proxying
+       with buffering was used and an error occurred while sending the
+       response to an HTTP/2 client.
+
+    *) Bugfix: a worker process might not exit or "accept4() failed (9: Bad
+       file descriptor)" alerts might appear in logs if the worker process
+       ran out of file descriptors before graceful shutdown.
+
+    *) Bugfix: requests to FastCGI and uwsgi backends were malformed if a
+       parameter name was too long.
+
+    *) Bugfixes in HTTP/3, ngx_http_slice_module, and
+       ngx_http_memcached_module.
+
+
 Changes with nginx 1.31.4                                        19 Aug 2026
 
     *) Feature: the "proxy_protocol" directive in the stream and mail
