@@ -176,7 +176,7 @@ def render_path(doc, path_key, path, path_id):
     out += '<list type="bullet" compact="yes">\n'
 
 
-    for method_key in ['get', 'post', 'patch', 'delete']:
+    for method_key in ['get', 'post', 'put', 'patch', 'delete']:
 
         if path.get(method_key) == None:
             continue

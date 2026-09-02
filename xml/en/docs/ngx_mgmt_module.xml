@@ -141,6 +141,40 @@ By default, the <value>license.jwt</value> file is expected to be at
 </directive>
 
 
+<directive name="license_pending_token">
+<syntax><value>file</value> | <literal>off</literal></syntax>
+<default/>
+<context>mgmt</context>
+<appeared-in>1.31.3</appeared-in>
+
+<para>
+Controls how a renewed JWT license token is handled
+after it is received from the F5 licensing endpoint.
+By default, the renewed token is saved and applied immediately.
+</para>
+
+<para>
+When set to a <value>file</value> path,
+the renewed token is saved to the specified file but not applied.
+The path is relative to
+<link id="state_path"><literal>state_path</literal></link>.
+The token can be copied to the active license token file or applied using the
+<literal>PUT</literal> method of the
+<literal>/api/10/license</literal> API endpoint.
+
+</para>
+
+<para>
+When set to <literal>off</literal>,
+the renewal event is logged but the token is discarded.
+In this case, JWT license renewal is managed entirely through the
+<literal>PUT</literal> method of the
+<literal>/api/10/license</literal> API endpoint.
+</para>
+
+</directive>
+
+
 <directive name="proxy">
 <syntax><value>host</value>:<value>port</value></syntax>
 <default/>

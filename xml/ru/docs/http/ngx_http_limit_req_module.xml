@@ -237,27 +237,50 @@ limit_req_zone $binary_remote_addr zone=one:10m rate=1r/s;
 ползапроса в секунду — это 30r/m.
 </para>
 
-<para id="limit_req_zone_sync">
+<para>
+Дополнительно, как часть
+<commercial_version>коммерческой подписки</commercial_version>,
+доступна следующая функциональность:
+
+<list type="bullet">
+
+<listitem id="limit_req_zone_rate">
+<para>
+Параметр <literal>rate</literal> может содержать переменные (1.31.3).
+Скорость вычисляется для каждого запроса во время его выполнения.
+Пример:
+<example>
+map $uri $rate {
+    default       10r/s;
+    /api/slow     1r/s;
+    /api/fast     100r/s;
+}
+
+limit_req_zone $binary_remote_addr zone=one:10m rate=$rate;
+</example>
+</para>
+</listitem>
+
+<listitem id="limit_req_zone_sync">
+<para>
 Параметр <literal>sync</literal> (1.15.3) разрешает
 <link doc="../stream/ngx_stream_zone_sync_module.xml" id="zone_sync">синхронизацию</link>
 данной зоны разделяемой памяти.
-<note>
-Параметр <literal>sync</literal> доступен как часть
-<commercial_version>коммерческой подписки</commercial_version>.
-</note>
 </para>
+</listitem>
 
+<listitem>
 <para>
-<note>
-Дополнительно, как часть
-<commercial_version>коммерческой подписки</commercial_version>,
-<link doc="ngx_http_api_module.xml" id="http_limit_reqs_">информацию о состоянии</link>
+<link doc="ngx_http_api_module.xml" id="http_limit_reqs_">Информацию о состоянии</link>
 каждой такой зоны разделяемой памяти можно
 <link doc="ngx_http_api_module.xml" id="getHttpLimitReqZone">получить</link> или
 <link doc="ngx_http_api_module.xml" id="deleteHttpLimitReqZoneStat">сбросить</link>
 при помощи <link doc="ngx_http_api_module.xml">API</link>
 начиная с версии 1.17.7.
-</note>
+</para>
+</listitem>
+
+</list>
 </para>
 
 </directive>
