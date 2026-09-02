@@ -8,7 +8,7 @@
 <article name="Building nginx from Sources"
          link="/en/docs/configure.html"
          lang="en"
-         rev="28">
+         rev="29">
 
 <section>
 
@@ -445,6 +445,17 @@ This module is not built by default.
 enables building the
 <link doc="http/ngx_http_stub_status_module.xml">ngx_http_stub_status_module</link>
 module that provides access to basic status information.
+This module is not built by default.
+</tag-desc>
+
+<tag-name>
+<literal>--with-http_json_module</literal>
+</tag-name>
+<tag-desc>
+enables building the
+<link doc="http/ngx_http_json_module.xml">ngx_http_json_module</link>
+module that creates variables with values extracted from a JSON
+document.
 This module is not built by default.
 </tag-desc>
 

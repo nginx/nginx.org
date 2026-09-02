@@ -67,6 +67,7 @@ REFS =									\
 		http/ngx_http_index_module				\
 		http/ngx_http_internal_redirect_module			\
 		http/ngx_http_js_module					\
+		http/ngx_http_json_module				\
 		http/ngx_http_keyval_module				\
 		http/ngx_http_limit_conn_module				\
 		http/ngx_http_limit_req_module				\
