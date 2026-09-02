@@ -8,7 +8,7 @@
 <article name="Сборка nginx из исходных файлов"
          link="/ru/docs/configure.html"
          lang="ru"
-         rev="28">
+         rev="29">
 
 <section>
 
@@ -440,6 +440,16 @@
 разрешает сборку модуля
 <link doc="http/ngx_http_stub_status_module.xml">ngx_http_stub_status_module</link>,
 предоставляющего доступ к базовой информации о состоянии сервера.
+По умолчанию модуль не собирается.
+</tag-desc>
+
+<tag-name>
+<literal>--with-http_json_module</literal>
+</tag-name>
+<tag-desc>
+разрешает сборку модуля
+<link doc="http/ngx_http_json_module.xml">ngx_http_json_module</link>,
+создающего переменные со значениями из документа JSON.
 По умолчанию модуль не собирается.
 </tag-desc>
 
