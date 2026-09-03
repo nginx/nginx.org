@@ -33,7 +33,7 @@
 <link doc="en/download.xml">nginx-1.31.5</link>
 mainline version has been released, featuring
 <link url="https://docs.nginx.com/nginx/admin-guide/basic-functionality/runtime-control#control-api">control API</link>,
-predicate locations,
+<link doc="en/docs/http/ngx_http_core_module.xml" id="location">predicate locations</link>,
 and the
 <link doc="en/docs/http/ngx_http_json_module.xml">ngx_http_json_module</link>
 module.
