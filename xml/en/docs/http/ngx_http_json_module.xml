@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (C) Nginx, Inc.
+  -->
+
+<!DOCTYPE module SYSTEM "../../../../dtd/module.dtd">
+
+<module name="Module ngx_http_json_module"
+        link="/en/docs/http/ngx_http_json_module.html"
+        lang="en"
+        rev="1">
+
+<section id="summary">
+
+<para>
+The <literal>ngx_http_json_module</literal> module (1.31.5)
+creates variables whose values are extracted from a JSON document
+held in another variable.
+</para>
+
+<para>
+A document is parsed only once per request, no matter how many
+variables are extracted from it.
+Parsing is performed on the first access to any of these variables.
+</para>
+
+<para>
+This module is not built by default, it should be enabled with the
+<literal>--with-http_json_module</literal>
+configuration parameter.
+</para>
+
+</section>
+
+
+<section id="example" name="Example Configuration">
+
+<para>
+<example>
+http {
+    json_set $user_name $arg_data user.name;
+    json_set $user_age  $arg_data user.age;
+    json_set $tag0      $arg_data tags[0];
+
+    server {
+        location / {
+            return 200 "name=$user_name age=$user_age tag0=$tag0\n";
+        }
+    }
+}
+</example>
+</para>
+
+</section>
+
+
+<section id="directives" name="Directives">
+
+<directive name="json_max_depth">
+<syntax><value>number</value></syntax>
+<default>32</default>
+<context>http</context>
+
+<para>
+Limits the nesting depth of a parsed JSON document.
+A document nested deeper is considered invalid.
+</para>
+
+</directive>
+
+
+<directive name="json_set">
+<syntax>
+    <value>$variable</value>
+    <value>$source</value>
+    <value>path</value></syntax>
+<default/>
+<context>http</context>
+
+<para>
+Creates a <value>variable</value> whose value is extracted from the
+JSON document held in the <value>source</value> variable
+at the given <value>path</value>.
+</para>
+
+<para>
+In a path, object members are separated by a dot,
+and array elements are addressed by a zero-based index in square
+brackets:
+<example>
+json_set $name $body user.name;
+json_set $tag  $body tags[0];
+json_set $city $body user.address.city;
+</example>
+A member name that is empty or contains
+“<literal>.</literal>”,
+“<literal>[</literal>”, or
+“<literal>]</literal>”
+is written as a JSON string in square brackets.
+Since such a path contains double quotes, the whole argument
+needs to be quoted in the configuration file:
+<example>
+json_set $host   $body '["a.b.com"]';
+json_set $nested $body 'obj["a.b"].c[2]';
+</example>
+</para>
+
+<para>
+The value of a JSON string is stored with escape sequences decoded.
+The values of numbers, booleans, and <literal>null</literal>
+are stored as they appear in the document.
+If the path addresses an object or an array,
+its whole text is stored, including the enclosing
+braces or brackets.
+</para>
+
+<para>
+If the addressed member or element is absent, the variable is
+not found.
+If the <value>source</value> variable is empty or not found,
+or if its value is not a valid JSON document,
+all variables extracted from this source are not found.
+</para>
+
+<para>
+The same variable cannot be created twice.
+</para>
+
+</directive>
+
+</section>
+
+</module>
