@@ -13,6 +13,13 @@
 <section>
 
 <para>
+<note>
+Currently nginx for Windows is available in a beta version
+and can be used only for development and testing purposes.
+</note>
+</para>
+
+<para>
 Version of nginx for Windows uses the native Win32 API (not the Cygwin emulation
 layer).
 Only the <c-func>select</c-func> and <c-func>poll</c-func> (1.15.9)
