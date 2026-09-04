@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="120">
+        rev="121">
 
 <section id="directives" name="Directives">
 
@@ -320,7 +320,7 @@ It is usually 16K on other 64-bit platforms.
 
 <para>
 Enables reading of the client request body immediately after the request
-headers are received,
+headers are received and before a location is chosen,
 using the request body read settings from the <literal>server</literal> block.
 If at least one value of the string parameters is not empty
 and is not equal to “0”, then nginx reads the request body early.
@@ -338,6 +338,16 @@ which write the request body to a file, such as
 <para>
 The <link id="client_body_in_file_only"/> directive is ignored
 when the request body is read early.
+</para>
+
+<para>
+When the request body is read early, it becomes available in the
+<link id="var_request_body">$request_body</link> variable
+in any location, in particular, in
+<link id="location">predicate locations</link>.
+The request body should fit into a
+<link id="client_body_buffer_size">memory buffer</link>,
+otherwise it is written to a temporary file.
 </para>
 
 <para>
@@ -392,6 +402,11 @@ removed after request processing.
 <para>
 The value <literal>clean</literal> will cause the temporary files
 left after request processing to be removed.
+</para>
+
+<para>
+The directive is ignored when the request body is read
+<link id="client_body_early_read">early</link>.
 </para>
 
 </directive>
@@ -1817,6 +1832,8 @@ A predicate is specified with the preceding “<literal>$</literal>”
 and contains a variable evaluated during request processing.
 A predicate location matches if the variable value is not empty
 and is not equal to “0”.
+If the variable value depends on the request body, the body needs to be
+<link id="client_body_early_read">read early</link>.
 </para>
 
 <para>
@@ -3610,6 +3627,9 @@ and
 <link doc="ngx_http_scgi_module.xml" id="scgi_pass"/>
 directives when the request body was read to
 a <link id="client_body_buffer_size">memory buffer</link>.
+When the request body is read
+<link id="client_body_early_read">early</link>,
+the value is made available in any location (1.31.5).
 </para>
 </tag-desc>
 
