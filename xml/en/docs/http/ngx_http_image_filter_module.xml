@@ -10,7 +10,7 @@
 <module name="Module ngx_http_image_filter_module"
         link="/en/docs/http/ngx_http_image_filter_module.html"
         lang="en"
-        rev="4">
+        rev="5">
 
 <section id="summary">
 
@@ -200,6 +200,28 @@ Acceptable values are in the range from 1 to 100.
 Lesser values usually imply both lower image quality and less data to transfer.
 The maximum recommended value is 95.
 Parameter value can contain variables.
+</para>
+
+</directive>
+
+
+<directive name="image_filter_max_pixels">
+<syntax><value>pixels</value></syntax>
+<default>20000000</default>
+<context>http</context>
+<context>server</context>
+<context>location</context>
+<appeared-in>1.31.4</appeared-in>
+
+<para>
+Limits the maximum size of an image being processed, in pixels
+(width multiplied by height).
+The limit applies both to the source image
+and to the transformation result.
+When the limit is exceeded, the image is not processed
+and the server returns error
+<http-status code="415" text="Unsupported Media Type"/>.
+The zero value disables the limit.
 </para>
 
 </directive>
