@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="140">
+        rev="141">
 
 <section id="summary">
 
@@ -7115,6 +7115,9 @@ the first root tag named <value>abc</value> as
 <tag-name id="xml_node"><literal>XMLNode</literal></tag-name>
 <tag-desc>
 An XMLNode wrapper object around XML tag node.
+Since <link doc="changes.xml" id="njs1.0.2">1.0.2</link>, existing wrappers
+for a node continue to refer to it after mutation. Removed nodes remain
+readable, but cannot be mutated.
 <para>
 <list type="tag">
 
@@ -7158,7 +7161,9 @@ the namespace of the node
 <tag-name id="node_parent"><literal>node.$parent</literal></tag-name>
 <tag-desc>
 the parent node of the current node, or <literal>undefined</literal>
-for a document root
+for a document root.
+Since <link doc="changes.xml" id="njs1.0.2">1.0.2</link>, the value is also
+<literal>undefined</literal> for a removed node
 </tag-desc>
 
 <tag-name id="node_tag"><literal>node.$tag$<value>abc</value></literal></tag-name>
@@ -7180,6 +7185,8 @@ the same as
 <link id="node_addchild"><literal>node.addChild(<value>node1</value>)</literal></link>;
 <link id="node_addchild"><literal>node.addChild(<value>node2</value>)</literal></link>
 (since <link doc="changes.xml" id="njs0.7.11">0.7.11</link>).
+Since <link doc="changes.xml" id="njs1.0.2">1.0.2</link>, XMLDoc sources are
+supported and source nodes must not have namespaces
 </tag-desc>
 
 <tag-name id="node_tags_abc"><literal>node.$tags$<value>abc</value></literal></tag-name>
@@ -7193,6 +7200,9 @@ Assignment and deletion are not supported
 the content of the node,
 writable
 since <link doc="changes.xml" id="njs0.7.11">0.7.11</link>
+Since <link doc="changes.xml" id="njs1.0.2">1.0.2</link>, assigning a string
+replaces all child nodes, while assigning <literal>null</literal> or
+<literal>undefined</literal> removes them
 </tag-desc>
 
 <tag-name id="node_text_abc"><literal>node.$text = 'abc' </literal></tag-name>
@@ -7206,7 +7216,9 @@ the same as
 <tag-desc>
 adds XMLNode as a child to node
 (since <link doc="changes.xml" id="njs0.7.11">0.7.11</link>).
-<literal>nd</literal> is recursively copied before adding to the node
+<literal>nd</literal> is recursively copied before adding to the node.
+Since <link doc="changes.xml" id="njs1.0.2">1.0.2</link>, XMLDoc sources are
+supported and source nodes must not have namespaces
 </tag-desc>
 
 <tag-name id="node_removeallattr"><literal>node.removeAllAttributes()</literal></tag-name>
@@ -7225,7 +7237,7 @@ removes the attribute named <literal>attr_name</literal>
 <tag-desc>
 removes all the children tags named <literal>tag_name</literal>
 (since <link doc="changes.xml" id="njs0.7.11">0.7.11</link>).
-If <literal>tag_name</literal> is absent, all children tags are removed
+If <literal>tag_name</literal> is absent, all child nodes are removed
 </tag-desc>
 
 <tag-name id="node_removetext"><literal>node.removeText()</literal></tag-name>
@@ -7239,15 +7251,18 @@ removes all child nodes
 <tag-desc>
 sets a value for an <literal>attr_name</literal>
 (since <link doc="changes.xml" id="njs0.7.11">0.7.11</link>).
-When the value is <literal>null</literal>,
-the attribute named <literal>attr_name</literal> is deleted
+Since <link doc="changes.xml" id="njs1.0.2">1.0.2</link>, a string value is
+assigned to the attribute, while <literal>null</literal> or
+<literal>undefined</literal> deletes it
 </tag-desc>
 
 <tag-name id="node_settext"><literal>node.setText(<value>value</value>)</literal></tag-name>
 <tag-desc>
 sets a text value for the node
 (since <link doc="changes.xml" id="njs0.7.11">0.7.11</link>).
-When the value is <literal>null</literal>, the text of the node is deleted.
+Since <link doc="changes.xml" id="njs1.0.2">1.0.2</link>, a string value
+replaces all child nodes, while <literal>null</literal> or
+<literal>undefined</literal> deletes all child nodes
 </tag-desc>
 
 </list>
