@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="139">
+        rev="140">
 
 <section id="summary">
 
@@ -7157,14 +7157,15 @@ the namespace of the node
 
 <tag-name id="node_parent"><literal>node.$parent</literal></tag-name>
 <tag-desc>
-the parent node of the current node
+the parent node of the current node, or <literal>undefined</literal>
+for a document root
 </tag-desc>
 
 <tag-name id="node_tag"><literal>node.$tag$<value>abc</value></literal></tag-name>
 <tag-desc>
-the first child tag of the node named <value>abc</value>,
-writable
-since <link doc="changes.xml" id="njs0.7.11">0.7.11</link>
+the first child tag of the node named <value>abc</value>.
+Assignment is not supported.
+Deleting the property removes matching child tags
 </tag-desc>
 
 <tag-name id="node_tags"><literal>node.$tags</literal></tag-name>
@@ -7183,9 +7184,8 @@ the same as
 
 <tag-name id="node_tags_abc"><literal>node.$tags$<value>abc</value></literal></tag-name>
 <tag-desc>
-all children tags named <value>abc</value> of the node,
-writable
-since <link doc="changes.xml" id="njs0.7.11">0.7.11</link>
+all children tags named <value>abc</value> of the node.
+Assignment and deletion are not supported
 </tag-desc>
 
 <tag-name id="node_text"><literal>node.$text</literal></tag-name>
@@ -7230,7 +7230,7 @@ If <literal>tag_name</literal> is absent, all children tags are removed
 
 <tag-name id="node_removetext"><literal>node.removeText()</literal></tag-name>
 <tag-desc>
-removes the node's text value
+removes all child nodes
 (<link doc="changes.xml" id="njs0.7.11">0.7.11</link>)
 </tag-desc>
 
