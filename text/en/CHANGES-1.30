@@ -1,4 +1,15 @@
 
+Changes with nginx 1.30.5                                        15 Sep 2026
+
+    *) Security: a heap memory buffer overflow might occur in a worker
+       process under certain configurations when using HTTP/3 with OpenSSL
+       3.5.0 and earlier (CVE-2026-90439).
+       Thanks to Banny Liao.
+
+    *) Change: now the QUIC transport parameters extension received in an
+       SSL connection is always ignored.
+
+
 Changes with nginx 1.30.4                                        15 Jul 2026
 
     *) Security: heap buffer overflow might occur in a worker process when
