@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_proxy_module"
         link="/ru/docs/stream/ngx_stream_proxy_module.html"
         lang="ru"
-        rev="40">
+        rev="41">
 
 <section id="summary">
 
@@ -682,7 +682,7 @@ OpenSSL
 Включает логирование SSL-ключей соединений с проксируемым сервером
 и указывает путь к лог-файлу ключей.
 Ключи записываются в формате
-<link url="https://datatracker.ietf.org/doc/html/draft-ietf-tls-keylogfile">SSLKEYLOGFILE</link>
+<link url="https://datatracker.ietf.org/doc/html/rfc9850">SSLKEYLOGFILE</link>
 совместимом с Wireshark.
 </para>
 

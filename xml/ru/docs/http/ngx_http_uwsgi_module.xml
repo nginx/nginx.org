@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_uwsgi_module"
         link="/ru/docs/http/ngx_http_uwsgi_module.html"
         lang="ru"
-        rev="59">
+        rev="60">
 
 <section id="summary">
 
@@ -1740,7 +1740,7 @@ OpenSSL
 Включает логирование SSL-ключей соединений с suwsgi-сервером
 и указывает путь к лог-файлу ключей.
 Ключи записываются в формате
-<link url="https://datatracker.ietf.org/doc/html/draft-ietf-tls-keylogfile">SSLKEYLOGFILE</link>
+<link url="https://datatracker.ietf.org/doc/html/rfc9850">SSLKEYLOGFILE</link>
 совместимом с Wireshark.
 </para>
 

@@ -10,7 +10,7 @@
 <module name="Module ngx_http_uwsgi_module"
         link="/en/docs/http/ngx_http_uwsgi_module.html"
         lang="en"
-        rev="59">
+        rev="60">
 
 <section id="summary">
 
@@ -1744,7 +1744,7 @@ specified in the same file.
 Enables logging of secured uwsgi server connection SSL keys
 and specifies the path to the key log file.
 Keys are logged in the
-<link url="https://datatracker.ietf.org/doc/html/draft-ietf-tls-keylogfile">SSLKEYLOGFILE</link>
+<link url="https://datatracker.ietf.org/doc/html/rfc9850">SSLKEYLOGFILE</link>
 format compatible with Wireshark.
 </para>
 
