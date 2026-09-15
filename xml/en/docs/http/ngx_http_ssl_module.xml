@@ -10,7 +10,7 @@
 <module name="Module ngx_http_ssl_module"
         link="/en/docs/http/ngx_http_ssl_module.html"
         lang="en"
-        rev="76">
+        rev="77">
 
 <section id="summary">
 
@@ -589,9 +589,9 @@ it is important to include the curves used in the certificates.
 <para>
 Specifies a <value>file</value> with encrypted ClientHello configuration
 (<literal>ECHConfig</literal>) in the
-<link url="https://datatracker.ietf.org/doc/draft-farrell-tls-pemesni/">PEM</link>
+<link url="https://datatracker.ietf.org/doc/html/rfc9934">PEM</link>
 format used to enable TLS 1.3
-<link url="https://datatracker.ietf.org/doc/html/draft-ietf-tls-esni">ECH</link>
+<link url="https://datatracker.ietf.org/doc/html/rfc9849">ECH</link>
 in shared mode.
 </para>
 
@@ -615,7 +615,7 @@ The directive is supported when using OpenSSL 4.0 or higher.
 Enables logging of client connection SSL keys
 and specifies the path to the key log file.
 Keys are logged in the
-<link url="https://datatracker.ietf.org/doc/html/draft-ietf-tls-keylogfile">SSLKEYLOGFILE</link>
+<link url="https://datatracker.ietf.org/doc/html/rfc9850">SSLKEYLOGFILE</link>
 format compatible with Wireshark.
 </para>
 
