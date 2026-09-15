@@ -25,6 +25,14 @@ Patches are signed using one of the
 
 <security>
 
+<item name="Buffer overflow when using ngx_http_v3_module"
+      severity="medium"
+      advisory="https://my.f5.com/manage/s/article/K000162604"
+      cve="2026-90439"
+      good="1.31.6+, 1.30.5+"
+      vulnerable="1.29.2-1.31.5">
+</item>
+
 <item name="Buffer overflow when using map and regex"
       severity="major"
       advisory="https://my.f5.com/manage/s/article/K000162097"
