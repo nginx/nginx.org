@@ -1338,6 +1338,17 @@ fastcgi_param HTTPS           $https if_not_empty;
 </example>
 </para>
 
+<para>
+If the <value>parameter</value> name begins with
+“<literal>HTTP_</literal>” and its <value>value</value> is set to an
+empty string, the parameter is not passed to the FastCGI server, and
+the corresponding client request header field is not passed either.
+This can be used to prevent forwarding of a request header field:
+<example>
+fastcgi_param HTTP_AUTHORIZATION "";
+</example>
+</para>
+
 </directive>
 
 
