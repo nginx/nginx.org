@@ -283,6 +283,9 @@ An optional <value>flag</value> parameter can be one of:
 stops processing the current set of
 <literal>ngx_http_rewrite_module</literal> directives and starts
 a search for a new location matching the changed URI;
+if the <value>replacement</value> string is constructed from variables, the
+<link doc="ngx_http_core_module.xml" id="internal_redirect_uri">usual
+considerations</link> apply;
 </tag-desc>
 
 <tag-name><literal>break</literal></tag-name>
