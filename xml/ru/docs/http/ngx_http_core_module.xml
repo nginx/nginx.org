@@ -790,6 +790,27 @@ error_log_tag  request_id  $request_id;
 В значении <value>uri</value> можно использовать переменные.
 </para>
 
+<para id="internal_redirect_uri">
+URI, составленный из переменных, используется как есть.
+В отличие от строки запроса он не нормализуется,
+поэтому “<literal>../</literal>” в значении переменной сохраняется
+и передаётся
+<link doc="ngx_http_proxy_module.xml" id="proxy_pass">проксируемому
+серверу</link> без изменений.
+Если такое значение берётся из запроса,
+его следует ограничить ожидаемым набором значений,
+например с помощью директивы
+<link doc="ngx_http_map_module.xml" id="map"/>:
+<example>
+map $arg_path $safe_path {
+    ~^[\w-]+$  $arg_path;
+    default    "";
+}
+
+error_page 404 = /api/$safe_path;
+</example>
+</para>
+
 <para>
 Пример:
 <example>
@@ -3008,7 +3029,9 @@ server {
 С помощью слэша в конце имени можно проверить существование каталога,
 например, “<literal>$uri/</literal>”.
 В случае, если ни один файл не найден, то делается внутреннее
-перенаправление на <value>uri</value>, заданный последним параметром.
+перенаправление на <value>uri</value>, заданный последним параметром;
+если он составлен из переменных, действуют
+<link id="internal_redirect_uri">те же соображения</link>.
 Например:
 <example>
 location /images/ {
