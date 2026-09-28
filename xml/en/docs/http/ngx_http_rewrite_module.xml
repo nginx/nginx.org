@@ -389,6 +389,13 @@ Sets a <value>value</value> for the specified <value>variable</value>.
 The <value>value</value> can contain text, variables, and their combination.
 </para>
 
+<para>
+If the request URI contains escaped characters or
+the “<literal>+</literal>” character,
+values of the <var>$1</var>..<var>$9</var> variables
+used in the <value>value</value> are escaped.
+</para>
+
 </directive>
 
 
