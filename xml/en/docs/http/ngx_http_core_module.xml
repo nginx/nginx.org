@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="120">
+        rev="121">
 
 <section id="directives" name="Directives">
 
@@ -1514,6 +1514,16 @@ listen unix:/var/run/nginx.sock;
 
 <para>
 If only <value>address</value> is given, the port 80 is used.
+</para>
+
+<para>
+If only <value>port</value> is given, nginx listens on all IPv4 addresses.
+To accept IPv6 connections as well, an IPv6 address
+should be specified separately, for example:
+<example>
+listen 8000;
+listen [::]:8000;
+</example>
 </para>
 
 <para>
