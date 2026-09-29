@@ -9,7 +9,7 @@
 <article name="Reference"
         link="/en/docs/njs/reference.html"
         lang="en"
-        rev="141">
+        rev="142">
 
 <section id="summary">
 
@@ -7124,7 +7124,8 @@ readable, but cannot be mutated.
 <tag-name id="node_abc"><literal>node.<value>abc</value></literal></tag-name>
 <tag-desc>
 the same as
-<link id="node_tag"><literal>node.$tag$<value>abc</value></literal></link>
+<link id="node_tag"><literal>node.$tag$<value>abc</value></literal></link>,
+unless <value>abc</value> is the name of an XMLNode method
 </tag-desc>
 
 <tag-name id="node_attr"><literal>node.$attr$<value>abc</value></literal></tag-name>
@@ -7169,6 +7170,8 @@ Since <link doc="changes.xml" id="njs1.0.2">1.0.2</link>, the value is also
 <tag-name id="node_tag"><literal>node.$tag$<value>abc</value></literal></tag-name>
 <tag-desc>
 the first child tag of the node named <value>abc</value>.
+This form is required if <value>abc</value> is also the name of an XMLNode
+method.
 Assignment is not supported.
 Deleting the property removes matching child tags
 </tag-desc>
@@ -7219,6 +7222,31 @@ adds XMLNode as a child to node
 <literal>nd</literal> is recursively copied before adding to the node.
 Since <link doc="changes.xml" id="njs1.0.2">1.0.2</link>, XMLDoc sources are
 supported and source nodes must not have namespaces
+</tag-desc>
+
+<tag-name id="node_getattrns"><literal>node.getAttributeNS(<value>namespaceURI</value>,
+<value>localName</value>)</literal></tag-name>
+<tag-desc>
+returns the value of the first attribute matching <literal>namespaceURI</literal>
+and <literal>localName</literal>, or <literal>undefined</literal> if there is
+no matching attribute.
+The <literal>namespaceURI</literal> is a string or <literal>null</literal>;
+an empty string and <literal>null</literal> match attributes without a
+namespace.
+An unprefixed attribute has no namespace, even if a default namespace is
+declared.
+Since <link doc="changes.xml" id="njs1.0.2">1.0.2</link>
+</tag-desc>
+
+<tag-name id="node_getchildns"><literal>node.getChildNS(<value>namespaceURI</value>,
+<value>localName</value>)</literal></tag-name>
+<tag-desc>
+returns the first child tag matching <literal>namespaceURI</literal> and
+<literal>localName</literal>, or <literal>undefined</literal> if there is no
+matching child tag.
+The <literal>namespaceURI</literal> is a string or <literal>null</literal>;
+an empty string and <literal>null</literal> match tags without a namespace.
+Since <link doc="changes.xml" id="njs1.0.2">1.0.2</link>
 </tag-desc>
 
 <tag-name id="node_removeallattr"><literal>node.removeAllAttributes()</literal></tag-name>
