@@ -10,7 +10,7 @@
 <module name="Модуль ngx_mail_proxy_module"
         link="/ru/docs/mail/ngx_mail_proxy_module.html"
         lang="ru"
-        rev="6">
+        rev="7">
 
 <section id="directives" name="Директивы">
 
@@ -101,6 +101,10 @@ PROXY</link> для соединений с бэкендом.
 <para>
 Разрешает или запрещает аутентификацию пользователей на SMTP-бэкенде
 при помощи команды <literal>AUTH</literal>.
+Для отдельной сессии эта настройка может быть переопределена
+заголовком <header>Auth-SMTP</header>
+в <link doc="ngx_mail_auth_http_module.xml" id="protocol">ответе</link>
+сервера аутентификации (1.31.7).
 </para>
 
 <para>
