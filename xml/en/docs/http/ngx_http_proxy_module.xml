@@ -2058,7 +2058,8 @@ proxy_set_header Host       $http_host;
 
 <para>
 However, if this field is not present in a client request header then
-nothing will be passed.
+the <value>$proxy_host</value> value will be passed (1.31.4),
+or, when proxying with HTTP/1.0, nothing will be passed.
 In such a case it is better to use the <var>$host</var> variable&mdash;its
 value equals the server name in the <header>Host</header> request header
 field or the primary server name if this field is not present:
@@ -2081,6 +2082,21 @@ field will not be passed to a proxied server:
 <example>
 proxy_set_header Accept-Encoding "";
 </example>
+</para>
+
+<para>
+The <header>Host</header> header field is an exception.
+Since 1.31.4, if its value is an empty string,
+the <value>$proxy_host</value> value is passed instead,
+as the <link url="https://datatracker.ietf.org/doc/html/rfc9110#section-4.2.1">http</link>
+and <link url="https://datatracker.ietf.org/doc/html/rfc9110#section-4.2.2">https</link>
+URI schemes require a non-empty host identifier.
+This applies when proxying with HTTP/1.1, and to the
+<header>:authority</header> pseudo-header field when proxying with HTTP/2.
+An empty <header>Host</header> value therefore cannot be used
+to suppress the field, or as a way to signal that a request
+should not be proxied.
+When proxying with HTTP/1.0, an empty value still suppresses the field.
 </para>
 
 </directive>

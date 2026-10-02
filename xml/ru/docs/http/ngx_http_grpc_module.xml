@@ -567,11 +567,26 @@ grpc_set_header      Host $upstream_last_server_name;
 </para>
 
 <para>
-Если значение поля заголовка — пустая строка, то поле вообще
+Если значение поля заголовка — пустая строка, то поле вообще
 не будет передаваться gRPC-серверу:
 <example>
 grpc_set_header Accept-Encoding "";
 </example>
+</para>
+
+<para>
+Исключением является поле заголовка <header>Host</header>.
+Начиная с 1.31.4, его значение передаётся в поле псевдо-заголовка
+<header>:authority</header>, и если это значение — пустая строка,
+вместо него передаются хост и порт
+<link id="grpc_pass">gRPC-сервера</link>,
+так как схемы URI
+<link url="https://datatracker.ietf.org/doc/html/rfc9110#section-4.2.1">http</link>
+и <link url="https://datatracker.ietf.org/doc/html/rfc9110#section-4.2.2">https</link>
+требуют непустого идентификатора хоста.
+Поэтому пустое значение <header>Host</header> нельзя использовать
+для того, чтобы убрать это поле или чтобы указать, что запрос
+не должен проксироваться.
 </para>
 
 </directive>
