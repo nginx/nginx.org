@@ -10,7 +10,7 @@
 <module name="Module ngx_http_geoip_module"
         link="/en/docs/http/ngx_http_geoip_module.html"
         lang="en"
-        rev="5">
+        rev="6">
 
 <section id="summary">
 
@@ -18,21 +18,32 @@
 The <literal>ngx_http_geoip_module</literal> module (0.8.6+) creates variables
 with values depending on the client IP address, using the precompiled
 <link url="http://www.maxmind.com">MaxMind</link> databases.
-</para>
-
-<para>
-When using the databases with IPv6 support (1.3.12, 1.2.7),
-IPv4 addresses are looked up as IPv4-mapped IPv6 addresses.
+Since 1.31.7, the module supports databases
+in MaxMind DB (MMDB) format, such as
+<link url="https://www.maxmind.com/en/geoip-databases/">GeoIP2</link>
+or
+<link url="https://dev.maxmind.com/geoip/geolite2-free-geolocation-data/">GeoLite2</link>.
 </para>
 
 <para>
 This module is not built by default, it should be enabled with the
-<literal>--with-http_geoip_module</literal>
+<link doc="../configure.xml" id="http_geoip"><literal>--with-http_geoip_module</literal></link>
+or <literal>--with-http_geoip_module=dynamic</literal>
 configuration parameter.
 <note>
 This module requires the
-<link url="http://www.maxmind.com/app/c">MaxMind GeoIP</link> library.
+<link url="https://github.com/maxmind/libmaxminddb">libmaxminddb</link>
+library (1.31.7) for databases in MMDB format or
+<link url="https://github.com/maxmind/geoip-api-c">GeoIP Legacy C</link> library
+for
+<link url="https://blog.maxmind.com/geoip-legacy-databases-have-been-retired/">legacy</link>
+databases in DAT format.
 </note>
+</para>
+
+<para>
+When using legacy GeoIP databases with IPv6 support (1.3.12, 1.2.7),
+IPv4 addresses are looked up as IPv4-mapped IPv6 addresses.
 </para>
 
 </section>
@@ -43,8 +54,9 @@ This module requires the
 <para>
 <example>
 http {
-    geoip_country         GeoIP.dat;
-    geoip_city            GeoLiteCity.dat;
+    geoip_country         GeoLite2-Country.mmdb;
+    geoip_city            GeoLite2-City.mmdb;
+    geoip_org             GeoLite2-ASN.mmdb;
     geoip_proxy           192.168.100.0/24;
     geoip_proxy           2001:0db8::/32;
     geoip_proxy_recursive on;

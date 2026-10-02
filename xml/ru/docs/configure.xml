@@ -8,7 +8,7 @@
 <article name="Сборка nginx из исходных файлов"
          link="/ru/docs/configure.html"
          lang="ru"
-         rev="29">
+         rev="30">
 
 <section>
 
@@ -303,7 +303,7 @@
 По умолчанию модуль не собирается.
 </tag-desc>
 
-<tag-name>
+<tag-name id="http_geoip">
 <literal>--with-http_geoip_module</literal><br/>
 <literal>--with-http_geoip_module=dynamic</literal>
 </tag-name>
@@ -314,6 +314,11 @@
 используя готовые базы данных
 <link url="http://www.maxmind.com">MaxMind</link>.
 По умолчанию модуль не собирается.
+Для сборки и работы этого модуля нужна библиотека
+The <link url="https://github.com/maxmind/libmaxminddb">libmaxminddb</link>
+для баз данных в формате MMDB или библиотека
+<link url="https://github.com/maxmind/geoip-api-c">GeoIP Legacy C</link>
+для устаревших баз данных.
 </tag-desc>
 
 <tag-name>
@@ -981,7 +986,7 @@ HTTP-сервера.
 По умолчанию модуль не собирается.
 </tag-desc>
 
-<tag-name>
+<tag-name id="stream_geoip">
 <literal>--with-stream_geoip_module</literal><br/>
 <literal>--with-stream_geoip_module=dynamic</literal>
 </tag-name>
@@ -992,6 +997,11 @@ HTTP-сервера.
 используя готовые базы данных
 <link url="http://www.maxmind.com">MaxMind</link>.
 По умолчанию модуль не собирается.
+Для сборки и работы этого модуля нужна библиотека
+The <link url="https://github.com/maxmind/libmaxminddb">libmaxminddb</link>
+для баз данных в формате MMDB или библиотека
+<link url="https://github.com/maxmind/geoip-api-c">GeoIP Legacy C</link>
+для устаревших баз данных.
 </tag-desc>
 
 <tag-name>

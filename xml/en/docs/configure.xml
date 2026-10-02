@@ -8,7 +8,7 @@
 <article name="Building nginx from Sources"
          link="/en/docs/configure.html"
          lang="en"
-         rev="29">
+         rev="30">
 
 <section>
 
@@ -306,7 +306,7 @@ module that transforms images in JPEG, GIF, PNG, and WebP formats.
 This module is not built by default.
 </tag-desc>
 
-<tag-name>
+<tag-name id="http_geoip">
 <literal>--with-http_geoip_module</literal><br/>
 <literal>--with-http_geoip_module=dynamic</literal>
 </tag-name>
@@ -317,6 +317,11 @@ module that creates variables depending on the client IP address
 and the precompiled
 <link url="http://www.maxmind.com">MaxMind</link> databases.
 This module is not built by default.
+The <link url="https://github.com/maxmind/libmaxminddb">libmaxminddb</link> 
+library for MMDB databases or
+<link url="https://github.com/maxmind/geoip-api-c">GeoIP Legacy C</link> library
+for legacy databases
+is required to build and run this module.
 </tag-desc>
 
 <tag-name>
@@ -1000,7 +1005,7 @@ sent in the PROXY protocol header.
 This module is not built by default.
 </tag-desc>
 
-<tag-name>
+<tag-name id="stream_geoip">
 <literal>--with-stream_geoip_module</literal><br/>
 <literal>--with-stream_geoip_module=dynamic</literal>
 </tag-name>
@@ -1011,6 +1016,11 @@ module that creates variables depending on the client IP address
 and the precompiled
 <link url="http://www.maxmind.com">MaxMind</link> databases.
 This module is not built by default.
+The <link url="https://github.com/maxmind/libmaxminddb">libmaxminddb</link>
+library for MMDB databases or
+<link url="https://github.com/maxmind/geoip-api-c">GeoIP Legacy C</link> library
+for legacy databases
+is required to build and run this module.
 </tag-desc>
 
 <tag-name>

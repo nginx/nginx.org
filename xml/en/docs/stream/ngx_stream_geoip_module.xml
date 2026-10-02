@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_geoip_module"
         link="/en/docs/stream/ngx_stream_geoip_module.html"
         lang="en"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
@@ -17,21 +17,32 @@
 The <literal>ngx_stream_geoip_module</literal> module (1.11.3) creates variables
 with values depending on the client IP address, using the precompiled
 <link url="http://www.maxmind.com">MaxMind</link> databases.
-</para>
-
-<para>
-When using the databases with IPv6 support,
-IPv4 addresses are looked up as IPv4-mapped IPv6 addresses.
+Since 1.31.7, the module supports databases
+in MaxMind DB (MMDB) format, such as
+<link url="https://www.maxmind.com/en/geoip-databases/">GeoIP2</link>
+or
+<link url="https://dev.maxmind.com/geoip/geolite2-free-geolocation-data/">GeoLite2</link>.
 </para>
 
 <para>
 This module is not built by default, it should be enabled with the
-<literal>--with-stream_geoip_module</literal>
+<link doc="../configure.xml" id="stream_geoip"><literal>--with-stream_geoip_module</literal></link>
+or <literal>--with-stream_geoip_module=dynamic</literal>
 configuration parameter.
 <note>
 This module requires the
-<link url="http://www.maxmind.com/app/c">MaxMind GeoIP</link> library.
+<link url="https://github.com/maxmind/libmaxminddb">libmaxminddb</link>
+library (1.31.7) for databases in MMDB format or
+<link url="https://github.com/maxmind/geoip-api-c">GeoIP Legacy C</link> library
+for
+<link url="https://blog.maxmind.com/geoip-legacy-databases-have-been-retired/">legacy</link>
+databases in DAT format.
 </note>
+</para>
+
+<para>
+When using legacy GeoIP databases with IPv6 support,
+IPv4 addresses are looked up as IPv4-mapped IPv6 addresses.
 </para>
 
 </section>
@@ -42,8 +53,8 @@ This module requires the
 <para>
 <example>
 stream {
-    geoip_country         GeoIP.dat;
-    geoip_city            GeoLiteCity.dat;
+    geoip_country         GeoLite2-Country.mmdb;
+    geoip_city            GeoLite2-City.mmdb;
 
     map $geoip_city_continent_code $nearest_server {
         default        example.com;

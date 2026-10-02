@@ -9,29 +9,40 @@
 <module name="Модуль ngx_stream_geoip_module"
         link="/ru/docs/stream/ngx_stream_geoip_module.html"
         lang="ru"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
 <para>
 Модуль <literal>ngx_stream_geoip_module</literal> (1.11.3) создаёт переменные,
-значения которых зависят от IP-адреса клиента, используя готовые базы данных
-<link url="http://www.maxmind.com">MaxMind</link>.
-</para>
-
-<para>
-При использовании баз данных с поддержкой IPv6
-IPv4-адреса ищутся отображёнными на IPv6.
+значения которых зависят от IP-адреса клиента, используя готовые
+базы данных <link url="https://www.maxmind.com">MaxMind</link>.
+Начиная с версии 1.31.7, модуль поддерживает базы данных
+в формате MaxMind DB (MMDB), в том числе
+<link url="https://www.maxmind.com/en/geoip-databases/">GeoIP2</link>
+и
+<link url="https://dev.maxmind.com/geoip/geolite2-free-geolocation-data/">GeoLite2</link>.
 </para>
 
 <para>
 По умолчанию этот модуль не собирается, его сборку необходимо
 разрешить с помощью конфигурационного параметра
-<literal>--with-stream_geoip_module</literal>.
+<link doc="../configure.xml" id="stream_geoip"><literal>--with-stream_geoip_module</literal></link>
+или <literal>--with-stream_geoip_module=dynamic</literal>.
 <note>
-Для сборки и работы этого модуля нужна библиотека
-<link url="http://www.maxmind.com/app/c">MaxMind GeoIP</link>.
+Для сборки и работы модуля необходима библиотека
+<link url="https://github.com/maxmind/libmaxminddb">libmaxminddb</link>
+(1.31.7) для баз данных в формате MMDB или
+библиотека <link url="https://github.com/maxmind/geoip-api-c">GeoIP Legacy C</link>
+для
+<link url="https://blog.maxmind.com/geoip-legacy-databases-have-been-retired/">устаревших</link>
+баз данных в формате DAT.
 </note>
+</para>
+
+<para>
+При использовании устаревших баз данных GeoIP с поддержкой IPv6
+IPv4-адреса ищутся отображёнными на IPv6.
 </para>
 
 </section>
@@ -42,8 +53,8 @@ IPv4-адреса ищутся отображёнными на IPv6.
 <para>
 <example>
 stream {
-    geoip_country         GeoIP.dat;
-    geoip_city            GeoLiteCity.dat;
+    geoip_country         GeoLite2-Country.mmdb;
+    geoip_city            GeoLite2-City.mmdb;
 
     map $geoip_city_continent_code $nearest_server {
         default        example.com;
