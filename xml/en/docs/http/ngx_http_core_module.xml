@@ -795,6 +795,27 @@ Defines the URI that will be shown for the specified errors.
 A <value>uri</value> value can contain variables.
 </para>
 
+<para id="internal_redirect_uri">
+A URI constructed from variables is used as is.
+Unlike the request line, it is not normalized,
+so “<literal>../</literal>” in a variable value is preserved
+and is passed on to a
+<link doc="ngx_http_proxy_module.xml" id="proxy_pass">proxied server</link>
+unchanged.
+If such a value is taken from the request,
+it should be restricted to an expected set of values,
+for example with the
+<link doc="ngx_http_map_module.xml" id="map"/> directive:
+<example>
+map $arg_path $safe_path {
+    ~^[\w-]+$  $arg_path;
+    default    "";
+}
+
+error_page 404 = /api/$safe_path;
+</example>
+</para>
+
 <para>
 Example:
 <example>
@@ -3010,7 +3031,9 @@ according to the
 It is possible to check directory’s existence by specifying
 a slash at the end of a name, e.g. “<literal>$uri/</literal>”.
 If none of the files were found, an internal redirect to the
-<value>uri</value> specified in the last parameter is made.
+<value>uri</value> specified in the last parameter is made;
+if it is constructed from variables, the
+<link id="internal_redirect_uri">usual considerations</link> apply.
 For example:
 <example>
 location /images/ {

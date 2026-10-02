@@ -282,6 +282,9 @@ if ($invalid_referer) {
 завершает обработку текущего набора директив модуля
 <literal>ngx_http_rewrite_module</literal>,
 после чего ищется новый location, соответствующий изменённому URI;
+если строка <value>replacement</value> составлена из переменных,
+действуют <link doc="ngx_http_core_module.xml"
+id="internal_redirect_uri">те же соображения</link>;
 </tag-desc>
 
 <tag-name><literal>break</literal></tag-name>
