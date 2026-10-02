@@ -189,6 +189,28 @@ ssl_certificate_key $ssl_server_name.key;
 что может отрицательно влиять на производительность.
 </para>
 
+<para>
+Поскольку значение <link id="var_ssl_server_name">$ssl_server_name</link>
+выбирается клиентом,
+загрузку сертификатов с таким именем файла следует фильтровать:
+<example>
+map $ssl_server_name $name {
+    hostnames;
+
+    default        www.example.org;
+
+    .example.org   www.example.org;
+    .example.com   www.example.com;
+}
+
+server {
+    listen              443 ssl;
+    ssl_certificate     certs/$name.crt;
+    ssl_certificate_key certs/$name.key;
+}
+</example>
+</para>
+
 <para id="ssl_certificate_data">
 Вместо <value>файла</value> можно указать значение
 <literal>data</literal>:<value>$переменная</value> (1.15.10),
@@ -227,7 +249,7 @@ IP-адресах</link>.
 Задаёт кэш, в котором могут храниться
 <link id="ssl_certificate">SSL-сертификаты</link> и
 <link id="ssl_certificate_key">секретные ключи</link>,
-полученные из <link id="ssl_certificate_key_variables">переменных</link>.
+полученные из <link id="ssl_certificate_variables">переменных</link>.
 </para>
 
 <para>
@@ -275,8 +297,6 @@ IP-адресах</link>.
 <para>
 Пример:
 <example>
-ssl_certificate       $ssl_server_name.crt;
-ssl_certificate_key   $ssl_server_name.key;
 ssl_certificate_cache max=1000 inactive=20s valid=1m;
 </example>
 </para>
