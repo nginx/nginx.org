@@ -405,6 +405,47 @@ therefore SNI is not available
 
 </section>
 
+
+<section id="client_ssl_certificates" name="Клиентские SSL-сертификаты">
+
+<para>
+<link doc="ngx_http_ssl_module.xml" id="ssl_verify_client">Проверку
+клиентских SSL-сертификатов</link> в HTTPS-серверах, выбираемых по имени,
+следует настраивать с осторожностью.
+Если клиент не запросил имя сервера с помощью SNI,
+для установления соединения используется вся конфигурация SSL
+сервера по умолчанию.
+В этом случае
+конфигурация сервера, обрабатывающего HTTP-запрос,
+может впоследствии измениться; см.
+<link doc="server_names.xml" id="virtual_server_selection">выбор
+виртуального сервера</link>.
+В результате клиент с сертификатом, которому доверяет сервер по умолчанию,
+может запрашивать ресурсы у других серверов,
+слушающих на том же адресе,
+включая серверы, проверяющие клиентские сертификаты
+по сертификатам другого CA.
+</para>
+
+<para>
+Если это нежелательно,
+соединения без SNI следует ограничить директивой
+<link doc="ngx_http_ssl_module.xml" id="ssl_reject_handshake"/>
+на сервере по умолчанию.
+Это обеспечит проверку недопустимого
+<link url="https://datatracker.ietf.org/doc/html/rfc9113#name-connection-reuse">повторного
+использования соединения</link>:
+<programlisting>
+server {
+    listen              443 ssl default_server;
+    ssl_reject_handshake on;
+    return 421;
+}
+</programlisting>
+</para>
+
+</section>
+
 </section>
 
 

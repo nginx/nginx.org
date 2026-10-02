@@ -406,6 +406,47 @@ therefore SNI is not available
 
 </section>
 
+
+<section id="client_ssl_certificates" name="Client SSL certificates">
+
+<para>
+<link doc="ngx_http_ssl_module.xml" id="ssl_verify_client">Verification
+of client SSL certificates</link> should be configured with care
+in named-based HTTPS servers.
+If a client does not request a server name through SNI,
+the entire SSL configuration of the default server is used
+to establish the connection.
+In this case,
+the server configuration that processes the HTTP request
+may be switched afterwards; see
+<link doc="server_names.xml" id="virtual_server_selection">Virtual
+server selection</link>.
+As a result, a client with a certificate trusted by the default server
+may be able to request resources from other servers
+listening on the same address,
+including servers that verify client certificates
+against a different certificate authority.
+</para>
+
+<para>
+If this is not desired,
+connections without SNI should be limited by
+<link doc="ngx_http_ssl_module.xml" id="ssl_reject_handshake"/>
+in the default server.
+This will enforce the check for inappropriate
+<link url="https://datatracker.ietf.org/doc/html/rfc9113#name-connection-reuse">connection
+reuse</link>:
+<programlisting>
+server {
+    listen              443 ssl default_server;
+    ssl_reject_handshake on;
+    return 421;
+}
+</programlisting>
+</para>
+
+</section>
+
 </section>
 
 
