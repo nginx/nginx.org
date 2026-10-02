@@ -17,6 +17,19 @@
 <para>
 The <literal>ngx_http_proxy_module</literal> module allows passing
 requests to another server.
+
+Warning: This module assumes that the server it passes requests
+to is trusted.  It is not to be used with untrusted backend
+servers.
+
+Due to a <link url="https://github.com/nginx/nginx/issues/1427">bug</link>
+in NGINX's handling of HTTP 1xx responses, this applies even if
+all X-Accel headers are ignored.  It even applies if there is
+a trusted reverse proxy between NGINX and the backend server.
+
+Once the bug is fixed, a third-party intermediate reverse proxy that strips
+X-Accel headers and ensures that all responses are well-formed will be
+sufficient.
 </para>
 
 </section>
@@ -2014,6 +2027,22 @@ The <value>value</value> can contain text, variables, and their combinations.
 These directives are inherited from the previous configuration level
 if and only if there are no <literal>proxy_set_header</literal> directives
 defined on the current level.
+
+Warning: If you use variables in the <value>value</value>, you must ensure
+they must never contain newlines, carriage returns, or NUL bytes.  Otherwise,
+you will be exposed to a severe security vulnerability known as HTTP request
+smuggling.
+
+$uri and the $arg_* variables can contain newlines and must not be used.
+$http_* and $request_uri will never contain newlines.
+
+If possible, you should use <literal>proxy_http_version 2;</literal>,
+which uses HTTP/2 to connect to the backend.  HTTP/2 contains built-in
+protections against request smuggling attacks.
+
+Setting <literal>Transfer-Encoding</literal> or
+<literal>Content-Length</literal> is not supported and will cause
+corrupt requests to be sent to upstream servers.
 </para>
 
 <para>

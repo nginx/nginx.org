@@ -17,6 +17,13 @@
 <para>
 The <literal>ngx_http_scgi_module</literal> module allows passing
 requests to an SCGI server.
+
+Warning: This module assumes that the server it passes requests
+to is trusted.  It is not to be used with untrusted SCGI servers.
+
+If possible, using an AF_UNIX socket to connect to the SCGI server
+is recommended, as it is faster and subject to filesystem access
+controls.
 </para>
 
 </section>
