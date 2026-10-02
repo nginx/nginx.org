@@ -10,7 +10,7 @@
 <module name="Модуль ngx_mail_auth_http_module"
         link="/ru/docs/mail/ngx_mail_auth_http_module.html"
         lang="ru"
-        rev="11">
+        rev="12">
 
 <section id="directives" name="Директивы">
 
@@ -178,6 +178,17 @@ Auth-Wait: 3
 то по SMTP клиенту будет выдана ошибка
 <example>
 451 4.3.0 Temporary server problem, try again later
+</example>
+</para>
+
+<para>
+Для SMTP заголовок <header>Auth-SMTP</header> (1.31.7) в ответе
+определяет, будет ли nginx аутентифицироваться на бэкенде
+при помощи команды <literal>AUTH</literal>,
+переопределяя директиву
+<link doc="ngx_mail_proxy_module.xml" id="proxy_smtp_auth"/>:
+<example>
+Auth-SMTP: yes # yes/no
 </example>
 </para>
 
