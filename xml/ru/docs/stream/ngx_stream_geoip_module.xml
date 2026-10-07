@@ -9,29 +9,36 @@
 <module name="Модуль ngx_stream_geoip_module"
         link="/ru/docs/stream/ngx_stream_geoip_module.html"
         lang="ru"
-        rev="1">
+        rev="2">
 
 <section id="summary">
 
 <para>
 Модуль <literal>ngx_stream_geoip_module</literal> (1.11.3) создаёт переменные,
-значения которых зависят от IP-адреса клиента, используя готовые базы данных
-<link url="http://www.maxmind.com">MaxMind</link>.
-</para>
-
-<para>
-При использовании баз данных с поддержкой IPv6
-IPv4-адреса ищутся отображёнными на IPv6.
+значения которых зависят от IP-адреса клиента, используя готовые
+базы данных <link url="https://www.maxmind.com">MaxMind</link>.
+Начиная с версии 1.31.7,
+модуль поддерживает базы данных в формате MaxMind DB (MMDB).
 </para>
 
 <para>
 По умолчанию этот модуль не собирается, его сборку необходимо
 разрешить с помощью конфигурационного параметра
-<literal>--with-stream_geoip_module</literal>.
+<link doc="../configure.xml" id="stream_geoip"><literal>--with-stream_geoip_module</literal></link>.
 <note>
-Для сборки и работы этого модуля нужна библиотека
-<link url="http://www.maxmind.com/app/c">MaxMind GeoIP</link>.
+Для сборки и работы модуля необходима библиотека
+<link url="https://github.com/maxmind/libmaxminddb">libmaxminddb</link>
+для баз данных в формате MMDB (1.31.7) или
+библиотека <link url="https://github.com/maxmind/geoip-api-c">GeoIP Legacy C</link>
+для баз данных в формате DAT.
 </note>
+</para>
+
+<para>
+При использовании баз данных в формате DAT с поддержкой IPv6
+IPv4-адреса ищутся отображёнными на IPv6.
+При использовании баз данных в формате MMDB
+IPv6-адреса, в которые отображены IPv4-адреса, ищутся как IPv4-адреса.
 </para>
 
 </section>
@@ -42,8 +49,8 @@ IPv4-адреса ищутся отображёнными на IPv6.
 <para>
 <example>
 stream {
-    geoip_country         GeoIP.dat;
-    geoip_city            GeoLiteCity.dat;
+    geoip_country         GeoLite2-Country.mmdb;
+    geoip_city            GeoLite2-City.mmdb;
 
     map $geoip_city_continent_code $nearest_server {
         default        example.com;
@@ -149,6 +156,10 @@ stream {
 DMA-код региона в США (также известный как “код агломерации”), согласно
 <link url="https://developers.google.com/adwords/api/docs/appendix/cities-DMAregions">геотаргетингу</link>
 Google AdWords API.
+<note>
+Данная переменная может содержать неактуальную информацию, т.к.
+соответствующее поле базы данных объявлено устаревшим.
+</note>
 </tag-desc>
 
 <tag-name id="var_geoip_latitude"><var>$geoip_latitude</var></tag-name>
@@ -159,9 +170,8 @@ Google AdWords API.
 
 <tag-name id="var_geoip_region"><var>$geoip_region</var></tag-name>
 <tag-desc>
-двухсимвольный код региона страны (область, край, штат,
-провинция, федеральная земля и тому подобное), например,
-“<literal>48</literal>”, “<literal>DC</literal>”.
+код региона страны (область, край, штат,
+провинция, федеральная земля и тому подобное).
 </tag-desc>
 
 <tag-name id="var_geoip_region_name"><var>$geoip_region_name</var></tag-name>

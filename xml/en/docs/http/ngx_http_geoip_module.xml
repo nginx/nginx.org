@@ -10,29 +10,35 @@
 <module name="Module ngx_http_geoip_module"
         link="/en/docs/http/ngx_http_geoip_module.html"
         lang="en"
-        rev="5">
+        rev="6">
 
 <section id="summary">
 
 <para>
 The <literal>ngx_http_geoip_module</literal> module (0.8.6+) creates variables
 with values depending on the client IP address, using the precompiled
-<link url="http://www.maxmind.com">MaxMind</link> databases.
-</para>
-
-<para>
-When using the databases with IPv6 support (1.3.12, 1.2.7),
-IPv4 addresses are looked up as IPv4-mapped IPv6 addresses.
+<link url="https://www.maxmind.com">MaxMind</link> databases.
+Since 1.31.7, the module supports databases in MaxMind DB (MMDB) format.
 </para>
 
 <para>
 This module is not built by default, it should be enabled with the
-<literal>--with-http_geoip_module</literal>
+<link doc="../configure.xml" id="http_geoip"><literal>--with-http_geoip_module</literal></link>
 configuration parameter.
 <note>
 This module requires the
-<link url="http://www.maxmind.com/app/c">MaxMind GeoIP</link> library.
+<link url="https://github.com/maxmind/libmaxminddb">libmaxminddb</link>
+library for databases in MMDB format (1.31.7) or
+<link url="https://github.com/maxmind/geoip-api-c">GeoIP Legacy C</link> library
+for databases in DAT format.
 </note>
+</para>
+
+<para>
+When using DAT databases with IPv6 support (1.3.12, 1.2.7),
+IPv4 addresses are looked up as IPv4-mapped IPv6 addresses.
+When using MMDB databases,
+IPv4-mapped IPv6 addresses are looked up as IPv4 addresses.
 </para>
 
 </section>
@@ -43,8 +49,9 @@ This module requires the
 <para>
 <example>
 http {
-    geoip_country         GeoIP.dat;
-    geoip_city            GeoLiteCity.dat;
+    geoip_country         GeoLite2-Country.mmdb;
+    geoip_city            GeoLite2-City.mmdb;
+    geoip_org             GeoLite2-ASN.mmdb;
     geoip_proxy           192.168.100.0/24;
     geoip_proxy           2001:0db8::/32;
     geoip_proxy_recursive on;
@@ -144,6 +151,10 @@ country name, for example,
 DMA region code in US (also known as “metro code”), according to the
 <link url="https://developers.google.com/adwords/api/docs/appendix/cities-DMAregions">geotargeting</link>
 in Google AdWords API.
+<note>
+This variable may contain outdated information since
+the corresponding database field is deprecated.
+</note>
 </tag-desc>
 
 <tag-name id="var_geoip_latitude"><var>$geoip_latitude</var></tag-name>
@@ -154,9 +165,8 @@ in Google AdWords API.
 
 <tag-name id="var_geoip_region"><var>$geoip_region</var></tag-name>
 <tag-desc>
-two-symbol country region code (region, territory, state, province, federal land
-and the like), for example,
-“<literal>48</literal>”, “<literal>DC</literal>”.
+country region code (region, territory, state, province, federal land
+and the like).
 </tag-desc>
 
 <tag-name id="var_geoip_region_name"><var>$geoip_region_name</var></tag-name>
