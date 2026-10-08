@@ -9,7 +9,7 @@
 <module name="Module ngx_http_v3_module"
         link="/en/docs/http/ngx_http_v3_module.html"
         lang="en"
-        rev="3">
+        rev="4">
 
 <section id="summary">
 
@@ -182,6 +182,19 @@ which can be stored on the server.
 Enables routing of QUIC packets using
 <link url="https://ebpf.io/">eBPF</link>.
 When enabled, this allows supporting QUIC connection migration.
+Since 1.31.7, this also allows established QUIC connections
+to be preserved during
+<link doc="../control.xml" id="reconfiguration">configuration reloads</link>
+and during <link doc="../control.xml" id="upgrade">live upgrade</link>.
+</para>
+
+<para>
+<note>
+The directive value cannot be changed during a configuration reload.
+To change the directive value, nginx must be restarted.
+The directive cannot be disabled during the live upgrade
+if QUIC BPF maps are inherited from the previous nginx instance.
+</note>
 </para>
 
 <para>

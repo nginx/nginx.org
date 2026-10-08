@@ -8,7 +8,7 @@
 <article name="Controlling nginx"
          link="/en/docs/control.html"
          lang="en"
-         rev="7">
+         rev="8">
 
 <section>
 
@@ -248,6 +248,14 @@ the old master process, and only new processes will stay:
 36266 36264 nobody   0.0  1364 kqread nginx: worker process (nginx)
 36267 36264 nobody   0.0  1364 kqread nginx: worker process (nginx)
 </programlisting>
+</para>
+
+<para>
+<note>
+To preserve established QUIC connections during an upgrade or reload,
+<link doc="http/ngx_http_v3_module.xml" id="quic_bpf"/>
+should be enabled.
+</note>
 </para>
 
 <!--

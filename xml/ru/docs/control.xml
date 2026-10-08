@@ -8,7 +8,7 @@
 <article name="Управление nginx"
          link="/ru/docs/control.html"
          lang="ru"
-         rev="7">
+         rev="8">
 
 <section>
 
@@ -239,6 +239,15 @@ QUIT, и останутся только новые процессы:
 36266 36264 nobody   0.0  1364 kqread nginx: worker process (nginx)
 36267 36264 nobody   0.0  1364 kqread nginx: worker process (nginx)
 </programlisting>
+</para>
+
+<para>
+<note>
+Чтобы сохранить установленные QUIC-соединения
+при обновлении исполняемого файла или перезагрузке конфигурации,
+необходимо включить директиву
+<link doc="http/ngx_http_v3_module.xml" id="quic_bpf"/>.
+</note>
 </para>
 
 <!--
