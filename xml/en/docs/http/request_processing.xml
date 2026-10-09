@@ -8,7 +8,7 @@
 <article name="How nginx processes a request"
          link="/en/docs/http/request_processing.html"
          lang="en"
-         rev="1"
+         rev="2"
          author="Igor Sysoev"
          editor="Brian Mercer">
 
@@ -68,6 +68,12 @@ instead.
 Note that the default server is a property of the listen port
 and not of the server name.
 More about this later.
+</para>
+
+<para>
+If the request line contains an absolute URI,
+nginx tests the host name from the URI
+instead of the <header>Host</header> header field.
 </para>
 
 </section>
