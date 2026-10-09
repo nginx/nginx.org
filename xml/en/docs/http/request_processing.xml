@@ -8,7 +8,7 @@
 <article name="How nginx processes a request"
          link="/en/docs/http/request_processing.html"
          lang="en"
-         rev="1"
+         rev="2"
          author="Igor Sysoev"
          editor="Brian Mercer">
 
@@ -41,8 +41,9 @@ server {
 </para>
 
 <para>
-In this configuration nginx tests only the request’s header field
-<header>Host</header> to determine which server the request should be routed to.
+In this configuration nginx tests only the request’s
+<link doc="server_names.xml" id="virtual_server_selection">host name</link>
+to determine which server the request should be routed to.
 If its value does not match any server name,
 or the request does not contain this header field at all,
 then nginx will route the request to the default server for this port.
@@ -77,7 +78,7 @@ More about this later.
          name="How to prevent processing requests with undefined server names">
 
 <para>
-If requests without the <header>Host</header> header field should not be
+If requests without host name should not be
 allowed, a server that just drops the requests can be defined:
 <programlisting>
 server {
@@ -87,7 +88,7 @@ server {
 }
 </programlisting>
 Here, the server name is set to an empty string that will match
-requests without the <header>Host</header> header field,
+requests without host name,
 and a special nginx’s non-standard code 444
 is returned that closes the connection.
 <note>
@@ -131,8 +132,7 @@ of the request against the
 <link doc="ngx_http_core_module.xml" id="listen"/> directives
 of the
 <link doc="ngx_http_core_module.xml" id="server"/> blocks.
-It then tests the <header>Host</header>
-header field of the request against the
+It then tests host name of the request against the
 <link doc="ngx_http_core_module.xml" id="server_name"/>
 entries of the
 <link doc="ngx_http_core_module.xml" id="server"/>
