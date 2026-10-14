@@ -207,7 +207,25 @@ images:									\
 		binary/books/nginx_module_extension.jpg			\
 		binary/books/nginx_high_performance.jpg			\
 		binary/books/nginx_essentials.jpg			\
-		binary/books/nginx_http_server_4th_ed.jpg
+		binary/books/nginx_http_server_4th_ed.jpg		\
+		binary/books/nginx_http_server_5th_ed.jpg		\
+		binary/books/nginx_cookbook_3rd_ed.jpg			\
+		binary/books/nginx_cookbook_2nd_ed.jpg
+
+binary/books/nginx_cookbook_3rd_ed.jpg:				\
+		sources/nginx_cookbook_3_ed.jpg
+	mkdir -p $(dir $@)
+	$(call JPEGNORM, $<, $@)
+
+binary/books/nginx_cookbook_2nd_ed.jpg:				\
+		sources/nginx_cookbook_2_ed.jpg
+	mkdir -p $(dir $@)
+	$(call JPEGNORM, $<, $@)
+
+binary/books/nginx_http_server_5th_ed.jpg:				\
+		sources/nginx_http_server_5_ed.jpg
+	mkdir -p $(dir $@)
+	$(call JPEGNORM, $<, $@)
 
 binary/books/complete_nginx_cookbook_2019.jpg:				\
 		sources/ebk-ORM-NGINX-Cookbook-mega-2019-150x185.jpg
