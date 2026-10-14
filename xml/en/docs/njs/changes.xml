@@ -9,8 +9,315 @@
 <article name="Changes"
         link="/en/docs/njs/changes.html"
         lang="en"
-        rev="88"
+        rev="89"
         toc="no">
+
+<section id="njs1.0.2" name="Changes with njs 1.0.2">
+
+<para>
+Release Date:
+14 October 2026
+</para>
+
+<para>
+nginx modules:
+<list type="bullet">
+
+<listitem>
+<para>
+Bugfix:
+fixed response body framing and keepalive connection reuse in
+<link doc="reference.xml" id="ngx_fetch">ngx.fetch()</link>.
+Responses with conflicting <literal>Content-Length</literal> fields,
+with both <literal>Transfer-Encoding</literal> and
+<literal>Content-Length</literal>, or with 1xx status codes are now rejected.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed enforcement of <literal>max_response_body_size</literal>
+for chunked responses in
+<link doc="reference.xml" id="ngx_fetch">ngx.fetch()</link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed parsing of
+<link doc="../http/ngx_http_js_module.xml" id="js_periodic">js_periodic</link>
+options following <literal>worker_affinity</literal> in HTTP and
+<link doc="../stream/ngx_stream_js_module.xml" id="js_periodic">Stream</link>
+configurations.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed memory leaks and false unhandled promise rejection reports
+when formatting rejection reasons in the
+<link doc="engine.xml" id="quickjs_engine">QuickJS</link> engine.
+</para>
+</listitem>
+
+</list>
+</para>
+
+<para>
+Core:
+<list type="bullet">
+
+<listitem>
+<para>
+Security:
+fixed a memory leak when parsing malformed XML in the njs engine
+(<link url="https://www.cve.org/CVERecord?id=CVE-2026-101025">CVE-2026-101025</link>).
+Repeated malformed input could exhaust worker process memory.
+The issue was introduced in
+<link url="https://github.com/nginx/njs/commit/9161a840">9161a840</link>
+(<link doc="changes.xml" id="njs0.7.10">0.7.10</link>).
+</para>
+</listitem>
+
+<listitem>
+<para>
+Security:
+fixed incomplete XML attribute values containing entity references
+(<link url="https://www.cve.org/CVERecord?id=CVE-2026-101019">CVE-2026-101019</link>).
+JavaScript accessors could return values different from those used by
+XML canonicalization, affecting signed XML validation.
+The issue was introduced in
+<link url="https://github.com/nginx/njs/commit/9161a840">9161a840</link>
+(<link doc="changes.xml" id="njs0.7.10">0.7.10</link>).
+</para>
+</listitem>
+
+<listitem>
+<para>
+Feature:
+added
+<link doc="reference.xml" id="node_getattrns">XMLNode.getAttributeNS()</link>
+and
+<link doc="reference.xml" id="node_getchildns">XMLNode.getChildNS()</link>
+methods for namespace-aware attribute and child element lookup.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+reduced compilation memory consumption in the njs engine
+and released temporary parser and generator data after compilation.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Improvement:
+switched to constant-time HMAC signature verification in
+<link doc="reference.xml" id="crypto_subtle_verify">WebCrypto</link>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Change:
+XML node mutation and canonicalization now reject detached nodes,
+and a removed child node has an <literal>undefined</literal>
+<link doc="reference.xml" id="node_parent">$parent</link>.
+Text and attribute values must be primitive strings;
+<literal>null</literal> and <literal>undefined</literal>
+retain their deletion semantics for these values.
+<link doc="reference.xml" id="node_addchild">addChild()</link> and
+<link doc="reference.xml" id="node_tags">$tags</link>
+reject source trees with namespaces.
+Assigning to
+<link doc="reference.xml" id="node_tag">$tag$name</link>
+now throws <literal>TypeError</literal> in the QuickJS engine;
+deletion is still supported.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Change:
+the <literal>test262</literal> make target was renamed to
+<literal>js_test</literal>.
+The <literal>test262</literal> target now runs the official Test262 suite
+and requires <literal>NJS_TEST262_DIR</literal>.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed stale XML node references after tree mutations
+and a crash when repeatedly modifying a node in the QuickJS engine.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed XML node methods being hidden by child elements with matching names
+in the QuickJS engine.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed XML document leaks during property existence checks
+in the QuickJS engine.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed out-of-bounds reads and invalid frees when formatting
+unhandled promise rejection reasons in the QuickJS shell.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed crashes and incorrect error reporting when importing modules
+after a failed module compilation in the njs engine.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed oversized Buffer allocation lengths being truncated
+instead of rejected in the QuickJS engine.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed use of invalidated zlib dictionary memory during argument conversion
+in the QuickJS engine.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed UTC Date setters applying the local timezone offset
+in the njs engine.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>Promise.any()</literal> with empty input resolving with
+<literal>AggregateError</literal> instead of rejecting in the njs engine.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed excessive execution time and memory consumption in
+<literal>Array.prototype.sort()</literal> with huge sparse arrays
+in the njs engine.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed <literal>Array.prototype.concat()</literal> with sparse arrays
+in the njs engine.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed initialization of array literals with more than 32760 elements
+in the njs engine.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed invalid memory accesses when enumerating typed arrays with
+<literal>Object.values()</literal> and <literal>Object.entries()</literal>
+in the njs engine.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed invalid memory accesses in <literal>Object.defineProperty()</literal>
+with reentrant property descriptors in the njs engine.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed object-to-primitive conversion when user code replaced the input value
+during conversion in the njs engine.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed memory corruption in RegExp replace and split operations
+with custom <literal>exec()</literal> results in the njs engine.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed out-of-bounds reads in RegExp replacement with inconsistent
+match objects in the njs engine.
+Thanks to Basavaraj S m.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed out-of-bounds reads in RegExp named capture lookup in the njs engine.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+fixed parsing of for loop initializers and preservation of lexical bindings
+across nested declarations in the njs engine.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Bugfix:
+prevented stack overflow when compiling deeply nested expressions
+in the njs engine by limiting recursive analysis.
+</para>
+</listitem>
+
+</list>
+</para>
+
+</section>
+
 
 <section id="njs1.0.1" name="Changes with njs 1.0.1">
 

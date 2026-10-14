@@ -49,6 +49,19 @@ vulnerability when using ngx_http_ssi_module with AIO (CVE-2026-97205).
 </para>
 </event>
 
+<event date="2026-10-14">
+<para>
+<link doc="en/docs/njs/index.xml">njs-1.0.2</link>
+version has been
+<link doc="en/docs/njs/changes.xml" id="njs1.0.2">released</link>,
+with fixes for
+<link doc="en/docs/njs/security.xml" id="advisories">memory exhaustion</link>
+vulnerability when parsing malformed XML (CVE-2026-101025), and
+<link doc="en/docs/njs/security.xml" id="advisories">inconsistent XML attribute values</link>
+affecting signed XML validation (CVE-2026-101019).
+</para>
+</event>
+
 <event date="2026-09-15">
 <para>
 <link doc="en/download.xml">nginx-1.30.5</link>
