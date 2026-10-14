@@ -1,4 +1,85 @@
 
+Changes with nginx 1.30.6                                        14 Oct 2026
+
+    *) Security: a buffer overflow might occur in a worker process when
+       using the "alias" directive if the request URI was changed by the
+       "rewrite" directive and was then mapped to a file path
+       (CVE-2026-15176).
+
+    *) Security: a buffer overflow might occur in a worker process while
+       evaluating string expressions with variables, which affected the
+       document root calculation and request logging in the http and stream
+       modules (CVE-2026-93479).
+       Thanks to Matt Suiche of Tolmo Inc.
+
+    *) Security: when using HTTP/3 a part of an unknown frame might be
+       treated as the request body, which might result in bypassing the
+       "client_max_body_size" limit or injecting data in the proxied request
+       (CVE-2026-95101).
+       Thanks to Hansol Lee of GOTROOT.
+
+    *) Security: when using TLS session ticket key rotation, one of the keys
+       was left uninitialized, which might allow to forge a session
+       (CVE-2026-97629).
+       Thanks to PhiNode Labs.
+
+    *) Security: when using asynchronous file I/O (AIO), use-after-free
+       might occur in certain configurations if the SSI page has "include
+       virtual" commands (CVE-2026-97205).
+       Thanks to cyberlancer.
+
+    *) Change: the logging level of the "invalid alert" and "record layer
+       failure" SSL errors, and of the "SSL alert number N" for any alert
+       numbers has been lowered from "crit" to "info".
+
+    *) Bugfix: a segmentation fault might occur in a worker process or
+       "request count is zero" alerts might appear in logs if the
+       "X-Accel-Redirect" header line was cached and the cached response was
+       then served to a client.
+       Thanks to Jiří Setnička and Maxim Dounin.
+
+    *) Bugfix: a segmentation fault might occur in a worker process if the
+       ngx_http_dav_module was used to handle COPY and MOVE methods in a
+       location with the "alias" directive.
+       Thanks to Maxim Dounin.
+
+    *) Bugfix: a segmentation fault might occur while reading configuration
+       if the "geo" directive with the "ranges" parameter was used and the
+       corresponding binary base file was corrupted.
+
+    *) Bugfix: use-after-free might occur in a worker process if proxying
+       with buffering was used and an error occurred while sending the
+       response to an HTTP/2 client.
+
+    *) Bugfix: a worker process might not exit or "accept4() failed (9: Bad
+       file descriptor)" alerts might appear in logs if the worker process
+       ran out of file descriptors before graceful shutdown.
+
+    *) Bugfix: a segmentation fault might occur in a worker process if the
+       "select" method was used.
+
+    *) Bugfix: in binary compatibility with third-party modules using script
+       codes; the bug had appeared in 1.30.4.
+
+    *) Bugfix: in the ngx_http_perl_module.
+       Thanks to Maxim Dounin.
+
+    *) Bugfix: in flow control in the ngx_http_v2_module.
+
+    *) Bugfix: "[error] upstream sent frame for unknown stream" and "[crit]
+       cache file ... contains invalid header" messages might appear in logs
+       when sending a cached HTTP/2 response in the ngx_http_proxy_v2_module
+       if the "proxy_cache_revalidate" directive was used.
+
+    *) Bugfix: IPv6 fragmentation might not be disabled when using QUIC on
+       some operating systems.
+
+    *) Bugfix: in the ngx_http_auth_basic_module on Solaris.
+
+    *) Bugfixes in HTTP/3, ngx_http_image_filter_module,
+       ngx_http_slice_module, and ngx_http_memcached_module.
+
+
 Changes with nginx 1.30.5                                        15 Sep 2026
 
     *) Security: a heap memory buffer overflow might occur in a worker
