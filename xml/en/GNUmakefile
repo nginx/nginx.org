@@ -51,6 +51,7 @@ REFS =									\
 		http/ngx_http_charset_module				\
 		http/ngx_http_core_module				\
 		http/ngx_http_dav_module				\
+		http/ngx_http_db_module					\
 		http/ngx_http_empty_gif_module				\
 		http/ngx_http_fastcgi_module				\
 		http/ngx_http_f4f_module				\
