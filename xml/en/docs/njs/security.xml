@@ -9,7 +9,7 @@
 <article name="Security"
         link="/en/docs/njs/security.html"
         lang="en"
-        rev="5"
+        rev="6"
         toc="no">
 
 <section>
@@ -72,6 +72,22 @@ nginx is safe from JavaScript-related vulnerabilities
 <section id="advisories" name="Advisories">
 
 <security>
+
+<item name="Memory exhaustion when parsing malformed XML"
+      severity="medium"
+      advisory="https://my.f5.com/manage/s/article/K000162614"
+      cve="2026-101025"
+      good="1.0.2+"
+      vulnerable="0.7.10-1.0.1">
+</item>
+
+<item name="Inconsistent XML attribute values"
+      severity="medium"
+      advisory="https://my.f5.com/manage/s/article/K000162615"
+      cve="2026-101019"
+      good="1.0.2+"
+      vulnerable="0.7.10-1.0.1">
+</item>
 
 <item name="Access control bypass in js_access"
       severity="medium"
