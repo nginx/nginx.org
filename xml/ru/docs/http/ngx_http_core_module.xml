@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="120">
+        rev="121">
 
 <section id="directives" name="Директивы">
 
@@ -210,6 +210,22 @@ location /i/ {
 на запрос
 “<literal>/i/top.gif</literal>” будет отдан файл
 <path>/data/w3/images/top.gif</path>.
+</para>
+
+<para>
+Префикс location’а, используемый для замены каталога,
+должен заканчиваться слэшом.
+Location’ы сопоставляются как префиксные строки,
+а <literal>alias</literal> заменяет совпавший префикс
+значением <value>путь</value>, поэтому при такой конфигурации
+<example>
+location /i {
+    alias /data/w3/images/;
+}
+</example>
+запрос “<literal>/i../top.gif</literal>” также попадёт в этот location
+и будет отображён в <path>/data/w3/images/../top.gif</path> &mdash;
+файл вне заданного каталога.
 </para>
 
 <para>

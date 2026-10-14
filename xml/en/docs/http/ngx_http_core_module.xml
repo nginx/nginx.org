@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="120">
+        rev="121">
 
 <section id="directives" name="Directives">
 
@@ -210,6 +210,20 @@ location /i/ {
 on request of
 “<literal>/i/top.gif</literal>”, the file
 <path>/data/w3/images/top.gif</path> will be sent.
+</para>
+
+<para>
+The location prefix used to alias a directory should end with a slash.
+Locations are matched as prefix strings, and <literal>alias</literal>
+replaces the matched prefix with <value>path</value>, so with
+<example>
+location /i {
+    alias /data/w3/images/;
+}
+</example>
+a request for “<literal>/i../top.gif</literal>” also matches the location
+and is mapped to <path>/data/w3/images/../top.gif</path>,
+a file outside the aliased directory.
 </para>
 
 <para>
