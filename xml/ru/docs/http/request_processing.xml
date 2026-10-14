@@ -8,7 +8,7 @@
 <article name="Как nginx обрабатывает запросы"
          link="/ru/docs/http/request_processing.html"
          lang="ru"
-         rev="1"
+         rev="2"
          author="Игорь Сысоев"
          editor="Brian Mercer">
 
@@ -68,6 +68,12 @@ server {
 Следует иметь в виду, что сервер по умолчанию является свойством
 слушающего порта, а не имени сервера.
 Подробнее это обсуждается ниже.
+</para>
+
+<para>
+Если в строке запроса указан абсолютный URI,
+nginx проверяет имя хоста из этого URI
+вместо поля <header>Host</header> заголовка запроса.
 </para>
 
 </section>
