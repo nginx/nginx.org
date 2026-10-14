@@ -28,6 +28,27 @@
 <year href="2009.html" year="2009" />
 </years>
 
+<event date="2026-10-14">
+<para>
+<link doc="en/download.xml">nginx-1.30.6</link>
+stable and
+<link doc="en/download.xml">nginx-1.31.7</link>
+mainline versions have been released,
+with fixes for
+<link doc="en/security_advisories.xml">buffer overflow</link>
+vulnerability when using alias with rewrite (CVE-2026-15176),
+<link doc="en/security_advisories.xml">buffer overflow</link>
+vulnerability when evaluating string expressions with variables
+(CVE-2026-93479),
+<link doc="en/security_advisories.xml">request body injection</link>
+vulnerability in HTTP/3 (CVE-2026-95101),
+<link doc="en/security_advisories.xml">session forgery</link>
+vulnerability when using TLS session ticket key rotation (CVE-2026-97629), and
+<link doc="en/security_advisories.xml">use-after-free</link>
+vulnerability when using ngx_http_ssi_module with AIO (CVE-2026-97205).
+</para>
+</event>
+
 <event date="2026-09-15">
 <para>
 <link doc="en/download.xml">nginx-1.30.5</link>

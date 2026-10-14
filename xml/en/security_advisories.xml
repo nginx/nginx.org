@@ -25,6 +25,46 @@ Patches are signed using one of the
 
 <security>
 
+<item name="Buffer overflow when using alias with rewrite"
+      severity="medium"
+      advisory="https://my.f5.com/manage/s/article/K000162416"
+      cve="2026-15176"
+      good="1.31.7+, 1.30.6+"
+      vulnerable="0.1.29-1.31.6">
+</item>
+
+<item name="Buffer overflow in script evaluation"
+      severity="medium"
+      advisory="https://my.f5.com/manage/s/article/K000162607"
+      cve="2026-93479"
+      good="1.31.7+, 1.30.6+"
+      vulnerable="1.31.2-1.31.6, 1.30.0-1.30.5">
+</item>
+
+<item name="Request body injection in HTTP/3"
+      severity="medium"
+      advisory="https://my.f5.com/manage/s/article/K000162613"
+      cve="2026-95101"
+      good="1.31.7+, 1.30.6+"
+      vulnerable="1.25.0-1.31.6">
+</item>
+
+<item name="Session forgery when using TLS session tickets"
+      severity="medium"
+      advisory="https://my.f5.com/manage/s/article/K000162606"
+      cve="2026-97629"
+      good="1.31.7+, 1.30.6+"
+      vulnerable="1.23.2-1.31.6">
+</item>
+
+<item name="Use-after-free when using asynchronous file I/O (AIO)"
+      severity="medium"
+      advisory="https://my.f5.com/manage/s/article/K000162608"
+      cve="2026-97205"
+      good="1.31.7+, 1.30.6+"
+      vulnerable="0.8.11-1.31.6">
+</item>
+
 <item name="Buffer overflow when using ngx_http_v3_module"
       severity="medium"
       advisory="https://my.f5.com/manage/s/article/K000162604"
