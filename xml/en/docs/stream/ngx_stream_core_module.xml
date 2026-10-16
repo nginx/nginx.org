@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_core_module"
         link="/en/docs/stream/ngx_stream_core_module.html"
         lang="en"
-        rev="46">
+        rev="47">
 
 <section id="summary">
 
@@ -615,6 +615,20 @@ the first matching regular expression
 </listitem>
 
 </list>
+</para>
+
+<para>
+The server is selected by name at the
+<link doc="stream_processing.xml" id="ssl_phase">SSL</link> or
+<link doc="stream_processing.xml" id="preread_phase">Preread</link> phase.
+Directives processed at earlier phases, such as
+<link doc="ngx_stream_realip_module.xml" id="set_real_ip_from"/>,
+<link doc="ngx_stream_limit_conn_module.xml" id="limit_conn"/>,
+<link doc="ngx_stream_set_module.xml" id="set"/>,
+<link doc="ngx_stream_access_module.xml" id="allow"/>, and
+<link doc="ngx_stream_access_module.xml" id="deny"/>,
+are taken from the default server
+for the corresponding address:port pair.
 </para>
 
 </directive>
