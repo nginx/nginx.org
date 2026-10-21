@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="120">
+        rev="121">
 
 <section id="directives" name="Directives">
 
@@ -1817,6 +1817,18 @@ A predicate is specified with the preceding “<literal>$</literal>”
 and contains a variable evaluated during request processing.
 A predicate location matches if the variable value is not empty
 and is not equal to “0”.
+</para>
+
+<para>
+<note>
+The value of a cacheable variable is evaluated once per request,
+and is also used when locations are searched after
+an internal redirect and in subrequests.
+To evaluate a predicate on each location search,
+a non-cacheable variable can be used, for example,
+a <link doc="ngx_http_map_module.xml" id="map"/> variable
+with the <literal>volatile</literal> parameter.
+</note>
 </para>
 
 <para>
