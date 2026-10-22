@@ -213,6 +213,20 @@ on request of
 </para>
 
 <para>
+The location prefix used to alias a directory should end with a slash.
+Locations are matched as prefix strings, and <literal>alias</literal>
+replaces the matched prefix with <value>path</value>, so with
+<example>
+location /i {
+    alias /data/w3/images/;
+}
+</example>
+a request for “<literal>/i../top.gif</literal>” also matches the location
+and is mapped to <path>/data/w3/images/../top.gif</path>,
+a file outside the aliased directory.
+</para>
+
+<para>
 The <value>path</value> value can contain variables,
 except <var>$document_root</var> and <var>$realpath_root</var>.
 </para>
