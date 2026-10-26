@@ -125,6 +125,10 @@
             </td></tr></table>
         </xsl:if>
     </div>
+
+    <div id="footer">
+        <xsl:text>© F5, Inc. All rights reserved.</xsl:text>
+    </div>
     </div>
     </body>
 
