@@ -51,6 +51,15 @@ body {
     padding: 0 2.5em 0 1.5em;
 }
 
+#footer {
+    clear: both;
+    margin-top: 2em;
+    padding: .7em 0 1.5em 0;
+    border-top: 1px solid #DDD;
+    color: #555;
+    font-size: .875em;
+}
+
 h1 {
     display: block;
     font-size: 3em;
@@ -441,6 +450,10 @@ sup {
     }
     #menu a {
         color: #55A4F1;
+    }
+    #footer {
+        color: #bbb;
+        border-top-color: #203c5e;
     }
     blockquote pre {
         color: #ddd!important;
