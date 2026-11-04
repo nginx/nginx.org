@@ -8,7 +8,7 @@
 <article name="Tuning FreeBSD for the highload"
          link="/en/docs/tuning_freebsd.html"
          lang="en"
-         rev="1">
+         rev="2">
 
 
 <section id="listen_queues"
@@ -78,35 +78,43 @@ When the application wants to send a data, it calls
 <c-func>send</c-func> or <c-func>write</c-func>
 system calls to place the data in the socket sending buffer.
 Then the kernel manages to send the data from the buffer to the client.
-In modern FreeBSD versions the default sizes of the socket receiving
-and sending buffers are respectively 64K and 32K.
-You may change them on the fly using the sysctls
-<path>net.inet.tcp.recvspace</path> and
-<path>net.inet.tcp.sendspace</path>.
-Of course the bigger buffer sizes may increase throughput,
-because connections may use bigger TCP sliding windows sizes.
-And on the Internet you may see recommendations to increase
-the buffer sizes to one or even several megabytes.
-However, such large buffer sizes are suitable for local networks
-or for networks under your control.
-Since on the Internet a slow network client may ask a large file
-and then it will download the file during several minutes if not hours.
-All this time the megabyte buffer will be bound to the slow client,
-although we may devote just several kilobytes to it.
 </para>
 
 <para>
-There is one more advantage of the large sending buffers for
-the web servers such as Apache which use the blocking I/O system calls.
-The server may place a whole large response in the sending buffer, then may
-close the connection, and let the kernel to send the response to a slow client,
-while the server is ready to serve other requests.
-You should decide what is it better to bind to a client in your case:
-a tens megabytes Apache/mod_perl process
-or the hundreds kilobytes socket sending buffer.
-Note that nginx uses non-blocking I/O system calls
-and devotes just tens kilobytes to connections,
-therefore it does not require the large buffer sizes.
+The initial sizes of the socket receiving and sending buffers
+are 64K and 32K respectively,
+and are set by the sysctls
+<path>net.inet.tcp.recvspace</path> and
+<path>net.inet.tcp.sendspace</path>.
+Then the kernel automatically grows the buffers of each connection
+as needed, up to the
+<path>net.inet.tcp.recvbuf_max</path> and
+<path>net.inet.tcp.sendbuf_max</path> values (8M by default).
+The sending buffer grows in <path>net.inet.tcp.sendbuf_inc</path> steps
+only when it is nearly full and the client is able to accept more data,
+so the buffers of slow clients stay small,
+while fast clients may use bigger TCP window sizes
+and obtain higher throughput.
+Therefore there is no need to increase the initial buffer sizes.
+</para>
+
+<para>
+Note that the buffers are not shrunk back on idle connections.
+If there are a lot of simultaneous connections and memory is scarce,
+the maximum amount of memory devoted to one connection can be limited by
+decreasing the <path>net.inet.tcp.sendbuf_max</path> and
+<path>net.inet.tcp.recvbuf_max</path> values.
+</para>
+
+<para>
+Setting buffer sizes explicitly with the <literal>sndbuf</literal> and
+<literal>rcvbuf</literal> parameters of the
+<link doc="http/ngx_http_core_module.xml" id="listen"/> directive
+disables automatic sizing of the corresponding buffer
+for all connections accepted on the listen socket.
+Since nginx uses non-blocking I/O system calls
+and does not require large buffers to serve a lot of connections,
+these parameters are usually not needed.
 </para>
 
 </section>
@@ -121,6 +129,7 @@ memory chunks linked using the <i>mbuf</i> structures.
 The mbuf size is 256 bytes and it can be used to store a small amount
 of data, for example, TCP/IP header. However, the mbufs point mostly
 to other data stored in the <i>mbuf clusters</i> or <i>jumbo clusters</i>,
+or directly to physical memory pages (<i>unmapped mbufs</i>),
 and in this kind they are used as the chain links only.
 The mbuf cluster size is 2K.
 The jumbo cluster size can be equal to a CPU page size (4K for amd64),
@@ -128,66 +137,121 @@ The jumbo cluster size can be equal to a CPU page size (4K for amd64),
 The 9K and 16K jumbo clusters are used mainly in local networks with Ethernet
 frames larger than usual 1500 bytes, and they are beyond the scope of
 this article.
-The page size jumbo clusters are usually used for sending only,
-while the mbuf clusters are used for both sending and receiving.
+</para>
 
+<para>
+The limits of the mbufs and clusters are calculated at boot time
+from the amount of physical memory.
+The total memory available for mbufs and clusters,
+<path>kern.ipc.maxmbufmem</path>, is a half of physical memory by default.
+The <path>kern.ipc.nmbclusters</path> and <path>kern.ipc.nmbjumbop</path>
+limits are calculated so that the mbuf clusters and the page size
+jumbo clusters each may take a quarter of this memory.
+For example, on a system with 16G of physical memory,
+this gives about one million mbuf clusters and
+about half a million page size jumbo clusters.
+Note that these are only limits: the memory is allocated on demand.
+These defaults are sufficient for most workloads.
+</para>
+
+<para>
 To see the current usage of the mbufs and clusters and their limits,
 you may run the command <nobr>“<command>netstat -m</command>”.</nobr>
-Here is a sample from FreeBSD 7.2/amd64 with the default settings:
+The lines to watch are:
 
 <programlisting>
-1477/<b>3773/5250 mbufs</b> in use (current/cache/total)
-771/2203/<b>2974/25600 mbuf clusters</b> in use (current/cache/total/max)
-771/1969 mbuf+clusters out of packet secondary zone in use
-   (current/cache)
-296/863/<b>1159/12800 4k (page size) jumbo clusters</b> in use
-   (current/cache/total/max)
-0/0/0/6400 9k jumbo clusters in use (current/cache/total/max)
-0/0/0/3200 16k jumbo clusters in use (current/cache/total/max)
-3095K/8801K/11896K bytes allocated to network(current/cache/total)
 0/0/0 requests for mbufs denied (mbufs/clusters/mbuf+clusters)
 0/0/0 requests for jumbo clusters denied (4k/9k/16k)
-0/0/0 sfbufs in use (current/peak/max)
-0 requests for sfbufs denied
-0 requests for sfbufs delayed
-523590 requests for I/O initiated by sendfile
-0 calls to protocol drain routines
 </programlisting>
 
-There are 12800 page size jumbo clusters,
-therefore they can store only 50M of data.
-If you set the <path>net.inet.tcp.sendspace</path> to 1M,
-then merely 50 slow clients will take all jumbo clusters
-requesting large files.
-</para>
-
-<para>
-You may increase the clusters limits on the fly using:
+Non-zero values there,
+as well as “<literal>kern.ipc.nmbclusters limit reached</literal>”
+and similar messages in the kernel log,
+mean that the limits were exhausted.
+In this case the limits can be increased on the fly, for example:
 
 <programlisting>
-sysctl kern.ipc.nmbclusters=200000
-sysctl kern.ipc.nmbjumbop=100000
+sysctl kern.ipc.nmbclusters=2000000
+sysctl kern.ipc.nmbjumbop=1000000
 </programlisting>
 
-The former command increases the mbuf clusters limit
-and the latter increases page size jumbo clusters limit.
-Note that all allocated mbufs clusters will take about 440M physical memory:
-(200000 &times; (2048 + 256)) because each mbuf cluster requires also the mbuf.
-All allocated page size jumbo clusters will take yet about 415M physical memory:
-(100000 &times; (4096 + 256)).
-And together they may take 845M.
+The values cannot be decreased at runtime, and an attempt to set
+a value lower than the current one fails.
+The overall <path>kern.ipc.maxmbufmem</path> limit can be changed
+only at boot time in <path>/boot/loader.conf</path>,
+and it cannot exceed 3/4 of physical memory.
+</para>
+
+</section>
+
+
+<section id="sendfile"
+        name="sendfile">
+
+<para>
+The <c-func>sendfile</c-func> system call allows sending a file or its part
+to a socket directly without reading the parts in an application buffer.
+It is enabled in nginx with the
+<link doc="http/ngx_http_core_module.xml" id="sendfile"/> directive.
+The sendfile passes to the TCP/IP stack the file pages that are
+already present in FreeBSD cache memory, without copying them.
+Thus, sendfile decreases both CPU usage by omitting two memory copy operations,
+and memory usage by using the cached file pages
+instead of mbuf clusters and jumbo clusters.
 </para>
 
 <para>
-There is way not to use the jumbo clusters while serving static files:
-the <i>sendfile()</i> system call.
-The sendfile allows sending a file or its part to a socket directly
-without reading the parts in an application buffer.
-It creates the mbufs chain where the mbufs point to the file pages that are
-already present in FreeBSD cache memory, and passes the chain to
-the TCP/IP stack.
-Thus, sendfile decreases both CPU usage by omitting two memory copy operations,
-and memory usage by using the cached file pages.
+On platforms with a direct map of physical memory, such as amd64 and arm64,
+sendfile uses unmapped mbufs:
+each such mbuf points directly to several file pages
+(up to 5 pages on 64-bit platforms),
+so that fewer mbufs are needed and the pages need not be mapped
+into the kernel address space.
+This is controlled by the <path>kern.ipc.mb_use_ext_pgs</path>
+sysctl, which is enabled by default on these platforms.
+For the same reason the <i>sf_bufs</i> mappings are not used
+on these platforms, and need no tuning.
+</para>
+
+<para>
+When sending files from the UFS file system, sendfile does not block
+on disk I/O:
+if file pages are not in memory, it starts reading them asynchronously
+and queues them in the socket sending buffer as not yet ready data,
+which are sent as soon as the read completes.
+Note that this does not apply to ZFS:
+it caches file data in its own cache (ARC),
+the file pages are filled from it,
+and sendfile blocks while uncached data are read from disk.
+The sendfile statistics can be seen in the
+<nobr>“<command>netstat -m</command>”</nobr> output.
+</para>
+
+<para>
+To read file pages, sendfile uses a pool of physical buffers
+of the vnode pager.
+If the pool is exhausted, sendfile blocks,
+and the process is seen in the “<literal>zonelimit</literal>” state.
+The pool size can be increased with the
+<path>vm.vnode_pbufs</path> tunable in <path>/boot/loader.conf</path>.
+</para>
+
+<para>
+The kernel TLS (kTLS) allows using sendfile for SSL connections as well:
+the data are encrypted by the kernel when sending,
+which also requires unmapped mbufs.
+The kTLS support is included in the default kernel configuration
+(<literal>options KERN_TLS</literal>) and is enabled by the
+<path>kern.ipc.tls.enable</path> sysctl, which is on by default.
+In nginx, kTLS is used with OpenSSL&nbsp;3.0 or newer built with kTLS support
+(the base system OpenSSL on amd64 and arm64 is built so by default),
+when enabled with the
+<link doc="http/ngx_http_ssl_module.xml" id="ssl_conf_command"/> directive:
+
+<programlisting>
+ssl_conf_command  Options KTLS;
+</programlisting>
+
 </para>
 
 </section>
@@ -196,12 +260,54 @@ and memory usage by using the cached file pages.
 <section id="proxying"
         name="Outgoing connections">
 
+<para>
+Each outgoing connection, such as to a proxied server, uses
+a local port automatically chosen from the range of
+<path>net.inet.ip.portrange.first</path> to
+<path>net.inet.ip.portrange.last</path>,
+10000–65535 by default.
+The same local port can be used simultaneously for connections
+to different addresses and ports, thus the range limits the number
+of connections to the same proxied server.
+The connections closed by nginx are kept in the <i>TIME_WAIT</i> state
+for 2 × <path>net.inet.tcp.msl</path> (60 seconds by default)
+and keep using their ports.
+For connections to local addresses, the
+<path>net.inet.tcp.msl_local</path> value is used instead,
+10 milliseconds by default.
+</para>
+
+<para>
+The preferred way to reduce the number of the outgoing connections
+is to use
+<link doc="http/ngx_http_upstream_module.xml" id="keepalive">keepalive
+connections</link> to proxied servers.
+Otherwise, the range can be extended:
 
 <programlisting>
-net.inet.ip.portrange.randomized=0
 net.inet.ip.portrange.first=1024
 net.inet.ip.portrange.last=65535
 </programlisting>
+
+Note that in this case the ports may clash with ports of other
+services listening on the same addresses.
+Other ways are to use several proxied server addresses or ports, or
+several local addresses with the
+<link doc="http/ngx_http_proxy_module.xml" id="proxy_bind"/> directive.
+</para>
+
+<para>
+By default, the local port is chosen randomly.
+At high rates of outgoing connections, sequential port allocation
+can be used instead, so that each port is reused as late as possible:
+
+<programlisting>
+net.inet.ip.portrange.randomized=0
+</programlisting>
+
+Note that this makes local ports predictable,
+and thus makes spoofing attacks easier.
+</para>
 
 </section>
 
@@ -209,9 +315,22 @@ net.inet.ip.portrange.last=65535
 <section id="finalizing_connection"
         name="Finalizing connection">
 
+<para>
+When nginx closes a connection, the connection moves to the
+<i>FIN_WAIT_2</i> state after the client acknowledges the closing,
+and stays there until the client closes the connection on its side.
+If the client never does this, for example, if it has disappeared,
+the connection is kept until it is idle for
+<path>net.inet.tcp.keepcnt</path> × <path>net.inet.tcp.keepintvl</path>,
+that is 10 minutes by default.
+The following setting allows dropping such connections after the
+<path>net.inet.tcp.finwait2_timeout</path> (60 seconds by default):
+
 <programlisting>
 net.inet.tcp.fast_finwait2_recycle=1
 </programlisting>
+
+</para>
 
 </section>
 
