@@ -861,6 +861,25 @@ Processing of one or more of these response header fields can be disabled
 using the <link id="proxy_ignore_headers"/> directive.
 </para>
 
+<para>
+When deciding whether a response can be cached,
+nginx does not take the request header fields into account.
+In particular, a response to a request with the
+<header>Authorization</header> header field can be cached
+and subsequently returned to other clients.
+If such responses should not be shared between clients,
+the corresponding requests can be excluded from caching
+using the <link id="proxy_no_cache"/>
+and <link id="proxy_cache_bypass"/> directives, for example:
+<example>
+proxy_no_cache      $http_authorization;
+proxy_cache_bypass  $http_authorization;
+</example>
+or the proxied server can mark such responses as non-cacheable,
+for example, with the <header>Cache-Control</header> header field
+set to “<literal>private</literal>” or “<literal>no-store</literal>”.
+</para>
+
 </directive>
 
 
