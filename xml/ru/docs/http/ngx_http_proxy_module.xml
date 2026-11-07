@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_proxy_module"
         link="/ru/docs/http/ngx_http_proxy_module.html"
         lang="ru"
-        rev="90">
+        rev="91">
 
 <section id="summary">
 
@@ -2068,6 +2068,14 @@ proxy_set_header Host       $http_host;
 <example>
 proxy_set_header Host       $host;
 </example>
+</para>
+
+<para>
+Если в строке запроса указан абсолютный URI,
+переменная <var>$host</var> содержит имя хоста из этого URI,
+по которому был выбран сервер,
+а <var>$http_host</var> по-прежнему содержит исходное поле
+<header>Host</header> заголовка запроса, значение которого может отличаться.
 </para>
 
 <para>

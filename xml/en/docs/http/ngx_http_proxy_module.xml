@@ -10,7 +10,7 @@
 <module name="Module ngx_http_proxy_module"
         link="/en/docs/http/ngx_http_proxy_module.html"
         lang="en"
-        rev="90">
+        rev="91">
 
 <section id="summary">
 
@@ -2065,6 +2065,14 @@ field or the primary server name if this field is not present:
 <example>
 proxy_set_header Host       $host;
 </example>
+</para>
+
+<para>
+If the request line contains an absolute URI,
+the <var>$host</var> variable contains the host name from the URI,
+by which the server was selected,
+while <var>$http_host</var> still contains the original
+<header>Host</header> request header field, which may differ.
 </para>
 
 <para>
