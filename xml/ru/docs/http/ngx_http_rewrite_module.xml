@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_rewrite_module"
         link="/ru/docs/http/ngx_http_rewrite_module.html"
         lang="ru"
-        rev="10">
+        rev="11">
 
 <section id="summary">
 
@@ -384,6 +384,13 @@ rewrite ^/users/(.*)$ /show?user=$1? last;
 <para>
 Устанавливает значение указанной переменной.
 В качестве значения можно использовать текст, переменные и их комбинации.
+</para>
+
+<para>
+Если URI запроса содержит закодированные символы или
+символ “<literal>+</literal>”,
+значения переменных <var>$1</var>..<var>$9</var>,
+используемых в значении, экранируются.
 </para>
 
 </directive>
