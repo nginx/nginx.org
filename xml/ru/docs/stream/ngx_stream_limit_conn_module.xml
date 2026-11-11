@@ -10,7 +10,7 @@
 <module name="Модуль ngx_stream_limit_conn_module"
         link="/ru/docs/stream/ngx_stream_limit_conn_module.html"
         lang="ru"
-        rev="7">
+        rev="8">
 
 <section id="summary">
 
@@ -135,6 +135,14 @@ IP-адреса.
 В качестве <value>ключа</value> может использоваться текст, переменные
 и их комбинации (1.11.2).
 Запросы с пустым значением ключа не учитываются.
+Ключ вычисляется на фазе
+<link doc="stream_processing.xml" id="preaccess_phase">Pre-access</link>,
+до фазы
+<link doc="stream_processing.xml" id="preread_phase">Preread</link>,
+поэтому переменные, устанавливаемые на фазе Preread, например переменные
+модуля
+<link doc="ngx_stream_ssl_preread_module.xml">ngx_stream_ssl_preread_module</link>,
+в этот момент пусты.
 Пример использования:
 <example>
 limit_conn_zone $binary_remote_addr zone=addr:10m;
