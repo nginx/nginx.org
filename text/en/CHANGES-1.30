@@ -1,4 +1,52 @@
 
+Changes with nginx 1.30.7                                        18 Nov 2026
+
+    *) Security: a buffer overflow might occur in a worker process when
+       using the "try_files" and "alias" directives in certain
+       configurations (CVE-2026-125283).
+       Thanks to Marc Luchian and Liviu-Alexandru Bud.
+
+    *) Security: a flow control window overflow in HTTP/2 might allow an
+       attacker to cause a segmentation fault in a worker process, or might
+       have potential other impact (CVE-2026-123007).
+       Thanks to Xint.io.
+
+    *) Security: use-after-free might occur in a worker process when using
+       HTTP/2 if worker_connections were not enough (CVE-2026-123633).
+       Thanks to Albert of Vexera AI.
+
+    *) Security: use-after-free might occur in a worker process when using
+       HTTP/3 if worker_connections were not enough (CVE-2026-121810).
+       Thanks to Xint.io.
+
+    *) Security: use-after-free condition might occur if the "resolver"
+       directive was used and the same name was simultaneously resolved in
+       subrequests, allowing an attacker who is able to trigger name
+       resolution to cause segmentation fault in a worker process, or might
+       have potential other impact (CVE-2026-123634).
+       Thanks to Xint.io.
+
+    *) Security: use-after-free might occur in a worker process in the mail
+       proxy server (CVE-2026-113425).
+       Thanks to Xint.io and Maxim Dounin.
+
+    *) Security: in the stream module, an attacker who is able to complete
+       the SSL handshake synchronously might cause client SSL certificates
+       to be verified using the configuration of the default server rather
+       than the virtual server selected by SNI (CVE-2026-120967).
+       Thanks to CERT.PL.
+
+    *) Security: the ngx_stream_ssl_preread_module might interpret malformed
+       ClientHello messages differently than other TLS implementations,
+       which might result in bypassing security restrictions
+       (CVE-2026-123640).
+       Thanks to Vivek Parikh of BreachX Zero Day Labs.
+
+    *) Security: worker processes might get caught in an endless loop while
+       reading the request body over SSL (CVE-2026-118899).
+       Thanks to Maxim Dounin.
+
+
 Changes with nginx 1.30.6                                        14 Oct 2026
 
     *) Security: a buffer overflow might occur in a worker process when
