@@ -1517,6 +1517,16 @@ If only <value>address</value> is given, the port 80 is used.
 </para>
 
 <para>
+If only <value>port</value> is given, nginx listens on all IPv4 addresses.
+To accept IPv6 connections as well, an IPv6 address
+should be specified separately, for example:
+<example>
+listen 8000;
+listen [::]:8000;
+</example>
+</para>
+
+<para>
 If the directive is not present then either <literal>*:80</literal> is used
 if nginx runs with the superuser privileges, or <literal>*:8000</literal>
 otherwise.
