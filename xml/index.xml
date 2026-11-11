@@ -28,6 +28,36 @@
 <year href="2009.html" year="2009" />
 </years>
 
+<event date="2026-11-18">
+<para>
+<link doc="en/download.xml">nginx-1.30.7</link>
+stable and
+<link doc="en/download.xml">nginx-1.31.9</link>
+mainline versions have been released,
+with vulnerability fixes for
+<link doc="en/security_advisories.xml">use-after-free</link>
+in resolver (CVE-2026-123634),
+<link doc="en/security_advisories.xml">memory corruption</link>
+in HTTP/2 flow control (CVE-2026-123007),
+<link doc="en/security_advisories.xml">use-after-free</link>
+in HTTP/3 (CVE-2026-121810),
+<link doc="en/security_advisories.xml">use-after-free</link>
+in HTTP/2 (CVE-2026-123633),
+<link doc="en/security_advisories.xml">infinite loop</link>
+while reading client request body over TLS 1.3 (CVE-2026-118899),
+<link doc="en/security_advisories.xml">use-after-free</link>
+in mail proxy module (CVE-2026-113425),
+<link doc="en/security_advisories.xml">NULL pointer dereference</link>
+when using PROXY protocol version 2 (CVE-2026-120993),
+<link doc="en/security_advisories.xml">buffer overflow</link>
+when using alias with try_files (CVE-2026-125283),
+<link doc="en/security_advisories.xml">SNI bypass</link>
+in client certificate validation in stream module (CVE-2026-120967), and
+<link doc="en/security_advisories.xml">insufficient validation</link>
+in stream ssl_preread module (CVE-2026-123640).
+</para>
+</event>
+
 <event date="2026-10-21">
 <para>
 <link doc="en/download.xml">nginx-1.31.8</link>
