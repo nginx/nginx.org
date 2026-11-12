@@ -10,7 +10,7 @@
 <module name="Module ngx_http_core_module"
         link="/en/docs/http/ngx_http_core_module.html"
         lang="en"
-        rev="121">
+        rev="122">
 
 <section id="directives" name="Directives">
 
@@ -215,6 +215,15 @@ on request of
 <para>
 The <value>path</value> value can contain variables,
 except <var>$document_root</var> and <var>$realpath_root</var>.
+</para>
+
+<para>
+<note>
+If <literal>alias</literal> is used inside a prefix location,
+both the location and alias values
+should end with the slash character, or both omit it,
+to avoid broken file path or directory traversal.
+</note>
 </para>
 
 <para>
