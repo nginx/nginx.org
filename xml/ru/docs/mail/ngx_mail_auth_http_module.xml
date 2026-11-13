@@ -10,7 +10,7 @@
 <module name="Модуль ngx_mail_auth_http_module"
         link="/ru/docs/mail/ngx_mail_auth_http_module.html"
         lang="ru"
-        rev="11">
+        rev="12">
 
 <section id="directives" name="Директивы">
 
@@ -127,6 +127,9 @@ Auth-Wait: 3
 должно быть ограничено — после 10-20 попыток (номер попытки передаётся
 в заголовке <header>Auth-Login-Attempt</header>) сервер должен выдать ответ
 без заголовка <header>Auth-Wait</header>.
+Если в заголовке <header>Auth-Status</header> передано <literal>WAIT</literal>,
+запрос к серверу аутентификации повторяется через число секунд,
+указанное в заголовке <header>Auth-Wait</header>.
 </para>
 
 <para>
