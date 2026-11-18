@@ -9,7 +9,7 @@
 <module name="Модуль ngx_http_auth_jwt_module"
         link="/ru/docs/http/ngx_http_auth_jwt_module.html"
         lang="ru"
-        rev="12">
+        rev="13">
 
 <section id="summary">
 
@@ -233,7 +233,7 @@ auth_jwt_claim_set $job info "job title";
 </directive>
 
 <directive name="auth_jwt_key_cache">
-<syntax><value> время</value></syntax>
+<syntax><value> время</value> [<literal>refresh_on_miss</literal>]</syntax>
 <default>0</default>
 <context>http</context>
 <context>server</context>
@@ -247,6 +247,17 @@ auth_jwt_claim_set $job info "job title";
 и задаёт время их кэширования.
 Кэширование ключей, полученных из переменных, не поддерживается.
 По умолчанию кэширование ключей выключено.
+</para>
+
+<para id="refresh_on_miss">
+Необязательный параметр <literal>refresh_on_miss</literal> (1.31.8)
+разрешает повторное получение ключей до истечения времени кэширования,
+если токен содержит непустой идентификатор ключа (<literal>kid</literal>),
+который отсутствует среди кэшированных ключей:
+<example>
+auth_jwt_key_cache 1h refresh_on_miss;
+</example>
+Затем токен проверяется при помощи повторно полученных ключей.
 </para>
 
 </directive>
