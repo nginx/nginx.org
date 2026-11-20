@@ -574,6 +574,21 @@ grpc_set_header Accept-Encoding "";
 </example>
 </para>
 
+<para>
+The <header>Host</header> header field is an exception.
+Since 1.31.4, its value is conveyed in the
+<header>:authority</header> pseudo-header field, and if that value
+is an empty string, the host and port of the
+<link id="grpc_pass">gRPC server</link>
+are passed instead, as the
+<link url="https://datatracker.ietf.org/doc/html/rfc9110#section-4.2.1">http</link>
+and <link url="https://datatracker.ietf.org/doc/html/rfc9110#section-4.2.2">https</link>
+URI schemes require a non-empty host identifier.
+An empty <header>Host</header> value therefore cannot be used
+to suppress the field, or as a way to signal that a request
+should not be proxied.
+</para>
+
 </directive>
 
 
