@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_dav_module"
         link="/ru/docs/http/ngx_http_dav_module.html"
         lang="ru"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -141,6 +141,24 @@ dav_access group:rw all:r;
 <para>
 При создании файла с помощью метода PUT можно задать дату модификации,
 передав её в поле заголовка <header>Date</header>.
+</para>
+
+<para>
+Поле заголовка <header>Destination</header> методов COPY и MOVE
+отображается в путь на файловой системе с помощью директивы
+<link doc="ngx_http_core_module.xml" id="root"/> или
+<link doc="ngx_http_core_module.xml" id="alias"/>
+того location, в котором обрабатывается запрос;
+выбор location и ограничения доступа, заданные для URI назначения,
+не применяются.
+Поэтому доступ к location, в котором разрешены методы COPY и MOVE,
+следует ограничивать, например, с помощью модулей
+<link doc="ngx_http_access_module.xml">ngx_http_access_module</link>,
+<link doc="ngx_http_auth_basic_module.xml">ngx_http_auth_basic_module</link>
+или
+<link doc="ngx_http_auth_request_module.xml">ngx_http_auth_request_module</link>.
+При использовании <literal>alias</literal>
+URI назначения вне префикса location отвергается (1.31.7).
 </para>
 
 </directive>
