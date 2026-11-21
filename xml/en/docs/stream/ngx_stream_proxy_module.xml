@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_proxy_module"
         link="/en/docs/stream/ngx_stream_proxy_module.html"
         lang="en"
-        rev="41">
+        rev="42">
 
 <section id="summary">
 
@@ -91,6 +91,44 @@ the <literal>transparent</literal> parameter is specified, worker processes
 inherit the <literal>CAP_NET_RAW</literal> capability from the master process.
 It is also necessary to configure kernel routing table
 to intercept network traffic from the proxied server.
+</para>
+
+</directive>
+
+
+<directive name="proxy_bind_device">
+<syntax>
+    <value>interface</value> |
+    <literal>off</literal></syntax>
+<default/>
+<context>stream</context>
+<context>server</context>
+<appeared-in>x.y.z</appeared-in>
+
+<para>
+Makes outgoing connections to a proxied server use
+the specified network <value>interface</value>
+(the <c-def>SO_BINDTODEVICE</c-def> socket option).
+Parameter value can contain variables.
+The special value <literal>off</literal> cancels the effect
+of the <literal>proxy_bind_device</literal> directive
+inherited from the previous configuration level.
+</para>
+
+<para>
+The directive can be used together with the
+<link id="proxy_bind"/> directive,
+in which case the local IP address must be valid
+for the specified interface.
+</para>
+
+<para>
+<note>
+This directive is supported on Linux and macOS 15+.
+On Linux before 5.7, it is usually necessary to run nginx worker processes
+with the <link doc="../ngx_core_module.xml" id="user">superuser</link>
+privileges.
+</note>
 </para>
 
 </directive>
