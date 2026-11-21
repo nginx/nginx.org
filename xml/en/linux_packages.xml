@@ -240,7 +240,7 @@ and if so, accept it.
 <para>
 Install the prerequisites:
 <programlisting>
-sudo apt install curl gnupg2 ca-certificates lsb-release debian-archive-keyring
+sudo apt install curl gnupg2 ca-certificates debian-archive-keyring
 </programlisting>
 </para>
 
@@ -249,13 +249,18 @@ Import an official nginx signing key so apt could verify the packages
 authenticity.
 Fetch the key:
 <programlisting>
-curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor \
-    | sudo tee /usr/share/keyrings/nginx-archive-keyring.gpg >/dev/null
+sudo curl -fsSL https://nginx.org/keys/nginx_signing.key \
+    -o /etc/apt/keyrings/nginx-archive-keyring.asc
+</programlisting>
+
+Grant read permissions to all users so that apt can read the public key file.
+<programlisting>
+sudo chmod a+r /etc/apt/keyrings/nginx-archive-keyring.asc
 </programlisting>
 
 Verify that the downloaded file contains the proper key:
 <programlisting>
-gpg --dry-run --quiet --no-keyring --import --import-options import-show /usr/share/keyrings/nginx-archive-keyring.gpg
+gpg --dry-run --quiet --no-keyring --import --import-options import-show /etc/apt/keyrings/nginx-archive-keyring.asc
 </programlisting>
 
 The output should contain the full fingerprint
@@ -273,17 +278,27 @@ Note that the output can contain other keys used to sign the packages.
 To set up the apt repository for stable nginx packages,
 run the following command:
 <programlisting>
-echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] \
-https://nginx.org/packages/debian `lsb_release -cs` nginx" \
-    | sudo tee /etc/apt/sources.list.d/nginx.list
+sudo tee /etc/apt/sources.list.d/nginx.sources &lt;&lt;EOF
+Types: deb
+URIs: https://nginx.org/packages/debian
+Suites: $(. /etc/os-release &amp;&amp; echo "$VERSION_CODENAME")
+Components: nginx
+Architectures: $(dpkg --print-architecture)
+Signed-By: /etc/apt/keyrings/nginx-archive-keyring.asc
+EOF
 </programlisting>
 
 If you would like to use mainline nginx packages,
 run the following command instead:
 <programlisting>
-echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] \
-https://nginx.org/packages/mainline/debian `lsb_release -cs` nginx" \
-    | sudo tee /etc/apt/sources.list.d/nginx.list
+sudo tee /etc/apt/sources.list.d/nginx.sources &lt;&lt;EOF
+Types: deb
+URIs: https://nginx.org/packages/mainline/debian
+Suites: $(. /etc/os-release &amp;&amp; echo "$VERSION_CODENAME")
+Components: nginx
+Architectures: $(dpkg --print-architecture)
+Signed-By: /etc/apt/keyrings/nginx-archive-keyring.asc
+EOF
 </programlisting>
 </para>
 
@@ -312,7 +327,7 @@ sudo apt install nginx
 <para>
 Install the prerequisites:
 <programlisting>
-sudo apt install curl gnupg2 ca-certificates lsb-release ubuntu-keyring
+sudo apt install curl gnupg2 ca-certificates ubuntu-keyring
 </programlisting>
 </para>
 
@@ -321,13 +336,16 @@ Import an official nginx signing key so apt could verify the packages
 authenticity.
 Fetch the key:
 <programlisting>
-curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor \
-    | sudo tee /usr/share/keyrings/nginx-archive-keyring.gpg >/dev/null
+sudo curl -fsSL https://nginx.org/keys/nginx_signing.key \
+    -o /etc/apt/keyrings/nginx-archive-keyring.asc
 </programlisting>
-
+Grant read permissions to all users so that apt can read the public key file.
+<programlisting>
+sudo chmod a+r /etc/apt/keyrings/nginx-archive-keyring.asc
+</programlisting>
 Verify that the downloaded file contains the proper key:
 <programlisting>
-gpg --dry-run --quiet --no-keyring --import --import-options import-show /usr/share/keyrings/nginx-archive-keyring.gpg
+gpg --dry-run --quiet --no-keyring --import --import-options import-show /etc/apt/keyrings/nginx-archive-keyring.asc
 </programlisting>
 
 The output should contain the full fingerprint
@@ -345,17 +363,27 @@ Note that the output can contain other keys used to sign the packages.
 To set up the apt repository for stable nginx packages,
 run the following command:
 <programlisting>
-echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] \
-https://nginx.org/packages/ubuntu `lsb_release -cs` nginx" \
-    | sudo tee /etc/apt/sources.list.d/nginx.list
+sudo tee /etc/apt/sources.list.d/nginx.sources &lt;&lt;EOF
+Types: deb
+URIs: https://nginx.org/packages/ubuntu
+Suites: $(. /etc/os-release &amp;&amp; echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}")
+Components: nginx
+Architectures: $(dpkg --print-architecture)
+Signed-By: /etc/apt/keyrings/nginx-archive-keyring.asc
+EOF
 </programlisting>
 
 If you would like to use mainline nginx packages,
 run the following command instead:
 <programlisting>
-echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] \
-https://nginx.org/packages/mainline/ubuntu `lsb_release -cs` nginx" \
-    | sudo tee /etc/apt/sources.list.d/nginx.list
+sudo tee /etc/apt/sources.list.d/nginx.sources &lt;&lt;EOF
+Types: deb
+URIs: https://nginx.org/packages/mainline/ubuntu
+Suites: $(. /etc/os-release &amp;&amp; echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}")
+Components: nginx
+Architectures: $(dpkg --print-architecture)
+Signed-By: /etc/apt/keyrings/nginx-archive-keyring.asc
+EOF
 </programlisting>
 </para>
 
