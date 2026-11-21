@@ -17,6 +17,13 @@
 <para>
 The <literal>ngx_http_fastcgi_module</literal> module allows passing
 requests to a FastCGI server.
+
+Warning: This module assumes that the server it passes requests
+to is trusted.  It is not to be used with untrusted FastCGI servers.
+
+If possible, using an AF_UNIX socket to connect to the FastCGI server
+is recommended, as it is faster and subject to filesystem access
+controls.
 </para>
 
 </section>
