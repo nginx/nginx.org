@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_fastcgi_module"
         link="/ru/docs/http/ngx_http_fastcgi_module.html"
         lang="ru"
-        rev="57">
+        rev="58">
 
 <section id="summary">
 
@@ -1370,10 +1370,15 @@ fastcgi_pass unix:/tmp/fastcgi.socket;
 
 <para>
 В значении параметра можно использовать переменные.
-В этом случае, если адрес указан в виде доменного имени,
-имя ищется среди описанных
-<link doc="ngx_http_upstream_module.xml">групп серверов</link>
-и если не найдено, то определяется с помощью
+Если полученный адрес содержит доменное имя, nginx ищет его среди
+<link doc="ngx_http_upstream_module.xml">групп серверов</link>.
+Поиск включает и группы, которые создаются неявно, когда в любом месте
+конфигурации <literal>http</literal> директива, например
+<link doc="ngx_http_proxy_module.xml" id="proxy_pass"/>,
+задаёт адрес сервера без переменных.
+Если имя и порт совпадают с именем и портом такой группы, nginx
+использует адреса, полученные при загрузке конфигурации.
+Если подходящей группы нет, имя разрешается с помощью
 <link doc="ngx_http_core_module.xml" id="resolver"/>’а.
 </para>
 
