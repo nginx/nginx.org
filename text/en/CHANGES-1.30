@@ -1,4 +1,12 @@
 
+Changes with nginx 1.30.8                                        23 Nov 2026
+
+    *) Security: when using the "ssl_early_data" directive a client might
+       cause excessive CPU usage (CVE-2026-132779).
+
+    *) Bugfix: nginx might hog CPU if SSL connections to backends were used.
+
+
 Changes with nginx 1.30.7                                        18 Nov 2026
 
     *) Security: a buffer overflow might occur in a worker process when
