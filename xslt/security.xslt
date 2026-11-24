@@ -16,12 +16,6 @@
 
     <xsl:value-of select="@name"/><br/>
 
-    <xsl:choose><xsl:when test="@severity = 'major'">
-        <xsl:text>Severity: </xsl:text> <b><xsl:value-of select="@severity"/></b><br/>
-    </xsl:when><xsl:otherwise>
-        <xsl:text>Severity: </xsl:text> <xsl:value-of select="@severity"/><br/>
-    </xsl:otherwise></xsl:choose>
-
     <xsl:if test="@advisory">
         <a href="{@advisory}"> <xsl:text>Advisory</xsl:text> </a>
         <br/>
