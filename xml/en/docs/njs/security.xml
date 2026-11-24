@@ -74,7 +74,6 @@ nginx is safe from JavaScript-related vulnerabilities
 <security>
 
 <item name="Memory exhaustion when parsing malformed XML"
-      severity="medium"
       advisory="https://my.f5.com/manage/s/article/K000162614"
       cve="2026-101025"
       good="1.0.2+"
@@ -82,7 +81,6 @@ nginx is safe from JavaScript-related vulnerabilities
 </item>
 
 <item name="Inconsistent XML attribute values"
-      severity="medium"
       advisory="https://my.f5.com/manage/s/article/K000162615"
       cve="2026-101019"
       good="1.0.2+"
@@ -90,7 +88,6 @@ nginx is safe from JavaScript-related vulnerabilities
 </item>
 
 <item name="Access control bypass in js_access"
-      severity="medium"
       advisory="https://my.f5.com/manage/s/article/K000162599"
       cve="2026-18329"
       good="1.0.1+"
@@ -98,7 +95,6 @@ nginx is safe from JavaScript-related vulnerabilities
 </item>
 
 <item name="Worker process crash in ngx.fetch()"
-      severity="medium"
       advisory="https://my.f5.com/manage/s/article/K000162603"
       cve="2026-78222"
       good="1.0.1+"
@@ -106,7 +102,6 @@ nginx is safe from JavaScript-related vulnerabilities
 </item>
 
 <item name="Heap buffer overflow in xml.exclusiveC14n()"
-      severity="major"
       advisory="https://my.f5.com/manage/s/article/K000162602"
       cve="2026-78689"
       good="1.0.1+"
@@ -114,7 +109,6 @@ nginx is safe from JavaScript-related vulnerabilities
 </item>
 
 <item name="Heap buffer overflow in js_fetch_proxy"
-      severity="medium"
       advisory="https://my.f5.com/manage/s/article/K000161307"
       cve="2026-8711"
       good="0.9.9+"

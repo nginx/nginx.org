@@ -15,12 +15,6 @@ X:template = "security/item" {
 
     !{@name}<br/>
 
-    X:if "@severity = 'major'" {
-        X:text{Severity: } <b>!{@severity}</b><br/>
-    } else {
-        X:text{Severity: } !{@severity}<br/>
-    }
-
     X:if "@advisory" {
         <a href="{@advisory}"> X:text {Advisory} </a>
         <br/>

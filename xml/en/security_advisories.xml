@@ -26,7 +26,6 @@ Patches are signed using one of the
 <security>
 
 <item name="Excessive CPU usage in TLS 1.3 with ssl_early_data"
-      severity="medium"
       advisory="https://my.f5.com/manage/s/article/K000163947"
       cve="2026-132779"
       good="1.31.10+, 1.30.8+"
@@ -34,7 +33,6 @@ Patches are signed using one of the
 </item>
 
 <item name="Use-after-free during response processing in resolver"
-      severity="medium"
       advisory="https://my.f5.com/manage/s/article/K000163925"
       cve="2026-123634"
       good="1.31.9+, 1.30.7+"
@@ -42,7 +40,6 @@ Patches are signed using one of the
 </item>
 
 <item name="Memory corruption in HTTP/2 flow control"
-      severity="major"
       advisory="https://my.f5.com/manage/s/article/K000163926"
       cve="2026-123007"
       good="1.31.9+, 1.30.7+"
@@ -50,7 +47,6 @@ Patches are signed using one of the
 </item>
 
 <item name="Use-after-free in HTTP/3"
-      severity="medium"
       advisory="https://my.f5.com/manage/s/article/K000163927"
       cve="2026-121810"
       good="1.31.9+, 1.30.7+"
@@ -58,7 +54,6 @@ Patches are signed using one of the
 </item>
 
 <item name="Use-after-free in HTTP/2"
-      severity="medium"
       advisory="https://my.f5.com/manage/s/article/K000163928"
       cve="2026-123633"
       good="1.31.9+, 1.30.7+"
@@ -66,7 +61,6 @@ Patches are signed using one of the
 </item>
 
 <item name="Infinite loop while reading client request body over TLS 1.3"
-      severity="major"
       advisory="https://my.f5.com/manage/s/article/K000163930"
       cve="2026-118899"
       good="1.31.9+, 1.30.7+"
@@ -74,7 +68,6 @@ Patches are signed using one of the
 </item>
 
 <item name="Use-after-free in mail proxy module"
-      severity="major"
       advisory="https://my.f5.com/manage/s/article/K000163931"
       cve="2026-113425"
       good="1.31.9+, 1.30.7+"
@@ -82,7 +75,6 @@ Patches are signed using one of the
 </item>
 
 <item name="NULL pointer dereference when using PROXY protocol version 2"
-      severity="minor"
       advisory="https://my.f5.com/manage/s/article/K000163932"
       cve="2026-120993"
       good="1.31.9+"
@@ -90,7 +82,6 @@ Patches are signed using one of the
 </item>
 
 <item name="Buffer overflow when using alias with try_files"
-      severity="minor"
       advisory="https://my.f5.com/manage/s/article/K000163933"
       cve="2026-125283"
       good="1.31.9+, 1.30.7+"
@@ -98,7 +89,6 @@ Patches are signed using one of the
 </item>
 
 <item name="SNI bypass when using client certificate validation in stream"
-      severity="medium"
       advisory="https://my.f5.com/manage/s/article/K000163934"
       cve="2026-120967"
       good="1.31.9+, 1.30.7+"
@@ -106,7 +96,6 @@ Patches are signed using one of the
 </item>
 
 <item name="Insufficient validation in stream ssl_preread module"
-      severity="minor"
       advisory="https://my.f5.com/manage/s/article/K000163935"
       cve="2026-123640"
       good="1.31.9+, 1.30.7+"
@@ -114,7 +103,6 @@ Patches are signed using one of the
 </item>
 
 <item name="Buffer overflow when using alias with rewrite"
-      severity="medium"
       advisory="https://my.f5.com/manage/s/article/K000162416"
       cve="2026-15176"
       good="1.31.7+, 1.30.6+"
@@ -122,7 +110,6 @@ Patches are signed using one of the
 </item>
 
 <item name="Buffer overflow in script evaluation"
-      severity="medium"
       advisory="https://my.f5.com/manage/s/article/K000162607"
       cve="2026-93479"
       good="1.31.7+, 1.30.6+"
@@ -130,7 +117,6 @@ Patches are signed using one of the
 </item>
 
 <item name="Request body injection in HTTP/3"
-      severity="medium"
       advisory="https://my.f5.com/manage/s/article/K000162613"
       cve="2026-95101"
       good="1.31.7+, 1.30.6+"
@@ -138,7 +124,6 @@ Patches are signed using one of the
 </item>
 
 <item name="Session forgery when using TLS session tickets"
-      severity="medium"
       advisory="https://my.f5.com/manage/s/article/K000162606"
       cve="2026-97629"
       good="1.31.7+, 1.30.6+"
@@ -146,7 +131,6 @@ Patches are signed using one of the
 </item>
 
 <item name="Use-after-free when using asynchronous file I/O (AIO)"
-      severity="medium"
       advisory="https://my.f5.com/manage/s/article/K000162608"
       cve="2026-97205"
       good="1.31.7+, 1.30.6+"
@@ -154,7 +138,6 @@ Patches are signed using one of the
 </item>
 
 <item name="Buffer overflow when using ngx_http_v3_module"
-      severity="medium"
       advisory="https://my.f5.com/manage/s/article/K000162604"
       cve="2026-90439"
       good="1.31.6+, 1.30.5+"
@@ -162,7 +145,6 @@ Patches are signed using one of the
 </item>
 
 <item name="Buffer overflow when using map and regex"
-      severity="major"
       advisory="https://my.f5.com/manage/s/article/K000162097"
       cve="2026-42533"
       good="1.31.3+, 1.30.4+"
@@ -170,7 +152,6 @@ Patches are signed using one of the
 </item>
 
 <item name="Memory disclosure when using ngx_http_slice_module"
-      severity="medium"
       advisory="https://my.f5.com/manage/s/article/K000162100"
       cve="2026-60005"
       good="1.31.3+, 1.30.4+"
@@ -178,7 +159,6 @@ Patches are signed using one of the
 </item>
 
 <item name="Use-after-free when using ngx_http_ssi_module"
-      severity="medium"
       advisory="https://my.f5.com/manage/s/article/K000162098"
       cve="2026-56434"
       good="1.31.3+, 1.30.4+"
@@ -186,7 +166,6 @@ Patches are signed using one of the
 </item>
 
 <item name="Use-after-free in HTTP/3"
-      severity="major"
       advisory="https://my.f5.com/manage/s/article/K000161616"
       cve="2026-42530"
       good="1.31.2+"
@@ -194,7 +173,6 @@ Patches are signed using one of the
 </item>
 
 <item name="Buffer overflow in the ngx_http_proxy_v2_module and ngx_http_grpc_module"
-      severity="medium"
       advisory="https://my.f5.com/manage/s/article/K000161584"
       cve="2026-42055"
       good="1.31.2+, 1.30.3+"
@@ -202,7 +180,6 @@ Patches are signed using one of the
 </item>
 
 <item name="Buffer overread in the ngx_http_charset_module"
-      severity="low"
       advisory="https://my.f5.com/manage/s/article/K000161585"
       cve="2026-48142"
       good="1.31.2+, 1.30.3+"
@@ -210,7 +187,6 @@ Patches are signed using one of the
 </item>
 
 <item name="Buffer overflow in the ngx_http_rewrite_module"
-      severity="medium"
       advisory="https://my.f5.com/manage/s/article/K000161377"
       cve="2026-9256"
       good="1.31.1+, 1.30.2+"
@@ -218,7 +194,6 @@ Patches are signed using one of the
 </item>
 
 <item name="HTTP/2 request injection in the ngx_http_proxy_module"
-      severity="medium"
       advisory="https://my.f5.com/manage/s/article/K000161131"
       cve="2026-42926"
       good="1.31.0+, 1.30.1+"
@@ -226,7 +201,6 @@ Patches are signed using one of the
 </item>
 
 <item name="Buffer overflow in the ngx_http_rewrite_module"
-      severity="medium"
       advisory="https://my.f5.com/manage/s/article/K000161019"
       cve="2026-42945"
       good="1.31.0+, 1.30.1+"
@@ -234,7 +208,6 @@ Patches are signed using one of the
 </item>
 
 <item name="Buffer overread in the ngx_http_scgi_module and ngx_http_uwsgi_module"
-      severity="medium"
       advisory="https://my.f5.com/manage/s/article/K000161027"
       cve="2026-42946"
       good="1.31.0+, 1.30.1+"
@@ -242,7 +215,6 @@ Patches are signed using one of the
 </item>
 
 <item name="Buffer overread in the ngx_http_charset_module"
-      severity="low"
       advisory="https://my.f5.com/manage/s/article/K000161028"
       cve="2026-42934"
       good="1.31.0+, 1.30.1+"
@@ -250,7 +222,6 @@ Patches are signed using one of the
 </item>
 
 <item name="HTTP/3 address spoofing"
-      severity="medium"
       advisory="https://my.f5.com/manage/s/article/K000161068"
       cve="2026-40460"
       good="1.31.0+, 1.30.1+"
@@ -258,7 +229,6 @@ Patches are signed using one of the
 </item>
 
 <item name="resolver use-after-free in OCSP"
-      severity="medium"
       advisory="https://my.f5.com/manage/s/article/K000161021"
       cve="2026-40701"
       good="1.31.0+, 1.30.1+"
@@ -266,7 +236,6 @@ Patches are signed using one of the
 </item>
 
 <item name="Buffer overflow in ngx_http_dav_module"
-      severity="medium"
       advisory="https://my.f5.com/manage/s/article/K000160382"
       cve="2026-27654"
       good="1.29.7+, 1.28.3+"
@@ -274,7 +243,6 @@ Patches are signed using one of the
 </item>
 
 <item name="Buffer overflow in the ngx_http_mp4_module"
-      severity="medium"
       advisory="https://my.f5.com/manage/s/article/K000160364"
       cve="2026-27784"
       good="1.29.7+, 1.28.3+"
@@ -282,7 +250,6 @@ Patches are signed using one of the
 </item>
 
 <item name="Buffer overflow in the ngx_http_mp4_module"
-      severity="medium"
       advisory="https://my.f5.com/manage/s/article/K000160366"
       cve="2026-32647"
       good="1.29.7+, 1.28.3+"
@@ -290,7 +257,6 @@ Patches are signed using one of the
 </item>
 
 <item name="NULL pointer dereference while using CRAM-MD5 or APOP"
-      severity="low"
       advisory="https://my.f5.com/manage/s/article/K000160383"
       cve="2026-27651"
       good="1.29.7+, 1.28.3+"
@@ -298,7 +264,6 @@ Patches are signed using one of the
 </item>
 
 <item name="Injection in auth_http and XCLIENT"
-      severity="medium"
       advisory="https://my.f5.com/manage/s/article/K000160367"
       cve="2026-28753"
       good="1.29.7+, 1.28.3+"
@@ -306,7 +271,6 @@ Patches are signed using one of the
 </item>
 
 <item name="OCSP result bypass in stream"
-      severity="medium"
       advisory="https://my.f5.com/manage/s/article/K000160368"
       cve="2026-28755"
       good="1.29.7+, 1.28.3+"
@@ -314,7 +278,6 @@ Patches are signed using one of the
 </item>
 
 <item name="SSL upstream injection"
-      severity="medium"
       advisory="https://my.f5.com/manage/s/article/K000159824"
       cve="2026-1642"
       good="1.29.5+, 1.28.2+"
@@ -322,7 +285,6 @@ Patches are signed using one of the
 </item>
 
 <item name="Buffer overread in the ngx_mail_smtp_module"
-      severity="low"
       advisory="https://my.f5.com/manage/s/article/K000152786"
       cve="2025-53859"
       good="1.29.1+"
@@ -330,7 +292,6 @@ Patches are signed using one of the
 </item>
 
 <item name="SSL session reuse vulnerability"
-      severity="medium"
       advisory="https://mailman.nginx.org/pipermail/nginx-announce/2025/NYEUJX7NCBCGJGXDFVXNMAAMJDFSE45G.html"
       cve="2025-23419"
       good="1.27.4+, 1.26.3+"
@@ -338,7 +299,6 @@ Patches are signed using one of the
 </item>
 
 <item name="Buffer overread in the ngx_http_mp4_module"
-      severity="low"
       advisory="https://mailman.nginx.org/pipermail/nginx-announce/2024/UUOCLLONPR6244YQYU65PO5LB7JDYCWM.html"
       cve="2024-7347"
       good="1.27.1+, 1.26.2+"
@@ -347,7 +307,6 @@ Patches are signed using one of the
 </item>
 
 <item name="Buffer overwrite in HTTP/3"
-      severity="medium"
       advisory="https://mailman.nginx.org/pipermail/nginx-announce/2024/GMY32CSHFH6VFTN76HJNX7WNEX4RLHF6.html"
       cve="2024-32760"
       good="1.27.0+, 1.26.1+"
@@ -355,7 +314,6 @@ Patches are signed using one of the
 </item>
 
 <item name="Stack overflow and use-after-free in HTTP/3"
-      severity="medium"
       advisory="https://mailman.nginx.org/pipermail/nginx-announce/2024/GMY32CSHFH6VFTN76HJNX7WNEX4RLHF6.html"
       cve="2024-31079"
       good="1.27.0+, 1.26.1+"
@@ -363,7 +321,6 @@ Patches are signed using one of the
 </item>
 
 <item name="NULL pointer dereference in HTTP/3"
-      severity="medium"
       advisory="https://mailman.nginx.org/pipermail/nginx-announce/2024/GMY32CSHFH6VFTN76HJNX7WNEX4RLHF6.html"
       cve="2024-35200"
       good="1.27.0+, 1.26.1+"
@@ -371,7 +328,6 @@ Patches are signed using one of the
 </item>
 
 <item name="Memory disclosure in HTTP/3"
-      severity="medium"
       advisory="https://mailman.nginx.org/pipermail/nginx-announce/2024/GMY32CSHFH6VFTN76HJNX7WNEX4RLHF6.html"
       cve="2024-34161"
       good="1.27.0+, 1.26.1+"
@@ -379,7 +335,6 @@ Patches are signed using one of the
 </item>
 
 <item name="NULL pointer dereference in HTTP/3"
-      severity="major"
       advisory="https://mailman.nginx.org/pipermail/nginx-announce/2024/NW6MNW34VZ6HDIHH5YFBIJYZJN7FGNAV.html"
       cve="2024-24989"
       good="1.25.4+"
@@ -387,7 +342,6 @@ Patches are signed using one of the
 </item>
 
 <item name="Use-after-free in HTTP/3"
-      severity="major"
       advisory="https://mailman.nginx.org/pipermail/nginx-announce/2024/NW6MNW34VZ6HDIHH5YFBIJYZJN7FGNAV.html"
       cve="2024-24990"
       good="1.25.4+"
@@ -395,7 +349,6 @@ Patches are signed using one of the
 </item>
 
 <item name="Memory corruption in the ngx_http_mp4_module"
-      severity="medium"
       advisory="https://mailman.nginx.org/pipermail/nginx-announce/2022/RBRRON6PYBJJM2XIAPQBFBVLR4Q6IHRA.html"
       cve="2022-41741"
       good="1.23.2+, 1.22.1+"
@@ -404,7 +357,6 @@ Patches are signed using one of the
 </item>
 
 <item name="Memory disclosure in the ngx_http_mp4_module"
-      severity="medium"
       advisory="https://mailman.nginx.org/pipermail/nginx-announce/2022/RBRRON6PYBJJM2XIAPQBFBVLR4Q6IHRA.html"
       cve="2022-41742"
       good="1.23.2+, 1.22.1+"
@@ -413,7 +365,6 @@ Patches are signed using one of the
 </item>
 
 <item name="1-byte memory overwrite in resolver"
-      severity="medium"
       advisory="https://mailman.nginx.org/pipermail/nginx-announce/2021/000300.html"
       cve="2021-23017"
       good="1.21.0+, 1.20.1+"
@@ -422,7 +373,6 @@ Patches are signed using one of the
 </item>
 
 <item name="Excessive CPU usage in HTTP/2 with small window updates"
-      severity="medium"
       advisory="https://mailman.nginx.org/pipermail/nginx-announce/2019/000249.html"
       cve="2019-9511"
       good="1.17.3+, 1.16.1+"
@@ -430,7 +380,6 @@ Patches are signed using one of the
 </item>
 
 <item name="Excessive CPU usage in HTTP/2 with priority changes"
-      severity="low"
       advisory="https://mailman.nginx.org/pipermail/nginx-announce/2019/000249.html"
       cve="2019-9513"
       good="1.17.3+, 1.16.1+"
@@ -438,7 +387,6 @@ Patches are signed using one of the
 </item>
 
 <item name="Excessive memory usage in HTTP/2 with zero length headers"
-      severity="low"
       advisory="https://mailman.nginx.org/pipermail/nginx-announce/2019/000249.html"
       cve="2019-9516"
       good="1.17.3+, 1.16.1+"
@@ -446,7 +394,6 @@ Patches are signed using one of the
 </item>
 
 <item name="Excessive memory usage in HTTP/2"
-      severity="low"
       advisory="https://mailman.nginx.org/pipermail/nginx-announce/2018/000220.html"
       cve="2018-16843"
       good="1.15.6+, 1.14.1+"
@@ -454,7 +401,6 @@ Patches are signed using one of the
 </item>
 
 <item name="Excessive CPU usage in HTTP/2"
-      severity="low"
       advisory="https://mailman.nginx.org/pipermail/nginx-announce/2018/000220.html"
       cve="2018-16844"
       good="1.15.6+, 1.14.1+"
@@ -462,7 +408,6 @@ Patches are signed using one of the
 </item>
 
 <item name="Memory disclosure in the ngx_http_mp4_module"
-      severity="medium"
       advisory="https://mailman.nginx.org/pipermail/nginx-announce/2018/000221.html"
       cve="2018-16845"
       good="1.15.6+, 1.14.1+"
@@ -471,7 +416,6 @@ Patches are signed using one of the
 </item>
 
 <item name="Integer overflow in the range filter"
-      severity="medium"
       advisory="https://mailman.nginx.org/pipermail/nginx-announce/2017/000200.html"
       cve="2017-7529"
       good="1.13.3+, 1.12.1+"
@@ -480,7 +424,6 @@ Patches are signed using one of the
 </item>
 
 <item name="NULL pointer dereference while writing client request body"
-      severity="medium"
       advisory="https://mailman.nginx.org/pipermail/nginx-announce/2016/000179.html"
       cve="2016-4450"
       good="1.11.1+, 1.10.1+"
@@ -490,28 +433,24 @@ Patches are signed using one of the
 </item>
 
 <item name="Invalid pointer dereference in resolver"
-      severity="medium"
       advisory="https://mailman.nginx.org/pipermail/nginx-announce/2016/000169.html"
       cve="2016-0742"
       good="1.9.10+, 1.8.1+"
       vulnerable="0.6.18-1.9.9" />
 
 <item name="Use-after-free during CNAME response processing in resolver"
-      severity="medium"
       advisory="https://mailman.nginx.org/pipermail/nginx-announce/2016/000169.html"
       cve="2016-0746"
       good="1.9.10+, 1.8.1+"
       vulnerable="0.6.18-1.9.9" />
 
 <item name="Insufficient limits of CNAME resolution in resolver"
-      severity="medium"
       advisory="https://mailman.nginx.org/pipermail/nginx-announce/2016/000169.html"
       cve="2016-0747"
       good="1.9.10+, 1.8.1+"
       vulnerable="0.6.18-1.9.9" />
 
 <item name="SSL session reuse vulnerability"
-      severity="medium"
       advisory="https://mailman.nginx.org/pipermail/nginx-announce/2014/000147.html"
       cve="2014-3616"
       good="1.7.5+, 1.6.2+"
@@ -519,7 +458,6 @@ Patches are signed using one of the
 </item>
 
 <item name="STARTTLS command injection"
-      severity="medium"
       advisory="https://mailman.nginx.org/pipermail/nginx-announce/2014/000144.html"
       cve="2014-3556"
       good="1.7.4+, 1.6.1+"
@@ -528,7 +466,6 @@ Patches are signed using one of the
 </item>
 
 <item name="SPDY heap buffer overflow"
-      severity="major"
       advisory="https://mailman.nginx.org/pipermail/nginx-announce/2014/000135.html"
       cve="2014-0133"
       good="1.5.12+, 1.4.7+"
@@ -537,7 +474,6 @@ Patches are signed using one of the
 </item>
 
 <item name="SPDY memory corruption"
-      severity="major"
       advisory="https://mailman.nginx.org/pipermail/nginx-announce/2014/000132.html"
       cve="2014-0088"
       good="1.5.11+"
@@ -546,7 +482,6 @@ Patches are signed using one of the
 </item>
 
 <item name="Request line parsing vulnerability"
-      severity="medium"
       advisory="https://mailman.nginx.org/pipermail/nginx-announce/2013/000125.html"
       cve="2013-4547"
       good="1.5.7+, 1.4.4+"
@@ -555,7 +490,6 @@ Patches are signed using one of the
 </item>
 
 <item name="Memory disclosure with specially crafted HTTP backend responses"
-      severity="medium"
       advisory="https://mailman.nginx.org/pipermail/nginx-announce/2013/000114.html"
       cve="2013-2070"
       good="1.5.0+, 1.4.1+, 1.2.9+"
@@ -565,7 +499,6 @@ Patches are signed using one of the
 </item>
 
 <item name="Stack-based buffer overflow with specially crafted request"
-      severity="major"
       advisory="https://mailman.nginx.org/pipermail/nginx-announce/2013/000112.html"
       cve="2013-2028"
       good="1.5.0+, 1.4.1+"
@@ -574,14 +507,12 @@ Patches are signed using one of the
 </item>
 
 <item name="Vulnerabilities with Windows directory aliases"
-      severity="medium"
       advisory="https://mailman.nginx.org/pipermail/nginx-announce/2012/000086.html"
       cve="2011-4963"
       good="1.3.1+, 1.2.1+"
       vulnerable="nginx/Windows 0.7.52-1.3.0" />
 
 <item name="Buffer overflow in the ngx_http_mp4_module"
-      severity="major"
       advisory="https://mailman.nginx.org/pipermail/nginx-announce/2012/000080.html"
       cve="2012-2089"
       good="1.1.19+, 1.0.15+"
@@ -590,7 +521,6 @@ Patches are signed using one of the
 </item>
 
 <item name="Memory disclosure with specially crafted backend responses"
-      severity="major"
       advisory="https://mailman.nginx.org/pipermail/nginx-announce/2012/000076.html"
       cve="2012-1180"
       good="1.1.17+, 1.0.14+"
@@ -599,38 +529,32 @@ Patches are signed using one of the
 </item>
 
 <item name="Buffer overflow in resolver"
-      severity="medium"
       cve="2011-4315"
       good="1.1.8+, 1.0.10+"
       vulnerable="0.6.18-1.1.7" />
 
 <item name="Vulnerabilities with invalid UTF-8 sequence on Windows"
-      severity="major"
       cve="2010-2266"
       good="0.8.41+, 0.7.67+"
       vulnerable="nginx/Windows 0.7.52-0.8.40" />
 
 <item name="Vulnerabilities with Windows file default stream"
-      severity="major"
       cve="2010-2263"
       good="0.8.40+, 0.7.66+"
       vulnerable="nginx/Windows 0.7.52-0.8.39" />
 
 <item name="Vulnerabilities with Windows 8.3 filename pseudonyms"
-      severity="major"
       core="CORE-2010-0121"
       href="http://www.coresecurity.com/content/filename-pseudonyms-vulnerabilities"
       good="0.8.33+, 0.7.65+"
       vulnerable="nginx/Windows 0.7.52-0.8.32" />
 
 <item name="An error log data are not sanitized"
-      severity="none"
       cve="2009-4487"
       good="none"
       vulnerable="all" />
 
 <item name="The renegotiation vulnerability in SSL protocol"
-      severity="major"
       cert="120541"
       cve="2009-3555"
       good="0.8.23+, 0.7.64+"
@@ -639,13 +563,11 @@ Patches are signed using one of the
 </item>
 
 <item name="Directory traversal vulnerability"
-      severity="minor"
       cve="2009-3898"
       good="0.8.17+, 0.7.63+"
       vulnerable="0.1.0-0.8.16" />
 
 <item name="Buffer underflow vulnerability"
-      severity="major"
       cert="180065"
       cve="2009-2629"
       good="0.8.15+, 0.7.62+, 0.6.39+, 0.5.38+"
@@ -654,7 +576,6 @@ Patches are signed using one of the
 </item>
 
 <item name="Null pointer dereference vulnerability"
-      severity="major"
       cve="2009-3896"
       good="0.8.14+, 0.7.62+, 0.6.39+, 0.5.38+"
       vulnerable="0.1.0-0.8.13">

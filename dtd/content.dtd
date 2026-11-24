@@ -144,7 +144,6 @@
 <!ELEMENT  item         (patch)* >
 <!ATTLIST  item
            name         CDATA #IMPLIED
-           severity     CDATA #IMPLIED
            cve          CDATA #IMPLIED
            good         CDATA #IMPLIED
            vulnerable   CDATA #IMPLIED
