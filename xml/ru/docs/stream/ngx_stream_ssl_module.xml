@@ -9,7 +9,7 @@
 <module name="Модуль ngx_stream_ssl_module"
         link="/ru/docs/stream/ngx_stream_ssl_module.html"
         lang="ru"
-        rev="51">
+        rev="52">
 
 <section id="summary">
 
@@ -160,36 +160,29 @@ server {
 
 <para id="ssl_certificate_variables">
 Начиная с версии 1.15.9 в имени файла можно использовать переменные
-при использовании OpenSSL 1.0.2 и выше:
+при использовании OpenSSL 1.0.2 и выше.
+<note>
+Значения некоторых переменных, например
+<link id="var_ssl_server_name">$ssl_server_name</link>,
+выбираются клиентом,
+поэтому при использовании в именах файлов их следует ограничивать.
+</note>
 <example>
-ssl_certificate     $ssl_server_name.crt;
-ssl_certificate_key $ssl_server_name.key;
-</example>
-Однако нужно учитывать, что при использовании переменных
-сертификат загружается при каждой операции SSL handshake,
-что может отрицательно влиять на производительность.
-</para>
-
-<para>
-Поскольку значение <link id="var_ssl_server_name">$ssl_server_name</link>
-выбирается клиентом,
-загрузку сертификатов с таким именем файла следует фильтровать:
-<example>
-map $ssl_server_name $name {
-    hostnames;
-
-    default        www.example.org;
-
-    .example.org   www.example.org;
-    .example.com   www.example.com;
+server {
+    listen               443 ssl default_server;
+    ssl_reject_handshake on;
 }
 
 server {
-    listen              443 ssl;
-    ssl_certificate     certs/$name.crt;
-    ssl_certificate_key certs/$name.key;
+    listen               443 ssl;
+    server_name          ~^[a-z0-9-]+(\.[a-z0-9-]+)*$;
+    ssl_certificate      certs/$ssl_server_name.crt;
+    ssl_certificate_key  certs/$ssl_server_name.key;
 }
 </example>
+Следует учитывать, что при использовании переменных
+сертификат загружается при каждой операции SSL handshake,
+что может отрицательно влиять на производительность.
 </para>
 
 <para id="ssl_certificate_data">
