@@ -10,7 +10,7 @@
 <module name="Module ngx_http_ssl_module"
         link="/en/docs/http/ngx_http_ssl_module.html"
         lang="en"
-        rev="79">
+        rev="80">
 
 <section id="summary">
 
@@ -177,20 +177,13 @@ With older versions, only one certificate chain can be used.
 
 <para id="ssl_certificate_variables">
 Since version 1.15.9, variables can be used in the <value>file</value> name
-when using OpenSSL 1.0.2 or higher:
-<example>
-ssl_certificate     $ssl_server_name.crt;
-ssl_certificate_key $ssl_server_name.key;
-</example>
-Note that using variables implies that
-a certificate will be loaded for each SSL handshake,
-and this may have a negative impact on performance.
-</para>
-
-<para>
-Since <link id="var_ssl_server_name">$ssl_server_name</link>
-is chosen by the client,
-loading certificates with such a file name should be filtered:
+when using OpenSSL 1.0.2 or higher.
+<note>
+Certain variables, such as
+<link id="var_ssl_server_name">$ssl_server_name</link>,
+are chosen by the client,
+so their values should be restricted when used in file names.
+</note>
 <example>
 server {
     listen               443 ssl default_server;
@@ -204,6 +197,9 @@ server {
     ssl_certificate_key  certs/$ssl_server_name.key;
 }
 </example>
+Note that using variables implies that
+a certificate will be loaded for each SSL handshake,
+and this may have a negative impact on performance.
 </para>
 
 <para id="ssl_certificate_data">
