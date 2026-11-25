@@ -865,6 +865,25 @@ proxy_cache_valid any      1m;
 при помощи директивы <link id="proxy_ignore_headers"/>.
 </para>
 
+<para>
+При принятии решения о возможности кэширования ответа
+nginx не учитывает поля заголовка запроса.
+В частности, ответ на запрос с полем заголовка
+<header>Authorization</header> может быть закэширован
+и впоследствии возвращён другим клиентам.
+Если такие ответы не должны использоваться совместно разными клиентами,
+соответствующие запросы можно исключить из кэширования
+при помощи директив <link id="proxy_no_cache"/>
+и <link id="proxy_cache_bypass"/>, например:
+<example>
+proxy_no_cache      $http_authorization;
+proxy_cache_bypass  $http_authorization;
+</example>
+либо проксируемый сервер может пометить такие ответы как некэшируемые,
+например, задав в поле заголовка <header>Cache-Control</header>
+значение “<literal>private</literal>” или “<literal>no-store</literal>”.
+</para>
+
 </directive>
 
 
