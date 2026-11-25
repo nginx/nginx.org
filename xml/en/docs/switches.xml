@@ -8,7 +8,7 @@
 <article name="Command-line parameters"
          link="/en/docs/switches.html"
          lang="en"
-         rev="5">
+         rev="6">
 
 <section>
 
@@ -92,6 +92,10 @@ gracefully shut down old worker processes.
 <literal>-t</literal>&mdash;test the configuration file: nginx checks the
 configuration for correct syntax, and then tries to open files
 referred in the configuration.
+Configuration testing may also create temporary directories.
+On UNIX systems, running the test as a superuser may change
+the ownership and permissions of these directories,
+including ones that already exist.
 </listitem>
 
 <listitem>
