@@ -10,7 +10,7 @@
 <module name="Module ngx_http_dav_module"
         link="/en/docs/http/ngx_http_dav_module.html"
         lang="en"
-        rev="2">
+        rev="3">
 
 <section id="summary">
 
@@ -139,6 +139,24 @@ directive, are put on the same file system.
 When creating a file with the PUT method, it is possible to specify
 the modification date by passing it in the <header>Date</header>
 header field.
+</para>
+
+<para>
+The <header>Destination</header> header field of the COPY and MOVE methods
+is mapped to a file system path using the
+<link doc="ngx_http_core_module.xml" id="root"/> or
+<link doc="ngx_http_core_module.xml" id="alias"/>
+directive of the location processing the request;
+location matching and access restrictions configured for the
+destination URI are not applied.
+Access to a location where the COPY and MOVE methods are allowed
+should therefore be restricted, for example, using the
+<link doc="ngx_http_access_module.xml">ngx_http_access_module</link>,
+<link doc="ngx_http_auth_basic_module.xml">ngx_http_auth_basic_module</link>, or
+<link doc="ngx_http_auth_request_module.xml">ngx_http_auth_request_module</link>
+modules.
+When <literal>alias</literal> is used, a destination outside the
+location prefix is rejected (1.31.7).
 </para>
 
 </directive>
