@@ -10,7 +10,7 @@
 <module name="Module ngx_http_upstream_module"
         link="/en/docs/http/ngx_http_upstream_module.html"
         lang="en"
-        rev="96">
+        rev="97">
 
 <section id="summary">
 
@@ -554,8 +554,9 @@ servers using the <literal>ip_hash</literal> load balancing method.
 
 <para>
 Enables or disables caching of keepalive connections to upstream servers.
-Since 1.29.7, by default the cache for connections is activated
-and these connections are not
+Since 1.29.7, the connection cache is enabled by default for
+server groups defined by the <link id="upstream"/> directive.
+By default, these connections are not
 <link id="keepalive_local">shared</link> between different
 <link doc="ngx_http_core_module.xml" id="location">locations</link>.
 </para>
