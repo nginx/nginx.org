@@ -10,7 +10,7 @@
 <module name="Module ngx_stream_limit_conn_module"
         link="/en/docs/stream/ngx_stream_limit_conn_module.html"
         lang="en"
-        rev="7">
+        rev="8">
 
 <section id="summary">
 
@@ -133,6 +133,13 @@ In particular, the state includes the current number of connections.
 The <value>key</value> can contain text, variables,
 and their combinations (1.11.2).
 Connections with an empty key value are not accounted.
+The key is evaluated at the
+<link doc="stream_processing.xml" id="preaccess_phase">pre-access</link>
+phase, before the
+<link doc="stream_processing.xml" id="preread_phase">preread</link>
+phase, so the variables set at the preread phase, such as those of the
+<link doc="ngx_stream_ssl_preread_module.xml">ngx_stream_ssl_preread_module</link>,
+are empty at that time.
 Usage example:
 <example>
 limit_conn_zone $binary_remote_addr zone=addr:10m;
