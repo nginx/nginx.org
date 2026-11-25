@@ -7,7 +7,7 @@
 <article name="nginx: Linux packages"
          link="/en/linux_packages.html"
          lang="en"
-         rev="119">
+         rev="120">
 
 <section name="Supported distributions and versions" id="distributions">
 
@@ -227,9 +227,11 @@ To install nginx, run the following command:
 sudo yum install nginx
 </programlisting>
 
-When prompted to accept the GPG key, verify that the fingerprint matches
+When prompted to accept the GPG keys, verify that the fingerprints match
+<command>8540 A6F1 8833 A80E 9C16 53A4 2FD2 1310 B49F 6B46</command>,
 <command>573B FD6B 3D8F BC64 1079 A6AB ABF5 BD82 7BD9 BF62</command>,
-and if so, accept it.
+<command>9E9B E90E ACBC DE69 FE9B 204C BCDC D8A3 8D88 A2B3</command>,
+and if so, accept them.
 </para>
 
 </section>
@@ -258,13 +260,23 @@ Verify that the downloaded file contains the proper key:
 gpg --dry-run --quiet --no-keyring --import --import-options import-show /usr/share/keyrings/nginx-archive-keyring.gpg
 </programlisting>
 
-The output should contain the full fingerprint
-<command>573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62</command>
+The output should contain the full fingerprints
+<command>8540A6F18833A80E9C1653A42FD21310B49F6B46</command>,
+<command>573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62</command>,
+<command>9E9BE90EACBCDE69FE9B204CBCDCD8A38D88A2B3</command>
 as follows:
 <programlisting>
+pub   rsa4096 2024-05-29 [SC]
+      8540A6F18833A80E9C1653A42FD21310B49F6B46
+uid                      nginx signing key &lt;signing-key-2@nginx.com&gt;
+
 pub   rsa2048 2011-08-19 [SC] [expires: 2027-05-24]
       573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62
 uid                      nginx signing key &lt;signing-key@nginx.com&gt;
+
+pub   rsa4096 2024-05-29 [SC]
+      9E9BE90EACBCDE69FE9B204CBCDCD8A38D88A2B3
+uid                      nginx signing key &lt;signing-key-3@nginx.com&gt;
 </programlisting>
 Note that the output can contain other keys used to sign the packages.
 </para>
@@ -330,13 +342,23 @@ Verify that the downloaded file contains the proper key:
 gpg --dry-run --quiet --no-keyring --import --import-options import-show /usr/share/keyrings/nginx-archive-keyring.gpg
 </programlisting>
 
-The output should contain the full fingerprint
-<command>573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62</command>
+The output should contain the full fingerprints
+<command>8540A6F18833A80E9C1653A42FD21310B49F6B46</command>,
+<command>573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62</command>,
+<command>9E9BE90EACBCDE69FE9B204CBCDCD8A38D88A2B3</command>
 as follows:
 <programlisting>
+pub   rsa4096 2024-05-29 [SC]
+      8540A6F18833A80E9C1653A42FD21310B49F6B46
+uid                      nginx signing key &lt;signing-key-2@nginx.com&gt;
+
 pub   rsa2048 2011-08-19 [SC] [expires: 2027-05-24]
       573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62
 uid                      nginx signing key &lt;signing-key@nginx.com&gt;
+
+pub   rsa4096 2024-05-29 [SC]
+      9E9BE90EACBCDE69FE9B204CBCDCD8A38D88A2B3
+uid                      nginx signing key &lt;signing-key-3@nginx.com&gt;
 </programlisting>
 Note that the output can contain other keys used to sign the packages.
 </para>
@@ -410,19 +432,29 @@ curl -o /tmp/nginx_signing.key https://nginx.org/keys/nginx_signing.key
 
 Verify that the downloaded file contains the proper key:
 <programlisting>
-gpg --with-fingerprint /tmp/nginx_signing.key
+gpg --dry-run --quiet --no-keyring --import --import-options import-show /tmp/nginx_signing.key
 </programlisting>
 
-The output should contain the full fingerprint
-<command>573B FD6B 3D8F BC64 1079  A6AB ABF5 BD82 7BD9 BF62</command>
+The output should contain the full fingerprints
+<command>8540A6F18833A80E9C1653A42FD21310B49F6B46</command>,
+<command>573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62</command>,
+<command>9E9BE90EACBCDE69FE9B204CBCDCD8A38D88A2B3</command>
 as follows:
 <programlisting>
-pub  2048R/7BD9BF62 2011-08-19 [expires: 2027-05-24]
-      Key fingerprint = 573B FD6B 3D8F BC64 1079  A6AB ABF5 BD82 7BD9 BF62
-uid nginx signing key &lt;signing-key@nginx.com&gt;
+pub   rsa4096 2024-05-29 [SC]
+      8540A6F18833A80E9C1653A42FD21310B49F6B46
+uid                      nginx signing key &lt;signing-key-2@nginx.com&gt;
+
+pub   rsa2048 2011-08-19 [SC] [expires: 2027-05-24]
+      573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62
+uid                      nginx signing key &lt;signing-key@nginx.com&gt;
+
+pub   rsa4096 2024-05-29 [SC]
+      9E9BE90EACBCDE69FE9B204CBCDCD8A38D88A2B3
+uid                      nginx signing key &lt;signing-key-3@nginx.com&gt;
 </programlisting>
 
-Finally, import the key to the rpm database:
+Finally, import the keys to the rpm database:
 <programlisting>
 sudo rpmkeys --import /tmp/nginx_signing.key
 </programlisting>
@@ -531,30 +563,6 @@ Install the prerequisites:
 sudo yum install yum-utils
 </programlisting>
 
-To set up the yum repository for Amazon Linux 2, create the file named
-<path>/etc/yum.repos.d/nginx.repo</path>
-with the following contents:
-
-<programlisting>
-[nginx-stable]
-name=nginx stable repo
-baseurl=https://nginx.org/packages/amzn2/$releasever/$basearch/
-gpgcheck=1
-enabled=1
-gpgkey=https://nginx.org/keys/nginx_signing.key
-module_hotfixes=true
-priority=9
-
-[nginx-mainline]
-name=nginx mainline repo
-baseurl=https://nginx.org/packages/mainline/amzn2/$releasever/$basearch/
-gpgcheck=1
-enabled=0
-gpgkey=https://nginx.org/keys/nginx_signing.key
-module_hotfixes=true
-priority=9
-</programlisting>
-
 To set up the yum repository for Amazon Linux 2023, create the file named
 <path>/etc/yum.repos.d/nginx.repo</path>
 with the following contents:
@@ -591,9 +599,11 @@ To install nginx, run the following command:
 sudo yum install nginx
 </programlisting>
 
-When prompted to accept the GPG key, verify that the fingerprint matches
+When prompted to accept the GPG keys, verify that the fingerprints match
+<command>8540 A6F1 8833 A80E 9C16 53A4 2FD2 1310 B49F 6B46</command>,
 <command>573B FD6B 3D8F BC64 1079 A6AB ABF5 BD82 7BD9 BF62</command>,
-and if so, accept it.
+<command>9E9B E90E ACBC DE69 FE9B 204C BCDC D8A3 8D88 A2B3</command>,
+and if so, accept them.
 </para>
 
 </section>
