@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_core_module"
         link="/ru/docs/http/ngx_http_core_module.html"
         lang="ru"
-        rev="121">
+        rev="122">
 
 <section id="directives" name="Директивы">
 
@@ -215,6 +215,15 @@ location /i/ {
 <para>
 В значении параметра <value>путь</value> можно использовать переменные,
 кроме <var>$document_root</var> и <var>$realpath_root</var>.
+</para>
+
+<para>
+<note>
+Если <literal>alias</literal> используется внутри префиксного location’а,
+то значения location и alias должны оба заканчиваться слэшем,
+либо оба указываться без него,
+чтобы избежать неправильного пути к файлу или обхода каталогов.
+</note>
 </para>
 
 <para>
