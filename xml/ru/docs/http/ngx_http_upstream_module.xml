@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_upstream_module"
         link="/ru/docs/http/ngx_http_upstream_module.html"
         lang="ru"
-        rev="96">
+        rev="97">
 
 <section id="summary">
 
@@ -560,8 +560,9 @@ upstream backend {
 
 <para>
 Включает или выключает кэш соединений для группы серверов.
-Начиная с версии 1.29.7 кэш соединений задействован по умолчанию,
-и эти соединения не могут
+Начиная с версии 1.29.7 кэш соединений задействован по умолчанию
+для групп серверов, заданных директивой <link id="upstream"/>.
+По умолчанию эти соединения не могут
 <link id="keepalive_local">совместно использоваться</link> разными
 <link doc="ngx_http_core_module.xml" id="location">location</link>.
 </para>

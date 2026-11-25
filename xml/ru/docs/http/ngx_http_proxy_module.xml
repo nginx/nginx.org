@@ -10,7 +10,7 @@
 <module name="Модуль ngx_http_proxy_module"
         link="/ru/docs/http/ngx_http_proxy_module.html"
         lang="ru"
-        rev="90">
+        rev="91">
 
 <section id="summary">
 
@@ -1543,6 +1543,9 @@ proxy_pass http://unix:/tmp/backend.socket:/uri/;
 использоваться по очереди (round-robin).
 Кроме того, в качестве адреса можно указать
 <link doc="ngx_http_upstream_module.xml">группу серверов</link>.
+Для кэширования соединений с проксируемыми серверами укажите группу,
+заданную директивой <link doc="ngx_http_upstream_module.xml" id="upstream"/>,
+с включённым <link doc="ngx_http_upstream_module.xml" id="keepalive"/>.
 </para>
 
 <para>
