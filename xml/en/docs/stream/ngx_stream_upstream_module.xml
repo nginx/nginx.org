@@ -9,7 +9,7 @@
 <module name="Module ngx_stream_upstream_module"
         link="/en/docs/stream/ngx_stream_upstream_module.html"
         lang="en"
-        rev="42">
+        rev="43">
 
 <section id="summary">
 
@@ -467,7 +467,9 @@ weighted round-robin balancing method.
     <literal>connect</literal> |
     <literal>first_byte</literal> |
     <literal>last_byte</literal>
-    [<literal>inflight</literal>]</syntax>
+    [<literal>inflight</literal>]
+    [<literal>bucket</literal>=<value>time</value>]
+    [<literal>smooth</literal>=<value>time</value>]</syntax>
 <default/>
 <context>upstream</context>
 <appeared-in>1.7.11</appeared-in>
@@ -497,6 +499,32 @@ incomplete connections are also taken into account.
 Prior to version 1.11.6,
 incomplete connections were taken into account by default.
 </note>
+</para>
+
+<para>
+The <literal>bucket</literal> parameter (1.31.12) sets the precision with which
+average times are compared:
+averages are rounded up to a multiple of the specified
+<value>time</value>, and servers with equal rounded averages are
+considered equally fast.
+By default, the precision is 20 milliseconds.
+With servers that respond faster than that,
+a smaller value, for example, <literal>5ms</literal>, allows
+the faster servers to receive proportionally more connections.
+</para>
+
+<para>
+The <literal>smooth</literal> parameter (1.31.12) sets a
+<value>time</value> over which average times are smoothed.
+Each connection is given the weight of the fraction of this time elapsed
+since the previous one, but not less than 0.01.
+This keeps averages of busy servers stable, for example,
+when fast and slow connections are mixed,
+while averages of servers with few connections still follow changes
+within about the specified time.
+By default, each connection has the weight of 0.05.
+The value of <literal>3s</literal> is a good starting point
+when using a small <literal>bucket</literal>.
 </para>
 
 <para>
